@@ -12,15 +12,20 @@ The test projects reference the generator as an analyzer through a project refer
 
 ## Test
 
+The tests use TUnit on the Microsoft.Testing.Platform, which `global.json` selects as the runner of `dotnet test`. Each test project is an executable, so `dotnet run` works as well. The explicit tests (the snapshot acceptance tests) run only when the filter selects nothing but explicit tests.
+
 ```powershell
 # One project, all of its target frameworks
-dotnet test Tests/Mockolate.Tests
+dotnet test --project Tests/Mockolate.Tests
 
-# One framework and a name filter (VSTest filter syntax)
-dotnet test Tests/Mockolate.Tests -f net10.0 --filter "FullyQualifiedName~IsTrueTests"
+# One framework and a tree node filter (/assembly/namespace/class/test, nested classes match with a wildcard)
+dotnet test --project Tests/Mockolate.Tests -f net10.0 --treenode-filter "/*/*/*IsTrueTests/*"
+
+# The same without dotnet test
+dotnet run --project Tests/Mockolate.Tests -f net10.0 -- --treenode-filter "/*/*/*IsTrueTests/*"
 
 # Everything in the solution
-dotnet test Mockolate.slnx
+dotnet test --solution Mockolate.slnx
 ```
 
 Target frameworks per test project:
@@ -52,7 +57,7 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 After an intended change, overwrite the expected files with the explicit acceptance test and review the diff:
 
 ```powershell
-dotnet test Tests/Mockolate.SourceGenerators.Tests --filter "FullyQualifiedName~AcceptSnapshotChanges" -- xUnit.Explicit=only
+dotnet test --project Tests/Mockolate.SourceGenerators.Tests --treenode-filter "/*/*/*/AcceptSnapshotChanges"
 git diff -- Tests/Mockolate.SourceGenerators.Tests/Snapshot
 ```
 
@@ -67,7 +72,7 @@ To add a scenario, add an entry to `Scenarios` and run the acceptance test.
 - run the tests with `AWEXPECT_ACCEPT_SNAPSHOTS=all`.
 
 ```powershell
-dotnet test Tests/Mockolate.Api.Tests --filter "FullyQualifiedName~AcceptApiChanges" -- xUnit.Explicit=only
+dotnet test --project Tests/Mockolate.Api.Tests --treenode-filter "/*/*/*/AcceptApiChanges"
 ```
 
 Commit the updated snapshots with the change; never commit pending files.
@@ -96,13 +101,13 @@ CI runs one job per class: `CallbackBenchmarks`, `CompleteEventBenchmarks`, `Com
 
 ## Mutation Tests
 
-Stryker mutates `Source/Mockolate` against `Mockolate.Tests` and `Mockolate.Internal.Tests` on `net8.0` with mutation level `Advanced`. Outside `main` it only mutates code changed since `main`. A full run takes long; run it only when asked:
+Stryker mutates `Source/Mockolate` against `Mockolate.Tests` and `Mockolate.Internal.Tests` on `net8.0` with mutation level `Advanced`, through its runner for the Microsoft.Testing.Platform (`--test-runner mtp`). The version is the `dotnet-stryker` `PackageDownload` in `Pipeline/Build.csproj`. Outside `main` it only mutates code changed since `main`. A full run takes long; run it only when asked:
 
 ```powershell
-./build.ps1 MutationTestExecution
+./build.ps1 MutationTests
 ```
 
-Reports go to `Artifacts/Stryker`. The `MutationTests` target also prepares the PR comment and expects to run in GitHub Actions.
+Reports go to `Artifacts/Stryker`, together with the Markdown body of the PR comment. `MutationTestsComment` and `MutationTestsDashboard` post the comment and upload the report, and expect to run in GitHub Actions.
 
 ## Build Pipeline (Fallout)
 
@@ -111,14 +116,14 @@ Reports go to `Artifacts/Stryker`. The `MutationTests` target also prepares the 
 | Target | Purpose |
 |---|---|
 | `Compile` | Restore and build the solution with the GitVersion-derived version |
-| `UnitTests` | Run `Build.Tests`, `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Analyzers.Tests` and `Mockolate.SourceGenerators.Tests` for each framework (`net48` only on Windows) with coverage |
-| `CodeCoverage` | `UnitTests` plus a ReportGenerator OpenCover report in `TestResults/reports` |
+| `UnitTests` | Run `Build.Tests`, `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Analyzers.Tests` and `Mockolate.SourceGenerators.Tests` for each framework (`net48` only on Windows), with a TRX and a Cobertura coverage file per project and framework in `TestResults` |
+| `CodeCoverage` | `UnitTests` plus a ReportGenerator SonarQube report in `TestResults/reports` |
 | `ApiChecks` | Run `Mockolate.Api.Tests` |
 | `CodeAnalysis` | SonarCloud analysis (needs `SonarToken`) |
 | `Pack` | Build the NuGet package into `Artifacts/Packages`, with a release-specific README |
 | `Benchmarks` | Run the benchmarks (`--benchmark-filter`, default `*`) and print the reports |
 | `BenchmarkComment`, `PublishBenchmarkReport` | CI only: PR comment and docs site data |
-| `MutationTests`, `MutationTestExecution`, `MutationTestComment`, `MutationTestDashboard` | Stryker run, PR comment and dashboard upload |
+| `MutationTests`, `MutationTestsComment`, `MutationTestsDashboard` | Stryker run, PR comment and dashboard upload |
 | `UpdateReadme` | Write the packaged README to `Artifacts/README.md` |
 
 ## CI Workflows

@@ -19,7 +19,7 @@ namespace Mockolate.Tests.RefStruct;
 /// </remarks>
 public sealed class RefStructOutRefParameterTests
 {
-	[Fact]
+	[Test]
 	public async Task OutRefStruct_WithIsOut_AssignsSetterValue()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -32,7 +32,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(id).IsEqualTo(7);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutRefStruct_WithIsAnyOutRefStruct_AssignsDefault()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -45,7 +45,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(id).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutRefStruct_NoSetup_AssignsDefault()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -57,7 +57,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(id).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefRefStruct_WithIsRef_TransformsValue()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -70,7 +70,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(id).IsEqualTo(42);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefRefStruct_WithIsAnyRefRefStruct_LeavesValueUnchanged()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -83,7 +83,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(id).IsEqualTo(13);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefRefStruct_WithPredicate_OnlyTransformsWhenPredicateHolds()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -101,7 +101,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(nonMatchingId).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefReadOnlyRefStruct_PassesValueUnchanged()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -113,7 +113,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(idAfter).IsEqualTo(17);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutSpan_WithIsOutSpan_AssignsSetterArray()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -130,7 +130,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(last).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutSpan_WithIsAnyOutSpan_AssignsDefault()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -143,7 +143,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(length).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutSpan_NoSetup_AssignsDefault()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -155,7 +155,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(length).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutSpan_WithDoCallback_RunsAction()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -176,7 +176,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(observedLength).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefSpan_WithIsRefSpan_TransformsArray()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -191,7 +191,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(length).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefSpan_WithIsAnyRefSpan_LeavesValueUnchanged()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -206,7 +206,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(length).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefSpan_WithPredicate_OnlyTransformsWhenPredicateHolds()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -227,7 +227,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(nonMatchingFirst).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutReadOnlySpan_WithIsOutReadOnlySpan_AssignsSetterArray()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -243,7 +243,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(first).IsEqualTo(5);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutReadOnlySpan_WithIsAnyOutReadOnlySpan_AssignsDefault()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -256,7 +256,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(length).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OutReadOnlySpan_NoSetup_AssignsDefault()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -268,7 +268,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(length).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefReadOnlySpan_WithIsRefReadOnlySpan_TransformsArray()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -283,7 +283,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(first).IsEqualTo(42);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefReadOnlySpan_WithIsAnyRefReadOnlySpan_LeavesValueUnchanged()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -296,7 +296,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(first).IsEqualTo(13);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefReadOnlySpan_WithPredicateOnly_GatesMatchWithoutMutating()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();
@@ -336,7 +336,7 @@ public sealed class RefStructOutRefParameterTests
 		await That(nonMatchingFirst).IsEqualTo(13);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RefReadOnlySpan_WithIsAnyRefRefStruct_MatchesViaRefStructPipeline()
 	{
 		IRefStructConsumer sut = IRefStructConsumer.CreateMock();

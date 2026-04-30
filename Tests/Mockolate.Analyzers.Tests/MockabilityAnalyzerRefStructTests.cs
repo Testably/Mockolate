@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Testing;
-using Xunit;
 using Verifier = Mockolate.Analyzers.Tests.Verifiers.CSharpAnalyzerVerifier<Mockolate.Analyzers.MockabilityAnalyzer>;
 
 namespace Mockolate.Analyzers.Tests;
@@ -21,7 +20,7 @@ namespace Mockolate.Analyzers.Tests;
 /// </remarks>
 public class MockabilityAnalyzerRefStructTests
 {
-	[Fact]
+	[Test]
 	public async Task WhenLanguageVersionBelowCSharp13_RefReadonlySpanParameterMethod_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -53,7 +52,7 @@ public class MockabilityAnalyzerRefStructTests
 					"ref-struct parameter mocking requires C# 13 or later (uses the 'allows ref struct' anti-constraint; current LangVersion is 12.0)")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenLanguageVersionBelowCSharp13_RefStructKeyedIndexer_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -84,7 +83,7 @@ public class MockabilityAnalyzerRefStructTests
 					"ref-struct-keyed indexers require C# 13 or later (uses the 'allows ref struct' anti-constraint; current LangVersion is 12.0)")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenLanguageVersionBelowCSharp13_RefStructParameterMethod_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -115,7 +114,7 @@ public class MockabilityAnalyzerRefStructTests
 					"ref-struct parameter mocking requires C# 13 or later (uses the 'allows ref struct' anti-constraint; current LangVersion is 12.0)")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingAbstractClassWithInheritedRefStructOutParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -147,7 +146,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingAbstractClassWithRefStructProperty_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -177,7 +176,7 @@ public class MockabilityAnalyzerRefStructTests
 					"properties of a non-span ref struct type are not supported")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingClassWithVirtualInitOnlyRefStructProperty_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -215,7 +214,7 @@ public class MockabilityAnalyzerRefStructTests
 					"properties of a non-span ref struct type are not supported")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingClassWithVirtualRefReturningRefStructMethod_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -247,7 +246,7 @@ public class MockabilityAnalyzerRefStructTests
 					"methods returning a non-span ref struct are not supported")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingClassWithVirtualRefStructIndexer_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -273,7 +272,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingClassWithVirtualRefStructProperty_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -301,7 +300,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingClassWithVirtualRefStructReturnAndParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -329,7 +328,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingClassWithVirtualRefStructReturningMethod_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -355,7 +354,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingDelegateReturningNonSpanRefStruct_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -384,7 +383,7 @@ public class MockabilityAnalyzerRefStructTests
 					"methods returning a non-span ref struct are not supported")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingDelegateWithOutRefStructParameter_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -414,7 +413,7 @@ public class MockabilityAnalyzerRefStructTests
 					"ref-struct parameters are not supported on delegate types")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingDelegateWithPlainRefStructParameter_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -444,7 +443,7 @@ public class MockabilityAnalyzerRefStructTests
 					"ref-struct parameters are not supported on delegate types")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingDelegateWithRefReadonlySpanParameter_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -471,7 +470,7 @@ public class MockabilityAnalyzerRefStructTests
 					"ref-struct parameters are not supported on delegate types")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingDelegateWithSpanParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -494,7 +493,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceInheritingRefStructOutMethod_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -525,7 +524,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceReturningNonSpanRefStruct_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -555,7 +554,7 @@ public class MockabilityAnalyzerRefStructTests
 					"methods returning a non-span ref struct are not supported")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithOutRefStructParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -581,7 +580,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefStructOutAndPlainOverloads_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -610,7 +609,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithPlainRefStructParameter_ShouldNotFlag() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -636,7 +635,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefReadonlyRefStructParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -662,7 +661,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefReadonlySpanParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -688,7 +687,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefRefStructParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -714,7 +713,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefStructIndexerKey_GetterOnly_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -741,7 +740,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefStructIndexerKeyAndSetter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -769,7 +768,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithSpanParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -795,7 +794,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithSpanReturn_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -821,7 +820,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefStructProperty_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -851,7 +850,7 @@ public class MockabilityAnalyzerRefStructTests
 					"properties of a non-span ref struct type are not supported")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithSpanProperty_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -875,7 +874,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithSpanValuedIndexer_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -900,7 +899,7 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefStructValuedIndexer_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -930,7 +929,7 @@ public class MockabilityAnalyzerRefStructTests
 					"indexers returning a non-span ref struct are not supported")
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenMockingInterfaceWithRefStructEventArgument_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""

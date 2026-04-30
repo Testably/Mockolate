@@ -11,7 +11,7 @@ public sealed partial class HttpClientExtensionsTests
 	{
 		public sealed class ExpectationMessageTests
 		{
-			[Fact]
+			[Test]
 			public async Task DeleteAsync_StringUri_FailingVerification_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -25,7 +25,7 @@ public sealed partial class HttpClientExtensionsTests
 					.WithMessage("*SendAsync*").AsWildcard();
 			}
 
-			[Fact]
+			[Test]
 			public async Task DeleteAsync_Uri_FailingVerification_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -39,7 +39,7 @@ public sealed partial class HttpClientExtensionsTests
 					.WithMessage("*SendAsync*").AsWildcard();
 			}
 
-			[Fact]
+			[Test]
 			public async Task PutAsync_StringUri_FailingVerification_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -53,7 +53,7 @@ public sealed partial class HttpClientExtensionsTests
 					.WithMessage("*SendAsync*").AsWildcard();
 			}
 
-			[Fact]
+			[Test]
 			public async Task PutAsync_Uri_FailingVerification_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -68,7 +68,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 #if NET8_0_OR_GREATER
-			[Fact]
+			[Test]
 			public async Task PatchAsync_StringUri_FailingVerification_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -82,7 +82,7 @@ public sealed partial class HttpClientExtensionsTests
 					.WithMessage("*SendAsync*").AsWildcard();
 			}
 
-			[Fact]
+			[Test]
 			public async Task PatchAsync_Uri_FailingVerification_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

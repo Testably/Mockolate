@@ -8,7 +8,7 @@ public sealed partial class ItTests
 {
 	public sealed class SequenceEqualsTests
 	{
-		[Fact]
+		[Test]
 		public async Task ShouldMatchArrayParameter()
 		{
 			ISequenceCollectionConsumer sut = ISequenceCollectionConsumer.CreateMock();
@@ -21,7 +21,7 @@ public sealed partial class ItTests
 			await That(miss).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldMatchEnumerableParameter()
 		{
 			ISequenceCollectionConsumer sut = ISequenceCollectionConsumer.CreateMock();
@@ -34,7 +34,7 @@ public sealed partial class ItTests
 			await That(miss).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldMatchListParameter()
 		{
 			ISequenceCollectionConsumer sut = ISequenceCollectionConsumer.CreateMock();
@@ -47,7 +47,7 @@ public sealed partial class ItTests
 			await That(miss).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldMatchQueueParameter()
 		{
 			ISequenceCollectionConsumer sut = ISequenceCollectionConsumer.CreateMock();
@@ -60,7 +60,7 @@ public sealed partial class ItTests
 			await That(miss).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldMatchReadOnlyListParameter()
 		{
 			ISequenceCollectionConsumer sut = ISequenceCollectionConsumer.CreateMock();
@@ -73,7 +73,7 @@ public sealed partial class ItTests
 			await That(miss).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldMatchStackParameter()
 		{
 			ISequenceCollectionConsumer sut = ISequenceCollectionConsumer.CreateMock();
@@ -86,7 +86,7 @@ public sealed partial class ItTests
 			await That(miss).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldMatchWhenSequencesEqual()
 		{
 			IParameter<IEnumerable<int>> sut = It.SequenceEquals(1, 2, 3);
@@ -96,7 +96,7 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldNotMatchWhenLengthsDiffer()
 		{
 			IParameter<IEnumerable<int>> sut = It.SequenceEquals(1, 2, 3);
@@ -106,7 +106,7 @@ public sealed partial class ItTests
 			await That(result).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldNotMatchWhenSequencesDiffer()
 		{
 			IParameter<IEnumerable<int>> sut = It.SequenceEquals(1, 2, 3);
@@ -116,7 +116,7 @@ public sealed partial class ItTests
 			await That(result).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldNotMatchWhenValueIsNotCollection()
 		{
 			IParameter<IEnumerable<int>> sut = It.SequenceEquals(1, 2, 3);
@@ -126,7 +126,7 @@ public sealed partial class ItTests
 			await That(result).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldSupportVerify()
 		{
 			ISequenceCollectionConsumer sut = ISequenceCollectionConsumer.CreateMock();
@@ -139,7 +139,7 @@ public sealed partial class ItTests
 			await That(sut.Mock.Verify.WithArray(It.SequenceEquals(9, 9, 9))).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IParameter<int[]> sut = It.SequenceEquals(1, 2, 3);
@@ -150,7 +150,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_Using_ShouldReturnExpectedValue()
 		{
 			IParameter<int[]> sut = It.SequenceEquals(1, 2, 3).Using(new AllEqualComparer());
@@ -161,7 +161,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithNullElement_ShouldRenderNullToken()
 		{
 			IParameter<object?[]> sut = It.SequenceEquals<object?>("foo", null, 3);
@@ -172,7 +172,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithStringValues_ShouldReturnExpectedValue()
 		{
 			IParameter<string[]> sut = It.SequenceEquals("foo", "bar");
@@ -183,7 +183,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithComparer_ShouldUseComparer()
 		{
 			IParameter<int[]> sut = It.SequenceEquals(1, 2, 3).Using(new AllEqualComparer());
@@ -193,7 +193,7 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task TypedArrayMatch_WithNullValue_ShouldNotMatch()
 		{
 			IParameter<int[]> sut = It.SequenceEquals(1, 2, 3);
@@ -205,7 +205,7 @@ public sealed partial class ItTests
 
 		public sealed class DoTests
 		{
-			[Fact]
+			[Test]
 			public async Task Do_MultipleRegistrations_ShouldAllInvoke()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -221,7 +221,7 @@ public sealed partial class ItTests
 				await That(secondCount).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForArray()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -234,7 +234,7 @@ public sealed partial class ItTests
 				await That(captured).IsSameAs(source);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForICollection()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -247,7 +247,7 @@ public sealed partial class ItTests
 				await That(captured).IsSameAs(source);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForIEnumerable()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -260,7 +260,7 @@ public sealed partial class ItTests
 				await That(captured).IsSameAs(source);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForIList()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -273,7 +273,7 @@ public sealed partial class ItTests
 				await That(captured).IsSameAs(source);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForIReadOnlyCollection()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -286,7 +286,7 @@ public sealed partial class ItTests
 				await That(captured).IsSameAs(source);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForIReadOnlyList()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -299,7 +299,7 @@ public sealed partial class ItTests
 				await That(captured).IsSameAs(source);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForList()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -312,7 +312,7 @@ public sealed partial class ItTests
 				await That(captured).IsSameAs(source);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForQueue()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
@@ -326,7 +326,7 @@ public sealed partial class ItTests
 				await That(captured).IsSameAs(source);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Do_RegistersCallbackForStack()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);

@@ -6,7 +6,7 @@ namespace Mockolate.Internal.Tests.Interactions;
 
 public class FastBufferConsumeMatchingTests
 {
-	[Fact]
+	[Test]
 	public async Task FastEventBuffer_ConsumeMatching_ShouldReturnCount()
 	{
 		FastMockInteractions store = new(1);
@@ -23,7 +23,7 @@ public class FastBufferConsumeMatchingTests
 		await That(buffer.ConsumeMatching()).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastIndexerGetterBuffer1_ConsumeMatching_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
@@ -39,7 +39,7 @@ public class FastBufferConsumeMatchingTests
 		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.Is(99))).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastIndexerGetterBuffer2_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -58,7 +58,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<string>)It.Is<string>("a"))).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastIndexerGetterBuffer3_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -84,7 +84,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<bool>)It.Is(false))).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastIndexerGetterBuffer4_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -113,7 +113,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastIndexerSetterBuffer1_ConsumeMatching_ShouldHonorMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -135,7 +135,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<string>)It.IsAny<string>())).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastIndexerSetterBuffer2_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -161,7 +161,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<bool>)It.IsAny<bool>())).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastIndexerSetterBuffer3_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -190,7 +190,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastIndexerSetterBuffer4_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -222,7 +222,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<char>)It.IsAny<char>())).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod0Buffer_ConsumeMatching_ShouldReturnCount()
 	{
 		FastMockInteractions store = new(1);
@@ -238,7 +238,7 @@ public class FastBufferConsumeMatchingTests
 		await That(buffer.ConsumeMatching()).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod1Buffer_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
 		FastMockInteractions store = new(1);
@@ -252,7 +252,7 @@ public class FastBufferConsumeMatchingTests
 				"the `slot < n` loop bound in Method1 ConsumeAll must keep an empty buffer out of the loop; entering it at slot 0 would dereference the not-yet-allocated VerifiedChunks[0]");
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod1Buffer_ConsumeMatching_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
@@ -268,7 +268,7 @@ public class FastBufferConsumeMatchingTests
 		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.Is(99))).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod2Buffer_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
 		FastMockInteractions store = new(1);
@@ -280,7 +280,7 @@ public class FastBufferConsumeMatchingTests
 		await That(consumed).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod2Buffer_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -305,7 +305,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<string>)It.IsAny<string>())).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod3Buffer_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
 		FastMockInteractions store = new(1);
@@ -317,7 +317,7 @@ public class FastBufferConsumeMatchingTests
 		await That(consumed).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod3Buffer_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -346,7 +346,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<bool>)It.Is(false))).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod4Buffer_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
 		FastMockInteractions store = new(1);
@@ -359,7 +359,7 @@ public class FastBufferConsumeMatchingTests
 		await That(consumed).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod4Buffer_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
@@ -398,7 +398,7 @@ public class FastBufferConsumeMatchingTests
 			(IParameterMatch<double>)It.Is(99.0))).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastPropertyGetterBuffer_ConsumeMatching_ShouldReturnCount()
 	{
 		FastMockInteractions store = new(1);
@@ -413,7 +413,7 @@ public class FastBufferConsumeMatchingTests
 		await That(buffer.ConsumeMatching()).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastPropertySetterBuffer_ConsumeMatching_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);

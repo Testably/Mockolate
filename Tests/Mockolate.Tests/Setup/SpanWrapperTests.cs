@@ -6,7 +6,7 @@ namespace Mockolate.Tests.Setup;
 
 public class SpanWrapperTests
 {
-	[Fact]
+	[Test]
 	public async Task Equals_WithDifferentLength_ShouldReturnFalse()
 	{
 		SpanWrapper<int> sut = new([1, 2,]);
@@ -15,7 +15,7 @@ public class SpanWrapperTests
 			.Because("a shorter span is not the same span");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithDifferentValues_ShouldReturnFalse()
 	{
 		SpanWrapper<int> sut = new([1, 2,]);
@@ -23,7 +23,7 @@ public class SpanWrapperTests
 		await That(sut.Equals(new SpanWrapper<int>([1, 3,]))).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithEqualValues_ShouldReturnTrue()
 	{
 		SpanWrapper<int> sut = new([1, 2,]);
@@ -32,7 +32,7 @@ public class SpanWrapperTests
 			.Because("equality is content-based, so a re-wrapped span with the same values matches");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithNull_ShouldReturnFalse()
 	{
 		SpanWrapper<int> sut = new([1,]);
@@ -40,7 +40,7 @@ public class SpanWrapperTests
 		await That(sut.Equals(null)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithReadOnlySpanWrapper_ShouldReturnFalse()
 	{
 		SpanWrapper<int> sut = new([1,]);
@@ -49,7 +49,7 @@ public class SpanWrapperTests
 			.Because("the two wrappers represent different parameter shapes");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetHashCode_WithEqualValues_ShouldMatch()
 	{
 		SpanWrapper<int> sut = new([1, 2,]);
@@ -57,7 +57,7 @@ public class SpanWrapperTests
 		await That(sut.GetHashCode()).IsEqualTo(new SpanWrapper<int>([1, 2,]).GetHashCode());
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetHashCode_WithNullElement_ShouldNotThrow()
 	{
 		SpanWrapper<string?> sut = new([null, "a",]);
@@ -66,7 +66,7 @@ public class SpanWrapperTests
 			.Because("a reference-typed span may carry null elements");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_ShouldRenderElementTypeAndValues()
 	{
 		SpanWrapper<int> sut = new([1, 2,]);

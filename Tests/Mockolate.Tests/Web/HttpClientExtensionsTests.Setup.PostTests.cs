@@ -13,10 +13,10 @@ public sealed partial class HttpClientExtensionsTests
 	{
 		public sealed class PostTests
 		{
-			[Theory]
-			[InlineData("application/json", true)]
-			[InlineData("text/plain", false)]
-			[InlineData("application/txt", false)]
+			[Test]
+			[Arguments("application/json", true)]
+			[Arguments("text/plain", false)]
+			[Arguments("application/txt", false)]
 			public async Task StringUri_ShouldVerifyHttpContent(string mediaType, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -32,11 +32,11 @@ public sealed partial class HttpClientExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData(nameof(HttpMethod.Delete), false)]
-			[InlineData(nameof(HttpMethod.Get), false)]
-			[InlineData(nameof(HttpMethod.Post), true)]
-			[InlineData(nameof(HttpMethod.Put), false)]
+			[Test]
+			[Arguments(nameof(HttpMethod.Delete), false)]
+			[Arguments(nameof(HttpMethod.Get), false)]
+			[Arguments(nameof(HttpMethod.Post), true)]
+			[Arguments(nameof(HttpMethod.Put), false)]
 			public async Task StringUri_ShouldVerifyHttpMethod(string method, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -52,11 +52,11 @@ public sealed partial class HttpClientExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("*testably.org*", true)]
-			[InlineData("*testably.org", true)]
-			[InlineData("testably.org*", false)]
-			[InlineData("*foo*", false)]
+			[Test]
+			[Arguments("*testably.org*", true)]
+			[Arguments("*testably.org", true)]
+			[Arguments("testably.org*", false)]
+			[Arguments("*foo*", false)]
 			public async Task StringUri_ShouldVerifyUriString(string pattern, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -72,9 +72,9 @@ public sealed partial class HttpClientExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData(true)]
-			[InlineData(false)]
+			[Test]
+			[Arguments(true)]
+			[Arguments(false)]
 			public async Task StringUri_WithCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -93,7 +93,7 @@ public sealed partial class HttpClientExtensionsTests
 					.IsEqualTo(tokenMatches ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task StringUri_WithoutMockedHttpMessageHandler_ShouldThrowMockException()
 			{
 				HttpClient httpClient = HttpClient.CreateMock([]);
@@ -110,10 +110,10 @@ public sealed partial class HttpClientExtensionsTests
 						"Cannot setup HttpClient when it is not mocked with a mockable HttpMessageHandler.");
 			}
 
-			[Theory]
-			[InlineData("application/json", true)]
-			[InlineData("text/plain", false)]
-			[InlineData("application/txt", false)]
+			[Test]
+			[Arguments("application/json", true)]
+			[Arguments("text/plain", false)]
+			[Arguments("application/txt", false)]
 			public async Task Uri_ShouldVerifyHttpContent(string mediaType, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -129,11 +129,11 @@ public sealed partial class HttpClientExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData(nameof(HttpMethod.Delete), false)]
-			[InlineData(nameof(HttpMethod.Get), false)]
-			[InlineData(nameof(HttpMethod.Post), true)]
-			[InlineData(nameof(HttpMethod.Put), false)]
+			[Test]
+			[Arguments(nameof(HttpMethod.Delete), false)]
+			[Arguments(nameof(HttpMethod.Get), false)]
+			[Arguments(nameof(HttpMethod.Post), true)]
+			[Arguments(nameof(HttpMethod.Put), false)]
 			public async Task Uri_ShouldVerifyHttpMethod(string method, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -149,11 +149,11 @@ public sealed partial class HttpClientExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("*testably.org*", true)]
-			[InlineData("*testably.org", true)]
-			[InlineData("testably.org*", true)]
-			[InlineData("*foo*", false)]
+			[Test]
+			[Arguments("*testably.org*", true)]
+			[Arguments("*testably.org", true)]
+			[Arguments("testably.org*", true)]
+			[Arguments("*foo*", false)]
 			public async Task Uri_ShouldVerifyUri(string pattern, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -169,9 +169,9 @@ public sealed partial class HttpClientExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData(true)]
-			[InlineData(false)]
+			[Test]
+			[Arguments(true)]
+			[Arguments(false)]
 			public async Task Uri_WithCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -190,7 +190,7 @@ public sealed partial class HttpClientExtensionsTests
 					.IsEqualTo(tokenMatches ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Uri_WithoutMockedHttpMessageHandler_ShouldThrowMockException()
 			{
 				HttpClient httpClient = HttpClient.CreateMock([]);

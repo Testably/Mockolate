@@ -4,7 +4,7 @@ namespace Mockolate.Internal.Tests.Parameters;
 
 public class ParameterMatchAdapterTests
 {
-	[Fact]
+	[Test]
 	public async Task ParameterMatch_FallsBackToBoxedMatchesCall()
 	{
 		IParameter<int> match = IParameter<int>.CreateMock();
@@ -20,7 +20,7 @@ public class ParameterMatchAdapterTests
 		await That(Act).Throws<Exception>().WithMessage("Matches(object) is called");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ParameterMatch_PrefersUnboxedMatchesCall()
 	{
 		IParameter<int> match = IParameter<int>.CreateMock().Implementing<IParameterMatch<int>>();

@@ -16,7 +16,7 @@ public sealed class MockRegistrySetupSnapshotTests
 
 	public sealed class MethodTests
 	{
-		[Fact]
+		[Test]
 		public async Task SetupMethod_WithIncreasingMemberIds_GrowsTableLazily()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -39,7 +39,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot3![0]).IsSameAs(setup3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupMethod_WithMemberId_PublishesToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -53,7 +53,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot[0]).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupMethod_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -67,7 +67,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot[0]).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupMethod_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -78,7 +78,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(registry.GetMethodSetupSnapshot(5)).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupMethod_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -91,7 +91,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(scoped!.Methods.Count).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupMethod_WithSameMemberIdTwice_AppendsToBucket()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -111,7 +111,7 @@ public sealed class MockRegistrySetupSnapshotTests
 
 	public sealed class PropertyTests
 	{
-		[Fact]
+		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WhenResized_PreservesEarlierEntries()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -127,7 +127,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(registry.GetPropertySetupSnapshot(10)).IsSameAs(setupHigh);
 		}
 
-		[Fact]
+		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WithDefaultThenDefault_OverwritesInSnapshotTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -141,7 +141,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot).IsSameAs(defaultB);
 		}
 
-		[Fact]
+		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WithDefaultThenUserSetup_RetainsUserSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -157,7 +157,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(observed).IsEqualTo(99);
 		}
 
-		[Fact]
+		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WithUserThenDefault_RetainsUserSetupInSnapshotTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -171,7 +171,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot).IsSameAs(userSetup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WithUserThenDefaultSetup_RetainsUserSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -185,7 +185,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(observed).IsEqualTo(99);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_DefaultDoesNotOverwriteUserSetupAtSameMemberIdInSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -200,7 +200,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(table![1]).IsSameAs(userSetup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_UserSetupDoesOverwriteDefaultAtSameMemberIdInSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -216,7 +216,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(table![1]).IsSameAs(userSetup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithGrowingMemberIds_PreservesEarlierEntriesViaArrayCopy()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -235,7 +235,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(table[5]).IsSameAs(setupB);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithIncreasingMemberIds_GrowsTableLazily()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -255,7 +255,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(registry.GetPropertyFast(3, new PropertyGetterAccess("P3"), _ => -1)).IsEqualTo(30);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberId_PopulatesSnapshotSlot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -270,7 +270,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(table[3]).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberId_PublishesToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -283,7 +283,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(observed).IsEqualTo(50);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberId_PublishesUserSetupToSnapshotTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -296,7 +296,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PopulatesSnapshotSlot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -310,7 +310,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(table![3]).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -323,7 +323,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(observed).IsEqualTo(50);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PublishesUserSetupToSnapshotTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -336,7 +336,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -349,7 +349,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(observed).IsEqualTo(-1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberIdAndNamedScenario_LeavesSnapshotUnpublished()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -362,7 +362,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(table).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -375,7 +375,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(scopedSetup).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupProperty_WithSameMemberIdTwice_RetainsLatestUserSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -394,7 +394,7 @@ public sealed class MockRegistrySetupSnapshotTests
 
 	public sealed class IndexerTests
 	{
-		[Fact]
+		[Test]
 		public async Task SetupIndexer_WithIncreasingMemberIds_GrowsTableLazily()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -417,7 +417,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot3![0]).IsSameAs(setup3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupIndexer_WithMemberId_PublishesToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -431,7 +431,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot[0]).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupIndexer_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -445,7 +445,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot[0]).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupIndexer_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -456,7 +456,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(registry.GetIndexerSetupSnapshot(5)).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupIndexer_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -469,7 +469,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(scoped!.Indexers.Count).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupIndexer_WithSameMemberIdTwice_AppendsToBucket()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -489,7 +489,7 @@ public sealed class MockRegistrySetupSnapshotTests
 
 	public sealed class EventTests
 	{
-		[Fact]
+		[Test]
 		public async Task SetupEvent_WithIncreasingMemberIds_GrowsTableLazily()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -512,7 +512,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot3![0]).IsSameAs(setup3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupEvent_WithMemberId_PublishesToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -526,7 +526,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot[0]).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupEvent_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -540,7 +540,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(snapshot[0]).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupEvent_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -551,7 +551,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(registry.GetEventSetupSnapshot(5)).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupEvent_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -564,7 +564,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			await That(scoped!.Events.Count).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupEvent_WithSameMemberIdTwice_AppendsToBucket()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));

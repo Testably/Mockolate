@@ -18,8 +18,8 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class WithStringTests
 		{
-			[Theory]
-			[InlineData("foo", "FOO", true)]
+			[Test]
+			[Arguments("foo", "FOO", true)]
 			public async Task Exactly_IgnoringCase_ShouldCheckCaseInsensitiveForFullContentBody(
 				string body, string expected, bool expectSuccess)
 			{
@@ -36,12 +36,12 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("foo", "foo", true)]
-			[InlineData("foo", "FOO", false)]
-			[InlineData("foo", "baz", false)]
-			[InlineData(" bar", "bar", false)]
-			[InlineData("baz ", "baz", false)]
+			[Test]
+			[Arguments("foo", "foo", true)]
+			[Arguments("foo", "FOO", false)]
+			[Arguments("foo", "baz", false)]
+			[Arguments(" bar", "bar", false)]
+			[Arguments("baz ", "baz", false)]
 			public async Task Exactly_ShouldCheckForFullContentBody(string body, string expected, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -57,12 +57,12 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("foo", "foo", true)]
-			[InlineData("foo", "FOO", true)]
-			[InlineData(" foo", "FOO", true)]
-			[InlineData("FOO ", "foo", true)]
-			[InlineData("foo", "bar", false)]
+			[Test]
+			[Arguments("foo", "foo", true)]
+			[Arguments("foo", "FOO", true)]
+			[Arguments(" foo", "FOO", true)]
+			[Arguments("FOO ", "foo", true)]
+			[Arguments("foo", "bar", false)]
 			public async Task IgnoringCase_ShouldCheckForCaseInsensitiveEquality(string body,
 				string expected, bool expectSuccess)
 			{
@@ -79,12 +79,12 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("", true)]
-			[InlineData("foo", true)]
-			[InlineData("FOO", false)]
-			[InlineData("bar", true)]
-			[InlineData("BAR", false)]
+			[Test]
+			[Arguments("", true)]
+			[Arguments("foo", true)]
+			[Arguments("FOO", false)]
+			[Arguments("bar", true)]
+			[Arguments("BAR", false)]
 			public async Task Predicate_ShouldValidatePredicate(string content, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -101,11 +101,11 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("foo", "foo", true)]
-			[InlineData("foo", "FOO", false)]
-			[InlineData("foo", "bar", false)]
-			[InlineData("foo", "f*o", false)]
+			[Test]
+			[Arguments("foo", "foo", true)]
+			[Arguments("foo", "FOO", false)]
+			[Arguments("foo", "bar", false)]
+			[Arguments("foo", "f*o", false)]
 			public async Task ShouldCheckForEquality(string body, string expected,
 				bool expectSuccess)
 			{
@@ -122,7 +122,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldNotCheckHttpContentType()
 			{
 				string expectedValue = "foo";
@@ -139,7 +139,7 @@ public sealed partial class ItExtensionsTests
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldSupportMonitoring()
 			{
 				int callbackCount = 0;
@@ -169,10 +169,10 @@ public sealed partial class ItExtensionsTests
 				await That(callbackCount).IsEqualTo(3);
 			}
 
-			[Theory]
-			[InlineData("image/png", false)]
-			[InlineData("text/plain", true)]
-			[InlineData("text/csv", false)]
+			[Test]
+			[Arguments("image/png", false)]
+			[Arguments("text/plain", true)]
+			[Arguments("text/csv", false)]
 			public async Task ShouldVerifyMediaType(string mediaType, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -189,7 +189,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhenCharsetHeaderIsNotSet_ShouldFallbackToUtf8()
 			{
 				string original = "äöüß";
@@ -209,11 +209,11 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Theory]
-			[InlineData("UTF-8", false)]
-			[InlineData("iso-8859-1", true)]
-			[InlineData("ISO-8859-1", true)]
-			[InlineData(" iso-8859-1\t", true)]
+			[Test]
+			[Arguments("UTF-8", false)]
+			[Arguments("iso-8859-1", true)]
+			[Arguments("ISO-8859-1", true)]
+			[Arguments(" iso-8859-1\t", true)]
 			public async Task WhenCharsetHeaderIsSet_ShouldApplyEncodingCorrectly(
 				string charsetHeader, bool expectSuccess)
 			{
@@ -235,7 +235,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhenValidatedAndSetup_ShouldResetStreamPosition()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -252,7 +252,7 @@ public sealed partial class ItExtensionsTests
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhenVerifiedConcurrently_ShouldMatchEveryTime()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -268,8 +268,8 @@ public sealed partial class ItExtensionsTests
 				await That(Act).DoesNotThrow();
 			}
 
-			[Theory]
-			[InlineData("foo")]
+			[Test]
+			[Arguments("foo")]
 			public async Task WithInvalidCharsetHeader_ShouldFallbackToUtf8(string charsetHeader)
 			{
 				string original = "äöüß";
@@ -293,16 +293,16 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Theory]
-			[InlineData(true, "foo", "foo")]
-			[InlineData(true, "foo", "bar")]
-			[InlineData(true, "bar", "foo")]
-			[InlineData(true, "bar", "bar")]
-			[InlineData(true, "foo", "foo", "bar", "bar")]
-			[InlineData(false, "foo", "bar", "baz")]
-			[InlineData(false, "foo", "baz", "bar")]
-			[InlineData(false, "baz", "foo", "bar")]
-			[InlineData(false, "baz")]
+			[Test]
+			[Arguments(true, "foo", "foo")]
+			[Arguments(true, "foo", "bar")]
+			[Arguments(true, "bar", "foo")]
+			[Arguments(true, "bar", "bar")]
+			[Arguments(true, "foo", "foo", "bar", "bar")]
+			[Arguments(false, "foo", "bar", "baz")]
+			[Arguments(false, "foo", "baz", "bar")]
+			[Arguments(false, "baz", "foo", "bar")]
+			[Arguments(false, "baz")]
 			public async Task WithMultipleExpectations_ShouldVerifyAll(bool expectSuccess,
 				params string[] expectedValues)
 			{
@@ -326,7 +326,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithMultipleWithString_FailingVerification_ShouldJoinPredicatesWithAnd()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

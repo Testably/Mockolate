@@ -6,7 +6,7 @@ public sealed partial class InteractionsTests
 {
 	public sealed class CancellationTokenTests
 	{
-		[Fact]
+		[Test]
 		public async Task WithMultipleParameters_WhenOneIsCanceled_ShouldReturnCanceledTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -17,7 +17,7 @@ public sealed partial class InteractionsTests
 			await That(result.IsCanceled).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithNonCanceledToken_ShouldReturnDefaultValue()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -29,7 +29,7 @@ public sealed partial class InteractionsTests
 			await That(result.IsCanceled).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithSetup_ShouldUseSetupValue()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -43,7 +43,7 @@ public sealed partial class InteractionsTests
 			await That(await result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithTask_ShouldReturnCanceledTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -54,7 +54,7 @@ public sealed partial class InteractionsTests
 			await That(result.IsCanceled).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithTaskOfInt_ShouldReturnCanceledTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -65,7 +65,7 @@ public sealed partial class InteractionsTests
 			await That(result.IsCanceled).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithTaskOfString_ShouldReturnCanceledTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -76,7 +76,7 @@ public sealed partial class InteractionsTests
 			await That(result.IsCanceled).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithTupleContainingTask_ShouldCancelTaskElement()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -89,7 +89,7 @@ public sealed partial class InteractionsTests
 		}
 
 #if NET8_0_OR_GREATER
-		[Fact]
+		[Test]
 		public async Task WithValueTask_ShouldReturnCanceledTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -102,7 +102,7 @@ public sealed partial class InteractionsTests
 #endif
 
 #if NET8_0_OR_GREATER
-		[Fact]
+		[Test]
 		public async Task WithValueTaskOfInt_ShouldReturnCanceledTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();

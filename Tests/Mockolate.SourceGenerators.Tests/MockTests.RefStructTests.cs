@@ -4,7 +4,7 @@ public sealed partial class MockTests
 {
 	public sealed class RefStructTests
 	{
-		[Fact]
+		[Test]
 		public async Task Arity16VoidMethod_EmitsGeneratedRefStructSetupAtArity16()
 		{
 			GeneratorResult result = Generator
@@ -38,7 +38,7 @@ public sealed partial class MockTests
 				.Contains("where T1 : allows ref struct");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity5IndexerGetAndSet_WithRefStructKey_EmitsCombinedSetup()
 		{
 			GeneratorResult result = Generator
@@ -78,7 +78,7 @@ public sealed partial class MockTests
 				.Contains("BoundGetter");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity5IndexerGetterOnly_WithRefStructKey_EmitsGetterSetupOnly()
 		{
 			GeneratorResult result = Generator
@@ -116,7 +116,7 @@ public sealed partial class MockTests
 				.DoesNotContain("public sealed class RefStructIndexerSetup<TValue, T1, T2, T3, T4, T5>");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity5IndexerSetterOnly_WithRefStructKey_EmitsSetterSetupOnly()
 		{
 			GeneratorResult result = Generator
@@ -153,7 +153,7 @@ public sealed partial class MockTests
 				.DoesNotContain("public sealed class RefStructIndexerSetup<TValue, T1, T2, T3, T4, T5>");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity5ReturnMethod_EmitsGeneratedRefStructReturnSetup()
 		{
 			GeneratorResult result = Generator
@@ -190,7 +190,7 @@ public sealed partial class MockTests
 				.Because("a `default!` fallback must be emitted when neither return factory nor defaultFactory is present");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity5VoidMethod_EmitsGeneratedRefStructSetup()
 		{
 			// Arity 5 exceeds the hand-written ceiling (1-4); the generator must emit
@@ -233,7 +233,7 @@ public sealed partial class MockTests
 				.Because("every generic parameter must carry the allows-ref-struct anti-constraint");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity6ReturnMethod_EmitsGeneratedRefStructReturnSetup()
 		{
 			GeneratorResult result = Generator
@@ -266,7 +266,7 @@ public sealed partial class MockTests
 				.Contains("public bool HasReturnValue");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity6VoidMethod_EmitsGeneratedRefStructSetupAtArity6()
 		{
 			GeneratorResult result = Generator
@@ -303,7 +303,7 @@ public sealed partial class MockTests
 				.Contains("_returnAction = static () => new TException();");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity7ReturnMethod_MixedRefStructAndValueTypes_EmitsRefStructReturnSetup()
 		{
 			GeneratorResult result = Generator
@@ -338,7 +338,7 @@ public sealed partial class MockTests
 				.Contains("where T7 : allows ref struct");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Arity8VoidMethod_EmitsGeneratedRefStructSetupAtArity8()
 		{
 			GeneratorResult result = Generator
@@ -372,7 +372,7 @@ public sealed partial class MockTests
 				.Contains("_returnAction = exceptionFactory;");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWithRefStructKey_EmitsRefStructDispatch()
 		{
 			// Getter-only ref-struct-keyed indexers route through RefStructIndexerGetterSetup.
@@ -408,7 +408,7 @@ public sealed partial class MockTests
 				.Because("the setup facade must expose the narrow IRefStructIndexerGetterSetup surface");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerWithRefStructKey_AndSetter_EmitsCombinedSetup()
 		{
 			// Get+set ref-struct-keyed indexer: expose IRefStructIndexerSetup<TValue, T> on the
@@ -446,7 +446,7 @@ public sealed partial class MockTests
 				.Contains("RefStructIndexerSetterSetup<string, global::MyCode.Key>");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerWithRefStructKey_SetterOnly_EmitsSetterSetup()
 		{
 			GeneratorResult result = Generator
@@ -478,7 +478,7 @@ public sealed partial class MockTests
 				.Contains("RefStructMethodInvocation(\"global::MyCode.IRefStructWriter.set_Item\", \"key\", \"value\")");
 		}
 
-		[Fact]
+		[Test]
 		public async Task MethodReturningNonSpanRefStruct_WithRefStructParameter_ShouldEmitNotSupportedExceptionAndSkipSetupSurface()
 		{
 			GeneratorResult result = Generator
@@ -514,7 +514,7 @@ public sealed partial class MockTests
 				.Because("the setup-interface implementation must be skipped for unsupported ref-struct return types");
 		}
 
-		[Fact]
+		[Test]
 		public async Task MethodWithOutRefStructParameter_ShouldEmitRefStructOutParameterPipeline()
 		{
 			GeneratorResult result = Generator
@@ -550,7 +550,7 @@ public sealed partial class MockTests
 				.Because("the mock body routes the out slot through IOutRefStructParameter<T> instead of IOutParameter<T>");
 		}
 
-		[Fact]
+		[Test]
 		public async Task MixedParameters_RefStructPlusValueType_ShouldRouteThroughRefStructPipeline()
 		{
 			GeneratorResult result = Generator
@@ -583,7 +583,7 @@ public sealed partial class MockTests
 				.Contains("setup.Matches(packet, priority)");
 		}
 
-		[Fact]
+		[Test]
 		public async Task NonRefStructMethod_ShouldContinueToUseRegularPipeline()
 		{
 			// Regression guard: our ref-struct switch must not intercept methods that have no
@@ -619,7 +619,7 @@ public sealed partial class MockTests
 				.DoesNotContain("RefStructVoidMethodSetup");
 		}
 
-		[Fact]
+		[Test]
 		public async Task NoRefStructSurface_ShouldNotEmitRefStructMethodSetupsFile()
 		{
 			GeneratorResult result = Generator
@@ -647,7 +647,7 @@ public sealed partial class MockTests
 			await That(result.Sources).DoesNotContainKey("RefStructMethodSetups.g.cs");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWithRefStructParameter_ShouldEmitRefStructReturnSetup()
 		{
 			GeneratorResult result = Generator
@@ -681,7 +681,7 @@ public sealed partial class MockTests
 				.Because("the return-side HasReturnValue gate must be present so Throws-only setups still fall through to the framework default");
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWithRefStructParameter_ShouldEmitRefStructPipeline()
 		{
 			GeneratorResult result = Generator

@@ -4,7 +4,7 @@ public sealed partial class RaiseTests
 {
 	public sealed class ProtectedTests
 	{
-		[Fact]
+		[Test]
 		public async Task Subscription_ShouldBeRegistered()
 		{
 			MyRaiseEvent sut = MyRaiseEvent.CreateMock();
@@ -17,7 +17,7 @@ public sealed partial class RaiseTests
 			await That(sut.Mock.VerifyProtected.SomeEvent.Unsubscribed()).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Unsubscription_ShouldBeRegistered()
 		{
 			MyRaiseEvent sut = MyRaiseEvent.CreateMock();
@@ -29,7 +29,7 @@ public sealed partial class RaiseTests
 			await That(sut.Mock.VerifyProtected.SomeEvent.Unsubscribed()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WhenUsingRaise_AnyParameters_ShouldInvokeEvent()
 		{
 			int callCount = 0;
@@ -46,7 +46,7 @@ public sealed partial class RaiseTests
 			await That(callCount).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WhenUsingRaise_ShouldInvokeEvent()
 		{
 			int callCount = 0;

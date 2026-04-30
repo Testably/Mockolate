@@ -6,7 +6,7 @@ public sealed partial class InteractionsTests
 {
 	public sealed class ThrowingBaseTests
 	{
-		[Fact]
+		[Test]
 		public async Task ReturnMethod_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -20,7 +20,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.ReturnMethodWith0Parameters()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith0Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -34,7 +34,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.ReturnMethodWith0Parameters()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith1Parameter_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -50,7 +50,7 @@ public sealed partial class InteractionsTests
 			await That(v1.Values).HasSingle().Which.IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith1Parameter_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -64,7 +64,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.ReturnMethodWith1Parameter(1)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith2Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -83,7 +83,7 @@ public sealed partial class InteractionsTests
 			await That(v2.Values).HasSingle().Which.IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith2Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -97,7 +97,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.ReturnMethodWith2Parameters(1, 2)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith3Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -118,7 +118,7 @@ public sealed partial class InteractionsTests
 			await That(v3.Values).HasSingle().Which.IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith3Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -132,7 +132,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.ReturnMethodWith3Parameters(1, 2, 3)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith4Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -155,7 +155,7 @@ public sealed partial class InteractionsTests
 			await That(v4.Values).HasSingle().Which.IsEqualTo(4);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith4Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -169,7 +169,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.ReturnMethodWith4Parameters(1, 2, 3, 4)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith5Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -194,7 +194,7 @@ public sealed partial class InteractionsTests
 			await That(v5.Values).HasSingle().Which.IsEqualTo(5);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnMethodWith5Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -208,7 +208,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.ReturnMethodWith5Parameters(1, 2, 3, 4, 5)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethod_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -222,7 +222,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.VoidMethodWith0Parameters()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith0Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -236,7 +236,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.VoidMethodWith0Parameters()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith1Parameter_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -252,7 +252,7 @@ public sealed partial class InteractionsTests
 			await That(v1.Values).HasSingle().Which.IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith1Parameter_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -266,7 +266,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.VoidMethodWith1Parameter(1)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith2Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -285,7 +285,7 @@ public sealed partial class InteractionsTests
 			await That(v2.Values).HasSingle().Which.IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith2Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -299,7 +299,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.VoidMethodWith2Parameters(1, 2)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith3Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -320,7 +320,7 @@ public sealed partial class InteractionsTests
 			await That(v3.Values).HasSingle().Which.IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith3Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -334,7 +334,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.VoidMethodWith3Parameters(1, 2, 3)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith4Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -357,7 +357,7 @@ public sealed partial class InteractionsTests
 			await That(v4.Values).HasSingle().Which.IsEqualTo(4);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith4Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -371,7 +371,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.VoidMethodWith4Parameters(1, 2, 3, 4)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith5Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -396,7 +396,7 @@ public sealed partial class InteractionsTests
 			await That(v5.Values).HasSingle().Which.IsEqualTo(5);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidMethodWith5Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();

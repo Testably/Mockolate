@@ -2,7 +2,7 @@
 
 public sealed class ProtectedMockTests
 {
-	[Fact]
+	[Test]
 	public async Task CanAccessProtectedEvents()
 	{
 		int callCount = 0;
@@ -19,7 +19,7 @@ public sealed class ProtectedMockTests
 		await That(callCount).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task CanAccessProtectedMethods()
 	{
 		MyProtectedClass sut = MyProtectedClass.CreateMock();
@@ -33,7 +33,7 @@ public sealed class ProtectedMockTests
 		await That(result).IsEqualTo("Hello, foo!");
 	}
 
-	[Fact]
+	[Test]
 	public async Task CanAccessProtectedProperties()
 	{
 		MyProtectedClass sut = MyProtectedClass.CreateMock();
@@ -46,7 +46,7 @@ public sealed class ProtectedMockTests
 		await That(result).IsEqualTo(42);
 	}
 
-	[Fact]
+	[Test]
 	public async Task CanReadProtectedIndexers()
 	{
 		int callCount = 0;
@@ -61,7 +61,7 @@ public sealed class ProtectedMockTests
 		await That(callCount).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task CanWriteProtectedIndexers()
 	{
 		int callCount = 0;
@@ -76,7 +76,7 @@ public sealed class ProtectedMockTests
 		await That(callCount).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnlyProtectedVirtualMembers()
 	{
 		OnlyProtectedVirtualMembersService sut = OnlyProtectedVirtualMembersService.CreateMock();
@@ -91,7 +91,7 @@ public sealed class ProtectedMockTests
 		await That(result2).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task SupportProtectedAccessInConstructorSetups()
 	{
 		MyProtectedClass sut = MyProtectedClass.CreateMock(setup => setup.Protected.MyProtectedProperty.InitializeWith(42));

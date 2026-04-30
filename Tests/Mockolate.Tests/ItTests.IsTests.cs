@@ -7,11 +7,11 @@ public sealed partial class ItTests
 {
 	public sealed class IsTests
 	{
-		[Theory]
-		[InlineData(1, false)]
-		[InlineData(5, true)]
-		[InlineData(-5, false)]
-		[InlineData(42, false)]
+		[Test]
+		[Arguments(1, false)]
+		[Arguments(5, true)]
+		[Arguments(-5, false)]
+		[Arguments(42, false)]
 		public async Task ShouldMatchWhenEqual(int value, bool expectMatch)
 		{
 			IParameter<int> sut = It.Is(5);
@@ -21,7 +21,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldSupportCovarianceInSetup()
 		{
 			IMyService sut = IMyService.CreateMock();
@@ -37,7 +37,7 @@ public sealed partial class ItTests
 			await That(result2).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IParameter<string> sut = It.Is("foo");
@@ -48,7 +48,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithComparer_ShouldReturnExpectedValue()
 		{
 			IParameter<int> sut = It.Is(4).Using(new AllEqualComparer());
@@ -59,10 +59,10 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Theory]
-		[InlineData(1)]
-		[InlineData(5)]
-		[InlineData(-42)]
+		[Test]
+		[Arguments(1)]
+		[Arguments(5)]
+		[Arguments(-42)]
 		public async Task WithComparer_ShouldUseComparer(int value)
 		{
 			IParameter<int> sut = It.Is(5).Using(new AllEqualComparer());
@@ -72,7 +72,7 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_AfterUsing_ShouldReplaceTheComparer()
 		{
 			IParameter<double> sut = It.Is(5.0).Using(EqualityComparer<double>.Default).Within(0.1);
@@ -83,12 +83,12 @@ public sealed partial class ItTests
 			await That(sut.ToString()).IsEqualTo("It.Is(5.0).Within(0.1)");
 		}
 
-		[Theory]
-		[InlineData(-11, false)]
-		[InlineData(-10, true)]
-		[InlineData(0, true)]
-		[InlineData(10, true)]
-		[InlineData(11, false)]
+		[Test]
+		[Arguments(-11, false)]
+		[Arguments(-10, true)]
+		[Arguments(0, true)]
+		[Arguments(10, true)]
+		[Arguments(11, false)]
 		public async Task Within_DateTime_ShouldMatchWhenWithinTolerance(int offsetInSeconds, bool expectMatch)
 		{
 			DateTime expected = new(2024, 5, 6, 7, 8, 9, DateTimeKind.Utc);
@@ -99,12 +99,12 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Theory]
-		[InlineData(-11, false)]
-		[InlineData(-10, true)]
-		[InlineData(0, true)]
-		[InlineData(10, true)]
-		[InlineData(11, false)]
+		[Test]
+		[Arguments(-11, false)]
+		[Arguments(-10, true)]
+		[Arguments(0, true)]
+		[Arguments(10, true)]
+		[Arguments(11, false)]
 		public async Task Within_DateTimeOffset_ShouldMatchWhenWithinTolerance(int offsetInSeconds, bool expectMatch)
 		{
 			DateTimeOffset expected = new(2024, 5, 6, 7, 8, 9, TimeSpan.FromHours(2));
@@ -115,12 +115,12 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Theory]
-		[InlineData(4.85, false)]
-		[InlineData(4.9, true)]
-		[InlineData(5.0, true)]
-		[InlineData(5.1, true)]
-		[InlineData(5.15, false)]
+		[Test]
+		[Arguments(4.85, false)]
+		[Arguments(4.9, true)]
+		[Arguments(5.0, true)]
+		[Arguments(5.1, true)]
+		[Arguments(5.15, false)]
 		public async Task Within_Decimal_ShouldMatchWhenWithinTolerance(double value, bool expectMatch)
 		{
 			IParameter<decimal> sut = It.Is(5.0m).Within(0.1m);
@@ -130,12 +130,12 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Theory]
-		[InlineData(4.85, false)]
-		[InlineData(4.9, true)]
-		[InlineData(5.0, true)]
-		[InlineData(5.1, true)]
-		[InlineData(5.15, false)]
+		[Test]
+		[Arguments(4.85, false)]
+		[Arguments(4.9, true)]
+		[Arguments(5.0, true)]
+		[Arguments(5.1, true)]
+		[Arguments(5.15, false)]
 		public async Task Within_Double_ShouldMatchWhenWithinTolerance(double value, bool expectMatch)
 		{
 			IParameter<double> sut = It.Is(5.0).Within(0.1);
@@ -145,10 +145,10 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Theory]
-		[InlineData(double.NaN)]
-		[InlineData(double.PositiveInfinity)]
-		[InlineData(double.NegativeInfinity)]
+		[Test]
+		[Arguments(double.NaN)]
+		[Arguments(double.PositiveInfinity)]
+		[Arguments(double.NegativeInfinity)]
 		public async Task Within_Double_WithNonFiniteValue_ShouldMatchItself(double value)
 		{
 			IParameter<double> sut = It.Is(value).Within(0.1);
@@ -158,12 +158,12 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Theory]
-		[InlineData(4.85f, false)]
-		[InlineData(4.9f, true)]
-		[InlineData(5.0f, true)]
-		[InlineData(5.1f, true)]
-		[InlineData(5.15f, false)]
+		[Test]
+		[Arguments(4.85f, false)]
+		[Arguments(4.9f, true)]
+		[Arguments(5.0f, true)]
+		[Arguments(5.1f, true)]
+		[Arguments(5.15f, false)]
 		public async Task Within_Float_ShouldMatchWhenWithinTolerance(float value, bool expectMatch)
 		{
 			IParameter<float> sut = It.Is(5.0f).Within(0.1f);
@@ -173,10 +173,10 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Theory]
-		[InlineData(float.NaN)]
-		[InlineData(float.PositiveInfinity)]
-		[InlineData(float.NegativeInfinity)]
+		[Test]
+		[Arguments(float.NaN)]
+		[Arguments(float.PositiveInfinity)]
+		[Arguments(float.NegativeInfinity)]
 		public async Task Within_Float_WithNonFiniteValue_ShouldMatchItself(float value)
 		{
 			IParameter<float> sut = It.Is(value).Within(0.1f);
@@ -186,7 +186,7 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_NaNTolerance_ShouldThrowArgumentOutOfRangeException()
 		{
 			await That(() => It.Is(5.0).Within(double.NaN)).Throws<ArgumentOutOfRangeException>()
@@ -195,7 +195,7 @@ public sealed partial class ItTests
 				.WithParamName("tolerance");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_NegativeTolerance_ShouldThrowArgumentOutOfRangeException()
 		{
 			await That(() => It.Is(5.0).Within(-0.1)).Throws<ArgumentOutOfRangeException>()
@@ -210,7 +210,7 @@ public sealed partial class ItTests
 				.Throws<ArgumentOutOfRangeException>().WithParamName("tolerance");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_Nullable_ShouldMatchWhenWithinTolerance()
 		{
 			DateTime dateTime = new(2024, 5, 6, 7, 8, 9, DateTimeKind.Utc);
@@ -234,7 +234,7 @@ public sealed partial class ItTests
 				.IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_Nullable_ShouldOnlyMatchNullWithNull()
 		{
 			IParameter<double?> nullMatcher = It.Is<double?>(null).Within(0.1);
@@ -246,7 +246,7 @@ public sealed partial class ItTests
 			await That(((IParameterMatch<double?>)valueMatcher).Matches(4.85)).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_ShouldVerifyMockInvocation()
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
@@ -257,7 +257,7 @@ public sealed partial class ItTests
 			await That(sut.Mock.Verify.DoSomethingWithDouble(It.Is(5.0).Within(0.01))).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_ShouldVerifyMockInvocationWithNullableParameter()
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
@@ -268,7 +268,7 @@ public sealed partial class ItTests
 			await That(sut.Mock.Verify.DoSomethingWithNullableDouble(It.Is<double?>(5.0).Within(0.01))).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_ThenUsing_ShouldReplaceTheTolerance()
 		{
 			// Within() does not return an It.IIsParameter, so Using() can only be reached via the original reference.
@@ -282,12 +282,12 @@ public sealed partial class ItTests
 			await That(sut.ToString()).IsEqualTo("It.Is(5.0).Using(EqualityComparer<double>.Default)");
 		}
 
-		[Theory]
-		[InlineData(-11, false)]
-		[InlineData(-10, true)]
-		[InlineData(0, true)]
-		[InlineData(10, true)]
-		[InlineData(11, false)]
+		[Test]
+		[Arguments(-11, false)]
+		[Arguments(-10, true)]
+		[Arguments(0, true)]
+		[Arguments(10, true)]
+		[Arguments(11, false)]
 		public async Task Within_TimeSpan_ShouldMatchWhenWithinTolerance(int offsetInSeconds, bool expectMatch)
 		{
 			TimeSpan expected = TimeSpan.FromMinutes(3);
@@ -298,7 +298,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_ToString_ShouldReturnExpectedValue()
 		{
 			double tolerance = 0.1;
@@ -310,7 +310,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_WithExtremeValues_ShouldNotOverflow()
 		{
 			IParameter<decimal> decimalMatcher = It.Is(decimal.MaxValue).Within(1m);

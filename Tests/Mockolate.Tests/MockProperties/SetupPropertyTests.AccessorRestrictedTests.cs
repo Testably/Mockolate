@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Mockolate.Setup;
+using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests.MockProperties;
 
@@ -7,7 +8,7 @@ public sealed partial class SetupPropertyTests
 {
 	public sealed class AccessorRestrictedTests
 	{
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_OnSet_ShouldFireAndRecordTheWrite()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -21,7 +22,7 @@ public sealed partial class SetupPropertyTests
 				.Because("the setter facade must be keyed on the setter member id, not the getter's");
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_VerifyOtherValue_ShouldNotMatch()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -31,7 +32,7 @@ public sealed partial class SetupPropertyTests
 			await That(sut.Mock.Verify.WriteOnly.Set("Grace")).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_VerifyWithParameterMatcher_ShouldMatch()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -41,7 +42,7 @@ public sealed partial class SetupPropertyTests
 			await That(sut.Mock.Verify.WriteOnly.Set(It.IsAny<string>())).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_Register_ShouldAllowWriteWithoutSetup()
 		{
 			IAccessorService sut = IAccessorService.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
@@ -52,7 +53,7 @@ public sealed partial class SetupPropertyTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_Register_ShouldAllowReadWithoutSetup()
 		{
 			IAccessorService sut = IAccessorService.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
@@ -64,9 +65,9 @@ public sealed partial class SetupPropertyTests
 			await That(sut.Mock.Verify.ReadOnly.Got()).Once();
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task SetOnlyClassProperty_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -78,7 +79,7 @@ public sealed partial class SetupPropertyTests
 			await That(sut.WriteOnlySetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_ChainedReturns_ShouldStayOnGetterOnlySurface()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -90,7 +91,7 @@ public sealed partial class SetupPropertyTests
 			await That(sut.ReadOnly).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_ReturnsForever_ShouldUseTheLastValueForever()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -107,7 +108,7 @@ public sealed partial class SetupPropertyTests
 			await That(result).IsEqualTo([2, 4, 4, 4,]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_ReturnsWhen_ShouldOnlyUseValueWhenPredicateIsTrue()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -121,7 +122,7 @@ public sealed partial class SetupPropertyTests
 			await That(result2).IsEqualTo(4);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_ReturnsCallbackWithValue_ShouldReturnExpectedValue()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -134,7 +135,7 @@ public sealed partial class SetupPropertyTests
 			await That(result).IsEqualTo(12);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_Throws_ShouldIterateThroughAllRegisteredExceptions()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -147,15 +148,15 @@ public sealed partial class SetupPropertyTests
 			void Act() => _ = sut.ReadOnly;
 
 			await That(Act).Throws<InvalidOperationException>();
-			Exception? result2 = Record.Exception(Act);
-			Exception? result3 = Record.Exception(Act);
-			Exception? result4 = Record.Exception(Act);
+			Exception? result2 = Catch.Exception(Act);
+			Exception? result3 = Catch.Exception(Act);
+			Exception? result4 = Catch.Exception(Act);
 			await That(result2).HasMessage("foo");
 			await That(result3).HasMessage("bar");
 			await That(result4).HasMessage("baz-0");
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_OnGetChain_ShouldStayOnGetterOnlySurface()
 		{
 			int callCount1 = 0;
@@ -175,7 +176,7 @@ public sealed partial class SetupPropertyTests
 			await That(callCount2).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_OnGetWhen_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
 		{
 			int callCount = 0;
@@ -190,7 +191,7 @@ public sealed partial class SetupPropertyTests
 			await That(callCount).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_OnGetInParallel_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
@@ -212,7 +213,7 @@ public sealed partial class SetupPropertyTests
 			await That(callCount3).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_OnGetFor_ShouldRepeatCallbackTheGivenNumberOfTimes()
 		{
 			int callCount1 = 0;
@@ -231,7 +232,7 @@ public sealed partial class SetupPropertyTests
 			await That(callCount2).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyProperty_OnGetTransitionTo_ShouldSwitchScenario()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -245,7 +246,7 @@ public sealed partial class SetupPropertyTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_OnSetChain_ShouldStayOnSetterOnlySurface()
 		{
 			int callCount1 = 0;
@@ -265,7 +266,7 @@ public sealed partial class SetupPropertyTests
 			await That(callCount2).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_OnSetWhen_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
 		{
 			int callCount = 0;
@@ -280,7 +281,7 @@ public sealed partial class SetupPropertyTests
 			await That(callCount).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_OnSetInParallel_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
@@ -302,7 +303,7 @@ public sealed partial class SetupPropertyTests
 			await That(callCount3).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_OnSetFor_ShouldRepeatCallbackTheGivenNumberOfTimes()
 		{
 			int callCount1 = 0;
@@ -321,7 +322,7 @@ public sealed partial class SetupPropertyTests
 			await That(callCount2).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetOnlyProperty_OnSetTransitionTo_ShouldSwitchScenario()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();

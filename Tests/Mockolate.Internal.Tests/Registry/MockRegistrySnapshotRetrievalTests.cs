@@ -15,7 +15,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 
 	public sealed class GetMethodSetupsTests
 	{
-		[Fact]
+		[Test]
 		public async Task WithActiveScenarioAndScopedSetup_YieldsScopedThenSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -33,7 +33,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			await That(setups[1]).IsSameAs(snapshotSetup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithActiveScenarioButNoScopedBucket_FallsBackToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -48,7 +48,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			await That(setups[0]).IsSameAs(snapshotSetup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithSnapshotAndGlobalDictSetups_YieldsSnapshotBeforeGlobalDict()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -65,7 +65,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			await That(setups[1]).IsSameAs(globalDictSetup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithSnapshotSetupOnly_YieldsSnapshotSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -82,7 +82,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 
 	public sealed class GetIndexerSetupTests
 	{
-		[Fact]
+		[Test]
 		public async Task ByAccess_WithActiveScenarioAndScopedDoesNotMatch_FallsBackToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -98,7 +98,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			await That(result).IsSameAs(snapshotSetup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ByAccess_WithSnapshotSetupOnly_ReturnsSnapshotSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -111,7 +111,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			await That(result).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ByPredicate_WithActiveScenarioAndPredicateRejectsScoped_FallsBackToSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -127,7 +127,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			await That(result).IsSameAs(snapshotSetup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ByPredicate_WithSnapshotSetupOnly_ReturnsSnapshotSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -143,7 +143,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 
 	public sealed class RemoveEventSnapshotByNameTests
 	{
-		[Fact]
+		[Test]
 		public async Task RemoveEvent_WhenUnsubscribeMemberIdDiffersFromSubscribe_FiresUnsubscribedCallbackViaNameScan()
 		{
 			// The source generator mints separate subscribe and unsubscribe member ids and registers the
@@ -167,7 +167,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 
 	public sealed class GetUnusedSetupsTests
 	{
-		[Fact]
+		[Test]
 		public async Task IncludesIndexerSnapshotSetup_WhenNoInteractionsMatch()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -180,7 +180,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			await That(unused).Contains(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IncludesMethodSnapshotSetup_WhenNoInteractionsMatch()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));

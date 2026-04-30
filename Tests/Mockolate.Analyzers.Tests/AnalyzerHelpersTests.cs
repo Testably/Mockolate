@@ -4,14 +4,13 @@ using aweXpect;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Xunit;
 using static aweXpect.Expect;
 
 namespace Mockolate.Analyzers.Tests;
 
 public class AnalyzerHelpersTests
 {
-	[Fact]
+	[Test]
 	public async Task WhenInvocationHasGenericNameSyntax_ShouldReturnTypeArgumentLocation()
 	{
 		const string source = """
@@ -39,7 +38,7 @@ public class AnalyzerHelpersTests
 		await That(result).IsNotNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenInvokedMethodIsGeneric_ShouldReturnFirstTypeArgument()
 	{
 		const string source = """
@@ -57,7 +56,7 @@ public class AnalyzerHelpersTests
 		await That(result!.SpecialType).IsEqualTo(SpecialType.System_Int32);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenInvokedMethodIsNotGeneric_ShouldNotReturnAnyTypeArgument()
 	{
 		const string source = """
@@ -74,7 +73,7 @@ public class AnalyzerHelpersTests
 		await That(result).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenSyntaxIsNotInvocationExpression_ShouldNotReturnAnyLocation()
 	{
 		const string source = """

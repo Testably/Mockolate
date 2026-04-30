@@ -10,7 +10,7 @@ public sealed class GeneratedPacketSinkTests
 {
 	public sealed class VoidArity1Tests
 	{
-		[Fact]
+		[Test]
 		public async Task ConsumeCount_ViaInteractions_ReflectsEveryInvocation()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
@@ -28,7 +28,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(count).IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task LatestMatchingSetupWins()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
@@ -51,7 +51,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(ActFallback).Throws<InvalidOperationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task NoSetup_ShouldBeNoOp()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
@@ -64,7 +64,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task RecordedInteraction_StoresParameterNameButNoValue()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
@@ -80,7 +80,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(recorded.ParameterNames.Single()).IsEqualTo("packet");
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupPredicateInspectingSpanPayload_ShouldOnlyActOnMatch()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
@@ -106,7 +106,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(ActMiss).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupThrows_ShouldThrowConfiguredException()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
@@ -121,7 +121,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(Act).Throws<InvalidOperationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ThrowWhenNotSetup_ShouldThrowMockNotSetupException()
 		{
 			MockBehavior behavior = MockBehavior.Default with
@@ -141,7 +141,7 @@ public sealed class GeneratedPacketSinkTests
 
 	public sealed class MixedParameterTests
 	{
-		[Fact]
+		[Test]
 		public async Task Write_WithMatcherForRefStructAndValueParam_Matches()
 		{
 			IGeneratedPacketWriter sut = IGeneratedPacketWriter.CreateMock();
@@ -164,7 +164,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(ActMiss).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Write_WithPriorityMatcher_GatesOnNonRefStructParameter()
 		{
 			IGeneratedPacketWriter sut = IGeneratedPacketWriter.CreateMock();
@@ -190,7 +190,7 @@ public sealed class GeneratedPacketSinkTests
 
 	public sealed class ReturnMethodTests
 	{
-		[Fact]
+		[Test]
 		public async Task TryParse_NoReturnConfigured_ReturnsFrameworkDefault()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
@@ -200,7 +200,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(result).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryParse_PredicateDictatesWhichSetupMatches()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
@@ -217,7 +217,7 @@ public sealed class GeneratedPacketSinkTests
 				.Because("nothing matches, so the framework default applies");
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryParse_ReturnsConfiguredValue()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
@@ -228,7 +228,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryParse_ReturnsFunc_InvokedPerCall()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
@@ -243,7 +243,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(second).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryParse_ThrowsConfiguredException()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
@@ -261,7 +261,7 @@ public sealed class GeneratedPacketSinkTests
 
 	public sealed class IndexerSetterTests
 	{
-		[Fact]
+		[Test]
 		public async Task OnSet_Callback_ReceivesValue()
 		{
 			IGeneratedPacketSetter sut = IGeneratedPacketSetter.CreateMock();
@@ -273,7 +273,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(captured).IsEqualTo("hello");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Predicate_FiltersByKey_OnSetOnlyForHit()
 		{
 			IGeneratedPacketSetter sut = IGeneratedPacketSetter.CreateMock();
@@ -286,7 +286,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(captured).IsEqualTo("yes");
 		}
 
-		[Fact]
+		[Test]
 		public async Task RecordedInteraction_UsesSetItemName()
 		{
 			IGeneratedPacketSetter sut = IGeneratedPacketSetter.CreateMock();
@@ -305,7 +305,7 @@ public sealed class GeneratedPacketSinkTests
 			});
 		}
 
-		[Fact]
+		[Test]
 		public async Task Throws_ConfiguredException()
 		{
 			IGeneratedPacketSetter sut = IGeneratedPacketSetter.CreateMock();
@@ -322,7 +322,7 @@ public sealed class GeneratedPacketSinkTests
 
 	public sealed class CombinedIndexerTests
 	{
-		[Fact]
+		[Test]
 		public async Task Predicate_FiltersByKey_AppliesToBothAccessors()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
@@ -344,7 +344,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(ActWriteHit).Throws<InvalidOperationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Returns_ConfiguresGet_OnSet_ConfiguresSet_Independent()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
@@ -360,7 +360,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(result).IsEqualTo("get-value");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Throws_AppliesToBothAccessors()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
@@ -383,7 +383,7 @@ public sealed class GeneratedPacketSinkTests
 
 	public sealed class ExtendedArityTests
 	{
-		[Fact]
+		[Test]
 		public async Task GetterOnlyArity5_PredicateFiltersByProjectedKey()
 		{
 			IBigPacketLookup5 sut = IBigPacketLookup5.CreateMock();
@@ -402,7 +402,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(miss).IsEqualTo("");
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetterOnlyArity5_Returns_ConfiguredValue()
 		{
 			IBigPacketLookup5 sut = IBigPacketLookup5.CreateMock();
@@ -419,7 +419,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(result).IsEqualTo("hit");
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetterOnlyArity5_Throws_ConfiguredException()
 		{
 			IBigPacketLookup5 sut = IBigPacketLookup5.CreateMock();
@@ -439,7 +439,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(Act).Throws<KeyNotFoundException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnArity6_NonRefStructParameterGates_Matches()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
@@ -470,7 +470,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(ActMiss).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnArity6_ReturnsConfiguredValue()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
@@ -490,7 +490,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(result).IsEqualTo(1234);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnArity6_ReturnsFactory_InvokedPerCall()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
@@ -515,7 +515,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(second).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnArity6_ThrowsExceptionFactory_InvokedPerCall()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
@@ -557,7 +557,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(second!.Message).IsEqualTo("call-2");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReturnArity6_ThrowsExceptionInstance_ThrowsSameInstance()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
@@ -586,7 +586,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(thrown).IsSameAs(expected);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetterOnlyArity5_OnSet_ReceivesValue()
 		{
 			IBigPacketSetter5 sut = IBigPacketSetter5.CreateMock();
@@ -604,7 +604,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(captured).IsEqualTo("stored");
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetterOnlyArity5_Throws_ConfiguredException()
 		{
 			IBigPacketSetter5 sut = IBigPacketSetter5.CreateMock();
@@ -624,7 +624,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(Act).Throws<InvalidOperationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidArity5_DoesNotThrow_AfterThrows_OverridesPreviousConfiguration()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
@@ -650,7 +650,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidArity5_NoSetup_IsNoOp()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
@@ -668,7 +668,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidArity5_PredicateMatchesSelectively()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
@@ -698,7 +698,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(ActMiss).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidArity5_SetupThrows_ShouldThrowConfiguredException()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
@@ -723,7 +723,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(Act).Throws<InvalidOperationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidArity5_ThrowsExceptionFactory_InvokedPerCall()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
@@ -764,7 +764,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(second!.Message).IsEqualTo("call-2");
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidArity5_ThrowsExceptionInstance_ThrowsSameInstance()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
@@ -795,7 +795,7 @@ public sealed class GeneratedPacketSinkTests
 
 	public sealed class IndexerGetterTests
 	{
-		[Fact]
+		[Test]
 		public async Task NoSetup_ReturnsFrameworkDefault()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
@@ -805,7 +805,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(result).IsEqualTo("");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Predicate_FiltersByKey_PayloadReadable()
 		{
 			// Predicate reads the inline Span on the ref-struct key — the whole point of the
@@ -827,7 +827,7 @@ public sealed class GeneratedPacketSinkTests
 				.Because("nothing matches, so the framework default applies and Mockolate's default for string is \"\"");
 		}
 
-		[Fact]
+		[Test]
 		public async Task RecordedInteraction_UsesRefStructMethodInvocation()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
@@ -843,7 +843,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(recorded.ParameterNames.Single()).IsEqualTo("key");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Returns_ConfiguredValue()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
@@ -854,7 +854,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(result).IsEqualTo("hit");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Returns_Factory_InvokedPerCall()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
@@ -868,7 +868,7 @@ public sealed class GeneratedPacketSinkTests
 			await That(second).IsEqualTo("call-2");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Throws_ConfiguredException()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();

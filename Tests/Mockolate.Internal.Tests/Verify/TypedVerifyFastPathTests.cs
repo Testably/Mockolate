@@ -8,7 +8,7 @@ namespace Mockolate.Internal.Tests.Verify;
 
 public class TypedVerifyFastPathTests
 {
-	[Fact]
+	[Test]
 	public async Task IndexerGot_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -28,7 +28,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerGot_WithMemberIdAndInstalledBuffer_OnlyWalksBuffer()
 	{
 		FastMockInteractions store = new(1);
@@ -47,7 +47,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 0)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerGot_WithoutBuffer_ProducesParametersDescriptionInExpectation()
 	{
 		FastMockInteractions store = new(0);
@@ -61,7 +61,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("got indexer (5)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerGotTyped_WithBuffer_ProducesParametersDescriptionInExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -77,7 +77,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("got indexer (5)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerSet_WithMemberIdAndBuffer_CountsMatchingValuesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -100,7 +100,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerSet_WithMemberIdAndInstalledBuffer_OnlyWalksBuffer()
 	{
 		FastMockInteractions store = new(1);
@@ -121,7 +121,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 0)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerSet_WithoutBuffer_ProducesParametersDescriptionInExpectation()
 	{
 		FastMockInteractions store = new(0);
@@ -138,7 +138,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).Contains(value.ToString()!);
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerSetTyped_WithBuffer_ProducesParametersDescriptionInExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -157,7 +157,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).Contains(value.ToString()!);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubscribedTo_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -175,7 +175,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubscribedTo_WithMemberIdButNoBuffer_FallsBackAndFiltersByName()
 	{
 		FastMockInteractions store = new(0);
@@ -193,7 +193,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubscribedToTyped_WithBuffer_ProducesEventNameInExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -206,7 +206,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("subscribed to event OnFoo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubscribedToTyped_WithMemberIdButNoBuffer_FallsBackToStringKeyedPath()
 	{
 		FastMockInteractions store = new(0);
@@ -217,7 +217,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("subscribed to event OnFoo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryGetBuffer_WhenBufferReturned_TypedFastPathIgnoresOtherInteractions()
 	{
 		FastMockInteractions store = new(1);
@@ -236,7 +236,7 @@ public class TypedVerifyFastPathTests
 		await That(true).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task UnsubscribedFrom_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -254,7 +254,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task UnsubscribedFrom_WithMemberIdButNoBuffer_FallsBackAndFiltersByName()
 	{
 		FastMockInteractions store = new(0);
@@ -272,7 +272,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task UnsubscribedFromTyped_WithBuffer_ProducesEventNameInExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -285,7 +285,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("unsubscribed from event OnFoo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task UnsubscribedFromTyped_WithMemberIdButNoBuffer_FallsBackToStringKeyedPath()
 	{
 		FastMockInteractions store = new(0);
@@ -296,7 +296,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("unsubscribed from event OnFoo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task UnsubscribedFromTyped_WithMemberIdButNonMatchingBufferKind_FallsBackToStringKeyedPath()
 	{
 		FastMockInteractions store = new(1);
@@ -309,7 +309,7 @@ public class TypedVerifyFastPathTests
 	}
 
 
-	[Fact]
+	[Test]
 	public async Task VerifyMethod0_TypedFastPath_ShouldCount()
 	{
 		FastMockInteractions store = new(1);
@@ -326,7 +326,7 @@ public class TypedVerifyFastPathTests
 		await That(true).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyMethod0_WithMemberIdButNoMatchingBuffer_FallbackPredicateMatchesAllMethodInteractions()
 	{
 		FastMockInteractions store = new(0);
@@ -343,7 +343,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyMethod1_TypedFastPath_FailsWithExpectedMessage()
 	{
 		FastMockInteractions store = new(1);
@@ -360,7 +360,7 @@ public class TypedVerifyFastPathTests
 			.Throws<MockVerificationException>();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyMethod1_TypedFastPath_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
@@ -381,7 +381,7 @@ public class TypedVerifyFastPathTests
 		await That(true).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyMethod2_TypedFastPath_AnyParameters_UsesCountAll()
 	{
 		FastMockInteractions store = new(1);
@@ -407,7 +407,7 @@ public class TypedVerifyFastPathTests
 		await That(true).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyMethod3_FallbackPath_RequiresAllParametersToMatch()
 	{
 		FastMockInteractions store = new(0);
@@ -429,7 +429,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyMethod4_FallbackPath_RequiresAllParametersToMatch()
 	{
 		FastMockInteractions store = new(0);
@@ -453,7 +453,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyProperty_GetterWithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -468,7 +468,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyProperty_SetterWithMemberIdAndBuffer_CountsMatchingValuesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -487,7 +487,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyProperty_WithMemberIdButNoBuffer_FallbackPredicateFiltersByName()
 	{
 		FastMockInteractions store = new(0);
@@ -503,7 +503,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyProperty_WithMemberIdButNoBuffer_FallsBackToStringKeyedPath()
 	{
 		FastMockInteractions store = new(0);
@@ -519,7 +519,7 @@ public class TypedVerifyFastPathTests
 		((IVerificationResult)result).Verify(arr => arr.Length == 2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyPropertySetter_WithMemberIdButNoBuffer_FallbackPredicateFiltersByName()
 	{
 		FastMockInteractions store = new(0);
@@ -536,7 +536,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyPropertySetter_WithMemberIdButNoBuffer_FallsBackToStringKeyedPath()
 	{
 		FastMockInteractions store = new(0);
@@ -553,7 +553,7 @@ public class TypedVerifyFastPathTests
 		((IVerificationResult)result).Verify(arr => arr.Length == 2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyPropertyTyped_Getter_WithBuffer_ProducesPropertyNameInExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -565,7 +565,7 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("got property P");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerifyPropertyTyped_Setter_WithBuffer_ProducesPropertyNameInExpectation()
 	{
 		FastMockInteractions store = new(1);

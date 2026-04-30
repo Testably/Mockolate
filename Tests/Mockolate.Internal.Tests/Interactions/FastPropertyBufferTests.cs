@@ -5,7 +5,7 @@ namespace Mockolate.Internal.Tests.Interactions;
 
 public class FastPropertyBufferTests
 {
-	[Fact]
+	[Test]
 	public async Task PropertyGet_BufferRecordsArePreservedOnEnumeration()
 	{
 		IFastPropertyService sut = IFastPropertyService.CreateMock();
@@ -22,7 +22,7 @@ public class FastPropertyBufferTests
 		await That(all[2]).IsExactly<PropertyGetterAccess>();
 	}
 
-	[Fact]
+	[Test]
 	public async Task PropertyGet_RoutesThroughTypedBuffer()
 	{
 		IFastPropertyService sut = IFastPropertyService.CreateMock();
@@ -39,7 +39,7 @@ public class FastPropertyBufferTests
 		await That(fast.Count).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task PropertySet_RoutesThroughTypedBuffer()
 	{
 		IFastPropertyService sut = IFastPropertyService.CreateMock();
@@ -55,7 +55,7 @@ public class FastPropertyBufferTests
 		await That(buffer!.Count).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SkipInteractionRecording_DoesNotAppendToBuffer()
 	{
 		MockBehavior behavior = MockBehavior.Default with

@@ -6,7 +6,7 @@ namespace Mockolate.Tests.Setup;
 
 public class ReadOnlySpanWrapperTests
 {
-	[Fact]
+	[Test]
 	public async Task Equals_WithDifferentLength_ShouldReturnFalse()
 	{
 		ReadOnlySpanWrapper<int> sut = new([1, 2,]);
@@ -15,7 +15,7 @@ public class ReadOnlySpanWrapperTests
 			.Because("a shorter span is not the same span");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithDifferentValues_ShouldReturnFalse()
 	{
 		ReadOnlySpanWrapper<int> sut = new([1, 2,]);
@@ -23,7 +23,7 @@ public class ReadOnlySpanWrapperTests
 		await That(sut.Equals(new ReadOnlySpanWrapper<int>([1, 3,]))).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithEqualValues_ShouldReturnTrue()
 	{
 		ReadOnlySpanWrapper<int> sut = new([1, 2,]);
@@ -32,7 +32,7 @@ public class ReadOnlySpanWrapperTests
 			.Because("equality is content-based, so a re-wrapped span with the same values matches");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithNull_ShouldReturnFalse()
 	{
 		ReadOnlySpanWrapper<int> sut = new([1,]);
@@ -40,7 +40,7 @@ public class ReadOnlySpanWrapperTests
 		await That(sut.Equals(null)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithSpanWrapper_ShouldReturnFalse()
 	{
 		ReadOnlySpanWrapper<int> sut = new([1,]);
@@ -49,7 +49,7 @@ public class ReadOnlySpanWrapperTests
 			.Because("the two wrappers represent different parameter shapes");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetHashCode_WithEqualValues_ShouldMatch()
 	{
 		ReadOnlySpanWrapper<int> sut = new([1, 2,]);
@@ -57,7 +57,7 @@ public class ReadOnlySpanWrapperTests
 		await That(sut.GetHashCode()).IsEqualTo(new ReadOnlySpanWrapper<int>([1, 2,]).GetHashCode());
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetHashCode_WithNullElement_ShouldNotThrow()
 	{
 		ReadOnlySpanWrapper<string?> sut = new([null, "a",]);
@@ -66,7 +66,7 @@ public class ReadOnlySpanWrapperTests
 			.Because("a reference-typed span may carry null elements");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_ShouldRenderElementTypeAndValues()
 	{
 		ReadOnlySpanWrapper<int> sut = new([1, 2,]);

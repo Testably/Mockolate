@@ -8,7 +8,7 @@ namespace Mockolate.Tests.Verify;
 
 public sealed class VerificationResultMutationTests
 {
-	[Fact]
+	[Test]
 	public async Task AwaitableVerify_AfterMatching_ShouldMarkMatchingInteractionsAsVerified()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -21,7 +21,7 @@ public sealed class VerificationResultMutationTests
 		await That(interactions.GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task AwaitableVerify_RecordsArrayPath_AfterSuccess_MarksMatchingInteractionsAsVerified()
 	{
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside Awaitable's
@@ -41,7 +41,7 @@ public sealed class VerificationResultMutationTests
 		await That(interactions.GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task AwaitableVerify_WithRecordingDisabled_ShouldThrowMockException()
 	{
 		IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
@@ -57,7 +57,7 @@ public sealed class VerificationResultMutationTests
 			.WithMessage("*interaction recording is disabled*").AsWildcard();
 	}
 
-	[Fact]
+	[Test]
 	public async Task AwaitableVerifyCount_NoFastCountSource_AfterSuccess_MarksMatchingInteractionsAsVerified()
 	{
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside Awaitable's
@@ -78,7 +78,7 @@ public sealed class VerificationResultMutationTests
 		await That(((IMockInteractions)store).GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task CollectMatching_WithMultipleRecordsOutOfSeqOrder_SortsBySeqBeforeReturning()
 	{
 		// Kills the `records.Sort(...)` statement removal and the `records.Count > 1` → `<= 1`
@@ -118,7 +118,7 @@ public sealed class VerificationResultMutationTests
 		await That(values).IsEqualTo([1, 3, 5,]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SyncVerifyCount_NoFastCountSource_AfterSuccess_MarksMatchingInteractionsAsVerified()
 	{
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside the non-Awaitable

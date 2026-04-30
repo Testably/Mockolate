@@ -4,7 +4,7 @@ namespace Mockolate.Tests;
 
 public sealed class ScenarioTransitionToInParallelTests
 {
-	[Fact]
+	[Test]
 	public async Task EventSubscription_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -19,7 +19,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task EventUnsubscription_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -34,7 +34,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task PropertyGetter_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -49,7 +49,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task PropertySetter_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -64,7 +64,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ReturnMethod_Arity1_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -79,7 +79,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ReturnMethod_Arity2_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -94,7 +94,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ReturnMethod_Arity3_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -110,7 +110,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ReturnMethod_Arity4_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -126,7 +126,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VoidMethod_Arity0_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -141,7 +141,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VoidMethod_Arity1_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -156,7 +156,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VoidMethod_Arity2_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -171,7 +171,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VoidMethod_Arity3_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();
@@ -186,7 +186,7 @@ public sealed class ScenarioTransitionToInParallelTests
 		await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VoidMethod_Arity4_TransitionsEvenAfterPrecedingCallbackRan()
 	{
 		IScenarioService sut = IScenarioService.CreateMock();

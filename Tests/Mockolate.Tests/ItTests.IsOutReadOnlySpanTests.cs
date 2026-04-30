@@ -8,7 +8,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsOutReadOnlySpanTests
 	{
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IOutParameter<ReadOnlySpanWrapper<int>> sut =
@@ -20,7 +20,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetValue_ShouldReturnSetterValue()
 		{
 			IOutParameter<ReadOnlySpanWrapper<int>> sut =

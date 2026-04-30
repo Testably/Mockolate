@@ -6,7 +6,7 @@ public sealed partial class InteractionsTests
 {
 	public sealed class ThrowingBaseTests
 	{
-		[Fact]
+		[Test]
 		public async Task IndexerGetter_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -20,7 +20,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1].Got()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith1Parameter_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -35,7 +35,7 @@ public sealed partial class InteractionsTests
 			await That(v1.Values).HasSingle().Which.IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith1Parameter_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -49,7 +49,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1].Got()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith2Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -68,7 +68,7 @@ public sealed partial class InteractionsTests
 			await That(v2.Values).HasSingle().Which.IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith2Parameters_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -82,7 +82,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1, 2].Got()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith3Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -103,7 +103,7 @@ public sealed partial class InteractionsTests
 			await That(v3.Values).HasSingle().Which.IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith3Parameters_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -117,7 +117,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1, 2, 3].Got()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith4Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -140,7 +140,7 @@ public sealed partial class InteractionsTests
 			await That(v4.Values).HasSingle().Which.IsEqualTo(4);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith4Parameters_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -154,7 +154,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1, 2, 3, 4].Got()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith5Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -179,7 +179,7 @@ public sealed partial class InteractionsTests
 			await That(v5.Values).HasSingle().Which.IsEqualTo(5);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetterWith5Parameters_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -193,7 +193,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1, 2, 3, 4, 5].Got()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetter_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -207,7 +207,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1].Set("value")).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith1Parameter_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -222,7 +222,7 @@ public sealed partial class InteractionsTests
 			await That(v1.Values).HasSingle().Which.IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith1Parameter_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -236,7 +236,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1].Set("value")).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith2Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -255,7 +255,7 @@ public sealed partial class InteractionsTests
 			await That(v2.Values).HasSingle().Which.IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith2Parameters_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -269,7 +269,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1, 2].Set("value")).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith3Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -290,7 +290,7 @@ public sealed partial class InteractionsTests
 			await That(v3.Values).HasSingle().Which.IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith3Parameters_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -304,7 +304,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1, 2, 3].Set("value")).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith4Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -327,7 +327,7 @@ public sealed partial class InteractionsTests
 			await That(v4.Values).HasSingle().Which.IsEqualTo(4);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith4Parameters_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -341,7 +341,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify[1, 2, 3, 4].Set("value")).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith5Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
@@ -366,7 +366,7 @@ public sealed partial class InteractionsTests
 			await That(v5.Values).HasSingle().Which.IsEqualTo(5);
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetterWith5Parameters_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();

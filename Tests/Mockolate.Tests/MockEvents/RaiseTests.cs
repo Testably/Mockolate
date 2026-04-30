@@ -4,7 +4,7 @@ namespace Mockolate.Tests.MockEvents;
 
 public sealed partial class RaiseTests
 {
-	[Fact]
+	[Test]
 	public async Task AddEvent_WithoutMethod_ShouldThrowMockException()
 	{
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
@@ -19,7 +19,7 @@ public sealed partial class RaiseTests
 			.WithMessage("The method of an event subscription may not be null.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task RemoveEvent_WithoutMethod_ShouldThrowMockException()
 	{
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
@@ -34,7 +34,7 @@ public sealed partial class RaiseTests
 			.WithMessage("The method of an event unsubscription may not be null.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Subscription_ShouldBeRegistered()
 	{
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
@@ -47,7 +47,7 @@ public sealed partial class RaiseTests
 		await That(sut.Mock.Verify.SomeEvent.Unsubscribed()).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Unsubscription_ShouldBeRegistered()
 	{
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
@@ -59,7 +59,7 @@ public sealed partial class RaiseTests
 		await That(sut.Mock.Verify.SomeEvent.Unsubscribed()).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenMockInheritsEventMultipleTimes()
 	{
 		IMyEventService sut = IMyEventService.CreateMock().Implementing<IMyEventServiceBase1>();
@@ -79,7 +79,7 @@ public sealed partial class RaiseTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenSubscribedToOtherEvent_ShouldNotTrigger()
 	{
 		int callCount = 0;
@@ -96,7 +96,7 @@ public sealed partial class RaiseTests
 		await That(callCount).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenSubscriptionThrows_ShouldNotWrapException()
 	{
 		IMyEventService sut = IMyEventService.CreateMock().Implementing<IMyEventServiceBase1>();
@@ -116,7 +116,7 @@ public sealed partial class RaiseTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenUnsubscribedFromOtherEvent_ShouldNotAffectOtherSubscriptions()
 	{
 		int callCount = 0;
@@ -140,7 +140,7 @@ public sealed partial class RaiseTests
 		await That(otherCallCount).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenUsingRaise_AnyParameters_ShouldInvokeEvent()
 	{
 		int callCount = 0;
@@ -157,7 +157,7 @@ public sealed partial class RaiseTests
 		await That(callCount).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenUsingRaise_ShouldInvokeEvent()
 	{
 		int callCount = 0;
@@ -174,7 +174,7 @@ public sealed partial class RaiseTests
 		await That(callCount).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenUsingRaise_WithoutRegistration_ShouldNotThrow()
 	{
 		IRaiseEvent sut = IRaiseEvent.CreateMock();

@@ -4,7 +4,7 @@ namespace Mockolate.Tests.MockIndexers;
 
 public sealed partial class VerifySetIndexerTests
 {
-	[Fact]
+	[Test]
 	public async Task Set_WithExplicitParameter_ShouldCheckForEquality()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -16,7 +16,7 @@ public sealed partial class VerifySetIndexerTests
 		await That(sut.Mock.Verify[1].Set("FOO")).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenNullParametersAndValue_AndMatches_ShouldReturn()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -25,7 +25,7 @@ public sealed partial class VerifySetIndexerTests
 		await That(sut.Mock.Verify[It.IsAny<int?>(), null, It.IsNull<int?>(), It.IsAny<int?>()].Set(null)).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenParameterLengthDoesNotMatch_ShouldReturnNever()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -36,7 +36,7 @@ public sealed partial class VerifySetIndexerTests
 		await That(sut.Mock.Verify[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Set(It.Is("foo"))).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenParametersDoNotMatch_ShouldReturnNever()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -49,7 +49,7 @@ public sealed partial class VerifySetIndexerTests
 
 	public class IndexerWith1Parameter
 	{
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter_ShouldWork()
 		{
 			IMyService sut = IMyService.CreateMock();
@@ -63,7 +63,7 @@ public sealed partial class VerifySetIndexerTests
 
 	public class IndexerWith2Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter1_ShouldWork()
 		{
 			IMyService sut = IMyService.CreateMock();
@@ -73,7 +73,7 @@ public sealed partial class VerifySetIndexerTests
 			await That(sut.Mock.Verify[2, It.IsAny<int>()].Set(It.IsAny<string>())).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter2_ShouldWork()
 		{
 			IMyService sut = IMyService.CreateMock();
@@ -83,7 +83,7 @@ public sealed partial class VerifySetIndexerTests
 			await That(sut.Mock.Verify[It.IsAny<int>(), 2].Set(It.IsAny<string>())).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameters_ShouldWork()
 		{
 			IMyService sut = IMyService.CreateMock();

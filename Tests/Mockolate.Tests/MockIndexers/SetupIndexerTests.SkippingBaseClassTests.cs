@@ -4,9 +4,9 @@ public sealed partial class SetupIndexerTests
 {
 	public sealed class SkippingBaseClassTests
 	{
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith1Key_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -18,9 +18,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith1KeyGetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith1Key_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -32,9 +32,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith1KeySetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith2Keys_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -46,9 +46,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith2KeysGetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith2Keys_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -60,9 +60,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith2KeysSetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith3Keys_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -74,9 +74,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith3KeysGetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith3Keys_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -88,9 +88,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith3KeysSetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith4Keys_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -102,9 +102,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith4KeysGetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith4Keys_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -116,9 +116,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith4KeysSetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith5Keys_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -131,9 +131,9 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith5KeysGetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task IndexerWith5Keys_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -146,7 +146,7 @@ public sealed partial class SetupIndexerTests
 			await That(sut.MyIndexerWith5KeysSetterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupSkippingBaseClassWithoutParameter_ShouldReturnDefaultValue()
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();

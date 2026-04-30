@@ -6,7 +6,7 @@ public sealed partial class SetupPropertyTests
 {
 	public sealed class InitializeWithTests
 	{
-		[Fact]
+		[Test]
 		public async Task Returns_PredicateIsFalse_ShouldUseInitializedDefaultValue()
 		{
 			List<int> results = [];
@@ -28,7 +28,7 @@ public sealed partial class SetupPropertyTests
 			await That(results).IsEqualTo([2, 2, -3, -3, 4, 4, 4,]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WhenRead_ShouldReturnInitializedValue()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
@@ -39,7 +39,7 @@ public sealed partial class SetupPropertyTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WhenSet_ShouldUpdateValue_ShouldReturnInitializedValue()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
@@ -53,7 +53,7 @@ public sealed partial class SetupPropertyTests
 			await That(result2).IsEqualTo(100);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithNull_ShouldReturnNull()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();

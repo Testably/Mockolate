@@ -4,7 +4,7 @@ namespace Mockolate.SourceGenerators.Tests;
 
 public sealed class IndexerSetupsTests
 {
-	[Fact]
+	[Test]
 	public async Task GenerateIndexerSetupsForIndexersWithMoreParameters()
 	{
 		GeneratorResult result = Generator
@@ -37,7 +37,7 @@ public sealed class IndexerSetupsTests
 				"internal class IndexerSetup<TValue, T1, T2, T3, T4, T5>(global::Mockolate.MockRegistry mockRegistry, global::Mockolate.Parameters.IParameterMatch<T1> parameter1, global::Mockolate.Parameters.IParameterMatch<T2> parameter2, global::Mockolate.Parameters.IParameterMatch<T3> parameter3, global::Mockolate.Parameters.IParameterMatch<T4> parameter4, global::Mockolate.Parameters.IParameterMatch<T5> parameter5) : global::Mockolate.Setup.IndexerSetup(mockRegistry)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenAllIndexersHaveUpTo4Parameters_ShouldNotGenerateIndexerSetups()
 	{
 		GeneratorResult result = Generator
@@ -70,7 +70,7 @@ public sealed class IndexerSetupsTests
 		await That(result.Sources).DoesNotContainKey("IndexerSetups.g.cs");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithComplexIndexer_ShouldOnlyGenerateNecessaryExtensions()
 	{
 		GeneratorResult result = Generator

@@ -10,7 +10,7 @@ public sealed partial class SetupMethodTests
 	{
 		public class ReturnMethodWith0Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -25,7 +25,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -39,7 +39,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task For_InParallel_ShouldLimitMatches()
 			{
 				List<int> callIndices = [];
@@ -58,7 +58,7 @@ public sealed partial class SetupMethodTests
 				await That(callIndices).IsEqualTo([2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -82,10 +82,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(2);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 2)]
-			[InlineData(3, 3)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 2)]
+			[Arguments(3, 3)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int callCount = 0;
@@ -102,7 +102,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldLimitMatches()
 			{
 				List<int> callIndices = [];
@@ -121,7 +121,7 @@ public sealed partial class SetupMethodTests
 				await That(callIndices).IsEqualTo([2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -138,7 +138,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -156,7 +156,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -176,7 +176,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -197,7 +197,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -214,7 +214,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -241,7 +241,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -265,7 +265,7 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith1Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -280,7 +280,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -295,7 +295,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenParameterDoesNotMatch()
 			{
 				int callCount = 0;
@@ -309,7 +309,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -329,7 +329,7 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue).IsEqualTo(3);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -344,7 +344,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenParameterDoesNotMatch()
 			{
 				int callCount = 0;
@@ -358,9 +358,9 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -375,7 +375,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -398,9 +398,9 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -415,10 +415,10 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -435,7 +435,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -452,7 +452,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -470,7 +470,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -490,7 +490,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -506,7 +506,7 @@ public sealed partial class SetupMethodTests
 				await That(values1.Values).IsEqualTo([1, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -526,7 +526,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -543,7 +543,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -571,7 +571,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -596,7 +596,7 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith2Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -611,10 +611,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Theory]
-			[InlineData(false, false)]
-			[InlineData(true, false)]
-			[InlineData(false, true)]
+			[Test]
+			[Arguments(false, false)]
+			[Arguments(true, false)]
+			[Arguments(false, true)]
 			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2)
 			{
 				int callCount = 0;
@@ -628,7 +628,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -643,7 +643,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -666,10 +666,10 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue2).IsEqualTo(4);
 			}
 
-			[Theory]
-			[InlineData(false, false)]
-			[InlineData(true, false)]
-			[InlineData(false, true)]
+			[Test]
+			[Arguments(false, false)]
+			[Arguments(true, false)]
+			[Arguments(false, true)]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
 				bool isMatch2)
 			{
@@ -684,7 +684,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -699,7 +699,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -722,10 +722,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -742,7 +742,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -759,7 +759,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -777,7 +777,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -797,7 +797,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -815,7 +815,7 @@ public sealed partial class SetupMethodTests
 				await That(values2.Values).IsEqualTo([4, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -835,7 +835,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -852,7 +852,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -880,7 +880,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -905,7 +905,7 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith3Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -920,11 +920,11 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Theory]
-			[InlineData(false, false, false)]
-			[InlineData(true, true, false)]
-			[InlineData(true, false, true)]
-			[InlineData(false, true, true)]
+			[Test]
+			[Arguments(false, false, false)]
+			[Arguments(true, true, false)]
+			[Arguments(true, false, true)]
+			[Arguments(false, true, true)]
 			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
 				bool isMatch3)
 			{
@@ -940,7 +940,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -955,7 +955,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -981,11 +981,11 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(false, false, false)]
-			[InlineData(true, true, false)]
-			[InlineData(true, false, true)]
-			[InlineData(false, true, true)]
+			[Test]
+			[Arguments(false, false, false)]
+			[Arguments(true, true, false)]
+			[Arguments(true, false, true)]
+			[Arguments(false, true, true)]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3)
@@ -1002,7 +1002,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -1017,7 +1017,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -1040,10 +1040,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -1060,7 +1060,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -1077,7 +1077,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -1095,7 +1095,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -1115,7 +1115,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1136,7 +1136,7 @@ public sealed partial class SetupMethodTests
 				await That(values3.Values).IsEqualTo([3, 4,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -1156,7 +1156,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -1173,7 +1173,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1201,7 +1201,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1226,7 +1226,7 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith4Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -1241,12 +1241,12 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Theory]
-			[InlineData(false, false, false, false)]
-			[InlineData(true, true, true, false)]
-			[InlineData(true, true, false, true)]
-			[InlineData(true, false, true, true)]
-			[InlineData(false, true, true, true)]
+			[Test]
+			[Arguments(false, false, false, false)]
+			[Arguments(true, true, true, false)]
+			[Arguments(true, true, false, true)]
+			[Arguments(true, false, true, true)]
+			[Arguments(false, true, true, true)]
 			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
 				bool isMatch3, bool isMatch4)
 			{
@@ -1262,7 +1262,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -1277,7 +1277,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -1306,12 +1306,12 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue4).IsEqualTo(8);
 			}
 
-			[Theory]
-			[InlineData(false, false, false, false)]
-			[InlineData(true, true, true, false)]
-			[InlineData(true, true, false, true)]
-			[InlineData(true, false, true, true)]
-			[InlineData(false, true, true, true)]
+			[Test]
+			[Arguments(false, false, false, false)]
+			[Arguments(true, true, true, false)]
+			[Arguments(true, true, false, true)]
+			[Arguments(true, false, true, true)]
+			[Arguments(false, true, true, true)]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3, bool isMatch4)
@@ -1328,7 +1328,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -1343,7 +1343,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -1366,10 +1366,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -1386,7 +1386,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -1403,7 +1403,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -1421,7 +1421,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -1441,7 +1441,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1466,7 +1466,7 @@ public sealed partial class SetupMethodTests
 				await That(values4.Values).IsEqualTo([4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -1486,7 +1486,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -1503,7 +1503,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1531,7 +1531,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1556,7 +1556,7 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith5Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task AnyParameters_Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -1571,7 +1571,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task AnyParameters_CallbackWithValue_ShouldReceiveAllParameters()
 			{
 				int receivedValue1 = 0;
@@ -1601,7 +1601,7 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue5).IsEqualTo(10);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -1617,13 +1617,13 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Theory]
-			[InlineData(false, false, false, false, false)]
-			[InlineData(true, true, true, true, false)]
-			[InlineData(true, true, true, false, true)]
-			[InlineData(true, true, false, true, true)]
-			[InlineData(true, false, true, true, true)]
-			[InlineData(false, true, true, true, true)]
+			[Test]
+			[Arguments(false, false, false, false, false)]
+			[Arguments(true, true, true, true, false)]
+			[Arguments(true, true, true, false, true)]
+			[Arguments(true, true, false, true, true)]
+			[Arguments(true, false, true, true, true)]
+			[Arguments(false, true, true, true, true)]
 			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
 				bool isMatch3, bool isMatch4, bool isMatch5)
 			{
@@ -1640,7 +1640,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -1656,7 +1656,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -1689,13 +1689,13 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue5).IsEqualTo(10);
 			}
 
-			[Theory]
-			[InlineData(false, false, false, false, false)]
-			[InlineData(true, true, true, true, false)]
-			[InlineData(true, true, true, false, true)]
-			[InlineData(true, true, false, true, true)]
-			[InlineData(true, false, true, true, true)]
-			[InlineData(false, true, true, true, true)]
+			[Test]
+			[Arguments(false, false, false, false, false)]
+			[Arguments(true, true, true, true, false)]
+			[Arguments(true, true, true, false, true)]
+			[Arguments(true, true, false, true, true)]
+			[Arguments(true, false, true, true, true)]
+			[Arguments(false, true, true, true, true)]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3, bool isMatch4, bool isMatch5)
@@ -1713,7 +1713,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -1729,7 +1729,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -1753,10 +1753,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -1774,7 +1774,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -1792,7 +1792,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -1811,7 +1811,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -1832,7 +1832,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1861,7 +1861,7 @@ public sealed partial class SetupMethodTests
 				await That(values5.Values).IsEqualTo([5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -1882,7 +1882,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -1900,7 +1900,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1928,7 +1928,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1953,7 +1953,7 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith0Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -1966,7 +1966,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -1980,7 +1980,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task For_InParallel_ShouldLimitMatches()
 			{
 				List<int> callIndices = [];
@@ -1998,7 +1998,7 @@ public sealed partial class SetupMethodTests
 				await That(callIndices).IsEqualTo([2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -2022,10 +2022,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(2);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 2)]
-			[InlineData(3, 3)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 2)]
+			[Arguments(3, 3)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int callCount = 0;
@@ -2042,7 +2042,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldLimitMatches()
 			{
 				List<int> callIndices = [];
@@ -2060,7 +2060,7 @@ public sealed partial class SetupMethodTests
 				await That(callIndices).IsEqualTo([2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -2077,7 +2077,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -2095,7 +2095,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -2115,7 +2115,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -2136,7 +2136,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -2153,7 +2153,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2180,7 +2180,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2204,7 +2204,7 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith1Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -2218,7 +2218,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -2233,7 +2233,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenParameterDoesNotMatch()
 			{
 				int callCount = 0;
@@ -2247,7 +2247,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -2267,7 +2267,7 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue).IsEqualTo(3);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -2282,7 +2282,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenParameterDoesNotMatch()
 			{
 				int callCount = 0;
@@ -2296,7 +2296,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -2319,10 +2319,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -2339,7 +2339,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -2356,7 +2356,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -2374,7 +2374,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -2394,7 +2394,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2410,7 +2410,7 @@ public sealed partial class SetupMethodTests
 				await That(values1.Values).IsEqualTo([1, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -2430,7 +2430,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -2447,7 +2447,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2475,7 +2475,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2500,7 +2500,7 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith2Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -2514,10 +2514,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Theory]
-			[InlineData(false, false)]
-			[InlineData(true, false)]
-			[InlineData(false, true)]
+			[Test]
+			[Arguments(false, false)]
+			[Arguments(true, false)]
+			[Arguments(false, true)]
 			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2)
 			{
 				int callCount = 0;
@@ -2531,7 +2531,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -2546,7 +2546,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -2569,10 +2569,10 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue2).IsEqualTo(4);
 			}
 
-			[Theory]
-			[InlineData(false, false)]
-			[InlineData(true, false)]
-			[InlineData(false, true)]
+			[Test]
+			[Arguments(false, false)]
+			[Arguments(true, false)]
+			[Arguments(false, true)]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
 				bool isMatch2)
 			{
@@ -2587,7 +2587,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -2602,7 +2602,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -2625,10 +2625,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -2645,7 +2645,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -2662,7 +2662,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -2680,7 +2680,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -2700,7 +2700,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2718,7 +2718,7 @@ public sealed partial class SetupMethodTests
 				await That(values2.Values).IsEqualTo([4, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -2738,7 +2738,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -2755,7 +2755,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2783,7 +2783,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2808,7 +2808,7 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith3Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -2822,11 +2822,11 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Theory]
-			[InlineData(false, false, false)]
-			[InlineData(true, true, false)]
-			[InlineData(true, false, true)]
-			[InlineData(false, true, true)]
+			[Test]
+			[Arguments(false, false, false)]
+			[Arguments(true, true, false)]
+			[Arguments(true, false, true)]
+			[Arguments(false, true, true)]
 			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
 				bool isMatch3)
 			{
@@ -2842,7 +2842,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -2857,7 +2857,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -2883,11 +2883,11 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(false, false, false)]
-			[InlineData(true, true, false)]
-			[InlineData(true, false, true)]
-			[InlineData(false, true, true)]
+			[Test]
+			[Arguments(false, false, false)]
+			[Arguments(true, true, false)]
+			[Arguments(true, false, true)]
+			[Arguments(false, true, true)]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3)
@@ -2904,7 +2904,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -2919,7 +2919,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -2942,10 +2942,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -2962,7 +2962,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -2979,7 +2979,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -2997,7 +2997,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -3017,7 +3017,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3038,7 +3038,7 @@ public sealed partial class SetupMethodTests
 				await That(values3.Values).IsEqualTo([3, 4,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -3058,7 +3058,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -3075,7 +3075,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3103,7 +3103,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3128,7 +3128,7 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith4Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -3142,12 +3142,12 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Theory]
-			[InlineData(false, false, false, false)]
-			[InlineData(true, true, true, false)]
-			[InlineData(true, true, false, true)]
-			[InlineData(true, false, true, true)]
-			[InlineData(false, true, true, true)]
+			[Test]
+			[Arguments(false, false, false, false)]
+			[Arguments(true, true, true, false)]
+			[Arguments(true, true, false, true)]
+			[Arguments(true, false, true, true)]
+			[Arguments(false, true, true, true)]
 			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
 				bool isMatch3, bool isMatch4)
 			{
@@ -3163,7 +3163,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -3178,7 +3178,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -3207,12 +3207,12 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue4).IsEqualTo(8);
 			}
 
-			[Theory]
-			[InlineData(false, false, false, false)]
-			[InlineData(true, true, true, false)]
-			[InlineData(true, true, false, true)]
-			[InlineData(true, false, true, true)]
-			[InlineData(false, true, true, true)]
+			[Test]
+			[Arguments(false, false, false, false)]
+			[Arguments(true, true, true, false)]
+			[Arguments(true, true, false, true)]
+			[Arguments(true, false, true, true)]
+			[Arguments(false, true, true, true)]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3, bool isMatch4)
@@ -3229,7 +3229,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -3244,7 +3244,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -3267,10 +3267,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -3287,7 +3287,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -3304,7 +3304,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -3322,7 +3322,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -3342,7 +3342,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3367,7 +3367,7 @@ public sealed partial class SetupMethodTests
 				await That(values4.Values).IsEqualTo([4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -3387,7 +3387,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -3404,7 +3404,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3432,7 +3432,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3457,7 +3457,7 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith5Parameters
 		{
-			[Fact]
+			[Test]
 			public async Task AnyParameters_Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -3471,7 +3471,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Fact]
+			[Test]
 			public async Task AnyParameters_CallbackWithValue_ShouldReceiveAllParameters()
 			{
 				int receivedValue1 = 0;
@@ -3500,7 +3500,7 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue5).IsEqualTo(10);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -3515,13 +3515,13 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(1);
 			}
 
-			[Theory]
-			[InlineData(false, false, false, false, false)]
-			[InlineData(true, true, true, true, false)]
-			[InlineData(true, true, true, false, true)]
-			[InlineData(true, true, false, true, true)]
-			[InlineData(true, false, true, true, true)]
-			[InlineData(false, true, true, true, true)]
+			[Test]
+			[Arguments(false, false, false, false, false)]
+			[Arguments(true, true, true, true, false)]
+			[Arguments(true, true, true, false, true)]
+			[Arguments(true, true, false, true, true)]
+			[Arguments(true, false, true, true, true)]
+			[Arguments(false, true, true, true, true)]
 			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
 				bool isMatch3, bool isMatch4, bool isMatch5)
 			{
@@ -3538,7 +3538,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -3554,7 +3554,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
 			{
 				int callCount = 0;
@@ -3587,13 +3587,13 @@ public sealed partial class SetupMethodTests
 				await That(receivedValue5).IsEqualTo(10);
 			}
 
-			[Theory]
-			[InlineData(false, false, false, false, false)]
-			[InlineData(true, true, true, true, false)]
-			[InlineData(true, true, true, false, true)]
-			[InlineData(true, true, false, true, true)]
-			[InlineData(true, false, true, true, true)]
-			[InlineData(false, true, true, true, true)]
+			[Test]
+			[Arguments(false, false, false, false, false)]
+			[Arguments(true, true, true, true, false)]
+			[Arguments(true, true, true, false, true)]
+			[Arguments(true, true, false, true, true)]
+			[Arguments(true, false, true, true, true)]
+			[Arguments(false, true, true, true, true)]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3, bool isMatch4, bool isMatch5)
@@ -3611,7 +3611,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
 			{
 				int callCount = 0;
@@ -3627,7 +3627,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount).IsEqualTo(0);
 			}
 
-			[Fact]
+			[Test]
 			public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 			{
 				int callCount1 = 0;
@@ -3651,10 +3651,10 @@ public sealed partial class SetupMethodTests
 				await That(callCount3).IsEqualTo(6);
 			}
 
-			[Theory]
-			[InlineData(1, 1)]
-			[InlineData(2, 3)]
-			[InlineData(3, 6)]
+			[Test]
+			[Arguments(1, 1)]
+			[Arguments(2, 3)]
+			[Arguments(3, 6)]
 			public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times, int expectedValue)
 			{
 				int sum = 0;
@@ -3672,7 +3672,7 @@ public sealed partial class SetupMethodTests
 				await That(sum).IsEqualTo(expectedValue);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -3690,7 +3690,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([0, 1, 2, 3,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_WithWhen_ShouldStopExecutingCallbackAfterTheGivenTimes()
 			{
 				List<int> invocations = [];
@@ -3709,7 +3709,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([3, 4, 5, 6,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 			{
 				int callCount1 = 0;
@@ -3730,7 +3730,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(2);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3759,7 +3759,7 @@ public sealed partial class SetupMethodTests
 				await That(values5.Values).IsEqualTo([5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldInvokeCallbacksInSequence()
 			{
 				int callCount1 = 0;
@@ -3780,7 +3780,7 @@ public sealed partial class SetupMethodTests
 				await That(callCount2).IsEqualTo(6);
 			}
 
-			[Fact]
+			[Test]
 			public async Task When_ShouldOnlyExecuteCallbackWhenInvocationCountMatches()
 			{
 				List<int> invocations = [];
@@ -3798,7 +3798,7 @@ public sealed partial class SetupMethodTests
 				await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3826,7 +3826,7 @@ public sealed partial class SetupMethodTests
 				await That(ActInParallel).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();

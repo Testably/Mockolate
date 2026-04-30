@@ -7,7 +7,7 @@ public sealed partial class SetupIndexerTests
 {
 	public sealed class InitializeWithTests
 	{
-		[Fact]
+		[Test]
 		public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -23,7 +23,7 @@ public sealed partial class SetupIndexerTests
 			await That(result4).IsEmpty();
 		}
 
-		[Fact]
+		[Test]
 		public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -39,7 +39,7 @@ public sealed partial class SetupIndexerTests
 				.WithMessage("The indexer is already initialized. You cannot initialize it twice.");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InitializeWith_ShouldInitializeMatchingIndexers()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -55,7 +55,7 @@ public sealed partial class SetupIndexerTests
 			await That(result4).IsEmpty();
 		}
 
-		[Fact]
+		[Test]
 		public async Task InitializeWith_ShouldSupportNull()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -71,7 +71,7 @@ public sealed partial class SetupIndexerTests
 			await That(result2).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task InitializeWith_Twice_ShouldThrowMockException()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -89,7 +89,7 @@ public sealed partial class SetupIndexerTests
 
 		public sealed class With2Levels
 		{
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -107,7 +107,7 @@ public sealed partial class SetupIndexerTests
 				await That(result41).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -123,7 +123,7 @@ public sealed partial class SetupIndexerTests
 					.WithMessage("The indexer is already initialized. You cannot initialize it twice.");
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_ShouldInitializeMatchingIndexers()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -141,7 +141,7 @@ public sealed partial class SetupIndexerTests
 				await That(result41).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Twice_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -160,7 +160,7 @@ public sealed partial class SetupIndexerTests
 
 		public sealed class With3Levels
 		{
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -181,7 +181,7 @@ public sealed partial class SetupIndexerTests
 				await That(result411).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -198,7 +198,7 @@ public sealed partial class SetupIndexerTests
 					.WithMessage("The indexer is already initialized. You cannot initialize it twice.");
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_ShouldInitializeMatchingIndexers()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -219,7 +219,7 @@ public sealed partial class SetupIndexerTests
 				await That(result411).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Twice_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -239,7 +239,7 @@ public sealed partial class SetupIndexerTests
 
 		public sealed class With4Levels
 		{
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -262,7 +262,7 @@ public sealed partial class SetupIndexerTests
 				await That(result4111).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -279,7 +279,7 @@ public sealed partial class SetupIndexerTests
 					.WithMessage("The indexer is already initialized. You cannot initialize it twice.");
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_ShouldInitializeMatchingIndexers()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -302,7 +302,7 @@ public sealed partial class SetupIndexerTests
 				await That(result4111).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Twice_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -322,7 +322,7 @@ public sealed partial class SetupIndexerTests
 
 		public sealed class With5Levels
 		{
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -347,7 +347,7 @@ public sealed partial class SetupIndexerTests
 				await That(result61111).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -365,7 +365,7 @@ public sealed partial class SetupIndexerTests
 					.WithMessage("The indexer is already initialized. You cannot initialize it twice.");
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_ShouldInitializeMatchingIndexers()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -390,7 +390,7 @@ public sealed partial class SetupIndexerTests
 				await That(result61111).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InitializeWith_Twice_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();

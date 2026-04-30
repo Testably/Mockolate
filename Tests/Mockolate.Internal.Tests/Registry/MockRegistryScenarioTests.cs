@@ -8,7 +8,7 @@ namespace Mockolate.Internal.Tests.Registry;
 
 public sealed class MockRegistryScenarioTests
 {
-	[Fact]
+	[Test]
 	public async Task ApplyIndexerGetter_WithLazyDefault_AndNonNullSetup_DispatchesToSetup()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -23,7 +23,7 @@ public sealed class MockRegistryScenarioTests
 		await That(callCount).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetIndexerSetup_ByAccess_WithActiveScenarioAndScopedMatching_ReturnsScoped()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -39,7 +39,7 @@ public sealed class MockRegistryScenarioTests
 		await That(result).IsSameAs(scoped);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetIndexerSetup_ByAccess_WithActiveScenarioButScopedDoesNotMatchAccess_FallsBackToGlobal()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -55,7 +55,7 @@ public sealed class MockRegistryScenarioTests
 		await That(result).IsSameAs(global);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetIndexerSetup_ByPredicate_WithActiveScenarioButPredicateRejectsScoped_FallsBackToGlobal()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -71,7 +71,7 @@ public sealed class MockRegistryScenarioTests
 		await That(result).IsSameAs(global);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetMethodSetups_WithActiveScenarioAndScopedSetup_YieldsScopedThenGlobal()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -89,7 +89,7 @@ public sealed class MockRegistryScenarioTests
 		await That(setups[1]).IsSameAs(global);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetMethodSetups_WithActiveScenarioButNoScopedBucket_FallsBackToGlobal()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));

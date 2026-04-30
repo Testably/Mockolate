@@ -6,14 +6,14 @@ public sealed partial class ItTests
 {
 	public sealed class IsInRangeTests
 	{
-		[Theory]
-		[InlineData(3, 5, false)]
-		[InlineData(3, 6, true)]
-		[InlineData(2, 4, false)]
-		[InlineData(5, 5, false)]
-		[InlineData(5, 6, false)]
-		[InlineData(4, 6, true)]
-		[InlineData(6, 7, false)]
+		[Test]
+		[Arguments(3, 5, false)]
+		[Arguments(3, 6, true)]
+		[Arguments(2, 4, false)]
+		[Arguments(5, 5, false)]
+		[Arguments(5, 6, false)]
+		[Arguments(4, 6, true)]
+		[Arguments(6, 7, false)]
 		public async Task ExecuteWith5_Exclusive_ShouldMatchWhenRangeContains5(int minimum, int maximum,
 			bool expectFound)
 		{
@@ -25,14 +25,14 @@ public sealed partial class ItTests
 				.Exactly(expectFound ? 1 : 0);
 		}
 
-		[Theory]
-		[InlineData(3, 5, true)]
-		[InlineData(3, 6, true)]
-		[InlineData(2, 4, false)]
-		[InlineData(5, 5, true)]
-		[InlineData(5, 6, true)]
-		[InlineData(4, 6, true)]
-		[InlineData(6, 7, false)]
+		[Test]
+		[Arguments(3, 5, true)]
+		[Arguments(3, 6, true)]
+		[Arguments(2, 4, false)]
+		[Arguments(5, 5, true)]
+		[Arguments(5, 6, true)]
+		[Arguments(4, 6, true)]
+		[Arguments(6, 7, false)]
 		public async Task ExecuteWith5_Inclusive_ShouldMatchWhenRangeContains5(int minimum, int maximum,
 			bool expectFound)
 		{
@@ -46,14 +46,14 @@ public sealed partial class ItTests
 				.Exactly(expectFound ? 1 : 0);
 		}
 
-		[Theory]
-		[InlineData(3, 5, true)]
-		[InlineData(3, 6, true)]
-		[InlineData(2, 4, false)]
-		[InlineData(5, 5, true)]
-		[InlineData(5, 6, true)]
-		[InlineData(4, 6, true)]
-		[InlineData(6, 7, false)]
+		[Test]
+		[Arguments(3, 5, true)]
+		[Arguments(3, 6, true)]
+		[Arguments(2, 4, false)]
+		[Arguments(5, 5, true)]
+		[Arguments(5, 6, true)]
+		[Arguments(4, 6, true)]
+		[Arguments(6, 7, false)]
 		public async Task ExecuteWith5_ShouldMatchWhenRangeContains5(int minimum, int maximum, bool expectFound)
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
@@ -64,7 +64,7 @@ public sealed partial class ItTests
 				.Exactly(expectFound ? 1 : 0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_Exclusive_ShouldReturnExpectedValue()
 		{
 			IParameter<double> sut = It.IsInRange(1.1, 4.1).Exclusive();
@@ -75,7 +75,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_Inclusive_ShouldReturnExpectedValue()
 		{
 			IParameter<int> sut = It.IsInRange(1, 4);
@@ -86,7 +86,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithMinimumGreaterThanMaximum_ShouldThrowArgumentOutOfRangeException()
 		{
 			void Act()

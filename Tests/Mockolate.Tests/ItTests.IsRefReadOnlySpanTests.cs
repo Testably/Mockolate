@@ -8,7 +8,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsRefReadOnlySpanTests
 	{
-		[Fact]
+		[Test]
 		public async Task ToString_WithPredicateAndSetter_ShouldReturnExpectedValue()
 		{
 			IRefParameter<ReadOnlySpanWrapper<int>> sut = It.IsRefReadOnlySpan<int>(
@@ -22,7 +22,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithPredicateOnly_ShouldReturnExpectedValue()
 		{
 			IRefParameter<ReadOnlySpanWrapper<int>> sut =
@@ -35,7 +35,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithSetterOnly_ShouldReturnExpectedValue()
 		{
 			IRefParameter<ReadOnlySpanWrapper<int>> sut = It.IsRefReadOnlySpan<int>(value => value);

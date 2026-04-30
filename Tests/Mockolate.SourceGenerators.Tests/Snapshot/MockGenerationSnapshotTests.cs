@@ -18,8 +18,8 @@ namespace Mockolate.SourceGenerators.Tests.Snapshot;
 /// </summary>
 public sealed class MockGenerationSnapshotTests
 {
-    [Theory]
-    [MemberData(nameof(ScenarioNames))]
+    [Test]
+    [MethodDataSource(nameof(ScenarioNames))]
     public async Task GeneratorOutput_MatchesExpectedSnapshot(string scenarioName)
     {
         var scenario = Scenarios.Single(s => s.Name == scenarioName);
@@ -102,16 +102,8 @@ public sealed class MockGenerationSnapshotTests
             []),
     ];
 
-    public static TheoryData<string> ScenarioNames
-    {
-        get
-        {
-            TheoryData<string> data = new();
-            foreach (var scenario in Scenarios) data.Add(scenario.Name);
-
-            return data;
-        }
-    }
+    public static IEnumerable<string> ScenarioNames()
+        => Scenarios.Select(scenario => scenario.Name);
 
     internal static GeneratorResult RunGenerator(SnapshotScenario scenario)
     {

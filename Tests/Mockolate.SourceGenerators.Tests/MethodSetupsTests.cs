@@ -4,7 +4,7 @@ namespace Mockolate.SourceGenerators.Tests;
 
 public sealed class MethodSetupsTests
 {
-	[Fact]
+	[Test]
 	public async Task GenerateMethodSetupsForMethodsWithMoreParameters()
 	{
 		GeneratorResult result = Generator
@@ -43,7 +43,7 @@ public sealed class MethodSetupsTests
 				"internal abstract class VoidMethodSetup<T1, T2, T3, T4, T5> : global::Mockolate.Setup.MethodSetup");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenAllMethodsHaveUpTo4Parameters_ShouldNotGenerateMethodSetups()
 	{
 		GeneratorResult result = Generator
@@ -74,8 +74,8 @@ public sealed class MethodSetupsTests
 		await That(result.Sources).DoesNotContainKey("MethodSetups.g.cs");
 	}
 
-	[Theory]
-	[InlineData(
+	[Test]
+	[Arguments(
 		"""
 		string ToString();
 		bool Equals(object? obj);
@@ -84,43 +84,43 @@ public sealed class MethodSetupsTests
 		"public override string ToString()",
 		"public override int GetHashCode()",
 		"public override bool Equals(object? obj)")]
-	[InlineData(
+	[Arguments(
 		"""
 		bool Equals(object obj);
 		int GetHashCode();
 		""",
 		"public override bool Equals(object obj)",
 		"public override int GetHashCode()")]
-	[InlineData(
+	[Arguments(
 		"""
 		string ToString();
 		int GetHashCode();
 		""",
 		"public override string ToString()",
 		"public override int GetHashCode()")]
-	[InlineData(
+	[Arguments(
 		"""
 		string ToString();
 		bool Equals(object obj);
 		""",
 		"public override string ToString()",
 		"public override bool Equals(object obj)")]
-	[InlineData(
+	[Arguments(
 		"""
 		string ToString();
 		""",
 		"public override string ToString()")]
-	[InlineData(
+	[Arguments(
 		"""
 		bool Equals(object obj);
 		""",
 		"public override bool Equals(object obj)")]
-	[InlineData(
+	[Arguments(
 		"""
 		bool Equals(object? obj);
 		""",
 		"public override bool Equals(object? obj)")]
-	[InlineData(
+	[Arguments(
 		"""
 		int GetHashCode();
 		""",
@@ -156,7 +156,7 @@ public sealed class MethodSetupsTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithComplexMethodReturningAValue_ShouldOnlyGenerateNecessaryExtensions()
 	{
 		GeneratorResult result = Generator
@@ -191,7 +191,7 @@ public sealed class MethodSetupsTests
 			.DoesNotContain("class ReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6, T7>");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithComplexMethodReturningVoid_ShouldOnlyGenerateNecessaryExtensions()
 	{
 		GeneratorResult result = Generator

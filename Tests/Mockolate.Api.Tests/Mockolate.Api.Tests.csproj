@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
-		<OutputType>exe</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -10,8 +9,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Remove="xunit"/>
-		<PackageReference Include="xunit.v3"/>
 		<PackageReference Include="aweXpect.Snapshots.PublicApi"/>
 	</ItemGroup>
 

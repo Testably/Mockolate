@@ -5,7 +5,7 @@ namespace Mockolate.Tests.MockProperties;
 
 public sealed partial class SetupPropertyTests
 {
-	[Fact]
+	[Test]
 	public async Task InvokeGetter_InvalidType_ShouldFallBackToDefaultValueGenerator()
 	{
 		MyPropertySetup<int> setup = new();
@@ -15,7 +15,7 @@ public sealed partial class SetupPropertyTests
 		await That(result).IsEqualTo("fallback");
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeSetter_InvalidType_ShouldThrowMockException()
 	{
 		MyPropertySetup<int> setup = new();
@@ -31,7 +31,7 @@ public sealed partial class SetupPropertyTests
 			             """);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Register_AfterInvocation_ShouldBeAppliedForFutureUse()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
@@ -47,7 +47,7 @@ public sealed partial class SetupPropertyTests
 		await That(result1).IsEqualTo(42);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Register_MultipleProperties_ShouldAllStoreValues()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
@@ -70,7 +70,7 @@ public sealed partial class SetupPropertyTests
 		await That(myOtherResult2).IsEqualTo(20);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Register_SamePropertyTwice_ShouldOverwritePreviousSetup()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
@@ -92,7 +92,7 @@ public sealed partial class SetupPropertyTests
 		await That(result4).IsEqualTo(6);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SetProperty_ShouldNotReinitializeSetupOnRepeatedCalls()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
@@ -107,7 +107,7 @@ public sealed partial class SetupPropertyTests
 		await That(setup.InitializeValueCallCount).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldStoreLastValue()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
@@ -123,7 +123,7 @@ public sealed partial class SetupPropertyTests
 		await That(result2).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_ShouldReturnType()
 	{
 		PropertySetup<int> setup = new(new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)), "Foo");
@@ -133,7 +133,7 @@ public sealed partial class SetupPropertyTests
 		await That(result).IsEqualTo("int Foo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenMockInheritsPropertyMultipleTimes()
 	{
 		IMyPropertyService sut = IMyPropertyService.CreateMock().Implementing<IMyPropertyServiceBase1>();

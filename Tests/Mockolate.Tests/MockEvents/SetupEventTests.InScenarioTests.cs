@@ -6,7 +6,7 @@ public sealed partial class SetupEventTests
 {
 	public sealed class InScenarioTests
 	{
-		[Fact]
+		[Test]
 		public async Task WithMatchingScopedAndGlobalSubscribedSetups_OnlyScopedShouldFire()
 		{
 			int scopedCount = 0;
@@ -23,7 +23,7 @@ public sealed partial class SetupEventTests
 			await That(globalCount).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithMatchingScopedAndGlobalUnsubscribedSetups_OnlyScopedShouldFire()
 		{
 			int scopedCount = 0;
@@ -41,7 +41,7 @@ public sealed partial class SetupEventTests
 			await That(globalCount).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithScopedBucketButNoScopedEventSetup_GlobalShouldStillFire()
 		{
 			int globalCount = 0;

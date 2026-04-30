@@ -6,7 +6,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsAnyRefTests
 	{
-		[Fact]
+		[Test]
 		public async Task ShouldMatchInt()
 		{
 			IRefParameter<int?> sut = It.IsAnyRef<int?>();
@@ -16,7 +16,7 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldMatchNull()
 		{
 			IRefParameter<int?> sut = It.IsAnyRef<int?>();
@@ -26,7 +26,7 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IRefParameter<int> sut = It.IsAnyRef<int>();

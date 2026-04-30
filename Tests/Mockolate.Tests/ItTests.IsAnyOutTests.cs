@@ -6,7 +6,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsAnyOutTests
 	{
-		[Fact]
+		[Test]
 		public async Task ShouldMatchInt()
 		{
 			IOutParameter<int?> sut = It.IsAnyOut<int?>();
@@ -16,7 +16,7 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldMatchNull()
 		{
 			IOutParameter<int?> sut = It.IsAnyOut<int?>();
@@ -26,7 +26,7 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IOutParameter<int> sut = It.IsAnyOut<int>();
@@ -37,7 +37,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetValue_ShouldReturnFalse()
 		{
 			IOutParameter<int?> sut = It.IsAnyOut<int?>();

@@ -2,7 +2,7 @@ namespace Build.Tests;
 
 public sealed class BenchmarkTableParserTests
 {
-	[Fact]
+	[Test]
 	public async Task Reset_ShouldClearMeanIndexAndAllowFreshTable()
 	{
 		BenchmarkTableParser parser = new([]);
@@ -16,7 +16,7 @@ public sealed class BenchmarkTableParserTests
 		await That(parser.MeanIndex).IsEqualTo(-1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryConsume_ShouldAssignSequentialRowIndicesStartingAtZero()
 	{
 		BenchmarkTableParser parser = new([]);
@@ -32,7 +32,7 @@ public sealed class BenchmarkTableParserTests
 		await That(secondData).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryConsume_ShouldComputeDroppedIndicesOnceAndReuseThemForLaterRows()
 	{
 		BenchmarkTableParser parser = new(["Gen0",]);
@@ -43,7 +43,7 @@ public sealed class BenchmarkTableParserTests
 		await That(filtered).IsEqualTo("| Foo | 1 ns | 100 B |");
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryConsume_ShouldDetectMeanColumnFromHeader()
 	{
 		BenchmarkTableParser parser = new([]);
@@ -53,7 +53,7 @@ public sealed class BenchmarkTableParserTests
 		await That(parser.MeanIndex).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryConsume_ShouldDropConfiguredColumnsCaseInsensitively()
 	{
 		BenchmarkTableParser parser = new(["Gen0", "GEN1",]);
@@ -68,7 +68,7 @@ public sealed class BenchmarkTableParserTests
 		await That(dataTokens).IsEqualTo(["Foo", "1 ns", "100 B",]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryConsume_ShouldStripBdnBoldMarkdownFromTokens()
 	{
 		BenchmarkTableParser parser = new([]);
@@ -80,7 +80,7 @@ public sealed class BenchmarkTableParserTests
 		await That(tokens).IsEqualTo(["Indexer_Mockolate", "1", "923 ns",]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryConsume_WhenHeaderHasNoMeanColumn_ShouldReportNegativeMeanIndex()
 	{
 		BenchmarkTableParser parser = new([]);
@@ -90,7 +90,7 @@ public sealed class BenchmarkTableParserTests
 		await That(parser.MeanIndex).IsEqualTo(-1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryConsume_WhenLineIsNotTableShaped_ShouldReturnFalseAndKeepInitialState()
 	{
 		BenchmarkTableParser parser = new([]);
@@ -104,7 +104,7 @@ public sealed class BenchmarkTableParserTests
 		await That(tokens).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryConsume_WhenNonTableLineFollowsTable_ShouldAutoResetSoNextTableStartsAtZero()
 	{
 		BenchmarkTableParser parser = new([]);

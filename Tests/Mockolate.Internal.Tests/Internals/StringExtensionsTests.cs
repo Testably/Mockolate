@@ -4,7 +4,7 @@ namespace Mockolate.Internal.Tests.Internals;
 
 public sealed class StringExtensionsTests
 {
-	[Fact]
+	[Test]
 	public async Task SubstringAfterLast_WhenNameContainsMultipleDots_ShouldUseLastOccurrence()
 	{
 		string value = "foo.bar.baz";
@@ -14,7 +14,7 @@ public sealed class StringExtensionsTests
 		await That(result).IsEqualTo("baz");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubstringAfterLast_WhenNameDoesNotContainAnyDots_ShouldReturnFullString()
 	{
 		string value = "foo-bar";
@@ -24,7 +24,7 @@ public sealed class StringExtensionsTests
 		await That(result).IsEqualTo("foo-bar");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubstringAfterLast_WhenNameEndsWithDot_ShouldReturnEmptyString()
 	{
 		string value = "foo.";
@@ -34,7 +34,7 @@ public sealed class StringExtensionsTests
 		await That(result).IsEqualTo("");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubstringUntilFirst_WhenNameContainsMultipleDots_ShouldUseFirstOccurrence()
 	{
 		string value = "foo.bar.baz";
@@ -44,7 +44,7 @@ public sealed class StringExtensionsTests
 		await That(result).IsEqualTo("foo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubstringUntilFirst_WhenNameDoesNotContainAnyDots_ShouldReturnFullString()
 	{
 		string value = "foo-bar";
@@ -54,7 +54,7 @@ public sealed class StringExtensionsTests
 		await That(result).IsEqualTo("foo-bar");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SubstringUntilFirst_WhenNameStartsWithDot_ShouldReturnEmptyString()
 	{
 		string value = ".foo";

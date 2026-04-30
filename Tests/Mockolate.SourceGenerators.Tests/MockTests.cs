@@ -5,7 +5,7 @@ namespace Mockolate.SourceGenerators.Tests;
 
 public sealed partial class MockTests
 {
-	[Fact]
+	[Test]
 	public async Task DeeplyNestedClass_ShouldSetupAndVerifyForAllInheritedTypesExceptExplicitInterfaceMembers()
 	{
 		GeneratorResult result = Generator
@@ -99,7 +99,7 @@ public sealed partial class MockTests
 			.DoesNotContain("global::Mockolate.Verify.VerificationEventResult<IMockVerifyForOuterClass> IMockVerifyForOuterClass.NestedEvent");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ExplicitInterfaceImplementation_ShouldNotAddAccessibility()
 	{
 		GeneratorResult result = Generator
@@ -138,7 +138,7 @@ public sealed partial class MockTests
 			.DoesNotContain("private global::System.Collections.IEnumerator GetEnumerator()");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithAdditionalConstructorsWithParameters_ShouldWorkForAllNonPrivateConstructors()
 	{
 		GeneratorResult result = Generator
@@ -168,7 +168,7 @@ public sealed partial class MockTests
 			.DoesNotContain("No parameterless constructor found");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithConstructorWithParameters_ShouldWorkForAllNonPrivateConstructors()
 	{
 		GeneratorResult result = Generator
@@ -245,7 +245,7 @@ public sealed partial class MockTests
 			          """).IgnoringNewlineStyle();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithOnlyParameterlessConstructor_ShouldOmitConstructorParametersOverloads()
 	{
 		GeneratorResult result = Generator
@@ -277,7 +277,7 @@ public sealed partial class MockTests
 				"private static global::MyCode.MyBaseClass CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForMyBaseClass>? setup, object?[]? constructorParameters)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithoutExplicitConstructor_ShouldOmitConstructorParametersOverloads()
 	{
 		GeneratorResult result = Generator
@@ -307,7 +307,7 @@ public sealed partial class MockTests
 				"private static global::MyCode.MyBaseClass CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForMyBaseClass>? setup, object?[]? constructorParameters)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithoutPublicOrProtectedConstructor_ShouldOnlyGenerateMockThatThrowsException()
 	{
 		GeneratorResult result = Generator
@@ -333,7 +333,7 @@ public sealed partial class MockTests
 		await That(result.Sources).DoesNotContainKey("Mock.MyBaseClass.g.cs");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithSealedOverrideEvent_ShouldNotOverrideEvent()
 	{
 		GeneratorResult result = Generator
@@ -367,7 +367,7 @@ public sealed partial class MockTests
 			.DoesNotContain("event System.EventHandler<long>? SomeEvent");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithSealedOverrideIndexer_ShouldNotOverrideIndexer()
 	{
 		GeneratorResult result = Generator
@@ -401,7 +401,7 @@ public sealed partial class MockTests
 			.DoesNotContain("override int this[int index]");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithSealedOverrideMethod_ShouldNotOverrideMethod()
 	{
 		GeneratorResult result = Generator
@@ -436,7 +436,7 @@ public sealed partial class MockTests
 			.DoesNotContain("override void MyMethod(int value)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ForTypesWithSealedOverrideProperty_ShouldNotOverrideProperty()
 	{
 		GeneratorResult result = Generator
@@ -470,7 +470,7 @@ public sealed partial class MockTests
 			.DoesNotContain("override int MyProperty");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenGenericMethod_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -510,7 +510,7 @@ public sealed partial class MockTests
 				"the explicit implementation of the hidden member must delegate to the declaring interface, not to the hiding member");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenGenericMethod_WithAdditionalConstraints_ShouldNotDelegateToHidingMember()
 	{
 		GeneratorResult result = Generator
@@ -549,7 +549,7 @@ public sealed partial class MockTests
 			          """).IgnoringNewlineStyle();
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenGenericMethod_WithNarrowedConstraints_ShouldNotDelegateToHidingMember()
 	{
 		GeneratorResult result = Generator
@@ -588,7 +588,7 @@ public sealed partial class MockTests
 			          """).IgnoringNewlineStyle();
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenGenericMethod_InDeepHierarchy_ShouldNotDelegateToHidingMember()
 	{
 		GeneratorResult result = Generator
@@ -638,7 +638,7 @@ public sealed partial class MockTests
 			.Because("every level of the hierarchy must delegate to its own declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenProperty_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -680,7 +680,7 @@ public sealed partial class MockTests
 			.Because("the setter of the explicit implementation must write to the declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenProperty_WithUnrelatedType_ShouldNotDelegateToHidingMember()
 	{
 		GeneratorResult result = Generator
@@ -721,7 +721,7 @@ public sealed partial class MockTests
 			          """).IgnoringNewlineStyle();
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenGetOnlyProperty_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -756,7 +756,7 @@ public sealed partial class MockTests
 			.Because("a get-only hidden property must still read from the declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenInitOnlyProperty_ShouldOnlyDelegateGetterToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -793,7 +793,7 @@ public sealed partial class MockTests
 			.Because("an init accessor cannot be forwarded to an already constructed instance");
 	}
 
-	[Fact]
+	[Test]
 	public async Task InitOnlyProperty_InClass_ShouldNotDelegateSetterToWrappedInstance()
 	{
 		GeneratorResult result = Generator
@@ -823,7 +823,7 @@ public sealed partial class MockTests
 			.Because("an init accessor cannot be forwarded to an already constructed instance");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenIndexer_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -867,7 +867,7 @@ public sealed partial class MockTests
 			.Because("the setter of the explicit implementation must write to the declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenEvent_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -913,7 +913,7 @@ public sealed partial class MockTests
 			.Because("unsubscribing on the explicit implementation must unsubscribe on the declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HiddenProperty_InDeepHierarchy_ShouldNotDelegateToHidingMember()
 	{
 		GeneratorResult result = Generator
@@ -956,7 +956,7 @@ public sealed partial class MockTests
 			.Because("every level of the hierarchy must delegate to its own declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SiblingInterfaceProperty_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -1006,7 +1006,7 @@ public sealed partial class MockTests
 			.Because("each sibling member must delegate to its own declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SiblingInterfaceIndexer_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -1060,7 +1060,7 @@ public sealed partial class MockTests
 			.Because("each sibling indexer must delegate to its own declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SiblingInterfaceEvent_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -1119,7 +1119,7 @@ public sealed partial class MockTests
 			.Because("each sibling event must subscribe and unsubscribe on its own declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SiblingInterfaceMethod_ShouldDelegateWrappingToDeclaringInterface()
 	{
 		GeneratorResult result = Generator
@@ -1159,7 +1159,7 @@ public sealed partial class MockTests
 			.Because("each sibling method must delegate to its own declaring interface");
 	}
 
-	[Fact]
+	[Test]
 	public async Task MembersWithReservedNames_ShouldPrefixAtSymbol()
 	{
 		GeneratorResult result = Generator
@@ -1200,7 +1200,7 @@ public sealed partial class MockTests
 		;
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodOrIndexerParametersWithReservedNames_ShouldPrefixAtSymbol()
 	{
 		GeneratorResult result = Generator
@@ -1262,7 +1262,7 @@ public sealed partial class MockTests
 			          """).IgnoringNewlineStyle();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldHandleComplexInheritanceWithSealedAndInternalMembers()
 	{
 		GeneratorResult result = Generator
@@ -1308,7 +1308,7 @@ public sealed partial class MockTests
 			.Contains("override void ProtectedMethod");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldNotIncludeSealedOverrideSpecialMethods()
 	{
 		GeneratorResult result = Generator
@@ -1349,7 +1349,7 @@ public sealed partial class MockTests
 			.DoesNotContain("override string ToString");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldNotIncludeSealedOverrideSpecialMethodsWithNonNullableParameters()
 	{
 		GeneratorResult result = Generator
@@ -1388,7 +1388,7 @@ public sealed partial class MockTests
 				"MyMiddleClass.Equals(object) must still match and filter out object.Equals(object?) despite the nullability difference");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldPreserveProtectedInternalAccessibilityOnOverriddenMembers()
 	{
 		GeneratorResult result = Generator
@@ -1424,7 +1424,7 @@ public sealed partial class MockTests
 			.DoesNotContain("protected override event");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldSupportSpecialTypes()
 	{
 		GeneratorResult result = Generator
