@@ -5,7 +5,7 @@ namespace Mockolate.Tests.Parameters;
 
 public sealed class ParamsArrayParameterMatchTests
 {
-	[Fact]
+	[Test]
 	public async Task Matches_WhenLengthMatchesAndAllElementsSatisfy_ShouldReturnTrue()
 	{
 		StubParameter first = new(true, "first");
@@ -19,7 +19,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(second.MatchedValues).IsEqualTo([2,]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Matches_WhenAnElementFails_ShouldReturnFalse()
 	{
 		ParamsArrayParameterMatch<int> sut = new(new StubParameter(true, "first"), new StubParameter(false, "second"));
@@ -29,7 +29,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Matches_WhenLengthDiffers_ShouldReturnFalseWithoutInvokingMatchers()
 	{
 		StubParameter only = new(true, "only");
@@ -41,7 +41,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(only.MatchedValues).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Matches_WhenValueIsNull_ShouldReturnFalse()
 	{
 		ParamsArrayParameterMatch<int> sut = new(new StubParameter(true, "only"));
@@ -51,7 +51,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Matches_WhenMatcherElementIsNull_ShouldReturnFalseWithoutThrowing()
 	{
 		ParamsArrayParameterMatch<int> sut = new(new StubParameter(true, "first"), null!);
@@ -61,7 +61,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_WhenLengthMatches_ShouldInvokeEachMatcher()
 	{
 		StubParameter first = new(true, "first");
@@ -74,7 +74,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(second.InvokedValues).IsEqualTo([2,]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_WhenLengthDiffers_ShouldNotInvokeMatchers()
 	{
 		StubParameter only = new(true, "only");
@@ -85,7 +85,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(only.InvokedValues).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_WhenValueIsNull_ShouldNotInvokeMatchers()
 	{
 		StubParameter only = new(true, "only");
@@ -96,7 +96,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(only.InvokedValues).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_WhenMatcherElementIsNull_ShouldSkipItWithoutThrowing()
 	{
 		StubParameter first = new(true, "first");
@@ -107,7 +107,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(first.InvokedValues).IsEqualTo([1,]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_ShouldRenderMatchersInOrder()
 	{
 		ParamsArrayParameterMatch<int> sut = new(new StubParameter(true, "first"), new StubParameter(true, "second"));
@@ -115,7 +115,7 @@ public sealed class ParamsArrayParameterMatchTests
 		await That(sut.ToString()).IsEqualTo("[first, second]");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_WithNullMatcher_ShouldRenderNullToken()
 	{
 		ParamsArrayParameterMatch<int> sut = new(new StubParameter(true, "first"), null!);

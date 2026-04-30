@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -8,30 +9,30 @@ namespace Mockolate.SourceGenerators.Tests.Entities;
 
 public class TypeIsFormattableTests
 {
-	[Fact]
-	public async Task WhenSymbolIsObject_ShouldNotReportFormattable()
+	[Test]
+	public async Task WhenSymbolIsObject_ShouldNotReportFormattable(CancellationToken cancellationToken)
 	{
 		const string source = "public class Holder { public object Value; }";
-		SyntaxTree tree = CSharpSyntaxTree.ParseText(source, cancellationToken: TestContext.Current.CancellationToken);
+		SyntaxTree tree = CSharpSyntaxTree.ParseText(source, cancellationToken: cancellationToken);
 		CSharpCompilation compilation = CSharpCompilation.Create(
 			"TestAssembly",
 			[tree,],
 			[MetadataReference.CreateFromFile(typeof(object).Assembly.Location),],
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 		SemanticModel model = compilation.GetSemanticModel(tree);
-		FieldDeclarationSyntax declaration = tree.GetRoot(TestContext.Current.CancellationToken).DescendantNodes()
+		FieldDeclarationSyntax declaration = tree.GetRoot(cancellationToken).DescendantNodes()
 			.OfType<FieldDeclarationSyntax>()
 			.First();
 		VariableDeclaratorSyntax variable = declaration.Declaration.Variables.Single();
-		IFieldSymbol fieldSymbol = (IFieldSymbol)model.GetDeclaredSymbol(variable, TestContext.Current.CancellationToken)!;
+		IFieldSymbol fieldSymbol = (IFieldSymbol)model.GetDeclaredSymbol(variable, cancellationToken)!;
 
 		Type type = Type.From(fieldSymbol.Type);
 
 		await That(type.IsFormattable).IsFalse();
 	}
 
-	[Fact]
-	public async Task WhenSymbolIsSystemIFormattableItself_ShouldReportFormattable()
+	[Test]
+	public async Task WhenSymbolIsSystemIFormattableItself_ShouldReportFormattable(CancellationToken cancellationToken)
 	{
 		// The IsFormattable self-check (Type.cs:87-94) handles the case where the symbol IS
 		// System.IFormattable - AllInterfaces excludes the type itself, so the explicit
@@ -43,7 +44,7 @@ public class TypeIsFormattableTests
 		                          public IFormattable Value;
 		                      }
 		                      """;
-		SyntaxTree tree = CSharpSyntaxTree.ParseText(source, cancellationToken: TestContext.Current.CancellationToken);
+		SyntaxTree tree = CSharpSyntaxTree.ParseText(source, cancellationToken: cancellationToken);
 		CSharpCompilation compilation = CSharpCompilation.Create(
 			"TestAssembly",
 			[tree,],
@@ -53,11 +54,11 @@ public class TypeIsFormattableTests
 			],
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 		SemanticModel model = compilation.GetSemanticModel(tree);
-		FieldDeclarationSyntax declaration = tree.GetRoot(TestContext.Current.CancellationToken).DescendantNodes()
+		FieldDeclarationSyntax declaration = tree.GetRoot(cancellationToken).DescendantNodes()
 			.OfType<FieldDeclarationSyntax>()
 			.First();
 		VariableDeclaratorSyntax variable = declaration.Declaration.Variables.Single();
-		IFieldSymbol fieldSymbol = (IFieldSymbol)model.GetDeclaredSymbol(variable, TestContext.Current.CancellationToken)!;
+		IFieldSymbol fieldSymbol = (IFieldSymbol)model.GetDeclaredSymbol(variable, cancellationToken)!;
 		ITypeSymbol typeSymbol = fieldSymbol.Type;
 
 		Type type = Type.From(typeSymbol);

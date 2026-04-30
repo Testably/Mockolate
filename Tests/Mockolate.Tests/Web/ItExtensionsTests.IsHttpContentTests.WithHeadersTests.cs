@@ -12,7 +12,7 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class WithHeadersTests
 		{
-			[Fact]
+			[Test]
 			public async Task IncludingRequestHeaders_ShouldMatchRequestHeadersFromContentAndRequest()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -31,7 +31,7 @@ public sealed partial class ItExtensionsTests
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Fact]
+			[Test]
 			public async Task IncludingRequestHeaders_WhenNotSet_ShouldOnlyMatchRequestHeadersFromContent()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -50,11 +50,11 @@ public sealed partial class ItExtensionsTests
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("x-myHeader1", "foo", "x-myHeader3", "baz", true)]
-			[InlineData("x-myHeader3", "baz", "x-myHeader1", "foo", true)]
-			[InlineData("x-myHeader2", "baz", "x-myHeader1", "foo", false)]
-			[InlineData("x-myHeader1", "foo", "x-myHeader2", "baz", false)]
+			[Test]
+			[Arguments("x-myHeader1", "foo", "x-myHeader3", "baz", true)]
+			[Arguments("x-myHeader3", "baz", "x-myHeader1", "foo", true)]
+			[Arguments("x-myHeader2", "baz", "x-myHeader1", "foo", false)]
+			[Arguments("x-myHeader1", "foo", "x-myHeader2", "baz", false)]
 			public async Task MultipleCalls_ShouldVerifyKeyValueHeaders(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
@@ -76,11 +76,11 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("x-myHeader1", "foo", "x-myHeader3", "baz", true)]
-			[InlineData("x-myHeader3", "baz", "x-myHeader1", "foo", true)]
-			[InlineData("x-myHeader2", "baz", "x-myHeader1", "foo", false)]
-			[InlineData("x-myHeader1", "foo", "x-myHeader2", "baz", false)]
+			[Test]
+			[Arguments("x-myHeader1", "foo", "x-myHeader3", "baz", true)]
+			[Arguments("x-myHeader3", "baz", "x-myHeader1", "foo", true)]
+			[Arguments("x-myHeader2", "baz", "x-myHeader1", "foo", false)]
+			[Arguments("x-myHeader1", "foo", "x-myHeader2", "baz", false)]
 			public async Task MultipleCalls_ShouldVerifyKeyValuePairHeaders(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
@@ -102,11 +102,11 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("x-myHeader1: foo", "x-myHeader3: baz", true)]
-			[InlineData("x-myHeader3: baz", "x-myHeader1: foo", true)]
-			[InlineData("x-myHeader2: baz", "x-myHeader1: foo", false)]
-			[InlineData("x-myHeader1: foo", "x-myHeader2: baz", false)]
+			[Test]
+			[Arguments("x-myHeader1: foo", "x-myHeader3: baz", true)]
+			[Arguments("x-myHeader3: baz", "x-myHeader1: foo", true)]
+			[Arguments("x-myHeader2: baz", "x-myHeader1: foo", false)]
+			[Arguments("x-myHeader1: foo", "x-myHeader2: baz", false)]
 			public async Task MultipleCalls_ShouldVerifyStringHeaders(
 				string headers1, string headers2, bool expectSuccess)
 			{
@@ -128,7 +128,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldOnlyRequireOneMatchingValue()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -147,10 +147,10 @@ public sealed partial class ItExtensionsTests
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Theory]
-			[InlineData("foo", true)]
-			[InlineData("bar", false)]
-			[InlineData("FOO", true)]
+			[Test]
+			[Arguments("foo", true)]
+			[Arguments("bar", false)]
+			[Arguments("FOO", true)]
 			public async Task ShouldVerifyHeaderKeyCaseInsensitive(string key, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -168,10 +168,10 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("foo", true)]
-			[InlineData("bar", false)]
-			[InlineData("FOO", false)]
+			[Test]
+			[Arguments("foo", true)]
+			[Arguments("bar", false)]
+			[Arguments("FOO", false)]
 			public async Task ShouldVerifyHeaderValueCaseSensitive(string value, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -189,10 +189,10 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("foo", true)]
-			[InlineData("bar", false)]
-			[InlineData("FOO", true)]
+			[Test]
+			[Arguments("foo", true)]
+			[Arguments("bar", false)]
+			[Arguments("FOO", true)]
 			public async Task ShouldVerifyMultipleHeaderKeyCaseInsensitive(string key, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -215,10 +215,10 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("foo", true)]
-			[InlineData("bar", false)]
-			[InlineData("FOO", false)]
+			[Test]
+			[Arguments("foo", true)]
+			[Arguments("bar", false)]
+			[Arguments("FOO", false)]
 			public async Task ShouldVerifyMultipleHeaderValueCaseSensitive(string value, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -241,16 +241,16 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("""
+			[Test]
+			[Arguments("""
 			            x-myHeader1 : foo
 			             x-myHeader3: baz
 			            """, true)]
-			[InlineData("""
+			[Arguments("""
 			            x-myHeader3: baz
 			            x-myHeader1: foo
 			            """, true)]
-			[InlineData("""
+			[Arguments("""
 			            x-myHeader2: foo
 			            x-myHeader3: baz
 			            """, false)]
@@ -274,7 +274,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithInvalidStringHeader_ShouldThrowArgumentException()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

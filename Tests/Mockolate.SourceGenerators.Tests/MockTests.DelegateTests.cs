@@ -4,7 +4,7 @@ public sealed partial class MockTests
 {
 	public sealed class DelegateTests
 	{
-		[Fact]
+		[Test]
 		public async Task CustomDelegates_ShouldOnlyCreateTwoExtensionsForSetupAndVerify()
 		{
 			GeneratorResult result = Generator
@@ -51,7 +51,7 @@ public sealed partial class MockTests
 				          """).IgnoringNewlineStyle();
 		}
 
-		[Fact]
+		[Test]
 		public async Task CustomDelegates_ShouldSupportSpanAndReadOnlySpanReturnTypes()
 		{
 			GeneratorResult result = Generator
@@ -124,7 +124,7 @@ public sealed partial class MockTests
 				          """).IgnoringNewlineStyle();
 		}
 
-		[Fact]
+		[Test]
 		public async Task CustomDelegates_WithSpanParameter_ShouldUseWrapperInsteadOfDegrading()
 		{
 			GeneratorResult result = Generator
@@ -155,7 +155,7 @@ public sealed partial class MockTests
 					"a by-value Span parameter stays outside the delegate ref-struct carve-out, so the setup surface is emitted against SpanWrapper<T>");
 		}
 
-		[Fact]
+		[Test]
 		public async Task CustomVoidDelegates_ShouldOnlyCreateTwoExtensionsForSetupAndVerify()
 		{
 			GeneratorResult result = Generator
@@ -202,7 +202,7 @@ public sealed partial class MockTests
 				          """).IgnoringNewlineStyle();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Delegate_ShouldHaveCorrectReferenceInXMLDocumentation()
 		{
 			GeneratorResult result = Generator
@@ -230,7 +230,7 @@ public sealed partial class MockTests
 				.DoesNotContain("Verify invocations for the method <see cref=\"global::MyCode.Program.DoSomething.Verify(");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Delegates_ShouldCreateDelegateInsteadOfMockSubject()
 		{
 			GeneratorResult result = Generator
@@ -257,7 +257,7 @@ public sealed partial class MockTests
 				.Contains("global::System.Func<int, bool> Object").IgnoringNewlineStyle();
 		}
 
-		[Fact]
+		[Test]
 		public async Task DelegateWithMoreThanMaxParameters_ShouldGenerateSingleAllValueFlagsOverload()
 		{
 			GeneratorResult result = Generator
@@ -288,7 +288,7 @@ public sealed partial class MockTests
 				.IgnoringNewlineStyle();
 		}
 
-		[Fact]
+		[Test]
 		public async Task DelegateWithMoreThanMaxParametersAllOut_ShouldNotGenerateValueFlagsOverload()
 		{
 			GeneratorResult result = Generator
@@ -317,7 +317,7 @@ public sealed partial class MockTests
 				.IgnoringNewlineStyle();
 		}
 
-		[Fact]
+		[Test]
 		public async Task DelegateWithParameterNamedMethodSetup_ShouldGenerateUniqueLocalVariableName()
 		{
 			GeneratorResult result = Generator
@@ -348,7 +348,7 @@ public sealed partial class MockTests
 				.IgnoringNewlineStyle();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VoidDelegateWithParameterNamedMethodSetup_ShouldGenerateUniqueLocalVariableName()
 		{
 			GeneratorResult result = Generator

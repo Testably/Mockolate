@@ -6,7 +6,7 @@ public sealed partial class SetupIndexerTests
 {
 	public sealed class InScenarioTests
 	{
-		[Fact]
+		[Test]
 		public async Task OnGet_Arity1_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -21,7 +21,7 @@ public sealed partial class SetupIndexerTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task OnGet_Arity2_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -36,7 +36,7 @@ public sealed partial class SetupIndexerTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task OnGet_Arity3_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -51,7 +51,7 @@ public sealed partial class SetupIndexerTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task OnGet_Arity4_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -66,7 +66,7 @@ public sealed partial class SetupIndexerTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task OnSet_Arity1_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -81,7 +81,7 @@ public sealed partial class SetupIndexerTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task OnSet_Arity2_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -96,7 +96,7 @@ public sealed partial class SetupIndexerTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task OnSet_Arity3_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -111,7 +111,7 @@ public sealed partial class SetupIndexerTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task OnSet_Arity4_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();

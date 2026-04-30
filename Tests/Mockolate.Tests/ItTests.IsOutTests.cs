@@ -6,7 +6,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsOutTests
 	{
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IOutParameter<int> sut = It.IsOut(() => 3);
@@ -17,7 +17,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_Verify_ShouldReturnExpectedValue()
 		{
 			IVerifyOutParameter<int> sut = It.IsOut<int>();
@@ -29,7 +29,7 @@ public sealed partial class ItTests
 		}
 
 #if NET9_0_OR_GREATER
-		[Fact]
+		[Test]
 		public async Task ToString_WithRefStructFactory_ShouldReturnExpectedValue()
 		{
 			IOutRefStructParameter<Span<int>> sut = It.IsOut<Span<int>>(() => default);
@@ -41,9 +41,9 @@ public sealed partial class ItTests
 		}
 #endif
 
-		[Theory]
-		[InlineData(42)]
-		[InlineData(-2)]
+		[Test]
+		[Arguments(42)]
+		[Arguments(-2)]
 		public async Task WithOut_ShouldReturnValue(int? value)
 		{
 			IOutParameter<int?> sut = It.IsOut(() => value);
@@ -54,7 +54,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(value);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithOut_Verify_ShouldAlwaysMatch()
 		{
 			IVerifyOutParameter<int?> sut = It.IsOut<int?>();

@@ -7,7 +7,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsNullTests
 	{
-		[Fact]
+		[Test]
 		public async Task CachedMatcher_CallbackFromPriorDo_ShouldNotLeakIntoSubsequentUsage()
 		{
 			_ = It.IsNull<string?>().Do(_ => throw new InvalidOperationException("callback leaked from prior use"));
@@ -17,9 +17,9 @@ public sealed partial class ItTests
 			await That(() => ((IParameterMatch<string?>)subsequent).InvokeCallbacks(null)).DoesNotThrow();
 		}
 
-		[Theory]
-		[InlineData(null, 1)]
-		[InlineData(1, 0)]
+		[Test]
+		[Arguments(null, 1)]
+		[Arguments(1, 0)]
 		public async Task Null_ShouldMatchWhenNull(int? value, int expectedCount)
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
@@ -30,7 +30,7 @@ public sealed partial class ItTests
 			await That(sut.Mock.Verify.DoSomething(null, It.Is(true))).Exactly(expectedCount);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldReturnSharedInstance_WhenToStringIsOmitted()
 		{
 			IParameter<string> first = It.IsNull<string>();
@@ -39,7 +39,7 @@ public sealed partial class ItTests
 			await That(first).IsSameAs(second);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IParameter<string> sut = It.IsNull<string>();
@@ -50,7 +50,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WhenTypeDoesNotMatch_ShouldReturnFalse()
 		{
 			MyFlavor flavor = MyFlavor.Dark;
@@ -61,10 +61,10 @@ public sealed partial class ItTests
 			await That(result).IsFalse();
 		}
 
-		[Theory]
-		[InlineData(null, true)]
-		[InlineData("", false)]
-		[InlineData("foo", false)]
+		[Test]
+		[Arguments(null, true)]
+		[Arguments("", false)]
+		[Arguments("foo", false)]
 		public async Task WithValue_Nullable_ShouldMatchWhenEqual(string? value, bool expectMatch)
 		{
 			IParameter<string?> sut = It.IsNull<string?>();

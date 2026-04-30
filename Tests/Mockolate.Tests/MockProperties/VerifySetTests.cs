@@ -4,7 +4,7 @@ namespace Mockolate.Tests.MockProperties;
 
 public sealed class VerifySetTests
 {
-	[Fact]
+	[Test]
 	public async Task Set_WithExplicitParameter_ShouldCheckForEquality()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -16,7 +16,7 @@ public sealed class VerifySetTests
 		await That(sut.Mock.Verify.Counter.Set(43)).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Set_WithExplicitReferenceTypeParameter_ShouldCheckForEquality()
 	{
 		IServiceWithStringProperty sut = IServiceWithStringProperty.CreateMock();
@@ -27,7 +27,7 @@ public sealed class VerifySetTests
 		await That(sut.Mock.Verify.Name.Set("hello")).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldIncreaseInvocationCountOfGetter()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -38,9 +38,9 @@ public sealed class VerifySetTests
 		await That(sut.Mock.Verify.Counter.Set(It.IsAny<int>())).Once();
 	}
 
-	[Theory]
-	[InlineData(true)]
-	[InlineData(false)]
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
 	public async Task ShouldThrowMockNotSetupExceptionWhenBehaviorIsSetToThrow(bool throwWhenNotSetup)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock(MockBehavior.Default with
@@ -59,7 +59,7 @@ public sealed class VerifySetTests
 			             """);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldUpdateValueForNextGet()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -72,7 +72,7 @@ public sealed class VerifySetTests
 		await That(result2).IsEqualTo(5);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithNull_ShouldUpdateValueForNextGet()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();

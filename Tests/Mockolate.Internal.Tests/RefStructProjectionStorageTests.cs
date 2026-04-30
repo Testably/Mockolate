@@ -22,7 +22,7 @@ public sealed class RefStructProjectionStorageTests
 		public int Id { get; } = id;
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetterSetup_WithProjection_StoreAndTryGet_RoundTrip()
 	{
 		IParameter<Key> matcher = It.IsRefStructBy<Key, int>(k => k.Id);
@@ -37,7 +37,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(value).IsEqualTo("forty-two");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetterSetup_WithoutProjection_StoreIsNoOp_TryGetReturnsFalse()
 	{
 		IParameter<Key> matcher = It.IsAnyRefStruct<Key>();
@@ -51,7 +51,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(found).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetterSetup_NullMatcher_HasNoStorage()
 	{
 		RefStructIndexerGetterSetup<string, Key> getter = new("get_Item", null);
@@ -63,7 +63,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(found).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetterSetup_WithProjectionAndPredicate_StoreSkipsNonMatchingKey()
 	{
 		IParameter<Key> matcher = It.IsRefStructBy<Key, int>(k => k.Id, id => id > 10);
@@ -81,7 +81,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(bigValue).IsEqualTo("big");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetterSetup_WithProjection_Invoke_ReturnsStoredValue_BeforeReturnFactory()
 	{
 		IRefStructIndexerGetterSetup<string, Key> setup;
@@ -98,7 +98,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(read).IsEqualTo("stored");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetterSetup_WithProjection_EmptyBucket_Invoke_FallsBackToReturns()
 	{
 		IRefStructIndexerGetterSetup<string, Key> setup;
@@ -113,7 +113,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(read).IsEqualTo("fallback");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetterSetup_WithProjection_HasReturnValue_IsTrueEvenWithoutReturnFactory()
 	{
 		RefStructIndexerGetterSetup<string, Key> getter = new(
@@ -125,7 +125,7 @@ public sealed class RefStructProjectionStorageTests
 				"activating the storage dictionary must flip HasReturnValue, so that the generator's emitted getter body takes the return path and serves stored values");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetterSetup_WithoutProjection_HasReturnValue_IsFalse_UntilReturnsConfigured()
 	{
 		RefStructIndexerGetterSetup<string, Key> getter = new(
@@ -138,7 +138,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(getter.HasReturnValue).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task CombinedSetup_Constructor_WiresSetterBoundGetter()
 	{
 		IParameter<Key> matcher = It.IsRefStructBy<Key, int>(k => k.Id);
@@ -148,7 +148,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(setup.Setter.BoundGetter).IsSameAs(setup.Getter);
 	}
 
-	[Fact]
+	[Test]
 	public async Task CombinedSetup_WithProjection_SetterInvoke_StoresIntoGetter()
 	{
 		IParameter<Key> matcher = It.IsRefStructBy<Key, int>(k => k.Id);
@@ -163,7 +163,7 @@ public sealed class RefStructProjectionStorageTests
 		await That(value).IsEqualTo("seven");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SetterOnlySetup_BoundGetter_DefaultsToNull_InvokeIsStorageNoOp()
 	{
 		IParameter<Key> matcher = It.IsRefStructBy<Key, int>(k => k.Id);
@@ -177,7 +177,7 @@ public sealed class RefStructProjectionStorageTests
 		setter.Invoke(new Key(7), "seven");
 	}
 
-	[Fact]
+	[Test]
 	public async Task CombinedSetup_WithoutProjection_NoStorageActivated()
 	{
 		IParameter<Key> matcher = It.IsAnyRefStruct<Key>();
@@ -196,7 +196,7 @@ public sealed class RefStructProjectionStorageTests
 
 	public sealed class Arity2Tests
 	{
-		[Fact]
+		[Test]
 		public async Task AllProjections_StoreAndTryGet_RoundTrip()
 		{
 			IParameter<Key> p1 = It.IsRefStructBy<Key, int>(k => k.Id);
@@ -214,7 +214,7 @@ public sealed class RefStructProjectionStorageTests
 			await That(miss).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task MixedNormalAndProjection_StoreAndTryGet_RoundTrip()
 		{
 			IParameter<int> normal = It.IsAny<int>();
@@ -234,7 +234,7 @@ public sealed class RefStructProjectionStorageTests
 			await That(missOnSecond).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task OneRefStructWithoutProjection_StorageInactive()
 		{
 			IParameter<int> normal = It.IsAny<int>();
@@ -250,7 +250,7 @@ public sealed class RefStructProjectionStorageTests
 			await That(getter.HasReturnValue).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task CombinedSetup_WiresBoundGetter_SetterWrite_FeedsGetterRead()
 		{
 			IParameter<int> normal = It.IsAny<int>();
@@ -271,7 +271,7 @@ public sealed class RefStructProjectionStorageTests
 
 	public sealed class Arity3Tests
 	{
-		[Fact]
+		[Test]
 		public async Task MixedProjectionAndNormal_RoundTrip()
 		{
 			IParameter<int> p1 = It.IsAny<int>();
@@ -293,7 +293,7 @@ public sealed class RefStructProjectionStorageTests
 
 	public sealed class Arity4Tests
 	{
-		[Fact]
+		[Test]
 		public async Task AllRefStructWithProjection_RoundTrip()
 		{
 			IParameter<Key> p = It.IsRefStructBy<Key, int>(k => k.Id);

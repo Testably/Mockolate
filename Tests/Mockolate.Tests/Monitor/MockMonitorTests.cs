@@ -6,7 +6,7 @@ namespace Mockolate.Tests.Monitor;
 
 public sealed class MockMonitorTests
 {
-	[Fact]
+	[Test]
 	public async Task ClearAllInteractions_WhenMonitorIsRunning_ShouldClearInternalCollection()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -20,7 +20,7 @@ public sealed class MockMonitorTests
 		await That(monitor.Verify.IsValid(It.Is(1))).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task DisposeTwice_ShouldNotIncludeMoreInvocations()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -48,7 +48,7 @@ public sealed class MockMonitorTests
 		await That(monitor.Verify.IsValid(It.Is(8))).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task MultipleRun_ShouldMonitorInvocationsDuringTheRun()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -85,7 +85,7 @@ public sealed class MockMonitorTests
 		await That(monitor.Verify.IsValid(It.Is(10))).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task NestedRun_ShouldThrowInvalidOperationException()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -106,7 +106,7 @@ public sealed class MockMonitorTests
 		await That(Act).DoesNotThrow();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Run_ShouldIncludeAllInvocations()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -126,7 +126,7 @@ public sealed class MockMonitorTests
 		await That(monitor.Verify.IsValid(It.Is(4))).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Run_ShouldMonitorInvocationsDuringTheRun()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -154,7 +154,7 @@ public sealed class MockMonitorTests
 		await That(sut.Mock.Verify.IsValid(It.Is(5))).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Verify_WhileRunning_ShouldBeUpToDate()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -182,7 +182,7 @@ public sealed class MockMonitorTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenMonitoringIsNotDisposed_ShouldStillVerify()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -203,7 +203,7 @@ public sealed class MockMonitorTests
 		await That(monitor.Verify.IsValid(It.Is(6))).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenSkippingInteractionRecording_Verify_ShouldThrow()
 	{
 		IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());

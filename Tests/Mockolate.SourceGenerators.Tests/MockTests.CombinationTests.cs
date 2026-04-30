@@ -4,7 +4,7 @@ public sealed partial class MockTests
 {
 	public sealed class CombinationTests
 	{
-		[Fact]
+		[Test]
 		public async Task AbstractBaseWithParameterlessAndMixedConstructor_ShouldEmitBothTryCastHelpers()
 		{
 			// A constructor with a required parameter sets useTryCast; a defaulted parameter sets
@@ -55,7 +55,7 @@ public sealed partial class MockTests
 					"the 'else if' arity dispatch chain must include the optional-range branch for a mixed-required + defaulted ctor");
 		}
 
-		[Fact]
+		[Test]
 		public async Task AbstractBaseWithRequiredOnlyConstructor_ShouldThrowNoParameterlessConstructorMessage()
 		{
 			GeneratorResult result = Generator
@@ -92,7 +92,7 @@ public sealed partial class MockTests
 				.DoesNotContain("static bool TryCastWithDefaultValue<TValue>");
 		}
 
-		[Fact]
+		[Test]
 		public async Task
 			CombinationOnConcreteClassWithStaticAbstractInterface_ShouldPrimeMockRegistryProviderInBaseClassConstructor()
 		{
@@ -128,7 +128,7 @@ public sealed partial class MockTests
 					"when a concrete base class is combined with an interface declaring static abstract members, the (MockRegistry) constructor must prime the AsyncLocal so virtual calls during base-class construction can resolve the registry");
 		}
 
-		[Fact]
+		[Test]
 		public async Task CombinationWithProtectedEventOnBaseClass_ShouldEmitProtectedRaiseRegion()
 		{
 			GeneratorResult result = Generator
@@ -163,7 +163,7 @@ public sealed partial class MockTests
 				.Contains("#region IMockProtectedRaiseOnMyService");
 		}
 
-		[Fact]
+		[Test]
 		public async Task CombinationWithRequiredMemberOnBase_ShouldEmitSetsRequiredMembersAttribute()
 		{
 			GeneratorResult result = Generator
@@ -199,7 +199,7 @@ public sealed partial class MockTests
 					"AppendMockSubject_BaseClassConstructor must stamp SetsRequiredMembers on the generated constructor when the base class declares any `required` member");
 		}
 
-		[Fact]
+		[Test]
 		public async Task CombinationWithStaticInterfaceEvents_ShouldEmitStaticRaiseRegion()
 		{
 			GeneratorResult result = Generator
@@ -236,7 +236,7 @@ public sealed partial class MockTests
 					"internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry> MockRegistryProvider");
 		}
 
-		[Fact]
+		[Test]
 		public async Task CombinationWithStaticInterfaceMembers_ShouldEmitStaticSetupAndVerifyRegions()
 		{
 			GeneratorResult result = Generator
@@ -276,7 +276,7 @@ public sealed partial class MockTests
 				.Because("the AsyncLocal field is required so static accessors can find the registry");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InterfaceTheClassAlreadyImplements_ShouldOnlyReImplementNonOverridableMembers()
 		{
 			// Re-implementing the interface is what makes the non-virtual `Add` reachable through the
@@ -329,7 +329,7 @@ public sealed partial class MockTests
 				.Because("documentation keeps referring to the interface member the shared member implements");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InterfaceTheClassAlreadyImplements_ShouldShareMemberIdsAndKeys()
 		{
 			GeneratorResult result = Generator
@@ -366,7 +366,7 @@ public sealed partial class MockTests
 				.Because("the interface surface registers setups under the class member's key");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InterfaceTheClassAlreadyImplements_ShouldShareIndexers()
 		{
 			GeneratorResult result = Generator
@@ -404,7 +404,7 @@ public sealed partial class MockTests
 				         + "implementation would get its own value storage");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ImplementedMemberDifferingOnlyInNullabilityOrTypeParameterName_ShouldStillBeShared()
 		{
 			// The class member is the compiler-resolved implementation of the interface member in both
@@ -446,7 +446,7 @@ public sealed partial class MockTests
 				.DoesNotContain("global::MyCode.ICalculator.Convert<T>(T value)");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InterfaceTheClassDoesNotImplement_ShouldKeepCollidingMembersSeparate()
 		{
 			GeneratorResult result = Generator

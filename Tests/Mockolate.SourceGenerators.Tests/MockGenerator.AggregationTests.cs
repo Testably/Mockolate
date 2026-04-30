@@ -5,7 +5,7 @@ namespace Mockolate.SourceGenerators.Tests;
 
 public sealed class MockGeneratorAggregationTests
 {
-	[Fact]
+	[Test]
 	public async Task AllVoidMethods_ShouldNotEmitReturnsThrowsAsyncExtensions()
 	{
 		GeneratorResult result = Generator
@@ -32,7 +32,7 @@ public sealed class MockGeneratorAggregationTests
 		await That(result.Sources).DoesNotContainKey("ReturnsThrowsAsyncExtensions.g.cs");
 	}
 
-	[Fact]
+	[Test]
 	public async Task AsExtensionsForChainOfTwoAdditionalInterfaces_ShouldEmitBothPairs()
 	{
 		// Implementing<IA>().Implementing<IB>() must register two pairs in Mock.AsExtensions.g.cs:
@@ -68,7 +68,7 @@ public sealed class MockGeneratorAggregationTests
 			.Contains("internal static partial class MockExtensionsForIA");
 	}
 
-	[Fact]
+	[Test]
 	public async Task HttpClientMock_ShouldEmitHttpResponseMessageFactoryInBehaviorExtensions()
 	{
 		GeneratorResult result = Generator
@@ -93,7 +93,7 @@ public sealed class MockGeneratorAggregationTests
 			.Contains("new HttpResponseMessageFactory(global::System.Net.HttpStatusCode.NotImplemented)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task NonHttpClientMock_ShouldNotEmitHttpResponseMessageFactoryInBehaviorExtensions()
 	{
 		GeneratorResult result = Generator
@@ -121,7 +121,7 @@ public sealed class MockGeneratorAggregationTests
 			.DoesNotContain("HttpResponseMessageFactory");
 	}
 
-	[Fact]
+	[Test]
 	public async Task NonVoidMethodWithArity5_ShouldEmitReturnsThrowsAsyncExtensions()
 	{
 		GeneratorResult result = Generator
@@ -147,7 +147,7 @@ public sealed class MockGeneratorAggregationTests
 		await That(result.Sources).ContainsKey("ReturnsThrowsAsyncExtensions.g.cs");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SameRootWithDifferentAdditionalImplementations_ShouldEmitBothCombinations()
 	{
 		// Two MockClass entries have identical ClassFullName (IBase) but different
@@ -179,7 +179,7 @@ public sealed class MockGeneratorAggregationTests
 			.ContainsKey("Mock.IBase__IExtraB.g.cs");
 	}
 
-	[Fact]
+	[Test]
 	public async Task TwoCombinationsWithCollidingCombinedName_ShouldSuffixSecondCombination()
 	{
 		// Each combination resolves to combinedName "IBase__IExtra" because GetClassNameWithoutDots

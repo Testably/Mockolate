@@ -5,7 +5,7 @@ namespace Mockolate.Tests;
 
 public sealed class IParameterRefStructCompileProbe
 {
-	[Fact]
+	[Test]
 	public async Task IParameterOfT_Accepts_RefStruct()
 	{
 		IParameter<MyRefStruct> parameter = new AnyRefStructMatch();

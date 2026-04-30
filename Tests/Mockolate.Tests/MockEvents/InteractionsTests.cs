@@ -4,7 +4,7 @@ namespace Mockolate.Tests.MockEvents;
 
 public sealed partial class InteractionsTests
 {
-	[Fact]
+	[Test]
 	public async Task EventSubscription_ToString_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -15,7 +15,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task EventUnsubscription_ToString_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);

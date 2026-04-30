@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Mockolate.Api.Tests;
 
 /// <summary>
@@ -7,8 +9,8 @@ namespace Mockolate.Api.Tests;
 /// </summary>
 public sealed class ApiApprovalTests
 {
-	[Theory]
-	[MemberData(nameof(TargetFrameworksTheoryData))]
+	[Test]
+	[MethodDataSource(nameof(TargetFrameworks))]
 	public async Task VerifyPublicApiForMockolate(string framework)
 	{
 		const string assemblyName = "Mockolate";
@@ -19,14 +21,11 @@ public sealed class ApiApprovalTests
 		await That(publicApi).IsEqualTo(expectedApi);
 	}
 
-	public static TheoryData<string> TargetFrameworksTheoryData()
+	public static IEnumerable<string> TargetFrameworks()
 	{
-		TheoryData<string> theoryData = new();
 		foreach (string targetFramework in Helper.GetTargetFrameworks())
 		{
-			theoryData.Add(targetFramework);
+			yield return targetFramework;
 		}
-
-		return theoryData;
 	}
 }

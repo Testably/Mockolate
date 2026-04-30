@@ -6,7 +6,7 @@ namespace Mockolate.Internal.Tests.Internals;
 
 public sealed class TypeFormatterTests
 {
-	[Fact]
+	[Test]
 	public async Task GenericArguments_ShouldFormatToName()
 	{
 		MethodInfo methodInfo = GetType().GetMethod(nameof(MyMethod), BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -17,7 +17,7 @@ public sealed class TypeFormatterTests
 		await That(result).IsEqualTo("T");
 	}
 
-	[Fact]
+	[Test]
 	public async Task NestedType_ShouldIncludeDeclaringType()
 	{
 		Type type = typeof(MyType);
@@ -27,7 +27,7 @@ public sealed class TypeFormatterTests
 		await That(result).IsEqualTo("TypeFormatterTests.MyType");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldFormatVoid()
 	{
 		MethodInfo methodInfo = GetType().GetMethod(nameof(MyMethod), BindingFlags.NonPublic | BindingFlags.Static)!;

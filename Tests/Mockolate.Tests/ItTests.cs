@@ -7,7 +7,7 @@ namespace Mockolate.Tests;
 
 public sealed partial class ItTests
 {
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_NonGeneric_WithMatchingType_ShouldInvokeCallback()
 	{
 		int isCalled = 0;
@@ -19,7 +19,7 @@ public sealed partial class ItTests
 		await That(isCalled).IsEqualTo(7);
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_NonGeneric_WithMismatchedType_ShouldNotInvokeCallback()
 	{
 		int isCalled = 0;
@@ -31,7 +31,7 @@ public sealed partial class ItTests
 		await That(isCalled).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_NonGeneric_WithNullForNonNullableValueType_ShouldNotInvokeCallback()
 	{
 		int isCalled = 0;
@@ -43,7 +43,7 @@ public sealed partial class ItTests
 		await That(isCalled).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_NonGeneric_WithNullForNullableValueType_ShouldInvokeCallbackWithDefault()
 	{
 		int isCalled = 0;
@@ -61,7 +61,7 @@ public sealed partial class ItTests
 		await That(capturedValue).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_NonGeneric_WithNullForReferenceType_ShouldInvokeCallbackWithDefault()
 	{
 		int isCalled = 0;
@@ -79,7 +79,7 @@ public sealed partial class ItTests
 		await That(capturedValue).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokeCallbacks_WithCorrectType_ShouldInvokeCallback()
 	{
 		int isCalled = 0;
@@ -91,7 +91,7 @@ public sealed partial class ItTests
 		await That(isCalled).IsEqualTo(5);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldOnlyHaveOneParameterlessPrivateConstructor()
 	{
 		ConstructorInfo[] constructors = typeof(Match)

@@ -6,7 +6,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsFalseTests
 	{
-		[Fact]
+		[Test]
 		public async Task CachedMatcher_CallbackFromPriorDo_ShouldNotLeakIntoSubsequentUsage()
 		{
 			_ = It.IsFalse().Do(_ => throw new InvalidOperationException("callback leaked from prior use"));
@@ -16,9 +16,9 @@ public sealed partial class ItTests
 			await That(() => ((IParameterMatch<bool>)subsequent).InvokeCallbacks(false)).DoesNotThrow();
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task False_ShouldMatchWhenFalse(bool value, int expectedCount)
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
@@ -29,7 +29,7 @@ public sealed partial class ItTests
 			await That(sut.Mock.Verify.DoSomething(null, It.IsFalse())).Exactly(expectedCount);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IParameter<bool> sut = It.IsFalse();

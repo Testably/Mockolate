@@ -19,7 +19,7 @@ public class VerificationResultTests
 
 	public sealed class AwaitableTests
 	{
-		[Fact]
+		[Test]
 		public async Task Verify_WhenPredicateNeverSatisfies_ShouldTimeOut()
 		{
 			FastMockInteractions store = new(0);
@@ -39,7 +39,7 @@ public class VerificationResultTests
 			await That(Act).Throws<MockVerificationTimeoutException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyCount_WhenPredicateNeverSatisfies_ShouldTimeOut()
 		{
 			FastMockInteractions store = new(1);
@@ -56,7 +56,7 @@ public class VerificationResultTests
 				.WithMessage("*timed out*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyCount_WithUseCountAll_ShouldPickCountAllNotFilteredCount()
 		{
 			// Pins the `_useCountAll ? CountAll() : Count()` conditional in Awaitable.VerifyCount.
@@ -88,7 +88,7 @@ public class VerificationResultTests
 			await That(Act).Throws<MockVerificationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithCancellation_PreservesUseCountAllFlag()
 		{
 			FastMockInteractions store = new(1);
@@ -114,7 +114,7 @@ public class VerificationResultTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_PreservesUseCountAllFlag()
 		{
 			FastMockInteractions store = new(1);
@@ -143,7 +143,7 @@ public class VerificationResultTests
 
 	public sealed class MapTests
 	{
-		[Fact]
+		[Test]
 		public async Task Map_WhenBufferAndFastSourceBothNull_DropsToSimpleConstructor()
 		{
 			// Mirrors the buffer-only case from the other side: with neither buffer nor source, the
@@ -165,7 +165,7 @@ public class VerificationResultTests
 			await That(fastSourceField.GetValue(mapped)).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Map_WhenBufferOnlyAndFastSourceNull_PreservesBuffer()
 		{
 			// The buffer-only IgnoreParameters constructor is wired with no fast source. Map must
@@ -198,7 +198,7 @@ public class VerificationResultTests
 			await That(observedLength).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Map_WithBuffer_PreservesFastPathSource()
 		{
 			FastMockInteractions store = new(1);
@@ -225,7 +225,7 @@ public class VerificationResultTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Map_WithoutBuffer_StillCarriesPredicate()
 		{
 			FastMockInteractions store = new(0);
@@ -244,7 +244,7 @@ public class VerificationResultTests
 
 	public sealed class CollectMatchingTests
 	{
-		[Fact]
+		[Test]
 		public async Task WithBufferAndExactlyTwoRecords_PreservesSequenceOrder()
 		{
 			// Crosses the `records.Count > 1` boundary in CollectMatching at exactly N=2. Combined
@@ -276,7 +276,7 @@ public class VerificationResultTests
 			await That(values).IsEqualTo([10, 20,]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithBufferAndMultipleRecords_PreservesSequenceOrder()
 		{
 			FastMockInteractions store = new(1);
@@ -305,7 +305,7 @@ public class VerificationResultTests
 			await That(values).IsEqualTo([10, 20, 30,]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithBufferAndNoMatchingRecord_ReturnsEmpty()
 		{
 			FastMockInteractions store = new(1);
@@ -328,7 +328,7 @@ public class VerificationResultTests
 			await That(observed).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithBufferAndSingleRecord_ReturnsRecord()
 		{
 			FastMockInteractions store = new(1);
@@ -351,7 +351,7 @@ public class VerificationResultTests
 			await That(observed).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithEmptyBuffer_ReturnsEmpty()
 		{
 			FastMockInteractions store = new(1);
@@ -375,7 +375,7 @@ public class VerificationResultTests
 
 	public sealed class SkipInteractionRecordingTests
 	{
-		[Fact]
+		[Test]
 		public async Task Verify_WhenRecordingDisabled_AndAwaitableViaWithin_ShouldThrowMockException()
 		{
 			// Same guard, Awaitable Verify (records-array) path. Constructed with a predicate-based
@@ -395,7 +395,7 @@ public class VerificationResultTests
 				.WithMessage("*recording is disabled*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyCount_WhenRecordingDisabled_AndAwaitableViaWithin_ShouldThrowMockException()
 		{
 			// Same guard, Awaitable path (via Within). Distinct mutation site.
@@ -416,7 +416,7 @@ public class VerificationResultTests
 				.WithMessage("*recording is disabled*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyCount_WhenRecordingDisabled_ShouldThrowMockException()
 		{
 			// Kills the ThrowIfRecordingDisabled statement-removal mutation on the non-Awaitable
@@ -441,7 +441,7 @@ public class VerificationResultTests
 
 	public sealed class IgnoreParametersAnyParametersTests
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_WithoutBuffer_AndNoOverloadFilter_MatchesAllOfMethodName()
 		{
 			IMockInteractions store = new FastMockInteractions(0);
@@ -466,7 +466,7 @@ public class VerificationResultTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task AnyParameters_WithoutBuffer_KeepsOverloadFilter()
 		{
 			IMockInteractions store = new FastMockInteractions(0);

@@ -6,7 +6,7 @@ public partial class DelegateTests
 {
 	public sealed class SpanTests
 	{
-		[Fact]
+		[Test]
 		public async Task ReadOnlySpanParameter_ShouldSupportSetup()
 		{
 			ReadOnlySpanConsumer sut = ReadOnlySpanConsumer.CreateMock();
@@ -19,7 +19,7 @@ public partial class DelegateTests
 					"a by-value ReadOnlySpan parameter flows through ReadOnlySpanWrapper<T>, so the delegate keeps its setup surface instead of degrading to a NotSupportedException stub");
 		}
 
-		[Fact]
+		[Test]
 		public async Task SpanParameter_ShouldSupportSetup()
 		{
 			SpanConsumer sut = SpanConsumer.CreateMock();
@@ -32,7 +32,7 @@ public partial class DelegateTests
 					"a by-value Span parameter flows through SpanWrapper<T>, so the delegate keeps its setup surface instead of degrading to a NotSupportedException stub");
 		}
 
-		[Fact]
+		[Test]
 		public async Task SpanParameter_ShouldSupportVerify()
 		{
 			SpanConsumer sut = SpanConsumer.CreateMock();

@@ -8,7 +8,7 @@ namespace Mockolate.SourceGenerators.Tests.Entities;
 
 public class MockClassEqualityTests
 {
-	[Fact]
+	[Test]
 	public async Task ReferenceEqualMockClasses_ShouldBeEqual()
 	{
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source, "IBase");
@@ -19,7 +19,7 @@ public class MockClassEqualityTests
 		await That(a.Equals(null)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task TwoMockClassesWithDifferentConstructors_ShouldNotBeEqual()
 	{
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source,
@@ -31,7 +31,7 @@ public class MockClassEqualityTests
 		await That(a.Equals(b)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task TwoMockClassesWithSameRootAndSameAdditionals_ShouldBeEqual()
 	{
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source,
@@ -44,7 +44,7 @@ public class MockClassEqualityTests
 		await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
 	}
 
-	[Fact]
+	[Test]
 	public async Task TwoMockClassesWithSameRootButDifferentAdditionals_ShouldNotBeEqual()
 	{
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source,

@@ -11,7 +11,7 @@ public sealed partial class ItExtensionsTests
 {
 	public sealed partial class IsUriTests
 	{
-		[Fact]
+		[Test]
 		public async Task NonGeneric_DispatchesNullThroughCallback()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
@@ -29,7 +29,7 @@ public sealed partial class ItExtensionsTests
 			await That(captured).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task NonGeneric_DispatchesUriThroughCallback()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
@@ -42,7 +42,7 @@ public sealed partial class ItExtensionsTests
 			await That(captured).IsSameAs(target);
 		}
 
-		[Fact]
+		[Test]
 		public async Task NonGeneric_IgnoresUnrelatedTypes()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
@@ -54,7 +54,7 @@ public sealed partial class ItExtensionsTests
 			await That(invocations).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task NonGenericMatches_ReturnsFalseForNonUriValue()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
@@ -64,7 +64,7 @@ public sealed partial class ItExtensionsTests
 			await That(result).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task NonGenericMatches_ReturnsFalseForNullValue()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
@@ -74,7 +74,7 @@ public sealed partial class ItExtensionsTests
 			await That(result).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldSupportMonitoring()
 		{
 			int callbackCount = 0;
@@ -96,18 +96,18 @@ public sealed partial class ItExtensionsTests
 			await That(callbackCount).IsEqualTo(3);
 		}
 
-		[Theory]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "testably.org*x=123", true)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=123&y=4", true)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "http://www.testably.org/foo/bar?x=123&y=4", false)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/baz?x=123&y=4", false)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=124&y=4", false)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=123", true)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "*www.testably.org*", true)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "*/foo/bar*", true)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "*x=123*", true)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "*y=4*", true)]
-		[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https*", true)]
+		[Test]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "testably.org*x=123", true)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=123&y=4", true)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "http://www.testably.org/foo/bar?x=123&y=4", false)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/baz?x=123&y=4", false)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=124&y=4", false)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=123", true)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "*www.testably.org*", true)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "*/foo/bar*", true)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "*x=123*", true)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "*y=4*", true)]
+		[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https*", true)]
 		public async Task ShouldVerifyFullUriWithWildcardMatch(string uri, string pattern, bool expectMatch)
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
@@ -120,9 +120,9 @@ public sealed partial class ItExtensionsTests
 			await That(result.StatusCode).IsEqualTo(expectMatch ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 		}
 
-		[Theory]
-		[InlineData("*testably.org")]
-		[InlineData("*testably.org/")]
+		[Test]
+		[Arguments("*testably.org")]
+		[Arguments("*testably.org/")]
 		public async Task TrailingSlash_ShouldBeIgnored(string matchPattern)
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
@@ -137,7 +137,7 @@ public sealed partial class ItExtensionsTests
 				.IsEqualTo(HttpStatusCode.OK);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TrailingSlash_WhenNotPresent_ShouldNotBeAdded()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
@@ -152,7 +152,7 @@ public sealed partial class ItExtensionsTests
 				.IsEqualTo(HttpStatusCode.NotImplemented);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WhenTypeDoesNotMatch_Null_ShouldReturnFalse()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
@@ -163,7 +163,7 @@ public sealed partial class ItExtensionsTests
 			await That(result).IsFalse();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithPattern_AcceptsBothTrailingSlashAndWithoutTrailingSlash()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri("http://x/foo");
@@ -176,7 +176,7 @@ public sealed partial class ItExtensionsTests
 			await That(matchesWithoutSlash).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithTrailingSlashOnRequestAndNoSuffixWildcardInPattern_ShouldStillMatch()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();

@@ -6,8 +6,8 @@ namespace Mockolate.Internal.Tests.Interactions;
 
 public class FastBufferConcurrencyTests
 {
-	[Fact]
-	public async Task FastMethod1Buffer_ConcurrentAppend_ShouldRecordAllInteractions()
+	[Test]
+	public async Task FastMethod1Buffer_ConcurrentAppend_ShouldRecordAllInteractions(CancellationToken cancellationToken)
 	{
 		const int writerCount = 8;
 		const int appendsPerWriter = 1000;
@@ -15,11 +15,6 @@ public class FastBufferConcurrencyTests
 		FastMockInteractions store = new(1);
 		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
 			static f => new FastMethod1Buffer<int>(f));
-#if NET48
-		CancellationToken cancellationToken = TestContext.Current.CancellationToken;
-#else
-		CancellationToken cancellationToken = CancellationToken.None;
-#endif
 
 		Task[] writers = new Task[writerCount];
 		for (int w = 0; w < writerCount; w++)
@@ -41,7 +36,7 @@ public class FastBufferConcurrencyTests
 			.IsEqualTo(writerCount * appendsPerWriter);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FastMethod1Buffer_InteractionAdded_ShouldFireWhenSubscribed()
 	{
 		FastMockInteractions store = new(1);

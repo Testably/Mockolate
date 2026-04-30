@@ -11,7 +11,7 @@ public sealed partial class VerificationResultTests
 {
 	public class AsyncTests
 	{
-		[Fact]
+		[Test]
 		public async Task MultipleWithin_ShouldOverwritePreviousTimeout()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -29,7 +29,7 @@ public sealed partial class VerificationResultTests
 					"Expected that mock invoked method Dispense(Match.AnyParameters()) at least once, but it timed out after 00:00:00.2000000.");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Verify_OnAwaitable_WhenPredicateBecomesSatisfied_ShouldReturnTrue()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -57,7 +57,7 @@ public sealed partial class VerificationResultTests
 			await backgroundTask;
 		}
 
-		[Fact]
+		[Test]
 		public async Task Verify_OnAwaitable_WhenPredicateIsAlreadySatisfied_ShouldReturnTrue()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -70,7 +70,7 @@ public sealed partial class VerificationResultTests
 			await That(((IVerificationResult)result).Verify(l => l.Length > 0)).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Verify_OnAwaitable_WhenPredicateIsNeverSatisfied_ShouldThrowTimeoutException()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -86,7 +86,7 @@ public sealed partial class VerificationResultTests
 			await That(Act).Throws<MockVerificationTimeoutException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyAsync_WhenAlreadySuccessful_ShouldReturnTrue()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -99,7 +99,7 @@ public sealed partial class VerificationResultTests
 			await That(((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0, CancellationToken.None)).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyAsync_WhenMultipleIterationsAreNecessary_ShouldStopWhenSuccessful()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -127,7 +127,7 @@ public sealed partial class VerificationResultTests
 			await backgroundTask;
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyAsync_WithCancellationToken_ShouldKeepConfiguredTimeout()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -143,7 +143,7 @@ public sealed partial class VerificationResultTests
 				.Whose(e => e.Timeout, t => t.IsEqualTo(50.Milliseconds()));
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyAsync_WithCancellationToken_ShouldLeaveResultUnchanged()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -163,7 +163,7 @@ public sealed partial class VerificationResultTests
 				.Whose(e => e.Timeout, t => t.IsEqualTo(50.Milliseconds()));
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyAsync_WithCancellationToken_ShouldStopWaitingWhenConfiguredTokenIsCanceled()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -180,7 +180,7 @@ public sealed partial class VerificationResultTests
 				.Whose(e => e.Timeout, t => t.IsNull());
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyAsync_WithCancellationToken_WhenCanceled_ShouldThrowOperationCanceledException()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -197,7 +197,7 @@ public sealed partial class VerificationResultTests
 				.Whose(e => e.CancellationToken, t => t.IsEqualTo(token));
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyAsync_WithCancellationToken_WhenCanceledWithoutTimeout_ShouldThrowOperationCanceledException()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -214,7 +214,7 @@ public sealed partial class VerificationResultTests
 				.Whose(e => e.CancellationToken, t => t.IsEqualTo(token));
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithCancellation_ShouldReturnAsyncVerificationResult()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -225,7 +225,7 @@ public sealed partial class VerificationResultTests
 			await That(result).Is<IAsyncVerificationResult>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithCancellationAndTimeout_ShouldCombineBoth()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -245,7 +245,7 @@ public sealed partial class VerificationResultTests
 					"Expected that mock invoked method Dispense(Match.AnyParameters()) at least once, but it timed out.");
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithCancellationAndTimeout_ShouldIncludeTimeoutInExceptionWhenLessThanCancellationToken()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -265,7 +265,7 @@ public sealed partial class VerificationResultTests
 					"Expected that mock invoked method Dispense(Match.AnyParameters()) at least once, but it timed out after 00:00:00.0500000.");
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithCancellationToken_ShouldIncludeTimeoutInException()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -282,7 +282,7 @@ public sealed partial class VerificationResultTests
 					"Expected that mock invoked method Dispense(Match.AnyParameters()) at least once, but it timed out.");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_ShouldAbortAsSoonAsConditionIsSatisfied()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -312,7 +312,7 @@ public sealed partial class VerificationResultTests
 			await That(sw.Elapsed).IsLessThan(5.Seconds());
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_ShouldIncludeTimeoutInException()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -328,7 +328,7 @@ public sealed partial class VerificationResultTests
 					"Expected that mock invoked method Dispense(Match.AnyParameters()) at least once, but it timed out after 00:00:00.1000000.");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_ShouldReturnAsyncVerificationResult()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -339,7 +339,7 @@ public sealed partial class VerificationResultTests
 			await That(result).Is<IAsyncVerificationResult>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Within_WhenInvokedMultipleTimesInBackground_ShouldNotThrow()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();

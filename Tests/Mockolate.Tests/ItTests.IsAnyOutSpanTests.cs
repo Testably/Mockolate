@@ -8,7 +8,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsAnyOutSpanTests
 	{
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IOutParameter<SpanWrapper<int>> sut = It.IsAnyOutSpan<int>();
@@ -19,7 +19,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetValue_ShouldReturnFalse()
 		{
 			IOutParameter<SpanWrapper<int>> sut = It.IsAnyOutSpan<int>();

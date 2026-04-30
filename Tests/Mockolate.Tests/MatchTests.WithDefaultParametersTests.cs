@@ -6,7 +6,7 @@ public sealed partial class MatchTests
 {
 	public sealed class WithDefaultParametersTests
 	{
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IDefaultEventParameters sut = Match.WithDefaultParameters();

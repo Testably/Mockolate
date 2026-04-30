@@ -2,7 +2,7 @@ namespace Build.Tests;
 
 public sealed class BuildBodyTests
 {
-	[Fact]
+	[Test]
 	public async Task BuildBody_BaselineKeyShouldUseTokensUpToTheMeanColumn()
 	{
 		string[] report =
@@ -24,7 +24,7 @@ public sealed class BuildBodyTests
 		await That(body).DoesNotContain("baseline*");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_ShouldDropConfiguredColumnsFromHeaderAndDataRows()
 	{
 		string[] withGen2 =
@@ -43,7 +43,7 @@ public sealed class BuildBodyTests
 		await That(body).DoesNotContain("0.2");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WhenBaselineHasNoMatchingKey_ShouldOmitInjectionAndOmitNote()
 	{
 		string[] baseline =
@@ -59,7 +59,7 @@ public sealed class BuildBodyTests
 		await That(body).DoesNotContain("baseline*");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WhenBdnPreBoldsBaselineFile_ShouldEmitItalicBaselineWithoutEmbeddedBold()
 	{
 		string[] report =
@@ -83,7 +83,7 @@ public sealed class BuildBodyTests
 		await That(body).DoesNotContain("**_");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WhenBdnPreBoldsTheBaselineRow_ShouldNotEmitDoubleBoldOrBreakPrefix()
 	{
 		string[] report =
@@ -105,7 +105,7 @@ public sealed class BuildBodyTests
 		await That(lines).Contains("| Moq | 1 | 212 ns | 20.37 KB |");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WhenInvocationCountAndMeanMatch_ShouldInjectBaseline()
 	{
 		string[] report =
@@ -128,7 +128,7 @@ public sealed class BuildBodyTests
 		await That(body).Contains("_95 ns_");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WhenTableHasEmptyRowSeparatingParameterGroups_ShouldEmitEmptyRowMatchingHeaderColumnCount()
 	{
 		string[] report =
@@ -153,7 +153,7 @@ public sealed class BuildBodyTests
 		await That(lines[firstGroupLast + 1]).IsEqualTo("|  |  |  |  |");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WhenTableHasEmptyRowSeparatingParameterGroups_ShouldNotEmitBareSeparator()
 	{
 		string[] report =
@@ -173,7 +173,7 @@ public sealed class BuildBodyTests
 		await That(body).DoesNotContain($"{Environment.NewLine}|{Environment.NewLine}");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WhenTableHasEmptyRowSeparatingParameterGroups_ShouldStillStripCommonPrefix()
 	{
 		string[] report =
@@ -198,7 +198,7 @@ public sealed class BuildBodyTests
 		await That(lines).Contains("| Moq | 10 | 2000 ns | 20 KB |");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WithBaseline_ShouldInjectItalicBaselineRowBeforeMockolateRow()
 	{
 		string[] baseline =
@@ -220,7 +220,7 @@ public sealed class BuildBodyTests
 			"`baseline*` rows show the corresponding Mockolate benchmark");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WithBaseline_ShouldNormalizeUnitDifferencesWhenComputingRatio()
 	{
 		string[] report =
@@ -242,7 +242,7 @@ public sealed class BuildBodyTests
 		await That(body).Contains("| _baseline*_ | _1.00 μs_ | _2.00_ | _2048 B_ | _2.00_ |");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WithBaseline_ShouldRecomputeAllocRatioRelativeToCurrentMockolate()
 	{
 		string[] report =
@@ -264,7 +264,7 @@ public sealed class BuildBodyTests
 		await That(body).Contains("| _baseline*_ | _100 ns_ | _1.00_ | _1024 B_ | _0.50_ |");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WithBaseline_ShouldRecomputeRatioRelativeToCurrentMockolate()
 	{
 		string[] report =
@@ -287,7 +287,7 @@ public sealed class BuildBodyTests
 		await That(body).Contains("| _baseline*_ | _206.44 ns_ | _0.95_ | _1048 B_ | _1.00_ |");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WithoutBaseline_ShouldNotEmitBaselineNote()
 	{
 		BenchmarkReportFile file = new(_reportLines, null);
@@ -297,7 +297,7 @@ public sealed class BuildBodyTests
 		await That(body).DoesNotContain("baseline*");
 	}
 
-	[Fact]
+	[Test]
 	public async Task BuildBody_WithoutBaseline_ShouldRenderHeaderAndStripCommonPrefix()
 	{
 		BenchmarkReportFile file = new(_reportLines, null);

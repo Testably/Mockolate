@@ -9,14 +9,14 @@ namespace Mockolate.SourceGenerators.Tests.Entities;
 
 public class EventEqualityComparerTests
 {
-	[Fact]
+	[Test]
 	public async Task BothNull_ShouldReturnTrue()
 	{
 		await That(Event.EqualityComparer.Equals(null, null)).IsTrue();
 		await That(Event.ContainingTypeIndependentEqualityComparer.Equals(null, null)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ContainingTypeIndependent_DifferentNames_ShouldReturnFalse()
 	{
 		IEqualityComparer<Event> comparer = Event.ContainingTypeIndependentEqualityComparer;
@@ -30,7 +30,7 @@ public class EventEqualityComparerTests
 		await That(comparer.Equals(e1, e2)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ContainingTypeIndependent_SameNameDifferentContainingType_ShouldReturnTrue()
 	{
 		IEqualityComparer<Event> comparer = Event.ContainingTypeIndependentEqualityComparer;
@@ -44,7 +44,7 @@ public class EventEqualityComparerTests
 		await That(comparer.Equals(fromC, fromD)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task EventsWithDifferentContainingType_ShouldReturnFalse()
 	{
 		IEqualityComparer<Event> comparer = Event.EqualityComparer;
@@ -58,7 +58,7 @@ public class EventEqualityComparerTests
 		await That(comparer.Equals(fromC, fromD)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task EventsWithDifferentNames_ShouldReturnFalse()
 	{
 		IEqualityComparer<Event> comparer = Event.EqualityComparer;
@@ -72,7 +72,7 @@ public class EventEqualityComparerTests
 		await That(comparer.Equals(e1, e2)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task LeftOrRightNull_ShouldReturnFalse()
 	{
 		IEqualityComparer<Event> comparer = Event.EqualityComparer;

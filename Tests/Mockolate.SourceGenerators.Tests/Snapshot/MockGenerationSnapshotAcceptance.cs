@@ -6,7 +6,8 @@ public sealed class MockGenerationSnapshotAcceptance
 	///     Execute this test to overwrite the expected snapshot files for
 	///     <see cref="MockGenerationSnapshotTests" /> with the current generator output.
 	/// </summary>
-	[Fact(Explicit = true)]
+	[Test]
+	[Explicit]
     public void AcceptSnapshotChanges()
     {
         foreach (var scenario in MockGenerationSnapshotTests.Scenarios)
