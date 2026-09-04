@@ -64,6 +64,11 @@ public static class Generator
 		IReadOnlyDictionary<string, string>? globalOptions)
 		=> RunCore([source,], DocumentationMode.Parse, [], [], [], languageVersion, globalOptions);
 
+	public static GeneratorResult Run(string[] sources, string[] preprocessorSymbols, LanguageVersion languageVersion,
+		IReadOnlyDictionary<string, string>? globalOptions, params Type[] assemblyTypes)
+		=> RunCore(sources, DocumentationMode.Parse, preprocessorSymbols, [], assemblyTypes, languageVersion,
+			globalOptions);
+
 	private static GeneratorResult RunCore(string[] sources, DocumentationMode documentationMode,
 		string[] preprocessorSymbols, MetadataReference[] externalReferences, Type[] assemblyTypes,
 		LanguageVersion languageVersion = LanguageVersion.Latest,

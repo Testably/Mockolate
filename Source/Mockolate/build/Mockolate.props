@@ -5,6 +5,11 @@
 	     to keep the classic matcher/value overloads even when the compiler supports unions. -->
 	<ItemGroup>
 		<CompilerVisibleProperty Include="MockolateUnionParameters"/>
+		<!-- Names the attributes the project already gets from another generator, so Mockolate does not polyfill them:
+		     "false" stands for OverloadResolutionPriorityAttribute and CallerArgumentExpressionAttribute (what
+		     PolySharp ships); otherwise a ';'-separated list of attribute names (UnionAttribute,
+		     OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute). -->
+		<CompilerVisibleProperty Include="MockolateUnionAttributePolyfills"/>
 	</ItemGroup>
 
 </Project>

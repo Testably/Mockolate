@@ -96,7 +96,7 @@ public sealed class UnionParameterArgTests
 	[Arguments(false)]
 	public async Task ParameterArgSource_ShouldContainThePolyfillOnlyWhenRequested(bool emitPolyfill)
 	{
-		string source = Sources.Sources.ParameterArg(emitPolyfill);
+		string source = Sources.Sources.ParameterArg(emitPolyfill, false, false);
 
 		await That(source.Contains(PolyfillDeclaration)).IsEqualTo(emitPolyfill);
 		await That(source).Contains("internal readonly struct ParameterArg<T>");
