@@ -18,7 +18,7 @@ Only the `Mockolate` package is published. It carries the generator, analyzers a
 
 ### `Source/Mockolate`
 
-The runtime library (`netstandard2.0`, `net8.0`, `net10.0`).
+The runtime library (`netstandard2.0`, `net8.0`, `net10.0`, `net11.0`).
 
 | Location | Responsibility |
 |---|---|

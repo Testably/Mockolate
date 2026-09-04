@@ -4,7 +4,7 @@ Mockolate is a source-generated mocking library for .NET. Users write `IFoo.Crea
 
 ## SDK and Build
 
-- Use the SDK pinned in `global.json` (.NET 10, `rollForward: latestPatch`). Tests also run on .NET 8, and on .NET Framework 4.8 on Windows only.
+- Use the SDK pinned in `global.json` (currently a .NET 11 preview, `rollForward: latestPatch`). Tests also run on .NET 10 and .NET 8, and on .NET Framework 4.8 on Windows only. On .NET 11 the test projects compile with the preview language version and set `MockolateUnionParameters`, so the union-typed setup surface is exercised there.
 - Build from the root with `dotnet build Mockolate.slnx`. Shared settings live in the root `Directory.Build.props` (strong naming, `MinimumRoslynVersion`), `Source/Directory.Build.props` (target frameworks, warnings as errors, AOT and trimming flags) and `Tests/Directory.Build.props` (test frameworks, TUnit, aweXpect).
 - Package versions belong only in `Directory.Packages.props`. `VersionOverride` is used only to pin Roslyn packages to `$(MinimumRoslynVersion)`.
 
@@ -14,7 +14,7 @@ Correctness is a must. The other goals are strong defaults and win in this order
 
 ## Project Constraints
 
-- **Target frameworks**: `Mockolate` ships `netstandard2.0`, `net8.0` and `net10.0`. The generator, analyzers and code fixers target `netstandard2.0` only. Code compiled for `netstandard2.0` or `net48` has no `IsExternalInit`, `System.Index` or `System.Range` unless polyfilled, so records, `init` and list patterns need care: `Mockolate` polyfills `IsExternalInit`, `Mockolate.Tests` does not, and guards such code with `#if NET8_0_OR_GREATER`.
+- **Target frameworks**: `Mockolate` ships `netstandard2.0`, `net8.0`, `net10.0` and `net11.0`. The generator, analyzers and code fixers target `netstandard2.0` only. Code compiled for `netstandard2.0` or `net48` has no `IsExternalInit`, `System.Index` or `System.Range` unless polyfilled, so records, `init` and list patterns need care: `Mockolate` polyfills `IsExternalInit`, `Mockolate.Tests` does not, and guards such code with `#if NET8_0_OR_GREATER`.
 - **Roslyn version**: the generator, analyzers and code fixers compile against `MinimumRoslynVersion` (5.0.0), the oldest compiler they must load in. Never use a newer Roslyn API. It cannot drop below 5.0 because the emitted `Mock.g.cs` uses a C# 14 extension block.
 - **Generated code** runs inside every consumer's compilation. Keep it reflection-free, fully qualified with `global::`, valid under nullable and warnings-as-errors, and deterministic. Keep the generator incremental: pipeline entities must have value equality (`EquatableArray`, records) so caching works; `MockGenerator.EqualityTests` covers this.
 - **Analyzers**: rule IDs are `MockolateNNNN`. Add the descriptor in `Rules.cs`, its texts in `Resources.resx`, the row in `AnalyzerReleases.Unshipped.md` and the user docs in `Docs/pages/08-analyzers.md`.
