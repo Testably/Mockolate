@@ -439,11 +439,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::Mockolate.Parameters.IParameter<int>? parameter1, global::Mockolate.Parameters.IParameter<string>? parameter2]
+		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<string>? parameter2]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -451,11 +451,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[int parameter1, global::Mockolate.Parameters.IParameter<string>? parameter2]
+		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<string>? parameter2, string parameter1Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(parameter1), CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (parameter2 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -463,11 +463,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::Mockolate.Parameters.IParameter<int>? parameter1, string parameter2]
+		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<string, bool> parameter2, string parameter2Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.IsValue<string>(parameter2));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter2, parameter2Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -475,11 +475,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[int parameter1, string parameter2]
+		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::System.Func<int, bool> parameter1, global::System.Func<string, bool> parameter2, string parameter1Expression, string parameter2Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(parameter1), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.IsValue<string>(parameter2));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter2, parameter2Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -586,53 +586,53 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<string>? @void]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<string>? @void]
 		{
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
-					CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
-					() => global::System.String.Format("[{0}, {1}]", (object?)@params ?? "null", (object?)@void ?? "null"));
+					(@params ?? default).ToParameterMatch(),
+					(@void ?? default).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}]", (object?)(@params ?? default), (object?)(@void ?? default)));
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[int @params, global::Mockolate.Parameters.IParameter<string>? @void]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<string>? @void, string @paramsExpression]
 		{
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(@params, "@params"),
-					CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
-					() => global::System.String.Format("[{0}, {1}]", (object?)@params, (object?)@void ?? "null"));
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression),
+					(@void ?? default).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}]", (object?)@paramsExpression, (object?)(@void ?? default)));
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::Mockolate.Parameters.IParameter<int>? @params, string @void]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::Mockolate.ParameterArg<int>? @params, global::System.Func<string, bool> @void, string @voidExpression]
 		{
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
-					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(@void, "@void"),
-					() => global::System.String.Format("[{0}, {1}]", (object?)@params ?? "null", (object?)@void));
+					(@params ?? default).ToParameterMatch(),
+					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(@void, @voidExpression),
+					() => global::System.String.Format("[{0}, {1}]", (object?)(@params ?? default), (object?)@voidExpression));
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[int @params, string @void]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::System.Func<int, bool> @params, global::System.Func<string, bool> @void, string @paramsExpression, string @voidExpression]
 		{
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(@params, "@params"),
-					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(@void, "@void"),
-					() => global::System.String.Format("[{0}, {1}]", (object?)@params, (object?)@void));
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression),
+					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(@void, @voidExpression),
+					() => global::System.String.Format("[{0}, {1}]", (object?)@paramsExpression, (object?)@voidExpression));
 			}
 		}
 
@@ -717,53 +717,53 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<string>? @void]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<string>? @void]
 		{
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
-					CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
-					() => global::System.String.Format("[{0}, {1}]", (object?)@params ?? "null", (object?)@void ?? "null"));
+					(@params ?? default).ToParameterMatch(),
+					(@void ?? default).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}]", (object?)(@params ?? default), (object?)(@void ?? default)));
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[int @params, global::Mockolate.Parameters.IParameter<string>? @void]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<string>? @void, string @paramsExpression]
 		{
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(@params, "@params"),
-					CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
-					() => global::System.String.Format("[{0}, {1}]", (object?)@params, (object?)@void ?? "null"));
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression),
+					(@void ?? default).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}]", (object?)@paramsExpression, (object?)(@void ?? default)));
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::Mockolate.Parameters.IParameter<int>? @params, string @void]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::Mockolate.ParameterArg<int>? @params, global::System.Func<string, bool> @void, string @voidExpression]
 		{
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
-					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(@void, "@void"),
-					() => global::System.String.Format("[{0}, {1}]", (object?)@params ?? "null", (object?)@void));
+					(@params ?? default).ToParameterMatch(),
+					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(@void, @voidExpression),
+					() => global::System.String.Format("[{0}, {1}]", (object?)(@params ?? default), (object?)@voidExpression));
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[int @params, string @void]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> IMockVerifyForIKeywordEdgeCases.this[global::System.Func<int, bool> @params, global::System.Func<string, bool> @void, string @paramsExpression, string @voidExpression]
 		{
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(@params, "@params"),
-					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(@void, "@void"),
-					() => global::System.String.Format("[{0}, {1}]", (object?)@params, (object?)@void));
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression),
+					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(@void, @voidExpression),
+					() => global::System.String.Format("[{0}, {1}]", (object?)@paramsExpression, (object?)@voidExpression));
 			}
 		}
 
@@ -873,11 +873,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::Mockolate.Parameters.IParameter<int>? parameter1, global::Mockolate.Parameters.IParameter<string>? parameter2]
+		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<string>? parameter2]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -885,11 +885,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[int parameter1, global::Mockolate.Parameters.IParameter<string>? parameter2]
+		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<string>? parameter2, string parameter1Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(parameter1), CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (parameter2 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -897,11 +897,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::Mockolate.Parameters.IParameter<int>? parameter1, string parameter2]
+		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<string, bool> parameter2, string parameter2Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.IsValue<string>(parameter2));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter2, parameter2Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -909,11 +909,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[int parameter1, string parameter2]
+		global::Mockolate.Setup.IndexerSetup<string, int, string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.this[global::System.Func<int, bool> parameter1, global::System.Func<string, bool> parameter2, string parameter1Expression, string parameter2Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(parameter1), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.IsValue<string>(parameter2));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter2, parameter2Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -1132,37 +1132,37 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::Mockolate.Parameters.IParameter<int>? parameter1, global::Mockolate.Parameters.IParameter<string>? parameter2] { get; }
+		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<string>? parameter2] { get; }
 
 		/// <summary>
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a direct value for <paramref name="parameter1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="parameter2" />.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> this[int parameter1, global::Mockolate.Parameters.IParameter<string>? parameter2] { get; }
+		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<string>? parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
 
 		/// <summary>
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a direct value for <paramref name="parameter2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="parameter1" />.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::Mockolate.Parameters.IParameter<int>? parameter1, string parameter2] { get; }
+		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<string, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
 
 		/// <summary>
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
+		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Setup.IndexerSetup<string, int, string> this[int parameter1, string parameter2] { get; }
+		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::System.Func<int, bool> parameter1, global::System.Func<string, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return()">@return()</see>.
@@ -1257,37 +1257,37 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<string>? @void] { get; }
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<string>? @void] { get; }
 
 		/// <summary>
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a direct value for <paramref name="@params" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@void" />.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@void" /> and a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[int @params, global::Mockolate.Parameters.IParameter<string>? @void] { get; }
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<string>? @void, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = ""] { get; }
 
 		/// <summary>
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a direct value for <paramref name="@void" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" /> and a predicate for <paramref name="@void" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::Mockolate.Parameters.IParameter<int>? @params, string @void] { get; }
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::Mockolate.ParameterArg<int>? @params, global::System.Func<string, bool> @void, [global::System.Runtime.CompilerServices.CallerArgumentExpression("void")] string @voidExpression = ""] { get; }
 
 		/// <summary>
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
+		///     This overload accepts a predicate for <paramref name="@params" />, <paramref name="@void" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[int @params, string @void] { get; }
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::System.Func<int, bool> @params, global::System.Func<string, bool> @void, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("void")] string @voidExpression = ""] { get; }
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return()">@return()</see>.

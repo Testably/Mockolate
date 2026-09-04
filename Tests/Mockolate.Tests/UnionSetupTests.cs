@@ -242,7 +242,67 @@ public sealed class UnionSetupTests
 		await That(sut.Mock.Verify(5, "a")).Once();
 	}
 
+	[Test]
+	public async Task Indexer_Setup_WithPredicateLiteralAndMatcher_ShouldMatch()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		sut.Mock.Setup[x => x > 0, "a"].Returns("positive");
+		sut.Mock.Setup[0, It.IsAny<string>()].Returns("zero");
+
+		await That(sut[5, "a"]).IsEqualTo("positive");
+		await That(sut[-1, "a"]).IsNotEqualTo("positive");
+		await That(sut[0, "whatever"]).IsEqualTo("zero");
+	}
+
+	[Test]
+	public async Task Indexer_Verify_WithPredicateLiteralAndMatcher_ShouldCount()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		_ = sut[5, "a"];
+		_ = sut[6, "bb"];
+		sut[7, "c"] = "v";
+
+		await That(sut.Mock.Verify[x => x > 0, It.IsAny<string>()].Got()).Twice();
+		await That(sut.Mock.Verify[5, "a"].Got()).Once();
+		await That(sut.Mock.Verify[It.IsAny<int>(), s => s.Length == 2].Got()).Once();
+		await That(sut.Mock.Verify[x => x > 10, "a"].Got()).Never();
+		await That(sut.Mock.Verify[7, s => s == "c"].Set(It.IsAny<string>())).Once();
+	}
+
+	[Test]
+	public async Task Indexer_Verify_FailureMessage_ShouldContainThePredicateText()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		_ = sut[5, "a"];
+
+		void Act()
+			=> sut.Mock.Verify[x => x > 10, "a"].Got().Once();
+
+		await That(Act).Throws<MockVerificationException>()
+			.WithMessage("*[x => x > 10, a]*").AsWildcard();
+	}
+
+	[Test]
+	public async Task OverloadedIndexers_ShouldKeepTheClassicBindings()
+	{
+		IOverloadedIndexerService sut = IOverloadedIndexerService.CreateMock();
+		sut.Mock.Setup[5].Returns("int");
+		sut.Mock.Setup[5, "a"].Returns("two");
+
+		await That(sut[5]).IsEqualTo("int");
+		await That(sut[5L]).IsNotEqualTo("int");
+		await That(sut[5, "a"]).IsEqualTo("two");
+		await That(sut.Mock.Verify[5].Got()).Once();
+	}
+
 	public delegate int UnionDelegate(int x, string y);
+
+	public interface IOverloadedIndexerService
+	{
+		string this[int i] { get; }
+		string this[long l] { get; }
+		string this[int a, string b] { get; }
+	}
 
 	public interface IUnionService
 	{
@@ -253,6 +313,7 @@ public sealed class UnionSetupTests
 		int WithDefault(int i = 5);
 		bool Take(object? o);
 		bool TryParse(string s, out int result);
+		string this[int key, string name] { get; set; }
 	}
 
 	public interface IOverloadedService
