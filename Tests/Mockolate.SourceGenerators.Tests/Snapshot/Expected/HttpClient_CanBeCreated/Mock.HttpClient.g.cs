@@ -163,7 +163,10 @@ internal static partial class Mock
 		#region System.Net.Http.HttpClient
 
 		/// <inheritdoc cref="global::System.Net.Http.HttpMessageInvoker.Send(global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken)" />
+		[global::System.Runtime.Versioning.UnsupportedOSPlatform("android")]
 		[global::System.Runtime.Versioning.UnsupportedOSPlatform("browser")]
+		[global::System.Runtime.Versioning.UnsupportedOSPlatform("ios")]
+		[global::System.Runtime.Versioning.UnsupportedOSPlatform("tvos")]
 		public override global::System.Net.Http.HttpResponseMessage Send(global::System.Net.Http.HttpRequestMessage request, global::System.Threading.CancellationToken cancellationToken)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>? methodSetup = null;
