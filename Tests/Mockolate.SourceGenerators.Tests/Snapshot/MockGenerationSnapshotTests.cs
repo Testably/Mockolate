@@ -136,6 +136,14 @@ public sealed class MockGenerationSnapshotTests
             """,
             [],
             UnionMode: true),
+        new(
+            "UnionIndexers_CanBeCreated_Unions",
+            ["IUnionIndexers.cs",],
+            """
+            IUnionIndexers sut = IUnionIndexers.CreateMock();
+            """,
+            [],
+            UnionMode: true),
     ];
 
     public static IEnumerable<string> ScenarioNames()
