@@ -3434,6 +3434,16 @@ internal static partial class Sources
 			           indexer.MemberType == memberType && !indexer.Type.NeedsRefStructPipeline();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
+			if (UseUnionIndexer(indexer, HasUniqueIndexerKeyCount(@class, indexer), useUnionOverloads))
+			{
+				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
+				{
+					AppendUnionIndexerSetupDefinition(sb, indexer, slots);
+				}
+
+				continue;
+			}
+
 			AppendIndexerSetupDefinition(sb, indexer, hasOverloadResolutionPriority: hasOverloadResolutionPriority);
 			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)
 			{
@@ -3909,6 +3919,17 @@ internal static partial class Sources
 			           indexer.MemberType == memberType && !indexer.Type.NeedsRefStructPipeline();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
+			if (UseUnionIndexer(indexer, HasUniqueIndexerKeyCount(@class, indexer), useUnionOverloads))
+			{
+				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
+				{
+					AppendUnionIndexerSetupImplementation(sb, indexer, mockRegistryName, setupName, memberIds,
+						memberIdPrefix, slots, scopeExpression);
+				}
+
+				continue;
+			}
+
 			AppendIndexerSetupImplementation(sb, indexer, mockRegistryName, setupName, memberIds, memberIdPrefix,
 				scopeExpression: scopeExpression);
 			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)
@@ -5371,6 +5392,16 @@ internal static partial class Sources
 			           indexer.MemberType == memberType && !indexer.Type.NeedsRefStructPipeline();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
+			if (UseUnionIndexer(indexer, HasUniqueIndexerKeyCount(@class, indexer), useUnionOverloads))
+			{
+				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
+				{
+					AppendUnionIndexerVerifyDefinition(sb, indexer, verifyName, slots);
+				}
+
+				continue;
+			}
+
 			AppendIndexerVerifyDefinition(sb, indexer, verifyName,
 				hasOverloadResolutionPriority: hasOverloadResolutionPriority);
 			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)
@@ -5673,6 +5704,17 @@ internal static partial class Sources
 			   indexer.MemberType == memberType && !indexer.Type.NeedsRefStructPipeline();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
+			if (UseUnionIndexer(indexer, HasUniqueIndexerKeyCount(@class, indexer), useUnionOverloads))
+			{
+				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
+				{
+					AppendUnionIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds,
+						memberIdPrefix, useFastBuffers, slots);
+				}
+
+				continue;
+			}
+
 			AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds, memberIdPrefix,
 				useFastBuffers);
 			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)

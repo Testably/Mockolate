@@ -163,8 +163,10 @@ internal static partial class Sources
 	}
 
 	private static void AppendUnionOverloadRemark(StringBuilder sb, Method method, UnionSlot[] slots)
+		=> AppendUnionOverloadRemark(sb, method.Parameters.AsArray().Select(p => p.Name).ToArray(), slots);
+
+	private static void AppendUnionOverloadRemark(StringBuilder sb, string[] parameterNames, UnionSlot[] slots)
 	{
-		MethodParameter[] parameters = method.Parameters.AsArray();
 		List<string> parts = [];
 		AddPart(UnionSlot.Union, "an <see cref=\"global::Mockolate.It\" /> matcher or a direct value for {0}");
 		AddPart(UnionSlot.Predicate, "a predicate for {0}");
@@ -176,9 +178,9 @@ internal static partial class Sources
 
 		void AddPart(UnionSlot slot, string format)
 		{
-			string[] names = parameters
+			string[] names = parameterNames
 				.Where((_, i) => slots[i] == slot)
-				.Select(p => $"<paramref name=\"{p.Name}\" />")
+				.Select(name => $"<paramref name=\"{name}\" />")
 				.ToArray();
 			if (names.Length > 0)
 			{
@@ -228,6 +230,8 @@ internal static partial class Sources
 		bool[] hasTrailingDefault = isDefinition
 			? ComputeTrailingDefaults(method.Parameters.AsSpan(), breaksDefaults)
 			: new bool[parameters.Length];
+		string[] names = parameters.Select(p => p.Name).ToArray();
+		string[] expressionNames = parameters.Select(p => UnionExpressionParameterName(method, p)).ToArray();
 		for (int i = 0; i < parameters.Length; i++)
 		{
 			if (i > 0)
@@ -235,41 +239,53 @@ internal static partial class Sources
 				sb.Append(", ");
 			}
 
-			MethodParameter parameter = parameters[i];
-			switch (slots[i])
-			{
-				case UnionSlot.Union:
-					sb.Append("global::Mockolate.ParameterArg<").Append(parameter.ToNullableType()).Append(">? ")
-						.Append(parameter.Name);
-					break;
-				case UnionSlot.Predicate:
-					sb.Append("global::System.Func<").Append(parameter.ToNullableType()).Append(", bool> ")
-						.Append(parameter.Name);
-					break;
-				case UnionSlot.RawDelegate:
-					sb.Append(parameter.ToNullableType()).Append(' ').Append(parameter.Name);
-					break;
-				default:
-					if (isVerify)
-					{
-						sb.AppendVerifyParameter(parameter);
-					}
-					else
-					{
-						sb.Append(parameter.ToParameter());
-					}
-
-					sb.Append(' ').Append(parameter.Name);
-					break;
-			}
-
+			AppendUnionSlotParameter(sb, parameters[i], names[i], slots[i], isVerify);
 			if (hasTrailingDefault[i])
 			{
 				sb.Append(" = null");
 			}
 		}
 
-		for (int i = 0; i < parameters.Length; i++)
+		AppendUnionExpressionParameters(sb, names, expressionNames, slots, isDefinition);
+	}
+
+	private static void AppendUnionSlotParameter(StringBuilder sb, MethodParameter parameter, string name,
+		UnionSlot slot, bool isVerify)
+	{
+		switch (slot)
+		{
+			case UnionSlot.Union:
+				sb.Append("global::Mockolate.ParameterArg<").Append(parameter.ToNullableType()).Append(">? ").Append(name);
+				break;
+			case UnionSlot.Predicate:
+				sb.Append("global::System.Func<").Append(parameter.ToNullableType()).Append(", bool> ").Append(name);
+				break;
+			case UnionSlot.RawDelegate:
+				sb.Append(parameter.ToNullableType()).Append(' ').Append(name);
+				break;
+			default:
+				if (isVerify)
+				{
+					sb.AppendVerifyParameter(parameter);
+				}
+				else
+				{
+					sb.Append(parameter.ToParameter());
+				}
+
+				sb.Append(' ').Append(name);
+				break;
+		}
+	}
+
+	/// <summary>
+	///     One trailing <c>string</c> per predicate slot carrying the caller's argument text; the definition adds the
+	///     <c>[CallerArgumentExpression]</c> and the default, the explicit implementation just the parameter.
+	/// </summary>
+	private static void AppendUnionExpressionParameters(StringBuilder sb, string[] names, string[] expressionNames,
+		UnionSlot[] slots, bool isDefinition)
+	{
+		for (int i = 0; i < names.Length; i++)
 		{
 			if (slots[i] != UnionSlot.Predicate)
 			{
@@ -281,10 +297,10 @@ internal static partial class Sources
 			{
 				// Parameter names are stored escaped (`@params`); the attribute needs the bare identifier.
 				sb.Append("[global::System.Runtime.CompilerServices.CallerArgumentExpression(\"")
-					.Append(parameters[i].Name.TrimStart('@')).Append("\")] ");
+					.Append(names[i].TrimStart('@')).Append("\")] ");
 			}
 
-			sb.Append("string ").Append(UnionExpressionParameterName(method, parameters[i]));
+			sb.Append("string ").Append(expressionNames[i]);
 			if (isDefinition)
 			{
 				sb.Append(" = \"\"");
@@ -629,4 +645,342 @@ internal static partial class Sources
 
 	private static string UnionMatchLocalName(Method method, MethodParameter parameter)
 		=> CreateUniqueParameterName(method.Parameters, $"{parameter.Name}Match");
+
+	#region Indexers
+
+	/// <summary>
+	///     Whether the indexer gets the union-mode key overloads. Only an indexer that is the sole one of its key count
+	///     qualifies (<paramref name="hasUniqueKeyCount" />, see <see cref="HasUniqueIndexerKeyCount" />): two same-arity
+	///     indexers with convertible key types (<c>this[int]</c>/<c>this[long]</c>) would make <c>Setup[5]</c> ambiguous
+	///     because a union conversion loses to the numeric conversion, while indexers of different arity never compete.
+	///     Ref-struct keys have no value overloads at all and a <c>params</c> key cannot survive inside a union type.
+	/// </summary>
+	private static bool UseUnionIndexer(Property indexer, bool hasUniqueKeyCount, bool useUnionOverloads)
+		=> useUnionOverloads &&
+		   hasUniqueKeyCount &&
+		   indexer.IndexerParameters is { } parameters &&
+		   !parameters.Any(p => p.NeedsRefStructPipeline() || p.IsParams) &&
+		   parameters.Any(p => p.CanUseNullableParameterOverload());
+
+	private static bool HasUniqueIndexerKeyCount(Class @class, Property indexer)
+	{
+		int keyCount = indexer.IndexerParameters!.Value.Count;
+		return @class.AllProperties().Count(p =>
+			p.IsIndexer && p.ExplicitImplementation is null && p.IndexerParameters?.Count == keyCount) == 1;
+	}
+
+	// Indexers have no IParameters overload, so the all-union indexer simply takes the top priority the classic
+	// all-matcher indexer has; combinations with predicates rank by their union/fixed slot count.
+	private static string UnionIndexerPriority(UnionSlot[] slots)
+	{
+		int unionCount = slots.Count(s => s is UnionSlot.Union or UnionSlot.Fixed);
+		return unionCount == slots.Length ? "int.MaxValue" : unionCount.ToString();
+	}
+
+	private static string[] UnionIndexerSetupNames(Property indexer)
+		=> Enumerable.Range(1, indexer.IndexerParameters!.Value.Count).Select(i => $"parameter{i}").ToArray();
+
+	private static string[] UnionIndexerVerifyNames(Property indexer)
+		=> indexer.IndexerParameters!.Value.AsArray().Select(p => p.Name).ToArray();
+
+	private static string[] UnionIndexerExpressionNames(Property indexer, string[] names)
+		=> names.Select(name => CreateUniqueParameterName(indexer.IndexerParameters!.Value, $"{name}Expression"))
+			.ToArray();
+
+	private static void AppendUnionIndexerParameters(StringBuilder sb, Property indexer, string[] names,
+		string[] expressionNames, UnionSlot[] slots, bool isDefinition, bool isVerify)
+	{
+		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
+		for (int i = 0; i < parameters.Length; i++)
+		{
+			if (i > 0)
+			{
+				sb.Append(", ");
+			}
+
+			AppendUnionSlotParameter(sb, parameters[i], names[i], slots[i], isVerify);
+		}
+
+		AppendUnionExpressionParameters(sb, names, expressionNames, slots, isDefinition);
+	}
+
+	/// <summary>
+	///     The <c>IParameterMatch&lt;T&gt;</c> for one indexer key. Indexers have no literal fast path, so a union slot
+	///     always goes through <c>ToParameterMatch()</c>; an omitted or <see langword="null" /> key is the literal
+	///     <c>default(T)</c>.
+	/// </summary>
+	private static void AppendUnionIndexerKeyMatch(StringBuilder sb, MethodParameter parameter, string name,
+		string expressionName, UnionSlot slot)
+	{
+		switch (slot)
+		{
+			case UnionSlot.Union:
+				sb.Append('(').Append(name).Append(" ?? default).ToParameterMatch()");
+				break;
+			case UnionSlot.Predicate:
+				sb.Append("(global::Mockolate.Parameters.IParameterMatch<").Append(parameter.ToTypeOrWrapper())
+					.Append(">)global::Mockolate.It.Satisfies<").Append(parameter.ToNullableType()).Append(">(")
+					.Append(name).Append(", ").Append(expressionName).Append(')');
+				break;
+			case UnionSlot.RawDelegate:
+				AppendNamedValueParameter(sb, parameter, name);
+				break;
+			default:
+				sb.Append("CovariantParameterAdapter<").Append(parameter.ToTypeOrWrapper()).Append(">.Wrap(")
+					.Append(name).Append(')');
+				break;
+		}
+	}
+
+	private static void AppendUnionIndexerSetupDefinition(StringBuilder sb, Property indexer, UnionSlot[] slots)
+	{
+		string[] names = UnionIndexerSetupNames(indexer);
+		sb.AppendXmlSummary(
+			$"Setup for the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer <see cref=\"{indexer.DeclaredContainingType.EscapeForXmlDoc()}.this[{string.Join(", ", indexer.IndexerParameters!.Value.Select(p => p.RefKind.GetString() + p.Type.Fullname.EscapeForXmlDoc()))}]\" />");
+		AppendUnionOverloadRemark(sb, names, slots);
+		sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
+			.Append(UnionIndexerPriority(slots)).Append(")]").AppendLine();
+		sb.Append("\t\t").Append(GetIndexerSetupType(indexer)).AppendTypeOrWrapper(indexer.Type);
+		foreach (MethodParameter parameter in indexer.IndexerParameters!)
+		{
+			sb.Append(", ").AppendTypeOrWrapper(parameter.Type);
+		}
+
+		sb.Append("> this[");
+		AppendUnionIndexerParameters(sb, indexer, names, UnionIndexerExpressionNames(indexer, names), slots,
+			isDefinition: true, isVerify: false);
+		sb.Append("] { get; }").AppendLine();
+		sb.AppendLine();
+	}
+
+#pragma warning disable S107 // Methods should not have too many parameters
+	private static void AppendUnionIndexerSetupImplementation(StringBuilder sb, Property indexer,
+		string mockRegistryName, string setupName, MemberIdTable memberIds, string memberIdPrefix,
+		UnionSlot[] slots, string? scopeExpression = null)
+#pragma warning restore S107
+	{
+		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
+		string[] names = UnionIndexerSetupNames(indexer);
+		string[] expressionNames = UnionIndexerExpressionNames(indexer, names);
+		string scopePrefix = scopeExpression is null ? "" : scopeExpression + ", ";
+		sb.Append("\t\t/// <inheritdoc />").AppendLine();
+		sb.Append(
+				"\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]")
+			.AppendLine();
+		sb.Append("\t\t").Append(GetIndexerSetupType(indexer)).AppendTypeOrWrapper(indexer.Type);
+		foreach (MethodParameter parameter in parameters)
+		{
+			sb.Append(", ").AppendTypeOrWrapper(parameter.Type);
+		}
+
+		sb.Append("> global::Mockolate.Mock.").Append(setupName).Append(".this[");
+		AppendUnionIndexerParameters(sb, indexer, names, expressionNames, slots, isDefinition: false,
+			isVerify: false);
+		sb.Append("]").AppendLine();
+		sb.Append("\t\t{").AppendLine();
+		sb.Append("\t\t\tget").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\tvar indexerSetup = new global::Mockolate.Setup.IndexerSetup<")
+			.AppendTypeOrWrapper(indexer.Type);
+		foreach (MethodParameter parameter in parameters)
+		{
+			sb.Append(", ").AppendTypeOrWrapper(parameter.Type);
+		}
+
+		sb.Append(">(").Append(mockRegistryName);
+		for (int i = 0; i < parameters.Length; i++)
+		{
+			sb.Append(", ");
+			AppendUnionIndexerKeyMatch(sb, parameters[i], names[i], expressionNames[i], slots[i]);
+		}
+
+		sb.Append(");").AppendLine();
+		sb.Append("\t\t\t\tthis.").Append(mockRegistryName).Append(".SetupIndexer(")
+			.Append(memberIdPrefix).Append(memberIds.GetIndexerGetIdentifier(indexer)).Append(", ")
+			.Append(scopePrefix).Append("indexerSetup);").AppendLine();
+		sb.Append("\t\t\t\treturn indexerSetup;").AppendLine();
+		sb.Append("\t\t\t}").AppendLine();
+		sb.Append("\t\t}").AppendLine();
+		sb.AppendLine();
+	}
+
+	private static void AppendUnionIndexerVerifyDefinition(StringBuilder sb, Property indexer, string verifyName,
+		UnionSlot[] slots)
+	{
+		string[] names = UnionIndexerVerifyNames(indexer);
+		sb.AppendXmlSummary(
+			$"Verify interactions with the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer <see cref=\"{indexer.DeclaredContainingType.EscapeForXmlDoc()}.this[{string.Join(", ", indexer.IndexerParameters!.Value.Select(p => p.RefKind.GetString() + p.Type.Fullname.EscapeForXmlDoc()))}]\" />.");
+		AppendUnionOverloadRemark(sb, names, slots);
+		sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
+			.Append(UnionIndexerPriority(slots)).Append(")]").AppendLine();
+		sb.Append("\t\t");
+		AppendIndexerVerifyType(sb, indexer, verifyName);
+		sb.Append(" this[");
+		AppendUnionIndexerParameters(sb, indexer, names, UnionIndexerExpressionNames(indexer, names), slots,
+			isDefinition: true, isVerify: true);
+		sb.Append("] { get; }").AppendLine();
+		sb.AppendLine();
+	}
+
+#pragma warning disable S107 // Methods should not have too many parameters
+	private static void AppendUnionIndexerVerifyImplementation(StringBuilder sb, Property indexer,
+		string mockRegistryName, string verifyName, MemberIdTable memberIds, string memberIdPrefix,
+		bool useFastBuffers, UnionSlot[] slots)
+#pragma warning restore S107
+	{
+		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
+		string[] names = UnionIndexerVerifyNames(indexer);
+		string[] expressionNames = UnionIndexerExpressionNames(indexer, names);
+		bool useFastForIndexer = useFastBuffers && IsFastBufferEligibleIndexer(indexer);
+		string indexerGetMemberId = useFastForIndexer
+			? memberIdPrefix + memberIds.GetIndexerGetIdentifier(indexer)
+			: "-1";
+		string indexerSetMemberId = useFastForIndexer
+			? memberIdPrefix + memberIds.GetIndexerSetIdentifier(indexer)
+			: "-1";
+		PropertyAccessors interceptedAccessors = GetInterceptedAccessors(indexer);
+
+		sb.Append("\t\t/// <inheritdoc />").AppendLine();
+		sb.Append(
+				"\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]")
+			.AppendLine();
+		sb.Append("\t\t");
+		AppendIndexerVerifyType(sb, indexer, verifyName);
+		sb.Append(' ').Append(verifyName).Append(".this[");
+		AppendUnionIndexerParameters(sb, indexer, names, expressionNames, slots, isDefinition: false,
+			isVerify: true);
+		sb.Append("]").AppendLine();
+		sb.Append("\t\t{").AppendLine();
+		sb.Append("\t\t\tget").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		if (parameters.Length <= 4)
+		{
+			// Typed path: one IParameterMatch<T> per key, exactly like the classic matcher indexer.
+			string typedVerifyType = interceptedAccessors switch
+			{
+				PropertyAccessors.GetOnly => "VerificationIndexerGetterResult",
+				PropertyAccessors.SetOnly => "VerificationIndexerSetterResult",
+				_ => "VerificationIndexerResult",
+			};
+			string verifyMemberIds = interceptedAccessors switch
+			{
+				PropertyAccessors.GetOnly => indexerGetMemberId,
+				PropertyAccessors.SetOnly => indexerSetMemberId,
+				_ => $"{indexerGetMemberId}, {indexerSetMemberId}",
+			};
+			sb.Append("\t\t\t\treturn new global::Mockolate.Verify.").Append(typedVerifyType).Append('<')
+				.Append(verifyName);
+			foreach (MethodParameter parameter in parameters)
+			{
+				sb.Append(", ").AppendTypeOrWrapper(parameter.Type);
+			}
+
+			if (interceptedAccessors != PropertyAccessors.GetOnly)
+			{
+				sb.Append(", ").AppendTypeOrWrapper(indexer.Type);
+			}
+
+			sb.Append(">(this, this.").Append(mockRegistryName)
+				.Append(", ").Append(verifyMemberIds).Append(",").AppendLine();
+			for (int i = 0; i < parameters.Length; i++)
+			{
+				sb.Append("\t\t\t\t\t");
+				AppendUnionIndexerKeyMatch(sb, parameters[i], names[i], expressionNames[i], slots[i]);
+				sb.Append(',').AppendLine();
+			}
+		}
+		else
+		{
+			switch (interceptedAccessors)
+			{
+				case PropertyAccessors.GetOnly:
+					sb.Append("\t\t\t\treturn new global::Mockolate.Verify.VerificationIndexerGetterResult<")
+						.Append(verifyName);
+					foreach (MethodParameter parameter in parameters)
+					{
+						sb.Append(", ").AppendTypeOrWrapper(parameter.Type);
+					}
+
+					sb.Append(">(this, this.").Append(mockRegistryName)
+						.Append(", ").Append(indexerGetMemberId).Append(",").AppendLine();
+					break;
+				case PropertyAccessors.SetOnly:
+					sb.Append("\t\t\t\treturn new global::Mockolate.Verify.VerificationIndexerSetterResult<")
+						.Append(verifyName);
+					foreach (MethodParameter parameter in parameters)
+					{
+						sb.Append(", ").AppendTypeOrWrapper(parameter.Type);
+					}
+
+					sb.Append(", ").AppendTypeOrWrapper(indexer.Type).Append(">(this, this.").Append(mockRegistryName)
+						.Append(", ").Append(indexerSetMemberId).Append(",").AppendLine();
+					break;
+				default:
+					sb.Append("\t\t\t\treturn new global::Mockolate.Verify.VerificationIndexerResult<").Append(verifyName)
+						.Append(", ").AppendTypeOrWrapper(indexer.Type).Append(">(this, this.").Append(mockRegistryName)
+						.Append(", ").Append(indexerGetMemberId).Append(", ").Append(indexerSetMemberId).Append(",").AppendLine();
+					break;
+			}
+
+			if (interceptedAccessors != PropertyAccessors.SetOnly)
+			{
+				sb.Append("\t\t\t\t\tinteraction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<")
+					.Append(string.Join(", ", parameters.Select(p => p.ToTypeOrWrapper()))).Append("> g");
+				AppendUnionIndexerKeyMatches(sb, parameters, names, expressionNames, slots, "g");
+				sb.Append(",").AppendLine();
+			}
+
+			if (interceptedAccessors != PropertyAccessors.GetOnly)
+			{
+				sb.Append(
+					"\t\t\t\t\t(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<");
+				foreach (MethodParameter parameter in parameters)
+				{
+					sb.AppendTypeOrWrapper(parameter.Type).Append(", ");
+				}
+
+				sb.AppendTypeOrWrapper(indexer.Type).Append("> s");
+				AppendUnionIndexerKeyMatches(sb, parameters, names, expressionNames, slots, "s");
+				sb.Append(" && value.Matches(s.TypedValue),").AppendLine();
+			}
+		}
+
+		sb.Append("\t\t\t\t\t() => global::System.String.Format(\"[")
+			.Append(string.Join(", ", Enumerable.Range(0, parameters.Length).Select(k => $"{{{k}}}")))
+			.Append("]\"");
+		for (int i = 0; i < parameters.Length; i++)
+		{
+			sb.Append(", ");
+			switch (slots[i])
+			{
+				case UnionSlot.Union:
+					sb.Append("(object?)(").Append(names[i]).Append(" ?? default)");
+					break;
+				case UnionSlot.Predicate:
+					sb.Append("(object?)").Append(expressionNames[i]);
+					break;
+				default:
+					sb.Append("(object?)").Append(names[i]).Append(" ?? \"null\"");
+					break;
+			}
+		}
+
+		sb.Append("));").AppendLine();
+		sb.Append("\t\t\t}").AppendLine();
+		sb.Append("\t\t}").AppendLine();
+		sb.AppendLine();
+	}
+
+	private static void AppendUnionIndexerKeyMatches(StringBuilder sb, MethodParameter[] parameters, string[] names,
+		string[] expressionNames, UnionSlot[] slots, string interactionVar)
+	{
+		for (int i = 0; i < parameters.Length; i++)
+		{
+			sb.Append(" && ");
+			AppendUnionIndexerKeyMatch(sb, parameters[i], names[i], expressionNames[i], slots[i]);
+			sb.Append(".Matches(").Append(interactionVar).Append(".Parameter").Append(i + 1).Append(')');
+		}
+	}
+
+	#endregion Indexers
 }

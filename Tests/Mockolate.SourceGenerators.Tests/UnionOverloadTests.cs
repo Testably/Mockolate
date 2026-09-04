@@ -44,6 +44,8 @@ public sealed class UnionOverloadTests
 	                                      int Overloaded(string? value);
 	                                      int Mixed(int value);
 	                                      int Mixed<T>(T value);
+	                                      string this[int key, string name] { get; set; }
+	                                      string this[Func<int, bool> selector] { get; }
 	                                  }
 	                              }
 	                              """;
@@ -150,6 +152,79 @@ public sealed class UnionOverloadTests
 			.Contains("Mixed(global::Mockolate.Parameters.IParameter<int>? value);").And
 			.Contains("Mixed(int value);").And
 			.DoesNotContain("Mixed(global::Mockolate.ParameterArg<");
+	}
+
+	[Test]
+	public async Task Indexer_ShouldEmitOneOverloadPerUnionOrPredicateAssignment()
+	{
+		string mock = GenerateMockInUnionMode();
+
+		await That(mock)
+			.Contains(
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]\n\t\tglobal::Mockolate.Setup.IndexerSetup<string, int, string> this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<string>? parameter2] { get; }")
+			.And
+			.Contains(
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]\n\t\tglobal::Mockolate.Setup.IndexerSetup<string, int, string> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<string>? parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression(\"parameter1\")] string parameter1Expression = \"\"] { get; }")
+			.And
+			.Contains("(parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch());").And
+			.Contains("(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression)").And
+			.Contains("global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIMyService, string> this[global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string>? name] { get; }").And
+			.Contains("global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIMyService, string> this[global::Mockolate.ParameterArg<int>? key, global::System.Func<string, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression(\"name\")] string nameExpression = \"\"] { get; }").And
+			.Contains("(object?)(key ?? default), (object?)nameExpression));").And
+			.DoesNotContain("this[global::Mockolate.Parameters.IParameter<int>? parameter1").And
+			.DoesNotContain("this[int parameter1, string parameter2]");
+	}
+
+	[Test]
+	public async Task Indexer_WithDelegateTypedKey_ShouldOfferTheRawDelegateAsLiteral()
+	{
+		string mock = GenerateMockInUnionMode();
+
+		await That(mock)
+			.Contains("this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1] { get; }").And
+			.Contains("this[global::System.Func<int, bool> parameter1] { get; }").And
+			.Contains("(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1)").And
+			.DoesNotContain("this[global::System.Func<global::System.Func<int, bool>, bool>");
+	}
+
+	[Test]
+	public async Task Indexers_WithTheSameKeyCount_ShouldKeepTheClassicOverloads()
+	{
+		const string source = """
+		                      #nullable enable
+		                      using Mockolate;
+
+		                      namespace MyCode
+		                      {
+		                          public class Program
+		                          {
+		                              public static void Main(string[] args)
+		                              {
+		                                  _ = IOverloadedIndexers.CreateMock();
+		                              }
+		                          }
+
+		                          public interface IOverloadedIndexers
+		                          {
+		                              string this[int i] { get; }
+		                              string this[long l] { get; }
+		                              string this[int a, int b] { get; }
+		                          }
+		                      }
+		                      """;
+
+		GeneratorResult result = Generator.Run([source,], ["NET11_0_OR_GREATER",], LanguageVersion.Preview,
+			UnionsEnabled);
+		string mock = result.Sources["Mock.IOverloadedIndexers.g.cs"];
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(mock)
+			.Contains("this[global::Mockolate.Parameters.IParameter<int>? parameter1] { get; }").And
+			.Contains("this[int parameter1] { get; }").And
+			.Contains("this[global::Mockolate.Parameters.IParameter<long>? parameter1] { get; }").And
+			.DoesNotContain("this[global::Mockolate.ParameterArg<int>? parameter1]").And
+			.DoesNotContain("this[global::Mockolate.ParameterArg<long>? parameter1]").And
+			.Contains("this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<int>? parameter2] { get; }");
 	}
 
 	[Test]
