@@ -14,7 +14,8 @@ internal static partial class Sources
 		string name,
 		Class @class,
 		bool hasOverloadResolutionPriority = false,
-		(string Name, Class Class)[]? hiddenBaseInterfaces = null)
+		(string Name, Class Class)[]? hiddenBaseInterfaces = null,
+		bool useUnionOverloads = false)
 	{
 		hiddenBaseInterfaces ??= [];
 		EquatableArray<Method>? constructors = (@class as MockClass)?.Constructors;
@@ -221,7 +222,7 @@ internal static partial class Sources
 
 		sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 		sb.AppendLine();
-		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix);
+		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 		sb.Append("\t\t#endregion IMockSetupFor").Append(name).AppendLine();
 
 		if (hasProtectedMembers)
@@ -229,7 +230,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockProtectedSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix);
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 		}
 
@@ -238,7 +239,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockStaticSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockStaticSetupFor{name}", MemberType.Static, memberIds, memberIdPrefix);
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockStaticSetupFor{name}", MemberType.Static, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockStaticSetupFor").Append(name).AppendLine();
 		}
 
@@ -247,7 +248,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockSetupFor").Append(hiddenBase.Name).AppendLine();
 			sb.AppendLine();
-			ImplementSetupInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockSetupFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix);
+			ImplementSetupInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockSetupFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockSetupFor").Append(hiddenBase.Name).AppendLine();
 		}
 
@@ -302,7 +303,7 @@ internal static partial class Sources
 		sb.AppendLine();
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
-		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix);
+		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 		sb.Append("\t\t#endregion IMockVerifyFor").Append(name).AppendLine();
 
 		if (hasProtectedMembers || hasProtectedEvents)
@@ -310,7 +311,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockProtectedVerifyFor").Append(name).AppendLine();
 			sb.AppendLine();
-			ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockProtectedVerifyFor{name}", MemberType.Protected, memberIds, memberIdPrefix);
+			ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockProtectedVerifyFor{name}", MemberType.Protected, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockProtectedVerifyFor").Append(name).AppendLine();
 		}
 
@@ -319,7 +320,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockStaticVerifyFor").Append(name).AppendLine();
 			sb.AppendLine();
-			ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockStaticVerifyFor{name}", MemberType.Static, memberIds, memberIdPrefix);
+			ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockStaticVerifyFor{name}", MemberType.Static, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockStaticVerifyFor").Append(name).AppendLine();
 		}
 
@@ -328,7 +329,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockVerifyFor").Append(hiddenBase.Name).AppendLine();
 			sb.AppendLine();
-			ImplementVerifyInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockVerifyFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, false);
+			ImplementVerifyInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockVerifyFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, false, useUnionOverloads);
 			sb.Append("\t\t#endregion IMockVerifyFor").Append(hiddenBase.Name).AppendLine();
 		}
 
@@ -352,7 +353,7 @@ internal static partial class Sources
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
 		
-		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix);
+		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 		
 		sb.Append("\t\t#endregion IMockVerifyFor").Append(name).AppendLine();
 		sb.Append("\t}").AppendLine();
@@ -398,7 +399,7 @@ internal static partial class Sources
 		sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 		sb.AppendLine();
 		
-		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, "_scenarioName");
+		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, "_scenarioName", useUnionOverloads);
 		
 		sb.Append("\t\t#endregion IMockSetupFor").Append(name).AppendLine();
 		if (hasProtectedMembers)
@@ -407,7 +408,7 @@ internal static partial class Sources
 			sb.Append("\t\t#region IMockProtectedSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
 			
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, "_scenarioName");
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, "_scenarioName", useUnionOverloads);
 			
 			sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 		}
@@ -587,7 +588,7 @@ internal static partial class Sources
 
 		sb.Append("\t{").AppendLine();
 		
-		DefineSetupInterface(sb, @class, MemberType.Public, hasOverloadResolutionPriority);
+		DefineSetupInterface(sb, @class, MemberType.Public, hasOverloadResolutionPriority, useUnionOverloads);
 		
 		sb.Append("\t}").AppendLine();
 		sb.AppendLine();
@@ -602,7 +603,7 @@ internal static partial class Sources
 			sb.Append("\tinternal interface IMockProtectedSetupFor").Append(name).AppendLine();
 			sb.Append("\t{").AppendLine();
 			
-			DefineSetupInterface(sb, @class, MemberType.Protected, hasOverloadResolutionPriority);
+			DefineSetupInterface(sb, @class, MemberType.Protected, hasOverloadResolutionPriority, useUnionOverloads);
 			
 			sb.Append("\t}").AppendLine();
 			sb.AppendLine();
@@ -618,7 +619,7 @@ internal static partial class Sources
 			sb.Append("\tinternal interface IMockStaticSetupFor").Append(name).AppendLine();
 			sb.Append("\t{").AppendLine();
 			
-			DefineSetupInterface(sb, @class, MemberType.Static, hasOverloadResolutionPriority);
+			DefineSetupInterface(sb, @class, MemberType.Static, hasOverloadResolutionPriority, useUnionOverloads);
 			
 			sb.Append("\t}").AppendLine();
 			sb.AppendLine();
@@ -689,7 +690,7 @@ internal static partial class Sources
 
 		sb.Append("\t{").AppendLine();
 		
-		DefineVerifyInterface(sb, @class, $"IMockVerifyFor{name}", MemberType.Public, hasOverloadResolutionPriority);
+		DefineVerifyInterface(sb, @class, $"IMockVerifyFor{name}", MemberType.Public, hasOverloadResolutionPriority, useUnionOverloads);
 		
 		sb.Append("\t}").AppendLine();
 
@@ -705,7 +706,7 @@ internal static partial class Sources
 			sb.Append("\tinternal interface IMockProtectedVerifyFor").Append(name).AppendLine();
 			sb.Append("\t{").AppendLine();
 			DefineVerifyInterface(sb, @class, $"IMockProtectedVerifyFor{name}", MemberType.Protected,
-				hasOverloadResolutionPriority);
+				hasOverloadResolutionPriority, useUnionOverloads);
 			sb.Append("\t}").AppendLine();
 		}
 
@@ -721,7 +722,7 @@ internal static partial class Sources
 			sb.Append("\tinternal interface IMockStaticVerifyFor").Append(name).AppendLine();
 			sb.Append("\t{").AppendLine();
 			DefineVerifyInterface(sb, @class, $"IMockStaticVerifyFor{name}", MemberType.Static,
-				hasOverloadResolutionPriority);
+				hasOverloadResolutionPriority, useUnionOverloads);
 			sb.Append("\t}").AppendLine();
 		}
 
@@ -1161,7 +1162,7 @@ internal static partial class Sources
 			sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
 			
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix);
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 			
 			sb.Append("\t\t#endregion IMockSetupFor").Append(name).AppendLine();
 			if (hasProtectedMembers)
@@ -1170,7 +1171,7 @@ internal static partial class Sources
 				sb.Append("\t\t#region IMockProtectedSetupFor").Append(name).AppendLine();
 				sb.AppendLine();
 				
-				ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix);
+				ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
 				
 				sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 			}
@@ -3394,7 +3395,7 @@ internal static partial class Sources
 	}
 
 	private static void DefineSetupInterface(StringBuilder sb, Class @class, MemberType memberType,
-		bool hasOverloadResolutionPriority)
+		bool hasOverloadResolutionPriority, bool useUnionOverloads = false)
 	{
 		#region Properties
 
@@ -3481,6 +3482,13 @@ internal static partial class Sources
 				{
 					AppendMethodSetupDefinition(sb, @class, method, false,
 						hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+				}
+				else if (UseUnionOverloads(method, HasUniqueMethodName(@class, method), useUnionOverloads))
+				{
+					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters))
+					{
+						AppendUnionMethodSetupDefinition(sb, @class, method, slots);
+					}
 				}
 				else
 				{
@@ -3830,7 +3838,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementSetupInterface(StringBuilder sb, Class @class, string mockRegistryName,
 		string setupName, MemberType memberType, MemberIdTable memberIds, string memberIdPrefix,
-		string? scopeExpression = null)
+		string? scopeExpression = null, bool useUnionOverloads = false)
 #pragma warning restore S107
 	{
 		string scopePrefix = scopeExpression is null ? "" : scopeExpression + ", ";
@@ -3952,6 +3960,14 @@ internal static partial class Sources
 				{
 					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
 						memberIds, memberIdPrefix, scopeExpression: scopeExpression);
+				}
+				else if (UseUnionOverloads(method, HasUniqueMethodName(@class, method), useUnionOverloads))
+				{
+					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters))
+					{
+						AppendUnionMethodSetupImplementation(sb, method, mockRegistryName, setupName, memberIds,
+							memberIdPrefix, slots, scopeExpression: scopeExpression);
+					}
 				}
 				else
 				{
@@ -5330,7 +5346,7 @@ internal static partial class Sources
 	#region Verify Helpers
 
 	private static void DefineVerifyInterface(StringBuilder sb, Class @class, string verifyName, MemberType memberType,
-		bool hasOverloadResolutionPriority)
+		bool hasOverloadResolutionPriority, bool useUnionOverloads = false)
 	{
 		#region Properties
 
@@ -5405,6 +5421,13 @@ internal static partial class Sources
 				{
 					AppendMethodVerifyDefinition(sb, method, verifyName, false,
 						hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+				}
+				else if (UseUnionOverloads(method, HasUniqueMethodName(@class, method), useUnionOverloads))
+				{
+					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters))
+					{
+						AppendUnionMethodVerifyDefinition(sb, @class, method, verifyName, slots);
+					}
 				}
 				else
 				{
@@ -5599,7 +5622,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementVerifyInterface(StringBuilder sb, Class @class, string mockRegistryName,
 		string verifyName, MemberType memberType, MemberIdTable memberIds, string memberIdPrefix,
-		bool useFastBuffers = true)
+		bool useFastBuffers = true, bool useUnionOverloads = false)
 #pragma warning restore S107
 	{
 		#region Properties
@@ -5701,6 +5724,14 @@ internal static partial class Sources
 				{
 					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
 						memberIds, memberIdPrefix, useFastBuffers);
+				}
+				else if (UseUnionOverloads(method, HasUniqueMethodName(@class, method), useUnionOverloads))
+				{
+					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters))
+					{
+						AppendUnionMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, memberIds,
+							memberIdPrefix, useFastBuffers, slots);
+					}
 				}
 				else
 				{

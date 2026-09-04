@@ -59,20 +59,44 @@ public class MockGenerator : IIncrementalGenerator
 			.Combine(context.AnalyzerConfigOptionsProvider)
 			.Select(static (source, _) => HasUnionSupport(source.Left, source.Right));
 
-		// The attribute ships with .NET 11; older targets (or consumers polyfilling it themselves) decide
-		// whether the generated union type has to declare it.
-		IncrementalValueProvider<bool> hasUnionAttribute = context.CompilationProvider
-			.Select(static (compilation, _) => HasAttribute(compilation,
-				"System.Runtime.CompilerServices.UnionAttribute"));
+		// The union-mode surface needs three compiler-recognised attributes that older frameworks lack
+		// (UnionAttribute: .NET 11, OverloadResolutionPriorityAttribute: .NET 9, CallerArgumentExpressionAttribute:
+		// .NET 6). Whatever the referenced framework or the consuming assembly does not declare is polyfilled next
+		// to the generated union type, so that union mode works on every target a C# 15 compiler can build. The
+		// compilation cannot show the output of other generators (PolySharp), so MockolateUnionAttributePolyfills
+		// names the attributes the project already gets elsewhere: "false" stands for the two that PolySharp ships.
+		IncrementalValueProvider<(bool Union, bool Priority, bool CallerArgumentExpression)> hasUnionAttributes =
+			context.CompilationProvider
+				.Combine(context.AnalyzerConfigOptionsProvider)
+				.Select(static (source, _) =>
+				{
+					HashSet<string> provided = ProvidedUnionAttributes(source.Right);
+					return (
+						provided.Contains("UnionAttribute") ||
+						HasAttribute(source.Left, "System.Runtime.CompilerServices.UnionAttribute"),
+						provided.Contains("OverloadResolutionPriorityAttribute") ||
+						HasAttribute(source.Left, "System.Runtime.CompilerServices.OverloadResolutionPriorityAttribute"),
+						provided.Contains("CallerArgumentExpressionAttribute") ||
+						HasAttribute(source.Left, "System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"));
+				});
 
-		context.RegisterSourceOutput(hasUnionSupport.Combine(hasUnionAttribute), static (spc, source) =>
+		context.RegisterSourceOutput(hasUnionSupport.Combine(hasUnionAttributes), static (spc, source) =>
 		{
 			if (source.Left)
 			{
 				spc.AddSource("ParameterArg.g.cs",
-					ToSource(Sources.Sources.ParameterArg(emitUnionAttributePolyfill: !source.Right)));
+					ToSource(Sources.Sources.ParameterArg(
+						emitUnionAttributePolyfill: !source.Right.Union,
+						emitOverloadResolutionPriorityPolyfill: !source.Right.Priority,
+						emitCallerArgumentExpressionPolyfill: !source.Right.CallerArgumentExpression)));
 			}
 		});
+
+		// In union mode ParameterArg.g.cs guarantees OverloadResolutionPriorityAttribute, so every overload set of
+		// the compilation (union-typed or classic) can carry priorities; without union mode nothing changes.
+		IncrementalValueProvider<bool> canUseOverloadResolutionPriority = hasOverloadResolutionPriority
+			.Combine(hasUnionSupport)
+			.Select(static (source, _) => source.Left || source.Right);
 
 		// Naming step: cross-mock disambiguation. Cached as a unit; one NamedMock per emission.
 		IncrementalValueProvider<EquatableArray<NamedMock>> namedMocksAggregate = collectedMocks
@@ -83,8 +107,8 @@ public class MockGenerator : IIncrementalGenerator
 
 		// Per-mock source output: cache hit when the NamedMock is identity-equal to last run.
 		context.RegisterSourceOutput(
-			perMock.Combine(hasOverloadResolutionPriority),
-			static (spc, source) => EmitMockFile(spc, source.Left, source.Right));
+			perMock.Combine(canUseOverloadResolutionPriority).Combine(hasUnionSupport),
+			static (spc, source) => EmitMockFile(spc, source.Left.Left, source.Left.Right, source.Right));
 
 		// As<T> bridge extensions across (a, b) pairs. Cross-mock dedup; one file.
 		IncrementalValueProvider<EquatableArray<MockAsExtensionPair>> asPairs = namedMocksAggregate
@@ -104,7 +128,7 @@ public class MockGenerator : IIncrementalGenerator
 			.Select(static (arr, _) => CollectIndexerSetupKeys(arr));
 
 		context.RegisterSourceOutput(
-			indexerSetupKeys.Combine(hasOverloadResolutionPriority),
+			indexerSetupKeys.Combine(canUseOverloadResolutionPriority),
 			static (spc, source) =>
 			{
 				if (source.Left.Count == 0)
@@ -185,6 +209,39 @@ public class MockGenerator : IIncrementalGenerator
 			       (attributeSymbol.DeclaredAccessibility == Accessibility.Public ||
 			        (attributeSymbol.DeclaredAccessibility == Accessibility.Internal &&
 			         SymbolEqualityComparer.Default.Equals(attributeSymbol.ContainingAssembly, c.Assembly)));
+		}
+
+		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute and
+		// CallerArgumentExpressionAttribute from another generator (PolySharp); any other value is a ';'-separated
+		// list of attribute names (with or without namespace) that must not be polyfilled.
+		static HashSet<string> ProvidedUnionAttributes(AnalyzerConfigOptionsProvider analyzerConfigOptions)
+		{
+			HashSet<string> provided = new(StringComparer.OrdinalIgnoreCase);
+			if (!analyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MockolateUnionAttributePolyfills",
+				    out string? configured) ||
+			    string.IsNullOrWhiteSpace(configured))
+			{
+				return provided;
+			}
+
+			if (string.Equals(configured.Trim(), "false", StringComparison.OrdinalIgnoreCase))
+			{
+				provided.Add("OverloadResolutionPriorityAttribute");
+				provided.Add("CallerArgumentExpressionAttribute");
+				return provided;
+			}
+
+			foreach (string name in configured.Split(';'))
+			{
+				string trimmed = name.Trim();
+				int lastDot = trimmed.LastIndexOf('.');
+				if (trimmed.Length > 0 && !string.Equals(trimmed, "true", StringComparison.OrdinalIgnoreCase))
+				{
+					provided.Add(lastDot < 0 ? trimmed : trimmed.Substring(lastDot + 1));
+				}
+			}
+
+			return provided;
 		}
 
 		// The MockolateUnionParameters build property (made compiler-visible by build/Mockolate.props) wins when
@@ -535,15 +592,18 @@ public class MockGenerator : IIncrementalGenerator
 		}
 	}
 
-	private static void EmitMockFile(SourceProductionContext context, NamedMock named, bool hasOverloadResolutionPriority)
+	private static void EmitMockFile(SourceProductionContext context, NamedMock named, bool hasOverloadResolutionPriority,
+		bool hasUnionSupport)
 	{
 		string fileName = named.FileName;
 		Class @class = named.Mock;
+		// hasOverloadResolutionPriority already accounts for the polyfill that ParameterArg.g.cs emits in union mode.
+		bool useUnionOverloads = hasUnionSupport;
 
 		if (@class is MockClass { Delegate: not null, } mockClass)
 		{
 			context.AddSource($"Mock.{fileName}.g.cs",
-				ToSource(Sources.Sources.MockDelegate(named.ParentName, mockClass, mockClass.Delegate)));
+				ToSource(Sources.Sources.MockDelegate(named.ParentName, mockClass, mockClass.Delegate, useUnionOverloads)));
 			return;
 		}
 
@@ -561,7 +621,8 @@ public class MockGenerator : IIncrementalGenerator
 			}
 
 			context.AddSource($"Mock.{fileName}.g.cs",
-				ToSource(Sources.Sources.MockClass(named.ParentName, @class, hasOverloadResolutionPriority, hiddenBaseArr)));
+				ToSource(Sources.Sources.MockClass(named.ParentName, @class, hasOverloadResolutionPriority, hiddenBaseArr,
+					useUnionOverloads)));
 			return;
 		}
 
@@ -573,7 +634,8 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		context.AddSource($"Mock.{fileName}.g.cs",
-			ToSource(Sources.Sources.MockCombinationClass(fileName, named.ParentName, @class, additionalArr)));
+			ToSource(Sources.Sources.MockCombinationClass(fileName, named.ParentName, @class, additionalArr,
+				useUnionOverloads)));
 	}
 
 	private static bool IsValidMockDeclaration(MockClass mockClass)
