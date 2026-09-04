@@ -15,28 +15,75 @@ internal static partial class Sources
 	///     <c>System.Runtime.CompilerServices.UnionAttribute</c> (it ships with .NET 11), so the file has to
 	///     declare it.
 	/// </param>
-	public static string ParameterArg(bool emitUnionAttributePolyfill)
+	/// <param name="emitOverloadResolutionPriorityPolyfill">
+	///     <see langword="true" /> when <c>OverloadResolutionPriorityAttribute</c> (ships with .NET 9) is missing; the
+	///     union-mode overloads rely on it to keep <see langword="null" /> and <see langword="default" /> arguments
+	///     unambiguous, and the compiler honours a source-declared copy.
+	/// </param>
+	/// <param name="emitCallerArgumentExpressionPolyfill">
+	///     <see langword="true" /> when <c>CallerArgumentExpressionAttribute</c> (ships with .NET 6) is missing; the
+	///     predicate overloads use it to keep the predicate text in failure messages.
+	/// </param>
+	public static string ParameterArg(bool emitUnionAttributePolyfill,
+		bool emitOverloadResolutionPriorityPolyfill = false, bool emitCallerArgumentExpressionPolyfill = false)
 	{
 		StringBuilder sb = InitializeBuilder();
 
 		sb.AppendLine("#nullable enable");
 		sb.AppendLine();
-		if (emitUnionAttributePolyfill)
+		if (emitUnionAttributePolyfill || emitOverloadResolutionPriorityPolyfill || emitCallerArgumentExpressionPolyfill)
 		{
-			sb.Append("""
-			          namespace System.Runtime.CompilerServices
-			          {
-			          	/// <summary>
-			          	///     Polyfill for the attribute that marks a union type; the runtime ships it starting with .NET 11.
-			          	/// </summary>
-			          	[global::System.AttributeUsage(global::System.AttributeTargets.Class | global::System.AttributeTargets.Struct, AllowMultiple = false)]
-			          	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-			          	internal sealed class UnionAttribute : global::System.Attribute
-			          	{
-			          	}
-			          }
+			sb.AppendLine("namespace System.Runtime.CompilerServices");
+			sb.AppendLine("{");
+			if (emitUnionAttributePolyfill)
+			{
+				sb.Append("""
+				          	/// <summary>
+				          	///     Polyfill for the attribute that marks a union type; the runtime ships it starting with .NET 11.
+				          	/// </summary>
+				          	[global::System.AttributeUsage(global::System.AttributeTargets.Class | global::System.AttributeTargets.Struct, AllowMultiple = false)]
+				          	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+				          	internal sealed class UnionAttribute : global::System.Attribute
+				          	{
+				          	}
 
-			          """);
+				          """);
+			}
+
+			if (emitOverloadResolutionPriorityPolyfill)
+			{
+				sb.Append("""
+				          	/// <summary>
+				          	///     Polyfill for the overload priority attribute; the runtime ships it starting with .NET 9.
+				          	/// </summary>
+				          	[global::System.AttributeUsage(global::System.AttributeTargets.Method | global::System.AttributeTargets.Constructor | global::System.AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
+				          	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+				          	internal sealed class OverloadResolutionPriorityAttribute(int priority) : global::System.Attribute
+				          	{
+				          		public int Priority { get; } = priority;
+				          	}
+
+				          """);
+			}
+
+			if (emitCallerArgumentExpressionPolyfill)
+			{
+				sb.Append("""
+				          	/// <summary>
+				          	///     Polyfill for the caller argument expression attribute; the runtime ships it starting with .NET 6.
+				          	/// </summary>
+				          	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
+				          	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+				          	internal sealed class CallerArgumentExpressionAttribute(string parameterName) : global::System.Attribute
+				          	{
+				          		public string ParameterName { get; } = parameterName;
+				          	}
+
+				          """);
+			}
+
+			sb.AppendLine("}");
+			sb.AppendLine();
 		}
 
 		sb.Append("""

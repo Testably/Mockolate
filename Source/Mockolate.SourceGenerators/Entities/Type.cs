@@ -49,11 +49,15 @@ internal record Type
 		// setup pipeline for parameters that cannot flow through the regular IParameter<T> path
 		// on TFMs predating C# 13's `allows ref struct` anti-constraint.
 		IsRefStruct = typeSymbol.IsRefLikeType;
+		// A lambda never converts to a union type, so union-mode setups keep the raw delegate type as the
+		// value alternative of a delegate-typed parameter instead of offering a predicate overload.
+		IsDelegate = typeSymbol.TypeKind == TypeKind.Delegate;
 	}
 
 	public bool IsFormattable { get; }
 	public bool CanBeNullable { get; }
 	public bool IsRefStruct { get; }
+	public bool IsDelegate { get; }
 	public SpecialType SpecialType { get; }
 	public SpecialGenericType SpecialGenericType { get; }
 	public EquatableArray<Type>? TupleTypes { get; }
