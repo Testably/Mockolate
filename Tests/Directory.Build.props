@@ -28,6 +28,9 @@
 		<EnableTUnitPolyfills>false</EnableTUnitPolyfills>
 	</PropertyGroup>
 
+	<!-- Project references do not import the package props, so make the generator see the property here too. -->
+	<Import Project="$(MSBuildThisFileDirectory)/../Source/Mockolate/build/Mockolate.props"/>
+
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net11.0'">
 		<!-- C# 15 unions are still a preview language feature; the union-typed setup surface is opt-in until they ship. -->
 		<LangVersion>preview</LangVersion>

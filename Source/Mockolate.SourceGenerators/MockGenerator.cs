@@ -1,6 +1,8 @@
 using System.Collections.Immutable;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Mockolate.SourceGenerators.Entities;
 using Mockolate.SourceGenerators.Internals;
@@ -50,6 +52,27 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
 			.Select(static (compilation, _) => HasAttribute(compilation,
 				"System.Runtime.CompilerServices.OverloadResolutionPriorityAttribute"));
+
+		// Union-typed setup/verify arguments need C# 15 union conversions in the consuming compilation.
+		// Reduced to a bool so the union-dependent outputs only re-run when the answer flips.
+		IncrementalValueProvider<bool> hasUnionSupport = context.ParseOptionsProvider
+			.Combine(context.AnalyzerConfigOptionsProvider)
+			.Select(static (source, _) => HasUnionSupport(source.Left, source.Right));
+
+		// The attribute ships with .NET 11; older targets (or consumers polyfilling it themselves) decide
+		// whether the generated union type has to declare it.
+		IncrementalValueProvider<bool> hasUnionAttribute = context.CompilationProvider
+			.Select(static (compilation, _) => HasAttribute(compilation,
+				"System.Runtime.CompilerServices.UnionAttribute"));
+
+		context.RegisterSourceOutput(hasUnionSupport.Combine(hasUnionAttribute), static (spc, source) =>
+		{
+			if (source.Left)
+			{
+				spc.AddSource("ParameterArg.g.cs",
+					ToSource(Sources.Sources.ParameterArg(emitUnionAttributePolyfill: !source.Right)));
+			}
+		});
 
 		// Naming step: cross-mock disambiguation. Cached as a unit; one NamedMock per emission.
 		IncrementalValueProvider<EquatableArray<NamedMock>> namedMocksAggregate = collectedMocks
@@ -162,6 +185,26 @@ public class MockGenerator : IIncrementalGenerator
 			       (attributeSymbol.DeclaredAccessibility == Accessibility.Public ||
 			        (attributeSymbol.DeclaredAccessibility == Accessibility.Internal &&
 			         SymbolEqualityComparer.Default.Equals(attributeSymbol.ContainingAssembly, c.Assembly)));
+		}
+
+		// The MockolateUnionParameters build property (made compiler-visible by build/Mockolate.props) wins when
+		// set: "true" opts in on a preview compiler, any other value is the kill switch. Otherwise unions are used once the
+		// host compiler has shipped C# 15 (the generator is compiled against an older Roslyn and cannot name
+		// LanguageVersion.CSharp15, hence the numeric check) and the compilation's effective language version
+		// includes it. LanguageVersion.Preview passes the numeric test, but only counts once the compiler is capable.
+		static bool HasUnionSupport(ParseOptions parseOptions, AnalyzerConfigOptionsProvider analyzerConfigOptions)
+		{
+			if (analyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MockolateUnionParameters",
+				    out string? configured) &&
+			    !string.IsNullOrWhiteSpace(configured))
+			{
+				return string.Equals(configured.Trim(), "true", StringComparison.OrdinalIgnoreCase);
+			}
+
+			const int csharp15 = 1500;
+			return parseOptions is CSharpParseOptions csharpParseOptions &&
+			       Enum.IsDefined(typeof(LanguageVersion), csharp15) &&
+			       (int)csharpParseOptions.LanguageVersion >= csharp15;
 		}
 	}
 
