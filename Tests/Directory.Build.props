@@ -4,7 +4,7 @@
 			Condition="Exists('$(MSBuildThisFileDirectory)/../Directory.Build.props')"/>
 
 	<PropertyGroup>
-		<TargetFrameworks>net10.0;net8.0;net48</TargetFrameworks>
+		<TargetFrameworks>net11.0;net10.0;net8.0;net48</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -26,6 +26,12 @@
 		<TUnitImplicitUsings>false</TUnitImplicitUsings>
 		<!-- The polyfills of TUnit clash with the internal polyfills of Mockolate, which the tests can see. -->
 		<EnableTUnitPolyfills>false</EnableTUnitPolyfills>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net11.0'">
+		<!-- C# 15 unions are still a preview language feature; the union-typed setup surface is opt-in until they ship. -->
+		<LangVersion>preview</LangVersion>
+		<MockolateUnionParameters>true</MockolateUnionParameters>
 	</PropertyGroup>
 
 	<ItemGroup>
