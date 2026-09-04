@@ -60,11 +60,17 @@ public static class Generator
 		MetadataReference[] externalReferences, params Type[] assemblyTypes)
 		=> RunCore([source,], DocumentationMode.Parse, [], externalReferences, assemblyTypes);
 
+	public static GeneratorResult Run([StringSyntax("c#-test")] string source, LanguageVersion languageVersion,
+		IReadOnlyDictionary<string, string>? globalOptions)
+		=> RunCore([source,], DocumentationMode.Parse, [], [], [], languageVersion, globalOptions);
+
 	private static GeneratorResult RunCore(string[] sources, DocumentationMode documentationMode,
-		string[] preprocessorSymbols, MetadataReference[] externalReferences, Type[] assemblyTypes)
+		string[] preprocessorSymbols, MetadataReference[] externalReferences, Type[] assemblyTypes,
+		LanguageVersion languageVersion = LanguageVersion.Latest,
+		IReadOnlyDictionary<string, string>? globalOptions = null)
 	{
 		MockGenerator generator = new();
-		CSharpParseOptions parseOptions = new CSharpParseOptions(LanguageVersion.Latest, documentationMode)
+		CSharpParseOptions parseOptions = new CSharpParseOptions(languageVersion, documentationMode)
 			.WithPreprocessorSymbols(preprocessorSymbols);
 		SyntaxTree[] syntaxTrees = sources
 			.Select(s => CSharpSyntaxTree.ParseText(s, parseOptions))
@@ -80,7 +86,7 @@ public static class Generator
 			[generator.AsSourceGenerator(),],
 			[],
 			parseOptions,
-			null);
+			globalOptions is null ? null : new TestAnalyzerConfigOptionsProvider(globalOptions));
 		driver = driver.RunGeneratorsAndUpdateCompilation(compilation, out Compilation outputCompilation,
 			out ImmutableArray<Diagnostic> diagnostics);
 
