@@ -51,7 +51,9 @@ internal record Type
 		IsRefStruct = typeSymbol.IsRefLikeType;
 		// A lambda never converts to a union type, so union-mode setups keep the raw delegate type as the
 		// value alternative of a delegate-typed parameter instead of offering a predicate overload.
-		IsDelegate = typeSymbol.TypeKind == TypeKind.Delegate;
+		// System.Delegate / System.MulticastDelegate have TypeKind.Class but accept the same conversions.
+		IsDelegate = typeSymbol.TypeKind == TypeKind.Delegate ||
+		             typeSymbol.SpecialType is SpecialType.System_Delegate or SpecialType.System_MulticastDelegate;
 	}
 
 	public bool IsFormattable { get; }
