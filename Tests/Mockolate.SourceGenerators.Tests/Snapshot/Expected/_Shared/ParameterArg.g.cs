@@ -52,13 +52,12 @@ namespace Mockolate
 
 		/// <summary>
 		///     The contained matcher or literal value, boxed. Part of the union pattern; the generated mocks use the
-		///     typed accessors instead.
+		///     typed accessors instead. The <see langword="default" /> instance is the literal <c>default(T)</c>.
 		/// </summary>
 		public object? Value => _tag switch
 		{
 			MatcherTag => _matcher,
-			LiteralTag => _literal,
-			_ => null,
+			_ => _literal,
 		};
 
 		/// <summary>
