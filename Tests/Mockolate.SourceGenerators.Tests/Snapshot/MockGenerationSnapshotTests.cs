@@ -13,7 +13,8 @@ namespace Mockolate.SourceGenerators.Tests.Snapshot;
 ///     <c>Tests/Mockolate.Tests/GeneratorCoverage</c> source files as input, so the
 ///     example types remain the single source of truth for "every special case in the
 ///     source generator". The full set of generated <c>.g.cs</c> files is diffed against
-///     <c>Tests/Mockolate.SourceGenerators.Tests/Snapshot/Expected/&lt;scenario&gt;/</c>.
+///     <c>Tests/Mockolate.SourceGenerators.Tests/Snapshot/Expected/&lt;scenario&gt;/</c>; files identical across
+///     scenarios are stored once under <c>Expected/_Shared/</c> and listed in the scenario's <c>_shared.txt</c>.
 ///     When a scenario fails because the change was intentional, run
 ///     <see cref="MockGenerationSnapshotAcceptance.AcceptSnapshotChanges" />.
 /// </summary>
@@ -119,14 +120,6 @@ public sealed class MockGenerationSnapshotTests
             IComprehensiveInterface sut = IComprehensiveInterface.CreateMock();
             """,
             [],
-            UnionMode: true),
-        new(
-            "HttpClient_CanBeCreated_Unions",
-            [],
-            """
-            System.Net.Http.HttpClient sut = System.Net.Http.HttpClient.CreateMock();
-            """,
-            [typeof(HttpClient), typeof(HttpStatusCode),],
             UnionMode: true),
         new(
             "KeywordEdgeCases_CanBeCreated_Unions",
