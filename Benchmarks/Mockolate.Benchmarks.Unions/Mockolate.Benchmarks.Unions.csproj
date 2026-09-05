@@ -13,6 +13,8 @@
 		<GenerateProgramFile>false</GenerateProgramFile>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<SignAssembly>False</SignAssembly>
+		<!-- Mockolate.Benchmarks is classified as test code by its test-framework references; keep this project in the same bucket. -->
+		<SonarQubeTestProject>true</SonarQubeTestProject>
 	</PropertyGroup>
 
 	<ItemGroup>
