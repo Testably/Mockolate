@@ -190,7 +190,7 @@ internal static partial class Sources
 
 		          			return _matcher is global::Mockolate.Parameters.IParameterMatch<T> direct
 		          				? direct
-		          				: new CovariantAdapter(_matcher);
+		          				: new global::Mockolate.CovariantParameterAdapter<T>(_matcher);
 		          		}
 
 		          		/// <inheritdoc cref="object.ToString()" />
@@ -199,13 +199,6 @@ internal static partial class Sources
 		          			MatcherTag => _matcher?.ToString() ?? "null",
 		          			_ => _literal?.ToString() ?? "null",
 		          		};
-
-		          		private sealed class CovariantAdapter(global::Mockolate.Parameters.IParameter inner) : global::Mockolate.Parameters.IParameterMatch<T>
-		          		{
-		          			public bool Matches(T value) => inner.Matches(value);
-		          			public void InvokeCallbacks(T value) => inner.InvokeCallbacks(value);
-		          			public override string? ToString() => inner.ToString();
-		          		}
 		          	}
 		          }
 		          #nullable disable

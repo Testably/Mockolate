@@ -237,7 +237,13 @@ public class MockGenerator : IIncrementalGenerator
 				int lastDot = trimmed.LastIndexOf('.');
 				if (trimmed.Length > 0 && !string.Equals(trimmed, "true", StringComparison.OrdinalIgnoreCase))
 				{
-					provided.Add(lastDot < 0 ? trimmed : trimmed.Substring(lastDot + 1));
+					// The lookups check the 'Attribute'-suffixed name; accept the suffix-less spelling too.
+					string simpleName = lastDot < 0 ? trimmed : trimmed.Substring(lastDot + 1);
+					provided.Add(simpleName);
+					if (!simpleName.EndsWith("Attribute", StringComparison.OrdinalIgnoreCase))
+					{
+						provided.Add(simpleName + "Attribute");
+					}
 				}
 			}
 
@@ -246,9 +252,9 @@ public class MockGenerator : IIncrementalGenerator
 
 		// The MockolateUnionParameters build property (made compiler-visible by build/Mockolate.props) wins when
 		// set: "true" opts in on a preview compiler, any other value is the kill switch. Otherwise unions are used once the
-		// host compiler has shipped C# 15 (the generator is compiled against an older Roslyn and cannot name
-		// LanguageVersion.CSharp15, hence the numeric check) and the compilation's effective language version
-		// includes it. LanguageVersion.Preview passes the numeric test, but only counts once the compiler is capable.
+		// host compiler has shipped C# 15 (the generator is compiled against an older Roslyn and cannot reference
+		// LanguageVersion.CSharp15 directly, hence the name-based lookup) and the compilation's effective language
+		// version includes it. LanguageVersion.Preview compares greater, but only counts once the compiler is capable.
 		static bool HasUnionSupport(ParseOptions parseOptions, AnalyzerConfigOptionsProvider analyzerConfigOptions)
 		{
 			if (analyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MockolateUnionParameters",
@@ -258,10 +264,9 @@ public class MockGenerator : IIncrementalGenerator
 				return string.Equals(configured.Trim(), "true", StringComparison.OrdinalIgnoreCase);
 			}
 
-			const int csharp15 = 1500;
 			return parseOptions is CSharpParseOptions csharpParseOptions &&
-			       Enum.IsDefined(typeof(LanguageVersion), csharp15) &&
-			       (int)csharpParseOptions.LanguageVersion >= csharp15;
+			       Enum.TryParse("CSharp15", out LanguageVersion csharp15) &&
+			       csharpParseOptions.LanguageVersion >= csharp15;
 		}
 	}
 

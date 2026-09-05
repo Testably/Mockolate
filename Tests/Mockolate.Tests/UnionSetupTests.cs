@@ -283,6 +283,76 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
+	public async Task Setup_WithMoreThanFourParametersAndADelegate_ShouldKeepTheRawDelegateOverload()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		Func<int, bool> callback = x => x > 0;
+		sut.Mock.Setup.SumAll(1, 2, 3, 4, x => x < 0).Returns(1);
+		sut.Mock.Setup.SumAll(1, 2, 3, 4, callback).Returns(9);
+
+		int matching = sut.SumAll(1, 2, 3, 4, callback);
+		int differentLambda = sut.SumAll(1, 2, 3, 4, x => x > 100);
+
+		await That(matching).IsEqualTo(9);
+		await That(differentLambda).IsEqualTo(0);
+		await That(sut.Mock.Verify.SumAll(It.IsAny<int>(), 2, 3, 4, callback)).Once();
+	}
+
+	[Test]
+	public async Task Setup_WithSystemDelegateParameter_ShouldTreatLambdasAsValues()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		Action handler = () => { };
+		sut.Mock.Setup.Attach(() => { });
+		sut.Mock.Setup.Attach(handler);
+
+		sut.Attach(handler);
+
+		await That(sut.Mock.Verify.Attach(handler)).Once();
+		await That(sut.Mock.Verify.Attach(It.IsAny<Delegate>())).Once();
+	}
+
+	[Test]
+	public async Task Indexer_Setup_WithNullKey_ShouldUseTheDeclaredDefault()
+	{
+		IDefaultKeyIndexer sut = IDefaultKeyIndexer.CreateMock();
+		sut.Mock.Setup[1, null].Returns("default");
+
+		string omitted = sut[1];
+		string explicitDefault = sut[1, 7];
+		string other = sut[1, 0];
+
+		await That(omitted).IsEqualTo("default");
+		await That(explicitDefault).IsEqualTo("default");
+		await That(other).IsNotEqualTo("default");
+		await That(sut.Mock.Verify[1, null].Got()).Twice();
+	}
+
+	[Test]
+	public async Task SameMethodNameInAnotherScope_ShouldStillOfferUnionOverloads()
+	{
+		ScopedUnionService sut = ScopedUnionService.CreateMock();
+		sut.Mock.Setup.Go(x => x > 0).Returns(1);
+
+		int positive = sut.Go(5);
+		int negative = sut.Go(-1);
+
+		await That(positive).IsEqualTo(1);
+		await That(negative).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task DelegateMock_WithObjectParameter_MatchAnyParameters_ShouldBindTheIParametersOverload()
+	{
+		ObjectCallback sut = ObjectCallback.CreateMock();
+		sut.Mock.Setup(Match.AnyParameters());
+
+		sut("state");
+
+		await That(sut.Mock.Verify(Match.AnyParameters())).Once();
+	}
+
+	[Test]
 	public async Task OverloadedIndexers_ShouldKeepTheClassicBindings()
 	{
 		IOverloadedIndexerService sut = IOverloadedIndexerService.CreateMock();
@@ -297,11 +367,24 @@ public sealed class UnionSetupTests
 
 	public delegate int UnionDelegate(int x, string y);
 
+	public delegate void ObjectCallback(object? state);
+
 	public interface IOverloadedIndexerService
 	{
 		string this[int i] { get; }
 		string this[long l] { get; }
 		string this[int a, string b] { get; }
+	}
+
+	public interface IDefaultKeyIndexer
+	{
+		string this[int key, int offset = 7] { get; }
+	}
+
+	public abstract class ScopedUnionService
+	{
+		public abstract int Go(int v);
+		protected abstract int Go(string v);
 	}
 
 	public interface IUnionService
@@ -310,6 +393,8 @@ public sealed class UnionSetupTests
 		string Describe(string? s);
 		void Register(Func<int, bool> callback);
 		int Sum(int a, int b, int c, int d);
+		int SumAll(int a, int b, int c, int d, Func<int, bool> callback);
+		void Attach(Delegate handler);
 		int WithDefault(int i = 5);
 		bool Take(object? o);
 		bool TryParse(string s, out int result);

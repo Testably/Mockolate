@@ -329,9 +329,10 @@ Behaviour of the union-typed parameters:
 - For an `object` parameter, a lambda literal is a predicate, while a delegate stored in a variable is a value.
 - Within a union-typed member, `ref`, `out` and `ref readonly` parameters as well as `Span<T>` and `ReadOnlySpan<T>`
   parameters keep their matcher slot (no predicate for that parameter); `in` parameters behave like by-value ones.
-- Overloaded method names (including a generic sibling), generic methods, `params` methods, members with custom
-  ref-struct parameters, and indexers that share their key count with another indexer keep the classic matcher/value
-  overloads. Use `It.Satisfies` for predicates there.
+- Overloaded method names (including a generic sibling; a same-named member in another scope — public, protected or
+  static — does not count), generic methods, `params` methods, members with custom ref-struct parameters, and indexers
+  that share their key count with another same-scope indexer keep the classic matcher/value overloads. Use
+  `It.Satisfies` for predicates there.
 
 The generated `ParameterArg<T>` type relies on `UnionAttribute`, `OverloadResolutionPriorityAttribute` and
 `CallerArgumentExpressionAttribute`. Mockolate declares whichever of them the compilation lacks (neither the referenced
