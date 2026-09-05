@@ -110,24 +110,26 @@ internal static partial class Mock
 		}
 	}
 
-	/// <summary>
-	///     Adapts an <see cref="global::Mockolate.Parameters.IParameter">IParameter</see> (non-generic) to
-	///     <see cref="global::Mockolate.Parameters.IParameterMatch{T}">IParameterMatch&lt;T&gt;</see> so that covariant parameter
-	///     references (e.g. an <c>IParameter&lt;Derived&gt;</c> passed through an <c>IParameter&lt;Base&gt;</c>
-	///     slot) can still be invoked at setup/verify time. Only allocated when the direct
-	///     <see cref="global::Mockolate.Parameters.IParameterMatch{T}">IParameterMatch&lt;T&gt;</see> cast fails.
-	/// </summary>
-	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class CovariantParameterAdapter<T>(global::Mockolate.Parameters.IParameter inner) : global::Mockolate.Parameters.IParameterMatch<T>
-	{
-		public bool Matches(T value) => inner.Matches(value);
-		public void InvokeCallbacks(T value) => inner.InvokeCallbacks(value);
-		public override string? ToString() => inner.ToString();
+}
 
-		public static global::Mockolate.Parameters.IParameterMatch<T> Wrap(global::Mockolate.Parameters.IParameter<T> parameter)
-			=> parameter is global::Mockolate.Parameters.IParameterMatch<T> direct
-				? direct
-				: new CovariantParameterAdapter<T>(parameter);
-	}
+/// <summary>
+///     Adapts an <see cref="global::Mockolate.Parameters.IParameter">IParameter</see> (non-generic) to
+///     <see cref="global::Mockolate.Parameters.IParameterMatch{T}">IParameterMatch&lt;T&gt;</see> so that covariant parameter
+///     references (e.g. an <c>IParameter&lt;Derived&gt;</c> passed through an <c>IParameter&lt;Base&gt;</c>
+///     slot) can still be invoked at setup/verify time. Only allocated when the direct
+///     <see cref="global::Mockolate.Parameters.IParameterMatch{T}">IParameterMatch&lt;T&gt;</see> cast fails. Shared by every
+///     generated mock file.
+/// </summary>
+[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+internal sealed class CovariantParameterAdapter<T>(global::Mockolate.Parameters.IParameter inner) : global::Mockolate.Parameters.IParameterMatch<T>
+{
+	public bool Matches(T value) => inner.Matches(value);
+	public void InvokeCallbacks(T value) => inner.InvokeCallbacks(value);
+	public override string? ToString() => inner.ToString();
+
+	public static global::Mockolate.Parameters.IParameterMatch<T> Wrap(global::Mockolate.Parameters.IParameter<T> parameter)
+		=> parameter is global::Mockolate.Parameters.IParameterMatch<T> direct
+			? direct
+			: new CovariantParameterAdapter<T>(parameter);
 }
 #nullable disable

@@ -8,7 +8,7 @@ Mockolate is a modern, strongly-typed mocking library for .NET, powered by sourc
 - Source generator-based (no runtime proxy generation)
 - Strongly-typed with compile-time safety
 - AOT compatible (NativeAOT and trimming)
-- Supports .NET Standard 2.0, .NET 8, .NET 10, and .NET Framework 4.8
+- Supports .NET Standard 2.0, .NET 8, .NET 10, .NET 11, and .NET Framework 4.8
 
 ## Architecture
 

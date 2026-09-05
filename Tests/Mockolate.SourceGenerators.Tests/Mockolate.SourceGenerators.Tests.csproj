@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net10.0</TargetFrameworks>
+		<TargetFrameworks>net11.0</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -11,10 +11,9 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" VersionOverride="$(MinimumRoslynVersion)"/>
 	</ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Remove="xunit"/>
-		<PackageReference Include="xunit.v3"/>
-	</ItemGroup>
+	<!-- Stays on xunit v2: the coverlet collector cannot reliably read the coverage hits of xunit.v3's
+	     out-of-process runs (intermittent EndOfStreamException at session end), which silently drops the
+	     whole generator coverage from the SonarCloud quality gate. -->
 
 	<ItemGroup>
 		<Compile Remove="Snapshot\Expected\**"/>
