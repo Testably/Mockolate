@@ -1,7 +1,6 @@
 <Solution>
 	<Folder Name="/Benchmarks/">
 		<Project Path="Benchmarks/Mockolate.Benchmarks/Mockolate.Benchmarks.csproj" />
-		<Project Path="Benchmarks/Mockolate.Benchmarks.Unions/Mockolate.Benchmarks.Unions.csproj" />
 	</Folder>
 	<Folder Name="/Pipeline/">
 		<Project Path="Pipeline/Build.csproj">

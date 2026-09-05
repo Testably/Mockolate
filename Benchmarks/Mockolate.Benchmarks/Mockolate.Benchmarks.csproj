@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<!-- Classic baseline for Mockolate.Benchmarks.Unions: keep the classic overloads once the SDK defaults to C# 15. -->
+	<!-- Pin the classic overloads so results stay comparable to the CI baseline once the SDK defaults to C# 15. -->
 	<Import Project="..\..\Source\Mockolate\build\Mockolate.props"/>
 
 	<PropertyGroup>
