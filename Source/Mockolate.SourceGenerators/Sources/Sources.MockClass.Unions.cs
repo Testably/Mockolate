@@ -101,11 +101,8 @@ internal static partial class Sources
 			for (int bit = 0; bit < valueableIndices.Length; bit++)
 			{
 				int index = valueableIndices[bit];
-				slots[index] = (combo & (1 << bit)) == 0
-					? UnionSlot.Union
-					: all[index].Type.IsDelegate
-						? UnionSlot.RawDelegate
-						: UnionSlot.Predicate;
+				UnionSlot predicateSlot = all[index].Type.IsDelegate ? UnionSlot.RawDelegate : UnionSlot.Predicate;
+				slots[index] = (combo & (1 << bit)) == 0 ? UnionSlot.Union : predicateSlot;
 			}
 
 			yield return slots;
