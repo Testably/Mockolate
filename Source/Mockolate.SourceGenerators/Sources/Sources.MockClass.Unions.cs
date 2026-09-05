@@ -64,15 +64,28 @@ internal static partial class Sources
 		   !method.Parameters.Any(p => p.NeedsRefStructPipeline() || p.IsParams) &&
 		   method.Parameters.Any(p => p.CanUseNullableParameterOverload());
 
+	/// <inheritdoc cref="UseUnionOverloads(Method, bool, bool)" />
+	/// <remarks>
+	///     Checks the cheap conditions first so the <see cref="HasUniqueMethodName" /> scan never runs when union
+	///     mode is off.
+	/// </remarks>
+	private static bool UseUnionOverloads(Class @class, Method method, bool useUnionOverloads)
+		=> UseUnionOverloads(method, hasUniqueName: true, useUnionOverloads) &&
+		   HasUniqueMethodName(@class, method);
+
 	/// <summary>
-	///     Whether no other mockable method of <paramref name="class" /> shares the C# name of <paramref name="method" />.
+	///     Whether no other mockable method of <paramref name="class" /> in the same member scope shares the C# name
+	///     of <paramref name="method" />. The setup/verify interfaces are emitted per <see cref="MemberType" />, so
+	///     a same-named method in another scope never competes in overload resolution.
 	///     <see cref="Method.Name" /> carries the type parameter list of generic methods (<c>Foo&lt;T&gt;</c>), so the
 	///     comparison strips it: a generic sibling is an overload for the compiler as well.
 	/// </summary>
 	private static bool HasUniqueMethodName(Class @class, Method method)
 	{
 		string bareName = BareName(method);
-		return @class.AllMethods().Count(m => m.ExplicitImplementation is null && BareName(m) == bareName) == 1;
+		return @class.AllMethods().Count(m => m.ExplicitImplementation is null &&
+		                                      m.MemberType == method.MemberType &&
+		                                      BareName(m) == bareName) == 1;
 
 		static string BareName(Method m)
 		{
@@ -83,8 +96,10 @@ internal static partial class Sources
 
 	/// <summary>
 	///     Enumerates the slot assignments of the union-mode overload set, all-union first. Above
-	///     <see cref="MaxExplicitParameters" /> only the all-union overload is emitted (it already covers matchers and
-	///     values); predicates are not offered there.
+	///     <see cref="MaxExplicitParameters" /> the all-union overload is emitted (it already covers matchers and
+	///     values) plus — when delegate-typed parameters exist — one overload with the raw delegate slot for them
+	///     (a lambda never converts to a union, mirroring the classic all-values overload); predicates are not
+	///     offered there.
 	/// </summary>
 	private static IEnumerable<UnionSlot[]> GenerateUnionSlotCombinations(EquatableArray<MethodParameter> parameters)
 	{
@@ -94,7 +109,31 @@ internal static partial class Sources
 			.Where(x => x.p.CanUseNullableParameterOverload())
 			.Select(x => x.i)
 			.ToArray();
-		int totalCombos = all.Length <= MaxExplicitParameters ? 1 << valueableIndices.Length : 1;
+		if (all.Length > MaxExplicitParameters)
+		{
+			UnionSlot[] allUnion = new UnionSlot[all.Length];
+			foreach (int index in valueableIndices)
+			{
+				allUnion[index] = UnionSlot.Union;
+			}
+
+			yield return allUnion;
+			int[] delegateIndices = valueableIndices.Where(index => all[index].Type.IsDelegate).ToArray();
+			if (delegateIndices.Length > 0)
+			{
+				UnionSlot[] withRawDelegates = (UnionSlot[])allUnion.Clone();
+				foreach (int index in delegateIndices)
+				{
+					withRawDelegates[index] = UnionSlot.RawDelegate;
+				}
+
+				yield return withRawDelegates;
+			}
+
+			yield break;
+		}
+
+		int totalCombos = 1 << valueableIndices.Length;
 		for (int combo = 0; combo < totalCombos; combo++)
 		{
 			UnionSlot[] slots = new UnionSlot[all.Length];
@@ -139,12 +178,8 @@ internal static partial class Sources
 		sb.Append("\t\t/// <summary>").AppendLine();
 		if (methodNameOverride is null)
 		{
-			sb.Append("\t\t///     ").Append(action).Append(" the method <see cref=\"")
-				.Append(method.DeclaredContainingType.EscapeForXmlDoc()).Append(".")
-				.Append(method.Name.EscapeForXmlDoc()).Append("(")
-				.Append(string.Join(", ",
-					method.Parameters.Select(p => p.RefKind.GetString() + p.Type.Fullname.EscapeForXmlDoc())))
-				.Append(")\"/>");
+			sb.Append("\t\t///     ").Append(action).Append(" the method <see cref=\"").Append(MethodCref(method))
+				.Append("\"/>");
 		}
 		else
 		{
@@ -306,6 +341,21 @@ internal static partial class Sources
 	}
 
 	/// <summary>
+	///     The fallback expression for an omitted or <see langword="null" /> union argument: the parameter's declared
+	///     default value when it has one, otherwise the literal <c>default(T)</c>.
+	/// </summary>
+	private static string UnionDefaultFallback(MethodParameter parameter)
+	{
+		if (!parameter.HasExplicitDefaultValue)
+		{
+			return "default";
+		}
+
+		string type = parameter.ToNullableType();
+		return $"new global::Mockolate.ParameterArg<{type}>(({type})({parameter.ExplicitDefaultValue}))";
+	}
+
+	/// <summary>
 	///     <c>ParameterArg&lt;T&gt; xArg = x ?? …;</c> per union slot: an omitted or <see langword="null" /> argument falls
 	///     back to the parameter's declared default value when it has one, otherwise to the literal <c>default(T)</c>.
 	/// </summary>
@@ -320,20 +370,9 @@ internal static partial class Sources
 			}
 
 			MethodParameter parameter = parameters[i];
-			string type = parameter.ToNullableType();
-			sb.Append("\t\t\tglobal::Mockolate.ParameterArg<").Append(type).Append("> ")
-				.Append(UnionArgumentLocalName(method, parameter)).Append(" = ").Append(parameter.Name).Append(" ?? ");
-			if (parameter.HasExplicitDefaultValue)
-			{
-				sb.Append("new global::Mockolate.ParameterArg<").Append(type).Append(">((").Append(type).Append(")(")
-					.Append(parameter.ExplicitDefaultValue).Append("))");
-			}
-			else
-			{
-				sb.Append("default");
-			}
-
-			sb.Append(';').AppendLine();
+			sb.Append("\t\t\tglobal::Mockolate.ParameterArg<").Append(parameter.ToNullableType()).Append("> ")
+				.Append(UnionArgumentLocalName(method, parameter)).Append(" = ").Append(parameter.Name).Append(" ?? ")
+				.Append(UnionDefaultFallback(parameter)).Append(';').AppendLine();
 		}
 	}
 
@@ -529,9 +568,9 @@ internal static partial class Sources
 		// matchers through the typed overload when the member has a fast buffer, everything else through the
 		// MethodInvocation predicate.
 		bool noFixedSlots = slots.All(s => s != UnionSlot.Fixed);
-		bool literalEligible = parameters.Length <= 4 && noFixedSlots &&
+		bool literalEligible = parameters.Length <= MaxExplicitParameters && noFixedSlots &&
 		                       slots.All(s => s is UnionSlot.Union or UnionSlot.RawDelegate);
-		bool typedEligible = useFastForMethod && parameters.Length <= 4 && noFixedSlots;
+		bool typedEligible = useFastForMethod && parameters.Length <= MaxExplicitParameters && noFixedSlots;
 		if (literalEligible)
 		{
 			string literalCondition = UnionLiteralCondition(method, slots);
@@ -616,19 +655,7 @@ internal static partial class Sources
 							.Append(">.Default.Equals(").Append(parameter.Name).Append(", ").Append(invocationValue).Append("))");
 						break;
 					default:
-						if (parameter.RefKind is RefKind.Out or RefKind.Ref or RefKind.RefReadOnlyParameter)
-						{
-							// out/ref verify parameters use IVerifyOutParameter<T> / IVerifyRefParameter<T>, which don't inherit
-							// from IParameter<T>; keep the direct IParameterMatch<T> check like the classic overloads.
-							sb.Append(
-								$"({parameter.Name} is global::Mockolate.Parameters.IParameterMatch<{type}> {parameter.Name}Match ? {parameter.Name}Match.Matches({invocationValue}) : global::System.Collections.Generic.EqualityComparer<{type}>.Default.Equals({invocationValue}, default({type})))");
-						}
-						else
-						{
-							sb.Append(
-								$"({parameter.Name} is not null ? CovariantParameterAdapter<{type}>.Wrap({parameter.Name}).Matches({invocationValue}) : global::System.Collections.Generic.EqualityComparer<{type}>.Default.Equals({invocationValue}, default({type})))");
-						}
-
+						AppendSlowVerifyMatcherCondition(sb, parameter, invocationValue);
 						break;
 				}
 			}
@@ -659,11 +686,21 @@ internal static partial class Sources
 		   !parameters.Any(p => p.NeedsRefStructPipeline() || p.IsParams) &&
 		   parameters.Any(p => p.CanUseNullableParameterOverload());
 
+	/// <inheritdoc cref="UseUnionIndexer(Property, bool, bool)" />
+	/// <remarks>
+	///     Checks the cheap conditions first so the <see cref="HasUniqueIndexerKeyCount" /> scan never runs when
+	///     union mode is off.
+	/// </remarks>
+	private static bool UseUnionIndexer(Class @class, Property indexer, bool useUnionOverloads)
+		=> UseUnionIndexer(indexer, hasUniqueKeyCount: true, useUnionOverloads) &&
+		   HasUniqueIndexerKeyCount(@class, indexer);
+
 	private static bool HasUniqueIndexerKeyCount(Class @class, Property indexer)
 	{
 		int keyCount = indexer.IndexerParameters!.Value.Count;
 		return @class.AllProperties().Count(p =>
-			p.IsIndexer && p.ExplicitImplementation is null && p.IndexerParameters?.Count == keyCount) == 1;
+			p.IsIndexer && p.ExplicitImplementation is null && p.MemberType == indexer.MemberType &&
+			p.IndexerParameters?.Count == keyCount) == 1;
 	}
 
 	// Indexers have no IParameters overload, so the all-union indexer simply takes the top priority the classic
@@ -703,8 +740,8 @@ internal static partial class Sources
 
 	/// <summary>
 	///     The <c>IParameterMatch&lt;T&gt;</c> for one indexer key. Indexers have no literal fast path, so a union slot
-	///     always goes through <c>ToParameterMatch()</c>; an omitted or <see langword="null" /> key is the literal
-	///     <c>default(T)</c>.
+	///     always goes through <c>ToParameterMatch()</c>; an omitted or <see langword="null" /> key falls back to the
+	///     key's declared default value when it has one, otherwise to the literal <c>default(T)</c>.
 	/// </summary>
 	private static void AppendUnionIndexerKeyMatch(StringBuilder sb, MethodParameter parameter, string name,
 		string expressionName, UnionSlot slot)
@@ -712,7 +749,8 @@ internal static partial class Sources
 		switch (slot)
 		{
 			case UnionSlot.Union:
-				sb.Append('(').Append(name).Append(" ?? default).ToParameterMatch()");
+				sb.Append('(').Append(name).Append(" ?? ").Append(UnionDefaultFallback(parameter))
+					.Append(").ToParameterMatch()");
 				break;
 			case UnionSlot.Predicate:
 				sb.Append("(global::Mockolate.Parameters.IParameterMatch<").Append(parameter.ToTypeOrWrapper())
@@ -733,7 +771,7 @@ internal static partial class Sources
 	{
 		string[] names = UnionIndexerSetupNames(indexer);
 		sb.AppendXmlSummary(
-			$"Setup for the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer <see cref=\"{indexer.DeclaredContainingType.EscapeForXmlDoc()}.this[{string.Join(", ", indexer.IndexerParameters!.Value.Select(p => p.RefKind.GetString() + p.Type.Fullname.EscapeForXmlDoc()))}]\" />");
+			$"Setup for the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer <see cref=\"{IndexerCref(indexer)}\" />");
 		AppendUnionOverloadRemark(sb, names, slots);
 		sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
 			.Append(UnionIndexerPriority(slots)).Append(")]").AppendLine();
@@ -806,7 +844,7 @@ internal static partial class Sources
 	{
 		string[] names = UnionIndexerVerifyNames(indexer);
 		sb.AppendXmlSummary(
-			$"Verify interactions with the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer <see cref=\"{indexer.DeclaredContainingType.EscapeForXmlDoc()}.this[{string.Join(", ", indexer.IndexerParameters!.Value.Select(p => p.RefKind.GetString() + p.Type.Fullname.EscapeForXmlDoc()))}]\" />.");
+			$"Verify interactions with the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer <see cref=\"{IndexerCref(indexer)}\" />.");
 		AppendUnionOverloadRemark(sb, names, slots);
 		sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
 			.Append(UnionIndexerPriority(slots)).Append(")]").AppendLine();
@@ -850,7 +888,7 @@ internal static partial class Sources
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tget").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		if (parameters.Length <= 4)
+		if (parameters.Length <= MaxExplicitParameters)
 		{
 			// Typed path: one IParameterMatch<T> per key, exactly like the classic matcher indexer.
 			string typedVerifyType = interceptedAccessors switch
@@ -888,6 +926,18 @@ internal static partial class Sources
 		}
 		else
 		{
+			// Hoist the key matchers out of the per-interaction lambdas, like the method slow path.
+			string[] matchNames = names
+				.Select(n => CreateUniqueParameterName(indexer.IndexerParameters!.Value, $"{n}Match"))
+				.ToArray();
+			for (int i = 0; i < parameters.Length; i++)
+			{
+				sb.Append("\t\t\t\tglobal::Mockolate.Parameters.IParameterMatch<")
+					.Append(parameters[i].ToTypeOrWrapper()).Append("> ").Append(matchNames[i]).Append(" = ");
+				AppendUnionIndexerKeyMatch(sb, parameters[i], names[i], expressionNames[i], slots[i]);
+				sb.Append(';').AppendLine();
+			}
+
 			switch (interceptedAccessors)
 			{
 				case PropertyAccessors.GetOnly:
@@ -923,7 +973,7 @@ internal static partial class Sources
 			{
 				sb.Append("\t\t\t\t\tinteraction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<")
 					.Append(string.Join(", ", parameters.Select(p => p.ToTypeOrWrapper()))).Append("> g");
-				AppendUnionIndexerKeyMatches(sb, parameters, names, expressionNames, slots, "g");
+				AppendUnionIndexerKeyMatches(sb, matchNames, "g");
 				sb.Append(",").AppendLine();
 			}
 
@@ -937,7 +987,7 @@ internal static partial class Sources
 				}
 
 				sb.AppendTypeOrWrapper(indexer.Type).Append("> s");
-				AppendUnionIndexerKeyMatches(sb, parameters, names, expressionNames, slots, "s");
+				AppendUnionIndexerKeyMatches(sb, matchNames, "s");
 				sb.Append(" && value.Matches(s.TypedValue),").AppendLine();
 			}
 		}
@@ -951,7 +1001,8 @@ internal static partial class Sources
 			switch (slots[i])
 			{
 				case UnionSlot.Union:
-					sb.Append("(object?)(").Append(names[i]).Append(" ?? default)");
+					sb.Append("(object?)(").Append(names[i]).Append(" ?? ").Append(UnionDefaultFallback(parameters[i]))
+						.Append(')');
 					break;
 				case UnionSlot.Predicate:
 					sb.Append("(object?)").Append(expressionNames[i]);
@@ -968,14 +1019,12 @@ internal static partial class Sources
 		sb.AppendLine();
 	}
 
-	private static void AppendUnionIndexerKeyMatches(StringBuilder sb, MethodParameter[] parameters, string[] names,
-		string[] expressionNames, UnionSlot[] slots, string interactionVar)
+	private static void AppendUnionIndexerKeyMatches(StringBuilder sb, string[] matchNames, string interactionVar)
 	{
-		for (int i = 0; i < parameters.Length; i++)
+		for (int i = 0; i < matchNames.Length; i++)
 		{
-			sb.Append(" && ");
-			AppendUnionIndexerKeyMatch(sb, parameters[i], names[i], expressionNames[i], slots[i]);
-			sb.Append(".Matches(").Append(interactionVar).Append(".Parameter").Append(i + 1).Append(')');
+			sb.Append(" && ").Append(matchNames[i])
+				.Append(".Matches(").Append(interactionVar).Append(".Parameter").Append(i + 1).Append(')');
 		}
 	}
 

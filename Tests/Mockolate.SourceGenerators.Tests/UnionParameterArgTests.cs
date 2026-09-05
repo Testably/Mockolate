@@ -45,7 +45,7 @@ public sealed class UnionParameterArgTests
 	[Test]
 	public async Task WithPreviewLanguageVersion_WithoutProperty_ShouldFollowCompilerCapability()
 	{
-		bool compilerShipsCSharp15 = Enum.IsDefined(typeof(LanguageVersion), 1500);
+		bool compilerShipsCSharp15 = Enum.TryParse("CSharp15", out LanguageVersion _);
 
 		GeneratorResult result = Generator.Run(Source, LanguageVersion.Preview, null);
 

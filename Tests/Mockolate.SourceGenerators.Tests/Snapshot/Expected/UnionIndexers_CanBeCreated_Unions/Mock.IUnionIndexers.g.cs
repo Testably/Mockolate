@@ -1167,9 +1167,14 @@ internal static partial class Mock
 		{
 			get
 			{
+				global::Mockolate.Parameters.IParameterMatch<int> aMatch = (a ?? default).ToParameterMatch();
+				global::Mockolate.Parameters.IParameterMatch<int> bMatch = (b ?? default).ToParameterMatch();
+				global::Mockolate.Parameters.IParameterMatch<int> cMatch = (c ?? default).ToParameterMatch();
+				global::Mockolate.Parameters.IParameterMatch<int> dMatch = (d ?? default).ToParameterMatch();
+				global::Mockolate.Parameters.IParameterMatch<int> eMatch = (e ?? default).ToParameterMatch();
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIUnionIndexers, string>(this, this.MockRegistry, -1, -1,
-					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && (a ?? default).ToParameterMatch().Matches(g.Parameter1) && (b ?? default).ToParameterMatch().Matches(g.Parameter2) && (c ?? default).ToParameterMatch().Matches(g.Parameter3) && (d ?? default).ToParameterMatch().Matches(g.Parameter4) && (e ?? default).ToParameterMatch().Matches(g.Parameter5),
-					(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<int, int, int, int, int, string> s && (a ?? default).ToParameterMatch().Matches(s.Parameter1) && (b ?? default).ToParameterMatch().Matches(s.Parameter2) && (c ?? default).ToParameterMatch().Matches(s.Parameter3) && (d ?? default).ToParameterMatch().Matches(s.Parameter4) && (e ?? default).ToParameterMatch().Matches(s.Parameter5) && value.Matches(s.TypedValue),
+					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && aMatch.Matches(g.Parameter1) && bMatch.Matches(g.Parameter2) && cMatch.Matches(g.Parameter3) && dMatch.Matches(g.Parameter4) && eMatch.Matches(g.Parameter5),
+					(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<int, int, int, int, int, string> s && aMatch.Matches(s.Parameter1) && bMatch.Matches(s.Parameter2) && cMatch.Matches(s.Parameter3) && dMatch.Matches(s.Parameter4) && eMatch.Matches(s.Parameter5) && value.Matches(s.TypedValue),
 					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)(a ?? default), (object?)(b ?? default), (object?)(c ?? default), (object?)(d ?? default), (object?)(e ?? default)));
 			}
 		}
@@ -1618,9 +1623,14 @@ internal static partial class Mock
 		{
 			get
 			{
+				global::Mockolate.Parameters.IParameterMatch<int> aMatch = (a ?? default).ToParameterMatch();
+				global::Mockolate.Parameters.IParameterMatch<int> bMatch = (b ?? default).ToParameterMatch();
+				global::Mockolate.Parameters.IParameterMatch<int> cMatch = (c ?? default).ToParameterMatch();
+				global::Mockolate.Parameters.IParameterMatch<int> dMatch = (d ?? default).ToParameterMatch();
+				global::Mockolate.Parameters.IParameterMatch<int> eMatch = (e ?? default).ToParameterMatch();
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIUnionIndexers, string>(this, this.MockRegistry, -1, -1,
-					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && (a ?? default).ToParameterMatch().Matches(g.Parameter1) && (b ?? default).ToParameterMatch().Matches(g.Parameter2) && (c ?? default).ToParameterMatch().Matches(g.Parameter3) && (d ?? default).ToParameterMatch().Matches(g.Parameter4) && (e ?? default).ToParameterMatch().Matches(g.Parameter5),
-					(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<int, int, int, int, int, string> s && (a ?? default).ToParameterMatch().Matches(s.Parameter1) && (b ?? default).ToParameterMatch().Matches(s.Parameter2) && (c ?? default).ToParameterMatch().Matches(s.Parameter3) && (d ?? default).ToParameterMatch().Matches(s.Parameter4) && (e ?? default).ToParameterMatch().Matches(s.Parameter5) && value.Matches(s.TypedValue),
+					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && aMatch.Matches(g.Parameter1) && bMatch.Matches(g.Parameter2) && cMatch.Matches(g.Parameter3) && dMatch.Matches(g.Parameter4) && eMatch.Matches(g.Parameter5),
+					(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<int, int, int, int, int, string> s && aMatch.Matches(s.Parameter1) && bMatch.Matches(s.Parameter2) && cMatch.Matches(s.Parameter3) && dMatch.Matches(s.Parameter4) && eMatch.Matches(s.Parameter5) && value.Matches(s.TypedValue),
 					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)(a ?? default), (object?)(b ?? default), (object?)(c ?? default), (object?)(d ?? default), (object?)(e ?? default)));
 			}
 		}
@@ -2873,19 +2883,6 @@ internal static partial class MockExtensionsForIUnionIndexers
 			var behaviorAccess = (global::Mockolate.IMockBehaviorAccess)behavior;
 			return behaviorAccess.Set(setup);
 		}
-	}
-
-	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class CovariantParameterAdapter<T>(global::Mockolate.Parameters.IParameter inner) : global::Mockolate.Parameters.IParameterMatch<T>
-	{
-		public bool Matches(T value) => inner.Matches(value);
-		public void InvokeCallbacks(T value) => inner.InvokeCallbacks(value);
-		public override string? ToString() => inner.ToString();
-
-		public static global::Mockolate.Parameters.IParameterMatch<T> Wrap(global::Mockolate.Parameters.IParameter<T> parameter)
-			=> parameter is global::Mockolate.Parameters.IParameterMatch<T> direct
-				? direct
-				: new CovariantParameterAdapter<T>(parameter);
 	}
 }
 
