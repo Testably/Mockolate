@@ -15,7 +15,7 @@ It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, 
 - **Fast**: Direct dispatch with no reflection or dynamic proxies.
 - **Strongly-typed**: Compile-time safety and IntelliSense support.
 - **AOT compatible**: Works with Native AOT and trimming.
-- **Modern C#**: First-class support for ref structs, static interface members, and current language features.
+- **Modern C#**: First-class support for ref structs, static interface members, and current language features. With C# 15, setup and verify arguments accept predicates directly through union-typed parameters (see [parameter matching](https://docs.testably.org/Mockolate/setup/parameter-matching)).
 
 ## Why Mockolate
 
