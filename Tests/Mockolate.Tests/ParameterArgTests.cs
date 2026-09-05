@@ -92,6 +92,7 @@ public sealed class ParameterArgTests
 		await That(sut.HasValue).IsFalse();
 		await That(sut.IsLiteral).IsTrue();
 		await That(sut.Literal).IsEqualTo(0);
+		await That(sut.Value).IsEqualTo(0);
 		await That(sut.ToParameterMatch().Matches(0)).IsTrue();
 		await That(sut.ToParameterMatch().Matches(1)).IsFalse();
 	}
