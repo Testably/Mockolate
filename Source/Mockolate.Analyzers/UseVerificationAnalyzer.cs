@@ -31,16 +31,26 @@ public class UseVerificationAnalyzer : DiagnosticAnalyzer
 		if (context.Operation is IInvocationOperation invocationOperation)
 		{
 			ITypeSymbol? returnType = invocationOperation.Type;
-			if (returnType is INamedTypeSymbol namedReturnType &&
-			    namedReturnType.ContainingNamespace?.ContainingNamespace?.ContainingNamespace?.IsGlobalNamespace ==
-			    true &&
-			    namedReturnType.ContainingNamespace.ContainingNamespace.Name == "Mockolate" &&
-			    namedReturnType.ContainingNamespace.Name == "Verify" &&
-			    namedReturnType.Name == "VerificationResult")
+			if (returnType is INamedTypeSymbol namedReturnType && IsVerificationResult(namedReturnType))
 			{
 				CheckIsUsed(context, invocationOperation);
 			}
 		}
+	}
+
+	/// <summary>
+	///     Matches <c>Mockolate.Verify.VerificationResult&lt;T&gt;</c> and its nested <c>IgnoreParameters</c>, which the
+	///     value and the union-typed verify overloads return.
+	/// </summary>
+	private static bool IsVerificationResult(INamedTypeSymbol type)
+	{
+		INamedTypeSymbol candidate = type is { Name: "IgnoreParameters", ContainingType: { } containingType, }
+			? containingType
+			: type;
+		return candidate.Name == "VerificationResult" &&
+		       candidate.ContainingNamespace?.Name == "Verify" &&
+		       candidate.ContainingNamespace.ContainingNamespace?.Name == "Mockolate" &&
+		       candidate.ContainingNamespace.ContainingNamespace.ContainingNamespace?.IsGlobalNamespace == true;
 	}
 
 	private static void CheckIsUsed(OperationAnalysisContext context, IInvocationOperation invocationOperation)

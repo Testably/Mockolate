@@ -132,3 +132,16 @@ does not intercept.
   methods.
 - Use `.SkippingBaseClass(…)` to override the base class behavior for a specific indexer (only for class mocks).
 - When you specify overlapping setups, the most recently defined setup takes precedence.
+
+## Union Parameters (C# 15)
+
+With C# 15, indexer keys accept predicates directly, in setups and verifications alike:
+
+```csharp
+sut.Mock.Setup[type => type.StartsWith("D")].Returns(10);
+
+sut.Mock.Verify[type => type.StartsWith("D")].Got().Once();
+```
+
+Only an indexer that is the sole indexer of its key count on the type takes union-typed keys; indexers sharing a key
+count keep the classic matcher/value overloads. See *Union Parameters* under Parameter Matching for the details.

@@ -7,7 +7,8 @@ namespace Mockolate.SourceGenerators.Sources;
 
 internal static partial class Sources
 {
-	public static string MockDelegate(string name, MockClass @class, Method delegateMethod)
+	public static string MockDelegate(string name, MockClass @class, Method delegateMethod,
+		bool useUnionOverloads = false)
 	{
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
 		string escapedClassName = @class.ClassFullName.EscapeForXmlDoc();
@@ -200,50 +201,72 @@ internal static partial class Sources
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock\";").AppendLine();
 		sb.AppendLine();
 
-		AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup");
-		
-		if (delegateMethod.Parameters.Count > 0)
+		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup");
-		}
-
-		if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
-		{
-			foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
 			{
-				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags);
+				AppendUnionMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", memberIds, memberIdPrefix, slots, "Setup");
 			}
 		}
-		else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+		else
 		{
-			bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
-			if (allValueFlags.Any(f => f))
+			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup");
+
+			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", allValueFlags);
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup");
+			}
+
+			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
+			{
+				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+				{
+					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags);
+				}
+			}
+			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+			{
+				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
+				if (allValueFlags.Any(f => f))
+				{
+					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", allValueFlags);
+				}
 			}
 		}
 
 		// Delegate mocks use a plain MockRegistry (no FastMockInteractions), so emit the slow Verify path.
-		AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify");
-		if (delegateMethod.Parameters.Count > 0)
+		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
-		}
-
-		if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
-		{
-			foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags);
+				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, false, slots, "Verify");
 			}
 		}
-		else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+		else
 		{
-			bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
-			if (allValueFlags.Any(f => f))
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify");
+			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false,
-					memberIds, memberIdPrefix, false, "Verify", allValueFlags);
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
+			}
+
+			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
+			{
+				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+				{
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags);
+				}
+			}
+			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+			{
+				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
+				if (allValueFlags.Any(f => f))
+				{
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false,
+						memberIds, memberIdPrefix, false, "Verify", allValueFlags);
+				}
 			}
 		}
 
@@ -288,26 +311,37 @@ internal static partial class Sources
 		sb.AppendLine();
 		
 		// Delegate mocks use a plain MockRegistry (no FastMockInteractions), so emit the slow Verify path.
-		AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify");
-		
-		if (delegateMethod.Parameters.Count > 0)
+		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
-		}
-
-		if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
-		{
-			foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags);
+				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, false, slots, "Verify");
 			}
 		}
-		else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+		else
 		{
-			bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
-			if (allValueFlags.Any(f => f))
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify");
+
+			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", allValueFlags);
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
+			}
+
+			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
+			{
+				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+				{
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags);
+				}
+			}
+			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+			{
+				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
+				if (allValueFlags.Any(f => f))
+				{
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", allValueFlags);
+				}
 			}
 		}
 
@@ -350,26 +384,39 @@ internal static partial class Sources
 		sb.Append("\tinternal interface IMockSetupFor").Append(name).Append(" : global::Mockolate.Setup.IMockSetup<").Append(@class.ClassFullName).Append(">").AppendLine();
 		sb.Append("\t{").AppendLine();
 		
-		AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup");
-		
-		if (delegateMethod.Parameters.Count > 0)
+		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
-			AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup");
-		}
-
-		if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
-		{
-			foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
+			AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup",
+				hasOverloadResolutionPriority: true);
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
 			{
-				AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags);
+				AppendUnionMethodSetupDefinition(sb, @class, delegateMethod, slots, "Setup");
 			}
 		}
-		else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+		else
 		{
-			bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
-			if (allValueFlags.Any(f => f))
+			AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup");
+
+			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", allValueFlags);
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup");
+			}
+
+			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
+			{
+				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+				{
+					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags);
+				}
+			}
+			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+			{
+				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
+				if (allValueFlags.Any(f => f))
+				{
+					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", allValueFlags);
+				}
 			}
 		}
 
@@ -384,27 +431,40 @@ internal static partial class Sources
 		sb.Append("\tinternal interface IMockVerifyFor").Append(name).Append(" : global::Mockolate.Verify.IMockVerify<").Append(@class.ClassFullName).Append(">").AppendLine();
 		sb.Append("\t{").AppendLine();
 		
-		AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify");
-		
-		if (delegateMethod.Parameters.Count > 0)
+		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
-			AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify");
-		}
-
-		if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
-		{
-			foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
+			AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
+				hasOverloadResolutionPriority: true);
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
 			{
-				AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify", valueFlags);
+				AppendUnionMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", slots, "Verify");
 			}
 		}
-		else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+		else
 		{
-			bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
-			if (allValueFlags.Any(f => f))
+			AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify");
+
+			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
-					allValueFlags);
+				AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify");
+			}
+
+			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
+			{
+				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
+				{
+					AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify", valueFlags);
+				}
+			}
+			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
+			{
+				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
+				if (allValueFlags.Any(f => f))
+				{
+					AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+						allValueFlags);
+				}
 			}
 		}
 
