@@ -146,12 +146,12 @@
     <value>Mock arguments must be mockable</value>
   </data>
 	<data name="Mockolate0003Description" xml:space="preserve">
-		<value>Methods with out/ref ref-struct parameters or non-span ref-struct return types cannot be mocked. Ref-struct parameter mocking (including ref-struct-keyed indexers) additionally requires .NET 9 or later.</value>
+		<value>Members that use a non-span ref struct in a value position - a method or delegate return, a property type, an indexer value - cannot be mocked, and neither can ref-struct parameters on delegate types. Ref-struct parameter mocking (including ref-struct-keyed indexers) is supported, but requires .NET 9 or later.</value>
 	</data>
 	<data name="Mockolate0003MessageFormat" xml:space="preserve">
-		<value>Type '{0}' has a method '{1}' that cannot be mocked: {2}</value>
+		<value>Type '{0}' has a member '{1}' that cannot be mocked: {2}</value>
 	</data>
 	<data name="Mockolate0003Title" xml:space="preserve">
-    <value>Ref-struct parameter mocking is not supported on this compilation</value>
+    <value>Ref-struct usage is not supported on this compilation</value>
   </data>
 </root>

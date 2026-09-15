@@ -302,6 +302,16 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	private static bool TryGetRefStructIssue(IMethodSymbol method, string? pipelineUnsupportedReason,
 		out string? issue, bool isDelegate = false)
 	{
+		// Reported ahead of the parameter checks below, mirroring the generator's branch order: a
+		// ref-struct return is out of scope on every target, so naming it is more actionable than
+		// telling the user to upgrade to .NET 9 for a parameter that would still not be enough.
+		// Span/ReadOnlySpan returns go through the wrapper and are fine.
+		if (NeedsRefStructPipeline(method.ReturnType))
+		{
+			issue = "methods returning a non-span ref struct are not supported";
+			return true;
+		}
+
 		bool hasRefStructParam = false;
 		foreach (IParameterSymbol p in method.Parameters)
 		{
@@ -333,13 +343,6 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		// Note: no arity ceiling for ref-struct methods. Arities 1-4 are hand-written types in
 		// Source/Mockolate/Setup/; arity 5+ are emitted by the generator into
 		// RefStructMethodSetups.g.cs.
-
-		// Ref-struct returns are out of scope unless they go through the Span wrapper.
-		if (NeedsRefStructPipeline(method.ReturnType))
-		{
-			issue = "methods returning a non-span ref struct are not supported";
-			return true;
-		}
 
 		issue = null;
 		return false;

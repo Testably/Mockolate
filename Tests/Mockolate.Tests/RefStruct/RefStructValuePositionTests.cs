@@ -1,4 +1,3 @@
-#if NET9_0_OR_GREATER
 using System;
 using Mockolate.Tests.TestHelpers.RefStruct;
 
@@ -10,27 +9,22 @@ namespace Mockolate.Tests.RefStruct;
 ///     (CS9244); they now either flow through the Span wrapper or degrade to a
 ///     <see cref="NotSupportedException" /> stub with no setup surface.
 /// </summary>
+/// <remarks>
+///     Deliberately not gated to net9.0+: none of these shapes route through the ref-struct setup
+///     pipeline, so they must degrade identically on every supported target. Two nested fixtures are
+///     gated on what the <i>target</i> offers, not on the mock: <c>SpanWrapper&lt;T&gt;</c> ships from
+///     net8.0 upwards, and <c>EventHandler&lt;T&gt;</c> gained its <c>allows ref struct</c>
+///     anti-constraint in .NET 9.
+/// </remarks>
 public sealed class RefStructValuePositionTests
 {
-	public delegate void PacketEventHandler(Packet packet);
+	public delegate void PacketHandler(Packet packet);
 
 	public delegate Packet PacketFactory();
 
-	public delegate void PacketConsumer(Packet packet);
-
 	public interface IPacketNotifier
 	{
-		event PacketEventHandler PacketReceived;
-	}
-
-	public interface ISpanEventSource
-	{
-		event EventHandler<Packet> Received;
-	}
-
-	public interface ISpanBuffer
-	{
-		Span<byte> Buffer { get; set; }
+		event PacketHandler PacketReceived;
 	}
 
 	public interface IPacketHolder
@@ -64,6 +58,22 @@ public sealed class RefStructValuePositionTests
 		}
 
 		[Fact]
+		public async Task RaiseWithoutSubscriber_ShouldNotThrow()
+		{
+			IPacketNotifier sut = IPacketNotifier.CreateMock();
+
+			void Act() => sut.Mock.Raise.PacketReceived(new Packet(1, []));
+
+			await That(Act).DoesNotThrow();
+		}
+
+#if NET9_0_OR_GREATER
+		public interface ISpanEventSource
+		{
+			event EventHandler<Packet> Received;
+		}
+
+		[Fact]
 		public async Task RaiseWithEventHandlerOfRefStruct_ShouldReachSubscriber()
 		{
 			ISpanEventSource sut = ISpanEventSource.CreateMock();
@@ -75,20 +85,17 @@ public sealed class RefStructValuePositionTests
 			await That(receivedId).IsEqualTo(7)
 				.Because("EventHandler<T> with a ref-struct T is raised like any other event");
 		}
-
-		[Fact]
-		public async Task RaiseWithoutSubscriber_ShouldNotThrow()
-		{
-			IPacketNotifier sut = IPacketNotifier.CreateMock();
-
-			void Act() => sut.Mock.Raise.PacketReceived(new Packet(1, []));
-
-			await That(Act).DoesNotThrow();
-		}
+#endif
 	}
 
+#if NET8_0_OR_GREATER
 	public sealed class SpanPropertyTests
 	{
+		public interface ISpanBuffer
+		{
+			Span<byte> Buffer { get; set; }
+		}
+
 		[Fact]
 		public async Task Getter_ShouldReturnConfiguredSpan()
 		{
@@ -112,7 +119,9 @@ public sealed class RefStructValuePositionTests
 			await That(sut.Mock.Verify.Buffer.Set(It.IsAny<Mockolate.Setup.SpanWrapper<byte>>())).Once();
 		}
 	}
+#endif
 
+#pragma warning disable Mockolate0003 // Ref-struct usage is not supported on this compilation
 	public sealed class UnsupportedValuePositionTests
 	{
 		[Fact]
@@ -162,7 +171,7 @@ public sealed class RefStructValuePositionTests
 		[Fact]
 		public async Task RefStructParameterDelegate_ShouldThrowNotSupported()
 		{
-			PacketConsumer sut = PacketConsumer.CreateMock();
+			PacketHandler sut = PacketHandler.CreateMock();
 
 			void Act() => sut(new Packet(1, []));
 
@@ -170,5 +179,5 @@ public sealed class RefStructValuePositionTests
 				.WithMessage("*ref-struct parameters are not supported on delegate types*").AsWildcard();
 		}
 	}
+#pragma warning restore Mockolate0003
 }
-#endif

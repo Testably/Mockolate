@@ -381,17 +381,17 @@ internal static partial class Sources
 		// A non-span ref-struct return cannot parameterize ReturnMethodSetup<TReturn>, and a ref-struct
 		// parameter cannot parameterize VoidMethodSetup<T>. Either way the delegate gets no setup or
 		// verify surface (AppendMethodSetupDefinition skips it) and Invoke throws.
-		if (delegateMethod.ReturnType.IsUnsupportedRefStructValue())
+		if (delegateMethod.ReturnType.NeedsRefStructPipeline())
 		{
-			AppendUnsupportedRefStructReturnThrow(sb, delegateMethod);
+			AppendUnsupportedMethodThrow(sb, delegateMethod,
+				"methods returning a non-span ref struct are not supported");
 			return;
 		}
 
 		if (delegateMethod.HasUnsupportedRefStructParameter)
 		{
-			sb.Append("\t\t\tthrow new global::System.NotSupportedException(\"Mockolate: ")
-				.Append("ref-struct parameters are not supported on delegate types")
-				.Append(". Delegate '").Append(delegateMethod.ContainingType).Append("'.\");").AppendLine();
+			AppendUnsupportedMethodThrow(sb, delegateMethod,
+				"ref-struct parameters are not supported on delegate types");
 			return;
 		}
 
@@ -528,6 +528,5 @@ internal static partial class Sources
 				.AppendDefaultValueGeneratorFor(delegateMethod.ReturnType, $"this.{mockRegistryName}.Behavior.DefaultValue")
 				.Append(';').AppendLine();
 		}
-
 	}
 }
