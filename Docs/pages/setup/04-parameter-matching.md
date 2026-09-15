@@ -264,12 +264,20 @@ generic delegates:
   contribute their raw value as part of the composite dispatch key. If any ref-struct slot is
   matched without a projection, storage stays inactive for that setup.
 
-The following cases are rejected at compile time with diagnostic `Mockolate0003`:
+On .NET 9 with C# 13 or later, ref-struct parameters are supported by value and as `out`, `ref`
+and `ref readonly`, on interface and class members alike.
 
-- Targeting older than .NET 9 (the feature relies on `allows ref struct`, a .NET 9 / C# 13
-  feature).
-- `out` / `ref` / `ref readonly` parameters of a ref-struct type.
-- Methods that return a custom ref struct. (`Span<T>` / `ReadOnlySpan<T>` returns are supported.)
+The following cases are flagged with diagnostic `Mockolate0003`:
+
+- Targeting older than .NET 9, or pinning `<LangVersion>` below 13 (the feature relies on
+  `allows ref struct`, a .NET 9 / C# 13 feature).
+- A custom ref struct in a *value* position: a method or delegate return, a property type, or an
+  indexer value. (`Span<T>` / `ReadOnlySpan<T>` are supported in those positions.)
+- Ref-struct parameters on delegate types.
+
+Members in the latter two groups still compile - the mock keeps the member but emits no setup or
+verify surface for it. See [Mockolate0003](../analyzers#mockolate0003) for what the member does at
+runtime.
 
 ## Parameter Predicates
 
