@@ -219,12 +219,24 @@ internal static class Helpers
 	///     type AND the existing Span/ReadOnlySpan wrapper fallback doesn't apply.
 	/// </summary>
 	/// <remarks>
-	///     <c>System.Span&lt;T&gt;</c> and <c>System.ReadOnlySpan&lt;T&gt;</c> are themselves
-	///     ref-like, but the generator already boxes them into <c>SpanWrapper&lt;T&gt;</c> /
-	///     <c>ReadOnlySpanWrapper&lt;T&gt;</c> (a plain class), so their setup flows through the
-	///     regular <c>VoidMethodSetup</c> hierarchy with a non-ref-struct <c>T</c>. Only types
-	///     outside that wrapping need the <c>RefStructVoidMethodSetup</c> /
-	///     <c>RefStructReturnMethodSetup</c> / <c>RefStructIndexerGetterSetup</c> path.
+	///     <para>
+	///         <c>System.Span&lt;T&gt;</c> and <c>System.ReadOnlySpan&lt;T&gt;</c> are themselves
+	///         ref-like, but the generator already boxes them into <c>SpanWrapper&lt;T&gt;</c> /
+	///         <c>ReadOnlySpanWrapper&lt;T&gt;</c> (a plain class), so their setup flows through the
+	///         regular <c>VoidMethodSetup</c> hierarchy with a non-ref-struct <c>T</c>. Only types
+	///         outside that wrapping need the <c>RefStructVoidMethodSetup</c> /
+	///         <c>RefStructReturnMethodSetup</c> / <c>RefStructIndexerGetterSetup</c> path.
+	///     </para>
+	///     <para>
+	///         In a <i>value</i> position - a method or delegate return, a property type, an indexer
+	///         value - there is no such pipeline to route into: those positions parameterize types that
+	///         store a <c>Func&lt;T&gt;</c> (<c>IReturnMethodSetup&lt;T&gt;</c>,
+	///         <c>IPropertyGetterOnlySetup&lt;T&gt;</c>, <c>IIndexerGetterOnlySetup&lt;TValue, ...&gt;</c>),
+	///         which is illegal for a ref struct, so they cannot carry the <c>allows ref struct</c>
+	///         anti-constraint the parameter positions use. Members matching this in a value position get
+	///         no setup/verify surface: a virtual class member forwards to the wrapped instance or to
+	///         <c>base</c>, everything else gets a <c>NotSupportedException</c> stub.
+	///     </para>
 	/// </remarks>
 	public static bool NeedsRefStructPipeline(this Type type)
 		=> type.IsRefStruct

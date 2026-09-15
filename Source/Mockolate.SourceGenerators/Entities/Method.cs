@@ -19,6 +19,7 @@ internal record Method
 		IsInitOnly = methodSymbol.IsInitOnly;
 		IsRefReturn = methodSymbol.RefKind == RefKind.Ref;
 		IsRefReadonlyReturn = methodSymbol.RefKind == RefKind.RefReadOnly;
+		IsDelegateInvoke = methodSymbol.MethodKind == MethodKind.DelegateInvoke;
 		ReturnType = methodSymbol.ReturnsVoid ? Type.Void : Type.From(methodSymbol.ReturnType);
 		Name = Helpers.EscapeIfKeyword(methodSymbol.ExplicitInterfaceImplementations.Length > 0 ? methodSymbol.ExplicitInterfaceImplementations[0].Name : methodSymbol.Name);
 		ContainingType = methodSymbol.ContainingType.ToDisplayString(Helpers.TypeDisplayFormat);
@@ -63,6 +64,19 @@ internal record Method
 	public bool IsInitOnly { get; }
 	public bool IsRefReturn { get; }
 	public bool IsRefReadonlyReturn { get; }
+	public bool IsDelegateInvoke { get; }
+
+	/// <summary>
+	///     Delegates have no ref-struct setup pipeline: a delegate mock projects its single <c>Invoke</c>
+	///     onto <c>VoidMethodSetup&lt;T&gt;</c> / <c>ReturnMethodSetup&lt;T&gt;</c>, neither of which carries
+	///     the <c>allows ref struct</c> anti-constraint that the interface and class pipelines get from
+	///     <c>RefStructVoidMethodSetup&lt;T&gt;</c>. Such delegates get a <c>NotSupportedException</c> stub
+	///     and no setup/verify surface; <c>Span&lt;T&gt;</c>/<c>ReadOnlySpan&lt;T&gt;</c> parameters are
+	///     exempt because they flow through their wrappers.
+	/// </summary>
+	public bool IsDelegateWithUnsupportedRefStructParameter
+		=> IsDelegateInvoke && Parameters.Any(parameter => parameter.NeedsRefStructPipeline());
+
 	public bool IsProtected => Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal
 		or Accessibility.ProtectedAndInternal;
 

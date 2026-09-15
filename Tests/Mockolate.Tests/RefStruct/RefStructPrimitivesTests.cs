@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mockolate.Interactions;
 using Mockolate.Parameters;
 using Mockolate.Setup;
+using Mockolate.Tests.TestHelpers.RefStruct;
 
 namespace Mockolate.Tests.RefStruct;
 

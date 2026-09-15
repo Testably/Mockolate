@@ -58,140 +58,7 @@ internal static partial class Sources
 		sb.Append("\t\tprivate ").Append(delegateMethod.ReturnType == Type.Void ? "void" : delegateMethod.ReturnType.Fullname).Append(" Invoke(")
 			.Append(string.Join(", ", delegateMethod.Parameters.Select(p => $"{p.RefKind.GetString()}{p.Type.Fullname} {p.Name}"))).Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		string methodSetup = Helpers.GetUniqueLocalVariableName("methodSetup", delegateMethod.Parameters);
-		string methodSetupType = (delegateMethod.ReturnType == Type.Void, delegateMethod.Parameters.Count) switch
-		{
-			(true, 0) => "global::Mockolate.Setup.VoidMethodSetup",
-			(true, _) => $"global::Mockolate.Setup.VoidMethodSetup<{string.Join(", ", delegateMethod.Parameters.Select(p => p.ToTypeOrWrapper()))}>",
-			(_, 0) => $"global::Mockolate.Setup.ReturnMethodSetup<{delegateMethod.ReturnType.ToTypeOrWrapper()}>",
-			(_, _) => $"global::Mockolate.Setup.ReturnMethodSetup<{delegateMethod.ReturnType.ToTypeOrWrapper()}, {string.Join(", ", delegateMethod.Parameters.Select(p => p.ToTypeOrWrapper()))}>",
-		};
-		bool hasOutParams = delegateMethod.Parameters.Any(p => p.RefKind is RefKind.Out);
-		bool hasRefParams = delegateMethod.Parameters.Any(p => p.RefKind is RefKind.Ref);
-		string wpc = Helpers.GetUniqueLocalVariableName("wpc", delegateMethod.Parameters);
-
-		StringBuilder sb2 = new();
-		int i = 0;
-		foreach (MethodParameter p in delegateMethod.Parameters)
-		{
-			if (i++ > 0)
-			{
-				sb2.Append(", ");
-			}
-
-			if (p.RefKind == RefKind.Ref)
-			{
-				string paramRef = Helpers.GetUniqueLocalVariableName($"ref_{p.Name}", delegateMethod.Parameters);
-
-				sb.Append("\t\t\tvar ").Append(paramRef).Append(" = ").Append(p.Name).Append(';').AppendLine();
-				sb2.Append(paramRef);
-			}
-			else if (p.Type.SpecialGenericType == SpecialGenericType.Span ||
-			         p.Type.SpecialGenericType == SpecialGenericType.ReadOnlySpan)
-			{
-				string paramRef = Helpers.GetUniqueLocalVariableName($"ref_{p.Name}", delegateMethod.Parameters);
-
-				sb.Append("\t\t\tvar ").Append(paramRef).Append(" = ").Append(p.ToNameOrWrapper()).Append(';').AppendLine();
-				sb2.Append(paramRef);
-			}
-			else
-			{
-				sb2.Append(p.RefKind switch
-					{
-						RefKind.Out => "default",
-						_ => p.ToNameOrWrapper(),
-					});
-			}
-		}
-
-		string memberIdRef = memberIdPrefix + memberIds.GetMethodIdentifier(delegateMethod);
-		bool isGeneric = delegateMethod.GenericParameters is not null &&
-		                 delegateMethod.GenericParameters.Value.Count > 0;
-		EmitFastMethodSetupLookup(sb, "\t\t\t", $"this.{mockRegistryName}", methodSetup, methodSetupType,
-			memberIdRef, delegateMethod.GetUniqueNameString(), sb2.ToString(), isGeneric);
-
-		if (hasOutParams)
-		{
-			foreach (MethodParameter parameter in delegateMethod.Parameters.Where(p => p.RefKind == RefKind.Out))
-			{
-				sb.Append("\t\t\t").Append(parameter.Name).Append(" = default!;").AppendLine();
-			}
-		}
-
-		if (hasOutParams || hasRefParams)
-		{
-			string outParamBase = Helpers.GetUniqueIndexedLocalVariableBase("outParam", delegateMethod.Parameters);
-			string refParamBase = Helpers.GetUniqueIndexedLocalVariableBase("refParam", delegateMethod.Parameters);
-			sb.Append("\t\t\tif (").Append(methodSetup).Append(" is ").Append(methodSetupType).Append(".WithParameterCollection ").Append(wpc).Append(')').AppendLine();
-			sb.Append("\t\t\t{").AppendLine();
-			int parameterIndex = 0;
-			foreach (MethodParameter parameter in delegateMethod.Parameters)
-			{
-				parameterIndex++;
-				if (parameter.RefKind == RefKind.Out)
-				{
-					sb.Append("\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex)
-						.Append(" is not global::Mockolate.Parameters.IOutParameter<")
-						.Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(outParamBase)
-						.Append(parameterIndex)
-						.Append(" || !").Append(outParamBase).Append(parameterIndex).Append(".TryGetValue(out ")
-						.Append(parameter.Name).Append("))").AppendLine();
-					sb.Append("\t\t\t\t{").AppendLine();
-					sb.Append("\t\t\t\t\t").Append(parameter.Name).Append(" = ").AppendDefaultValueGeneratorFor(parameter.Type, $"this.{mockRegistryName}.Behavior.DefaultValue").Append(';').AppendLine();
-					sb.Append("\t\t\t\t}").AppendLine();
-				}
-				else if (parameter.RefKind == RefKind.Ref)
-				{
-					sb.Append("\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex).Append(" is global::Mockolate.Parameters.IRefParameter<").Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(refParamBase).Append(parameterIndex).Append(")").AppendLine();
-					sb.Append("\t\t\t\t{").AppendLine();
-					sb.Append("\t\t\t\t\t").Append(parameter.Name).Append(" = ").Append(refParamBase).Append(parameterIndex).Append(".GetValue(").Append(parameter.Name).Append(");").AppendLine();
-					sb.Append("\t\t\t\t}").AppendLine();
-				}
-			}
-
-			sb.Append("\t\t\t}").AppendLine();
-		}
-
-		sb.Append("\t\t\tif (").Append(mockRegistryName).Append(".Behavior.SkipInteractionRecording == false)").AppendLine();
-		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t").Append(mockRegistryName).Append(".RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation");
-		if (delegateMethod.Parameters.Count > 0)
-		{
-			sb.Append('<').Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToTypeOrWrapper()))).Append('>');
-		}
-
-		sb.Append("(").Append(delegateMethod.GetUniqueNameString());
-		if (delegateMethod.Parameters.Count > 0)
-		{
-			sb.Append(", ").Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToNameOrWrapper())));
-		}
-
-		sb.Append("));").AppendLine();
-		sb.Append("\t\t\t}").AppendLine();
-
-		string displayDelegateName =
-			$"{delegateMethod.ContainingType}.{delegateMethod.Name}({string.Join(", ", delegateMethod.Parameters.Select(p => p.Type.DisplayName))})";
-		sb.Append("\t\t\tif (").Append(methodSetup).Append(" is null && this.").Append(mockRegistryName).Append(".Behavior.ThrowWhenNotSetup)").AppendLine();
-		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tthrow new global::Mockolate.Exceptions.MockNotSetupException(\"The method '").Append(displayDelegateName).Append("' was invoked without prior setup.\");").AppendLine();
-		sb.Append("\t\t\t}").AppendLine();
-
-		AppendTriggerCallbacks(sb, "\t\t\t", methodSetup, delegateMethod.Parameters);
-
-		if (delegateMethod.ReturnType != Type.Void)
-		{
-			string returnValue = Helpers.GetUniqueLocalVariableName("returnValue", delegateMethod.Parameters);
-			sb.Append("\t\t\treturn ").Append(methodSetup).Append("?.TryGetReturnValue(");
-			if (delegateMethod.Parameters.Count > 0)
-			{
-				sb.Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToNameOrWrapper()))).Append(", ");
-			}
-
-			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ")
-				.AppendDefaultValueGeneratorFor(delegateMethod.ReturnType, $"this.{mockRegistryName}.Behavior.DefaultValue")
-				.Append(';').AppendLine();
-		}
-
+		AppendMockDelegateInvokeBody(sb, delegateMethod, mockRegistryName, memberIds, memberIdPrefix);
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
@@ -503,5 +370,163 @@ internal static partial class Sources
 		
 		sb.AppendLine("#nullable disable annotations");
 		return sb.ToString();
+	}
+
+	/// <summary>
+	///     Emits the body of the delegate mock's <c>Invoke</c> method.
+	/// </summary>
+	private static void AppendMockDelegateInvokeBody(StringBuilder sb, Method delegateMethod,
+		string mockRegistryName, MemberIdTable memberIds, string memberIdPrefix)
+	{
+		// A non-span ref-struct return cannot parameterize ReturnMethodSetup<TReturn>, and a ref-struct
+		// parameter cannot parameterize VoidMethodSetup<T>. Either way the delegate gets no setup or
+		// verify surface (AppendMethodSetupDefinition skips it) and Invoke throws.
+		if (delegateMethod.ReturnType.NeedsRefStructPipeline())
+		{
+			AppendUnsupportedMethodThrow(sb, delegateMethod,
+				"methods returning a non-span ref struct are not supported");
+			return;
+		}
+
+		if (delegateMethod.IsDelegateWithUnsupportedRefStructParameter)
+		{
+			AppendUnsupportedMethodThrow(sb, delegateMethod,
+				"ref-struct parameters are not supported on delegate types");
+			return;
+		}
+
+		string methodSetup = Helpers.GetUniqueLocalVariableName("methodSetup", delegateMethod.Parameters);
+		string methodSetupType = (delegateMethod.ReturnType == Type.Void, delegateMethod.Parameters.Count) switch
+		{
+			(true, 0) => "global::Mockolate.Setup.VoidMethodSetup",
+			(true, _) => $"global::Mockolate.Setup.VoidMethodSetup<{string.Join(", ", delegateMethod.Parameters.Select(p => p.ToTypeOrWrapper()))}>",
+			(_, 0) => $"global::Mockolate.Setup.ReturnMethodSetup<{delegateMethod.ReturnType.ToTypeOrWrapper()}>",
+			(_, _) => $"global::Mockolate.Setup.ReturnMethodSetup<{delegateMethod.ReturnType.ToTypeOrWrapper()}, {string.Join(", ", delegateMethod.Parameters.Select(p => p.ToTypeOrWrapper()))}>",
+		};
+		bool hasOutParams = delegateMethod.Parameters.Any(p => p.RefKind is RefKind.Out);
+		bool hasRefParams = delegateMethod.Parameters.Any(p => p.RefKind is RefKind.Ref);
+		string wpc = Helpers.GetUniqueLocalVariableName("wpc", delegateMethod.Parameters);
+
+		StringBuilder sb2 = new();
+		int i = 0;
+		foreach (MethodParameter p in delegateMethod.Parameters)
+		{
+			if (i++ > 0)
+			{
+				sb2.Append(", ");
+			}
+
+			if (p.RefKind == RefKind.Ref)
+			{
+				string paramRef = Helpers.GetUniqueLocalVariableName($"ref_{p.Name}", delegateMethod.Parameters);
+
+				sb.Append("\t\t\tvar ").Append(paramRef).Append(" = ").Append(p.Name).Append(';').AppendLine();
+				sb2.Append(paramRef);
+			}
+			else if (p.Type.SpecialGenericType == SpecialGenericType.Span ||
+			         p.Type.SpecialGenericType == SpecialGenericType.ReadOnlySpan)
+			{
+				string paramRef = Helpers.GetUniqueLocalVariableName($"ref_{p.Name}", delegateMethod.Parameters);
+
+				sb.Append("\t\t\tvar ").Append(paramRef).Append(" = ").Append(p.ToNameOrWrapper()).Append(';').AppendLine();
+				sb2.Append(paramRef);
+			}
+			else
+			{
+				sb2.Append(p.RefKind switch
+					{
+						RefKind.Out => "default",
+						_ => p.ToNameOrWrapper(),
+					});
+			}
+		}
+
+		string memberIdRef = memberIdPrefix + memberIds.GetMethodIdentifier(delegateMethod);
+		bool isGeneric = delegateMethod.GenericParameters is not null &&
+		                 delegateMethod.GenericParameters.Value.Count > 0;
+		EmitFastMethodSetupLookup(sb, "\t\t\t", $"this.{mockRegistryName}", methodSetup, methodSetupType,
+			memberIdRef, delegateMethod.GetUniqueNameString(), sb2.ToString(), isGeneric);
+
+		if (hasOutParams)
+		{
+			foreach (MethodParameter parameter in delegateMethod.Parameters.Where(p => p.RefKind == RefKind.Out))
+			{
+				sb.Append("\t\t\t").Append(parameter.Name).Append(" = default!;").AppendLine();
+			}
+		}
+
+		if (hasOutParams || hasRefParams)
+		{
+			string outParamBase = Helpers.GetUniqueIndexedLocalVariableBase("outParam", delegateMethod.Parameters);
+			string refParamBase = Helpers.GetUniqueIndexedLocalVariableBase("refParam", delegateMethod.Parameters);
+			sb.Append("\t\t\tif (").Append(methodSetup).Append(" is ").Append(methodSetupType).Append(".WithParameterCollection ").Append(wpc).Append(')').AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			int parameterIndex = 0;
+			foreach (MethodParameter parameter in delegateMethod.Parameters)
+			{
+				parameterIndex++;
+				if (parameter.RefKind == RefKind.Out)
+				{
+					sb.Append("\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex)
+						.Append(" is not global::Mockolate.Parameters.IOutParameter<")
+						.Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(outParamBase)
+						.Append(parameterIndex)
+						.Append(" || !").Append(outParamBase).Append(parameterIndex).Append(".TryGetValue(out ")
+						.Append(parameter.Name).Append("))").AppendLine();
+					sb.Append("\t\t\t\t{").AppendLine();
+					sb.Append("\t\t\t\t\t").Append(parameter.Name).Append(" = ").AppendDefaultValueGeneratorFor(parameter.Type, $"this.{mockRegistryName}.Behavior.DefaultValue").Append(';').AppendLine();
+					sb.Append("\t\t\t\t}").AppendLine();
+				}
+				else if (parameter.RefKind == RefKind.Ref)
+				{
+					sb.Append("\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex).Append(" is global::Mockolate.Parameters.IRefParameter<").Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(refParamBase).Append(parameterIndex).Append(")").AppendLine();
+					sb.Append("\t\t\t\t{").AppendLine();
+					sb.Append("\t\t\t\t\t").Append(parameter.Name).Append(" = ").Append(refParamBase).Append(parameterIndex).Append(".GetValue(").Append(parameter.Name).Append(");").AppendLine();
+					sb.Append("\t\t\t\t}").AppendLine();
+				}
+			}
+
+			sb.Append("\t\t\t}").AppendLine();
+		}
+
+		sb.Append("\t\t\tif (").Append(mockRegistryName).Append(".Behavior.SkipInteractionRecording == false)").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\t").Append(mockRegistryName).Append(".RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation");
+		if (delegateMethod.Parameters.Count > 0)
+		{
+			sb.Append('<').Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToTypeOrWrapper()))).Append('>');
+		}
+
+		sb.Append("(").Append(delegateMethod.GetUniqueNameString());
+		if (delegateMethod.Parameters.Count > 0)
+		{
+			sb.Append(", ").Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToNameOrWrapper())));
+		}
+
+		sb.Append("));").AppendLine();
+		sb.Append("\t\t\t}").AppendLine();
+
+		string displayDelegateName =
+			$"{delegateMethod.ContainingType}.{delegateMethod.Name}({string.Join(", ", delegateMethod.Parameters.Select(p => p.Type.DisplayName))})";
+		sb.Append("\t\t\tif (").Append(methodSetup).Append(" is null && this.").Append(mockRegistryName).Append(".Behavior.ThrowWhenNotSetup)").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\tthrow new global::Mockolate.Exceptions.MockNotSetupException(\"The method '").Append(displayDelegateName).Append("' was invoked without prior setup.\");").AppendLine();
+		sb.Append("\t\t\t}").AppendLine();
+
+		AppendTriggerCallbacks(sb, "\t\t\t", methodSetup, delegateMethod.Parameters);
+
+		if (delegateMethod.ReturnType != Type.Void)
+		{
+			string returnValue = Helpers.GetUniqueLocalVariableName("returnValue", delegateMethod.Parameters);
+			sb.Append("\t\t\treturn ").Append(methodSetup).Append("?.TryGetReturnValue(");
+			if (delegateMethod.Parameters.Count > 0)
+			{
+				sb.Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToNameOrWrapper()))).Append(", ");
+			}
+
+			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ")
+				.AppendDefaultValueGeneratorFor(delegateMethod.ReturnType, $"this.{mockRegistryName}.Behavior.DefaultValue")
+				.Append(';').AppendLine();
+		}
 	}
 }

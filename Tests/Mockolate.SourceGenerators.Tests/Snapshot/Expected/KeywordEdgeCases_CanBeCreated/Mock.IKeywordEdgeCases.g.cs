@@ -229,7 +229,7 @@ internal static partial class Mock
 				}
 				global::Mockolate.Interactions.IndexerSetterAccess<int, string, string> access = new(@params, @void, value);
 				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string, int, string>>(access);
-				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 0);
+				this.MockRegistry.ApplyIndexerSetter<string>(access, setup, value, 0);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases wraps)
 				{
 					wraps[@params, @void] = value;
