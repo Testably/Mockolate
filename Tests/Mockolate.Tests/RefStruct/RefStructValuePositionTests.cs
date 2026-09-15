@@ -6,8 +6,9 @@ namespace Mockolate.Tests.RefStruct;
 /// <summary>
 ///     Covers ref structs in <i>value</i> positions - event arguments, method and delegate returns,
 ///     property types and indexer values. These once made the generator emit uncompilable code
-///     (CS9244); they now either flow through the Span wrapper or degrade to a
-///     <see cref="NotSupportedException" /> stub with no setup surface.
+///     (CS9244); they now either flow through the Span wrapper or lose their setup surface - a
+///     <c>virtual</c> class member then forwards to the wrapped instance or to <c>base</c>, everything
+///     else throws <see cref="NotSupportedException" />.
 /// </summary>
 /// <remarks>
 ///     Deliberately not gated to net9.0+: none of these shapes route through the ref-struct setup
@@ -119,9 +120,143 @@ public sealed class RefStructValuePositionTests
 			await That(sut.Mock.Verify.Buffer.Set(It.IsAny<Mockolate.Setup.SpanWrapper<byte>>())).Once();
 		}
 	}
+
+	public sealed class SpanIndexerTests
+	{
+		public interface ISpanBufferGetter
+		{
+			Span<byte> this[int index] { get; }
+		}
+
+		public interface ISpanBufferSetter
+		{
+			Span<byte> this[int index] { set; }
+		}
+
+		public interface ISpanBufferStore
+		{
+			Span<byte> this[int index] { get; set; }
+		}
+
+		[Fact]
+		public async Task GetterOnly_ShouldReturnConfiguredSpan()
+		{
+			ISpanBufferGetter sut = ISpanBufferGetter.CreateMock();
+			byte[] expected = [1, 2, 3,];
+			sut.Mock.Setup[2].Returns(expected.AsSpan());
+
+			byte[] result = sut[2].ToArray();
+
+			await That(result).IsEqualTo(expected)
+				.Because("a Span-valued indexer round-trips through SpanWrapper<T>");
+		}
+
+		[Fact]
+		public async Task SetterOnly_ShouldBeRecorded()
+		{
+			ISpanBufferSetter sut = ISpanBufferSetter.CreateMock();
+
+			sut[4] = new byte[] { 9, 8, }.AsSpan();
+
+			await That(sut.Mock.Verify[4].Set(It.IsAny<Mockolate.Setup.SpanWrapper<byte>>())).Once()
+				.Because("the setter dispatches through ApplyIndexerSetter<SpanWrapper<byte>>");
+		}
+
+		[Fact]
+		public async Task GetAndSet_ShouldBeRecorded()
+		{
+			ISpanBufferStore sut = ISpanBufferStore.CreateMock();
+
+			sut[7] = new byte[] { 5, }.AsSpan();
+
+			await That(sut.Mock.Verify[7].Set(It.IsAny<Mockolate.Setup.SpanWrapper<byte>>())).Once();
+		}
+	}
 #endif
 
+	public class PacketSource
+	{
+		public virtual Packet Current => new(11, []);
+
+		public virtual Packet Produce() => new(12, []);
+	}
+
+	public abstract class AbstractPacketSource
+	{
+		public abstract Packet Current { get; }
+	}
+
 #pragma warning disable Mockolate0003 // Ref-struct usage is not supported on this compilation
+	/// <summary>
+	///     A ref struct in a value position has no setup surface, but a <c>virtual</c> class member still
+	///     has a real implementation behind it and keeps working.
+	/// </summary>
+	public sealed class ClassPassthroughTests
+	{
+		private sealed class LoudPacketSource : PacketSource
+		{
+			public override Packet Current => new(99, []);
+
+			public override Packet Produce() => new(98, []);
+		}
+
+		[Fact]
+		public async Task VirtualProperty_ShouldFallBackToBase()
+		{
+			PacketSource sut = PacketSource.CreateMock();
+
+			int id = sut.Current.Id;
+
+			await That(id).IsEqualTo(11)
+				.Because("a virtual member without a setup surface forwards to base instead of throwing");
+		}
+
+		[Fact]
+		public async Task VirtualMethod_ShouldFallBackToBase()
+		{
+			PacketSource sut = PacketSource.CreateMock();
+
+			int id = sut.Produce().Id;
+
+			await That(id).IsEqualTo(12)
+				.Because("a virtual member without a setup surface forwards to base instead of throwing");
+		}
+
+		[Fact]
+		public async Task VirtualProperty_WhenWrapping_ShouldUseWrappedInstance()
+		{
+			PacketSource sut = PacketSource.CreateMock().Wrapping(new LoudPacketSource());
+
+			int id = sut.Current.Id;
+
+			await That(id).IsEqualTo(99)
+				.Because("the passthrough honours Wraps the same way every other member does");
+		}
+
+		[Fact]
+		public async Task VirtualMethod_WhenWrapping_ShouldUseWrappedInstance()
+		{
+			PacketSource sut = PacketSource.CreateMock().Wrapping(new LoudPacketSource());
+
+			int id = sut.Produce().Id;
+
+			await That(id).IsEqualTo(98)
+				.Because("the passthrough honours Wraps the same way every other member does");
+		}
+
+		[Fact]
+		public async Task AbstractProperty_ShouldThrowNotSupported()
+		{
+			AbstractPacketSource sut = AbstractPacketSource.CreateMock();
+
+			void Act() => _ = sut.Current;
+
+			await That(Act).Throws<NotSupportedException>()
+				.WithMessage("*properties of a non-span ref struct type are not supported*").AsWildcard()
+				.Because("an abstract member has no implementation to forward to");
+		}
+	}
+
 	public sealed class UnsupportedValuePositionTests
 	{
 		[Fact]

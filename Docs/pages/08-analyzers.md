@@ -110,9 +110,10 @@ Also never supported:
   `VoidMethodSetup<T>` / `ReturnMethodSetup<T>`, neither of which carries the anti-constraint the
   interface and class pipelines get from `RefStructVoidMethodSetup<T>`.
 
-Members matching any of these still compile: the generated mock keeps the member but its body throws
-`NotSupportedException`, and no setup or verify surface is emitted for it. Everything else on the
-type stays mockable.
+Members matching any of these still compile: the generated mock keeps the member, but no setup or
+verify surface is emitted for it. A `virtual` member on a mocked class forwards to the wrapped
+instance (or to `base`) so it keeps behaving like the real one; an interface or `abstract` member has
+nothing to forward to and throws `NotSupportedException`. Everything else on the type stays mockable.
 
 **Note:**
 `Span<T>` and `ReadOnlySpan<T>` flow through the existing `SpanWrapper` / `ReadOnlySpanWrapper`

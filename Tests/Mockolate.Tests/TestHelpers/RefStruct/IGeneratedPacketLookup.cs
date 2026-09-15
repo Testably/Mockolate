@@ -1,9 +1,8 @@
 namespace Mockolate.Tests.TestHelpers.RefStruct;
 
 /// <summary>
-///     Generator-target: indexer keyed by a ref struct. Not wired up in commit E — both
-///     accessors throw <c>NotSupportedException</c>. The analyzer will flag this pattern at
-///     compile time in commit F.
+///     Generator-target: getter-only indexer keyed by a ref struct. Exercises the standalone
+///     <c>IRefStructIndexerGetterSetup&lt;TValue, T&gt;</c> facade.
 /// </summary>
 public interface IGeneratedPacketLookup
 {

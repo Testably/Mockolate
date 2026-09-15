@@ -74,7 +74,7 @@ internal record Method
 	///     and no setup/verify surface; <c>Span&lt;T&gt;</c>/<c>ReadOnlySpan&lt;T&gt;</c> parameters are
 	///     exempt because they flow through their wrappers.
 	/// </summary>
-	public bool HasUnsupportedRefStructParameter
+	public bool IsDelegateWithUnsupportedRefStructParameter
 		=> IsDelegateInvoke && Parameters.Any(parameter => parameter.NeedsRefStructPipeline());
 
 	public bool IsProtected => Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal

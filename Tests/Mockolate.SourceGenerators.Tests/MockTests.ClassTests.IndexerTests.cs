@@ -230,7 +230,7 @@ public sealed partial class MockTests
 					          				}
 					          				global::Mockolate.Interactions.IndexerSetterAccess<int, int> access = new(index, value);
 					          				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int>>(access);
-					          				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 0);
+					          				this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 0);
 					          				if (this.MockRegistry.Wraps is global::MyCode.IMyService wraps)
 					          				{
 					          					wraps[index] = value;
@@ -305,7 +305,7 @@ public sealed partial class MockTests
 					          				}
 					          				global::Mockolate.Interactions.IndexerSetterAccess<int, string, int> access = new(index, isWriteOnly, value);
 					          				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int, string>>(access);
-					          				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 2);
+					          				this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 2);
 					          				if (this.MockRegistry.Wraps is global::MyCode.IMyService wraps)
 					          				{
 					          					wraps[index, isWriteOnly] = value;
@@ -383,7 +383,7 @@ public sealed partial class MockTests
 					          					this.MockRegistry.RegisterInteraction(access);
 					          				}
 					          				global::Mockolate.Setup.IndexerSetup<int, int>? setup = this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int>>(access);
-					          				if (!this.MockRegistry.ApplyIndexerSetter(access, setup, value, 0))
+					          				if (!this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 0))
 					          				{
 					          					if (this.MockRegistry.Wraps is global::MyCode.MyService wraps)
 					          					{
@@ -432,7 +432,7 @@ public sealed partial class MockTests
 					          					this.MockRegistry.RegisterInteraction(access);
 					          				}
 					          				global::Mockolate.Setup.IndexerSetup<int, int, string>? setup = this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int, string>>(access);
-					          				if (!this.MockRegistry.ApplyIndexerSetter(access, setup, value, 2))
+					          				if (!this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 2))
 					          				{
 					          					base[index, isWriteOnly] = value;
 					          				}
@@ -464,7 +464,7 @@ public sealed partial class MockTests
 					          					this.MockRegistry.RegisterInteraction(access);
 					          				}
 					          				global::Mockolate.Setup.IndexerSetup<int, string>? setup = this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, string>>(access);
-					          				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 3);
+					          				this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 3);
 					          			}
 					          		}
 					          """).IgnoringNewlineStyle();
@@ -589,7 +589,7 @@ public sealed partial class MockTests
 					          					}
 					          				}
 					          				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, global::Mockolate.Setup.SpanWrapper<char>>>(access);
-					          				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 0);
+					          				this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 0);
 					          				if (this.MockRegistry.Wraps is global::MyCode.IMyService wraps)
 					          				{
 					          					wraps[buffer] = value;
@@ -658,7 +658,7 @@ public sealed partial class MockTests
 					          					}
 					          				}
 					          				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(access);
-					          				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 1);
+					          				this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 1);
 					          				if (this.MockRegistry.Wraps is global::MyCode.IMyService wraps)
 					          				{
 					          					wraps[values] = value;

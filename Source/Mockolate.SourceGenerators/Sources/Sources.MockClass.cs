@@ -1755,17 +1755,28 @@ internal static partial class Sources
 				: property.Name).AppendLine();
 		}
 
-		// Ref-struct-keyed indexer (getter AND setter): the full access pipeline requires the
-		// key value to flow through IndexerGetterAccess / IndexerSetterAccess (classes with
-		// field slots), which is illegal for a ref-struct key. Emit a runtime
-		// NotSupportedException from both accessor bodies; the analyzer flags the declaration
-		// at compile time. Full getter wiring to RefStructIndexerGetterSetup is future work.
+		// Ref-struct-keyed indexer: the key cannot flow through IndexerGetterAccess /
+		// IndexerSetterAccess (classes with field slots), so both accessors dispatch through the
+		// RefStructIndexerGetterSetup / RefStructIndexerSetterSetup pipeline instead. That pipeline
+		// is #if NET9_0_OR_GREATER-gated; below it the emitted body is an #error and the analyzer
+		// reports the declaration.
 		bool isRefStructIndexer = property is { IsIndexer: true, IndexerParameters: not null, } &&
 		                          property.IndexerParameters.Value.Any(p => p.NeedsRefStructPipeline());
 
 		// A non-span ref-struct property or indexer value has no setup surface either (see
-		// Helpers.NeedsRefStructPipeline), so both accessors throw for the same reason.
+		// Helpers.NeedsRefStructPipeline). A virtual class member still has a real implementation
+		// behind it, so the accessor forwards to the wrapped instance or to base rather than
+		// breaking a member that would otherwise work; interface and abstract members have nothing
+		// to forward to and throw.
 		bool isUnsupportedRefStructValue = property.Type.NeedsRefStructPipeline();
+		bool forwardsUnsupportedRefStructValue = isUnsupportedRefStructValue && !isClassInterface &&
+		                                         property is { IsAbstract: false, IsStatic: false, };
+		string unsupportedWrapsVarName = property.IndexerParameters is null
+			? "wraps"
+			: Helpers.GetUniqueLocalVariableName("wraps", property.IndexerParameters.Value);
+		string unsupportedMemberAccess = property.IndexerParameters is null
+			? "." + property.Name
+			: "[" + FormatIndexerParametersAsNames(property.IndexerParameters.Value) + "]";
 
 		void AppendUnsupportedRefStructValueThrow()
 			=> sb.Append("\t\t\t\tthrow new global::System.NotSupportedException(\"Mockolate: ")
@@ -1774,6 +1785,52 @@ internal static partial class Sources
 					: "properties of a non-span ref struct type are not supported. Property '")
 				.Append(property.ContainingType).Append('.').Append(property.Name).Append("'.\");")
 				.AppendLine();
+
+		void AppendUnsupportedRefStructValueGetter()
+		{
+			if (!forwardsUnsupportedRefStructValue)
+			{
+				AppendUnsupportedRefStructValueThrow();
+			}
+			else if (property.Getter?.IsProtected == true)
+			{
+				sb.Append("\t\t\t\treturn base").Append(unsupportedMemberAccess).Append(';').AppendLine();
+			}
+			else
+			{
+				sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".Wraps is ").Append(wrapsType).Append(' ')
+					.Append(unsupportedWrapsVarName).Append(" ? ").Append(unsupportedWrapsVarName)
+					.Append(unsupportedMemberAccess).Append(" : base").Append(unsupportedMemberAccess).Append(';')
+					.AppendLine();
+			}
+		}
+
+		void AppendUnsupportedRefStructValueSetter()
+		{
+			// An init-only accessor cannot assign through `wraps`, and the surrounding pipeline
+			// excludes it from wrapping for the same reason, so it keeps the throw.
+			if (!forwardsUnsupportedRefStructValue || property.Setter?.IsInitOnly == true)
+			{
+				AppendUnsupportedRefStructValueThrow();
+			}
+			else if (property.Setter?.IsProtected == true)
+			{
+				sb.Append("\t\t\t\tbase").Append(unsupportedMemberAccess).Append(" = value;").AppendLine();
+			}
+			else
+			{
+				sb.Append("\t\t\t\tif (").Append(mockRegistry).Append(".Wraps is ").Append(wrapsType).Append(' ')
+					.Append(unsupportedWrapsVarName).Append(')').AppendLine();
+				sb.Append("\t\t\t\t{").AppendLine();
+				sb.Append("\t\t\t\t\t").Append(unsupportedWrapsVarName).Append(unsupportedMemberAccess)
+					.Append(" = value;").AppendLine();
+				sb.Append("\t\t\t\t}").AppendLine();
+				sb.Append("\t\t\t\telse").AppendLine();
+				sb.Append("\t\t\t\t{").AppendLine();
+				sb.Append("\t\t\t\t\tbase").Append(unsupportedMemberAccess).Append(" = value;").AppendLine();
+				sb.Append("\t\t\t\t}").AppendLine();
+			}
+		}
 
 		sb.AppendLine("\t\t{");
 		if (property.Getter != null)
@@ -1789,7 +1846,7 @@ internal static partial class Sources
 
 			if (isUnsupportedRefStructValue)
 			{
-				AppendUnsupportedRefStructValueThrow();
+				AppendUnsupportedRefStructValueGetter();
 			}
 			else if (isRefStructIndexer)
 			{
@@ -2028,7 +2085,7 @@ internal static partial class Sources
 
 			if (isUnsupportedRefStructValue)
 			{
-				AppendUnsupportedRefStructValueThrow();
+				AppendUnsupportedRefStructValueSetter();
 			}
 			// Ref-struct-keyed indexer setter: dispatches through
 			// RefStructIndexerSetterSetup<TValue, T1..Tn>. Mirrors the getter pipeline.
@@ -2052,7 +2109,8 @@ internal static partial class Sources
 						useFastForIndexer ? indexerSetIdRef : null,
 						useFastForIndexer ? indexerGetIdRef : null,
 						indexerSetCachedBufferRef);
-					sb.Append("\t\t\t\t").Append(mockRegistry).Append(".ApplyIndexerSetter(")
+					sb.Append("\t\t\t\t").Append(mockRegistry).Append(".ApplyIndexerSetter<")
+						.AppendTypeOrWrapper(property.Type).Append(">(")
 						.Append(accessVarName).Append(", ").Append(setupVarName).Append(", value, ")
 						.Append(signatureIndex).Append(");")
 						.AppendLine();
@@ -2109,7 +2167,8 @@ internal static partial class Sources
 						useFastForIndexer ? indexerSetIdRef : null,
 						useFastForIndexer ? indexerGetIdRef : null,
 						indexerSetCachedBufferRef);
-					sb.Append("\t\t\t\tif (!").Append(mockRegistry).Append(".ApplyIndexerSetter(")
+					sb.Append("\t\t\t\tif (!").Append(mockRegistry).Append(".ApplyIndexerSetter<")
+						.AppendTypeOrWrapper(property.Type).Append(">(")
 						.Append(accessVarName).Append(", ").Append(setupVarName).Append(", value, ")
 						.Append(signatureIndex).Append("))").AppendLine();
 					sb.Append("\t\t\t\t{").AppendLine();
@@ -2145,7 +2204,8 @@ internal static partial class Sources
 						useFastForIndexer ? indexerSetIdRef : null,
 						useFastForIndexer ? indexerGetIdRef : null,
 						indexerSetCachedBufferRef);
-					sb.Append("\t\t\t\t").Append(mockRegistry).Append(".ApplyIndexerSetter(")
+					sb.Append("\t\t\t\t").Append(mockRegistry).Append(".ApplyIndexerSetter<")
+						.AppendTypeOrWrapper(property.Type).Append(">(")
 						.Append(accessVarName).Append(", ").Append(setupVarName).Append(", value, ")
 						.Append(signatureIndex).Append(");").AppendLine();
 				}
@@ -2345,7 +2405,8 @@ internal static partial class Sources
 		// break the whole compilation over a member that can never be supported anyway.
 		if (method.ReturnType.NeedsRefStructPipeline())
 		{
-			AppendUnsupportedMethodThrow(sb, method, "methods returning a non-span ref struct are not supported");
+			AppendUnsupportedRefStructReturnBody(sb, method, mockRegistry, className, isClassInterface,
+				explicitInterfaceImplementation);
 			sb.AppendLine("\t\t}");
 			return;
 		}
@@ -3059,6 +3120,41 @@ internal static partial class Sources
 			.Append(". Method '").Append(method.ContainingType).Append('.').Append(method.Name)
 			.Append("'.\");").AppendLine();
 
+	/// <summary>
+	///     Emits the body of a method whose non-span ref-struct return leaves it without a setup surface.
+	///     A virtual class method still has a real implementation behind it, so it forwards to the wrapped
+	///     instance or to <c>base</c> rather than breaking a member that would otherwise work. Interface,
+	///     abstract, static and <c>ref</c>-returning methods have nothing to forward to and throw.
+	/// </summary>
+	/// <remarks>
+	///     The forward ignores <c>MockBehavior.SkipBaseClass</c>: without a setup there is no configured
+	///     value to return in its place, and a ref-struct return cannot be recorded either way.
+	/// </remarks>
+	private static void AppendUnsupportedRefStructReturnBody(StringBuilder sb, Method method, string mockRegistry,
+		string className, bool isClassInterface, bool explicitInterfaceImplementation)
+	{
+		const string reason = "methods returning a non-span ref struct are not supported";
+		if (isClassInterface || method.IsAbstract || method.IsStatic || method.IsRefReturn ||
+		    method.IsRefReadonlyReturn)
+		{
+			AppendUnsupportedMethodThrow(sb, method, reason);
+			return;
+		}
+
+		// Method.Name already carries the type-parameter list for generic methods.
+		string call = method.Name + "(" + FormatMethodParametersWithRefKind(method.Parameters) + ")";
+		if (explicitInterfaceImplementation || method.IsProtected)
+		{
+			sb.Append("\t\t\treturn base.").Append(call).Append(';').AppendLine();
+			return;
+		}
+
+		string wraps = Helpers.GetUniqueLocalVariableName("wraps", method.Parameters);
+		sb.Append("\t\t\treturn ").Append(mockRegistry).Append(".Wraps is ").Append(className).Append(' ')
+			.Append(wraps).Append(" ? ").Append(wraps).Append('.').Append(call).Append(" : base.").Append(call)
+			.Append(';').AppendLine();
+	}
+
 	#endregion Mock Helpers
 
 	#region Setup Helpers
@@ -3510,7 +3606,7 @@ internal static partial class Sources
 		// NotSupportedException stub, so no setup is needed.
 		if (method.HasUnsupportedAllowsRefStructTypeParameter ||
 		    method.ReturnType.NeedsRefStructPipeline() ||
-		    method.HasUnsupportedRefStructParameter)
+		    method.IsDelegateWithUnsupportedRefStructParameter)
 		{
 			return;
 		}
@@ -3890,7 +3986,7 @@ internal static partial class Sources
 		// explicit implementation is emitted either.
 		if (method.HasUnsupportedAllowsRefStructTypeParameter ||
 		    method.ReturnType.NeedsRefStructPipeline() ||
-		    method.HasUnsupportedRefStructParameter)
+		    method.IsDelegateWithUnsupportedRefStructParameter)
 		{
 			return;
 		}
@@ -5357,8 +5453,9 @@ internal static partial class Sources
 		// for count-based verification. See brief's "verify count" guidance.
 		//
 		// A non-span ref-struct return is skipped for a different reason: the body is a
-		// NotSupportedException stub, so the call never reaches interaction recording and the
-		// surface could only ever report zero. Matches the property/indexer carve-out.
+		// NotSupportedException stub (or, for a virtual class method, a passthrough to base), so the
+		// call never reaches interaction recording and the surface could only ever report zero.
+		// Matches the property/indexer carve-out.
 		if (method.Parameters.Any(p => p.NeedsRefStructPipeline()) || method.ReturnType.NeedsRefStructPipeline())
 		{
 			return;
@@ -6044,10 +6141,18 @@ internal static partial class Sources
 	/// <summary>
 	///     Methods with non-generic, non-ref-struct signatures get a typed per-member buffer; everything
 	///     else (open generics, ref-struct params) records via the legacy <c>RegisterInteraction</c> fallback.
+	///     A non-span ref-struct return is excluded because its body never records - it is a
+	///     <c>NotSupportedException</c> stub, or a passthrough to base - so the buffer field would be
+	///     emitted and never read.
 	/// </summary>
 	private static bool IsFastBufferEligibleMethod(Method method)
 	{
 		if (method.GenericParameters is not null && method.GenericParameters.Value.Count > 0)
+		{
+			return false;
+		}
+
+		if (method.ReturnType.NeedsRefStructPipeline())
 		{
 			return false;
 		}

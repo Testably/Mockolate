@@ -388,7 +388,7 @@ internal static partial class Sources
 			return;
 		}
 
-		if (delegateMethod.HasUnsupportedRefStructParameter)
+		if (delegateMethod.IsDelegateWithUnsupportedRefStructParameter)
 		{
 			AppendUnsupportedMethodThrow(sb, delegateMethod,
 				"ref-struct parameters are not supported on delegate types");

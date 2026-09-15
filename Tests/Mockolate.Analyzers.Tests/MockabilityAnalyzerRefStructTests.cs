@@ -560,6 +560,31 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Fact]
+	public async Task WhenMockingInterfaceWithSpanValuedIndexer_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.ISpanCatalog")}}
+
+			  namespace MyNamespace
+			  {
+			  	public interface ISpanCatalog
+			  	{
+			  		// Span-valued indexers round-trip through SpanWrapper<T> on both accessors.
+			  		System.Span<byte> this[int index] { get; set; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			ISpanCatalog.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
 	public async Task WhenMockingInterfaceWithRefStructValuedIndexer_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""

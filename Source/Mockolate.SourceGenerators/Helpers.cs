@@ -234,7 +234,8 @@ internal static class Helpers
 	///         <c>IPropertyGetterOnlySetup&lt;T&gt;</c>, <c>IIndexerGetterOnlySetup&lt;TValue, ...&gt;</c>),
 	///         which is illegal for a ref struct, so they cannot carry the <c>allows ref struct</c>
 	///         anti-constraint the parameter positions use. Members matching this in a value position get
-	///         a <c>NotSupportedException</c> stub and no setup/verify surface.
+	///         no setup/verify surface: a virtual class member forwards to the wrapped instance or to
+	///         <c>base</c>, everything else gets a <c>NotSupportedException</c> stub.
 	///     </para>
 	/// </remarks>
 	public static bool NeedsRefStructPipeline(this Type type)
