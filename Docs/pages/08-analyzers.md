@@ -111,9 +111,18 @@ Also never supported:
   interface and class pipelines get from `RefStructVoidMethodSetup<T>`.
 
 Members matching any of these still compile: the generated mock keeps the member, but no setup or
-verify surface is emitted for it. A `virtual` member on a mocked class forwards to the wrapped
-instance (or to `base`) so it keeps behaving like the real one; an interface or `abstract` member has
-nothing to forward to and throws `NotSupportedException`. Everything else on the type stays mockable.
+verify surface is emitted for it. Everything else on the type stays mockable.
+
+What the member does at runtime depends on whether there is an implementation behind it:
+
+- A `virtual` member on a mocked class forwards to the wrapped instance, or to `base`, so it keeps
+  behaving like the real one. **These are not flagged** - there is nothing to fix. The forward
+  honours none of the [`MockBehavior`](create-mocks#customizing-mock-behavior) flags, because there
+  is no setup to honour them against: `SkipBaseClass` has no configured value to return in the base
+  call's place, and `ThrowWhenNotSetup` would reject a member that can never be set up. The call is
+  not recorded either.
+- An interface member, an `abstract` member, an `init` accessor and a `ref`-returning method have
+  nothing to forward to and throw `NotSupportedException`. These are the ones the warning reports.
 
 **Note:**
 `Span<T>` and `ReadOnlySpan<T>` flow through the existing `SpanWrapper` / `ReadOnlySpanWrapper`

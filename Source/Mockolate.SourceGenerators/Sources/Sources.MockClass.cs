@@ -1767,7 +1767,9 @@ internal static partial class Sources
 		// Helpers.NeedsRefStructPipeline). A virtual class member still has a real implementation
 		// behind it, so the accessor forwards to the wrapped instance or to base rather than
 		// breaking a member that would otherwise work; interface and abstract members have nothing
-		// to forward to and throw.
+		// to forward to and throw. As on the method side, the forward honours none of the behaviour
+		// flags (see AppendUnsupportedRefStructReturnBody) because there is no setup to honour them
+		// against.
 		bool isUnsupportedRefStructValue = property.Type.NeedsRefStructPipeline();
 		bool forwardsUnsupportedRefStructValue = isUnsupportedRefStructValue && !isClassInterface &&
 		                                         property is { IsAbstract: false, IsStatic: false, };
@@ -2290,11 +2292,19 @@ internal static partial class Sources
 			(false, true) => "ref readonly ",
 			(_, _) => "",
 		};
-		string refReturnStorageField = method.IsRefReturn || method.IsRefReadonlyReturn
+		// The shapes that degrade to a NotSupportedException stub below never touch the storage, and
+		// declaring it would break the whole mock over a member that is already given up on: a field
+		// of a non-span ref-struct type does not compile (CS8345). The `allows ref struct` clause
+		// guards the same hole (CS9244) and cannot be reached today only because such a method's
+		// verify surface is emitted unguarded and fails first.
+		bool hasRefReturnStorage = (method.IsRefReturn || method.IsRefReadonlyReturn) &&
+		                           !method.ReturnType.NeedsRefStructPipeline() &&
+		                           !method.HasUnsupportedAllowsRefStructTypeParameter;
+		string refReturnStorageField = hasRefReturnStorage
 			? "_refReturnStorage_" + new string((method.ContainingType + "_" + method.Name)
 				.Select(c => char.IsLetterOrDigit(c) ? c : '_').ToArray())
 			: "";
-		if (method.IsRefReturn || method.IsRefReadonlyReturn)
+		if (hasRefReturnStorage)
 		{
 			sb.Append("\t\tprivate ").Append(method.ReturnType.Fullname).Append(' ')
 				.Append(refReturnStorageField).Append(';').AppendLine();
@@ -3127,8 +3137,11 @@ internal static partial class Sources
 	///     abstract, static and <c>ref</c>-returning methods have nothing to forward to and throw.
 	/// </summary>
 	/// <remarks>
-	///     The forward ignores <c>MockBehavior.SkipBaseClass</c>: without a setup there is no configured
-	///     value to return in its place, and a ref-struct return cannot be recorded either way.
+	///     The forward ignores the behaviour flags that a normal member honours, because there is no
+	///     setup to honour them against: <c>MockBehavior.SkipBaseClass</c> has no configured value to
+	///     return in the base call's place, <c>MockBehavior.ThrowWhenNotSetup</c> would reject a member
+	///     that can never be set up in the first place, and a ref-struct return cannot be recorded, so
+	///     <c>SkipInteractionRecording</c> is moot too.
 	/// </remarks>
 	private static void AppendUnsupportedRefStructReturnBody(StringBuilder sb, Method method, string mockRegistry,
 		string className, bool isClassInterface, bool explicitInterfaceImplementation)

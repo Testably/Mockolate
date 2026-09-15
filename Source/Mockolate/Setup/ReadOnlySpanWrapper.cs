@@ -1,6 +1,8 @@
 ﻿#if NET8_0_OR_GREATER
 using System;
 using System.Diagnostics;
+using System.Linq;
+using Mockolate.Internals;
 
 namespace Mockolate.Setup;
 
@@ -39,5 +41,30 @@ public class ReadOnlySpanWrapper<T>
 	{
 		return new ReadOnlySpanWrapper<T>(span);
 	}
+
+	/// <inheritdoc cref="object.Equals(object?)" />
+	/// <remarks>
+	///     Compares <see cref="ReadOnlySpanValues" /> element-wise: a span-typed property or indexer
+	///     value is matched through <c>EqualityComparer&lt;ReadOnlySpanWrapper&lt;T&gt;&gt;.Default</c>,
+	///     so reference equality would make <c>Set(someSpan)</c> never match the recorded span.
+	/// </remarks>
+	public override bool Equals(object? obj)
+		=> obj is ReadOnlySpanWrapper<T> other && ReadOnlySpanValues.SequenceEqual(other.ReadOnlySpanValues);
+
+	/// <inheritdoc cref="object.GetHashCode()" />
+	public override int GetHashCode()
+	{
+		HashCode hashCode = new();
+		foreach (T value in ReadOnlySpanValues)
+		{
+			hashCode.Add(value);
+		}
+
+		return hashCode.ToHashCode();
+	}
+
+	/// <inheritdoc cref="object.ToString()" />
+	public override string ToString()
+		=> $"ReadOnlySpan<{typeof(T).FormatType()}>[{string.Join(", ", ReadOnlySpanValues)}]";
 }
 #endif

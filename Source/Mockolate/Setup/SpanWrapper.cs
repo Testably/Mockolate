@@ -1,6 +1,8 @@
 ﻿#if NET8_0_OR_GREATER
 using System;
 using System.Diagnostics;
+using System.Linq;
+using Mockolate.Internals;
 
 namespace Mockolate.Setup;
 
@@ -39,5 +41,30 @@ public class SpanWrapper<T>
 	{
 		return new SpanWrapper<T>(span);
 	}
+
+	/// <inheritdoc cref="object.Equals(object?)" />
+	/// <remarks>
+	///     Compares <see cref="SpanValues" /> element-wise: a span-typed property or indexer value is
+	///     matched through <c>EqualityComparer&lt;SpanWrapper&lt;T&gt;&gt;.Default</c>, so reference
+	///     equality would make <c>Set(someSpan)</c> never match the recorded span.
+	/// </remarks>
+	public override bool Equals(object? obj)
+		=> obj is SpanWrapper<T> other && SpanValues.SequenceEqual(other.SpanValues);
+
+	/// <inheritdoc cref="object.GetHashCode()" />
+	public override int GetHashCode()
+	{
+		HashCode hashCode = new();
+		foreach (T value in SpanValues)
+		{
+			hashCode.Add(value);
+		}
+
+		return hashCode.ToHashCode();
+	}
+
+	/// <inheritdoc cref="object.ToString()" />
+	public override string ToString()
+		=> $"Span<{typeof(T).FormatType()}>[{string.Join(", ", SpanValues)}]";
 }
 #endif

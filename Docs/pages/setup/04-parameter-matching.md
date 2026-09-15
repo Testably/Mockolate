@@ -276,8 +276,9 @@ The following cases are flagged with diagnostic `Mockolate0003`:
 - Ref-struct parameters on delegate types.
 
 Members in the latter two groups still compile - the mock keeps the member but emits no setup or
-verify surface for it. See [Mockolate0003](../analyzers#mockolate0003) for what the member does at
-runtime.
+verify surface for it. A `virtual` class member is not flagged at all, because the mock forwards it
+to the wrapped instance or to `base` and it keeps working. See
+[Mockolate0003](../analyzers#mockolate0003) for what the member does at runtime.
 
 ## Parameter Predicates
 

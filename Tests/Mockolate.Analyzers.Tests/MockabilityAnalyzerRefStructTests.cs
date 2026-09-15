@@ -116,6 +116,214 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Fact]
+	public async Task WhenMockingAbstractClassWithRefStructProperty_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.AbstractPacketSource")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public abstract class AbstractPacketSource
+			  	{
+			  		public abstract Packet Current { get; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:AbstractPacketSource|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.AbstractPacketSource", "Current",
+					"properties of a non-span ref struct type are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualInitOnlyRefStructProperty_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.InitPacketSource")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class InitPacketSource
+			  	{
+			  		private int _id;
+
+			  		// The getter would forward, but an init-only accessor cannot assign through the
+			  		// wrapped instance and keeps the NotSupportedException stub.
+			  		public virtual Packet Current
+			  		{
+			  			get => new Packet(_id);
+			  			init => _id = value.Id;
+			  		}
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:InitPacketSource|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.InitPacketSource", "Current",
+					"properties of a non-span ref struct type are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefReturningRefStructMethod_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketPicker")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketPicker
+			  	{
+			  		// `return base.Pick(ref packet)` is not valid for a by-ref return, so this keeps
+			  		// the stub rather than forwarding.
+			  		public virtual ref Packet Pick(ref Packet packet) => ref packet;
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:PacketPicker|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.PacketPicker", "Pick",
+					"methods returning a non-span ref struct are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefStructIndexer_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketCatalog")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketCatalog
+			  	{
+			  		public virtual Packet this[int index] => new Packet(index);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			PacketCatalog.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefStructProperty_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketSource")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketSource
+			  	{
+			  		// No setup surface, but the override forwards to the wrapped instance or to base,
+			  		// so the mock keeps behaving like the real member and there is nothing to fix.
+			  		public virtual Packet Current => new Packet(11);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			PacketSource.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefStructReturnAndParameter_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketTransformer")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketTransformer
+			  	{
+			  		// The forwarding return branch wins over the parameter pipeline, so the
+			  		// ref-struct parameter must not be reported either.
+			  		public virtual Packet Transform(Packet packet) => packet;
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			PacketTransformer.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefStructReturningMethod_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketProducer")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketProducer
+			  	{
+			  		public virtual Packet Produce() => new Packet(12);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			PacketProducer.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
 	public async Task WhenMockingDelegateReturningNonSpanRefStruct_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
