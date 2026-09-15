@@ -231,6 +231,21 @@ internal static class Helpers
 		   && type.SpecialGenericType is not (SpecialGenericType.Span or SpecialGenericType.ReadOnlySpan);
 
 	/// <summary>
+	///     Returns true if the type cannot occupy a <i>value</i> position - a method or delegate return,
+	///     a property type, or an indexer value - anywhere in the setup pipeline.
+	/// </summary>
+	/// <remarks>
+	///     Value positions parameterize types that store a <c>Func&lt;T&gt;</c> (<c>IReturnMethodSetup&lt;T&gt;</c>,
+	///     <c>IPropertyGetterOnlySetup&lt;T&gt;</c>, <c>IIndexerGetterOnlySetup&lt;TValue, ...&gt;</c>), which is
+	///     illegal for a ref struct, so they cannot carry the <c>allows ref struct</c> anti-constraint the
+	///     parameter positions use. <c>Span&lt;T&gt;</c>/<c>ReadOnlySpan&lt;T&gt;</c> are exempt: they reach those
+	///     types as <c>SpanWrapper&lt;T&gt;</c>/<c>ReadOnlySpanWrapper&lt;T&gt;</c>. Members matching this get a
+	///     <c>NotSupportedException</c> stub and no setup/verify surface.
+	/// </remarks>
+	public static bool IsUnsupportedRefStructValue(this Type type)
+		=> type.NeedsRefStructPipeline();
+
+	/// <summary>
 	///     Returns true if the parameter must flow through the ref-struct setup pipeline. The
 	///     <see cref="Type" /> overload excludes <c>Span&lt;T&gt;</c> and <c>ReadOnlySpan&lt;T&gt;</c>
 	///     because <c>by-value</c>, <c>out</c>, and <c>ref</c> positions use the

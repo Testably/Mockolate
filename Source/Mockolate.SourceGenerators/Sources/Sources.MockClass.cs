@@ -1763,6 +1763,18 @@ internal static partial class Sources
 		bool isRefStructIndexer = property is { IsIndexer: true, IndexerParameters: not null, } &&
 		                          property.IndexerParameters.Value.Any(p => p.NeedsRefStructPipeline());
 
+		// A non-span ref-struct property or indexer value has no setup surface either (see
+		// Helpers.IsUnsupportedRefStructValue), so both accessors throw for the same reason.
+		bool isUnsupportedRefStructValue = property.Type.IsUnsupportedRefStructValue();
+
+		void AppendUnsupportedRefStructValueThrow()
+			=> sb.Append("\t\t\t\tthrow new global::System.NotSupportedException(\"Mockolate: ")
+				.Append(property.IsIndexer
+					? "indexers returning a non-span ref struct are not supported. Indexer '"
+					: "properties of a non-span ref struct type are not supported. Property '")
+				.Append(property.ContainingType).Append('.').Append(property.Name).Append("'.\");")
+				.AppendLine();
+
 		sb.AppendLine("\t\t{");
 		if (property.Getter != null)
 		{
@@ -1775,7 +1787,11 @@ internal static partial class Sources
 			sb.AppendLine("get");
 			sb.AppendLine("\t\t\t{");
 
-			if (isRefStructIndexer)
+			if (isUnsupportedRefStructValue)
+			{
+				AppendUnsupportedRefStructValueThrow();
+			}
+			else if (isRefStructIndexer)
 			{
 				AppendRefStructIndexerGetterBody(sb, property, mockRegistry);
 			}
@@ -2010,9 +2026,13 @@ internal static partial class Sources
 			sb.AppendLine(property.Setter.IsInitOnly ? "init" : "set");
 			sb.AppendLine("\t\t\t{");
 
+			if (isUnsupportedRefStructValue)
+			{
+				AppendUnsupportedRefStructValueThrow();
+			}
 			// Ref-struct-keyed indexer setter: dispatches through
 			// RefStructIndexerSetterSetup<TValue, T1..Tn>. Mirrors the getter pipeline.
-			if (isRefStructIndexer)
+			else if (isRefStructIndexer)
 			{
 				AppendRefStructIndexerSetterBody(sb, property, mockRegistry);
 			}
@@ -2326,6 +2346,16 @@ internal static partial class Sources
 		if (method.Parameters.Any(p => p.NeedsRefStructPipeline()))
 		{
 			AppendMockSubject_ImplementClass_AddRefStructMethodBody(sb, method, mockRegistry);
+			sb.AppendLine("\t\t}");
+			return;
+		}
+
+		// A non-span ref-struct return has no setup surface to route through (see
+		// Helpers.IsUnsupportedRefStructValue), so the body throws instead. The ref-struct-parameter
+		// branch above emits the same message from its own carve-out.
+		if (method.ReturnType.IsUnsupportedRefStructValue())
+		{
+			AppendUnsupportedRefStructReturnThrow(sb, method);
 			sb.AppendLine("\t\t}");
 			return;
 		}
@@ -2732,10 +2762,7 @@ internal static partial class Sources
 
 		if (returnsUnsupportedRefStruct)
 		{
-			sb.Append("\t\t\tthrow new global::System.NotSupportedException(\"Mockolate: ")
-				.Append("methods returning a non-span ref struct are not supported")
-				.Append(". Method '").Append(method.ContainingType).Append('.')
-				.Append(method.Name).Append("'.\");").AppendLine();
+			AppendUnsupportedRefStructReturnThrow(sb, method);
 			sb.Append("#else").AppendLine();
 			sb.Append(
 					"#error Mockolate: methods with ref-struct parameters require .NET 9 or later (uses the 'allows ref struct' anti-constraint).")
@@ -3191,9 +3218,11 @@ internal static partial class Sources
 	private static string GetPropertySetupType(Property property)
 		=> GetInterceptedAccessors(property) switch
 		{
-			PropertyAccessors.GetOnly => $"global::Mockolate.Setup.IPropertyGetterOnlySetup<{property.Type.Fullname}>",
-			PropertyAccessors.SetOnly => $"global::Mockolate.Setup.IPropertySetterOnlySetup<{property.Type.Fullname}>",
-			_ => $"global::Mockolate.Setup.PropertySetup<{property.Type.Fullname}>",
+			PropertyAccessors.GetOnly =>
+				$"global::Mockolate.Setup.IPropertyGetterOnlySetup<{property.Type.ToTypeOrWrapper()}>",
+			PropertyAccessors.SetOnly =>
+				$"global::Mockolate.Setup.IPropertySetterOnlySetup<{property.Type.ToTypeOrWrapper()}>",
+			_ => $"global::Mockolate.Setup.PropertySetup<{property.Type.ToTypeOrWrapper()}>",
 		};
 
 	/// <summary>
@@ -3206,8 +3235,8 @@ internal static partial class Sources
 			PropertyAccessors.GetOnly =>
 				$"global::Mockolate.Verify.VerificationPropertyGetterResult<{verifyName}>",
 			PropertyAccessors.SetOnly =>
-				$"global::Mockolate.Verify.VerificationPropertySetterResult<{verifyName}, {property.Type.Fullname}>",
-			_ => $"global::Mockolate.Verify.VerificationPropertyResult<{verifyName}, {property.Type.Fullname}>",
+				$"global::Mockolate.Verify.VerificationPropertySetterResult<{verifyName}, {property.Type.ToTypeOrWrapper()}>",
+			_ => $"global::Mockolate.Verify.VerificationPropertyResult<{verifyName}, {property.Type.ToTypeOrWrapper()}>",
 		};
 
 	/// <summary>
@@ -3266,7 +3295,7 @@ internal static partial class Sources
 
 		Func<Property, bool> propertyPredicate = property
 			=> property.ExplicitImplementation is null && property is { IsIndexer: false, } &&
-			   property.MemberType == memberType;
+			   property.MemberType == memberType && !property.Type.IsUnsupportedRefStructValue();
 		foreach (Property property in @class.AllProperties().Where(propertyPredicate))
 		{
 			sb.AppendXmlSummary(
@@ -3296,7 +3325,7 @@ internal static partial class Sources
 
 		Func<Property, bool> indexerPredicate =
 			indexer => indexer.ExplicitImplementation is null && indexer is { IsIndexer: true, } &&
-			           indexer.MemberType == memberType;
+			           indexer.MemberType == memberType && !indexer.Type.IsUnsupportedRefStructValue();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
 			AppendIndexerSetupDefinition(sb, indexer, hasOverloadResolutionPriority: hasOverloadResolutionPriority);
@@ -3482,7 +3511,12 @@ internal static partial class Sources
 		// Methods using a generic type parameter that declares `allows ref struct` cannot expose
 		// a setup surface: IReturnMethodSetup<T> / IVoidMethodSetup<T> do not carry the same
 		// anti-constraint. The override body throws NotSupportedException, so no setup is needed.
-		if (method.HasUnsupportedAllowsRefStructTypeParameter)
+		// A non-span ref-struct return is unsupported for the same reason, in both the regular and
+		// the ref-struct-parameter pipeline, so it is checked ahead of the branch below - as is a
+		// ref-struct parameter on a delegate, which has no ref-struct pipeline to route into.
+		if (method.HasUnsupportedAllowsRefStructTypeParameter ||
+		    method.ReturnType.IsUnsupportedRefStructValue() ||
+		    method.HasUnsupportedRefStructParameter)
 		{
 			return;
 		}
@@ -3701,7 +3735,7 @@ internal static partial class Sources
 
 		Func<Property, bool> propertyPredicate = property
 			=> property.ExplicitImplementation is null && property is { IsIndexer: false, } &&
-			   property.MemberType == memberType;
+			   property.MemberType == memberType && !property.Type.IsUnsupportedRefStructValue();
 		foreach (Property property in @class.AllProperties().Where(propertyPredicate))
 		{
 			sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -3714,7 +3748,7 @@ internal static partial class Sources
 			sb.Append("\t\t\tget").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
 			sb.Append("\t\t\t\tvar propertySetup = new global::Mockolate.Setup.PropertySetup<")
-				.Append(property.Type.Fullname).Append(">(").Append(mockRegistryName).Append(", ")
+				.AppendTypeOrWrapper(property.Type).Append(">(").Append(mockRegistryName).Append(", ")
 				.Append(property.GetUniqueNameString()).Append(");")
 				.AppendLine();
 			sb.Append("\t\t\t\tthis.").Append(mockRegistryName).Append(".SetupProperty(")
@@ -3760,7 +3794,7 @@ internal static partial class Sources
 
 		Func<Property, bool> indexerPredicate =
 			indexer => indexer.ExplicitImplementation is null && indexer is { IsIndexer: true, } &&
-			           indexer.MemberType == memberType;
+			           indexer.MemberType == memberType && !indexer.Type.IsUnsupportedRefStructValue();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
 			AppendIndexerSetupImplementation(sb, indexer, mockRegistryName, setupName, memberIds, memberIdPrefix,
@@ -3857,9 +3891,12 @@ internal static partial class Sources
 		string? scopeExpression = null, bool perElementParams = false)
 	{
 		// Setup-side carve-out: methods using a generic type parameter that declares
-		// `allows ref struct` have no setup interface declaration (see
-		// AppendMethodSetupDefinition), so no explicit implementation is emitted either.
-		if (method.HasUnsupportedAllowsRefStructTypeParameter)
+		// `allows ref struct`, methods returning a non-span ref struct, and delegates with a ref-struct
+		// parameter have no setup interface declaration (see AppendMethodSetupDefinition), so no
+		// explicit implementation is emitted either.
+		if (method.HasUnsupportedAllowsRefStructTypeParameter ||
+		    method.ReturnType.IsUnsupportedRefStructValue() ||
+		    method.HasUnsupportedRefStructParameter)
 		{
 			return;
 		}
@@ -5047,7 +5084,31 @@ internal static partial class Sources
 
 	#endregion Setup Helpers
 
+	/// <summary>
+	///     Emits the <c>NotSupportedException</c> body shared by every method whose return type is an
+	///     unsupported ref struct, so both carve-outs report the same message.
+	/// </summary>
+	private static void AppendUnsupportedRefStructReturnThrow(StringBuilder sb, Method method)
+		=> sb.Append("\t\t\tthrow new global::System.NotSupportedException(\"Mockolate: ")
+			.Append("methods returning a non-span ref struct are not supported")
+			.Append(". Method '").Append(method.ContainingType).Append('.')
+			.Append(method.Name).Append("'.\");").AppendLine();
+
 	#region Raise Helpers
+
+	/// <summary>
+	///     Whether the <c>IDefaultEventParameters</c> overload can be emitted for <paramref name="event" />.
+	/// </summary>
+	/// <remarks>
+	///     The overload fills every delegate parameter through <c>Generate&lt;T&gt;</c>, which carries no
+	///     <c>allows ref struct</c> anti-constraint (its body type-tests an <c>object</c> against <c>T</c>),
+	///     so a ref-struct argument - <c>Span&lt;T&gt;</c> included, as the event path has no wrapper
+	///     carve-out - would fail with CS9244. Such events keep the strongly-typed <c>Raise</c> overload,
+	///     which passes the argument straight to the backing delegate.
+	/// </remarks>
+	private static bool HasDefaultParametersRaiseOverload(Event @event)
+		=> @event.Delegate.Parameters.Count > 0 &&
+		   !@event.Delegate.Parameters.Any(parameter => parameter.Type.IsRefStruct);
 
 	private static void DefineRaiseInterface(StringBuilder sb, Class @class, MemberType memberType)
 	{
@@ -5067,7 +5128,7 @@ internal static partial class Sources
 			         .GroupBy(m => m.Name)
 			         .Where(g => g.Count() == 1)
 			         .Select(g => g.Single())
-			         .Where(m => m.Delegate.Parameters.Count > 0))
+			         .Where(HasDefaultParametersRaiseOverload))
 		{
 			sb.AppendXmlSummary(
 				$"Raise the <see cref=\"{@event.DeclaredContainingType.EscapeForXmlDoc()}.{@event.Name}\"/> event.");
@@ -5120,7 +5181,7 @@ internal static partial class Sources
 			         .GroupBy(m => m.Name)
 			         .Where(g => g.Count() == 1)
 			         .Select(g => g.Single())
-			         .Where(m => m.Delegate.Parameters.Count > 0))
+			         .Where(HasDefaultParametersRaiseOverload))
 		{
 			string backingFieldAccess = @event.IsStatic
 				? $"{@event.GetBackingFieldName()}.Value"
@@ -5181,7 +5242,7 @@ internal static partial class Sources
 
 		Func<Property, bool> propertyPredicate = property
 			=> property.ExplicitImplementation is null && property is { IsIndexer: false, } &&
-			   property.MemberType == memberType;
+			   property.MemberType == memberType && !property.Type.IsUnsupportedRefStructValue();
 		foreach (Property property in @class.AllProperties().Where(propertyPredicate))
 		{
 			sb.AppendXmlSummary(
@@ -5197,7 +5258,7 @@ internal static partial class Sources
 
 		Func<Property, bool> indexerPredicate =
 			indexer => indexer.ExplicitImplementation is null && indexer is { IsIndexer: true, } &&
-			           indexer.MemberType == memberType;
+			           indexer.MemberType == memberType && !indexer.Type.IsUnsupportedRefStructValue();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
 			AppendIndexerVerifyDefinition(sb, indexer, verifyName,
@@ -5446,7 +5507,7 @@ internal static partial class Sources
 
 		Func<Property, bool> propertyPredicate = property
 			=> property.ExplicitImplementation is null && property is { IsIndexer: false, } &&
-			   property.MemberType == memberType;
+			   property.MemberType == memberType && !property.Type.IsUnsupportedRefStructValue();
 		foreach (Property property in @class.AllProperties().Where(propertyPredicate))
 		{
 			bool useFastForProperty = useFastBuffers && IsFastBufferEligibleProperty(property);
@@ -5487,7 +5548,7 @@ internal static partial class Sources
 
 		Func<Property, bool> indexerPredicate = indexer
 			=> indexer.ExplicitImplementation is null && indexer is { IsIndexer: true, IndexerParameters: not null, } &&
-			   indexer.MemberType == memberType;
+			   indexer.MemberType == memberType && !indexer.Type.IsUnsupportedRefStructValue();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
 			AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds, memberIdPrefix,
@@ -5968,7 +6029,8 @@ internal static partial class Sources
 		if (indexer.IsStatic ||
 		    indexer.IndexerParameters is null ||
 		    indexer.IndexerParameters.Value.Count == 0 ||
-		    indexer.IndexerParameters.Value.Count > 4)
+		    indexer.IndexerParameters.Value.Count > 4 ||
+		    indexer.Type.IsUnsupportedRefStructValue())
 		{
 			return false;
 		}

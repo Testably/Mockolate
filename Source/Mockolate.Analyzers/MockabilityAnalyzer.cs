@@ -151,6 +151,14 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 						"this[]",
 						issue));
 					break;
+				case IPropertySymbol { IsIndexer: false, } p when NeedsRefStructPipeline(p.Type):
+					context.ReportDiagnostic(Diagnostic.Create(
+						s_refStructRule,
+						location,
+						type.ToDisplayString(),
+						p.Name,
+						"properties of a non-span ref struct type are not supported"));
+					break;
 			}
 		}
 	}
@@ -340,6 +348,14 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	private static bool TryGetRefStructIssueForIndexer(IPropertySymbol indexer, string? pipelineUnsupportedReason,
 		out string? issue)
 	{
+		// The value type is out of scope regardless of the keys: IIndexerGetterOnlySetup<TValue, ...>
+		// stores a Func<TValue>, so TValue carries no 'allows ref struct' anti-constraint.
+		if (NeedsRefStructPipeline(indexer.Type))
+		{
+			issue = "indexers returning a non-span ref struct are not supported";
+			return true;
+		}
+
 		if (!indexer.Parameters.Any(p => NeedsRefStructPipeline(p.Type)))
 		{
 			issue = null;

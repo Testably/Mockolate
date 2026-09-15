@@ -505,6 +505,118 @@ public class MockabilityAnalyzerRefStructTests
 			  """
 		);
 
+	[Fact]
+	public async Task WhenMockingInterfaceWithRefStructProperty_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.IPacketHolder")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public interface IPacketHolder
+			  	{
+			  		Packet Current { get; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:IPacketHolder|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.IPacketHolder", "Current",
+					"properties of a non-span ref struct type are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithSpanProperty_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.ISpanBuffer")}}
+
+			  namespace MyNamespace
+			  {
+			  	public interface ISpanBuffer
+			  	{
+			  		System.Span<byte> Buffer { get; set; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			ISpanBuffer.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithRefStructValuedIndexer_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.IPacketCatalog")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public interface IPacketCatalog
+			  	{
+			  		Packet this[int index] { get; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:IPacketCatalog|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.IPacketCatalog", "this[]",
+					"indexers returning a non-span ref struct are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithRefStructEventArgument_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.IPacketNotifier")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public delegate void PacketEventHandler(Packet packet);
+
+			  	public interface IPacketNotifier
+			  	{
+			  		event PacketEventHandler PacketReceived;
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			IPacketNotifier.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
 	private static string GeneratedPrefix(string fullyQualifiedTypeName)
 	{
 		string simpleName = fullyQualifiedTypeName.Split('.')[^1];
