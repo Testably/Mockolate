@@ -1,6 +1,7 @@
 #if NET9_0_OR_GREATER
 using Mockolate.Parameters;
 using Mockolate.Setup;
+using Mockolate.Tests.TestHelpers.RefStruct;
 
 namespace Mockolate.Tests.RefStruct;
 

@@ -2,6 +2,7 @@
 using GcPacket = Mockolate.Tests.GeneratorCoverage.Packet;
 using Mockolate.Setup;
 using Mockolate.Tests.GeneratorCoverage;
+using Mockolate.Tests.TestHelpers.RefStruct;
 
 namespace Mockolate.Tests.RefStruct;
 
@@ -10,7 +11,7 @@ namespace Mockolate.Tests.RefStruct;
 ///     through <see cref="Mockolate.Parameters.IOutRefStructParameter{T}" /> /
 ///     <see cref="Mockolate.Parameters.IRefRefStructParameter{T}" />. Uses the
 ///     <see cref="GeneratorCoverage.Packet" /> ref struct (single-int ctor) to isolate this
-///     scenario from the payload-carrying <see cref="Packet" /> used by other RefStruct tests.
+///     scenario from the payload-carrying <see cref="TestHelpers.RefStruct.Packet" /> used by other RefStruct tests.
 /// </summary>
 /// <remarks>
 ///     Ref struct values cannot survive an <c>await</c> boundary, so each test captures

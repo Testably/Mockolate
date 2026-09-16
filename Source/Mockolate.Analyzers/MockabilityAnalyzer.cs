@@ -151,6 +151,15 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 						"this[]",
 						issue));
 					break;
+				case IPropertySymbol { IsIndexer: false, } p
+					when NeedsRefStructPipeline(p.Type) && !ForwardsToBaseImplementation(p):
+					context.ReportDiagnostic(Diagnostic.Create(
+						s_refStructRule,
+						location,
+						type.ToDisplayString(),
+						p.Name,
+						"properties of a non-span ref struct type are not supported"));
+					break;
 			}
 		}
 	}
@@ -267,6 +276,47 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	}
 
 	/// <summary>
+	///     Mirrors the <c>MethodParameter</c> overload of <c>Helpers.NeedsRefStructPipeline</c>: on top of
+	///     the type-level rule, a <c>ref readonly</c> <c>Span&lt;T&gt;</c>/<c>ReadOnlySpan&lt;T&gt;</c> has
+	///     no wrapper-based emit branch on the interface and class pipelines and falls back to the generic
+	///     ref-struct path, so it is as unsupported as a custom ref struct is. Deliberately a separate name
+	///     rather than an overload of <see cref="NeedsRefStructPipeline(ITypeSymbol)" />: the two rules do
+	///     not agree, and picking the wrong one silently is exactly the drift this guards against - every
+	///     parameter position mirrors this one, the type-level rule covers returns and property values.
+	/// </summary>
+	private static bool ParameterNeedsRefStructPipeline(IParameterSymbol parameter)
+		=> NeedsRefStructPipeline(parameter.Type) ||
+		   (parameter.RefKind == RefKind.RefReadOnlyParameter && parameter.Type.IsRefLikeType);
+
+	/// <summary>
+	///     Whether the generator degrades <paramref name="member" /> to a passthrough rather than a
+	///     <c>NotSupportedException</c> stub, in which case the mock keeps behaving like the real member
+	///     and there is nothing for the user to act on. Mirrors <c>forwardsUnsupportedRefStructValue</c>
+	///     and <c>AppendUnsupportedRefStructReturnBody</c> in <c>Sources.MockClass</c>: only a member
+	///     with a real implementation behind it - a non-abstract member declared on a class - can
+	///     forward to the wrapped instance or to <c>base</c>. Static members need no handling here:
+	///     <see cref="IsOverriddenByGenerator" /> already drops them, since a class member the
+	///     generator overrides is necessarily <c>abstract</c> or <c>virtual</c>.
+	/// </summary>
+	private static bool ForwardsToBaseImplementation(ISymbol member)
+	{
+		if (member.ContainingType.TypeKind is TypeKind.Interface or TypeKind.Delegate || member.IsAbstract)
+		{
+			return false;
+		}
+
+		return member switch
+		{
+			// `return base.M(...)` is not valid for a by-ref return, so those keep the stub.
+			IMethodSymbol method => method.RefKind == RefKind.None,
+			// An init-only accessor cannot assign through `wraps`, so it keeps the stub even though
+			// the getter would forward.
+			IPropertySymbol property => property.SetMethod?.IsInitOnly != true,
+			_ => false,
+		};
+	}
+
+	/// <summary>
 	///     Returns a human-readable reason when the current compilation cannot host the
 	///     ref-struct pipeline, or <see langword="null" /> when it is supported. Both the target
 	///     framework (Mockolate's ref-struct types are <c>#if NET9_0_OR_GREATER</c>-gated) and the
@@ -294,10 +344,28 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	private static bool TryGetRefStructIssue(IMethodSymbol method, string? pipelineUnsupportedReason,
 		out string? issue, bool isDelegate = false)
 	{
+		// Reported ahead of the parameter checks below, mirroring the generator's branch order: a
+		// ref-struct return is out of scope on every target, so naming it is more actionable than
+		// telling the user to upgrade to .NET 9 for a parameter that would still not be enough.
+		// Span/ReadOnlySpan returns go through the wrapper and are fine.
+		if (NeedsRefStructPipeline(method.ReturnType))
+		{
+			// The generator takes the same branch first, so a forwarding method's ref-struct
+			// parameters never reach the pipeline either and must not be reported below.
+			if (ForwardsToBaseImplementation(method))
+			{
+				issue = null;
+				return false;
+			}
+
+			issue = "methods returning a non-span ref struct are not supported";
+			return true;
+		}
+
 		bool hasRefStructParam = false;
 		foreach (IParameterSymbol p in method.Parameters)
 		{
-			if (!NeedsRefStructPipeline(p.Type))
+			if (!ParameterNeedsRefStructPipeline(p))
 			{
 				continue;
 			}
@@ -326,13 +394,6 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		// Source/Mockolate/Setup/; arity 5+ are emitted by the generator into
 		// RefStructMethodSetups.g.cs.
 
-		// Ref-struct returns are out of scope unless they go through the Span wrapper.
-		if (NeedsRefStructPipeline(method.ReturnType))
-		{
-			issue = "methods returning a non-span ref struct are not supported";
-			return true;
-		}
-
 		issue = null;
 		return false;
 	}
@@ -340,7 +401,22 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	private static bool TryGetRefStructIssueForIndexer(IPropertySymbol indexer, string? pipelineUnsupportedReason,
 		out string? issue)
 	{
-		if (!indexer.Parameters.Any(p => NeedsRefStructPipeline(p.Type)))
+		// The value type is out of scope regardless of the keys: IIndexerGetterOnlySetup<TValue, ...>
+		// stores a Func<TValue>, so TValue carries no 'allows ref struct' anti-constraint.
+		if (NeedsRefStructPipeline(indexer.Type))
+		{
+			// As for methods, a forwarding indexer never routes its keys through the pipeline.
+			if (ForwardsToBaseImplementation(indexer))
+			{
+				issue = null;
+				return false;
+			}
+
+			issue = "indexers returning a non-span ref struct are not supported";
+			return true;
+		}
+
+		if (!indexer.Parameters.Any(ParameterNeedsRefStructPipeline))
 		{
 			issue = null;
 			return false;

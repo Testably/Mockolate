@@ -74,8 +74,8 @@ configuration or verification. The same narrowing applies to indexers. See
 
 ## Mockolate0003
 
-A mocked member's signature routes through the ref-struct pipeline in a way Mockolate can't
-emit setup surface for. The warning fires in two distinct situations.
+A mocked member uses a ref struct in a way Mockolate can't emit setup surface for. The warning fires
+in two distinct situations.
 
 **1. Compilation prerequisites not met**
 
@@ -91,17 +91,49 @@ framework and/or `<LangVersion>` to resolve it.
 
 **2. Signature shapes that are never supported**
 
-These fire on every compilation target, including .NET 9+ / C# 13+:
+These fire on every compilation target, including .NET 9+ / C# 13+, because the shape has no setup
+surface to route into rather than because the pipeline is missing.
 
-- Parameters marked `out`, `ref`, or `ref readonly` whose type is a non-`Span<T>` /
-  non-`ReadOnlySpan<T>` ref struct - the mock can't round-trip the value through
-  `IOutParameter<T>` / `IRefParameter<T>` when `T` is a ref struct.
-- Methods returning a non-`Span<T>` / non-`ReadOnlySpan<T>` ref struct.
+A non-`Span<T>` / non-`ReadOnlySpan<T>` ref struct in a **value position**:
+
+- Methods and delegates returning one.
+- Properties typed as one.
+- Indexers whose value is one.
+
+Value positions parameterize types that store a `Func<T>` (`IReturnMethodSetup<T>`,
+`IPropertyGetterOnlySetup<T>`, `IIndexerGetterOnlySetup<TValue, ...>`), which is illegal for a ref
+struct, so they can't carry the `allows ref struct` anti-constraint the parameter positions use.
+
+Also never supported:
+
+- Ref-struct **parameters on delegate types**. A delegate mock projects its single `Invoke` onto
+  `VoidMethodSetup<T>` / `ReturnMethodSetup<T>`, neither of which carries the anti-constraint the
+  interface and class pipelines get from `RefStructVoidMethodSetup<T>`. This includes
+  `ref readonly Span<T>` / `ref readonly ReadOnlySpan<T>`, the one span ref kind with no wrapper-based
+  emit branch.
+
+Members matching any of these still compile: the generated mock keeps the member, but no setup or
+verify surface is emitted for it. Everything else on the type stays mockable.
+
+What the member does at runtime depends on whether there is an implementation behind it:
+
+- A `virtual` member on a mocked class forwards to the wrapped instance, or to `base`, so it keeps
+  behaving like the real one. **These are not flagged** - there is nothing to fix. The forward
+  honours none of the [`MockBehavior`](create-mocks#customizing-mock-behavior) flags, because there
+  is no setup to honour them against: `SkipBaseClass` has no configured value to return in the base
+  call's place, and `ThrowWhenNotSetup` would reject a member that can never be set up. The call is
+  not recorded either.
+- An interface member, an `abstract` member, an `init` accessor and a `ref`-returning method have
+  nothing to forward to and throw `NotSupportedException`. These are the ones the warning reports.
 
 **Note:**
 `Span<T>` and `ReadOnlySpan<T>` flow through the existing `SpanWrapper` / `ReadOnlySpanWrapper`
-fallback and are never flagged. On .NET 9+ with C# 13+, by-value custom ref-struct parameters and
-ref-struct-keyed indexers (getter-only, setter-only, and get+set) are fully supported.
+fallback and are never flagged - in parameter *and* value positions. The one exception is
+`ref readonly`, which has no wrapper-based emit branch and routes through the ref-struct pipeline
+like a custom ref struct: on an interface or class it needs .NET 9 / C# 13, and on a delegate it is
+unsupported. On .NET 9+ with C# 13+, custom ref-struct parameters (by value, `out`, `ref`, and
+`ref readonly`) and ref-struct-keyed indexers (getter-only, setter-only, and get+set) on interfaces
+and classes are fully supported.
 
 See the [Ref Struct Parameters](setup/parameter-matching#ref-struct-parameters-net-9) section
 for the supported surface.

@@ -2537,6 +2537,9 @@ namespace Mockolate.Setup
     {
         public ReadOnlySpanWrapper(System.ReadOnlySpan<T> span) { }
         public T[] ReadOnlySpanValues { get; }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
+        public override string ToString() { }
         public static System.ReadOnlySpan<T> op_Implicit(Mockolate.Setup.ReadOnlySpanWrapper<T>? wrapper) { }
         public static Mockolate.Setup.ReadOnlySpanWrapper<T> op_Implicit(System.ReadOnlySpan<T> span) { }
     }
@@ -2686,6 +2689,9 @@ namespace Mockolate.Setup
     {
         public SpanWrapper(System.Span<T> span) { }
         public T[] SpanValues { get; }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
+        public override string ToString() { }
         public static System.Span<T> op_Implicit(Mockolate.Setup.SpanWrapper<T>? wrapper) { }
         public static Mockolate.Setup.SpanWrapper<T> op_Implicit(System.Span<T> span) { }
     }

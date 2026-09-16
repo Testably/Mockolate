@@ -22,6 +22,38 @@ namespace Mockolate.Analyzers.Tests;
 public class MockabilityAnalyzerRefStructTests
 {
 	[Fact]
+	public async Task WhenLanguageVersionBelowCSharp13_RefReadonlySpanParameterMethod_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.ISpanInspector")}}
+
+			  namespace MyNamespace
+			  {
+			  	public interface ISpanInspector
+			  	{
+			  		// `ref readonly` Span has no wrapper-based emit branch on the interface pipeline and
+			  		// falls back to the generic ref-struct path, so it needs .NET 9 / C# 13 even though
+			  		// the same parameter by value would not.
+			  		void Inspect(ref readonly System.Span<int> values);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:ISpanInspector|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			LanguageVersion.CSharp12,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.ISpanInspector", "Inspect",
+					"ref-struct parameter mocking requires C# 13 or later (uses the 'allows ref struct' anti-constraint; current LangVersion is 12.0)")
+		);
+
+	[Fact]
 	public async Task WhenLanguageVersionBelowCSharp13_RefStructKeyedIndexer_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -116,6 +148,214 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Fact]
+	public async Task WhenMockingAbstractClassWithRefStructProperty_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.AbstractPacketSource")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public abstract class AbstractPacketSource
+			  	{
+			  		public abstract Packet Current { get; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:AbstractPacketSource|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.AbstractPacketSource", "Current",
+					"properties of a non-span ref struct type are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualInitOnlyRefStructProperty_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.InitPacketSource")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class InitPacketSource
+			  	{
+			  		private int _id;
+
+			  		// The getter would forward, but an init-only accessor cannot assign through the
+			  		// wrapped instance and keeps the NotSupportedException stub.
+			  		public virtual Packet Current
+			  		{
+			  			get => new Packet(_id);
+			  			init => _id = value.Id;
+			  		}
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:InitPacketSource|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.InitPacketSource", "Current",
+					"properties of a non-span ref struct type are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefReturningRefStructMethod_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketPicker")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketPicker
+			  	{
+			  		// `return base.Pick(ref packet)` is not valid for a by-ref return, so this keeps
+			  		// the stub rather than forwarding.
+			  		public virtual ref Packet Pick(ref Packet packet) => ref packet;
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:PacketPicker|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.PacketPicker", "Pick",
+					"methods returning a non-span ref struct are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefStructIndexer_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketCatalog")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketCatalog
+			  	{
+			  		public virtual Packet this[int index] => new Packet(index);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			PacketCatalog.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefStructProperty_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketSource")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketSource
+			  	{
+			  		// No setup surface, but the override forwards to the wrapped instance or to base,
+			  		// so the mock keeps behaving like the real member and there is nothing to fix.
+			  		public virtual Packet Current => new Packet(11);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			PacketSource.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefStructReturnAndParameter_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketTransformer")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketTransformer
+			  	{
+			  		// The forwarding return branch wins over the parameter pipeline, so the
+			  		// ref-struct parameter must not be reported either.
+			  		public virtual Packet Transform(Packet packet) => packet;
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			PacketTransformer.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingClassWithVirtualRefStructReturningMethod_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.PacketProducer")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public class PacketProducer
+			  	{
+			  		public virtual Packet Produce() => new Packet(12);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			PacketProducer.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
 	public async Task WhenMockingDelegateReturningNonSpanRefStruct_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -202,6 +442,56 @@ public class MockabilityAnalyzerRefStructTests
 				.WithLocation(0)
 				.WithArguments("MyNamespace.PacketHandler", "Invoke",
 					"ref-struct parameters are not supported on delegate types")
+		);
+
+	[Fact]
+	public async Task WhenMockingDelegateWithRefReadonlySpanParameter_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.SpanInspector")}}
+
+			  namespace MyNamespace
+			  {
+			  	// `ref readonly` Span is the one span ref kind with no wrapper-based emit branch, so it
+			  	// reaches the delegate carve-out even though the same parameter by value would not.
+			  	public delegate void SpanInspector(ref readonly System.Span<int> values);
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:SpanInspector|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.SpanInspector", "Invoke",
+					"ref-struct parameters are not supported on delegate types")
+		);
+
+	[Fact]
+	public async Task WhenMockingDelegateWithSpanParameter_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.SpanConsumer")}}
+
+			  namespace MyNamespace
+			  {
+			  	// The delegate carve-out stops at the wrapper: by value, Span/ReadOnlySpan flow through
+			  	// SpanWrapper/ReadOnlySpanWrapper, so the delegate keeps its full setup/verify surface.
+			  	public delegate void SpanConsumer(System.Span<byte> buffer, System.ReadOnlySpan<char> text);
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			SpanConsumer.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
 		);
 
 	[Fact]
@@ -373,6 +663,32 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Fact]
+	public async Task WhenMockingInterfaceWithRefReadonlySpanParameter_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.ISpanInspector")}}
+
+			  namespace MyNamespace
+			  {
+			  	public interface ISpanInspector
+			  	{
+			  		// Routes through the ref-struct pipeline, which this compilation hosts — so the
+			  		// parameter-level rule must not report on a supported target either.
+			  		void Inspect(ref readonly System.Span<int> values);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			ISpanInspector.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
 	public async Task WhenMockingInterfaceWithRefRefStructParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -499,6 +815,143 @@ public class MockabilityAnalyzerRefStructTests
 			  		public void MyTest()
 			  		{
 			  			IPayloadSource.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithRefStructProperty_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.IPacketHolder")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public interface IPacketHolder
+			  	{
+			  		Packet Current { get; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:IPacketHolder|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.IPacketHolder", "Current",
+					"properties of a non-span ref struct type are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithSpanProperty_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.ISpanBuffer")}}
+
+			  namespace MyNamespace
+			  {
+			  	public interface ISpanBuffer
+			  	{
+			  		System.Span<byte> Buffer { get; set; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			ISpanBuffer.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithSpanValuedIndexer_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.ISpanCatalog")}}
+
+			  namespace MyNamespace
+			  {
+			  	public interface ISpanCatalog
+			  	{
+			  		// Span-valued indexers round-trip through SpanWrapper<T> on both accessors.
+			  		System.Span<byte> this[int index] { get; set; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			ISpanCatalog.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithRefStructValuedIndexer_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.IPacketCatalog")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public interface IPacketCatalog
+			  	{
+			  		Packet this[int index] { get; }
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:IPacketCatalog|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.IPacketCatalog", "this[]",
+					"indexers returning a non-span ref struct are not supported")
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithRefStructEventArgument_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.IPacketNotifier")}}
+
+			  namespace MyNamespace
+			  {
+			  	public readonly ref struct Packet(int id) { public int Id { get; } = id; }
+
+			  	public delegate void PacketEventHandler(Packet packet);
+
+			  	public interface IPacketNotifier
+			  	{
+			  		event PacketEventHandler PacketReceived;
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			IPacketNotifier.CreateMock();
 			  		}
 			  	}
 			  }
