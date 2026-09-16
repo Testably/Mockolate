@@ -273,7 +273,9 @@ The following cases are flagged with diagnostic `Mockolate0003`:
   `allows ref struct`, a .NET 9 / C# 13 feature).
 - A custom ref struct in a *value* position: a method or delegate return, a property type, or an
   indexer value. (`Span<T>` / `ReadOnlySpan<T>` are supported in those positions.)
-- Ref-struct parameters on delegate types.
+- Ref-struct parameters on delegate types, `ref readonly Span<T>` / `ref readonly ReadOnlySpan<T>`
+  included - that ref kind is the one span shape without a wrapper-based emit branch, so it routes
+  through the ref-struct pipeline that delegates do not have.
 
 Members in the latter two groups still compile - the mock keeps the member but emits no setup or
 verify surface for it. A `virtual` class member is not flagged at all, because the mock forwards it

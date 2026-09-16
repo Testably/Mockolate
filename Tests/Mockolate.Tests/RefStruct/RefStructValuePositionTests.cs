@@ -600,6 +600,27 @@ public sealed class RefStructValuePositionTests
 			await That(Act).Throws<NotSupportedException>()
 				.WithMessage("*ref-struct parameters are not supported on delegate types*").AsWildcard();
 		}
+
+#if NET8_0_OR_GREATER
+		public delegate void SpanInspector(ref readonly Span<int> values);
+
+		[Fact]
+		public async Task RefReadonlySpanParameterDelegate_ShouldThrowNotSupported()
+		{
+			SpanInspector sut = SpanInspector.CreateMock();
+
+			void Act()
+			{
+				Span<int> values = new([1, 2,]);
+				sut(in values);
+			}
+
+			await That(Act).Throws<NotSupportedException>()
+				.WithMessage("*ref-struct parameters are not supported on delegate types*").AsWildcard()
+				.Because(
+					"`ref readonly` Span has no wrapper-based emit branch, so its setup surface would be the .NET 9-gated ref-struct one that a delegate's Invoke never dispatches through");
+		}
+#endif
 	}
 #pragma warning restore Mockolate0003
 }

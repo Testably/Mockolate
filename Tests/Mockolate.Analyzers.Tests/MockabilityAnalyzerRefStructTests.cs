@@ -22,6 +22,38 @@ namespace Mockolate.Analyzers.Tests;
 public class MockabilityAnalyzerRefStructTests
 {
 	[Fact]
+	public async Task WhenLanguageVersionBelowCSharp13_RefReadonlySpanParameterMethod_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.ISpanInspector")}}
+
+			  namespace MyNamespace
+			  {
+			  	public interface ISpanInspector
+			  	{
+			  		// `ref readonly` Span has no wrapper-based emit branch on the interface pipeline and
+			  		// falls back to the generic ref-struct path, so it needs .NET 9 / C# 13 even though
+			  		// the same parameter by value would not.
+			  		void Inspect(ref readonly System.Span<int> values);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:ISpanInspector|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			LanguageVersion.CSharp12,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.ISpanInspector", "Inspect",
+					"ref-struct parameter mocking requires C# 13 or later (uses the 'allows ref struct' anti-constraint; current LangVersion is 12.0)")
+		);
+
+	[Fact]
 	public async Task WhenLanguageVersionBelowCSharp13_RefStructKeyedIndexer_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -413,6 +445,33 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Fact]
+	public async Task WhenMockingDelegateWithRefReadonlySpanParameter_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.SpanInspector")}}
+
+			  namespace MyNamespace
+			  {
+			  	// `ref readonly` Span is the one span ref kind with no wrapper-based emit branch, so it
+			  	// reaches the delegate carve-out even though the same parameter by value would not.
+			  	public delegate void SpanInspector(ref readonly System.Span<int> values);
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			{|#0:SpanInspector|}.CreateMock();
+			  		}
+			  	}
+			  }
+			  """,
+			new DiagnosticResult("Mockolate0003", DiagnosticSeverity.Warning)
+				.WithLocation(0)
+				.WithArguments("MyNamespace.SpanInspector", "Invoke",
+					"ref-struct parameters are not supported on delegate types")
+		);
+
+	[Fact]
 	public async Task WhenMockingInterfaceInheritingRefStructOutMethod_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
@@ -574,6 +633,32 @@ public class MockabilityAnalyzerRefStructTests
 			  		public void MyTest()
 			  		{
 			  			IPacketInspector.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
+	public async Task WhenMockingInterfaceWithRefReadonlySpanParameter_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.ISpanInspector")}}
+
+			  namespace MyNamespace
+			  {
+			  	public interface ISpanInspector
+			  	{
+			  		// Routes through the ref-struct pipeline, which this compilation hosts — so the
+			  		// parameter-level rule must not report on a supported target either.
+			  		void Inspect(ref readonly System.Span<int> values);
+			  	}
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			ISpanInspector.CreateMock();
 			  		}
 			  	}
 			  }

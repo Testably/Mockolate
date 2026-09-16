@@ -74,6 +74,13 @@ internal record Method
 	///     and no setup/verify surface; <c>Span&lt;T&gt;</c>/<c>ReadOnlySpan&lt;T&gt;</c> parameters are
 	///     exempt because they flow through their wrappers.
 	/// </summary>
+	/// <remarks>
+	///     Deliberately the <c>MethodParameter</c> overload of <c>NeedsRefStructPipeline</c>, so
+	///     <c>ref readonly</c> Span/ReadOnlySpan is caught too: that ref kind has no wrapper-based emit
+	///     branch, so <c>AppendMethodSetupDefinition</c> would hand it the .NET 9-gated
+	///     <c>IRefStruct*Setup</c> surface while the delegate's <c>Invoke</c> body dispatches through
+	///     <c>VoidMethodSetup&lt;SpanWrapper&lt;T&gt;&gt;</c> - a setup the mock could never match.
+	/// </remarks>
 	public bool IsDelegateWithUnsupportedRefStructParameter
 		=> IsDelegateInvoke && Parameters.Any(parameter => parameter.NeedsRefStructPipeline());
 

@@ -276,6 +276,19 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	}
 
 	/// <summary>
+	///     Mirrors the <c>MethodParameter</c> overload of <c>Helpers.NeedsRefStructPipeline</c>: on top of
+	///     the type-level rule, a <c>ref readonly</c> <c>Span&lt;T&gt;</c>/<c>ReadOnlySpan&lt;T&gt;</c> has
+	///     no wrapper-based emit branch on the interface and class pipelines and falls back to the generic
+	///     ref-struct path, so it is as unsupported as a custom ref struct is. Deliberately a separate name
+	///     rather than an overload of <see cref="NeedsRefStructPipeline(ITypeSymbol)" />: the two rules do
+	///     not agree, and picking the wrong one silently is exactly the drift this guards against - every
+	///     parameter position mirrors this one, the type-level rule covers returns and property values.
+	/// </summary>
+	private static bool ParameterNeedsRefStructPipeline(IParameterSymbol parameter)
+		=> NeedsRefStructPipeline(parameter.Type) ||
+		   (parameter.RefKind == RefKind.RefReadOnlyParameter && parameter.Type.IsRefLikeType);
+
+	/// <summary>
 	///     Whether the generator degrades <paramref name="member" /> to a passthrough rather than a
 	///     <c>NotSupportedException</c> stub, in which case the mock keeps behaving like the real member
 	///     and there is nothing for the user to act on. Mirrors <c>forwardsUnsupportedRefStructValue</c>
@@ -352,7 +365,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		bool hasRefStructParam = false;
 		foreach (IParameterSymbol p in method.Parameters)
 		{
-			if (!NeedsRefStructPipeline(p.Type))
+			if (!ParameterNeedsRefStructPipeline(p))
 			{
 				continue;
 			}
@@ -403,7 +416,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 			return true;
 		}
 
-		if (!indexer.Parameters.Any(p => NeedsRefStructPipeline(p.Type)))
+		if (!indexer.Parameters.Any(ParameterNeedsRefStructPipeline))
 		{
 			issue = null;
 			return false;

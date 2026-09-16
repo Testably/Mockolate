@@ -108,7 +108,9 @@ Also never supported:
 
 - Ref-struct **parameters on delegate types**. A delegate mock projects its single `Invoke` onto
   `VoidMethodSetup<T>` / `ReturnMethodSetup<T>`, neither of which carries the anti-constraint the
-  interface and class pipelines get from `RefStructVoidMethodSetup<T>`.
+  interface and class pipelines get from `RefStructVoidMethodSetup<T>`. This includes
+  `ref readonly Span<T>` / `ref readonly ReadOnlySpan<T>`, the one span ref kind with no wrapper-based
+  emit branch.
 
 Members matching any of these still compile: the generated mock keeps the member, but no setup or
 verify surface is emitted for it. Everything else on the type stays mockable.
@@ -126,9 +128,12 @@ What the member does at runtime depends on whether there is an implementation be
 
 **Note:**
 `Span<T>` and `ReadOnlySpan<T>` flow through the existing `SpanWrapper` / `ReadOnlySpanWrapper`
-fallback and are never flagged - in parameter *and* value positions. On .NET 9+ with C# 13+, custom
-ref-struct parameters (by value, `out`, `ref`, and `ref readonly`) and ref-struct-keyed indexers
-(getter-only, setter-only, and get+set) on interfaces and classes are fully supported.
+fallback and are never flagged - in parameter *and* value positions. The one exception is
+`ref readonly`, which has no wrapper-based emit branch and routes through the ref-struct pipeline
+like a custom ref struct: on an interface or class it needs .NET 9 / C# 13, and on a delegate it is
+unsupported. On .NET 9+ with C# 13+, custom ref-struct parameters (by value, `out`, `ref`, and
+`ref readonly`) and ref-struct-keyed indexers (getter-only, setter-only, and get+set) on interfaces
+and classes are fully supported.
 
 See the [Ref Struct Parameters](setup/parameter-matching#ref-struct-parameters-net-9) section
 for the supported surface.
