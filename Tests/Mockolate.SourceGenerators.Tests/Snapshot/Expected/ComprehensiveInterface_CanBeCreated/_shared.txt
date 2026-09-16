@@ -1,0 +1,6 @@
+ActionFunc.g.cs|ActionFunc.g.cs
+IndexerSetups.g.cs|IndexerSetups.d958f396.g.cs
+MethodSetups.g.cs|MethodSetups.0483b407.g.cs
+Mock.g.cs|Mock.g.cs
+MockBehaviorExtensions.g.cs|MockBehaviorExtensions.g.cs
+ReturnsThrowsAsyncExtensions.g.cs|ReturnsThrowsAsyncExtensions.dd90b829.g.cs
