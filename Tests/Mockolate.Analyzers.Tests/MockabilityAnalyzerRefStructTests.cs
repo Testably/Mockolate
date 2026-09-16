@@ -472,6 +472,29 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Fact]
+	public async Task WhenMockingDelegateWithSpanParameter_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  {{GeneratedPrefix("MyNamespace.SpanConsumer")}}
+
+			  namespace MyNamespace
+			  {
+			  	// The delegate carve-out stops at the wrapper: by value, Span/ReadOnlySpan flow through
+			  	// SpanWrapper/ReadOnlySpanWrapper, so the delegate keeps its full setup/verify surface.
+			  	public delegate void SpanConsumer(System.Span<byte> buffer, System.ReadOnlySpan<char> text);
+
+			  	public class MyClass
+			  	{
+			  		public void MyTest()
+			  		{
+			  			SpanConsumer.CreateMock();
+			  		}
+			  	}
+			  }
+			  """
+		);
+
+	[Fact]
 	public async Task WhenMockingInterfaceInheritingRefStructOutMethod_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""

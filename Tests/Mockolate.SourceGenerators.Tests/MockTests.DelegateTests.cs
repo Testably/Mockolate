@@ -52,7 +52,7 @@ public sealed partial class MockTests
 		}
 
 		[Fact]
-		public async Task CustomDelegates_ShouldSupportSpanAndReadOnlySpanParameters()
+		public async Task CustomDelegates_ShouldSupportSpanAndReadOnlySpanReturnTypes()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -122,6 +122,37 @@ public sealed partial class MockTests
 				          			return methodSetup?.TryGetReturnValue(x, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Setup.ReadOnlySpanWrapper<char>)!);
 				          		}
 				          """).IgnoringNewlineStyle();
+		}
+
+		[Fact]
+		public async Task CustomDelegates_WithSpanParameter_ShouldUseWrapperInsteadOfDegrading()
+		{
+			GeneratorResult result = Generator
+				.Run("""
+				     using System;
+				     using Mockolate;
+
+				     namespace MyCode;
+
+				     public class Program
+				     {
+				         public static void Main(string[] args)
+				         {
+				     		_ = DoSomething1.CreateMock();
+				         }
+
+				         public delegate int DoSomething1(Span<byte> buffer);
+				     }
+				     """);
+
+			await That(result.Sources).ContainsKey("Mock.Program_DoSomething1.g.cs");
+			await That(result.Sources["Mock.Program_DoSomething1.g.cs"])
+				.Contains(
+					"global::Mockolate.Setup.ReturnMethodSetup<int, global::Mockolate.Setup.SpanWrapper<byte>>")
+				.IgnoringNewlineStyle().And
+				.DoesNotContain("NotSupportedException")
+				.Because(
+					"a by-value Span parameter stays outside the delegate ref-struct carve-out, so the setup surface is emitted against SpanWrapper<T>");
 		}
 
 		[Fact]

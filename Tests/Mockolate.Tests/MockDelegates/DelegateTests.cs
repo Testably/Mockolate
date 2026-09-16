@@ -2,7 +2,7 @@
 
 namespace Mockolate.Tests.MockDelegates;
 
-public class DelegateTests
+public partial class DelegateTests
 {
 	[Fact]
 	public async Task Action_ShouldBeTreatedAsVoidDelegate()

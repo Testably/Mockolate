@@ -2815,12 +2815,13 @@ internal static partial class Sources
 	///         feature and the ref-struct setup types only compile on net9.0+.
 	///     </para>
 	///     <para>
-	///         Out of scope (throws <c>NotSupportedException</c> at mock-invocation time, but the
-	///         mock class still compiles so the rest of the interface can be mocked):
-	///         arity above 4; out/ref ref-struct parameters. A non-span ref-struct return never reaches
-	///         here - the caller stubs it out first, so it degrades on every target instead of hitting
-	///         the <c>#error</c> above. Proper analyzer-level diagnostics for these live in
-	///         <c>MockabilityAnalyzer</c>.
+	///         Every ref kind is in scope: by value, <c>out</c>, <c>ref</c> and <c>ref readonly</c>, the
+	///         by-ref ones writing back through <c>IOutRefStructParameter</c> /
+	///         <c>IRefRefStructParameter</c> below. There is no arity ceiling either - arities 1-4 are
+	///         hand-written in <c>Source/Mockolate/Setup/</c>, 5+ are generator-emitted into
+	///         <c>RefStructMethodSetups.g.cs</c>. A non-span ref-struct return never reaches here: the
+	///         caller stubs it out first, so it degrades on every target instead of hitting the
+	///         <c>#error</c> above. Analyzer-level diagnostics live in <c>MockabilityAnalyzer</c>.
 	///     </para>
 	/// </remarks>
 	private static void AppendMockSubject_ImplementClass_AddRefStructMethodBody(
