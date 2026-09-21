@@ -24,6 +24,7 @@ jobs:
                     dotnet-version: |
                         8.0.x
                         10.0.x
+                    global-json-file: global.json
             -   name: Run unit tests (windows)
                 if: matrix.os == 'windows-latest'
                 run: ./build.ps1 CodeCoverage
@@ -54,6 +55,7 @@ jobs:
                     dotnet-version: |
                         8.0.x
                         10.0.x
+                    global-json-file: global.json
             -   name: API checks
                 run: ./build.sh ApiChecks
             -   name: Upload artifacts
@@ -61,6 +63,33 @@ jobs:
                 uses: actions/upload-artifact@v7
                 with:
                     name: API-tests
+                    path: |
+                        ./Artifacts/*
+                        ./TestResults/*.trx
+    
+    union-tests:
+        name: "Union tests (net11.0, C# preview)"
+        runs-on: ubuntu-latest
+        env:
+            DOTNET_NOLOGO: true
+        steps:
+            -   uses: actions/checkout@v7
+                with:
+                    fetch-depth: 0
+            -   name: Setup .NET SDKs
+                uses: actions/setup-dotnet@v6
+                with:
+                    dotnet-version: |
+                        8.0.x
+                        10.0.x
+                    global-json-file: global.json
+            -   name: Union tests
+                run: ./build.sh UnionTests
+            -   name: Upload artifacts
+                if: always()
+                uses: actions/upload-artifact@v7
+                with:
+                    name: Union-tests
                     path: |
                         ./Artifacts/*
                         ./TestResults/*.trx
@@ -92,6 +121,7 @@ jobs:
                     dotnet-version: |
                         8.0.x
                         10.0.x
+                    global-json-file: global.json
             -   name: Run benchmarks
                 run: ./build.sh Benchmarks --benchmark-filter "*${{ matrix.benchmark }}*"
             -   name: Upload artifacts
@@ -122,6 +152,7 @@ jobs:
                 with:
                     dotnet-version: |
                         10.0.x
+                    global-json-file: global.json
             -   name: Publish benchmark report
                 run: ./build.sh PublishBenchmarkReport
                 env:
@@ -144,6 +175,7 @@ jobs:
                     dotnet-version: |
                         8.0.x
                         10.0.x
+                    global-json-file: global.json
             -   name: Run mutation tests
                 run: ./build.sh MutationTests MutationTestDashboard
     
@@ -164,12 +196,13 @@ jobs:
                     dotnet-version: |
                         8.0.x
                         10.0.x
+                    global-json-file: global.json
             -   name: Run sonarcloud analysis
                 run: ./build.sh CodeAnalysis
     
     publish-test-results:
         name: "Publish Tests Results"
-        needs: [ api-tests, unit-tests ]
+        needs: [ api-tests, unit-tests, union-tests ]
         runs-on: ubuntu-latest
         permissions:
             checks: write
@@ -201,6 +234,7 @@ jobs:
                     dotnet-version: |
                         8.0.x
                         10.0.x
+                    global-json-file: global.json
             -   name: Pack nuget packages
                 run: ./build.sh Pack
             -   name: Upload packages

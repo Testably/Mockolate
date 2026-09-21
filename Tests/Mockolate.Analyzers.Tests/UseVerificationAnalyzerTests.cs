@@ -7,6 +7,49 @@ namespace Mockolate.Analyzers.Tests;
 public class UseVerificationAnalyzerTests
 {
 	[Fact]
+	public async Task WhenIgnoreParametersResultIsNotUsed_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			"""
+			using Mockolate;
+			using Mockolate.Verify;
+
+			public class MyClass
+			{
+			    public void MyTest()
+			    {
+			        {|#0:VerifySomething()|};
+			    }
+
+				public static VerificationResult<MockVerify<int, Mock<int>>>.IgnoreParameters VerifySomething()
+					=> null!;
+			}
+			""",
+			Verifier.Diagnostic(Rules.UseVerificationRule)
+				.WithLocation(0)
+		);
+
+	[Fact]
+	public async Task WhenIgnoreParametersResultIsUsed_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			"""
+			using Mockolate;
+			using Mockolate.Verify;
+
+			public class MyClass
+			{
+			    public void MyTest()
+			    {
+			        VerificationResult<MockVerify<int, Mock<int>>>.IgnoreParameters result = VerifySomething();
+			        _ = result;
+			    }
+
+				public static VerificationResult<MockVerify<int, Mock<int>>>.IgnoreParameters VerifySomething()
+					=> null!;
+			}
+			"""
+		);
+
+	[Fact]
 	public async Task WhenAssigned_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""
