@@ -45,7 +45,7 @@
 		<PackageVersion Include="Moq" Version="4.20.72"/>
 		<PackageVersion Include="NSubstitute" Version="6.2.0"/>
 		<PackageVersion Include="FakeItEasy" Version="9.0.1"/>
-		<PackageVersion Include="TUnit.Mocks" Version="1.66.16"/>
+		<PackageVersion Include="TUnit.Mocks" Version="1.68.17"/>
 		<PackageVersion Include="Imposter" Version="0.1.11"/>
 	</ItemGroup>
 </Project>
