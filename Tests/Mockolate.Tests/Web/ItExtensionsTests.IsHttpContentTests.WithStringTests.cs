@@ -252,6 +252,22 @@ public sealed partial class ItExtensionsTests
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.OK);
 			}
 
+			[Fact]
+			public async Task WhenVerifiedConcurrently_ShouldMatchEveryTime()
+			{
+				HttpClient httpClient = HttpClient.CreateMock();
+				await httpClient.PostAsync("https://www.testably.org", new StringContent("foo"), CancellationToken.None);
+
+				void Act()
+				{
+					Parallel.For(0, 10_000, _ => httpClient.Mock.Verify
+						.PostAsync(It.IsAny<Uri>(), It.IsHttpContent().WithString("foo"))
+						.Once());
+				}
+
+				await That(Act).DoesNotThrow();
+			}
+
 			[Theory]
 			[InlineData("foo")]
 			public async Task WithInvalidCharsetHeader_ShouldFallbackToUtf8(string charsetHeader)

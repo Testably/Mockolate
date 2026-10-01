@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading;
+using Mockolate.Verify;
 using Mockolate.Web;
 
 namespace Mockolate.Tests.Web;
@@ -131,6 +132,23 @@ public sealed partial class ItExtensionsTests
 						.PostAsync(It.IsAny<Uri>(), It.IsHttpContent().WithBytes(body)))
 					.Once();
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.OK);
+			}
+
+			[Fact]
+			public async Task WhenVerifiedConcurrently_ShouldMatchEveryTime()
+			{
+				byte[] body = [0x66, 0x67,];
+				HttpClient httpClient = HttpClient.CreateMock();
+				await httpClient.PostAsync("https://www.testably.org", new ByteArrayContent(body), CancellationToken.None);
+
+				void Act()
+				{
+					Parallel.For(0, 10_000, _ => httpClient.Mock.Verify
+						.PostAsync(It.IsAny<Uri>(), It.IsHttpContent().WithBytes(body))
+						.Once());
+				}
+
+				await That(Act).DoesNotThrow();
 			}
 		}
 	}

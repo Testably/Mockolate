@@ -275,10 +275,15 @@ public static partial class ItExtensions
 				Encoding encoding = GetEncodingFromCharset(charset);
 #if NET8_0_OR_GREATER
 				Stream stream = content.ReadAsStream();
-				long position = stream.Position;
-				using StreamReader reader = new(stream, encoding, leaveOpen: true);
-				string stringContent = reader.ReadToEnd();
-				stream.Position = position;
+				string stringContent;
+				// HttpContent caches its read stream, so concurrent matchers (e.g. a setup and a verification) share it.
+				lock (stream)
+				{
+					long position = stream.Position;
+					using StreamReader reader = new(stream, encoding, leaveOpen: true);
+					stringContent = reader.ReadToEnd();
+					stream.Position = position;
+				}
 #else
 				string stringContent;
 				if (message?.Properties.TryGetValue("Mockolate:HttpContent", out object value) == true && value is byte[] bytes)
@@ -288,10 +293,13 @@ public static partial class ItExtensions
 				else
 				{
 					Stream stream = content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-					long position = stream.Position;
-					using StreamReader reader = new(stream, encoding, true, 1024, true);
-					stringContent = reader.ReadToEnd();
-					stream.Position = position;
+					lock (stream)
+					{
+						long position = stream.Position;
+						using StreamReader reader = new(stream, encoding, true, 1024, true);
+						stringContent = reader.ReadToEnd();
+						stream.Position = position;
+					}
 				}
 #endif
 				return _predicates.All(predicate => predicate.Predicate.Invoke(stringContent));
@@ -311,11 +319,16 @@ public static partial class ItExtensions
 			{
 #if NET8_0_OR_GREATER
 				Stream stream = content.ReadAsStream();
-				long position = stream.Position;
-				using MemoryStream ms = new();
-				stream.CopyTo(ms);
-				byte[] bytes = ms.ToArray();
-				stream.Position = position;
+				byte[] bytes;
+				// HttpContent caches its read stream, so concurrent matchers (e.g. a setup and a verification) share it.
+				lock (stream)
+				{
+					long position = stream.Position;
+					using MemoryStream ms = new();
+					stream.CopyTo(ms);
+					bytes = ms.ToArray();
+					stream.Position = position;
+				}
 #else
 				byte[] bytes;
 				if (message?.Properties.TryGetValue("Mockolate:HttpContent", out object value) == true
@@ -326,11 +339,14 @@ public static partial class ItExtensions
 				else
 				{
 					Stream stream = content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-					long position = stream.Position;
-					using MemoryStream ms = new();
-					stream.CopyTo(ms);
-					bytes = ms.ToArray();
-					stream.Position = position;
+					lock (stream)
+					{
+						long position = stream.Position;
+						using MemoryStream ms = new();
+						stream.CopyTo(ms);
+						bytes = ms.ToArray();
+						stream.Position = position;
+					}
 				}
 #endif
 				return predicate.Invoke(bytes);
