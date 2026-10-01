@@ -22,6 +22,7 @@ jobs:
                 with:
                     dotnet-version: |
                         10.0.x
+                    global-json-file: global.json
             -   name: Create mutation test comment
                 run: ./build.sh MutationTestComment
                 env:
@@ -43,6 +44,7 @@ jobs:
                 with:
                     dotnet-version: |
                         10.0.x
+                    global-json-file: global.json
             -   name: Create benchmark comment
                 run: ./build.sh BenchmarkComment
                 env:
