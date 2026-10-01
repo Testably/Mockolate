@@ -277,7 +277,7 @@ public static partial class ItExtensions
 				Stream stream = content.ReadAsStream();
 				string stringContent;
 				// HttpContent caches its read stream, so concurrent matchers (e.g. a setup and a verification) share it.
-				lock (stream)
+				lock (content)
 				{
 					long position = stream.Position;
 					using StreamReader reader = new(stream, encoding, leaveOpen: true);
@@ -293,7 +293,7 @@ public static partial class ItExtensions
 				else
 				{
 					Stream stream = content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-					lock (stream)
+					lock (content)
 					{
 						long position = stream.Position;
 						using StreamReader reader = new(stream, encoding, true, 1024, true);
@@ -321,7 +321,7 @@ public static partial class ItExtensions
 				Stream stream = content.ReadAsStream();
 				byte[] bytes;
 				// HttpContent caches its read stream, so concurrent matchers (e.g. a setup and a verification) share it.
-				lock (stream)
+				lock (content)
 				{
 					long position = stream.Position;
 					using MemoryStream ms = new();
@@ -339,7 +339,7 @@ public static partial class ItExtensions
 				else
 				{
 					Stream stream = content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-					lock (stream)
+					lock (content)
 					{
 						long position = stream.Position;
 						using MemoryStream ms = new();
