@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Mockolate.SourceGenerators.Tests.Snapshot;
 
@@ -12,7 +13,8 @@ namespace Mockolate.SourceGenerators.Tests.Snapshot;
 ///     <c>Tests/Mockolate.Tests/GeneratorCoverage</c> source files as input, so the
 ///     example types remain the single source of truth for "every special case in the
 ///     source generator". The full set of generated <c>.g.cs</c> files is diffed against
-///     <c>Tests/Mockolate.SourceGenerators.Tests/Snapshot/Expected/&lt;scenario&gt;/</c>.
+///     <c>Tests/Mockolate.SourceGenerators.Tests/Snapshot/Expected/&lt;scenario&gt;/</c>; files identical across
+///     scenarios are stored once under <c>Expected/_Shared/</c> and listed in the scenario's <c>_shared.txt</c>.
 ///     When a scenario fails because the change was intentional, run
 ///     <see cref="MockGenerationSnapshotAcceptance.AcceptSnapshotChanges" />.
 /// </summary>
@@ -100,6 +102,41 @@ public sealed class MockGenerationSnapshotTests
             IStaticAbstractMembers sut = IStaticAbstractMembers.CreateMock();
             """,
             []),
+        new(
+            "ComprehensiveDelegate_CanBeCreated_Unions",
+            ["ComprehensiveDelegate.cs",],
+            """
+            ComprehensiveDelegate sut = ComprehensiveDelegate.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "ComprehensiveInterface_CanBeCreated_Unions",
+            [
+                "ComprehensiveDelegate.cs", "IComprehensiveInterface.cs",
+                "MyBase.cs", "MyEnum.cs", "MyEventArgs.cs", "MyStruct.cs",
+            ],
+            """
+            IComprehensiveInterface sut = IComprehensiveInterface.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "KeywordEdgeCases_CanBeCreated_Unions",
+            ["IKeywordEdgeCases.cs",],
+            """
+            IKeywordEdgeCases sut = IKeywordEdgeCases.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "UnionIndexers_CanBeCreated_Unions",
+            ["IUnionIndexers.cs",],
+            """
+            IUnionIndexers sut = IUnionIndexers.CreateMock();
+            """,
+            [],
+            UnionMode: true),
     ];
 
     public static TheoryData<string> ScenarioNames
@@ -138,10 +175,24 @@ public sealed class MockGenerationSnapshotTests
                         """;
         sources.Add(program);
 
+        // Classic scenarios are pinned to C# 14 so that they keep describing the classic overload set once the
+        // compiler ships C# 15 and union support is detected automatically. Union scenarios opt in through the
+        // MockolateUnionParameters property, because the pinned test Roslyn predates C# 15 (see UnionParameterArgTests).
+        if (scenario.UnionMode)
+        {
+            return Generator.Run(
+                sources.ToArray(),
+                ["NET9_0_OR_GREATER", "NET10_0_OR_GREATER", "NET11_0_OR_GREATER",],
+                LanguageVersion.Preview,
+                new Dictionary<string, string> { ["build_property.MockolateUnionParameters"] = "true", },
+                scenario.AssemblyTypes);
+        }
+
         return Generator.Run(
             sources.ToArray(),
-            DocumentationMode.Parse,
             ["NET9_0_OR_GREATER", "NET10_0_OR_GREATER",],
+            LanguageVersion.CSharp14,
+            null,
             scenario.AssemblyTypes);
     }
 

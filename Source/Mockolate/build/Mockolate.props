@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Lets the Mockolate source generator read the MockolateUnionParameters property of the consuming project.
+	     Set it to true to opt into the union-typed setup/verify overloads (requires a C# 15 compiler), or to false
+	     to keep the classic matcher/value overloads even when the compiler supports unions. -->
+	<ItemGroup>
+		<CompilerVisibleProperty Include="MockolateUnionParameters"/>
+		<!-- Names the attributes the project already gets from another generator, so Mockolate does not polyfill them:
+		     "false" stands for OverloadResolutionPriorityAttribute and CallerArgumentExpressionAttribute (what
+		     PolySharp ships); otherwise a ';'-separated list of attribute names (UnionAttribute,
+		     OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute). -->
+		<CompilerVisibleProperty Include="MockolateUnionAttributePolyfills"/>
+	</ItemGroup>
+
+</Project>
