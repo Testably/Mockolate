@@ -2833,6 +2833,7 @@ namespace Mockolate.Verify
     public interface IAsyncVerificationResult : Mockolate.Verify.IVerificationResult
     {
         System.Threading.Tasks.Task<bool> VerifyAsync(System.Func<Mockolate.Interactions.IInteraction[], bool> predicate);
+        System.Threading.Tasks.Task<bool> VerifyAsync(System.Func<Mockolate.Interactions.IInteraction[], bool> predicate, System.Threading.CancellationToken cancellationToken);
     }
     public interface IMockVerify<out T> : Mockolate.IInteractiveMock<T> { }
     public interface IVerificationResult

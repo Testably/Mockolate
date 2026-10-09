@@ -255,7 +255,11 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		}
 
 		/// <inheritdoc cref="IAsyncVerificationResult.VerifyAsync(Func{IInteraction[], Boolean})" />
-		public async Task<bool> VerifyAsync(Func<IInteraction[], bool> predicate)
+		public Task<bool> VerifyAsync(Func<IInteraction[], bool> predicate)
+			=> VerifyAsync(predicate, CancellationToken.None);
+
+		/// <inheritdoc cref="IAsyncVerificationResult.VerifyAsync(Func{IInteraction[], Boolean}, CancellationToken)" />
+		public async Task<bool> VerifyAsync(Func<IInteraction[], bool> predicate, CancellationToken cancellationToken)
 		{
 			ThrowIfRecordingDisabled(_interactions);
 			IInteraction[] matchingInteractions = CollectMatching();
@@ -268,26 +272,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 			try
 			{
-				CancellationTokenSource? cts = null;
-				CancellationToken token;
-				if (_timeout is null)
-				{
-					token = _cancellationToken!.Value;
-				}
-				else
-				{
-					if (_cancellationToken is not null)
-					{
-						cts = CancellationTokenSource.CreateLinkedTokenSource(_cancellationToken.Value);
-					}
-					else
-					{
-						cts = new CancellationTokenSource();
-					}
-
-					cts.CancelAfter(_timeout.Value);
-					token = cts.Token;
-				}
+				CancellationToken token = CreateWaitToken(cancellationToken, out CancellationTokenSource? cts);
 
 				SemaphoreSlim semaphore = new(0);
 				try
@@ -328,6 +313,12 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			}
 			catch (OperationCanceledException ex)
 			{
+				if (cancellationToken.IsCancellationRequested)
+				{
+					// The wait was canceled on the linked token, but the caller expects its own token
+					throw new OperationCanceledException(ex.Message, ex, cancellationToken);
+				}
+
 				if (_cancellationToken?.IsCancellationRequested == true)
 				{
 					throw new MockVerificationTimeoutException(null, ex);
@@ -335,6 +326,24 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 				throw new MockVerificationTimeoutException(_timeout, ex);
 			}
+		}
+
+		private CancellationToken CreateWaitToken(CancellationToken cancellationToken, out CancellationTokenSource? cts)
+		{
+			if (_timeout is null && !cancellationToken.CanBeCanceled)
+			{
+				cts = null;
+				return _cancellationToken!.Value;
+			}
+
+			cts = CancellationTokenSource.CreateLinkedTokenSource(
+				_cancellationToken ?? CancellationToken.None, cancellationToken);
+			if (_timeout is not null)
+			{
+				cts.CancelAfter(_timeout.Value);
+			}
+
+			return cts.Token;
 		}
 
 		/// <inheritdoc cref="IFastVerifyCountResult.VerifyCount(Func{int, Boolean})" />
@@ -368,26 +377,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		{
 			try
 			{
-				CancellationTokenSource? cts = null;
-				CancellationToken token;
-				if (_timeout is null)
-				{
-					token = _cancellationToken!.Value;
-				}
-				else
-				{
-					if (_cancellationToken is not null)
-					{
-						cts = CancellationTokenSource.CreateLinkedTokenSource(_cancellationToken.Value);
-					}
-					else
-					{
-						cts = new CancellationTokenSource();
-					}
-
-					cts.CancelAfter(_timeout.Value);
-					token = cts.Token;
-				}
+				CancellationToken token = CreateWaitToken(CancellationToken.None, out CancellationTokenSource? cts);
 
 				SemaphoreSlim semaphore = new(0);
 				try

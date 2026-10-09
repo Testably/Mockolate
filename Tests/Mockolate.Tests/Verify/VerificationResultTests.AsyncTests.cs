@@ -96,7 +96,7 @@ public sealed partial class VerificationResultTests
 			VerificationResult<Mock.IMockVerifyForIChocolateDispenser> result = sut.Mock.Verify.Dispense(Match.AnyParameters())
 				.Within(500.Milliseconds());
 
-			await That(((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0)).IsTrue();
+			await That(((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0, CancellationToken.None)).IsTrue();
 		}
 
 		[Fact]
@@ -122,9 +122,96 @@ public sealed partial class VerificationResultTests
 				}
 			}, token);
 
-			await That(((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 20)).IsTrue();
+			await That(((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 20, CancellationToken.None)).IsTrue();
 			cts.Cancel();
 			await backgroundTask;
+		}
+
+		[Fact]
+		public async Task VerifyAsync_WithCancellationToken_ShouldKeepConfiguredTimeout()
+		{
+			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+			using CancellationTokenSource cts = new(30.Seconds());
+
+			VerificationResult<Mock.IMockVerifyForIChocolateDispenser> result = sut.Mock.Verify.Dispense(Match.AnyParameters())
+				.Within(50.Milliseconds());
+
+			Task Act()
+				=> ((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0, cts.Token);
+
+			await That(Act).Throws<MockVerificationTimeoutException>()
+				.Whose(e => e.Timeout, t => t.IsEqualTo(50.Milliseconds()));
+		}
+
+		[Fact]
+		public async Task VerifyAsync_WithCancellationToken_ShouldLeaveResultUnchanged()
+		{
+			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+			CancellationToken canceledToken = new(true);
+
+			VerificationResult<Mock.IMockVerifyForIChocolateDispenser> result = sut.Mock.Verify.Dispense(Match.AnyParameters())
+				.Within(50.Milliseconds());
+
+			Task ActWithToken()
+				=> ((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0, canceledToken);
+
+			Task ActWithoutToken()
+				=> ((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0, CancellationToken.None);
+
+			await That(ActWithToken).Throws<OperationCanceledException>();
+			await That(ActWithoutToken).Throws<MockVerificationTimeoutException>()
+				.Whose(e => e.Timeout, t => t.IsEqualTo(50.Milliseconds()));
+		}
+
+		[Fact]
+		public async Task VerifyAsync_WithCancellationToken_ShouldStopWaitingWhenConfiguredTokenIsCanceled()
+		{
+			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+			using CancellationTokenSource ownCts = new(50.Milliseconds());
+			using CancellationTokenSource cts = new(30.Seconds());
+
+			VerificationResult<Mock.IMockVerifyForIChocolateDispenser> result = sut.Mock.Verify.Dispense(Match.AnyParameters())
+				.WithCancellation(ownCts.Token);
+
+			Task Act()
+				=> ((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0, cts.Token);
+
+			await That(Act).Throws<MockVerificationTimeoutException>()
+				.Whose(e => e.Timeout, t => t.IsNull());
+		}
+
+		[Fact]
+		public async Task VerifyAsync_WithCancellationToken_WhenCanceled_ShouldThrowOperationCanceledException()
+		{
+			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+			using CancellationTokenSource cts = new(50.Milliseconds());
+			CancellationToken token = cts.Token;
+
+			VerificationResult<Mock.IMockVerifyForIChocolateDispenser> result = sut.Mock.Verify.Dispense(Match.AnyParameters())
+				.Within(30.Seconds());
+
+			Task Act()
+				=> ((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0, token);
+
+			await That(Act).Throws<OperationCanceledException>()
+				.Whose(e => e.CancellationToken, t => t.IsEqualTo(token));
+		}
+
+		[Fact]
+		public async Task VerifyAsync_WithCancellationToken_WhenCanceledWithoutTimeout_ShouldThrowOperationCanceledException()
+		{
+			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+			using CancellationTokenSource cts = new(50.Milliseconds());
+			CancellationToken token = cts.Token;
+
+			VerificationResult<Mock.IMockVerifyForIChocolateDispenser> result = sut.Mock.Verify.Dispense(Match.AnyParameters())
+				.WithCancellation(CancellationToken.None);
+
+			Task Act()
+				=> ((IAsyncVerificationResult)result).VerifyAsync(l => l.Length > 0, token);
+
+			await That(Act).Throws<OperationCanceledException>()
+				.Whose(e => e.CancellationToken, t => t.IsEqualTo(token));
 		}
 
 		[Fact]
