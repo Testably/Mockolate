@@ -22,7 +22,7 @@ It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, 
 | Setup API      | `Expression<Func<…>>` trees                  | regular method calls       |
 | Hot path       | dynamic-proxy dispatch                       | direct dispatch            |
 
-For side-by-side setup, usage, and verification syntax against Moq, NSubstitute, and FakeItEasy, see the [full code comparison](08-comparison.md).
+For side-by-side setup, usage, and verification syntax against Moq, NSubstitute, and FakeItEasy, see the [full code comparison](09-comparison.md).
 
 Already on Moq or NSubstitute? The companion package [`Mockolate.Migration`](https://github.com/Testably/Mockolate.Migration)
 ships analyzers and code fixers that translate common Moq and NSubstitute patterns to Mockolate syntax in-place: point it
