@@ -261,7 +261,7 @@ public sealed partial class SetupMethodTests
 					sut.Method0();
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -291,7 +291,7 @@ public sealed partial class SetupMethodTests
 					sut.Method0();
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -586,7 +586,7 @@ public sealed partial class SetupMethodTests
 					sut.Method1(1);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -602,7 +602,7 @@ public sealed partial class SetupMethodTests
 					sut.Method1(42);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-42");
+				await That(Act).Throws().WithMessage("foo-42");
 			}
 
 			[Fact]
@@ -634,7 +634,7 @@ public sealed partial class SetupMethodTests
 					sut.Method1(1);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -945,7 +945,7 @@ public sealed partial class SetupMethodTests
 					sut.Method2(1, 2);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -961,7 +961,7 @@ public sealed partial class SetupMethodTests
 					sut.Method2(1, 2);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2");
+				await That(Act).Throws().WithMessage("foo-1-2");
 			}
 
 			[Fact]
@@ -993,7 +993,7 @@ public sealed partial class SetupMethodTests
 					sut.Method2(1, 2);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1308,7 +1308,7 @@ public sealed partial class SetupMethodTests
 					sut.Method3(1, 2, 3);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1324,7 +1324,7 @@ public sealed partial class SetupMethodTests
 					sut.Method3(1, 2, 3);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3");
+				await That(Act).Throws().WithMessage("foo-1-2-3");
 			}
 
 			[Fact]
@@ -1356,7 +1356,7 @@ public sealed partial class SetupMethodTests
 					sut.Method3(1, 2, 3);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1675,7 +1675,7 @@ public sealed partial class SetupMethodTests
 					sut.Method4(1, 2, 3, 4);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1691,7 +1691,7 @@ public sealed partial class SetupMethodTests
 					sut.Method4(1, 2, 3, 4);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3-4");
+				await That(Act).Throws().WithMessage("foo-1-2-3-4");
 			}
 
 			[Fact]
@@ -1723,7 +1723,7 @@ public sealed partial class SetupMethodTests
 					sut.Method4(1, 2, 3, 4);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2057,7 +2057,7 @@ public sealed partial class SetupMethodTests
 					sut.Method5(1, 2, 3, 4, 5);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2074,7 +2074,7 @@ public sealed partial class SetupMethodTests
 					sut.Method5(1, 2, 3, 4, 5);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3-4-5");
+				await That(Act).Throws().WithMessage("foo-1-2-3-4-5");
 			}
 
 			[Fact]
@@ -2108,7 +2108,7 @@ public sealed partial class SetupMethodTests
 					sut.Method5(1, 2, 3, 4, 5);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2344,8 +2344,8 @@ public sealed partial class SetupMethodTests
 					.Throws(new Exception("foo")).When(i => i > 0);
 
 				await That(() => sut.Method0()).DoesNotThrow();
-				await That(() => sut.Method0()).ThrowsException().WithMessage("foo");
-				await That(() => sut.Method0()).ThrowsException().WithMessage("foo");
+				await That(() => sut.Method0()).Throws().WithMessage("foo");
+				await That(() => sut.Method0()).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2389,7 +2389,7 @@ public sealed partial class SetupMethodTests
 					sut.Method0();
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2419,7 +2419,7 @@ public sealed partial class SetupMethodTests
 					sut.Method0();
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2610,8 +2610,8 @@ public sealed partial class SetupMethodTests
 					.Throws(new Exception("foo")).When(i => i > 0);
 
 				await That(() => sut.Method1(1)).DoesNotThrow();
-				await That(() => sut.Method1(1)).ThrowsException().WithMessage("foo");
-				await That(() => sut.Method1(1)).ThrowsException().WithMessage("foo");
+				await That(() => sut.Method1(1)).Throws().WithMessage("foo");
+				await That(() => sut.Method1(1)).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2655,7 +2655,7 @@ public sealed partial class SetupMethodTests
 					sut.Method1(1);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2670,7 +2670,7 @@ public sealed partial class SetupMethodTests
 					sut.Method1(1);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1");
+				await That(Act).Throws().WithMessage("foo-1");
 			}
 
 			[Fact]
@@ -2702,7 +2702,7 @@ public sealed partial class SetupMethodTests
 					sut.Method1(1);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2893,8 +2893,8 @@ public sealed partial class SetupMethodTests
 					.Throws(new Exception("foo")).When(i => i > 0);
 
 				await That(() => sut.Method2(1, 2)).DoesNotThrow();
-				await That(() => sut.Method2(1, 2)).ThrowsException().WithMessage("foo");
-				await That(() => sut.Method2(1, 2)).ThrowsException().WithMessage("foo");
+				await That(() => sut.Method2(1, 2)).Throws().WithMessage("foo");
+				await That(() => sut.Method2(1, 2)).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2939,7 +2939,7 @@ public sealed partial class SetupMethodTests
 					sut.Method2(1, 2);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -2955,7 +2955,7 @@ public sealed partial class SetupMethodTests
 					sut.Method2(1, 2);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2");
+				await That(Act).Throws().WithMessage("foo-1-2");
 			}
 
 			[Fact]
@@ -2987,7 +2987,7 @@ public sealed partial class SetupMethodTests
 					sut.Method2(1, 2);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3180,8 +3180,8 @@ public sealed partial class SetupMethodTests
 					.Throws(new Exception("foo")).When(i => i > 0);
 
 				await That(() => sut.Method3(1, 2, 3)).DoesNotThrow();
-				await That(() => sut.Method3(1, 2, 3)).ThrowsException().WithMessage("foo");
-				await That(() => sut.Method3(1, 2, 3)).ThrowsException().WithMessage("foo");
+				await That(() => sut.Method3(1, 2, 3)).Throws().WithMessage("foo");
+				await That(() => sut.Method3(1, 2, 3)).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3226,7 +3226,7 @@ public sealed partial class SetupMethodTests
 					sut.Method3(1, 2, 3);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3242,7 +3242,7 @@ public sealed partial class SetupMethodTests
 					sut.Method3(1, 2, 3);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3");
+				await That(Act).Throws().WithMessage("foo-1-2-3");
 			}
 
 			[Fact]
@@ -3274,7 +3274,7 @@ public sealed partial class SetupMethodTests
 					sut.Method3(1, 2, 3);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3467,8 +3467,8 @@ public sealed partial class SetupMethodTests
 					.Throws(new Exception("foo")).When(i => i > 0);
 
 				await That(() => sut.Method4(1, 2, 3, 4)).DoesNotThrow();
-				await That(() => sut.Method4(1, 2, 3, 4)).ThrowsException().WithMessage("foo");
-				await That(() => sut.Method4(1, 2, 3, 4)).ThrowsException().WithMessage("foo");
+				await That(() => sut.Method4(1, 2, 3, 4)).Throws().WithMessage("foo");
+				await That(() => sut.Method4(1, 2, 3, 4)).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3513,7 +3513,7 @@ public sealed partial class SetupMethodTests
 					sut.Method4(1, 2, 3, 4);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3529,7 +3529,7 @@ public sealed partial class SetupMethodTests
 					sut.Method4(1, 2, 3, 4);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3-4");
+				await That(Act).Throws().WithMessage("foo-1-2-3-4");
 			}
 
 			[Fact]
@@ -3561,7 +3561,7 @@ public sealed partial class SetupMethodTests
 					sut.Method4(1, 2, 3, 4);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3761,8 +3761,8 @@ public sealed partial class SetupMethodTests
 					.Throws(new Exception("foo")).When(i => i > 0);
 
 				await That(() => sut.Method5(1, 2, 3, 4, 5)).DoesNotThrow();
-				await That(() => sut.Method5(1, 2, 3, 4, 5)).ThrowsException().WithMessage("foo");
-				await That(() => sut.Method5(1, 2, 3, 4, 5)).ThrowsException().WithMessage("foo");
+				await That(() => sut.Method5(1, 2, 3, 4, 5)).Throws().WithMessage("foo");
+				await That(() => sut.Method5(1, 2, 3, 4, 5)).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3809,7 +3809,7 @@ public sealed partial class SetupMethodTests
 					sut.Method5(1, 2, 3, 4, 5);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -3826,7 +3826,7 @@ public sealed partial class SetupMethodTests
 					sut.Method5(1, 2, 3, 4, 5);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3-4-5");
+				await That(Act).Throws().WithMessage("foo-1-2-3-4-5");
 			}
 
 			[Fact]
@@ -3860,7 +3860,7 @@ public sealed partial class SetupMethodTests
 					sut.Method5(1, 2, 3, 4, 5);
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]

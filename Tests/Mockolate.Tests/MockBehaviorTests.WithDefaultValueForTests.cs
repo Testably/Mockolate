@@ -16,8 +16,8 @@ public sealed partial class MockBehaviorTests
 
 			await That(mockWithBehavior.Value.Value).IsEqualTo(5);
 			await That(mockWithBehavior.InheritedValue)
-				.For(x => x.Value, it => it.IsEqualTo(6)).And
-				.For(x => x.OtherValue, it => it.IsEqualTo(7));
+				.Whose(x => x.Value, it => it.IsEqualTo(6)).And
+				.Whose(x => x.OtherValue, it => it.IsEqualTo(7));
 		}
 
 		[Fact]
@@ -34,8 +34,8 @@ public sealed partial class MockBehaviorTests
 
 			await That(mockWithBehavior.Value.Value).IsEqualTo(6);
 			await That(mockWithBehavior.InheritedValue)
-				.For(x => x.Value, it => it.IsEqualTo(6)).And
-				.For(x => x.OtherValue, it => it.IsEqualTo(7));
+				.Whose(x => x.Value, it => it.IsEqualTo(6)).And
+				.Whose(x => x.OtherValue, it => it.IsEqualTo(7));
 		}
 
 		[Fact]
@@ -54,8 +54,8 @@ public sealed partial class MockBehaviorTests
 			await That(mockWithBehavior1.InheritedValue).IsNull();
 			await That(mockWithBehavior1.Value.Value).IsEqualTo(5);
 			await That(mockWithBehavior2.InheritedValue)
-				.For(x => x.Value, it => it.IsEqualTo(6)).And
-				.For(x => x.OtherValue, it => it.IsEqualTo(7));
+				.Whose(x => x.Value, it => it.IsEqualTo(6)).And
+				.Whose(x => x.OtherValue, it => it.IsEqualTo(7));
 			await That(mockWithBehavior2.Value).IsNull();
 		}
 

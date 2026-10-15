@@ -1,9 +1,10 @@
-using aweXpect.Core.Initialization;
+using System.Runtime.CompilerServices;
 using aweXpect.Customization;
 
 namespace Mockolate.SourceGenerators.Tests.TestHelpers;
 
-public class Initializer : IAweXpectInitializer
+internal static class Initializer
 {
-	public void Initialize() => Customize.aweXpect.Formatting().MaximumNumberOfCollectionItems.Set(40);
+	[ModuleInitializer]
+	internal static void Initialize() => Customize.aweXpect.Global.Formatting().MaximumNumberOfCollectionItems.Set(40);
 }

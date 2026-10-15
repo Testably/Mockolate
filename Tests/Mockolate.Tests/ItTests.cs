@@ -98,7 +98,7 @@ public sealed partial class ItTests
 			.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
 
 		await That(constructors).HasSingle().Which
-			.For(c => c.GetParameters(), p => p.HasCount(0));
+			.Whose(c => c.GetParameters(), p => p.HasCount(0));
 
 		_ = constructors.Single().Invoke([]);
 	}

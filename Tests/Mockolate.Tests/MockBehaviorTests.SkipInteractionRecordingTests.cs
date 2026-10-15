@@ -101,18 +101,9 @@ public sealed partial class MockBehaviorTests
 
 			_ = sut.SomeFlag;
 
-			MockException? captured = null;
-			try
-			{
-				await That(sut.Mock.Verify.SomeFlag.Got()).Exactly(1);
-			}
-			catch (Exception ex) when (ex.InnerException is MockException me)
-			{
-				captured = me;
-			}
-
-			await That(captured).IsNotNull()
-				.And.For(e => e!.Message, m => m.Contains("SkipInteractionRecording"));
+			await That(async () => await That(sut.Mock.Verify.SomeFlag.Got()).Exactly(1))
+				.Throws<MockException>()
+				.WithMessage("*SkipInteractionRecording*").AsWildcard();
 		}
 
 		[Fact]

@@ -130,7 +130,7 @@ public sealed partial class MockTests
 			return _ = MyBaseClassWithConstructor.CreateMock(["foo",]);
 		}
 
-		await That(Act).DoesNotThrow().AndWhoseResult.IsNotNull();
+		await That(Act).DoesNotThrow().WhoseResult.IsNotNull();
 	}
 
 	[Fact]

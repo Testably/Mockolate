@@ -212,17 +212,8 @@ public sealed class MockMonitorTests
 		using IDisposable _ = monitor.Run();
 		sut.IsValid(1);
 
-		MockException? captured = null;
-		try
-		{
-			await That(monitor.Verify.IsValid(It.Is(1))).Once();
-		}
-		catch (Exception ex) when (ex.InnerException is MockException me)
-		{
-			captured = me;
-		}
-
-		await That(captured).IsNotNull()
-			.And.For(e => e!.Message, m => m.Contains("SkipInteractionRecording"));
+		await That(async () => await That(monitor.Verify.IsValid(It.Is(1))).Once())
+			.Throws<MockException>()
+			.WithMessage("*SkipInteractionRecording*").AsWildcard();
 	}
 }
