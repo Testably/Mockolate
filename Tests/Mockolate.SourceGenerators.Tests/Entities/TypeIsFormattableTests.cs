@@ -12,18 +12,18 @@ public class TypeIsFormattableTests
 	public async Task WhenSymbolIsObject_ShouldNotReportFormattable()
 	{
 		const string source = "public class Holder { public object Value; }";
-		SyntaxTree tree = CSharpSyntaxTree.ParseText(source, cancellationToken: TestContext.Current.CancellationToken);
+		SyntaxTree tree = CSharpSyntaxTree.ParseText(source);
 		CSharpCompilation compilation = CSharpCompilation.Create(
 			"TestAssembly",
 			[tree,],
 			[MetadataReference.CreateFromFile(typeof(object).Assembly.Location),],
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 		SemanticModel model = compilation.GetSemanticModel(tree);
-		FieldDeclarationSyntax declaration = tree.GetRoot(TestContext.Current.CancellationToken).DescendantNodes()
+		FieldDeclarationSyntax declaration = tree.GetRoot().DescendantNodes()
 			.OfType<FieldDeclarationSyntax>()
 			.First();
 		VariableDeclaratorSyntax variable = declaration.Declaration.Variables.Single();
-		IFieldSymbol fieldSymbol = (IFieldSymbol)model.GetDeclaredSymbol(variable, TestContext.Current.CancellationToken)!;
+		IFieldSymbol fieldSymbol = (IFieldSymbol)model.GetDeclaredSymbol(variable)!;
 
 		Type type = Type.From(fieldSymbol.Type);
 
@@ -43,7 +43,7 @@ public class TypeIsFormattableTests
 		                          public IFormattable Value;
 		                      }
 		                      """;
-		SyntaxTree tree = CSharpSyntaxTree.ParseText(source, cancellationToken: TestContext.Current.CancellationToken);
+		SyntaxTree tree = CSharpSyntaxTree.ParseText(source);
 		CSharpCompilation compilation = CSharpCompilation.Create(
 			"TestAssembly",
 			[tree,],
@@ -53,11 +53,11 @@ public class TypeIsFormattableTests
 			],
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 		SemanticModel model = compilation.GetSemanticModel(tree);
-		FieldDeclarationSyntax declaration = tree.GetRoot(TestContext.Current.CancellationToken).DescendantNodes()
+		FieldDeclarationSyntax declaration = tree.GetRoot().DescendantNodes()
 			.OfType<FieldDeclarationSyntax>()
 			.First();
 		VariableDeclaratorSyntax variable = declaration.Declaration.Variables.Single();
-		IFieldSymbol fieldSymbol = (IFieldSymbol)model.GetDeclaredSymbol(variable, TestContext.Current.CancellationToken)!;
+		IFieldSymbol fieldSymbol = (IFieldSymbol)model.GetDeclaredSymbol(variable)!;
 		ITypeSymbol typeSymbol = fieldSymbol.Type;
 
 		Type type = Type.From(typeSymbol);
