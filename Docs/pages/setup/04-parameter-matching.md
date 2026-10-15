@@ -31,6 +31,27 @@ and wrap the remaining ones, or use matchers for all parameters.
 
 - `It.Matches(pattern)`: Matches strings using wildcard patterns (`*` and `?`).
 
+Wildcards cover the common "starts with", "ends with" and "contains" checks:
+
+```csharp
+sut.Mock.Setup.Process(It.Matches("foo*"))   // starts with "foo"
+    .Returns(1);
+sut.Mock.Setup.Process(It.Matches("*foo"))   // ends with "foo"
+    .Returns(2);
+sut.Mock.Setup.Process(It.Matches("*foo*"))  // contains "foo"
+    .Returns(3);
+```
+
+Matching is case-insensitive by default. Append `.CaseSensitive()` to require an exact case match, or `.AsRegex()` to
+treat the pattern as a regular expression (e.g. when the text itself contains `*` or `?`):
+
+```csharp
+sut.Mock.Setup.Process(It.Matches("Foo*").CaseSensitive())
+    .Returns(1);
+sut.Mock.Setup.Process(It.Matches(Regex.Escape("a*b") + "$").AsRegex())  // ends with the literal "a*b"
+    .Returns(2);
+```
+
 #### Regular Expressions
 
 Use `.AsRegex()` to enable regular expression matching for `It.Matches()`:
