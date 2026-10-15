@@ -2,7 +2,7 @@ namespace Build.Tests;
 
 public sealed class BenchmarkReportHelpersTests
 {
-	[Fact]
+	[Test]
 	public async Task ApplyHeaderAndPrefixStripping_ShouldRemoveCommonPrefixFromDataRow()
 	{
 		TableRow row = new(BenchmarkTableParser.DataRowStartIndex, ["PropRead_Mockolate", "1",]);
@@ -12,7 +12,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(result).IsEqualTo(["Mockolate", "1",]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ApplyHeaderAndPrefixStripping_ShouldStripTrailingUnderscoreFromHeader()
 	{
 		TableRow header = new(0, ["Method", "Mean",]);
@@ -22,7 +22,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(result).IsEqualTo(["PropRead", "Mean",]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ApplyHeaderAndPrefixStripping_WhenCommonPrefixIsNull_ShouldReturnTokensUnchanged()
 	{
 		TableRow row = new(BenchmarkTableParser.DataRowStartIndex, ["Foo", "1",]);
@@ -32,7 +32,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(result).IsEqualTo(["Foo", "1",]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task DetermineDroppedColumnIndices_ShouldMatchCaseInsensitivelyAndReturnIndicesInHeaderOrder()
 	{
 		int[] indices = BenchmarkReport.DetermineDroppedColumnIndices(
@@ -42,7 +42,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(indices).IsEqualTo([2, 3,]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task DetermineDroppedColumnIndices_WhenNoColumnsMatch_ShouldReturnEmpty()
 	{
 		int[] indices = BenchmarkReport.DetermineDroppedColumnIndices(
@@ -52,7 +52,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(indices).IsEqualTo(Array.Empty<int>());
 	}
 
-	[Fact]
+	[Test]
 	public async Task FindColumnIndex_ShouldMatchCaseInsensitively()
 	{
 		int index = BenchmarkReport.FindColumnIndex(["Method", "Mean", "Alloc Ratio",], "alloc ratio");
@@ -60,7 +60,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(index).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FindColumnIndex_WhenColumnNotFound_ShouldReturnMinusOne()
 	{
 		int index = BenchmarkReport.FindColumnIndex(["Method", "Mean",], "Ratio");
@@ -68,7 +68,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(index).IsEqualTo(-1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task FindCommonRowPrefix_ShouldIgnoreHeaderAndSeparatorRows()
 	{
 		List<TableRow> rows =
@@ -82,7 +82,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(prefix).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task FindCommonRowPrefix_ShouldSkipBaselineMarkerRow()
 	{
 		List<TableRow> rows =
@@ -97,7 +97,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(prefix).IsEqualTo("Indexer_");
 	}
 
-	[Fact]
+	[Test]
 	public async Task FindCommonRowPrefix_ShouldSkipEmptyDataRowAndUseRemainingRows()
 	{
 		List<TableRow> rows =
@@ -114,7 +114,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(prefix).IsEqualTo("Indexer_");
 	}
 
-	[Fact]
+	[Test]
 	public async Task FindCommonRowPrefix_WhenADataRowHasNoUnderscore_ShouldReturnNull()
 	{
 		List<TableRow> rows =
@@ -127,7 +127,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(prefix).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task FindCommonRowPrefix_WhenAllDataRowsShareAPrefix_ShouldReturnPrefixWithTrailingUnderscore()
 	{
 		List<TableRow> rows =
@@ -143,7 +143,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(prefix).IsEqualTo("PropRead_");
 	}
 
-	[Fact]
+	[Test]
 	public async Task FindCommonRowPrefix_WhenDataRowsDisagree_ShouldReturnNull()
 	{
 		List<TableRow> rows =
@@ -157,7 +157,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(prefix).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task RecomputeBaselineRatio_ShouldOverwriteRatioWithBaselineDividedByMockolate()
 	{
 		string[] baseline = ["Foo_Mockolate", "206.44 ns", "1.00", "1048 B", "1.00",];
@@ -168,7 +168,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(baseline[2]).IsEqualTo("0.95");
 	}
 
-	[Fact]
+	[Test]
 	public async Task RecomputeBaselineRatio_WhenRatioIndexIsMissing_ShouldNotMutate()
 	{
 		string[] baseline = ["Foo_Mockolate", "206.44 ns",];
@@ -179,7 +179,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(baseline).IsEqualTo(["Foo_Mockolate", "206.44 ns",]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RecomputeBaselineRatio_WhenValueCannotBeParsed_ShouldNotMutate()
 	{
 		string[] baseline = ["Foo_Mockolate", "junk", "1.00",];
@@ -190,7 +190,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(baseline[2]).IsEqualTo("1.00");
 	}
 
-	[Fact]
+	[Test]
 	public async Task RemoveColumns_ShouldDropTheGivenIndicesAndPreserveTheRest()
 	{
 		string result = BenchmarkReport.RemoveColumns(
@@ -200,7 +200,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(result).IsEqualTo("| Method | Mean | Allocated |");
 	}
 
-	[Fact]
+	[Test]
 	public async Task RemoveColumns_WhenIndicesAreEmpty_ShouldReturnLineUnchanged()
 	{
 		string original = "| Method | Mean |";
@@ -210,7 +210,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(result).IsEqualTo(original);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SplitTableRow_ShouldReturnTrimmedInteriorCells()
 	{
 		string[] tokens = BenchmarkReport.SplitTableRow("|  Foo |  bar baz  | 42 |");
@@ -218,7 +218,7 @@ public sealed class BenchmarkReportHelpersTests
 		await That(tokens).IsEqualTo(["Foo", "bar baz", "42",]);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SplitTableRow_WhenLineHasNoPipe_ShouldReturnEmptyArray()
 	{
 		string[] tokens = BenchmarkReport.SplitTableRow("hello world");
@@ -226,11 +226,11 @@ public sealed class BenchmarkReportHelpersTests
 		await That(tokens).IsEqualTo(Array.Empty<string>());
 	}
 
-	[Theory]
-	[InlineData("1048 B", 1048.0)]
-	[InlineData("1 KB", 1024.0)]
-	[InlineData("2 MB", 2.0 * 1024 * 1024)]
-	[InlineData("3 GB", 3.0 * 1024 * 1024 * 1024)]
+	[Test]
+	[Arguments("1048 B", 1048.0)]
+	[Arguments("1 KB", 1024.0)]
+	[Arguments("2 MB", 2.0 * 1024 * 1024)]
+	[Arguments("3 GB", 3.0 * 1024 * 1024 * 1024)]
 	public async Task TryParseQuantity_ShouldNormalizeMemoryUnitsToBytes(string value, double expected)
 	{
 		bool ok = BenchmarkReport.TryParseQuantity(value, out double actual);
@@ -239,14 +239,14 @@ public sealed class BenchmarkReportHelpersTests
 		await That(actual).IsEqualTo(expected).Within(0.0001);
 	}
 
-	[Theory]
-	[InlineData("206.44 ns", 206.44)]
-	[InlineData("1,377.70 ns", 1377.70)]
-	[InlineData("1.00 μs", 1000.0)]
-	[InlineData("1.00 us", 1000.0)]
-	[InlineData("2 ms", 2_000_000.0)]
-	[InlineData("3 s", 3_000_000_000.0)]
-	[InlineData("500 ps", 0.5)]
+	[Test]
+	[Arguments("206.44 ns", 206.44)]
+	[Arguments("1,377.70 ns", 1377.70)]
+	[Arguments("1.00 μs", 1000.0)]
+	[Arguments("1.00 us", 1000.0)]
+	[Arguments("2 ms", 2_000_000.0)]
+	[Arguments("3 s", 3_000_000_000.0)]
+	[Arguments("500 ps", 0.5)]
 	public async Task TryParseQuantity_ShouldNormalizeTimeUnitsToNanoseconds(string value, double expected)
 	{
 		bool ok = BenchmarkReport.TryParseQuantity(value, out double actual);
@@ -255,10 +255,10 @@ public sealed class BenchmarkReportHelpersTests
 		await That(actual).IsEqualTo(expected).Within(0.0001);
 	}
 
-	[Theory]
-	[InlineData("")]
-	[InlineData("not a number")]
-	[InlineData("100 weird")]
+	[Test]
+	[Arguments("")]
+	[Arguments("not a number")]
+	[Arguments("100 weird")]
 	public async Task TryParseQuantity_WhenInputIsInvalid_ShouldReturnFalse(string value)
 	{
 		bool ok = BenchmarkReport.TryParseQuantity(value, out _);

@@ -4,7 +4,7 @@ namespace Mockolate.SourceGenerators.Tests;
 
 public sealed class MockBehaviorExtensionsTests
 {
-	[Fact]
+	[Test]
 	public async Task DefaultValueGenerator_ForValueTuples_ShouldEmitInlineExpressions()
 	{
 		GeneratorResult result = Generator
@@ -47,7 +47,7 @@ public sealed class MockBehaviorExtensionsTests
 			.DoesNotContain("Generate<T1, T2, T3, T4, T5, T6, T7, T8>");
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultValueGenerator_ShouldRegisterArrays()
 	{
 		GeneratorResult result = Generator
@@ -94,7 +94,7 @@ public sealed class MockBehaviorExtensionsTests
 			          """).IgnoringNewlineStyle();
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultValueGenerator_ShouldRegisterIEnumerables()
 	{
 		GeneratorResult result = Generator
@@ -134,7 +134,7 @@ public sealed class MockBehaviorExtensionsTests
 			          """).IgnoringNewlineStyle();
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultValueGenerator_ShouldRegisterTasks()
 	{
 		GeneratorResult result = Generator
@@ -180,7 +180,7 @@ public sealed class MockBehaviorExtensionsTests
 			.DoesNotContain("global::System.Func<T>");
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultValueGenerator_ShouldRegisterValueTasks()
 	{
 		GeneratorResult result = Generator

@@ -9,7 +9,7 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class ToStringTests
 		{
-			[Fact]
+			[Test]
 			public async Task Default_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
@@ -19,7 +19,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Http content");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleConditions_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent("image/png")
@@ -32,7 +32,7 @@ public sealed partial class ItExtensionsTests
 					"string content c => c.Length > 0 and binary content b => b.Length > 0 with media type \"image/png\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithBytesPredicate_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent().WithBytes(b => b.Length > 0);
@@ -42,7 +42,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("binary content b => b.Length > 0");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithFormData_Exactly_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IFormDataContentParameter sut =
@@ -53,7 +53,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("form data content exactly \"x=123\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithFormData_KeyValue_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IFormDataContentParameter sut =
@@ -64,7 +64,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("form data content \"x=123\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithFormData_MultipleValues_Exactly_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IFormDataContentParameter sut =
@@ -75,7 +75,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("form data content exactly \"x=123\", \"y=234\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithFormData_MultipleValues_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IFormDataContentParameter sut =
@@ -86,7 +86,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("form data content \"x=123\", \"y=234\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithFormData_String_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IFormDataContentParameter sut =
@@ -97,7 +97,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("form data content \"x=123\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithFormData_StringMultiple_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IFormDataContentParameter sut =
@@ -108,7 +108,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("form data content \"x=123\", \"y=234\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithHeaders_Multiple_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpContentParameter sut =
@@ -122,7 +122,7 @@ public sealed partial class ItExtensionsTests
 						"Http content with headers \"x-my-header: my-value\", \"x-my-other-header: my-other-value\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithHeaders_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpContentParameter sut =
@@ -133,7 +133,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Http content with header \"x-my-header: my-value\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithMediaType_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent().WithMediaType("text/plain");
@@ -143,7 +143,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Http content with media type \"text/plain\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithMediaTypeThenWithString_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
@@ -155,7 +155,7 @@ public sealed partial class ItExtensionsTests
 					"string content containing \"foo\" with media type \"text/plain\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithMediaTypeViaFactory_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent("application/json");
@@ -165,7 +165,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Http content with media type \"application/json\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithString_Exactly_IgnoringCase_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut = It.IsHttpContent().WithString("foo").Exactly()
@@ -176,7 +176,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content equal to \"foo\" ignoring case");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithString_Exactly_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut = It.IsHttpContent().WithString("foo").Exactly();
@@ -186,7 +186,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content equal to \"foo\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithString_IgnoringCase_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
@@ -197,7 +197,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content containing \"foo\" ignoring case");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithString_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut = It.IsHttpContent().WithString("foo");
@@ -207,7 +207,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content containing \"foo\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithStringMatching_AsRegex_IgnoringCase_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
@@ -218,7 +218,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content matching regex pattern \"^foo\" ignoring case");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithStringMatching_AsRegex_IgnoringCase_WithOptions_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
@@ -230,7 +230,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo("string content matching regex pattern \"^foo\" ignoring case with options Multiline");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithStringMatching_AsRegex_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
@@ -241,7 +241,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content matching regex pattern \"^foo\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithStringMatching_AsRegex_WithOptions_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
@@ -252,7 +252,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content matching regex pattern \"^foo\" with options Multiline");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithStringMatching_IgnoringCase_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
@@ -263,7 +263,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content matching pattern \"*foo*\" ignoring case");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithStringMatching_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IStringContentBodyMatchingParameter sut =
@@ -274,7 +274,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("string content matching pattern \"*foo*\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithStringPredicate_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent().WithString(c => c.Length > 0);

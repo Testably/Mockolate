@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
-using Xunit;
 using Verifier = Mockolate.Analyzers.Tests.Verifiers.CSharpAnalyzerVerifier<Mockolate.Analyzers.UseVerificationAnalyzer>;
 
 namespace Mockolate.Analyzers.Tests;
 
 public class UseVerificationAnalyzerTests
 {
-	[Fact]
+	[Test]
 	public async Task WhenAssigned_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""
@@ -26,7 +25,7 @@ public class UseVerificationAnalyzerTests
 			"""
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenNotUsed_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""
@@ -48,7 +47,7 @@ public class UseVerificationAnalyzerTests
 				.WithLocation(0)
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenPassedAsArgument_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""
@@ -71,7 +70,7 @@ public class UseVerificationAnalyzerTests
 			"""
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenReturnedFromMethod_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""
@@ -91,7 +90,7 @@ public class UseVerificationAnalyzerTests
 			"""
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenUsedAsVariableInitializer_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""
@@ -112,7 +111,7 @@ public class UseVerificationAnalyzerTests
 			"""
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenUsedInConditional_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""
@@ -132,7 +131,7 @@ public class UseVerificationAnalyzerTests
 			"""
 		);
 
-	[Fact]
+	[Test]
 	public async Task WhenUsedInMethod_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""

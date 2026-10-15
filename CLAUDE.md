@@ -14,14 +14,14 @@ Mockolate is a strongly-typed .NET mocking library powered by **Roslyn source ge
 # Build
 dotnet build Mockolate.slnx
 
-# Run all tests
-dotnet test Mockolate.slnx
+# Run all tests (TUnit on the Microsoft.Testing.Platform, see global.json)
+dotnet test --solution Mockolate.slnx
 
 # Run a specific test project
-dotnet test Tests/Mockolate.Tests/Mockolate.Tests.csproj
+dotnet test --project Tests/Mockolate.Tests/Mockolate.Tests.csproj
 
-# Run a single test (by name filter)
-dotnet test Tests/Mockolate.Tests/Mockolate.Tests.csproj --filter "FullyQualifiedName~MethodName"
+# Run a single test (by tree node filter: /assembly/namespace/class/method)
+dotnet test --project Tests/Mockolate.Tests/Mockolate.Tests.csproj -f net10.0 --treenode-filter "/*/*/*/MethodName"
 
 # Full build with coverage (requires Nuke)
 ./build.sh CodeCoverage       # Linux/macOS

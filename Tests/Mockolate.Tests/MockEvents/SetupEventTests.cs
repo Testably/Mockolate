@@ -6,7 +6,7 @@ namespace Mockolate.Tests.MockEvents;
 
 public sealed partial class SetupEventTests
 {
-	[Fact]
+	[Test]
 	public async Task Forever_Extension_RepeatsIndefinitely()
 	{
 		int callCount = 0;
@@ -25,7 +25,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task MultipleSetups_AreAllInvoked()
 	{
 		int callCount1 = 0;
@@ -43,7 +43,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnlyOnce_Extension_StopsAfterSingleInvocation()
 	{
 		int callCount = 0;
@@ -60,7 +60,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnSubscribed_Do_Action_IsInvokedOnSubscribe()
 	{
 		int callCount = 0;
@@ -76,7 +76,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnSubscribed_Do_TargetMethod_ReceivesCorrectValues()
 	{
 		List<MethodInfo> received = [];
@@ -92,7 +92,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnSubscribed_DoesNotFireOnUnsubscribe()
 	{
 		int callCount = 0;
@@ -107,7 +107,7 @@ public sealed partial class SetupEventTests
 		await That(callCount).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnSubscribed_For_RepeatsCallbackNTimes()
 	{
 		int count1 = 0;
@@ -128,7 +128,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnSubscribed_For2_HoldsFirstCallbackForTwoSubscriptionsBeforeAdvancing()
 	{
 		int count1 = 0;
@@ -150,7 +150,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnSubscribed_InParallel_RunsAlongsideNextCallback()
 	{
 		int count1 = 0;
@@ -170,7 +170,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnSubscribed_Only_StopsAfterNInvocations()
 	{
 		int callCount = 0;
@@ -188,7 +188,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnSubscribed_When_OnlyFires_WhenPredicateMatches()
 	{
 		int callCount = 0;
@@ -207,7 +207,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_Do_Action_IsInvokedOnUnsubscribe()
 	{
 		int callCount = 0;
@@ -224,7 +224,7 @@ public sealed partial class SetupEventTests
 		await That(callCount).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_Do_TargetMethod_ReceivesCorrectValues()
 	{
 		List<MethodInfo> received = [];
@@ -241,7 +241,7 @@ public sealed partial class SetupEventTests
 		await That(received[0].Name).Contains("Handler");
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_DoesNotFireOnSubscribe()
 	{
 		int callCount = 0;
@@ -255,7 +255,7 @@ public sealed partial class SetupEventTests
 		await That(callCount).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_For_RepeatsCallbackNTimes()
 	{
 		int count1 = 0;
@@ -276,7 +276,7 @@ public sealed partial class SetupEventTests
 		await That(count2).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_For2_HoldsFirstCallbackForTwoUnsubscriptionsBeforeAdvancing()
 	{
 		int count1 = 0;
@@ -298,7 +298,7 @@ public sealed partial class SetupEventTests
 		void Handler(string type, int amount) { }
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_Forever_Extension_RepeatsIndefinitely()
 	{
 		int callCount = 0;
@@ -317,7 +317,7 @@ public sealed partial class SetupEventTests
 		await That(callCount).IsEqualTo(10);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_InParallel_RunsAlongsideNextCallback()
 	{
 		int count1 = 0;
@@ -337,7 +337,7 @@ public sealed partial class SetupEventTests
 		await That(count2).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_Only_StopsAfterNInvocations()
 	{
 		int callCount = 0;
@@ -355,7 +355,7 @@ public sealed partial class SetupEventTests
 		await That(callCount).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_OnlyOnce_Extension_StopsAfterSingleInvocation()
 	{
 		int callCount = 0;
@@ -372,7 +372,7 @@ public sealed partial class SetupEventTests
 		await That(callCount).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task OnUnsubscribed_When_OnlyFires_WhenPredicateMatches()
 	{
 		int callCount = 0;
@@ -391,7 +391,7 @@ public sealed partial class SetupEventTests
 			.Because("the unsubscriptions at index 0, 2 and 4 pass the predicate");
 	}
 
-	[Fact]
+	[Test]
 	public async Task SetupDoesNotInterfereWithVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();

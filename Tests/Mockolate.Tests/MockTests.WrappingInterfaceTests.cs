@@ -7,7 +7,7 @@ public sealed partial class MockTests
 {
 	public sealed class WrappingInterfaceTests
 	{
-		[Fact]
+		[Test]
 		public async Task Wrap_Events_ForwardEventsFromWrappedInstance()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -28,7 +28,7 @@ public sealed partial class MockTests
 			await That(eventAmount).IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Events_ForwardsFromWrapper()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -49,7 +49,7 @@ public sealed partial class MockTests
 			await That(eventAmount).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Events_Unsubscribe_ShouldRemoveSubscription()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -79,7 +79,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_HiddenEvent_ShouldSubscribeOnDeclaringInterface()
 		{
 			MyChocolateShelf myShelf = new();
@@ -97,7 +97,7 @@ public sealed partial class MockTests
 			await That(shelfInvocations).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_HiddenGenericMethod_ShouldDelegateToDeclaringInterface()
 		{
 			MyChocolateCatalog myCatalog = new();
@@ -109,7 +109,7 @@ public sealed partial class MockTests
 			await That(myCatalog.ReceivedCalls).IsEqualTo(["catalog", "source",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_HiddenGetOnlyProperty_ShouldDelegateToDeclaringInterface()
 		{
 			MyChocolateShelf myShelf = new();
@@ -120,7 +120,7 @@ public sealed partial class MockTests
 			await That(myShelf.ReceivedCalls).IsEqualTo(["get:shelf-featured", "get:base-featured",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_HiddenIndexer_ShouldDelegateGetterToDeclaringInterface()
 		{
 			MyChocolateShelf myShelf = new();
@@ -131,7 +131,7 @@ public sealed partial class MockTests
 			await That(myShelf.ReceivedCalls).IsEqualTo(["get:shelf-item", "get:base-item",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_HiddenIndexer_ShouldDelegateSetterToDeclaringInterface()
 		{
 			MyChocolateShelf myShelf = new();
@@ -145,7 +145,7 @@ public sealed partial class MockTests
 			await That(myShelf.BaseItems[2]).IsEqualTo(["Marzipan",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_HiddenProperty_ShouldDelegateGetterToDeclaringInterface()
 		{
 			MyChocolateShelf myShelf = new();
@@ -156,7 +156,7 @@ public sealed partial class MockTests
 			await That(myShelf.ReceivedCalls).IsEqualTo(["get:shelf", "get:base",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_HiddenProperty_ShouldDelegateSetterToDeclaringInterface()
 		{
 			MyChocolateShelf myShelf = new();
@@ -170,7 +170,7 @@ public sealed partial class MockTests
 			await That(myShelf.BaseAssortment).IsEqualTo(["Ganache",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_HiddenPropertyWithUnrelatedType_ShouldDelegateToDeclaringInterface()
 		{
 			MyChocolateShelf myShelf = new();
@@ -185,7 +185,7 @@ public sealed partial class MockTests
 			await That(myShelf.BaseLabel).IsEqualTo("Seasonal");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Indexer_ShouldDelegateToWrappedInstance()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -199,7 +199,7 @@ public sealed partial class MockTests
 			await That(myDispenser["White"]).IsEqualTo(8);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Method_ShouldDelegateToWrappedInstance()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -212,7 +212,7 @@ public sealed partial class MockTests
 			await That(myDispenser["Dark"]).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Property_ShouldDelegateToWrappedInstance()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -224,7 +224,7 @@ public sealed partial class MockTests
 			await That(myDispenser.TotalDispensed).IsEqualTo(12);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_SiblingInterfaceEvent_ShouldSubscribeOnDeclaringInterface()
 		{
 			MyChocolateGiftSet myGiftSet = new();
@@ -242,7 +242,7 @@ public sealed partial class MockTests
 			await That(boxInvocations).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_SiblingInterfaceEvent_ShouldUnsubscribeOnDeclaringInterface()
 		{
 			MyChocolateGiftSet myGiftSet = new();
@@ -263,7 +263,7 @@ public sealed partial class MockTests
 			await That(boxInvocations).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_SiblingInterfaceIndexer_ShouldDelegateGetterToDeclaringInterface()
 		{
 			MyChocolateGiftSet myGiftSet = new();
@@ -274,7 +274,7 @@ public sealed partial class MockTests
 			await That(myGiftSet.ReceivedCalls).IsEqualTo(["get:tray-slot", "get:box-slot",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_SiblingInterfaceIndexer_ShouldDelegateSetterToDeclaringInterface()
 		{
 			MyChocolateGiftSet myGiftSet = new();
@@ -288,7 +288,7 @@ public sealed partial class MockTests
 			await That(myGiftSet.BoxSlots[2]).IsEqualTo(70);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_SiblingInterfaceMethod_ShouldDelegateToDeclaringInterface()
 		{
 			MyChocolateGiftSet myGiftSet = new();
@@ -302,7 +302,7 @@ public sealed partial class MockTests
 			await That(myGiftSet.ReceivedCalls).IsEqualTo(["count:tray", "count:box",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_SiblingInterfaceProperty_ShouldDelegateGetterToDeclaringInterface()
 		{
 			MyChocolateGiftSet myGiftSet = new();
@@ -313,7 +313,7 @@ public sealed partial class MockTests
 			await That(myGiftSet.ReceivedCalls).IsEqualTo(["get:tray", "get:box",]);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_SiblingInterfaceProperty_ShouldDelegateSetterToDeclaringInterface()
 		{
 			MyChocolateGiftSet myGiftSet = new();
@@ -327,7 +327,7 @@ public sealed partial class MockTests
 			await That(myGiftSet.BoxFlavor).IsEqualTo("White");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_WithSetup_ShouldOverrideMethod()
 		{
 			MyChocolateDispenser myDispenser = new();

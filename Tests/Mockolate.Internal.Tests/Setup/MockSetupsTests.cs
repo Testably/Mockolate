@@ -7,7 +7,7 @@ namespace Mockolate.Internal.Tests.Setup;
 
 public partial class MockSetupsTests
 {
-	[Fact]
+	[Test]
 	public async Task EventSetup_ToString_ShouldReturnEventName()
 	{
 		EventSetup setup = new(new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
@@ -18,17 +18,17 @@ public partial class MockSetupsTests
 		await That(result).IsEqualTo("SomeEvent");
 	}
 
-	[Theory]
-	[InlineData(0, 0, 0, 0, "no setups")]
-	[InlineData(1, 0, 0, 0, "1 method")]
-	[InlineData(2, 0, 0, 0, "2 methods")]
-	[InlineData(0, 1, 0, 0, "1 property")]
-	[InlineData(0, 2, 0, 0, "2 properties")]
-	[InlineData(0, 0, 1, 0, "1 indexer")]
-	[InlineData(0, 0, 2, 0, "2 indexers")]
-	[InlineData(0, 0, 0, 1, "1 event")]
-	[InlineData(0, 0, 0, 2, "2 events")]
-	[InlineData(3, 5, 2, 1, "3 methods, 5 properties, 2 indexers, 1 event")]
+	[Test]
+	[Arguments(0, 0, 0, 0, "no setups")]
+	[Arguments(1, 0, 0, 0, "1 method")]
+	[Arguments(2, 0, 0, 0, "2 methods")]
+	[Arguments(0, 1, 0, 0, "1 property")]
+	[Arguments(0, 2, 0, 0, "2 properties")]
+	[Arguments(0, 0, 1, 0, "1 indexer")]
+	[Arguments(0, 0, 2, 0, "2 indexers")]
+	[Arguments(0, 0, 0, 1, "1 event")]
+	[Arguments(0, 0, 0, 2, "2 events")]
+	[Arguments(3, 5, 2, 1, "3 methods, 5 properties, 2 indexers, 1 event")]
 	public async Task ToString_ShouldReturnExpectedValue(
 		int methodCount, int propertyCount, int indexerCount, int eventCount, string expected)
 	{
@@ -62,7 +62,7 @@ public partial class MockSetupsTests
 		await That(result).IsEqualTo(expected);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryGetScenario_WithEmptyName_ShouldReturnTrueAndYieldRootBucket()
 	{
 		MockSetups setups = new();
@@ -73,7 +73,7 @@ public partial class MockSetupsTests
 		await That(scenario).IsSameAs(setups);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryGetScenario_WithNullName_ShouldReturnTrueAndYieldRootBucket()
 	{
 		MockSetups setups = new();

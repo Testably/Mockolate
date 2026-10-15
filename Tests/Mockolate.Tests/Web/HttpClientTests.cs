@@ -9,7 +9,7 @@ namespace Mockolate.Tests.Web;
 
 public class HttpClientTests
 {
-	[Fact]
+	[Test]
 	public async Task HttpClientMock_WithHandler_ShouldUseSharedRegistry()
 	{
 		HttpMessageHandler handler = HttpMessageHandler.CreateMock();
@@ -26,7 +26,7 @@ public class HttpClientTests
 		await That(client2.Mock.VerifySetup(setup)).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithDifferentBehavior_ShouldThrow()
 	{
 		MockBehavior behavior1 = MockBehavior.Default.SkippingBaseClass();
@@ -42,7 +42,7 @@ public class HttpClientTests
 			"Mock of type 'System.Net.Http.HttpClient' cannot be created with behavior 'ThrowingWhenNotSetup' because it shares its mock registry with a mock of type 'System.Net.Http.HttpMessageHandler' that has behavior 'SkippingBaseClass'.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithoutBehavior_ShouldSucceed()
 	{
 		MockBehavior behavior1 = MockBehavior.Default.SkippingBaseClass();
@@ -56,7 +56,7 @@ public class HttpClientTests
 		await That(Act).DoesNotThrow();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithSameBehavior_ShouldSucceed()
 	{
 		MockBehavior behavior1 = MockBehavior.Default.SkippingBaseClass();

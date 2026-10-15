@@ -9,7 +9,7 @@ public sealed partial class HttpClientExtensionsTests
 {
 	public sealed class ToStringTests
 	{
-		[Fact]
+		[Test]
 		public async Task GetAsync_StringUri_ShouldIncludeMethodAndUriInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
@@ -23,7 +23,7 @@ public sealed partial class HttpClientExtensionsTests
 				.WithMessage("*GET-Request with Uri matching It.Matches(\"*testably.org*\")*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetAsync_UriParameter_ShouldIncludeMethodAndUriInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
@@ -37,7 +37,7 @@ public sealed partial class HttpClientExtensionsTests
 				.WithMessage("*GET-Request with https Uri*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task PostAsync_ShouldIncludeMethodInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
@@ -53,7 +53,7 @@ public sealed partial class HttpClientExtensionsTests
 				.WithMessage("*POST-Request with Uri matching It.IsAny<string>() and Http content with media type \"application/json\"*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task PostAsync_ShouldIncludeStringInformationInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
@@ -69,7 +69,7 @@ public sealed partial class HttpClientExtensionsTests
 				.WithMessage("*POST-Request with any Uri and string content equal to \"foo\"*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SendAsync_ShouldIncludeRequestMessageInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();

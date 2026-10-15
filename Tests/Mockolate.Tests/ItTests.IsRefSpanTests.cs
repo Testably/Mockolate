@@ -8,7 +8,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsRefSpanTests
 	{
-		[Fact]
+		[Test]
 		public async Task ToString_WithPredicateAndSetter_ShouldReturnExpectedValue()
 		{
 			IRefParameter<SpanWrapper<int>> sut = It.IsRefSpan<int>(
@@ -22,7 +22,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithPredicateOnly_ShouldReturnExpectedValue()
 		{
 			IRefParameter<SpanWrapper<int>> sut =
@@ -34,7 +34,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithSetterOnly_ShouldReturnExpectedValue()
 		{
 			IRefParameter<SpanWrapper<int>> sut = It.IsRefSpan<int>(value => value);

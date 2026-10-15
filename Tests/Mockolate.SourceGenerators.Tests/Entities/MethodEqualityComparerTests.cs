@@ -9,7 +9,7 @@ namespace Mockolate.SourceGenerators.Tests.Entities;
 
 public class MethodEqualityComparerTests
 {
-	[Fact]
+	[Test]
 	public async Task WhenBothMethodsAreNull_ShouldReturnTrue()
 	{
 		IEqualityComparer<Method> comparer = Method.ContainingTypeIndependentEqualityComparer;
@@ -19,7 +19,7 @@ public class MethodEqualityComparerTests
 		await That(result).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenLeftMethodIsNull_ShouldReturnFalse()
 	{
 		IEqualityComparer<Method> comparer = Method.ContainingTypeIndependentEqualityComparer;
@@ -30,7 +30,7 @@ public class MethodEqualityComparerTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenMethodsHaveDifferentNames_ShouldReturnFalse()
 	{
 		IEqualityComparer<Method> comparer = Method.ContainingTypeIndependentEqualityComparer;
@@ -42,7 +42,7 @@ public class MethodEqualityComparerTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenMethodsHaveDifferentParameterCount_ShouldReturnFalse()
 	{
 		IEqualityComparer<Method> comparer = Method.ContainingTypeIndependentEqualityComparer;
@@ -54,7 +54,7 @@ public class MethodEqualityComparerTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenRightMethodIsNull_ShouldReturnFalse()
 	{
 		IEqualityComparer<Method> comparer = Method.ContainingTypeIndependentEqualityComparer;

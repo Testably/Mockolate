@@ -6,15 +6,15 @@ public sealed partial class ItTests
 {
 	public sealed class IsOneOfTests
 	{
-		[Theory]
-		[InlineData(1, false)]
-		[InlineData(4, false)]
-		[InlineData(5, true)]
-		[InlineData(6, true)]
-		[InlineData(7, true)]
-		[InlineData(8, false)]
-		[InlineData(-5, false)]
-		[InlineData(42, false)]
+		[Test]
+		[Arguments(1, false)]
+		[Arguments(4, false)]
+		[Arguments(5, true)]
+		[Arguments(6, true)]
+		[Arguments(7, true)]
+		[Arguments(8, false)]
+		[Arguments(-5, false)]
+		[Arguments(42, false)]
 		public async Task ShouldMatchWhenEqualToAny(int value, bool expectMatch)
 		{
 			IParameter<int> sut = It.IsOneOf(5, 6, 7);
@@ -24,7 +24,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldSupportCovarianceInSetup()
 		{
 			IMyService sut = IMyService.CreateMock();
@@ -41,7 +41,7 @@ public sealed partial class ItTests
 			await That(result2).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldSupportCovarianceInVerify()
 		{
 			IMyService sut = IMyService.CreateMock();
@@ -61,7 +61,7 @@ public sealed partial class ItTests
 			await That(sut.Mock.Verify.DoSomething(It.IsOneOf(other1, other2))).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_Using_ShouldReturnExpectedValue()
 		{
 			IParameter<int> sut = It.IsOneOf(3, 5).Using(new AllEqualComparer());
@@ -72,7 +72,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithNullableIntValues_ShouldReturnExpectedValue()
 		{
 			IParameter<int?> sut = It.IsOneOf<int?>(3, null, 5);
@@ -83,7 +83,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithStringValues_ShouldReturnExpectedValue()
 		{
 			IParameter<string> sut = It.IsOneOf("foo", "bar");
@@ -94,10 +94,10 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Theory]
-		[InlineData(1)]
-		[InlineData(5)]
-		[InlineData(-42)]
+		[Test]
+		[Arguments(1)]
+		[Arguments(5)]
+		[Arguments(-42)]
 		public async Task WithComparer_ShouldUseComparer(int value)
 		{
 			IParameter<int> sut = It.IsOneOf(4, 5, 6).Using(new AllEqualComparer());

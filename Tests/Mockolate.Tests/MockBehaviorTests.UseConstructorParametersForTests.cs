@@ -4,7 +4,7 @@ public sealed partial class MockBehaviorTests
 {
 	public sealed class UseConstructorParametersForTests
 	{
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_Predicate_IsEvaluatedOnEachCall()
 		{
 			int invocationCount = 0;
@@ -24,7 +24,7 @@ public sealed partial class MockBehaviorTests
 			await That(second).IsEqualTo(expectedSecond);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_WhenNoneRegistered_ShouldReturnFalse()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default;
@@ -35,7 +35,7 @@ public sealed partial class MockBehaviorTests
 			await That(parameters).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_WhenRegisteredForBaseType_ShouldNotMatchDerivedType()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
@@ -47,7 +47,7 @@ public sealed partial class MockBehaviorTests
 			await That(parameters).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_WhenRegisteredForDerivedType_ShouldNotMatchBaseType()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
@@ -59,7 +59,7 @@ public sealed partial class MockBehaviorTests
 			await That(parameters).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_WhenRegisteredForDifferentType_ShouldReturnFalse()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
@@ -71,7 +71,7 @@ public sealed partial class MockBehaviorTests
 			await That(parameters).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_WithMultipleRegistrationsForSameType_Predicate_ShouldReturnLatest()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
@@ -85,7 +85,7 @@ public sealed partial class MockBehaviorTests
 			await That(parameters).IsEqualTo(expected);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_WithMultipleRegistrationsForSameType_ShouldReturnLatest()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
@@ -99,7 +99,7 @@ public sealed partial class MockBehaviorTests
 			await That(parameters).IsEqualTo(expected);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_WithMultipleRegistrationsForSameType_UsedByMock_ShouldUseLatest()
 		{
 			MockBehavior behavior = MockBehavior.Default
@@ -111,7 +111,7 @@ public sealed partial class MockBehaviorTests
 			await That(mock.Value).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetConstructorParameters_WithRegistrationsForDifferentTypes_ShouldReturnEachCorrectly()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
@@ -129,7 +129,7 @@ public sealed partial class MockBehaviorTests
 			await That(otherParameters).IsEqualTo(expectedForOther);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitConstructorParameters_ShouldIgnoreConstructorParametersFromBehavior()
 		{
 			MockBehavior behavior = MockBehavior.Default
@@ -142,7 +142,7 @@ public sealed partial class MockBehaviorTests
 			await That(value).IsEqualTo(7);
 		}
 
-		[Fact]
+		[Test]
 		public async Task
 			WithExplicitParameters_ShouldUseConstructorParametersFromBehavior()
 		{
@@ -161,7 +161,7 @@ public sealed partial class MockBehaviorTests
 			await That(valueWithCustomBehavior).IsEqualTo(5);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithPredicate_ShouldUseConstructorParametersFromBehavior()
 		{
 			MockBehavior behavior = MockBehavior.Default

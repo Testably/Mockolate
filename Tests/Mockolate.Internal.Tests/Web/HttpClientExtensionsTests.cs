@@ -8,7 +8,7 @@ namespace Mockolate.Internal.Tests.Web;
 
 public class HttpClientExtensionsTests
 {
-	[Fact]
+	[Test]
 	public async Task WhenParameterImplementsIHttpRequestMessagePropertyParameter_ShouldUseThisMatch()
 	{
 		ItExtensions.IHttpContentParameter parameter = ItExtensions.IHttpContentParameter.CreateMock()
@@ -31,7 +31,7 @@ public class HttpClientExtensionsTests
 			.Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithoutMediaTypeHeader_WhenNoneIsRequired_ShouldReturnTrue()
 	{
 		ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
@@ -42,7 +42,7 @@ public class HttpClientExtensionsTests
 		await That(result).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithoutMediaTypeHeader_WhenOneIsRequired_ShouldReturnFalse()
 	{
 		ItExtensions.IHttpContentParameter sut = It.IsHttpContent("*");

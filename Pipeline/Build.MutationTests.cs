@@ -42,7 +42,7 @@ partial class Build
 
 			DotNetToolInstall(_ => _
 				.SetPackageName("dotnet-stryker")
-				.SetVersion("4.10.0")
+				.SetVersion("4.14.1")
 				.SetToolInstallationPath(toolPath));
 
 			Dictionary<Project, Project[]> projects = new()
@@ -79,7 +79,7 @@ partial class Build
 				                      			{{string.Join(",\n\t\t\t", project.Value.Select(PathForJson))}}
 				                      		],
 				                      		"project": {{PathForJson(project.Key)}},
-				                      		"target-framework": "net8.0",
+				                      		"target-framework": "net10.0",
 				                      		"since": {
 				                      			"target": "main",
 				                      			"enabled": {{(BranchName != "main").ToString().ToLowerInvariant()}},
@@ -95,7 +95,7 @@ partial class Build
 				Log.Debug($"Created '{configFile}':{Environment.NewLine}{configText}");
 
 				string arguments =
-					$"-f \"{configFile}\" -O \"{strykerOutputDirectory}\" -r \"Markdown\" -r \"cleartext\" -r \"json\"";
+					$"-f \"{configFile}\" -O \"{strykerOutputDirectory}\" -r \"Markdown\" -r \"cleartext\" -r \"json\" --test-runner mtp";
 
 				string executable = EnvironmentInfo.IsWin ? "dotnet-stryker.exe" : "dotnet-stryker";
 				IProcess process = ProcessTasks.StartProcess(

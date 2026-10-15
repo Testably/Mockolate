@@ -4,9 +4,9 @@ public sealed partial class SetupMethodTests
 {
 	public sealed class SkippingBaseClassTests
 	{
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyReturnMethodWith1Parameter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -18,9 +18,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyReturnMethodWith1ParameterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyReturnMethodWith2Parameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -32,9 +32,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyReturnMethodWith2ParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyReturnMethodWith3Parameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -47,9 +47,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyReturnMethodWith3ParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyReturnMethodWith4Parameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -62,9 +62,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyReturnMethodWith4ParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyReturnMethodWith5Parameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -77,9 +77,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyReturnMethodWith5ParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyReturnMethodWithoutParameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -91,9 +91,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyReturnMethodWithoutParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyVoidMethodWith1Parameter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -105,9 +105,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyVoidMethodWith1ParameterCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyVoidMethodWith2Parameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -119,9 +119,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyVoidMethodWith2ParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyVoidMethodWith3Parameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -134,9 +134,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyVoidMethodWith3ParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyVoidMethodWith4Parameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -149,9 +149,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyVoidMethodWith4ParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyVoidMethodWith5Parameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -164,9 +164,9 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyVoidMethodWith5ParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Theory]
-		[InlineData(false, 1)]
-		[InlineData(true, 0)]
+		[Test]
+		[Arguments(false, 1)]
+		[Arguments(true, 0)]
 		public async Task MyVoidMethodWithoutParameters_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
 			int expectedCallCount)
 		{
@@ -178,7 +178,7 @@ public sealed partial class SetupMethodTests
 			await That(sut.MyVoidMethodWithoutParametersCallCount).IsEqualTo(expectedCallCount);
 		}
 
-		[Fact]
+		[Test]
 		public async Task SetupSkippingBaseClassWithoutParameter_ShouldReturnDefaultValue()
 		{
 			MyMethodService sut = MyMethodService.CreateMock();

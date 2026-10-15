@@ -4,7 +4,7 @@ namespace Mockolate.Tests;
 
 public sealed partial class MockBehaviorTests
 {
-	[Fact]
+	[Test]
 	public async Task Default_ShouldInitializeCorrectly()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -15,7 +15,7 @@ public sealed partial class MockBehaviorTests
 		await That(behavior.DefaultValue).IsNotNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldSupportCustomDefaultValueGenerator()
 	{
 		MockBehavior sut = new(new MyDefaultValueGenerator());
@@ -26,7 +26,7 @@ public sealed partial class MockBehaviorTests
 		await That(sut.DefaultValue.Generate(0)).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldSupportWithSyntax()
 	{
 		MockBehavior sut = MockBehavior.Default with
@@ -42,7 +42,7 @@ public sealed partial class MockBehaviorTests
 		await That(sut.DefaultValue.Generate(0)).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_Default_ShouldReturnDefault()
 	{
 		MockBehavior sut = MockBehavior.Default;
@@ -52,7 +52,7 @@ public sealed partial class MockBehaviorTests
 		await That(result).IsEqualTo("Default");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_SkippingBaseClass_ShouldReturnExpectedValue()
 	{
 		MockBehavior sut = MockBehavior.Default.SkippingBaseClass();
@@ -62,7 +62,7 @@ public sealed partial class MockBehaviorTests
 		await That(result).IsEqualTo("SkippingBaseClass");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_SkippingBaseClassAndThrowingWhenNotSetup_ShouldReturnExpectedValue()
 	{
 		MockBehavior sut = MockBehavior.Default with
@@ -76,7 +76,7 @@ public sealed partial class MockBehaviorTests
 		await That(result).IsEqualTo("ThrowingWhenNotSetup and SkippingBaseClass");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_ThrowingWhenNotSetup_ShouldReturnExpectedValue()
 	{
 		MockBehavior sut = MockBehavior.Default.ThrowingWhenNotSetup();
@@ -86,7 +86,7 @@ public sealed partial class MockBehaviorTests
 		await That(result).IsEqualTo("ThrowingWhenNotSetup");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_WithSetups_ShouldReturnExpectedValue()
 	{
 		MockBehavior sut = MockBehavior.Default.SkippingBaseClass()
@@ -99,7 +99,7 @@ public sealed partial class MockBehaviorTests
 		await That(result).IsEqualTo("SkippingBaseClass with 2 constructor parameter registrations with 1 setup registrations");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_WithUseConstructorParametersFor_ShouldReturnExpectedValue()
 	{
 		MockBehavior sut = MockBehavior.Default
@@ -111,7 +111,7 @@ public sealed partial class MockBehaviorTests
 		await That(result).IsEqualTo("Default with 2 constructor parameter registrations");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithMultipleFlags_ShouldKeepAllPartsInOutput()
 	{
 		MockBehavior behavior = MockBehavior.Default

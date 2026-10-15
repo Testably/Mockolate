@@ -2,7 +2,7 @@ namespace Mockolate.Tests;
 
 public sealed class MockBehaviorExtensionsTests
 {
-	[Fact]
+	[Test]
 	public async Task SkippingBaseClass_ShouldSetSkipBaseClass()
 	{
 		MockBehavior sut = MockBehavior.Default;
@@ -12,7 +12,7 @@ public sealed class MockBehaviorExtensionsTests
 		await That(result.SkipBaseClass).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task SkippingBaseClass_WithFalse_ShouldUpdateSkipBaseClass()
 	{
 		bool initializedValue = true;
@@ -23,7 +23,7 @@ public sealed class MockBehaviorExtensionsTests
 		await That(result.SkipBaseClass).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThrowingWhenNotSetup_ShouldSetThrowWhenNotSetup()
 	{
 		MockBehavior sut = MockBehavior.Default;
@@ -33,7 +33,7 @@ public sealed class MockBehaviorExtensionsTests
 		await That(result.ThrowWhenNotSetup).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThrowingWhenNotSetup_WithFalse_ShouldUpdateThrowWhenNotSetup()
 	{
 		bool initializedValue = true;

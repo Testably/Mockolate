@@ -9,7 +9,7 @@ namespace Mockolate.Internal.Tests.Interactions;
 
 public class FastMockInteractionsTests
 {
-	[Fact]
+	[Test]
 	public async Task Append_ShouldRaiseInteractionAdded()
 	{
 		FastMockInteractions sut = new(1);
@@ -31,7 +31,7 @@ public class FastMockInteractionsTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task Buffers_ShouldExposeInstalledBuffersByMemberId()
 	{
 		FastMockInteractions sut = new(3);
@@ -46,7 +46,7 @@ public class FastMockInteractionsTests
 		await That(sut.Buffers[2]).IsSameAs(subscribe);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Clear_FallbackPath_ShouldClearStrongReferencesInRecordsArray()
 	{
 		// Pins the `Array.Clear(_records, 0, _count);` call inside FallbackBuffer.Clear. With
@@ -79,7 +79,7 @@ public class FastMockInteractionsTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task Clear_FallbackPath_ShouldNotResurfaceOldRecordsAfterRefill()
 	{
 		IMockInteractions sut = new FastMockInteractions(0);
@@ -106,7 +106,7 @@ public class FastMockInteractionsTests
 		await That(ordered[1]).IsSameAs(fourth);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Clear_ShouldFireOnClearing()
 	{
 		FastMockInteractions sut = new(1);
@@ -126,7 +126,7 @@ public class FastMockInteractionsTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task Clear_ShouldResetAllBuffersAndCount()
 	{
 		FastMockInteractions sut = new(2);
@@ -144,7 +144,7 @@ public class FastMockInteractionsTests
 		await That(sut.ToList()).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Clear_ShouldResetPerBufferVerifiedTracking()
 	{
 		FastMockInteractions sut = new(2);
@@ -164,7 +164,7 @@ public class FastMockInteractionsTests
 		await That(sut.GetUnverifiedInteractions()).HasCount(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Clear_ShouldResetVerifiedBookkeeping()
 	{
 		FastMockInteractions sut = new(1);
@@ -181,7 +181,7 @@ public class FastMockInteractionsTests
 		await That(unverified).HasCount(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Clear_WithSharedSingletonInVerifiedSet_ShouldResurfaceItAsUnverifiedAfterReAppend()
 	{
 		// Pins the `_verified = null;` reset inside Clear. FastPropertyGetterBuffer reuses a
@@ -203,7 +203,7 @@ public class FastMockInteractionsTests
 		await That(unverified).HasCount(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Count_ShouldReflectAppendsAcrossBuffers()
 	{
 		FastMockInteractions sut = new(2);
@@ -219,7 +219,7 @@ public class FastMockInteractionsTests
 		await That(getterBuffer.Count).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetEnumerator_ShouldReturnInteractionsInRegistrationOrder()
 	{
 		FastMockInteractions sut = new(2);
@@ -245,8 +245,8 @@ public class FastMockInteractionsTests
 		await That(((PropertySetterAccess<string>)ordered[3]).Value).IsEqualTo("y");
 	}
 
-	[Fact]
-	public async Task GetOrCreateFallbackBuffer_BarrierSynchronizedRace_AllCallersResolveToTheSameInstalledBuffer()
+	[Test]
+	public async Task GetOrCreateFallbackBuffer_BarrierSynchronizedRace_AllCallersResolveToTheSameInstalledBuffer(CancellationToken cancellationToken)
 	{
 		// Pins the `existing ?? created` null-coalesce in GetOrCreateFallbackBuffer. With the
 		// left side removed (`existing ?? created` → `created`), CompareExchange losers return
@@ -286,12 +286,6 @@ public class FastMockInteractionsTests
 			}, TaskCreationOptions.LongRunning);
 		}
 
-#if NET48
-		CancellationToken cancellationToken = TestContext.Current.CancellationToken;
-#else
-		CancellationToken cancellationToken = CancellationToken.None;
-#endif
-
 		for (int round = 0; round < rounds; round++)
 		{
 			fallbackField.SetValue(sut, null);
@@ -309,7 +303,7 @@ public class FastMockInteractionsTests
 		await Task.WhenAll(tasks);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetOrCreateFallbackBuffer_ConcurrentRace_RecordsAllInteractions()
 	{
 		const int threads = 8;
@@ -340,7 +334,7 @@ public class FastMockInteractionsTests
 		await That(sut.ToList()).HasCount(threads * callsPerThread);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnverifiedInteractions_AcrossBuffersWithInterleavedAppends_ReturnsInSequenceOrder()
 	{
 		// Pins the `unverified.Count > 1` boundary that gates the defensive Sort by Seq inside
@@ -366,7 +360,7 @@ public class FastMockInteractionsTests
 		await That(((MethodInvocation<int>)unverified[3]).Parameter1).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnverifiedInteractions_AcrossMultipleBuffers_ShouldUnionFastAndSlowVerifications()
 	{
 		FastMockInteractions sut = new(2);
@@ -382,7 +376,7 @@ public class FastMockInteractionsTests
 		await That(sut.GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnverifiedInteractions_AfterMatcherLessConsumeMatching_ShouldDropMarkedSlots()
 	{
 		FastMockInteractions sut = new(1);
@@ -401,7 +395,7 @@ public class FastMockInteractionsTests
 		await That(((MethodInvocation)unverified.Single()).Name).IsEqualTo("third");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnverifiedInteractions_AfterTypedConsumeMatching_ShouldDropOnlyMatchedSlots()
 	{
 		FastMockInteractions sut = new(1);
@@ -420,7 +414,7 @@ public class FastMockInteractionsTests
 		await That(sut.GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnverifiedInteractions_FastPathPlusSlowPath_ShouldFilterByBoth()
 	{
 		FastMockInteractions sut = new(1);
@@ -439,7 +433,7 @@ public class FastMockInteractionsTests
 		await That(((MethodInvocation<int>)unverified.Single()).Parameter1).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnverifiedInteractions_ShouldRespectVerifiedSet()
 	{
 		FastMockInteractions sut = new(1);
@@ -457,7 +451,7 @@ public class FastMockInteractionsTests
 		await That(unverified.Contains(all[1])).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnverifiedInteractions_WhenNothingRecorded_ShouldReturnArrayEmptySingleton()
 	{
 		FastMockInteractions sut = new(1);
@@ -470,7 +464,7 @@ public class FastMockInteractionsTests
 				"the empty path must take the `return Array.Empty<IInteraction>();` early-return rather than fall through and allocate a fresh zero-length array");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnverifiedInteractions_WhenNothingVerified_ShouldReturnEverything()
 	{
 		FastMockInteractions sut = new(1);
@@ -482,7 +476,7 @@ public class FastMockInteractionsTests
 		await That(unverified).HasCount(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task NextSequence_ShouldReturnZeroBasedMonotonicValues()
 	{
 		FastMockInteractions sut = new(0);
@@ -496,7 +490,7 @@ public class FastMockInteractionsTests
 		await That(third).IsEqualTo(2L);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RegisterInteraction_FallbackPath_GetUnverifiedInteractions_ShouldRespectVerifiedSet()
 	{
 		IMockInteractions sut = new FastMockInteractions(0);
@@ -514,7 +508,7 @@ public class FastMockInteractionsTests
 		await That(unverified.Contains(second)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task RegisterInteraction_FallbackPath_OnClearing_ShouldFireWhenClearIsInvoked()
 	{
 		int invocations = 0;
@@ -535,7 +529,7 @@ public class FastMockInteractionsTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task RegisterInteraction_FallbackPath_ShouldEnumerateMultipleInRegistrationOrder()
 	{
 		IMockInteractions sut = new FastMockInteractions(0);
@@ -553,7 +547,7 @@ public class FastMockInteractionsTests
 		await That(enumerated[1]).IsSameAs(second);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RegisterInteraction_FallbackPath_ShouldFireInteractionAddedPerCall()
 	{
 		int invocations = 0;
@@ -573,7 +567,7 @@ public class FastMockInteractionsTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task RegisterInteraction_FallbackPath_ShouldRecordAndEnumerate()
 	{
 		IMockInteractions sut = new FastMockInteractions(0);
@@ -586,7 +580,7 @@ public class FastMockInteractionsTests
 		await That(sut.ToList()[0]).IsSameAs(interaction);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RegisterInteraction_WhenSkipInteractionRecording_ShouldNotRecord()
 	{
 		IMockInteractions sut = new FastMockInteractions(0, true);
@@ -596,7 +590,7 @@ public class FastMockInteractionsTests
 		await That(sut.Count).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SkipInteractionRecording_ShouldReflectConstructionValue()
 	{
 		FastMockInteractions skipping = new(0, true);
@@ -606,7 +600,7 @@ public class FastMockInteractionsTests
 		await That(recording.SkipInteractionRecording).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Verified_BeforeAnyAppend_OnSecondCallAddsToExistingSet()
 	{
 		FastMockInteractions sut = new(1);
@@ -621,7 +615,7 @@ public class FastMockInteractionsTests
 		await That(sut.GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Verified_OnSecondCallWithDifferentItems_PreservesPreviouslyVerifiedItems()
 	{
 		// Pins the `_verified ??= []` lazy-init in Verified(). With the assignment turned into a
@@ -639,7 +633,7 @@ public class FastMockInteractionsTests
 		await That(sut.GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Verified_WithMultipleInteractions_AddsAllToInternalSet()
 	{
 		FastMockInteractions sut = new(1);
@@ -665,7 +659,7 @@ public class FastMockInteractionsTests
 
 	public sealed class MethodBufferTests
 	{
-		[Fact]
+		[Test]
 		public async Task Method0_BoxesAsMethodInvocation()
 		{
 			FastMockInteractions store = new(1);
@@ -677,7 +671,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Name).IsEqualTo("Foo");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method1_BoxesAsMethodInvocationT1()
 		{
 			FastMockInteractions store = new(1);
@@ -690,7 +684,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Parameter1).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method2_BoxesAsMethodInvocationT1T2()
 		{
 			FastMockInteractions store = new(1);
@@ -704,7 +698,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Parameter2).IsEqualTo("bar");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method3_BoxesAsMethodInvocationT1T2T3()
 		{
 			FastMockInteractions store = new(1);
@@ -719,7 +713,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Parameter3).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method4_BoxesAsMethodInvocationT1T2T3T4()
 		{
 			FastMockInteractions store = new(1);
@@ -734,7 +728,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Parameter4).IsEqualTo(3.14);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ResizesAndPreservesOrder()
 		{
 			FastMockInteractions store = new(1);
@@ -756,7 +750,7 @@ public class FastMockInteractionsTests
 
 	public sealed class PropertyBufferTests
 	{
-		[Fact]
+		[Test]
 		public async Task Getter_BoxesAsPropertyGetterAccess()
 		{
 			FastMockInteractions store = new(1);
@@ -769,7 +763,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Name).IsEqualTo("Foo");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Setter_BoxesAsPropertySetterAccessT()
 		{
 			FastMockInteractions store = new(1);
@@ -786,7 +780,7 @@ public class FastMockInteractionsTests
 
 	public sealed class IndexerBufferTests
 	{
-		[Fact]
+		[Test]
 		public async Task Getter1_BoxesAsIndexerGetterAccess()
 		{
 			FastMockInteractions store = new(1);
@@ -799,7 +793,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Parameter1).IsEqualTo("k");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Getter2_BoxesAsIndexerGetterAccess()
 		{
 			FastMockInteractions store = new(1);
@@ -813,7 +807,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Parameter2).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Setter1_BoxesAsIndexerSetterAccess()
 		{
 			FastMockInteractions store = new(1);
@@ -827,7 +821,7 @@ public class FastMockInteractionsTests
 			await That(boxed.TypedValue).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Setter2_BoxesAsIndexerSetterAccess()
 		{
 			FastMockInteractions store = new(1);
@@ -844,7 +838,7 @@ public class FastMockInteractionsTests
 
 	public sealed class EventBufferTests
 	{
-		[Fact]
+		[Test]
 		public async Task Subscribe_BoxesAsEventSubscription()
 		{
 			FastMockInteractions store = new(1);
@@ -860,7 +854,7 @@ public class FastMockInteractionsTests
 			await That(boxed.Method).IsSameAs(method);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Unsubscribe_BoxesAsEventUnsubscription()
 		{
 			FastMockInteractions store = new(1);
@@ -877,7 +871,7 @@ public class FastMockInteractionsTests
 
 	public sealed class ConcurrencyTests
 	{
-		[Fact]
+		[Test]
 		public async Task ConcurrentAppendsAcrossMembers_ShouldPreserveTotalCount()
 		{
 			const int threads = 8;

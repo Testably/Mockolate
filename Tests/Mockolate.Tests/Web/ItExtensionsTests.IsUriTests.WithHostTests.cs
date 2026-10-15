@@ -11,11 +11,11 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class WithHostTests
 		{
-			[Theory]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=234", "www.testably.org", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=234", "*testably*", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=234", "*Testably*", true)]
-			[InlineData("http://www.testably.org/foo/bar?x=123&y=234", "mockolate.com", false)]
+			[Test]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=234", "www.testably.org", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=234", "*testably*", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=234", "*Testably*", true)]
+			[Arguments("http://www.testably.org/foo/bar?x=123&y=234", "mockolate.com", false)]
 			public async Task ShouldVerifyHost(string uri, string hostPattern, bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

@@ -5,7 +5,7 @@ namespace Mockolate.Tests.RefStruct;
 
 public sealed class RefStructStorageHelperTests
 {
-	[Fact]
+	[Test]
 	public async Task TryResolveKey_WithNullProjectionAndNullRawKey_ShouldReturnFalse()
 	{
 		bool result = RefStructStorageHelper.TryResolveKey<int>(null, 7, null, out object key);
@@ -14,7 +14,7 @@ public sealed class RefStructStorageHelperTests
 		await That(key).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task TryResolveKey_WithNullProjectionAndRawKey_ShouldReturnRawKey()
 	{
 		object boxed = 42;

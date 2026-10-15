@@ -6,7 +6,7 @@ public sealed partial class MockBehaviorTests
 {
 	public sealed class InitializeTests
 	{
-		[Fact]
+		[Test]
 		public async Task Initialize_DirectSetupsTakePrecedence()
 		{
 			MockBehavior behavior = MockBehavior.Default.Initialize<IChocolateDispenser>(setup
@@ -26,7 +26,7 @@ public sealed partial class MockBehaviorTests
 			await That(noneMatchResult).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Initialize_OtherType_ShouldIgnoreInitializations()
 		{
 			MockBehavior behavior =
@@ -41,7 +41,7 @@ public sealed partial class MockBehaviorTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Initialize_ShouldApplySetupToCreatedMock()
 		{
 			MockBehavior behavior =

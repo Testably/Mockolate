@@ -16,30 +16,33 @@
 		<NoWarn>701;1702;CA1845</NoWarn>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
-		<OutputType>exe</OutputType>
+	<!--
+	    The tests run on TUnit as executables of the Microsoft.Testing.Platform. TUnit discovers them through
+	    reflection instead of its source generator, which keeps the compilation of the large test projects fast.
+	-->
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<EnableTUnitSourceGeneration>false</EnableTUnitSourceGeneration>
+		<TUnitImplicitUsings>false</TUnitImplicitUsings>
+		<!-- The polyfills of TUnit clash with the internal polyfills of Mockolate, which the tests can see. -->
+		<EnableTUnitPolyfills>false</EnableTUnitPolyfills>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-		<PackageReference Include="xunit.v3"/>
-	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' != 'net48'">
-		<PackageReference Include="xunit"/>
-	</ItemGroup>
-
 	<ItemGroup>
-		<PackageReference Include="xunit.runner.visualstudio">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.NET.Test.Sdk"/>
-		<PackageReference Include="coverlet.collector">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
+		<PackageReference Include="TUnit.Engine"/>
+		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport"/>
+		<PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
 		<PackageReference Include="aweXpect"/>
 		<PackageReference Include="aweXpect.Chronology"/>
 		<PackageReference Include="aweXpect.Mockolate"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+		<Reference Include="System.Net.Http"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="TUnit.Core"/>
 	</ItemGroup>
 
 </Project>

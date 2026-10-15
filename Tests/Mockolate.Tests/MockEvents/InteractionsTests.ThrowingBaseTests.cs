@@ -4,7 +4,7 @@ public sealed partial class InteractionsTests
 {
 	public sealed class ThrowingBaseTests
 	{
-		[Fact]
+		[Test]
 		public async Task BaseClass_InvokesEvent_AfterUnsubscribe_ShouldNotForwardToSubscribers()
 		{
 			BroadcastingService sut = BroadcastingService.CreateMock();
@@ -22,7 +22,7 @@ public sealed partial class InteractionsTests
 			await That(received).IsEqualTo(-1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task BaseClass_InvokesEvent_ShouldForwardToSubscribers()
 		{
 			BroadcastingService sut = BroadcastingService.CreateMock();
@@ -34,7 +34,7 @@ public sealed partial class InteractionsTests
 			await That(received).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task BaseClass_InvokesEvent_WhenSkipBaseClass_ShouldNotForwardToSubscribers()
 		{
 			BroadcastingService sut = BroadcastingService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -46,7 +46,7 @@ public sealed partial class InteractionsTests
 			await That(received).IsEqualTo(-1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task
 			EventSubscribe_WhenBaseClassThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordSubscription()
 		{
@@ -66,7 +66,7 @@ public sealed partial class InteractionsTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task EventSubscribe_WhenBaseClassThrows_ShouldStillRecordSubscription()
 		{
 			ThrowingBaseEventService sut = ThrowingBaseEventService.CreateMock();
@@ -84,7 +84,7 @@ public sealed partial class InteractionsTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task
 			EventUnsubscribe_WhenBaseClassThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordUnsubscription()
 		{
@@ -104,7 +104,7 @@ public sealed partial class InteractionsTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task EventUnsubscribe_WhenBaseClassThrows_ShouldStillRecordUnsubscription()
 		{
 			ThrowingBaseEventService sut = ThrowingBaseEventService.CreateMock();

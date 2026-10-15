@@ -7,15 +7,15 @@ public sealed partial class ItTests
 {
 	public sealed class IsNotOneOfTests
 	{
-		[Theory]
-		[InlineData(1, true)]
-		[InlineData(4, true)]
-		[InlineData(5, false)]
-		[InlineData(6, false)]
-		[InlineData(7, false)]
-		[InlineData(8, true)]
-		[InlineData(-5, true)]
-		[InlineData(42, true)]
+		[Test]
+		[Arguments(1, true)]
+		[Arguments(4, true)]
+		[Arguments(5, false)]
+		[Arguments(6, false)]
+		[Arguments(7, false)]
+		[Arguments(8, true)]
+		[Arguments(-5, true)]
+		[Arguments(42, true)]
 		public async Task ShouldMatchWhenNotEqualToAny(int value, bool expectMatch)
 		{
 			IParameter<int> sut = It.IsNotOneOf(5, 6, 7);
@@ -25,7 +25,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectMatch);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldSupportCovarianceInSetup()
 		{
 			IMyServiceIsNotOneOf sut = IMyServiceIsNotOneOf.CreateMock();
@@ -42,7 +42,7 @@ public sealed partial class ItTests
 			await That(result2).IsEqualTo(0);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldSupportCovarianceInVerify()
 		{
 			IMyServiceIsNotOneOf sut = IMyServiceIsNotOneOf.CreateMock();
@@ -58,7 +58,7 @@ public sealed partial class ItTests
 				.Because("'other' IS in [other]");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_Using_ShouldReturnExpectedValue()
 		{
 			IParameter<int> sut = It.IsNotOneOf(3, 5).Using(new AllEqualComparer());
@@ -69,7 +69,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithNullableIntValues_ShouldReturnExpectedValue()
 		{
 			IParameter<int?> sut = It.IsNotOneOf<int?>(3, null, 5);
@@ -80,7 +80,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_WithStringValues_ShouldReturnExpectedValue()
 		{
 			IParameter<string> sut = It.IsNotOneOf("foo", "bar");
@@ -91,7 +91,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task WhenTypeDoesNotMatch_ShouldReturnTrue()
 		{
 			MyFlavor flavor = MyFlavor.Dark;
@@ -102,10 +102,10 @@ public sealed partial class ItTests
 			await That(result).IsTrue();
 		}
 
-		[Theory]
-		[InlineData(1)]
-		[InlineData(5)]
-		[InlineData(-42)]
+		[Test]
+		[Arguments(1)]
+		[Arguments(5)]
+		[Arguments(-42)]
 		public async Task WithComparer_ShouldUseComparer(int value)
 		{
 			IParameter<int> sut = It.IsNotOneOf(4, 5, 6).Using(new AllEqualComparer());

@@ -4,7 +4,7 @@ public sealed partial class MockBehaviorTests
 {
 	public sealed class WithDefaultValueForTests
 	{
-		[Fact]
+		[Test]
 		public async Task MultipleTypedFactories_ShouldSupportAll()
 		{
 			MockBehavior behavior = MockBehavior.Default
@@ -20,7 +20,7 @@ public sealed partial class MockBehaviorTests
 				.Whose(x => x.OtherValue, it => it.IsEqualTo(7));
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitDefaultValueFactory_ShouldApplyThisFactory()
 		{
 			DefaultValueFactory defaultValueFactory = new(
@@ -38,7 +38,7 @@ public sealed partial class MockBehaviorTests
 				.Whose(x => x.OtherValue, it => it.IsEqualTo(7));
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithTypedFactory_ShouldRequireExactTypeMatch()
 		{
 			MockBehavior behavior1 = MockBehavior.Default
@@ -59,7 +59,7 @@ public sealed partial class MockBehaviorTests
 			await That(mockWithBehavior2.Value).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithTypedFactory_ShouldUseDefaultValueFactoryFromBehavior()
 		{
 			MockBehavior behavior = MockBehavior.Default

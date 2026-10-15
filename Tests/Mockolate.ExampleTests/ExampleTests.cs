@@ -20,7 +20,7 @@ namespace Mockolate.ExampleTests;
 
 public class ExampleTests
 {
-	[Fact]
+	[Test]
 	public async Task Any_ShouldAlwaysMatch()
 	{
 		Guid id = Guid.NewGuid();
@@ -42,7 +42,7 @@ public class ExampleTests
 	}
 
 #if NET8_0_OR_GREATER
-	[Fact]
+	[Test]
 	public async Task Azure_ShouldBeMockable()
 	{
 		Response response = Response.CreateMock();
@@ -64,7 +64,7 @@ public class ExampleTests
 	}
 #endif
 
-	[Fact]
+	[Test]
 	public async Task BaseClassWithConstructorParameters()
 	{
 		MyClass sut = MyClass.CreateMock(3);
@@ -79,10 +79,10 @@ public class ExampleTests
 	}
 
 #if NET8_0_OR_GREATER
-	[Theory]
-	[InlineData(HttpStatusCode.OK)]
-	[InlineData(HttpStatusCode.NotFound)]
-	[InlineData(HttpStatusCode.ServiceUnavailable)]
+	[Test]
+	[Arguments(HttpStatusCode.OK)]
+	[Arguments(HttpStatusCode.NotFound)]
+	[Arguments(HttpStatusCode.ServiceUnavailable)]
 	public async Task HttpClientTest(HttpStatusCode statusCode)
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
@@ -94,7 +94,7 @@ public class ExampleTests
 		await That(result.StatusCode).IsEqualTo(statusCode);
 	}
 
-	[Fact]
+	[Test]
 	public async Task IHttpClientFactory_SharedHandler_PreservesInvocationsAcrossDisposes()
 	{
 		HttpMessageHandler handler = HttpMessageHandler.CreateMock();
@@ -119,7 +119,7 @@ public class ExampleTests
 	}
 #endif
 
-	[Fact]
+	[Test]
 	public async Task MockIFileSystem_ShouldWork()
 	{
 		IFileSystem sut = IFileSystem.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -132,7 +132,7 @@ public class ExampleTests
 		await That(result).IsEqualTo('a');
 	}
 
-	[Fact]
+	[Test]
 	public async Task SimpleInterfaceMock()
 	{
 		Guid id = Guid.NewGuid();
@@ -144,7 +144,7 @@ public class ExampleTests
 		sut.Mock.Verify.AddUser(It.IsAny<string>()).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithAdditionalInterface_ShouldWork()
 	{
 		Guid id = Guid.NewGuid();
@@ -160,7 +160,7 @@ public class ExampleTests
 		await That(sut).Is<IOrderRepository>();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithAdditionalInterfaceInOtherOrder_ShouldWork()
 	{
 		Guid id = Guid.NewGuid();
@@ -172,7 +172,7 @@ public class ExampleTests
 		sut.Mock.As<IExampleRepository>().Verify.AddUser(It.IsAny<string>()).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithEvent_ShouldSupportRaisingEvent()
 	{
 		EventArgs eventArgs = EventArgs.Empty;
@@ -197,7 +197,7 @@ public class ExampleTests
 		}
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithExplicitCastToAdditionalInterfaceSetup_ShouldWork()
 	{
 		Guid id = Guid.NewGuid();
@@ -213,7 +213,7 @@ public class ExampleTests
 		await That(sut).Is<IOrderRepository>();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithExplicitCastToAdditionalInterfaceVerify_ShouldWork()
 	{
 		Guid id = Guid.NewGuid();
@@ -230,9 +230,9 @@ public class ExampleTests
 		await That(sut).Is<IOrderRepository>();
 	}
 
-	[Theory]
-	[InlineData("Alice", true)]
-	[InlineData("Bob", false)]
+	[Test]
+	[Arguments("Alice", true)]
+	[Arguments("Bob", false)]
 	public async Task WithMatching_ShouldAlwaysMatch(string name, bool expectResult)
 	{
 		Guid id = Guid.NewGuid();
@@ -248,9 +248,9 @@ public class ExampleTests
 		sut.Mock.Verify.AddUser(It.Is(name)).Once();
 	}
 
-	[Theory]
-	[InlineData(false)]
-	[InlineData(true)]
+	[Test]
+	[Arguments(false)]
+	[Arguments(true)]
 	public async Task WithOut_ShouldSupportOutParameter(bool returnValue)
 	{
 		Guid id = Guid.NewGuid();
@@ -268,7 +268,7 @@ public class ExampleTests
 		sut.Mock.Verify.TryDelete(It.Is(id), It.IsOut<User?>()).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Wrapping_HiddenMember_ShouldForwardToDeclaringInterface()
 	{
 		User alice = new(Guid.NewGuid(), "Alice");

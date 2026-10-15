@@ -8,7 +8,7 @@ public sealed class ScenarioTests
 {
 	public sealed class InScenarioTests
 	{
-		[Fact]
+		[Test]
 		public async Task InScenario_IndexerArity2_ShouldScopeTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -21,7 +21,7 @@ public sealed class ScenarioTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_IndexerArity3_ShouldScopeTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -34,7 +34,7 @@ public sealed class ScenarioTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_IndexerArity4_ShouldScopeTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -47,7 +47,7 @@ public sealed class ScenarioTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_IndexerGetter_ShouldScopeTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -63,7 +63,7 @@ public sealed class ScenarioTests
 			await That(resultScoped).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_LambdaOverload_ShouldRegisterAllSetupsInTheScope()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -82,7 +82,7 @@ public sealed class ScenarioTests
 			await That(r2).IsEqualTo(99);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_LambdaOverload_ShouldReturnMockToAllowFurtherChaining()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -100,7 +100,7 @@ public sealed class ScenarioTests
 			await That(rb).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_SetupsShouldNotLeakIntoDefaultScope()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -113,7 +113,7 @@ public sealed class ScenarioTests
 			await That(result).IsEqualTo(7);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_ShouldActivateWhenScenarioMatches()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -127,7 +127,7 @@ public sealed class ScenarioTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_ShouldFallBackToDefaultScopeWhenNoMatchingSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -143,7 +143,7 @@ public sealed class ScenarioTests
 
 	public sealed class TransitionToTests
 	{
-		[Fact]
+		[Test]
 		public async Task EventSubscription_ShouldNotFireOnUnsubscribe()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -158,7 +158,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("a");
 		}
 
-		[Fact]
+		[Test]
 		public async Task EventSubscription_ShouldSwitchScenarioWhenSubscribed()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -171,7 +171,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task EventUnsubscription_ShouldNotFireOnSubscribe()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -184,7 +184,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("a");
 		}
 
-		[Fact]
+		[Test]
 		public async Task EventUnsubscription_ShouldSwitchScenarioWhenUnsubscribed()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -197,7 +197,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetter_Arity1_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -210,7 +210,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetter_Arity2_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -223,7 +223,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetter_Arity3_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -237,7 +237,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetter_Arity4_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -251,7 +251,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetter_Arity5_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -265,7 +265,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetter_ShouldNotFireOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -278,7 +278,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("a");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetter_Arity1_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -291,7 +291,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetter_Arity2_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -304,7 +304,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetter_Arity3_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -318,7 +318,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetter_Arity4_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -332,7 +332,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetter_Arity5_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -346,7 +346,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetter_ShouldNotFireOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -359,7 +359,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("a");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_ReturnArity0_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -373,7 +373,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_ReturnArity1_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -387,7 +387,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_ReturnArity2_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -401,7 +401,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_ReturnArity3_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -417,7 +417,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_ReturnArity4_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -433,7 +433,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_ReturnArity5_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -449,7 +449,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_VoidArity0_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -462,7 +462,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_VoidArity1_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -475,7 +475,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_VoidArity2_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -488,7 +488,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_VoidArity3_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -503,7 +503,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_VoidArity4_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -518,7 +518,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Method_VoidArity5_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -533,7 +533,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Mock_TransitionTo_ShouldReturnMockForChaining()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -547,7 +547,7 @@ public sealed class ScenarioTests
 			await That(changedSut).IsSameAs(sut);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Mock_TransitionTo_ShouldSetActiveScenario()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -557,7 +557,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("scoped");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Property_Getter_ShouldNotFireOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -570,7 +570,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("a");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Property_Getter_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -583,7 +583,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Property_Setter_ShouldNotFireOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -596,7 +596,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("a");
 		}
 
-		[Fact]
+		[Test]
 		public async Task Property_Setter_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -612,7 +612,7 @@ public sealed class ScenarioTests
 
 	public sealed class TransitionToConditionalTests
 	{
-		[Fact]
+		[Test]
 		public async Task For_ShouldLimitTransitionsToGivenCount()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -628,7 +628,7 @@ public sealed class ScenarioTests
 			await That(afterSecond).IsEqualTo("reset");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGetter_Arity5_WithWhenAndFor_ShouldRespectBothConstraints()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -650,7 +650,7 @@ public sealed class ScenarioTests
 			await That(afterThird).IsEqualTo("reset");
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetter_Arity5_WithWhenAndFor_ShouldRespectBothConstraints()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -672,7 +672,7 @@ public sealed class ScenarioTests
 			await That(afterThird).IsEqualTo("reset");
 		}
 
-		[Fact]
+		[Test]
 		public async Task When_PredicateNeverTrue_ShouldNotTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -686,7 +686,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("a");
 		}
 
-		[Fact]
+		[Test]
 		public async Task When_ShouldDeferTransitionUntilPredicateMatches()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -702,7 +702,7 @@ public sealed class ScenarioTests
 			await That(afterSecond).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task WhenAndFor_ShouldRespectBothConstraints()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -724,7 +724,7 @@ public sealed class ScenarioTests
 
 	public sealed class ProtectedTests
 	{
-		[Fact]
+		[Test]
 		public async Task InScenario_LambdaOverload_ShouldSupportSetupProtected()
 		{
 			ProtectedMockTests.MyProtectedClass sut = ProtectedMockTests.MyProtectedClass.CreateMock();
@@ -740,7 +740,7 @@ public sealed class ScenarioTests
 			await That(result).IsEqualTo("scoped");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_SetupProtectedMethod_ShouldScopeTheSetup()
 		{
 			ProtectedMockTests.MyProtectedClass sut = ProtectedMockTests.MyProtectedClass.CreateMock();
@@ -756,7 +756,7 @@ public sealed class ScenarioTests
 			await That(scopedResult).IsEqualTo("scoped");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenario_SetupProtectedProperty_ShouldScopeTheSetup()
 		{
 			ProtectedMockTests.MyProtectedClass sut = ProtectedMockTests.MyProtectedClass.CreateMock();
@@ -770,7 +770,7 @@ public sealed class ScenarioTests
 			await That(result).IsEqualTo(99);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TransitionTo_FromProtectedMethod_ShouldSwitchScenario()
 		{
 			ProtectedMockTests.MyProtectedClass sut = ProtectedMockTests.MyProtectedClass.CreateMock();
@@ -787,7 +787,7 @@ public sealed class ScenarioTests
 
 	public sealed class SharedScenarioStateTests
 	{
-		[Fact]
+		[Test]
 		public async Task InScenarioSetup_ShouldApplyForDispatchDuringMonitorScope()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -808,7 +808,7 @@ public sealed class ScenarioTests
 			await That(scopedResult).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InScenarioSetup_ShouldApplyWhenDispatchingViaWrappedMock()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();
@@ -824,7 +824,7 @@ public sealed class ScenarioTests
 			await That(scopedResult).IsTrue();
 		}
 
-		[Fact]
+		[Test]
 		public async Task TransitionTo_OnOriginal_ShouldBeVisibleOnWrappedMock()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();
@@ -835,7 +835,7 @@ public sealed class ScenarioTests
 			await That(((IMock)wrapped).MockRegistry.Scenario).IsEqualTo("a");
 		}
 
-		[Fact]
+		[Test]
 		public async Task TransitionTo_OnWrappedMock_ShouldBeVisibleOnOriginal()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();
@@ -846,7 +846,7 @@ public sealed class ScenarioTests
 			await That(((IMock)original).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task TransitionToFromSetup_CreatedAfterWrapping_ShouldStillPropagateToWrappedMock()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();
@@ -861,7 +861,7 @@ public sealed class ScenarioTests
 			await That(((IMock)original).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task TransitionToFromSetup_ShouldFireWhenDispatchingDuringMonitorScope()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
@@ -877,7 +877,7 @@ public sealed class ScenarioTests
 			await That(((IMock)sut).MockRegistry.Scenario).IsEqualTo("b");
 		}
 
-		[Fact]
+		[Test]
 		public async Task TransitionToFromSetup_ShouldPropagateToWrappedMock()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();

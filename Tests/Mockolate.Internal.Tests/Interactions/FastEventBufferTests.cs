@@ -4,7 +4,7 @@ namespace Mockolate.Internal.Tests.Interactions;
 
 public class FastEventBufferTests
 {
-	[Fact]
+	[Test]
 	public async Task EventSubscribe_RoutesThroughTypedBuffer()
 	{
 		IFastEventService sut = IFastEventService.CreateMock();
@@ -19,7 +19,7 @@ public class FastEventBufferTests
 		await That(buffer!.Count).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task EventUnsubscribe_RoutesThroughTypedBuffer()
 	{
 		IFastEventService sut = IFastEventService.CreateMock();

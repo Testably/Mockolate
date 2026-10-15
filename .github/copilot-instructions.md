@@ -52,10 +52,10 @@ The project uses **Nuke Build** for automation. Build scripts are available for 
 dotnet build Mockolate.sln
 
 # Run all tests
-dotnet test Mockolate.sln
+dotnet test --solution Mockolate.slnx
 
 # Run specific test project
-dotnet test Tests/Mockolate.Tests/Mockolate.Tests.csproj
+dotnet test --project Tests/Mockolate.Tests/Mockolate.Tests.csproj
 ```
 
 ## Coding Standards
@@ -81,10 +81,10 @@ dotnet test Tests/Mockolate.Tests/Mockolate.Tests.csproj
 - Use meaningful, descriptive names
 
 ### Testing Standards
-- Use **xUnit** for all tests
+- Use **TUnit** for all tests
 - Test class names should end with `Tests` (e.g., `MockabilityAnalyzerTests`)
 - Test method names should be descriptive using `When_Should` pattern or similar
-- Use `[Fact]` for simple tests, `[Theory]` with `[InlineData]` for parameterized tests
+- Use `[Test]` for simple tests, `[Test]` with `[Arguments]` or `[MethodDataSource]` for parameterized tests
 - Arrange-Act-Assert pattern is preferred
 - Each test should verify a single behavior
 
