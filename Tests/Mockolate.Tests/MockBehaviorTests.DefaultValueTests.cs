@@ -152,7 +152,7 @@ public sealed partial class MockBehaviorTests
 
 			Task result = sut.DefaultValue.Generate(default(Task)!);
 
-			await That(result).IsNotNull();
+			await That<Task>(result).IsNotNull();
 			await That(result.IsCompleted).IsTrue();
 			await That(result.IsFaulted).IsFalse();
 		}

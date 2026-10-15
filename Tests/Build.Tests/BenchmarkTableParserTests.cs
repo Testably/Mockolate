@@ -38,7 +38,7 @@ public sealed class BenchmarkTableParserTests
 		BenchmarkTableParser parser = new(["Gen0",]);
 		parser.TryConsume("| Method | Mean | Gen0 | Allocated |", out _, out _, out _);
 
-		parser.TryConsume("| Foo | 1 ns | _ignored_ | 100 B |", out _, out string filtered, out _);
+		parser.TryConsume("| Foo | 1 ns | _ignored_ | 100 B |", out _, out string? filtered, out _);
 
 		await That(filtered).IsEqualTo("| Foo | 1 ns | 100 B |");
 	}
@@ -58,10 +58,10 @@ public sealed class BenchmarkTableParserTests
 	{
 		BenchmarkTableParser parser = new(["Gen0", "GEN1",]);
 
-		parser.TryConsume("| Method | Mean | Gen0 | gen1 | Allocated |", out _, out string filteredHeader,
-			out string[] headerTokens);
+		parser.TryConsume("| Method | Mean | Gen0 | gen1 | Allocated |", out _, out string? filteredHeader,
+			out string[]? headerTokens);
 		parser.TryConsume("| Foo    | 1 ns | 0.1  | 0.0  | 100 B     |", out _, out _,
-			out string[] dataTokens);
+			out string[]? dataTokens);
 
 		await That(filteredHeader).IsEqualTo("| Method | Mean | Allocated |");
 		await That(headerTokens).IsEqualTo(["Method", "Mean", "Allocated",]);
@@ -75,7 +75,7 @@ public sealed class BenchmarkTableParserTests
 		parser.TryConsume("| Method | N | Mean |", out _, out _, out _);
 		parser.TryConsume("|--------|---|-----:|", out _, out _, out _);
 
-		parser.TryConsume("| **Indexer_Mockolate** | **1** | **923 ns** |", out _, out _, out string[] tokens);
+		parser.TryConsume("| **Indexer_Mockolate** | **1** | **923 ns** |", out _, out _, out string[]? tokens);
 
 		await That(tokens).IsEqualTo(["Indexer_Mockolate", "1", "923 ns",]);
 	}
@@ -95,8 +95,8 @@ public sealed class BenchmarkTableParserTests
 	{
 		BenchmarkTableParser parser = new([]);
 
-		bool consumed = parser.TryConsume("not a table line", out int rowIndex, out string filteredLine,
-			out string[] tokens);
+		bool consumed = parser.TryConsume("not a table line", out int rowIndex, out string? filteredLine,
+			out string[]? tokens);
 
 		await That(consumed).IsFalse();
 		await That(rowIndex).IsEqualTo(-1);

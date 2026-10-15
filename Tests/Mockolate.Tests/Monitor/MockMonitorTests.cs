@@ -223,6 +223,6 @@ public sealed class MockMonitorTests
 		}
 
 		await That(captured).IsNotNull()
-			.And.For(e => e!.Message, m => m.Contains("SkipInteractionRecording"));
+			.And.Whose(e => e!.Message, m => m.Contains("SkipInteractionRecording"));
 	}
 }

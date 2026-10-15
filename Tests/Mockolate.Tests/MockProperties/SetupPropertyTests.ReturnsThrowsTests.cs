@@ -275,7 +275,7 @@ public sealed partial class SetupPropertyTests
 				_ = sut.MyProperty;
 			}
 
-			await That(Act).ThrowsException().WithMessage("foo");
+			await That(Act).Throws().WithMessage("foo");
 		}
 
 		[Fact]
@@ -292,7 +292,7 @@ public sealed partial class SetupPropertyTests
 				_ = sut.MyProperty;
 			}
 
-			await That(Act).ThrowsException().WithMessage("foo-42");
+			await That(Act).Throws().WithMessage("foo-42");
 		}
 
 		[Fact]
@@ -324,7 +324,7 @@ public sealed partial class SetupPropertyTests
 				_ = sut.MyProperty;
 			}
 
-			await That(Act).ThrowsException().WithMessage("foo");
+			await That(Act).Throws().WithMessage("foo");
 		}
 
 		[Fact]

@@ -264,7 +264,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[3];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -281,7 +281,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[3];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-3");
+				await That(Act).Throws().WithMessage("foo-3");
 			}
 
 			[Fact]
@@ -298,7 +298,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[3];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-init-3");
+				await That(Act).Throws().WithMessage("foo-init-3");
 			}
 
 			[Fact]
@@ -330,7 +330,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[3];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -633,7 +633,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -650,7 +650,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2");
+				await That(Act).Throws().WithMessage("foo-1-2");
 			}
 
 			[Fact]
@@ -667,7 +667,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-init-1-2");
+				await That(Act).Throws().WithMessage("foo-init-1-2");
 			}
 
 			[Fact]
@@ -699,7 +699,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1024,7 +1024,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1041,7 +1041,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3");
+				await That(Act).Throws().WithMessage("foo-1-2-3");
 			}
 
 			[Fact]
@@ -1058,7 +1058,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-init-1-2-3");
+				await That(Act).Throws().WithMessage("foo-init-1-2-3");
 			}
 
 			[Fact]
@@ -1090,7 +1090,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1395,7 +1395,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3, 4];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1412,7 +1412,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3, 4];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3-4");
+				await That(Act).Throws().WithMessage("foo-1-2-3-4");
 			}
 
 			[Fact]
@@ -1429,7 +1429,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3, 4];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-init-1-2-3-4");
+				await That(Act).Throws().WithMessage("foo-init-1-2-3-4");
 			}
 
 			[Fact]
@@ -1461,7 +1461,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3, 4];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1767,7 +1767,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3, 4, 5];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]
@@ -1784,7 +1784,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3, 4, 5];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-1-2-3-4-5");
+				await That(Act).Throws().WithMessage("foo-1-2-3-4-5");
 			}
 
 			[Fact]
@@ -1801,7 +1801,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3, 4, 5];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo-init-1-2-3-4-5");
+				await That(Act).Throws().WithMessage("foo-init-1-2-3-4-5");
 			}
 
 			[Fact]
@@ -1833,7 +1833,7 @@ public sealed partial class SetupIndexerTests
 					_ = sut[1, 2, 3, 4, 5];
 				}
 
-				await That(Act).ThrowsException().WithMessage("foo");
+				await That(Act).Throws().WithMessage("foo");
 			}
 
 			[Fact]

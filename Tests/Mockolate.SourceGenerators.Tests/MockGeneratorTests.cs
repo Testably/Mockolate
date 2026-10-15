@@ -1674,7 +1674,7 @@ public partial class MockGeneratorTests
 			     }
 			     """, typeof(DateTime), typeof(Task), typeof(HttpResponseMessage));
 
-		await That(result.Sources).HasCount().AtLeast(3);
+		await That(result.Sources).HasCount().GreaterThanOrEqualTo(3);
 		await That(result.Sources).ContainsKey("Mock.IMyInterface.g.cs");
 	}
 
