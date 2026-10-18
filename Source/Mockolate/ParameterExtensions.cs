@@ -14,191 +14,285 @@ namespace Mockolate;
 public static class ParameterExtensions
 {
 	/// <summary>
-	///     Attaches a <paramref name="monitor" /> that records every argument value matched by this parameter.
+	///     Extensions for parameters with callbacks.
 	/// </summary>
 	/// <typeparam name="T">The parameter's value type.</typeparam>
 	/// <param name="parameter">The parameter matcher to observe.</param>
-	/// <param name="monitor">An out-parameter receiving the monitor; its <see cref="IParameterMonitor{T}.Values" /> list grows as the mock is invoked.</param>
-	/// <returns>The same <paramref name="parameter" />, allowing further fluent calls.</returns>
-	public static IParameterWithCallback<T> Monitor<T>(this IParameterWithCallback<T> parameter,
-		out IParameterMonitor<T> monitor)
+	extension<T>(IParameterWithCallback<T> parameter)
 	{
-		ParameterMonitor<T> parameterMonitor = new();
-		monitor = parameterMonitor;
-		return parameter.Do(v => parameterMonitor.AddValue(v));
+		/// <summary>
+		///     Attaches a <paramref name="monitor" /> that records every argument value matched by this parameter.
+		/// </summary>
+		/// <param name="monitor">An out-parameter receiving the monitor; its <see cref="IParameterMonitor{T}.Values" /> list grows as the mock is invoked.</param>
+		/// <returns>The same <paramref name="parameter" />, allowing further fluent calls.</returns>
+		public IParameterWithCallback<T> Monitor(out IParameterMonitor<T> monitor)
+		{
+			ParameterMonitor<T> parameterMonitor = new();
+			monitor = parameterMonitor;
+			return parameter.Do(v => parameterMonitor.AddValue(v));
+		}
 	}
 
 	/// <summary>
-	///     Attaches a <paramref name="monitor" /> that records every argument value matched by this ref-parameter.
+	///     Extensions for ref-parameters.
 	/// </summary>
 	/// <typeparam name="T">The ref-parameter's value type.</typeparam>
 	/// <param name="parameter">The ref-parameter matcher to observe.</param>
-	/// <param name="monitor">An out-parameter receiving the monitor; its <see cref="IParameterMonitor{T}.Values" /> list grows as the mock is invoked.</param>
-	/// <returns>The same <paramref name="parameter" />, allowing further fluent calls.</returns>
-	public static IRefParameter<T> Monitor<T>(this IRefParameter<T> parameter,
-		out IParameterMonitor<T> monitor)
+	extension<T>(IRefParameter<T> parameter)
 	{
-		ParameterMonitor<T> parameterMonitor = new();
-		parameter.Do(v => parameterMonitor.AddValue(v));
-		monitor = parameterMonitor;
-		return parameter;
+		/// <summary>
+		///     Attaches a <paramref name="monitor" /> that records every argument value matched by this ref-parameter.
+		/// </summary>
+		/// <param name="monitor">An out-parameter receiving the monitor; its <see cref="IParameterMonitor{T}.Values" /> list grows as the mock is invoked.</param>
+		/// <returns>The same <paramref name="parameter" />, allowing further fluent calls.</returns>
+		public IRefParameter<T> Monitor(out IParameterMonitor<T> monitor)
+		{
+			ParameterMonitor<T> parameterMonitor = new();
+			parameter.Do(v => parameterMonitor.AddValue(v));
+			monitor = parameterMonitor;
+			return parameter;
+		}
 	}
 
 	/// <summary>
-	///     Attaches a <paramref name="monitor" /> that records every argument value matched by this out-parameter.
+	///     Extensions for out-parameters.
 	/// </summary>
 	/// <typeparam name="T">The out-parameter's value type.</typeparam>
 	/// <param name="parameter">The out-parameter matcher to observe.</param>
-	/// <param name="monitor">An out-parameter receiving the monitor; its <see cref="IParameterMonitor{T}.Values" /> list grows as the mock is invoked.</param>
-	/// <returns>The same <paramref name="parameter" />, allowing further fluent calls.</returns>
-	public static IOutParameter<T> Monitor<T>(this IOutParameter<T> parameter,
-		out IParameterMonitor<T> monitor)
+	extension<T>(IOutParameter<T> parameter)
 	{
-		ParameterMonitor<T> parameterMonitor = new();
-		parameter.Do(v => parameterMonitor.AddValue(v));
-		monitor = parameterMonitor;
-		return parameter;
+		/// <summary>
+		///     Attaches a <paramref name="monitor" /> that records every argument value matched by this out-parameter.
+		/// </summary>
+		/// <param name="monitor">An out-parameter receiving the monitor; its <see cref="IParameterMonitor{T}.Values" /> list grows as the mock is invoked.</param>
+		/// <returns>The same <paramref name="parameter" />, allowing further fluent calls.</returns>
+		public IOutParameter<T> Monitor(out IParameterMonitor<T> monitor)
+		{
+			ParameterMonitor<T> parameterMonitor = new();
+			parameter.Do(v => parameterMonitor.AddValue(v));
+			monitor = parameterMonitor;
+			return parameter;
+		}
 	}
 
 	/// <summary>
-	///     Relaxes the equality check to accept any value whose distance to the expected value is at most
-	///     <paramref name="tolerance" />.
+	///     Extensions for <see cref="double" /> equality matchers.
 	/// </summary>
-	/// <remarks>
-	///     The bound is inclusive, but because binary floating point cannot represent every decimal fraction exactly,
-	///     values that lie exactly on the bound may or may not match.
-	///     <para />
-	///     The returned matcher does not expose <see cref="It.IIsParameter{T}.Using" />, because a custom comparer
-	///     would replace the tolerance again.
-	/// </remarks>
 	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
-	/// <param name="tolerance">The maximum allowed absolute difference (inclusive).</param>
-	/// <param name="doNotPopulateThisValue">Do not populate - captured automatically by the compiler.</param>
-	/// <returns>The same <paramref name="parameter" />, allowing callbacks to be attached.</returns>
-	/// <exception cref="ArgumentOutOfRangeException">
-	///     <paramref name="tolerance" /> is negative or <see cref="double.NaN" />.
-	/// </exception>
-	public static IParameterWithCallback<double> Within(this It.IIsParameter<double> parameter, double tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	extension(It.IIsParameter<double> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<double>)parameter).Within(
-			(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		/// <summary>
+		///     Relaxes the equality check to accept any value whose distance to the expected value is at most
+		///     <paramref name="tolerance" />.
+		/// </summary>
+		/// <remarks>
+		///     The bound is inclusive, but because binary floating point cannot represent every decimal fraction exactly,
+		///     values that lie exactly on the bound may or may not match.
+		///     <para />
+		///     The returned matcher does not expose <see cref="It.IIsParameter{T}.Using" />, because a custom comparer
+		///     would replace the tolerance again.
+		/// </remarks>
+		/// <param name="tolerance">The maximum allowed absolute difference (inclusive).</param>
+		/// <param name="doNotPopulateThisValue">Do not populate - captured automatically by the compiler.</param>
+		/// <returns>The same <paramref name="parameter" />, allowing callbacks to be attached.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		///     <paramref name="tolerance" /> is negative or <see cref="double.NaN" />.
+		/// </exception>
+		public IParameterWithCallback<double> Within(double tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<double>)parameter).Within(
+				(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<double?> Within(this It.IIsParameter<double?> parameter, double tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for nullable <see cref="double" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<double?> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<double?>)parameter).Within(
-			ForNullable<double>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<double?> Within(double tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<double?>)parameter).Within(
+				ForNullable<double>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<float> Within(this It.IIsParameter<float> parameter, float tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for <see cref="float" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<float> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<float>)parameter).Within(
-			(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<float> Within(float tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<float>)parameter).Within(
+				(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<float?> Within(this It.IIsParameter<float?> parameter, float tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for nullable <see cref="float" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<float?> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<float?>)parameter).Within(
-			ForNullable<float>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<float?> Within(float tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<float?>)parameter).Within(
+				ForNullable<float>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<decimal> Within(this It.IIsParameter<decimal> parameter, decimal tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for <see cref="decimal" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<decimal> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<decimal>)parameter).Within(
-			(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<decimal> Within(decimal tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<decimal>)parameter).Within(
+				(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<decimal?> Within(this It.IIsParameter<decimal?> parameter, decimal tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for nullable <see cref="decimal" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<decimal?> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<decimal?>)parameter).Within(
-			ForNullable<decimal>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<decimal?> Within(decimal tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<decimal?>)parameter).Within(
+				ForNullable<decimal>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<DateTime> Within(this It.IIsParameter<DateTime> parameter, TimeSpan tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for <see cref="DateTime" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<DateTime> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<DateTime>)parameter).Within(
-			(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<DateTime> Within(TimeSpan tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<DateTime>)parameter).Within(
+				(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<DateTime?> Within(this It.IIsParameter<DateTime?> parameter,
-		TimeSpan tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for nullable <see cref="DateTime" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<DateTime?> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<DateTime?>)parameter).Within(
-			ForNullable<DateTime>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<DateTime?> Within(TimeSpan tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<DateTime?>)parameter).Within(
+				ForNullable<DateTime>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<DateTimeOffset> Within(this It.IIsParameter<DateTimeOffset> parameter,
-		TimeSpan tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for <see cref="DateTimeOffset" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<DateTimeOffset> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<DateTimeOffset>)parameter).Within(
-			(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<DateTimeOffset> Within(TimeSpan tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<DateTimeOffset>)parameter).Within(
+				(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<DateTimeOffset?> Within(this It.IIsParameter<DateTimeOffset?> parameter,
-		TimeSpan tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for nullable <see cref="DateTimeOffset" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<DateTimeOffset?> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<DateTimeOffset?>)parameter).Within(
-			ForNullable<DateTimeOffset>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<DateTimeOffset?> Within(TimeSpan tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<DateTimeOffset?>)parameter).Within(
+				ForNullable<DateTimeOffset>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<TimeSpan> Within(this It.IIsParameter<TimeSpan> parameter, TimeSpan tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for <see cref="TimeSpan" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<TimeSpan> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<TimeSpan>)parameter).Within(
-			(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<TimeSpan> Within(TimeSpan tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<TimeSpan>)parameter).Within(
+				(x, y) => IsWithinTolerance(x, y, tolerance), doNotPopulateThisValue);
+		}
 	}
 
-	/// <inheritdoc cref="Within(It.IIsParameter{double}, double, string)" />
-	public static IParameterWithCallback<TimeSpan?> Within(this It.IIsParameter<TimeSpan?> parameter,
-		TimeSpan tolerance,
-		[CallerArgumentExpression(nameof(tolerance))]
-		string doNotPopulateThisValue = "")
+	/// <summary>
+	///     Extensions for nullable <see cref="TimeSpan" /> equality matchers.
+	/// </summary>
+	/// <param name="parameter">The equality matcher created by <c>It.Is(value)</c>.</param>
+	extension(It.IIsParameter<TimeSpan?> parameter)
 	{
-		ThrowIfInvalidTolerance(tolerance);
-		return ((It.IToleranceParameter<TimeSpan?>)parameter).Within(
-			ForNullable<TimeSpan>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		/// <inheritdoc cref="extension(It.IIsParameter{double}).Within(double, string)" />
+		public IParameterWithCallback<TimeSpan?> Within(TimeSpan tolerance,
+			[CallerArgumentExpression(nameof(tolerance))]
+			string doNotPopulateThisValue = "")
+		{
+			ThrowIfInvalidTolerance(tolerance);
+			return ((It.IToleranceParameter<TimeSpan?>)parameter).Within(
+				ForNullable<TimeSpan>((x, y) => IsWithinTolerance(x, y, tolerance)), doNotPopulateThisValue);
+		}
 	}
 
 	/// <summary>
