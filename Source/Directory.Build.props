@@ -60,13 +60,13 @@
 			  Pack="true"
 			  PackagePath="/Docs/"
 			  Link="\Docs\logo.png"/>
-		<None Include="$(SolutionDir)/Artifacts/README.md"
-			  Condition="Exists('$(SolutionDir)/Artifacts/README.md')"
+		<None Include="$(MSBuildThisFileDirectory)../Artifacts/README.md"
+			  Condition="Exists('$(MSBuildThisFileDirectory)../Artifacts/README.md')"
 			  Pack="true"
 			  PackagePath="/Docs/"
 			  Link="Docs\README.md"/>
-		<None Include="$(SolutionDir)/README.md"
-			  Condition="!Exists('$(SolutionDir)/Artifacts/README.md')"
+		<None Include="$(MSBuildThisFileDirectory)../README.md"
+			  Condition="!Exists('$(MSBuildThisFileDirectory)../Artifacts/README.md')"
 			  Pack="true"
 			  PackagePath="/Docs/"
 			  Link="Docs\README.md"/>
