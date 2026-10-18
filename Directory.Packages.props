@@ -25,7 +25,7 @@
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" Version="1.1.4"/>
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing" Version="1.1.4"/>
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing" Version="1.1.4"/>
-		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.401"/>
+		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.402"/>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageVersion Include="BenchmarkDotNet" Version="0.15.8"/>
