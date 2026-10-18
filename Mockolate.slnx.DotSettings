@@ -34,6 +34,7 @@
             &lt;Or&gt;&#xD;
               &lt;HasAttribute Inherited="True" Name="Xunit.FactAttribute" /&gt;&#xD;
               &lt;HasAttribute Inherited="True" Name="Xunit.TheoryAttribute" /&gt;&#xD;
+              &lt;HasAttribute Inherited="True" Name="TUnit.Core.TestAttribute" /&gt;&#xD;
             &lt;/Or&gt;&#xD;
           &lt;/And&gt;&#xD;
         &lt;/HasMember&gt;&#xD;
@@ -76,6 +77,7 @@
           &lt;Or&gt;&#xD;
             &lt;HasAttribute Name="Xunit.FactAttribute" /&gt;&#xD;
             &lt;HasAttribute Name="Xunit.TheoryAttribute" /&gt;&#xD;
+            &lt;HasAttribute Name="TUnit.Core.TestAttribute" /&gt;&#xD;
           &lt;/Or&gt;&#xD;
         &lt;/And&gt;&#xD;
       &lt;/Entry.Match&gt;&#xD;
