@@ -4,8 +4,8 @@ Mockolate is a source-generated mocking library for .NET. Users write `IFoo.Crea
 
 ## SDK and Build
 
-- Use the SDK pinned in `global.json` (.NET 10, `rollForward: latestMinor`). Tests also run on .NET 8, and on .NET Framework 4.8 on Windows only.
-- Build from the root with `dotnet build Mockolate.slnx`. Shared settings live in the root `Directory.Build.props` (strong naming, `MinimumRoslynVersion`), `Source/Directory.Build.props` (target frameworks, warnings as errors, AOT and trimming flags) and `Tests/Directory.Build.props` (test frameworks, xUnit, aweXpect).
+- Use the SDK pinned in `global.json` (.NET 10, `rollForward: latestPatch`). Tests also run on .NET 8, and on .NET Framework 4.8 on Windows only.
+- Build from the root with `dotnet build Mockolate.slnx`. Shared settings live in the root `Directory.Build.props` (strong naming, `MinimumRoslynVersion`), `Source/Directory.Build.props` (target frameworks, warnings as errors, AOT and trimming flags) and `Tests/Directory.Build.props` (test frameworks, TUnit, aweXpect).
 - Package versions belong only in `Directory.Packages.props`. `VersionOverride` is used only to pin Roslyn packages to `$(MinimumRoslynVersion)`.
 
 ## Design Goals
@@ -22,7 +22,7 @@ Correctness is a must. The other goals are strong defaults and win in this order
 - **Performance**: recording, setup matching and verification are hot paths with allocation-free fast paths (`FastMockInteractions`, the `Fast*Buffer` types). Measure hot-path changes with the benchmarks before and after.
 - **Public API**: every change to the public surface of `Mockolate` shows up in the API snapshots. Document new public members with XML comments. Mark breaking changes with `!` in the PR title (`feat!:`, `refactor!:`).
 - **Strong naming**: all assemblies are signed with `strongname.snk`; an `InternalsVisibleTo` needs `PublicKey="$(PublicKey)"`.
-- **Style**: follow `.editorconfig`: tabs, explicit types instead of `var`, `_camelCase` private fields, no `this.`, `System` usings first. Tests use xUnit with aweXpect (`await That(...)`).
+- **Style**: follow `.editorconfig`: tabs, explicit types instead of `var`, `_camelCase` private fields, no `this.`, `System` usings first. Tests use TUnit with aweXpect (`await That(...)`).
 
 ## Validation
 

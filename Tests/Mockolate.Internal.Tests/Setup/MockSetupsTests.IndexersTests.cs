@@ -8,7 +8,7 @@ public partial class MockSetupsTests
 {
 	public class IndexersTests
 	{
-		[Fact]
+		[Test]
 		public async Task AddAndGetLatestOrDefault_ShouldReturnLatestMatching()
 		{
 			MockSetups.IndexerSetups setups = new();
@@ -24,7 +24,7 @@ public partial class MockSetupsTests
 			await That(result).IsEqualTo(setup1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetMatching_OnEmptyStorage_ShouldReturnNullWithoutThrowing()
 		{
 			MockSetups.IndexerSetups setups = new();
@@ -34,7 +34,7 @@ public partial class MockSetupsTests
 			await That(result).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task InitializeStorageCount_OnFreshInstance_ShouldAllocateValueStoragesArrayWithRequestedLength()
 		{
 			MockSetups.IndexerSetups setups = new();
@@ -46,7 +46,7 @@ public partial class MockSetupsTests
 			await That(storages!.Length).IsEqualTo(5);
 		}
 
-		[Fact]
+		[Test]
 		public async Task InitializeStorageCount_WhenAlreadyAllocated_ShouldKeepFirstAllocation()
 		{
 			MockSetups.IndexerSetups setups = new();
@@ -61,7 +61,7 @@ public partial class MockSetupsTests
 			await That(secondAllocation).IsSameAs(firstAllocation);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Stress_ShouldMaintainCountAfterManyAdds()
 		{
 			MockSetups.IndexerSetups setups = new();
@@ -74,7 +74,7 @@ public partial class MockSetupsTests
 			await That(setups.Count).IsEqualTo(1000);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ThreadSafety_ConcurrentAddsAndQueries_ShouldReturnConsistentMatches()
 		{
 			MockSetups.IndexerSetups setups = new();
@@ -98,7 +98,7 @@ public partial class MockSetupsTests
 			await That(result).IsEqualTo(finalMatch);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ThreadSafety_ShouldHandleParallelAdds()
 		{
 			MockSetups.IndexerSetups setups = new();

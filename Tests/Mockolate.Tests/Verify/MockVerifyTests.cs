@@ -5,7 +5,7 @@ namespace Mockolate.Tests.Verify;
 
 public class MockVerifyTests
 {
-	[Fact]
+	[Test]
 	public async Task ThatAllInteractionsAreVerified_MultipleCalls_ShouldRepresentLatestValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -18,7 +18,7 @@ public class MockVerifyTests
 		await That(result2).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllInteractionsAreVerified_MultipleVerifications_ShouldBeCombined()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -32,7 +32,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllInteractionsAreVerified()).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllInteractionsAreVerified_WithoutInteractions_ShouldReturnTrue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -40,7 +40,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllInteractionsAreVerified()).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllInteractionsAreVerified_WithUnverifiedInteractions_ShouldReturnFalse()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -52,7 +52,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllInteractionsAreVerified()).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllInteractionsAreVerified_WithVerifiedInteractions_ShouldReturnTrue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -64,10 +64,10 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllInteractionsAreVerified()).IsTrue();
 	}
 
-	[Theory]
-	[InlineData(0, false)]
-	[InlineData(1, true)]
-	[InlineData(5, true)]
+	[Test]
+	[Arguments(0, false)]
+	[Arguments(1, true)]
+	[Arguments(5, true)]
 	public async Task ThatAllSetupsAreUsed_ShouldCheckIndexersWithGetter(int interactionCount, bool expectedResult)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -81,10 +81,10 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsEqualTo(expectedResult);
 	}
 
-	[Theory]
-	[InlineData(0, false)]
-	[InlineData(1, true)]
-	[InlineData(5, true)]
+	[Test]
+	[Arguments(0, false)]
+	[Arguments(1, true)]
+	[Arguments(5, true)]
 	public async Task ThatAllSetupsAreUsed_ShouldCheckIndexersWithSetter(int interactionCount, bool expectedResult)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -98,10 +98,10 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsEqualTo(expectedResult);
 	}
 
-	[Theory]
-	[InlineData(0, false)]
-	[InlineData(1, true)]
-	[InlineData(5, true)]
+	[Test]
+	[Arguments(0, false)]
+	[Arguments(1, true)]
+	[Arguments(5, true)]
 	public async Task ThatAllSetupsAreUsed_ShouldCheckMethods(int interactionCount, bool expectedResult)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -115,10 +115,10 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsEqualTo(expectedResult);
 	}
 
-	[Theory]
-	[InlineData(0, false)]
-	[InlineData(1, true)]
-	[InlineData(5, true)]
+	[Test]
+	[Arguments(0, false)]
+	[Arguments(1, true)]
+	[Arguments(5, true)]
 	public async Task ThatAllSetupsAreUsed_ShouldCheckPropertiesWithGetter(int interactionCount, bool expectedResult)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -132,10 +132,10 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsEqualTo(expectedResult);
 	}
 
-	[Theory]
-	[InlineData(0, false)]
-	[InlineData(1, true)]
-	[InlineData(5, true)]
+	[Test]
+	[Arguments(0, false)]
+	[Arguments(1, true)]
+	[Arguments(5, true)]
 	public async Task ThatAllSetupsAreUsed_ShouldCheckPropertiesWithSetter(int interactionCount, bool expectedResult)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -149,7 +149,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsEqualTo(expectedResult);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllSetupsAreUsed_WithMultipleUsedSetups_ShouldReturnTrue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -163,7 +163,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllSetupsAreUsed_WithoutSetup_ShouldReturnTrue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -173,10 +173,10 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsTrue();
 	}
 
-	[Theory]
-	[InlineData(0)]
-	[InlineData(1)]
-	[InlineData(5)]
+	[Test]
+	[Arguments(0)]
+	[Arguments(1)]
+	[Arguments(5)]
 	public async Task ThatAllSetupsAreUsed_WithoutSetups_ShouldReturnTrue(int interactionCount)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -188,7 +188,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllSetupsAreUsed_WithPartlyUsedSetups_ShouldReturnFalse()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -203,7 +203,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllSetupsAreUsed_WithUnusedSetup_ShouldReturnFalse()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -212,7 +212,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ThatAllSetupsAreUsed_WithUsedSetup_ShouldReturnTrue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -223,7 +223,7 @@ public class MockVerifyTests
 		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_ShouldUpdateWhenInteractionsChange()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();

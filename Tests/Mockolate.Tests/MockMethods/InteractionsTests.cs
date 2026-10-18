@@ -4,7 +4,7 @@ namespace Mockolate.Tests.MockMethods;
 
 public sealed partial class InteractionsTests
 {
-	[Fact]
+	[Test]
 	public async Task MethodInvocation_ToString_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -15,7 +15,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation1_ToString_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -28,7 +28,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation1_ToString_WithNull_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -41,7 +41,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation2_ToString_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -55,7 +55,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation2_ToString_WithNull_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -69,7 +69,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation3_ToString_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -84,7 +84,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation3_ToString_WithNull_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -99,7 +99,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation4_ToString_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -115,7 +115,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation4_ToString_WithNull_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -131,7 +131,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation5_ToString_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);
@@ -148,7 +148,7 @@ public sealed partial class InteractionsTests
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodInvocation5_ToString_WithNull_ShouldReturnExpectedValue()
 	{
 		FastMockInteractions interactions = new(0);

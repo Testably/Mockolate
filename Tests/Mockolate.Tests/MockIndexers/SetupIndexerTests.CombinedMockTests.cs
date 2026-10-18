@@ -4,7 +4,7 @@ public sealed partial class SetupIndexerTests
 {
 	public sealed class CombinedMockTests
 	{
-		[Fact]
+		[Test]
 		public async Task DistinctReturnTypes_SameParameterTypes_ShouldNotCollide()
 		{
 			IFooIndexer sut = IFooIndexer.CreateMock().Implementing<IBarIndexer>().Implementing<IBazIndexer>();
@@ -20,7 +20,7 @@ public sealed partial class SetupIndexerTests
 			await That(bazView[1]).IsEqualTo(43);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualClassIndexer_AndExplicitInterfaceImplWithSameSignature_ShouldNotCollide()
 		{
 			BaseWithVirtualIndexer sut = BaseWithVirtualIndexer.CreateMock().Implementing<IExplicitIndexer>();

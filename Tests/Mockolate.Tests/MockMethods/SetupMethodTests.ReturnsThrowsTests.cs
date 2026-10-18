@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Mockolate.Setup;
+using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests.MockMethods;
 
@@ -9,9 +10,9 @@ public sealed partial class SetupMethodTests
 	{
 		public class ReturnMethodWith0Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -26,7 +27,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -37,7 +38,7 @@ public sealed partial class SetupMethodTests
 					.Returns(() => "b");
 
 				string result1 = sut.Method0();
-				Exception? result2 = Record.Exception(() => sut.Method0());
+				Exception? result2 = Catch.Exception(() => sut.Method0());
 				string result3 = sut.Method0();
 
 				await That(result1).IsEqualTo("d");
@@ -45,7 +46,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("b");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -64,9 +65,9 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["d", "c", "b", "d", "c", "b", "d", "c", "b", "d",]);
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -81,7 +82,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldLimitMatches()
 			{
 				List<string> results = [];
@@ -99,7 +100,7 @@ public sealed partial class SetupMethodTests
 				await That(results).IsEqualTo(["", "", "a", "a", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Callback_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -111,7 +112,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -129,7 +130,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -148,7 +149,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -166,7 +167,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -178,7 +179,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -195,7 +196,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -216,7 +217,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -226,7 +227,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithoutReturn_ShouldUseBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -237,7 +238,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithReturn_ShouldReturnSetupValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -249,7 +250,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("bar");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -264,7 +265,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -279,7 +280,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -294,7 +295,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -315,7 +316,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -339,9 +340,9 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith1Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -356,7 +357,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -367,7 +368,7 @@ public sealed partial class SetupMethodTests
 					.Returns(() => "b");
 
 				string result1 = sut.Method1(1);
-				Exception? result2 = Record.Exception(() => sut.Method1(2));
+				Exception? result2 = Catch.Exception(() => sut.Method1(2));
 				string result3 = sut.Method1(3);
 
 				await That(result1).IsEqualTo("d");
@@ -375,7 +376,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("b");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -394,9 +395,9 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["d", "c", "foo-2", "d", "c", "foo-5", "d", "c", "foo-8", "d",]);
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -411,7 +412,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Callback_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -423,7 +424,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -435,7 +436,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-3");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -453,7 +454,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -472,7 +473,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -490,7 +491,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -502,7 +503,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -519,7 +520,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -540,7 +541,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -550,7 +551,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithoutReturn_ShouldUseBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -561,7 +562,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-1");
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithReturn_ShouldReturnSetupValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -573,7 +574,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("bar");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -589,7 +590,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -605,7 +606,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-42");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -621,7 +622,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -637,7 +638,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
 			{
 				int callCount = 0;
@@ -653,7 +654,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsNull();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -674,7 +675,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -698,9 +699,9 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith2Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -715,7 +716,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -726,7 +727,7 @@ public sealed partial class SetupMethodTests
 					.Returns(() => "b");
 
 				string result1 = sut.Method2(1, 2);
-				Exception? result2 = Record.Exception(() => sut.Method2(2, 3));
+				Exception? result2 = Catch.Exception(() => sut.Method2(2, 3));
 				string result3 = sut.Method2(3, 4);
 
 				await That(result1).IsEqualTo("d");
@@ -734,7 +735,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("b");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -753,9 +754,9 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["d", "c", "foo-2-4", "d", "c", "foo-5-10", "d", "c", "foo-8-16", "d",]);
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -770,7 +771,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Callback_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -782,7 +783,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -794,7 +795,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-2-3");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -812,7 +813,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -831,7 +832,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -849,7 +850,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -861,7 +862,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -878,7 +879,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -899,7 +900,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -909,7 +910,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithoutReturn_ShouldUseBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -920,7 +921,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-1-2");
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithReturn_ShouldReturnSetupValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -932,7 +933,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("bar");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -948,7 +949,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -964,7 +965,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1-2");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -980,7 +981,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -996,7 +997,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
 			{
 				int callCount = 0;
@@ -1012,7 +1013,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsNull();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1034,7 +1035,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1059,9 +1060,9 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith3Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1076,7 +1077,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1087,7 +1088,7 @@ public sealed partial class SetupMethodTests
 					.Returns(() => "b");
 
 				string result1 = sut.Method3(1, 2, 3);
-				Exception? result2 = Record.Exception(() => sut.Method3(2, 3, 4));
+				Exception? result2 = Catch.Exception(() => sut.Method3(2, 3, 4));
 				string result3 = sut.Method3(3, 4, 5);
 
 				await That(result1).IsEqualTo("d");
@@ -1095,7 +1096,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("b");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1114,9 +1115,9 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["d", "c", "foo-2-4-6", "d", "c", "foo-5-10-15", "d", "c", "foo-8-16-24", "d",]);
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1131,7 +1132,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Callback_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1144,7 +1145,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1157,7 +1158,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-2-3-4");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1175,7 +1176,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1194,7 +1195,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1212,7 +1213,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1224,7 +1225,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1241,7 +1242,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1262,7 +1263,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1272,7 +1273,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithoutReturn_ShouldUseBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -1283,7 +1284,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-1-2-3");
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithReturn_ShouldReturnSetupValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -1295,7 +1296,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("bar");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1311,7 +1312,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1327,7 +1328,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1-2-3");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1343,7 +1344,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1359,7 +1360,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
 			{
 				int callCount = 0;
@@ -1375,7 +1376,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsNull();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1397,7 +1398,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1422,9 +1423,9 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith4Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1439,7 +1440,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1450,7 +1451,7 @@ public sealed partial class SetupMethodTests
 					.Returns(() => "b");
 
 				string result1 = sut.Method4(1, 2, 3, 4);
-				Exception? result2 = Record.Exception(() => sut.Method4(2, 3, 4, 5));
+				Exception? result2 = Catch.Exception(() => sut.Method4(2, 3, 4, 5));
 				string result3 = sut.Method4(3, 4, 5, 6);
 
 				await That(result1).IsEqualTo("d");
@@ -1458,7 +1459,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("b");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1479,9 +1480,9 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1496,7 +1497,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Callback_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1509,7 +1510,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1522,7 +1523,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-2-3-4-5");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1540,7 +1541,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1559,7 +1560,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1577,7 +1578,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1590,7 +1591,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1607,7 +1608,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1628,7 +1629,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1638,7 +1639,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithoutReturn_ShouldUseBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -1650,7 +1651,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-1-2-3-4");
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -1662,7 +1663,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("bar");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1678,7 +1679,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1694,7 +1695,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1-2-3-4");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1710,7 +1711,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1726,7 +1727,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
 			{
 				int callCount = 0;
@@ -1742,7 +1743,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsNull();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1764,7 +1765,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1789,9 +1790,9 @@ public sealed partial class SetupMethodTests
 
 		public class ReturnMethodWith5Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1807,7 +1808,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1819,7 +1820,7 @@ public sealed partial class SetupMethodTests
 					.Returns(() => "b");
 
 				string result1 = sut.Method5(1, 2, 3, 4, 5);
-				Exception? result2 = Record.Exception(() => sut.Method5(2, 3, 4, 5, 6));
+				Exception? result2 = Catch.Exception(() => sut.Method5(2, 3, 4, 5, 6));
 				string result3 = sut.Method5(3, 4, 5, 6, 7);
 
 				await That(result1).IsEqualTo("d");
@@ -1827,7 +1828,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("b");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1849,9 +1850,9 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1867,7 +1868,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Callback_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1881,7 +1882,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1895,7 +1896,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-2-3-4-5-6");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1914,7 +1915,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1934,7 +1935,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1953,7 +1954,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_ShouldReturnExpectedValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1967,7 +1968,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("d");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1985,7 +1986,7 @@ public sealed partial class SetupMethodTests
 				await That(result3).IsEqualTo("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2007,7 +2008,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2017,7 +2018,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithoutReturn_ShouldUseBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -2030,7 +2031,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("foo-1-2-3-4-5");
 			}
 
-			[Fact]
+			[Test]
 			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
@@ -2043,7 +2044,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsEqualTo("bar");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2060,7 +2061,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2077,7 +2078,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1-2-3-4-5");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2094,7 +2095,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2111,7 +2112,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
 			{
 				int callCount = 0;
@@ -2128,7 +2129,7 @@ public sealed partial class SetupMethodTests
 				await That(result).IsNull();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2151,7 +2152,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2176,9 +2177,9 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith0Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2193,7 +2194,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2204,19 +2205,19 @@ public sealed partial class SetupMethodTests
 					.DoesNotThrow();
 
 				sut.Method0();
-				Exception? result1 = Record.Exception(() => sut.Method0());
+				Exception? result1 = Catch.Exception(() => sut.Method0());
 				sut.Method0();
 				sut.Method0();
-				Exception? result2 = Record.Exception(() => sut.Method0());
+				Exception? result2 = Catch.Exception(() => sut.Method0());
 				sut.Method0();
 
 				await That(result1).HasMessage("foo");
 				await That(result2).HasMessage("foo");
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2231,7 +2232,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Only_ShouldLimitMatches()
 			{
 				List<string> results = [];
@@ -2256,7 +2257,7 @@ public sealed partial class SetupMethodTests
 				await That(results).IsEqualTo(["", "", "a", "a", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2282,7 +2283,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2309,7 +2310,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2335,7 +2336,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2348,7 +2349,7 @@ public sealed partial class SetupMethodTests
 				await That(() => sut.Method0()).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2377,7 +2378,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2392,7 +2393,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2407,7 +2408,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2422,7 +2423,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2443,7 +2444,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2467,9 +2468,9 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith1Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2484,7 +2485,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2495,19 +2496,19 @@ public sealed partial class SetupMethodTests
 					.DoesNotThrow();
 
 				sut.Method1(1);
-				Exception? result1 = Record.Exception(() => sut.Method1(2));
+				Exception? result1 = Catch.Exception(() => sut.Method1(2));
 				sut.Method1(3);
 				sut.Method1(4);
-				Exception? result2 = Record.Exception(() => sut.Method1(5));
+				Exception? result2 = Catch.Exception(() => sut.Method1(5));
 				sut.Method1(6);
 
 				await That(result1).HasMessage("foo");
 				await That(result2).HasMessage("foo");
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2522,7 +2523,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2548,7 +2549,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2575,7 +2576,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2601,7 +2602,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2614,7 +2615,7 @@ public sealed partial class SetupMethodTests
 				await That(() => sut.Method1(1)).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2643,7 +2644,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2658,7 +2659,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2673,7 +2674,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2689,7 +2690,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2705,7 +2706,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2726,7 +2727,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2750,9 +2751,9 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith2Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2767,7 +2768,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2778,19 +2779,19 @@ public sealed partial class SetupMethodTests
 					.DoesNotThrow();
 
 				sut.Method2(1, 2);
-				Exception? result1 = Record.Exception(() => sut.Method2(2, 3));
+				Exception? result1 = Catch.Exception(() => sut.Method2(2, 3));
 				sut.Method2(3, 4);
 				sut.Method2(4, 5);
-				Exception? result2 = Record.Exception(() => sut.Method2(5, 6));
+				Exception? result2 = Catch.Exception(() => sut.Method2(5, 6));
 				sut.Method2(6, 7);
 
 				await That(result1).HasMessage("foo");
 				await That(result2).HasMessage("foo");
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2805,7 +2806,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2831,7 +2832,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2858,7 +2859,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2884,7 +2885,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2897,7 +2898,7 @@ public sealed partial class SetupMethodTests
 				await That(() => sut.Method2(1, 2)).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2926,7 +2927,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2942,7 +2943,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2958,7 +2959,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1-2");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2974,7 +2975,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2990,7 +2991,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3012,7 +3013,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3037,9 +3038,9 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith3Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3054,7 +3055,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3065,19 +3066,19 @@ public sealed partial class SetupMethodTests
 					.DoesNotThrow();
 
 				sut.Method3(1, 2, 3);
-				Exception? result1 = Record.Exception(() => sut.Method3(2, 3, 4));
+				Exception? result1 = Catch.Exception(() => sut.Method3(2, 3, 4));
 				sut.Method3(3, 4, 5);
 				sut.Method3(4, 5, 6);
-				Exception? result2 = Record.Exception(() => sut.Method3(5, 6, 7));
+				Exception? result2 = Catch.Exception(() => sut.Method3(5, 6, 7));
 				sut.Method3(6, 7, 8);
 
 				await That(result1).HasMessage("foo");
 				await That(result2).HasMessage("foo");
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3092,7 +3093,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3118,7 +3119,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3145,7 +3146,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3171,7 +3172,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3184,7 +3185,7 @@ public sealed partial class SetupMethodTests
 				await That(() => sut.Method3(1, 2, 3)).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3213,7 +3214,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3229,7 +3230,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3245,7 +3246,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1-2-3");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3261,7 +3262,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3277,7 +3278,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3299,7 +3300,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3324,9 +3325,9 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith4Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3341,7 +3342,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3352,19 +3353,19 @@ public sealed partial class SetupMethodTests
 					.DoesNotThrow();
 
 				sut.Method4(1, 2, 3, 4);
-				Exception? result1 = Record.Exception(() => sut.Method4(2, 3, 4, 5));
+				Exception? result1 = Catch.Exception(() => sut.Method4(2, 3, 4, 5));
 				sut.Method4(3, 4, 5, 6);
 				sut.Method4(4, 5, 6, 7);
-				Exception? result2 = Record.Exception(() => sut.Method4(5, 6, 7, 8));
+				Exception? result2 = Catch.Exception(() => sut.Method4(5, 6, 7, 8));
 				sut.Method4(6, 7, 8, 9);
 
 				await That(result1).HasMessage("foo");
 				await That(result2).HasMessage("foo");
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3379,7 +3380,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3405,7 +3406,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3432,7 +3433,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3458,7 +3459,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3471,7 +3472,7 @@ public sealed partial class SetupMethodTests
 				await That(() => sut.Method4(1, 2, 3, 4)).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3500,7 +3501,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3516,7 +3517,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3532,7 +3533,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1-2-3-4");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3548,7 +3549,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3564,7 +3565,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3586,7 +3587,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3611,9 +3612,9 @@ public sealed partial class SetupMethodTests
 
 		public class VoidMethodWith5Parameters
 		{
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3629,7 +3630,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3641,19 +3642,19 @@ public sealed partial class SetupMethodTests
 					.DoesNotThrow();
 
 				sut.Method5(1, 2, 3, 4, 5);
-				Exception? result1 = Record.Exception(() => sut.Method5(2, 3, 4, 5, 6));
+				Exception? result1 = Catch.Exception(() => sut.Method5(2, 3, 4, 5, 6));
 				sut.Method5(3, 4, 5, 6, 7);
 				sut.Method5(4, 5, 6, 7, 8);
-				Exception? result2 = Record.Exception(() => sut.Method5(5, 6, 7, 8, 9));
+				Exception? result2 = Catch.Exception(() => sut.Method5(5, 6, 7, 8, 9));
 				sut.Method5(6, 7, 8, 9, 10);
 
 				await That(result1).HasMessage("foo");
 				await That(result2).HasMessage("foo");
 			}
 
-			[Theory]
-			[InlineData(-2)]
-			[InlineData(0)]
+			[Test]
+			[Arguments(-2)]
+			[Arguments(0)]
 			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3669,7 +3670,7 @@ public sealed partial class SetupMethodTests
 					.WithMessage("Times must be greater than zero.").AsPrefix();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3696,7 +3697,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "foo", "bar", "bar", "bar", "foo", "foo", "bar", "bar", "bar",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Forever_ShouldUseTheLastValueForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3724,7 +3725,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["a", "b", "c", "c", "c", "c", "c", "c", "c", "c",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3751,7 +3752,7 @@ public sealed partial class SetupMethodTests
 				await That(values).IsEqualTo(["foo", "bar", "foo", "bar", "bar", "", "", "", "", "",]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3765,7 +3766,7 @@ public sealed partial class SetupMethodTests
 				await That(() => sut.Method5(1, 2, 3, 4, 5)).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3795,7 +3796,7 @@ public sealed partial class SetupMethodTests
 				]);
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Callback_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3812,7 +3813,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_CallbackWithValue_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3829,7 +3830,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo-1-2-3-4-5");
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_Generic_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3846,7 +3847,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).ThrowsExactly<ArgumentNullException>();
 			}
 
-			[Fact]
+			[Test]
 			public async Task Throws_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3863,7 +3864,7 @@ public sealed partial class SetupMethodTests
 				await That(Act).Throws().WithMessage("foo");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3886,7 +3887,7 @@ public sealed partial class SetupMethodTests
 				await That(ActFor).DoesNotThrow();
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();

@@ -4,10 +4,10 @@ namespace Mockolate.Internal.Tests.Internals;
 
 public class WildcardTests
 {
-	[Theory]
-	[InlineData("\r\n")]
-	[InlineData("\r")]
-	[InlineData("\n")]
+	[Test]
+	[Arguments("\r\n")]
+	[Arguments("\r")]
+	[Arguments("\n")]
 	public async Task ShouldSupportMultilineStrings(string newlineSeparator)
 	{
 		Wildcard wildcard = Wildcard.Pattern("fo*az", false);

@@ -6,7 +6,7 @@ public sealed partial class MockTests
 	{
 		public sealed class EventsTests
 		{
-			[Fact]
+			[Test]
 			public async Task EventWithRefOutDelegate_ShouldPreserveModifiersOnRaise()
 			{
 				GeneratorResult result = Generator
@@ -33,7 +33,7 @@ public sealed partial class MockTests
 				await That(result.Diagnostics).IsEmpty();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleImplementations_ShouldOnlyHaveOneExplicitImplementation()
 			{
 				GeneratorResult result = Generator
@@ -73,7 +73,7 @@ public sealed partial class MockTests
 					.Contains("event global::System.EventHandler<long>? global::MyCode.IMyServiceBase2.SomeEvent").Once();
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldGenerateEventSetupInSetupInterface()
 			{
 				GeneratorResult result = Generator
@@ -119,7 +119,7 @@ public sealed partial class MockTests
 					          """).IgnoringNewlineStyle();
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldImplementAllEventsFromInterfaces()
 			{
 				GeneratorResult result = Generator
@@ -209,7 +209,7 @@ public sealed partial class MockTests
 					          """).IgnoringNewlineStyle();
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldImplementImplicitlyInheritedEvents()
 			{
 				GeneratorResult result = Generator
@@ -375,7 +375,7 @@ public sealed partial class MockTests
 					          """).IgnoringNewlineStyle();
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldImplementVirtualEventsOfClassesAndAllExplicitlyFromAdditionalInterfaces()
 			{
 				GeneratorResult result = Generator

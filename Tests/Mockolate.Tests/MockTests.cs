@@ -5,7 +5,7 @@ namespace Mockolate.Tests;
 
 public sealed partial class MockTests
 {
-	[Fact]
+	[Test]
 	public async Task Create_BaseClassWithMultipleConstructors()
 	{
 		void Act()
@@ -16,7 +16,7 @@ public sealed partial class MockTests
 		await That(Act).DoesNotThrow();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_BaseClassWithoutConstructor_ShouldThrowMockException()
 	{
 		void Act()
@@ -28,7 +28,7 @@ public sealed partial class MockTests
 			.WithMessage("This method should not be called directly. Either 'Mockolate.Tests.MockTests+MyBaseClassWithoutConstructor' is not mockable or the source generator did not run correctly.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_BaseClassWithVirtualCallsInConstructor_AllowExplicitSetup()
 	{
 		MyServiceBaseWithVirtualCallsInConstructor sut =
@@ -40,7 +40,7 @@ public sealed partial class MockTests
 		await That(value).IsEqualTo(5);
 	}
 
-	[Fact]
+	[Test]
 	public async Task
 		Create_BaseClassWithVirtualCallsInConstructor_WithUseBaseClassAsDefaultValue_ShouldUseBaseClassValuesInConstructor()
 	{
@@ -52,7 +52,7 @@ public sealed partial class MockTests
 		await That(value).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_SealedClass_ImplementingAdditionalInterface_ShouldThrowMockException()
 	{
 		void Act()
@@ -67,7 +67,7 @@ public sealed partial class MockTests
 				"This method should not be called directly. Either 'Mockolate.Tests.MockTests+MySealedClass' is not mockable or the source generator did not run correctly.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_SealedClass_ShouldThrowMockException()
 	{
 		void Act()
@@ -82,7 +82,7 @@ public sealed partial class MockTests
 				"This method should not be called directly. Either 'Mockolate.Tests.MockTests+MySealedClass' is not mockable or the source generator did not run correctly.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithConstructorParameters_SealedClass_ShouldThrowMockException()
 	{
 		void Act()
@@ -97,7 +97,7 @@ public sealed partial class MockTests
 				"This method should not be called directly. Either 'Mockolate.Tests.MockTests+MySealedClass' is not mockable or the source generator did not run correctly.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithConstructorParametersAndSetups_ShouldApplySetups()
 	{
 		MyBaseClassWithConstructor mock = MyBaseClassWithConstructor.CreateMock(
@@ -109,7 +109,7 @@ public sealed partial class MockTests
 		await That(result).IsEqualTo("bar");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithConstructorParametersMockBehaviorAndSetups_ShouldApplySetups()
 	{
 		MyBaseClassWithConstructor mock = MyBaseClassWithConstructor.CreateMock(
@@ -122,7 +122,7 @@ public sealed partial class MockTests
 		await That(result).IsEqualTo("bar");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithMatchingParameters_ShouldCreateMock()
 	{
 		MyBaseClassWithConstructor Act()
@@ -133,7 +133,7 @@ public sealed partial class MockTests
 		await That(Act).DoesNotThrow().WhoseResult.IsNotNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithMockBehavior_SealedClass_ShouldThrowMockException()
 	{
 		void Act()
@@ -148,7 +148,7 @@ public sealed partial class MockTests
 				"This method should not be called directly. Either 'Mockolate.Tests.MockTests+MySealedClass' is not mockable or the source generator did not run correctly.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithRequiredParameters_WithEmptyParameters_ShouldThrowMockException()
 	{
 		void Act()
@@ -161,7 +161,7 @@ public sealed partial class MockTests
 				"No parameterless constructor found for 'Mockolate.Tests.MockTests.MyBaseClassWithConstructor'. Please provide constructor parameters.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithRequiredParameters_WithoutParameters_ShouldThrowMockException()
 	{
 		void Act()
@@ -174,7 +174,7 @@ public sealed partial class MockTests
 				"No parameterless constructor found for 'Mockolate.Tests.MockTests.MyBaseClassWithConstructor'. Please provide constructor parameters.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithSetups_ShouldAllowChangingTheSetupSubjectInCallback()
 	{
 		IChocolateDispenser mock = IChocolateDispenser.CreateMock(setup => setup.Dispense(It.IsAny<string>(), It.IsAny<int>())
@@ -187,7 +187,7 @@ public sealed partial class MockTests
 		await That(remaining).IsEqualTo(7);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithSetups_ShouldApplySetups()
 	{
 		IMyService mock = IMyService.CreateMock(setup =>
@@ -206,7 +206,7 @@ public sealed partial class MockTests
 		await That(result3).IsEqualTo(8);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Create_WithTooManyParameters_ShouldThrowMockException()
 	{
 		void Act()
@@ -219,7 +219,7 @@ public sealed partial class MockTests
 				"Could not find any constructor for 'Mockolate.Tests.MockTests.MyBaseClassWithConstructor' that matches the 3 given parameters (foo, 1, 2).");
 	}
 
-	[Fact]
+	[Test]
 	public async Task DoubleNestedInterfaces_ShouldStillWork()
 	{
 		Nested.Nested2.IMyDoubleNestedService sut = Nested.Nested2.IMyDoubleNestedService.CreateMock();
@@ -230,7 +230,7 @@ public sealed partial class MockTests
 		await That(result).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GenericMethodWithWhereClause_ShouldWork()
 	{
 		IMyServiceWithGenericMethodsWithWhereClause sut = IMyServiceWithGenericMethodsWithWhereClause.CreateMock();
@@ -243,7 +243,7 @@ public sealed partial class MockTests
 		await That(sut.Mock.Verify.MyMethod<IChocolateDispenser>(It.IsTrue())).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GenericMethodWithWhereClause_WhenImplementingAdditionalInterface_ShouldWork()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock()
@@ -258,7 +258,7 @@ public sealed partial class MockTests
 		await That(sut.Mock.As<IMyServiceWithGenericMethodsWithWhereClause>().Verify.MyMethod<IChocolateDispenser>(It.IsTrue())).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_ShouldReturnImplementedType()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -268,7 +268,7 @@ public sealed partial class MockTests
 		await That(result).IsEqualTo("Mockolate.Tests.TestHelpers.IChocolateDispenser mock");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_WithAdditionalImplementations_ShouldReturnImplementedType()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock().Implementing<IMyService>();
@@ -278,7 +278,7 @@ public sealed partial class MockTests
 		await That(result).IsEqualTo("Mockolate.Tests.TestHelpers.IChocolateDispenser mock that also implements Mockolate.Tests.MockTests.IMyService");
 	}
 
-	[Fact]
+	[Test]
 	public async Task TypeWithMockRegistryMembers_ShouldUseUniqueName()
 	{
 		IServiceWithMockRegistryMembers sut = IServiceWithMockRegistryMembers.CreateMock();
@@ -289,7 +289,7 @@ public sealed partial class MockTests
 		await That(result).IsEqualTo("foo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenTypeHasMockAndMockolate_MockProperty_ShouldAppendNumbers()
 	{
 		MyInterfaceWithMockAndMockolate_MockProperty sut = MyInterfaceWithMockAndMockolate_MockProperty.CreateMock();
@@ -303,7 +303,7 @@ public sealed partial class MockTests
 		await That(sut.Mockolate_Mock__1).IsEqualTo("foo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenTypeHasMockProperty_ShouldUseMockolate_MockInstead()
 	{
 		MyInterfaceWithMockProperty sut = MyInterfaceWithMockProperty.CreateMock();
@@ -315,7 +315,7 @@ public sealed partial class MockTests
 		await That(result).IsEqualTo(4);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithConstructorParameters_ShouldBeAccessibleViaMock()
 	{
 		MyBaseClassWithConstructor sut = MyBaseClassWithConstructor.CreateMock(["foo",]);
@@ -325,7 +325,7 @@ public sealed partial class MockTests
 		await That(mock.MockRegistry.ConstructorParameters).HasCount(1).And.Contains("foo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithoutConstructorParameters_MockConstructorParametersShouldBeNull()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();

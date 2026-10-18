@@ -8,7 +8,7 @@ public class MockRegistryVerifyTests
 {
 	public sealed class FailureMessageTests
 	{
-		[Fact]
+		[Test]
 		public async Task IndexerGotTyped_FourKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -30,7 +30,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*got indexer [1, \"a\", true, 1.0]*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGotTyped_OneKey_FailureMessageIncludesGotIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -49,7 +49,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*got indexer [1]*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGotTyped_ThreeKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -70,7 +70,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*got indexer [1, \"a\", true]*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerGotTyped_TwoKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -90,7 +90,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*got indexer [1, \"a\"]*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetTyped_FourKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -113,7 +113,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*set indexer [1, \"a\", true, 1.0] to *z*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetTyped_OneKey_FailureMessageIncludesSetIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -133,7 +133,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*set indexer [1] to *a*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetTyped_ThreeKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -155,7 +155,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*set indexer [1, \"a\", true] to *1*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task IndexerSetTyped_TwoKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -176,7 +176,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*set indexer [1, \"a\"] to *true*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task SubscribedToTyped_FailureMessageIncludesSubscribedToEventPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -193,7 +193,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*subscribed to event Tick*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task UnsubscribedFromTyped_FailureMessageIncludesUnsubscribedFromEventPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -210,7 +210,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*unsubscribed from event Tick*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_FourParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -232,7 +232,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*invoked method Foo(1, \"a\", true, 1.0)*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_OneParameter_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -251,7 +251,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*invoked method Foo(1)*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_Parameterless_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -268,7 +268,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*invoked method Foo()*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_ThreeParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -289,7 +289,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*invoked method Foo(1, \"a\", true)*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_TwoParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -309,7 +309,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*invoked method Foo(1, \"a\")*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyPropertyTyped_Getter_FailureMessageIncludesGotPropertyPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -326,7 +326,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*got property X*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyPropertyTyped_Setter_FailureMessageIncludesSetPropertyPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -347,7 +347,7 @@ public class MockRegistryVerifyTests
 
 	public sealed class TryGetBufferBoundaryTests
 	{
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_WithMemberIdEqualToBufferLength_ShouldFallToSlowPath()
 		{
 			// Pins the `(uint)memberId < (uint)buffers.Length` boundary in TryGetBuffer.
@@ -367,7 +367,7 @@ public class MockRegistryVerifyTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_WithMemberIdFarOutOfRange_ShouldFallToSlowPath()
 		{
 			FastMockInteractions store = new(1);
@@ -386,7 +386,7 @@ public class MockRegistryVerifyTests
 
 	public sealed class SlowPathPredicateTests
 	{
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_FourParam_SlowPath_AllMatchersTrue_Counts()
 		{
 			// Positive case for the same slow-path lambda — the matched record must be counted.
@@ -410,7 +410,7 @@ public class MockRegistryVerifyTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_FourParam_SlowPath_RejectsWhenLastMatcherFails()
 		{
 			FastMockInteractions store = new(0);
@@ -433,7 +433,7 @@ public class MockRegistryVerifyTests
 			await That(Act).Throws<MockVerificationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_ThreeParam_SlowPath_RejectsWhenLastMatcherFails()
 		{
 			FastMockInteractions store = new(0);
@@ -454,7 +454,7 @@ public class MockRegistryVerifyTests
 			await That(Act).Throws<MockVerificationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_TwoParam_SlowPath_RejectsWhenFirstMatcherFails()
 		{
 			// The "logical mutation" survivors live in the slow-path lambda used when TryGetBuffer
@@ -478,7 +478,7 @@ public class MockRegistryVerifyTests
 			await That(Act).Throws<MockVerificationException>();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VerifyMethodTyped_TwoParam_SlowPath_RejectsWhenSecondMatcherFails()
 		{
 			FastMockInteractions store = new(0);
@@ -501,7 +501,7 @@ public class MockRegistryVerifyTests
 
 	public sealed class VerifyPropertyFastPathTests
 	{
-		[Fact]
+		[Test]
 		public async Task Getter_FailureMessageIncludesGotPropertyPrefix()
 		{
 			// Pins the expectation factory `() => $"got property {propertyName...}"` against the
@@ -520,7 +520,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*got property X*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Getter_WithBufferAndRecord_PredicateMatchesEveryRecord()
 		{
 			// Pins `static _ => true` predicate in the public memberId-keyed VerifyProperty getter.
@@ -540,7 +540,7 @@ public class MockRegistryVerifyTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Setter_FailureMessageIncludesSetPropertyPrefix()
 		{
 			// Pins the expectation factory `() => $"set property {propertyName...} to {value}"`
@@ -560,7 +560,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*set property X to *7*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Setter_WithBufferAndMatchingRecord_PredicateMatchesByValue()
 		{
 			// Pins the local Predicate's body in the memberId-keyed property setter overload.
@@ -581,7 +581,7 @@ public class MockRegistryVerifyTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Setter_WithNonMatchingValue_PredicateRejects()
 		{
 			// Same Predicate body — but exercises the negative branch so the `value.Matches(...)`
@@ -604,7 +604,7 @@ public class MockRegistryVerifyTests
 
 	public sealed class IndexerFastPathTests
 	{
-		[Fact]
+		[Test]
 		public async Task Got_FailureMessageIncludesGotIndexerPrefix()
 		{
 			// Pins `() => $"got indexer {parametersDescription()}"` in the public memberId-keyed
@@ -625,7 +625,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*got indexer [1]*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Set_FailureMessageIncludesSetIndexerPrefix()
 		{
 			// Pins `() => $"set indexer {parametersDescription()} to {value}"` against the
@@ -647,7 +647,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*set indexer [1] to *x*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Set_WithBufferAndMatchingRecord_PredicateMatchesByValue()
 		{
 			// Pins the local Predicate body in the memberId-keyed IndexerSet overload — the
@@ -673,7 +673,7 @@ public class MockRegistryVerifyTests
 
 	public sealed class SubscribedToFastPathTests
 	{
-		[Fact]
+		[Test]
 		public async Task FailureMessageIncludesSubscribedToEventPrefix()
 		{
 			// Pins the expectation factory `() => $"subscribed to event {eventName...}"`.
@@ -691,7 +691,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*subscribed to event Tick*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithBufferAndRecord_PredicateMatchesEveryRecord()
 		{
 			// Pins `static _ => true` in the memberId-keyed SubscribedTo. Mutating to `false`
@@ -710,7 +710,7 @@ public class MockRegistryVerifyTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithoutBuffer_FallsBackToLegacyAndFiltersByEventName()
 		{
 			// Kills two coupled mutants on `if (buffer is null)`:
@@ -737,7 +737,7 @@ public class MockRegistryVerifyTests
 
 	public sealed class UnsubscribedFromFastPathTests
 	{
-		[Fact]
+		[Test]
 		public async Task FailureMessageIncludesUnsubscribedFromEventPrefix()
 		{
 			FastMockInteractions store = new(1);
@@ -754,7 +754,7 @@ public class MockRegistryVerifyTests
 				.WithMessage("*unsubscribed from event Tick*").AsWildcard();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithBufferAndRecord_PredicateMatchesEveryRecord()
 		{
 			FastMockInteractions store = new(1);
@@ -771,7 +771,7 @@ public class MockRegistryVerifyTests
 			await That(Act).DoesNotThrow();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithoutBuffer_FallsBackToLegacyAndFiltersByEventName()
 		{
 			FastMockInteractions store = new(0);
@@ -791,7 +791,7 @@ public class MockRegistryVerifyTests
 
 	public sealed class VerifyMethodFallbackTests
 	{
-		[Fact]
+		[Test]
 		public async Task Parameterless_WithoutFastMethod0Buffer_PredicateMatchesAllMethodInvocations()
 		{
 			// Kills the `_ => true` → `_ => false` mutation in the slow-path fallback at the bottom

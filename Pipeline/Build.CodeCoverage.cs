@@ -17,7 +17,7 @@ partial class Build
 				.SetProcessToolPath(NuGetToolPathResolver.GetPackageExecutable("ReportGenerator", "ReportGenerator.dll",
 					framework: "net10.0"))
 				.SetTargetDirectory(TestResultsDirectory / "reports")
-				.AddReports(TestResultsDirectory / "**/coverage.cobertura.xml")
+				.AddReports(TestResultsDirectory / "**/*.cobertura.xml")
 				// The generic format of Sonar lists the lines per file. A format that lists them per method leaves out the
 				// lines of a lambda in a generic class, because ReportGenerator keeps them in a class without methods.
 				.AddReportTypes(ReportTypes.SonarQube)

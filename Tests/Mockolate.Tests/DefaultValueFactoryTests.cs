@@ -2,7 +2,7 @@ namespace Mockolate.Tests;
 
 public sealed class DefaultValueFactoryTests
 {
-	[Fact]
+	[Test]
 	public async Task CanGenerateValue_ShouldFallbackToFalse()
 	{
 		MyDefaultValueFactory defaultValueFactory = new();
@@ -12,7 +12,7 @@ public sealed class DefaultValueFactoryTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GenerateValue_ShouldFallbackToAlwaysReturnNull()
 	{
 		MyDefaultValueFactory defaultValueFactory = new();

@@ -8,7 +8,7 @@ public sealed partial class MockTests
 {
 	public sealed class StaticInterfaceMembersTests
 	{
-		[Fact]
+		[Test]
 		public async Task WithAbstractStaticEvent()
 		{
 			List<int> receivedCalls = [];
@@ -45,7 +45,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithAbstractStaticEvent_ShouldWorkInParallel()
 		{
 			ConcurrentDictionary<int, List<int>> receivedCalls = [];
@@ -92,7 +92,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithAbstractStaticMethod()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
@@ -113,7 +113,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithAbstractStaticMethod_ShouldWorkInParallel()
 		{
 			Task[] tasks = new Task[20];
@@ -144,7 +144,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithAbstractStaticProperty()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
@@ -165,7 +165,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithAbstractStaticProperty_ShouldWorkInParallel()
 		{
 			Task[] tasks = new Task[20];
@@ -196,7 +196,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithVirtualStaticMethod()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
@@ -217,7 +217,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithVirtualStaticMethod_ShouldWorkInParallel()
 		{
 			Task[] tasks = new Task[20];
@@ -248,7 +248,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithVirtualStaticProperty()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
@@ -269,7 +269,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithVirtualStaticProperty_ShouldWorkInParallel()
 		{
 			Task[] tasks = new Task[20];
@@ -302,7 +302,7 @@ public sealed partial class MockTests
 
 		public sealed class CombinationTests
 		{
-			[Fact]
+			[Test]
 			public async Task StaticBase_WithExtraInterface_ShouldDispatchStaticEvent()
 			{
 				List<int> receivedCalls = [];
@@ -337,7 +337,7 @@ public sealed partial class MockTests
 				}
 			}
 
-			[Fact]
+			[Test]
 			public async Task StaticBase_WithExtraInterface_ShouldDispatchStaticMethod()
 			{
 				IServiceWithAllStaticAbstracts sut = IServiceWithAllStaticAbstracts.CreateMock()
@@ -357,7 +357,7 @@ public sealed partial class MockTests
 				}
 			}
 
-			[Fact]
+			[Test]
 			public async Task StaticBase_WithExtraInterface_ShouldDispatchStaticProperty()
 			{
 				IServiceWithAllStaticAbstracts sut = IServiceWithAllStaticAbstracts.CreateMock()

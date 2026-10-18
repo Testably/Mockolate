@@ -8,7 +8,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsAnyOutReadOnlySpanTests
 	{
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IOutParameter<ReadOnlySpanWrapper<int>> sut = It.IsAnyOutReadOnlySpan<int>();
@@ -19,7 +19,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task TryGetValue_ShouldReturnFalse()
 		{
 			IOutParameter<ReadOnlySpanWrapper<int>> sut = It.IsAnyOutReadOnlySpan<int>();

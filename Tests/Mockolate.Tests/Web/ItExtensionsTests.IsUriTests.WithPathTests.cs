@@ -11,12 +11,12 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class WithPathTests
 		{
-			[Theory]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=234", "/foo/bar", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=234", "*foo*", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=234", "*FOO*", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=234", "*bar*", true)]
-			[InlineData("http://www.testably.org/foo/bar?x=123&y=234", "*baz*", false)]
+			[Test]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=234", "/foo/bar", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=234", "*foo*", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=234", "*FOO*", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=234", "*bar*", true)]
+			[Arguments("http://www.testably.org/foo/bar?x=123&y=234", "*baz*", false)]
 			public async Task ShouldVerifyPath(string uri, string pathPattern, bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

@@ -9,7 +9,7 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class ToStringTests
 		{
-			[Fact]
+			[Test]
 			public async Task Default_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage();
@@ -19,7 +19,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("a Http-Request");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleConditions_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage(HttpMethod.Post)
@@ -32,7 +32,7 @@ public sealed partial class ItExtensionsTests
 					"POST-Request with Uri matching \"https://example.com\" and Http content with media type \"application/json\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhoseContentIsAction_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
@@ -44,7 +44,7 @@ public sealed partial class ItExtensionsTests
 					"a Http-Request with Http content with media type \"text/plain\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhoseContentIsMediaType_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
@@ -56,7 +56,7 @@ public sealed partial class ItExtensionsTests
 					"a Http-Request with Http content with media type \"application/json\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhoseUriIsAction_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
@@ -68,7 +68,7 @@ public sealed partial class ItExtensionsTests
 					"a Http-Request with https Uri with host matching \"example.com\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WhoseUriIsString_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
@@ -79,7 +79,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("a Http-Request with Uri matching \"https://example.com\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithHeaders_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
@@ -90,7 +90,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("a Http-Request with header \"x-my-header: my-value\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithMethod_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =

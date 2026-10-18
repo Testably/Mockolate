@@ -11,9 +11,9 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class WhoseUriIsTests
 		{
-			[Theory]
-			[InlineData("https://www.testably.org", true)]
-			[InlineData("http://www.testably.org", false)]
+			[Test]
+			[Arguments("https://www.testably.org", true)]
+			[Arguments("http://www.testably.org", false)]
 			public async Task ShouldSupportPatternWithUriConfiguration(string uri, bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -27,9 +27,9 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectMatch ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("https://www.testably.org", true)]
-			[InlineData("http://www.testably.org", false)]
+			[Test]
+			[Arguments("https://www.testably.org", true)]
+			[Arguments("http://www.testably.org", false)]
 			public async Task ShouldSupportUriConfiguration(string uri, bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -43,21 +43,21 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectMatch ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=123&y=4",
+			[Test]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=123&y=4",
 				true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "http://www.testably.org/foo/bar?x=123&y=4",
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "http://www.testably.org/foo/bar?x=123&y=4",
 				false)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/baz?x=123&y=4",
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/baz?x=123&y=4",
 				false)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=124&y=4",
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=124&y=4",
 				false)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=123", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "*www.testably.org*", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "*/foo/bar*", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "*x=123*", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "*y=4*", true)]
-			[InlineData("https://www.testably.org/foo/bar?x=123&y=4", "https*", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https://www.testably.org/foo/bar?x=123", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "*www.testably.org*", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "*/foo/bar*", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "*x=123*", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "*y=4*", true)]
+			[Arguments("https://www.testably.org/foo/bar?x=123&y=4", "https*", true)]
 			public async Task ShouldVerifyFullUriWithWildcardMatch(string uri, string pattern, bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -71,9 +71,9 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectMatch ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("*testably.org")]
-			[InlineData("*testably.org/")]
+			[Test]
+			[Arguments("*testably.org")]
+			[Arguments("*testably.org/")]
 			public async Task TrailingSlash_ShouldBeIgnored(string matchPattern)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -89,7 +89,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Fact]
+			[Test]
 			public async Task TrailingSlash_WhenNotPresent_ShouldNotBeAdded()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

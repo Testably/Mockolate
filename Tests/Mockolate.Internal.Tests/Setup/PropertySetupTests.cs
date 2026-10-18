@@ -7,7 +7,7 @@ namespace Mockolate.Internal.Tests.Setup;
 
 public sealed class PropertySetupTests
 {
-	[Fact]
+	[Test]
 	public async Task AutoInitializeWith_WhenAlreadyInitialized_ShouldNotOverwriteValue()
 	{
 		FakePropertySetup setup = new("p");
@@ -20,7 +20,7 @@ public sealed class PropertySetupTests
 		await That(value).IsEqualTo(5);
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultInvokeGetter_WhenRequestedTypeDiffersFromBackingType_ShouldFallBackToGenerator()
 	{
 		PropertySetup.Default<int> setup = new("p", 0x40400000);
@@ -33,7 +33,7 @@ public sealed class PropertySetupTests
 				"the typeof-equality branch must fall through to the defaultValueGenerator; reinterpreting 0x40400000 via Unsafe.As<int, float> would yield 3.0f instead");
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultInvokeGetter_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
 	{
 		PropertySetup.Default<int> setup = new("p", 42);
@@ -44,7 +44,7 @@ public sealed class PropertySetupTests
 		await That(value).IsEqualTo(42);
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultInvokeGetterFast_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
 	{
 		PropertySetup.Default<int> setup = new("p", 42);
@@ -54,7 +54,7 @@ public sealed class PropertySetupTests
 		await That(value).IsEqualTo(42);
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultInvokeGetterFast_WhenStoredValueIsNullReference_ShouldReturnNullViaTypeofFastPath()
 	{
 		PropertySetup.Default<string> setup = new("p", null!);
@@ -64,7 +64,7 @@ public sealed class PropertySetupTests
 		await That(value).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultInvokeSetter_WhenValueIsNullAndUnderlyingTypeIsNullable_ShouldStoreDefault()
 	{
 		PropertySetup.Default<int?> setup = new("p", 5);
@@ -76,7 +76,7 @@ public sealed class PropertySetupTests
 		await That(value).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultInvokeSetter_WhenValueIsNullButUnderlyingTypeIsNonNullable_ShouldThrow()
 	{
 		PropertySetup.Default<int> setup = new("p", 5);
@@ -91,7 +91,7 @@ public sealed class PropertySetupTests
 			.WithMessage("*int*").AsWildcard();
 	}
 
-	[Fact]
+	[Test]
 	public async Task DefaultInvokeSetter_WhenValueTypeMismatch_ShouldThrowWithFormattedMessage()
 	{
 		PropertySetup.Default<int> setup = new("p", 5);
@@ -106,7 +106,7 @@ public sealed class PropertySetupTests
 			.WithMessage("*'int'*'string'*").AsWildcard();
 	}
 
-	[Fact]
+	[Test]
 	public async Task PropertySetupInvokeGetter_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
 	{
 		PropertySetup<int> setup = new(
@@ -119,7 +119,7 @@ public sealed class PropertySetupTests
 		await That(value).IsEqualTo(42);
 	}
 
-	[Fact]
+	[Test]
 	public async Task PropertySetupInvokeGetter_WhenStoredValueIsNullReference_ShouldReturnNullViaTypeofFastPath()
 	{
 		PropertySetup<string> setup = new(
@@ -131,7 +131,7 @@ public sealed class PropertySetupTests
 		await That(value).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task PropertySetupInvokeGetterFast_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
 	{
 		PropertySetup<int> setup = new(
@@ -143,7 +143,7 @@ public sealed class PropertySetupTests
 		await That(value).IsEqualTo(42);
 	}
 
-	[Fact]
+	[Test]
 	public async Task UserInitializeWith_SecondCall_ShouldNotOverwriteValue()
 	{
 		FakePropertySetup setup = new("p");

@@ -9,14 +9,14 @@ namespace Mockolate.SourceGenerators.Tests.Entities;
 
 public class PropertyEqualityComparerTests
 {
-	[Fact]
+	[Test]
 	public async Task BothNull_ShouldReturnTrue()
 	{
 		await That(Property.EqualityComparer.Equals(null, null)).IsTrue();
 		await That(Property.ContainingTypeIndependentEqualityComparer.Equals(null, null)).IsTrue();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ContainingTypeIndependent_IndexersWithDifferentArity_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.ContainingTypeIndependentEqualityComparer;
@@ -26,7 +26,7 @@ public class PropertyEqualityComparerTests
 		await That(comparer.Equals(arity1, arity2)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task ContainingTypeIndependent_IndexerVsNonIndexer_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.ContainingTypeIndependentEqualityComparer;
@@ -37,7 +37,7 @@ public class PropertyEqualityComparerTests
 		await That(comparer.Equals(nonIndexer, indexer)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexersWithDifferentArity_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.EqualityComparer;
@@ -47,7 +47,7 @@ public class PropertyEqualityComparerTests
 		await That(comparer.Equals(arity1, arity2)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexersWithDifferentContainingType_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.EqualityComparer;
@@ -57,7 +57,7 @@ public class PropertyEqualityComparerTests
 		await That(comparer.Equals(fromC, fromD)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerVsNonIndexer_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.EqualityComparer;
@@ -68,7 +68,7 @@ public class PropertyEqualityComparerTests
 		await That(comparer.Equals(nonIndexer, indexer)).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task NonIndexersWithDifferentContainingType_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.EqualityComparer;

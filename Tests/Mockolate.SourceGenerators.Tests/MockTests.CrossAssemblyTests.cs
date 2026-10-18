@@ -39,7 +39,7 @@ public sealed partial class MockTests
 		                                                   }
 		                                                   """;
 
-		[Fact]
+		[Test]
 		public async Task InternalVirtualMember_WithInternalsVisibleTo_ShouldBeOverridden()
 		{
 			MetadataReference external = CompileMyBaseClassAssembly(grantsInternalsVisibleTo: true);
@@ -53,7 +53,7 @@ public sealed partial class MockTests
 				.Contains("internal override int InternalVirtualProperty");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InternalVirtualMember_WithoutInternalsVisibleTo_ShouldNotBeOverridden()
 		{
 			MetadataReference external = CompileMyBaseClassAssembly(grantsInternalsVisibleTo: false);
@@ -68,7 +68,7 @@ public sealed partial class MockTests
 				.DoesNotContain("InternalVirtualProperty");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ProtectedInternalMember_WithInternalsVisibleTo_ShouldBeOverriddenAsProtectedInternal()
 		{
 			MetadataReference external = CompileMyBaseClassAssembly(grantsInternalsVisibleTo: true);
@@ -84,7 +84,7 @@ public sealed partial class MockTests
 				.Contains("protected internal set");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ProtectedInternalMember_WithoutInternalsVisibleTo_ShouldBeOverriddenAsProtected()
 		{
 			MetadataReference external = CompileMyBaseClassAssembly(grantsInternalsVisibleTo: false);
@@ -102,7 +102,7 @@ public sealed partial class MockTests
 				.DoesNotContain("protected internal set");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ProtectedInternalNestedConstructorParameter_WithInternalsVisibleTo_ShouldEmitConstructor()
 		{
 			MetadataReference external = CompileClientBaseAssembly(grantsInternalsVisibleTo: true);
@@ -116,7 +116,7 @@ public sealed partial class MockTests
 				.Because("InternalsVisibleTo makes the internal half of `protected internal` visible");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ProtectedInternalNestedConstructorParameter_WithoutInternalsVisibleTo_ShouldNotEmitConstructor()
 		{
 			MetadataReference external = CompileClientBaseAssembly(grantsInternalsVisibleTo: false);
@@ -132,9 +132,9 @@ public sealed partial class MockTests
 					"`protected internal` degrades to `protected` outside the declaring assembly, so the type is only reachable through inheritance and cannot be named on the generated public constructor (CS0051) or in MockExtensionsForClientBase (CS0122)");
 		}
 
-		[Theory]
-		[InlineData(true)]
-		[InlineData(false)]
+		[Test]
+		[Arguments(true)]
+		[Arguments(false)]
 		public async Task ProtectedInternalNestedMemberSignature_ShouldFollowInternalsVisibleTo(
 			bool grantsInternalsVisibleTo)
 		{
@@ -159,7 +159,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task AttributeWithInaccessibleTypeArgument_ShouldNotBeEmitted()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""
@@ -186,7 +186,7 @@ public sealed partial class MockTests
 					"the attribute name is emitted verbatim, so an inaccessible type argument makes it unusable even though the attribute class itself is public");
 		}
 
-		[Fact]
+		[Test]
 		public async Task PublicMembers_ShouldBeMockedAcrossAssemblyBoundary()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""
@@ -229,18 +229,18 @@ public sealed partial class MockTests
 				.Contains("public override int Compute()");
 		}
 
-		[Theory]
-		[InlineData("public abstract string MyProperty { get; internal set; }", "public override string MyProperty")]
-		[InlineData("internal abstract void MyMethod();", "internal override void MyMethod()")]
-		[InlineData("internal abstract int MyProperty { get; set; }", "internal override int MyProperty")]
-		[InlineData("internal abstract event System.EventHandler MyEvent;",
+		[Test]
+		[Arguments("public abstract string MyProperty { get; internal set; }", "public override string MyProperty")]
+		[Arguments("internal abstract void MyMethod();", "internal override void MyMethod()")]
+		[Arguments("internal abstract int MyProperty { get; set; }", "internal override int MyProperty")]
+		[Arguments("internal abstract event System.EventHandler MyEvent;",
 			"internal override event global::System.EventHandler MyEvent")]
-		[InlineData("private protected abstract void MyMethod();", "private protected override void MyMethod()")]
-		[InlineData("private protected abstract int MyProperty { get; set; }",
+		[Arguments("private protected abstract void MyMethod();", "private protected override void MyMethod()")]
+		[Arguments("private protected abstract int MyProperty { get; set; }",
 			"private protected override int MyProperty")]
-		[InlineData("private protected abstract event System.EventHandler MyEvent;",
+		[Arguments("private protected abstract event System.EventHandler MyEvent;",
 			"private protected override event global::System.EventHandler MyEvent")]
-		[InlineData("public abstract string MyProperty { get; private protected set; }",
+		[Arguments("public abstract string MyProperty { get; private protected set; }",
 			"public override string MyProperty")]
 		public async Task InaccessibleAbstractClassMember_WithInternalsVisibleTo_ShouldBeMocked(
 			string member, string expectedOverride)
@@ -257,9 +257,9 @@ public sealed partial class MockTests
 					"the override must repeat the base member's declared accessibility, and the member name alone would also match the setup and verify surfaces");
 		}
 
-		[Theory]
-		[InlineData("private protected abstract void MyMethod();")]
-		[InlineData("private protected abstract event System.EventHandler MyEvent;")]
+		[Test]
+		[Arguments("private protected abstract void MyMethod();")]
+		[Arguments("private protected abstract event System.EventHandler MyEvent;")]
 		public async Task PrivateProtectedMember_WithInternalsVisibleTo_ShouldNotBeWrapped(string member)
 		{
 			MetadataReference external = CompileMyExternalTypeAssembly("abstract class", member,
@@ -273,16 +273,16 @@ public sealed partial class MockTests
 					"a `private protected` member cannot be reached through a base-typed qualifier from the derived mock (CS1540)");
 		}
 
-		[Theory]
-		[InlineData("interface", "string MyProperty { get; internal set; }")]
-		[InlineData("interface", "internal void MyMethod();")]
-		[InlineData("abstract class", "public abstract string MyProperty { get; internal set; }")]
-		[InlineData("abstract class", "internal abstract void MyMethod();")]
-		[InlineData("abstract class", "internal abstract int MyProperty { get; set; }")]
-		[InlineData("abstract class", "internal abstract event System.EventHandler MyEvent;")]
-		[InlineData("abstract class", "private protected abstract void MyMethod();")]
-		[InlineData("abstract class", "private protected abstract int MyProperty { get; set; }")]
-		[InlineData("abstract class", "private protected abstract event System.EventHandler MyEvent;")]
+		[Test]
+		[Arguments("interface", "string MyProperty { get; internal set; }")]
+		[Arguments("interface", "internal void MyMethod();")]
+		[Arguments("abstract class", "public abstract string MyProperty { get; internal set; }")]
+		[Arguments("abstract class", "internal abstract void MyMethod();")]
+		[Arguments("abstract class", "internal abstract int MyProperty { get; set; }")]
+		[Arguments("abstract class", "internal abstract event System.EventHandler MyEvent;")]
+		[Arguments("abstract class", "private protected abstract void MyMethod();")]
+		[Arguments("abstract class", "private protected abstract int MyProperty { get; set; }")]
+		[Arguments("abstract class", "private protected abstract event System.EventHandler MyEvent;")]
 		public async Task InaccessibleRequiredMember_WithoutInternalsVisibleTo_ShouldNotBeMocked(
 			string typeKeyword, string member)
 		{
@@ -299,12 +299,12 @@ public sealed partial class MockTests
 					"the generator must refuse to emit a mock whose overrides could not compile; the user-facing guarantee is the Mockolate0002 error");
 		}
 
-		[Theory]
-		[InlineData("internal abstract void Hidden();", "internal override void Hidden() { }")]
-		[InlineData("internal abstract int Hidden { get; set; }", "internal override int Hidden { get; set; }")]
-		[InlineData("internal abstract event System.EventHandler Hidden;",
+		[Test]
+		[Arguments("internal abstract void Hidden();", "internal override void Hidden() { }")]
+		[Arguments("internal abstract int Hidden { get; set; }", "internal override int Hidden { get; set; }")]
+		[Arguments("internal abstract event System.EventHandler Hidden;",
 			"internal override event System.EventHandler Hidden;")]
-		[InlineData("private protected abstract int Hidden { get; set; }",
+		[Arguments("private protected abstract int Hidden { get; set; }",
 			"private protected override int Hidden { get; set; }")]
 		public async Task InaccessibleAbstractMemberAlreadyOverridden_ShouldStillBeMocked(
 			string baseMember, string derivedOverride)
@@ -334,11 +334,11 @@ public sealed partial class MockTests
 				.Because("the slot is already filled, so neither the unreachable override nor the base declaration may be restated");
 		}
 
-		[Theory]
-		[InlineData("internal void Hidden();", "void IMyBaseType.Hidden() { }")]
-		[InlineData("internal int Hidden { get; set; }",
+		[Test]
+		[Arguments("internal void Hidden();", "void IMyBaseType.Hidden() { }")]
+		[Arguments("internal int Hidden { get; set; }",
 			"int IMyBaseType.Hidden { get => 0; set { } }")]
-		[InlineData("internal event System.EventHandler Hidden;",
+		[Arguments("internal event System.EventHandler Hidden;",
 			"event System.EventHandler IMyBaseType.Hidden { add { } remove { } }")]
 		public async Task InaccessibleInterfaceMemberWithDefaultImplementation_ShouldStillBeMocked(
 			string baseMember, string defaultImplementation)
@@ -368,10 +368,10 @@ public sealed partial class MockTests
 				.Because("the default implementation fills the slot, so the mock inherits it rather than restating it");
 		}
 
-		[Theory]
-		[InlineData("public abstract string Mixed { get; internal set; }",
+		[Test]
+		[Arguments("public abstract string Mixed { get; internal set; }",
 			"public override string Mixed { get => null!; internal set { } }", "internal set")]
-		[InlineData("public abstract string Mixed { get; private protected set; }",
+		[Arguments("public abstract string Mixed { get; private protected set; }",
 			"public override string Mixed { get => null!; private protected set { } }", "private protected set")]
 		public async Task MixedAccessorSlotAlreadyOverridden_ShouldBeMockedWithTheAccessibleAccessorOnly(
 			string baseMember, string derivedOverride, string inaccessibleAccessor)
@@ -403,8 +403,8 @@ public sealed partial class MockTests
 				.Because("the accessor is invisible to the mock's assembly, so only the reachable one may be overridden");
 		}
 
-		[Theory]
-		[InlineData("public abstract string Mixed { internal get; set; }",
+		[Test]
+		[Arguments("public abstract string Mixed { internal get; set; }",
 			"public override string Mixed { internal get => null!; set { } }", "internal get")]
 		public async Task MixedAccessorSlotAlreadyOverridden_WithOnlyTheSetterReachable_ShouldBeMockedWithTheSetter(
 			string baseMember, string derivedOverride, string inaccessibleAccessor)
@@ -437,7 +437,7 @@ public sealed partial class MockTests
 				.Because("the accessor is invisible to the mock's assembly, so only the reachable one may be overridden");
 		}
 
-		[Fact]
+		[Test]
 		public async Task MixedAccessorIndexerSlotAlreadyOverridden_ShouldBeMockedWithTheAccessibleAccessorOnly()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""
@@ -466,7 +466,7 @@ public sealed partial class MockTests
 				.Because("the setter is invisible to the mock's assembly, so only the getter may be overridden");
 		}
 
-		[Fact]
+		[Test]
 		public async Task MixedAccessorIndexerSlotAlreadyOverridden_WithOnlyTheSetterReachable_ShouldBeMockedWithTheSetter()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""
@@ -495,7 +495,7 @@ public sealed partial class MockTests
 				.Because("the getter is invisible to the mock's assembly, so only the setter may be overridden");
 		}
 
-		[Fact]
+		[Test]
 		public async Task MixedAccessorSlotFilledByAnIntermediateType_ShouldBeMockedWithTheAccessibleAccessorOnly()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""
@@ -526,7 +526,7 @@ public sealed partial class MockTests
 				.Because("the slot is filled further up the chain, which discharges the setter just as a direct override does");
 		}
 
-		[Fact]
+		[Test]
 		public async Task MixedAccessorSlot_WithInternalsVisibleTo_ShouldBeMockedWithBothAccessors()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""
@@ -550,7 +550,7 @@ public sealed partial class MockTests
 			await That(result.Sources["Mock.MyExternalType.g.cs"]).Contains("internal set");
 		}
 
-		[Fact]
+		[Test]
 		public async Task MixedAccessorInterfaceSlotWithDefaultImplementation_ShouldNotBeRestated()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""
@@ -578,7 +578,7 @@ public sealed partial class MockTests
 					"an explicit interface implementation must supply every accessor (CS0551) and cannot reach the internal one (CS0122), so interface slots stay all-or-nothing");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InaccessibleAbstractMemberReDeclaredAsAbstract_ShouldNotBeMocked()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""
@@ -603,7 +603,7 @@ public sealed partial class MockTests
 					"an `abstract override` re-declaration continues the slot without filling it, so the member is still the mock's obligation");
 		}
 
-		[Fact]
+		[Test]
 		public async Task PartlyReachableSlot_WithInaccessibleSignatureType_ShouldSkipMember()
 		{
 			MetadataReference external = ExternalAssembly.Compile("""

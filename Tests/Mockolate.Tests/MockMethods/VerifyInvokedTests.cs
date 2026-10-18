@@ -6,7 +6,7 @@ namespace Mockolate.Tests.MockMethods;
 
 public sealed partial class VerifyInvokedTests
 {
-	[Fact]
+	[Test]
 	public async Task Equals_ShouldWork()
 	{
 		object obj = new();
@@ -17,7 +17,7 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.Equals(It.Is(obj))).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_ShouldWorkWithNull()
 	{
 		object? obj = null;
@@ -28,7 +28,7 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.Equals(It.Is(obj))).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task Equals_WithOtherOverload_ShouldWork()
 	{
 		object obj = new();
@@ -39,7 +39,7 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.Equals(It.Is(obj))).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetHashCode_ShouldWork()
 	{
 		IMethodService sut = IMethodService.CreateMock();
@@ -49,9 +49,9 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.GetHashCode()).Once();
 	}
 
-	[Theory]
-	[InlineData(-1, 0)]
-	[InlineData(1, 1)]
+	[Test]
+	[Arguments(-1, 0)]
+	[Arguments(1, 1)]
 	public async Task InvokedSetup_ShouldVerifySameConditionAsSetup(int firstParameter, int expectedCallCount)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -64,7 +64,7 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.VerifySetup(setup)).Exactly(expectedCallCount);
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodWithDifferentName_ShouldNotMatch()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -75,7 +75,7 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.Subtract(It.IsAny<int>(), It.IsAny<int?>())).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodWithDifferentName_WithParameters_ShouldNotMatch()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -86,7 +86,7 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.Multiply(Match.AnyParameters())).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task MethodWithDifferentOverload_ShouldNotMatch()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -97,9 +97,9 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.Subtract(It.IsAny<int>(), It.IsAny<int?>())).Never();
 	}
 
-	[Theory]
-	[InlineData(2)]
-	[InlineData(42)]
+	[Test]
+	[Arguments(2)]
+	[Arguments(42)]
 	public async Task MethodWithReturnValue_ShouldBeRegistered(int numberOfInvocations)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -113,7 +113,7 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.Multiply(It.IsAny<int>(), It.IsAny<int?>())).Exactly(numberOfInvocations);
 	}
 
-	[Fact]
+	[Test]
 	public async Task ToString_ShouldWork()
 	{
 		IMethodService sut = IMethodService.CreateMock();
@@ -123,9 +123,9 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.ToString()).Once();
 	}
 
-	[Theory]
-	[InlineData(2)]
-	[InlineData(42)]
+	[Test]
+	[Arguments(2)]
+	[Arguments(42)]
 	public async Task VoidMethod_ShouldBeRegistered(int numberOfInvocations)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -140,9 +140,9 @@ public sealed partial class VerifyInvokedTests
 			.Exactly(numberOfInvocations);
 	}
 
-	[Theory]
-	[InlineData(true)]
-	[InlineData(false)]
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
 	public async Task VoidMethod_ShouldThrowMockNotSetupExceptionWhenBehaviorIsSetToThrow(
 		bool throwWhenNotSetup)
 	{
@@ -162,7 +162,7 @@ public sealed partial class VerifyInvokedTests
 			             """);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenBehaviorIsSetToThrow_ShouldThrowMockNotSetupException()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock(MockBehavior.Default with
@@ -181,7 +181,7 @@ public sealed partial class VerifyInvokedTests
 			             """);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenNotSetup_ShouldReturnDefaultValue()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
@@ -193,7 +193,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class ReturnMethodWith1Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -205,7 +205,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method1(1).AnyParameters()).Twice();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -216,7 +216,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method1(2)).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithIParameterOverload_ShouldStillWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -230,7 +230,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class ReturnMethodWith2Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -241,7 +241,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method2(1, 2).AnyParameters()).Twice();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter1_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -252,7 +252,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method2(2, It.IsAny<int>())).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter2_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -263,7 +263,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method2(It.IsAny<int>(), 2)).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameters_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -278,7 +278,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class ReturnMethodWith3Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -289,7 +289,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method3(1, 2, 3).AnyParameters()).Twice();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter1_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -300,7 +300,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method3(2, It.IsAny<int>(), It.IsAny<int>())).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter2_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -311,7 +311,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method3(It.IsAny<int>(), 2, It.IsAny<int>())).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter3_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -322,7 +322,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method3(It.IsAny<int>(), It.IsAny<int>(), 2)).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameters_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -338,7 +338,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class ReturnMethodWith5Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -349,7 +349,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method5(1, 2, 3, 4, 5).AnyParameters()).Twice();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameters_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -367,7 +367,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class ReturnMethodWith4Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -378,7 +378,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method4(1, 2, 3, 4).AnyParameters()).Twice();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter1_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -389,7 +389,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method4(2, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter2_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -400,7 +400,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method4(It.IsAny<int>(), 2, It.IsAny<int>(), It.IsAny<int>())).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter3_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -411,7 +411,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method4(It.IsAny<int>(), It.IsAny<int>(), 2, It.IsAny<int>())).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameter4_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -422,7 +422,7 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), 2)).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task WithExplicitParameters_ShouldWork()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -439,7 +439,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class VoidMethodWith1Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -453,7 +453,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class VoidMethodWith2Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -467,7 +467,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class VoidMethodWith3Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -481,7 +481,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class VoidMethodWith4Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -495,7 +495,7 @@ public sealed partial class VerifyInvokedTests
 
 	public class VoidMethodWith5Parameters
 	{
-		[Fact]
+		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
 		{
 			IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();

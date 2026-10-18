@@ -11,7 +11,7 @@ namespace Mockolate.Tests.Web;
 
 public sealed partial class HttpClientExtensionsTests
 {
-	[Fact]
+	[Test]
 	public async Task CustomParameter_WithoutIParameterMatch_ShouldBeInvokedViaAdapter()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
@@ -32,7 +32,7 @@ public sealed partial class HttpClientExtensionsTests
 		await That(Act).Throws<NotSupportedException>();
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokedSetup_ShouldWorkForHttpClient()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
@@ -47,7 +47,7 @@ public sealed partial class HttpClientExtensionsTests
 		await That(httpClient.Mock.VerifySetup(setup)).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task InvokedSetup_WhenMethodSetupIsNotVerifiable_ShouldThrowMockException()
 	{
 		HttpClient sut = HttpClient.CreateMock();
@@ -62,7 +62,7 @@ public sealed partial class HttpClientExtensionsTests
 			.WithMessage("The setup is not verifiable.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task NullRequestUri_ShouldInvokeCallbackWithNull()
 	{
 		// ReSharper disable once VariableCanBeNotNullable
@@ -78,7 +78,7 @@ public sealed partial class HttpClientExtensionsTests
 		await That(callbackUri).IsNull();
 	}
 
-	[Fact]
+	[Test]
 	public async Task NullRequestUri_ShouldReturnFalse()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
@@ -94,7 +94,7 @@ public sealed partial class HttpClientExtensionsTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task NullUri_ShouldReturnFalse()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
@@ -110,7 +110,7 @@ public sealed partial class HttpClientExtensionsTests
 		await That(result).IsFalse();
 	}
 
-	[Fact]
+	[Test]
 	public async Task SendAsync_WithoutMockedHttpMessageHandler_ShouldThrowMockException()
 	{
 		HttpClient httpClient = HttpClient.CreateMock([]);
@@ -127,7 +127,7 @@ public sealed partial class HttpClientExtensionsTests
 				"Cannot setup HttpClient when it is not mocked with a mockable HttpMessageHandler.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldSupportMonitoring()
 	{
 		int callbackCount = 0;
@@ -149,9 +149,9 @@ public sealed partial class HttpClientExtensionsTests
 		await That(callbackCount).IsEqualTo(2);
 	}
 
-	[Theory]
-	[InlineData("*testably.org")]
-	[InlineData("*testably.org/")]
+	[Test]
+	[Arguments("*testably.org")]
+	[Arguments("*testably.org/")]
 	public async Task TrailingSlash_ShouldBeIgnored(string matchPattern)
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
@@ -166,7 +166,7 @@ public sealed partial class HttpClientExtensionsTests
 			.IsEqualTo(HttpStatusCode.OK);
 	}
 
-	[Fact]
+	[Test]
 	public async Task TrailingSlash_WhenNotPresent_ShouldNotBeAdded()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();

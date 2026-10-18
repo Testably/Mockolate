@@ -5,7 +5,7 @@ namespace Mockolate.Tests;
 
 public sealed class MockSetupsTests
 {
-	[Fact]
+	[Test]
 	public async Task ClearAllInteractions_ShouldRemovePreviousInteractions()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();

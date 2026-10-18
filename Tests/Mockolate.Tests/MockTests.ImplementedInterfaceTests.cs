@@ -4,7 +4,7 @@ public sealed partial class MockTests
 {
 	public sealed class ImplementedInterfaceTests
 	{
-		[Fact]
+		[Test]
 		public async Task NonVirtualMethod_ShouldBeConfigurableThroughTheInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -16,7 +16,7 @@ public sealed partial class MockTests
 			await That(mock.Mock.As<ICalculator>().Verify.Add(1, 2)).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualMethod_ShouldShareSetupBetweenClassAndInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -28,7 +28,7 @@ public sealed partial class MockTests
 			await That(mock.Mock.As<ICalculator>().Verify.Multiply(3, 4)).Twice();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualMethod_SetupThroughInterface_ShouldApplyToClassCall()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -37,7 +37,7 @@ public sealed partial class MockTests
 			await That(mock.Multiply(3, 4)).IsEqualTo(7);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualProperty_ShouldShareSetupBetweenClassAndInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -47,7 +47,7 @@ public sealed partial class MockTests
 			await That(((ICalculator)mock).Precision).IsEqualTo(5);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualIndexer_ShouldShareSetupBetweenClassAndInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -57,7 +57,7 @@ public sealed partial class MockTests
 			await That(((ICalculator)mock)[1]).IsEqualTo(11);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualIndexer_ShouldShareStoredValuesBetweenClassAndInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -72,7 +72,7 @@ public sealed partial class MockTests
 			await That(mock[2]).IsEqualTo(7);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualEvent_ShouldShareSubscriptionsBetweenClassAndInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -84,7 +84,7 @@ public sealed partial class MockTests
 			await That(mock.Mock.As<ICalculator>().Verify.Calculated.Subscribed()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualMethodWithBody_ShouldFallBackToTheBaseImplementationThroughTheInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -98,7 +98,7 @@ public sealed partial class MockTests
 			await That(((ICalculator)mock).Subtract(5, 3)).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task RenamedGenericTypeParameter_ShouldShareSetupBetweenClassAndInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -109,7 +109,7 @@ public sealed partial class MockTests
 				.Because("the name of a generic type parameter is not part of the member's identity");
 		}
 
-		[Fact]
+		[Test]
 		public async Task ObliviousNullabilityOnTheReturnType_ShouldShareSetupBetweenClassAndInterface()
 		{
 			LegacyCalculator mock = LegacyCalculator.CreateMock().Implementing<ILegacyCalculator>();
@@ -119,7 +119,7 @@ public sealed partial class MockTests
 				.Because("the nullability annotation on the return type is not part of the member's identity");
 		}
 
-		[Fact]
+		[Test]
 		public async Task InterfaceImplementedByABaseClass_ShouldShareSetupWithTheBaseClassMember()
 		{
 			DerivedCalculator mock = DerivedCalculator.CreateMock().Implementing<ISquarer>();
@@ -130,7 +130,7 @@ public sealed partial class MockTests
 				.Because("the base class member implements the interface, and the mock overrides it");
 		}
 
-		[Fact]
+		[Test]
 		public async Task SealedOverrideImplementation_ShouldStayConfigurableThroughTheInterface()
 		{
 			SealingCalculator mock = SealingCalculator.CreateMock().Implementing<ISquarer>();
@@ -142,7 +142,7 @@ public sealed partial class MockTests
 				.Because("the interface slot is re-implemented, which is the only way to reach it");
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualEvent_RaisedThroughEitherSurface_ShouldInvokeHandlersFromBothSurfaces()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
@@ -163,7 +163,7 @@ public sealed partial class MockTests
 			await That(interfaceHandlerCalls).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetOnlyInterfaceProperty_ImplementedWithGetterAndSetter_ShouldShareTheValue()
 		{
 			Thermometer mock = Thermometer.CreateMock().Implementing<IReadOnlyThermometer>();
@@ -175,7 +175,7 @@ public sealed partial class MockTests
 				.Because("the class member implements the interface getter, so both surfaces read one value");
 		}
 
-		[Fact]
+		[Test]
 		public async Task TwoAdditionalInterfaces_ImplementedByTheSameClassMember_ShouldShareOneMember()
 		{
 			Sensor mock = Sensor.CreateMock().Implementing<IPressureSensor>().Implementing<ITemperatureSensor>();

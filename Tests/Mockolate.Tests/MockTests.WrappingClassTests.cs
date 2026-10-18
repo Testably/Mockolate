@@ -7,7 +7,7 @@ public sealed partial class MockTests
 {
 	public sealed class WrappingClassTests
 	{
-		[Fact]
+		[Test]
 		public async Task Wrap_ClassWithoutParameterlessConstructor_ShouldDelegateToWrappedInstance()
 		{
 			ServiceWithConstructor myService = new("real");
@@ -19,7 +19,7 @@ public sealed partial class MockTests
 			await That(wrappedService.Mock.Verify.Format("value")).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Events_ForwardEventsFromWrappedInstance()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -40,7 +40,7 @@ public sealed partial class MockTests
 			await That(eventAmount).IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Events_ForwardsFromWrapper()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -61,7 +61,7 @@ public sealed partial class MockTests
 			await That(eventAmount).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Events_Unsubscribe_ShouldRemoveSubscription()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -91,7 +91,7 @@ public sealed partial class MockTests
 			}
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Indexer_ShouldDelegateToWrappedInstance()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -105,7 +105,7 @@ public sealed partial class MockTests
 			await That(myDispenser["White"]).IsEqualTo(8);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Method_ShouldDelegateToWrappedInstance()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -118,7 +118,7 @@ public sealed partial class MockTests
 			await That(myDispenser["Dark"]).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_Property_ShouldDelegateToWrappedInstance()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -130,7 +130,7 @@ public sealed partial class MockTests
 			await That(myDispenser.TotalDispensed).IsEqualTo(12);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrap_WithSetup_ShouldOverrideMethod()
 		{
 			MyChocolateDispenser myDispenser = new();
@@ -144,7 +144,7 @@ public sealed partial class MockTests
 			await That(myDispenser.TotalDispensed).IsEqualTo(4);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Wrapping_ShouldIgnoreProtectedMembers()
 		{
 			ServiceWithProtectedMembers myClass = new();

@@ -36,7 +36,7 @@ public sealed class MethodSetupMatchesTests
 	{
 		public sealed class OneParameter
 		{
-			[Fact]
+			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardNamedParameterValue()
 			{
 				RecordingNamedParametersMatch matcher = new(true);
@@ -53,7 +53,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithIParametersMatch_ShouldForwardSingleParameterValue()
 			{
 				RecordingParametersMatch matcher = new(true);
@@ -70,7 +70,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
 			{
 				ReturnMethodSetup<int, string>.WithParameters setup =
@@ -81,7 +81,7 @@ public sealed class MethodSetupMatchesTests
 				await That(result).IsTrue();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MatchesInteraction_WithNonMethodInvocationOfT1_ShouldReturnFalse()
 			{
 				ReturnMethodSetup<int, string>.WithParameters setup =
@@ -95,7 +95,7 @@ public sealed class MethodSetupMatchesTests
 
 		public sealed class TwoParameters
 		{
-			[Fact]
+			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardBothNamedParameterValues()
 			{
 				RecordingNamedParametersMatch matcher = new(true);
@@ -112,7 +112,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithIParametersMatch_ShouldForwardBothParameterValues()
 			{
 				RecordingParametersMatch matcher = new(true);
@@ -129,7 +129,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
 			{
 				ReturnMethodSetup<int, string, int>.WithParameters setup =
@@ -140,7 +140,7 @@ public sealed class MethodSetupMatchesTests
 				await That(result).IsTrue();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MatchesInteraction_WithNonMethodInvocationOfT1AndT2_ShouldReturnFalse()
 			{
 				ReturnMethodSetup<int, string, int>.WithParameters setup =
@@ -154,7 +154,7 @@ public sealed class MethodSetupMatchesTests
 
 		public sealed class ThreeParameters
 		{
-			[Fact]
+			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardAllNamedParameterValues()
 			{
 				RecordingNamedParametersMatch matcher = new(true);
@@ -171,7 +171,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithIParametersMatch_ShouldForwardAllParameterValues()
 			{
 				RecordingParametersMatch matcher = new(true);
@@ -188,7 +188,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
 			{
 				ReturnMethodSetup<int, string, int, double>.WithParameters setup =
@@ -199,7 +199,7 @@ public sealed class MethodSetupMatchesTests
 				await That(result).IsTrue();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MatchesInteraction_WithNonMethodInvocationOfT1T2T3_ShouldReturnFalse()
 			{
 				ReturnMethodSetup<int, string, int, double>.WithParameters setup =
@@ -213,7 +213,7 @@ public sealed class MethodSetupMatchesTests
 
 		public sealed class FourParameters
 		{
-			[Fact]
+			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardAllNamedParameterValues()
 			{
 				RecordingNamedParametersMatch matcher = new(true);
@@ -230,7 +230,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithIParametersMatch_ShouldForwardAllParameterValues()
 			{
 				RecordingParametersMatch matcher = new(true);
@@ -247,7 +247,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
 			{
 				ReturnMethodSetup<int, string, int, double, bool>.WithParameters setup =
@@ -258,7 +258,7 @@ public sealed class MethodSetupMatchesTests
 				await That(result).IsTrue();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MatchesInteraction_WithNonMethodInvocationOfT1T2T3T4_ShouldReturnFalse()
 			{
 				ReturnMethodSetup<int, string, int, double, bool>.WithParameters setup =
@@ -275,7 +275,7 @@ public sealed class MethodSetupMatchesTests
 	{
 		public sealed class OneParameter
 		{
-			[Fact]
+			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardNamedParameterValue()
 			{
 				RecordingNamedParametersMatch matcher = new(true);
@@ -292,7 +292,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithIParametersMatch_ShouldForwardSingleParameterValue()
 			{
 				RecordingParametersMatch matcher = new(true);
@@ -309,7 +309,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
 			{
 				VoidMethodSetup<string>.WithParameters setup =
@@ -320,7 +320,7 @@ public sealed class MethodSetupMatchesTests
 				await That(result).IsTrue();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MatchesInteraction_WithNonMethodInvocationOfT1_ShouldReturnFalse()
 			{
 				VoidMethodSetup<string>.WithParameters setup =
@@ -334,7 +334,7 @@ public sealed class MethodSetupMatchesTests
 
 		public sealed class TwoParameters
 		{
-			[Fact]
+			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardBothNamedParameterValues()
 			{
 				RecordingNamedParametersMatch matcher = new(true);
@@ -351,7 +351,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithIParametersMatch_ShouldForwardBothParameterValues()
 			{
 				RecordingParametersMatch matcher = new(true);
@@ -368,7 +368,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
 			{
 				VoidMethodSetup<string, int>.WithParameters setup =
@@ -379,7 +379,7 @@ public sealed class MethodSetupMatchesTests
 				await That(result).IsTrue();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MatchesInteraction_WithNonMethodInvocationOfT1AndT2_ShouldReturnFalse()
 			{
 				VoidMethodSetup<string, int>.WithParameters setup =
@@ -393,7 +393,7 @@ public sealed class MethodSetupMatchesTests
 
 		public sealed class ThreeParameters
 		{
-			[Fact]
+			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardAllNamedParameterValues()
 			{
 				RecordingNamedParametersMatch matcher = new(true);
@@ -410,7 +410,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithIParametersMatch_ShouldForwardAllParameterValues()
 			{
 				RecordingParametersMatch matcher = new(true);
@@ -427,7 +427,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
 			{
 				VoidMethodSetup<string, int, double>.WithParameters setup =
@@ -438,7 +438,7 @@ public sealed class MethodSetupMatchesTests
 				await That(result).IsTrue();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MatchesInteraction_WithNonMethodInvocationOfT1T2T3_ShouldReturnFalse()
 			{
 				VoidMethodSetup<string, int, double>.WithParameters setup =
@@ -452,7 +452,7 @@ public sealed class MethodSetupMatchesTests
 
 		public sealed class FourParameters
 		{
-			[Fact]
+			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardAllNamedParameterValues()
 			{
 				RecordingNamedParametersMatch matcher = new(true);
@@ -469,7 +469,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithIParametersMatch_ShouldForwardAllParameterValues()
 			{
 				RecordingParametersMatch matcher = new(true);
@@ -486,7 +486,7 @@ public sealed class MethodSetupMatchesTests
 				});
 			}
 
-			[Fact]
+			[Test]
 			public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
 			{
 				VoidMethodSetup<string, int, double, bool>.WithParameters setup =
@@ -497,7 +497,7 @@ public sealed class MethodSetupMatchesTests
 				await That(result).IsTrue();
 			}
 
-			[Fact]
+			[Test]
 			public async Task MatchesInteraction_WithNonMethodInvocationOfT1T2T3T4_ShouldReturnFalse()
 			{
 				VoidMethodSetup<string, int, double, bool>.WithParameters setup =

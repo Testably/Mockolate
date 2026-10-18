@@ -8,7 +8,7 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class ToStringTests
 		{
-			[Fact]
+			[Test]
 			public async Task Default_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri();
@@ -18,7 +18,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("any Uri");
 			}
 
-			[Fact]
+			[Test]
 			public async Task ForHttp_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().ForHttp();
@@ -28,7 +28,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("http Uri");
 			}
 
-			[Fact]
+			[Test]
 			public async Task ForHttps_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().ForHttps();
@@ -38,7 +38,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("https Uri");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleConditions_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri("*example.com*")
@@ -54,7 +54,7 @@ public sealed partial class ItExtensionsTests
 					"https Uri matching \"*example.com*\" with host matching \"example.com\" with port 443 with path matching \"/api\" with query containing \"x=1\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task MultipleWithQuery_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri()
@@ -66,7 +66,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Uri with query containing \"x=1\", \"y=2\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithHost_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithHost("example.com");
@@ -76,7 +76,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Uri with host matching \"example.com\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithPath_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithPath("/api/v1");
@@ -86,7 +86,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Uri with path matching \"/api/v1\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithPattern_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri("*example.com*");
@@ -96,7 +96,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Uri matching \"*example.com*\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithPort_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithPort(443);
@@ -106,7 +106,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Uri with port 443");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithQueryKeyValue_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithQuery("x", "1");
@@ -116,7 +116,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Uri with query containing \"x=1\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithQueryString_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithQuery("x=1");
@@ -126,7 +126,7 @@ public sealed partial class ItExtensionsTests
 				await That(result).IsEqualTo("Uri with query containing \"x=1\"");
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithQueryTuple_ShouldReturnExpectedValue()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithQuery(("x", "1"));

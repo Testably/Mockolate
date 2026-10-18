@@ -12,11 +12,11 @@ public sealed partial class ItExtensionsTests
 	{
 		public sealed class WithHeadersTests
 		{
-			[Theory]
-			[InlineData("x-myHeader", "foo", "Authorization", "Basic abcdef", true)]
-			[InlineData("Authorization", "Basic abcdef", "x-myHeader", "foo", true)]
-			[InlineData("Authorization", "Basic xyz", "x-myHeader", "foo", false)]
-			[InlineData("x-myHeader", "foo", "Authorization", "Basic xyz", false)]
+			[Test]
+			[Arguments("x-myHeader", "foo", "Authorization", "Basic abcdef", true)]
+			[Arguments("Authorization", "Basic abcdef", "x-myHeader", "foo", true)]
+			[Arguments("Authorization", "Basic xyz", "x-myHeader", "foo", false)]
+			[Arguments("x-myHeader", "foo", "Authorization", "Basic xyz", false)]
 			public async Task MultipleCalls_ShouldVerifyKeyValueHeaders(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
@@ -38,11 +38,11 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("x-myHeader", "foo", "Authorization", "Basic abcdef", true)]
-			[InlineData("Authorization", "Basic abcdef", "x-myHeader", "foo", true)]
-			[InlineData("Authorization", "Basic xyz", "x-myHeader", "foo", false)]
-			[InlineData("x-myHeader", "foo", "Authorization", "Basic xyz", false)]
+			[Test]
+			[Arguments("x-myHeader", "foo", "Authorization", "Basic abcdef", true)]
+			[Arguments("Authorization", "Basic abcdef", "x-myHeader", "foo", true)]
+			[Arguments("Authorization", "Basic xyz", "x-myHeader", "foo", false)]
+			[Arguments("x-myHeader", "foo", "Authorization", "Basic xyz", false)]
 			public async Task MultipleCalls_ShouldVerifyKeyValuePairHeaders(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
@@ -64,11 +64,11 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("x-myHeader: foo", "Authorization: Basic abcdef", true)]
-			[InlineData("Authorization: Basic abcdef", "x-myHeader: foo", true)]
-			[InlineData("Authorization: Basic xyz", "x-myHeader: foo", false)]
-			[InlineData("x-myHeader: foo", "Authorization: Basic xyz", false)]
+			[Test]
+			[Arguments("x-myHeader: foo", "Authorization: Basic abcdef", true)]
+			[Arguments("Authorization: Basic abcdef", "x-myHeader: foo", true)]
+			[Arguments("Authorization: Basic xyz", "x-myHeader: foo", false)]
+			[Arguments("x-myHeader: foo", "Authorization: Basic xyz", false)]
 			public async Task MultipleCalls_ShouldVerifyStringHeaders(
 				string headers1, string headers2, bool expectSuccess)
 			{
@@ -90,7 +90,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldAlsoMatchContentHeaders()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -116,7 +116,7 @@ public sealed partial class ItExtensionsTests
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldMatchAgainstDefaultRequestHeaders()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -137,10 +137,10 @@ public sealed partial class ItExtensionsTests
 				await That(result.StatusCode).IsEqualTo(HttpStatusCode.OK);
 			}
 
-			[Theory]
-			[InlineData("Authorization", true)]
-			[InlineData("AUTHORIZATION", true)]
-			[InlineData("Authentication", false)]
+			[Test]
+			[Arguments("Authorization", true)]
+			[Arguments("AUTHORIZATION", true)]
+			[Arguments("Authentication", false)]
 			public async Task ShouldVerifyHeaderKeyCaseInsensitive(string key, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -158,10 +158,10 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("foo", true)]
-			[InlineData("bar", false)]
-			[InlineData("FOO", false)]
+			[Test]
+			[Arguments("foo", true)]
+			[Arguments("bar", false)]
+			[Arguments("FOO", false)]
 			public async Task ShouldVerifyHeaderValueCaseSensitive(string value, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -179,10 +179,10 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("Authorization", true)]
-			[InlineData("AUTHORIZATION", true)]
-			[InlineData("Authentication", false)]
+			[Test]
+			[Arguments("Authorization", true)]
+			[Arguments("AUTHORIZATION", true)]
+			[Arguments("Authentication", false)]
 			public async Task ShouldVerifyMultipleHeaderKeyCaseInsensitive(string key, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -203,10 +203,10 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Theory]
-			[InlineData("foo", true)]
-			[InlineData("bar", false)]
-			[InlineData("FOO", false)]
+			[Test]
+			[Arguments("foo", true)]
+			[Arguments("bar", false)]
+			[Arguments("FOO", false)]
 			public async Task ShouldVerifyMultipleHeaderValueCaseSensitive(string value, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -227,7 +227,7 @@ public sealed partial class ItExtensionsTests
 					.IsEqualTo(expectSuccess ? HttpStatusCode.OK : HttpStatusCode.NotImplemented);
 			}
 
-			[Fact]
+			[Test]
 			public async Task WithInvalidStringHeader_ShouldThrowArgumentException()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

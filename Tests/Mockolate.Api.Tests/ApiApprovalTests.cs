@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using aweXpect.Core;
 using aweXpect.Results;
@@ -21,15 +22,16 @@ public sealed class ApiApprovalTests
 		"Mockolate",
 	];
 
-	[Theory]
-	[MemberData(nameof(Builds))]
+	[Test]
+	[MethodDataSource(nameof(Builds))]
 	public async Task VerifyPublicApi(string assemblyName, string framework)
 		=> await MatchesPublicApiSnapshot(assemblyName, framework);
 
 	/// <summary>
 	///     Execute this test to update the expected public API to the current API surface.
 	/// </summary>
-	[Fact(Explicit = true)]
+	[Test]
+	[Explicit]
 	public async Task AcceptApiChanges()
 	{
 		foreach ((string assemblyName, string framework) in AllBuilds())
@@ -45,8 +47,8 @@ public sealed class ApiApprovalTests
 		}
 	}
 
-	public static TheoryData<string, string> Builds()
-		=> new(AllBuilds());
+	public static IEnumerable<(string, string)> Builds()
+		=> AllBuilds();
 
 	/// <summary>
 	///     The snapshot is named after the assembly and the target framework, so that both tests use the same one.

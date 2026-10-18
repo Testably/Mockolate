@@ -8,7 +8,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsAnyRefReadOnlySpanTests
 	{
-		[Fact]
+		[Test]
 		public async Task GetValue_ShouldReturnSameValue()
 		{
 			IRefParameter<ReadOnlySpanWrapper<int>> sut = It.IsAnyRefReadOnlySpan<int>();
@@ -22,7 +22,7 @@ public sealed partial class ItTests
 			await That(result.ReadOnlySpanValues.Length).IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IRefParameter<ReadOnlySpanWrapper<int>> sut = It.IsAnyRefReadOnlySpan<int>();

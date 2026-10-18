@@ -6,43 +6,43 @@ public sealed partial class MockTests
 	{
 		public sealed class IndexerTests
 		{
-			[Theory]
-			[InlineData("string this[int key] { get; }",
+			[Test]
+			[Arguments("string this[int key] { get; }",
 				"Setup.IIndexerGetterOnlySetup<string, int>",
 				"Verify.VerificationIndexerGetterResult<IMockVerifyForIMyService, int>",
 				"Setup.IndexerSetup<string, int>",
 				"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>")]
-			[InlineData("string this[int key] { set; }",
+			[Arguments("string this[int key] { set; }",
 				"Setup.IIndexerSetterOnlySetup<string, int>",
 				"Verify.VerificationIndexerSetterResult<IMockVerifyForIMyService, int, string>",
 				"Setup.IndexerSetup<string, int>",
 				"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>")]
-			[InlineData("string this[int key] { get; set; }",
+			[Arguments("string this[int key] { get; set; }",
 				"Setup.IndexerSetup<string, int>",
 				"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>",
 				"Setup.IIndexerGetterOnlySetup<string, int>",
 				"Verify.VerificationIndexerGetterResult<IMockVerifyForIMyService, int>")]
-			[InlineData("string this[int key, bool flag] { get; }",
+			[Arguments("string this[int key, bool flag] { get; }",
 				"Setup.IIndexerGetterOnlySetup<string, int, bool>",
 				"Verify.VerificationIndexerGetterResult<IMockVerifyForIMyService, int, bool>",
 				"Setup.IndexerSetup<string, int, bool>",
 				"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>")]
-			[InlineData("string this[int key, bool flag] { set; }",
+			[Arguments("string this[int key, bool flag] { set; }",
 				"Setup.IIndexerSetterOnlySetup<string, int, bool>",
 				"Verify.VerificationIndexerSetterResult<IMockVerifyForIMyService, int, bool, string>",
 				"Setup.IndexerSetup<string, int, bool>",
 				"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>")]
-			[InlineData("string this[int a, int b, int c, int d, int e] { get; }",
+			[Arguments("string this[int a, int b, int c, int d, int e] { get; }",
 				"Setup.IIndexerGetterOnlySetup<string, int, int, int, int, int>",
 				"Verify.VerificationIndexerGetterResult<IMockVerifyForIMyService, int, int, int, int, int>",
 				"Setup.IndexerSetup<string, int, int, int, int, int>",
 				"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>")]
-			[InlineData("string this[int a, int b, int c, int d, int e] { set; }",
+			[Arguments("string this[int a, int b, int c, int d, int e] { set; }",
 				"Setup.IIndexerSetterOnlySetup<string, int, int, int, int, int>",
 				"Verify.VerificationIndexerSetterResult<IMockVerifyForIMyService, int, int, int, int, int, string>",
 				"Setup.IndexerSetup<string, int, int, int, int, int>",
 				"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>")]
-			[InlineData("string this[int a, int b, int c, int d, int e] { get; set; }",
+			[Arguments("string this[int a, int b, int c, int d, int e] { get; set; }",
 				"Setup.IndexerSetup<string, int, int, int, int, int>",
 				"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>",
 				"Setup.IIndexerGetterOnlySetup<string, int, int, int, int, int>",
@@ -79,7 +79,7 @@ public sealed partial class MockTests
 					.Because("a widened facade would silently re-expose an accessor the mock never intercepts");
 			}
 
-			[Fact]
+			[Test]
 			public async Task InterfaceIndexerWithParameterNamedLikeLocal_ShouldGenerateUniqueLocalVariableName()
 			{
 				GeneratorResult result = Generator
@@ -108,7 +108,7 @@ public sealed partial class MockTests
 					.IgnoringNewlineStyle();
 			}
 
-			[Fact]
+			[Test]
 			public async Task InterfaceIndexerWithParameterNamedWraps_ShouldRenameWrapsCastVariable()
 			{
 				GeneratorResult result = Generator
@@ -142,7 +142,7 @@ public sealed partial class MockTests
 					.IgnoringNewlineStyle();
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldImplementAllIndexersFromInterfaces()
 			{
 				GeneratorResult result = Generator
@@ -315,7 +315,7 @@ public sealed partial class MockTests
 					          """).IgnoringNewlineStyle();
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldImplementVirtualIndexersOfClassesAndAllExplicitlyFromAdditionalInterfaces()
 			{
 				GeneratorResult result = Generator
@@ -470,7 +470,7 @@ public sealed partial class MockTests
 					          """).IgnoringNewlineStyle();
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldNotCallBaseForAbstractIndexersOfAbstractClasses()
 			{
 				GeneratorResult result = Generator
@@ -502,7 +502,7 @@ public sealed partial class MockTests
 					.Because("abstract indexers have no base implementation to call (CS0205)");
 			}
 
-			[Fact]
+			[Test]
 			public async Task ShouldSupportSpanAndReadOnlySpanIndexerParameters()
 			{
 				GeneratorResult result = Generator

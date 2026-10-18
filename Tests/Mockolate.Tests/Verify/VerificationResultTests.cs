@@ -5,7 +5,7 @@ namespace Mockolate.Tests.Verify;
 
 public sealed partial class VerificationResultTests
 {
-	[Fact]
+	[Test]
 	public async Task AnyParameters_OnOverloadedGenericMethod_LegacyPath_ShouldOnlyCountTheTargetedOverload()
 	{
 		IOverloadedMethodService sut = IOverloadedMethodService.CreateMock();
@@ -18,7 +18,7 @@ public sealed partial class VerificationResultTests
 		await That(sut.Mock.Verify.GetInstance<int>("ignored").AnyParameters()).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task AnyParameters_OnOverloadedMethod_FastPath_ShouldOnlyCountTheTargetedOverload()
 	{
 		IOverloadedMethodService sut = IOverloadedMethodService.CreateMock();
@@ -31,7 +31,7 @@ public sealed partial class VerificationResultTests
 		await That(sut.Mock.Verify.DoSomething(0, false).AnyParameters()).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task AnyParameters_OnUntypedDefaultArguments_ShouldBindToValuesOverload()
 	{
 		IOverloadedMethodService sut = IOverloadedMethodService.CreateMock();
@@ -45,7 +45,7 @@ public sealed partial class VerificationResultTests
 		await That(sut.Mock.Verify.DoSomething(default!, default!).AnyParameters()).Once();
 	}
 
-	[Fact]
+	[Test]
 	public async Task CustomVerificationResult_ShouldKeepExpectation()
 	{
 		IMockInteractions interactions = new FastMockInteractions(0);
@@ -56,7 +56,7 @@ public sealed partial class VerificationResultTests
 		await That(result).IsEqualTo("foo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task CustomVerificationResult_WithFuncExpectation_ShouldKeepExpectation()
 	{
 		IMockInteractions interactions = new FastMockInteractions(0);
@@ -67,7 +67,7 @@ public sealed partial class VerificationResultTests
 		await That(result).IsEqualTo("foo");
 	}
 
-	[Fact]
+	[Test]
 	public async Task CustomVerificationResult_WithIMockInteractions_ShouldExposeInteractions()
 	{
 		IMockInteractions interactions = new FastMockInteractions(0);
@@ -78,7 +78,7 @@ public sealed partial class VerificationResultTests
 		await That(exposed).IsSameAs(interactions);
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_Got_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -89,7 +89,7 @@ public sealed partial class VerificationResultTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("got property TotalDispensed");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_GotIndexer_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -100,7 +100,7 @@ public sealed partial class VerificationResultTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("got indexer [It.IsAny<string>()]");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_GotIndexerWithMultipleParameters_ShouldHaveExpectedValue()
 	{
 		IIndexerVerificationService sut = IIndexerVerificationService.CreateMock();
@@ -111,7 +111,7 @@ public sealed partial class VerificationResultTests
 			.IsEqualTo("got indexer [It.IsAny<string>(), null]");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_Invoked_AnyParameters_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -123,7 +123,7 @@ public sealed partial class VerificationResultTests
 			.IsEqualTo("invoked method Dispense(Match.AnyParameters())");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_Invoked_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -135,7 +135,7 @@ public sealed partial class VerificationResultTests
 			.IsEqualTo("invoked method Dispense(It.IsAny<string>(), It.IsAny<int>())");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_MockInteractions_HasAllInteractions()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -152,7 +152,7 @@ public sealed partial class VerificationResultTests
 		await That(((IVerificationResult)result).Interactions.Count).IsEqualTo(5);
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_Set_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -164,7 +164,7 @@ public sealed partial class VerificationResultTests
 			.IsEqualTo("set property TotalDispensed to 5");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_SetIndexer_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -176,7 +176,7 @@ public sealed partial class VerificationResultTests
 			.IsEqualTo("set indexer [It.IsAny<string>()] to 5");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_SetIndexerWithMultipleParameters_ShouldHaveExpectedValue()
 	{
 		IIndexerVerificationService sut = IIndexerVerificationService.CreateMock();
@@ -187,7 +187,7 @@ public sealed partial class VerificationResultTests
 			.IsEqualTo("set indexer [\"foo\", null] to 5");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_SetIndexerWithMultipleParametersToNull_ShouldHaveExpectedValue()
 	{
 		IIndexerVerificationService sut = IIndexerVerificationService.CreateMock();
@@ -198,7 +198,7 @@ public sealed partial class VerificationResultTests
 			.IsEqualTo("set indexer [\"foo\", null] to null");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_SubscribedTo_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -209,7 +209,7 @@ public sealed partial class VerificationResultTests
 		await That(((IVerificationResult)result).Expectation).IsEqualTo("subscribed to event ChocolateDispensed");
 	}
 
-	[Fact]
+	[Test]
 	public async Task VerificationResult_UnsubscribedFrom_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();

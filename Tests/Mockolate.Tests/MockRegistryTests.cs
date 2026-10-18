@@ -8,7 +8,7 @@ namespace Mockolate.Tests;
 
 public sealed class MockRegistryTests
 {
-	[Fact]
+	[Test]
 	public async Task AddEvent_WithoutMemberIdAndMatchingSetup_ShouldInvokeSubscribedCallback()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -22,7 +22,7 @@ public sealed class MockRegistryTests
 		await That(subscribed).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetProperty_WhenBaseValueAccessorThrows_ShouldRethrowException()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -36,7 +36,7 @@ public sealed class MockRegistryTests
 		await That(Act).Throws<InvalidOperationException>().WithMessage("base failed");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnusedSetups_IndexerSetup_ShouldHaveCorrectString()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -49,7 +49,7 @@ public sealed class MockRegistryTests
 		await That(setup.ToString()).IsEqualTo("int this[\"Dark\"]");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnusedSetups_MethodSetup_ShouldHaveCorrectString()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -62,7 +62,7 @@ public sealed class MockRegistryTests
 		await That(setup.ToString()).IsEqualTo("void DoSomething(null, 3.5, It.IsAny<string>())");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnusedSetups_PropertySetup_ShouldHaveCorrectString()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -75,7 +75,7 @@ public sealed class MockRegistryTests
 		await That(setup.ToString()).IsEqualTo("int TotalDispensed");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GetUnusedSetups_WithNullableDouble_ShouldHaveCorrectString()
 	{
 		IMyService sut = IMyService.CreateMock();
@@ -88,7 +88,7 @@ public sealed class MockRegistryTests
 		await That(setup.ToString()).IsEqualTo("void DoSomething(04/01/2026 12:00:00, 3.5)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task RegisterInteraction_ShouldBeThreadSafe()
 	{
 		MockRegistry sut = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -110,7 +110,7 @@ public sealed class MockRegistryTests
 		await That(sut.Interactions.Count).IsEqualTo(1000);
 	}
 
-	[Fact]
+	[Test]
 	public async Task RemoveEvent_WithoutMemberIdAndMatchingSetup_ShouldInvokeUnsubscribedCallback()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -124,7 +124,7 @@ public sealed class MockRegistryTests
 		await That(unsubscribed).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SetProperty_WithMemberIdAndNoFastBuffer_ShouldRecordAndStore()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -135,7 +135,7 @@ public sealed class MockRegistryTests
 		await That(registry.Interactions.Count).IsEqualTo(1);
 	}
 
-	[Fact]
+	[Test]
 	public async Task SetProperty_WithoutMemberId_SkippingBaseClass_ShouldReturnTrue()
 	{
 		MockBehavior behavior = MockBehavior.Default.SkippingBaseClass();

@@ -7,7 +7,7 @@ public partial class MockSetupsTests
 {
 	public class MethodsTests
 	{
-		[Fact]
+		[Test]
 		public async Task AddAndRetrieve_ShouldReturnCorrectCount()
 		{
 			MockSetups.MethodSetups setups = new();
@@ -20,7 +20,7 @@ public partial class MockSetupsTests
 			await That(setups.Count).IsEqualTo(2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetLatestOrDefault_OnEmptyStorage_ShouldReturnNullWithoutThrowing()
 		{
 			MockSetups.MethodSetups setups = new();
@@ -30,7 +30,7 @@ public partial class MockSetupsTests
 			await That(result).IsNull();
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetLatestOrDefault_ShouldReturnLatestMatching()
 		{
 			MockSetups.MethodSetups setups = new();
@@ -44,7 +44,7 @@ public partial class MockSetupsTests
 			await That(result).IsEqualTo(setup2);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetLatestOrDefault_WithSingleMatchingSetup_ShouldReturnIt()
 		{
 			MockSetups.MethodSetups setups = new();
@@ -56,7 +56,7 @@ public partial class MockSetupsTests
 			await That(result).IsSameAs(setup);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Stress_ShouldMaintainCountAfterManyAdds()
 		{
 			MockSetups.MethodSetups setups = new();
@@ -69,7 +69,7 @@ public partial class MockSetupsTests
 			await That(setups.Count).IsEqualTo(1000);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ThreadSafety_ShouldAllowConcurrentReadsDuringAdds()
 		{
 			MockSetups.MethodSetups setups = new();
@@ -87,7 +87,7 @@ public partial class MockSetupsTests
 			await That(result).IsEqualTo(needle);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ThreadSafety_ShouldHandleParallelAdds()
 		{
 			MockSetups.MethodSetups setups = new();

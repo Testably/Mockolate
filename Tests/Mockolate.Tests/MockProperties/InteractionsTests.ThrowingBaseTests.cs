@@ -4,7 +4,7 @@ public sealed partial class InteractionsTests
 {
 	public sealed class ThrowingBaseTests
 	{
-		[Fact]
+		[Test]
 		public async Task VirtualPropertyGetter_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordAccess()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -18,7 +18,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.Value.Got()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualPropertyGetter_WhenBaseThrows_ShouldStillExecuteOnGetCallback()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -34,7 +34,7 @@ public sealed partial class InteractionsTests
 			await That(callCount).IsEqualTo(1);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualPropertyGetter_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -48,7 +48,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.Value.Got()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualPropertySetter_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordAccess()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -62,7 +62,7 @@ public sealed partial class InteractionsTests
 			await That(sut.Mock.Verify.Value.Set(It.Is(42))).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualPropertySetter_WhenBaseThrows_ShouldStillExecuteOnSetCallback()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
@@ -78,7 +78,7 @@ public sealed partial class InteractionsTests
 			await That(receivedValue).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task VirtualPropertySetter_WhenBaseThrows_ShouldStillRecordAccess()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();

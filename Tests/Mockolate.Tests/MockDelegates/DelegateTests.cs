@@ -4,7 +4,7 @@ namespace Mockolate.Tests.MockDelegates;
 
 public partial class DelegateTests
 {
-	[Fact]
+	[Test]
 	public async Task Action_ShouldBeTreatedAsVoidDelegate()
 	{
 		bool isCalled = false;
@@ -17,9 +17,9 @@ public partial class DelegateTests
 		await That(isCalled).IsTrue();
 	}
 
-	[Theory]
-	[InlineData(true)]
-	[InlineData(false)]
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
 	public async Task CreateMockWithBehavior_ShouldApplyBehavior(bool throwWhenNotSetup)
 	{
 		Func<int> sut = Func<int>.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup(throwWhenNotSetup));
@@ -33,7 +33,7 @@ public partial class DelegateTests
 			.WithMessage("The method 'global::System.Func<int>.Invoke()' was invoked without prior setup.");
 	}
 
-	[Fact]
+	[Test]
 	public async Task CreateMockWithSetup_ShouldApplySetups()
 	{
 		Func<int> sut = Func<int>.CreateMock(mock => mock.Setup().Returns(3));
@@ -43,7 +43,7 @@ public partial class DelegateTests
 		await That(result).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task Func_ShouldBeTreatedAsReturnDelegate()
 	{
 		bool isCalled = false;
@@ -57,7 +57,7 @@ public partial class DelegateTests
 		await That(result).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithCustomDelegate_SetupShouldWork()
 	{
 		DoSomething sut = DoSomething.CreateMock();
@@ -74,7 +74,7 @@ public partial class DelegateTests
 		await That(result3).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithCustomDelegate_VerifyShouldWork()
 	{
 		DoSomething sut = DoSomething.CreateMock();
@@ -85,7 +85,7 @@ public partial class DelegateTests
 		await That(sut.Mock.Verify(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<bool>())).Twice();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithCustomDelegateWithInts_SetupWithExplicitParameter_ShouldWork()
 	{
 		DoSomethingWithInts sut = DoSomethingWithInts.CreateMock();
@@ -98,7 +98,7 @@ public partial class DelegateTests
 		await That(result2).IsEqualTo(0);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithCustomDelegateWithInts_VerifyWithExplicitParameter_ShouldWork()
 	{
 		DoSomethingWithInts sut = DoSomethingWithInts.CreateMock();
@@ -110,7 +110,7 @@ public partial class DelegateTests
 		await That(sut.Mock.Verify(3, It.IsAny<int>(), It.IsAny<int>())).Never();
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithCustomDelegateWithRefAndOut_SetupShouldWork()
 	{
 		DoSomethingWithRefAndOut sut = DoSomethingWithRefAndOut.CreateMock();
@@ -124,7 +124,7 @@ public partial class DelegateTests
 		await That(value2).IsEqualTo(10);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithCustomDelegateWithRefAndOut_VerifyShouldWork()
 	{
 		DoSomethingWithRefAndOut sut = DoSomethingWithRefAndOut.CreateMock();
@@ -136,7 +136,7 @@ public partial class DelegateTests
 		await That(value).IsEqualTo(5);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithCustomGenericDelegate_SetupShouldWork()
 	{
 		DoGeneric<long, string> sut = DoGeneric<long, string>.CreateMock();
@@ -153,7 +153,7 @@ public partial class DelegateTests
 		await That(result3).IsEqualTo(3);
 	}
 
-	[Fact]
+	[Test]
 	public async Task WithCustomGenericDelegate_VerifyShouldWork()
 	{
 		DoGeneric<short, string> sut = DoGeneric<short, string>.CreateMock();

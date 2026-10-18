@@ -6,7 +6,7 @@ public sealed partial class SetupIndexerTests
 {
 	public sealed class SpanTests
 	{
-		[Fact]
+		[Test]
 		public async Task Memory_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -17,7 +17,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Memory_WhenPredicateMatches_ShouldApplySetup()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -28,7 +28,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Memory_WithoutPredicate_ShouldMatchAnySpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -39,7 +39,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReadOnlySpan_IndexerReturnValueSetup_ShouldReturnExpectedSpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -54,7 +54,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(expectedData);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReadOnlySpan_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -65,7 +65,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReadOnlySpan_WhenPredicateMatches_ShouldApplySetup()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -76,7 +76,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ReadOnlySpan_WithoutPredicate_ShouldMatchAnySpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -87,7 +87,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Span_IndexerReturnValueSetup_ShouldReturnExpectedSpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -102,7 +102,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(expectedData);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Span_IndexerWithSpecificKey_ShouldMatchAndReturn()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -125,7 +125,7 @@ public sealed partial class SetupIndexerTests
 			await That(result2).IsEqualTo(key2Data);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Span_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -136,7 +136,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(3);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Span_WhenPredicateMatches_ShouldApplySetup()
 		{
 			SpanMock sut = SpanMock.CreateMock();
@@ -147,7 +147,7 @@ public sealed partial class SetupIndexerTests
 			await That(result).IsEqualTo(42);
 		}
 
-		[Fact]
+		[Test]
 		public async Task Span_WithoutPredicate_ShouldMatchAnySpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();

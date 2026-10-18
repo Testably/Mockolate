@@ -7,7 +7,7 @@ public sealed partial class ItTests
 {
 	public sealed class IsAnyRefRefStructTests
 	{
-		[Fact]
+		[Test]
 		public async Task ToString_ShouldReturnExpectedValue()
 		{
 			IRefRefStructParameter<Span<int>> sut = It.IsAnyRefRefStruct<Span<int>>();
@@ -18,7 +18,7 @@ public sealed partial class ItTests
 			await That(result).IsEqualTo(expectedValue);
 		}
 
-		[Fact]
+		[Test]
 		public async Task GetValue_ShouldReturnSameValue()
 		{
 			IRefRefStructParameter<Span<int>> sut = It.IsAnyRefRefStruct<Span<int>>();

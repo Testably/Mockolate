@@ -4,7 +4,7 @@ public sealed partial class MockTests
 {
 	public sealed class HiddenInterfaceMemberTests
 	{
-		[Fact]
+		[Test]
 		public async Task HiddenEvent_AsBase_ShouldVerifyBaseSlotSeparately()
 		{
 			IDerivedEvents mock = IDerivedEvents.CreateMock();
@@ -15,7 +15,7 @@ public sealed partial class MockTests
 			await That(mock.Mock.Verify.Changed.Subscribed()).Never();
 		}
 
-		[Fact]
+		[Test]
 		public async Task HiddenIndexer_AsBase_ShouldVerifyBaseAccess()
 		{
 			IDerivedIndexer mock = IDerivedIndexer.CreateMock();
@@ -27,7 +27,7 @@ public sealed partial class MockTests
 					"indexers are keyed by their parameter signature rather than the declaring interface, so base and derived access share storage and As<TBase> reaches the same recorded interaction");
 		}
 
-		[Fact]
+		[Test]
 		public async Task HiddenMethod_AsBase_ShouldConfigureAndVerifyBaseSlotSeparately()
 		{
 			IDerivedService mock = IDerivedService.CreateMock();
@@ -40,7 +40,7 @@ public sealed partial class MockTests
 			await That(mock.Mock.As<IBaseService>().Verify.GetValue()).Once();
 		}
 
-		[Fact]
+		[Test]
 		public async Task HiddenProperty_AsBase_ShouldReadBaseSlot()
 		{
 			IDerivedProperty mock = IDerivedProperty.CreateMock();

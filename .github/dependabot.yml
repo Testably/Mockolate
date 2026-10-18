@@ -23,9 +23,9 @@ updates:
       fallout:
         patterns:
           - "Fallout*"
-      xunit:
+      tunit:
         patterns:
-          - "xunit*"
+          - "TUnit*"
       aweXpect:
         patterns:
           - "aweXpect*"

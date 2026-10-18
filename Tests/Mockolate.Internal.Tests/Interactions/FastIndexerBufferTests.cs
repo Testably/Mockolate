@@ -4,7 +4,7 @@ namespace Mockolate.Internal.Tests.Interactions;
 
 public class FastIndexerBufferTests
 {
-	[Fact]
+	[Test]
 	public async Task IndexerGet_RoutesThroughTypedBuffer()
 	{
 		IFastIndexerService sut = IFastIndexerService.CreateMock();
@@ -19,7 +19,7 @@ public class FastIndexerBufferTests
 		await That(buffer!.Count).IsEqualTo(2);
 	}
 
-	[Fact]
+	[Test]
 	public async Task IndexerSet_RoutesThroughTypedBuffer()
 	{
 		IFastIndexerService sut = IFastIndexerService.CreateMock();

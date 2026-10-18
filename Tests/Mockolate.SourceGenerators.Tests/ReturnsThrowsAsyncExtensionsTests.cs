@@ -4,7 +4,7 @@ namespace Mockolate.SourceGenerators.Tests;
 
 public sealed class ReturnsThrowsAsyncExtensionsTests
 {
-	[Fact]
+	[Test]
 	public async Task ForVoidMethods_ShouldNotGenerateReturnsAsyncExtensions()
 	{
 		GeneratorResult result = Generator
@@ -34,7 +34,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		await That(result.Sources).DoesNotContainKey("ReturnsThrowsAsyncExtensions.g.cs");
 	}
 
-	[Fact]
+	[Test]
 	public async Task GenerateAsyncExtensionsForMethodsWithMoreParameters()
 	{
 		GeneratorResult result = Generator
@@ -100,7 +100,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 				"public static global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<global::System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4, T5> ThrowsAsync<TReturn, T1, T2, T3, T4, T5>(this global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4, T5> setup, global::System.Func<T1, T2, T3, T4, T5, global::System.Exception> callback)");
 	}
 
-	[Fact]
+	[Test]
 	public async Task ShouldOnlyGenerateNecessaryExtensions()
 	{
 		GeneratorResult result = Generator
@@ -137,7 +137,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 			.DoesNotContain("ThrowsAsync<TReturn, T1, T2, T3, T4, T5, T6, T7>(this");
 	}
 
-	[Fact]
+	[Test]
 	public async Task WhenAllMethodsHaveUpTo4Parameters_ShouldNotGenerateReturnsAsyncExtensions()
 	{
 		GeneratorResult result = Generator
