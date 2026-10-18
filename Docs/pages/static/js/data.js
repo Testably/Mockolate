@@ -690,6 +690,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -807,7 +813,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -928,7 +935,8 @@ window.BENCHMARK_DATA = {
           314.7438936630885,
           340.50351088841757,
           328.7136054992676,
-          362.10080359776816
+          362.10080359776816,
+          309.41570234298706
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -986,6 +994,7 @@ window.BENCHMARK_DATA = {
           1720,
           1720,
           1720,
+          1608,
           1608,
           1608,
           1608,
@@ -1183,7 +1192,8 @@ window.BENCHMARK_DATA = {
           99322.19083658855,
           99569.15089634487,
           102654.07414899554,
-          99007.95635516827
+          99007.95635516827,
+          96876.96082356772
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1301,6 +1311,7 @@ window.BENCHMARK_DATA = {
           9096,
           9073,
           9095,
+          9096,
           9096,
           9096,
           9096,
@@ -1438,7 +1449,8 @@ window.BENCHMARK_DATA = {
           4860.092916361491,
           5151.5366617838545,
           5053.804634602865,
-          4859.195608956473
+          4859.195608956473,
+          4707.866533006941
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -1506,6 +1518,7 @@ window.BENCHMARK_DATA = {
           7928,
           7928,
           7928,
+          7896,
           7896,
           7896,
           7896,
@@ -1693,7 +1706,8 @@ window.BENCHMARK_DATA = {
           4901.323056030274,
           5157.755667005266,
           5156.288125174387,
-          5025.6753667195635
+          5025.6753667195635,
+          4768.180358886719
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -1810,6 +1824,7 @@ window.BENCHMARK_DATA = {
           6970,
           6970,
           6964,
+          6970,
           6970,
           6970,
           6970,
@@ -1948,7 +1963,8 @@ window.BENCHMARK_DATA = {
           451.4267910208021,
           634.763591448466,
           456.2993961016337,
-          494.20063301722206
+          494.20063301722206,
+          416.89574235280355
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2067,6 +2083,7 @@ window.BENCHMARK_DATA = {
           2440,
           2440,
           2440,
+          2424,
           2424,
           2424,
           2424,
@@ -2203,7 +2220,8 @@ window.BENCHMARK_DATA = {
           520.4876949310303,
           814.2353028615315,
           545.6410715239389,
-          570.1157512664795
+          570.1157512664795,
+          489.2967322031657
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2318,6 +2336,7 @@ window.BENCHMARK_DATA = {
           2040,
           2040,
           2040,
+          2048,
           2048,
           2048,
           2048,
@@ -3033,6 +3052,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -3150,7 +3175,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -3271,7 +3297,8 @@ window.BENCHMARK_DATA = {
           349.9877123037974,
           287.93201818466184,
           238.91446593829565,
-          236.4455347855886
+          236.4455347855886,
+          290.33436419169107
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3329,6 +3356,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1824,
+          1744,
           1744,
           1744,
           1744,
@@ -3526,7 +3554,8 @@ window.BENCHMARK_DATA = {
           16375.19056047712,
           15726.266920823316,
           11218.529737200055,
-          11119.231815883091
+          11119.231815883091,
+          15327.50279017857
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3651,6 +3680,7 @@ window.BENCHMARK_DATA = {
           12810,
           12810,
           12810,
+          12809,
           12809,
           12809
         ],
@@ -3781,7 +3811,8 @@ window.BENCHMARK_DATA = {
           6227.3777422223775,
           5707.874703627366,
           4076.316521864671,
-          4367.9547996521
+          4367.9547996521,
+          5712.296564919608
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3793,6 +3824,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          9264,
           9264,
           9264,
           9264,
@@ -4036,7 +4068,8 @@ window.BENCHMARK_DATA = {
           222308.0891864483,
           215957.10336538462,
           186523.57314453126,
-          184686.6407470703
+          184686.6407470703,
+          216953.1803548177
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4158,6 +4191,7 @@ window.BENCHMARK_DATA = {
           15628,
           15628,
           15587,
+          15628,
           15628,
           15628,
           15628,
@@ -4291,7 +4325,8 @@ window.BENCHMARK_DATA = {
           1025.4559720357258,
           863.3777981440227,
           705.6139804204305,
-          667.197331905365
+          667.197331905365,
+          861.0065954844157
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4410,6 +4445,7 @@ window.BENCHMARK_DATA = {
           9016,
           9016,
           9016,
+          7352,
           7352,
           7352,
           7352,
@@ -4546,7 +4582,8 @@ window.BENCHMARK_DATA = {
           216.21372009913128,
           181.43490907351176,
           138.37308117548625,
-          132.55581773244418
+          132.55581773244418,
+          177.06982862154643
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -4599,6 +4636,7 @@ window.BENCHMARK_DATA = {
           1368,
           1368,
           1368,
+          1376,
           1376,
           1376,
           1376,
@@ -5376,6 +5414,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -5493,7 +5537,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -5614,7 +5659,8 @@ window.BENCHMARK_DATA = {
           1037.2458249409995,
           951.0313198725382,
           869.5637809117635,
-          1058.473989895412
+          1058.473989895412,
+          999.5387788919302
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5672,6 +5718,7 @@ window.BENCHMARK_DATA = {
           3912,
           3912,
           3912,
+          3856,
           3856,
           3856,
           3856,
@@ -5869,7 +5916,8 @@ window.BENCHMARK_DATA = {
           222208.83819110578,
           217541.2359375,
           101676.53196364183,
-          219981.95186941963
+          219981.95186941963,
+          219450.72874348957
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5995,6 +6043,7 @@ window.BENCHMARK_DATA = {
           20860,
           20732,
           20873,
+          20860,
           20860
         ],
         "borderColor": "#A052B0",
@@ -6124,7 +6173,8 @@ window.BENCHMARK_DATA = {
           10719.083135986328,
           10686.424341474261,
           9001.1716603597,
-          10696.090759277344
+          10696.090759277344,
+          10334.204904174805
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6250,7 +6300,8 @@ window.BENCHMARK_DATA = {
           13088,
           13144,
           13088,
-          13144
+          13144,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6379,7 +6430,8 @@ window.BENCHMARK_DATA = {
           12763.766057332357,
           12358.90602346567,
           7317.980030314127,
-          12475.782079060873
+          12475.782079060873,
+          11884.282129560199
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6505,6 +6557,7 @@ window.BENCHMARK_DATA = {
           13954,
           13954,
           13948,
+          13954,
           13954
         ],
         "borderColor": "#4A6FA5",
@@ -6634,7 +6687,8 @@ window.BENCHMARK_DATA = {
           899.3047481536865,
           812.9330902099609,
           683.4073071479797,
-          898.585837872823
+          898.585837872823,
+          879.9999774297079
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6753,6 +6807,7 @@ window.BENCHMARK_DATA = {
           5280,
           5280,
           5280,
+          5112,
           5112,
           5112,
           5112,
@@ -7464,6 +7519,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -7581,7 +7642,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -7702,7 +7764,8 @@ window.BENCHMARK_DATA = {
           2662.7320865631104,
           2551.6443318684896,
           2535.550285085042,
-          2596.7505279541015
+          2596.7505279541015,
+          2472.302091725667
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7760,6 +7823,7 @@ window.BENCHMARK_DATA = {
           4992,
           4992,
           4992,
+          4936,
           4936,
           4936,
           4936,
@@ -7957,7 +8021,8 @@ window.BENCHMARK_DATA = {
           233852.99735514322,
           229248.6354654948,
           111566.48078264509,
-          232177.6723981585
+          232177.6723981585,
+          229746.69812950722
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8083,6 +8148,7 @@ window.BENCHMARK_DATA = {
           30610,
           29332,
           30594,
+          30610,
           30610
         ],
         "borderColor": "#A052B0",
@@ -8212,7 +8278,8 @@ window.BENCHMARK_DATA = {
           26075.553151448566,
           25438.646937779016,
           21780.874465942383,
-          25979.199452718098
+          25979.199452718098,
+          25011.24313964844
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8338,7 +8405,8 @@ window.BENCHMARK_DATA = {
           26193,
           26249,
           26192,
-          26249
+          26249,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8467,7 +8535,8 @@ window.BENCHMARK_DATA = {
           26069.71988728841,
           25032.508685302735,
           17900.244419352213,
-          25783.77165934245
+          25783.77165934245,
+          24955.68165588379
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8593,6 +8662,7 @@ window.BENCHMARK_DATA = {
           33764,
           33764,
           33769,
+          33764,
           33764
         ],
         "borderColor": "#4A6FA5",
@@ -8722,7 +8792,8 @@ window.BENCHMARK_DATA = {
           1758.9877582550048,
           1524.6579063415527,
           1238.3633847554524,
-          1684.5994958143967
+          1684.5994958143967,
+          1536.3746878306072
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8841,6 +8912,7 @@ window.BENCHMARK_DATA = {
           8160,
           8160,
           8160,
+          6624,
           6624,
           6624,
           6624,
@@ -9552,6 +9624,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -9669,7 +9747,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -9790,7 +9869,8 @@ window.BENCHMARK_DATA = {
           359.635879389445,
           358.5150055885315,
           217.13426068850927,
-          291.22632522583007
+          291.22632522583007,
+          401.9709831987108
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9848,6 +9928,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          1976,
           1976,
           1976,
           1976,
@@ -10045,7 +10126,8 @@ window.BENCHMARK_DATA = {
           109292.98001534598,
           183391.0640345982,
           55679.9408991887,
-          105971.63966471354
+          105971.63966471354,
+          188629.59949669472
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10171,7 +10253,8 @@ window.BENCHMARK_DATA = {
           15098,
           14926,
           14944,
-          14938
+          14938,
+          14926
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10300,7 +10383,8 @@ window.BENCHMARK_DATA = {
           4929.963203430176,
           6255.967839050293,
           3036.8773686545237,
-          4499.615361531575
+          4499.615361531575,
+          6318.959334818522
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10420,6 +10504,7 @@ window.BENCHMARK_DATA = {
           9336,
           9336,
           9280,
+          9336,
           9336,
           9336,
           9336,
@@ -10555,7 +10640,8 @@ window.BENCHMARK_DATA = {
           4658.646494729178,
           6218.24189860026,
           3011.640360423497,
-          4384.814067586263
+          4384.814067586263,
+          6234.068594360351
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10681,7 +10767,8 @@ window.BENCHMARK_DATA = {
           8244,
           8244,
           8244,
-          8245
+          8245,
+          8244
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10810,7 +10897,8 @@ window.BENCHMARK_DATA = {
           440.858028570811,
           557.811464246114,
           269.166298525674,
-          420.371235700754
+          420.371235700754,
+          642.7647198268345
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10929,6 +11017,7 @@ window.BENCHMARK_DATA = {
           4136,
           4136,
           4136,
+          4056,
           4056,
           4056,
           4056,
@@ -11065,7 +11154,8 @@ window.BENCHMARK_DATA = {
           432.26499999364216,
           489.8095904668172,
           292.43044292009796,
-          394.9673126856486
+          394.9673126856486,
+          543.8487845829555
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -11180,6 +11270,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2072,
           2072,
           2072,
           2072,
@@ -11895,6 +11986,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -12012,7 +12109,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -12133,7 +12231,8 @@ window.BENCHMARK_DATA = {
           519.7063454310099,
           679.755554707845,
           481.9243667125702,
-          535.8017009099325
+          535.8017009099325,
+          704.5897754033407
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12191,6 +12290,7 @@ window.BENCHMARK_DATA = {
           2304,
           2304,
           2304,
+          2192,
           2192,
           2192,
           2192,
@@ -12388,7 +12488,8 @@ window.BENCHMARK_DATA = {
           113040.84468587239,
           189506.45884602863,
           58038.28473307292,
-          111021.61831229074
+          111021.61831229074,
+          191539.31599934897
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12514,7 +12615,8 @@ window.BENCHMARK_DATA = {
           19089,
           18925,
           18929,
-          18930
+          18930,
+          18925
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12643,7 +12745,8 @@ window.BENCHMARK_DATA = {
           7184.583009847005,
           9334.648890177408,
           4495.422873433431,
-          6712.157278442382
+          6712.157278442382,
+          9323.360628255208
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12769,7 +12872,8 @@ window.BENCHMARK_DATA = {
           12360,
           12361,
           12360,
-          12360
+          12360,
+          12361
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12898,7 +13002,8 @@ window.BENCHMARK_DATA = {
           7494.185911996024,
           9396.850577290852,
           4768.222607203892,
-          6934.928149087088
+          6934.928149087088,
+          9743.842966715494
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13021,6 +13126,7 @@ window.BENCHMARK_DATA = {
           15786,
           15786,
           15785,
+          15786,
           15786,
           15786,
           15786,
@@ -13153,7 +13259,8 @@ window.BENCHMARK_DATA = {
           747.3025704792568,
           951.7103438059489,
           496.50527315873364,
-          702.5735744748797
+          702.5735744748797,
+          978.9794830322265
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13272,6 +13379,7 @@ window.BENCHMARK_DATA = {
           5648,
           5648,
           5648,
+          4920,
           4920,
           4920,
           4920,
@@ -13408,7 +13516,8 @@ window.BENCHMARK_DATA = {
           1176.447738647461,
           1407.3024344126384,
           1019.3168335694534,
-          1137.011886469523
+          1137.011886469523,
+          1495.6480228424073
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -13523,6 +13632,7 @@ window.BENCHMARK_DATA = {
           3816,
           3816,
           3816,
+          3824,
           3824,
           3824,
           3824,
@@ -14238,6 +14348,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -14355,7 +14471,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -14476,7 +14593,8 @@ window.BENCHMARK_DATA = {
           718.4401561192104,
           538.8105840682983,
           400.51281515757245,
-          531.7432607650757
+          531.7432607650757,
+          491.97544492085774
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14534,6 +14652,7 @@ window.BENCHMARK_DATA = {
           2528,
           2528,
           2528,
+          2472,
           2472,
           2472,
           2472,
@@ -14731,7 +14850,8 @@ window.BENCHMARK_DATA = {
           12785.29582801232,
           11918.418892415364,
           7903.678907121931,
-          12233.437955729167
+          12233.437955729167,
+          11468.396891276041
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14857,6 +14977,7 @@ window.BENCHMARK_DATA = {
           10513,
           10641,
           10640,
+          10641,
           10641
         ],
         "borderColor": "#A052B0",
@@ -14986,7 +15107,8 @@ window.BENCHMARK_DATA = {
           8465.892263793945,
           7927.615342360276,
           5357.759489949544,
-          7767.728820800781
+          7767.728820800781,
+          7153.921126810709
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14998,6 +15120,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          11720,
           11720,
           11720,
           11720,
@@ -15241,7 +15364,8 @@ window.BENCHMARK_DATA = {
           9252.733511788505,
           8651.848421732584,
           5559.690018873948,
-          8309.237585449218
+          8309.237585449218,
+          8172.948877970378
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15364,6 +15488,7 @@ window.BENCHMARK_DATA = {
           11503,
           11508,
           11518,
+          11508,
           11508,
           11508,
           11508,
@@ -15496,7 +15621,8 @@ window.BENCHMARK_DATA = {
           508.3595474878947,
           428.3928701536996,
           307.37179533640546,
-          470.42963733673093
+          470.42963733673093,
+          381.2033622946058
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15615,6 +15741,7 @@ window.BENCHMARK_DATA = {
           3200,
           3200,
           3200,
+          3048,
           3048,
           3048,
           3048,
@@ -15751,7 +15878,8 @@ window.BENCHMARK_DATA = {
           560.1147988183158,
           466.016596023853,
           355.08959836226245,
-          461.19323212305704
+          461.19323212305704,
+          443.7310436884562
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15804,6 +15932,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1680,
           1680,
           1680,
           1680,
@@ -16581,6 +16710,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -16698,7 +16833,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -16819,7 +16955,8 @@ window.BENCHMARK_DATA = {
           1194.7068754342886,
           1091.833434677124,
           778.5462970733643,
-          1008.543023790632
+          1008.543023790632,
+          988.5799545288086
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16877,6 +17014,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          2976,
           2976,
           2976,
           2976,
@@ -17074,7 +17212,8 @@ window.BENCHMARK_DATA = {
           19817.64449603741,
           19382.076714651925,
           13017.385158538818,
-          19327.32435960036
+          19327.32435960036,
+          18197.5723830003
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17200,6 +17339,7 @@ window.BENCHMARK_DATA = {
           17441,
           18721,
           18720,
+          18721,
           18721
         ],
         "borderColor": "#A052B0",
@@ -17329,7 +17469,8 @@ window.BENCHMARK_DATA = {
           18773.23848876953,
           17578.153383382163,
           12141.218803914388,
-          17673.770897498496
+          17673.770897498496,
+          16222.859307861328
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17450,6 +17591,7 @@ window.BENCHMARK_DATA = {
           21584,
           21585,
           21584,
+          21585,
           21585,
           21585,
           21585,
@@ -17584,7 +17726,8 @@ window.BENCHMARK_DATA = {
           22427.68079325358,
           20336.900108337402,
           13209.334956577846,
-          19733.2767464774
+          19733.2767464774,
+          19380.232279459637
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17707,6 +17850,7 @@ window.BENCHMARK_DATA = {
           31545,
           31546,
           31543,
+          31546,
           31546,
           31546,
           31546,
@@ -17839,7 +17983,8 @@ window.BENCHMARK_DATA = {
           776.6892108281453,
           673.4904900868734,
           481.7397194642287,
-          695.7133372380183
+          695.7133372380183,
+          604.15115331014
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17958,6 +18103,7 @@ window.BENCHMARK_DATA = {
           4784,
           4784,
           4784,
+          3336,
           3336,
           3336,
           3336,
@@ -18094,7 +18240,8 @@ window.BENCHMARK_DATA = {
           1872.0714612325032,
           1635.3577898661295,
           1215.0604811448318,
-          1566.141777583531
+          1566.141777583531,
+          1550.534965661856
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18147,6 +18294,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          4032,
           4032,
           4032,
           4032,
@@ -18924,6 +19072,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 13:05:22 2026 \u002B0200",
         "message": "docs: add an agent guide (#895)"
+      },
+      {
+        "sha": "13c40ce21bbf120854f8e0e85809935961f8bbc0",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 13:40:48 2026 \u002B0200",
+        "message": "build: migrate the build pipeline from Nuke to Fallout (#890)"
       }
     ],
     "labels": [
@@ -19041,7 +19195,8 @@ window.BENCHMARK_DATA = {
       "f730f343",
       "08051363",
       "a8daabb3",
-      "7a2727f8"
+      "7a2727f8",
+      "13c40ce2"
     ],
     "datasets": [
       {
@@ -19162,7 +19317,8 @@ window.BENCHMARK_DATA = {
           14.066820508241653,
           10.97338736553987,
           14.164619926895414,
-          9.886944292911462
+          9.886944292911462,
+          20.548269524176916
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19220,6 +19376,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -19417,7 +19574,8 @@ window.BENCHMARK_DATA = {
           222.60095263322194,
           144.12723196347554,
           234.7805073261261,
-          134.681500573953
+          134.681500573953,
+          309.3101982752482
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19536,6 +19694,7 @@ window.BENCHMARK_DATA = {
           2248,
           2248,
           2248,
+          2240,
           2240,
           2240,
           2240,
@@ -19672,7 +19831,8 @@ window.BENCHMARK_DATA = {
           29.611635118722916,
           21.38929788072904,
           29.30941159908588,
-          19.85582304426602
+          19.85582304426602,
+          38.364546639578684
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19725,6 +19885,7 @@ window.BENCHMARK_DATA = {
           192,
           192,
           192,
+          200,
           200,
           200,
           200,
@@ -19927,7 +20088,8 @@ window.BENCHMARK_DATA = {
           1040.117371114095,
           804.3549552281697,
           1087.5187501907349,
-          753.59565278462
+          753.59565278462,
+          1505.4650299889702
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19939,6 +20101,7 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
+          2096,
           2096,
           2096,
           2096,
@@ -20182,7 +20345,8 @@ window.BENCHMARK_DATA = {
           1521.6137298583985,
           993.911472593035,
           1512.3984886169433,
-          994.6057449068342
+          994.6057449068342,
+          2123.9738018329326
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20194,6 +20358,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          5048,
           5048,
           5048,
           5048,
@@ -20437,7 +20602,8 @@ window.BENCHMARK_DATA = {
           1649.7121928078789,
           963.2897857938494,
           1471.157616043091,
-          1029.90053492326
+          1029.90053492326,
+          1928.0020587921142
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20558,6 +20724,7 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2759,
+          2763,
           2763,
           2763,
           2763,
