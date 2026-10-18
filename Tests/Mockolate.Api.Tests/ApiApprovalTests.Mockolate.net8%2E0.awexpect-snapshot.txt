@@ -288,80 +288,179 @@ namespace Mockolate
     }
     public static class ParameterExtensions
     {
-        public static Mockolate.Parameters.IOutParameter<T> Monitor<T>(this Mockolate.Parameters.IOutParameter<T> parameter, out Mockolate.Parameters.IParameterMonitor<T> monitor) { }
-        public static Mockolate.Parameters.IParameterWithCallback<T> Monitor<T>(this Mockolate.Parameters.IParameterWithCallback<T> parameter, out Mockolate.Parameters.IParameterMonitor<T> monitor) { }
-        public static Mockolate.Parameters.IRefParameter<T> Monitor<T>(this Mockolate.Parameters.IRefParameter<T> parameter, out Mockolate.Parameters.IParameterMonitor<T> monitor) { }
-        public static Mockolate.Parameters.IParameterWithCallback<System.DateTime> Within(this Mockolate.It.IIsParameter<System.DateTime> parameter, System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<System.DateTime?> Within(this Mockolate.It.IIsParameter<System.DateTime?> parameter, System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<System.DateTimeOffset> Within(this Mockolate.It.IIsParameter<System.DateTimeOffset> parameter, System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<System.DateTimeOffset?> Within(this Mockolate.It.IIsParameter<System.DateTimeOffset?> parameter, System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<System.TimeSpan> Within(this Mockolate.It.IIsParameter<System.TimeSpan> parameter, System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<System.TimeSpan?> Within(this Mockolate.It.IIsParameter<System.TimeSpan?> parameter, System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<decimal> Within(this Mockolate.It.IIsParameter<decimal> parameter, decimal tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<decimal?> Within(this Mockolate.It.IIsParameter<decimal?> parameter, decimal tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<double> Within(this Mockolate.It.IIsParameter<double> parameter, double tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<double?> Within(this Mockolate.It.IIsParameter<double?> parameter, double tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<float> Within(this Mockolate.It.IIsParameter<float> parameter, float tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<float?> Within(this Mockolate.It.IIsParameter<float?> parameter, float tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        extension(Mockolate.It.IIsParameter<System.DateTime> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<System.DateTime> Within(System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<System.DateTime?> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<System.DateTime?> Within(System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<System.DateTimeOffset> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<System.DateTimeOffset> Within(System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<System.DateTimeOffset?> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<System.DateTimeOffset?> Within(System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<System.TimeSpan> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<System.TimeSpan> Within(System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<System.TimeSpan?> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<System.TimeSpan?> Within(System.TimeSpan tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<decimal> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<decimal> Within(decimal tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<decimal?> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<decimal?> Within(decimal tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<double> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<double> Within(double tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<double?> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<double?> Within(double tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<float> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<float> Within(float tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension(Mockolate.It.IIsParameter<float?> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<float?> Within(float tolerance, [System.Runtime.CompilerServices.CallerArgumentExpression("tolerance")] string doNotPopulateThisValue = "") { }
+        }
+        extension<T>(Mockolate.Parameters.IOutParameter<T> parameter)
+        {
+            public Mockolate.Parameters.IOutParameter<T> Monitor(out Mockolate.Parameters.IParameterMonitor<T> monitor) { }
+        }
+        extension<T>(Mockolate.Parameters.IParameterWithCallback<T> parameter)
+        {
+            public Mockolate.Parameters.IParameterWithCallback<T> Monitor(out Mockolate.Parameters.IParameterMonitor<T> monitor) { }
+        }
+        extension<T>(Mockolate.Parameters.IRefParameter<T> parameter)
+        {
+            public Mockolate.Parameters.IRefParameter<T> Monitor(out Mockolate.Parameters.IParameterMonitor<T> monitor) { }
+        }
     }
     public static class ReturnsThrowsAsyncExtensions
     {
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ReturnsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ReturnsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ReturnsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> setup, System.Func<T1, T2, T3, T4, TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ReturnsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ReturnsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ReturnsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> setup, System.Func<T1, T2, T3, TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ReturnsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ReturnsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ReturnsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2> setup, System.Func<T1, T2, TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ReturnsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ReturnsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ReturnsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1> setup, System.Func<T1, TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>> ReturnsAsync<TReturn>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>> ReturnsAsync<TReturn>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ReturnsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ReturnsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ReturnsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> setup, System.Func<T1, T2, T3, T4, TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ReturnsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ReturnsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ReturnsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> setup, System.Func<T1, T2, T3, TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ReturnsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ReturnsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ReturnsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> setup, System.Func<T1, T2, TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ReturnsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ReturnsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ReturnsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1> setup, System.Func<T1, TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>> ReturnsAsync<TReturn>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>> setup, System.Func<TReturn> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>> ReturnsAsync<TReturn>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>> setup, TReturn returnValue) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ThrowsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ThrowsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ThrowsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> setup, System.Func<T1, T2, T3, T4, System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ThrowsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ThrowsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ThrowsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> setup, System.Func<T1, T2, T3, System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ThrowsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ThrowsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ThrowsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2> setup, System.Func<T1, T2, System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ThrowsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ThrowsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ThrowsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1> setup, System.Func<T1, System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>> ThrowsAsync<TReturn>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>> ThrowsAsync<TReturn>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ThrowsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ThrowsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ThrowsAsync<TReturn, T1, T2, T3, T4>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> setup, System.Func<T1, T2, T3, T4, System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ThrowsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ThrowsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ThrowsAsync<TReturn, T1, T2, T3>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> setup, System.Func<T1, T2, T3, System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ThrowsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ThrowsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ThrowsAsync<TReturn, T1, T2>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> setup, System.Func<T1, T2, System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ThrowsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ThrowsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1> setup, System.Func<System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ThrowsAsync<TReturn, T1>(this Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1> setup, System.Func<T1, System.Exception> callback) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>> ThrowsAsync<TReturn>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>> setup, System.Exception exception) { }
-        public static Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>> ThrowsAsync<TReturn>(this Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>> setup, System.Func<System.Exception> callback) { }
+        extension<TReturn, T1, T2, T3, T4>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2, T3>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1, T2> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn, T1>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>, T1> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.Task<TReturn>> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2, T3, T4>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2, T3>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn, T1>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>, T1> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn>(Mockolate.Setup.IReturnMethodSetup<System.Threading.Tasks.ValueTask<TReturn>> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>> ReturnsAsync(System.Func<TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>> ReturnsAsync(TReturn returnValue) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>> ThrowsAsync(System.Exception exception) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>> ThrowsAsync(System.Func<System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2, T3, T4>(Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ReturnsAsync(System.Func<T1, T2, T3, T4, TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3, T4> ThrowsAsync(System.Func<T1, T2, T3, T4, System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2, T3>(Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ReturnsAsync(System.Func<T1, T2, T3, TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2, T3> ThrowsAsync(System.Func<T1, T2, T3, System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2>(Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1, T2> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ReturnsAsync(System.Func<T1, T2, TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1, T2> ThrowsAsync(System.Func<T1, T2, System.Exception> callback) { }
+        }
+        extension<TReturn, T1>(Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.Task<TReturn>, T1> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ReturnsAsync(System.Func<T1, TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.Task<TReturn>, T1> ThrowsAsync(System.Func<T1, System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2, T3, T4>(Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ReturnsAsync(System.Func<T1, T2, T3, T4, TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3, T4> ThrowsAsync(System.Func<T1, T2, T3, T4, System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2, T3>(Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ReturnsAsync(System.Func<T1, T2, T3, TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2, T3> ThrowsAsync(System.Func<T1, T2, T3, System.Exception> callback) { }
+        }
+        extension<TReturn, T1, T2>(Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ReturnsAsync(System.Func<T1, T2, TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1, T2> ThrowsAsync(System.Func<T1, T2, System.Exception> callback) { }
+        }
+        extension<TReturn, T1>(Mockolate.Setup.IReturnMethodSetupWithCallback<System.Threading.Tasks.ValueTask<TReturn>, T1> setup)
+        {
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ReturnsAsync(System.Func<T1, TReturn> callback) { }
+            public Mockolate.Setup.IReturnMethodSetupReturnBuilder<System.Threading.Tasks.ValueTask<TReturn>, T1> ThrowsAsync(System.Func<T1, System.Exception> callback) { }
+        }
     }
     public static class SetupExtensions
     {
@@ -1137,7 +1236,10 @@ namespace Mockolate.Setup
     }
     public static class CallbacksExtensions
     {
-        public static Mockolate.Setup.Callbacks<T> Register<T>(this Mockolate.Setup.Callbacks<T>? callbacks, Mockolate.Setup.Callback<T> callback) where T : System.Delegate { }
+        extension<T>(Mockolate.Setup.Callbacks<T>? callbacks) where T : System.Delegate
+        {
+            public Mockolate.Setup.Callbacks<T> Register(Mockolate.Setup.Callback<T> callback) { }
+        }
     }
     [System.Diagnostics.DebuggerDisplay("{ToString()}")]
     public class EventSetup : Mockolate.Setup.IEventSetup, Mockolate.Setup.IEventSubscriptionSetup, Mockolate.Setup.IEventSubscriptionSetupCallbackBuilder, Mockolate.Setup.IEventSubscriptionSetupCallbackWhenBuilder, Mockolate.Setup.IEventSubscriptionSetupParallelCallbackBuilder, Mockolate.Setup.IEventUnsubscriptionSetup, Mockolate.Setup.IEventUnsubscriptionSetupCallbackBuilder, Mockolate.Setup.IEventUnsubscriptionSetupCallbackWhenBuilder, Mockolate.Setup.IEventUnsubscriptionSetupParallelCallbackBuilder
