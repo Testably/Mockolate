@@ -104,9 +104,9 @@ Stryker mutates `Source/Mockolate` against `Mockolate.Tests` and `Mockolate.Inte
 
 Reports go to `Artifacts/Stryker`. The `MutationTests` target also prepares the PR comment and expects to run in GitHub Actions.
 
-## Build Pipeline (Nuke)
+## Build Pipeline (Fallout)
 
-`Pipeline/Build.csproj` is a Nuke build, started through `build.ps1`, `build.sh` or `build.cmd`. Always name a target: without one, Nuke runs the defaults `ApiChecks`, `Benchmarks` and `CodeAnalysis`. `./build.ps1 --help` lists the targets. The configuration is Debug locally and Release on CI. Every run cleans `Artifacts/` and `TestResults/` first.
+`Pipeline/Build.csproj` is a Fallout build, started through `build.ps1`, `build.sh` or `build.cmd`. Always name a target: without one, Fallout runs the defaults `ApiChecks`, `Benchmarks` and `CodeAnalysis`. `./build.ps1 --help` lists the targets. The configuration is Debug locally and Release on CI. Every run cleans `Artifacts/` and `TestResults/` first.
 
 | Target | Purpose |
 |---|---|

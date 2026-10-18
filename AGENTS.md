@@ -50,5 +50,5 @@ Correctness is a must. The other goals are strong defaults and win in this order
 ## References
 
 - [Design goals](Docs/agents/design-goals.md): the goals and code rules for every change, the checks before a commit and the goals of this repository.
-- [Workflows](Docs/agents/workflows.md): build, test, snapshot, benchmark, mutation, AOT and documentation commands, the Nuke targets in `Pipeline/` and the CI workflows.
+- [Workflows](Docs/agents/workflows.md): build, test, snapshot, benchmark, mutation, AOT and documentation commands, the Fallout targets in `Pipeline/` and the CI workflows.
 - [Project structure](Docs/agents/project-structure.md): projects, architecture and where code lives.
