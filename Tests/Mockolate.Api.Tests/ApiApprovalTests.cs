@@ -1,32 +1,62 @@
+using System.Linq;
+using aweXpect.Core;
+using aweXpect.Results;
+using aweXpect.Snapshots;
+using aweXpect.Snapshots.PublicApi;
+// ReSharper disable ExplicitCallerInfoArgument
+
 namespace Mockolate.Api.Tests;
 
 /// <summary>
 ///     Whenever a test fails, this means that the public API surface changed.
-///     If the change was intentional, execute the <see cref="ApiAcceptance.AcceptApiChanges()" /> test to take over the
-///     current public API surface. The changes will become part of the pull request and will be reviewed accordingly.
+///     If the change was intentional, execute <see cref="AcceptApiChanges" />, rename the pending snapshot next to this
+///     file or run the tests with the environment variable <c>AWEXPECT_ACCEPT_SNAPSHOTS</c> set to <c>all</c> to take
+///     over the current public API surface. The changes will become part of the pull request and will be reviewed
+///     accordingly.
 /// </summary>
 public sealed class ApiApprovalTests
 {
+	private static readonly string[] AssemblyNames =
+	[
+		"Mockolate",
+	];
+
 	[Theory]
-	[MemberData(nameof(TargetFrameworksTheoryData))]
-	public async Task VerifyPublicApiForMockolate(string framework)
+	[MemberData(nameof(Builds))]
+	public async Task VerifyPublicApi(string assemblyName, string framework)
+		=> await MatchesPublicApiSnapshot(assemblyName, framework);
+
+	/// <summary>
+	///     Execute this test to update the expected public API to the current API surface.
+	/// </summary>
+	[Fact(Explicit = true)]
+	public async Task AcceptApiChanges()
 	{
-		const string assemblyName = "Mockolate";
-
-		string publicApi = Helper.CreatePublicApi(framework, assemblyName);
-		string expectedApi = Helper.GetExpectedApi(framework, assemblyName);
-
-		await That(publicApi).IsEqualTo(expectedApi);
-	}
-
-	public static TheoryData<string> TargetFrameworksTheoryData()
-	{
-		TheoryData<string> theoryData = new();
-		foreach (string targetFramework in Helper.GetTargetFrameworks())
+		foreach ((string assemblyName, string framework) in AllBuilds())
 		{
-			theoryData.Add(targetFramework);
+			try
+			{
+				await MatchesPublicApiSnapshot(assemblyName, framework).Accepting(SnapshotAcceptance.All);
+			}
+			catch (Exception exception) when (exception.Message.Contains("Accepted snapshot"))
+			{
+				// An accepted snapshot still fails the expectation.
+			}
 		}
-
-		return theoryData;
 	}
+
+	public static TheoryData<string, string> Builds()
+		=> new(AllBuilds());
+
+	/// <summary>
+	///     The snapshot is named after the assembly and the target framework, so that both tests use the same one.
+	/// </summary>
+	private static SnapshotResult<string?, IThat<string?>> MatchesPublicApiSnapshot(string assemblyName,
+		string framework)
+		=> That(Helper.GetAssemblyFile(framework, assemblyName))
+			.MatchesPublicApiSnapshot(callerMemberName: assemblyName).Named(framework);
+
+	private static (string, string)[] AllBuilds()
+		=> AssemblyNames.SelectMany(assemblyName => Helper.GetTargetFrameworks()
+			.Select(framework => (assemblyName, framework))).ToArray();
 }

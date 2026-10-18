@@ -84,7 +84,7 @@ At runtime:
 | `Mockolate.Tests` | Core behavioral tests (methods, properties, indexers, events, delegates, HttpClient) |
 | `Mockolate.SourceGenerators.Tests` | Generator output tests using `Microsoft.CodeAnalysis.Testing` |
 | `Mockolate.Analyzers.Tests` | Analyzer diagnostic tests using `CSharpAnalyzerVerifier` |
-| `Mockolate.Api.Tests` | API surface snapshots (PublicApiGenerator) — catches unintentional breaking changes |
+| `Mockolate.Api.Tests` | API surface snapshots (aweXpect.Snapshots.PublicApi) — catches unintentional breaking changes |
 | `Mockolate.ExampleTests` | Living documentation showing idiomatic usage |
 | `Mockolate.AotCompatibility.TestApp` | AOT publish smoke test |
 
