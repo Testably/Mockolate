@@ -7,7 +7,7 @@
 
 # ReSharper DotSettings files are in Unix Format
 *.DotSettings text eol=lf
-*.sln   text eol=crlf
+*.slnx  text eol=crlf
 
 # Allows checking out and developing in Windows
 # while mounting and running tests in Linux
