@@ -37,7 +37,31 @@ jobs:
                     path: |
                         ./Artifacts/*
                         ./TestResults/*.trx
-    
+
+    aot-smoke-tests:
+        name: "AOT smoke tests"
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ ubuntu-latest, windows-latest, macos-latest ]
+        runs-on: ${{ matrix.os }}
+        steps:
+            -   uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+                with:
+                    fetch-depth: 0
+            -   name: Setup .NET SDKs
+                uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+                with:
+                    dotnet-version: |
+                        8.0.x
+                        10.0.x
+            -   name: Run AOT smoke tests (windows)
+                if: matrix.os == 'windows-latest'
+                run: ./build.ps1 AotSmokeTests
+            -   name: Run AOT smoke tests (ubuntu|macos)
+                if: matrix.os != 'windows-latest'
+                run: ./build.sh AotSmokeTests
+
     api-tests:
         name: "API tests"
         runs-on: ubuntu-latest
@@ -148,7 +172,7 @@ jobs:
     
     publish-test-results:
         name: "Publish Tests Results"
-        needs: [ api-tests, unit-tests ]
+        needs: [ api-tests, unit-tests, aot-smoke-tests ]
         runs-on: ubuntu-latest
         permissions:
             checks: write

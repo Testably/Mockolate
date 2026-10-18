@@ -47,6 +47,7 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 | `Source/Mockolate.Analyzers*` | `Mockolate.Analyzers.Tests` |
 | Usage examples | `Mockolate.ExampleTests` (not part of the `UnitTests` target, so CI does not run it) |
 | `Pipeline/BenchmarkReport.cs` | `Build.Tests` |
+| Generated code or reflection-sensitive library code | also the `AotSmokeTests` target |
 
 ## Snapshots
 
@@ -79,13 +80,16 @@ Commit the updated snapshots with the change; never commit pending files.
 
 ## AOT Smoke Test
 
-`Tests/Aot/Mockolate.AotCompatibility.TestApp` publishes a mock with Native AOT. CI does not run it, so publish it manually after changes to generated code or reflection-sensitive library code:
+`Tests/Aot/Mockolate.AotCompatibility.TestApp` is a console app with one named check per feature (setups, matchers, verifications, events, protected and static members, `HttpClient`, delegates and class mocks). It prints `PASS` or `FAIL` per check and exits with `1` when one fails. The `AotSmokeTests` target runs it from the compiled output, publishes it with Native AOT for the current platform to `Artifacts/Aot` and runs the published executable; CI does this on Ubuntu, Windows and macOS.
 
 ```powershell
-dotnet publish Tests/Aot/Mockolate.AotCompatibility.TestApp -c Release -f net10.0
+./build.ps1 AotSmokeTests
+# or directly
+dotnet run --project Tests/Aot/Mockolate.AotCompatibility.TestApp
+dotnet publish Tests/Aot/Mockolate.AotCompatibility.TestApp -c Release
 ```
 
-The native link step needs the platform toolchain (on Windows the Visual Studio C++ build tools). Trim and AOT warnings appear before linking.
+A check that fails only in the published run points to code that behaves differently without the JIT. Compiler, trim and AOT warnings fail the build and the publish. The native link step needs the platform toolchain (on Windows the Visual Studio C++ build tools). Add a check when you add a feature.
 
 ## Benchmarks
 
@@ -119,6 +123,7 @@ Reports go to `Artifacts/Stryker`, together with the Markdown body of the PR com
 | `UnitTests` | Run `Build.Tests`, `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Analyzers.Tests` and `Mockolate.SourceGenerators.Tests` for each framework (`net48` only on Windows), with a TRX and a Cobertura coverage file per project and framework in `TestResults` |
 | `CodeCoverage` | `UnitTests` plus a ReportGenerator SonarQube report in `TestResults/reports` |
 | `ApiChecks` | Run `Mockolate.Api.Tests` |
+| `AotSmokeTests` | Run the AOT smoke test app from the compiled output and published with Native AOT |
 | `CodeAnalysis` | SonarCloud analysis (needs `SonarToken`) |
 | `Pack` | Build the NuGet package into `Artifacts/Packages`, with a release-specific README |
 | `Benchmarks` | Run the benchmarks (`--benchmark-filter`, default `*`) and print the reports |
@@ -130,7 +135,7 @@ Reports go to `Artifacts/Stryker`, together with the Markdown body of the PR com
 
 | Workflow | Trigger | Jobs |
 |---|---|---|
-| `ci.yml` | PR to `main` | Unit tests (`CodeCoverage`) on Ubuntu, Windows and macOS; API tests; mutation tests; benchmark matrix; SonarCloud (same-repo PRs, not Dependabot); test result publishing |
+| `ci.yml` | PR to `main` | Unit tests (`CodeCoverage`) and AOT smoke tests on Ubuntu, Windows and macOS; API tests; mutation tests; benchmark matrix; SonarCloud (same-repo PRs, not Dependabot); test result publishing |
 | `ci-analysis.yml` | After `CI` completes | Posts the mutation and benchmark comments on the PR |
 | `build.yml` | Push to `main`, `v*` tags | Same checks as CI plus pack; on `main` publishes the benchmark report and uploads the mutation dashboard; on a tag pushes to nuget.org (trusted publishing), creates the GitHub release for non-prerelease tags and comments on released issues |
 | `notify-docs-site.yml` | After a successful `Build` on `main` | Triggers a rebuild of the docs site in `Testably/Testably.Site` |
