@@ -2,11 +2,24 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFrameworks>net10.0</TargetFrameworks>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PublishAot>true</PublishAot>
 		<InvariantGlobalization>true</InvariantGlobalization>
+	</PropertyGroup>
+
+	<!--
+	    A warning from the compiler, the trimmer or the AOT compiler in the generated code fails the build and the
+	    publish, and each trim warning names its site instead of being rolled up per assembly.
+	-->
+	<PropertyGroup>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+		<EnableAotAnalyzer>true</EnableAotAnalyzer>
+		<ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors>
+		<IlcTreatWarningsAsErrors>true</IlcTreatWarningsAsErrors>
+		<TrimmerSingleWarn>false</TrimmerSingleWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
