@@ -20,9 +20,9 @@ updates:
     commit-message:
       prefix: chore
     groups:
-      nuke:
+      fallout:
         patterns:
-          - "Nuke*"
+          - "Fallout*"
       xunit:
         patterns:
           - "xunit*"

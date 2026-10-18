@@ -1,4 +1,5 @@
 {
 	"$schema": "build.schema.json",
+	"BuildProjectFile": "Pipeline/Build.csproj",
 	"Solution": "Mockolate.slnx"
 }

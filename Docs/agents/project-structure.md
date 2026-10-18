@@ -7,7 +7,7 @@
 | `Source/` | The shipped projects |
 | `Tests/` | Test projects and the AOT smoke test app |
 | `Benchmarks/` | BenchmarkDotNet comparison with other mocking libraries |
-| `Pipeline/` | Nuke build (`Build.csproj`) and the benchmark report generator |
+| `Pipeline/` | Fallout build (`Build.csproj`) and the benchmark report generator |
 | `Docs/pages/` | User docs published to https://docs.testably.org/Mockolate/ |
 | `Docs/agents/` | Guides for contributors and agents (this folder) |
 | `.github/` | CI workflows, Dependabot and Mergify configuration |
