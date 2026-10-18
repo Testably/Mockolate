@@ -45,7 +45,7 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 | `Source/Mockolate` | `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Api.Tests` |
 | `Source/Mockolate.SourceGenerators` | `Mockolate.SourceGenerators.Tests`, `Mockolate.Tests` (it compiles the generated mocks) |
 | `Source/Mockolate.Analyzers*` | `Mockolate.Analyzers.Tests` |
-| Usage examples | `Mockolate.ExampleTests` (not part of the `UnitTests` target, so CI does not run it) |
+| Usage examples | `Mockolate.ExampleTests` |
 | `Pipeline/BenchmarkReport.cs` | `Build.Tests` |
 
 ## Snapshots
@@ -116,7 +116,7 @@ Reports go to `Artifacts/Stryker`, together with the Markdown body of the PR com
 | Target | Purpose |
 |---|---|
 | `Compile` | Restore and build the solution with the GitVersion-derived version |
-| `UnitTests` | Run `Build.Tests`, `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Analyzers.Tests` and `Mockolate.SourceGenerators.Tests` for each framework (`net48` only on Windows), with a TRX and a Cobertura coverage file per project and framework in `TestResults` |
+| `UnitTests` | Run `Build.Tests`, `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Analyzers.Tests`, `Mockolate.SourceGenerators.Tests` and `Mockolate.ExampleTests` for each framework (`net48` only on Windows), with a TRX and a Cobertura coverage file per project and framework in `TestResults` |
 | `CodeCoverage` | `UnitTests` plus a ReportGenerator SonarQube report in `TestResults/reports` |
 | `ApiChecks` | Run `Mockolate.Api.Tests` |
 | `CodeAnalysis` | SonarCloud analysis (needs `SonarToken`) |
