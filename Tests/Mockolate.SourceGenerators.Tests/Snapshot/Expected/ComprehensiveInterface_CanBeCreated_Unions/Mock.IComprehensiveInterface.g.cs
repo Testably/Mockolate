@@ -482,7 +482,7 @@ internal static partial class Mock
 				}
 				global::Mockolate.Interactions.IndexerSetterAccess<int, string> access = new(i, value);
 				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string, int>>(access);
-				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 0);
+				this.MockRegistry.ApplyIndexerSetter<string>(access, setup, value, 0);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					wraps[i] = value;
@@ -518,7 +518,7 @@ internal static partial class Mock
 					this.MockRegistry.RegisterInteraction(access);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, int, int, int, int, int>? setup = this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string, int, int, int, int, int>>(access);
-				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 1);
+				this.MockRegistry.ApplyIndexerSetter<string>(access, setup, value, 1);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					wraps[a, b, c, d, e] = value;
@@ -559,7 +559,7 @@ internal static partial class Mock
 					this.MockRegistry.RegisterInteraction(access);
 				}
 				global::Mockolate.Setup.IndexerSetup<long, short, short, short, short, short>? setup = this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<long, short, short, short, short, short>>(access);
-				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 3);
+				this.MockRegistry.ApplyIndexerSetter<long>(access, setup, value, 3);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					wraps[a, b, c, d, e] = value;
@@ -632,7 +632,7 @@ internal static partial class Mock
 				}
 				global::Mockolate.Interactions.IndexerSetterAccess<char, string> access = new(key, value);
 				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string, char>>(access);
-				this.MockRegistry.ApplyIndexerSetter(access, setup, value, 5);
+				this.MockRegistry.ApplyIndexerSetter<string>(access, setup, value, 5);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					wraps[key] = value;
