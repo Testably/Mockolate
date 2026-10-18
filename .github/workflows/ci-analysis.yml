@@ -12,39 +12,55 @@ jobs:
         name: "Mutation tests"
         runs-on: ubuntu-latest
         permissions:
+            actions: read
+            contents: read
             pull-requests: write
         steps:
-            -   uses: actions/checkout@v7
+            -   uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
                 with:
                     fetch-depth: 0
             -   name: Setup .NET SDKs
-                uses: actions/setup-dotnet@v6
+                uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
                 with:
                     dotnet-version: |
                         10.0.x
-            -   name: Create mutation test comment
-                run: ./build.sh MutationTestComment
+            -   name: Upload mutation dashboard and create comment
+                run: ./build.sh MutationTestsComment
+                # The artifacts of the workflow run are untrusted, because a pull request controls the code that
+                # produces them, so the build identifies the pull request by these values of the event alone.
                 env:
                     GithubToken: ${{ secrets.GITHUB_TOKEN }}
+                    STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
                     WorkflowRunId: ${{ github.event.workflow_run.id }}
-    
+                    WorkflowRunEvent: ${{ github.event.workflow_run.event }}
+                    WorkflowRunHeadOwner: ${{ github.event.workflow_run.head_repository.owner.login }}
+                    WorkflowRunHeadBranch: ${{ github.event.workflow_run.head_branch }}
+                    WorkflowRunHeadSha: ${{ github.event.workflow_run.head_sha }}
+
     benchmarks:
         name: "Benchmarks"
         runs-on: ubuntu-latest
         permissions:
-            contents: write
+            actions: read
+            contents: read
             pull-requests: write
         steps:
-            -   uses: actions/checkout@v7
+            -   uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
                 with:
                     fetch-depth: 0
             -   name: Setup .NET SDKs
-                uses: actions/setup-dotnet@v6
+                uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
                 with:
                     dotnet-version: |
                         10.0.x
             -   name: Create benchmark comment
                 run: ./build.sh BenchmarkComment
+                # The artifacts of the workflow run are untrusted, because a pull request controls the code that
+                # produces them, so the build identifies the pull request by these values of the event alone.
                 env:
                     GithubToken: ${{ secrets.GITHUB_TOKEN }}
                     WorkflowRunId: ${{ github.event.workflow_run.id }}
+                    WorkflowRunEvent: ${{ github.event.workflow_run.event }}
+                    WorkflowRunHeadOwner: ${{ github.event.workflow_run.head_repository.owner.login }}
+                    WorkflowRunHeadBranch: ${{ github.event.workflow_run.head_branch }}
+                    WorkflowRunHeadSha: ${{ github.event.workflow_run.head_sha }}

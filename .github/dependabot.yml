@@ -29,3 +29,6 @@ updates:
       aweXpect:
         patterns:
           - "aweXpect*"
+    # The analyzers and generators only load in compilers at least as new as the Roslyn they reference.
+    ignore:
+      - dependency-name: "Microsoft.CodeAnalysis*"

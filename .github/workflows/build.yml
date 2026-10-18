@@ -149,7 +149,7 @@ jobs:
                         8.0.x
                         10.0.x
             -   name: Run mutation tests
-                run: ./build.sh MutationTests MutationTestDashboard
+                run: ./build.sh MutationTests MutationTestsDashboard
     
     static-code-analysis:
         name: "Static code analysis"
