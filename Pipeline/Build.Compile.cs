@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Fallout.Common;
 using Fallout.Common.IO;
 using Fallout.Common.Tools.DotNet;
@@ -30,6 +31,13 @@ partial class Build
 			}
 			else if (GitHubActions.Ref.StartsWith("refs/tags/", StringComparison.OrdinalIgnoreCase))
 			{
+				if (!Regex.IsMatch(GitHubActions.Ref,
+					    @"\Arefs/tags/v\d+\.\d+\.\d+(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?\z"))
+				{
+					Assert.Fail(
+						$"The tag '{GitHubActions.Ref["refs/tags/".Length..]}' is no valid release tag (expected 'v1.2.3', optionally with a pre-release suffix like '-pre.1')");
+				}
+
 				int preReleaseIndex = GitHubActions.Ref.IndexOf('-');
 				preRelease = preReleaseIndex > 0 ? GitHubActions.Ref[preReleaseIndex..] : "";
 			}

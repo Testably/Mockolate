@@ -19,7 +19,7 @@ partial class Build
 				.SetOrganization("testably")
 				.SetProjectKey("Testably_Mockolate")
 				.AddVSTestReports(TestResultsDirectory / "*.trx")
-				.AddOpenCoverPaths(TestResultsDirectory / "reports" / "OpenCover.xml")
+				.AddGenericCoveragePaths(TestResultsDirectory / "reports" / "SonarQube.xml")
 				.SetPullRequestOrBranchName(GitHubActions, GitVersion)
 				.SetVersion(GitVersion.SemVer)
 				.SetToken(SonarToken));
