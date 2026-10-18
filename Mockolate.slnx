@@ -31,7 +31,7 @@
 		<File Path="Directory.Packages.props" />
 		<File Path="global.json" />
 		<File Path="LICENSE" />
-		<File Path="Mockolate.sln.DotSettings" />
+		<File Path="Mockolate.slnx.DotSettings" />
 		<File Path="nuget.config" />
 		<File Path="README.md" />
 	</Folder>
