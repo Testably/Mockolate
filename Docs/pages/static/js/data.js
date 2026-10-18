@@ -678,6 +678,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -793,7 +799,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -912,7 +919,8 @@ window.BENCHMARK_DATA = {
           361.70288012577936,
           327.6412457398006,
           314.7438936630885,
-          340.50351088841757
+          340.50351088841757,
+          328.7136054992676
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -970,6 +978,7 @@ window.BENCHMARK_DATA = {
           1720,
           1720,
           1720,
+          1608,
           1608,
           1608,
           1608,
@@ -1163,7 +1172,8 @@ window.BENCHMARK_DATA = {
           104805.21569824219,
           99756.17185872396,
           99322.19083658855,
-          99569.15089634487
+          99569.15089634487,
+          102654.07414899554
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1281,6 +1291,7 @@ window.BENCHMARK_DATA = {
           9096,
           9073,
           9095,
+          9096,
           9096,
           9096,
           9096,
@@ -1414,7 +1425,8 @@ window.BENCHMARK_DATA = {
           5171.2756690979,
           4957.839600196252,
           4860.092916361491,
-          5151.5366617838545
+          5151.5366617838545,
+          5053.804634602865
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -1482,6 +1494,7 @@ window.BENCHMARK_DATA = {
           7928,
           7928,
           7928,
+          7896,
           7896,
           7896,
           7896,
@@ -1665,7 +1678,8 @@ window.BENCHMARK_DATA = {
           5282.985041300456,
           4974.850792439779,
           4901.323056030274,
-          5157.755667005266
+          5157.755667005266,
+          5156.288125174387
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -1782,6 +1796,7 @@ window.BENCHMARK_DATA = {
           6970,
           6970,
           6964,
+          6970,
           6970,
           6970,
           6970,
@@ -1916,7 +1931,8 @@ window.BENCHMARK_DATA = {
           666.5899143218994,
           472.8474644978841,
           451.4267910208021,
-          634.763591448466
+          634.763591448466,
+          456.2993961016337
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2035,6 +2051,7 @@ window.BENCHMARK_DATA = {
           2440,
           2440,
           2440,
+          2424,
           2424,
           2424,
           2424,
@@ -2167,7 +2184,8 @@ window.BENCHMARK_DATA = {
           549.1020211537679,
           535.2761572519938,
           520.4876949310303,
-          814.2353028615315
+          814.2353028615315,
+          545.6410715239389
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2282,6 +2300,7 @@ window.BENCHMARK_DATA = {
           2040,
           2040,
           2040,
+          2048,
           2048,
           2048,
           2048,
@@ -2983,6 +3002,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -3098,7 +3123,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -3217,7 +3243,8 @@ window.BENCHMARK_DATA = {
           343.5138712882996,
           312.4932357788086,
           349.9877123037974,
-          287.93201818466184
+          287.93201818466184,
+          238.91446593829565
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3275,6 +3302,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1824,
+          1744,
           1744,
           1744,
           1744,
@@ -3468,7 +3496,8 @@ window.BENCHMARK_DATA = {
           11986.835864257813,
           16189.498142787388,
           16375.19056047712,
-          15726.266920823316
+          15726.266920823316,
+          11218.529737200055
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3592,7 +3621,8 @@ window.BENCHMARK_DATA = {
           12809,
           12810,
           12810,
-          12810
+          12810,
+          12809
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3719,7 +3749,8 @@ window.BENCHMARK_DATA = {
           4673.747756413051,
           6091.011350504557,
           6227.3777422223775,
-          5707.874703627366
+          5707.874703627366,
+          4076.316521864671
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3731,6 +3762,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          9264,
           9264,
           9264,
           9264,
@@ -3970,7 +4002,8 @@ window.BENCHMARK_DATA = {
           106305.00299944196,
           221805.5464029948,
           222308.0891864483,
-          215957.10336538462
+          215957.10336538462,
+          186523.57314453126
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4092,6 +4125,7 @@ window.BENCHMARK_DATA = {
           15628,
           15628,
           15587,
+          15628,
           15628,
           15628,
           15628
@@ -4221,7 +4255,8 @@ window.BENCHMARK_DATA = {
           1037.0776025454204,
           953.745990117391,
           1025.4559720357258,
-          863.3777981440227
+          863.3777981440227,
+          705.6139804204305
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4340,6 +4375,7 @@ window.BENCHMARK_DATA = {
           9016,
           9016,
           9016,
+          7352,
           7352,
           7352,
           7352,
@@ -4472,7 +4508,8 @@ window.BENCHMARK_DATA = {
           219.13668517271677,
           215.31217586199443,
           216.21372009913128,
-          181.43490907351176
+          181.43490907351176,
+          138.37308117548625
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -4525,6 +4562,7 @@ window.BENCHMARK_DATA = {
           1368,
           1368,
           1368,
+          1376,
           1376,
           1376,
           1376,
@@ -5288,6 +5326,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -5403,7 +5447,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -5522,7 +5567,8 @@ window.BENCHMARK_DATA = {
           948.5786637624104,
           905.8189920425415,
           1037.2458249409995,
-          951.0313198725382
+          951.0313198725382,
+          869.5637809117635
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5580,6 +5626,7 @@ window.BENCHMARK_DATA = {
           3912,
           3912,
           3912,
+          3856,
           3856,
           3856,
           3856,
@@ -5773,7 +5820,8 @@ window.BENCHMARK_DATA = {
           221775.54818960337,
           134022.49556790866,
           222208.83819110578,
-          217541.2359375
+          217541.2359375,
+          101676.53196364183
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5897,7 +5945,8 @@ window.BENCHMARK_DATA = {
           20860,
           20859,
           20860,
-          20732
+          20732,
+          20873
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6024,7 +6073,8 @@ window.BENCHMARK_DATA = {
           10483.419852120536,
           7660.865131632487,
           10719.083135986328,
-          10686.424341474261
+          10686.424341474261,
+          9001.1716603597
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6148,7 +6198,8 @@ window.BENCHMARK_DATA = {
           13144,
           13144,
           13088,
-          13144
+          13144,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6275,7 +6326,8 @@ window.BENCHMARK_DATA = {
           11439.862324305943,
           8478.83421761649,
           12763.766057332357,
-          12358.90602346567
+          12358.90602346567,
+          7317.980030314127
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6399,7 +6451,8 @@ window.BENCHMARK_DATA = {
           13954,
           14035,
           13954,
-          13954
+          13954,
+          13948
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6526,7 +6579,8 @@ window.BENCHMARK_DATA = {
           808.2303051267352,
           701.7131548609052,
           899.3047481536865,
-          812.9330902099609
+          812.9330902099609,
+          683.4073071479797
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6645,6 +6699,7 @@ window.BENCHMARK_DATA = {
           5280,
           5280,
           5280,
+          5112,
           5112,
           5112,
           5112,
@@ -7342,6 +7397,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -7457,7 +7518,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -7576,7 +7638,8 @@ window.BENCHMARK_DATA = {
           2449.981491406759,
           2055.3935045878093,
           2662.7320865631104,
-          2551.6443318684896
+          2551.6443318684896,
+          2535.550285085042
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7634,6 +7697,7 @@ window.BENCHMARK_DATA = {
           4992,
           4992,
           4992,
+          4936,
           4936,
           4936,
           4936,
@@ -7827,7 +7891,8 @@ window.BENCHMARK_DATA = {
           232736.3205485026,
           143151.92493489583,
           233852.99735514322,
-          229248.6354654948
+          229248.6354654948,
+          111566.48078264509
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7951,7 +8016,8 @@ window.BENCHMARK_DATA = {
           30610,
           30610,
           30610,
-          29332
+          29332,
+          30594
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8078,7 +8144,8 @@ window.BENCHMARK_DATA = {
           25697.922014508928,
           18722.42418823242,
           26075.553151448566,
-          25438.646937779016
+          25438.646937779016,
+          21780.874465942383
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8202,7 +8269,8 @@ window.BENCHMARK_DATA = {
           26249,
           26249,
           26193,
-          26249
+          26249,
+          26192
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8329,7 +8397,8 @@ window.BENCHMARK_DATA = {
           24411.984666090746,
           17612.90422494071,
           26069.71988728841,
-          25032.508685302735
+          25032.508685302735,
+          17900.244419352213
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8453,7 +8522,8 @@ window.BENCHMARK_DATA = {
           33764,
           33844,
           33764,
-          33764
+          33764,
+          33769
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8580,7 +8650,8 @@ window.BENCHMARK_DATA = {
           1513.901876585824,
           1211.3354098002117,
           1758.9877582550048,
-          1524.6579063415527
+          1524.6579063415527,
+          1238.3633847554524
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8699,6 +8770,7 @@ window.BENCHMARK_DATA = {
           8160,
           8160,
           8160,
+          6624,
           6624,
           6624,
           6624,
@@ -9396,6 +9468,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -9511,7 +9589,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -9630,7 +9709,8 @@ window.BENCHMARK_DATA = {
           342.05603130658466,
           458.83340212504066,
           359.635879389445,
-          358.5150055885315
+          358.5150055885315,
+          217.13426068850927
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9688,6 +9768,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          1976,
           1976,
           1976,
           1976,
@@ -9881,7 +9962,8 @@ window.BENCHMARK_DATA = {
           136854.0736955915,
           89980.24067382813,
           109292.98001534598,
-          183391.0640345982
+          183391.0640345982,
+          55679.9408991887
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10005,7 +10087,8 @@ window.BENCHMARK_DATA = {
           15098,
           14898,
           15098,
-          14926
+          14926,
+          14944
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10132,7 +10215,8 @@ window.BENCHMARK_DATA = {
           5620.1323252360025,
           5869.660794067383,
           4929.963203430176,
-          6255.967839050293
+          6255.967839050293,
+          3036.8773686545237
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10252,6 +10336,7 @@ window.BENCHMARK_DATA = {
           9336,
           9336,
           9280,
+          9336,
           9336,
           9336,
           9336,
@@ -10383,7 +10468,8 @@ window.BENCHMARK_DATA = {
           5531.903768811907,
           4915.282948630197,
           4658.646494729178,
-          6218.24189860026
+          6218.24189860026,
+          3011.640360423497
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10506,6 +10592,7 @@ window.BENCHMARK_DATA = {
           8244,
           8244,
           8257,
+          8244,
           8244,
           8244
         ],
@@ -10634,7 +10721,8 @@ window.BENCHMARK_DATA = {
           523.4447025299072,
           693.7863057681492,
           440.858028570811,
-          557.811464246114
+          557.811464246114,
+          269.166298525674
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10753,6 +10841,7 @@ window.BENCHMARK_DATA = {
           4136,
           4136,
           4136,
+          4056,
           4056,
           4056,
           4056,
@@ -10885,7 +10974,8 @@ window.BENCHMARK_DATA = {
           486.12802094679614,
           592.1174189249674,
           432.26499999364216,
-          489.8095904668172
+          489.8095904668172,
+          292.43044292009796
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -11000,6 +11090,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2072,
           2072,
           2072,
           2072,
@@ -11701,6 +11792,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -11816,7 +11913,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -11935,7 +12033,8 @@ window.BENCHMARK_DATA = {
           644.0097375233968,
           897.6872061320713,
           519.7063454310099,
-          679.755554707845
+          679.755554707845,
+          481.9243667125702
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11993,6 +12092,7 @@ window.BENCHMARK_DATA = {
           2304,
           2304,
           2304,
+          2192,
           2192,
           2192,
           2192,
@@ -12186,7 +12286,8 @@ window.BENCHMARK_DATA = {
           139707.40943196614,
           96567.87057291667,
           113040.84468587239,
-          189506.45884602863
+          189506.45884602863,
+          58038.28473307292
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12310,7 +12411,8 @@ window.BENCHMARK_DATA = {
           19085,
           18907,
           19089,
-          18925
+          18925,
+          18929
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12437,7 +12539,8 @@ window.BENCHMARK_DATA = {
           8031.005522507888,
           8495.345402018229,
           7184.583009847005,
-          9334.648890177408
+          9334.648890177408,
+          4495.422873433431
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12561,7 +12664,8 @@ window.BENCHMARK_DATA = {
           12361,
           12360,
           12360,
-          12361
+          12361,
+          12360
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12688,7 +12792,8 @@ window.BENCHMARK_DATA = {
           8237.356390816825,
           8322.570364379882,
           7494.185911996024,
-          9396.850577290852
+          9396.850577290852,
+          4768.222607203892
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12811,6 +12916,7 @@ window.BENCHMARK_DATA = {
           15786,
           15786,
           15785,
+          15786,
           15786,
           15786
         ],
@@ -12939,7 +13045,8 @@ window.BENCHMARK_DATA = {
           865.6345451061542,
           1060.1411482493083,
           747.3025704792568,
-          951.7103438059489
+          951.7103438059489,
+          496.50527315873364
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13058,6 +13165,7 @@ window.BENCHMARK_DATA = {
           5648,
           5648,
           5648,
+          4920,
           4920,
           4920,
           4920,
@@ -13190,7 +13298,8 @@ window.BENCHMARK_DATA = {
           1396.828850882394,
           1826.2057602746147,
           1176.447738647461,
-          1407.3024344126384
+          1407.3024344126384,
+          1019.3168335694534
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -13305,6 +13414,7 @@ window.BENCHMARK_DATA = {
           3816,
           3816,
           3816,
+          3824,
           3824,
           3824,
           3824,
@@ -14006,6 +14116,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -14121,7 +14237,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -14240,7 +14357,8 @@ window.BENCHMARK_DATA = {
           571.1696999867758,
           632.7225149790446,
           718.4401561192104,
-          538.8105840682983
+          538.8105840682983,
+          400.51281515757245
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14298,6 +14416,7 @@ window.BENCHMARK_DATA = {
           2528,
           2528,
           2528,
+          2472,
           2472,
           2472,
           2472,
@@ -14491,7 +14610,8 @@ window.BENCHMARK_DATA = {
           12305.982421875,
           11646.366577148438,
           12785.29582801232,
-          11918.418892415364
+          11918.418892415364,
+          7903.678907121931
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14615,7 +14735,8 @@ window.BENCHMARK_DATA = {
           10753,
           10641,
           10513,
-          10641
+          10641,
+          10640
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14742,7 +14863,8 @@ window.BENCHMARK_DATA = {
           8003.946375165667,
           7660.714587620327,
           8465.892263793945,
-          7927.615342360276
+          7927.615342360276,
+          5357.759489949544
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14754,6 +14876,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          11720,
           11720,
           11720,
           11720,
@@ -14993,7 +15116,8 @@ window.BENCHMARK_DATA = {
           9025.27702331543,
           8222.846626790364,
           9252.733511788505,
-          8651.848421732584
+          8651.848421732584,
+          5559.690018873948
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15116,6 +15240,7 @@ window.BENCHMARK_DATA = {
           11503,
           11508,
           11518,
+          11508,
           11508,
           11508
         ],
@@ -15244,7 +15369,8 @@ window.BENCHMARK_DATA = {
           456.5248767217,
           473.5824503262838,
           508.3595474878947,
-          428.3928701536996
+          428.3928701536996,
+          307.37179533640546
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15363,6 +15489,7 @@ window.BENCHMARK_DATA = {
           3200,
           3200,
           3200,
+          3048,
           3048,
           3048,
           3048,
@@ -15495,7 +15622,8 @@ window.BENCHMARK_DATA = {
           479.42560860088895,
           550.2909266153971,
           560.1147988183158,
-          466.016596023853
+          466.016596023853,
+          355.08959836226245
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15548,6 +15676,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1680,
           1680,
           1680,
           1680,
@@ -16311,6 +16440,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -16426,7 +16561,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -16545,7 +16681,8 @@ window.BENCHMARK_DATA = {
           1140.4031884511312,
           1329.4402907235283,
           1194.7068754342886,
-          1091.833434677124
+          1091.833434677124,
+          778.5462970733643
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16603,6 +16740,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          2976,
           2976,
           2976,
           2976,
@@ -16796,7 +16934,8 @@ window.BENCHMARK_DATA = {
           19495.341278076172,
           19345.453743489583,
           19817.64449603741,
-          19382.076714651925
+          19382.076714651925,
+          13017.385158538818
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16920,7 +17059,8 @@ window.BENCHMARK_DATA = {
           18833,
           18721,
           17441,
-          18721
+          18721,
+          18720
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17047,7 +17187,8 @@ window.BENCHMARK_DATA = {
           17813.07768351237,
           17059.786573137557,
           18773.23848876953,
-          17578.153383382163
+          17578.153383382163,
+          12141.218803914388
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17168,6 +17309,7 @@ window.BENCHMARK_DATA = {
           21584,
           21585,
           21584,
+          21585,
           21585,
           21585,
           21585,
@@ -17298,7 +17440,8 @@ window.BENCHMARK_DATA = {
           20502.334053548177,
           19198.06865234375,
           22427.68079325358,
-          20336.900108337402
+          20336.900108337402,
+          13209.334956577846
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17421,6 +17564,7 @@ window.BENCHMARK_DATA = {
           31545,
           31546,
           31543,
+          31546,
           31546,
           31546
         ],
@@ -17549,7 +17693,8 @@ window.BENCHMARK_DATA = {
           671.8756514231364,
           794.4058052062989,
           776.6892108281453,
-          673.4904900868734
+          673.4904900868734,
+          481.7397194642287
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17668,6 +17813,7 @@ window.BENCHMARK_DATA = {
           4784,
           4784,
           4784,
+          3336,
           3336,
           3336,
           3336,
@@ -17800,7 +17946,8 @@ window.BENCHMARK_DATA = {
           1695.4884971618653,
           2015.7946825663248,
           1872.0714612325032,
-          1635.3577898661295
+          1635.3577898661295,
+          1215.0604811448318
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17853,6 +18000,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          4032,
           4032,
           4032,
           4032,
@@ -18616,6 +18764,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Oct 18 09:13:23 2026 \u002B0200",
         "message": "ci: align the build pipeline with aweXpect (#888)"
+      },
+      {
+        "sha": "a8daabb3b90ee8d6210ce37cf2661d23ded30d99",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 10:32:21 2026 \u002B0200",
+        "message": "test: verify the public API with aweXpect.Snapshots.PublicApi (#889)"
       }
     ],
     "labels": [
@@ -18731,7 +18885,8 @@ window.BENCHMARK_DATA = {
       "a45061c1",
       "932a48a1",
       "f730f343",
-      "08051363"
+      "08051363",
+      "a8daabb3"
     ],
     "datasets": [
       {
@@ -18850,7 +19005,8 @@ window.BENCHMARK_DATA = {
           10.597678838173548,
           13.979449605941772,
           14.066820508241653,
-          10.97338736553987
+          10.97338736553987,
+          14.164619926895414
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18908,6 +19064,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -19101,7 +19258,8 @@ window.BENCHMARK_DATA = {
           153.13054587046307,
           220.30034046173097,
           222.60095263322194,
-          144.12723196347554
+          144.12723196347554,
+          234.7805073261261
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19220,6 +19378,7 @@ window.BENCHMARK_DATA = {
           2248,
           2248,
           2248,
+          2240,
           2240,
           2240,
           2240,
@@ -19352,7 +19511,8 @@ window.BENCHMARK_DATA = {
           21.56672918157918,
           28.944369765428398,
           29.611635118722916,
-          21.38929788072904
+          21.38929788072904,
+          29.30941159908588
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19405,6 +19565,7 @@ window.BENCHMARK_DATA = {
           192,
           192,
           192,
+          200,
           200,
           200,
           200,
@@ -19603,7 +19764,8 @@ window.BENCHMARK_DATA = {
           817.2856549580891,
           1060.9558174950737,
           1040.117371114095,
-          804.3549552281697
+          804.3549552281697,
+          1087.5187501907349
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19615,6 +19777,7 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
+          2096,
           2096,
           2096,
           2096,
@@ -19854,7 +20017,8 @@ window.BENCHMARK_DATA = {
           1026.5477741786412,
           1500.8687330881755,
           1521.6137298583985,
-          993.911472593035
+          993.911472593035,
+          1512.3984886169433
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19866,6 +20030,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          5048,
           5048,
           5048,
           5048,
@@ -20105,7 +20270,8 @@ window.BENCHMARK_DATA = {
           1076.3621989568076,
           1517.6386483510335,
           1649.7121928078789,
-          963.2897857938494
+          963.2897857938494,
+          1471.157616043091
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20226,6 +20392,7 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2759,
+          2763,
           2763,
           2763,
           2763,
