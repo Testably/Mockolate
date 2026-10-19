@@ -762,6 +762,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -891,7 +897,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -1024,7 +1031,8 @@ window.BENCHMARK_DATA = {
           204.93121205057417,
           233.7852062838418,
           330.62882544199624,
-          361.7893571217855
+          361.7893571217855,
+          354.0900424003601
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1082,6 +1090,7 @@ window.BENCHMARK_DATA = {
           1720,
           1720,
           1720,
+          1608,
           1608,
           1608,
           1608,
@@ -1303,7 +1312,8 @@ window.BENCHMARK_DATA = {
           29643.489510091145,
           33434.48568725586,
           98929.68688964844,
-          73076.48767089844
+          73076.48767089844,
+          102604.40799153646
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1441,7 +1451,8 @@ window.BENCHMARK_DATA = {
           9095,
           9086,
           9096,
-          9090
+          9090,
+          9175
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1582,7 +1593,8 @@ window.BENCHMARK_DATA = {
           2410.7908608572825,
           2905.832065073649,
           4767.790149943034,
-          4710.221987915039
+          4710.221987915039,
+          4933.987535204206
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -1650,6 +1662,7 @@ window.BENCHMARK_DATA = {
           7928,
           7928,
           7928,
+          7896,
           7896,
           7896,
           7896,
@@ -1861,7 +1874,8 @@ window.BENCHMARK_DATA = {
           2532.550075531006,
           2537.8689440409344,
           4995.474518839518,
-          4626.340558878581
+          4626.340558878581,
+          5136.284706115723
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -1999,7 +2013,8 @@ window.BENCHMARK_DATA = {
           6970,
           6964,
           6970,
-          6959
+          6959,
+          6970
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2140,7 +2155,8 @@ window.BENCHMARK_DATA = {
           279.61208926714386,
           345.30015281041466,
           437.9196449347905,
-          502.5294048627218
+          502.5294048627218,
+          472.4879789352417
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2277,6 +2293,7 @@ window.BENCHMARK_DATA = {
           2424,
           2424,
           2424,
+          2392,
           2392,
           2392
         ],
@@ -2419,7 +2436,8 @@ window.BENCHMARK_DATA = {
           347.63835827509564,
           401.76344950993854,
           509.14453042348225,
-          609.2366397221883
+          609.2366397221883,
+          543.2833306630453
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2553,6 +2571,7 @@ window.BENCHMARK_DATA = {
           2048,
           2048,
           2048,
+          2064,
           2064,
           2064,
           2064,
@@ -3333,6 +3352,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -3462,7 +3487,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -3595,7 +3621,8 @@ window.BENCHMARK_DATA = {
           312.2259134928385,
           295.0089855194092,
           324.1555851300557,
-          166.9628685235977
+          166.9628685235977,
+          409.9370551109314
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3653,6 +3680,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1824,
+          1744,
           1744,
           1744,
           1744,
@@ -3874,7 +3902,8 @@ window.BENCHMARK_DATA = {
           15607.084272112164,
           13954.832423618862,
           15707.606233723958,
-          7648.418973795573
+          7648.418973795573,
+          16373.68622295673
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4012,7 +4041,8 @@ window.BENCHMARK_DATA = {
           12810,
           12809,
           12810,
-          12809
+          12809,
+          12810
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4153,7 +4183,8 @@ window.BENCHMARK_DATA = {
           6145.977474757603,
           5310.9612686157225,
           5933.586654663086,
-          3010.897591454642
+          3010.897591454642,
+          6161.212013753256
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4165,6 +4196,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          9264,
           9264,
           9264,
           9264,
@@ -4432,7 +4464,8 @@ window.BENCHMARK_DATA = {
           222663.89908854166,
           232542.14344200722,
           216103.15193684897,
-          99740.25395856585
+          99740.25395856585,
+          218777.92364908854
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4570,7 +4603,8 @@ window.BENCHMARK_DATA = {
           15628,
           15628,
           15628,
-          15640
+          15640,
+          15628
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4711,7 +4745,8 @@ window.BENCHMARK_DATA = {
           938.0745375497,
           897.7370541254679,
           1012.3406021118165,
-          466.0408275763194
+          466.0408275763194,
+          962.4200861794608
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4830,6 +4865,7 @@ window.BENCHMARK_DATA = {
           9016,
           9016,
           9016,
+          7352,
           7352,
           7352,
           7352,
@@ -4990,7 +5026,8 @@ window.BENCHMARK_DATA = {
           201.12966893269464,
           178.25798400243124,
           187.2127326818613,
-          103.13126547847476
+          103.13126547847476,
+          195.81097145080565
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5124,6 +5161,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -5904,6 +5942,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -6033,7 +6077,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -6166,7 +6211,8 @@ window.BENCHMARK_DATA = {
           1019.6645968510554,
           1095.5056082861763,
           1072.426923116048,
-          948.2351720174154
+          948.2351720174154,
+          988.9360715230306
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -6224,6 +6270,7 @@ window.BENCHMARK_DATA = {
           3912,
           3912,
           3912,
+          3856,
           3856,
           3856,
           3856,
@@ -6445,7 +6492,8 @@ window.BENCHMARK_DATA = {
           218052.6961844308,
           221167.72122395833,
           219998.64728655134,
-          171491.95242745537
+          171491.95242745537,
+          218969.758265904
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6583,7 +6631,8 @@ window.BENCHMARK_DATA = {
           20860,
           20732,
           20860,
-          20860
+          20860,
+          21004
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6724,7 +6773,8 @@ window.BENCHMARK_DATA = {
           11022.988248552594,
           10790.91139455942,
           11006.79483149602,
-          9357.79940999349
+          9357.79940999349,
+          10556.315680367607
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6862,7 +6912,8 @@ window.BENCHMARK_DATA = {
           13088,
           13144,
           13144,
-          13144
+          13144,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7003,7 +7054,8 @@ window.BENCHMARK_DATA = {
           11824.926323445638,
           12420.310767618816,
           12323.751704289363,
-          9621.495365397135
+          9621.495365397135,
+          11619.514479573567
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7129,6 +7181,7 @@ window.BENCHMARK_DATA = {
           13954,
           13954,
           13948,
+          13954,
           13954,
           13954,
           13954,
@@ -7282,7 +7335,8 @@ window.BENCHMARK_DATA = {
           864.0130325044904,
           1009.5609031677246,
           939.311054774693,
-          773.0167267872737
+          773.0167267872737,
+          813.99867811203
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7419,6 +7473,7 @@ window.BENCHMARK_DATA = {
           5112,
           5112,
           5112,
+          5072,
           5072,
           5072
         ],
@@ -8196,6 +8251,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -8325,7 +8386,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -8458,7 +8520,8 @@ window.BENCHMARK_DATA = {
           2550.7756118774414,
           2773.090069634574,
           2595.8558937072753,
-          2399.626198577881
+          2399.626198577881,
+          2638.7718454088485
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8516,6 +8579,7 @@ window.BENCHMARK_DATA = {
           4992,
           4992,
           4992,
+          4936,
           4936,
           4936,
           4936,
@@ -8737,7 +8801,8 @@ window.BENCHMARK_DATA = {
           227451.985874721,
           239290.86529947916,
           233585.16845703125,
-          183858.26896158853
+          183858.26896158853,
+          229917.49616350446
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8875,7 +8940,8 @@ window.BENCHMARK_DATA = {
           30610,
           29332,
           30610,
-          30610
+          30610,
+          30754
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9016,7 +9082,8 @@ window.BENCHMARK_DATA = {
           26406.510984293618,
           26040.83655657087,
           26026.775628226143,
-          23618.642138671876
+          23618.642138671876,
+          25129.231900896346
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9154,7 +9221,8 @@ window.BENCHMARK_DATA = {
           26193,
           26249,
           26249,
-          26249
+          26249,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9295,7 +9363,8 @@ window.BENCHMARK_DATA = {
           25426.197642008465,
           26675.317326137,
           26748.50140991211,
-          21306.563547770184
+          21306.563547770184,
+          24684.306142953727
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9429,6 +9498,7 @@ window.BENCHMARK_DATA = {
           33764,
           33764,
           33765,
+          33764,
           33764,
           33764,
           33764,
@@ -9574,7 +9644,8 @@ window.BENCHMARK_DATA = {
           1496.1252082824708,
           1777.5584927876791,
           1532.0212584177652,
-          1319.479413350423
+          1319.479413350423,
+          1412.7726398468017
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9711,6 +9782,7 @@ window.BENCHMARK_DATA = {
           6624,
           6624,
           6624,
+          6152,
           6152,
           6152
         ],
@@ -10488,6 +10560,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -10617,7 +10695,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -10750,7 +10829,8 @@ window.BENCHMARK_DATA = {
           371.23325450079784,
           373.16552114486694,
           284.077333799998,
-          369.7669198989868
+          369.7669198989868,
+          349.71889209747314
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10808,6 +10888,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          1976,
           1976,
           1976,
           1976,
@@ -11029,7 +11110,8 @@ window.BENCHMARK_DATA = {
           186477.3126627604,
           186167.45152994792,
           105935.88543294271,
-          192134.18477957588
+          192134.18477957588,
+          105969.98770577567
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11167,7 +11249,8 @@ window.BENCHMARK_DATA = {
           15086,
           15086,
           14938,
-          14926
+          14926,
+          14938
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11308,7 +11391,8 @@ window.BENCHMARK_DATA = {
           6175.620974731445,
           6437.351888020833,
           4644.835269047664,
-          6526.672522481283
+          6526.672522481283,
+          4512.433972676595
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -11446,6 +11530,7 @@ window.BENCHMARK_DATA = {
           9336,
           9336,
           9336,
+          9280,
           9280
         ],
         "borderColor": "#5E2750",
@@ -11587,7 +11672,8 @@ window.BENCHMARK_DATA = {
           6149.343935648601,
           6238.70478922526,
           4525.420803070068,
-          7102.378288269043
+          7102.378288269043,
+          4124.74952138265
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11725,7 +11811,8 @@ window.BENCHMARK_DATA = {
           8244,
           8244,
           8245,
-          8244
+          8244,
+          8245
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11866,7 +11953,8 @@ window.BENCHMARK_DATA = {
           540.7959452946981,
           610.287631924947,
           418.5004565375192,
-          630.6066717147827
+          630.6066717147827,
+          427.7114599091666
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12003,6 +12091,7 @@ window.BENCHMARK_DATA = {
           4056,
           4056,
           4056,
+          4088,
           4088,
           4088
         ],
@@ -12145,7 +12234,8 @@ window.BENCHMARK_DATA = {
           472.97674051920575,
           497.00341714223225,
           386.4656920773642,
-          538.6576995849609
+          538.6576995849609,
+          399.4693351109823
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12279,6 +12369,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -13059,6 +13150,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -13188,7 +13285,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -13321,7 +13419,8 @@ window.BENCHMARK_DATA = {
           668.1778322855631,
           656.8175588607788,
           528.4023125330607,
-          752.8875913619995
+          752.8875913619995,
+          473.36727186838783
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13379,6 +13478,7 @@ window.BENCHMARK_DATA = {
           2304,
           2304,
           2304,
+          2192,
           2192,
           2192,
           2192,
@@ -13600,7 +13700,8 @@ window.BENCHMARK_DATA = {
           191764.14168294272,
           189593.4641985212,
           111163.71547851563,
-          196711.79972330728
+          196711.79972330728,
+          107539.10701206753
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13738,7 +13839,8 @@ window.BENCHMARK_DATA = {
           19085,
           19085,
           18930,
-          18925
+          18925,
+          18930
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13879,7 +13981,8 @@ window.BENCHMARK_DATA = {
           8959.838536071777,
           9633.209303635816,
           6922.624556950161,
-          9372.427166530064
+          9372.427166530064,
+          6542.014404296875
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14017,6 +14120,7 @@ window.BENCHMARK_DATA = {
           12361,
           12361,
           12360,
+          11800,
           11800
         ],
         "borderColor": "#5E2750",
@@ -14158,7 +14262,8 @@ window.BENCHMARK_DATA = {
           9352.042498779298,
           9924.705064900716,
           7282.646169389997,
-          13044.175153292143
+          13044.175153292143,
+          6633.758368428548
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14290,6 +14395,7 @@ window.BENCHMARK_DATA = {
           15786,
           15786,
           15780,
+          15786,
           15786,
           15786,
           15786,
@@ -14437,7 +14543,8 @@ window.BENCHMARK_DATA = {
           894.0515037536621,
           916.7761041641236,
           719.7296843846639,
-          1110.8323256174724
+          1110.8323256174724,
+          675.2330000559489
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14574,6 +14681,7 @@ window.BENCHMARK_DATA = {
           4920,
           4920,
           4920,
+          4952,
           4952,
           4952
         ],
@@ -14716,7 +14824,8 @@ window.BENCHMARK_DATA = {
           1393.203494644165,
           1446.2022755940754,
           1165.0357728685651,
-          2191.9490346272787
+          2191.9490346272787,
+          1098.6517087496245
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -14850,6 +14959,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -15630,6 +15740,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -15759,7 +15875,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -15892,7 +16009,8 @@ window.BENCHMARK_DATA = {
           553.4470796585083,
           594.0549352352435,
           540.0336695353191,
-          607.2116192499797
+          607.2116192499797,
+          547.005411974589
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15950,6 +16068,7 @@ window.BENCHMARK_DATA = {
           2528,
           2528,
           2528,
+          2472,
           2472,
           2472,
           2472,
@@ -16171,7 +16290,8 @@ window.BENCHMARK_DATA = {
           12205.780034383139,
           11823.164473470051,
           11410.52156982422,
-          11994.066585286459
+          11994.066585286459,
+          12382.726802571615
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16309,7 +16429,8 @@ window.BENCHMARK_DATA = {
           10785,
           10641,
           10641,
-          10641
+          10641,
+          10657
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16450,7 +16571,8 @@ window.BENCHMARK_DATA = {
           7763.052662150065,
           8109.697678786058,
           7715.822735595703,
-          7691.7670974731445
+          7691.7670974731445,
+          8035.39226175944
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16462,6 +16584,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          11720,
           11720,
           11720,
           11720,
@@ -16729,7 +16852,8 @@ window.BENCHMARK_DATA = {
           8716.261378696987,
           8655.91374533517,
           8402.435069783529,
-          8305.676229623648
+          8305.676229623648,
+          8645.101302083332
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16859,6 +16983,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11518,
+          11508,
           11508,
           11508,
           11508,
@@ -17008,7 +17133,8 @@ window.BENCHMARK_DATA = {
           443.39698197046914,
           476.7981327056885,
           418.90782562891644,
-          390.5664989789327
+          390.5664989789327,
+          442.25082101821897
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17127,6 +17253,7 @@ window.BENCHMARK_DATA = {
           3200,
           3200,
           3200,
+          3048,
           3048,
           3048,
           3048,
@@ -17287,7 +17414,8 @@ window.BENCHMARK_DATA = {
           481.3137944539388,
           480.9195359547933,
           468.67102699279786,
-          469.67990328470864
+          469.67990328470864,
+          480.9693955693926
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17421,6 +17549,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -18201,6 +18330,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -18330,7 +18465,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -18463,7 +18599,8 @@ window.BENCHMARK_DATA = {
           1076.87312113444,
           1088.9819431304932,
           1031.0833090464273,
-          1013.532977104187
+          1013.532977104187,
+          1075.858443069458
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18521,6 +18658,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          2976,
           2976,
           2976,
           2976,
@@ -18742,7 +18880,8 @@ window.BENCHMARK_DATA = {
           19184.62139892578,
           19275.719608851843,
           18302.367685953777,
-          18684.566660563152
+          18684.566660563152,
+          19346.304522196453
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18880,7 +19019,8 @@ window.BENCHMARK_DATA = {
           18865,
           18721,
           18721,
-          18721
+          18721,
+          17585
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19021,7 +19161,8 @@ window.BENCHMARK_DATA = {
           17256.54719034831,
           18034.56356928899,
           17186.804713657923,
-          17255.827305720402
+          17255.827305720402,
+          18194.520766194662
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19142,6 +19283,7 @@ window.BENCHMARK_DATA = {
           21584,
           21585,
           21584,
+          21585,
           21585,
           21585,
           21585,
@@ -19300,7 +19442,8 @@ window.BENCHMARK_DATA = {
           20857.09461757115,
           20353.662817382814,
           20057.922229003907,
-          19645.450223650252
+          19645.450223650252,
+          20374.11459452311
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19430,6 +19573,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           31543,
+          31546,
           31546,
           31546,
           31546,
@@ -19579,7 +19723,8 @@ window.BENCHMARK_DATA = {
           671.5371731440226,
           670.3567744663784,
           669.324217414856,
-          600.9155261357625
+          600.9155261357625,
+          706.5482877095541
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19698,6 +19843,7 @@ window.BENCHMARK_DATA = {
           4784,
           4784,
           4784,
+          3336,
           3336,
           3336,
           3336,
@@ -19858,7 +20004,8 @@ window.BENCHMARK_DATA = {
           1675.5766459873744,
           1699.3528794508713,
           1652.3667233330864,
-          1548.7944390614828
+          1548.7944390614828,
+          1659.971304484776
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19992,6 +20139,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -20772,6 +20920,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Oct 19 01:10:32 2026 \u002B0200",
         "message": "refactor: migrate the remaining classic extension methods to extension blocks (#905)"
+      },
+      {
+        "sha": "4ceee944f6ebfed0eb44c0364ede55324118418c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 19 01:23:44 2026 \u002B0200",
+        "message": "ci: run the example tests in the pipeline (#903)"
       }
     ],
     "labels": [
@@ -20901,7 +21055,8 @@ window.BENCHMARK_DATA = {
       "637bd341",
       "03b5099b",
       "bb720148",
-      "e9b7e8ae"
+      "e9b7e8ae",
+      "4ceee944"
     ],
     "datasets": [
       {
@@ -21034,7 +21189,8 @@ window.BENCHMARK_DATA = {
           17.683263409137727,
           18.96735888293811,
           19.198106958468756,
-          10.206699874003728
+          10.206699874003728,
+          18.03885741531849
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21092,6 +21248,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -21313,7 +21470,8 @@ window.BENCHMARK_DATA = {
           272.3668289979299,
           293.0204570770264,
           273.6864124615987,
-          152.25124241511028
+          152.25124241511028,
+          294.82343673706055
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21432,6 +21590,7 @@ window.BENCHMARK_DATA = {
           2248,
           2248,
           2248,
+          2240,
           2240,
           2240,
           2240,
@@ -21592,7 +21751,8 @@ window.BENCHMARK_DATA = {
           36.46855592727661,
           37.69681425889333,
           40.29291219711304,
-          21.329539897186415
+          21.329539897186415,
+          40.98856088022391
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21726,6 +21886,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -21871,7 +22032,8 @@ window.BENCHMARK_DATA = {
           1469.9975870677404,
           1363.5742922465006,
           1495.1519888559976,
-          794.9987841924031
+          794.9987841924031,
+          1423.9321038564046
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21883,6 +22045,7 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
+          2096,
           2096,
           2096,
           2096,
@@ -22150,7 +22313,8 @@ window.BENCHMARK_DATA = {
           2123.1623253455527,
           2048.0784081679126,
           1948.3935819772573,
-          1077.2407992045084
+          1077.2407992045084,
+          2035.36324412028
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22162,6 +22326,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          5048,
           5048,
           5048,
           5048,
@@ -22429,7 +22594,8 @@ window.BENCHMARK_DATA = {
           1848.7292498179845,
           1745.032293183463,
           1767.6855986458916,
-          964.9025362650553
+          964.9025362650553,
+          1778.4053347660945
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22550,6 +22716,7 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2759,
+          2763,
           2763,
           2763,
           2763,
