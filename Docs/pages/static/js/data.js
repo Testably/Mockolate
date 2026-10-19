@@ -738,6 +738,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -863,7 +869,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -992,7 +999,8 @@ window.BENCHMARK_DATA = {
           349.96638714472454,
           191.3738696915763,
           441.67218294143674,
-          320.04974635442096
+          320.04974635442096,
+          204.93121205057417
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1050,6 +1058,7 @@ window.BENCHMARK_DATA = {
           1720,
           1720,
           1720,
+          1608,
           1608,
           1608,
           1608,
@@ -1263,7 +1272,8 @@ window.BENCHMARK_DATA = {
           98370.69138590495,
           27778.715209960938,
           109147.93510742187,
-          97271.31764322917
+          97271.31764322917,
+          29643.489510091145
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1397,7 +1407,8 @@ window.BENCHMARK_DATA = {
           9096,
           9095,
           9096,
-          9096
+          9096,
+          9095
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1534,7 +1545,8 @@ window.BENCHMARK_DATA = {
           5177.7200795491535,
           2315.05259958903,
           4952.260719807943,
-          4685.8433110555015
+          4685.8433110555015,
+          2410.7908608572825
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -1602,6 +1614,7 @@ window.BENCHMARK_DATA = {
           7928,
           7928,
           7928,
+          7896,
           7896,
           7896,
           7896,
@@ -1805,7 +1818,8 @@ window.BENCHMARK_DATA = {
           5093.4881510053365,
           2296.7662239074707,
           5208.358842976888,
-          4887.452923583985
+          4887.452923583985,
+          2532.550075531006
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -1922,6 +1936,7 @@ window.BENCHMARK_DATA = {
           6970,
           6970,
           6964,
+          6970,
           6970,
           6970,
           6970,
@@ -2076,7 +2091,8 @@ window.BENCHMARK_DATA = {
           471.6366901397705,
           239.7250398317973,
           671.4463506062825,
-          477.0405830701192
+          477.0405830701192,
+          279.61208926714386
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2195,6 +2211,7 @@ window.BENCHMARK_DATA = {
           2440,
           2440,
           2440,
+          2424,
           2424,
           2424,
           2424,
@@ -2347,7 +2364,8 @@ window.BENCHMARK_DATA = {
           531.3897214889527,
           311.24944489796957,
           691.3915344238281,
-          510.7949513753255
+          510.7949513753255,
+          347.63835827509564
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2481,6 +2499,7 @@ window.BENCHMARK_DATA = {
           2048,
           2048,
           2048,
+          2064,
           2064
         ],
         "borderColor": "#FF8C00",
@@ -3233,6 +3252,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -3358,7 +3383,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -3487,7 +3513,8 @@ window.BENCHMARK_DATA = {
           227.844611287117,
           397.5968867301941,
           301.2236125310262,
-          356.963308874766
+          356.963308874766,
+          312.2259134928385
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3545,6 +3572,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1824,
+          1744,
           1744,
           1744,
           1744,
@@ -3758,7 +3786,8 @@ window.BENCHMARK_DATA = {
           11051.924007161459,
           16305.911141531808,
           15695.359375,
-          16251.724008413461
+          16251.724008413461,
+          15607.084272112164
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3890,6 +3919,7 @@ window.BENCHMARK_DATA = {
           12809,
           12810,
           12809,
+          12810,
           12810,
           12810,
           12810
@@ -4029,7 +4059,8 @@ window.BENCHMARK_DATA = {
           4199.109144083659,
           6156.668298993792,
           5872.8624883015955,
-          6355.000570678711
+          6355.000570678711,
+          6145.977474757603
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4041,6 +4072,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          9264,
           9264,
           9264,
           9264,
@@ -4300,7 +4332,8 @@ window.BENCHMARK_DATA = {
           185127.83342097356,
           218925.35271809896,
           217643.19313401444,
-          222026.62740384616
+          222026.62740384616,
+          222663.89908854166
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4430,6 +4463,7 @@ window.BENCHMARK_DATA = {
           15628,
           15640,
           15640,
+          15628,
           15628,
           15628,
           15628,
@@ -4571,7 +4605,8 @@ window.BENCHMARK_DATA = {
           686.0635742823283,
           964.0274340765817,
           905.6212546484811,
-          1050.1892723083497
+          1050.1892723083497,
+          938.0745375497
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4690,6 +4725,7 @@ window.BENCHMARK_DATA = {
           9016,
           9016,
           9016,
+          7352,
           7352,
           7352,
           7352,
@@ -4842,7 +4878,8 @@ window.BENCHMARK_DATA = {
           140.42994574138098,
           202.24975023269653,
           176.9816972096761,
-          230.17793333530426
+          230.17793333530426,
+          201.12966893269464
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -4976,6 +5013,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392
         ],
         "borderColor": "#FF8C00",
@@ -5728,6 +5766,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -5853,7 +5897,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -5982,7 +6027,8 @@ window.BENCHMARK_DATA = {
           874.0538711547852,
           996.4968343098958,
           568.887393951416,
-          767.138163294111
+          767.138163294111,
+          1019.6645968510554
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -6040,6 +6086,7 @@ window.BENCHMARK_DATA = {
           3912,
           3912,
           3912,
+          3856,
           3856,
           3856,
           3856,
@@ -6253,7 +6300,8 @@ window.BENCHMARK_DATA = {
           213956.4412434896,
           221177.6153390067,
           64360.36473795573,
-          133238.42553710938
+          133238.42553710938,
+          218052.6961844308
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6387,6 +6435,7 @@ window.BENCHMARK_DATA = {
           20860,
           20860,
           20955,
+          20860,
           20860
         ],
         "borderColor": "#A052B0",
@@ -6524,7 +6573,8 @@ window.BENCHMARK_DATA = {
           10663.88308606829,
           10824.548552293043,
           5234.948961893718,
-          7334.386525980632
+          7334.386525980632,
+          11022.988248552594
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6654,6 +6704,7 @@ window.BENCHMARK_DATA = {
           13088,
           13088,
           13144,
+          13088,
           13088,
           13088,
           13088,
@@ -6795,7 +6846,8 @@ window.BENCHMARK_DATA = {
           11631.133898925782,
           12053.356816609701,
           5006.514785766602,
-          7761.427575247629
+          7761.427575247629,
+          11824.926323445638
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6921,6 +6973,7 @@ window.BENCHMARK_DATA = {
           13954,
           13954,
           13948,
+          13954,
           13954,
           13954,
           13954,
@@ -7066,7 +7119,8 @@ window.BENCHMARK_DATA = {
           780.2414371626718,
           873.4588473637899,
           446.71010939280194,
-          652.3909718195597
+          652.3909718195597,
+          864.0130325044904
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7185,6 +7239,7 @@ window.BENCHMARK_DATA = {
           5280,
           5280,
           5280,
+          5112,
           5112,
           5112,
           5112,
@@ -7952,6 +8007,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -8077,7 +8138,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -8206,7 +8268,8 @@ window.BENCHMARK_DATA = {
           2374.1229121868428,
           2640.7865425109862,
           1660.6441522598266,
-          1942.0702926635743
+          1942.0702926635743,
+          2550.7756118774414
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8264,6 +8327,7 @@ window.BENCHMARK_DATA = {
           4992,
           4992,
           4992,
+          4936,
           4936,
           4936,
           4936,
@@ -8477,7 +8541,8 @@ window.BENCHMARK_DATA = {
           224143.54771205358,
           230885.57782854352,
           65978.75475135216,
-          142979.66267277644
+          142979.66267277644,
+          227451.985874721
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8611,6 +8676,7 @@ window.BENCHMARK_DATA = {
           30610,
           30610,
           30693,
+          30610,
           30610
         ],
         "borderColor": "#A052B0",
@@ -8748,7 +8814,8 @@ window.BENCHMARK_DATA = {
           24474.896999104818,
           25811.42779323033,
           12515.945043436686,
-          18311.798673357283
+          18311.798673357283,
+          26406.510984293618
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8878,6 +8945,7 @@ window.BENCHMARK_DATA = {
           26193,
           26193,
           26249,
+          26193,
           26193,
           26193,
           26193,
@@ -9019,7 +9087,8 @@ window.BENCHMARK_DATA = {
           24099.66737467448,
           25655.865148925783,
           11597.194160970052,
-          16557.454178873697
+          16557.454178873697,
+          25426.197642008465
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9153,6 +9222,7 @@ window.BENCHMARK_DATA = {
           33764,
           33764,
           33765,
+          33764,
           33764
         ],
         "borderColor": "#4A6FA5",
@@ -9290,7 +9360,8 @@ window.BENCHMARK_DATA = {
           1481.148058618818,
           1607.17776222229,
           803.2790938695272,
-          1160.1486276899066
+          1160.1486276899066,
+          1496.1252082824708
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9409,6 +9480,7 @@ window.BENCHMARK_DATA = {
           8160,
           8160,
           8160,
+          6624,
           6624,
           6624,
           6624,
@@ -10176,6 +10248,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -10301,7 +10379,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -10430,7 +10509,8 @@ window.BENCHMARK_DATA = {
           311.48889909471785,
           342.85150715020984,
           222.5730743067605,
-          279.95676158024713
+          279.95676158024713,
+          371.23325450079784
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10488,6 +10568,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          1976,
           1976,
           1976,
           1976,
@@ -10701,7 +10782,8 @@ window.BENCHMARK_DATA = {
           78029.66228841146,
           185983.90178034856,
           59139.88603515625,
-          105082.38922991071
+          105082.38922991071,
+          186477.3126627604
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10835,7 +10917,8 @@ window.BENCHMARK_DATA = {
           14930,
           15086,
           14944,
-          14938
+          14938,
+          15086
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10972,7 +11055,8 @@ window.BENCHMARK_DATA = {
           4605.272538248698,
           6271.763361794608,
           3190.4813807351247,
-          4610.005745442709
+          4610.005745442709,
+          6175.620974731445
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -11092,6 +11176,7 @@ window.BENCHMARK_DATA = {
           9336,
           9336,
           9280,
+          9336,
           9336,
           9336,
           9336,
@@ -11243,7 +11328,8 @@ window.BENCHMARK_DATA = {
           3795.0548276265463,
           5964.453810555594,
           3314.7202491760254,
-          4493.768240865072
+          4493.768240865072,
+          6149.343935648601
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11377,7 +11463,8 @@ window.BENCHMARK_DATA = {
           8257,
           8244,
           8244,
-          8245
+          8245,
+          8244
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11514,7 +11601,8 @@ window.BENCHMARK_DATA = {
           427.5140861193339,
           515.1877106939044,
           334.9225764592489,
-          425.2396452585856
+          425.2396452585856,
+          540.7959452946981
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11633,6 +11721,7 @@ window.BENCHMARK_DATA = {
           4136,
           4136,
           4136,
+          4056,
           4056,
           4056,
           4056,
@@ -11785,7 +11874,8 @@ window.BENCHMARK_DATA = {
           420.58021334239413,
           465.8425607999166,
           311.7139163017273,
-          396.43120983668734
+          396.43120983668734,
+          472.97674051920575
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -11919,6 +12009,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088
         ],
         "borderColor": "#FF8C00",
@@ -12671,6 +12762,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -12796,7 +12893,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -12925,7 +13023,8 @@ window.BENCHMARK_DATA = {
           685.1707359949747,
           643.571696917216,
           515.0101267496744,
-          512.0914528528849
+          512.0914528528849,
+          668.1778322855631
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12983,6 +13082,7 @@ window.BENCHMARK_DATA = {
           2304,
           2304,
           2304,
+          2192,
           2192,
           2192,
           2192,
@@ -13196,7 +13296,8 @@ window.BENCHMARK_DATA = {
           80337.30350435697,
           187279.6274762835,
           60813.677568708146,
-          109125.5240641276
+          109125.5240641276,
+          191764.14168294272
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13330,7 +13431,8 @@ window.BENCHMARK_DATA = {
           18907,
           19085,
           18929,
-          18930
+          18930,
+          19085
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13467,7 +13569,8 @@ window.BENCHMARK_DATA = {
           6953.794504438128,
           9034.273812866211,
           4806.943126385028,
-          6825.633404286703
+          6825.633404286703,
+          8959.838536071777
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13601,7 +13704,8 @@ window.BENCHMARK_DATA = {
           12360,
           12361,
           12360,
-          12360
+          12360,
+          12361
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13738,7 +13842,8 @@ window.BENCHMARK_DATA = {
           6482.548464457194,
           9189.115966796875,
           4902.141549682618,
-          7243.072762044271
+          7243.072762044271,
+          9352.042498779298
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13870,6 +13975,7 @@ window.BENCHMARK_DATA = {
           15786,
           15786,
           15780,
+          15786,
           15786,
           15786,
           15786
@@ -14009,7 +14115,8 @@ window.BENCHMARK_DATA = {
           696.2492634455363,
           867.7009202957154,
           548.4621262550354,
-          720.6941741943359
+          720.6941741943359,
+          894.0515037536621
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14128,6 +14235,7 @@ window.BENCHMARK_DATA = {
           5648,
           5648,
           5648,
+          4920,
           4920,
           4920,
           4920,
@@ -14280,7 +14388,8 @@ window.BENCHMARK_DATA = {
           1415.0018928527832,
           1351.7349033355713,
           1023.1193207332066,
-          1148.9945870717368
+          1148.9945870717368,
+          1393.203494644165
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -14414,6 +14523,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840
         ],
         "borderColor": "#FF8C00",
@@ -15166,6 +15276,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -15291,7 +15407,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -15420,7 +15537,8 @@ window.BENCHMARK_DATA = {
           331.2811007976532,
           514.9263615926106,
           407.40379663614124,
-          413.68913218180336
+          413.68913218180336,
+          553.4470796585083
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15478,6 +15596,7 @@ window.BENCHMARK_DATA = {
           2528,
           2528,
           2528,
+          2472,
           2472,
           2472,
           2472,
@@ -15691,7 +15810,8 @@ window.BENCHMARK_DATA = {
           5634.635719299316,
           11719.043042864118,
           8115.247684733073,
-          7941.903639573317
+          7941.903639573317,
+          12205.780034383139
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15825,7 +15945,8 @@ window.BENCHMARK_DATA = {
           10640,
           10641,
           10640,
-          10640
+          10640,
+          10785
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15962,7 +16083,8 @@ window.BENCHMARK_DATA = {
           3810.083267756871,
           7774.01153916579,
           5745.845593588693,
-          5546.674656677246
+          5546.674656677246,
+          7763.052662150065
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15974,6 +16096,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          11720,
           11720,
           11720,
           11720,
@@ -16233,7 +16356,8 @@ window.BENCHMARK_DATA = {
           3868.46835737962,
           8399.615569051106,
           6041.979381306966,
-          5621.968210347493
+          5621.968210347493,
+          8716.261378696987
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16363,6 +16487,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11518,
+          11508,
           11508,
           11508,
           11508,
@@ -16504,7 +16629,8 @@ window.BENCHMARK_DATA = {
           222.84003609877365,
           409.834550013909,
           337.1002264340719,
-          304.5112196717943
+          304.5112196717943,
+          443.39698197046914
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16623,6 +16749,7 @@ window.BENCHMARK_DATA = {
           3200,
           3200,
           3200,
+          3048,
           3048,
           3048,
           3048,
@@ -16775,7 +16902,8 @@ window.BENCHMARK_DATA = {
           294.86404212315875,
           460.07829666137695,
           376.23668725149975,
-          360.75155070622765
+          360.75155070622765,
+          481.3137944539388
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16909,6 +17037,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696
         ],
         "borderColor": "#FF8C00",
@@ -17661,6 +17790,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -17786,7 +17921,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -17915,7 +18051,8 @@ window.BENCHMARK_DATA = {
           754.7098112106323,
           1055.4518526713052,
           824.7726437023708,
-          827.251049722944
+          827.251049722944,
+          1076.87312113444
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -17973,6 +18110,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          2976,
           2976,
           2976,
           2976,
@@ -18186,7 +18324,8 @@ window.BENCHMARK_DATA = {
           8819.738353474935,
           18801.37807006836,
           13359.404609680176,
-          13160.14591217041
+          13160.14591217041,
+          19184.62139892578
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18320,7 +18459,8 @@ window.BENCHMARK_DATA = {
           18720,
           18721,
           18720,
-          18720
+          18720,
+          18865
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18457,7 +18597,8 @@ window.BENCHMARK_DATA = {
           8923.219432576498,
           17572.785150146483,
           12884.899809773762,
-          12610.705132039388
+          12610.705132039388,
+          17256.54719034831
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18578,6 +18719,7 @@ window.BENCHMARK_DATA = {
           21584,
           21585,
           21584,
+          21585,
           21585,
           21585,
           21585,
@@ -18728,7 +18870,8 @@ window.BENCHMARK_DATA = {
           9367.763215128582,
           20052.32955118815,
           14359.23257039388,
-          14135.112373860677
+          14135.112373860677,
+          20857.09461757115
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18858,6 +19001,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           31543,
+          31546,
           31546,
           31546,
           31546,
@@ -18999,7 +19143,8 @@ window.BENCHMARK_DATA = {
           391.339314017977,
           662.0914898599897,
           553.3476264953613,
-          498.2977396011353
+          498.2977396011353,
+          671.5371731440226
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19118,6 +19263,7 @@ window.BENCHMARK_DATA = {
           4784,
           4784,
           4784,
+          3336,
           3336,
           3336,
           3336,
@@ -19270,7 +19416,8 @@ window.BENCHMARK_DATA = {
           1185.1853921254476,
           1594.2512983594622,
           1296.2378719329834,
-          1248.7846249898275
+          1248.7846249898275,
+          1675.5766459873744
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19404,6 +19551,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048
         ],
         "borderColor": "#FF8C00",
@@ -20156,6 +20304,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Sun Oct 18 17:50:06 2026 \u002B0000",
         "message": "chore: Bump the tunit group with 2 updates (#900)"
+      },
+      {
+        "sha": "637bd341ef86fcb559684e8fa97db6e5d7b96596",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Oct 18 22:02:07 2026 \u002B0200",
+        "message": "ci: run the AOT smoke tests in CI (#904)"
       }
     ],
     "labels": [
@@ -20281,7 +20435,8 @@ window.BENCHMARK_DATA = {
       "f28514ff",
       "249c4443",
       "2f8b5038",
-      "d5543758"
+      "d5543758",
+      "637bd341"
     ],
     "datasets": [
       {
@@ -20410,7 +20565,8 @@ window.BENCHMARK_DATA = {
           17.803403415282567,
           19.52319299536092,
           14.256864563624065,
-          17.101385584899358
+          17.101385584899358,
+          17.683263409137727
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20468,6 +20624,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -20681,7 +20838,8 @@ window.BENCHMARK_DATA = {
           273.1152841885885,
           316.5518018518175,
           225.9414026816686,
-          262.99322951634724
+          262.99322951634724,
+          272.3668289979299
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20800,6 +20958,7 @@ window.BENCHMARK_DATA = {
           2248,
           2248,
           2248,
+          2240,
           2240,
           2240,
           2240,
@@ -20952,7 +21111,8 @@ window.BENCHMARK_DATA = {
           35.711448550224304,
           39.08975474039713,
           30.298354762792588,
-          35.208495593070985
+          35.208495593070985,
+          36.46855592727661
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21086,6 +21246,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216
         ],
         "borderColor": "#FF8C00",
@@ -21223,7 +21384,8 @@ window.BENCHMARK_DATA = {
           1333.7749064127604,
           1515.4464668546404,
           1085.0402776082358,
-          1353.2370740345546
+          1353.2370740345546,
+          1469.9975870677404
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21235,6 +21397,7 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
+          2096,
           2096,
           2096,
           2096,
@@ -21494,7 +21657,8 @@ window.BENCHMARK_DATA = {
           1923.520450592041,
           2163.8865683419363,
           1534.0193088531494,
-          1912.1457909804124
+          1912.1457909804124,
+          2123.1623253455527
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21506,6 +21670,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          5048,
           5048,
           5048,
           5048,
@@ -21765,7 +21930,8 @@ window.BENCHMARK_DATA = {
           1715.2801654522236,
           1932.9672164916992,
           1547.8013846533638,
-          1725.7626303264074
+          1725.7626303264074,
+          1848.7292498179845
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21886,6 +22052,7 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2759,
+          2763,
           2763,
           2763,
           2763,
