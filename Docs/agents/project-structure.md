@@ -18,7 +18,7 @@ Only the `Mockolate` package is published. It carries the generator, analyzers a
 
 ### `Source/Mockolate`
 
-The runtime library (`netstandard2.0`, `net8.0`, `net10.0`).
+The runtime library (`netstandard2.0`, `net8.0`, `net10.0`, `net11.0`).
 
 | Location | Responsibility |
 |---|---|
@@ -43,6 +43,7 @@ An `IIncrementalGenerator` (`MockGenerator.cs`, `netstandard2.0`).
 - `Entities/` holds the equatable model extracted from symbols (`Class`, `Method`, `Property`, `Event`, `EquatableArray`, ...); `Internals/EntityCache.cs` deduplicates it per compilation.
 - `Sources/` turns the model into C# with `StringBuilder`.
 - Output depends on the consumer's compilation, for example whether `OverloadResolutionPriorityAttribute` exists.
+- Union mode (`Sources.MockClass.Unions.cs`): with C# 15 (or `MockolateUnionParameters=true`) the setup and verify overloads take `ParameterArg<T>?` or `Func<T, bool>` per parameter instead of the classic matcher and value set; below that the output is unchanged.
 
 ### `Source/Mockolate.Analyzers` and `Source/Mockolate.Analyzers.CodeFixers`
 

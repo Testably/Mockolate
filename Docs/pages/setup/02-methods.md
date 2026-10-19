@@ -1,6 +1,7 @@
 # Methods
 
-Use `sut.Mock.Setup.MethodName(…)` to set up methods. You can specify argument matchers for each parameter.
+Use `sut.Mock.Setup.MethodName(…)` to set up methods. You can specify argument matchers for each parameter; with C# 15
+you can also pass predicates directly (see *Union Parameters* under Parameter Matching).
 
 ## Returns / Throws
 

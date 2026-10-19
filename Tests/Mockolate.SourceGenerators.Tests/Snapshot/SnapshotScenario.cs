@@ -4,4 +4,5 @@ internal sealed record SnapshotScenario(
     string Name,
     string[] CoverageFiles,
     string MainBody,
-    Type[] AssemblyTypes);
+    Type[] AssemblyTypes,
+    bool UnionMode = false);
