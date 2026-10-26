@@ -4,8 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "09:00"
+      day: "tuesday"
+      time: "23:00"
       timezone: "Europe/Vienna"
     commit-message:
       prefix: chore
@@ -14,8 +14,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "09:00"
+      day: "tuesday"
+      time: "23:00"
       timezone: "Europe/Vienna"
     commit-message:
       prefix: chore
