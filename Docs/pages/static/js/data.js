@@ -792,6 +792,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -926,7 +932,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -1064,7 +1071,8 @@ window.BENCHMARK_DATA = {
           408.6889036178589,
           423.9219029499934,
           424.0514973004659,
-          309.47869590918225
+          309.47869590918225,
+          336.69039545059206
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1122,6 +1130,7 @@ window.BENCHMARK_DATA = {
           1720,
           1720,
           1720,
+          1608,
           1608,
           1608,
           1608,
@@ -1353,7 +1362,8 @@ window.BENCHMARK_DATA = {
           45889.635587565106,
           45108.805759974886,
           45824.37737630208,
-          96441.92576497396
+          96441.92576497396,
+          38548.63976111779
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1496,7 +1506,8 @@ window.BENCHMARK_DATA = {
           9153,
           9073,
           9073,
-          9096
+          9096,
+          9086
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1642,7 +1653,8 @@ window.BENCHMARK_DATA = {
           4252.5072616577145,
           4301.919119771322,
           4322.403483799526,
-          4556.729250394381
+          4556.729250394381,
+          3639.6128545125325
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -1710,6 +1722,7 @@ window.BENCHMARK_DATA = {
           7928,
           7928,
           7928,
+          7896,
           7896,
           7896,
           7896,
@@ -1931,7 +1944,8 @@ window.BENCHMARK_DATA = {
           3831.114734395345,
           3893.1643124898274,
           3871.4383397420247,
-          4696.3363520304365
+          4696.3363520304365,
+          3300.0791145324706
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2074,7 +2088,8 @@ window.BENCHMARK_DATA = {
           6964,
           6964,
           6964,
-          6970
+          6970,
+          6964
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2220,7 +2235,8 @@ window.BENCHMARK_DATA = {
           513.6951780954997,
           533.6296424865723,
           522.5419569015503,
-          422.80396171978543
+          422.80396171978543,
+          404.32426122256686
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2357,6 +2373,7 @@ window.BENCHMARK_DATA = {
           2424,
           2424,
           2424,
+          2392,
           2392,
           2392,
           2392,
@@ -2509,7 +2526,8 @@ window.BENCHMARK_DATA = {
           628.4859675679888,
           646.8736710548401,
           643.2310185114543,
-          481.6785751751491
+          481.6785751751491,
+          496.6355421066284
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2643,6 +2661,7 @@ window.BENCHMARK_DATA = {
           2048,
           2048,
           2048,
+          2064,
           2064,
           2064,
           2064,
@@ -3458,6 +3477,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -3592,7 +3617,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -3730,7 +3756,8 @@ window.BENCHMARK_DATA = {
           326.93070713679,
           308.87015733718874,
           323.80486014684044,
-          297.95494122505187
+          297.95494122505187,
+          281.47392211641585
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3788,6 +3815,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1824,
+          1744,
           1744,
           1744,
           1744,
@@ -4019,7 +4047,8 @@ window.BENCHMARK_DATA = {
           16678.369341169084,
           15746.322335379464,
           15935.315950520833,
-          15258.992591271033
+          15258.992591271033,
+          16430.022748674666
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4160,6 +4189,7 @@ window.BENCHMARK_DATA = {
           12809,
           12810,
           13242,
+          12810,
           12810,
           12810,
           12810
@@ -4308,7 +4338,8 @@ window.BENCHMARK_DATA = {
           5893.601086934407,
           6026.48744910104,
           6177.155246189663,
-          5825.380296325684
+          5825.380296325684,
+          5961.038604191372
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4320,6 +4351,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          9264,
           9264,
           9264,
           9264,
@@ -4597,7 +4629,8 @@ window.BENCHMARK_DATA = {
           217620.15424804686,
           213956.93715122767,
           220121.61681315105,
-          212346.4455754207
+          212346.4455754207,
+          218304.3601888021
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4738,6 +4771,7 @@ window.BENCHMARK_DATA = {
           15640,
           15628,
           15628,
+          15755,
           15755,
           15755,
           15755
@@ -4886,7 +4920,8 @@ window.BENCHMARK_DATA = {
           918.8276754697164,
           181.6703110081809,
           197.4190398534139,
-          183.01915502548218
+          183.01915502548218,
+          183.7542817042424
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5027,6 +5062,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512
@@ -5175,7 +5211,8 @@ window.BENCHMARK_DATA = {
           206.03250697453817,
           202.56667709350586,
           213.19233384132386,
-          181.27445522944132
+          181.27445522944132,
+          172.5266077518463
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5309,6 +5346,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -6124,6 +6162,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -6258,7 +6302,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -6396,7 +6441,8 @@ window.BENCHMARK_DATA = {
           704.211682660239,
           1024.795754946195,
           991.7077579498291,
-          821.3835009166172
+          821.3835009166172,
+          993.4020859854562
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -6454,6 +6500,7 @@ window.BENCHMARK_DATA = {
           3912,
           3912,
           3912,
+          3856,
           3856,
           3856,
           3856,
@@ -6685,7 +6732,8 @@ window.BENCHMARK_DATA = {
           133476.94033203126,
           218765.187953404,
           221037.49710286458,
-          91997.85737304688
+          91997.85737304688,
+          215078.13926478795
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6828,7 +6876,8 @@ window.BENCHMARK_DATA = {
           20860,
           20860,
           20860,
-          20746
+          20746,
+          20860
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6974,7 +7023,8 @@ window.BENCHMARK_DATA = {
           7455.359835306804,
           10630.448251342774,
           10558.121784464518,
-          8697.309593200684
+          8697.309593200684,
+          10774.215696207682
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7117,7 +7167,8 @@ window.BENCHMARK_DATA = {
           13088,
           13088,
           13144,
-          13144
+          13144,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7263,7 +7314,8 @@ window.BENCHMARK_DATA = {
           7927.913248697917,
           12264.3317972819,
           12203.361092200646,
-          6739.688219706218
+          6739.688219706218,
+          11994.373861459586
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7406,7 +7458,8 @@ window.BENCHMARK_DATA = {
           13954,
           13954,
           13954,
-          13948
+          13948,
+          13954
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7552,7 +7605,8 @@ window.BENCHMARK_DATA = {
           582.8947384174054,
           463.4970379193624,
           432.2276835759481,
-          354.50096239362443
+          354.50096239362443,
+          433.3962153116862
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7693,6 +7747,7 @@ window.BENCHMARK_DATA = {
           5072,
           5072,
           5072,
+          1944,
           1944,
           1944,
           1944
@@ -8501,6 +8556,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -8635,7 +8696,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -8773,7 +8835,8 @@ window.BENCHMARK_DATA = {
           1951.1057563781737,
           2705.295302254813,
           2412.881125386556,
-          2519.298028945923
+          2519.298028945923,
+          2426.9794085366384
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8831,6 +8894,7 @@ window.BENCHMARK_DATA = {
           4992,
           4992,
           4992,
+          4936,
           4936,
           4936,
           4936,
@@ -9062,7 +9126,8 @@ window.BENCHMARK_DATA = {
           143634.67423502603,
           234648.6814453125,
           233524.1043294271,
-          98197.28951322116
+          98197.28951322116,
+          231890.05526297432
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9205,7 +9270,8 @@ window.BENCHMARK_DATA = {
           30610,
           30610,
           30610,
-          29315
+          29315,
+          30610
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9351,7 +9417,8 @@ window.BENCHMARK_DATA = {
           18514.5573059082,
           26891.56264604841,
           25437.874416097005,
-          20183.8565259661
+          20183.8565259661,
+          26353.29883626302
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9494,7 +9561,8 @@ window.BENCHMARK_DATA = {
           26193,
           26193,
           26249,
-          26248
+          26248,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9640,7 +9708,8 @@ window.BENCHMARK_DATA = {
           16463.750675746374,
           25794.070678710938,
           25648.834374060996,
-          16393.649330647786
+          16393.649330647786,
+          25514.085503133138
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9783,7 +9852,8 @@ window.BENCHMARK_DATA = {
           33764,
           33764,
           33764,
-          33769
+          33769,
+          33764
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9929,7 +9999,8 @@ window.BENCHMARK_DATA = {
           1013.1683487210955,
           1022.7075046539306,
           973.8239157540457,
-          923.3839129130046
+          923.3839129130046,
+          964.6517271677653
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10070,6 +10141,7 @@ window.BENCHMARK_DATA = {
           6152,
           6152,
           6152,
+          3024,
           3024,
           3024,
           3024
@@ -10878,6 +10950,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -11012,7 +11090,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -11150,7 +11229,8 @@ window.BENCHMARK_DATA = {
           346.3945096220289,
           321.05905983998224,
           385.0287800516401,
-          405.0012223879496
+          405.0012223879496,
+          434.4567088127136
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11208,6 +11288,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          1976,
           1976,
           1976,
           1976,
@@ -11439,7 +11520,8 @@ window.BENCHMARK_DATA = {
           185845.06832449776,
           78459.23616245815,
           72150.25142415364,
-          107795.73684895833
+          107795.73684895833,
+          140468.62482096354
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11582,7 +11664,8 @@ window.BENCHMARK_DATA = {
           15150,
           14930,
           14930,
-          14938
+          14938,
+          15098
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11728,7 +11811,8 @@ window.BENCHMARK_DATA = {
           6034.123398414025,
           4888.745339965821,
           4844.055956013997,
-          4479.934683227539
+          4479.934683227539,
+          6583.723985944475
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -11871,7 +11955,8 @@ window.BENCHMARK_DATA = {
           9280,
           9336,
           9336,
-          9336
+          9336,
+          9280
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12017,7 +12102,8 @@ window.BENCHMARK_DATA = {
           6074.448100498745,
           4045.8838648114884,
           3987.5375126429967,
-          4392.240709431966
+          4392.240709431966,
+          6100.119237772624
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12160,7 +12246,8 @@ window.BENCHMARK_DATA = {
           8244,
           8257,
           8257,
-          8245
+          8245,
+          8251
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12306,7 +12393,8 @@ window.BENCHMARK_DATA = {
           526.6413312639509,
           439.24577713012695,
           710.7427272160847,
-          437.7826588337238
+          437.7826588337238,
+          685.1664816311428
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12443,6 +12531,7 @@ window.BENCHMARK_DATA = {
           4056,
           4056,
           4056,
+          4088,
           4088,
           4088,
           4088,
@@ -12595,7 +12684,8 @@ window.BENCHMARK_DATA = {
           470.5303476333618,
           477.80781701405846,
           484.69739220937095,
-          417.7269720349993
+          417.7269720349993,
+          584.5514849980672
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12729,6 +12819,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -13544,6 +13635,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -13678,7 +13775,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -13816,7 +13914,8 @@ window.BENCHMARK_DATA = {
           653.6956133524577,
           748.4852008138384,
           677.9643789927164,
-          510.84715627034507
+          510.84715627034507,
+          852.4050295511881
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13874,6 +13973,7 @@ window.BENCHMARK_DATA = {
           2304,
           2304,
           2304,
+          2192,
           2192,
           2192,
           2192,
@@ -14105,7 +14205,8 @@ window.BENCHMARK_DATA = {
           189973.57987154447,
           80479.68956580528,
           73645.22284807477,
-          110394.68524576823
+          110394.68524576823,
+          145622.71100260416
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14248,7 +14349,8 @@ window.BENCHMARK_DATA = {
           19149,
           18907,
           18907,
-          18930
+          18930,
+          19089
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14394,7 +14496,8 @@ window.BENCHMARK_DATA = {
           9118.419221060616,
           7071.304180908203,
           6897.531615121024,
-          6884.329048665365
+          6884.329048665365,
+          9610.105205281576
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14537,7 +14640,8 @@ window.BENCHMARK_DATA = {
           11800,
           12360,
           12360,
-          12360
+          12360,
+          11800
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14683,7 +14787,8 @@ window.BENCHMARK_DATA = {
           9231.217262854943,
           6465.126875813802,
           6764.411700439453,
-          7456.760493687221
+          7456.760493687221,
+          9677.690435791015
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14826,6 +14931,7 @@ window.BENCHMARK_DATA = {
           15786,
           15780,
           15780,
+          15786,
           15786
         ],
         "borderColor": "#4A6FA5",
@@ -14972,7 +15078,8 @@ window.BENCHMARK_DATA = {
           884.9799259821574,
           783.984175936381,
           878.5112074534098,
-          759.3434673309326
+          759.3434673309326,
+          1113.1478907721382
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15109,6 +15216,7 @@ window.BENCHMARK_DATA = {
           4920,
           4920,
           4920,
+          4952,
           4952,
           4952,
           4952,
@@ -15261,7 +15369,8 @@ window.BENCHMARK_DATA = {
           1354.3776198069254,
           1493.488083430699,
           1389.2263710021973,
-          1182.716293334961
+          1182.716293334961,
+          1828.9768666585287
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15395,6 +15504,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -16210,6 +16320,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -16344,7 +16460,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -16482,7 +16599,8 @@ window.BENCHMARK_DATA = {
           571.6382282120841,
           617.3675844192505,
           553.2192486445109,
-          308.4677127429417
+          308.4677127429417,
+          314.6702938079834
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16540,6 +16658,7 @@ window.BENCHMARK_DATA = {
           2528,
           2528,
           2528,
+          2472,
           2472,
           2472,
           2472,
@@ -16771,7 +16890,8 @@ window.BENCHMARK_DATA = {
           11680.057532677283,
           11900.200748697916,
           12188.212346394857,
-          5464.7774658203125
+          5464.7774658203125,
+          5351.167412894113
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16914,6 +17034,7 @@ window.BENCHMARK_DATA = {
           10641,
           10641,
           10641,
+          10640,
           10640
         ],
         "borderColor": "#A052B0",
@@ -17060,7 +17181,8 @@ window.BENCHMARK_DATA = {
           7640.2544352213545,
           8120.505276489258,
           8188.8833574567525,
-          3710.2181162516276
+          3710.2181162516276,
+          3633.338193159837
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17072,6 +17194,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          11720,
           11720,
           11720,
           11720,
@@ -17349,7 +17472,8 @@ window.BENCHMARK_DATA = {
           8862.138820103237,
           8638.61579691569,
           8999.671049935478,
-          4070.9956937154134
+          4070.9956937154134,
+          3935.0999331156413
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17491,6 +17615,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11518,
+          11508,
           11508,
           11508
         ],
@@ -17638,7 +17763,8 @@ window.BENCHMARK_DATA = {
           464.51117676955005,
           253.66488841374715,
           227.99414730072021,
-          131.07881202697754
+          131.07881202697754,
+          128.25238607610976
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17779,6 +17905,7 @@ window.BENCHMARK_DATA = {
           3048,
           3048,
           3048,
+          688,
           688,
           688,
           688
@@ -17927,7 +18054,8 @@ window.BENCHMARK_DATA = {
           495.0608176451463,
           540.0659132639568,
           515.1685739517212,
-          290.9658498128255
+          290.9658498128255,
+          276.06417267663136
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18061,6 +18189,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -18876,6 +19005,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -19010,7 +19145,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -19148,7 +19284,8 @@ window.BENCHMARK_DATA = {
           1151.429946263631,
           1309.9093085697718,
           1093.1360566457113,
-          727.1374768575032
+          727.1374768575032,
+          714.5146207128253
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19206,6 +19343,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          2976,
           2976,
           2976,
           2976,
@@ -19437,7 +19575,8 @@ window.BENCHMARK_DATA = {
           19423.264162190757,
           19348.505504063196,
           19258.220666503905,
-          9070.498498535157
+          9070.498498535157,
+          9197.649333699545
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19580,6 +19719,7 @@ window.BENCHMARK_DATA = {
           18721,
           18721,
           18721,
+          18720,
           18720
         ],
         "borderColor": "#A052B0",
@@ -19726,7 +19866,8 @@ window.BENCHMARK_DATA = {
           18216.376232440656,
           18054.643192545573,
           18205.84955851237,
-          8740.216100565593
+          8740.216100565593,
+          8871.381338936942
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19847,6 +19988,7 @@ window.BENCHMARK_DATA = {
           21584,
           21585,
           21584,
+          21585,
           21585,
           21585,
           21585,
@@ -20015,7 +20157,8 @@ window.BENCHMARK_DATA = {
           20881.828698294503,
           19747.64486459585,
           21003.055242919923,
-          10001.148946489606
+          10001.148946489606,
+          9338.801031930107
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20157,6 +20300,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           31543,
+          31546,
           31546,
           31546
         ],
@@ -20304,7 +20448,8 @@ window.BENCHMARK_DATA = {
           702.0883602414813,
           478.4152705192566,
           413.35040623346964,
-          274.0559408823649
+          274.0559408823649,
+          272.14240639550343
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20445,6 +20590,7 @@ window.BENCHMARK_DATA = {
           3336,
           3336,
           3336,
+          976,
           976,
           976,
           976
@@ -20593,7 +20739,8 @@ window.BENCHMARK_DATA = {
           1688.8833886464438,
           1977.9655179341635,
           1690.058555456308,
-          1152.583192316691
+          1152.583192316691,
+          1125.9650036948067
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -20727,6 +20874,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -21542,6 +21690,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Mon Oct 26 11:08:46 2026 \u002B0000",
         "message": "chore: Bump Microsoft.SourceLink.GitHub from 10.0.402 to 10.0.403 (#910)"
+      },
+      {
+        "sha": "6347ac4fbec9a5266053c54fb6f3db9335384c61",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Oct 26 12:44:40 2026 \u002B0100",
+        "message": "chore: run Dependabot in the night from Tuesday to Wednesday (#912)"
       }
     ],
     "labels": [
@@ -21676,7 +21830,8 @@ window.BENCHMARK_DATA = {
       "e8d52d30",
       "b63653f4",
       "2b9f8b30",
-      "bea45f69"
+      "bea45f69",
+      "6347ac4f"
     ],
     "datasets": [
       {
@@ -21814,7 +21969,8 @@ window.BENCHMARK_DATA = {
           17.864637919267018,
           11.45010169996665,
           17.34694432814916,
-          18.141778856515884
+          18.141778856515884,
+          10.124978699783485
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21872,6 +22028,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -22103,7 +22260,8 @@ window.BENCHMARK_DATA = {
           268.2507964202336,
           78.6249444882075,
           113.09364988974163,
-          117.62372646331787
+          117.62372646331787,
+          72.60238332407815
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22244,6 +22402,7 @@ window.BENCHMARK_DATA = {
           2240,
           2240,
           2240,
+          576,
           576,
           576,
           576
@@ -22392,7 +22551,8 @@ window.BENCHMARK_DATA = {
           36.78237654765447,
           23.53979517863347,
           36.61929620589529,
-          44.58001474539439
+          44.58001474539439,
+          22.09323244492213
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22526,6 +22686,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -22681,7 +22842,8 @@ window.BENCHMARK_DATA = {
           1529.4563660939534,
           877.133103688558,
           1416.1538095474243,
-          1446.7145617348808
+          1446.7145617348808,
+          794.5232670647757
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22693,6 +22855,7 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
+          2096,
           2096,
           2096,
           2096,
@@ -22970,7 +23133,8 @@ window.BENCHMARK_DATA = {
           2180.6588539123536,
           1234.8298311869303,
           1993.9895139421735,
-          2061.6470380510605
+          2061.6470380510605,
+          1137.030536778768
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22982,6 +23146,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          5048,
           5048,
           5048,
           5048,
@@ -23259,7 +23424,8 @@ window.BENCHMARK_DATA = {
           1771.3220019022624,
           1142.6251703898113,
           1794.4211514336723,
-          1870.3579533894856
+          1870.3579533894856,
+          1050.300341161092
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23380,6 +23546,7 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2759,
+          2763,
           2763,
           2763,
           2763,
