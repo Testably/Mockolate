@@ -1,62 +1,36 @@
-# Design goals
+# Design Goals
 
-These goals apply to every Testably repository. They guide agents and contributors when a change has more than one reasonable solution. The goals of this repository at the end refine them.
+These goals guide agents and contributors when a change to Mockolate has more than one reasonable solution. [Conventions](conventions.md) turns them into concrete rules for the code and the tests.
 
 Correctness is a hard requirement. Every other goal is a strong default: follow it, and when a change has to break one, say so in the pull request and explain why.
-
-## Decision test
-
-Before proposing a change, ask: does it keep the library correct, and does it make it faster, more consistent, easier to extend or more pleasant to use? If the answer is no, reconsider the change.
 
 ## Goals
 
 When goals conflict, the earlier one wins.
 
-1. **Correct, with clear failures (must).** Behaviour is exact and covered by tests. A failure states what was expected and what was found, and tests pin the complete message.
-2. **Stable and compatible.** Follow semantic versioning: breaking changes only in a major version, on purpose and documented. Public API changes show up in the API snapshots and are reviewed. Keep dependencies minimal and their version floors low, and support the declared target frameworks.
-3. **AOT and trimming friendly.** No unguarded reflection: prefer source generators, otherwise put reflection behind a feature guard with trimming annotations. A change that touches reflection runs the AOT smoke tests.
-4. **A consistent, discoverable and pleasant API.** Extension methods exist only on the types they apply to, so IntelliSense shows what makes sense. Naming, option chaining and null handling follow the existing patterns (see the repository-specific rules). Every public member has XML documentation. Prefer minimal ceremony for the user: sensible defaults, no boilerplate, failure messages that read well.
-5. **Fast, especially on the happy path.** Succeeding calls are the common case. Avoid allocations in hot paths, and back every performance claim or change with a benchmark before and after.
-6. **Extensible.** Third parties build on the same extension points the library uses itself. New features use the public extension surface instead of internals, and the core stays small and stable.
-7. **Errors at compile time rather than at run time.** Prefer analyzers, source generators and types that make misuse a compiler error over runtime checks.
-8. **Documented and pleasant to read.** A public feature is not done until it is documented on the docs site, with examples that are tested where the repository can test them. The docs are rendered with Docusaurus: use its features where they help the reader, such as admonitions (`:::note`, `:::tip`, `:::warning`) for remarks, tabs for alternatives (for example synchronous and asynchronous usage, or one tab per test framework) and collapsible `<details>` for long output, and follow the style of the existing pages.
+1. **Correct (must).** A mock behaves exactly as its setups and behavior say, and records every interaction, also under concurrency. A verification failure states what was expected and what was found, and tests pin the complete message.
+2. **Generated code compiles in every consumer.** The generator runs inside the user's compilation: nullable enabled or not, warnings as errors, any member names, C# keywords as identifiers, every supported target framework and every compiler from `MinimumRoslynVersion` on. A type or member that cannot be mocked is reported by an analyzer or left without setup surface; it never produces a compiler error in generated code.
+3. **Stable and compatible.** Semantic versioning: breaking changes only in a major version, on purpose and documented. Both the runtime library and the generated surface (`sut.Mock.Setup.X`, `sut.Mock.Verify.X`, ...) are public API that user code calls. Library changes show up in the API snapshots, generator changes in the generator snapshots, and both are reviewed. The package has no dependency except `System.Memory` on `netstandard2.0`; keep it that way.
+4. **AOT and trimming by construction.** Source generation instead of runtime proxies: no reflection-based dispatch, `Reflection.Emit`, expression trees or runtime generic instantiation, in the library and in the generated code.
+5. **Errors at compile time.** Prefer a typed API, generated members and analyzers over runtime checks, so misuse such as an unmockable type or an unused verification fails the build.
+6. **One consistent API.** Mocks come from `CreateMock()` and every capability lives under the `sut.Mock` verbs (`Setup`, `Verify`, `Raise`, `Monitor`, `As<T>()`, ...). Methods, properties, indexers, events and delegates share the same vocabulary across every arity, and IntelliSense shows only what the user can call.
+7. **Fast and allocation-free on the hot path.** Recording an interaction, finding the matching setup and counting for a verification are the common case and do not allocate. Mockolate is benchmarked against Moq, NSubstitute, FakeItEasy, TUnit.Mocks and Imposter on every pull request, so back every performance claim with a benchmark before and after.
+8. **Extensible.** Add-ons build on the same public extension points the library uses itself: `extension` blocks on `It` and the setup interfaces, `IParameter`, `IDefaultValueGenerator` and `MockBehavior`. The `HttpClient` support in `Web/` is the reference.
+9. **Documented.** A user-visible feature is not done until it is described on the docs site with an example.
 
-## Code
+## Before You Commit
 
-- **Modern C#.** Use current language features and APIs where the target frameworks allow them, with polyfills for netstandard2.0 and net48 instead of avoiding a feature. Check that the oldest target framework still compiles.
-- **Async.**
-  - Use `ValueTask` for operations that often complete synchronously.
-  - Pass the `CancellationToken` through every async path.
-  - Use `ConfigureAwait(false)` on every `await` in library code, so that callers who block on a result cannot deadlock on a single-threaded synchronization context. Existing code does not follow this everywhere yet; new and changed code does.
-  - Do not block on async code (`.Result`, `.Wait()`, `.GetAwaiter().GetResult()`), except at a deliberate synchronous API boundary, and complete synchronously there where possible.
-  - Do not use `Task.Run` to make code look asynchronous; use it only where the real counterpart does work in the background.
-- **Avoid.**
-  - Catching exceptions without handling or rethrowing them.
-  - LINQ, closures and boxing in hot paths; use loops and cached delegates there.
-  - String concatenation in loops; use a `StringBuilder`.
+Run the checks that match the change (commands in [workflows](workflows.md)):
 
-## Before you commit
-
-Run the checks that match the change:
-
-- **Any code change:** the tests of the affected projects, on the oldest and the newest target framework.
-- **Public API:** the API snapshot tests; review and accept intentional changes, never commit pending snapshots.
-- **Reflection, trimming or AOT:** the AOT smoke tests.
+- **Any code change:** the tests of the affected projects on `net10.0` and on the oldest framework they run on (`net48` on Windows, `net8.0` elsewhere).
+- **Generator output:** the generator snapshots, accepted and reviewed, and a type in `GeneratorCoverage` for a new special case.
+- **Public API of `Mockolate`:** the API snapshot tests; review and accept intentional changes, never commit pending snapshots.
+- **Generated code or reflection-sensitive library code:** the AOT smoke tests, and a new check there for a new feature.
 - **Hot path or a performance claim:** a benchmark before and after.
-- **New public feature:** documentation and its examples.
-- **Failure messages:** tests that pin the complete message.
-- **Static analysis:** no new Sonar or analyzer findings. Avoid the common ones: high cognitive complexity, duplicated string literals, unused members and parameters, methods that could be static, long parameter lists. Do not suppress a finding without asking the maintainer first.
+- **Mockability rules:** both the generator and `MockabilityAnalyzer`, with tests on both sides.
+- **User-visible feature:** the docs page and its example.
+- **Static analysis:** no new Sonar or compiler findings, coverage above 90%. Avoid the common Sonar findings: high cognitive complexity, duplicated string literals, unused members and parameters, methods that could be static. Do not suppress a finding or exclude code from coverage without asking the maintainer first.
 
 ## Reviews
 
 Verify every review finding against the code before changing anything. If you disagree, push back once with concrete reasoning; if the reviewer or the maintainer confirms the finding, implement it.
-
-## Goals of this repository
-
-1. **Every mockable shape compiles and behaves.** Shapes that cannot be mocked are reported by the analyzer, never as errors in generated code.
-2. **One entry point and one verb surface.** Mocks come from `CreateMock()`, and new capabilities fit under the existing `sut.Mock.…` verbs.
-3. **Consistent vocabulary** for setups, verifications and matchers, across every arity.
-4. **Allocation-free hot path.** Recording and counting do not allocate, and concurrency never loses an interaction.
-5. **Invisible generated code.** Clash-free, fully qualified and hidden from IntelliSense.
-6. **AOT by construction, within the Roslyn floor.** No Reflection.Emit, expression trees or runtime generic instantiation, and nothing newer than `MinimumRoslynVersion`.
-7. **Correct incremental caching.** Value-equatable pipeline models only.
