@@ -816,6 +816,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -954,7 +960,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -1096,7 +1103,8 @@ window.BENCHMARK_DATA = {
           336.69039545059206,
           305.91791880925496,
           324.99304921810443,
-          196.47883537610372
+          196.47883537610372,
+          675.4425614039103
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1154,6 +1162,7 @@ window.BENCHMARK_DATA = {
           1720,
           1720,
           1720,
+          1608,
           1608,
           1608,
           1608,
@@ -1393,7 +1402,8 @@ window.BENCHMARK_DATA = {
           38548.63976111779,
           73808.3666015625,
           99106.00699869792,
-          28360.154955182756
+          28360.154955182756,
+          100535.6702786959
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1540,7 +1550,8 @@ window.BENCHMARK_DATA = {
           9086,
           9096,
           9096,
-          9095
+          9095,
+          9096
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1690,7 +1701,8 @@ window.BENCHMARK_DATA = {
           3639.6128545125325,
           4384.457195536295,
           4940.869543457031,
-          2290.8085831233434
+          2290.8085831233434,
+          4878.7488067626955
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -1758,6 +1770,7 @@ window.BENCHMARK_DATA = {
           7928,
           7928,
           7928,
+          7896,
           7896,
           7896,
           7896,
@@ -1987,7 +2000,8 @@ window.BENCHMARK_DATA = {
           3300.0791145324706,
           4495.860911233084,
           5028.259317016602,
-          2419.653618367513
+          2419.653618367513,
+          5060.241928645542
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2132,6 +2146,7 @@ window.BENCHMARK_DATA = {
           6964,
           6970,
           6964,
+          6970,
           6970,
           6970,
           6970
@@ -2284,7 +2299,8 @@ window.BENCHMARK_DATA = {
           404.32426122256686,
           423.26268669537137,
           240.0286670242037,
-          141.35457367897033
+          141.35457367897033,
+          235.67766757011412
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2430,6 +2446,7 @@ window.BENCHMARK_DATA = {
           2392,
           2392,
           2392,
+          744,
           744,
           744
         ],
@@ -2581,7 +2598,8 @@ window.BENCHMARK_DATA = {
           496.6355421066284,
           544.2075364430746,
           545.736918703715,
-          308.1138166427612
+          308.1138166427612,
+          536.8849009786334
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2715,6 +2733,7 @@ window.BENCHMARK_DATA = {
           2048,
           2048,
           2048,
+          2064,
           2064,
           2064,
           2064,
@@ -3558,6 +3577,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -3696,7 +3721,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -3838,7 +3864,8 @@ window.BENCHMARK_DATA = {
           281.47392211641585,
           368.22620851652965,
           375.1496581690652,
-          390.7303300585066
+          390.7303300585066,
+          310.86217098236085
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3896,6 +3923,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1824,
+          1744,
           1744,
           1744,
           1744,
@@ -4135,7 +4163,8 @@ window.BENCHMARK_DATA = {
           16430.022748674666,
           15813.943383789063,
           14347.642442975726,
-          16140.547642299107
+          16140.547642299107,
+          16042.55312875601
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4282,6 +4311,7 @@ window.BENCHMARK_DATA = {
           12810,
           12810,
           12809,
+          12810,
           12810
         ],
         "borderColor": "#A052B0",
@@ -4432,7 +4462,8 @@ window.BENCHMARK_DATA = {
           5961.038604191372,
           5638.140141623361,
           5322.830872090658,
-          6168.883078438895
+          6168.883078438895,
+          5973.217189788818
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4444,6 +4475,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          9264,
           9264,
           9264,
           9264,
@@ -4729,7 +4761,8 @@ window.BENCHMARK_DATA = {
           218304.3601888021,
           214744.81535993304,
           129198.15949358259,
-          217470.97340494793
+          217470.97340494793,
+          218774.72528948102
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4876,6 +4909,7 @@ window.BENCHMARK_DATA = {
           15755,
           15755,
           15715,
+          15755,
           15755
         ],
         "borderColor": "#4A6FA5",
@@ -5026,7 +5060,8 @@ window.BENCHMARK_DATA = {
           183.7542817042424,
           184.68403132756552,
           212.91517162322998,
-          188.05162460009257
+          188.05162460009257,
+          188.2104558604104
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5167,6 +5202,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -5323,7 +5359,8 @@ window.BENCHMARK_DATA = {
           172.5266077518463,
           183.65857888971055,
           249.8841670672099,
-          197.79188340504965
+          197.79188340504965,
+          191.52678079264504
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5457,6 +5494,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -6300,6 +6338,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -6438,7 +6482,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -6580,7 +6625,8 @@ window.BENCHMARK_DATA = {
           993.4020859854562,
           929.6422610600789,
           1068.3818026224772,
-          1030.6057369232178
+          1030.6057369232178,
+          887.8394344329834
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -6638,6 +6684,7 @@ window.BENCHMARK_DATA = {
           3912,
           3912,
           3912,
+          3856,
           3856,
           3856,
           3856,
@@ -6877,7 +6924,8 @@ window.BENCHMARK_DATA = {
           215078.13926478795,
           137292.23655598957,
           222843.81227213543,
-          221581.60262044272
+          221581.60262044272,
+          216362.7890249399
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7024,7 +7072,8 @@ window.BENCHMARK_DATA = {
           20860,
           20860,
           20860,
-          20860
+          20860,
+          20732
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7174,7 +7223,8 @@ window.BENCHMARK_DATA = {
           10774.215696207682,
           8241.996712239583,
           11376.473057047526,
-          10838.328082493374
+          10838.328082493374,
+          10467.239834125225
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7321,7 +7371,8 @@ window.BENCHMARK_DATA = {
           13088,
           13144,
           13088,
-          13144
+          13144,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7471,7 +7522,8 @@ window.BENCHMARK_DATA = {
           11994.373861459586,
           8713.17236328125,
           12515.330369059246,
-          11995.857018103967
+          11995.857018103967,
+          11434.532531738281
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7615,6 +7667,7 @@ window.BENCHMARK_DATA = {
           13954,
           13954,
           13948,
+          13954,
           13954,
           13954,
           13954,
@@ -7768,7 +7821,8 @@ window.BENCHMARK_DATA = {
           433.3962153116862,
           361.6999749501546,
           371.3560652366051,
-          377.97282555898033
+          377.97282555898033,
+          356.48597259521483
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7914,6 +7968,7 @@ window.BENCHMARK_DATA = {
           1944,
           1944,
           1944,
+          1216,
           1216,
           1216
         ],
@@ -8745,6 +8800,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -8883,7 +8944,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -9025,7 +9087,8 @@ window.BENCHMARK_DATA = {
           2426.9794085366384,
           2145.9878359476725,
           2594.7716875712076,
-          2514.366647720337
+          2514.366647720337,
+          2446.248736826579
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9083,6 +9146,7 @@ window.BENCHMARK_DATA = {
           4992,
           4992,
           4992,
+          4936,
           4936,
           4936,
           4936,
@@ -9322,7 +9386,8 @@ window.BENCHMARK_DATA = {
           231890.05526297432,
           148502.095703125,
           235962.9451904297,
-          233570.75323016828
+          233570.75323016828,
+          227589.9166015625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9469,7 +9534,8 @@ window.BENCHMARK_DATA = {
           30610,
           30610,
           30610,
-          30610
+          30610,
+          29332
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9619,7 +9685,8 @@ window.BENCHMARK_DATA = {
           26353.29883626302,
           20268.213907877605,
           26359.698075358072,
-          26465.102099609376
+          26465.102099609376,
+          25762.0610874721
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9766,7 +9833,8 @@ window.BENCHMARK_DATA = {
           26193,
           26249,
           26193,
-          26249
+          26249,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9916,7 +9984,8 @@ window.BENCHMARK_DATA = {
           25514.085503133138,
           18887.25319344657,
           26077.244319370813,
-          26019.647005208335
+          26019.647005208335,
+          24261.80876981295
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10060,6 +10129,7 @@ window.BENCHMARK_DATA = {
           33764,
           33764,
           33769,
+          33764,
           33764,
           33764,
           33764,
@@ -10213,7 +10283,8 @@ window.BENCHMARK_DATA = {
           964.6517271677653,
           879.6040610631306,
           926.6890497207642,
-          905.1057422002157
+          905.1057422002157,
+          875.7506234829242
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10359,6 +10430,7 @@ window.BENCHMARK_DATA = {
           3024,
           3024,
           3024,
+          2296,
           2296,
           2296
         ],
@@ -11190,6 +11262,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -11328,7 +11406,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -11470,7 +11549,8 @@ window.BENCHMARK_DATA = {
           434.4567088127136,
           212.41019243460434,
           384.70208899180096,
-          211.90317521095275
+          211.90317521095275,
+          270.75058203477124
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11528,6 +11608,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          1976,
           1976,
           1976,
           1976,
@@ -11767,7 +11848,8 @@ window.BENCHMARK_DATA = {
           140468.62482096354,
           59789.53019205729,
           136219.9261125837,
-          56821.94094613882
+          56821.94094613882,
+          105812.78011648996
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11914,7 +11996,8 @@ window.BENCHMARK_DATA = {
           15098,
           14944,
           14938,
-          14944
+          14944,
+          14938
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12064,7 +12147,8 @@ window.BENCHMARK_DATA = {
           6583.723985944475,
           3419.337837982178,
           6103.677858479818,
-          3272.8637234824046
+          3272.8637234824046,
+          4414.404390970866
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12211,6 +12295,7 @@ window.BENCHMARK_DATA = {
           9280,
           9336,
           9280,
+          9336,
           9336
         ],
         "borderColor": "#5E2750",
@@ -12361,7 +12446,8 @@ window.BENCHMARK_DATA = {
           6100.119237772624,
           3208.354653930664,
           6018.97415415446,
-          3280.725694656372
+          3280.725694656372,
+          4178.331067221506
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12508,6 +12594,7 @@ window.BENCHMARK_DATA = {
           8251,
           8244,
           8251,
+          8244,
           8244
         ],
         "borderColor": "#4A6FA5",
@@ -12658,7 +12745,8 @@ window.BENCHMARK_DATA = {
           685.1664816311428,
           288.5448660509927,
           227.13809231122335,
-          142.18819823265076
+          142.18819823265076,
+          186.5446323431455
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12804,6 +12892,7 @@ window.BENCHMARK_DATA = {
           4088,
           4088,
           4088,
+          928,
           928,
           928
         ],
@@ -12955,7 +13044,8 @@ window.BENCHMARK_DATA = {
           584.5514849980672,
           299.2846703529358,
           523.9500556945801,
-          303.135833467756
+          303.135833467756,
+          384.28345802852084
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -13089,6 +13179,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -13932,6 +14023,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -14070,7 +14167,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -14212,7 +14310,8 @@ window.BENCHMARK_DATA = {
           852.4050295511881,
           515.2559012004307,
           812.2239358901977,
-          481.32817428452626
+          481.32817428452626,
+          496.6981904665629
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14270,6 +14369,7 @@ window.BENCHMARK_DATA = {
           2304,
           2304,
           2304,
+          2192,
           2192,
           2192,
           2192,
@@ -14509,7 +14609,8 @@ window.BENCHMARK_DATA = {
           145622.71100260416,
           61350.14003092448,
           142301.8680889423,
-          59778.31803792318
+          59778.31803792318,
+          109712.76569475446
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14656,7 +14757,8 @@ window.BENCHMARK_DATA = {
           19089,
           18929,
           18930,
-          18929
+          18929,
+          18930
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14806,7 +14908,8 @@ window.BENCHMARK_DATA = {
           9610.105205281576,
           4737.655273946127,
           8844.841466631207,
-          4929.746294839041
+          4929.746294839041,
+          6952.610694885254
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14953,6 +15056,7 @@ window.BENCHMARK_DATA = {
           11800,
           12360,
           11800,
+          12360,
           12360
         ],
         "borderColor": "#5E2750",
@@ -15103,7 +15207,8 @@ window.BENCHMARK_DATA = {
           9677.690435791015,
           4954.9877031766455,
           9441.163428673377,
-          5403.319640568325
+          5403.319640568325,
+          7235.375261942546
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15246,6 +15351,7 @@ window.BENCHMARK_DATA = {
           15786,
           15780,
           15780,
+          15786,
           15786,
           15786,
           15786,
@@ -15400,7 +15506,8 @@ window.BENCHMARK_DATA = {
           1113.1478907721382,
           614.7776677449544,
           563.1869495391845,
-          346.7239102045695
+          346.7239102045695,
+          467.3373125712077
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15546,6 +15653,7 @@ window.BENCHMARK_DATA = {
           4952,
           4952,
           4952,
+          1792,
           1792,
           1792
         ],
@@ -15697,7 +15805,8 @@ window.BENCHMARK_DATA = {
           1828.9768666585287,
           1135.3192704518635,
           1675.1412406921386,
-          1015.6500691005161
+          1015.6500691005161,
+          1136.0098737569956
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15831,6 +15940,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -16674,6 +16784,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -16812,7 +16928,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -16954,7 +17071,8 @@ window.BENCHMARK_DATA = {
           314.6702938079834,
           584.6709774017334,
           346.75960775784085,
-          531.6261902491252
+          531.6261902491252,
+          328.26259253819785
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -17012,6 +17130,7 @@ window.BENCHMARK_DATA = {
           2528,
           2528,
           2528,
+          2472,
           2472,
           2472,
           2472,
@@ -17251,7 +17370,8 @@ window.BENCHMARK_DATA = {
           5351.167412894113,
           12105.210729980468,
           5983.431612287249,
-          12244.539057804988
+          12244.539057804988,
+          6521.734087262835
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17398,7 +17518,8 @@ window.BENCHMARK_DATA = {
           10640,
           10641,
           10640,
-          10641
+          10641,
+          10752
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17548,7 +17669,8 @@ window.BENCHMARK_DATA = {
           3633.338193159837,
           7832.390553792317,
           4275.46047261556,
-          7684.468739827474
+          7684.468739827474,
+          4570.025854383196
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17560,6 +17682,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          11720,
           11720,
           11720,
           11720,
@@ -17845,7 +17968,8 @@ window.BENCHMARK_DATA = {
           3935.0999331156413,
           8715.286311848959,
           4359.652600606282,
-          8427.412220881535
+          8427.412220881535,
+          4442.923066275461
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17987,6 +18111,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11518,
+          11508,
           11508,
           11508,
           11508,
@@ -18142,7 +18267,8 @@ window.BENCHMARK_DATA = {
           128.25238607610976,
           244.2816768033164,
           123.77619292185857,
-          173.75094095298223
+          173.75094095298223,
+          123.17533272107443
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18288,6 +18414,7 @@ window.BENCHMARK_DATA = {
           688,
           688,
           688,
+          664,
           664,
           664
         ],
@@ -18439,7 +18566,8 @@ window.BENCHMARK_DATA = {
           276.06417267663136,
           493.0343417485555,
           320.858243338267,
-          443.76021982828775
+          443.76021982828775,
+          321.68910908699036
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18573,6 +18701,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -19416,6 +19545,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -19554,7 +19689,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -19696,7 +19832,8 @@ window.BENCHMARK_DATA = {
           714.5146207128253,
           1095.7922727039881,
           773.6297722596389,
-          1060.426543299357
+          1060.426543299357,
+          794.190367111793
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19754,6 +19891,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          2976,
           2976,
           2976,
           2976,
@@ -19993,7 +20131,8 @@ window.BENCHMARK_DATA = {
           9197.649333699545,
           19536.67696271624,
           9699.577033996582,
-          19140.495202636717
+          19140.495202636717,
+          9260.446082560222
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20140,7 +20279,8 @@ window.BENCHMARK_DATA = {
           18720,
           18721,
           18720,
-          18721
+          18721,
+          18833
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20290,7 +20430,8 @@ window.BENCHMARK_DATA = {
           8871.381338936942,
           17988.048619196965,
           9208.641650608608,
-          17713.676953996932
+          17713.676953996932,
+          9488.248352050781
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20411,6 +20552,7 @@ window.BENCHMARK_DATA = {
           21584,
           21585,
           21584,
+          21585,
           21585,
           21585,
           21585,
@@ -20587,7 +20729,8 @@ window.BENCHMARK_DATA = {
           9338.801031930107,
           20860.170492989677,
           10412.929436316857,
-          20403.65737101237
+          20403.65737101237,
+          9624.33281816755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20729,6 +20872,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           31543,
+          31546,
           31546,
           31546,
           31546,
@@ -20884,7 +21028,8 @@ window.BENCHMARK_DATA = {
           272.14240639550343,
           399.09827922185264,
           283.8434059069707,
-          352.98852332433063
+          352.98852332433063,
+          288.4742444923946
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21030,6 +21175,7 @@ window.BENCHMARK_DATA = {
           976,
           976,
           976,
+          952,
           952,
           952
         ],
@@ -21181,7 +21327,8 @@ window.BENCHMARK_DATA = {
           1125.9650036948067,
           1682.6861296335856,
           1240.4559319814045,
-          1560.8259923299154
+          1560.8259923299154,
+          1275.211557261149
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21315,6 +21462,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -22158,6 +22306,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Oct 27 22:18:58 2026 \u002B0000",
         "message": "chore: Bump Microsoft.Testing.Extensions.TrxReport from 2.5.1 to 2.5.2 (#914)"
+      },
+      {
+        "sha": "54664621f743d0e0a1a7760e38d76308d15e689d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Oct 30 00:21:54 2026 \u002B0100",
+        "message": "ci: disable the mutation tests (#916)"
       }
     ],
     "labels": [
@@ -22296,7 +22450,8 @@ window.BENCHMARK_DATA = {
       "6347ac4f",
       "7560c9f1",
       "d1366baf",
-      "8a369c45"
+      "8a369c45",
+      "54664621"
     ],
     "datasets": [
       {
@@ -22438,7 +22593,8 @@ window.BENCHMARK_DATA = {
           10.124978699783485,
           18.212044690663998,
           18.21402977705002,
-          25.80234584212303
+          25.80234584212303,
+          20.236968616644543
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22496,6 +22652,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -22735,7 +22892,8 @@ window.BENCHMARK_DATA = {
           72.60238332407815,
           118.12905345644269,
           119.10300146738687,
-          149.85618489129203
+          149.85618489129203,
+          128.4730564015252
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22876,6 +23034,7 @@ window.BENCHMARK_DATA = {
           2240,
           2240,
           2240,
+          576,
           576,
           576,
           576,
@@ -23032,7 +23191,8 @@ window.BENCHMARK_DATA = {
           22.09323244492213,
           40.92824544906616,
           36.51236878633499,
-          47.92612161806652
+          47.92612161806652,
+          39.94624483982722
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -23166,6 +23326,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -23329,7 +23490,8 @@ window.BENCHMARK_DATA = {
           794.5232670647757,
           1408.0130983988445,
           1477.092546335856,
-          1232.7154564176287
+          1232.7154564176287,
+          1459.7881364822388
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23341,6 +23503,7 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
+          2096,
           2096,
           2096,
           2096,
@@ -23626,7 +23789,8 @@ window.BENCHMARK_DATA = {
           1137.030536778768,
           2165.328347887312,
           2018.6804331265962,
-          1989.6136374840369
+          1989.6136374840369,
+          2103.234882100423
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23638,6 +23802,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          5048,
           5048,
           5048,
           5048,
@@ -23923,7 +24088,8 @@ window.BENCHMARK_DATA = {
           1050.300341161092,
           1938.0987223943075,
           1911.6066930135091,
-          1485.15569795881
+          1485.15569795881,
+          1975.413212639945
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24070,7 +24236,8 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2763,
-          2759
+          2759,
+          2763
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
