@@ -35,6 +35,36 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
+		public async Task GetMatching_WithAccess_ShouldNotBlockOtherThreadsWhileMatching()
+		{
+			MockSetups.IndexerSetups setups = new();
+			bool addedWhileMatching = false;
+			setups.Add(new FakeIndexerSetup(true, () => addedWhileMatching = AddFromOtherThread(setups)));
+
+			_ = setups.GetMatching<FakeIndexerSetup>(new FakeIndexerAccess());
+
+			await That(addedWhileMatching).IsTrue()
+				.Because("a matcher runs user code, so it must not hold the lock that other threads need to access the setups");
+		}
+
+		[Test]
+		public async Task GetMatching_WithPredicate_ShouldNotBlockOtherThreadsWhileMatching()
+		{
+			MockSetups.IndexerSetups setups = new();
+			setups.Add(new FakeIndexerSetup(true));
+			bool addedWhileMatching = false;
+
+			_ = setups.GetMatching<FakeIndexerSetup>(_ =>
+			{
+				addedWhileMatching = AddFromOtherThread(setups);
+				return true;
+			});
+
+			await That(addedWhileMatching).IsTrue()
+				.Because("the predicate runs user code, so it must not hold the lock that other threads need to access the setups");
+		}
+
+		[Test]
 		public async Task InitializeStorageCount_OnFreshInstance_ShouldAllocateValueStoragesArrayWithRequestedLength()
 		{
 			MockSetups.IndexerSetups setups = new();
@@ -107,6 +137,9 @@ public partial class MockSetupsTests
 
 			await That(setups.Count).IsEqualTo(200);
 		}
+
+		private static bool AddFromOtherThread(MockSetups.IndexerSetups setups)
+			=> Task.Run(() => setups.Add(new FakeIndexerSetup(false))).Wait(TimeSpan.FromSeconds(5));
 
 		private static Array? GetValueStoragesField(MockSetups.IndexerSetups setups)
 		{
