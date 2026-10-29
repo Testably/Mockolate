@@ -25,6 +25,7 @@
 		<File Path=".editorconfig" />
 		<File Path=".gitattributes" />
 		<File Path=".gitignore" />
+		<File Path="AGENTS.md" />
 		<File Path="CODE_OF_CONDUCT.md" />
 		<File Path="CONTRIBUTING.md" />
 		<File Path="Directory.Build.props" />
