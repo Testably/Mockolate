@@ -26,7 +26,9 @@ namespace Build;
 
 partial class Build
 {
-	private static readonly bool DisableMutationTests = false;
+	// Stryker's runner for the Microsoft.Testing.Platform leaves mutants pending, so the mutation dashboard rejects the
+	// report and the build fails.
+	private static readonly bool DisableMutationTests = true;
 	private const long MaxMutationReportSize = 100 * 1024 * 1024;
 
 	Dictionary<Project, Project[]> MutationTestProjects => new()
