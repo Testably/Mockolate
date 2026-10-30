@@ -1,35 +1,43 @@
+---
+description: Limit Mockolate verifications to the interactions within a scope, or clear recorded interactions.
+---
+
 # Monitor interactions
 
-Mockolate tracks all interactions with mocks on the mock object. To only track interactions within a given scope, you
-can use a `MockMonitor<T>`:
+A mock records all interactions from the moment it is created. To only verify the interactions within a given scope,
+use a monitor:
 
 ```csharp
-var sut = IChocolateDispenser.CreateMock();
-var monitor = sut.Mock.Monitor();
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+MockMonitor<Mock.IMockVerifyForIChocolateDispenser> monitor = dispenser.Mock.Monitor();
 
-sut.Dispense("Dark", 1); // Not monitored
+dispenser.Dispense("Dark", 1); // Not monitored
 using (monitor.Run())
 {
-    sut.Dispense("Dark", 2); // Monitored
+    dispenser.Dispense("Dark", 2); // Monitored
 }
-sut.Dispense("Dark", 3); // Not monitored
+dispenser.Dispense("Dark", 3); // Not monitored
 
-// Verifications on the monitor only count interactions during the lifetime scope of the `IDisposable`
-monitor.Verify.Dispense(It.Is("Dark"), It.IsAny<int>()).Once();
+// Verifications on the monitor only count the interactions while it was running
+monitor.Verify.Dispense("Dark", It.IsAny<int>()).Once();
 ```
+
+`MockMonitor<T>` lives in the `Mockolate.Monitor` namespace. You can call `monitor.Run()` multiple times; each run
+adds to the monitored interactions.
 
 ## Clear all interactions
 
-For simpler scenarios you can directly clear all recorded interactions on a mock using `ClearAllInteractions` on the
-setup:
+For simpler scenarios, you can clear all recorded interactions of a mock with `ClearAllInteractions()`:
 
 ```csharp
-IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
 
-sut.Dispense("Dark", 1);
+dispenser.Dispense("Dark", 1);
 // Clears all previously recorded interactions
-sut.Mock.ClearAllInteractions();
-sut.Dispense("Dark", 2);
+dispenser.Mock.ClearAllInteractions();
+dispenser.Dispense("Dark", 2);
 
-sut.Mock.Verify.Dispense(It.Is("Dark"), It.IsAny<int>()).Once();
+dispenser.Mock.Verify.Dispense("Dark", It.IsAny<int>()).Once();
 ```
+
+Setups are not affected by `ClearAllInteractions()`.

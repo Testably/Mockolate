@@ -1,64 +1,73 @@
+---
+description: Define multiple sets of setups on a Mockolate mock and switch between them at runtime.
+---
+
 # Scenarios
 
 Scenarios let you define multiple sets of setups on a single mock and switch between them at runtime. This is useful
-when the collaborator behaves differently depending on its internal state &mdash; for example a chocolate dispenser
-that starts empty, becomes loaded after `Refill(...)`, and runs out of stock after dispensing.
+when the collaborator behaves differently depending on its internal state, for example a chocolate dispenser that
+starts empty, becomes loaded after `Refill(…)`, and runs out of stock after dispensing:
 
-A mock always has an *active scenario* (the empty string `""` by default). When a member is accessed, Mockolate looks
-for a matching setup in the active scenario first, then falls back to the default scope.
+```csharp
+public interface IChocolateDispenser
+{
+    bool Dispense(string type, int amount);
+    bool Refill(int amount);
+}
+```
+
+A mock always has an *active scenario* (the empty string `""` by default). When a member is called, Mockolate looks
+for a matching setup in the active scenario first, and then in the default setups.
 
 ## Defining scenarios
 
-Use `InScenario(name)` to scope setups to a named scenario. It returns a scope whose `Setup` property mirrors
-`sut.Mock.Setup` but targets the scenario's bucket:
+Use `InScenario(name)` to scope setups to a named scenario. Its `Setup` property mirrors `dispenser.Mock.Setup`, but
+the setups only apply while the scenario is active:
 
 ```csharp
-sut.Mock.InScenario("empty").Setup.Dispense(It.IsAny<string>(), It.IsAny<int>())
+dispenser.Mock.InScenario("empty").Setup.Dispense(It.IsAny<string>(), It.IsAny<int>())
     .Throws<OutOfStockException>();
-sut.Mock.InScenario("loaded").Setup.Dispense(It.IsAny<string>(), It.IsAny<int>())
+dispenser.Mock.InScenario("loaded").Setup.Dispense(It.IsAny<string>(), It.IsAny<int>())
     .Returns(true);
 ```
 
-A callback overload batches multiple setups into the same scenario:
+A callback overload groups multiple setups of the same scenario:
 
 ```csharp
-sut.Mock.InScenario("loaded", scope =>
+dispenser.Mock.InScenario("loaded", scope =>
 {
     scope.Setup.Dispense(It.IsAny<string>(), It.IsAny<int>()).Returns(true);
     scope.Setup.Refill(It.IsAny<int>()).Returns(true);
 });
 ```
 
-Setups registered via `InScenario` do **not** leak into the default scope.
-
 ## Switching scenarios
 
-Chain `.TransitionTo(name)` on any method, property, indexer, or event subscription/unsubscription setup to change
-the active scenario when the setup fires. The transition runs as a parallel side-effect &mdash; it does not replace
-the return value or throw behaviour.
+Chain `.TransitionTo(name)` on any method, property, indexer or event subscription setup to change the active
+scenario whenever the setup is used. The transition happens in addition to the return value or exception of the
+setup:
 
 ```csharp
-sut.Mock.InScenario("empty")
+dispenser.Mock.InScenario("empty")
     .Setup.Refill(It.IsAny<int>())
     .Returns(true)
     .TransitionTo("loaded");
 
-sut.Mock.InScenario("loaded")
+dispenser.Mock.InScenario("loaded")
     .Setup.Dispense(It.IsAny<string>(), It.IsAny<int>())
     .Returns(true)
     .TransitionTo("empty");
 ```
 
-You can also change the active scenario manually via `sut.Mock.TransitionTo("loaded");`, which is useful for
-arranging the starting state.
+To set the starting state, change the active scenario directly with `dispenser.Mock.TransitionTo("empty");`.
 
-### Resolution rules
+## Resolution rules
 
-When dispatching a call, Mockolate looks up setups in this order:
+When the mock is called, Mockolate looks for a matching setup in this order:
 
-1. The active scenario's bucket (if non-empty).
-2. The default bucket (setups registered via `sut.Mock.Setup.*`).
-3. The mock's default behaviour.
+1. The setups of the active scenario.
+2. The default setups (registered via `dispenser.Mock.Setup`).
+3. The mock's [default behavior](/Mockolate/core-concepts/#what-happens-when-the-mock-is-called).
 
-Scenario setups add to, rather than replace, the default scope &mdash; register catch-alls in the default scope and
-override specific members per scenario.
+Scenario setups add to the default setups instead of replacing them: register catch-all setups in the default scope
+and override specific members per scenario. Setups registered via `InScenario` never apply outside their scenario.

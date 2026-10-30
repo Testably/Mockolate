@@ -1,0 +1,101 @@
+---
+description: Install Mockolate and write your first test with a mock.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Getting started
+
+## Requirements
+
+Mockolate generates its mocks with C# 14 extension members, so you need the
+[.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) to build your tests.
+Your test projects can still target any supported framework: .NET Standard 2.0, .NET 8, .NET 10 or
+.NET Framework 4.8.
+
+:::note
+
+If your test project pins `<LangVersion>`, it must be `14` or later (or `latest`).
+
+:::
+
+## Install the package
+
+<Tabs groupId="install">
+<TabItem value="cli" label=".NET CLI" default>
+
+```powershell
+dotnet add package Mockolate
+```
+
+</TabItem>
+<TabItem value="packagereference" label="PackageReference">
+
+```xml
+<PackageReference Include="Mockolate" Version="*" />
+```
+
+Replace `*` with the [latest version](https://www.nuget.org/packages/Mockolate).
+
+</TabItem>
+</Tabs>
+
+Mockolate works with every test framework (xUnit, NUnit, MSTest, TUnit, …). The package contains the source generator
+and the analyzers, so there is nothing else to configure.
+
+## Write your first test
+
+Suppose your code depends on a chocolate dispenser:
+
+```csharp title="Production code"
+public interface IChocolateDispenser
+{
+    bool Dispense(string type, int amount);
+}
+
+public class VendingMachine(IChocolateDispenser dispenser)
+{
+    public string Buy(string type, int amount)
+        => dispenser.Dispense(type, amount) ? "Enjoy!" : "Sold out";
+}
+```
+
+To test `VendingMachine` without a real dispenser, create a mock of `IChocolateDispenser`, tell it how to behave, and
+check afterwards how it was used:
+
+```csharp title="Test"
+using Mockolate;
+using Mockolate.Verify;
+
+// Arrange: create the mock and set up its behavior
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
+VendingMachine sut = new VendingMachine(dispenser);
+
+// Act
+string result = sut.Buy("Dark", 4);
+
+// Assert: result is "Enjoy!", and the dispenser was called exactly once
+dispenser.Mock.Verify.Dispense("Dark", 4).Once();
+```
+
+- `CreateMock()` is generated for every type you mock, so IntelliSense shows it as soon as you type `IChocolateDispenser.`.
+- Every mock has a `Mock` property that gives access to `Setup`, `Verify` and `Raise`.
+- `It.IsAny<int>()` is a [parameter matcher](06-parameter-matching.md). Plain values like `"Dark"` match by equality.
+- `.Once()` throws a `MockVerificationException` when the call count does not match. It lives in the
+  `Mockolate.Verify` namespace.
+
+:::tip
+
+If you use [aweXpect](https://docs.testably.org/aweXpect), the
+[aweXpect.Mockolate](https://docs.testably.org/aweXpect/extensions/aweXpect.Mockolate) extension lets you write
+verifications as awaitable expectations: `await That(dispenser.Mock.Verify.Dispense("Dark", 4)).Once();`.
+
+:::
+
+## Next steps
+
+- [Core concepts](/Mockolate/core-concepts/) explains how mocks, setups and verifications fit together.
+- [A complete example](core-concepts/01-complete-example.md) combines properties, indexers, events and methods in one test.
+- The [cheat sheet](core-concepts/02-cheat-sheet.md) lists the most common calls on one page.

@@ -1,0 +1,197 @@
+---
+description: Migrate from Moq, NSubstitute or FakeItEasy to Mockolate, automatically or with a side-by-side translation table.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Migrating to Mockolate
+
+Coming from **[Moq](https://github.com/devlooped/moq)**, **[NSubstitute](https://nsubstitute.github.io/)** or
+**[FakeItEasy](https://fakeiteasy.github.io/)**? There are two ways to move your tests over:
+
+- **Automatically**: for Moq and NSubstitute, the [Mockolate.Migration](11-migration.md) package reports every mock
+  it can migrate and rewrites it with a code fix.
+- **By hand**: this page shows the same test in each library and translates the most common calls.
+
+Select the library you know; the choice applies to all examples on this page.
+
+## Side by side
+
+All examples use this interface:
+
+```csharp
+public delegate void ChocolateDispensedDelegate(string type, int amount);
+public interface IChocolateDispenser
+{
+    int this[string type] { get; set; }
+    int TotalDispensed { get; set; }
+    bool Dispense(string type, int amount);
+    event ChocolateDispensedDelegate ChocolateDispensed;
+}
+```
+
+<Tabs groupId="mocking-library">
+<TabItem value="moq" label="Moq" default>
+
+```csharp title="Moq"
+// Setup
+Mock<IChocolateDispenser> mock = new Mock<IChocolateDispenser>();
+mock.Setup(x => x.Dispense("Dark", 2)).Returns(true);
+mock.SetupGet(x => x["Dark"]).Returns(10);
+
+// Usage
+int available = mock.Object["Dark"];
+bool success = mock.Object.Dispense("Dark", 2);
+mock.Raise(m => m.ChocolateDispensed += null, "Dark", 2);
+
+// Verification
+mock.Verify(x => x.Dispense("Dark", 2), Times.Once());
+mock.VerifyGet(x => x["Dark"], Times.Once());
+```
+
+</TabItem>
+<TabItem value="nsubstitute" label="NSubstitute">
+
+```csharp title="NSubstitute"
+// Setup
+IChocolateDispenser substitute = Substitute.For<IChocolateDispenser>();
+substitute.Dispense("Dark", 2).Returns(true);
+substitute["Dark"].Returns(10);
+
+// Usage
+int available = substitute["Dark"];
+bool success = substitute.Dispense("Dark", 2);
+substitute.ChocolateDispensed += Raise.Event<ChocolateDispensedDelegate>("Dark", 2);
+
+// Verification
+substitute.Received(1).Dispense("Dark", 2);
+_ = substitute.Received(1)["Dark"];
+```
+
+</TabItem>
+<TabItem value="fakeiteasy" label="FakeItEasy">
+
+```csharp title="FakeItEasy"
+// Setup
+IChocolateDispenser fake = A.Fake<IChocolateDispenser>();
+A.CallTo(() => fake.Dispense("Dark", 2)).Returns(true);
+A.CallTo(() => fake["Dark"]).Returns(10);
+
+// Usage
+int available = fake["Dark"];
+bool success = fake.Dispense("Dark", 2);
+fake.ChocolateDispensed += Raise.FreeForm.With("Dark", 2);
+
+// Verification
+A.CallTo(() => fake.Dispense("Dark", 2)).MustHaveHappenedOnceExactly();
+A.CallTo(() => fake["Dark"]).MustHaveHappenedOnceExactly();
+```
+
+</TabItem>
+</Tabs>
+
+```csharp title="Mockolate"
+// Setup
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+dispenser.Mock.Setup.Dispense("Dark", 2).Returns(true);
+dispenser.Mock.Setup["Dark"].Returns(10);
+
+// Usage
+int available = dispenser["Dark"];
+bool success = dispenser.Dispense("Dark", 2);
+dispenser.Mock.Raise.ChocolateDispensed("Dark", 2);
+
+// Verification
+dispenser.Mock.Verify.Dispense("Dark", 2).Once();
+dispenser.Mock.Verify["Dark"].Got().Once();
+```
+
+## Translation table
+
+<Tabs groupId="mocking-library">
+<TabItem value="moq" label="Moq" default>
+
+| Moq                                                   | Mockolate                                                       |
+|-------------------------------------------------------|-----------------------------------------------------------------|
+| `new Mock<T>()`                                       | `T.CreateMock()`                                                |
+| `mock.Object`                                         | the mock itself                                                 |
+| `new Mock<T>(MockBehavior.Strict)`                    | `T.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup())`     |
+| `new Mock<T>(arg1, arg2)`                             | `T.CreateMock([arg1, arg2])`                                    |
+| `mock.As<IOther>()`                                   | `T.CreateMock().Implementing<IOther>()`                         |
+| `mock.CallBase = true`                                | the default for class mocks; turn it off with `SkippingBaseClass()` |
+| `It.IsAny<T>()`                                       | `It.IsAny<T>()`                                                 |
+| `It.Is<T>(x => …)`                                    | `It.Satisfies<T>(x => …)`                                       |
+| `It.IsIn(a, b)`, `It.IsInRange(a, b, Range.Inclusive)` | `It.IsOneOf(a, b)`, `It.IsInRange(a, b)`                       |
+| `It.IsRegex(pattern)`                                 | `It.Matches(pattern).AsRegex()`                                 |
+| `.Returns(…)`, `.ReturnsAsync(…)`, `.Throws<T>()`     | `.Returns(…)`, `.ReturnsAsync(…)`, `.Throws<T>()`               |
+| `SetupSequence(…).Returns(a).Returns(b)`              | `Setup.X(…).Returns(a).Returns(b)`                              |
+| `.Callback(…)`                                        | `.Do(…)`                                                        |
+| `mock.SetupProperty(x => x.P, 42)`                    | `Mock.Setup.P.InitializeWith(42)`                               |
+| `mock.SetupGet(x => x.P).Returns(42)`                 | `Mock.Setup.P.Returns(42)`                                      |
+| `mock.Protected().Setup<bool>("Name", …)`             | `Mock.SetupProtected.Name(…)`                                   |
+| `mock.Raise(x => x.E += null, …)`                     | `Mock.Raise.E(…)`                                               |
+| `mock.Verify(x => x.M(…), Times.Once())`              | `Mock.Verify.M(…).Once()`                                       |
+| `Times.Never()`, `Times.AtLeastOnce()`, `Times.Exactly(n)` | `.Never()`, `.AtLeastOnce()`, `.Exactly(n)`                |
+| `mock.VerifyGet(x => x.P)`, `mock.VerifySet(x => x.P = 42)` | `Mock.Verify.P.Got()`, `Mock.Verify.P.Set(42)`            |
+| `mock.VerifyNoOtherCalls()`                           | `Mock.VerifyThatAllInteractionsAreVerified()` (returns a `bool`) |
+
+</TabItem>
+<TabItem value="nsubstitute" label="NSubstitute">
+
+| NSubstitute                                           | Mockolate                                                       |
+|-------------------------------------------------------|-----------------------------------------------------------------|
+| `Substitute.For<T>()`                                 | `T.CreateMock()`                                                |
+| `Substitute.ForPartsOf<T>()`                          | `T.CreateMock()`; class mocks call the base class by default    |
+| `Substitute.For<T, IOther>()`                         | `T.CreateMock().Implementing<IOther>()`                         |
+| `Arg.Any<T>()`                                        | `It.IsAny<T>()`                                                 |
+| `Arg.Is<T>(x => …)`                                   | `It.Satisfies<T>(x => …)`                                       |
+| `Arg.Do<T>(x => …)`                                   | `It.IsAny<T>().Do(x => …)`                                      |
+| `.Returns(a)`                                         | `Mock.Setup.M(…).Returns(a)`                                    |
+| `.Returns(a, b)`                                      | `.Returns(a).Returns(b).Forever()`                              |
+| `.Returns(callInfo => …)`                             | `.Returns((arg1, arg2) => …)`                                   |
+| `.Throws(exception)`                                  | `.Throws(exception)`                                            |
+| `.When(x => x.M(…)).Do(…)`, `.AndDoes(…)`             | `Mock.Setup.M(…).Do(…)`                                         |
+| `Raise.Event<TDelegate>(…)`                           | `Mock.Raise.E(…)`                                               |
+| `Received(n)`                                         | `.Exactly(n)`                                                   |
+| `Received()`, `DidNotReceive()`                       | `.AtLeastOnce()`, `.Never()`                                    |
+| `Received.InOrder(…)`                                 | `.Then(…)`                                                      |
+| `ClearReceivedCalls()`                                | `Mock.ClearAllInteractions()`                                   |
+
+</TabItem>
+<TabItem value="fakeiteasy" label="FakeItEasy">
+
+| FakeItEasy                                            | Mockolate                                                       |
+|-------------------------------------------------------|-----------------------------------------------------------------|
+| `A.Fake<T>()`                                         | `T.CreateMock()`                                                |
+| `A.Fake<T>(o => o.Strict())`                          | `T.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup())`     |
+| `A.Fake<T>(o => o.Wrapping(real))`                    | `T.CreateMock().Wrapping(real)`                                 |
+| `A.Fake<T>(o => o.Implements<IOther>())`              | `T.CreateMock().Implementing<IOther>()`                         |
+| `A<T>._`, `A<T>.Ignored`                              | `It.IsAny<T>()`                                                 |
+| `A<T>.That.Matches(x => …)`                           | `It.Satisfies<T>(x => …)`                                       |
+| `A.CallTo(() => fake.M(…)).Returns(a)`                | `Mock.Setup.M(…).Returns(a)`                                    |
+| `.ReturnsLazily((T1 a, T2 b) => …)`                   | `.Returns((a, b) => …)`                                         |
+| `.ReturnsNextFromSequence(a, b)`                      | `.Returns(a).Returns(b)`                                        |
+| `.Throws<T>()`                                        | `.Throws<T>()`                                                  |
+| `.Invokes(…)`                                         | `.Do(…)`                                                        |
+| `.CallsBaseMethod()`                                  | the default for class mocks                                     |
+| `Raise.FreeForm.With(…)`                              | `Mock.Raise.E(…)`                                               |
+| `MustHaveHappenedOnceExactly()`                       | `.Once()`                                                       |
+| `MustHaveHappened()`, `MustNotHaveHappened()`         | `.AtLeastOnce()`, `.Never()`                                    |
+| `MustHaveHappened(n, Times.Exactly)`                  | `.Exactly(n)`                                                   |
+| `.MustHaveHappened().Then(…)`                         | `.Then(…)`                                                      |
+
+</TabItem>
+</Tabs>
+
+:::note[Differences to watch out for]
+
+- A `Returns`/`Throws` [sequence](../setup/01-methods.md#sequences) starts over after its last entry. Mark the last
+  entry with `.Forever()` to keep repeating it instead.
+- Class mocks call the base class implementation by default, even when a setup matches. See
+  [Core concepts](/Mockolate/core-concepts/#what-happens-when-the-mock-is-called).
+- A later setup with the same arguments replaces an earlier one, so chain everything that belongs to one setup.
+
+:::
+
+For the complete Mockolate syntax on one page, see the [cheat sheet](../core-concepts/02-cheat-sheet.md).

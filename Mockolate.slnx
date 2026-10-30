@@ -48,16 +48,26 @@
 	</Folder>
 	<Folder Name="/_/Docs/">
 		<File Path="Docs/pages/00-index.md" />
-		<File Path="Docs/pages/01-create-mocks.md" />
-		<File Path="Docs/pages/03-mock-events.md" />
-		<File Path="Docs/pages/04-verify-interactions.md" />
-		<File Path="Docs/pages/07-complete-example.md" />
-		<File Path="Docs/pages/08-analyzers.md" />
-		<File Path="Docs/pages/09-comparison.md" />
-		<File Path="Docs/pages/10-benchmarks.mdx" />
-		<File Path="Docs/pages/11-migration.md" />
+		<File Path="Docs/pages/01-getting-started.mdx" />
+		<File Path="Docs/pages/04-create-mocks.md" />
+		<File Path="Docs/pages/06-parameter-matching.md" />
+		<File Path="Docs/pages/07-verify-interactions.md" />
+		<File Path="Docs/pages/10-analyzers.md" />
+		<File Path="Docs/pages/12-benchmarks.mdx" />
+	</Folder>
+	<Folder Name="/_/Docs/core-concepts/">
+		<File Path="Docs/pages/core-concepts/00-index.md" />
+		<File Path="Docs/pages/core-concepts/01-complete-example.md" />
+		<File Path="Docs/pages/core-concepts/02-cheat-sheet.md" />
+		<File Path="Docs/pages/core-concepts/_category_.json" />
+	</Folder>
+	<Folder Name="/_/Docs/migration/">
+		<File Path="Docs/pages/migration/00-index.mdx" />
+		<File Path="Docs/pages/migration/11-migration.md" />
+		<File Path="Docs/pages/migration/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Docs/advanced-features/">
+		<File Path="Docs/pages/advanced-features/00-index.md" />
 		<File Path="Docs/pages/advanced-features/01-protected-members.md" />
 		<File Path="Docs/pages/advanced-features/02-static-interface-members.md" />
 		<File Path="Docs/pages/advanced-features/03-advanced-callback-features.md" />
@@ -67,13 +77,15 @@
 		<File Path="Docs/pages/advanced-features/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Docs/setup/">
-		<File Path="Docs/pages/setup/01-properties.md" />
-		<File Path="Docs/pages/setup/02-methods.md" />
+		<File Path="Docs/pages/setup/00-index.md" />
+		<File Path="Docs/pages/setup/01-methods.md" />
+		<File Path="Docs/pages/setup/02-properties.md" />
 		<File Path="Docs/pages/setup/03-indexers.md" />
-		<File Path="Docs/pages/setup/04-parameter-matching.md" />
+		<File Path="Docs/pages/setup/04-events.md" />
 		<File Path="Docs/pages/setup/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Docs/special-types/">
+		<File Path="Docs/pages/special-types/00-index.md" />
 		<File Path="Docs/pages/special-types/01-httpclient.md" />
 		<File Path="Docs/pages/special-types/02-delegates.md" />
 		<File Path="Docs/pages/special-types/_category_.json" />

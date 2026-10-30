@@ -1,25 +1,38 @@
+---
+description: Check that all interactions with a Mockolate mock were verified and all setups were used.
+---
+
 # Check for unexpected interactions
 
-## That all interactions are verified
+## All interactions are verified
 
-You can check if all interactions with the mock have been verified using `VerifyThatAllInteractionsAreVerified`:
-
-```csharp
-// Returns true if all interactions have been verified before
-bool allVerified = sut.Mock.VerifyThatAllInteractionsAreVerified();
-```
-
-This is useful for ensuring that your test covers all interactions and that no unexpected calls were made.
-If any interaction was not verified, this method returns `false`.
-
-## That all setups are used
-
-You can check if all registered setups on the mock have been used with `VerifyThatAllSetupsAreUsed`:
+`VerifyThatAllInteractionsAreVerified()` returns `true` when every recorded interaction was matched by at least one
+verification. Use it to make sure that the code under test made no calls you didn't expect:
 
 ```csharp
-// Returns true if all setups have been used
-bool allUsed = sut.Mock.VerifyThatAllSetupsAreUsed();
+dispenser.Dispense("Dark", 1);
+dispenser.Mock.Verify.Dispense("Dark", 1).Once();
+
+bool allVerified = dispenser.Mock.VerifyThatAllInteractionsAreVerified();  // true
 ```
 
-This is useful for ensuring that your test setup and test execution match.
-If any setup was not used, this method returns `false`.
+## All setups are used
+
+`VerifyThatAllSetupsAreUsed()` returns `true` when every setup was matched by at least one interaction. Use it to make
+sure that your test setup and the test execution match:
+
+```csharp
+dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
+dispenser.Mock.Setup.Dispense("Milk", It.IsAny<int>()).Returns(true);
+
+dispenser.Dispense("Dark", 1);
+
+bool allUsed = dispenser.Mock.VerifyThatAllSetupsAreUsed();  // false, the "Milk" setup was not used
+```
+
+:::note
+
+Both methods return a `bool` instead of throwing, so assert the result with your test framework, for example
+`Assert.True(allVerified)`.
+
+:::

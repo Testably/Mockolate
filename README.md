@@ -27,7 +27,7 @@ It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, 
 | Hot path       | dynamic-proxy dispatch                       | direct dispatch            |
 
 For side-by-side setup, usage, and verification syntax against Moq, NSubstitute, and FakeItEasy, see the
-[full code comparison](https://docs.testably.org/Mockolate/comparison); for performance, see the
+[full code comparison](https://docs.testably.org/Mockolate/migration/#side-by-side); for performance, see the
 [benchmarks](https://docs.testably.org/Mockolate/benchmarks).
 
 Already on Moq or NSubstitute? The companion package [`Mockolate.Migration`](https://github.com/Testably/Mockolate.Migration)
@@ -47,6 +47,7 @@ dotnet add package Mockolate
 
 ```csharp
 using Mockolate;
+using Mockolate.Verify;
 
 public interface IChocolateDispenser
 {
@@ -54,25 +55,26 @@ public interface IChocolateDispenser
 }
 
 // Create a mock
-IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
 
 // Setup: Dispense returns true for any Dark chocolate request
-sut.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
+dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
 
 // Act
-bool success = sut.Dispense("Dark", 4);
+bool success = dispenser.Dispense("Dark", 4);
 
 // Verify
-sut.Mock.Verify.Dispense("Dark", It.IsAny<int>()).Once();
+dispenser.Mock.Verify.Dispense("Dark", It.IsAny<int>()).Once();
 ```
 
 ## Documentation
 
 Full reference docs at **[docs.testably.org/Mockolate](https://docs.testably.org/Mockolate/)**:
 
+- [Getting started](https://docs.testably.org/Mockolate/getting-started), [core concepts](https://docs.testably.org/Mockolate/core-concepts/), [cheat sheet](https://docs.testably.org/Mockolate/core-concepts/cheat-sheet)
 - [Create mocks](https://docs.testably.org/Mockolate/create-mocks)
-- Setup: [properties](https://docs.testably.org/Mockolate/setup/properties), [methods](https://docs.testably.org/Mockolate/setup/methods), [indexers](https://docs.testably.org/Mockolate/setup/indexers), [parameter matching](https://docs.testably.org/Mockolate/setup/parameter-matching)
-- [Mock events](https://docs.testably.org/Mockolate/mock-events)
+- Setup: [methods](https://docs.testably.org/Mockolate/setup/methods), [properties](https://docs.testably.org/Mockolate/setup/properties), [indexers](https://docs.testably.org/Mockolate/setup/indexers), [events](https://docs.testably.org/Mockolate/setup/events)
+- [Parameter matching](https://docs.testably.org/Mockolate/parameter-matching)
 - [Verify interactions](https://docs.testably.org/Mockolate/verify-interactions)
 - Advanced features: [protected members](https://docs.testably.org/Mockolate/advanced-features/protected-members), [static interface members](https://docs.testably.org/Mockolate/advanced-features/static-interface-members), [callbacks](https://docs.testably.org/Mockolate/advanced-features/advanced-callback-features), [monitors](https://docs.testably.org/Mockolate/advanced-features/monitor-interactions), [scenarios](https://docs.testably.org/Mockolate/advanced-features/scenarios), [unexpected-interaction checks](https://docs.testably.org/Mockolate/advanced-features/check-for-unexpected-interactions)
 - Special types: [`HttpClient`](https://docs.testably.org/Mockolate/special-types/httpclient), [delegates](https://docs.testably.org/Mockolate/special-types/delegates)
