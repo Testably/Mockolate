@@ -1,11 +1,16 @@
+---
+description: Mock HttpClient and IHttpClientFactory with Mockolate and match URIs, content and headers.
+---
+
 # HttpClient
 
 Mockolate supports mocking `HttpClient` out of the box, with no special configuration required. You can set up, use, and
-verify HTTP interactions just like with any other interface or class.
-
-**Example: Mocking HttpClient for a Chocolate Dispenser Service**
+verify HTTP interactions just like with any other class. The HTTP-specific matchers and `ReturnsAsync` overloads live
+in the `Mockolate.Web` namespace (.NET 8+).
 
 ```csharp
+using Mockolate.Web;
+
 HttpClient httpClient = HttpClient.CreateMock();
 httpClient.Mock.Setup
     .PostAsync(
@@ -24,12 +29,13 @@ httpClient.Mock.Verify.PostAsync(
     It.IsHttpContent("application/json").WithStringMatching("*\"type\": \"Dark\"*\"amount\": 3*")).Once();
 ```
 
-**Notes:**
+:::info
 
-- The custom extensions for the `HttpClient` are in the `Mockolate.Web` namespace.
-- Under the hood, the setups, requests and verifications are forwarded to a mocked `HttpMessageHandler`.
-  As they therefore all forward to the `SendAsync` method, you can mix using a string or an `Uri` parameter in setup or
-  verification.
+Under the hood, all setups, requests and verifications are forwarded to the `SendAsync` method of a mocked
+`HttpMessageHandler`. You can therefore mix `string` and `Uri` parameters between setup and verification, and a
+setup for `GetAsync(string)` also applies to calls of `GetAsync(Uri)`.
+
+:::
 
 ## All HTTP Methods
 
@@ -66,7 +72,7 @@ For all HTTP methods you can add an optional cancellation token parameter.
 If no parameter is provided, it matches any `CancellationToken`:
 
 ```csharp
-var cts = new CancellationTokenSource();
+CancellationTokenSource cts = new CancellationTokenSource();
 httpClient.Mock.Setup
     .GetAsync(It.IsAny<string>(), It.Is(cts.Token))
     .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK));
@@ -174,9 +180,7 @@ httpClient.Mock.Setup
     .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK));
 ```
 
-**Notes:**
-
-- Add the `.IgnoringCase()` modifier to make the string matching case-insensitive.
+Add the `.IgnoringCase()` modifier to make the string matching case-insensitive.
 
 ### Binary content
 
@@ -210,10 +214,8 @@ httpClient.Mock.Setup
     .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK));
 ```
 
-**Notes:**
-
-- Similar to the query parameter matching, the order of the form-data key-value pairs does not matter.
-- Add the `.Exactly()` modifier to also check that no other form-data is present.
+As with query parameters, the order of the form-data key-value pairs does not matter. Add the `.Exactly()` modifier to
+also check that no other form data is present.
 
 ### Header matching
 
@@ -233,16 +235,14 @@ httpClient.Mock.Setup
     .PostAsync(
         It.IsAny<string>(),
         It.IsHttpContent().WithHeaders("""
-        		                           Content-Type: application/json
-        		                           X-My-Header: my-value
-        		                           """))
+            Content-Type: application/json
+            X-My-Header: my-value
+            """))
     .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK));
 ```
 
-**Notes:**
-
-- By default, only the content headers are checked, not the headers in the corresponding `HttpRequestMessage`.
-  If you want to check both, add the `.IncludingRequestHeaders()` modifier.
+By default, only the content headers are checked, not the headers of the `HttpRequestMessage`. To check both, add the
+`.IncludingRequestHeaders()` modifier.
 
 ## Return Message
 
@@ -342,10 +342,12 @@ setupClient.Mock.Verify
     .Exactly(3);
 ```
 
-**Notes:**
+:::warning
 
-- `disposeHandler: false` is the critical bit. `HttpClient.Dispose()` defaults to disposing its
-  handler, which would tear down the shared registry after the first `using` block.
-- Setup and verify can target any `HttpClient` wrapping the same handler; both reach the same
-  registry. The `setupClient` above is just one convenient handle, and the wrappers handed out by
-  the factory work equally well.
+`disposeHandler: false` is the critical bit. `HttpClient.Dispose()` disposes its handler by default, which would tear
+down the shared mock after the first `using` block.
+
+:::
+
+Setup and verification can target any `HttpClient` wrapping the same handler. The `setupClient` above is just one
+convenient handle; the clients handed out by the factory work equally well.

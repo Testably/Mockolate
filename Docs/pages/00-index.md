@@ -1,3 +1,7 @@
+---
+description: Mockolate is a source-generated, strongly-typed and AOT-compatible mocking library for .NET.
+---
+
 # Mockolate
 
 <img align="right" width="200" src="https://raw.githubusercontent.com/Testably/Mockolate/main/Docs/Mockolate_256x256.png" alt="Mockolate logo" />
@@ -13,6 +17,15 @@ It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, 
 - **AOT compatible**: Works with Native AOT and trimming.
 - **Modern C#**: First-class support for ref structs, static interface members, and current language features.
 
+```csharp
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
+
+bool success = dispenser.Dispense("Dark", 4);
+
+dispenser.Mock.Verify.Dispense("Dark", It.IsAny<int>()).Once();
+```
+
 ## Why Mockolate
 
 |                | Reflection-based mocks (Moq, NSubstitute, …) | Mockolate                  |
@@ -22,44 +35,13 @@ It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, 
 | Setup API      | `Expression<Func<…>>` trees                  | regular method calls       |
 | Hot path       | dynamic-proxy dispatch                       | direct dispatch            |
 
-For side-by-side setup, usage, and verification syntax against Moq, NSubstitute, and FakeItEasy, see the [full code comparison](09-comparison.md).
+See the [side-by-side comparison](/Mockolate/migration/#side-by-side) with Moq, NSubstitute and FakeItEasy, and the
+[benchmarks](12-benchmarks.mdx) for performance numbers.
 
-Already on Moq or NSubstitute? The companion package [`Mockolate.Migration`](https://github.com/Testably/Mockolate.Migration)
-ships analyzers and code fixers that translate common Moq and NSubstitute patterns to Mockolate syntax in-place: point it
-at an existing test project and apply the suggested fixes.
+## Where to go next
 
-## Getting Started
-
-1. **Check prerequisites**  
-   Install the [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0), because Mockolate leverages
-   C# 14 extension members (the projects can still target any supported framework).
-
-2. **Install the package**
-   ```powershell
-   dotnet add package Mockolate
-   ```
-
-3. **Create and use a mock**
-   ```csharp
-   using Mockolate;
-
-   public interface IChocolateDispenser
-   {
-       bool Dispense(string type, int amount);
-   }
-
-   // Create a mock
-   IChocolateDispenser sut = IChocolateDispenser.CreateMock();
-
-   // Setup: Dispense returns true for any Dark chocolate request
-   sut.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
-
-   // Act
-   bool success = sut.Dispense("Dark", 4);
-
-   // Verify
-   sut.Mock.Verify.Dispense("Dark", It.IsAny<int>()).Once();
-   ```
-
-   For a richer walkthrough combining properties, indexers, events, and stateful setup,
-   see [A complete example](07-complete-example.md).
+- **New to Mockolate?** Start with [Getting started](01-getting-started.mdx), then read the
+  [core concepts](/Mockolate/core-concepts/) to learn how mocks, setups and verifications fit together.
+- **Coming from Moq, NSubstitute or FakeItEasy?** The [migration guide](/Mockolate/migration/) translates the syntax
+  you know, and [Mockolate.Migration](migration/11-migration.md) rewrites existing Moq and NSubstitute tests for you.
+- **Looking for a specific API?** The [cheat sheet](core-concepts/02-cheat-sheet.md) lists the most common calls on one page.

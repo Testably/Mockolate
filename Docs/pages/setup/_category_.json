@@ -1,11 +1,5 @@
 {
 	"label": "Setup",
 	"collapsed": false,
-	"position": 2,
-	"link": {
-		"type": "generated-index"
-	},
-	"customProps": {
-		"description": "Set up return values or behaviors for methods, properties, and indexers on your mock. Control how the mock responds to calls in your tests."
-	}
+	"position": 5
 }

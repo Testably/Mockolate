@@ -1,11 +1,14 @@
+---
+description: Mock static abstract and static virtual interface members with Mockolate.
+---
+
 # Static interface members
 
-Mockolate supports mocking static abstract and static virtual members on interfaces (.NET 8+). Static member
-invocations use async-flow scoping, meaning each mock instance has its own isolated static member context, this makes parallel test execution safe.
+Mockolate supports mocking `static abstract` and `static virtual` members of interfaces (.NET 8+). They are set up,
+raised and verified like instance members, but through `Mock.SetupStatic`, `Mock.RaiseStatic` and `Mock.VerifyStatic`.
 
-Static members can be set up, raised, and verified just like instance members, but through the `Mock.SetupStatic`, `Mock.RaiseStatic`, and `Mock.VerifyStatic` properties:
-
-**Example**
+C# only allows calls to static abstract members through a generic type parameter that is constrained to the
+interface, so code that uses them typically looks like this:
 
 ```csharp
 public interface IChocolateFactory
@@ -15,38 +18,50 @@ public interface IChocolateFactory
     static abstract event Action<int> BatchCompleted;
 }
 
-IChocolateFactory sut = IChocolateFactory.CreateMock();
+public static class ChocolateProduction
+{
+    public static string ReadRecipe<TFactory>() where TFactory : IChocolateFactory
+        => TFactory.DefaultRecipe;
 
-// Setup static members
-sut.Mock.SetupStatic.ProduceBatch(It.Is("Dark"), It.IsAny<int>()).Returns(42);
-sut.Mock.SetupStatic.DefaultRecipe.Returns("Dark");
+    public static int Produce<TFactory>(string type, int amount) where TFactory : IChocolateFactory
+        => TFactory.ProduceBatch(type, amount);
 
-// Static abstract members can only be invoked through a generic type parameter,
-// so route the call through a helper constrained to the interface and pass the
-// generated mock type (Mock.IChocolateFactory) as the type argument.
-string recipe = ReadRecipe<Mock.IChocolateFactory>();
-int produced = Produce<Mock.IChocolateFactory>("Dark", 10);
-Subscribe<Mock.IChocolateFactory>(amount => Console.WriteLine($"Batch of {amount} ready"));
-
-// Raise static events to the registered handlers
-sut.Mock.RaiseStatic.BatchCompleted(produced);
-
-// Verify static interactions
-sut.Mock.VerifyStatic.ProduceBatch(It.Is("Dark"), It.IsAny<int>()).Once();
-sut.Mock.VerifyStatic.DefaultRecipe.Got().Once();
-sut.Mock.VerifyStatic.BatchCompleted.Subscribed().Once();
-
-static string ReadRecipe<T>() where T : IChocolateFactory
-    => T.DefaultRecipe;
-static int Produce<T>(string type, int amount) where T : IChocolateFactory
-    => T.ProduceBatch(type, amount);
-static void Subscribe<T>(Action<int> handler) where T : IChocolateFactory
-    => T.BatchCompleted += handler;
+    public static void Subscribe<TFactory>(Action<int> handler) where TFactory : IChocolateFactory
+        => TFactory.BatchCompleted += handler;
+}
 ```
 
-**Notes:**
+In the test, create the mock as usual and pass the generated mock type `Mock.IChocolateFactory` as the type argument:
 
-- Static member scoping is implemented via `AsyncLocal<MockRegistry>`. When you call
-  `sut.Mock.SetupStatic.Method()`, it creates an async-flow scope that routes static member invocations to that
-  specific mock instance.
-- Each mock instance has an independent static member context, so parallel tests will not interfere with each other.
+```csharp
+IChocolateFactory factory = IChocolateFactory.CreateMock();
+
+// Set up static members
+factory.Mock.SetupStatic.ProduceBatch("Dark", It.IsAny<int>()).Returns(42);
+factory.Mock.SetupStatic.DefaultRecipe.Returns("Dark");
+
+// Call them through the generated mock type
+string recipe = ChocolateProduction.ReadRecipe<Mock.IChocolateFactory>();   // "Dark"
+int produced = ChocolateProduction.Produce<Mock.IChocolateFactory>("Dark", 10);  // 42
+ChocolateProduction.Subscribe<Mock.IChocolateFactory>(amount => Console.WriteLine($"Batch of {amount} ready"));
+
+// Raise static events
+factory.Mock.RaiseStatic.BatchCompleted(produced);
+
+// Verify static interactions
+factory.Mock.VerifyStatic.ProduceBatch("Dark", It.IsAny<int>()).Once();
+factory.Mock.VerifyStatic.DefaultRecipe.Got().Once();
+factory.Mock.VerifyStatic.BatchCompleted.Subscribed().Once();
+```
+
+## Isolation
+
+Static calls are routed to the mock that was **created last in the current async flow** (internally an
+`AsyncLocal`). Tests that run in parallel therefore don't interfere with each other.
+
+:::warning
+
+Within a single test, create at most one mock per interface with static members. When you create a second mock of the
+same interface, all static calls are routed to the second mock.
+
+:::

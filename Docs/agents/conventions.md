@@ -54,7 +54,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
 
 ## Analyzers and Code Fixes
 
-- Rule IDs are `MockolateNNNN` in the category `Usage`. Add the descriptor through `Rules.CreateDescriptor` (only `Mockolate0003` lives in `MockabilityAnalyzer`, see the comment in `Rules.cs`), the `Title`, `MessageFormat` and `Description` texts in `Resources.resx`, the row in `AnalyzerReleases.Unshipped.md` and a section with an example in `Docs/pages/08-analyzers.md`.
+- Rule IDs are `MockolateNNNN` in the category `Usage`. Add the descriptor through `Rules.CreateDescriptor` (only `Mockolate0003` lives in `MockabilityAnalyzer`, see the comment in `Rules.cs`), the `Title`, `MessageFormat` and `Description` texts in `Resources.resx`, the row in `AnalyzerReleases.Unshipped.md` and a section with an example in `Docs/pages/10-analyzers.md`.
 - Analyzers call `ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None)` and `EnableConcurrentExecution()`, and tolerate unresolved symbols in code that does not compile yet.
 - Code fixes are `[ExportCodeFixProvider]` and `[Shared]`, support `BatchFixer` and use the resource name as equivalence key.
 
@@ -71,6 +71,9 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
 
 ## Documentation
 
-- Pages in `Docs/pages/` start with a `# Title` (front matter only where the docs site needs it, as in `10-benchmarks.mdx`), are numbered for ordering and are grouped in folders with a `_category_.json`.
-- Examples use the chocolate theme (`IChocolateDispenser sut = IChocolateDispenser.CreateMock();`) and show setup, act and verify. Remarks are `**Note:**` paragraphs; `:::info` admonitions and tabs are used sparingly.
+- Pages in `Docs/pages/` start with front matter holding a one-sentence `description`, followed by a `# Title`. They are numbered for ordering and grouped in folders with a `_category_.json` (label and position only) and a `00-index.md` overview page, which the docs site turns into the category's own page. Pages that use tabs are `.mdx`. Keep `migration/11-migration.md` at its name: the docs site substitutes the Mockolate.Migration README into it by file name.
+- The pages are ordered from introduction to reference: getting started, core concepts (with the complete example and the cheat sheet), creating mocks, setup, parameter matching, verification, advanced features, special types and analyzers, then migration (comparison with other libraries and the automated migration) and benchmarks. Parameter matching is documented once, in `06-parameter-matching.md`, and linked from elsewhere.
+- Examples use the chocolate theme. Unlike in the tests, the mock is named after its role (`IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();`) and `sut` is reserved for the class under test. Members beyond `IChocolateDispenser` (see `core-concepts/00-index.md`) are declared next to the example or in an "Example types used on this page" `<details>` block.
+- Remarks are admonitions (`:::note`, `:::tip`, `:::info`, `:::warning`). Edge cases and implementation background go into a collapsed `<details>` block, so the common path stays short. Code that must not compile is shown as a `// ❌` comment, not as code.
+- Link to other pages by relative file path including the number prefix (`../06-parameter-matching.md#tolerance`), so the docs site resolves and checks the link. The exception are `00-index` overview pages, which the docs site renames to `index`: link to them by site path (`/Mockolate/core-concepts/#…`).
 - Update the README only for the landing page content (features, getting started); details belong on the docs site.
