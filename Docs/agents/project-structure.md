@@ -9,7 +9,7 @@
 | `Benchmarks/` | BenchmarkDotNet comparison with other mocking libraries |
 | `Pipeline/` | Fallout build (`Build.csproj`) and the benchmark report generator |
 | `Docs/pages/` | User docs published to https://docs.testably.org/Mockolate/ |
-| `Docs/agents/` | Guides for contributors and agents (this folder) |
+| `Docs/agents/` | Guides for contributors and agents: design goals, conventions, workflows and this page |
 | `.github/` | CI workflows, Dependabot and Mergify configuration |
 
 ## Source Projects
@@ -52,7 +52,7 @@ An `IIncrementalGenerator` (`MockGenerator.cs`, `netstandard2.0`).
 |---|---|---|
 | `Mockolate0001` | `UseVerificationAnalyzer` | A verification result must be used (code fix: `UseVerificationCodeFixProvider`) |
 | `Mockolate0002` | `MockabilityAnalyzer` | The type passed to `CreateMock()` or `Implementing<T>()` must be mockable |
-| `Mockolate0003` | `MockabilityAnalyzer` | Ref struct usage is not supported on this compilation (descriptor declared in the analyzer for release tracking) |
+| `Mockolate0003` | `MockabilityAnalyzer` | A ref struct is used in a shape without setup surface, or the compilation lacks .NET 9 or C# 13 (descriptor declared in the analyzer instead of `Rules.cs` to avoid RS2002) |
 
 ## How the Pieces Connect
 
@@ -69,7 +69,7 @@ Run time:      member call -> recorded in MockRegistry, answered by the matching
                Verify      -> counts the matching recorded interactions
 ```
 
-Other entry points on `sut.Mock` include `Raise` (events), `As<T>()` (other implemented interfaces), `Monitor()` and `VerifySetup`.
+Besides `Setup` and `Verify`, `sut.Mock` offers `Raise` (events), `As<T>()` (other implemented interfaces), `InScenario` and `TransitionTo` (scenarios), `Monitor()`, `VerifySetup` and `ClearAllInteractions()`.
 
 ## Test Projects
 
@@ -77,7 +77,7 @@ Other entry points on `sut.Mock` include `Raise` (events), `As<T>()` (other impl
 |---|---|
 | `Tests/Mockolate.Tests` | Behavior tests against generated mocks (methods, properties, indexers, events, delegates, ref structs, `HttpClient`). `GeneratorCoverage/` holds the types that exercise generator special cases |
 | `Tests/Mockolate.Internal.Tests` | Tests of internal types (`InternalsVisibleTo`) |
-| `Tests/Mockolate.SourceGenerators.Tests` | Generator tests on in-memory compilations, incremental caching tests and the output snapshots in `Snapshot/` |
+| `Tests/Mockolate.SourceGenerators.Tests` | Generator tests on in-memory compilations, equality tests of the pipeline models and the output snapshots in `Snapshot/` |
 | `Tests/Mockolate.Analyzers.Tests` | Analyzer and code fix tests with `Microsoft.CodeAnalysis.Testing` verifiers in `Verifiers/` |
 | `Tests/Mockolate.Api.Tests` | Public API snapshots per target framework |
 | `Tests/Mockolate.ExampleTests` | Realistic usage examples (file system, Azure SDK clients) |

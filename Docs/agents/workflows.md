@@ -80,7 +80,7 @@ Commit the updated snapshots with the change; never commit pending files.
 
 ## AOT Smoke Test
 
-`Tests/Aot/Mockolate.AotCompatibility.TestApp` is a console app with one named check per feature (setups, matchers, verifications, events, protected and static members, `HttpClient`, delegates and class mocks). It prints `PASS` or `FAIL` per check and exits with `1` when one fails. The `AotSmokeTests` target runs it from the compiled output, publishes it with Native AOT for the current platform to `Artifacts/Aot` and runs the published executable; CI does this on Ubuntu, Windows and macOS.
+`Tests/Aot/Mockolate.AotCompatibility.TestApp` is a console app with one named check per feature (setups, matchers, verifications, events, protected and static members, `HttpClient`, delegates and class mocks). It prints `PASS` or `FAIL` per check and exits with `1` when one fails. The `AotSmokeTests` target runs it from the compiled output, publishes it with Native AOT for the current platform to `Artifacts/Aot/<project>` and runs the published executable; CI does this on Ubuntu, Windows and macOS.
 
 ```powershell
 ./build.ps1 AotSmokeTests
@@ -111,11 +111,11 @@ Stryker mutates `Source/Mockolate` against `Mockolate.Tests` and `Mockolate.Inte
 ./build.ps1 MutationTests
 ```
 
-Reports go to `Artifacts/Stryker`, together with the Markdown body of the PR comment. `MutationTestsComment` and `MutationTestsDashboard` post the comment and upload the report, and expect to run in GitHub Actions.
+Reports go to `Artifacts/Stryker`, the Markdown body of the PR comment to `Artifacts/MutationTest_Mockolate.md`. `MutationTestsComment` and `MutationTestsDashboard` post the comment and upload the report, and expect to run in GitHub Actions.
 
 ## Build Pipeline (Fallout)
 
-`Pipeline/Build.csproj` is a Fallout build, started through `build.ps1`, `build.sh` or `build.cmd`. Always name a target: without one, Fallout runs the defaults `ApiChecks`, `Benchmarks` and `CodeAnalysis`. `./build.ps1 --help` lists the targets. The configuration is Debug locally and Release on CI. Every run cleans `Artifacts/` and `TestResults/` first.
+`Pipeline/Build.csproj` is a Fallout build, started through `build.ps1`, `build.sh` or `build.cmd`. Always name a target: without one, Fallout runs the defaults `ApiChecks`, `Benchmarks` and `CodeAnalysis`. `./build.ps1 --help` lists the targets. The configuration is Debug locally and Release on CI. Every target that compiles, and `UpdateReadme`, cleans `Artifacts/` and `TestResults/` first.
 
 | Target | Purpose |
 |---|---|
@@ -137,11 +137,11 @@ Reports go to `Artifacts/Stryker`, together with the Markdown body of the PR com
 |---|---|---|
 | `ci.yml` | PR to `main` | Unit tests (`CodeCoverage`) and AOT smoke tests on Ubuntu, Windows and macOS; API tests; mutation tests; benchmark matrix; SonarCloud (same-repo PRs, not Dependabot); test result publishing |
 | `ci-analysis.yml` | After `CI` completes | Posts the mutation and benchmark comments on the PR |
-| `build.yml` | Push to `main`, `v*` tags | Same checks as CI plus pack; on `main` publishes the benchmark report and uploads the mutation dashboard; on a tag pushes to nuget.org (trusted publishing), creates the GitHub release for non-prerelease tags and comments on released issues |
+| `build.yml` | Push to `main`, `v*` tags | Same checks as CI plus pack; uploads the mutation dashboard; on `main` publishes the benchmark report; on a tag pushes to nuget.org (trusted publishing), creates the GitHub release for non-prerelease tags and comments on released issues |
 | `notify-docs-site.yml` | After a successful `Build` on `main` | Triggers a rebuild of the docs site in `Testably/Testably.Site` |
 
 Mergify (`.github/mergify.yml`) squash-merges Dependabot PRs once the three unit test jobs and the API tests pass.
 
 ## Documentation
 
-User docs are Markdown pages in `Docs/pages/` (Docusaurus front matter, numbered file names for ordering, `_category_.json` per folder). They are published at https://docs.testably.org/Mockolate/ by `Testably/Testably.Site` after each successful build on `main`; there is no local docs build in this repository. Code samples in the docs are not compiled, so check them against `Mockolate.ExampleTests` or a quick test. The README is the NuGet landing page; `Pack` adds version-specific badges to the packaged copy.
+User docs are Markdown pages in `Docs/pages/` for Docusaurus (a `# Title` heading, numbered file names for ordering, `_category_.json` per folder; see [conventions](conventions.md#documentation)). They are published at https://docs.testably.org/Mockolate/ by `Testably/Testably.Site` after each successful build on `main`; there is no local docs build in this repository. Code samples in the docs are not compiled, so check them against `Mockolate.ExampleTests` or a quick test. The README is the NuGet landing page; `Pack` adds version-specific badges to the packaged copy.
