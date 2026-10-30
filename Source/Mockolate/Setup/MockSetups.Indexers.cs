@@ -17,26 +17,12 @@ internal partial class MockSetups
 #endif
 	internal sealed class IndexerSetups
 	{
-		private List<IndexerSetup>? _storage;
+		private IndexerSetup[]? _storage;
+		private readonly MockolateLock _storageLock = new();
 		private IndexerValueStorage?[]? _valueStorages;
 		private readonly object _valueStoragesLock = new();
 
-		public int Count
-		{
-			get
-			{
-				List<IndexerSetup>? storage = _storage;
-				if (storage is null)
-				{
-					return 0;
-				}
-
-				lock (storage)
-				{
-					return storage.Count;
-				}
-			}
-		}
+		public int Count => Volatile.Read(ref _storage)?.Length ?? 0;
 
 		/// <summary>
 		///     Pre-sizes the per-signature value-storage array. Optional — <see cref="GetOrCreateStorage{TValue}(int)" />
@@ -110,32 +96,19 @@ internal partial class MockSetups
 			}
 		}
 
-		private List<IndexerSetup> GetOrCreateStorage()
-		{
-			if (_storage is null)
-			{
-				Interlocked.CompareExchange(ref _storage, [], null);
-			}
-
-			return _storage!;
-		}
-
 		public T? GetMatching<T>(Func<T, bool> predicate) where T : IndexerSetup
 		{
-			List<IndexerSetup>? storage = _storage;
+			IndexerSetup[]? storage = Volatile.Read(ref _storage);
 			if (storage is null)
 			{
 				return null;
 			}
 
-			lock (storage)
+			for (int i = storage.Length - 1; i >= 0; i--)
 			{
-				for (int i = storage.Count - 1; i >= 0; i--)
+				if (storage[i] is T typedSetup && predicate(typedSetup))
 				{
-					if (storage[i] is T typedSetup && predicate(typedSetup))
-					{
-						return typedSetup;
-					}
+					return typedSetup;
 				}
 			}
 
@@ -144,21 +117,18 @@ internal partial class MockSetups
 
 		public T? GetMatching<T>(IndexerAccess access) where T : IndexerSetup
 		{
-			List<IndexerSetup>? storage = _storage;
+			IndexerSetup[]? storage = Volatile.Read(ref _storage);
 			if (storage is null)
 			{
 				return null;
 			}
 
-			lock (storage)
+			for (int i = storage.Length - 1; i >= 0; i--)
 			{
-				for (int i = storage.Count - 1; i >= 0; i--)
+				if (storage[i] is T typedSetup &&
+				    ((IInteractiveIndexerSetup)typedSetup).Matches(access))
 				{
-					if (storage[i] is T typedSetup &&
-					    ((IInteractiveIndexerSetup)typedSetup).Matches(access))
-					{
-						return typedSetup;
-					}
+					return typedSetup;
 				}
 			}
 
@@ -169,50 +139,59 @@ internal partial class MockSetups
 		[ExcludeFromCodeCoverage]
 		public override string ToString()
 		{
-			List<IndexerSetup>? storage = _storage;
-			if (storage is null || storage.Count == 0)
+			IndexerSetup[]? storage = Volatile.Read(ref _storage);
+			if (storage is null || storage.Length == 0)
 			{
 				return "0 indexers";
 			}
 
-			lock (storage)
+			int count = storage.Length;
+			StringBuilder sb = new();
+			sb.Append(count).Append(count == 1 ? " indexer:" : " indexers:").AppendLine();
+			foreach (IndexerSetup indexerSetup in storage)
 			{
-				int count = storage.Count;
-				StringBuilder sb = new();
-				sb.Append(count).Append(count == 1 ? " indexer:" : " indexers:").AppendLine();
-				foreach (IndexerSetup indexerSetup in storage)
-				{
-					sb.Append(indexerSetup).AppendLine();
-				}
-
-				sb.Length -= Environment.NewLine.Length;
-				return sb.ToString();
+				sb.Append(indexerSetup).AppendLine();
 			}
+
+			sb.Length -= Environment.NewLine.Length;
+			return sb.ToString();
 		}
 
+		/// <summary>
+		///     Copies the setups on write, so that matching reads them without a lock while it runs user code.
+		/// </summary>
 		internal void Add(IndexerSetup setup)
 		{
-			List<IndexerSetup> storage = GetOrCreateStorage();
-			lock (storage)
+			lock (_storageLock)
 			{
-				storage.Add(setup);
+				IndexerSetup[]? existing = _storage;
+				IndexerSetup[] storage;
+				if (existing is null)
+				{
+					storage = [setup,];
+				}
+				else
+				{
+					storage = new IndexerSetup[existing.Length + 1];
+					Array.Copy(existing, storage, existing.Length);
+					storage[existing.Length] = setup;
+				}
+
+				Volatile.Write(ref _storage, storage);
 			}
 		}
 
 		internal IEnumerable<IndexerSetup> EnumerateUnusedSetupsBy(IMockInteractions interactions)
 		{
-			List<IndexerSetup>? storage = _storage;
+			IndexerSetup[]? storage = Volatile.Read(ref _storage);
 			if (storage is null)
 			{
 				return [];
 			}
 
-			lock (storage)
-			{
-				return storage.Where(indexerSetup => interactions.OfType<IndexerAccess>()
-						.All(indexerAccess => !((IInteractiveIndexerSetup)indexerSetup).Matches(indexerAccess)))
-					.ToList();
-			}
+			return storage.Where(indexerSetup => interactions.OfType<IndexerAccess>()
+					.All(indexerAccess => !((IInteractiveIndexerSetup)indexerSetup).Matches(indexerAccess)))
+				.ToList();
 		}
 	}
 }
