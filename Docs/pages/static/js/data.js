@@ -870,6 +870,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -1017,7 +1023,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -1168,7 +1175,8 @@ window.BENCHMARK_DATA = {
           650.0538268089294,
           302.2658923149109,
           299.5642694745745,
-          271.826691309611
+          271.826691309611,
+          316.9262765566508
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1226,6 +1234,7 @@ window.BENCHMARK_DATA = {
           1720,
           1720,
           1720,
+          1608,
           1608,
           1608,
           1608,
@@ -1483,7 +1492,8 @@ window.BENCHMARK_DATA = {
           98368.69105747768,
           96438.99811662946,
           40909.257751464844,
-          57671.150747445914
+          57671.150747445914,
+          95852.00050455729
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1639,7 +1649,8 @@ window.BENCHMARK_DATA = {
           9096,
           9096,
           9086,
-          9207
+          9207,
+          9096
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1798,7 +1809,8 @@ window.BENCHMARK_DATA = {
           4892.878012084961,
           4487.331213378906,
           3428.819292704264,
-          3746.456654103597
+          3746.456654103597,
+          4672.11327718099
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -1866,6 +1878,7 @@ window.BENCHMARK_DATA = {
           7928,
           7928,
           7928,
+          7896,
           7896,
           7896,
           7896,
@@ -2113,7 +2126,8 @@ window.BENCHMARK_DATA = {
           4718.90162222726,
           4623.235318697416,
           3057.9828077463003,
-          3990.7906918843587
+          3990.7906918843587,
+          4712.775899251302
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2269,6 +2283,7 @@ window.BENCHMARK_DATA = {
           6970,
           6970,
           6964,
+          6970,
           6970
         ],
         "borderColor": "#4A6FA5",
@@ -2428,7 +2443,8 @@ window.BENCHMARK_DATA = {
           222.8970718043191,
           219.94066637357076,
           214.8491691907247,
-          219.54686207430703
+          219.54686207430703,
+          228.26439823423112
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2574,6 +2590,7 @@ window.BENCHMARK_DATA = {
           2392,
           2392,
           2392,
+          744,
           744,
           744,
           744,
@@ -2743,7 +2760,8 @@ window.BENCHMARK_DATA = {
           486.65089450563704,
           502.83732040111835,
           482.2549811045329,
-          440.11211694081624
+          440.11211694081624,
+          484.4203770501273
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2877,6 +2895,7 @@ window.BENCHMARK_DATA = {
           2048,
           2048,
           2048,
+          2064,
           2064,
           2064,
           2064,
@@ -3783,6 +3802,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -3930,7 +3955,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -4081,7 +4107,8 @@ window.BENCHMARK_DATA = {
           304.1983666102091,
           352.3082090786525,
           290.5082353864397,
-          225.57962814399175
+          225.57962814399175,
+          176.26733323733012
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4139,6 +4166,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1824,
+          1744,
           1744,
           1744,
           1744,
@@ -4396,7 +4424,8 @@ window.BENCHMARK_DATA = {
           16087.288033621651,
           15663.367300851005,
           16343.791887555804,
-          10807.022674560547
+          10807.022674560547,
+          8076.100603376116
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4552,6 +4581,7 @@ window.BENCHMARK_DATA = {
           12810,
           12810,
           12810,
+          12809,
           12809
         ],
         "borderColor": "#A052B0",
@@ -4711,7 +4741,8 @@ window.BENCHMARK_DATA = {
           5931.022494976337,
           5875.770334683932,
           5988.305126953125,
-          4225.932629903157
+          4225.932629903157,
+          3040.342391695295
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4723,6 +4754,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          9264,
           9264,
           9264,
           9264,
@@ -5026,7 +5058,8 @@ window.BENCHMARK_DATA = {
           217144.01964393028,
           213701.54539271764,
           217058.52890625,
-          185159.2215576172
+          185159.2215576172,
+          98593.70705566407
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5182,7 +5215,8 @@ window.BENCHMARK_DATA = {
           15868,
           15755,
           15755,
-          15755
+          15755,
+          15767
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5341,7 +5375,8 @@ window.BENCHMARK_DATA = {
           186.2942356467247,
           175.6688667365483,
           183.6303838411967,
-          154.63792528424943
+          154.63792528424943,
+          113.57906614882606
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5482,6 +5517,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -5656,7 +5692,8 @@ window.BENCHMARK_DATA = {
           197.2921587785085,
           177.88694602648417,
           188.11724656422933,
-          134.94395172595978
+          134.94395172595978,
+          105.6964243888855
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5790,6 +5827,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -6696,6 +6734,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -6843,7 +6887,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -6994,7 +7039,8 @@ window.BENCHMARK_DATA = {
           541.4241999898638,
           879.8033428873334,
           1008.9004444394793,
-          1106.30307497297
+          1106.30307497297,
+          685.8744483947754
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7144,6 +7190,7 @@ window.BENCHMARK_DATA = {
           3856,
           3856,
           3856,
+          3904,
           3904,
           3904,
           3904,
@@ -7309,7 +7356,8 @@ window.BENCHMARK_DATA = {
           63051.732682291666,
           215972.58605018028,
           220609.26513671875,
-          161571.8585030692
+          161571.8585030692,
+          130937.08619791667
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7465,7 +7513,8 @@ window.BENCHMARK_DATA = {
           20747,
           20860,
           20732,
-          20849
+          20849,
+          20875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7624,7 +7673,8 @@ window.BENCHMARK_DATA = {
           5580.206731942983,
           10406.960686238606,
           10539.595257350376,
-          10782.538392203194
+          10782.538392203194,
+          7227.371565755208
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7778,6 +7828,7 @@ window.BENCHMARK_DATA = {
           13144,
           13144,
           13088,
+          13144,
           13144,
           13144,
           13144
@@ -7939,7 +7990,8 @@ window.BENCHMARK_DATA = {
           5665.34117380778,
           11883.642724844125,
           12320.67017211914,
-          11586.8205464681
+          11586.8205464681,
+          7416.340493338449
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8095,7 +8147,8 @@ window.BENCHMARK_DATA = {
           13954,
           13954,
           13954,
-          13943
+          13943,
+          13954
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8254,7 +8307,8 @@ window.BENCHMARK_DATA = {
           216.26782263120015,
           345.4581594785055,
           367.12303301266263,
-          392.749897139413
+          392.749897139413,
+          281.0068247999464
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8400,6 +8454,7 @@ window.BENCHMARK_DATA = {
           1944,
           1944,
           1944,
+          1216,
           1216,
           1216,
           1216,
@@ -9294,6 +9349,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -9441,7 +9502,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -9592,7 +9654,8 @@ window.BENCHMARK_DATA = {
           1731.1502381838286,
           2460.305325644357,
           2555.7050908406577,
-          2961.1270078023276
+          2961.1270078023276,
+          1878.1974217341497
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9742,6 +9805,7 @@ window.BENCHMARK_DATA = {
           4936,
           4936,
           4936,
+          4984,
           4984,
           4984,
           4984,
@@ -9907,7 +9971,8 @@ window.BENCHMARK_DATA = {
           71649.3442993164,
           225117.60370744977,
           229031.7807128906,
-          174234.04464017428
+          174234.04464017428,
+          138476.59318033853
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10063,7 +10128,8 @@ window.BENCHMARK_DATA = {
           29331,
           30610,
           29332,
-          30603
+          30603,
+          30610
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10222,7 +10288,8 @@ window.BENCHMARK_DATA = {
           13517.135096958706,
           25022.9569745745,
           24646.851168823243,
-          25268.232795128457
+          25268.232795128457,
+          17570.352278645834
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10376,6 +10443,7 @@ window.BENCHMARK_DATA = {
           26753,
           26249,
           26193,
+          26249,
           26249,
           26249,
           26249
@@ -10537,7 +10605,8 @@ window.BENCHMARK_DATA = {
           12581.040052141461,
           24798.818864088793,
           24746.690276082358,
-          24890.35912146935
+          24890.35912146935,
+          15820.899148123604
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10693,7 +10762,8 @@ window.BENCHMARK_DATA = {
           33765,
           33764,
           33764,
-          33772
+          33772,
+          33764
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10852,7 +10922,8 @@ window.BENCHMARK_DATA = {
           607.8323834964207,
           872.9953387333796,
           889.0780391693115,
-          948.2044280125544
+          948.2044280125544,
+          699.7667394638062
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10998,6 +11069,7 @@ window.BENCHMARK_DATA = {
           3024,
           3024,
           3024,
+          2296,
           2296,
           2296,
           2296,
@@ -11892,6 +11964,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -12039,7 +12117,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -12190,7 +12269,8 @@ window.BENCHMARK_DATA = {
           514.7306661605835,
           381.377689297994,
           199.10810386339824,
-          325.32830821673076
+          325.32830821673076,
+          213.55025992026697
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12248,6 +12328,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          1976,
           1976,
           1976,
           1976,
@@ -12505,7 +12586,8 @@ window.BENCHMARK_DATA = {
           181859.77332481972,
           74416.62799479166,
           56143.624075753345,
-          70308.93036295573
+          70308.93036295573,
+          54417.29885629507
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12661,7 +12743,8 @@ window.BENCHMARK_DATA = {
           14926,
           14930,
           14944,
-          14930
+          14930,
+          14944
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12820,7 +12903,8 @@ window.BENCHMARK_DATA = {
           6358.237872314453,
           4555.783994234525,
           3003.8831053513745,
-          4561.477061971029
+          4561.477061971029,
+          3408.2355974637544
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12967,6 +13051,7 @@ window.BENCHMARK_DATA = {
           9280,
           9336,
           9280,
+          9336,
           9336,
           9336,
           9336,
@@ -13135,7 +13220,8 @@ window.BENCHMARK_DATA = {
           6462.674979146322,
           3928.194105784098,
           3033.287082163493,
-          3439.5710639953613
+          3439.5710639953613,
+          3235.47036336263
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13291,7 +13377,8 @@ window.BENCHMARK_DATA = {
           8469,
           8257,
           8244,
-          8257
+          8257,
+          8244
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13450,7 +13537,8 @@ window.BENCHMARK_DATA = {
           220.19027465581894,
           227.04843950271606,
           138.39027808507282,
-          199.03559487660726
+          199.03559487660726,
+          137.52715623378754
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13596,6 +13684,7 @@ window.BENCHMARK_DATA = {
           4088,
           4088,
           4088,
+          928,
           928,
           928,
           928,
@@ -13765,7 +13854,8 @@ window.BENCHMARK_DATA = {
           483.1709119251796,
           487.0747212092082,
           282.1428705851237,
-          403.73217119489397
+          403.73217119489397,
+          279.7910461766379
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -13899,6 +13989,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -14805,6 +14896,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -14952,7 +15049,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -15103,7 +15201,8 @@ window.BENCHMARK_DATA = {
           670.8509594599406,
           657.2865521113077,
           453.690727297465,
-          603.9770984649658
+          603.9770984649658,
+          475.81146183013914
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15161,6 +15260,7 @@ window.BENCHMARK_DATA = {
           2304,
           2304,
           2304,
+          2192,
           2192,
           2192,
           2192,
@@ -15418,7 +15518,8 @@ window.BENCHMARK_DATA = {
           189029.78792898994,
           74884.48146158854,
           55626.68741280692,
-          71622.20420735677
+          71622.20420735677,
+          57267.55128580729
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15574,7 +15675,8 @@ window.BENCHMARK_DATA = {
           18925,
           18907,
           18929,
-          18907
+          18907,
+          18929
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15733,7 +15835,8 @@ window.BENCHMARK_DATA = {
           9026.835074288505,
           6309.347476196289,
           4355.100550138033,
-          6475.817108154297
+          6475.817108154297,
+          4620.574332173665
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15887,6 +15990,7 @@ window.BENCHMARK_DATA = {
           12361,
           12360,
           12361,
+          12360,
           12360,
           12360,
           12360
@@ -16048,7 +16152,8 @@ window.BENCHMARK_DATA = {
           9733.050070699055,
           6557.504879252116,
           4592.021221923828,
-          5900.567934672038
+          5900.567934672038,
+          5260.565127563476
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16204,7 +16309,8 @@ window.BENCHMARK_DATA = {
           16023,
           15780,
           15786,
-          15780
+          15780,
+          15786
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16363,7 +16469,8 @@ window.BENCHMARK_DATA = {
           554.6069925308227,
           476.04915946324667,
           336.14604698816936,
-          454.6985791410719
+          454.6985791410719,
+          327.61596826144626
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16509,6 +16616,7 @@ window.BENCHMARK_DATA = {
           4952,
           4952,
           4952,
+          1792,
           1792,
           1792,
           1792,
@@ -16678,7 +16786,8 @@ window.BENCHMARK_DATA = {
           1373.378851377047,
           1396.181039265224,
           968.8826195853097,
-          1270.6787896474202
+          1270.6787896474202,
+          1006.0871963500977
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16812,6 +16921,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -17718,6 +17828,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -17865,7 +17981,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -18016,7 +18133,8 @@ window.BENCHMARK_DATA = {
           357.65965601376126,
           555.8245223999023,
           576.2080663998921,
-          515.36945215861
+          515.36945215861,
+          518.7461536114032
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18074,6 +18192,7 @@ window.BENCHMARK_DATA = {
           2528,
           2528,
           2528,
+          2472,
           2472,
           2472,
           2472,
@@ -18331,7 +18450,8 @@ window.BENCHMARK_DATA = {
           6049.060896809896,
           12258.64853515625,
           12150.381661551339,
-          10595.176798502604
+          10595.176798502604,
+          11762.112243652344
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18487,7 +18607,8 @@ window.BENCHMARK_DATA = {
           10640,
           10641,
           10625,
-          10753
+          10753,
+          10721
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18646,7 +18767,8 @@ window.BENCHMARK_DATA = {
           4228.05572618757,
           8010.165176391602,
           7575.786748758952,
-          6841.655200195312
+          6841.655200195312,
+          8034.5724690755205
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18658,6 +18780,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          11720,
           11720,
           11720,
           11720,
@@ -18961,7 +19084,8 @@ window.BENCHMARK_DATA = {
           4612.1922256469725,
           8661.762600708007,
           8218.134386189779,
-          7081.936492411295
+          7081.936492411295,
+          9151.620693969726
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19117,7 +19241,8 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11508,
-          11508
+          11508,
+          11749
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19276,7 +19401,8 @@ window.BENCHMARK_DATA = {
           128.09315422603063,
           175.34744029385703,
           181.63766457239788,
-          186.05265445709227
+          186.05265445709227,
+          187.58702731132507
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19422,6 +19548,7 @@ window.BENCHMARK_DATA = {
           688,
           688,
           688,
+          664,
           664,
           664,
           664,
@@ -19591,7 +19718,8 @@ window.BENCHMARK_DATA = {
           331.19110026726355,
           480.63821093241376,
           454.8076049940927,
-          448.14660053253175
+          448.14660053253175,
+          472.5690752778734
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19725,6 +19853,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -20631,6 +20760,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -20778,7 +20913,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -20929,7 +21065,8 @@ window.BENCHMARK_DATA = {
           782.3064520699637,
           1074.641916002546,
           1023.6761277516683,
-          998.9027805328369
+          998.9027805328369,
+          1034.7580289204916
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20987,6 +21124,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          2976,
           2976,
           2976,
           2976,
@@ -21244,7 +21382,8 @@ window.BENCHMARK_DATA = {
           9910.418571980794,
           19249.592287336076,
           19023.452248128255,
-          16375.725016276041
+          16375.725016276041,
+          19081.845205453727
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21400,7 +21539,8 @@ window.BENCHMARK_DATA = {
           18720,
           18721,
           17553,
-          18833
+          18833,
+          18801
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21559,7 +21699,8 @@ window.BENCHMARK_DATA = {
           9327.699008648213,
           18151.773256429038,
           17144.050811767578,
-          15437.34146118164
+          15437.34146118164,
+          18508.601635742187
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21709,6 +21850,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21584,
+          21585,
           21585,
           21585,
           21585,
@@ -21874,7 +22016,8 @@ window.BENCHMARK_DATA = {
           10711.257126871746,
           20219.067248535157,
           19652.010162353516,
-          17013.64644978841
+          17013.64644978841,
+          20962.270029703777
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22030,7 +22173,8 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           31546,
-          31546
+          31546,
+          31786
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22189,7 +22333,8 @@ window.BENCHMARK_DATA = {
           288.45809614658356,
           346.2605972607931,
           353.67652538844516,
-          362.08550895055134
+          362.08550895055134,
+          371.4223939259847
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22335,6 +22480,7 @@ window.BENCHMARK_DATA = {
           976,
           976,
           976,
+          952,
           952,
           952,
           952,
@@ -22504,7 +22650,8 @@ window.BENCHMARK_DATA = {
           1254.7111068725585,
           1598.1228392918904,
           1545.2833482197352,
-          1610.8554560797554
+          1610.8554560797554,
+          1610.214478556315
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22638,6 +22785,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -23544,6 +23692,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Oct 31 12:23:58 2026 \u002B0100",
         "message": "test: make thread-pool dependent timing tests robust (#924)"
+      },
+      {
+        "sha": "d255217acf450335d4eedec347a060b5b4e385c7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Oct 31 12:59:29 2026 \u002B0100",
+        "message": "docs: apply the docs style guide (#925)"
       }
     ],
     "labels": [
@@ -23691,7 +23845,8 @@ window.BENCHMARK_DATA = {
       "ee444670",
       "e57b28ed",
       "db4bb6c1",
-      "e2e5f91c"
+      "e2e5f91c",
+      "d255217a"
     ],
     "datasets": [
       {
@@ -23842,7 +23997,8 @@ window.BENCHMARK_DATA = {
           10.06376699145351,
           18.835191162427268,
           22.009845326344173,
-          17.348044491239957
+          17.348044491239957,
+          17.143477903945104
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -23900,6 +24056,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -24157,7 +24314,8 @@ window.BENCHMARK_DATA = {
           68.02020645141602,
           138.57956002553303,
           135.840176820755,
-          125.81959907213847
+          125.81959907213847,
+          114.05760040650001
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24298,6 +24456,7 @@ window.BENCHMARK_DATA = {
           2240,
           2240,
           2240,
+          576,
           576,
           576,
           576,
@@ -24472,7 +24631,8 @@ window.BENCHMARK_DATA = {
           20.453883520194463,
           44.5877388437589,
           41.3871422290802,
-          40.54136659843581
+          40.54136659843581,
+          35.73612707058589
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24606,6 +24766,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -24787,7 +24948,8 @@ window.BENCHMARK_DATA = {
           737.2687044143677,
           1398.8807164510092,
           1465.3491610118322,
-          1338.4970132282801
+          1338.4970132282801,
+          1418.4825089772542
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -24799,6 +24961,7 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
+          2096,
           2096,
           2096,
           2096,
@@ -25102,7 +25265,8 @@ window.BENCHMARK_DATA = {
           978.1162691849929,
           2065.4468879699707,
           2133.8845019022624,
-          1863.0132522583008
+          1863.0132522583008,
+          1947.3703137715659
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25114,6 +25278,7 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
+          5048,
           5048,
           5048,
           5048,
@@ -25417,7 +25582,8 @@ window.BENCHMARK_DATA = {
           1046.5665211310754,
           1916.4841126662034,
           1887.43816986084,
-          1834.4216651916504
+          1834.4216651916504,
+          1780.925754483541
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -25570,6 +25736,7 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2759,
+          2763,
           2763,
           2763,
           2763,
