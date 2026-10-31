@@ -777,6 +777,46 @@ public class GeneralTests
 	}
 
 	[Test]
+	public async Task WithArrayAttributeArguments_ShouldSerializeEachElementByItsKind()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using System;
+			     using Mockolate;
+
+			     namespace MyCode;
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = IMyService.CreateMock();
+			         }
+			     }
+
+			     public interface IMyService
+			     {
+			         [Marker(new[] { Color.Green, }, new[] { typeof(string), typeof(Payload), }, new object[] { Color.Green, typeof(int), 5, null, }, null)]
+			         void MyMethod();
+			     }
+
+			     public enum Color { Red, Green, }
+
+			     public class Payload { }
+
+			     public class MarkerAttribute : Attribute
+			     {
+			         public MarkerAttribute(Color[] colors, Type[] types, object[] values, Color[] none) { }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Mock.IMyService.g.cs"])
+			.Contains(
+				"[global::MyCode.Marker(new global::MyCode.Color[]{(global::MyCode.Color)1}, new global::System.Type[]{typeof(string), typeof(global::MyCode.Payload)}, new object[]{(global::MyCode.Color)1, typeof(int), 5, null}, null)]")
+			.Because("array elements need the same enum casts and typeof expressions as single arguments, e.g. `{1}` does not convert to an enum (CS0266)");
+	}
+
+	[Test]
 	public async Task WithAttributes_ShouldAddAttributesToGeneratedCode()
 	{
 		GeneratorResult result = Generator

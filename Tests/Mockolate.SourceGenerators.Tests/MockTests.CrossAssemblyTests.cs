@@ -690,7 +690,7 @@ public sealed partial class MockTests
 				.Contains("(ExtAlias::Ext.Color)1");
 			await That(result.Sources["Mock.MyAbstractService.g.cs"])
 				.Contains(
-					"[ExtAlias::Ext.Marker(typeof(ExtAlias::Ext.Payload), typeof(global::System.Collections.Generic.Dictionary<,>), (ExtAlias::Ext.Color)1, new ExtAlias::Ext.Color[]{0})]");
+					"[ExtAlias::Ext.Marker(typeof(ExtAlias::Ext.Payload), typeof(global::System.Collections.Generic.Dictionary<,>), (ExtAlias::Ext.Color)1, new ExtAlias::Ext.Color[]{(ExtAlias::Ext.Color)1}, new global::System.Type[]{typeof(ExtAlias::Ext.Payload)})]");
 			await That(string.Concat(result.Sources.Values)).DoesNotContain("global::Ext.")
 				.Because("types of a reference without the global alias do not resolve under `global::` (CS0400)");
 			foreach (string source in result.Sources.Values.Where(source => source.Contains("ExtAlias::")))
@@ -728,6 +728,38 @@ public sealed partial class MockTests
 				.DoesNotContain("ExtAlias");
 		}
 
+		[Test]
+		public async Task ExternAliasedReference_WithUnresolvedTypeInMockedMember_ShouldStillGenerateMocks()
+		{
+			MetadataReference external = CompileExternAliasAssembly().WithAliases(["ExtAlias",]);
+
+			GeneratorResult result = Generator.RunWithReferences("""
+			                                                     extern alias ExtAlias;
+			                                                     using Mockolate;
+
+			                                                     namespace MyCode;
+
+			                                                     public interface ILocal
+			                                                     {
+			                                                     	System.Missing Foo(ExtAlias::Ext.Payload payload);
+			                                                     }
+
+			                                                     public class Program
+			                                                     {
+			                                                         public static void Main(string[] args)
+			                                                         {
+			                                                     		_ = ILocal.CreateMock();
+			                                                     		_ = ExtAlias::Ext.IOther.CreateMock();
+			                                                         }
+			                                                     }
+			                                                     """, [external,]);
+
+			await That(string.Join(Environment.NewLine, result.Diagnostics)).DoesNotContain("CS8785")
+				.Because("an error type qualified by a namespace has no containing assembly, which must not make the generator throw");
+			await That(result.Sources).ContainsKey("Mock.IOther.g.cs")
+				.Because("an unresolved type in one mocked member must not suppress the other mocks");
+		}
+
 		private static MetadataReference CompileExternAliasAssembly()
 			=> ExternalAssembly.Compile("""
 			                            using System;
@@ -739,7 +771,7 @@ public sealed partial class MockTests
 
 			                            public class Payload { }
 
-			                            public class MarkerAttribute(Type type, Type openType, Color color, Color[] colors) : Attribute { }
+			                            public class MarkerAttribute(Type type, Type openType, Color color, Color[] colors, Type[] types) : Attribute { }
 
 			                            public class PayloadEventArgs : EventArgs { }
 
@@ -761,7 +793,7 @@ public sealed partial class MockTests
 
 			                            public abstract class MyAbstractService
 			                            {
-			                            	[Marker(typeof(Payload), typeof(System.Collections.Generic.Dictionary<,>), Color.Green, new[] { Color.Red, })]
+			                            	[Marker(typeof(Payload), typeof(System.Collections.Generic.Dictionary<,>), Color.Green, new[] { Color.Green, }, new[] { typeof(Payload), })]
 			                            	public abstract Payload Compute(Payload payload);
 			                            }
 			                            """);

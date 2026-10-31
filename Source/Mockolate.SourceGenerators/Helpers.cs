@@ -43,8 +43,8 @@ internal static class Helpers
 		StringBuilder sb = new();
 		for (int i = 0; i < parts.Length; i++)
 		{
-			if (parts[i].Symbol is INamespaceSymbol { IsGlobalNamespace: true, } globalNamespace &&
-			    cache.GetExternAlias(globalNamespace.ContainingAssembly) is { } alias)
+			if (parts[i].Symbol is INamespaceSymbol { IsGlobalNamespace: true, ContainingAssembly: { } assembly, } &&
+			    cache.GetExternAlias(assembly) is { } alias)
 			{
 				sb.Append(alias);
 			}

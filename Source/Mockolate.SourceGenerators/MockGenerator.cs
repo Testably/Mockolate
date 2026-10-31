@@ -18,7 +18,7 @@ public class MockGenerator : IIncrementalGenerator
 	{
 		context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
 			"Mock.g.cs",
-			ToSource(Sources.Sources.MockClass())));
+			ToSource(Sources.Sources.MockClass(), default)));
 
 		// Per-mock stream. Equality on MockClass is now keyed only on its canonical identity
 		// (ClassFullName + AdditionalImplementations.ClassFullName), so Roslyn can correctly skip
@@ -84,30 +84,31 @@ public class MockGenerator : IIncrementalGenerator
 			.Select(static (arr, _) => CollectIndexerSetupKeys(arr));
 
 		context.RegisterSourceOutput(
-			indexerSetupKeys.Combine(hasOverloadResolutionPriority),
+			indexerSetupKeys.Combine(hasOverloadResolutionPriority).Combine(externAliases),
 			static (spc, source) =>
 			{
-				if (source.Left.Count == 0)
+				if (source.Left.Left.Count == 0)
 				{
 					return;
 				}
 
 				spc.AddSource("IndexerSetups.g.cs",
-					ToSource(Sources.Sources.IndexerSetups(source.Left, source.Right)));
+					ToSource(Sources.Sources.IndexerSetups(source.Left.Left, source.Left.Right), source.Right));
 			});
 
 		IncrementalValueProvider<EquatableArray<MethodSetupKey>> methodSetupKeys = collectedMocks
 			.Select(static (arr, _) => CollectMethodSetupKeys(arr));
 
-		context.RegisterSourceOutput(methodSetupKeys, static (spc, keys) =>
+		context.RegisterSourceOutput(methodSetupKeys.Combine(externAliases), static (spc, source) =>
 		{
+			(EquatableArray<MethodSetupKey> keys, EquatableArray<string> aliases) = source;
 			if (keys.Count == 0)
 			{
 				return;
 			}
 
 			HashSet<(int, bool)> set = ToMethodSetupHashSet(keys);
-			spc.AddSource("MethodSetups.g.cs", ToSource(Sources.Sources.MethodSetups(set)));
+			spc.AddSource("MethodSetups.g.cs", ToSource(Sources.Sources.MethodSetups(set), aliases));
 
 			const int dotNetFuncActionParameterLimit = 16;
 			if (set.Any(x => x.Item1 >= dotNetFuncActionParameterLimit))
@@ -117,22 +118,23 @@ public class MockGenerator : IIncrementalGenerator
 						.Where(x => x.Item1 >= dotNetFuncActionParameterLimit)
 						.SelectMany<(int, bool), int>(x => [x.Item1, x.Item1 + 1,])
 						.Where(x => x > dotNetFuncActionParameterLimit)
-						.Distinct())));
+						.Distinct()), aliases));
 			}
 
 			if (set.Any(x => !x.Item2))
 			{
 				spc.AddSource("ReturnsThrowsAsyncExtensions.g.cs",
 					ToSource(Sources.Sources.ReturnsThrowsAsyncExtensions(set
-						.Where(x => !x.Item2).Select(x => x.Item1).ToArray())));
+						.Where(x => !x.Item2).Select(x => x.Item1).ToArray()), aliases));
 			}
 		});
 
 		IncrementalValueProvider<RefStructAggregate> refStructAggregate = collectedMocks
 			.Select(static (arr, _) => CollectRefStructAggregate(arr));
 
-		context.RegisterSourceOutput(refStructAggregate, static (spc, agg) =>
+		context.RegisterSourceOutput(refStructAggregate.Combine(externAliases), static (spc, source) =>
 		{
+			(RefStructAggregate agg, EquatableArray<string> aliases) = source;
 			if (agg.MethodSetups.Count == 0 && agg.IndexerSetups.Count == 0)
 			{
 				return;
@@ -146,7 +148,7 @@ public class MockGenerator : IIncrementalGenerator
 			}
 
 			spc.AddSource("RefStructMethodSetups.g.cs",
-				ToSource(Sources.Sources.RefStructMethodSetups(methodSet, indexerArities)));
+				ToSource(Sources.Sources.RefStructMethodSetups(methodSet, indexerArities), aliases));
 		});
 
 		// MockBehaviorExtensions: only depends on whether HttpClient appears as a mock target.
@@ -154,9 +156,9 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<bool> includeHttpClient = collectedMocks
 			.Select(static (arr, _) => arr.AsArray().Any(m => m.ClassFullName == "global::System.Net.Http.HttpClient"));
 
-		context.RegisterSourceOutput(includeHttpClient, static (spc, hasHttp) =>
+		context.RegisterSourceOutput(includeHttpClient.Combine(externAliases), static (spc, source) =>
 			spc.AddSource("MockBehaviorExtensions.g.cs",
-				ToSource(Sources.Sources.MockBehaviorExtensions(hasHttp))));
+				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left), source.Right)));
 
 		static bool HasAttribute(Compilation c, string attributeName)
 		{
@@ -168,7 +170,7 @@ public class MockGenerator : IIncrementalGenerator
 		}
 	}
 
-	private static SourceText ToSource(string source, EquatableArray<string> externAliases = default)
+	private static SourceText ToSource(string source, EquatableArray<string> externAliases)
 		=> SourceText.From(Sources.Sources.ExpandCrefs(WithExternAliases(source, externAliases)), Encoding.UTF8);
 
 	private static EquatableArray<string> GetExternAliases(Compilation compilation)
