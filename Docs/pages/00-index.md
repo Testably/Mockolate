@@ -6,8 +6,6 @@ description: Mockolate is a source-generated, strongly-typed and AOT-compatible 
 
 <img align="right" width="200" src="https://raw.githubusercontent.com/Testably/Mockolate/main/Docs/Mockolate_256x256.png" alt="Mockolate logo" />
 
-[![Nuget](https://img.shields.io/nuget/v/Mockolate)](https://www.nuget.org/packages/Mockolate)
-
 [**Mockolate**](https://github.com/Testably/Mockolate) is a modern, strongly-typed, AOT-compatible mocking library for .NET, powered by source generators.
 It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, .NET 10 and .NET Framework 4.8.
 

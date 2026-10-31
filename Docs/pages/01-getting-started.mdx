@@ -2,8 +2,7 @@
 description: Install Mockolate and write your first test with a mock.
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import PackageInstall from '@site/src/components/PackageInstall';
 
 # Getting started
 
@@ -22,24 +21,7 @@ If your test project pins `<LangVersion>`, it must be `14` or later (or `latest`
 
 ## Install the package
 
-<Tabs groupId="install">
-<TabItem value="cli" label=".NET CLI" default>
-
-```powershell
-dotnet add package Mockolate
-```
-
-</TabItem>
-<TabItem value="packagereference" label="PackageReference">
-
-```xml
-<PackageReference Include="Mockolate" Version="*" />
-```
-
-Replace `*` with the [latest version](https://www.nuget.org/packages/Mockolate).
-
-</TabItem>
-</Tabs>
+<PackageInstall package="Mockolate" />
 
 Mockolate works with every test framework (xUnit, NUnit, MSTest, TUnit, …). The package contains the source generator
 and the analyzers, so there is nothing else to configure.
