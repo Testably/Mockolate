@@ -67,8 +67,7 @@ For members with up to 4 parameters, you can freely mix values and matchers in a
 parameters, Mockolate limits the combinations to avoid an explosion of generated overloads: either pass values for all
 parameters, or use matchers for all of them (wrap a value in `It.Is(value)`).
 
-With [union parameters](#union-parameters-c-15), values and matchers mix freely for any number of parameters. Direct
-predicates are only offered for members with up to 4 parameters; above that, use `It.Satisfies`.
+With [union parameters](#union-parameters-c-15), values and matchers mix freely for any number of parameters. Direct predicates are only offered for members with up to 4 parameters; above that, use `It.Satisfies`.
 
 :::
 
@@ -333,10 +332,7 @@ Members that Mockolate cannot support (for example methods that *return* a custo
 
 ## Union parameters (C# 15)
 
-When the consuming project compiles with C# 15, Mockolate generates the setup and verify overloads with union-typed
-parameters: every value-capable parameter becomes a `ParameterArg<T>?` that accepts an `It` matcher or a direct value,
-and a `Func<T, bool>` overload accepts a predicate. The number of overloads stays the same as before, but predicates no
-longer need `It.Satisfies`:
+When the consuming project compiles with C# 15, Mockolate generates the setup and verify overloads with union-typed parameters: every value-capable parameter becomes a `ParameterArg<T>?` that accepts an `It` matcher or a direct value, and a `Func<T, bool>` overload accepts a predicate. The number of overloads stays the same as before, but predicates no longer need `It.Satisfies`:
 
 ```csharp
 dispenser.Mock.Setup.Dispense(type => type.StartsWith("D"), It.IsAny<int>()).Returns(true);
@@ -344,34 +340,20 @@ dispenser.Mock.Setup.Dispense(type => type.StartsWith("D"), It.IsAny<int>()).Ret
 dispenser.Mock.Verify.Dispense("Dark", amount => amount > 10).Once();
 ```
 
-Union mode is enabled automatically once the compiler ships C# 15 and the project's effective language version is
-C# 15 or later. On a preview compiler, opt in with `<MockolateUnionParameters>true</MockolateUnionParameters>` together
-with `<LangVersion>preview</LangVersion>` in the project file; below that language version the property has no effect.
-`false` keeps the classic overloads on any compiler.
+Union mode is enabled automatically once the compiler ships C# 15 and the project's effective language version is C# 15 or later. On a preview compiler, opt in with `<MockolateUnionParameters>true</MockolateUnionParameters>` together with `<LangVersion>preview</LangVersion>` in the project file; below that language version the property has no effect. `false` keeps the classic overloads on any compiler.
 
 <details>
 <summary>Union parameter semantics</summary>
 
-- `null` and `default` stand for the parameter's declared default value, or for `default(T)` when it has none, exactly
-  as with the classic value overloads.
-- A parameter whose type is a delegate offers the raw delegate instead of a predicate, so a lambda is still matched as
-  a value.
+- `null` and `default` stand for the parameter's declared default value, or for `default(T)` when it has none, exactly as with the classic value overloads.
+- A parameter whose type is a delegate offers the raw delegate instead of a predicate, so a lambda is still matched as a value.
 - For an `object` parameter, a lambda literal is a predicate, while a delegate stored in a variable is a value.
-- Within a union-typed member, `ref`, `out` and `ref readonly` parameters as well as `Span<T>` and `ReadOnlySpan<T>`
-  parameters keep their matcher slot (no predicate for that parameter); `in` parameters behave like by-value ones.
-- Overloaded method names (including a generic sibling; a same-named member in another scope, whether public,
-  protected or static, does not count), generic methods, `params` methods, members with custom ref struct parameters,
-  and indexers that share their key count with another same-scope indexer keep the classic matcher/value overloads.
-  Use `It.Satisfies` for predicates there.
+- Within a union-typed member, `ref`, `out` and `ref readonly` parameters as well as `Span<T>` and `ReadOnlySpan<T>` parameters keep their matcher slot (no predicate for that parameter); `in` parameters behave like by-value ones.
+- Overloaded method names (including a generic sibling; a same-named member in another scope, whether public, protected or static, does not count), generic methods, `params` methods, members with custom ref struct parameters, and indexers that share their key count with another same-scope indexer keep the classic matcher/value overloads. Use `It.Satisfies` for predicates there.
 
 </details>
 
-The generated `ParameterArg<T>` type relies on `UnionAttribute`, `OverloadResolutionPriorityAttribute` and
-`CallerArgumentExpressionAttribute`. Mockolate declares whichever of them the compilation lacks (neither the referenced
-frameworks nor the project itself provide it). Another generator such as PolySharp can provide them without Mockolate
-noticing; set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>` to declare that
-`OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute` come from elsewhere (`UnionAttribute`
-keeps following the compilation), or list the attribute names the project provides.
+The generated `ParameterArg<T>` type relies on `UnionAttribute`, `OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute`. Mockolate declares whichever of them the compilation lacks (neither the referenced frameworks nor the project itself provide it). Another generator such as PolySharp can provide them without Mockolate noticing; set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>` to declare that `OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute` come from elsewhere (`UnionAttribute` keeps following the compilation), or list the attribute names the project provides.
 
 ## Matching all parameters at once
 

@@ -88,9 +88,7 @@ dispenser.Mock.Setup[type => type.StartsWith("D")].Returns(10);
 dispenser.Mock.Verify[type => type.StartsWith("D")].Got().Once();
 ```
 
-Only an indexer that is the sole indexer of its key count on the type takes union-typed keys; indexers sharing a key
-count keep the classic matcher/value overloads. See [Union parameters](../06-parameter-matching.md#union-parameters-c-15)
-for the details.
+Only an indexer that is the sole indexer of its key count on the type takes union-typed keys; indexers sharing a key count keep the classic matcher/value overloads. See [Union parameters](../06-parameter-matching.md#union-parameters-c-15) for the details.
 
 ## Indexers with only one accessor
 
