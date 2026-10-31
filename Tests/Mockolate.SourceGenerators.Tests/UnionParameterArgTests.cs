@@ -4,12 +4,9 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Mockolate.SourceGenerators.Tests;
 
-// These tests compile against the pinned minimum Roslyn (MinimumRoslynVersion), which predates unions, so they
-// can only check the emission and the plain C# validity of the generated struct. The union conversions themselves
-// are covered by Mockolate.Tests on net11.0 with the SDK compiler.
 public sealed class UnionParameterArgTests
 {
-	private const string UnionParametersProperty = "build_property.MockolateUnionParameters";
+	private const string DisableUnionParametersProperty = "build_property.MockolateDisableUnionParameters";
 	private const string ParameterArgFile = "ParameterArg.g.cs";
 	private const string PolyfillDeclaration = "internal sealed class UnionAttribute : global::System.Attribute";
 	private const string AttributeName = "Ext.MyAttribute";
@@ -45,35 +42,11 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task WithPreviewLanguageVersion_WithoutProperty_ShouldFollowCompilerCapability()
+	[Arguments(LanguageVersion.CSharp15)]
+	[Arguments(LanguageVersion.Preview)]
+	public async Task WithCSharp15OrLater_ShouldEmitParameterArg(LanguageVersion languageVersion)
 	{
-		bool compilerShipsCSharp15 = Enum.TryParse("CSharp15", out LanguageVersion _);
-
-		GeneratorResult result = Generator.Run(Source, LanguageVersion.Preview, null);
-
-		await That(result.Sources.ContainsKey(ParameterArgFile)).IsEqualTo(compilerShipsCSharp15);
-	}
-
-	[Test]
-	[Arguments("false")]
-	[Arguments("False")]
-	[Arguments("no")]
-	public async Task WithPropertyNotTrue_ShouldNotEmitParameterArg(string value)
-	{
-		GeneratorResult result = Generator.Run(Source, LanguageVersion.Preview,
-			new Dictionary<string, string> { [UnionParametersProperty] = value, });
-
-		await That(result.Sources.Keys).DoesNotContain(ParameterArgFile);
-	}
-
-	[Test]
-	[Arguments("true")]
-	[Arguments("TRUE")]
-	[Arguments(" true ")]
-	public async Task WithPropertyTrue_ShouldEmitParameterArg(string value)
-	{
-		GeneratorResult result = Generator.Run(Source, LanguageVersion.Preview,
-			new Dictionary<string, string> { [UnionParametersProperty] = value, });
+		GeneratorResult result = Generator.Run(Source, languageVersion, null);
 
 		await That(result.Sources.Keys).Contains(ParameterArgFile);
 		await That(result.Sources[ParameterArgFile])
@@ -83,21 +56,33 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task WithPropertyTrue_BelowCSharp15_ShouldNotEmitParameterArg()
+	[Arguments("true")]
+	[Arguments("TRUE")]
+	[Arguments(" true ")]
+	public async Task WithDisablePropertyTrue_ShouldNotEmitParameterArg(string value)
 	{
-		GeneratorResult result = Generator.Run(Source, LanguageVersion.CSharp14,
-			new Dictionary<string, string> { [UnionParametersProperty] = "true", });
+		GeneratorResult result = Generator.Run(Source, LanguageVersion.CSharp15,
+			new Dictionary<string, string> { [DisableUnionParametersProperty] = value, });
 
-		await That(result.Sources.Keys).DoesNotContain(ParameterArgFile)
-			.Because("union conversions fail with CS8652 below C# 15, so the union overloads would not be callable");
+		await That(result.Sources.Keys).DoesNotContain(ParameterArgFile);
+	}
+
+	[Test]
+	[Arguments("false")]
+	[Arguments("")]
+	[Arguments("no")]
+	public async Task WithDisablePropertyNotTrue_ShouldEmitParameterArg(string value)
+	{
+		GeneratorResult result = Generator.Run(Source, LanguageVersion.CSharp15,
+			new Dictionary<string, string> { [DisableUnionParametersProperty] = value, });
+
+		await That(result.Sources.Keys).Contains(ParameterArgFile);
 	}
 
 	[Test]
 	public async Task WhenTheFrameworkDeclaresUnionAttribute_ShouldNotEmitThePolyfill()
 	{
-		// The test compilation references the current runtime, which ships the attribute.
-		GeneratorResult result = Generator.Run(Source, LanguageVersion.Preview,
-			new Dictionary<string, string> { [UnionParametersProperty] = "true", });
+		GeneratorResult result = Generator.Run(Source, LanguageVersion.CSharp15, null);
 
 		await That(result.Sources[ParameterArgFile]).DoesNotContain(PolyfillDeclaration);
 		await That(result.Diagnostics).IsEmpty();

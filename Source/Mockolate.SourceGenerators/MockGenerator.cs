@@ -247,30 +247,22 @@ public class MockGenerator : IIncrementalGenerator
 			return provided;
 		}
 
-		// The MockolateUnionParameters build property (made compiler-visible by build/Mockolate.props) wins when
-		// set: "true" opts in on a preview compiler, any other value is the kill switch. Otherwise unions are used once the
-		// host compiler has shipped C# 15 (the generator is compiled against an older Roslyn and cannot reference
-		// LanguageVersion.CSharp15 directly, hence the name-based lookup) and the compilation's effective language
-		// version includes it. LanguageVersion.Preview compares greater, but only counts once the compiler is capable.
-		// The opt-in still needs a language version with union conversions, otherwise the overloads are not callable.
+		// Unions are used once the host compiler has shipped C# 15 (the generator is compiled against an older Roslyn
+		// and cannot reference LanguageVersion.CSharp15 directly, hence the name-based lookup) and the compilation's
+		// effective language version includes it, unless the MockolateDisableUnionParameters build property (made
+		// compiler-visible by build/Mockolate.props) is "true".
 		static bool HasUnionSupport(ParseOptions parseOptions, AnalyzerConfigOptionsProvider analyzerConfigOptions)
 		{
-			if (parseOptions is not CSharpParseOptions csharpParseOptions)
+			if (parseOptions is not CSharpParseOptions csharpParseOptions ||
+			    !Enum.TryParse("CSharp15", out LanguageVersion csharp15) ||
+			    csharpParseOptions.LanguageVersion < csharp15)
 			{
 				return false;
 			}
 
-			bool languageVersionHasUnions = Enum.TryParse("CSharp15", out LanguageVersion csharp15) &&
-			                                csharpParseOptions.LanguageVersion >= csharp15;
-			if (analyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MockolateUnionParameters",
-				    out string? configured) &&
-			    !string.IsNullOrWhiteSpace(configured))
-			{
-				return string.Equals(configured.Trim(), "true", StringComparison.OrdinalIgnoreCase) &&
-				       (languageVersionHasUnions || csharpParseOptions.LanguageVersion == LanguageVersion.Preview);
-			}
-
-			return languageVersionHasUnions;
+			return !analyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MockolateDisableUnionParameters",
+				       out string? disabled) ||
+			       !string.Equals(disabled.Trim(), "true", StringComparison.OrdinalIgnoreCase);
 		}
 	}
 

@@ -3,8 +3,7 @@ using Mockolate.Parameters;
 
 namespace Mockolate.Tests;
 
-// The generated ParameterArg<T> union is only emitted for this target (C# preview with MockolateUnionParameters
-// enabled), so these tests exercise the real union conversions.
+// The generated ParameterArg<T> union is only emitted for this target (C# preview), so these tests exercise the real union conversions.
 public sealed class ParameterArgTests
 {
 	[Test]
