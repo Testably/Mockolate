@@ -68,6 +68,13 @@ Each call to the mock goes through the same steps:
      default value if nothing was written yet;
    - a mock created with `ThrowingWhenNotSetup()` throws a `MockNotSetupException` instead.
 
+```mermaid
+flowchart LR
+    call["Call"] --> record["Record it"] --> match{"Setup<br/>matches?"}
+    match -- "yes" --> setup["Use the last<br/>matching setup"]
+    match -- "no" --> fallback["Use the<br/>MockBehavior"]
+```
+
 ```csharp
 dispenser.Mock.Setup.Dispense(It.IsAny<string>(), It.IsAny<int>()).Returns(true);
 dispenser.Mock.Setup.Dispense("White", It.IsAny<int>()).Returns(false);
