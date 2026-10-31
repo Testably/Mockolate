@@ -21,7 +21,7 @@ step: the construction, all its setups and verifications, the event wiring and, 
 
 Install the package into the test project you want to migrate, next to [Mockolate](../01-getting-started.mdx) itself:
 
-<PackageInstall package="Mockolate.Migration" />
+<PackageInstall package="Mockolate.Migration" developmentDependency />
 
 The package contains only the analyzer and the code fixes, no runtime code. You need it only while you migrate: once
 a project no longer uses Moq or NSubstitute, remove the reference again.
