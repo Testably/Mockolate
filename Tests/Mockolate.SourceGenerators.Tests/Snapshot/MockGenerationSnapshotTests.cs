@@ -167,16 +167,14 @@ public sealed class MockGenerationSnapshotTests
                         """;
         sources.Add(program);
 
-        // Classic scenarios are pinned to C# 14 so that they keep describing the classic overload set once the
-        // compiler ships C# 15 and union support is detected automatically. Union scenarios opt in through the
-        // MockolateUnionParameters property, because the pinned test Roslyn predates C# 15 (see UnionParameterArgTests).
+        // Classic scenarios are pinned to C# 14 so that they keep describing the classic overload set.
         if (scenario.UnionMode)
         {
             return Generator.Run(
                 sources.ToArray(),
                 ["NET9_0_OR_GREATER", "NET10_0_OR_GREATER", "NET11_0_OR_GREATER",],
-                LanguageVersion.Preview,
-                new Dictionary<string, string> { ["build_property.MockolateUnionParameters"] = "true", },
+                LanguageVersion.CSharp15,
+                null,
                 scenario.AssemblyTypes);
         }
 
