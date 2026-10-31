@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Threading;
 using Mockolate.Internal.Tests.TestHelpers;
 using Mockolate.Setup;
 
@@ -139,7 +140,14 @@ public partial class MockSetupsTests
 		}
 
 		private static bool AddFromOtherThread(MockSetups.IndexerSetups setups)
-			=> Task.Run(() => setups.Add(new FakeIndexerSetup(false))).Wait(TimeSpan.FromSeconds(5));
+		{
+			Thread thread = new(() => setups.Add(new FakeIndexerSetup(false)))
+			{
+				IsBackground = true,
+			};
+			thread.Start();
+			return thread.Join(TimeSpan.FromSeconds(5));
+		}
 
 		private static Array? GetValueStoragesField(MockSetups.IndexerSetups setups)
 		{

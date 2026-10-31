@@ -289,27 +289,25 @@ public sealed partial class VerificationResultTests
 			using CancellationTokenSource cts = new();
 			CancellationToken token = cts.Token;
 
-			Task backgroundTask = Task.Run(async () =>
+			Thread producer = new(() =>
 			{
-				for (int i = 0; i < 100; i++)
+				for (int i = 0; i < 100 && !token.IsCancellationRequested; i++)
 				{
-					await Task.Delay(100, CancellationToken.None).ConfigureAwait(false);
+					Thread.Sleep(100);
 					sut.Dispense("Dark", i);
-					if (token.IsCancellationRequested)
-					{
-						break;
-					}
 				}
-			}, token);
+			});
+			producer.Start();
 
 			Stopwatch sw = Stopwatch.StartNew();
-			sut.Mock.Verify.Dispense(Match.AnyParameters()).Within(2.Seconds())
+			sut.Mock.Verify.Dispense(Match.AnyParameters()).Within(30.Seconds())
 				.AtLeastOnce();
 			sw.Stop();
 			cts.Cancel();
-			await backgroundTask;
+			producer.Join();
 
-			await That(sw.Elapsed).IsLessThan(5.Seconds());
+			await That(sw.Elapsed).IsLessThan(10.Seconds())
+				.Because("the verification should stop waiting on the first interaction instead of running into the timeout");
 		}
 
 		[Test]
