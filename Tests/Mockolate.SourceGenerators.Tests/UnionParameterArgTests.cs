@@ -68,9 +68,9 @@ public sealed class UnionParameterArgTests
 	[Arguments("true")]
 	[Arguments("TRUE")]
 	[Arguments(" true ")]
-	public async Task WithPropertyTrue_ShouldEmitParameterArg_EvenBelowCSharp15(string value)
+	public async Task WithPropertyTrue_ShouldEmitParameterArg(string value)
 	{
-		GeneratorResult result = Generator.Run(Source, LanguageVersion.CSharp14,
+		GeneratorResult result = Generator.Run(Source, LanguageVersion.Preview,
 			new Dictionary<string, string> { [UnionParametersProperty] = value, });
 
 		await That(result.Sources.Keys).Contains(ParameterArgFile);
@@ -78,6 +78,16 @@ public sealed class UnionParameterArgTests
 			.Contains("[global::System.Runtime.CompilerServices.Union]").And
 			.Contains("internal readonly struct ParameterArg<T>");
 		await That(result.Diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task WithPropertyTrue_BelowCSharp15_ShouldNotEmitParameterArg()
+	{
+		GeneratorResult result = Generator.Run(Source, LanguageVersion.CSharp14,
+			new Dictionary<string, string> { [UnionParametersProperty] = "true", });
+
+		await That(result.Sources.Keys).DoesNotContain(ParameterArgFile)
+			.Because("union conversions fail with CS8652 below C# 15, so the union overloads would not be callable");
 	}
 
 	[Test]
