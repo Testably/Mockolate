@@ -261,18 +261,25 @@ public class MockGenerator : IIncrementalGenerator
 		// host compiler has shipped C# 15 (the generator is compiled against an older Roslyn and cannot reference
 		// LanguageVersion.CSharp15 directly, hence the name-based lookup) and the compilation's effective language
 		// version includes it. LanguageVersion.Preview compares greater, but only counts once the compiler is capable.
+		// The opt-in still needs a language version with union conversions, otherwise the overloads are not callable.
 		static bool HasUnionSupport(ParseOptions parseOptions, AnalyzerConfigOptionsProvider analyzerConfigOptions)
 		{
+			if (parseOptions is not CSharpParseOptions csharpParseOptions)
+			{
+				return false;
+			}
+
+			bool languageVersionHasUnions = Enum.TryParse("CSharp15", out LanguageVersion csharp15) &&
+			                                csharpParseOptions.LanguageVersion >= csharp15;
 			if (analyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MockolateUnionParameters",
 				    out string? configured) &&
 			    !string.IsNullOrWhiteSpace(configured))
 			{
-				return string.Equals(configured.Trim(), "true", StringComparison.OrdinalIgnoreCase);
+				return string.Equals(configured.Trim(), "true", StringComparison.OrdinalIgnoreCase) &&
+				       (languageVersionHasUnions || csharpParseOptions.LanguageVersion == LanguageVersion.Preview);
 			}
 
-			return parseOptions is CSharpParseOptions csharpParseOptions &&
-			       Enum.TryParse("CSharp15", out LanguageVersion csharp15) &&
-			       csharpParseOptions.LanguageVersion >= csharp15;
+			return languageVersionHasUnions;
 		}
 	}
 
