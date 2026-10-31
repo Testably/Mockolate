@@ -34,8 +34,8 @@ ProcessData processor = ProcessData.CreateMock();
 processor.Mock.Setup(It.IsAny<int>(), It.IsRef<int>(v => v + 1), It.IsOut(() => 100));
 ```
 
-The setup supports the same options as a [method setup](../setup/01-methods.md): `.Returns(…)`, `.Throws(…)`,
-`.Do(…)`, sequences and the [advanced callback features](../advanced-features/03-advanced-callback-features.md).
+The setup supports the same options as a [method setup](../05-setup/01-methods.md): `.Returns(…)`, `.Throws(…)`,
+`.Do(…)`, sequences and the [advanced callback features](../08-advanced-features/03-advanced-callback-features.md).
 
 ## Verification
 

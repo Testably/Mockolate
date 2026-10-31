@@ -21,7 +21,7 @@ IChocolateDispenser spy = IChocolateDispenser.CreateMock().Wrapping(realDispense
 IChocolateDispenser multi = IChocolateDispenser.CreateMock().Implementing<ILemonadeDispenser>();
 ```
 
-## [Set up methods](../setup/01-methods.md)
+## [Set up methods](../05-setup/01-methods.md)
 
 Each line is an alternative: a later setup with the same arguments replaces an earlier one, so chain everything that
 belongs to one setup.
@@ -36,7 +36,7 @@ dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Do((type, amount) => Cons
 dispenser.Mock.Setup.DispenseAsync("Dark", It.IsAny<int>()).ReturnsAsync(3);                   // for Task<int> methods
 ```
 
-## [Set up properties](../setup/02-properties.md) and [indexers](../setup/03-indexers.md)
+## [Set up properties](../05-setup/02-properties.md) and [indexers](../05-setup/03-indexers.md)
 
 ```csharp
 dispenser.Mock.Setup.TotalDispensed.InitializeWith(42);                  // behaves like a property, starting at 42
@@ -46,7 +46,7 @@ dispenser.Mock.Setup["Dark"].InitializeWith(10);
 dispenser.Mock.Setup[It.IsAny<string>()].Returns(type => type.Length);
 ```
 
-## [Events](../setup/04-events.md)
+## [Events](../05-setup/04-events.md)
 
 ```csharp
 dispenser.Mock.Raise.ChocolateDispensed("Dark", 3);

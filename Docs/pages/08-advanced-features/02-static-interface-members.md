@@ -4,8 +4,13 @@ description: Mock static abstract and static virtual interface members with Mock
 
 # Static interface members
 
-Mockolate supports mocking `static abstract` and `static virtual` members of interfaces (.NET 8+). They are set up,
-raised and verified like instance members, but through `Mock.SetupStatic`, `Mock.RaiseStatic` and `Mock.VerifyStatic`.
+:::info[.NET 8 or later]
+
+Static interface members can be mocked on .NET 8 or later.
+
+:::
+
+Mockolate supports mocking `static abstract` and `static virtual` members of interfaces. They are set up, raised and verified like instance members, but through `Mock.SetupStatic`, `Mock.RaiseStatic` and `Mock.VerifyStatic`.
 
 C# only allows calls to static abstract members through a generic type parameter that is constrained to the
 interface, so code that uses them typically looks like this:
@@ -41,9 +46,12 @@ factory.Mock.SetupStatic.ProduceBatch("Dark", It.IsAny<int>()).Returns(42);
 factory.Mock.SetupStatic.DefaultRecipe.Returns("Dark");
 
 // Call them through the generated mock type
-string recipe = ChocolateProduction.ReadRecipe<Mock.IChocolateFactory>();   // "Dark"
-int produced = ChocolateProduction.Produce<Mock.IChocolateFactory>("Dark", 10);  // 42
+string recipe = ChocolateProduction.ReadRecipe<Mock.IChocolateFactory>();
+int produced = ChocolateProduction.Produce<Mock.IChocolateFactory>("Dark", 10);
 ChocolateProduction.Subscribe<Mock.IChocolateFactory>(amount => Console.WriteLine($"Batch of {amount} ready"));
+
+await That(recipe).IsEqualTo("Dark");
+await That(produced).IsEqualTo(42);
 
 // Raise static events
 factory.Mock.RaiseStatic.BatchCompleted(produced);

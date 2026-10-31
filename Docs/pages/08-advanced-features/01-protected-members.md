@@ -29,8 +29,8 @@ dispenser.Mock.SetupProtected.DispenseInternal("Dark", It.IsAny<int>())
 dispenser.Mock.SetupProtected.InternalStock.InitializeWith(100);
 ```
 
-All setup options of [methods](../setup/01-methods.md), [properties](../setup/02-properties.md) and
-[indexers](../setup/03-indexers.md) are available.
+All setup options of [methods](../05-setup/01-methods.md), [properties](../05-setup/02-properties.md) and
+[indexers](../05-setup/03-indexers.md) are available.
 
 ## Verification
 

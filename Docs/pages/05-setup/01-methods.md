@@ -52,7 +52,7 @@ dispenser.Mock.Setup.Dispense(It.IsAny<string>(), It.IsAny<int>())
 // Calls: true, false, false, false, …
 ```
 
-See [Advanced callback features](../advanced-features/03-advanced-callback-features.md) to repeat entries (`.For(n)`),
+See [Advanced callback features](../08-advanced-features/03-advanced-callback-features.md) to repeat entries (`.For(n)`),
 limit them (`.Only(n)`) or apply them conditionally (`.When(…)`).
 
 ### Async methods
@@ -61,8 +61,9 @@ For methods returning `Task`/`Task<T>` or `ValueTask`/`ValueTask<T>`, use `.Retu
 that you don't have to wrap the value in a task yourself:
 
 ```csharp
-public interface IChocolateDispenserAsync
+public interface IChocolateDispenser
 {
+    // the members from the core concepts, and:
     Task<int> DispenseAsync(string type, int amount);
 }
 
@@ -93,6 +94,6 @@ provide one. Use `.SkippingBaseClass()` on a setup to prevent this for a single 
 :::tip
 
 All callbacks and return values support conditional execution, repetition, parallel callbacks and access to the
-invocation counter. See [Advanced callback features](../advanced-features/03-advanced-callback-features.md).
+invocation counter. See [Advanced callback features](../08-advanced-features/03-advanced-callback-features.md).
 
 :::

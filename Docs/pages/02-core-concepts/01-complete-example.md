@@ -11,6 +11,7 @@ stock and raises the `ChocolateDispensed` event:
 ```csharp
 using Mockolate;
 using Mockolate.Verify;
+using static aweXpect.Expect;
 
 public delegate void ChocolateDispensedDelegate(string type, int amount);
 
@@ -49,13 +50,16 @@ dispenser.ChocolateDispensed += (type, amount) =>
 };
 
 // Act: try to dispense chocolates
-bool gotChoc1 = dispenser.Dispense("Dark", 4); // true
-bool gotChoc2 = dispenser.Dispense("Dark", 5); // true
-bool gotChoc3 = dispenser.Dispense("Dark", 6); // false, only 1 left
+bool gotChoc1 = dispenser.Dispense("Dark", 4);
+bool gotChoc2 = dispenser.Dispense("Dark", 5);
+bool gotChoc3 = dispenser.Dispense("Dark", 6);
 
-// dispensedAmount == 9, dispenser["Dark"] == 1
-
-// Verify: check the interactions
+// Assert: check the results and the interactions
+await That(gotChoc1).IsTrue();
+await That(gotChoc2).IsTrue();
+await That(gotChoc3).IsFalse().Because("only 1 Dark chocolate is left");
+await That(dispensedAmount).IsEqualTo(9);
+await That(dispenser["Dark"]).IsEqualTo(1);
 dispenser.Mock.Verify.Dispense("Dark", It.IsAny<int>()).Exactly(3);
 dispenser.Mock.Verify["Dark"].Set(It.IsAny<int>()).Twice();
 ```
@@ -63,7 +67,7 @@ dispenser.Mock.Verify["Dark"].Set(It.IsAny<int>()).Twice();
 The individual features are described in detail on the following pages:
 
 - [Create mocks](../04-create-mocks.md)
-- Setup of [methods](../setup/01-methods.md), [properties](../setup/02-properties.md), [indexers](../setup/03-indexers.md)
-  and [events](../setup/04-events.md)
+- Setup of [methods](../05-setup/01-methods.md), [properties](../05-setup/02-properties.md), [indexers](../05-setup/03-indexers.md)
+  and [events](../05-setup/04-events.md)
 - [Parameter matching](../06-parameter-matching.md)
 - [Verify interactions](../07-verify-interactions.md)

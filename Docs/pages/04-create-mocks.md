@@ -4,7 +4,7 @@ description: Create mocks of interfaces and classes, customize their default beh
 
 # Create mocks
 
-You can create mocks of interfaces, classes and [delegates](special-types/02-delegates.md). The source generator adds
+You can create mocks of interfaces, classes and [delegates](09-special-types/02-delegates.md). The source generator adds
 a static `CreateMock()` method to every type you mock.
 
 <details>
@@ -50,7 +50,7 @@ public abstract class ChocolateDispenserWithCtor(string defaultType, int capacit
 ChocolateDispenserWithCtor classMock = ChocolateDispenserWithCtor.CreateMock(["Dark", 42]);
 ```
 
-:::info
+:::note
 
 A class mock overrides the `virtual` and `abstract` members of the class. Non-virtual members cannot be intercepted
 and always run the real implementation. Sealed classes cannot be mocked; the
@@ -194,13 +194,19 @@ Calculator calculator = Calculator.CreateMock().Implementing<ICalculator>();
 // `Multiply` is overridable, so the class and the interface share one member:
 // either surface configures it, and both calls are recorded against it.
 calculator.Mock.Setup.Multiply(It.IsAny<int>(), It.IsAny<int>()).Returns(7);
-int viaClass = calculator.Multiply(3, 4);                    // 7
-int viaInterface = ((ICalculator)calculator).Multiply(3, 4); // 7
+int viaClass = calculator.Multiply(3, 4);
+int viaInterface = ((ICalculator)calculator).Multiply(3, 4);
+
+await That(viaClass).IsEqualTo(7);
+await That(viaInterface).IsEqualTo(7);
 
 // `Add` is not virtual, so only the call through the interface can be intercepted.
 calculator.Mock.As<ICalculator>().Setup.Add(It.IsAny<int>(), It.IsAny<int>()).Returns(99);
-int addViaClass = calculator.Add(1, 2);                      // 3, the real implementation
-int addViaInterface = ((ICalculator)calculator).Add(1, 2);   // 99
+int addViaClass = calculator.Add(1, 2);
+int addViaInterface = ((ICalculator)calculator).Add(1, 2);
+
+await That(addViaClass).IsEqualTo(3).Because("the class call runs the real implementation");
+await That(addViaInterface).IsEqualTo(99);
 ```
 
 </details>
@@ -227,8 +233,11 @@ IChocolateShelf shelf = IChocolateShelf.CreateMock();
 shelf.Mock.Setup.Restock().Returns(42);
 shelf.Mock.As<IChocolateShelfBase>().Setup.Restock().Returns(43);
 
-int viaDerived = shelf.Restock();                       // 42
-int viaBase = ((IChocolateShelfBase)shelf).Restock();   // 43
+int viaDerived = shelf.Restock();
+int viaBase = ((IChocolateShelfBase)shelf).Restock();
+
+await That(viaDerived).IsEqualTo(42);
+await That(viaBase).IsEqualTo(43);
 
 shelf.Mock.Verify.Restock().Once();
 shelf.Mock.As<IChocolateShelfBase>().Verify.Restock().Once();

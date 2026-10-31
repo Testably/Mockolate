@@ -6,14 +6,16 @@ description: Define multiple sets of setups on a Mockolate mock and switch betwe
 
 Scenarios let you define multiple sets of setups on a single mock and switch between them at runtime. This is useful
 when the collaborator behaves differently depending on its internal state, for example a chocolate dispenser that
-starts empty, becomes loaded after `Refill(…)`, and runs out of stock after dispensing:
+starts empty, becomes loaded after `Refill(…)`, and runs out of stock after dispensing. The examples on this page add a `Refill` method to the [`IChocolateDispenser`](/Mockolate/core-concepts/#mocks-and-the-system-under-test) and use an `OutOfStockException`:
 
 ```csharp
 public interface IChocolateDispenser
 {
-    bool Dispense(string type, int amount);
+    // the members from the core concepts, and:
     bool Refill(int amount);
 }
+
+public class OutOfStockException : Exception;
 ```
 
 A mock always has an *active scenario* (the empty string `""` by default). When a member is called, Mockolate looks

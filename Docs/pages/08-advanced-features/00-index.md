@@ -4,7 +4,7 @@ description: Advanced Mockolate features for protected and static members, callb
 
 # Advanced features
 
-The basics of [creating](../04-create-mocks.md), [setting up](../setup/01-methods.md) and
+The basics of [creating](../04-create-mocks.md), [setting up](../05-setup/01-methods.md) and
 [verifying](../07-verify-interactions.md) mocks cover most tests. The following features help in the remaining cases:
 
 | Feature                                                                    | Use it when you want to …                                                       |
@@ -16,10 +16,15 @@ The basics of [creating](../04-create-mocks.md), [setting up](../setup/01-method
 | [Check for unexpected interactions](05-check-for-unexpected-interactions.md) | make sure every interaction was verified, or every setup was used            |
 | [Scenarios](06-scenarios.md)                                               | switch between sets of setups, for collaborators with an internal state         |
 
-For example, [scenarios](06-scenarios.md) let a dispenser with a `Refill` method behave differently before and after
-a refill:
+For example, [scenarios](06-scenarios.md) let a dispenser with a `Refill` method behave differently before and after a refill:
 
 ```csharp
+public interface IChocolateDispenser
+{
+    // the members from the core concepts, and:
+    bool Refill(int amount);
+}
+
 dispenser.Mock.InScenario("empty").Setup.Refill(It.IsAny<int>())
     .Returns(true)
     .TransitionTo("loaded");

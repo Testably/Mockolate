@@ -67,11 +67,11 @@ ChocolateDispenser dispenser = ChocolateDispenser.CreateMock();
 `Refill` itself is not part of the mock, since your assembly cannot see it. An `internal abstract override`
 re-declaration does not count as an implementation, so the rule still fires for it.
 
-The same applies per accessor. For a property such as `public abstract string Flavour { get; internal set; }`, an
+The same applies per accessor. For a property such as `public abstract string Flavor { get; internal set; }`, an
 override further down that implements the setter makes the type mockable. The mock then overrides the getter only, and
 `Setup` and `Verify` only offer the getter, since writes never reach the mock. See
-[properties with only one accessor](setup/02-properties.md#properties-with-only-one-accessor) and
-[indexers with only one accessor](setup/03-indexers.md#indexers-with-only-one-accessor).
+[properties with only one accessor](05-setup/02-properties.md#properties-with-only-one-accessor) and
+[indexers with only one accessor](05-setup/03-indexers.md#indexers-with-only-one-accessor).
 
 </details>
 

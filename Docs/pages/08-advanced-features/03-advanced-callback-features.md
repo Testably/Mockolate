@@ -4,7 +4,7 @@ description: Control when and how often Mockolate callbacks and return values ap
 
 # Advanced callback features
 
-`Returns`, `Throws` and `Do` entries form a [sequence](../setup/01-methods.md#sequences): each call uses the next
+`Returns`, `Throws` and `Do` entries form a [sequence](../05-setup/01-methods.md#sequences): each call uses the next
 entry, and after the last entry the sequence starts over. The following modifiers change how an entry takes part in
 the sequence. They work on methods, properties, indexers and events alike.
 

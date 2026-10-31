@@ -17,7 +17,7 @@ It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, 
 - **AOT compatible**: Works with Native AOT and trimming.
 - **Modern C#**: First-class support for ref structs, static interface members, and current language features.
 
-## Why Mockolate
+## Why Mockolate?
 
 |                | Reflection-based mocks (Moq, NSubstitute, …) | Mockolate                  |
 |----------------|----------------------------------------------|----------------------------|
@@ -30,7 +30,7 @@ For side-by-side setup, usage, and verification syntax against Moq, NSubstitute,
 [full code comparison](https://docs.testably.org/Mockolate/migration/#side-by-side); for performance, see the
 [benchmarks](https://docs.testably.org/Mockolate/benchmarks).
 
-Already on Moq or NSubstitute? The companion package [`Mockolate.Migration`](https://github.com/Testably/Mockolate.Migration)
+Already on Moq or NSubstitute? The companion package [`Mockolate.Migration`](https://docs.testably.org/Mockolate/migration/automated/)
 ships analyzers and code fixers that translate common Moq and NSubstitute patterns to Mockolate syntax in-place: point it
 at an existing test project and apply the suggested fixes.
 
@@ -39,11 +39,11 @@ at an existing test project and apply the suggested fixes.
 Install the [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0). Mockolate leverages C# 14
 extension members (the projects can still target any supported framework). Then add the package:
 
-```powershell
+```shell
 dotnet add package Mockolate
 ```
 
-## Quick Start
+## Quick start
 
 ```csharp
 using Mockolate;
@@ -78,3 +78,4 @@ Full reference docs at **[docs.testably.org/Mockolate](https://docs.testably.org
 - [Verify interactions](https://docs.testably.org/Mockolate/verify-interactions)
 - Advanced features: [protected members](https://docs.testably.org/Mockolate/advanced-features/protected-members), [static interface members](https://docs.testably.org/Mockolate/advanced-features/static-interface-members), [callbacks](https://docs.testably.org/Mockolate/advanced-features/advanced-callback-features), [monitors](https://docs.testably.org/Mockolate/advanced-features/monitor-interactions), [scenarios](https://docs.testably.org/Mockolate/advanced-features/scenarios), [unexpected-interaction checks](https://docs.testably.org/Mockolate/advanced-features/check-for-unexpected-interactions)
 - Special types: [`HttpClient`](https://docs.testably.org/Mockolate/special-types/httpclient), [delegates](https://docs.testably.org/Mockolate/special-types/delegates)
+- Migration: [from Moq, NSubstitute and FakeItEasy](https://docs.testably.org/Mockolate/migration/), [automated migration](https://docs.testably.org/Mockolate/migration/automated/)

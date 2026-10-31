@@ -13,7 +13,9 @@ verification. Use it to make sure that the code under test made no calls you did
 dispenser.Dispense("Dark", 1);
 dispenser.Mock.Verify.Dispense("Dark", 1).Once();
 
-bool allVerified = dispenser.Mock.VerifyThatAllInteractionsAreVerified();  // true
+bool allVerified = dispenser.Mock.VerifyThatAllInteractionsAreVerified();
+
+await That(allVerified).IsTrue();
 ```
 
 ## All setups are used
@@ -27,12 +29,13 @@ dispenser.Mock.Setup.Dispense("Milk", It.IsAny<int>()).Returns(true);
 
 dispenser.Dispense("Dark", 1);
 
-bool allUsed = dispenser.Mock.VerifyThatAllSetupsAreUsed();  // false, the "Milk" setup was not used
+bool allUsed = dispenser.Mock.VerifyThatAllSetupsAreUsed();
+
+await That(allUsed).IsFalse().Because("the \"Milk\" setup was not used");
 ```
 
 :::note
 
-Both methods return a `bool` instead of throwing, so assert the result with your test framework, for example
-`Assert.True(allVerified)`.
+Both methods return a `bool` instead of throwing, so assert the result with your assertion library.
 
 :::
