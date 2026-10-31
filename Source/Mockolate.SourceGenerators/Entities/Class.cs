@@ -28,7 +28,7 @@ internal class Class : IEquatable<Class>
 #pragma warning restore S107
 	{
 		_sourceAssembly = sourceAssembly;
-		ClassFullName = type.ToDisplayString(Helpers.TypeDisplayFormat);
+		ClassFullName = type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 		ClassName = GetTypeName(type);
 		DisplayString = GetTypeFullName(type);
 

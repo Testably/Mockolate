@@ -9,15 +9,15 @@ internal record AttributeParameter
 	{
 		if (value.Kind == TypedConstantKind.Array)
 		{
-			Value = $"new {value.Type}{{{string.Join(", ", value.Values.Select(SerializeConstantValue))}}}";
+			Value = $"new {value.Type?.ToQualifiedDisplayString(Helpers.TypeDisplayFormat)}{{{string.Join(", ", value.Values.Select(SerializeConstantValue))}}}";
 		}
-		else if (value.Kind == TypedConstantKind.Type)
+		else if (value.Kind == TypedConstantKind.Type && value.Value is ITypeSymbol type)
 		{
-			Value = $"typeof({value.Value})";
+			Value = $"typeof({type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat)})";
 		}
 		else if (value.Kind == TypedConstantKind.Enum)
 		{
-			Value = $"({value.Type?.ToDisplayString(Helpers.TypeDisplayFormat)}){value.Value}";
+			Value = $"({value.Type?.ToQualifiedDisplayString(Helpers.TypeDisplayFormat)}){value.Value}";
 		}
 		else
 		{

@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.CodeAnalysis;
 
 namespace Mockolate.SourceGenerators.Tests;
@@ -640,6 +641,130 @@ public sealed partial class MockTests
 				.Because(
 					"the reachable getter could be restated in the mock class, but the setup and verify surfaces would have to name `Configuration`, which is only reachable through inheritance (CS0122)");
 		}
+
+		[Test]
+		public async Task ExternAliasedReference_ShouldQualifyItsTypesWithTheAlias()
+		{
+			MetadataReference external = CompileExternAliasAssembly().WithAliases(["ExtAlias",]);
+
+			GeneratorResult result = Generator.RunWithReferences("""
+			                                                     extern alias ExtAlias;
+			                                                     using Mockolate;
+
+			                                                     namespace MyCode;
+
+			                                                     public interface ILocal
+			                                                     {
+			                                                     	ExtAlias::Ext.Payload Echo(ExtAlias::Ext.Payload payload);
+			                                                     }
+
+			                                                     public class Program
+			                                                     {
+			                                                         public static void Main(string[] args)
+			                                                         {
+			                                                     		_ = ExtAlias::Ext.IMyService.CreateMock();
+			                                                     		_ = ExtAlias::Ext.MyAbstractService.CreateMock();
+			                                                     		_ = ExtAlias::Ext.MyCallback.CreateMock();
+			                                                     		_ = ILocal.CreateMock().Implementing<ExtAlias::Ext.IOther>();
+			                                                         }
+			                                                     }
+			                                                     """, [external,]);
+
+			await That(result.Diagnostics).IsEmpty();
+			await That(result.Sources).ContainsKey("Mock.IMyService.g.cs").And
+				.ContainsKey("Mock.MyAbstractService.g.cs").And
+				.ContainsKey("Mock.MyCallback.g.cs").And
+				.ContainsKey("Mock.ILocal.g.cs").And
+				.ContainsKey("Mock.AsExtensions.g.cs");
+			await That(result.Sources["Mock.AsExtensions.g.cs"]).Contains("extern alias ExtAlias;");
+			await That(result.Sources["Mock.IMyService.g.cs"])
+				.Contains("""
+				          // </auto-generated>
+				          //----------------------
+				          extern alias ExtAlias;
+
+				          #nullable enable annotations
+				          """).IgnoringNewlineStyle()
+				.Because("extern alias directives must precede all other code, but the auto-generated header must stay first").And
+				.Contains("ExtAlias::Ext.Payload").And
+				.Contains("(ExtAlias::Ext.Color)1");
+			await That(result.Sources["Mock.MyAbstractService.g.cs"])
+				.Contains(
+					"[ExtAlias::Ext.Marker(typeof(ExtAlias::Ext.Payload), typeof(global::System.Collections.Generic.Dictionary<,>), (ExtAlias::Ext.Color)1, new ExtAlias::Ext.Color[]{0})]");
+			await That(string.Concat(result.Sources.Values)).DoesNotContain("global::Ext.")
+				.Because("types of a reference without the global alias do not resolve under `global::` (CS0400)");
+			foreach (string source in result.Sources.Values.Where(source => source.Contains("ExtAlias::")))
+			{
+				await That(source).Contains("extern alias ExtAlias;")
+					.Because("an extern alias is only usable in a file that declares it");
+			}
+		}
+
+		[Test]
+		[Arguments(true)]
+		[Arguments(false)]
+		public async Task ExternAliasedReference_AlsoReachableThroughGlobal_ShouldKeepGlobalQualification(
+			bool asSeparateReference)
+		{
+			MetadataReference external = CompileExternAliasAssembly();
+			MetadataReference[] references = asSeparateReference
+				? [external.WithAliases(["ExtAlias",]), external,]
+				: [external.WithAliases(["global", "ExtAlias",]),];
+
+			GeneratorResult result = Generator.RunWithReferences("""
+			                                                     using Mockolate;
+
+			                                                     namespace MyCode;
+
+			                                                     public class Program
+			                                                     {
+			                                                         public static void Main(string[] args) => _ = Ext.IMyService.CreateMock();
+			                                                     }
+			                                                     """, references);
+
+			await That(result.Diagnostics).IsEmpty();
+			await That(result.Sources["Mock.IMyService.g.cs"])
+				.Contains("global::Ext.Payload").And
+				.DoesNotContain("ExtAlias");
+		}
+
+		private static MetadataReference CompileExternAliasAssembly()
+			=> ExternalAssembly.Compile("""
+			                            using System;
+			                            using System.Threading.Tasks;
+
+			                            namespace Ext;
+
+			                            public enum Color { Red, Green, }
+
+			                            public class Payload { }
+
+			                            public class MarkerAttribute(Type type, Type openType, Color color, Color[] colors) : Attribute { }
+
+			                            public class PayloadEventArgs : EventArgs { }
+
+			                            public delegate Payload MyCallback(Payload payload);
+
+			                            public interface IMyService
+			                            {
+			                            	Payload Value { get; set; }
+			                            	Payload this[Color color] { get; set; }
+			                            	event EventHandler<PayloadEventArgs> Changed;
+			                            	Payload Get(Color color = Color.Green);
+			                            	Task<Payload[]> GetAllAsync();
+			                            }
+
+			                            public interface IOther
+			                            {
+			                            	void Take(Payload payload);
+			                            }
+
+			                            public abstract class MyAbstractService
+			                            {
+			                            	[Marker(typeof(Payload), typeof(System.Collections.Generic.Dictionary<,>), Color.Green, new[] { Color.Red, })]
+			                            	public abstract Payload Compute(Payload payload);
+			                            }
+			                            """);
 
 		private static MetadataReference CompileClientBaseAssembly(bool grantsInternalsVisibleTo)
 		{

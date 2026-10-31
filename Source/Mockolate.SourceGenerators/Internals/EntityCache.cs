@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Entities;
@@ -30,10 +31,17 @@ internal sealed class EntityCache
 	// `IsNullableAnnotated` flags and produce different generated code.
 	private readonly ConcurrentDictionary<ITypeSymbol, Type> _types = new(SymbolEqualityComparer.IncludeNullability);
 
+	private readonly Dictionary<IAssemblySymbol, string> _externAliases;
+
+	private EntityCache(Compilation compilation)
+	{
+		_externAliases = GetExternAliases(compilation);
+	}
+
 	[field: ThreadStatic] public static EntityCache? Current { get; private set; }
 
 	public static EntityCache GetOrCreate(Compilation compilation)
-		=> _caches.GetValue(compilation, static _ => new EntityCache());
+		=> _caches.GetValue(compilation, static c => new EntityCache(c));
 
 	public static Scope EnterScope(EntityCache cache)
 	{
@@ -47,6 +55,44 @@ internal sealed class EntityCache
 
 	public MethodParameter GetOrAddParameter(IParameterSymbol symbol, Func<IParameterSymbol, MethodParameter> factory)
 		=> _parameters.GetOrAdd(symbol, factory);
+
+	public bool HasExternAliases => _externAliases.Count > 0;
+
+	/// <summary>
+	///     Returns the extern alias through which types of <paramref name="assembly" /> must be qualified, or
+	///     <see langword="null" /> when they are reachable through <c>global::</c>.
+	/// </summary>
+	public string? GetExternAlias(IAssemblySymbol assembly)
+		=> _externAliases.TryGetValue(assembly, out string? alias) ? alias : null;
+
+	private static Dictionary<IAssemblySymbol, string> GetExternAliases(Compilation compilation)
+	{
+		Dictionary<IAssemblySymbol, string> externAliases = new(SymbolEqualityComparer.Default);
+		foreach (MetadataReference reference in compilation.References)
+		{
+			ImmutableArray<string> aliases = reference.Properties.Aliases;
+			if (!aliases.IsEmpty && !aliases.Contains("global") &&
+			    compilation.GetAssemblyOrModuleSymbol(reference) is IAssemblySymbol assembly)
+			{
+				externAliases[assembly] = aliases[0];
+			}
+		}
+
+		if (externAliases.Count > 0)
+		{
+			foreach (MetadataReference reference in compilation.References)
+			{
+				ImmutableArray<string> aliases = reference.Properties.Aliases;
+				if ((aliases.IsEmpty || aliases.Contains("global")) &&
+				    compilation.GetAssemblyOrModuleSymbol(reference) is IAssemblySymbol assembly)
+				{
+					externAliases.Remove(assembly);
+				}
+			}
+		}
+
+		return externAliases;
+	}
 
 	public readonly struct Scope : IDisposable
 	{

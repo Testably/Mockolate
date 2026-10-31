@@ -25,7 +25,7 @@ internal readonly record struct MethodParameter
 			}
 			else if (parameterSymbol.Type.TypeKind == TypeKind.Enum)
 			{
-				string enumTypeName = parameterSymbol.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+				string enumTypeName = parameterSymbol.Type.ToQualifiedDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
 				ExplicitDefaultValue = "(" + enumTypeName + ")" + explicitDefaultValue;
 			}
 			else
