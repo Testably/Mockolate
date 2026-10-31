@@ -15,7 +15,7 @@ internal record Property
 		string rawName = propertySymbol.ExplicitInterfaceImplementations.Length > 0 ? propertySymbol.ExplicitInterfaceImplementations[0].Name : propertySymbol.Name;
 		Name = propertySymbol.IsIndexer ? rawName : Helpers.EscapeIfKeyword(rawName);
 		Type = Type.From(propertySymbol.Type);
-		ContainingType = propertySymbol.ContainingType.ToDisplayString(Helpers.TypeDisplayFormat);
+		ContainingType = propertySymbol.ContainingType.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 		DeclaredContainingType = ContainingType;
 		IsIndexer = propertySymbol.IsIndexer;
 		IsAbstract = propertySymbol.IsAbstract;

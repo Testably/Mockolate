@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Mockolate.SourceGenerators.Entities;
+using Mockolate.SourceGenerators.Internals;
 using Attribute = Mockolate.SourceGenerators.Entities.Attribute;
 using Type = Mockolate.SourceGenerators.Entities.Type;
 
@@ -25,6 +26,36 @@ internal static class Helpers
 		globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
 		typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypes,
 		genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters);
+
+	/// <summary>
+	///     Formats <paramref name="symbol" /> like <see cref="ISymbol.ToDisplayString" />, but qualifies types from a
+	///     reference with only extern aliases by that alias instead of <c>global::</c>, under which they do not resolve.
+	/// </summary>
+	public static string ToQualifiedDisplayString(this ISymbol symbol, SymbolDisplayFormat format)
+	{
+		EntityCache? cache = EntityCache.Current;
+		if (cache is null || !cache.HasExternAliases)
+		{
+			return symbol.ToDisplayString(format);
+		}
+
+		ImmutableArray<SymbolDisplayPart> parts = symbol.ToDisplayParts(format);
+		StringBuilder sb = new();
+		for (int i = 0; i < parts.Length; i++)
+		{
+			if (parts[i].Symbol is INamespaceSymbol { IsGlobalNamespace: true, ContainingAssembly: { } assembly, } &&
+			    cache.GetExternAlias(assembly) is { } alias)
+			{
+				sb.Append(alias);
+			}
+			else
+			{
+				sb.Append(parts[i]);
+			}
+		}
+
+		return sb.ToString();
+	}
 
 	public static string EscapeIfKeyword(string name)
 		=> SyntaxFacts.GetKeywordKind(name) != SyntaxKind.None ? "@" + name : name;

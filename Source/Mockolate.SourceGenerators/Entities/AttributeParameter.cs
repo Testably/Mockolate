@@ -7,25 +7,23 @@ internal record AttributeParameter
 {
 	public AttributeParameter(TypedConstant value)
 	{
-		if (value.Kind == TypedConstantKind.Array)
-		{
-			Value = $"new {value.Type}{{{string.Join(", ", value.Values.Select(SerializeConstantValue))}}}";
-		}
-		else if (value.Kind == TypedConstantKind.Type)
-		{
-			Value = $"typeof({value.Value})";
-		}
-		else if (value.Kind == TypedConstantKind.Enum)
-		{
-			Value = $"({value.Type?.ToDisplayString(Helpers.TypeDisplayFormat)}){value.Value}";
-		}
-		else
-		{
-			Value = SerializeConstantValue(value);
-		}
+		Value = Serialize(value);
 	}
 
 	public string? Value { get; }
+
+	private static string Serialize(TypedConstant value)
+		=> value.Kind switch
+		{
+			TypedConstantKind.Array when value.IsNull => "null",
+			TypedConstantKind.Array =>
+				$"new {value.Type?.ToQualifiedDisplayString(Helpers.TypeDisplayFormat)}{{{string.Join(", ", value.Values.Select(Serialize))}}}",
+			TypedConstantKind.Type when value.Value is ITypeSymbol type =>
+				$"typeof({type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat)})",
+			TypedConstantKind.Enum =>
+				$"({value.Type?.ToQualifiedDisplayString(Helpers.TypeDisplayFormat)}){value.Value}",
+			_ => SerializeConstantValue(value),
+		};
 
 	private static string SerializeConstantValue(TypedConstant value)
 	{

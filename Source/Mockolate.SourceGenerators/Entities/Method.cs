@@ -22,7 +22,7 @@ internal record Method
 		IsDelegateInvoke = methodSymbol.MethodKind == MethodKind.DelegateInvoke;
 		ReturnType = methodSymbol.ReturnsVoid ? Type.Void : Type.From(methodSymbol.ReturnType);
 		Name = Helpers.EscapeIfKeyword(methodSymbol.ExplicitInterfaceImplementations.Length > 0 ? methodSymbol.ExplicitInterfaceImplementations[0].Name : methodSymbol.Name);
-		ContainingType = methodSymbol.ContainingType.ToDisplayString(Helpers.TypeDisplayFormat);
+		ContainingType = methodSymbol.ContainingType.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 		DeclaredContainingType = ContainingType;
 		Parameters = new EquatableArray<MethodParameter>(
 			methodSymbol.Parameters.Select(MethodParameter.From).ToArray());
