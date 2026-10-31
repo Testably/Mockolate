@@ -16,7 +16,7 @@ dispenser.ChocolateDispensed += (type, amount) => dispensedAmount += amount;
 dispenser.Mock.Raise.ChocolateDispensed("Dark", 3);
 dispenser.Mock.Raise.ChocolateDispensed("Milk", 2);
 
-// dispensedAmount == 5
+await That(dispensedAmount).IsEqualTo(5);
 ```
 
 Only the handlers that are subscribed at the time the event is raised are called. This lets you test that your code

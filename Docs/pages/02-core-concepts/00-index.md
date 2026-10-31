@@ -12,7 +12,7 @@ from the same class), lets you decide what it returns, and records how it was ca
 
 Throughout this documentation the examples use this collaborator:
 
-```csharp title="IChocolateDispenser"
+```csharp
 public delegate void ChocolateDispensedDelegate(string type, int amount);
 
 public interface IChocolateDispenser
@@ -41,13 +41,13 @@ reached through its `Mock` property:
 
 | Member                                                       | Purpose                                                                                                     |
 |--------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| `Mock.Setup`                                                 | Decide how methods, properties and indexers behave. See [Setup](../setup/01-methods.md).                       |
-| `Mock.Raise`                                                 | Raise events on the mock. See [Events](../setup/04-events.md).                                                 |
+| `Mock.Setup`                                                 | Decide how methods, properties and indexers behave. See [Setup](../05-setup/01-methods.md).                       |
+| `Mock.Raise`                                                 | Raise events on the mock. See [Events](../05-setup/04-events.md).                                                 |
 | `Mock.Verify`                                                | Check how the mock was used. See [Verify interactions](../07-verify-interactions.md).                          |
-| `Mock.SetupProtected`, `Mock.VerifyProtected`, …             | The same for protected members of class mocks. See [Protected members](../advanced-features/01-protected-members.md). |
-| `Mock.SetupStatic`, `Mock.VerifyStatic`, …                   | The same for static interface members. See [Static interface members](../advanced-features/02-static-interface-members.md). |
-| `Mock.InScenario(…)`, `Mock.TransitionTo(…)`                 | Switch between sets of setups. See [Scenarios](../advanced-features/06-scenarios.md).                          |
-| `Mock.Monitor()`, `Mock.ClearAllInteractions()`              | Limit which interactions are counted. See [Monitor interactions](../advanced-features/04-monitor-interactions.md). |
+| `Mock.SetupProtected`, `Mock.VerifyProtected`, …             | The same for protected members of class mocks. See [Protected members](../08-advanced-features/01-protected-members.md). |
+| `Mock.SetupStatic`, `Mock.VerifyStatic`, …                   | The same for static interface members. See [Static interface members](../08-advanced-features/02-static-interface-members.md). |
+| `Mock.InScenario(…)`, `Mock.TransitionTo(…)`                 | Switch between sets of setups. See [Scenarios](../08-advanced-features/06-scenarios.md).                          |
+| `Mock.Monitor()`, `Mock.ClearAllInteractions()`              | Limit which interactions are counted. See [Monitor interactions](../08-advanced-features/04-monitor-interactions.md). |
 | `Mock.As<T>()`                                               | Reach an additional interface. See [Create mocks](../04-create-mocks.md#implementing-additional-interfaces).  |
 
 The generated setup and verification members mirror the members of the mocked type, so a typo or a wrong argument type
@@ -79,12 +79,18 @@ flowchart LR
 dispenser.Mock.Setup.Dispense(It.IsAny<string>(), It.IsAny<int>()).Returns(true);
 dispenser.Mock.Setup.Dispense("White", It.IsAny<int>()).Returns(false);
 
-bool dark = dispenser.Dispense("Dark", 1);    // true: only the first setup matches
-bool white = dispenser.Dispense("White", 1);  // false: both match, the later one wins
+bool dark = dispenser.Dispense("Dark", 1);
+bool white = dispenser.Dispense("White", 1);
 
-int before = dispenser.TotalDispensed;        // 0: nothing was written yet
+await That(dark).IsTrue().Because("only the first setup matches");
+await That(white).IsFalse().Because("both setups match and the later one wins");
+
+int before = dispenser.TotalDispensed;
 dispenser.TotalDispensed = 5;
-int after = dispenser.TotalDispensed;         // 5: the property stores the written value
+int after = dispenser.TotalDispensed;
+
+await That(before).IsEqualTo(0).Because("nothing was written yet");
+await That(after).IsEqualTo(5).Because("the property stores the written value");
 ```
 
 :::tip
@@ -107,7 +113,7 @@ dispenser.Mock.Setup.TotalDispensed.InitializeWith(42);
 dispenser.Mock.Setup.TotalDispensed.OnSet.Do(newValue => Console.WriteLine(newValue));
 ```
 
-:::info[Class mocks]
+:::note[Class mocks]
 
 A class mock also calls the **base class implementation** of a virtual member, even when a setup matches. The setup's
 return value takes precedence; the base class result is used only when no setup provides one. Use
@@ -130,13 +136,13 @@ dispenser.Mock.Verify.Dispense("Milk", It.IsAny<int>()).Once();  // throws a Moc
 
 The exception message describes the expectation and what actually happened:
 
-```text
-Expected that mock invoked method Dispense(Milk, It.IsAny<int>()) exactly once, but it never did.
+```text title="Failure message"
+Expected that mock invoked method Dispense("Milk", It.IsAny<int>()) exactly once, but it never did.
 ```
 
 Setups and verifications are independent: you can verify calls that have no setup, and a setup does not expect to
 be called. To check that every setup was used or every interaction was verified, see
-[Check for unexpected interactions](../advanced-features/05-check-for-unexpected-interactions.md).
+[Check for unexpected interactions](../08-advanced-features/05-check-for-unexpected-interactions.md).
 
 ## See it all together
 

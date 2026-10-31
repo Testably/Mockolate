@@ -56,39 +56,38 @@
 		<File Path="Docs/pages/12-benchmarks.mdx" />
 	</Folder>
 	<Folder Name="/_/Docs/core-concepts/">
-		<File Path="Docs/pages/core-concepts/00-index.md" />
-		<File Path="Docs/pages/core-concepts/01-complete-example.md" />
-		<File Path="Docs/pages/core-concepts/02-cheat-sheet.md" />
-		<File Path="Docs/pages/core-concepts/_category_.json" />
+		<File Path="Docs/pages/02-core-concepts/00-index.md" />
+		<File Path="Docs/pages/02-core-concepts/01-complete-example.md" />
+		<File Path="Docs/pages/02-core-concepts/02-cheat-sheet.md" />
+		<File Path="Docs/pages/02-core-concepts/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Docs/migration/">
-		<File Path="Docs/pages/migration/00-index.mdx" />
-		<File Path="Docs/pages/migration/11-migration.md" />
-		<File Path="Docs/pages/migration/_category_.json" />
+		<File Path="Docs/pages/11-migration/00-index.mdx" />
+		<File Path="Docs/pages/11-migration/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Docs/advanced-features/">
-		<File Path="Docs/pages/advanced-features/00-index.md" />
-		<File Path="Docs/pages/advanced-features/01-protected-members.md" />
-		<File Path="Docs/pages/advanced-features/02-static-interface-members.md" />
-		<File Path="Docs/pages/advanced-features/03-advanced-callback-features.md" />
-		<File Path="Docs/pages/advanced-features/04-monitor-interactions.md" />
-		<File Path="Docs/pages/advanced-features/05-check-for-unexpected-interactions.md" />
-		<File Path="Docs/pages/advanced-features/06-scenarios.md" />
-		<File Path="Docs/pages/advanced-features/_category_.json" />
+		<File Path="Docs/pages/08-advanced-features/00-index.md" />
+		<File Path="Docs/pages/08-advanced-features/01-protected-members.md" />
+		<File Path="Docs/pages/08-advanced-features/02-static-interface-members.md" />
+		<File Path="Docs/pages/08-advanced-features/03-advanced-callback-features.md" />
+		<File Path="Docs/pages/08-advanced-features/04-monitor-interactions.md" />
+		<File Path="Docs/pages/08-advanced-features/05-check-for-unexpected-interactions.md" />
+		<File Path="Docs/pages/08-advanced-features/06-scenarios.md" />
+		<File Path="Docs/pages/08-advanced-features/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Docs/setup/">
-		<File Path="Docs/pages/setup/00-index.md" />
-		<File Path="Docs/pages/setup/01-methods.md" />
-		<File Path="Docs/pages/setup/02-properties.md" />
-		<File Path="Docs/pages/setup/03-indexers.md" />
-		<File Path="Docs/pages/setup/04-events.md" />
-		<File Path="Docs/pages/setup/_category_.json" />
+		<File Path="Docs/pages/05-setup/00-index.md" />
+		<File Path="Docs/pages/05-setup/01-methods.md" />
+		<File Path="Docs/pages/05-setup/02-properties.md" />
+		<File Path="Docs/pages/05-setup/03-indexers.md" />
+		<File Path="Docs/pages/05-setup/04-events.md" />
+		<File Path="Docs/pages/05-setup/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Docs/special-types/">
-		<File Path="Docs/pages/special-types/00-index.md" />
-		<File Path="Docs/pages/special-types/01-httpclient.md" />
-		<File Path="Docs/pages/special-types/02-delegates.md" />
-		<File Path="Docs/pages/special-types/_category_.json" />
+		<File Path="Docs/pages/09-special-types/00-index.md" />
+		<File Path="Docs/pages/09-special-types/01-httpclient.md" />
+		<File Path="Docs/pages/09-special-types/02-delegates.md" />
+		<File Path="Docs/pages/09-special-types/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Source/">
 		<File Path="Source/Directory.Build.props" />

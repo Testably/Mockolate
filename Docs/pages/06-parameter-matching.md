@@ -16,7 +16,7 @@ dispenser.Mock.Verify.Dispense(It.IsOneOf("Dark", "Milk"), It.IsInRange(1, 5)).A
 ```
 
 The same matchers work everywhere: in method and indexer setups, in verifications, and for
-[delegates](special-types/02-delegates.md).
+[delegates](09-special-types/02-delegates.md).
 
 <details>
 <summary>Example types used on this page</summary>
@@ -79,7 +79,8 @@ kitchen.Mock.Setup.Process(It.Is("hello").Using(StringComparer.OrdinalIgnoreCase
     .Returns(42);
 
 int result = kitchen.Process("HELLO");
-// result == 42
+
+await That(result).IsEqualTo(42);
 ```
 
 ### Tolerance
@@ -94,7 +95,8 @@ kitchen.Mock.Setup.SetTemperature(It.Is(31.5).Within(0.1))
     .Returns(true);
 
 bool result = kitchen.SetTemperature(31.45);
-// result == true
+
+await That(result).IsTrue();
 ```
 
 <details>
@@ -128,8 +130,11 @@ public interface IChocolateBox
 IChocolateBox box = IChocolateBox.CreateMock();
 box.Mock.Setup.Add(It.IsAny<DarkChocolate>()).Returns(true);
 
-bool dark = box.Add(new DarkChocolate());  // true, matched the DarkChocolate setup
-bool milk = box.Add(new MilkChocolate());  // false, no setup matched
+bool dark = box.Add(new DarkChocolate());
+bool milk = box.Add(new MilkChocolate());
+
+await That(dark).IsTrue();
+await That(milk).IsFalse().Because("no setup matches a MilkChocolate");
 
 // Verifications are covariant too: only dark-chocolate additions are counted.
 box.Mock.Verify.Add(It.IsAny<DarkChocolate>()).Once();
@@ -184,8 +189,11 @@ kitchen.Mock.Setup.Pack(It.SequenceEquals("Dark", "Milk", "White"))
 kitchen.Mock.Setup.Pack(It.Contains("DARK").Using(StringComparer.OrdinalIgnoreCase))
     .Returns(true);
 
-bool filled = kitchen.Fill([1, 2, 5]);                  // true
-bool packed = kitchen.Pack(["Dark", "Milk", "White"]);  // true
+bool filled = kitchen.Fill([1, 2, 5]);
+bool packed = kitchen.Pack(["Dark", "Milk", "White"]);
+
+await That(filled).IsTrue();
+await That(packed).IsTrue();
 ```
 
 ## Ref and out parameters
@@ -204,14 +212,17 @@ kitchen.Mock.Setup.TryParse(It.IsAny<string>(), It.IsOut(() => 42))
     .Returns(true);
 
 bool success = kitchen.TryParse("abc", out int amount);
-// success == true, amount == 42
+
+await That(success).IsTrue();
+await That(amount).IsEqualTo(42);
 
 kitchen.Mock.Setup.Increment(It.IsRef<int>(v => v + 1))
     .Returns(true);
 
 int value = 5;
 kitchen.Increment(ref value);
-// value == 6
+
+await That(value).IsEqualTo(6);
 ```
 
 In verifications, use `It.IsOut<T>()` and `It.IsRef<T>()` without arguments to match any `out` or `ref` parameter:
@@ -221,6 +232,12 @@ kitchen.Mock.Verify.TryParse("abc", It.IsOut<int>()).Once();
 ```
 
 ## Span parameters (.NET 8+)
+
+:::info[.NET 8 or later]
+
+The span matchers are available on .NET 8 or later.
+
+:::
 
 | Matcher                                | Matches                                                       |
 |----------------------------------------|---------------------------------------------------------------|
@@ -237,13 +254,19 @@ kitchen.Mock.Setup.Scan(It.IsSpan<byte>(data => data.Length > 0))
 
 Span<byte> buffer = new byte[] { 1, 2, 3 };
 bool result = kitchen.Scan(buffer);
-// result == true
+
+await That(result).IsTrue();
 ```
 
 ## Ref struct parameters (.NET 9+)
 
-On .NET 9 with C# 13 or later, you can also mock members that take custom `ref struct` parameters (e.g.
-`Utf8JsonReader` or your own `ref struct Packet`), by value and as `out`, `ref` and `ref readonly`:
+:::info[.NET 9 and C# 13 or later]
+
+Custom `ref struct` parameters need a target framework of .NET 9 or later and C# 13 or later.
+
+:::
+
+You can also mock members that take custom `ref struct` parameters (e.g. `Utf8JsonReader` or your own `ref struct Packet`), by value and as `out`, `ref` and `ref readonly`:
 
 | Matcher                                         | Matches                                                                               |
 |-------------------------------------------------|---------------------------------------------------------------------------------------|
@@ -282,8 +305,11 @@ sink.Mock.Setup[It.IsAnyRefStruct<Packet>()]
 // Correlate writes and reads by projecting the key to a storable value
 sink.Mock.Setup[It.IsRefStructBy<Packet, int>(p => p.Id)].Returns("fallback");
 sink[new Packet(1, [])] = "written";
-string a = sink[new Packet(1, [])];  // "written", matched by Id
-string b = sink[new Packet(2, [])];  // "fallback", nothing was written under Id 2
+string a = sink[new Packet(1, [])];
+string b = sink[new Packet(2, [])];
+
+await That(a).IsEqualTo("written").Because("the key is matched by Id");
+await That(b).IsEqualTo("fallback").Because("nothing was written under Id 2");
 ```
 
 :::warning[Limitations]
@@ -331,7 +357,8 @@ int lastAmount = 0;
 dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>().Do(amount => lastAmount = amount));
 
 dispenser.Dispense("Dark", 42);
-// lastAmount == 42
+
+await That(lastAmount).IsEqualTo(42);
 ```
 
 ### Monitor
@@ -343,7 +370,8 @@ dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>().Monitor(out IParameterMoni
 
 dispenser.Dispense("Dark", 5);
 dispenser.Dispense("Dark", 7);
-// monitor.Values == [5, 7]
+
+await That(monitor.Values).IsEqualTo([5, 7]);
 ```
 
 `IParameterMonitor<T>` lives in the `Mockolate.Parameters` namespace.

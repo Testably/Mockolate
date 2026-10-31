@@ -10,8 +10,7 @@ import TabItem from '@theme/TabItem';
 Coming from **[Moq](https://github.com/devlooped/moq)**, **[NSubstitute](https://nsubstitute.github.io/)** or
 **[FakeItEasy](https://fakeiteasy.github.io/)**? There are two ways to move your tests over:
 
-- **Automatically**: for Moq and NSubstitute, the [Mockolate.Migration](11-migration.md) package reports every mock
-  it can migrate and rewrites it with a code fix.
+- **Automatically**: for Moq and NSubstitute, the [Mockolate.Migration](/Mockolate/migration/automated/) package reports every mock it can migrate and rewrites it with a code fix.
 - **By hand**: this page shows the same test in each library and translates the most common calls.
 
 Select the library you know; the choice applies to all examples on this page.
@@ -184,9 +183,9 @@ dispenser.Mock.Verify["Dark"].Got().Once();
 </TabItem>
 </Tabs>
 
-:::note[Differences to watch out for]
+:::warning[Differences to watch out for]
 
-- A `Returns`/`Throws` [sequence](../setup/01-methods.md#sequences) starts over after its last entry. Mark the last
+- A `Returns`/`Throws` [sequence](../05-setup/01-methods.md#sequences) starts over after its last entry. Mark the last
   entry with `.Forever()` to keep repeating it instead.
 - Class mocks call the base class implementation by default, even when a setup matches. See
   [Core concepts](/Mockolate/core-concepts/#what-happens-when-the-mock-is-called).
@@ -194,4 +193,4 @@ dispenser.Mock.Verify["Dark"].Got().Once();
 
 :::
 
-For the complete Mockolate syntax on one page, see the [cheat sheet](../core-concepts/02-cheat-sheet.md).
+For the complete Mockolate syntax on one page, see the [cheat sheet](../02-core-concepts/02-cheat-sheet.md).

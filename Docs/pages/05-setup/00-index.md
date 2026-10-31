@@ -25,7 +25,7 @@ All member kinds share the same vocabulary:
 - **Values and matchers** such as `It.IsAny<int>()` decide which calls a setup applies to. See
   [Parameter matching](../06-parameter-matching.md).
 - **Modifiers** such as `.For(n)`, `.Only(n)`, `.When(…)` and `.Forever()` control how often an entry applies. See
-  [Advanced callback features](../advanced-features/03-advanced-callback-features.md).
+  [Advanced callback features](../08-advanced-features/03-advanced-callback-features.md).
 
 :::warning[Chain what belongs together]
 

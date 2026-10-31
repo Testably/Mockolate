@@ -8,23 +8,19 @@ import PackageInstall from '@site/src/components/PackageInstall';
 
 ## Requirements
 
-Mockolate generates its mocks with C# 14 extension members, so you need the
-[.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) to build your tests.
-Your test projects can still target any supported framework: .NET Standard 2.0, .NET 8, .NET 10 or
-.NET Framework 4.8.
+:::info[.NET 10 SDK and C# 14]
 
-:::note
-
-If your test project pins `<LangVersion>`, it must be `14` or later (or `latest`).
+Mockolate generates its mocks with C# 14 extension members, so you need the [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) to build your tests. If your test project pins `<LangVersion>`, it must be `14` or later (or `latest`).
 
 :::
+
+Your test projects can still target any supported framework: .NET Standard 2.0, .NET 8, .NET 10 or .NET Framework 4.8.
 
 ## Install the package
 
 <PackageInstall package="Mockolate" />
 
-Mockolate works with every test framework (xUnit, NUnit, MSTest, TUnit, …). The package contains the source generator
-and the analyzers, so there is nothing else to configure.
+Mockolate works with every test framework (xUnit, NUnit, MSTest, TUnit, …). The package contains the source generator and the analyzers, so there is nothing else to configure.
 
 ## Write your first test
 
@@ -43,41 +39,43 @@ public class VendingMachine(IChocolateDispenser dispenser)
 }
 ```
 
-To test `VendingMachine` without a real dispenser, create a mock of `IChocolateDispenser`, tell it how to behave, and
-check afterwards how it was used:
+To test `VendingMachine` without a real dispenser, create a mock of `IChocolateDispenser`, tell it how to behave, and check afterwards how it was used:
 
-```csharp title="Test"
+```csharp title="VendingMachineTests.cs"
 using Mockolate;
 using Mockolate.Verify;
+using static aweXpect.Expect;
 
-// Arrange: create the mock and set up its behavior
-IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
-dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
-VendingMachine sut = new VendingMachine(dispenser);
+public class VendingMachineTests
+{
+    [Test]
+    public async Task Buy_WhenChocolateIsAvailable_ShouldDispenseIt()
+    {
+        IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+        dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
+        VendingMachine sut = new VendingMachine(dispenser);
 
-// Act
-string result = sut.Buy("Dark", 4);
+        string result = sut.Buy("Dark", 4);
 
-// Assert: result is "Enjoy!", and the dispenser was called exactly once
-dispenser.Mock.Verify.Dispense("Dark", 4).Once();
+        await That(result).IsEqualTo("Enjoy!");
+        dispenser.Mock.Verify.Dispense("Dark", 4).Once();
+    }
+}
 ```
 
 - `CreateMock()` is generated for every type you mock, so IntelliSense shows it as soon as you type `IChocolateDispenser.`.
 - Every mock has a `Mock` property that gives access to `Setup`, `Verify` and `Raise`.
-- `It.IsAny<int>()` is a [parameter matcher](06-parameter-matching.md). Plain values like `"Dark"` match by equality.
-- `.Once()` throws a `MockVerificationException` when the call count does not match. It lives in the
-  `Mockolate.Verify` namespace.
+- `It.IsAny<int>()` is a [parameter matcher](./06-parameter-matching.md). Plain values like `"Dark"` match by equality.
+- `.Once()` throws a `MockVerificationException` when the call count does not match. It lives in the `Mockolate.Verify` namespace.
 
-:::tip
+:::note[aweXpect in the examples]
 
-If you use [aweXpect](https://docs.testably.org/aweXpect), the
-[aweXpect.Mockolate](https://docs.testably.org/aweXpect/extensions/aweXpect.Mockolate) extension lets you write
-verifications as awaitable expectations: `await That(dispenser.Mock.Verify.Dispense("Dark", 4)).Once();`.
+The test uses [TUnit](https://tunit.dev/), and the examples in this documentation check results with [aweXpect](/aweXpect/) (`await That(...)`). aweXpect is optional: Mockolate works with any test framework and assertion library. If you use aweXpect, the [aweXpect.Mockolate](/aweXpect/extensions/aweXpect.Mockolate/) extension also lets you write verifications as awaitable expectations: `await That(dispenser.Mock.Verify.Dispense("Dark", 4)).Once();`.
 
 :::
 
 ## Next steps
 
 - [Core concepts](/Mockolate/core-concepts/) explains how mocks, setups and verifications fit together.
-- [A complete example](core-concepts/01-complete-example.md) combines properties, indexers, events and methods in one test.
-- The [cheat sheet](core-concepts/02-cheat-sheet.md) lists the most common calls on one page.
+- [A complete example](./02-core-concepts/01-complete-example.md) combines properties, indexers, events and methods in one test.
+- The [cheat sheet](./02-core-concepts/02-cheat-sheet.md) lists the most common calls on one page.

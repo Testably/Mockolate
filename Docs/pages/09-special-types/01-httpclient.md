@@ -4,9 +4,7 @@ description: Mock HttpClient and IHttpClientFactory with Mockolate and match URI
 
 # HttpClient
 
-Mockolate supports mocking `HttpClient` out of the box, with no special configuration required. You can set up, use, and
-verify HTTP interactions just like with any other class. The HTTP-specific matchers and `ReturnsAsync` overloads live
-in the `Mockolate.Web` namespace (.NET 8+).
+Mockolate supports mocking `HttpClient` out of the box, with no special configuration required. You can set up, use, and verify HTTP interactions just like with any other class. The HTTP-specific matchers and `ReturnsAsync` overloads live in the `Mockolate.Web` namespace.
 
 ```csharp
 using Mockolate.Web;
@@ -29,7 +27,7 @@ httpClient.Mock.Verify.PostAsync(
     It.IsHttpContent("application/json").WithStringMatching("*\"type\": \"Dark\"*\"amount\": 3*")).Once();
 ```
 
-:::info
+:::note
 
 Under the hood, all setups, requests and verifications are forwarded to the `SendAsync` method of a mocked
 `HttpMessageHandler`. You can therefore mix `string` and `Uri` parameters between setup and verification, and a
@@ -37,7 +35,7 @@ setup for `GetAsync(string)` also applies to calls of `GetAsync(Uri)`.
 
 :::
 
-## All HTTP Methods
+## All HTTP methods
 
 Mockolate supports all standard HTTP methods:
 
@@ -67,6 +65,12 @@ httpClient.Mock.Setup
     .PatchAsync(It.IsAny<string>(), It.IsAny<HttpContent>())
     .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK));
 ```
+
+:::info[.NET 8 or later for `PatchAsync`]
+
+The `PatchAsync` setup and verification are available on .NET 8 or later.
+
+:::
 
 For all HTTP methods you can add an optional cancellation token parameter.
 If no parameter is provided, it matches any `CancellationToken`:
@@ -151,7 +155,7 @@ httpClient.Mock.Verify
     .Once();
 ```
 
-## Content Matching
+## Content matching
 
 Use `It.IsHttpContent(string?)` to match the HTTP content, optionally providing an expected media type header value:
 
@@ -244,7 +248,7 @@ httpClient.Mock.Setup
 By default, only the content headers are checked, not the headers of the `HttpRequestMessage`. To check both, add the
 `.IncludingRequestHeaders()` modifier.
 
-## Return Message
+## Return message
 
 Overloads of `.ReturnsAsync` simplify specifying the return value for HTTP method setups.
 
@@ -276,7 +280,7 @@ httpClient.Mock.Setup.GetAsync(It.IsAny<Uri>())
 
 Use `It.IsHttpRequestMessage(HttpMethod?)` together with `Setup.SendAsync(...)` to match against the entire
 `HttpRequestMessage`, optionally restricted to a specific HTTP method. This is the catch-all entry point that the
-verb-specific overloads (`GetAsync`, `PostAsync`, …) route through internally - reach for it when you need the full
+verb-specific overloads (`GetAsync`, `PostAsync`, …) route through internally; reach for it when you need the full
 request (e.g. to inspect headers, or to handle non-standard verbs like `HEAD` or `OPTIONS`).
 
 Chain builders to add constraints:
@@ -298,7 +302,7 @@ httpClient.Mock.Setup
 ## Mocking `IHttpClientFactory`
 
 When the code under test pulls clients from `IHttpClientFactory` and wraps them in `using` blocks
-(`using var client = _factory.CreateClient("chocolate-api");`), two naive mocking patterns both break:
+(`using HttpClient client = _factory.CreateClient("chocolate-api");`), two naive mocking patterns both break:
 
 - Returning **the same mocked `HttpClient` instance** from every `CreateClient` call throws
   `ObjectDisposedException` on the second call, because the first `using` block already disposed it.

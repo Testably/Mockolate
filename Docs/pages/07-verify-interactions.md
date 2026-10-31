@@ -131,7 +131,7 @@ up.
 
 :::tip
 
-[aweXpect.Mockolate](https://docs.testably.org/aweXpect/extensions/aweXpect.Mockolate) offers awaitable verifications,
+[aweXpect.Mockolate](/aweXpect/extensions/aweXpect.Mockolate/) offers awaitable verifications,
 including an asynchronous `Within(TimeSpan)` that does not block the test thread:
 `await That(dispenser.Mock.Verify.Dispense("Dark", 5)).AtLeastOnce().Within(TimeSpan.FromSeconds(1));`
 
@@ -139,6 +139,6 @@ including an asynchronous `Within(TimeSpan)` that does not block the test thread
 
 ## Further checks
 
-- [Monitor interactions](advanced-features/04-monitor-interactions.md) to only count the interactions within a scope.
-- [Check for unexpected interactions](advanced-features/05-check-for-unexpected-interactions.md) to check that all
+- [Monitor interactions](08-advanced-features/04-monitor-interactions.md) to only count the interactions within a scope.
+- [Check for unexpected interactions](08-advanced-features/05-check-for-unexpected-interactions.md) to check that all
   interactions were verified or all setups were used.

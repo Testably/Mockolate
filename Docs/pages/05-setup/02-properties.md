@@ -116,6 +116,6 @@ a type is mockable at all.
 :::tip
 
 All callbacks and return values support conditional execution, repetition, parallel callbacks and access to the
-invocation counter. See [Advanced callback features](../advanced-features/03-advanced-callback-features.md).
+invocation counter. See [Advanced callback features](../08-advanced-features/03-advanced-callback-features.md).
 
 :::
