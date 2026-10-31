@@ -43,6 +43,13 @@ internal static partial class Sources
 		///     <c>Setup.Register(x =&gt; x &gt; 0)</c> binding as a literal value instead of being mistaken for a predicate.
 		/// </summary>
 		RawDelegate,
+
+		/// <summary>
+		///     A trailing optional parameter left out of the signature: the overload uses its declared default value.
+		///     This keeps omission apart from an explicit <see langword="null" /> or <see langword="default" />
+		///     argument, which stands for <c>default(T)</c>.
+		/// </summary>
+		Omitted,
 	}
 
 	/// <summary>
@@ -99,19 +106,41 @@ internal static partial class Sources
 	///     <see cref="MaxExplicitParameters" /> the all-union overload is emitted (it already covers matchers and
 	///     values) plus — when delegate-typed parameters exist — one overload with the raw delegate slot for them
 	///     (a lambda never converts to a union, mirroring the classic all-values overload); predicates are not
-	///     offered there.
+	///     offered there. With <paramref name="allowOmission" />, the same set is repeated for every count of left-out
+	///     trailing optional parameters (see <see cref="UnionSlot.Omitted" />).
 	/// </summary>
-	private static IEnumerable<UnionSlot[]> GenerateUnionSlotCombinations(EquatableArray<MethodParameter> parameters)
+	private static IEnumerable<UnionSlot[]> GenerateUnionSlotCombinations(EquatableArray<MethodParameter> parameters,
+		bool allowOmission = false)
 	{
 		MethodParameter[] all = parameters.AsArray();
+		int omittable = 0;
+		while (allowOmission && omittable < all.Length &&
+		       all[all.Length - 1 - omittable] is { HasExplicitDefaultValue: true, } p &&
+		       p.CanUseNullableParameterOverload())
+		{
+			omittable++;
+		}
+
+		for (int omitted = 0; omitted <= omittable; omitted++)
+		{
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(all, all.Length - omitted))
+			{
+				yield return slots;
+			}
+		}
+	}
+
+	private static IEnumerable<UnionSlot[]> GenerateUnionSlotCombinations(MethodParameter[] all, int keptCount)
+	{
 		int[] valueableIndices = all
+			.Take(keptCount)
 			.Select((p, i) => (p, i))
 			.Where(x => x.p.CanUseNullableParameterOverload())
 			.Select(x => x.i)
 			.ToArray();
 		if (all.Length > MaxExplicitParameters)
 		{
-			UnionSlot[] allUnion = new UnionSlot[all.Length];
+			UnionSlot[] allUnion = NewSlots(all.Length, keptCount);
 			foreach (int index in valueableIndices)
 			{
 				allUnion[index] = UnionSlot.Union;
@@ -136,7 +165,7 @@ internal static partial class Sources
 		int totalCombos = 1 << valueableIndices.Length;
 		for (int combo = 0; combo < totalCombos; combo++)
 		{
-			UnionSlot[] slots = new UnionSlot[all.Length];
+			UnionSlot[] slots = NewSlots(all.Length, keptCount);
 			for (int bit = 0; bit < valueableIndices.Length; bit++)
 			{
 				int index = valueableIndices[bit];
@@ -146,6 +175,17 @@ internal static partial class Sources
 
 			yield return slots;
 		}
+
+		static UnionSlot[] NewSlots(int length, int keptCount)
+		{
+			UnionSlot[] slots = new UnionSlot[length];
+			for (int i = keptCount; i < length; i++)
+			{
+				slots[i] = UnionSlot.Omitted;
+			}
+
+			return slots;
+		}
 	}
 
 	// Priority hierarchy of the union-mode overloads, mirroring the classic set:
@@ -153,9 +193,17 @@ internal static partial class Sources
 	//   IParameters           : int.MaxValue - 1 (unchanged)
 	//   all-union, object slot: parameterCount (an IParameters argument converts to object, so it must not outrank IParameters)
 	//   with predicates       : count of union/fixed slots, so a null argument binds to the union-heavier overload
+	//   with omitted slots    : negative, below every full overload (an argument for an omitted parameter would otherwise
+	//                           bind to a trailing caller-argument-expression string), fewer omitted slots rank higher
 	private static string UnionOverloadPriority(EquatableArray<MethodParameter> parameters, UnionSlot[] slots)
 	{
 		int unionCount = slots.Count(s => s is UnionSlot.Union or UnionSlot.Fixed);
+		int omittedCount = slots.Count(s => s == UnionSlot.Omitted);
+		if (omittedCount > 0)
+		{
+			return (unionCount - (slots.Length + 1) * omittedCount).ToString();
+		}
+
 		if (unionCount < slots.Length)
 		{
 			return unionCount.ToString();
@@ -171,8 +219,8 @@ internal static partial class Sources
 	private static string UnionExpressionParameterName(Method method, MethodParameter parameter)
 		=> CreateUniqueParameterName(method.Parameters, $"{parameter.Name}Expression");
 
-	private static void AppendUnionSummary(StringBuilder sb, Class @class, Method method, string? methodNameOverride,
-		bool isVerify)
+	private static void AppendUnionSummary(StringBuilder sb, Class @class, Method method, UnionSlot[] slots,
+		string? methodNameOverride, bool isVerify)
 	{
 		string action = isVerify ? "Verify invocations for" : "Setup for";
 		sb.Append("\t\t/// <summary>").AppendLine();
@@ -188,9 +236,16 @@ internal static partial class Sources
 				.Append("\"/>");
 		}
 
-		sb.Append(" with the given ")
-			.Append(string.Join(", ", method.Parameters.Select(p => $"<paramref name=\"{p.Name}\"/>")))
-			.Append(".").AppendLine();
+		string[] keptParameters = method.Parameters.AsArray()
+			.Where((_, i) => slots[i] != UnionSlot.Omitted)
+			.Select(p => $"<paramref name=\"{p.Name}\"/>")
+			.ToArray();
+		if (keptParameters.Length > 0)
+		{
+			sb.Append(" with the given ").Append(string.Join(", ", keptParameters));
+		}
+
+		sb.Append(".").AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 	}
 
@@ -204,9 +259,17 @@ internal static partial class Sources
 		AddPart(UnionSlot.Predicate, "a predicate for {0}");
 		AddPart(UnionSlot.RawDelegate, "a delegate value for {0}");
 		AddPart(UnionSlot.Fixed, "an <see cref=\"global::Mockolate.It\" /> matcher for {0}");
-		string scope = slots.All(s => s == UnionSlot.Union) ? "every parameter" : string.Join(" and ", parts);
+		string accepts = slots.All(s => s == UnionSlot.Union)
+			? "This overload accepts an <see cref=\"global::Mockolate.It\" /> matcher or a direct value for every parameter. "
+			: parts.Count > 0
+				? $"This overload accepts {string.Join(" and ", parts)}. "
+				: "";
+		string omitted = string.Join(", ", parameterNames
+			.Where((_, i) => slots[i] == UnionSlot.Omitted)
+			.Select(name => $"<c>{name}</c>"));
+		string omission = omitted.Length > 0 ? $"It uses the declared default value for {omitted}. " : "";
 		sb.AppendXmlRemarks(
-			$"This overload accepts {(slots.All(s => s == UnionSlot.Union) ? "an <see cref=\"global::Mockolate.It\" /> matcher or a direct value for " : "")}{scope}. A <see langword=\"null\" /> or <see langword=\"default\" /> argument stands for the literal default value.");
+			$"{accepts}{omission}A <see langword=\"null\" /> or <see langword=\"default\" /> argument stands for the default value of the parameter type.");
 
 		void AddPart(UnionSlot slot, string format)
 		{
@@ -257,20 +320,28 @@ internal static partial class Sources
 		bool isVerify)
 	{
 		MethodParameter[] parameters = method.Parameters.AsArray();
-		// Predicate and raw delegate slots have no default, so they end the optional suffix like value slots do.
-		bool[] breaksDefaults = slots.Select(s => s is UnionSlot.Predicate or UnionSlot.RawDelegate).ToArray();
+		// Only matcher slots take a `= null` default (it stands for the declared default, as in the classic set): a
+		// union slot is omitted through its own overload, so that `null` and `default` keep standing for default(T).
+		bool[] breaksDefaults = slots.Select(s => s is not (UnionSlot.Fixed or UnionSlot.Omitted)).ToArray();
 		bool[] hasTrailingDefault = isDefinition
 			? ComputeTrailingDefaults(method.Parameters.AsSpan(), breaksDefaults)
 			: new bool[parameters.Length];
 		string[] names = parameters.Select(p => p.Name).ToArray();
 		string[] expressionNames = parameters.Select(p => UnionExpressionParameterName(method, p)).ToArray();
+		bool first = true;
 		for (int i = 0; i < parameters.Length; i++)
 		{
-			if (i > 0)
+			if (slots[i] == UnionSlot.Omitted)
+			{
+				continue;
+			}
+
+			if (!first)
 			{
 				sb.Append(", ");
 			}
 
+			first = false;
 			AppendUnionSlotParameter(sb, parameters[i], names[i], slots[i], isVerify);
 			if (hasTrailingDefault[i])
 			{
@@ -341,43 +412,39 @@ internal static partial class Sources
 	}
 
 	/// <summary>
-	///     The fallback expression for an omitted or <see langword="null" /> union argument: the parameter's declared
-	///     default value when it has one, otherwise the literal <c>default(T)</c>.
-	/// </summary>
-	private static string UnionDefaultFallback(MethodParameter parameter)
-	{
-		if (!parameter.HasExplicitDefaultValue)
-		{
-			return "default";
-		}
-
-		string type = parameter.ToNullableType();
-		return $"new global::Mockolate.ParameterArg<{type}>(({type})({parameter.ExplicitDefaultValue}))";
-	}
-
-	/// <summary>
-	///     <c>ParameterArg&lt;T&gt; xArg = x ?? …;</c> per union slot: an omitted or <see langword="null" /> argument falls
-	///     back to the parameter's declared default value when it has one, otherwise to the literal <c>default(T)</c>.
+	///     <c>ParameterArg&lt;T&gt; xArg = …;</c> per union or omitted slot: a <see langword="null" /> union argument is
+	///     the literal <c>default(T)</c>, an omitted parameter its declared default value.
 	/// </summary>
 	private static void AppendUnionArgumentLocals(StringBuilder sb, Method method, UnionSlot[] slots)
 	{
 		MethodParameter[] parameters = method.Parameters.AsArray();
 		for (int i = 0; i < parameters.Length; i++)
 		{
-			if (slots[i] != UnionSlot.Union)
+			if (slots[i] is not (UnionSlot.Union or UnionSlot.Omitted))
 			{
 				continue;
 			}
 
 			MethodParameter parameter = parameters[i];
-			sb.Append("\t\t\tglobal::Mockolate.ParameterArg<").Append(parameter.ToNullableType()).Append("> ")
-				.Append(UnionArgumentLocalName(method, parameter)).Append(" = ").Append(parameter.Name).Append(" ?? ")
-				.Append(UnionDefaultFallback(parameter)).Append(';').AppendLine();
+			string type = parameter.ToNullableType();
+			sb.Append("\t\t\tglobal::Mockolate.ParameterArg<").Append(type).Append("> ")
+				.Append(UnionArgumentLocalName(method, parameter)).Append(" = ");
+			if (slots[i] == UnionSlot.Omitted)
+			{
+				sb.Append("new global::Mockolate.ParameterArg<").Append(type).Append(">((").Append(type).Append(")(")
+					.Append(parameter.ExplicitDefaultValue).Append("));").AppendLine();
+			}
+			else
+			{
+				sb.Append(parameter.Name).Append(" ?? default;").AppendLine();
+			}
 		}
 	}
 
 	private static string UnionLiteralExpression(Method method, MethodParameter parameter, UnionSlot slot)
-		=> slot == UnionSlot.Union ? $"{UnionArgumentLocalName(method, parameter)}.Literal!" : parameter.Name;
+		=> slot is UnionSlot.Union or UnionSlot.Omitted
+			? $"{UnionArgumentLocalName(method, parameter)}.Literal!"
+			: parameter.Name;
 
 	private static void AppendUnionMatchExpression(StringBuilder sb, Method method, MethodParameter parameter,
 		UnionSlot slot)
@@ -385,6 +452,7 @@ internal static partial class Sources
 		switch (slot)
 		{
 			case UnionSlot.Union:
+			case UnionSlot.Omitted:
 				sb.Append(UnionArgumentLocalName(method, parameter)).Append(".ToParameterMatch()");
 				break;
 			case UnionSlot.Predicate:
@@ -406,7 +474,7 @@ internal static partial class Sources
 		MethodParameter[] parameters = method.Parameters.AsArray();
 		IEnumerable<string> placeholders = parameters.Select((p, i) => slots[i] switch
 		{
-			UnionSlot.Union => $"{{{UnionArgumentLocalName(method, p)}}}",
+			UnionSlot.Union or UnionSlot.Omitted => $"{{{UnionArgumentLocalName(method, p)}}}",
 			UnionSlot.Predicate => $"{{{UnionExpressionParameterName(method, p)}}}",
 			_ => $"{{{p.Name}}}",
 		});
@@ -424,7 +492,7 @@ internal static partial class Sources
 	private static void AppendUnionMethodSetupDefinition(StringBuilder sb, Class @class, Method method,
 		UnionSlot[] slots, string? methodNameOverride = null)
 	{
-		AppendUnionSummary(sb, @class, method, methodNameOverride, isVerify: false);
+		AppendUnionSummary(sb, @class, method, slots, methodNameOverride, isVerify: false);
 		AppendUnionOverloadRemark(sb, method, slots);
 		AppendUnionPriority(sb, method, slots);
 		sb.Append(method.ReturnType != Type.Void
@@ -467,7 +535,7 @@ internal static partial class Sources
 		// Same fast path as the classic all-values overload: when every argument turns out to be a literal value the
 		// setup stores the values directly (WithLiteralValues, arity 1..4) instead of allocating one matcher per slot.
 		bool literalEligible = parameters.Length <= MaxExplicitParameters &&
-		                       slots.All(s => s is UnionSlot.Union or UnionSlot.RawDelegate);
+		                       slots.All(s => s is UnionSlot.Union or UnionSlot.RawDelegate or UnionSlot.Omitted);
 		string literalCondition = literalEligible ? UnionLiteralCondition(method, slots) : "";
 		if (literalEligible && literalCondition.Length > 0)
 		{
@@ -532,7 +600,7 @@ internal static partial class Sources
 	private static void AppendUnionMethodVerifyDefinition(StringBuilder sb, Class @class, Method method,
 		string verifyName, UnionSlot[] slots, string? methodNameOverride = null)
 	{
-		AppendUnionSummary(sb, @class, method, methodNameOverride, isVerify: true);
+		AppendUnionSummary(sb, @class, method, slots, methodNameOverride, isVerify: true);
 		AppendUnionOverloadRemark(sb, method, slots);
 		AppendUnionPriority(sb, method, slots);
 		sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(verifyName)
@@ -569,7 +637,7 @@ internal static partial class Sources
 		// MethodInvocation predicate.
 		bool noFixedSlots = slots.All(s => s != UnionSlot.Fixed);
 		bool literalEligible = parameters.Length <= MaxExplicitParameters && noFixedSlots &&
-		                       slots.All(s => s is UnionSlot.Union or UnionSlot.RawDelegate);
+		                       slots.All(s => s is UnionSlot.Union or UnionSlot.RawDelegate or UnionSlot.Omitted);
 		bool typedEligible = useFastForMethod && parameters.Length <= MaxExplicitParameters && noFixedSlots;
 		if (literalEligible)
 		{
@@ -618,7 +686,7 @@ internal static partial class Sources
 		{
 			for (int i = 0; i < parameters.Length; i++)
 			{
-				if (slots[i] is not (UnionSlot.Union or UnionSlot.Predicate))
+				if (slots[i] is not (UnionSlot.Union or UnionSlot.Predicate or UnionSlot.Omitted))
 				{
 					continue;
 				}
@@ -647,6 +715,7 @@ internal static partial class Sources
 				{
 					case UnionSlot.Union:
 					case UnionSlot.Predicate:
+					case UnionSlot.Omitted:
 						sb.Append('(').Append(UnionMatchLocalName(method, parameter)).Append(".Matches(")
 							.Append(invocationValue).Append("))");
 						break;
@@ -740,8 +809,7 @@ internal static partial class Sources
 
 	/// <summary>
 	///     The <c>IParameterMatch&lt;T&gt;</c> for one indexer key. Indexers have no literal fast path, so a union slot
-	///     always goes through <c>ToParameterMatch()</c>; an omitted or <see langword="null" /> key falls back to the
-	///     key's declared default value when it has one, otherwise to the literal <c>default(T)</c>.
+	///     always goes through <c>ToParameterMatch()</c>; a <see langword="null" /> key is the literal <c>default(T)</c>.
 	/// </summary>
 	private static void AppendUnionIndexerKeyMatch(StringBuilder sb, MethodParameter parameter, string name,
 		string expressionName, UnionSlot slot)
@@ -749,8 +817,7 @@ internal static partial class Sources
 		switch (slot)
 		{
 			case UnionSlot.Union:
-				sb.Append('(').Append(name).Append(" ?? ").Append(UnionDefaultFallback(parameter))
-					.Append(").ToParameterMatch()");
+				sb.Append('(').Append(name).Append(" ?? default).ToParameterMatch()");
 				break;
 			case UnionSlot.Predicate:
 				sb.Append("(global::Mockolate.Parameters.IParameterMatch<").Append(parameter.ToTypeOrWrapper())
@@ -761,7 +828,7 @@ internal static partial class Sources
 				AppendNamedValueParameter(sb, parameter, name);
 				break;
 			default:
-				sb.Append("CovariantParameterAdapter<").Append(parameter.ToTypeOrWrapper()).Append(">.Wrap(")
+				sb.Append("global::Mockolate.CovariantParameterAdapter<").Append(parameter.ToTypeOrWrapper()).Append(">.Wrap(")
 					.Append(name).Append(')');
 				break;
 		}
@@ -1001,8 +1068,7 @@ internal static partial class Sources
 			switch (slots[i])
 			{
 				case UnionSlot.Union:
-					sb.Append("(object?)(").Append(names[i]).Append(" ?? ").Append(UnionDefaultFallback(parameters[i]))
-						.Append(')');
+					sb.Append("(object?)(").Append(names[i]).Append(" ?? default)");
 					break;
 				case UnionSlot.Predicate:
 					sb.Append("(object?)").Append(expressionNames[i]);

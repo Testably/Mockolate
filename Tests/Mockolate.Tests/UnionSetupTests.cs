@@ -114,6 +114,62 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
+	public async Task Setup_WithDefaultForOptionalParameter_ShouldMatchTheTypeDefault()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		sut.Mock.Setup.WithDefault(default).Returns(3);
+
+		int forZero = sut.WithDefault(0);
+		int forDeclaredDefault = sut.WithDefault();
+
+		await That(forZero).IsEqualTo(3);
+		await That(forDeclaredDefault).IsEqualTo(0).Because("only an omitted argument stands for the declared default");
+	}
+
+	[Test]
+	public async Task Setup_WithNullForOptionalNullableParameter_ShouldMatchNull()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		sut.Mock.Setup.Greet(null).Returns("null");
+		sut.Mock.Setup.Greet().Returns("declared");
+
+		string forNull = sut.Greet(null);
+		string forDeclaredDefault = sut.Greet();
+
+		await That(forNull).IsEqualTo("null");
+		await That(forDeclaredDefault).IsEqualTo("declared");
+	}
+
+	[Test]
+	public async Task Verify_OmittedOptionalParameter_ShouldUseTheDeclaredDefault()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		sut.WithDefault();
+		sut.WithDefault(5);
+		sut.WithDefault(0);
+
+		await That(sut.Mock.Verify.WithDefault()).Twice();
+		await That(sut.Mock.Verify.WithDefault(default)).Once();
+	}
+
+	[Test]
+	public async Task Setup_WithPredicateAndOmittedOptionalParameter_ShouldUseTheDeclaredDefault()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		sut.Mock.Setup.Label(x => x > 0).Returns("omitted");
+		sut.Mock.Setup.Label(x => x > 0, "b").Returns("explicit");
+
+		string forDeclaredDefault = sut.Label(1);
+		string forExplicit = sut.Label(1, "b");
+		string forOther = sut.Label(1, "c");
+
+		await That(forDeclaredDefault).IsEqualTo("omitted");
+		await That(forExplicit).IsEqualTo("explicit")
+			.Because("a string argument must bind to the parameter, not to the predicate's caller argument expression");
+		await That(forOther).IsEmpty();
+	}
+
+	[Test]
 	public async Task Setup_ObjectParameter_ShouldTreatMatchersAsMatchers()
 	{
 		IUnionService sut = IUnionService.CreateMock();
@@ -170,6 +226,62 @@ public sealed class UnionSetupTests
 
 		await That(other.Take(1)).IsTrue();
 		await That(other.Take("x")).IsFalse();
+	}
+
+	[Test]
+	public async Task Setup_ObjectParameter_ShouldTreatAnExplicitlyTypedLambdaAsPredicate()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		sut.Mock.Setup.Take((object? o) => o is int).Returns(true);
+
+		await That(sut.Take(1)).IsTrue();
+		await That(sut.Take("x")).IsFalse();
+	}
+
+	[Test]
+	public async Task Setup_WithTypedCollectionExpression_ShouldBindAsValue()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		int[] values = [1, 2,];
+		sut.Mock.Setup.CountAll((int[])[1, 2,]).Returns(1);
+		sut.Mock.Setup.CountAll(values).Returns(2);
+
+		int forOtherInstance = sut.CountAll([1, 2,]);
+		int forSameInstance = sut.CountAll(values);
+
+		await That(forOtherInstance).IsEqualTo(0)
+			.Because("arrays compare by reference, as with the classic value overloads");
+		await That(forSameInstance).IsEqualTo(2);
+	}
+
+	[Test]
+	public async Task Setup_WithExplicitlyTypedNew_ShouldBindAsValue()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		sut.Mock.Setup.Wait(new TimeSpan(0, 0, 5)).Returns(1);
+
+		int matching = sut.Wait(TimeSpan.FromSeconds(5));
+		int other = sut.Wait(TimeSpan.FromSeconds(6));
+
+		await That(matching).IsEqualTo(1);
+		await That(other).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task Setup_WithExplicitUserDefinedConversion_ShouldBindAsValue()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		byte[] bytes = [1, 2,];
+		sut.Mock.Setup.Write((ReadOnlyMemory<byte>)bytes).Returns(1);
+		sut.Mock.Setup.Lookup((UnionKey)"key").Returns(2);
+
+		int written = sut.Write(bytes);
+		int found = sut.Lookup(new UnionKey("key"));
+		int notFound = sut.Lookup(new UnionKey("other"));
+
+		await That(written).IsEqualTo(1);
+		await That(found).IsEqualTo(2);
+		await That(notFound).IsEqualTo(0);
 	}
 
 	[Test]
@@ -313,19 +425,18 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Indexer_Setup_WithNullKey_ShouldUseTheDeclaredDefault()
+	public async Task Indexer_Setup_WithNullKey_ShouldMatchTheTypeDefault()
 	{
 		IDefaultKeyIndexer sut = IDefaultKeyIndexer.CreateMock();
 		sut.Mock.Setup[1, null].Returns("default");
 
-		string omitted = sut[1];
-		string explicitDefault = sut[1, 7];
-		string other = sut[1, 0];
+		string forZero = sut[1, 0];
+		string forDeclaredDefault = sut[1];
 
-		await That(omitted).IsEqualTo("default");
-		await That(explicitDefault).IsEqualTo("default");
-		await That(other).IsNotEqualTo("default");
-		await That(sut.Mock.Verify[1, null].Got()).Twice();
+		await That(forZero).IsEqualTo("default");
+		await That(forDeclaredDefault).IsNotEqualTo("default");
+		await That(sut.Mock.Verify[1, null].Got()).Once();
+		await That(sut.Mock.Verify[1, 7].Got()).Once();
 	}
 
 	[Test]
@@ -365,6 +476,11 @@ public sealed class UnionSetupTests
 		await That(sut.Mock.Verify[5].Got()).Once();
 	}
 
+	public readonly record struct UnionKey(string Value)
+	{
+		public static implicit operator UnionKey(string value) => new(value);
+	}
+
 	public delegate int UnionDelegate(int x, string y);
 
 	public delegate void ObjectCallback(object? state);
@@ -396,7 +512,13 @@ public sealed class UnionSetupTests
 		int SumAll(int a, int b, int c, int d, Func<int, bool> callback);
 		void Attach(Delegate handler);
 		int WithDefault(int i = 5);
+		string Greet(string? name = "x");
+		string Label(int id, string suffix = "a");
 		bool Take(object? o);
+		int CountAll(int[] values);
+		int Wait(TimeSpan timeout);
+		int Write(ReadOnlyMemory<byte> data);
+		int Lookup(UnionKey key);
 		bool TryParse(string s, out int result);
 		string this[int key, string name] { get; set; }
 	}

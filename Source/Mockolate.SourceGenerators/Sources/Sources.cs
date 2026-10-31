@@ -433,7 +433,7 @@ internal static partial class Sources
 		{
 			// Setup parameter is IParameter<T> (or nullable) — use CovariantParameterAdapter to support covariant
 			// widening (e.g. passing an IParameter<Derived> where IParameter<Base> is expected).
-			sb.Append("CovariantParameterAdapter<");
+			sb.Append("global::Mockolate.CovariantParameterAdapter<");
 			sb.AppendTypeOrWrapper(parameter.Type);
 			sb.Append(">.Wrap(");
 		}

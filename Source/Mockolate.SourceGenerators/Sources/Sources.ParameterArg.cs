@@ -139,9 +139,9 @@ internal static partial class Sources
 		          		};
 
 		          		/// <summary>
-		          		///     <see langword="true" /> unless this is the <see langword="default" /> instance.
+		          		///     <see langword="true" /> when <see cref="Value" /> is not <see langword="null" />.
 		          		/// </summary>
-		          		public bool HasValue => _tag != 0;
+		          		public bool HasValue => _tag == MatcherTag ? _matcher is not null : _literal is not null;
 
 		          		/// <summary>
 		          		///     <see langword="true" /> when the argument is a literal value (including the <see langword="default" /> instance).
@@ -154,21 +154,22 @@ internal static partial class Sources
 		          		public T? Literal => _literal;
 
 		          		/// <summary>
-		          		///     Gets the matcher, when this is the matcher case.
+		          		///     Gets the matcher, when this is the matcher case with a non-<see langword="null" /> matcher.
 		          		/// </summary>
 		          		public bool TryGetValue(out global::Mockolate.Parameters.IParameter<T>? matcher)
 		          		{
 		          			matcher = _matcher;
-		          			return _tag == MatcherTag;
+		          			return _tag == MatcherTag && _matcher is not null;
 		          		}
 
 		          		/// <summary>
-		          		///     Gets the literal value, when this is the literal case.
+		          		///     Gets the literal value, when this is the literal case (including the <see langword="default" />
+		          		///     instance) with a non-<see langword="null" /> value.
 		          		/// </summary>
 		          		public bool TryGetValue(out T? literal)
 		          		{
 		          			literal = _literal;
-		          			return _tag == LiteralTag;
+		          			return _tag != MatcherTag && _literal is not null;
 		          		}
 
 		          		/// <summary>
