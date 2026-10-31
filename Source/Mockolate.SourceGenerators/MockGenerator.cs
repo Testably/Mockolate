@@ -208,15 +208,6 @@ public class MockGenerator : IIncrementalGenerator
 			spc.AddSource("MockBehaviorExtensions.g.cs",
 				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left), source.Right)));
 
-		static bool HasAttribute(Compilation c, string attributeName)
-		{
-			INamedTypeSymbol? attributeSymbol = c.GetTypeByMetadataName(attributeName);
-			return attributeSymbol != null &&
-			       (attributeSymbol.DeclaredAccessibility == Accessibility.Public ||
-			        (attributeSymbol.DeclaredAccessibility == Accessibility.Internal &&
-			         SymbolEqualityComparer.Default.Equals(attributeSymbol.ContainingAssembly, c.Assembly)));
-		}
-
 		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute and
 		// CallerArgumentExpressionAttribute from another generator (PolySharp); any other value is a ';'-separated
 		// list of attribute names (with or without namespace) that must not be polyfilled.
@@ -281,6 +272,21 @@ public class MockGenerator : IIncrementalGenerator
 
 			return languageVersionHasUnions;
 		}
+	}
+
+	/// <summary>
+	///     Whether generated code can reference <paramref name="attributeName" /> without a conflict: exactly one
+	///     declaration is accessible (including an <see langword="internal" /> one exposed through
+	///     <c>InternalsVisibleTo</c>), or the compilation declares it itself, which wins over imported copies.
+	///     Several accessible imported copies are ambiguous, so they count as missing.
+	/// </summary>
+	internal static bool HasAttribute(Compilation compilation, string attributeName)
+	{
+		INamedTypeSymbol[] accessible = compilation.GetTypesByMetadataName(attributeName)
+			.Where(type => compilation.IsSymbolAccessibleWithin(type, compilation.Assembly))
+			.ToArray();
+		return accessible.Length == 1 ||
+		       accessible.Any(type => SymbolEqualityComparer.Default.Equals(type.ContainingAssembly, compilation.Assembly));
 	}
 
 	private static SourceText ToSource(string source, EquatableArray<string> externAliases)

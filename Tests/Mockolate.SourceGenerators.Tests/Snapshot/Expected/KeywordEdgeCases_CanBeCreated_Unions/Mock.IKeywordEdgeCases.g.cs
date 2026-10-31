@@ -539,7 +539,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.It.IsNull<int>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.It.IsNull<int>("null")));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, methodSetup);
 			return methodSetup;
 		}
@@ -677,7 +677,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases> IMockVerifyForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", __i => 
-				(@ref is not null ? CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({@ref})");
+				(@ref is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({@ref})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@void<@class>(int @ref)
 			where @class : default
@@ -808,7 +808,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases> IMockVerifyForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", __i => 
-				(@ref is not null ? CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({@ref})");
+				(@ref is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({@ref})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@void<@class>(int @ref)
 			where @class : default
@@ -973,7 +973,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.It.IsNull<int>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.It.IsNull<int>("null")));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1132,7 +1132,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<string>? parameter2] { get; }
@@ -1141,7 +1141,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<string>? parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
@@ -1150,7 +1150,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<string, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
@@ -1159,7 +1159,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Setup.IndexerSetup<string, int, string> this[global::System.Func<int, bool> parameter1, global::System.Func<string, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
@@ -1183,7 +1183,7 @@ internal static partial class Mock
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if(int)">@if(int)</see> with the given <paramref name="@params"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int> @if(global::Mockolate.ParameterArg<int>? @params);
@@ -1192,7 +1192,7 @@ internal static partial class Mock
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if(int)">@if(int)</see> with the given <paramref name="@params"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int> @if(global::System.Func<int, bool> @params, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "");
@@ -1257,7 +1257,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<string>? @void] { get; }
@@ -1266,7 +1266,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@void" /> and a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@void" /> and a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<string>? @void, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = ""] { get; }
@@ -1275,7 +1275,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" /> and a predicate for <paramref name="@void" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" /> and a predicate for <paramref name="@void" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::Mockolate.ParameterArg<int>? @params, global::System.Func<string, bool> @void, [global::System.Runtime.CompilerServices.CallerArgumentExpression("void")] string @voidExpression = ""] { get; }
@@ -1284,7 +1284,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.this[int, string]">this[int, string]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="@params" />, <paramref name="@void" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="@params" />, <paramref name="@void" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, string> this[global::System.Func<int, bool> @params, global::System.Func<string, bool> @void, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("void")] string @voidExpression = ""] { get; }
@@ -1307,7 +1307,7 @@ internal static partial class Mock
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if(int)">@if(int)</see> with the given <paramref name="@params"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters @if(global::Mockolate.ParameterArg<int>? @params);
@@ -1316,7 +1316,7 @@ internal static partial class Mock
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if(int)">@if(int)</see> with the given <paramref name="@params"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters @if(global::System.Func<int, bool> @params, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "");

@@ -100,7 +100,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> global::Mockolate.Mock.IMockSetupForComprehensiveDelegate.Setup(global::Mockolate.Parameters.IParameter<int>? x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, global::Mockolate.Parameters.IParameter<long>? w)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", CovariantParameterAdapter<int>.Wrap(x ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)(w ?? global::Mockolate.It.IsNull<long>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", global::Mockolate.CovariantParameterAdapter<int>.Wrap(x ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)(w ?? global::Mockolate.It.IsNull<long>("null")));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveDelegate.MemberId_Invoke, methodSetup);
 			return methodSetup;
 		}
@@ -124,7 +124,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> global::Mockolate.Mock.IMockSetupForComprehensiveDelegate.Setup(global::Mockolate.Parameters.IParameter<int>? x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, long w)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", CovariantParameterAdapter<int>.Wrap(x ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.IsValue<long>(w));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", global::Mockolate.CovariantParameterAdapter<int>.Wrap(x ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.IsValue<long>(w));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveDelegate.MemberId_Invoke, methodSetup);
 			return methodSetup;
 		}
@@ -140,10 +140,10 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate> IMockVerifyForComprehensiveDelegate.Verify(global::Mockolate.Parameters.IParameter<int>? x, global::Mockolate.Parameters.IVerifyRefParameter<int> y, global::Mockolate.Parameters.IVerifyOutParameter<string> z, global::Mockolate.Parameters.IParameter<long>? w)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForComprehensiveDelegate, global::Mockolate.Interactions.MethodInvocation<int, int, string, long>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", __i => 
-				(x is not null ? CovariantParameterAdapter<int>.Wrap(x).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
+				(x is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(x).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(y is global::Mockolate.Parameters.IParameterMatch<int> yMatch ? yMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(z is global::Mockolate.Parameters.IParameterMatch<string> zMatch ? zMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter3, default(string))) && 
-				(w is not null ? CovariantParameterAdapter<long>.Wrap(w).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter4, default(long))), () => $"Invoke({x}, {y}, {z}, {w})");
+				(w is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(w).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter4, default(long))), () => $"Invoke({x}, {y}, {z}, {w})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate> IMockVerifyForComprehensiveDelegate.Verify(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForComprehensiveDelegate, global::Mockolate.Interactions.MethodInvocation<int, int, string, long>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", __i => parameters switch
@@ -158,11 +158,11 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(x, __i.Parameter1)) && 
 				(y is global::Mockolate.Parameters.IParameterMatch<int> yMatch ? yMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(z is global::Mockolate.Parameters.IParameterMatch<string> zMatch ? zMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter3, default(string))) && 
-				(w is not null ? CovariantParameterAdapter<long>.Wrap(w).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter4, default(long))), () => $"Invoke({x}, {y}, {z}, {w})");
+				(w is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(w).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter4, default(long))), () => $"Invoke({x}, {y}, {z}, {w})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate> IMockVerifyForComprehensiveDelegate.Verify(global::Mockolate.Parameters.IParameter<int>? x, global::Mockolate.Parameters.IVerifyRefParameter<int> y, global::Mockolate.Parameters.IVerifyOutParameter<string> z, long w)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForComprehensiveDelegate, global::Mockolate.Interactions.MethodInvocation<int, int, string, long>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", __i => 
-				(x is not null ? CovariantParameterAdapter<int>.Wrap(x).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
+				(x is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(x).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(y is global::Mockolate.Parameters.IParameterMatch<int> yMatch ? yMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(z is global::Mockolate.Parameters.IParameterMatch<string> zMatch ? zMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter3, default(string))) && 
 				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(w, __i.Parameter4)), () => $"Invoke({x}, {y}, {z}, {w})");
@@ -204,10 +204,10 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate> IMockVerifyForComprehensiveDelegate.Verify(global::Mockolate.Parameters.IParameter<int>? x, global::Mockolate.Parameters.IVerifyRefParameter<int> y, global::Mockolate.Parameters.IVerifyOutParameter<string> z, global::Mockolate.Parameters.IParameter<long>? w)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForComprehensiveDelegate, global::Mockolate.Interactions.MethodInvocation<int, int, string, long>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", __i => 
-				(x is not null ? CovariantParameterAdapter<int>.Wrap(x).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
+				(x is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(x).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(y is global::Mockolate.Parameters.IParameterMatch<int> yMatch ? yMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(z is global::Mockolate.Parameters.IParameterMatch<string> zMatch ? zMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter3, default(string))) && 
-				(w is not null ? CovariantParameterAdapter<long>.Wrap(w).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter4, default(long))), () => $"Invoke({x}, {y}, {z}, {w})");
+				(w is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(w).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter4, default(long))), () => $"Invoke({x}, {y}, {z}, {w})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate> IMockVerifyForComprehensiveDelegate.Verify(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForComprehensiveDelegate, global::Mockolate.Interactions.MethodInvocation<int, int, string, long>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", __i => parameters switch
@@ -222,11 +222,11 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(x, __i.Parameter1)) && 
 				(y is global::Mockolate.Parameters.IParameterMatch<int> yMatch ? yMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(z is global::Mockolate.Parameters.IParameterMatch<string> zMatch ? zMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter3, default(string))) && 
-				(w is not null ? CovariantParameterAdapter<long>.Wrap(w).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter4, default(long))), () => $"Invoke({x}, {y}, {z}, {w})");
+				(w is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(w).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter4, default(long))), () => $"Invoke({x}, {y}, {z}, {w})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate> IMockVerifyForComprehensiveDelegate.Verify(global::Mockolate.Parameters.IParameter<int>? x, global::Mockolate.Parameters.IVerifyRefParameter<int> y, global::Mockolate.Parameters.IVerifyOutParameter<string> z, long w)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForComprehensiveDelegate, global::Mockolate.Interactions.MethodInvocation<int, int, string, long>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", __i => 
-				(x is not null ? CovariantParameterAdapter<int>.Wrap(x).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
+				(x is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(x).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(y is global::Mockolate.Parameters.IParameterMatch<int> yMatch ? yMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(z is global::Mockolate.Parameters.IParameterMatch<string> zMatch ? zMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter3, default(string))) && 
 				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(w, __i.Parameter4)), () => $"Invoke({x}, {y}, {z}, {w})");

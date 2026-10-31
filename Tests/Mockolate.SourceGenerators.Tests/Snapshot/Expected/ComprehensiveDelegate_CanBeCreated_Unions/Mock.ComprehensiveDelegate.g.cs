@@ -342,7 +342,7 @@ internal static partial class Mock
 		///     Setup for the delegate <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see> with the given <paramref name="x"/>, <paramref name="y"/>, <paramref name="z"/>, <paramref name="w"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="x" />, <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="x" />, <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> Setup(global::Mockolate.ParameterArg<int>? x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, global::Mockolate.ParameterArg<long>? w);
@@ -351,7 +351,7 @@ internal static partial class Mock
 		///     Setup for the delegate <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see> with the given <paramref name="x"/>, <paramref name="y"/>, <paramref name="z"/>, <paramref name="w"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="w" /> and a predicate for <paramref name="x" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="w" /> and a predicate for <paramref name="x" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> Setup(global::System.Func<int, bool> x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, global::Mockolate.ParameterArg<long>? w, [global::System.Runtime.CompilerServices.CallerArgumentExpression("x")] string xExpression = "");
@@ -360,7 +360,7 @@ internal static partial class Mock
 		///     Setup for the delegate <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see> with the given <paramref name="x"/>, <paramref name="y"/>, <paramref name="z"/>, <paramref name="w"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="x" /> and a predicate for <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="x" /> and a predicate for <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> Setup(global::Mockolate.ParameterArg<int>? x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, global::System.Func<long, bool> w, [global::System.Runtime.CompilerServices.CallerArgumentExpression("w")] string wExpression = "");
@@ -369,7 +369,7 @@ internal static partial class Mock
 		///     Setup for the delegate <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see> with the given <paramref name="x"/>, <paramref name="y"/>, <paramref name="z"/>, <paramref name="w"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="x" />, <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="x" />, <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> Setup(global::System.Func<int, bool> x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, global::System.Func<long, bool> w, [global::System.Runtime.CompilerServices.CallerArgumentExpression("x")] string xExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("w")] string wExpression = "");
@@ -394,7 +394,7 @@ internal static partial class Mock
 		///     Verify invocations for the delegate <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see> with the given <paramref name="x"/>, <paramref name="y"/>, <paramref name="z"/>, <paramref name="w"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="x" />, <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="x" />, <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate>.IgnoreParameters Verify(global::Mockolate.ParameterArg<int>? x, global::Mockolate.Parameters.IVerifyRefParameter<int> y, global::Mockolate.Parameters.IVerifyOutParameter<string> z, global::Mockolate.ParameterArg<long>? w);
@@ -403,7 +403,7 @@ internal static partial class Mock
 		///     Verify invocations for the delegate <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see> with the given <paramref name="x"/>, <paramref name="y"/>, <paramref name="z"/>, <paramref name="w"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="w" /> and a predicate for <paramref name="x" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="w" /> and a predicate for <paramref name="x" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate>.IgnoreParameters Verify(global::System.Func<int, bool> x, global::Mockolate.Parameters.IVerifyRefParameter<int> y, global::Mockolate.Parameters.IVerifyOutParameter<string> z, global::Mockolate.ParameterArg<long>? w, [global::System.Runtime.CompilerServices.CallerArgumentExpression("x")] string xExpression = "");
@@ -412,7 +412,7 @@ internal static partial class Mock
 		///     Verify invocations for the delegate <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see> with the given <paramref name="x"/>, <paramref name="y"/>, <paramref name="z"/>, <paramref name="w"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="x" /> and a predicate for <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="x" /> and a predicate for <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate>.IgnoreParameters Verify(global::Mockolate.ParameterArg<int>? x, global::Mockolate.Parameters.IVerifyRefParameter<int> y, global::Mockolate.Parameters.IVerifyOutParameter<string> z, global::System.Func<long, bool> w, [global::System.Runtime.CompilerServices.CallerArgumentExpression("w")] string wExpression = "");
@@ -421,7 +421,7 @@ internal static partial class Mock
 		///     Verify invocations for the delegate <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see> with the given <paramref name="x"/>, <paramref name="y"/>, <paramref name="z"/>, <paramref name="w"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="x" />, <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="x" />, <paramref name="w" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="y" />, <paramref name="z" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveDelegate>.IgnoreParameters Verify(global::System.Func<int, bool> x, global::Mockolate.Parameters.IVerifyRefParameter<int> y, global::Mockolate.Parameters.IVerifyOutParameter<string> z, global::System.Func<long, bool> w, [global::System.Runtime.CompilerServices.CallerArgumentExpression("x")] string xExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("w")] string wExpression = "");

@@ -71,7 +71,7 @@ internal static partial class Sources
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup");
-			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", memberIds, memberIdPrefix, slots, "Setup");
 			}
@@ -106,7 +106,7 @@ internal static partial class Sources
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
-			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, false, slots, "Verify");
 			}
@@ -181,7 +181,7 @@ internal static partial class Sources
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
-			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, false, slots, "Verify");
 			}
@@ -256,7 +256,7 @@ internal static partial class Sources
 			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
 			AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup",
 				hasOverloadResolutionPriority: true);
-			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodSetupDefinition(sb, @class, delegateMethod, slots, "Setup");
 			}
@@ -303,7 +303,7 @@ internal static partial class Sources
 			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
 			AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
 				hasOverloadResolutionPriority: true);
-			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters))
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", slots, "Verify");
 			}

@@ -248,15 +248,37 @@ public sealed class UnionOverloadTests
 	}
 
 	[Test]
-	public async Task OptionalParameters_ShouldFallBackToTheDeclaredDefault()
+	public async Task OptionalParameters_ShouldTreatNullAsTheTypeDefault()
 	{
 		string mock = GenerateMockInUnionMode();
 
 		await That(mock)
-			.Contains("WithDefaults(global::Mockolate.ParameterArg<int>? i = null, global::Mockolate.ParameterArg<string?>? s = null);").And
-			.Contains("global::Mockolate.ParameterArg<int> iArg = i ?? new global::Mockolate.ParameterArg<int>((int)(5));").And
-			.Contains("global::Mockolate.ParameterArg<string?> sArg = s ?? new global::Mockolate.ParameterArg<string?>((string?)(null));").And
-			.Contains("global::Mockolate.ParameterArg<int> valueArg = value ?? default;");
+			.Contains(
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]\n\t\tglobal::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, string?> WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<string?>? s);")
+			.And
+			.Contains("global::Mockolate.ParameterArg<int> iArg = i ?? default;").And
+			.Contains("global::Mockolate.ParameterArg<string?> sArg = s ?? default;").And
+			.DoesNotContain("ParameterArg<int>? i = null");
+	}
+
+	[Test]
+	public async Task OptionalParameters_ShouldGetOneOverloadPerOmittedTrailingCount()
+	{
+		string mock = GenerateMockInUnionMode();
+
+		await That(mock)
+			.Contains(
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]\n\t\tglobal::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, string?> WithDefaults(global::Mockolate.ParameterArg<int>? i);")
+			.And
+			.Contains(
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]\n\t\tglobal::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, string?> WithDefaults(global::System.Func<int, bool> i, [global::System.Runtime.CompilerServices.CallerArgumentExpression(\"i\")] string iExpression = \"\");")
+			.And
+			.Contains(
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-6)]\n\t\tglobal::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, string?> WithDefaults();")
+			.And
+			.Contains("global::Mockolate.ParameterArg<int> iArg = new global::Mockolate.ParameterArg<int>((int)(5));").And
+			.Contains("global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));").And
+			.Contains("global::Mockolate.Verify.VerificationResult<IMockVerifyForIMyService>.IgnoreParameters WithDefaults();");
 	}
 
 	[Test]

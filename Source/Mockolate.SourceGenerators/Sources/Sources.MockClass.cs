@@ -3467,7 +3467,7 @@ internal static partial class Sources
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
 				{
-					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters))
+					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters, allowOmission: true))
 					{
 						AppendUnionMethodSetupDefinition(sb, @class, method, slots);
 					}
@@ -3963,7 +3963,7 @@ internal static partial class Sources
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
 				{
-					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters))
+					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters, allowOmission: true))
 					{
 						AppendUnionMethodSetupImplementation(sb, method, mockRegistryName, setupName, memberIds,
 							memberIdPrefix, slots, scopeExpression: scopeExpression);
@@ -4250,7 +4250,7 @@ internal static partial class Sources
 						if (parameter.IsParams && parameter.Type.ElementType is not null)
 						{
 							// params value parameter: match element-wise by value via It.SequenceEquals.
-							sb.Append("CovariantParameterAdapter<").Append(parameter.Type.Fullname)
+							sb.Append("global::Mockolate.CovariantParameterAdapter<").Append(parameter.Type.Fullname)
 								.Append(">.Wrap(global::Mockolate.It.SequenceEquals<")
 								.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
 								.Append("))");
@@ -4584,7 +4584,7 @@ internal static partial class Sources
 			}
 			else
 			{
-				sb.Append("CovariantParameterAdapter<")
+				sb.Append("global::Mockolate.CovariantParameterAdapter<")
 					.AppendTypeOrWrapper(parameter.Type)
 					.Append(">.Wrap(")
 					.Append(paramRef);
@@ -5155,7 +5155,7 @@ internal static partial class Sources
 			}
 			else
 			{
-				sb.Append("CovariantParameterAdapter<").AppendTypeOrWrapper(parameter.Type)
+				sb.Append("global::Mockolate.CovariantParameterAdapter<").AppendTypeOrWrapper(parameter.Type)
 					.Append(">.Wrap(").Append(parameter.Name);
 				if (parameter.CanUseNullableParameterOverload())
 				{
@@ -5187,7 +5187,7 @@ internal static partial class Sources
 			}
 			else
 			{
-				sb.Append("CovariantParameterAdapter<").AppendTypeOrWrapper(parameter.Type)
+				sb.Append("global::Mockolate.CovariantParameterAdapter<").AppendTypeOrWrapper(parameter.Type)
 					.Append(">.Wrap(").Append(parameter.Name);
 				if (parameter.CanUseNullableParameterOverload())
 				{
@@ -5434,7 +5434,7 @@ internal static partial class Sources
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
 				{
-					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters))
+					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters, allowOmission: true))
 					{
 						AppendUnionMethodVerifyDefinition(sb, @class, method, verifyName, slots);
 					}
@@ -5744,7 +5744,7 @@ internal static partial class Sources
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
 				{
-					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters))
+					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters, allowOmission: true))
 					{
 						AppendUnionMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, memberIds,
 							memberIdPrefix, useFastBuffers, slots);
@@ -5963,7 +5963,7 @@ internal static partial class Sources
 				sb.Append(", ").Append(parameter.Name).Append(" is null ? ")
 					.Append("(global::Mockolate.Parameters.IParameterMatch<").Append(paramType)
 					.Append(">)global::Mockolate.It.Is<").Append(paramType).Append(">(default!) : ")
-					.Append("CovariantParameterAdapter<").Append(paramType).Append(">.Wrap(").Append(parameter.Name)
+					.Append("global::Mockolate.CovariantParameterAdapter<").Append(paramType).Append(">.Wrap(").Append(parameter.Name)
 					.Append(")");
 			}
 
@@ -6023,7 +6023,7 @@ internal static partial class Sources
 				{
 					sb.Append(
 						parameter.IsParams && parameter.Type.ElementType is not null
-							? $"(CovariantParameterAdapter<{parameter.Type.Fullname}>.Wrap(global::Mockolate.It.SequenceEquals<{parameter.Type.ElementType.Fullname}>({parameter.Name})).Matches(__i.Parameter{i + 1}))"
+							? $"(global::Mockolate.CovariantParameterAdapter<{parameter.Type.Fullname}>.Wrap(global::Mockolate.It.SequenceEquals<{parameter.Type.ElementType.Fullname}>({parameter.Name})).Matches(__i.Parameter{i + 1}))"
 							: $"(global::System.Collections.Generic.EqualityComparer<{parameter.ToTypeOrWrapper()}>.Default.Equals({parameter.Name}, __i.Parameter{i + 1}))");
 				}
 				else
@@ -6057,7 +6057,7 @@ internal static partial class Sources
 		else
 		{
 			sb.Append(
-				$"({parameter.Name} is not null ? CovariantParameterAdapter<{type}>.Wrap({parameter.Name}).Matches({invocationValue}) : global::System.Collections.Generic.EqualityComparer<{type}>.Default.Equals({invocationValue}, default({type})))");
+				$"({parameter.Name} is not null ? global::Mockolate.CovariantParameterAdapter<{type}>.Wrap({parameter.Name}).Matches({invocationValue}) : global::System.Collections.Generic.EqualityComparer<{type}>.Default.Equals({invocationValue}, default({type})))");
 		}
 	}
 

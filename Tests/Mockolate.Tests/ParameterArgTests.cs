@@ -29,7 +29,8 @@ public sealed class ParameterArgTests
 		ParameterArg<string> sut = value;
 
 		await That(sut.IsLiteral).IsTrue();
-		await That(sut.HasValue).IsTrue();
+		await That(sut.HasValue).IsFalse();
+		await That(sut.TryGetValue(out string? _)).IsFalse();
 		await That(sut.Literal).IsNull();
 		await That(sut.ToParameterMatch().Matches(null!)).IsTrue();
 		await That(sut.ToParameterMatch().Matches("foo")).IsFalse();
@@ -41,7 +42,7 @@ public sealed class ParameterArgTests
 		ParameterArg<int?> sut = (int?)null;
 
 		await That(sut.IsLiteral).IsTrue();
-		await That(sut.HasValue).IsTrue();
+		await That(sut.HasValue).IsFalse();
 		await That(sut.Literal).IsNull();
 		await That(sut.ToParameterMatch().Matches(null)).IsTrue();
 		await That(sut.ToParameterMatch().Matches(1)).IsFalse();
@@ -80,6 +81,8 @@ public sealed class ParameterArgTests
 		await That(sut.IsLiteral).IsTrue();
 		await That(sut.Literal).IsNull();
 		await That(sut.Value).IsNull();
+		await That(sut.TryGetValue(out string? _)).IsFalse();
+		await That(sut.TryGetValue(out IParameter<string>? _)).IsFalse();
 		await That(sut.ToParameterMatch().Matches(null!)).IsTrue();
 		await That(sut.ToParameterMatch().Matches("foo")).IsFalse();
 	}
@@ -89,10 +92,13 @@ public sealed class ParameterArgTests
 	{
 		ParameterArg<int> sut = default;
 
-		await That(sut.HasValue).IsFalse();
+		await That(sut.HasValue).IsTrue().Because("the default instance is the literal 0, so Value is not null");
 		await That(sut.IsLiteral).IsTrue();
 		await That(sut.Literal).IsEqualTo(0);
 		await That(sut.Value).IsEqualTo(0);
+		await That(sut.TryGetValue(out int literal)).IsTrue();
+		await That(literal).IsEqualTo(0);
+		await That(sut.TryGetValue(out IParameter<int>? _)).IsFalse();
 		await That(sut.ToParameterMatch().Matches(0)).IsTrue();
 		await That(sut.ToParameterMatch().Matches(1)).IsFalse();
 	}
@@ -137,6 +143,8 @@ public sealed class ParameterArgTests
 
 		IParameterMatch<string> result = sut.ToParameterMatch();
 
+		await That(sut.HasValue).IsFalse();
+		await That(sut.TryGetValue(out IParameter<string>? _)).IsFalse();
 		await That(result.Matches(null!)).IsTrue();
 		await That(result.Matches("foo")).IsFalse();
 	}

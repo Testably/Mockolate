@@ -345,7 +345,8 @@ Union mode is enabled automatically once the compiler ships C# 15 and the projec
 <details>
 <summary>Union parameter semantics</summary>
 
-- `null` and `default` stand for the parameter's declared default value, or for `default(T)` when it has none, exactly as with the classic value overloads.
+- `null` and `default` stand for `default(T)` of the parameter type. Leaving out an optional parameter stands for its declared default value. Unlike the classic overloads, `null` for a non-nullable value type parameter with a declared default value matches `default(T)`, not the declared default.
+- A union-typed parameter does not pass its type on to the argument: a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion needs an explicit type, for example `new TimeSpan(0, 0, 5)` or `(ReadOnlyMemory<byte>)bytes`.
 - A parameter whose type is a delegate offers the raw delegate instead of a predicate, so a lambda is still matched as a value.
 - For an `object` parameter, a lambda literal is a predicate, while a delegate stored in a variable is a value.
 - Within a union-typed member, `ref`, `out` and `ref readonly` parameters as well as `Span<T>` and `ReadOnlySpan<T>` parameters keep their matcher slot (no predicate for that parameter); `in` parameters behave like by-value ones.

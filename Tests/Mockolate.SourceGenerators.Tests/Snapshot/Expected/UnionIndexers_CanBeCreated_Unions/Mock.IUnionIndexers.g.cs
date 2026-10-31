@@ -2155,7 +2155,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[int]">this[int]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IndexerSetup<string, int> this[global::Mockolate.ParameterArg<int>? parameter1] { get; }
@@ -2164,7 +2164,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[int]">this[int]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Setup.IndexerSetup<string, int> this[global::System.Func<int, bool> parameter1, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
@@ -2173,7 +2173,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[byte, byte]">this[byte, byte]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<long, byte, byte> this[global::Mockolate.ParameterArg<byte>? parameter1, global::Mockolate.ParameterArg<byte>? parameter2] { get; }
@@ -2182,7 +2182,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[byte, byte]">this[byte, byte]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<long, byte, byte> this[global::System.Func<byte, bool> parameter1, global::Mockolate.ParameterArg<byte>? parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
@@ -2191,7 +2191,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[byte, byte]">this[byte, byte]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<long, byte, byte> this[global::Mockolate.ParameterArg<byte>? parameter1, global::System.Func<byte, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
@@ -2200,7 +2200,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[byte, byte]">this[byte, byte]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<long, byte, byte> this[global::System.Func<byte, bool> parameter1, global::System.Func<byte, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
@@ -2209,7 +2209,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IIndexerSetterOnlySetup<long, short, short, short> this[global::Mockolate.ParameterArg<short>? parameter1, global::Mockolate.ParameterArg<short>? parameter2, global::Mockolate.ParameterArg<short>? parameter3] { get; }
@@ -2218,7 +2218,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerSetterOnlySetup<long, short, short, short> this[global::System.Func<short, bool> parameter1, global::Mockolate.ParameterArg<short>? parameter2, global::Mockolate.ParameterArg<short>? parameter3, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
@@ -2227,7 +2227,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerSetterOnlySetup<long, short, short, short> this[global::Mockolate.ParameterArg<short>? parameter1, global::System.Func<short, bool> parameter2, global::Mockolate.ParameterArg<short>? parameter3, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
@@ -2236,7 +2236,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter3" /> and a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter3" /> and a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerSetterOnlySetup<long, short, short, short> this[global::System.Func<short, bool> parameter1, global::System.Func<short, bool> parameter2, global::Mockolate.ParameterArg<short>? parameter3, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
@@ -2245,7 +2245,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" /> and a predicate for <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" /> and a predicate for <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerSetterOnlySetup<long, short, short, short> this[global::Mockolate.ParameterArg<short>? parameter1, global::Mockolate.ParameterArg<short>? parameter2, global::System.Func<short, bool> parameter3, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
@@ -2254,7 +2254,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />, <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />, <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerSetterOnlySetup<long, short, short, short> this[global::System.Func<short, bool> parameter1, global::Mockolate.ParameterArg<short>? parameter2, global::System.Func<short, bool> parameter3, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
@@ -2263,7 +2263,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerSetterOnlySetup<long, short, short, short> this[global::Mockolate.ParameterArg<short>? parameter1, global::System.Func<short, bool> parameter2, global::System.Func<short, bool> parameter3, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
@@ -2272,7 +2272,7 @@ internal static partial class Mock
 		///     Setup for the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />, <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />, <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Setup.IIndexerSetterOnlySetup<long, short, short, short> this[global::System.Func<short, bool> parameter1, global::System.Func<short, bool> parameter2, global::System.Func<short, bool> parameter3, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
@@ -2281,7 +2281,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::Mockolate.ParameterArg<string>? parameter3, global::Mockolate.ParameterArg<bool>? parameter4] { get; }
@@ -2290,7 +2290,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" />, <paramref name="parameter3" />, <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" />, <paramref name="parameter3" />, <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::Mockolate.ParameterArg<string>? parameter3, global::Mockolate.ParameterArg<bool>? parameter4] { get; }
@@ -2299,7 +2299,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter3" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter3" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1, global::System.Func<int, bool> parameter2, global::Mockolate.ParameterArg<string>? parameter3, global::Mockolate.ParameterArg<bool>? parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
@@ -2308,7 +2308,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter3" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter2" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter3" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter2" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> parameter1, global::System.Func<int, bool> parameter2, global::Mockolate.ParameterArg<string>? parameter3, global::Mockolate.ParameterArg<bool>? parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
@@ -2317,7 +2317,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::System.Func<string, bool> parameter3, global::Mockolate.ParameterArg<bool>? parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
@@ -2326,7 +2326,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter3" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter3" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::System.Func<string, bool> parameter3, global::Mockolate.ParameterArg<bool>? parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
@@ -2335,7 +2335,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter4" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter3" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1, global::System.Func<int, bool> parameter2, global::System.Func<string, bool> parameter3, global::Mockolate.ParameterArg<bool>? parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
@@ -2344,7 +2344,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter4" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter3" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter4" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter3" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> parameter1, global::System.Func<int, bool> parameter2, global::System.Func<string, bool> parameter3, global::Mockolate.ParameterArg<bool>? parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
@@ -2353,7 +2353,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter4" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter4" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::Mockolate.ParameterArg<string>? parameter3, global::System.Func<bool, bool> parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter4")] string parameter4Expression = ""] { get; }
@@ -2362,7 +2362,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::Mockolate.ParameterArg<string>? parameter3, global::System.Func<bool, bool> parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter4")] string parameter4Expression = ""] { get; }
@@ -2371,7 +2371,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter4" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter3" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter4" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1, global::System.Func<int, bool> parameter2, global::Mockolate.ParameterArg<string>? parameter3, global::System.Func<bool, bool> parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter4")] string parameter4Expression = ""] { get; }
@@ -2380,7 +2380,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter3" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter3" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> parameter1, global::System.Func<int, bool> parameter2, global::Mockolate.ParameterArg<string>? parameter3, global::System.Func<bool, bool> parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter4")] string parameter4Expression = ""] { get; }
@@ -2389,7 +2389,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" /> and a predicate for <paramref name="parameter3" />, <paramref name="parameter4" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" /> and a predicate for <paramref name="parameter3" />, <paramref name="parameter4" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::System.Func<string, bool> parameter3, global::System.Func<bool, bool> parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter4")] string parameter4Expression = ""] { get; }
@@ -2398,7 +2398,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter3" />, <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter3" />, <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::System.Func<string, bool> parameter3, global::System.Func<bool, bool> parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter4")] string parameter4Expression = ""] { get; }
@@ -2407,7 +2407,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter3" />, <paramref name="parameter4" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />, <paramref name="parameter3" />, <paramref name="parameter4" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1, global::System.Func<int, bool> parameter2, global::System.Func<string, bool> parameter3, global::System.Func<bool, bool> parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter4")] string parameter4Expression = ""] { get; }
@@ -2416,7 +2416,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="parameter2" />, <paramref name="parameter3" />, <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="parameter2" />, <paramref name="parameter3" />, <paramref name="parameter4" /> and a delegate value for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<string, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> parameter1, global::System.Func<int, bool> parameter2, global::System.Func<string, bool> parameter3, global::System.Func<bool, bool> parameter4, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter4")] string parameter4Expression = ""] { get; }
@@ -2425,7 +2425,7 @@ internal static partial class Mock
 		///     Setup for the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[int, int, int, int, int]">this[int, int, int, int, int]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IndexerSetup<string, int, int, int, int, int> this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::Mockolate.ParameterArg<int>? parameter3, global::Mockolate.ParameterArg<int>? parameter4, global::Mockolate.ParameterArg<int>? parameter5] { get; }
@@ -2441,7 +2441,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[int]">this[int]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIUnionIndexers, string> this[global::Mockolate.ParameterArg<int>? key] { get; }
@@ -2450,7 +2450,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[int]">this[int]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIUnionIndexers, string> this[global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = ""] { get; }
@@ -2459,7 +2459,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[byte, byte]">this[byte, byte]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, byte, byte> this[global::Mockolate.ParameterArg<byte>? a, global::Mockolate.ParameterArg<byte>? b] { get; }
@@ -2468,7 +2468,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[byte, byte]">this[byte, byte]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" /> and a predicate for <paramref name="a" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" /> and a predicate for <paramref name="a" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, byte, byte> this[global::System.Func<byte, bool> a, global::Mockolate.ParameterArg<byte>? b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = ""] { get; }
@@ -2477,7 +2477,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[byte, byte]">this[byte, byte]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, byte, byte> this[global::Mockolate.ParameterArg<byte>? a, global::System.Func<byte, bool> b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = ""] { get; }
@@ -2486,7 +2486,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[byte, byte]">this[byte, byte]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, byte, byte> this[global::System.Func<byte, bool> a, global::System.Func<byte, bool> b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = ""] { get; }
@@ -2495,7 +2495,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIUnionIndexers, short, short, short, long> this[global::Mockolate.ParameterArg<short>? a, global::Mockolate.ParameterArg<short>? b, global::Mockolate.ParameterArg<short>? c] { get; }
@@ -2504,7 +2504,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" />, <paramref name="c" /> and a predicate for <paramref name="a" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" />, <paramref name="c" /> and a predicate for <paramref name="a" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIUnionIndexers, short, short, short, long> this[global::System.Func<short, bool> a, global::Mockolate.ParameterArg<short>? b, global::Mockolate.ParameterArg<short>? c, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = ""] { get; }
@@ -2513,7 +2513,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" />, <paramref name="c" /> and a predicate for <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" />, <paramref name="c" /> and a predicate for <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIUnionIndexers, short, short, short, long> this[global::Mockolate.ParameterArg<short>? a, global::System.Func<short, bool> b, global::Mockolate.ParameterArg<short>? c, [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = ""] { get; }
@@ -2522,7 +2522,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="c" /> and a predicate for <paramref name="a" />, <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="c" /> and a predicate for <paramref name="a" />, <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIUnionIndexers, short, short, short, long> this[global::System.Func<short, bool> a, global::System.Func<short, bool> b, global::Mockolate.ParameterArg<short>? c, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = ""] { get; }
@@ -2531,7 +2531,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" />, <paramref name="b" /> and a predicate for <paramref name="c" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" />, <paramref name="b" /> and a predicate for <paramref name="c" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIUnionIndexers, short, short, short, long> this[global::Mockolate.ParameterArg<short>? a, global::Mockolate.ParameterArg<short>? b, global::System.Func<short, bool> c, [global::System.Runtime.CompilerServices.CallerArgumentExpression("c")] string cExpression = ""] { get; }
@@ -2540,7 +2540,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" /> and a predicate for <paramref name="a" />, <paramref name="c" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" /> and a predicate for <paramref name="a" />, <paramref name="c" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIUnionIndexers, short, short, short, long> this[global::System.Func<short, bool> a, global::Mockolate.ParameterArg<short>? b, global::System.Func<short, bool> c, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("c")] string cExpression = ""] { get; }
@@ -2549,7 +2549,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="b" />, <paramref name="c" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="b" />, <paramref name="c" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIUnionIndexers, short, short, short, long> this[global::Mockolate.ParameterArg<short>? a, global::System.Func<short, bool> b, global::System.Func<short, bool> c, [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("c")] string cExpression = ""] { get; }
@@ -2558,7 +2558,7 @@ internal static partial class Mock
 		///     Verify interactions with the long indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[short, short, short]">this[short, short, short]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="b" />, <paramref name="c" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="b" />, <paramref name="c" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIUnionIndexers, short, short, short, long> this[global::System.Func<short, bool> a, global::System.Func<short, bool> b, global::System.Func<short, bool> c, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("c")] string cExpression = ""] { get; }
@@ -2567,7 +2567,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? selector, global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string>? name, global::Mockolate.ParameterArg<bool>? flag] { get; }
@@ -2576,7 +2576,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="name" />, <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="name" />, <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> selector, global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string>? name, global::Mockolate.ParameterArg<bool>? flag] { get; }
@@ -2585,7 +2585,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="name" />, <paramref name="flag" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="name" />, <paramref name="flag" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? selector, global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string>? name, global::Mockolate.ParameterArg<bool>? flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = ""] { get; }
@@ -2594,7 +2594,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" />, <paramref name="flag" /> and a predicate for <paramref name="key" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" />, <paramref name="flag" /> and a predicate for <paramref name="key" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> selector, global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string>? name, global::Mockolate.ParameterArg<bool>? flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = ""] { get; }
@@ -2603,7 +2603,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="key" />, <paramref name="flag" /> and a predicate for <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="key" />, <paramref name="flag" /> and a predicate for <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? selector, global::Mockolate.ParameterArg<int>? key, global::System.Func<string, bool> name, global::Mockolate.ParameterArg<bool>? flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = ""] { get; }
@@ -2612,7 +2612,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="flag" /> and a predicate for <paramref name="name" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="flag" /> and a predicate for <paramref name="name" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> selector, global::Mockolate.ParameterArg<int>? key, global::System.Func<string, bool> name, global::Mockolate.ParameterArg<bool>? flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = ""] { get; }
@@ -2621,7 +2621,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="flag" /> and a predicate for <paramref name="key" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="flag" /> and a predicate for <paramref name="key" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? selector, global::System.Func<int, bool> key, global::System.Func<string, bool> name, global::Mockolate.ParameterArg<bool>? flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = ""] { get; }
@@ -2630,7 +2630,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="flag" /> and a predicate for <paramref name="key" />, <paramref name="name" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="flag" /> and a predicate for <paramref name="key" />, <paramref name="name" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> selector, global::System.Func<int, bool> key, global::System.Func<string, bool> name, global::Mockolate.ParameterArg<bool>? flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = ""] { get; }
@@ -2639,7 +2639,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="key" />, <paramref name="name" /> and a predicate for <paramref name="flag" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="key" />, <paramref name="name" /> and a predicate for <paramref name="flag" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? selector, global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string>? name, global::System.Func<bool, bool> flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("flag")] string flagExpression = ""] { get; }
@@ -2648,7 +2648,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="name" /> and a predicate for <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="name" /> and a predicate for <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> selector, global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string>? name, global::System.Func<bool, bool> flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("flag")] string flagExpression = ""] { get; }
@@ -2657,7 +2657,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="name" /> and a predicate for <paramref name="key" />, <paramref name="flag" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="name" /> and a predicate for <paramref name="key" />, <paramref name="flag" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? selector, global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string>? name, global::System.Func<bool, bool> flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("flag")] string flagExpression = ""] { get; }
@@ -2666,7 +2666,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" /> and a predicate for <paramref name="key" />, <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" /> and a predicate for <paramref name="key" />, <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> selector, global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string>? name, global::System.Func<bool, bool> flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("flag")] string flagExpression = ""] { get; }
@@ -2675,7 +2675,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="key" /> and a predicate for <paramref name="name" />, <paramref name="flag" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" />, <paramref name="key" /> and a predicate for <paramref name="name" />, <paramref name="flag" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? selector, global::Mockolate.ParameterArg<int>? key, global::System.Func<string, bool> name, global::System.Func<bool, bool> flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("flag")] string flagExpression = ""] { get; }
@@ -2684,7 +2684,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="name" />, <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="name" />, <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> selector, global::Mockolate.ParameterArg<int>? key, global::System.Func<string, bool> name, global::System.Func<bool, bool> flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("flag")] string flagExpression = ""] { get; }
@@ -2693,7 +2693,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" /> and a predicate for <paramref name="key" />, <paramref name="name" />, <paramref name="flag" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="selector" /> and a predicate for <paramref name="key" />, <paramref name="name" />, <paramref name="flag" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? selector, global::System.Func<int, bool> key, global::System.Func<string, bool> name, global::System.Func<bool, bool> flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("flag")] string flagExpression = ""] { get; }
@@ -2702,7 +2702,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[global::System.Func{int, bool}, int, string, bool]">Func&lt;int, bool&gt;, int, string, bool]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="name" />, <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="name" />, <paramref name="flag" /> and a delegate value for <paramref name="selector" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool> this[global::System.Func<int, bool> selector, global::System.Func<int, bool> key, global::System.Func<string, bool> name, global::System.Func<bool, bool> flag, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("flag")] string flagExpression = ""] { get; }
@@ -2711,7 +2711,7 @@ internal static partial class Mock
 		///     Verify interactions with the string indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers.this[int, int, int, int, int]">this[int, int, int, int, int]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the literal default value.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIUnionIndexers, string> this[global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d, global::Mockolate.ParameterArg<int>? e] { get; }
