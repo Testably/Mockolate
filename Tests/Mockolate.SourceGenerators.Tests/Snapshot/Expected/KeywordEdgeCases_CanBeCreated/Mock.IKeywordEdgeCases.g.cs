@@ -443,7 +443,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, global::Mockolate.CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), global::Mockolate.CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -455,7 +455,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(parameter1), CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(parameter1), global::Mockolate.CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -467,7 +467,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.IsValue<string>(parameter2));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, global::Mockolate.CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.IsValue<string>(parameter2));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -504,7 +504,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@if(global::Mockolate.Parameters.IParameter<int>? @params)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, methodSetup);
 			return methodSetup;
 		}
@@ -530,7 +530,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.It.IsNull<int>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.It.IsNull<int>("null")));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, methodSetup);
 			return methodSetup;
 		}
@@ -582,8 +582,8 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
-					CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
+					global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
+					global::Mockolate.CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
 					() => global::System.String.Format("[{0}, {1}]", (object?)@params ?? "null", (object?)@void ?? "null"));
 			}
 		}
@@ -596,7 +596,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(@params, "@params"),
-					CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
+					global::Mockolate.CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
 					() => global::System.String.Format("[{0}, {1}]", (object?)@params, (object?)@void ?? "null"));
 			}
 		}
@@ -608,7 +608,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
+					global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(@void, "@void"),
 					() => global::System.String.Format("[{0}, {1}]", (object?)@params ?? "null", (object?)@void));
 			}
@@ -640,7 +640,7 @@ internal static partial class Mock
 				}, () => $"@if({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases> IMockVerifyForIKeywordEdgeCases.@if(global::Mockolate.Parameters.IParameter<int>? @params)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : CovariantParameterAdapter<int>.Wrap(@params), () => $"@if({@params})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), () => $"@if({@params})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@if(int @params)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @params, () => $"@if({@params})");
@@ -657,7 +657,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases> IMockVerifyForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", __i => 
-				(@ref is not null ? CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({@ref})");
+				(@ref is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({@ref})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@void<@class>(int @ref)
 			where @class : default
@@ -702,8 +702,8 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
-					CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
+					global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
+					global::Mockolate.CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
 					() => global::System.String.Format("[{0}, {1}]", (object?)@params ?? "null", (object?)@void ?? "null"));
 			}
 		}
@@ -716,7 +716,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(@params, "@params"),
-					CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
+					global::Mockolate.CovariantParameterAdapter<string>.Wrap(@void ?? global::Mockolate.It.IsNull<string>("null")),
 					() => global::System.String.Format("[{0}, {1}]", (object?)@params, (object?)@void ?? "null"));
 			}
 		}
@@ -728,7 +728,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIKeywordEdgeCases, int, string, string>(this, this.MockRegistry, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set,
-					CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
+					global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(@void, "@void"),
 					() => global::System.String.Format("[{0}, {1}]", (object?)@params ?? "null", (object?)@void));
 			}
@@ -760,7 +760,7 @@ internal static partial class Mock
 				}, () => $"@if({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases> IMockVerifyForIKeywordEdgeCases.@if(global::Mockolate.Parameters.IParameter<int>? @params)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : CovariantParameterAdapter<int>.Wrap(@params), () => $"@if({@params})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), () => $"@if({@params})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@if(int @params)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @params, () => $"@if({@params})");
@@ -777,7 +777,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases> IMockVerifyForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", __i => 
-				(@ref is not null ? CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({@ref})");
+				(@ref is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({@ref})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@void<@class>(int @ref)
 			where @class : default
@@ -846,7 +846,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, global::Mockolate.CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), global::Mockolate.CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -858,7 +858,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(parameter1), CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(parameter1), global::Mockolate.CovariantParameterAdapter<string>.Wrap(parameter2 ?? global::Mockolate.It.IsNull<string>("null")));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -870,7 +870,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.IsValue<string>(parameter2));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, global::Mockolate.CovariantParameterAdapter<int>.Wrap(parameter1 ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.IsValue<string>(parameter2));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -907,7 +907,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@if(global::Mockolate.Parameters.IParameter<int>? @params)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.It.IsNull<int>("null")));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -933,7 +933,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.It.IsNull<int>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.It.IsNull<int>("null")));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1482,19 +1482,6 @@ internal static partial class MockExtensionsForIKeywordEdgeCases
 			var behaviorAccess = (global::Mockolate.IMockBehaviorAccess)behavior;
 			return behaviorAccess.Set(setup);
 		}
-	}
-
-	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class CovariantParameterAdapter<T>(global::Mockolate.Parameters.IParameter inner) : global::Mockolate.Parameters.IParameterMatch<T>
-	{
-		public bool Matches(T value) => inner.Matches(value);
-		public void InvokeCallbacks(T value) => inner.InvokeCallbacks(value);
-		public override string? ToString() => inner.ToString();
-
-		public static global::Mockolate.Parameters.IParameterMatch<T> Wrap(global::Mockolate.Parameters.IParameter<T> parameter)
-			=> parameter is global::Mockolate.Parameters.IParameterMatch<T> direct
-				? direct
-				: new CovariantParameterAdapter<T>(parameter);
 	}
 }
 
