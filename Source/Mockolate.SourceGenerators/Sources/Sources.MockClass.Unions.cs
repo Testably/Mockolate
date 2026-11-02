@@ -255,15 +255,19 @@ internal static partial class Sources
 	private static void AppendUnionOverloadRemark(StringBuilder sb, string[] parameterNames, UnionSlot[] slots)
 	{
 		List<string> parts = [];
-		AddPart(UnionSlot.Union, "an <see cref=\"global::Mockolate.It\" /> matcher or a direct value for {0}");
-		AddPart(UnionSlot.Predicate, "a predicate for {0}");
-		AddPart(UnionSlot.RawDelegate, "a delegate value for {0}");
-		AddPart(UnionSlot.Fixed, "an <see cref=\"global::Mockolate.It\" /> matcher for {0}");
-		string accepts = slots.All(s => s == UnionSlot.Union)
-			? "This overload accepts an <see cref=\"global::Mockolate.It\" /> matcher or a direct value for every parameter. "
-			: parts.Count > 0
-				? $"This overload accepts {string.Join(" and ", parts)}. "
-				: "";
+		AddPart(parts, UnionSlot.Union, "an <see cref=\"global::Mockolate.It\" /> matcher or a direct value for {0}");
+		AddPart(parts, UnionSlot.Predicate, "a predicate for {0}");
+		AddPart(parts, UnionSlot.RawDelegate, "a delegate value for {0}");
+		AddPart(parts, UnionSlot.Fixed, "an <see cref=\"global::Mockolate.It\" /> matcher for {0}");
+		string accepts = "";
+		if (slots.All(s => s == UnionSlot.Union))
+		{
+			accepts = "This overload accepts an <see cref=\"global::Mockolate.It\" /> matcher or a direct value for every parameter. ";
+		}
+		else if (parts.Count > 0)
+		{
+			accepts = $"This overload accepts {string.Join(" and ", parts)}. ";
+		}
 		string omitted = string.Join(", ", parameterNames
 			.Where((_, i) => slots[i] == UnionSlot.Omitted)
 			.Select(name => $"<c>{name}</c>"));
@@ -271,7 +275,7 @@ internal static partial class Sources
 		sb.AppendXmlRemarks(
 			$"{accepts}{omission}A <see langword=\"null\" /> or <see langword=\"default\" /> argument stands for the default value of the parameter type.");
 
-		void AddPart(UnionSlot slot, string format)
+		void AddPart(List<string> target, UnionSlot slot, string format)
 		{
 			string[] names = parameterNames
 				.Where((_, i) => slots[i] == slot)
@@ -279,7 +283,7 @@ internal static partial class Sources
 				.ToArray();
 			if (names.Length > 0)
 			{
-				parts.Add(string.Format(format, string.Join(", ", names)));
+				target.Add(string.Format(format, string.Join(", ", names)));
 			}
 		}
 	}

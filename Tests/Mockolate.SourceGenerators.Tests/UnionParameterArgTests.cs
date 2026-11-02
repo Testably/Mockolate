@@ -181,7 +181,7 @@ public sealed class UnionParameterArgTests
 				: "") + Environment.NewLine + AttributeSource(accessibility),
 			assemblyName);
 
-	private static Compilation CreateCompilation(string source, params MetadataReference[] references)
+	private static CSharpCompilation CreateCompilation(string source, params MetadataReference[] references)
 		=> CSharpCompilation.Create(
 			"TestAssembly",
 			[CSharpSyntaxTree.ParseText(source),],
