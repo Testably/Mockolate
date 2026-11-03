@@ -81,17 +81,7 @@ public class UnionArgumentCodeFixProvider : CodeFixProvider
 		int position = argumentList.Arguments.IndexOf(argument);
 		foreach (ISymbol candidate in candidates)
 		{
-			ImmutableArray<IParameterSymbol> parameters = candidate switch
-			{
-				IMethodSymbol method => method.Parameters,
-				IPropertySymbol property => property.Parameters,
-				_ => ImmutableArray<IParameterSymbol>.Empty,
-			};
-			IParameterSymbol? parameter = argument.NameColon is { } nameColon
-				? parameters.FirstOrDefault(p => p.Name == nameColon.Name.Identifier.ValueText)
-				: position < parameters.Length
-					? parameters[position]
-					: null;
+			IParameterSymbol? parameter = GetParameter(candidate, argument, position);
 			if (parameter is not null &&
 			    GetCaseType(parameter.Type) is { } caseType &&
 			    (argument.Expression is ImplicitObjectCreationExpressionSyntax or CollectionExpressionSyntax ||
@@ -102,6 +92,22 @@ public class UnionArgumentCodeFixProvider : CodeFixProvider
 		}
 
 		return null;
+	}
+
+	private static IParameterSymbol? GetParameter(ISymbol candidate, ArgumentSyntax argument, int position)
+	{
+		ImmutableArray<IParameterSymbol> parameters = candidate switch
+		{
+			IMethodSymbol method => method.Parameters,
+			IPropertySymbol property => property.Parameters,
+			_ => ImmutableArray<IParameterSymbol>.Empty,
+		};
+		if (argument.NameColon is { } nameColon)
+		{
+			return parameters.FirstOrDefault(p => p.Name == nameColon.Name.Identifier.ValueText);
+		}
+
+		return position < parameters.Length ? parameters[position] : null;
 	}
 
 	private static ITypeSymbol? GetCaseType(ITypeSymbol parameterType)
