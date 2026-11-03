@@ -906,6 +906,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -1059,7 +1065,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -1216,7 +1223,8 @@ window.BENCHMARK_DATA = {
           327.9642778805324,
           323.79637943903606,
           237.2913293838501,
-          314.47383505503336
+          314.47383505503336,
+          310.38934140205384
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1377,6 +1385,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592
         ],
@@ -1543,7 +1552,8 @@ window.BENCHMARK_DATA = {
           98866.1865234375,
           102016.54311523438,
           61502.93457970252,
-          103959.42304338727
+          103959.42304338727,
+          104948.96998814175
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1705,6 +1715,7 @@ window.BENCHMARK_DATA = {
           9096,
           9208,
           9063,
+          9064,
           9064
         ],
         "borderColor": "#A052B0",
@@ -1870,7 +1881,8 @@ window.BENCHMARK_DATA = {
           4738.3595215933665,
           4775.172973087856,
           3662.7037699381513,
-          4597.067794291178
+          4597.067794291178,
+          4588.736513955252
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2031,6 +2043,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864
         ],
@@ -2197,7 +2210,8 @@ window.BENCHMARK_DATA = {
           4933.1971599033905,
           5086.553646850586,
           3523.58439356486,
-          4633.91308757237
+          4633.91308757237,
+          4470.847305297852
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2358,6 +2372,7 @@ window.BENCHMARK_DATA = {
           6964,
           6970,
           7082,
+          6930,
           6930,
           6930
         ],
@@ -2524,7 +2539,8 @@ window.BENCHMARK_DATA = {
           229.12311286926268,
           234.13965735435485,
           189.5261070558003,
-          224.7893990448543
+          224.7893990448543,
+          225.83694979349772
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2685,6 +2701,7 @@ window.BENCHMARK_DATA = {
           744,
           744,
           744,
+          736,
           736,
           736
         ],
@@ -2851,7 +2868,8 @@ window.BENCHMARK_DATA = {
           504.9961190590492,
           511.2691466467721,
           442.6046929359436,
-          474.94168795072113
+          474.94168795072113,
+          475.35854517618816
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3012,6 +3030,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056
         ],
@@ -3933,6 +3952,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -4086,7 +4111,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -4243,7 +4269,8 @@ window.BENCHMARK_DATA = {
           298.46553578743567,
           302.4685715039571,
           501.98079477945964,
-          175.64997267723083
+          175.64997267723083,
+          187.14065121014912
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4404,6 +4431,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728
         ],
@@ -4570,7 +4598,8 @@ window.BENCHMARK_DATA = {
           16628.246854341945,
           16174.235115559895,
           14945.789954552283,
-          8033.065555027553
+          8033.065555027553,
+          8189.096702575684
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4732,6 +4761,7 @@ window.BENCHMARK_DATA = {
           13033,
           12810,
           12761,
+          12760,
           12760
         ],
         "borderColor": "#A052B0",
@@ -4897,7 +4927,8 @@ window.BENCHMARK_DATA = {
           5884.790203857422,
           6046.429940795899,
           5889.704282488142,
-          3242.1395980290004
+          3242.1395980290004,
+          3324.785834757487
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5058,6 +5089,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192
         ],
@@ -5224,7 +5256,8 @@ window.BENCHMARK_DATA = {
           218955.67288411458,
           217901.67166573662,
           225055.47329101563,
-          114867.62111118862
+          114867.62111118862,
+          115128.02090219352
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5386,6 +5419,7 @@ window.BENCHMARK_DATA = {
           15755,
           15755,
           15618,
+          15619,
           15619
         ],
         "borderColor": "#4A6FA5",
@@ -5551,7 +5585,8 @@ window.BENCHMARK_DATA = {
           185.99877818425497,
           183.0852755387624,
           179.70059034029643,
-          121.76059408371265
+          121.76059408371265,
+          127.49768636776851
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5692,6 +5727,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -5878,7 +5914,8 @@ window.BENCHMARK_DATA = {
           179.2034298737844,
           202.0919999905995,
           179.36574544906617,
-          126.29354895864215
+          126.29354895864215,
+          136.09086959702628
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6012,6 +6049,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -6960,6 +6998,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -7113,7 +7157,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -7270,7 +7315,8 @@ window.BENCHMARK_DATA = {
           815.2920555750529,
           875.1246874491374,
           808.6788155873617,
-          652.0750666398269
+          652.0750666398269,
+          976.3823479243687
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7431,6 +7477,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832
         ],
@@ -7597,7 +7644,8 @@ window.BENCHMARK_DATA = {
           135424.55751953126,
           219834.6677734375,
           144079.20149739584,
-          138731.40781947545
+          138731.40781947545,
+          232386.26821664663
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7758,6 +7806,7 @@ window.BENCHMARK_DATA = {
           20873,
           20732,
           20860,
+          20804,
           20804,
           20804
         ],
@@ -7924,7 +7973,8 @@ window.BENCHMARK_DATA = {
           7805.141877237956,
           10356.18388671875,
           7719.388385518392,
-          7259.054717000326
+          7259.054717000326,
+          10894.588704790387
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8086,7 +8136,8 @@ window.BENCHMARK_DATA = {
           13144,
           13144,
           13088,
-          13032
+          13032,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8251,7 +8302,8 @@ window.BENCHMARK_DATA = {
           7652.533311026437,
           11574.548279898507,
           7764.622021484375,
-          7191.375889914377
+          7191.375889914377,
+          11365.135778154645
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8412,6 +8464,7 @@ window.BENCHMARK_DATA = {
           13948,
           13954,
           13954,
+          13593,
           13593,
           13593
         ],
@@ -8578,7 +8631,8 @@ window.BENCHMARK_DATA = {
           298.6202586980966,
           342.0949980099996,
           269.62376324335736,
-          251.61776329676312
+          251.61776329676312,
+          332.9018829550062
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8739,6 +8793,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096
         ],
@@ -9660,6 +9715,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -9813,7 +9874,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -9970,7 +10032,8 @@ window.BENCHMARK_DATA = {
           1997.107587560018,
           2443.713441212972,
           1996.4612146105085,
-          1889.9047892252604
+          1889.9047892252604,
+          2459.5137252807617
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10131,6 +10194,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912
         ],
@@ -10297,7 +10361,8 @@ window.BENCHMARK_DATA = {
           144920.22098214287,
           231765.96759440104,
           155986.49963378906,
-          149299.37186104912
+          149299.37186104912,
+          240539.9511544364
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10458,6 +10523,7 @@ window.BENCHMARK_DATA = {
           30594,
           29332,
           30610,
+          30410,
           30410,
           30410
         ],
@@ -10624,7 +10690,8 @@ window.BENCHMARK_DATA = {
           19017.188581194197,
           24888.771264648436,
           18909.51938520159,
-          18298.100560506184
+          18298.100560506184,
+          26310.071494547527
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10786,7 +10853,8 @@ window.BENCHMARK_DATA = {
           26249,
           26249,
           26193,
-          26137
+          26137,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10951,7 +11019,8 @@ window.BENCHMARK_DATA = {
           17020.981837972005,
           24485.566746303015,
           16605.444236246745,
-          16415.351155598957
+          16415.351155598957,
+          24168.395490373885
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11112,6 +11181,7 @@ window.BENCHMARK_DATA = {
           33769,
           33764,
           33764,
+          33247,
           33247,
           33247
         ],
@@ -11278,7 +11348,8 @@ window.BENCHMARK_DATA = {
           742.4567046165466,
           862.8996246044452,
           649.4645883015224,
-          627.3525889714559
+          627.3525889714559,
+          787.2006372451782
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11439,6 +11510,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176
         ],
@@ -12360,6 +12432,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -12513,7 +12591,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -12670,7 +12749,8 @@ window.BENCHMARK_DATA = {
           433.9414200464884,
           271.63097299848283,
           359.05310509999595,
-          398.3068396568298
+          398.3068396568298,
+          374.1611752192179
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12831,6 +12911,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936
         ],
@@ -12997,7 +13078,8 @@ window.BENCHMARK_DATA = {
           107439.24147251675,
           109811.47033691406,
           142467.13799579328,
-          143751.93579101562
+          143751.93579101562,
+          195084.60392878606
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13159,7 +13241,8 @@ window.BENCHMARK_DATA = {
           14938,
           15098,
           14914,
-          14915
+          14915,
+          14902
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13324,7 +13407,8 @@ window.BENCHMARK_DATA = {
           4749.296219417027,
           4799.285200500488,
           5653.050873819987,
-          6170.034744849572
+          6170.034744849572,
+          6108.386664835612
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13485,6 +13569,7 @@ window.BENCHMARK_DATA = {
           9280,
           9336,
           9280,
+          9320,
           9320,
           9320
         ],
@@ -13651,7 +13736,8 @@ window.BENCHMARK_DATA = {
           4511.922621917724,
           4412.361838277181,
           5283.433488464356,
-          5489.185452597482
+          5489.185452597482,
+          5791.238123212542
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13813,7 +13899,8 @@ window.BENCHMARK_DATA = {
           8245,
           8245,
           8090,
-          8090
+          8090,
+          8103
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13978,7 +14065,8 @@ window.BENCHMARK_DATA = {
           195.35634180704753,
           197.56407947540282,
           195.8176073517118,
-          225.41291007995605
+          225.41291007995605,
+          199.8698156674703
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14139,6 +14227,7 @@ window.BENCHMARK_DATA = {
           928,
           928,
           928,
+          832,
           832,
           832
         ],
@@ -14305,7 +14394,8 @@ window.BENCHMARK_DATA = {
           394.6236499150594,
           403.21622660954796,
           516.2805042948041,
-          576.2807153066
+          576.2807153066,
+          476.61386469432284
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -14439,6 +14529,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -15387,6 +15478,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -15540,7 +15637,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -15697,7 +15795,8 @@ window.BENCHMARK_DATA = {
           505.43975048065187,
           482.1925702776228,
           758.4410838399615,
-          849.8643843332926
+          849.8643843332926,
+          644.6087291081747
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15858,6 +15957,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152
         ],
@@ -16024,7 +16124,8 @@ window.BENCHMARK_DATA = {
           109906.87301432292,
           110904.75431605747,
           149343.7740234375,
-          151292.53410993304
+          151292.53410993304,
+          199828.12951660156
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16186,7 +16287,8 @@ window.BENCHMARK_DATA = {
           18930,
           19089,
           18905,
-          18906
+          18906,
+          18901
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16351,7 +16453,8 @@ window.BENCHMARK_DATA = {
           7032.041041056315,
           6353.559817177908,
           8411.785795084636,
-          9029.385996137347
+          9029.385996137347,
+          8840.616852980394
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16513,7 +16616,8 @@ window.BENCHMARK_DATA = {
           12360,
           11800,
           12344,
-          12344
+          12344,
+          12345
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16678,7 +16782,8 @@ window.BENCHMARK_DATA = {
           7478.430998582106,
           6527.920016697475,
           8450.748506986178,
-          9072.397203885592
+          9072.397203885592,
+          9257.047951253255
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16839,6 +16944,7 @@ window.BENCHMARK_DATA = {
           15786,
           15786,
           15786,
+          15834,
           15834,
           15834
         ],
@@ -17005,7 +17111,8 @@ window.BENCHMARK_DATA = {
           472.49499422709147,
           456.25855435643876,
           483.7430901209513,
-          547.0955703099569
+          547.0955703099569,
+          484.25942417780556
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17166,6 +17273,7 @@ window.BENCHMARK_DATA = {
           1792,
           1792,
           1792,
+          1696,
           1696,
           1696
         ],
@@ -17332,7 +17440,8 @@ window.BENCHMARK_DATA = {
           1186.568550491333,
           1126.0608136494955,
           1622.8887744903564,
-          1758.5031510866606
+          1758.5031510866606,
+          1378.0015417734783
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17466,6 +17575,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -18414,6 +18524,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -18567,7 +18683,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -18724,7 +18841,8 @@ window.BENCHMARK_DATA = {
           519.0864037831624,
           552.843669959477,
           599.7079165776571,
-          904.7540133158366
+          904.7540133158366,
+          526.9927470842997
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18885,6 +19003,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432
         ],
@@ -19051,7 +19170,8 @@ window.BENCHMARK_DATA = {
           11865.733067103794,
           12018.74276297433,
           7707.262517293294,
-          8069.930572509766
+          8069.930572509766,
+          11181.415754045758
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19212,6 +19332,7 @@ window.BENCHMARK_DATA = {
           10513,
           10641,
           10641,
+          10585,
           10585,
           10585
         ],
@@ -19378,7 +19499,8 @@ window.BENCHMARK_DATA = {
           7990.417189534505,
           7766.282011667888,
           5797.931413269043,
-          5865.931212361654
+          5865.931212361654,
+          7980.393409220377
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19539,6 +19661,7 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
+          11664,
           11664,
           11664
         ],
@@ -19705,7 +19828,8 @@ window.BENCHMARK_DATA = {
           8548.783482869467,
           8344.205045427594,
           5330.208524557261,
-          5764.632293156215
+          5764.632293156215,
+          8208.8156636556
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19867,6 +19991,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212
         ],
         "borderColor": "#4A6FA5",
@@ -20032,7 +20157,8 @@ window.BENCHMARK_DATA = {
           186.92141183217367,
           185.36460835138956,
           184.44541575227464,
-          138.17862107072557
+          138.17862107072557,
+          165.22443488438924
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20193,6 +20319,7 @@ window.BENCHMARK_DATA = {
           664,
           664,
           664,
+          616,
           616,
           616
         ],
@@ -20359,7 +20486,8 @@ window.BENCHMARK_DATA = {
           609.6105574880328,
           483.1587506612142,
           474.34870356779834,
-          376.0513710635049
+          376.0513710635049,
+          519.0111726760864
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -20493,6 +20621,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -21441,6 +21570,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -21594,7 +21729,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -21751,7 +21887,8 @@ window.BENCHMARK_DATA = {
           1040.10821240743,
           1059.0372969763619,
           1097.5365819295248,
-          847.9822036743165
+          847.9822036743165,
+          1057.683824130467
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21912,6 +22049,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936
         ],
@@ -22078,7 +22216,8 @@ window.BENCHMARK_DATA = {
           19042.13974217006,
           19312.860979352678,
           12989.759635416667,
-          13027.55616455078
+          13027.55616455078,
+          17884.41222205529
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22240,6 +22379,7 @@ window.BENCHMARK_DATA = {
           18721,
           18721,
           18520,
+          18521,
           18521
         ],
         "borderColor": "#A052B0",
@@ -22405,7 +22545,8 @@ window.BENCHMARK_DATA = {
           17795.057970319474,
           17612.261885579428,
           12809.102857317243,
-          12928.523518880209
+          12928.523518880209,
+          17937.19723041241
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22567,6 +22708,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21528,
+          21529,
           21529
         ],
         "borderColor": "#5E2750",
@@ -22732,7 +22874,8 @@ window.BENCHMARK_DATA = {
           20292.622967529296,
           20161.165228271486,
           14095.183295694987,
-          13509.303024291992
+          13509.303024291992,
+          20171.82485555013
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22894,6 +23037,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801
         ],
         "borderColor": "#4A6FA5",
@@ -23059,7 +23203,8 @@ window.BENCHMARK_DATA = {
           361.8993853841509,
           367.3910670961653,
           406.3033133506775,
-          264.29137694040935
+          264.29137694040935,
+          333.2251108169556
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -23220,6 +23365,7 @@ window.BENCHMARK_DATA = {
           952,
           952,
           952,
+          904,
           904,
           904
         ],
@@ -23386,7 +23532,8 @@ window.BENCHMARK_DATA = {
           1581.558289718628,
           1622.3327112931472,
           1900.9229494730632,
-          1296.5927684783935
+          1296.5927684783935,
+          1643.8972131093344
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -23520,6 +23667,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -24468,6 +24616,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 09:30:06 2026 \u002B0100",
         "message": "refactor!: remove the unused IMockBehaviorInitializer (#930)"
+      },
+      {
+        "sha": "a8546746fef9d153e5591bafb4b07158df2af5f9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 09:52:34 2026 \u002B0100",
+        "message": "refactor: extract the parameter lookup in the union argument code fix (#931)"
       }
     ],
     "labels": [
@@ -24621,7 +24775,8 @@ window.BENCHMARK_DATA = {
       "dc2134ce",
       "70329b40",
       "1f7e8411",
-      "40d397ab"
+      "40d397ab",
+      "a8546746"
     ],
     "datasets": [
       {
@@ -24778,7 +24933,8 @@ window.BENCHMARK_DATA = {
           13.678515548507372,
           25.776313241322836,
           12.97550969918569,
-          13.028244889775912
+          13.028244889775912,
+          9.45868297772748
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24836,6 +24992,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -25105,7 +25262,8 @@ window.BENCHMARK_DATA = {
           97.14601956881009,
           148.52770853042603,
           94.28730781873067,
-          92.7603501478831
+          92.7603501478831,
+          66.15121444634029
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -25246,6 +25404,7 @@ window.BENCHMARK_DATA = {
           2240,
           2240,
           2240,
+          576,
           576,
           576,
           576,
@@ -25432,7 +25591,8 @@ window.BENCHMARK_DATA = {
           28.835246099875523,
           47.18094477483204,
           27.163686203956605,
-          27.47288690408071
+          27.47288690408071,
+          19.838901494230544
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25566,6 +25726,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -25759,7 +25920,8 @@ window.BENCHMARK_DATA = {
           1038.9260135650634,
           1190.3362714222499,
           994.7900543212891,
-          1013.3417196909587
+          1013.3417196909587,
+          755.6123229344686
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25920,6 +26082,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088
         ],
@@ -26086,7 +26249,8 @@ window.BENCHMARK_DATA = {
           1412.817290242513,
           1999.8035689133865,
           1412.567447253636,
-          1451.5931728363037
+          1451.5931728363037,
+          1100.6084791819255
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -26247,6 +26411,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032
         ],
@@ -26413,7 +26578,8 @@ window.BENCHMARK_DATA = {
           1358.05611076355,
           1492.3398276011148,
           1168.4633358546666,
-          1209.837379582723
+          1209.837379582723,
+          891.4864127295358
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26574,6 +26740,7 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2759,
+          2755,
           2755,
           2755
         ],
