@@ -268,6 +268,19 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
+	public async Task Setup_WithTypedMatcherAroundTargetTypedNew_ShouldMatch()
+	{
+		IUnionService sut = IUnionService.CreateMock();
+		sut.Mock.Setup.Wait(It.Is<TimeSpan>(new(0, 0, 5))).Returns(1);
+
+		int matching = sut.Wait(TimeSpan.FromSeconds(5));
+		int other = sut.Wait(TimeSpan.FromSeconds(6));
+
+		await That(matching).IsEqualTo(1);
+		await That(other).IsEqualTo(0);
+	}
+
+	[Test]
 	public async Task Setup_WithExplicitUserDefinedConversion_ShouldBindAsValue()
 	{
 		IUnionService sut = IUnionService.CreateMock();

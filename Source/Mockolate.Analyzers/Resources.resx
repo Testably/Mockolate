@@ -154,4 +154,8 @@
 	<data name="Mockolate0003Title" xml:space="preserve">
     <value>Ref-struct usage is not supported on this compilation</value>
   </data>
+	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
+		<value>Add the explicit type '{0}'</value>
+		<comment>The title of the code fix for an argument that cannot convert to a union-typed setup or verify parameter.</comment>
+	</data>
 </root>
