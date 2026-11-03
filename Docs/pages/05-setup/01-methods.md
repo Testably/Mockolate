@@ -4,8 +4,7 @@ description: Set up return values, exceptions and callbacks for methods of a Moc
 
 # Methods
 
-Use `dispenser.Mock.Setup.MethodName(…)` to set up a method. Pass a value or a
-[parameter matcher](../06-parameter-matching.md) for each parameter to decide which calls the setup applies to.
+Use `dispenser.Mock.Setup.MethodName(…)` to set up a method. Pass a value or a [parameter matcher](../06-parameter-matching.md) for each parameter to decide which calls the setup applies to. With C# 15 you can also pass a predicate directly (see [Union parameters](../06-parameter-matching.md#union-parameters-c-15)).
 
 ## Returns / Throws
 

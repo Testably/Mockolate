@@ -9,7 +9,7 @@
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FTestably%2FMockolate%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/Testably/Mockolate/main)
 
 **Mockolate** is a modern, strongly-typed, AOT-compatible mocking library for .NET, powered by source generators.
-It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, .NET 10 and .NET Framework 4.8.
+It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, .NET 10, .NET 11 and .NET Framework 4.8.
 
 - **Source generator-based**: No runtime proxy generation.
 - **Fast**: Direct dispatch with no reflection or dynamic proxies.

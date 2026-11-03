@@ -1,10 +1,10 @@
 ---
-description: The Roslyn analyzers that ship with Mockolate and catch mocking mistakes at compile time.
+description: The Roslyn analyzers and code fixes that ship with Mockolate and catch mocking mistakes at compile time.
 ---
 
 # Analyzers
 
-Mockolate ships with Roslyn analyzers that catch mistakes at compile time. They are part of the `Mockolate` package,
+Mockolate ships with Roslyn analyzers and code fixes that catch mistakes at compile time. They are part of the `Mockolate` package,
 so there is nothing to install.
 
 ## Mockolate0001
@@ -110,3 +110,14 @@ are the ones the warning reports.
 </details>
 
 See [Ref struct parameters](06-parameter-matching.md#ref-struct-parameters-net-9) for the supported features.
+
+## Explicit types for union parameters
+
+With [union parameters](06-parameter-matching.md#union-parameters-c-15), a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion does not compile as a `Setup` or `Verify` argument (CS1503, CS1729 or CS9174). The included code fix adds the parameter type:
+
+```csharp
+// CS1729: 'ParameterArg<TimeSpan>' does not contain a constructor that takes 3 arguments
+timer.Mock.Setup.Wait(new(0, 0, 5));
+// after the code fix
+timer.Mock.Setup.Wait(new TimeSpan(0, 0, 5));
+```

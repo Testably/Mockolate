@@ -24,6 +24,7 @@ jobs:
                 with:
                     dotnet-version: |
                         10.0.x
+                    global-json-file: global.json
             -   name: Upload mutation dashboard and create comment
                 run: ./build.sh MutationTestsComment
                 # The artifacts of the workflow run are untrusted, because a pull request controls the code that
@@ -53,6 +54,7 @@ jobs:
                 with:
                     dotnet-version: |
                         10.0.x
+                    global-json-file: global.json
             -   name: Create benchmark comment
                 run: ./build.sh BenchmarkComment
                 # The artifacts of the workflow run are untrusted, because a pull request controls the code that

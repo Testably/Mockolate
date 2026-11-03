@@ -32,8 +32,9 @@ Target frameworks per test project:
 
 | Project | Frameworks |
 |---|---|
-| `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.ExampleTests` | `net10.0`, `net8.0`, `net48` (Windows only) |
-| `Mockolate.SourceGenerators.Tests`, `Mockolate.Analyzers.Tests`, `Build.Tests` | `net10.0` |
+| `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.ExampleTests` | `net11.0` (C# preview, union parameters), `net10.0`, `net8.0`, `net48` (Windows only) |
+| `Mockolate.SourceGenerators.Tests`, `Mockolate.Analyzers.Tests` | `net11.0` |
+| `Build.Tests` | `net10.0` |
 | `Mockolate.Api.Tests` | `net8.0` |
 
 A newer language feature can compile for `net10.0` and fail for `net48`; build or test `net48` too when you use one.

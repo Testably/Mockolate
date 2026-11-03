@@ -148,5 +148,14 @@ namespace Mockolate.Analyzers {
                 return ResourceManager.GetString("Mockolate0003Title", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Add the explicit type '{0}'.
+        /// </summary>
+        internal static string UnionArgumentCodeFixTitle {
+            get {
+                return ResourceManager.GetString("UnionArgumentCodeFixTitle", resourceCulture);
+            }
+        }
     }
 }
