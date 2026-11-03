@@ -58,6 +58,10 @@ You can also name the type in a matcher, e.g. `It.Is<TimeSpan>(new(0, 0, 5))`.
 
 The generated `ParameterArg<T>` type relies on `UnionAttribute`, `OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute`, and Mockolate declares those the compilation lacks. If another generator such as PolySharp declares them too, set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>`. See [union parameters](../06-parameter-matching.md#union-parameters-c-15).
 
+## Removed APIs
+
+- **`IMockBehaviorInitializer`:** the empty marker interface in the `Mockolate.Behavior` namespace was never used by Mockolate and is removed. Remove any implementation of it; it had no effect.
+
 ## New in v4
 
 These additions need no change in your code.
