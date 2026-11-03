@@ -696,12 +696,6 @@ namespace Mockolate
         }
     }
 }
-namespace Mockolate.Behavior
-{
-    public interface IMockBehaviorInitializer
-    {
-    }
-}
 namespace Mockolate.Exceptions
 {
     public class MockException : System.Exception
