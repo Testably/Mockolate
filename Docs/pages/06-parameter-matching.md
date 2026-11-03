@@ -340,7 +340,7 @@ dispenser.Mock.Setup.Dispense(type => type.StartsWith("D"), It.IsAny<int>()).Ret
 dispenser.Mock.Verify.Dispense("Dark", amount => amount > 10).Once();
 ```
 
-Union mode is enabled automatically once the compiler ships C# 15 and the project's effective language version is C# 15 or later. On a preview compiler, opt in with `<MockolateUnionParameters>true</MockolateUnionParameters>` together with `<LangVersion>preview</LangVersion>` in the project file; below that language version the property has no effect. `false` keeps the classic overloads on any compiler.
+Union mode is enabled automatically when the project compiles with C# 15 or later. To keep the classic overloads, set `<MockolateDisableUnionParameters>true</MockolateDisableUnionParameters>` in the project file.
 
 <details>
 <summary>Union parameter semantics</summary>

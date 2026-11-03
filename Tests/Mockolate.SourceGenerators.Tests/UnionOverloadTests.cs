@@ -1,19 +1,11 @@
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace Mockolate.SourceGenerators.Tests;
 
-// The generated code is compiled against the pinned minimum Roslyn, which predates unions; these tests therefore
-// check the emitted overload shapes, while the call-site behaviour lives in Mockolate.Tests on net11.0.
 public sealed class UnionOverloadTests
 {
 	private const string MockFile = "Mock.IMyService.g.cs";
-
-	private static readonly Dictionary<string, string> UnionsEnabled = new()
-	{
-		["build_property.MockolateUnionParameters"] = "true",
-	};
 
 	private const string Source = """
 	                              #nullable enable
@@ -51,7 +43,7 @@ public sealed class UnionOverloadTests
 	                              """;
 
 	private static GeneratorResult RunInUnionMode()
-		=> Generator.Run([Source,], ["NET11_0_OR_GREATER",], LanguageVersion.Preview, UnionsEnabled);
+		=> Generator.Run([Source,], ["NET11_0_OR_GREATER",], LanguageVersion.CSharp15, null);
 
 	private static string GenerateMockInUnionMode()
 		=> RunInUnionMode().Sources[MockFile].Replace("\r\n", "\n");
@@ -213,8 +205,7 @@ public sealed class UnionOverloadTests
 		                      }
 		                      """;
 
-		GeneratorResult result = Generator.Run([source,], ["NET11_0_OR_GREATER",], LanguageVersion.Preview,
-			UnionsEnabled);
+		GeneratorResult result = Generator.Run([source,], ["NET11_0_OR_GREATER",], LanguageVersion.CSharp15, null);
 		string mock = result.Sources["Mock.IOverloadedIndexers.g.cs"];
 
 		await That(result.Diagnostics).IsEmpty();

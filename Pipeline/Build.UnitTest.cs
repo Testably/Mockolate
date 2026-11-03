@@ -67,7 +67,7 @@ partial class Build
 
 	/// <summary>
 	///     Runs the test projects on net11.0 only, where <c>Tests/Directory.Build.props</c> enables the C# preview
-	///     language version and the union-typed setup surface (<c>MockolateUnionParameters</c>).
+	///     language version and with it the union-typed setup surface.
 	/// </summary>
 	Target UnionTests => _ => _
 		.Unlisted()
