@@ -894,6 +894,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -1045,7 +1051,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -1200,7 +1207,8 @@ window.BENCHMARK_DATA = {
           316.9262765566508,
           387.87503980000815,
           327.9642778805324,
-          323.79637943903606
+          323.79637943903606,
+          237.2913293838501
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1360,7 +1368,8 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
-          1608
+          1608,
+          1592
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1523,7 +1532,8 @@ window.BENCHMARK_DATA = {
           95852.00050455729,
           45724.693071637834,
           98866.1865234375,
-          102016.54311523438
+          102016.54311523438,
+          61502.93457970252
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1683,7 +1693,8 @@ window.BENCHMARK_DATA = {
           9096,
           9073,
           9096,
-          9208
+          9208,
+          9063
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1846,7 +1857,8 @@ window.BENCHMARK_DATA = {
           4672.11327718099,
           4183.581405639648,
           4738.3595215933665,
-          4775.172973087856
+          4775.172973087856,
+          3662.7037699381513
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2006,7 +2018,8 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
-          7896
+          7896,
+          7864
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2169,7 +2182,8 @@ window.BENCHMARK_DATA = {
           4712.775899251302,
           3610.866221618652,
           4933.1971599033905,
-          5086.553646850586
+          5086.553646850586,
+          3523.58439356486
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2329,7 +2343,8 @@ window.BENCHMARK_DATA = {
           6970,
           6964,
           6970,
-          7082
+          7082,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2492,7 +2507,8 @@ window.BENCHMARK_DATA = {
           228.26439823423112,
           266.4889017173222,
           229.12311286926268,
-          234.13965735435485
+          234.13965735435485,
+          189.5261070558003
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2652,7 +2668,8 @@ window.BENCHMARK_DATA = {
           744,
           744,
           744,
-          744
+          744,
+          736
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2815,7 +2832,8 @@ window.BENCHMARK_DATA = {
           484.4203770501273,
           595.2060633341472,
           504.9961190590492,
-          511.2691466467721
+          511.2691466467721,
+          442.6046929359436
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2975,7 +2993,8 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
-          2064
+          2064,
+          2056
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3883,6 +3902,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -4034,7 +4059,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -4189,7 +4215,8 @@ window.BENCHMARK_DATA = {
           176.26733323733012,
           197.37698516845703,
           298.46553578743567,
-          302.4685715039571
+          302.4685715039571,
+          501.98079477945964
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4349,7 +4376,8 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
-          1744
+          1744,
+          1728
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4512,7 +4540,8 @@ window.BENCHMARK_DATA = {
           8076.100603376116,
           8151.327880859375,
           16628.246854341945,
-          16174.235115559895
+          16174.235115559895,
+          14945.789954552283
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4672,7 +4701,8 @@ window.BENCHMARK_DATA = {
           12809,
           12809,
           13033,
-          12810
+          12810,
+          12761
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4835,7 +4865,8 @@ window.BENCHMARK_DATA = {
           3040.342391695295,
           3203.803869981032,
           5884.790203857422,
-          6046.429940795899
+          6046.429940795899,
+          5889.704282488142
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4995,7 +5026,8 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
-          9264
+          9264,
+          9192
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5158,7 +5190,8 @@ window.BENCHMARK_DATA = {
           98593.70705566407,
           98840.44431849888,
           218955.67288411458,
-          217901.67166573662
+          217901.67166573662,
+          225055.47329101563
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5318,7 +5351,8 @@ window.BENCHMARK_DATA = {
           15767,
           15767,
           15755,
-          15755
+          15755,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5481,7 +5515,8 @@ window.BENCHMARK_DATA = {
           113.57906614882606,
           123.31783189092364,
           185.99877818425497,
-          183.0852755387624
+          183.0852755387624,
+          179.70059034029643
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5622,6 +5657,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -5804,7 +5840,8 @@ window.BENCHMARK_DATA = {
           105.6964243888855,
           117.61601863588605,
           179.2034298737844,
-          202.0919999905995
+          202.0919999905995,
+          179.36574544906617
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5938,6 +5975,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -6872,6 +6910,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -7023,7 +7067,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -7178,7 +7223,8 @@ window.BENCHMARK_DATA = {
           685.8744483947754,
           1084.17965965271,
           815.2920555750529,
-          875.1246874491374
+          875.1246874491374,
+          808.6788155873617
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7338,7 +7384,8 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
-          3904
+          3904,
+          3832
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7501,7 +7548,8 @@ window.BENCHMARK_DATA = {
           130937.08619791667,
           111078.76970563616,
           135424.55751953126,
-          219834.6677734375
+          219834.6677734375,
+          144079.20149739584
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7661,7 +7709,8 @@ window.BENCHMARK_DATA = {
           20875,
           20873,
           20732,
-          20860
+          20860,
+          20804
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7824,7 +7873,8 @@ window.BENCHMARK_DATA = {
           7227.371565755208,
           10025.412354689379,
           7805.141877237956,
-          10356.18388671875
+          10356.18388671875,
+          7719.388385518392
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7984,7 +8034,8 @@ window.BENCHMARK_DATA = {
           13144,
           13144,
           13144,
-          13144
+          13144,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8147,7 +8198,8 @@ window.BENCHMARK_DATA = {
           7416.340493338449,
           8254.187198345478,
           7652.533311026437,
-          11574.548279898507
+          11574.548279898507,
+          7764.622021484375
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8307,7 +8359,8 @@ window.BENCHMARK_DATA = {
           13954,
           13948,
           13954,
-          13954
+          13954,
+          13593
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8470,7 +8523,8 @@ window.BENCHMARK_DATA = {
           281.0068247999464,
           399.5887916485469,
           298.6202586980966,
-          342.0949980099996
+          342.0949980099996,
+          269.62376324335736
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8630,7 +8684,8 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
-          1216
+          1216,
+          1096
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9538,6 +9593,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -9689,7 +9750,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -9844,7 +9906,8 @@ window.BENCHMARK_DATA = {
           1878.1974217341497,
           2839.2732843671524,
           1997.107587560018,
-          2443.713441212972
+          2443.713441212972,
+          1996.4612146105085
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10004,7 +10067,8 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
-          4984
+          4984,
+          4912
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10167,7 +10231,8 @@ window.BENCHMARK_DATA = {
           138476.59318033853,
           118773.15305873325,
           144920.22098214287,
-          231765.96759440104
+          231765.96759440104,
+          155986.49963378906
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10327,7 +10392,8 @@ window.BENCHMARK_DATA = {
           30610,
           30594,
           29332,
-          30610
+          30610,
+          30410
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10490,7 +10556,8 @@ window.BENCHMARK_DATA = {
           17570.352278645834,
           24082.52272469657,
           19017.188581194197,
-          24888.771264648436
+          24888.771264648436,
+          18909.51938520159
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10650,7 +10717,8 @@ window.BENCHMARK_DATA = {
           26249,
           26248,
           26249,
-          26249
+          26249,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10813,7 +10881,8 @@ window.BENCHMARK_DATA = {
           15820.899148123604,
           20095.757631574357,
           17020.981837972005,
-          24485.566746303015
+          24485.566746303015,
+          16605.444236246745
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10973,7 +11042,8 @@ window.BENCHMARK_DATA = {
           33764,
           33769,
           33764,
-          33764
+          33764,
+          33247
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11136,7 +11206,8 @@ window.BENCHMARK_DATA = {
           699.7667394638062,
           943.8849101066589,
           742.4567046165466,
-          862.8996246044452
+          862.8996246044452,
+          649.4645883015224
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11296,7 +11367,8 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
-          2296
+          2296,
+          2176
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12204,6 +12276,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -12355,7 +12433,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -12510,7 +12589,8 @@ window.BENCHMARK_DATA = {
           213.55025992026697,
           377.9095748901367,
           433.9414200464884,
-          271.63097299848283
+          271.63097299848283,
+          359.05310509999595
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12670,7 +12750,8 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
-          1976
+          1976,
+          1936
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12833,7 +12914,8 @@ window.BENCHMARK_DATA = {
           54417.29885629507,
           184799.64163643974,
           107439.24147251675,
-          109811.47033691406
+          109811.47033691406,
+          142467.13799579328
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12993,7 +13075,8 @@ window.BENCHMARK_DATA = {
           14944,
           14926,
           14938,
-          15098
+          15098,
+          14914
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13156,7 +13239,8 @@ window.BENCHMARK_DATA = {
           3408.2355974637544,
           6141.065746561686,
           4749.296219417027,
-          4799.285200500488
+          4799.285200500488,
+          5653.050873819987
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13316,7 +13400,8 @@ window.BENCHMARK_DATA = {
           9336,
           9280,
           9336,
-          9280
+          9280,
+          9320
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13479,7 +13564,8 @@ window.BENCHMARK_DATA = {
           3235.47036336263,
           6266.573589070638,
           4511.922621917724,
-          4412.361838277181
+          4412.361838277181,
+          5283.433488464356
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13639,7 +13725,8 @@ window.BENCHMARK_DATA = {
           8244,
           8245,
           8245,
-          8245
+          8245,
+          8090
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13802,7 +13889,8 @@ window.BENCHMARK_DATA = {
           137.52715623378754,
           229.79299561182657,
           195.35634180704753,
-          197.56407947540282
+          197.56407947540282,
+          195.8176073517118
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13962,7 +14050,8 @@ window.BENCHMARK_DATA = {
           928,
           928,
           928,
-          928
+          928,
+          832
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14125,7 +14214,8 @@ window.BENCHMARK_DATA = {
           279.7910461766379,
           506.02246551513673,
           394.6236499150594,
-          403.21622660954796
+          403.21622660954796,
+          516.2805042948041
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -14259,6 +14349,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -15193,6 +15284,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -15344,7 +15441,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -15499,7 +15597,8 @@ window.BENCHMARK_DATA = {
           475.81146183013914,
           675.2227211634319,
           505.43975048065187,
-          482.1925702776228
+          482.1925702776228,
+          758.4410838399615
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15659,7 +15758,8 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
-          2192
+          2192,
+          2152
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15822,7 +15922,8 @@ window.BENCHMARK_DATA = {
           57267.55128580729,
           190528.19501201922,
           109906.87301432292,
-          110904.75431605747
+          110904.75431605747,
+          149343.7740234375
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15982,7 +16083,8 @@ window.BENCHMARK_DATA = {
           18929,
           18925,
           18930,
-          19089
+          19089,
+          18905
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16145,7 +16247,8 @@ window.BENCHMARK_DATA = {
           4620.574332173665,
           8917.137175242106,
           7032.041041056315,
-          6353.559817177908
+          6353.559817177908,
+          8411.785795084636
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16305,7 +16408,8 @@ window.BENCHMARK_DATA = {
           12360,
           11800,
           12360,
-          11800
+          11800,
+          12344
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16468,7 +16572,8 @@ window.BENCHMARK_DATA = {
           5260.565127563476,
           9599.886109415691,
           7478.430998582106,
-          6527.920016697475
+          6527.920016697475,
+          8450.748506986178
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16628,7 +16733,8 @@ window.BENCHMARK_DATA = {
           15786,
           15786,
           15786,
-          15786
+          15786,
+          15834
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16791,7 +16897,8 @@ window.BENCHMARK_DATA = {
           327.61596826144626,
           566.1006964365641,
           472.49499422709147,
-          456.25855435643876
+          456.25855435643876,
+          483.7430901209513
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16951,7 +17058,8 @@ window.BENCHMARK_DATA = {
           1792,
           1792,
           1792,
-          1792
+          1792,
+          1696
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17114,7 +17222,8 @@ window.BENCHMARK_DATA = {
           1006.0871963500977,
           1444.4188203175863,
           1186.568550491333,
-          1126.0608136494955
+          1126.0608136494955,
+          1622.8887744903564
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17248,6 +17357,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -18182,6 +18292,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -18333,7 +18449,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -18488,7 +18605,8 @@ window.BENCHMARK_DATA = {
           518.7461536114032,
           566.0573251588004,
           519.0864037831624,
-          552.843669959477
+          552.843669959477,
+          599.7079165776571
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18648,7 +18766,8 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
-          2472
+          2472,
+          2432
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18811,7 +18930,8 @@ window.BENCHMARK_DATA = {
           11762.112243652344,
           12433.214660644531,
           11865.733067103794,
-          12018.74276297433
+          12018.74276297433,
+          7707.262517293294
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18971,7 +19091,8 @@ window.BENCHMARK_DATA = {
           10721,
           10513,
           10641,
-          10641
+          10641,
+          10585
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19134,7 +19255,8 @@ window.BENCHMARK_DATA = {
           8034.5724690755205,
           8047.435688273112,
           7990.417189534505,
-          7766.282011667888
+          7766.282011667888,
+          5797.931413269043
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19294,7 +19416,8 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
-          11720
+          11720,
+          11664
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19457,7 +19580,8 @@ window.BENCHMARK_DATA = {
           9151.620693969726,
           8896.959926060268,
           8548.783482869467,
-          8344.205045427594
+          8344.205045427594,
+          5330.208524557261
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19617,7 +19741,8 @@ window.BENCHMARK_DATA = {
           11749,
           11508,
           11508,
-          11508
+          11508,
+          11207
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19780,7 +19905,8 @@ window.BENCHMARK_DATA = {
           187.58702731132507,
           197.7569747765859,
           186.92141183217367,
-          185.36460835138956
+          185.36460835138956,
+          184.44541575227464
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19940,7 +20066,8 @@ window.BENCHMARK_DATA = {
           664,
           664,
           664,
-          664
+          664,
+          616
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20103,7 +20230,8 @@ window.BENCHMARK_DATA = {
           472.5690752778734,
           502.2114557902018,
           609.6105574880328,
-          483.1587506612142
+          483.1587506612142,
+          474.34870356779834
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -20237,6 +20365,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -21171,6 +21300,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -21322,7 +21457,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -21477,7 +21613,8 @@ window.BENCHMARK_DATA = {
           1034.7580289204916,
           1116.5070587158202,
           1040.10821240743,
-          1059.0372969763619
+          1059.0372969763619,
+          1097.5365819295248
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21637,7 +21774,8 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
-          2976
+          2976,
+          2936
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21800,7 +21938,8 @@ window.BENCHMARK_DATA = {
           19081.845205453727,
           19297.82193227915,
           19042.13974217006,
-          19312.860979352678
+          19312.860979352678,
+          12989.759635416667
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21960,7 +22099,8 @@ window.BENCHMARK_DATA = {
           18801,
           17441,
           18721,
-          18721
+          18721,
+          18520
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22123,7 +22263,8 @@ window.BENCHMARK_DATA = {
           18508.601635742187,
           17769.68186732701,
           17795.057970319474,
-          17612.261885579428
+          17612.261885579428,
+          12809.102857317243
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22283,7 +22424,8 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21585,
-          21585
+          21585,
+          21528
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22446,7 +22588,8 @@ window.BENCHMARK_DATA = {
           20962.270029703777,
           21189.756186349052,
           20292.622967529296,
-          20161.165228271486
+          20161.165228271486,
+          14095.183295694987
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22606,7 +22749,8 @@ window.BENCHMARK_DATA = {
           31786,
           31546,
           31546,
-          31546
+          31546,
+          30796
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22769,7 +22913,8 @@ window.BENCHMARK_DATA = {
           371.4223939259847,
           387.2290655454,
           361.8993853841509,
-          367.3910670961653
+          367.3910670961653,
+          406.3033133506775
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22929,7 +23074,8 @@ window.BENCHMARK_DATA = {
           952,
           952,
           952,
-          952
+          952,
+          904
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -23092,7 +23238,8 @@ window.BENCHMARK_DATA = {
           1610.214478556315,
           1691.7148507436116,
           1581.558289718628,
-          1622.3327112931472
+          1622.3327112931472,
+          1900.9229494730632
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -23226,6 +23373,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -24160,6 +24308,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 3 01:15:55 2026 \u002B0100",
         "message": "ci: fail the static code analysis job when the Sonar quality gate fails on pull requests (#928)"
+      },
+      {
+        "sha": "1f7e841178f331a0c42395dd32b3cf368886744f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 3 03:01:59 2026 \u002B0100",
+        "message": "feat!: union-typed setup and verify overloads for C# 15 (#856)"
       }
     ],
     "labels": [
@@ -24311,7 +24465,8 @@ window.BENCHMARK_DATA = {
       "d255217a",
       "a81449c7",
       "dc2134ce",
-      "70329b40"
+      "70329b40",
+      "1f7e8411"
     ],
     "datasets": [
       {
@@ -24466,7 +24621,8 @@ window.BENCHMARK_DATA = {
           17.143477903945104,
           18.094564578930537,
           13.678515548507372,
-          25.776313241322836
+          25.776313241322836,
+          12.97550969918569
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24524,6 +24680,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -24789,7 +24946,8 @@ window.BENCHMARK_DATA = {
           114.05760040650001,
           123.52209165891011,
           97.14601956881009,
-          148.52770853042603
+          148.52770853042603,
+          94.28730781873067
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24930,6 +25088,7 @@ window.BENCHMARK_DATA = {
           2240,
           2240,
           2240,
+          576,
           576,
           576,
           576,
@@ -25112,7 +25271,8 @@ window.BENCHMARK_DATA = {
           35.73612707058589,
           37.442937025002074,
           28.835246099875523,
-          47.18094477483204
+          47.18094477483204,
+          27.163686203956605
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25246,6 +25406,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -25435,7 +25596,8 @@ window.BENCHMARK_DATA = {
           1418.4825089772542,
           1533.4570234934488,
           1038.9260135650634,
-          1190.3362714222499
+          1190.3362714222499,
+          994.7900543212891
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25595,7 +25757,8 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
-          2096
+          2096,
+          2088
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25758,7 +25921,8 @@ window.BENCHMARK_DATA = {
           1947.3703137715659,
           2089.554813893636,
           1412.817290242513,
-          1999.8035689133865
+          1999.8035689133865,
+          1412.567447253636
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25918,7 +26082,8 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
-          5048
+          5048,
+          5032
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -26081,7 +26246,8 @@ window.BENCHMARK_DATA = {
           1780.925754483541,
           1924.9414983749389,
           1358.05611076355,
-          1492.3398276011148
+          1492.3398276011148,
+          1168.4633358546666
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26241,7 +26407,8 @@ window.BENCHMARK_DATA = {
           2763,
           2763,
           2763,
-          2759
+          2759,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
