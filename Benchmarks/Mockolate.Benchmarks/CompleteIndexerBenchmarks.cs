@@ -65,7 +65,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Indexer_TUnitMocks()
 	{
-		TUnit.Mocks.Mock<IMyIndexerInterface> mock = TUnit.Mocks.Mock.Of<IMyIndexerInterface>();
+		TUnit.Mocks.Mock<IMyIndexerInterface> mock = IMyIndexerInterface.Mock();
 		mock[Any<int>()].Returns("foo");
 
 		for (int i = 0; i < N; i++)
