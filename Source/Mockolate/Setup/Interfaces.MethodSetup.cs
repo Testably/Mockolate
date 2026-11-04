@@ -35,8 +35,9 @@ public interface IVerifiableMethodSetup
 ///     exhausted - terminate with <c>.Forever()</c> to freeze on the last entry, or use <c>.For(n)</c> / <c>.Only(n)</c>
 ///     / <c>.When(predicate)</c> on the builders to control repetition and gating.
 ///     <para />
-///     For async methods, use the generator-emitted <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads
-///     instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in <c>.Returns(...)</c>.
+///     For async methods, use the <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads from
+///     <see cref="ReturnsThrowsAsyncExtensions" /> instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in
+///     <c>.Returns(...)</c>.
 /// </remarks>
 public interface IReturnMethodSetup<in TReturn> : IMethodSetup
 {
@@ -258,8 +259,9 @@ public interface IReturnMethodSetupReturnWhenBuilder<in TReturn>
 ///     exhausted - terminate with <c>.Forever()</c> to freeze on the last entry, or use <c>.For(n)</c> / <c>.Only(n)</c>
 ///     / <c>.When(predicate)</c> on the builders to control repetition and gating.
 ///     <para />
-///     For async methods, use the generator-emitted <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads
-///     instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in <c>.Returns(...)</c>.
+///     For async methods, use the <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads from
+///     <see cref="ReturnsThrowsAsyncExtensions" /> instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in
+///     <c>.Returns(...)</c>.
 /// </remarks>
 public interface IReturnMethodSetup<in TReturn, out T1> : IMethodSetup
 {
@@ -531,8 +533,9 @@ public interface IReturnMethodSetupParameterIgnorer<in TReturn, out T1>
 ///     exhausted - terminate with <c>.Forever()</c> to freeze on the last entry, or use <c>.For(n)</c> / <c>.Only(n)</c>
 ///     / <c>.When(predicate)</c> on the builders to control repetition and gating.
 ///     <para />
-///     For async methods, use the generator-emitted <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads
-///     instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in <c>.Returns(...)</c>.
+///     For async methods, use the <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads from
+///     <see cref="ReturnsThrowsAsyncExtensions" /> instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in
+///     <c>.Returns(...)</c>.
 /// </remarks>
 public interface IReturnMethodSetup<in TReturn, out T1, out T2> : IMethodSetup
 {
@@ -805,8 +808,9 @@ public interface IReturnMethodSetupParameterIgnorer<in TReturn, out T1, out T2>
 ///     exhausted - terminate with <c>.Forever()</c> to freeze on the last entry, or use <c>.For(n)</c> / <c>.Only(n)</c>
 ///     / <c>.When(predicate)</c> on the builders to control repetition and gating.
 ///     <para />
-///     For async methods, use the generator-emitted <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads
-///     instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in <c>.Returns(...)</c>.
+///     For async methods, use the <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads from
+///     <see cref="ReturnsThrowsAsyncExtensions" /> instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in
+///     <c>.Returns(...)</c>.
 /// </remarks>
 public interface IReturnMethodSetup<in TReturn, out T1, out T2, out T3> : IMethodSetup
 {
@@ -1080,8 +1084,9 @@ public interface IReturnMethodSetupParameterIgnorer<in TReturn, out T1, out T2, 
 ///     exhausted - terminate with <c>.Forever()</c> to freeze on the last entry, or use <c>.For(n)</c> / <c>.Only(n)</c>
 ///     / <c>.When(predicate)</c> on the builders to control repetition and gating.
 ///     <para />
-///     For async methods, use the generator-emitted <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads
-///     instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in <c>.Returns(...)</c>.
+///     For async methods, use the <c>.ReturnsAsync(...)</c> / <c>.ThrowsAsync(...)</c> overloads from
+///     <see cref="ReturnsThrowsAsyncExtensions" /> instead of wrapping a <see cref="System.Threading.Tasks.Task" /> in
+///     <c>.Returns(...)</c>.
 /// </remarks>
 public interface IReturnMethodSetup<in TReturn, out T1, out T2, out T3, out T4> : IMethodSetup
 {
