@@ -88,7 +88,7 @@ public partial class MockRegistry
 	/// </remarks>
 	/// <param name="memberId">The generator-emitted subscribe-side member id.</param>
 	/// <returns>The setups array for the event, or <see langword="null" /> when none are registered.</returns>
-	public EventSetup[]? GetEventSetupSnapshot(int memberId)
+	internal EventSetup[]? GetEventSetupSnapshot(int memberId)
 	{
 		EventSetup[]?[]? table = Volatile.Read(ref _eventSetupsByMemberId);
 		if (table is null || (uint)memberId >= (uint)table.Length)
@@ -233,7 +233,7 @@ public partial class MockRegistry
 	/// <typeparam name="T">The concrete <see cref="IndexerSetup" /> subtype to return.</typeparam>
 	/// <param name="predicate">Argument matcher applied to each candidate setup.</param>
 	/// <returns>The matching setup, or <see langword="null" /> when none was found.</returns>
-	public T? GetIndexerSetup<T>(Func<T, bool> predicate) where T : IndexerSetup
+	internal T? GetIndexerSetup<T>(Func<T, bool> predicate) where T : IndexerSetup
 	{
 		// Stryker disable once String : TryGetScenario returns the root bucket when given a null or empty name, so replacing the IsNullOrEmpty guard with a null/empty comparison just re-searches the same global Indexers and produces the same result.
 		if (!string.IsNullOrEmpty(Scenario) &&
@@ -437,7 +437,7 @@ public partial class MockRegistry
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The final getter result.</returns>
 	/// <exception cref="MockNotSetupException"><paramref name="setup" /> is <see langword="null" />, <see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" />, and no value was previously stored.</exception>
-	public TResult ApplyIndexerGetter<TResult>(IndexerAccess access, IndexerSetup? setup,
+	internal TResult ApplyIndexerGetter<TResult>(IndexerAccess access, IndexerSetup? setup,
 		Func<TResult> defaultValueGenerator, int signatureIndex)
 	{
 		access.AttachStorage(Setup.Indexers.GetOrCreateStorage<TResult>(signatureIndex));
@@ -573,7 +573,7 @@ public partial class MockRegistry
 	/// <param name="baseValueAccessor">Optional accessor for the base-class getter; when <see langword="null" /> only the default/initial value is considered.</param>
 	/// <returns>The resolved getter value.</returns>
 	/// <exception cref="MockNotSetupException">No setup exists for the property and <see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" />.</exception>
-	public TResult GetProperty<TResult>(string propertyName, Func<TResult> defaultValueGenerator,
+	internal TResult GetProperty<TResult>(string propertyName, Func<TResult> defaultValueGenerator,
 		Func<TResult>? baseValueAccessor)
 	{
 		IInteraction? interaction = null;
@@ -764,7 +764,7 @@ public partial class MockRegistry
 	/// <param name="propertyName">The simple property name.</param>
 	/// <param name="value">The value being assigned.</param>
 	/// <returns><see langword="true" /> when the base-class setter should be skipped.</returns>
-	public bool SetProperty<T>(int memberId, string propertyName, T value)
+	internal bool SetProperty<T>(int memberId, string propertyName, T value)
 	{
 		if (!Behavior.SkipInteractionRecording)
 		{

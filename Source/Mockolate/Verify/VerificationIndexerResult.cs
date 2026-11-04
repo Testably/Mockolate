@@ -13,12 +13,6 @@ namespace Mockolate.Verify;
 #endif
 public class VerificationIndexerResult<TSubject, TParameter>
 {
-	/// <summary>
-	///     Sentinel value used by the typed-match subclasses to indicate that the legacy predicate-based
-	///     <see cref="MockRegistry.IndexerGot{T}(T, int, System.Func{Mockolate.Interactions.IInteraction,bool}, Func{string})" /> path is not used.
-	/// </summary>
-	private protected const int NoMemberId = -1;
-
 	private readonly Func<IInteraction, bool>? _gotPredicate;
 	private readonly Func<IInteraction, IParameterMatch<TParameter>, bool>? _setPredicate;
 
@@ -36,15 +30,6 @@ public class VerificationIndexerResult<TSubject, TParameter>
 
 	/// <summary>Member id of the indexer setter, or <c>-1</c> when unknown.</summary>
 	private protected readonly int SetMemberId;
-
-	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}" />
-	public VerificationIndexerResult(TSubject subject, MockRegistry mockRegistry,
-		Func<IInteraction, bool> gotPredicate,
-		Func<IInteraction, IParameterMatch<TParameter>, bool> setPredicate,
-		Func<string> parametersDescription)
-		: this(subject, mockRegistry, NoMemberId, NoMemberId, gotPredicate, setPredicate, parametersDescription)
-	{
-	}
 
 	/// <summary>
 	///     Member-id-keyed constructor used by generated mocks to enable per-member fast Verify walks.

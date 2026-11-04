@@ -11,19 +11,12 @@ namespace Mockolate.Verify;
 #endif
 public class VerificationPropertyResult<TSubject, TParameter>
 {
-	private const int NoMemberId = -1;
 	private readonly int _getMemberId;
 
 	private readonly MockRegistry _mockRegistry;
 	private readonly string _propertyName;
 	private readonly int _setMemberId;
 	private readonly TSubject _subject;
-
-	/// <inheritdoc cref="VerificationPropertyResult{TSubject, TParameter}" />
-	public VerificationPropertyResult(TSubject subject, MockRegistry mockRegistry, string propertyName)
-		: this(subject, mockRegistry, NoMemberId, NoMemberId, propertyName)
-	{
-	}
 
 	/// <summary>
 	///     Member-id-keyed constructor used by generated mocks to enable per-member fast Verify walks.

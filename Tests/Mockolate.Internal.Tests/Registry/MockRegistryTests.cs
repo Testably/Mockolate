@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
 using Mockolate.Internal.Tests.TestHelpers;
@@ -16,6 +17,211 @@ public sealed class MockRegistryTests
 	private static MethodInfo GetMethodInfo()
 		=> typeof(MockRegistryTests).GetMethod(nameof(GetMethodInfo),
 			BindingFlags.Static | BindingFlags.NonPublic)!;
+
+	public sealed class WithoutMemberIdTests
+	{
+		[Test]
+		public async Task AddEvent_WithMatchingSetup_ShouldInvokeSubscribedCallback()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			int subscribed = 0;
+			EventSetup setup = new(registry, "OnFoo");
+			setup.OnSubscribed.Do(() => subscribed++);
+			registry.SetupEvent(setup);
+
+			registry.AddEvent("OnFoo", this, GetMethodInfo());
+
+			await That(subscribed).IsEqualTo(1);
+		}
+
+		[Test]
+		public async Task GetProperty_WhenBaseValueAccessorThrows_ShouldRethrowException()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			InvalidOperationException expected = new("base failed");
+
+			void Act()
+			{
+				registry.GetProperty("Foo", () => 0, () => throw expected);
+			}
+
+			await That(Act).Throws<InvalidOperationException>().WithMessage("base failed");
+		}
+
+		[Test]
+		public async Task GetProperty_ShouldRegisterInteractionsThreadSafe()
+		{
+			MockRegistry sut = new(MockBehavior.Default, new FastMockInteractions(0));
+			Task[] tasks = new Task[50];
+			for (int i = 0; i < 50; i++)
+			{
+				tasks[i] = Task.Run(async () =>
+				{
+					for (int j = 0; j < 20; j++)
+					{
+						sut.GetProperty<string>("foo", () => "", null);
+						await Task.Delay(1);
+					}
+				}, CancellationToken.None);
+			}
+
+			await Task.WhenAll(tasks);
+
+			await That(sut.Interactions.Count).IsEqualTo(1000);
+		}
+
+		[Test]
+		public async Task RemoveEvent_WithMatchingSetup_ShouldInvokeUnsubscribedCallback()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			int unsubscribed = 0;
+			EventSetup setup = new(registry, "OnFoo");
+			setup.OnUnsubscribed.Do(() => unsubscribed++);
+			registry.SetupEvent(setup);
+
+			registry.RemoveEvent("OnFoo", this, GetMethodInfo());
+
+			await That(unsubscribed).IsEqualTo(1);
+		}
+
+		[Test]
+		public async Task SetProperty_WithMemberIdAndNoFastBuffer_ShouldRecordAndStore()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+
+			bool result = registry.SetProperty(7, "Foo", 42);
+
+			await That(result).IsFalse();
+			await That(registry.Interactions.Count).IsEqualTo(1);
+		}
+	}
+
+	public sealed class StringKeyedPropertyTests
+	{
+		[Test]
+		public async Task Register_AfterInvocation_ShouldBeAppliedForFutureUse()
+		{
+			IPropertyService sut = IPropertyService.CreateMock();
+			MockRegistry registry = ((IMock)sut).MockRegistry;
+
+			int result0 = registry.GetProperty("my.other.property", () => 0, null);
+			PropertySetup<int> setup = new(registry, "my.property");
+			((IInteractivePropertySetup)setup).InitializeWith(42);
+			registry.SetupProperty(setup);
+			int result1 = registry.GetProperty("my.property", () => 0, null);
+
+			await That(result0).IsEqualTo(0);
+			await That(result1).IsEqualTo(42);
+		}
+
+		[Test]
+		public async Task SetProperty_ShouldNotReinitializeSetupOnRepeatedCalls()
+		{
+			IPropertyService sut = IPropertyService.CreateMock();
+			MockRegistry registry = ((IMock)sut).MockRegistry;
+			InitializeValueCountingPropertySetup<int> setup = new("my.property");
+			registry.SetupProperty(setup);
+
+			registry.SetProperty("my.property", 1);
+			registry.SetProperty("my.property", 2);
+			registry.SetProperty("my.property", 3);
+
+			await That(setup.InitializeValueCallCount).IsEqualTo(1);
+		}
+
+		[Test]
+		public async Task ShouldStoreLastValue()
+		{
+			IPropertyService sut = IPropertyService.CreateMock();
+			MockRegistry registry = ((IMock)sut).MockRegistry;
+
+			string result0 = registry.GetProperty<string>("my.property", () => "", null);
+			registry.SetProperty("my.property", "foo");
+			string result1 = registry.GetProperty<string>("my.property", () => "", null);
+			string result2 = registry.GetProperty<string>("my.other.property", () => "", null);
+
+			await That(result0).IsEmpty();
+			await That(result1).IsEqualTo("foo");
+			await That(result2).IsEmpty();
+		}
+
+		public interface IPropertyService
+		{
+			int MyProperty { get; set; }
+		}
+
+		private sealed class InitializeValueCountingPropertySetup<T>(string name)
+			: PropertySetup<T>(new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)), name)
+		{
+			public int InitializeValueCallCount { get; private set; }
+
+			protected override void InitializeValue(object? value)
+			{
+				InitializeValueCallCount++;
+				base.InitializeValue(value);
+			}
+		}
+	}
+
+	public sealed class StringKeyedIndexerTests
+	{
+		[Test]
+		public async Task ApplyIndexerGetter_WithGenerator_WithNegativeSignatureIndex_ShouldThrow()
+		{
+			IIndexerService sut = IIndexerService.CreateMock();
+			MockRegistry registry = ((IMock)sut).MockRegistry;
+			IndexerGetterAccess<int> access = new(1);
+
+			void Act()
+			{
+				registry.ApplyIndexerGetter<string>(access, null, () => "base", -1);
+			}
+
+			await That(Act).Throws<ArgumentOutOfRangeException>()
+				.WithParamName("signatureIndex");
+		}
+
+		[Test]
+		public async Task ApplyIndexerSetup_WithNegativeSignatureIndex_ShouldThrow()
+		{
+			IIndexerService sut = IIndexerService.CreateMock();
+			sut.Mock.Setup[It.IsAny<int>()].Returns("foo");
+			MockRegistry registry = ((IMock)sut).MockRegistry;
+			IndexerSetup setup = registry.GetIndexerSetup<IndexerSetup>(s => true)!;
+			IndexerGetterAccess<int> access = new(1);
+
+			void Act()
+			{
+				registry.ApplyIndexerSetup<string>(access, setup, -1);
+			}
+
+			await That(Act).Throws<ArgumentOutOfRangeException>()
+				.WithParamName("signatureIndex");
+		}
+
+		[Test]
+		public async Task WhenTypeOfGetIndexerDoesNotMatch_ShouldReturnDefaultValue()
+		{
+			IIndexerService sut = IIndexerService.CreateMock();
+			sut.Mock.Setup[It.IsAny<int>()].Returns("foo");
+			MockRegistry registry = ((IMock)sut).MockRegistry;
+
+			IndexerSetup? stringSetup = registry.GetIndexerSetup<IndexerSetup>(s => true);
+			IndexerGetterAccess<int> access1 = new(1);
+			IndexerGetterAccess<int> access2 = new(1);
+			string result1 = registry.ApplyIndexerGetter<string>(access1, stringSetup, () => "", 0);
+			int result2 = registry.ApplyIndexerGetter(access2, stringSetup, () => 0, 100);
+
+			await That(result1).IsEqualTo("foo");
+			await That(result2).IsEqualTo(0)
+				.Because("each signature storage slot is bound to a single value type on first access, so the int access uses a different signature index than the string access");
+		}
+
+		public interface IIndexerService
+		{
+			string this[int index] { get; set; }
+		}
+	}
 
 	public sealed class ConstructorSkipFlagAgreementTests
 	{

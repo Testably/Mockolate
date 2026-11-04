@@ -1,8 +1,9 @@
 using Mockolate.Exceptions;
+using Mockolate.Interactions;
 using Mockolate.Parameters;
 using Mockolate.Verify;
 
-namespace Mockolate.Tests.Verify;
+namespace Mockolate.Internal.Tests.Verify;
 
 public class MockRegistryVerifyTests
 {

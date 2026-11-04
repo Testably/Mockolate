@@ -45,7 +45,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	private readonly TVerify _verify;
 
 	/// <inheritdoc cref="VerificationResult{TVerify}" />
-	public VerificationResult(TVerify verify,
+	internal VerificationResult(TVerify verify,
 		IMockInteractions interactions,
 		Func<IInteraction, bool> predicate,
 		string expectation)
@@ -57,7 +57,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	}
 
 	/// <inheritdoc cref="VerificationResult{TVerify}" />
-	public VerificationResult(TVerify verify,
+	internal VerificationResult(TVerify verify,
 		IMockInteractions interactions,
 		Func<IInteraction, bool> predicate,
 		Func<string> expectation)

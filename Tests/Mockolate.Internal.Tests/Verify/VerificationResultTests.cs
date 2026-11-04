@@ -17,6 +17,42 @@ public class VerificationResultTests
 	private static FastMethod1Buffer<T> InstallMethod<T>(FastMockInteractions store, int memberId)
 		=> store.GetOrCreateBuffer<FastMethod1Buffer<T>>(memberId, static f => new FastMethod1Buffer<T>(f));
 
+	public sealed class ConstructorTests
+	{
+		[Test]
+		public async Task WithFuncExpectation_ShouldKeepExpectation()
+		{
+			IMockInteractions interactions = new FastMockInteractions(0);
+			VerificationResult<int> sut = new(1, interactions, _ => false, () => "foo");
+
+			string result = ((IVerificationResult)sut).Expectation;
+
+			await That(result).IsEqualTo("foo");
+		}
+
+		[Test]
+		public async Task WithStringExpectation_ShouldKeepExpectation()
+		{
+			IMockInteractions interactions = new FastMockInteractions(0);
+			VerificationResult<int> sut = new(1, interactions, _ => false, "foo");
+
+			string result = ((IVerificationResult)sut).Expectation;
+
+			await That(result).IsEqualTo("foo");
+		}
+
+		[Test]
+		public async Task WithStringExpectation_ShouldExposeInteractions()
+		{
+			IMockInteractions interactions = new FastMockInteractions(0);
+			VerificationResult<int> sut = new(1, interactions, _ => false, "foo");
+
+			IMockInteractions exposed = ((IVerificationResult)sut).Interactions;
+
+			await That(exposed).IsSameAs(interactions);
+		}
+	}
+
 	public sealed class AwaitableTests
 	{
 		[Test]

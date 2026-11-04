@@ -32,22 +32,6 @@ public sealed partial class SetupPropertyTests
 	}
 
 	[Test]
-	public async Task Register_AfterInvocation_ShouldBeAppliedForFutureUse()
-	{
-		IPropertyService sut = IPropertyService.CreateMock();
-		MockRegistry registry = ((IMock)sut).MockRegistry;
-
-		int result0 = registry.GetProperty("my.other.property", () => 0, null);
-		PropertySetup<int> setup = new(registry, "my.property");
-		((IInteractivePropertySetup)setup).InitializeWith(42);
-		registry.SetupProperty(setup);
-		int result1 = registry.GetProperty("my.property", () => 0, null);
-
-		await That(result0).IsEqualTo(0);
-		await That(result1).IsEqualTo(42);
-	}
-
-	[Test]
 	public async Task Register_MultipleProperties_ShouldAllStoreValues()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
@@ -90,37 +74,6 @@ public sealed partial class SetupPropertyTests
 		await That(result2).IsEqualTo(5);
 		await That(result3).IsEqualTo(6);
 		await That(result4).IsEqualTo(6);
-	}
-
-	[Test]
-	public async Task SetProperty_ShouldNotReinitializeSetupOnRepeatedCalls()
-	{
-		IPropertyService sut = IPropertyService.CreateMock();
-		MockRegistry registry = ((IMock)sut).MockRegistry;
-		InitializeValueCountingPropertySetup<int> setup = new("my.property");
-		registry.SetupProperty(setup);
-
-		registry.SetProperty("my.property", 1);
-		registry.SetProperty("my.property", 2);
-		registry.SetProperty("my.property", 3);
-
-		await That(setup.InitializeValueCallCount).IsEqualTo(1);
-	}
-
-	[Test]
-	public async Task ShouldStoreLastValue()
-	{
-		IPropertyService sut = IPropertyService.CreateMock();
-		MockRegistry registry = ((IMock)sut).MockRegistry;
-
-		string result0 = registry.GetProperty<string>("my.property", () => "", null);
-		registry.SetProperty("my.property", "foo");
-		string result1 = registry.GetProperty<string>("my.property", () => "", null);
-		string result2 = registry.GetProperty<string>("my.other.property", () => "", null);
-
-		await That(result0).IsEmpty();
-		await That(result1).IsEqualTo("foo");
-		await That(result2).IsEmpty();
 	}
 
 	[Test]
@@ -176,16 +129,5 @@ public sealed partial class SetupPropertyTests
 
 		public void MyInitializeValue(object? value)
 			=> InitializeValue(value);
-	}
-
-	private sealed class InitializeValueCountingPropertySetup<T>(string name) : PropertySetup<T>(new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)), name)
-	{
-		public int InitializeValueCallCount { get; private set; }
-
-		protected override void InitializeValue(object? value)
-		{
-			InitializeValueCallCount++;
-			base.InitializeValue(value);
-		}
 	}
 }

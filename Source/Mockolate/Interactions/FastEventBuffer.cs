@@ -7,7 +7,7 @@ namespace Mockolate.Interactions;
 /// <summary>
 ///     Distinguishes whether a <see cref="FastEventBuffer" /> records subscribe or unsubscribe calls.
 /// </summary>
-public enum FastEventBufferKind
+internal enum FastEventBufferKind
 {
 	/// <summary>The buffer records event subscriptions.</summary>
 	Subscribe,
@@ -25,7 +25,7 @@ public enum FastEventBufferKind
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-public sealed class FastEventBuffer : IFastMemberBuffer
+internal sealed class FastEventBuffer : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
 	private readonly FastEventBufferKind _kind;
