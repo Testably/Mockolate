@@ -36,8 +36,8 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
-		private global::Mockolate.MockRegistry MockRegistry { get; }
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -90,7 +90,7 @@ internal static partial class Mock
 			=> this.MockRegistry.ClearAllInteractions();
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> IMockForComprehensiveAbstractClass.Monitor()
-			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveAbstractClass(new global::Mockolate.MockRegistry(this.MockRegistry, interactions)));
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveAbstractClass(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -131,7 +131,7 @@ internal static partial class Mock
 			=> this.MockRegistry.ClearAllInteractions();
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA> IMockForICombinationMockA.Monitor()
-			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA>(this.MockRegistry.Interactions, interactions => new VerifyMonitorICombinationMockA(new global::Mockolate.MockRegistry(this.MockRegistry, interactions)));
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA>(this.MockRegistry.Interactions, interactions => new VerifyMonitorICombinationMockA(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -139,7 +139,7 @@ internal static partial class Mock
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
-		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.MockRegistry mockRegistry)
+		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.Internals.MockRegistry mockRegistry)
 			: base()
 		{
 			this.MockRegistry = mockRegistry;
@@ -147,7 +147,7 @@ internal static partial class Mock
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
-		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.MockRegistry mockRegistry, int v, string text = "x")
+		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.Internals.MockRegistry mockRegistry, int v, string text = "x")
 			: base(v, text)
 		{
 			this.MockRegistry = mockRegistry;
@@ -155,7 +155,7 @@ internal static partial class Mock
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
-		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.MockRegistry mockRegistry_1, int mockRegistry, bool _)
+		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.Internals.MockRegistry mockRegistry_1, int mockRegistry, bool _)
 			: base(mockRegistry, _)
 		{
 			this.MockRegistry = mockRegistry_1;
@@ -163,7 +163,7 @@ internal static partial class Mock
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
-		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.MockRegistry mockRegistry, string name)
+		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
 		{
 			this.MockRegistry = mockRegistry;

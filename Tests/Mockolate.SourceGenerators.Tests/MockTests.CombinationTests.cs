@@ -233,7 +233,7 @@ public sealed partial class MockTests
 				.Contains("IMockStaticRaiseOnIStaticEvents").And
 				.Contains("#region IMockStaticRaiseOnIStaticEvents").And
 				.Contains(
-					"internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry> MockRegistryProvider");
+					"internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider");
 		}
 
 		[Test]
@@ -272,7 +272,7 @@ public sealed partial class MockTests
 				.Contains("#region IMockStaticSetupForIStaticAware").And
 				.Contains("#region IMockStaticVerifyForIStaticAware").And
 				.Contains(
-					"internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry> MockRegistryProvider")
+					"internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider")
 				.Because("the AsyncLocal field is required so static accessors can find the registry");
 		}
 

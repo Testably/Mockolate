@@ -145,24 +145,24 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
-		sb.Append("\t\tglobal::Mockolate.MockRegistry global::Mockolate.IMock.MockRegistry => this.").Append(mockRegistryName).Append(';').AppendLine();
+		sb.Append("\t\tglobal::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.").Append(mockRegistryName).Append(';').AppendLine();
 		if (constructors?.Count > 0)
 		{
-			sb.Append("\t\tprivate global::Mockolate.MockRegistry ").Append(mockRegistryName).AppendLine();
+			sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).AppendLine();
 			sb.Append("\t\t{").AppendLine();
 			sb.Append("\t\t\tget => field ?? MockRegistryProvider.Value;").AppendLine();
 			sb.Append("\t\t\tset;").AppendLine();
 			sb.Append("\t\t}").AppendLine();
 			sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
-			sb.Append("\t\tinternal static readonly global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry>();").AppendLine();
+			sb.Append("\t\tinternal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();").AppendLine();
 		}
 		else
 		{
-			sb.Append("\t\tprivate global::Mockolate.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
+			sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
 			if (hasStaticMembers)
 			{
 				sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
-				sb.Append("\t\tinternal static readonly global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry>();").AppendLine();
+				sb.Append("\t\tinternal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();").AppendLine();
 			}
 		}
 
@@ -192,7 +192,7 @@ internal static partial class Sources
 		if (@class.IsInterface)
 		{
 			sb.Append("\t\t/// <inheritdoc cref=\"").Append(name).Append("\" />").AppendLine();
-			sb.Append("\t\tpublic ").Append(name).Append("(global::Mockolate.MockRegistry mockRegistry)").AppendLine();
+			sb.Append("\t\tpublic ").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry)").AppendLine();
 			sb.Append("\t\t{").AppendLine();
 			sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(" = mockRegistry;").AppendLine();
 			if (hasStaticMembers)
@@ -346,9 +346,9 @@ internal static partial class Sources
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
-		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name).AppendLine();
+		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name).AppendLine();
 		sb.Append("\t{").AppendLine();
-		sb.Append("\t\tprivate global::Mockolate.MockRegistry ").Append(mockRegistryName).Append(" { get; } = mockRegistry;").AppendLine();
+		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; } = mockRegistry;").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
@@ -375,10 +375,10 @@ internal static partial class Sources
 
 		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
-		sb.Append("\t\tprivate global::Mockolate.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
+		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
 		sb.Append("\t\tprivate string _scenarioName;").AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\tpublic MockInScenarioFor").Append(name).Append("(global::Mockolate.MockRegistry mockRegistry, string scenario)").AppendLine();
+		sb.Append("\t\tpublic MockInScenarioFor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry, string scenario)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(" = mockRegistry;").AppendLine();
 		sb.Append("\t\t\t_scenarioName = scenario;").AppendLine();
@@ -916,11 +916,11 @@ internal static partial class Sources
 		if (@class is { ClassFullName: "global::System.Net.Http.HttpClient", })
 		{
 			sb.Append("\t\t\tglobal::Mockolate.MockBehavior effectiveBehavior = mockBehavior ?? global::Mockolate.MockBehavior.Default;").AppendLine();
-			sb.Append("\t\t\tglobal::Mockolate.MockRegistry mockRegistry = new global::Mockolate.MockRegistry(effectiveBehavior, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(effectiveBehavior), constructorParameters);").AppendLine();
+			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(effectiveBehavior, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(effectiveBehavior), constructorParameters);").AppendLine();
 			sb.Append("\t\t\tif (constructorParameters is null)").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
 			sb.Append("\t\t\t\tconstructorParameters = [new global::Mockolate.Mock.HttpMessageHandler(mockRegistry),];").AppendLine();
-			sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.MockRegistry(mockRegistry, constructorParameters);").AppendLine();
+			sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, constructorParameters);").AppendLine();
 			sb.Append("\t\t\t}").AppendLine();
 			sb.Append("\t\t\telse if (constructorParameters.Length > 0 && constructorParameters[0] is global::Mockolate.Mock.HttpMessageHandler && constructorParameters[0] is global::Mockolate.IMock httpMessageHandlerMock)").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
@@ -928,21 +928,21 @@ internal static partial class Sources
 			sb.Append("\t\t\t\t{").AppendLine();
 			sb.Append("\t\t\t\t\tthrow new global::Mockolate.Exceptions.MockException($\"Mock of type 'System.Net.Http.HttpClient' cannot be created with behavior '{mockBehavior}' because it shares its mock registry with a mock of type 'System.Net.Http.HttpMessageHandler' that has behavior '{httpMessageHandlerMock.MockRegistry.Behavior}'.\");").AppendLine();
 			sb.Append("\t\t\t\t}").AppendLine();
-			sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.MockRegistry(httpMessageHandlerMock.MockRegistry, constructorParameters);").AppendLine();
+			sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.Internals.MockRegistry(httpMessageHandlerMock.MockRegistry, constructorParameters);").AppendLine();
 			sb.Append("\t\t\t}").AppendLine();
 			sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
 		}
 		else
 		{
 			sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
-			sb.Append("\t\t\tglobal::Mockolate.MockRegistry mockRegistry = new global::Mockolate.MockRegistry(mockBehavior, global::Mockolate.Mock.").Append(name).Append(".MemberCount, constructorParameters);").AppendLine();
+			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.").Append(name).Append(".MemberCount, constructorParameters);").AppendLine();
 		}
 
 		sb.Append("\t\t\treturn CreateMockInstance(mockRegistry, constructorParameters, setup);").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 
 		sb.AppendLine();
-		sb.Append("\t\tprivate static ").Append(@class.ClassFullName).Append(" CreateMockInstance(global::Mockolate.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<").Append(setupType).Append(">? setup)").AppendLine();
+		sb.Append("\t\tprivate static ").Append(@class.ClassFullName).Append(" CreateMockInstance(global::Mockolate.Internals.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<").Append(setupType).Append(">? setup)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		if (!@class.IsInterface && constructors?.Count > 0)
 		{
@@ -1079,8 +1079,8 @@ internal static partial class Sources
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (mock is global::Mockolate.IMock mockInterface)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tglobal::Mockolate.MockRegistry wrappingRegistry = new global::Mockolate.MockRegistry(mockInterface.MockRegistry, instance);").AppendLine();
-		sb.Append("\t\t\t\twrappingRegistry = new global::Mockolate.MockRegistry(wrappingRegistry, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(wrappingRegistry.Behavior));").AppendLine();
+		sb.Append("\t\t\t\tglobal::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);").AppendLine();
+		sb.Append("\t\t\t\twrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(wrappingRegistry.Behavior));").AppendLine();
 		sb.Append("\t\t\t\treturn CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t\tthrow new global::Mockolate.Exceptions.MockException(\"The subject is no mock.\");").AppendLine();
@@ -1143,7 +1143,7 @@ internal static partial class Sources
 			sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 			sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
-			sb.Append("\tinternal sealed class MockSetup(global::Mockolate.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupFor").Append(name);
+			sb.Append("\tinternal sealed class MockSetup(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupFor").Append(name);
 			if (hasProtectedMembers)
 			{
 				sb.Append(", global::Mockolate.Mock.IMockProtectedSetupFor").Append(name).Append(", IMockSetupInitializationFor").Append(name);
@@ -1157,7 +1157,7 @@ internal static partial class Sources
 				sb.Append("\t\tglobal::Mockolate.Mock.IMockProtectedSetupFor").Append(name).Append(" IMockSetupInitializationFor").Append(name).Append('.').Append(protectedName).Append(" => this;").AppendLine();
 			}
 
-			sb.Append("\t\tprivate global::Mockolate.MockRegistry ").Append(mockRegistryName).Append(" { get; } = mockRegistry;").AppendLine();
+			sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; } = mockRegistry;").AppendLine();
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
@@ -1306,7 +1306,7 @@ internal static partial class Sources
 		sb.Append("\t\tglobal::Mockolate.Monitor.MockMonitor<IMockVerifyFor").Append(name).Append("> IMockFor").Append(name).Append(".Monitor()").AppendLine();
 		sb.Append("\t\t\t=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyFor").Append(name).Append(">(this.")
 			.Append(mockRegistryName).Append(".Interactions, interactions => new VerifyMonitor").Append(name)
-			.Append("(new global::Mockolate.MockRegistry(this.").Append(mockRegistryName).Append(", interactions)));")
+			.Append("(new global::Mockolate.Internals.MockRegistry(this.").Append(mockRegistryName).Append(", interactions)));")
 			.AppendLine();
 		sb.AppendLine();
 	}
@@ -1325,7 +1325,7 @@ internal static partial class Sources
 			sb.Append("\t\t[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]").AppendLine();
 		}
 
-		sb.Append("\t\tpublic ").Append(name).Append("(global::Mockolate.MockRegistry ").Append(mockRegistry);
+		sb.Append("\t\tpublic ").Append(name).Append("(global::Mockolate.Internals.MockRegistry ").Append(mockRegistry);
 		foreach (MethodParameter parameter in constructor.Parameters)
 		{
 			sb.Append(", ");
@@ -1378,11 +1378,11 @@ internal static partial class Sources
 		bool setsMockRegistryProvider)
 	{
 		sb.Append(indent).Append("/// <summary>").AppendLine();
-		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.MockRegistry\" /> backed by a typed-buffer-sized ").Append("<see cref=\"global::Mockolate.Interactions.FastMockInteractions\" /> from <paramref name=\"behavior\" />.").AppendLine();
+		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.Internals.MockRegistry\" /> backed by a typed-buffer-sized ").Append("<see cref=\"global::Mockolate.Internals.FastMockInteractions\" /> from <paramref name=\"behavior\" />.").AppendLine();
 		sb.Append(indent).Append("/// </summary>").AppendLine();
-		sb.Append(indent).Append("private static global::Mockolate.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)").AppendLine();
+		sb.Append(indent).Append("private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)").AppendLine();
 		sb.Append(indent).Append("{").AppendLine();
-		sb.Append(indent).Append("\tglobal::Mockolate.MockRegistry registry = new global::Mockolate.MockRegistry(behavior, MemberCount);").AppendLine();
+		sb.Append(indent).Append("\tglobal::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);").AppendLine();
 		if (setsMockRegistryProvider)
 		{
 			sb.Append(indent).Append("\tMockRegistryProvider.Value = registry;").AppendLine();
@@ -2532,9 +2532,9 @@ internal static partial class Sources
 			string typeArgs = arity == 0
 				? string.Empty
 				: "<" + string.Join(", ", method.Parameters.Select(p => p.ToTypeOrWrapper())) + ">";
-			string bufferType = $"global::Mockolate.Interactions.FastMethod{arity}Buffer{typeArgs}";
+			string bufferType = $"global::Mockolate.Internals.FastMethod{arity}Buffer{typeArgs}";
 
-			sb.Append("\t\t\t\t((global::Mockolate.Interactions.FastMockInteractions)")
+			sb.Append("\t\t\t\t((global::Mockolate.Internals.FastMockInteractions)")
 				.Append(mockRegistry).Append(".Interactions).GetOrCreateBuffer<").Append(bufferType)
 				.Append(">(").Append(memberIdRef).Append(", static fast => new ").Append(bufferType)
 				.Append("(fast)).Append(")
@@ -4209,7 +4209,7 @@ internal static partial class Sources
 			// Fused literal path: when the call site is the bare-value overload (every parameter is a
 			// literal value) we can store the values directly on the setup via WithLiteralValues and
 			// skip the per-parameter IParameterMatch<T> allocations that WithParameterCollection
-			// would otherwise force via It.IsValue<T>(...). Gated to 1..4 parameters because that is
+			// would otherwise force via Matchers.IsValue<T>(...). Gated to 1..4 parameters because that is
 			// the arity range covered by the WithLiteralValues nested types.
 			// A params value parameter matches element-wise by value (It.SequenceEquals), which the
 			// reference-equality WithLiteralValues fast path cannot express — force the collection path.
@@ -4241,7 +4241,7 @@ internal static partial class Sources
 					if (perElementParams && parameter.IsParams &&
 					    parameter.Type.ElementType is not null)
 					{
-						sb.Append("new global::Mockolate.Parameters.ParamsArrayParameterMatch<")
+						sb.Append("new global::Mockolate.Internals.ParamsArrayParameterMatch<")
 							.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
 							.Append(")");
 					}
@@ -4590,7 +4590,7 @@ internal static partial class Sources
 					.Append(paramRef);
 				if (parameter.CanUseNullableParameterOverload())
 				{
-					sb.Append($" ?? global::Mockolate.It.IsNull<{parameter.ToNullableType()}>(\"null\")");
+					sb.Append($" ?? global::Mockolate.Internals.Matchers.IsNull<{parameter.ToNullableType()}>()");
 				}
 
 				sb.Append(")");
@@ -5159,8 +5159,8 @@ internal static partial class Sources
 					.Append(">.Wrap(").Append(parameter.Name);
 				if (parameter.CanUseNullableParameterOverload())
 				{
-					sb.Append(" ?? global::Mockolate.It.IsNull<").Append(parameter.ToNullableType())
-						.Append(">(\"null\")");
+					sb.Append(" ?? global::Mockolate.Internals.Matchers.IsNull<").Append(parameter.ToNullableType())
+						.Append(">()");
 				}
 
 				sb.Append(")");
@@ -5191,8 +5191,8 @@ internal static partial class Sources
 					.Append(">.Wrap(").Append(parameter.Name);
 				if (parameter.CanUseNullableParameterOverload())
 				{
-					sb.Append(" ?? global::Mockolate.It.IsNull<").Append(parameter.ToNullableType())
-						.Append(">(\"null\")");
+					sb.Append(" ?? global::Mockolate.Internals.Matchers.IsNull<").Append(parameter.ToNullableType())
+						.Append(">()");
 				}
 
 				sb.Append(").Matches(").Append(interactionVar).Append(".Parameter").Append(j + 1).Append(")");
@@ -6015,7 +6015,7 @@ internal static partial class Sources
 				if (perElementParams && parameter.IsParams &&
 				    parameter.Type.ElementType is not null)
 				{
-					sb.Append("(new global::Mockolate.Parameters.ParamsArrayParameterMatch<")
+					sb.Append("(new global::Mockolate.Internals.ParamsArrayParameterMatch<")
 						.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
 						.Append(").Matches(__i.Parameter").Append(i + 1).Append("))");
 				}
@@ -6066,11 +6066,11 @@ internal static partial class Sources
 	private static void AppendCreateFastInteractions(StringBuilder sb, string indent)
 	{
 		sb.Append(indent).Append("/// <summary>").AppendLine();
-		sb.Append(indent).Append("///     Creates a <see cref=\"global::Mockolate.Interactions.FastMockInteractions\" /> sized to ").Append("<see cref=\"MemberCount\" /> for use as the mock's interaction store.").AppendLine();
-		sb.Append(indent).Append("///     Per-member buffers are not allocated up-front: the recording hot paths call ").Append("<see cref=\"global::Mockolate.Interactions.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Interactions.FastMockInteractions, TBuffer})\" />").Append(" so a slot is materialized only when its member is first invoked.").AppendLine();
+		sb.Append(indent).Append("///     Creates a <see cref=\"global::Mockolate.Internals.FastMockInteractions\" /> sized to ").Append("<see cref=\"MemberCount\" /> for use as the mock's interaction store.").AppendLine();
+		sb.Append(indent).Append("///     Per-member buffers are not allocated up-front: the recording hot paths call ").Append("<see cref=\"global::Mockolate.Internals.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Internals.FastMockInteractions, TBuffer})\" />").Append(" so a slot is materialized only when its member is first invoked.").AppendLine();
 		sb.Append(indent).Append("/// </summary>").AppendLine();
-		sb.Append(indent).Append("internal static global::Mockolate.Interactions.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)").AppendLine();
-		sb.Append(indent).Append("\t=> new global::Mockolate.Interactions.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);").AppendLine();
+		sb.Append(indent).Append("internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)").AppendLine();
+		sb.Append(indent).Append("\t=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);").AppendLine();
 	}
 
 	/// <summary>
@@ -6130,21 +6130,21 @@ internal static partial class Sources
 			string indexerValueType = indexer.Type.ToTypeOrWrapper();
 			string getMemberIdRef = memberIdPrefix + memberIds.GetIndexerGetIdentifier(indexer);
 			string setMemberIdRef = memberIdPrefix + memberIds.GetIndexerSetIdentifier(indexer);
-			string getterBufferType = "global::Mockolate.Interactions.FastIndexerGetterBuffer<"
+			string getterBufferType = "global::Mockolate.Internals.FastIndexerGetterBuffer<"
 			                          + indexerKeyTypeArgs + ">";
-			string setterBufferType = "global::Mockolate.Interactions.FastIndexerSetterBuffer<"
+			string setterBufferType = "global::Mockolate.Internals.FastIndexerSetterBuffer<"
 			                          + indexerKeyTypeArgs + ", " + indexerValueType + ">";
 
 			sb.Append(indent).Append("[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
 			sb.Append(indent).Append("private ").Append(getterBufferType).Append(' ').Append(memberIds.GetIndexerGetterBufferFieldName(indexer)).AppendLine();
-			sb.Append(indent).Append("\t=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)")
+			sb.Append(indent).Append("\t=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)")
 				.Append(mockRegistryRef).Append(".Interactions).GetOrCreateBuffer<").Append(getterBufferType)
 				.Append(">(").Append(getMemberIdRef).Append(", static fast => new ").Append(getterBufferType)
 				.Append("(fast)));").AppendLine();
 
 			sb.Append(indent).Append("[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
 			sb.Append(indent).Append("private ").Append(setterBufferType).Append(' ').Append(memberIds.GetIndexerSetterBufferFieldName(indexer)).AppendLine();
-			sb.Append(indent).Append("\t=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)")
+			sb.Append(indent).Append("\t=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)")
 				.Append(mockRegistryRef).Append(".Interactions).GetOrCreateBuffer<").Append(setterBufferType)
 				.Append(">(").Append(setMemberIdRef).Append(", static fast => new ").Append(setterBufferType)
 				.Append("(fast)));").AppendLine();
@@ -6162,10 +6162,10 @@ internal static partial class Sources
 				? string.Empty
 				: "<" + string.Join(", ", method.Parameters.Select(p => p.ToTypeOrWrapper())) + ">";
 			string memberIdRef = memberIdPrefix + memberIds.GetMethodIdentifier(method);
-			string bufferType = "global::Mockolate.Interactions.FastMethod" + arity + "Buffer" + typeArgs;
+			string bufferType = "global::Mockolate.Internals.FastMethod" + arity + "Buffer" + typeArgs;
 			sb.Append(indent).Append("[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
 			sb.Append(indent).Append("private ").Append(bufferType).Append(' ').Append(memberIds.GetMethodBufferFieldName(method)).AppendLine();
-			sb.Append(indent).Append("\t=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)")
+			sb.Append(indent).Append("\t=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)")
 				.Append(mockRegistryRef).Append(".Interactions).GetOrCreateBuffer<").Append(bufferType)
 				.Append(">(").Append(memberIdRef).Append(", static fast => new ").Append(bufferType)
 				.Append("(fast)));").AppendLine();

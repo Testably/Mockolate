@@ -176,7 +176,7 @@ namespace Mockolate.Setup
 		private readonly global::Mockolate.Parameters.IRefStructProjectionMatch<T4>? _projection4;
 		private readonly global::Mockolate.Parameters.IRefStructProjectionMatch<T5>? _projection5;
 		// The concrete leaf is an internal generic — the generator emits against the public base.
-		private readonly global::Mockolate.Setup.IndexerValueStorage? _storage;
+		private readonly global::Mockolate.Internals.IndexerValueStorage? _storage;
 		private global::System.Func<TValue>? _returnFactory;
 		private global::System.Func<global::System.Exception?>? _throwAction;
 		private bool? _skipBaseClass;
@@ -193,9 +193,9 @@ namespace Mockolate.Setup
 			_projection3 = matcher3 as global::Mockolate.Parameters.IRefStructProjectionMatch<T3>;
 			_projection4 = matcher4 as global::Mockolate.Parameters.IRefStructProjectionMatch<T4>;
 			_projection5 = matcher5 as global::Mockolate.Parameters.IRefStructProjectionMatch<T5>;
-			if (global::Mockolate.Setup.RefStructStorageHelper.IsSlotStorageReady(_projection1) && global::Mockolate.Setup.RefStructStorageHelper.IsSlotStorageReady(_projection2) && global::Mockolate.Setup.RefStructStorageHelper.IsSlotStorageReady(_projection3) && global::Mockolate.Setup.RefStructStorageHelper.IsSlotStorageReady(_projection4) && global::Mockolate.Setup.RefStructStorageHelper.IsSlotStorageReady(_projection5))
+			if (global::Mockolate.Internals.RefStructStorageHelper.IsSlotStorageReady(_projection1) && global::Mockolate.Internals.RefStructStorageHelper.IsSlotStorageReady(_projection2) && global::Mockolate.Internals.RefStructStorageHelper.IsSlotStorageReady(_projection3) && global::Mockolate.Internals.RefStructStorageHelper.IsSlotStorageReady(_projection4) && global::Mockolate.Internals.RefStructStorageHelper.IsSlotStorageReady(_projection5))
 			{
-				_storage = global::Mockolate.Setup.RefStructStorageHelper.CreateStorage<TValue>();
+				_storage = global::Mockolate.Internals.RefStructStorageHelper.CreateStorage<TValue>();
 			}
 		}
 
@@ -214,38 +214,38 @@ namespace Mockolate.Setup
 				return false;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection1, value1, rawKey1, out object key1))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection1, value1, rawKey1, out object key1))
 			{
 				value = default!;
 				return false;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection2, value2, rawKey2, out object key2))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection2, value2, rawKey2, out object key2))
 			{
 				value = default!;
 				return false;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection3, value3, rawKey3, out object key3))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection3, value3, rawKey3, out object key3))
 			{
 				value = default!;
 				return false;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection4, value4, rawKey4, out object key4))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection4, value4, rawKey4, out object key4))
 			{
 				value = default!;
 				return false;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection5, value5, rawKey5, out object key5))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection5, value5, rawKey5, out object key5))
 			{
 				value = default!;
 				return false;
 			}
 
-			global::Mockolate.Setup.IndexerValueStorage? node = _storage.GetChildDispatch(key1)?.GetChildDispatch(key2)?.GetChildDispatch(key3)?.GetChildDispatch(key4)?.GetChildDispatch(key5);
-			return global::Mockolate.Setup.RefStructStorageHelper.TryGetLeafValue<TValue>(node, out value);
+			global::Mockolate.Internals.IndexerValueStorage? node = _storage.GetChildDispatch(key1)?.GetChildDispatch(key2)?.GetChildDispatch(key3)?.GetChildDispatch(key4)?.GetChildDispatch(key5);
+			return global::Mockolate.Internals.RefStructStorageHelper.TryGetLeafValue<TValue>(node, out value);
 		}
 
 		internal void StoreValue(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, TValue value, object? rawKey1, object? rawKey2, object? rawKey3, object? rawKey4, object? rawKey5)
@@ -255,33 +255,33 @@ namespace Mockolate.Setup
 				return;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection1, value1, rawKey1, out object key1))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection1, value1, rawKey1, out object key1))
 			{
 				return;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection2, value2, rawKey2, out object key2))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection2, value2, rawKey2, out object key2))
 			{
 				return;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection3, value3, rawKey3, out object key3))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection3, value3, rawKey3, out object key3))
 			{
 				return;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection4, value4, rawKey4, out object key4))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection4, value4, rawKey4, out object key4))
 			{
 				return;
 			}
 
-			if (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection5, value5, rawKey5, out object key5))
+			if (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection5, value5, rawKey5, out object key5))
 			{
 				return;
 			}
 
-			global::Mockolate.Setup.IndexerValueStorage leaf = _storage.GetOrAddChildDispatch(key1).GetOrAddChildDispatch(key2).GetOrAddChildDispatch(key3).GetOrAddChildDispatch(key4).GetOrAddChildDispatch(key5);
-			global::Mockolate.Setup.RefStructStorageHelper.SetLeafValue<TValue>(leaf, value);
+			global::Mockolate.Internals.IndexerValueStorage leaf = _storage.GetOrAddChildDispatch(key1).GetOrAddChildDispatch(key2).GetOrAddChildDispatch(key3).GetOrAddChildDispatch(key4).GetOrAddChildDispatch(key5);
+			global::Mockolate.Internals.RefStructStorageHelper.SetLeafValue<TValue>(leaf, value);
 		}
 
 		public TValue Invoke(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, object? rawKey1 = null, object? rawKey2 = null, object? rawKey3 = null, object? rawKey4 = null, object? rawKey5 = null, global::System.Func<TValue>? defaultFactory = null)

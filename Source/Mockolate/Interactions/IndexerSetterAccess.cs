@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Mockolate.Internals;
 using Mockolate.Setup;
 
 namespace Mockolate.Interactions;
@@ -33,7 +34,7 @@ public class IndexerSetterAccess<T1, TValue>(T1 parameter1, TValue value) : Inde
 			_ => null,
 		};
 
-	/// <inheritdoc cref="IndexerAccess.TraverseStorage(Mockolate.Setup.IndexerValueStorage?, bool)" />
+	/// <inheritdoc cref="IndexerAccess.TraverseStorage(Mockolate.Internals.IndexerValueStorage?, bool)" />
 	protected override IndexerValueStorage? TraverseStorage(IndexerValueStorage? storage, bool createMissing)
 	{
 		IndexerValueStorage? s = storage;
@@ -89,7 +90,7 @@ public class IndexerSetterAccess<T1, T2, TValue>(
 			_ => null,
 		};
 
-	/// <inheritdoc cref="IndexerAccess.TraverseStorage(Mockolate.Setup.IndexerValueStorage?, bool)" />
+	/// <inheritdoc cref="IndexerAccess.TraverseStorage(Mockolate.Internals.IndexerValueStorage?, bool)" />
 	protected override IndexerValueStorage? TraverseStorage(IndexerValueStorage? storage, bool createMissing)
 	{
 		IndexerValueStorage? s = storage;
@@ -158,7 +159,7 @@ public class IndexerSetterAccess<T1, T2, T3, TValue>(
 			_ => null,
 		};
 
-	/// <inheritdoc cref="IndexerAccess.TraverseStorage(Mockolate.Setup.IndexerValueStorage?, bool)" />
+	/// <inheritdoc cref="IndexerAccess.TraverseStorage(Mockolate.Internals.IndexerValueStorage?, bool)" />
 	protected override IndexerValueStorage? TraverseStorage(IndexerValueStorage? storage, bool createMissing)
 	{
 		IndexerValueStorage? s = storage;
@@ -240,7 +241,7 @@ public class IndexerSetterAccess<T1, T2, T3, T4, TValue>(
 			_ => null,
 		};
 
-	/// <inheritdoc cref="IndexerAccess.TraverseStorage(Mockolate.Setup.IndexerValueStorage?, bool)" />
+	/// <inheritdoc cref="IndexerAccess.TraverseStorage(Mockolate.Internals.IndexerValueStorage?, bool)" />
 	protected override IndexerValueStorage? TraverseStorage(IndexerValueStorage? storage, bool createMissing)
 	{
 		IndexerValueStorage? s = storage;

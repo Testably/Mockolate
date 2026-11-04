@@ -587,7 +587,7 @@ internal static partial class Sources
 		}
 
 		sb.Append("\t\t// The concrete leaf is an internal generic — the generator emits against the public base.").AppendLine();
-		sb.Append("\t\tprivate readonly global::Mockolate.Setup.IndexerValueStorage? _storage;").AppendLine();
+		sb.Append("\t\tprivate readonly global::Mockolate.Internals.IndexerValueStorage? _storage;").AppendLine();
 		sb.Append("\t\tprivate global::System.Func<TValue>? _returnFactory;").AppendLine();
 		sb.Append("\t\tprivate global::System.Func<global::System.Exception?>? _throwAction;").AppendLine();
 		sb.Append("\t\tprivate bool? _skipBaseClass;").AppendLine();
@@ -625,13 +625,13 @@ internal static partial class Sources
 				sb.Append(" && ");
 			}
 
-			sb.Append("global::Mockolate.Setup.RefStructStorageHelper.IsSlotStorageReady(_projection").Append(i)
+			sb.Append("global::Mockolate.Internals.RefStructStorageHelper.IsSlotStorageReady(_projection").Append(i)
 				.Append(')');
 		}
 
 		sb.Append(')').AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t_storage = global::Mockolate.Setup.RefStructStorageHelper.CreateStorage<TValue>();").AppendLine();
+		sb.Append("\t\t\t\t_storage = global::Mockolate.Internals.RefStructStorageHelper.CreateStorage<TValue>();").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 
 		sb.Append("\t\t}").AppendLine();
@@ -691,7 +691,7 @@ internal static partial class Sources
 		sb.AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.Append("\t\t\tif (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection").Append(i)
+			sb.Append("\t\t\tif (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection").Append(i)
 				.Append(", value").Append(i).Append(", rawKey").Append(i).Append(", out object key").Append(i)
 				.Append("))").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
@@ -701,14 +701,14 @@ internal static partial class Sources
 			sb.AppendLine();
 		}
 
-		sb.Append("\t\t\tglobal::Mockolate.Setup.IndexerValueStorage? node = _storage");
+		sb.Append("\t\t\tglobal::Mockolate.Internals.IndexerValueStorage? node = _storage");
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
 			sb.Append(i == 1 ? "" : "?").Append(".GetChildDispatch(key").Append(i).Append(')');
 		}
 
 		sb.Append(';').AppendLine();
-		sb.Append("\t\t\treturn global::Mockolate.Setup.RefStructStorageHelper.TryGetLeafValue<TValue>(node, out value);").AppendLine();
+		sb.Append("\t\t\treturn global::Mockolate.Internals.RefStructStorageHelper.TryGetLeafValue<TValue>(node, out value);").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
@@ -723,7 +723,7 @@ internal static partial class Sources
 		sb.AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.Append("\t\t\tif (!global::Mockolate.Setup.RefStructStorageHelper.TryResolveKey(_projection").Append(i)
+			sb.Append("\t\t\tif (!global::Mockolate.Internals.RefStructStorageHelper.TryResolveKey(_projection").Append(i)
 				.Append(", value").Append(i).Append(", rawKey").Append(i).Append(", out object key").Append(i)
 				.Append("))").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
@@ -732,14 +732,14 @@ internal static partial class Sources
 			sb.AppendLine();
 		}
 
-		sb.Append("\t\t\tglobal::Mockolate.Setup.IndexerValueStorage leaf = _storage");
+		sb.Append("\t\t\tglobal::Mockolate.Internals.IndexerValueStorage leaf = _storage");
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
 			sb.Append(".GetOrAddChildDispatch(key").Append(i).Append(')');
 		}
 
 		sb.Append(';').AppendLine();
-		sb.Append("\t\t\tglobal::Mockolate.Setup.RefStructStorageHelper.SetLeafValue<TValue>(leaf, value);").AppendLine();
+		sb.Append("\t\t\tglobal::Mockolate.Internals.RefStructStorageHelper.SetLeafValue<TValue>(leaf, value);").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 

@@ -34,7 +34,7 @@ public sealed class IndexerSetupsTests
 		await That(result.Sources).ContainsKey("IndexerSetups.g.cs");
 		await That(result.Sources["IndexerSetups.g.cs"])
 			.Contains(
-				"internal class IndexerSetup<TValue, T1, T2, T3, T4, T5>(global::Mockolate.MockRegistry mockRegistry, global::Mockolate.Parameters.IParameterMatch<T1> parameter1, global::Mockolate.Parameters.IParameterMatch<T2> parameter2, global::Mockolate.Parameters.IParameterMatch<T3> parameter3, global::Mockolate.Parameters.IParameterMatch<T4> parameter4, global::Mockolate.Parameters.IParameterMatch<T5> parameter5) : global::Mockolate.Setup.IndexerSetup(mockRegistry)");
+				"internal class IndexerSetup<TValue, T1, T2, T3, T4, T5>(global::Mockolate.Internals.MockRegistry mockRegistry, global::Mockolate.Parameters.IParameterMatch<T1> parameter1, global::Mockolate.Parameters.IParameterMatch<T2> parameter2, global::Mockolate.Parameters.IParameterMatch<T3> parameter3, global::Mockolate.Parameters.IParameterMatch<T4> parameter4, global::Mockolate.Parameters.IParameterMatch<T5> parameter5) : global::Mockolate.Setup.IndexerSetup(mockRegistry)");
 	}
 
 	[Test]

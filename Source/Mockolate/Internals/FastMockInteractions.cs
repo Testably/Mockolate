@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
+using Mockolate.Interactions;
 
-namespace Mockolate.Interactions;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Per-mock interaction storage backed by an array of typed per-member buffers. Each mocked
@@ -16,6 +18,7 @@ namespace Mockolate.Interactions;
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public class FastMockInteractions : IMockInteractions
 {
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -43,7 +46,7 @@ public class FastMockInteractions : IMockInteractions
 	/// <summary>
 	///     Creates a new <see cref="FastMockInteractions" /> sized to <paramref name="memberCount" />.
 	///     Each mockable member's buffer slot starts empty and is materialized lazily on first access via
-	///     <see cref="GetOrCreateBuffer{TBuffer}(int, System.Func{Mockolate.Interactions.FastMockInteractions,TBuffer})" />.
+	///     <see cref="GetOrCreateBuffer{TBuffer}(int, System.Func{Mockolate.Internals.FastMockInteractions,TBuffer})" />.
 	/// </summary>
 	/// <param name="memberCount">The number of distinct mockable members the buffer array should hold.</param>
 	/// <param name="skipInteractionRecording">Mirrors <see cref="MockBehavior.SkipInteractionRecording" />.</param>

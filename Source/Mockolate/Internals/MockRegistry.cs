@@ -1,10 +1,11 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using Mockolate.Interactions;
 using Mockolate.Setup;
 
-namespace Mockolate;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Registry for mock behavior, setups and interactions.
@@ -16,6 +17,7 @@ namespace Mockolate;
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public partial class MockRegistry
 {
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]

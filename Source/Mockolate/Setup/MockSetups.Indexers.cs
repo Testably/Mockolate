@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Mockolate.Interactions;
+using Mockolate.Internals;
 
 namespace Mockolate.Setup;
 

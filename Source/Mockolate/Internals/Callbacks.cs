@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Mockolate.Setup;
 
-namespace Mockolate.Setup;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     A wrapper for the list of callbacks.
@@ -9,6 +11,7 @@ namespace Mockolate.Setup;
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public class Callbacks<T> : List<Callback<T>> where T : Delegate
 {
 	/// <summary>

@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 
-namespace Mockolate.Setup;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Marker type for the typed child indexer of an <see cref="IndexerValueStorage" /> node.

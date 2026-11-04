@@ -335,7 +335,7 @@ namespace Mockolate.Setup
 	///     Sets up a <typeparamref name="TValue"/> indexer for <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" /> and <typeparamref name="T5" />.
 	/// </summary>
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	internal class IndexerSetup<TValue, T1, T2, T3, T4, T5>(global::Mockolate.MockRegistry mockRegistry, global::Mockolate.Parameters.IParameterMatch<T1> parameter1, global::Mockolate.Parameters.IParameterMatch<T2> parameter2, global::Mockolate.Parameters.IParameterMatch<T3> parameter3, global::Mockolate.Parameters.IParameterMatch<T4> parameter4, global::Mockolate.Parameters.IParameterMatch<T5> parameter5) : global::Mockolate.Setup.IndexerSetup(mockRegistry),
+	internal class IndexerSetup<TValue, T1, T2, T3, T4, T5>(global::Mockolate.Internals.MockRegistry mockRegistry, global::Mockolate.Parameters.IParameterMatch<T1> parameter1, global::Mockolate.Parameters.IParameterMatch<T2> parameter2, global::Mockolate.Parameters.IParameterMatch<T3> parameter3, global::Mockolate.Parameters.IParameterMatch<T4> parameter4, global::Mockolate.Parameters.IParameterMatch<T5> parameter5) : global::Mockolate.Setup.IndexerSetup(mockRegistry),
 		global::Mockolate.Setup.IIndexerSetupWithCallback<TValue, T1, T2, T3, T4, T5>,
 		global::Mockolate.Setup.IIndexerGetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5>,
 		global::Mockolate.Setup.IIndexerSetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5>,
@@ -343,9 +343,9 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IIndexerGetterSetupWithCallback<TValue, T1, T2, T3, T4, T5>,
 		global::Mockolate.Setup.IIndexerSetterSetupWithCallback<TValue, T1, T2, T3, T4, T5>
 	{
-		private Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? _getterCallbacks;
-		private Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? _setterCallbacks;
-		private Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>? _returnCallbacks;
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? _getterCallbacks;
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? _setterCallbacks;
+		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>? _returnCallbacks;
 		private bool? _skipBaseClass;
 		private global::System.Func<T1, T2, T3, T4, T5, TValue>? _initialization;
 
@@ -391,7 +391,7 @@ namespace Mockolate.Setup
 		IIndexerGetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5> IIndexerGetterSetup<TValue, T1, T2, T3, T4, T5>.Do(global::System.Action callback)
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new((_, _, _, _, _, _, _) => callback());
-			_getterCallbacks = _getterCallbacks.Register(currentCallback);
+			_getterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_getterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -399,7 +399,7 @@ namespace Mockolate.Setup
 		IIndexerGetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5> IIndexerGetterSetupWithCallback<TValue, T1, T2, T3, T4, T5>.Do(global::System.Action<T1, T2, T3, T4, T5> callback)
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new((_, p1, p2, p3, p4, p5, _) => callback(p1, p2, p3, p4, p5));
-			_getterCallbacks = _getterCallbacks.Register(currentCallback);
+			_getterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_getterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -407,7 +407,7 @@ namespace Mockolate.Setup
 		IIndexerGetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5> IIndexerGetterSetupWithCallback<TValue, T1, T2, T3, T4, T5>.Do(global::System.Action<T1, T2, T3, T4, T5, TValue> callback)
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new((_, p1, p2, p3, p4, p5, v) => callback(p1, p2, p3, p4, p5, v));
-			_getterCallbacks = _getterCallbacks.Register(currentCallback);
+			_getterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_getterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -415,7 +415,7 @@ namespace Mockolate.Setup
 		IIndexerGetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5> IIndexerGetterSetupWithCallback<TValue, T1, T2, T3, T4, T5>.Do(global::System.Action<int, T1, T2, T3, T4, T5, TValue> callback)
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new(callback);
-			_getterCallbacks = _getterCallbacks.Register(currentCallback);
+			_getterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_getterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -423,7 +423,7 @@ namespace Mockolate.Setup
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new((_, _, _, _, _, _, _) => TransitionScenario(scenario));
 			currentCallback.InParallel();
-			_getterCallbacks = _getterCallbacks.Register(currentCallback);
+			_getterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_getterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -435,7 +435,7 @@ namespace Mockolate.Setup
 		IIndexerSetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5> IIndexerSetterSetup<TValue, T1, T2, T3, T4, T5>.Do(global::System.Action callback)
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new((_, _, _, _, _, _, _) => callback());
-			_setterCallbacks = _setterCallbacks.Register(currentCallback);
+			_setterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_setterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -443,7 +443,7 @@ namespace Mockolate.Setup
 		IIndexerSetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5> IIndexerSetterSetup<TValue, T1, T2, T3, T4, T5>.Do(global::System.Action<TValue> callback)
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new((_, _, _, _, _, _, v) => callback(v));
-			_setterCallbacks = _setterCallbacks.Register(currentCallback);
+			_setterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_setterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -451,7 +451,7 @@ namespace Mockolate.Setup
 		IIndexerSetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5> IIndexerSetterSetupWithCallback<TValue, T1, T2, T3, T4, T5>.Do(global::System.Action<T1, T2, T3, T4, T5, TValue> callback)
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new((_, p1, p2, p3, p4, p5, v) => callback(p1, p2, p3, p4, p5, v));
-			_setterCallbacks = _setterCallbacks.Register(currentCallback);
+			_setterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_setterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -459,7 +459,7 @@ namespace Mockolate.Setup
 		IIndexerSetterSetupCallbackBuilder<TValue, T1, T2, T3, T4, T5> IIndexerSetterSetupWithCallback<TValue, T1, T2, T3, T4, T5>.Do(global::System.Action<int, T1, T2, T3, T4, T5, TValue> callback)
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new(callback);
-			_setterCallbacks = _setterCallbacks.Register(currentCallback);
+			_setterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_setterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -467,7 +467,7 @@ namespace Mockolate.Setup
 		{
 			Callback<global::System.Action<int, T1, T2, T3, T4, T5, TValue>>? currentCallback = new((_, _, _, _, _, _, _) => TransitionScenario(scenario));
 			currentCallback.InParallel();
-			_setterCallbacks = _setterCallbacks.Register(currentCallback);
+			_setterCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_setterCallbacks, currentCallback);
 			return this;
 		}
 
@@ -475,7 +475,7 @@ namespace Mockolate.Setup
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Returns(TValue returnValue)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, _, _, _, _, _, _) => returnValue);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -483,7 +483,7 @@ namespace Mockolate.Setup
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Returns(global::System.Func<TValue> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, _, _, _, _, _, _) => callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -491,7 +491,7 @@ namespace Mockolate.Setup
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Returns(global::System.Func<T1, T2, T3, T4, T5, TValue> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, p1, p2, p3, p4, p5, _) => callback(p1, p2, p3, p4, p5));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -499,7 +499,7 @@ namespace Mockolate.Setup
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Returns(global::System.Func<T1, T2, T3, T4, T5, TValue, TValue> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, v, p1, p2, p3, p4, p5) => callback(v, p1, p2, p3, p4, p5));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -508,7 +508,7 @@ namespace Mockolate.Setup
 			where TException : global::System.Exception, new()
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, _, _, _, _, _, _) => throw new TException());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -516,7 +516,7 @@ namespace Mockolate.Setup
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Throws(global::System.Exception exception)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, _, _, _, _, _, _) => throw exception);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -524,7 +524,7 @@ namespace Mockolate.Setup
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Throws(global::System.Func<global::System.Exception> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, _, _, _, _, _, _) => throw callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -532,7 +532,7 @@ namespace Mockolate.Setup
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Throws(global::System.Func<T1, T2, T3, T4, T5, global::System.Exception> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, p1, p2, p3, p4, p5, _) => throw callback(p1, p2, p3, p4, p5));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -540,7 +540,7 @@ namespace Mockolate.Setup
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Throws(global::System.Func<T1, T2, T3, T4, T5, TValue, global::System.Exception> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, p1, p2, p3, p4, p5, v) => throw callback(p1, p2, p3, p4, p5, v));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -938,10 +938,10 @@ namespace Mockolate.Interactions
 				4 => Parameter5,
 				_ => null,
 			};
-		/// <inheritdoc cref="global::Mockolate.Interactions.IndexerAccess.TraverseStorage(global::Mockolate.Setup.IndexerValueStorage?, bool)" />
-		protected override global::Mockolate.Setup.IndexerValueStorage? TraverseStorage(global::Mockolate.Setup.IndexerValueStorage? storage, bool createMissing)
+		/// <inheritdoc cref="global::Mockolate.Interactions.IndexerAccess.TraverseStorage(global::Mockolate.Internals.IndexerValueStorage?, bool)" />
+		protected override global::Mockolate.Internals.IndexerValueStorage? TraverseStorage(global::Mockolate.Internals.IndexerValueStorage? storage, bool createMissing)
 		{
-			global::Mockolate.Setup.IndexerValueStorage? s = storage;
+			global::Mockolate.Internals.IndexerValueStorage? s = storage;
 			if (s is null)
 			{
 				return null;
@@ -1016,10 +1016,10 @@ namespace Mockolate.Interactions
 				4 => Parameter5,
 				_ => null,
 			};
-		/// <inheritdoc cref="global::Mockolate.Interactions.IndexerAccess.TraverseStorage(global::Mockolate.Setup.IndexerValueStorage?, bool)" />
-		protected override global::Mockolate.Setup.IndexerValueStorage? TraverseStorage(global::Mockolate.Setup.IndexerValueStorage? storage, bool createMissing)
+		/// <inheritdoc cref="global::Mockolate.Interactions.IndexerAccess.TraverseStorage(global::Mockolate.Internals.IndexerValueStorage?, bool)" />
+		protected override global::Mockolate.Internals.IndexerValueStorage? TraverseStorage(global::Mockolate.Internals.IndexerValueStorage? storage, bool createMissing)
 		{
-			global::Mockolate.Setup.IndexerValueStorage? s = storage;
+			global::Mockolate.Internals.IndexerValueStorage? s = storage;
 			if (s is null)
 			{
 				return null;

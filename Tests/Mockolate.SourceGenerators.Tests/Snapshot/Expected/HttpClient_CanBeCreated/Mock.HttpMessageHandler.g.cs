@@ -27,42 +27,42 @@ internal static partial class Mock
 		internal const int MemberCount = 3;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Interactions.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
-		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Interactions.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Interactions.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
+		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Internals.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Internals.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
 		/// </summary>
-		internal static global::Mockolate.Interactions.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Interactions.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Interactions.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
 		/// </summary>
-		private static global::Mockolate.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
+		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
-			global::Mockolate.MockRegistry registry = new global::Mockolate.MockRegistry(behavior, MemberCount);
+			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
 			MockRegistryProvider.Value = registry;
 			return registry;
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
-		private global::Mockolate.MockRegistry MockRegistry
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry
 		{
 			get => field ?? MockRegistryProvider.Value;
 			set;
 		}
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry>();
+		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> MockolateBuffer_Send
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, static fast => new global::Mockolate.Interactions.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>(fast)));
+		private global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> MockolateBuffer_Send
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, static fast => new global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> MockolateBuffer_SendAsync
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, static fast => new global::Mockolate.Interactions.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>(fast)));
+		private global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> MockolateBuffer_SendAsync
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, static fast => new global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastMethod1Buffer<bool> MockolateBuffer_Dispose
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastMethod1Buffer<bool>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, static fast => new global::Mockolate.Interactions.FastMethod1Buffer<bool>(fast)));
+		private global::Mockolate.Internals.FastMethod1Buffer<bool> MockolateBuffer_Dispose
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<bool>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, static fast => new global::Mockolate.Internals.FastMethod1Buffer<bool>(fast)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -115,14 +115,14 @@ internal static partial class Mock
 			=> this.MockRegistry.ClearAllInteractions();
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpMessageHandler> IMockForHttpMessageHandler.Monitor()
-			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpMessageHandler>(this.MockRegistry.Interactions, interactions => new VerifyMonitorHttpMessageHandler(new global::Mockolate.MockRegistry(this.MockRegistry, interactions)));
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpMessageHandler>(this.MockRegistry.Interactions, interactions => new VerifyMonitorHttpMessageHandler(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
 			=> "System.Net.Http.HttpMessageHandler mock";
 
 		/// <inheritdoc cref="HttpMessageHandler" />
-		public HttpMessageHandler(global::Mockolate.MockRegistry mockRegistry)
+		public HttpMessageHandler(global::Mockolate.Internals.MockRegistry mockRegistry)
 			: base()
 		{
 			this.MockRegistry = mockRegistry;
@@ -321,7 +321,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, methodSetup);
 			return methodSetup;
 		}
@@ -329,7 +329,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::System.Net.Http.HttpRequestMessage request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.It.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.Internals.Matchers.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, methodSetup);
 			return methodSetup;
 		}
@@ -337,7 +337,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::System.Threading.CancellationToken cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.It.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.Internals.Matchers.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, methodSetup);
 			return methodSetup;
 		}
@@ -361,7 +361,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, methodSetup);
 			return methodSetup;
 		}
@@ -369,7 +369,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::System.Net.Http.HttpRequestMessage request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.It.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.Internals.Matchers.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, methodSetup);
 			return methodSetup;
 		}
@@ -377,7 +377,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::System.Threading.CancellationToken cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.It.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.Internals.Matchers.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, methodSetup);
 			return methodSetup;
 		}
@@ -401,7 +401,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<bool> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Dispose(global::Mockolate.Parameters.IParameter<bool>? disposing)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<bool>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Dispose", global::Mockolate.CovariantParameterAdapter<bool>.Wrap(disposing ?? global::Mockolate.It.IsNull<bool>("null")));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<bool>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Dispose", global::Mockolate.CovariantParameterAdapter<bool>.Wrap(disposing ?? global::Mockolate.Internals.Matchers.IsNull<bool>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, methodSetup);
 			return methodSetup;
 		}
@@ -488,9 +488,9 @@ internal static partial class Mock
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class VerifyMonitorHttpMessageHandler(global::Mockolate.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForHttpMessageHandler
+	private sealed class VerifyMonitorHttpMessageHandler(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForHttpMessageHandler
 	{
-		private global::Mockolate.MockRegistry MockRegistry { get; } = mockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
 
 		#region IMockVerifyForHttpMessageHandler
 
@@ -500,10 +500,10 @@ internal static partial class Mock
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	private sealed class MockInScenarioForHttpMessageHandler : global::Mockolate.Mock.IMockInScenarioForHttpMessageHandler, global::Mockolate.Mock.IMockSetupForHttpMessageHandler, global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler
 	{
-		private global::Mockolate.MockRegistry MockRegistry { get; }
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 		private string _scenarioName;
 
-		public MockInScenarioForHttpMessageHandler(global::Mockolate.MockRegistry mockRegistry, string scenario)
+		public MockInScenarioForHttpMessageHandler(global::Mockolate.Internals.MockRegistry mockRegistry, string scenario)
 		{
 			this.MockRegistry = mockRegistry;
 			_scenarioName = scenario;
@@ -534,7 +534,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -542,7 +542,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::System.Net.Http.HttpRequestMessage request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.It.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.Internals.Matchers.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -550,7 +550,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::System.Threading.CancellationToken cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.It.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.Internals.Matchers.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -574,7 +574,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -582,7 +582,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::System.Net.Http.HttpRequestMessage request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.It.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.Internals.Matchers.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -590,7 +590,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::System.Threading.CancellationToken cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.It.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.Internals.Matchers.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -614,7 +614,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<bool> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Dispose(global::Mockolate.Parameters.IParameter<bool>? disposing)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<bool>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Dispose", global::Mockolate.CovariantParameterAdapter<bool>.Wrap(disposing ?? global::Mockolate.It.IsNull<bool>("null")));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<bool>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Dispose", global::Mockolate.CovariantParameterAdapter<bool>.Wrap(disposing ?? global::Mockolate.Internals.Matchers.IsNull<bool>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1146,11 +1146,11 @@ internal static partial class MockExtensionsForHttpMessageHandler
 			}
 
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
-			global::Mockolate.MockRegistry mockRegistry = new global::Mockolate.MockRegistry(mockBehavior, global::Mockolate.Mock.HttpMessageHandler.MemberCount, constructorParameters);
+			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.HttpMessageHandler.MemberCount, constructorParameters);
 			return CreateMockInstance(mockRegistry, constructorParameters, setup);
 		}
 
-		private static global::System.Net.Http.HttpMessageHandler CreateMockInstance(global::Mockolate.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<IMockSetupInitializationForHttpMessageHandler>? setup)
+		private static global::System.Net.Http.HttpMessageHandler CreateMockInstance(global::Mockolate.Internals.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<IMockSetupInitializationForHttpMessageHandler>? setup)
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
@@ -1191,8 +1191,8 @@ internal static partial class MockExtensionsForHttpMessageHandler
 		{
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
-				global::Mockolate.MockRegistry wrappingRegistry = new global::Mockolate.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.MockRegistry(wrappingRegistry, global::Mockolate.Mock.HttpMessageHandler.CreateFastInteractions(wrappingRegistry.Behavior));
+				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.HttpMessageHandler.CreateFastInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
@@ -1228,11 +1228,11 @@ internal static partial class MockExtensionsForHttpMessageHandler
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	internal sealed class MockSetup(global::Mockolate.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupForHttpMessageHandler, global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler, IMockSetupInitializationForHttpMessageHandler
+	internal sealed class MockSetup(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupForHttpMessageHandler, global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler, IMockSetupInitializationForHttpMessageHandler
 	{
 		/// <inheritdoc />
 		global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler IMockSetupInitializationForHttpMessageHandler.Protected => this;
-		private global::Mockolate.MockRegistry MockRegistry { get; } = mockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
 
 		#region IMockSetupForHttpMessageHandler
 
@@ -1251,7 +1251,7 @@ internal static partial class MockExtensionsForHttpMessageHandler
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, methodSetup);
 			return methodSetup;
 		}
@@ -1259,7 +1259,7 @@ internal static partial class MockExtensionsForHttpMessageHandler
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::System.Net.Http.HttpRequestMessage request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.It.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.Internals.Matchers.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, methodSetup);
 			return methodSetup;
 		}
@@ -1267,7 +1267,7 @@ internal static partial class MockExtensionsForHttpMessageHandler
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Send(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::System.Threading.CancellationToken cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.It.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Send", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.Internals.Matchers.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, methodSetup);
 			return methodSetup;
 		}
@@ -1291,7 +1291,7 @@ internal static partial class MockExtensionsForHttpMessageHandler
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, methodSetup);
 			return methodSetup;
 		}
@@ -1299,7 +1299,7 @@ internal static partial class MockExtensionsForHttpMessageHandler
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::System.Net.Http.HttpRequestMessage request, global::Mockolate.Parameters.IParameter<global::System.Threading.CancellationToken>? cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.It.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.It.IsNull<global::System.Threading.CancellationToken>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", (global::Mockolate.Parameters.IParameterMatch<global::System.Net.Http.HttpRequestMessage>)global::Mockolate.Internals.Matchers.IsValue<global::System.Net.Http.HttpRequestMessage>(request), global::Mockolate.CovariantParameterAdapter<global::System.Threading.CancellationToken>.Wrap(cancellationToken ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Threading.CancellationToken>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, methodSetup);
 			return methodSetup;
 		}
@@ -1307,7 +1307,7 @@ internal static partial class MockExtensionsForHttpMessageHandler
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.SendAsync(global::Mockolate.Parameters.IParameter<global::System.Net.Http.HttpRequestMessage>? request, global::System.Threading.CancellationToken cancellationToken)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.It.IsNull<global::System.Net.Http.HttpRequestMessage>("null")), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.It.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.SendAsync", global::Mockolate.CovariantParameterAdapter<global::System.Net.Http.HttpRequestMessage>.Wrap(request ?? global::Mockolate.Internals.Matchers.IsNull<global::System.Net.Http.HttpRequestMessage>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Threading.CancellationToken>)global::Mockolate.Internals.Matchers.IsValue<global::System.Threading.CancellationToken>(cancellationToken));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, methodSetup);
 			return methodSetup;
 		}
@@ -1331,7 +1331,7 @@ internal static partial class MockExtensionsForHttpMessageHandler
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<bool> global::Mockolate.Mock.IMockProtectedSetupForHttpMessageHandler.Dispose(global::Mockolate.Parameters.IParameter<bool>? disposing)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<bool>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Dispose", global::Mockolate.CovariantParameterAdapter<bool>.Wrap(disposing ?? global::Mockolate.It.IsNull<bool>("null")));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<bool>.WithParameterCollection(MockRegistry, "global::System.Net.Http.HttpMessageHandler.Dispose", global::Mockolate.CovariantParameterAdapter<bool>.Wrap(disposing ?? global::Mockolate.Internals.Matchers.IsNull<bool>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, methodSetup);
 			return methodSetup;
 		}

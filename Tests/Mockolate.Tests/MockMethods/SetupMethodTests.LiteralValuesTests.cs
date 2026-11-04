@@ -5,7 +5,7 @@ public sealed partial class SetupMethodTests
 	/// <summary>
 	///     Behavioral coverage for the fused <c>WithLiteralValues</c> setup path and the literal-value
 	///     <c>VerifyMethod</c> overloads (arities 1..4, return + void). The bare-value setup overload
-	///     used to construct an <see cref="It.IsValue{T}" /> matcher per call; these tests pin the
+	///     used to construct an <see cref="Matchers.IsValue{T}" /> matcher per call; these tests pin the
 	///     equivalence between the literal-value path and the explicit-matcher path so the
 	///     allocation-saving rewrite cannot regress matching semantics.
 	/// </summary>
@@ -147,10 +147,10 @@ public sealed partial class SetupMethodTests
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			sut.Mock.Setup.Get4(1, "a", true, 0.5).Returns(44);
-			Mockolate.MockRegistry registry = ((Mockolate.IMock)sut).MockRegistry;
+			Mockolate.Internals.MockRegistry registry = ((Mockolate.IMock)sut).MockRegistry;
 
 			System.Collections.Generic.IReadOnlyCollection<Mockolate.Setup.ISetup> unused =
-				registry.GetUnusedSetups(new Mockolate.Interactions.FastMockInteractions(0));
+				registry.GetUnusedSetups(new Mockolate.Internals.FastMockInteractions(0));
 			Mockolate.Setup.ISetup setup = await That(unused).HasSingle();
 
 			await That(setup.ToString()!).Contains("0.5")

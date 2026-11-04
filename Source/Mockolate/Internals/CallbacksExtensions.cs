@@ -1,6 +1,8 @@
 using System;
+using System.ComponentModel;
+using Mockolate.Setup;
 
-namespace Mockolate.Setup;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Extension methods for <see cref="Callbacks{T}" />.
@@ -8,6 +10,7 @@ namespace Mockolate.Setup;
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static class CallbacksExtensions
 {
 	/// <inheritdoc cref="CallbacksExtensions" />

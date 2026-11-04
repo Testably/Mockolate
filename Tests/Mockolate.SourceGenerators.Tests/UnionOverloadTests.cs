@@ -183,7 +183,7 @@ public sealed class UnionOverloadTests
 		await That(mock)
 			.Contains("this[global::Mockolate.ParameterArg<global::System.Func<int, bool>>? parameter1] { get; }").And
 			.Contains("this[global::System.Func<int, bool> parameter1] { get; }").And
-			.Contains("(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1)").And
+			.Contains("(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1)").And
 			.DoesNotContain("this[global::System.Func<global::System.Func<int, bool>, bool>");
 	}
 

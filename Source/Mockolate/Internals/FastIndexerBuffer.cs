@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using Mockolate.Interactions;
 using Mockolate.Parameters;
 
-namespace Mockolate.Interactions;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Per-member buffer for indexer getters with a single key.
@@ -11,6 +13,7 @@ namespace Mockolate.Interactions;
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerGetterBuffer<T1> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -145,6 +148,7 @@ public sealed class FastIndexerGetterBuffer<T1> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerGetterBuffer<T1, T2> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -278,6 +282,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerGetterBuffer<T1, T2, T3> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -414,6 +419,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -553,6 +559,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerSetterBuffer<T1, TValue> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -687,6 +694,7 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -824,6 +832,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -964,6 +973,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : IFastMemberBuf
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;

@@ -22,16 +22,15 @@ The runtime library (`netstandard2.0`, `net8.0`, `net10.0`, `net11.0`).
 
 | Location | Responsibility |
 |---|---|
-| `MockRegistry*.cs` | Per-mock store for the behavior, setups and recorded interactions; generated mocks delegate every member access to it |
 | `MockBehavior.cs`, `MockBehaviorExtensions.cs`, `Behavior/` | Loose or strict behavior, default values, base class handling, constructor parameters |
 | `Setup/` | Method, property, indexer and event setups, callbacks, ref struct setups |
-| `Interactions/` | Recorded interactions; `FastMockInteractions` and the `Fast*Buffer` types are the allocation-sensitive recording path |
+| `Interactions/` | Recorded interactions |
 | `Verify/` | Verification results and count sources |
 | `It*.cs`, `Match*.cs`, `Parameters/` | Parameter matchers (`It.IsAny<T>()`, `It.Is(...)`, `It.Matches(...)`, ...) |
 | `Monitor/` | `MockMonitor` for interactions within a scope |
 | `Web/` | `HttpClient` support: setups, verifications and `It` extensions for requests and content |
 | `Exceptions/` | `MockException`, `MockNotSetupException`, `MockVerificationException`, `MockVerificationTimeoutException` |
-| `Internals/` | Helpers and polyfills for older frameworks |
+| `Internals/` | Infrastructure that generated code calls (`MockRegistry`, the per-mock store that generated mocks delegate every member access to; `FastMockInteractions` and the `Fast*Buffer` types, the allocation-sensitive recording path; `Callbacks<T>`, `Matchers`, ...), helpers and polyfills for older frameworks |
 
 ### `Source/Mockolate.SourceGenerators`
 

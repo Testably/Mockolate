@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Mockolate.Parameters;
 
-namespace Mockolate.Setup;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Shared helpers for activating projection-based storage on multi-parameter

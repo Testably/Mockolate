@@ -102,12 +102,12 @@ namespace Mockolate
 		{
 			if (_tag != MatcherTag)
 			{
-				return (global::Mockolate.Parameters.IParameterMatch<T>)global::Mockolate.It.IsValue<T>(_literal!);
+				return (global::Mockolate.Parameters.IParameterMatch<T>)global::Mockolate.Internals.Matchers.IsValue<T>(_literal!);
 			}
 
 			if (_matcher is null)
 			{
-				return (global::Mockolate.Parameters.IParameterMatch<T>)global::Mockolate.It.IsNull<T>("null");
+				return (global::Mockolate.Parameters.IParameterMatch<T>)global::Mockolate.Internals.Matchers.IsNull<T>();
 			}
 
 			return _matcher is global::Mockolate.Parameters.IParameterMatch<T> direct

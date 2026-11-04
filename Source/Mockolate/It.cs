@@ -56,7 +56,7 @@ public partial class It
 #if !DEBUG
 	[System.Diagnostics.DebuggerNonUserCode]
 #endif
-	private abstract class TypedMatch<T> : IParameterWithCallback<T>, IParameterMatch<T>
+	internal abstract class TypedMatch<T> : IParameterWithCallback<T>, IParameterMatch<T>
 	{
 		private List<Action<T>>? _callbacks;
 
