@@ -49,7 +49,7 @@ public partial class It
 	/// <remarks>
 	///     Use this when the caller's out value is irrelevant to the test and you just need the method call to return.
 	///     The produced value equals <see langword="default" /><c>(T)</c> unless a custom
-	///     <see cref="MockBehaviorExtensions.WithDefaultValueFor" /> factory is registered; in that case the factory's
+	///     <see cref="MockBehavior.WithDefaultValueFor{T}(Func{T})" /> factory is registered; in that case the factory's
 	///     value is used.
 	/// </remarks>
 	/// <typeparam name="T">The out-parameter's type.</typeparam>

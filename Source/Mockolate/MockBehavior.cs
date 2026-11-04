@@ -17,22 +17,23 @@ namespace Mockolate;
 ///     to <c>CreateMock(...)</c> to customize how un-configured members are handled:
 ///     <list type="bullet">
 ///         <item>
-///             <description><see cref="ThrowWhenNotSetup" /> (see <see cref="MockBehaviorExtensions.ThrowingWhenNotSetup" />) - throw <see cref="Mockolate.Exceptions.MockNotSetupException" /> instead of returning a default value.</description>
+///             <description><see cref="ThrowWhenNotSetup" /> (see <see cref="ThrowingWhenNotSetup" />) - throw <see cref="Mockolate.Exceptions.MockNotSetupException" /> instead of returning a default value.</description>
 ///         </item>
 ///         <item>
-///             <description><see cref="SkipBaseClass" /> (see <see cref="MockBehaviorExtensions.SkippingBaseClass" />) - for class mocks, bypass the base-class implementation entirely.</description>
+///             <description><see cref="SkipBaseClass" /> (see <see cref="SkippingBaseClass" />) - for class mocks, bypass the base-class implementation entirely.</description>
 ///         </item>
 ///         <item>
-///             <description><see cref="SkipInteractionRecording" /> (see <see cref="MockBehaviorExtensions.SkippingInteractionRecording" />) - trade verifiability for performance by not recording invocations.</description>
+///             <description><see cref="SkipInteractionRecording" /> (see <see cref="SkippingInteractionRecording" />) - trade verifiability for performance by not recording invocations.</description>
 ///         </item>
 ///         <item>
-///             <description><see cref="DefaultValue" /> (tune via <see cref="WithDefaultValueFor(DefaultValueFactory[])" /> or <c>MockBehaviorExtensions.WithDefaultValueFor&lt;T&gt;(factory)</c>) - supplies the default return values for un-configured members.</description>
+///             <description><see cref="DefaultValue" /> (tune via <see cref="WithDefaultValueFor{T}(Func{T})" />, <see cref="WithDefaultValueFor(DefaultValueFactory[])" /> or <see cref="WithDefaultValueGenerator" />) - supplies the default return values for un-configured members.</description>
 ///         </item>
 ///         <item>
 ///             <description><c>UseConstructorParametersFor&lt;T&gt;(...)</c> - pre-register constructor parameters applied whenever a mock of <c>T</c> is created without explicit ones.</description>
 ///         </item>
 ///     </list>
-///     Start from <c>MockBehavior.Default</c> (generator-emitted) and chain the fluent extension methods.
+///     Start from <c>MockBehavior.Default</c> (generator-emitted) and chain the fluent methods. The flags can also be
+///     set with a <see langword="with" /> expression, e.g. <c>MockBehavior.Default with { SkipBaseClass = true }</c>.
 /// </remarks>
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
@@ -40,6 +41,8 @@ namespace Mockolate;
 public record MockBehavior : IMockBehaviorAccess
 {
 	private ConcurrentStack<IConstructorParameters>? _constructorParameters;
+	private DefaultValueFactory[]? _defaultValueFactories;
+	private IDefaultValueGenerator _defaultValueGenerator;
 	private ConcurrentStack<object?>? _values;
 
 	/// <summary>
@@ -49,6 +52,7 @@ public record MockBehavior : IMockBehaviorAccess
 	/// <param name="defaultValue">The generator used to produce default return values for un-configured members.</param>
 	public MockBehavior(IDefaultValueGenerator defaultValue)
 	{
+		_defaultValueGenerator = defaultValue;
 		DefaultValue = defaultValue;
 	}
 
@@ -91,8 +95,91 @@ public record MockBehavior : IMockBehaviorAccess
 	/// <remarks>
 	///     When <see cref="ThrowWhenNotSetup" /> is <see langword="true" />, a
 	///     <see cref="Mockolate.Exceptions.MockNotSetupException" /> is thrown instead of consulting this generator.
+	///     <para />
+	///     The factories registered with <see cref="WithDefaultValueFor{T}(Func{T})" /> or
+	///     <see cref="WithDefaultValueFor(DefaultValueFactory[])" /> are consulted first. Replace the underlying
+	///     generator with <see cref="WithDefaultValueGenerator" />, which keeps them.
 	/// </remarks>
-	public IDefaultValueGenerator DefaultValue { get; init; }
+	public IDefaultValueGenerator DefaultValue { get; private init; }
+
+	/// <summary>
+	///     Specifies if calling the base class implementation should be skipped.
+	/// </summary>
+	/// <remarks>
+	///     If set to <see langword="false" /> (default value), the base class implementation gets called and
+	///     its return values are used as default values.
+	///     <para />
+	///     Sets the <see cref="SkipBaseClass" /> to <paramref name="skipBaseClass" />.
+	/// </remarks>
+	public MockBehavior SkippingBaseClass(bool skipBaseClass = true)
+		=> this with
+		{
+			SkipBaseClass = skipBaseClass,
+		};
+
+	/// <summary>
+	///     Specifies whether an exception is thrown when an operation is attempted without prior setup.
+	/// </summary>
+	/// <remarks>
+	///     Sets the <see cref="ThrowWhenNotSetup" /> to <paramref name="throwWhenNotSetup" />.
+	/// </remarks>
+	public MockBehavior ThrowingWhenNotSetup(bool throwWhenNotSetup = true)
+		=> this with
+		{
+			ThrowWhenNotSetup = throwWhenNotSetup,
+		};
+
+	/// <summary>
+	///     Specifies whether interaction recording should be skipped.
+	/// </summary>
+	/// <remarks>
+	///     If set to <see langword="false" /> (default value), every interaction with the mock is recorded
+	///     and can be verified later.
+	///     <para />
+	///     Skipping interaction recording avoids the per-call allocation of an interaction record, the
+	///     interaction-list lock, and the <see cref="Mockolate.Interactions.IMockInteractions.InteractionAdded" />
+	///     event. Setups, returns, callbacks, and base-class delegation continue to work normally -
+	///     only verification is disabled. Any attempt to verify throws a
+	///     <see cref="Mockolate.Exceptions.MockException" />.
+	///     <para />
+	///     Sets the <see cref="SkipInteractionRecording" /> to <paramref name="skipInteractionRecording" />.
+	/// </remarks>
+	public MockBehavior SkippingInteractionRecording(bool skipInteractionRecording = true)
+		=> this with
+		{
+			SkipInteractionRecording = skipInteractionRecording,
+		};
+
+	/// <summary>
+	///     Returns a <see cref="MockBehavior" /> that uses <paramref name="factory" /> to produce the default value
+	///     whenever a mocked member of type <typeparamref name="T" /> falls back to a default.
+	/// </summary>
+	/// <typeparam name="T">The target type the factory supplies defaults for. Matched by exact type equality &#8212; subtypes are not covered.</typeparam>
+	/// <param name="factory">Lazy producer of the default value; invoked once per fallback.</param>
+	/// <returns>A new <see cref="MockBehavior" /> with the factory registered; the original behavior is unchanged.</returns>
+	public MockBehavior WithDefaultValueFor<T>(Func<T> factory)
+		=> WithDefaultValueFor(new DefaultValueFactory(
+			t => t == typeof(T),
+			(_, _) => factory()));
+
+	/// <summary>
+	///     Replaces the generator that produces default values for un-configured members.
+	/// </summary>
+	/// <remarks>
+	///     Factories registered with <see cref="WithDefaultValueFor{T}(Func{T})" /> or
+	///     <see cref="WithDefaultValueFor(DefaultValueFactory[])" /> are kept and still take precedence, regardless of
+	///     whether they were registered before or after this call.
+	/// </remarks>
+	/// <param name="defaultValueGenerator">The generator consulted when no registered factory supports the type.</param>
+	/// <returns>A new <see cref="MockBehavior" /> with the replaced generator; the original behavior is unchanged.</returns>
+	public MockBehavior WithDefaultValueGenerator(IDefaultValueGenerator defaultValueGenerator)
+		=> this with
+		{
+			_defaultValueGenerator = defaultValueGenerator,
+			DefaultValue = _defaultValueFactories is null
+				? defaultValueGenerator
+				: new DefaultValueGeneratorWithFactories(defaultValueGenerator, _defaultValueFactories),
+		};
 
 	MockBehavior IMockBehaviorAccess.Set<T>(T value)
 	{
@@ -172,15 +259,16 @@ public record MockBehavior : IMockBehaviorAccess
 	/// <summary>
 	///     Uses the given <paramref name="defaultValueFactories" /> to create default values for supported types.
 	/// </summary>
-	/// <param name="defaultValueFactories">Factories consulted in order; the first one whose <see cref="DefaultValueFactory.CanGenerateValue" /> returns <see langword="true" /> wins, otherwise the previously configured <see cref="DefaultValue" /> generator is used.</param>
+	/// <param name="defaultValueFactories">Factories consulted in order, before the factories registered earlier; the first one whose <see cref="DefaultValueFactory.CanGenerateValue" /> returns <see langword="true" /> wins, otherwise the default value generator is used.</param>
 	/// <returns>A new <see cref="MockBehavior" /> that layers <paramref name="defaultValueFactories" /> on top of the existing default-value generator.</returns>
 	public MockBehavior WithDefaultValueFor(params DefaultValueFactory[] defaultValueFactories)
 	{
-		MockBehavior behavior = this with
+		DefaultValueFactory[] factories = [..defaultValueFactories, ..(_defaultValueFactories ?? [])];
+		return this with
 		{
-			DefaultValue = new DefaultValueGeneratorWithFactories(DefaultValue, defaultValueFactories),
+			_defaultValueFactories = factories,
+			DefaultValue = new DefaultValueGeneratorWithFactories(_defaultValueGenerator, factories),
 		};
-		return behavior;
 	}
 
 	/// <inheritdoc cref="object.ToString()" />
@@ -189,17 +277,17 @@ public record MockBehavior : IMockBehaviorAccess
 		List<string>? parts = null;
 		if (ThrowWhenNotSetup)
 		{
-			(parts ??= []).Add(nameof(MockBehaviorExtensions.ThrowingWhenNotSetup));
+			(parts ??= []).Add(nameof(ThrowingWhenNotSetup));
 		}
 
 		if (SkipBaseClass)
 		{
-			(parts ??= []).Add(nameof(MockBehaviorExtensions.SkippingBaseClass));
+			(parts ??= []).Add(nameof(SkippingBaseClass));
 		}
 
 		if (SkipInteractionRecording)
 		{
-			(parts ??= []).Add(nameof(MockBehaviorExtensions.SkippingInteractionRecording));
+			(parts ??= []).Add(nameof(SkippingInteractionRecording));
 		}
 
 		string baseString = parts is null

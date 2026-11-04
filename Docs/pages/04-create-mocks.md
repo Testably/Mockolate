@@ -98,6 +98,8 @@ IChocolateDispenser dispenser1 = IChocolateDispenser.CreateMock(strict);
 ILemonadeDispenser dispenser2 = ILemonadeDispenser.CreateMock(strict);
 ```
 
+The flags can also be set with a `with` expression, e.g. `MockBehavior.Default with { SkipBaseClass = true, ThrowWhenNotSetup = true }`.
+
 | Option                                | Default           | Purpose                                                                                                                                                                         |
 |---------------------------------------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ThrowingWhenNotSetup()`              | off               | Throws a `MockNotSetupException` when no matching setup is found, instead of returning a default value.                                                                         |
@@ -126,8 +128,16 @@ MockBehavior behavior = MockBehavior.Default
 IChocolateDispenser dispenser = IChocolateDispenser.CreateMock(behavior);
 ```
 
-For full control, implement `IDefaultValueGenerator` and pass it to the `MockBehavior(IDefaultValueGenerator)`
-constructor.
+To match more than one exact type, or to use the arguments of the call, pass a `DefaultValueFactory` with a type predicate and a generator that receives the type and the arguments:
+
+```csharp
+MockBehavior behavior = MockBehavior.Default
+    .WithDefaultValueFor(new DefaultValueFactory(
+        type => type == typeof(int) || type == typeof(long),
+        (type, _) => Convert.ChangeType(-1, type)));
+```
+
+For full control, implement `IDefaultValueGenerator` and pass it to the `MockBehavior(IDefaultValueGenerator)` constructor, or replace the generator of an existing behavior with `.WithDefaultValueGenerator(…)`. Factories registered with `WithDefaultValueFor` are kept and take precedence over the generator, in whichever order you call the methods.
 
 ## Implementing additional interfaces
 

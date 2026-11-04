@@ -148,7 +148,7 @@ namespace Mockolate
     {
         protected MockBehavior(Mockolate.MockBehavior original) { }
         public MockBehavior(Mockolate.IDefaultValueGenerator defaultValue) { }
-        public Mockolate.IDefaultValueGenerator DefaultValue { get; init; }
+        public Mockolate.IDefaultValueGenerator DefaultValue { get; }
         protected virtual System.Type EqualityContract { get; }
         public bool SkipBaseClass { get; init; }
         public bool SkipInteractionRecording { get; init; }
@@ -157,22 +157,17 @@ namespace Mockolate
         public virtual bool Equals(Mockolate.MockBehavior? other) { }
         public override int GetHashCode() { }
         protected virtual bool PrintMembers(System.Text.StringBuilder builder) { }
+        public Mockolate.MockBehavior SkippingBaseClass(bool skipBaseClass = true) { }
+        public Mockolate.MockBehavior SkippingInteractionRecording(bool skipInteractionRecording = true) { }
+        public Mockolate.MockBehavior ThrowingWhenNotSetup(bool throwWhenNotSetup = true) { }
         public override string ToString() { }
         public Mockolate.MockBehavior UseConstructorParametersFor<T>(System.Func<object?[]> parameters) { }
         public Mockolate.MockBehavior UseConstructorParametersFor<T>(params object?[] parameters) { }
         public Mockolate.MockBehavior WithDefaultValueFor(params Mockolate.DefaultValueFactory[] defaultValueFactories) { }
+        public Mockolate.MockBehavior WithDefaultValueFor<T>(System.Func<T> factory) { }
+        public Mockolate.MockBehavior WithDefaultValueGenerator(Mockolate.IDefaultValueGenerator defaultValueGenerator) { }
         public static bool operator ==(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
         public static bool operator !=(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
-    }
-    public static class MockBehaviorExtensions
-    {
-        extension(Mockolate.MockBehavior mockBehavior)
-        {
-            public Mockolate.MockBehavior SkippingBaseClass(bool skipBaseClass = true) { }
-            public Mockolate.MockBehavior SkippingInteractionRecording(bool skipInteractionRecording = true) { }
-            public Mockolate.MockBehavior ThrowingWhenNotSetup(bool throwWhenNotSetup = true) { }
-            public Mockolate.MockBehavior WithDefaultValueFor<T>(System.Func<T> factory) { }
-        }
     }
     public static class ParameterExtensions
     {

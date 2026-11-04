@@ -22,7 +22,7 @@ The runtime library (`netstandard2.0`, `net8.0`, `net10.0`, `net11.0`).
 
 | Location | Responsibility |
 |---|---|
-| `MockBehavior.cs`, `MockBehaviorExtensions.cs`, `Behavior/` | Loose or strict behavior, default values, base class handling, constructor parameters |
+| `MockBehavior.cs` | Loose or strict behavior, default values, base class handling, constructor parameters |
 | `Setup/` | Method, property, indexer and event setups, callbacks, ref struct setups |
 | `Interactions/` | Recorded interactions |
 | `Verify/` | Verification results and count sources |

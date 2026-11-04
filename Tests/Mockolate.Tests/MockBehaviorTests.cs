@@ -33,13 +33,55 @@ public sealed partial class MockBehaviorTests
 		{
 			SkipBaseClass = true,
 			ThrowWhenNotSetup = true,
-			DefaultValue = new MyDefaultValueGenerator(),
+			SkipInteractionRecording = true,
 		};
 
 		await That(sut.SkipBaseClass).IsTrue();
 		await That(sut.ThrowWhenNotSetup).IsTrue();
+		await That(sut.SkipInteractionRecording).IsTrue();
+	}
+
+	[Test]
+	public async Task WithDefaultValueGenerator_ShouldReplaceGenerator()
+	{
+		MockBehavior sut = MockBehavior.Default.WithDefaultValueGenerator(new MyDefaultValueGenerator());
+
 		await That(sut.DefaultValue.Generate("")).IsEqualTo("foo");
 		await That(sut.DefaultValue.Generate(0)).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task WithDefaultValueGenerator_AfterWithDefaultValueFor_ShouldKeepFactories()
+	{
+		MockBehavior sut = MockBehavior.Default
+			.WithDefaultValueFor(() => 42)
+			.WithDefaultValueGenerator(new MyDefaultValueGenerator());
+
+		await That(sut.DefaultValue.Generate("")).IsEqualTo("foo");
+		await That(sut.DefaultValue.Generate(0)).IsEqualTo(42)
+			.Because("replacing the generator must not drop the factories registered before");
+	}
+
+	[Test]
+	public async Task WithDefaultValueGenerator_BeforeWithDefaultValueFor_ShouldUseFactoriesAndGenerator()
+	{
+		MockBehavior sut = MockBehavior.Default
+			.WithDefaultValueGenerator(new MyDefaultValueGenerator())
+			.WithDefaultValueFor(() => 42);
+
+		await That(sut.DefaultValue.Generate("")).IsEqualTo("foo");
+		await That(sut.DefaultValue.Generate(0)).IsEqualTo(42);
+	}
+
+	[Test]
+	public async Task WithDefaultValueGenerator_ShouldNotChangeOriginalBehavior()
+	{
+		MockBehavior original = MockBehavior.Default.WithDefaultValueFor(() => 42);
+
+		_ = original.WithDefaultValueGenerator(new MyDefaultValueGenerator());
+
+		await That(original.DefaultValue.Generate("")).IsEqualTo("");
+		await That(original.DefaultValue.Generate(0)).IsEqualTo(42);
 	}
 
 	[Test]
