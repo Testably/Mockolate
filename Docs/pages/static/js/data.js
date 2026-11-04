@@ -960,6 +960,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -1122,7 +1128,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -1288,7 +1295,8 @@ window.BENCHMARK_DATA = {
           257.9443990389506,
           236.05229023297628,
           277.0142145792643,
-          393.614181298476
+          393.614181298476,
+          171.2395270420955
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1449,6 +1457,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592,
           1592,
@@ -1633,7 +1642,8 @@ window.BENCHMARK_DATA = {
           36908.16186116536,
           62006.23157552083,
           34362.04281616211,
-          46243.71713692801
+          46243.71713692801,
+          30309.266657902645
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1804,7 +1814,8 @@ window.BENCHMARK_DATA = {
           9054,
           9063,
           9153,
-          9041
+          9041,
+          9063
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1978,7 +1989,8 @@ window.BENCHMARK_DATA = {
           3807.2346300760905,
           3580.126629892985,
           3250.787077267965,
-          4051.402578500601
+          4051.402578500601,
+          2203.130430094401
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2139,6 +2151,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2323,7 +2336,8 @@ window.BENCHMARK_DATA = {
           2853.626109568278,
           3418.142892710368,
           2929.796818953294,
-          3611.2673204862153
+          3611.2673204862153,
+          2175.575690968831
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2494,7 +2508,8 @@ window.BENCHMARK_DATA = {
           6924,
           6930,
           6924,
-          6924
+          6924,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2668,7 +2683,8 @@ window.BENCHMARK_DATA = {
           177.3716778596242,
           179.0268578529358,
           194.8030913897923,
-          241.07353823001569
+          241.07353823001569,
+          118.02236139774323
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2834,6 +2850,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3013,7 +3030,8 @@ window.BENCHMARK_DATA = {
           435.5658322016398,
           446.79085372289023,
           489.40873710314435,
-          605.5532935006278
+          605.5532935006278,
+          300.27728370030724
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3174,6 +3192,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4158,6 +4177,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -4320,7 +4345,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -4486,7 +4512,8 @@ window.BENCHMARK_DATA = {
           183.41668256123862,
           380.6817900021871,
           376.33558565775553,
-          376.07443755467733
+          376.07443755467733,
+          155.97044235865275
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4647,6 +4674,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728,
           1728,
@@ -4831,7 +4859,8 @@ window.BENCHMARK_DATA = {
           7609.9301523061895,
           14087.290564903846,
           13893.74228140024,
-          12920.958760579428
+          12920.958760579428,
+          7571.170806884766
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5002,7 +5031,8 @@ window.BENCHMARK_DATA = {
           12760,
           12761,
           12761,
-          12761
+          12761,
+          12760
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5176,7 +5206,8 @@ window.BENCHMARK_DATA = {
           2890.643433979579,
           5914.392209189279,
           5879.899325444148,
-          5268.812731061663
+          5268.812731061663,
+          2764.9333499272666
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5337,6 +5368,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -5521,7 +5553,8 @@ window.BENCHMARK_DATA = {
           105941.47786771334,
           181682.95977313703,
           182060.38094075522,
-          153496.38033854167
+          153496.38033854167,
+          109142.72085336539
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5692,7 +5725,8 @@ window.BENCHMARK_DATA = {
           15630,
           15619,
           15619,
-          15579
+          15579,
+          15619
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5866,7 +5900,8 @@ window.BENCHMARK_DATA = {
           110.92109416325887,
           219.12843476808987,
           224.37457393010456,
-          215.07849902373093
+          215.07849902373093,
+          107.07357003859111
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6007,6 +6042,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -6211,7 +6247,8 @@ window.BENCHMARK_DATA = {
           110.31721276044846,
           262.058830004472,
           266.79941240946454,
-          251.7026871272496
+          251.7026871272496,
+          95.65467763798577
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6345,6 +6382,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -7356,6 +7394,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -7518,7 +7562,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -7684,7 +7729,8 @@ window.BENCHMARK_DATA = {
           575.6421167373658,
           928.2924779256185,
           976.119004543011,
-          950.0382138765775
+          950.0382138765775,
+          745.0048025676182
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7845,6 +7891,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832,
           3832,
@@ -8029,7 +8076,8 @@ window.BENCHMARK_DATA = {
           69698.46577336238,
           230054.09148297991,
           226967.04135366587,
-          234608.70242745537
+          234608.70242745537,
+          138894.57482910156
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8200,7 +8248,8 @@ window.BENCHMARK_DATA = {
           20898,
           20804,
           20804,
-          20924
+          20924,
+          21043
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8374,7 +8423,8 @@ window.BENCHMARK_DATA = {
           5598.409770085262,
           10790.972490583148,
           10287.436516394982,
-          10378.55362374442
+          10378.55362374442,
+          7365.812227521624
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8545,7 +8595,8 @@ window.BENCHMARK_DATA = {
           13032,
           13032,
           13032,
-          13032
+          13032,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8719,7 +8770,8 @@ window.BENCHMARK_DATA = {
           5472.327402750651,
           11194.390734863282,
           10916.880468096051,
-          11440.398704528809
+          11440.398704528809,
+          7345.0529207502095
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8880,6 +8932,7 @@ window.BENCHMARK_DATA = {
           13948,
           13954,
           13954,
+          13593,
           13593,
           13593,
           13593,
@@ -9064,7 +9117,8 @@ window.BENCHMARK_DATA = {
           200.34221294720967,
           325.81699802325323,
           301.791450659434,
-          310.47780309404646
+          310.47780309404646,
+          251.65073000590007
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9225,6 +9279,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -10209,6 +10264,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -10371,7 +10432,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -10537,7 +10599,8 @@ window.BENCHMARK_DATA = {
           1743.296314239502,
           2437.2878120422365,
           2386.2623601640976,
-          2465.7903366088867
+          2465.7903366088867,
+          1905.965112813314
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10698,6 +10761,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912,
           4912,
@@ -10882,7 +10946,8 @@ window.BENCHMARK_DATA = {
           73160.8728922526,
           239452.92116001673,
           239065.68166879506,
-          246078.05716145833
+          246078.05716145833,
+          148921.4414236886
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11053,7 +11118,8 @@ window.BENCHMARK_DATA = {
           30490,
           30410,
           30410,
-          30530
+          30530,
+          30650
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11227,7 +11293,8 @@ window.BENCHMARK_DATA = {
           13510.493182373048,
           27054.802044677734,
           25559.38506673177,
-          25252.06101989746
+          25252.06101989746,
+          18364.605806477866
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -11398,7 +11465,8 @@ window.BENCHMARK_DATA = {
           26137,
           26137,
           26137,
-          26137
+          26137,
+          26697
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -11572,7 +11640,8 @@ window.BENCHMARK_DATA = {
           11484.868956502278,
           24288.033660888672,
           24315.747416178387,
-          24481.31539510091
+          24481.31539510091,
+          15745.738850911459
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11741,6 +11810,7 @@ window.BENCHMARK_DATA = {
           33247,
           33247,
           33249,
+          33247,
           33247,
           33247,
           33247
@@ -11917,7 +11987,8 @@ window.BENCHMARK_DATA = {
           483.0519430796305,
           744.4061847686768,
           719.4589512164777,
-          761.9496662433331
+          761.9496662433331,
+          616.7585287094116
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12078,6 +12149,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -13062,6 +13134,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -13224,7 +13302,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -13390,7 +13469,8 @@ window.BENCHMARK_DATA = {
           221.53089453379314,
           404.2463307698568,
           331.51902627944946,
-          331.7628785769145
+          331.7628785769145,
+          186.96484146118163
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13551,6 +13631,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936,
           1936,
@@ -13735,7 +13816,8 @@ window.BENCHMARK_DATA = {
           60097.42790876116,
           144815.04311899038,
           198095.4692731585,
-          197989.02418619793
+          197989.02418619793,
+          56992.60378011068
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13906,7 +13988,8 @@ window.BENCHMARK_DATA = {
           14920,
           14915,
           14902,
-          14902
+          14902,
+          14920
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14080,7 +14163,8 @@ window.BENCHMARK_DATA = {
           3175.794727071126,
           5851.206109728132,
           5908.51268357497,
-          6145.1167332967125
+          6145.1167332967125,
+          2851.394453593663
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14241,6 +14325,7 @@ window.BENCHMARK_DATA = {
           9280,
           9336,
           9280,
+          9320,
           9320,
           9320,
           9320,
@@ -14425,7 +14510,8 @@ window.BENCHMARK_DATA = {
           2870.5204755147297,
           5556.767231532505,
           5583.922849019368,
-          5790.730877685547
+          5790.730877685547,
+          2634.3759604862757
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14595,6 +14681,7 @@ window.BENCHMARK_DATA = {
           8147,
           8160,
           8147,
+          8160,
           8160,
           8160
         ],
@@ -14770,7 +14857,8 @@ window.BENCHMARK_DATA = {
           112.67578936417898,
           195.96253544489542,
           165.93062737782796,
-          165.0190189251533
+          165.0190189251533,
+          106.35600043194634
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14936,6 +15024,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -15115,7 +15204,8 @@ window.BENCHMARK_DATA = {
           301.8941381454468,
           568.9801632336208,
           430.6294204076131,
-          455.43014195760094
+          455.43014195760094,
+          256.27327493258883
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15249,6 +15339,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -16260,6 +16351,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -16422,7 +16519,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -16588,7 +16686,8 @@ window.BENCHMARK_DATA = {
           471.6808890660604,
           848.1868739128113,
           625.7185032027108,
-          658.1646708170573
+          658.1646708170573,
+          432.1508386685298
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16749,6 +16848,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152,
           2152,
@@ -16933,7 +17033,8 @@ window.BENCHMARK_DATA = {
           61923.7111554827,
           149206.06215413412,
           202414.74868164063,
-          199928.091343471
+          199928.091343471,
+          57930.1433367048
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17104,7 +17205,8 @@ window.BENCHMARK_DATA = {
           18906,
           18906,
           18901,
-          18901
+          18901,
+          18905
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17278,7 +17380,8 @@ window.BENCHMARK_DATA = {
           4670.000818888347,
           8719.761790974935,
           8942.875682067872,
-          9035.585885184151
+          9035.585885184151,
+          4220.261857096354
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17449,7 +17552,8 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12345,
-          12345
+          12345,
+          12344
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17623,7 +17727,8 @@ window.BENCHMARK_DATA = {
           4815.850271371694,
           9098.335385836088,
           8821.198481968471,
-          8771.848975045341
+          8771.848975045341,
+          4191.378526306153
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17794,7 +17899,8 @@ window.BENCHMARK_DATA = {
           16394,
           16396,
           16393,
-          16393
+          16393,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17968,7 +18074,8 @@ window.BENCHMARK_DATA = {
           259.99937512079873,
           399.67548554738363,
           342.32608661651614,
-          344.80437772614613
+          344.80437772614613,
+          231.91938347816466
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18134,6 +18241,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -18313,7 +18421,8 @@ window.BENCHMARK_DATA = {
           1035.1698557535808,
           1728.3691064394438,
           1293.1643619537354,
-          1315.7106989542642
+          1315.7106989542642,
+          918.9327409608023
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18447,6 +18556,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -19458,6 +19568,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -19620,7 +19736,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -19786,7 +19903,8 @@ window.BENCHMARK_DATA = {
           1290.9341271718342,
           1159.003954442342,
           1236.4723562876384,
-          816.904483795166
+          816.904483795166,
+          854.2025307973225
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19947,6 +20065,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432,
           2432,
@@ -20131,7 +20250,8 @@ window.BENCHMARK_DATA = {
           11172.785813551684,
           10329.010221354167,
           10845.640258789062,
-          7593.317197672526
+          7593.317197672526,
+          7707.479921613421
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20302,6 +20422,7 @@ window.BENCHMARK_DATA = {
           10585,
           10585,
           10585,
+          10584,
           10584
         ],
         "borderColor": "#A052B0",
@@ -20476,7 +20597,8 @@ window.BENCHMARK_DATA = {
           7994.335784912109,
           7132.045897263747,
           7409.506986764761,
-          5184.12635866801
+          5184.12635866801,
+          5280.208943049113
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20637,6 +20759,7 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
+          11664,
           11664,
           11664,
           11664,
@@ -20821,7 +20944,8 @@ window.BENCHMARK_DATA = {
           8078.477163461538,
           7211.707721455892,
           7933.740878295898,
-          5253.632444109236
+          5253.632444109236,
+          5112.205027653621
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20983,6 +21107,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212,
           11212,
           11212,
@@ -21166,7 +21291,8 @@ window.BENCHMARK_DATA = {
           177.54422392845154,
           177.58083713054657,
           160.0292404294014,
-          136.69388427734376
+          136.69388427734376,
+          138.18774355252583
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21332,6 +21458,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -21511,7 +21638,8 @@ window.BENCHMARK_DATA = {
           479.47552089691163,
           447.6870594365256,
           427.07839742073645,
-          334.65929886010974
+          334.65929886010974,
+          331.5373659133911
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21645,6 +21773,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -22656,6 +22785,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -22818,7 +22953,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -22984,7 +23120,8 @@ window.BENCHMARK_DATA = {
           1057.3394566853842,
           1036.509962626866,
           999.819058227539,
-          778.3682690938314
+          778.3682690938314,
+          769.8385257720947
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -23145,6 +23282,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936,
           2936,
@@ -23329,7 +23467,8 @@ window.BENCHMARK_DATA = {
           17906.70026942662,
           16723.263417561848,
           17160.775587815504,
-          12541.448852539062
+          12541.448852539062,
+          12104.134363027719
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23491,6 +23630,7 @@ window.BENCHMARK_DATA = {
           18721,
           18721,
           18520,
+          18521,
           18521,
           18521,
           18521,
@@ -23674,7 +23814,8 @@ window.BENCHMARK_DATA = {
           18044.248480660575,
           15837.034627278646,
           16730.974977620444,
-          12146.573400878906
+          12146.573400878906,
+          11904.690540858677
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23836,6 +23977,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21528,
+          21529,
           21529,
           21529,
           21529,
@@ -24019,7 +24161,8 @@ window.BENCHMARK_DATA = {
           20527.313064575195,
           17260.33676147461,
           19023.680194091798,
-          12930.759734017509
+          12930.759734017509,
+          12540.707993570964
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24181,6 +24324,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801,
           30801,
           30801,
@@ -24364,7 +24508,8 @@ window.BENCHMARK_DATA = {
           344.6265371526991,
           327.4553357124329,
           321.2590056566092,
-          259.6621950149536
+          259.6621950149536,
+          258.9213773523058
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24530,6 +24675,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -24709,7 +24855,8 @@ window.BENCHMARK_DATA = {
           1665.1712877909342,
           1602.9423674265543,
           1519.4109588623046,
-          1272.1882049560547
+          1272.1882049560547,
+          1183.3123755821814
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24843,6 +24990,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -25854,6 +26002,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 15:30:45 2026 \u002B0100",
         "message": "refactor!: make MockBehavior configuration safe and consistent (#942)"
+      },
+      {
+        "sha": "3abbae25e2b077d2752c4fbe336865bf22bb35a7",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
+        "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
       }
     ],
     "labels": [
@@ -26016,7 +26170,8 @@ window.BENCHMARK_DATA = {
       "ea92d6d4",
       "64d58a0b",
       "cc0dba11",
-      "6826595d"
+      "6826595d",
+      "3abbae25"
     ],
     "datasets": [
       {
@@ -26182,7 +26337,8 @@ window.BENCHMARK_DATA = {
           18.360957525173824,
           15.65285866856575,
           18.409149527549744,
-          16.531438157955805
+          16.531438157955805,
+          13.198273296867098
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -26240,6 +26396,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -26527,7 +26684,8 @@ window.BENCHMARK_DATA = {
           94.77969667116801,
           86.48937627474467,
           99.54600954850515,
-          89.52369226614634
+          89.52369226614634,
+          75.71587142774037
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26693,6 +26851,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -26872,7 +27031,8 @@ window.BENCHMARK_DATA = {
           35.751406069596605,
           32.02979480822881,
           37.86967719976719,
-          33.76613402764003
+          33.76613402764003,
+          22.3170774102211
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -27006,6 +27166,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -27217,7 +27378,8 @@ window.BENCHMARK_DATA = {
           1353.266222000122,
           1283.2047364371163,
           1397.2129890441895,
-          1312.7431652069092
+          1312.7431652069092,
+          1036.307047843933
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27378,6 +27540,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -27562,7 +27725,8 @@ window.BENCHMARK_DATA = {
           1830.2929374694825,
           1832.9732468922932,
           1923.623343149821,
-          1883.8722508748372
+          1883.8722508748372,
+          1399.4878997802734
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -27723,6 +27887,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -27907,7 +28072,8 @@ window.BENCHMARK_DATA = {
           1568.1272285461425,
           1577.235441716512,
           1489.9891974131267,
-          1551.819639714559
+          1551.819639714559,
+          1218.5742774963378
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28072,6 +28238,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2764,
+          2755,
           2755,
           2755,
           2755,
