@@ -67,7 +67,7 @@ To add a scenario, add an entry to `Scenarios` and run the acceptance test.
 
 ### Public API
 
-`Tests/Mockolate.Api.Tests` uses aweXpect.Snapshots.PublicApi. It reads the built `Mockolate.dll` of every target framework listed in `Source/Directory.Build.props` (in the same configuration as the tests) and compares it with `ApiApprovalTests.Mockolate.<framework>.awexpect-snapshot.txt`. On a change it writes `*.awexpect-snapshot.pending.txt` next to the snapshot. To accept:
+`Tests/Mockolate.Api.Tests` uses aweXpect.Snapshots.PublicApi. It reads the built `Mockolate.dll` of every target framework listed in `Source/Directory.Build.props` (in the same configuration as the tests) and compares it, without the `Mockolate.Internals` namespace, with `ApiApprovalTests.Mockolate.<framework>.awexpect-snapshot.txt`. On a change it writes `*.awexpect-snapshot.pending.txt` next to the snapshot. To accept:
 
 - rename the pending file to the snapshot name, or
 - run the explicit `AcceptApiChanges` test, or

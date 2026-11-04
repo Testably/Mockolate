@@ -52,10 +52,15 @@ public sealed class ApiApprovalTests
 	/// <summary>
 	///     The snapshot is named after the assembly and the target framework, so that both tests use the same one.
 	/// </summary>
+	/// <remarks>
+	///     <c>Mockolate.Internals</c> holds the infrastructure that generated code calls. It has no compatibility
+	///     guarantee, so its changes are not part of the reviewed public API.
+	/// </remarks>
 	private static StringSnapshotResult<string?, IThat<string?>> MatchesPublicApiSnapshot(string assemblyName,
 		string framework)
 		=> That(Helper.GetAssemblyFile(framework, assemblyName))
-			.MatchesPublicApiSnapshot(callerMemberName: assemblyName).Named(framework);
+			.MatchesPublicApiSnapshot(options => options.Ignoring.Namespace("Mockolate.Internals"),
+				callerMemberName: assemblyName).Named(framework);
 
 	private static (string, string)[] AllBuilds()
 		=> AssemblyNames.SelectMany(assemblyName => Helper.GetTargetFrameworks()
