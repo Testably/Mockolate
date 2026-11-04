@@ -26,11 +26,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
-		private global::Mockolate.MockRegistry MockRegistry { get; }
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 
 		/// <inheritdoc cref="ComprehensiveDelegate" />
-		public ComprehensiveDelegate(global::Mockolate.MockRegistry mockRegistry)
+		public ComprehensiveDelegate(global::Mockolate.Internals.MockRegistry mockRegistry)
 		{
 			this.MockRegistry = mockRegistry;
 		}
@@ -100,7 +100,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> global::Mockolate.Mock.IMockSetupForComprehensiveDelegate.Setup(global::Mockolate.Parameters.IParameter<int>? x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, global::Mockolate.Parameters.IParameter<long>? w)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", global::Mockolate.CovariantParameterAdapter<int>.Wrap(x ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)(w ?? global::Mockolate.It.IsNull<long>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", global::Mockolate.CovariantParameterAdapter<int>.Wrap(x ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)(w ?? global::Mockolate.Internals.Matchers.IsNull<long>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveDelegate.MemberId_Invoke, methodSetup);
 			return methodSetup;
 		}
@@ -116,7 +116,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> global::Mockolate.Mock.IMockSetupForComprehensiveDelegate.Setup(int x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, global::Mockolate.Parameters.IParameter<long>? w)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(x), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)(w ?? global::Mockolate.It.IsNull<long>("null")));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(x), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)(w ?? global::Mockolate.Internals.Matchers.IsNull<long>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveDelegate.MemberId_Invoke, methodSetup);
 			return methodSetup;
 		}
@@ -124,7 +124,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> global::Mockolate.Mock.IMockSetupForComprehensiveDelegate.Setup(global::Mockolate.Parameters.IParameter<int>? x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, long w)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", global::Mockolate.CovariantParameterAdapter<int>.Wrap(x ?? global::Mockolate.It.IsNull<int>("null")), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.IsValue<long>(w));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", global::Mockolate.CovariantParameterAdapter<int>.Wrap(x ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(w));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveDelegate.MemberId_Invoke, methodSetup);
 			return methodSetup;
 		}
@@ -132,7 +132,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> global::Mockolate.Mock.IMockSetupForComprehensiveDelegate.Setup(int x, global::Mockolate.Parameters.IRefParameter<int> y, global::Mockolate.Parameters.IOutParameter<string> z, long w)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.IsValue<int>(x), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.IsValue<long>(w));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(x), (global::Mockolate.Parameters.IParameterMatch<int>)(y), (global::Mockolate.Parameters.IParameterMatch<string>)(z), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(w));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveDelegate.MemberId_Invoke, methodSetup);
 			return methodSetup;
 		}
@@ -191,13 +191,13 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate> IMockForComprehensiveDelegate.Monitor()
-			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveDelegate(new global::Mockolate.MockRegistry(this.MockRegistry, interactions)));
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveDelegate(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class VerifyMonitorComprehensiveDelegate(global::Mockolate.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForComprehensiveDelegate
+	private sealed class VerifyMonitorComprehensiveDelegate(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForComprehensiveDelegate
 	{
-		private global::Mockolate.MockRegistry MockRegistry { get; } = mockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
 
 		#region IMockVerifyForComprehensiveDelegate
 
@@ -415,7 +415,7 @@ internal static partial class MockExtensionsForComprehensiveDelegate
 		public static global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate CreateMock(global::Mockolate.MockBehavior? mockBehavior = null, params global::System.Action<global::Mockolate.Mock.IMockSetupForComprehensiveDelegate>[] setups)
 		{
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
-			var mockRegistry = new global::Mockolate.MockRegistry(mockBehavior, new global::Mockolate.Interactions.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
+			var mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
 			global::Mockolate.Mock.ComprehensiveDelegate mockTarget = new global::Mockolate.Mock.ComprehensiveDelegate(mockRegistry);
 			if (setups.Length > 0)
 			{

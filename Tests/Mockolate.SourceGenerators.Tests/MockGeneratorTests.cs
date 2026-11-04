@@ -641,7 +641,7 @@ public partial class MockGeneratorTests
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("Mock.MyService.g.cs");
 		await That(result.Sources["Mock.MyService.g.cs"])
-			.Contains("public MyService(global::Mockolate.MockRegistry mockRegistry)").IgnoringNewlineStyle().And
+			.Contains("public MyService(global::Mockolate.Internals.MockRegistry mockRegistry)").IgnoringNewlineStyle().And
 			.DoesNotContain("Configuration")
 			.Because(
 				"a protected nested type is only reachable through inheritance, so naming it on the generated public constructor (CS0051) or in MockExtensionsForMyService (CS0122) would not compile");

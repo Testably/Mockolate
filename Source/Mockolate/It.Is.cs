@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using Mockolate.Parameters;
@@ -33,21 +32,6 @@ public partial class It
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
 		=> new ParameterEqualsMatch<T>(value, doNotPopulateThisValue);
-
-	/// <summary>
-	///     Generator-emitted by-value matcher that defers diagnostic formatting until the matcher's
-	///     <see cref="object.ToString" /> is called. Public because the source generator emits this
-	///     call from consumer assemblies that cannot see <see langword="internal" /> members; not
-	///     intended for direct use — prefer <see cref="Is{T}(T, string)" /> at user call sites
-	///     because <see cref="CallerArgumentExpressionAttribute" /> captures the literal source text
-	///     for free.
-	/// </summary>
-	/// <typeparam name="T">The declared type of the parameter.</typeparam>
-	/// <param name="value">The expected value.</param>
-	/// <returns>A parameter matcher whose diagnostic string is computed lazily.</returns>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public static IIsParameter<T> IsValue<T>(T value)
-		=> new ParameterEqualsMatch<T>(value, null);
 
 	/// <summary>
 	///     An <see cref="IParameter{T}" /> used for equality comparison, with an opt-in custom comparer.
@@ -86,7 +70,7 @@ public partial class It
 #if !DEBUG
 	[System.Diagnostics.DebuggerNonUserCode]
 #endif
-	private sealed class ParameterEqualsMatch<T> : TypedMatch<T>, IIsParameter<T>, IToleranceParameter<T>
+	internal sealed class ParameterEqualsMatch<T> : TypedMatch<T>, IIsParameter<T>, IToleranceParameter<T>
 	{
 		private readonly T _value;
 		private IEqualityComparer<T>? _comparer;
@@ -99,7 +83,7 @@ public partial class It
 		///     Constructs an equality matcher for <paramref name="value" />. When
 		///     <paramref name="valueExpression" /> is non-<see langword="null" /> it is used verbatim in
 		///     <see cref="ToString" />; pass <see langword="null" /> to defer formatting until the
-		///     diagnostic is actually rendered (the path used by <see cref="It.IsValue{T}" /> and
+		///     diagnostic is actually rendered (the path used by <see cref="Internals.Matchers.IsValue{T}" /> and
 		///     generator-emitted by-value matchers, which skips the per-setup string allocation on the
 		///     success path).
 		/// </summary>

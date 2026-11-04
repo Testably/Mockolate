@@ -35,38 +35,38 @@ internal static partial class Mock
 		internal const int MemberCount = 11;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Interactions.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
-		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Interactions.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Interactions.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
+		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Internals.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Internals.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
 		/// </summary>
-		internal static global::Mockolate.Interactions.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Interactions.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Interactions.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
 		/// </summary>
-		private static global::Mockolate.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
+		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
-			global::Mockolate.MockRegistry registry = new global::Mockolate.MockRegistry(behavior, MemberCount);
+			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
 			return registry;
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
-		private global::Mockolate.MockRegistry MockRegistry { get; }
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>> MockolateBuffer_ProduceSpan
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, static fast => new global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>(fast)));
+		private global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>> MockolateBuffer_ProduceSpan
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, static fast => new global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>> MockolateBuffer_MutateSpan
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, static fast => new global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>(fast)));
+		private global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>> MockolateBuffer_MutateSpan
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, static fast => new global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> MockolateBuffer_ProduceReadOnlySpan
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, static fast => new global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>(fast)));
+		private global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> MockolateBuffer_ProduceReadOnlySpan
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, static fast => new global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> MockolateBuffer_MutateReadOnlySpan
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, static fast => new global::Mockolate.Interactions.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>(fast)));
+		private global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> MockolateBuffer_MutateReadOnlySpan
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, static fast => new global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>(fast)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -107,14 +107,14 @@ internal static partial class Mock
 			=> this.MockRegistry.ClearAllInteractions();
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIRefStructConsumer> IMockForIRefStructConsumer.Monitor()
-			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIRefStructConsumer>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIRefStructConsumer(new global::Mockolate.MockRegistry(this.MockRegistry, interactions)));
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIRefStructConsumer>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIRefStructConsumer(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.IRefStructConsumer mock";
 
 		/// <inheritdoc cref="IRefStructConsumer" />
-		public IRefStructConsumer(global::Mockolate.MockRegistry mockRegistry)
+		public IRefStructConsumer(global::Mockolate.Internals.MockRegistry mockRegistry)
 		{
 			this.MockRegistry = mockRegistry;
 		}
@@ -791,9 +791,9 @@ internal static partial class Mock
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class VerifyMonitorIRefStructConsumer(global::Mockolate.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForIRefStructConsumer
+	private sealed class VerifyMonitorIRefStructConsumer(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForIRefStructConsumer
 	{
-		private global::Mockolate.MockRegistry MockRegistry { get; } = mockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
 
 		#region IMockVerifyForIRefStructConsumer
 
@@ -851,10 +851,10 @@ internal static partial class Mock
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	private sealed class MockInScenarioForIRefStructConsumer : global::Mockolate.Mock.IMockInScenarioForIRefStructConsumer, global::Mockolate.Mock.IMockSetupForIRefStructConsumer
 	{
-		private global::Mockolate.MockRegistry MockRegistry { get; }
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 		private string _scenarioName;
 
-		public MockInScenarioForIRefStructConsumer(global::Mockolate.MockRegistry mockRegistry, string scenario)
+		public MockInScenarioForIRefStructConsumer(global::Mockolate.Internals.MockRegistry mockRegistry, string scenario)
 		{
 			this.MockRegistry = mockRegistry;
 			_scenarioName = scenario;
@@ -1425,11 +1425,11 @@ internal static partial class MockExtensionsForIRefStructConsumer
 			}
 
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
-			global::Mockolate.MockRegistry mockRegistry = new global::Mockolate.MockRegistry(mockBehavior, global::Mockolate.Mock.IRefStructConsumer.MemberCount, constructorParameters);
+			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.IRefStructConsumer.MemberCount, constructorParameters);
 			return CreateMockInstance(mockRegistry, constructorParameters, setup);
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer CreateMockInstance(global::Mockolate.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<global::Mockolate.Mock.IMockSetupForIRefStructConsumer>? setup)
+		private static global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer CreateMockInstance(global::Mockolate.Internals.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<global::Mockolate.Mock.IMockSetupForIRefStructConsumer>? setup)
 		{
 			var value = new global::Mockolate.Mock.IRefStructConsumer(mockRegistry);
 			if (setup is not null)
@@ -1450,8 +1450,8 @@ internal static partial class MockExtensionsForIRefStructConsumer
 		{
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
-				global::Mockolate.MockRegistry wrappingRegistry = new global::Mockolate.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IRefStructConsumer.CreateFastInteractions(wrappingRegistry.Behavior));
+				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IRefStructConsumer.CreateFastInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

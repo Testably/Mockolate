@@ -1,3 +1,5 @@
+using Mockolate.Internals;
+
 namespace Mockolate.Verify;
 
 /// <summary>

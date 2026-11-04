@@ -85,7 +85,7 @@ public class GeneralTests
 		await That(result.Sources).ContainsKey("Mock.MyClass.g.cs")
 			.WhoseValue
 			.Contains("""
-			          		public MyClass(global::Mockolate.MockRegistry mockRegistry_1, int mockRegistry)
+			          		public MyClass(global::Mockolate.Internals.MockRegistry mockRegistry_1, int mockRegistry)
 			          			: base(mockRegistry)
 			          		{
 			          			this.MockRegistry = mockRegistry_1;
@@ -481,11 +481,11 @@ public class GeneralTests
 		await That(result.Sources["Mock.MyBaseClass.g.cs"])
 			.Contains("""
 			          		[global::System.Obsolete]
-			          		public MyBaseClass(global::Mockolate.MockRegistry mockRegistry)
+			          		public MyBaseClass(global::Mockolate.Internals.MockRegistry mockRegistry)
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
 			          		[global::System.Obsolete("This constructor is obsolete")]
-			          		public MyBaseClass(global::Mockolate.MockRegistry mockRegistry, int value)
+			          		public MyBaseClass(global::Mockolate.Internals.MockRegistry mockRegistry, int value)
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
 			          		[global::System.Obsolete("This event is obsolete")]
@@ -612,7 +612,7 @@ public class GeneralTests
 		await That(result.Sources["Mock.MyService.g.cs"])
 			.Contains("MockolateMockRegistry")
 			.IgnoringNewlineStyle().And
-			.DoesNotContain("private global::Mockolate.MockRegistry MockRegistry { get; }")
+			.DoesNotContain("private global::Mockolate.Internals.MockRegistry MockRegistry { get; }")
 			.IgnoringNewlineStyle()
 			.Because(
 				"a mock subclass declaring a property `MockRegistry` would hide the inherited field (CS0108), so the dedup pipeline must skip past the conflicting member name");
@@ -646,7 +646,7 @@ public class GeneralTests
 		await That(result.Sources["Mock.MyService.g.cs"])
 			.Contains("MockolateMockRegistry")
 			.IgnoringNewlineStyle().And
-			.DoesNotContain("private global::Mockolate.MockRegistry MockRegistry { get; }")
+			.DoesNotContain("private global::Mockolate.Internals.MockRegistry MockRegistry { get; }")
 			.IgnoringNewlineStyle();
 	}
 
@@ -772,7 +772,7 @@ public class GeneralTests
 		await That(result.Sources["Mock.IMyInterface.g.cs"])
 			.Contains("MockRegistry_2")
 			.IgnoringNewlineStyle().And
-			.DoesNotContain("private global::Mockolate.MockRegistry MockRegistry_1 { get; }")
+			.DoesNotContain("private global::Mockolate.Internals.MockRegistry MockRegistry_1 { get; }")
 			.IgnoringNewlineStyle();
 	}
 

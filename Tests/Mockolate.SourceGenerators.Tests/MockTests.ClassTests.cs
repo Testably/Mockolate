@@ -171,7 +171,7 @@ public sealed partial class MockTests
 			await That(result.Sources["Mock.RequiredShape.g.cs"])
 				.Contains("""
 				          		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
-				          		public RequiredShape(global::Mockolate.MockRegistry mockRegistry)
+				          		public RequiredShape(global::Mockolate.Internals.MockRegistry mockRegistry)
 				          """)
 				.IgnoringNewlineStyle();
 		}

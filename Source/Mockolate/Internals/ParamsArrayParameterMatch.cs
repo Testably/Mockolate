@@ -1,6 +1,8 @@
+using System.ComponentModel;
 using System.Linq;
+using Mockolate.Parameters;
 
-namespace Mockolate.Parameters;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Matches a <c>params</c> array argument element-by-element against a set of per-element matchers.
@@ -16,6 +18,7 @@ namespace Mockolate.Parameters;
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class ParamsArrayParameterMatch<TElement> : IParameterMatch<TElement[]>
 {
 	private readonly IParameter<TElement>[] _matchers;

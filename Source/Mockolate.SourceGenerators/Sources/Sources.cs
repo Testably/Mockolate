@@ -151,11 +151,11 @@ internal static partial class Sources
 		}
 		else if (useFastBuffers && memberIdRef is not null)
 		{
-			StringBuilder bufferType = new("global::Mockolate.Interactions.FastIndexerGetterBuffer<");
+			StringBuilder bufferType = new("global::Mockolate.Internals.FastIndexerGetterBuffer<");
 			AppendIndexerParameterTypes(bufferType, parameters);
 			bufferType.Append('>');
 			string bufferTypeName = bufferType.ToString();
-			sb.Append(indent).Append("\t((global::Mockolate.Interactions.FastMockInteractions)").Append(mockRegistry)
+			sb.Append(indent).Append("\t((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
 				.Append(".Interactions).GetOrCreateBuffer<").Append(bufferTypeName).Append(">(")
 				.Append(memberIdRef).Append(", static fast => new ").Append(bufferTypeName)
 				.Append("(fast)).Append(").Append(accessVarName).Append(");").AppendLine();
@@ -246,11 +246,11 @@ internal static partial class Sources
 		}
 		else if (useFastBuffers && memberIdRef is not null)
 		{
-			StringBuilder bufferType = new("global::Mockolate.Interactions.FastIndexerSetterBuffer<");
+			StringBuilder bufferType = new("global::Mockolate.Internals.FastIndexerSetterBuffer<");
 			AppendIndexerParameterTypes(bufferType, parameters);
 			bufferType.Append(", ").AppendTypeOrWrapper(propertyType).Append('>');
 			string bufferTypeName = bufferType.ToString();
-			sb.Append(indent).Append("\t((global::Mockolate.Interactions.FastMockInteractions)").Append(mockRegistry)
+			sb.Append(indent).Append("\t((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
 				.Append(".Interactions).GetOrCreateBuffer<").Append(bufferTypeName).Append(">(")
 				.Append(memberIdRef).Append(", static fast => new ").Append(bufferTypeName)
 				.Append("(fast)).Append(").Append(accessVarName).Append(");").AppendLine();
@@ -456,7 +456,7 @@ internal static partial class Sources
 			}
 			else
 			{
-				sb.Append(" ?? global::Mockolate.It.IsNull<").Append(parameter.ToNullableType()).Append(">(\"null\")");
+				sb.Append(" ?? global::Mockolate.Internals.Matchers.IsNull<").Append(parameter.ToNullableType()).Append(">()");
 			}
 		}
 
@@ -470,7 +470,7 @@ internal static partial class Sources
 		=> AppendNamedValueParameter(sb, parameter, parameter.Name);
 
 	/// <summary>
-	///     Appends a NamedParameter wrapping an explicit value with <c>It.IsValue&lt;T&gt;</c>, using
+	///     Appends a NamedParameter wrapping an explicit value with <c>Matchers.IsValue&lt;T&gt;</c>, using
 	///     the given variable reference name. The diagnostic representation is computed lazily by the
 	///     matcher's <c>ToString</c> on demand, so the per-setup string allocation is paid only when
 	///     a verification message is actually rendered (the failure path).
@@ -479,7 +479,7 @@ internal static partial class Sources
 	{
 		sb.Append("(global::Mockolate.Parameters.IParameterMatch<");
 		sb.AppendTypeOrWrapper(parameter.Type);
-		sb.Append(">)global::Mockolate.It.IsValue<")
+		sb.Append(">)global::Mockolate.Internals.Matchers.IsValue<")
 			.Append(parameter.ToNullableType()).Append(">(").Append(paramRef).Append(")");
 	}
 

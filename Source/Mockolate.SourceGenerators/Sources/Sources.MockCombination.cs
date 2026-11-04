@@ -144,12 +144,12 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
-		sb.Append("\t\tglobal::Mockolate.MockRegistry global::Mockolate.IMock.MockRegistry => this.").Append(mockRegistryName).Append(";").AppendLine();
-		sb.Append("\t\tprivate global::Mockolate.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
+		sb.Append("\t\tglobal::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.").Append(mockRegistryName).Append(";").AppendLine();
+		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
 		if (hasAnyStaticMembers || hasAnyStaticEvents)
 		{
 			sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
-			sb.Append("\t\tinternal static readonly global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.MockRegistry>();").AppendLine();
+			sb.Append("\t\tinternal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();").AppendLine();
 		}
 
 		sb.AppendLine();
@@ -181,7 +181,7 @@ internal static partial class Sources
 		else
 		{
 			sb.Append("\t\t/// <inheritdoc cref=\"").Append(fileName).Append("\" />").AppendLine();
-			sb.Append("\t\tpublic ").Append(fileName).Append("(global::Mockolate.MockRegistry mockRegistry)").AppendLine();
+			sb.Append("\t\tpublic ").Append(fileName).Append("(global::Mockolate.Internals.MockRegistry mockRegistry)").AppendLine();
 			sb.Append("\t\t{").AppendLine();
 			sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(" = mockRegistry;").AppendLine();
 			if (hasAnyStaticMembers || hasAnyStaticEvents)

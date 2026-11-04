@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using Mockolate.Interactions;
 using Mockolate.Parameters;
 
-namespace Mockolate.Interactions;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Per-member buffer for parameterless methods. Records only the method name + sequence number.
@@ -11,6 +13,7 @@ namespace Mockolate.Interactions;
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod0Buffer : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -121,6 +124,7 @@ public sealed class FastMethod0Buffer : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -278,6 +282,7 @@ public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -436,6 +441,7 @@ public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
@@ -596,6 +602,7 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod4Buffer<T1, T2, T3, T4> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;

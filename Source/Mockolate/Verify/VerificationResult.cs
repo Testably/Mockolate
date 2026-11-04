@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
+using Mockolate.Internals;
 
 namespace Mockolate.Verify;
 

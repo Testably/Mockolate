@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using Mockolate.Internals;
 
 namespace Mockolate.Interactions;
 

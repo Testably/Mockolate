@@ -127,7 +127,7 @@ public sealed partial class MockTests
 			await That(result.Diagnostics).IsEmpty();
 			await That(result.Sources).ContainsKey("Mock.ClientBase.g.cs");
 			await That(result.Sources["Mock.ClientBase.g.cs"])
-				.Contains("public ClientBase(global::Mockolate.MockRegistry mockRegistry)").And
+				.Contains("public ClientBase(global::Mockolate.Internals.MockRegistry mockRegistry)").And
 				.DoesNotContain("ClientBaseConfiguration")
 				.Because(
 					"`protected internal` degrades to `protected` outside the declaring assembly, so the type is only reachable through inheritance and cannot be named on the generated public constructor (CS0051) or in MockExtensionsForClientBase (CS0122)");

@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using Mockolate.Interactions;
+using Mockolate.Internals;
 using Mockolate.Parameters;
 
 namespace Mockolate.Verify;

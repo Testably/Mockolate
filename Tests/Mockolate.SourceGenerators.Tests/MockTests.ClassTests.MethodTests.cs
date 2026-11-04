@@ -1064,7 +1064,7 @@ public sealed partial class MockTests
 					.Contains("""
 					          		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, bool?, string> global::Mockolate.Mock.IMockSetupForIMyService.MyMethod1(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<int>? b, global::Mockolate.Parameters.IParameter<bool?>? c, global::Mockolate.Parameters.IParameter<string>? d)
 					          		{
-					          			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, bool?, string>.WithParameterCollection(MockRegistry, "global::MyCode.IMyService.MyMethod1", global::Mockolate.CovariantParameterAdapter<int>.Wrap(a ?? global::Mockolate.It.IsNull<int>("null")), global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.It.Is<int>(1)), global::Mockolate.CovariantParameterAdapter<bool?>.Wrap(c ?? global::Mockolate.It.Is<bool?>(null)), global::Mockolate.CovariantParameterAdapter<string>.Wrap(d ?? global::Mockolate.It.Is<string>("default")));
+					          			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, bool?, string>.WithParameterCollection(MockRegistry, "global::MyCode.IMyService.MyMethod1", global::Mockolate.CovariantParameterAdapter<int>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.It.Is<int>(1)), global::Mockolate.CovariantParameterAdapter<bool?>.Wrap(c ?? global::Mockolate.It.Is<bool?>(null)), global::Mockolate.CovariantParameterAdapter<string>.Wrap(d ?? global::Mockolate.It.Is<string>("default")));
 					          			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IMyService.MemberId_MyMethod1, methodSetup);
 					          			return methodSetup;
 					          		}
@@ -1107,7 +1107,7 @@ public sealed partial class MockTests
 					.Contains("""
 					          		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int[]> global::Mockolate.Mock.IMockSetupForIMyService.MyMethod1(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<int[]>? b)
 					          		{
-					          			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int[]>.WithParameterCollection(MockRegistry, "global::MyCode.IMyService.MyMethod1", global::Mockolate.CovariantParameterAdapter<int>.Wrap(a ?? global::Mockolate.It.IsNull<int>("null")), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(b ?? global::Mockolate.It.IsNull<int[]>("null")));
+					          			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int[]>.WithParameterCollection(MockRegistry, "global::MyCode.IMyService.MyMethod1", global::Mockolate.CovariantParameterAdapter<int>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
 					          			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IMyService.MemberId_MyMethod1, methodSetup);
 					          			return methodSetup;
 					          		}
@@ -1423,7 +1423,7 @@ public sealed partial class MockTests
 
 				await That(result.Sources).ContainsKey("Mock.IStaticOps.g.cs");
 				await That(result.Sources["Mock.IStaticOps.g.cs"])
-					.Contains("global::Mockolate.Interactions.FastMethod1Buffer<int>").And
+					.Contains("global::Mockolate.Internals.FastMethod1Buffer<int>").And
 					.Contains("MockRegistryProvider.Value.Interactions).GetOrCreateBuffer<")
 					.Because(
 						"static methods record interactions via the typed FastMethodBuffer accessed through the AsyncLocal-backed registry; the buffer is now lazily materialized on first touch via GetOrCreateBuffer")

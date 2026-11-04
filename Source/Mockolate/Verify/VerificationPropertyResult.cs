@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Mockolate.Internals;
 using Mockolate.Parameters;
 
 namespace Mockolate.Verify;

@@ -4,7 +4,7 @@ using System.Threading;
 namespace Mockolate.Interactions;
 
 /// <summary>
-///     Lock-free, append-only slot storage for <see cref="IFastMemberBuffer" /> implementations.
+///     Lock-free, append-only slot storage for <see cref="Internals.IFastMemberBuffer" /> implementations.
 ///     Records live in fixed-size chunks; growing only adds a chunk reference, never copies record
 ///     data. This eliminates the orphaned-write race that arose when an array-doubling buffer
 ///     snapshot the current array while a concurrent writer was still mid-write to a slot inside it.

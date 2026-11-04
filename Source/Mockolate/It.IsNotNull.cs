@@ -12,7 +12,7 @@ public partial class It
 	///     Matches any parameter whose value is not <see langword="null" />.
 	/// </summary>
 	/// <remarks>
-	///     The inverse of <see cref="IsNull{T}(string)" />. Arguments of a different runtime type than
+	///     The inverse of <see cref="IsNull{T}()" />. Arguments of a different runtime type than
 	///     <typeparamref name="T" /> also match - their very presence proves they aren't <see langword="null" />.
 	/// </remarks>
 	/// <typeparam name="T">The declared type of the parameter.</typeparam>

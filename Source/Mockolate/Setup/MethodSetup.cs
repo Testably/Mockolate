@@ -34,7 +34,7 @@ public abstract class MethodSetup : IMethodSetup, IVerifiableMethodSetup
 
 	/// <summary>
 	///     Renders <paramref name="value" /> for inclusion in a setup's <see cref="object.ToString" />,
-	///     mirroring the formatting that the <c>It.IsValue&lt;T&gt;</c> matcher uses for diagnostics:
+	///     mirroring the formatting that the <c>Matchers.IsValue&lt;T&gt;</c> matcher uses for diagnostics:
 	///     strings are quoted, <see cref="IFormattable" /> values are rendered with
 	///     <see cref="CultureInfo.InvariantCulture" /> (so failure messages don't drift with the host
 	///     locale), and everything else falls through to <see cref="object.ToString" />.

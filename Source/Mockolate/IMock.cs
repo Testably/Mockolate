@@ -1,3 +1,5 @@
+using Mockolate.Internals;
+
 namespace Mockolate;
 
 /// <summary>
@@ -13,7 +15,7 @@ namespace Mockolate;
 public interface IMock
 {
 	/// <summary>
-	///     The <see cref="Mockolate.MockRegistry" /> that backs this mock: it owns the <see cref="MockBehavior" />,
+	///     The <see cref="Mockolate.Internals.MockRegistry" /> that backs this mock: it owns the <see cref="MockBehavior" />,
 	///     the registered setups, and the recorded interactions.
 	/// </summary>
 	/// <remarks>

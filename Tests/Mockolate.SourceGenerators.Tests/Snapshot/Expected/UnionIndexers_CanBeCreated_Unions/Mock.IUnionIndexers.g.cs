@@ -34,50 +34,50 @@ internal static partial class Mock
 		internal const int MemberCount = 10;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Interactions.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
-		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Interactions.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Interactions.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
+		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Internals.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Internals.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
 		/// </summary>
-		internal static global::Mockolate.Interactions.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Interactions.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Interactions.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
 		/// </summary>
-		private static global::Mockolate.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
+		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
-			global::Mockolate.MockRegistry registry = new global::Mockolate.MockRegistry(behavior, MemberCount);
+			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
 			return registry;
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
-		private global::Mockolate.MockRegistry MockRegistry { get; }
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastIndexerGetterBuffer<int> MockolateBuffer_Indexer_int_Get
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastIndexerGetterBuffer<int>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_int_Get, static fast => new global::Mockolate.Interactions.FastIndexerGetterBuffer<int>(fast)));
+		private global::Mockolate.Internals.FastIndexerGetterBuffer<int> MockolateBuffer_Indexer_int_Get
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerGetterBuffer<int>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_int_Get, static fast => new global::Mockolate.Internals.FastIndexerGetterBuffer<int>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastIndexerSetterBuffer<int, string> MockolateBuffer_Indexer_int_Set
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastIndexerSetterBuffer<int, string>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_int_Set, static fast => new global::Mockolate.Interactions.FastIndexerSetterBuffer<int, string>(fast)));
+		private global::Mockolate.Internals.FastIndexerSetterBuffer<int, string> MockolateBuffer_Indexer_int_Set
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerSetterBuffer<int, string>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_int_Set, static fast => new global::Mockolate.Internals.FastIndexerSetterBuffer<int, string>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastIndexerGetterBuffer<byte, byte> MockolateBuffer_Indexer_byte_byte_Get
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastIndexerGetterBuffer<byte, byte>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_byte_byte_Get, static fast => new global::Mockolate.Interactions.FastIndexerGetterBuffer<byte, byte>(fast)));
+		private global::Mockolate.Internals.FastIndexerGetterBuffer<byte, byte> MockolateBuffer_Indexer_byte_byte_Get
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerGetterBuffer<byte, byte>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_byte_byte_Get, static fast => new global::Mockolate.Internals.FastIndexerGetterBuffer<byte, byte>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastIndexerSetterBuffer<byte, byte, long> MockolateBuffer_Indexer_byte_byte_Set
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastIndexerSetterBuffer<byte, byte, long>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_byte_byte_Set, static fast => new global::Mockolate.Interactions.FastIndexerSetterBuffer<byte, byte, long>(fast)));
+		private global::Mockolate.Internals.FastIndexerSetterBuffer<byte, byte, long> MockolateBuffer_Indexer_byte_byte_Set
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerSetterBuffer<byte, byte, long>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_byte_byte_Set, static fast => new global::Mockolate.Internals.FastIndexerSetterBuffer<byte, byte, long>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastIndexerGetterBuffer<short, short, short> MockolateBuffer_Indexer_short_short_short_Get
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastIndexerGetterBuffer<short, short, short>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_short_short_short_Get, static fast => new global::Mockolate.Interactions.FastIndexerGetterBuffer<short, short, short>(fast)));
+		private global::Mockolate.Internals.FastIndexerGetterBuffer<short, short, short> MockolateBuffer_Indexer_short_short_short_Get
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerGetterBuffer<short, short, short>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_short_short_short_Get, static fast => new global::Mockolate.Internals.FastIndexerGetterBuffer<short, short, short>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastIndexerSetterBuffer<short, short, short, long> MockolateBuffer_Indexer_short_short_short_Set
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastIndexerSetterBuffer<short, short, short, long>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_short_short_short_Set, static fast => new global::Mockolate.Interactions.FastIndexerSetterBuffer<short, short, short, long>(fast)));
+		private global::Mockolate.Internals.FastIndexerSetterBuffer<short, short, short, long> MockolateBuffer_Indexer_short_short_short_Set
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerSetterBuffer<short, short, short, long>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_short_short_short_Set, static fast => new global::Mockolate.Internals.FastIndexerSetterBuffer<short, short, short, long>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastIndexerGetterBuffer<global::System.Func<int, bool>, int, string, bool> MockolateBuffer_Indexer_global__System_Func_int__bool__int_string_bool_Get
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastIndexerGetterBuffer<global::System.Func<int, bool>, int, string, bool>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, static fast => new global::Mockolate.Interactions.FastIndexerGetterBuffer<global::System.Func<int, bool>, int, string, bool>(fast)));
+		private global::Mockolate.Internals.FastIndexerGetterBuffer<global::System.Func<int, bool>, int, string, bool> MockolateBuffer_Indexer_global__System_Func_int__bool__int_string_bool_Get
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerGetterBuffer<global::System.Func<int, bool>, int, string, bool>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, static fast => new global::Mockolate.Internals.FastIndexerGetterBuffer<global::System.Func<int, bool>, int, string, bool>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Interactions.FastIndexerSetterBuffer<global::System.Func<int, bool>, int, string, bool, string> MockolateBuffer_Indexer_global__System_Func_int__bool__int_string_bool_Set
-			=> field ?? (field = ((global::Mockolate.Interactions.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Interactions.FastIndexerSetterBuffer<global::System.Func<int, bool>, int, string, bool, string>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Set, static fast => new global::Mockolate.Interactions.FastIndexerSetterBuffer<global::System.Func<int, bool>, int, string, bool, string>(fast)));
+		private global::Mockolate.Internals.FastIndexerSetterBuffer<global::System.Func<int, bool>, int, string, bool, string> MockolateBuffer_Indexer_global__System_Func_int__bool__int_string_bool_Set
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerSetterBuffer<global::System.Func<int, bool>, int, string, bool, string>>(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Set, static fast => new global::Mockolate.Internals.FastIndexerSetterBuffer<global::System.Func<int, bool>, int, string, bool, string>(fast)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -118,14 +118,14 @@ internal static partial class Mock
 			=> this.MockRegistry.ClearAllInteractions();
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIUnionIndexers> IMockForIUnionIndexers.Monitor()
-			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIUnionIndexers>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIUnionIndexers(new global::Mockolate.MockRegistry(this.MockRegistry, interactions)));
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIUnionIndexers>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIUnionIndexers(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.IUnionIndexers mock";
 
 		/// <inheritdoc cref="IUnionIndexers" />
-		public IUnionIndexers(global::Mockolate.MockRegistry mockRegistry)
+		public IUnionIndexers(global::Mockolate.Internals.MockRegistry mockRegistry)
 		{
 			this.MockRegistry = mockRegistry;
 		}
@@ -543,7 +543,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (parameter3 ?? default).ToParameterMatch(), (parameter4 ?? default).ToParameterMatch());
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (parameter3 ?? default).ToParameterMatch(), (parameter4 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -567,7 +567,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (parameter3 ?? default).ToParameterMatch(), (parameter4 ?? default).ToParameterMatch());
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (parameter3 ?? default).ToParameterMatch(), (parameter4 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -591,7 +591,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (parameter4 ?? default).ToParameterMatch());
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (parameter4 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -615,7 +615,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (parameter4 ?? default).ToParameterMatch());
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (parameter4 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -639,7 +639,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (parameter3 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (parameter3 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -663,7 +663,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (parameter3 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (parameter3 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -687,7 +687,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -711,7 +711,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, indexerSetup);
 				return indexerSetup;
 			}
@@ -943,7 +943,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(key ?? default).ToParameterMatch(),
 					(name ?? default).ToParameterMatch(),
 					(flag ?? default).ToParameterMatch(),
@@ -973,7 +973,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression),
 					(name ?? default).ToParameterMatch(),
 					(flag ?? default).ToParameterMatch(),
@@ -1003,7 +1003,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(key ?? default).ToParameterMatch(),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(name, nameExpression),
 					(flag ?? default).ToParameterMatch(),
@@ -1033,7 +1033,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(name, nameExpression),
 					(flag ?? default).ToParameterMatch(),
@@ -1063,7 +1063,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(key ?? default).ToParameterMatch(),
 					(name ?? default).ToParameterMatch(),
 					(global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(flag, flagExpression),
@@ -1093,7 +1093,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression),
 					(name ?? default).ToParameterMatch(),
 					(global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(flag, flagExpression),
@@ -1123,7 +1123,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(key ?? default).ToParameterMatch(),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(name, nameExpression),
 					(global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(flag, flagExpression),
@@ -1153,7 +1153,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(name, nameExpression),
 					(global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(flag, flagExpression),
@@ -1183,9 +1183,9 @@ internal static partial class Mock
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class VerifyMonitorIUnionIndexers(global::Mockolate.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForIUnionIndexers
+	private sealed class VerifyMonitorIUnionIndexers(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForIUnionIndexers
 	{
-		private global::Mockolate.MockRegistry MockRegistry { get; } = mockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
 
 		#region IMockVerifyForIUnionIndexers
 
@@ -1399,7 +1399,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(key ?? default).ToParameterMatch(),
 					(name ?? default).ToParameterMatch(),
 					(flag ?? default).ToParameterMatch(),
@@ -1429,7 +1429,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression),
 					(name ?? default).ToParameterMatch(),
 					(flag ?? default).ToParameterMatch(),
@@ -1459,7 +1459,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(key ?? default).ToParameterMatch(),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(name, nameExpression),
 					(flag ?? default).ToParameterMatch(),
@@ -1489,7 +1489,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(name, nameExpression),
 					(flag ?? default).ToParameterMatch(),
@@ -1519,7 +1519,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(key ?? default).ToParameterMatch(),
 					(name ?? default).ToParameterMatch(),
 					(global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(flag, flagExpression),
@@ -1549,7 +1549,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression),
 					(name ?? default).ToParameterMatch(),
 					(global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(flag, flagExpression),
@@ -1579,7 +1579,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(key ?? default).ToParameterMatch(),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(name, nameExpression),
 					(global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(flag, flagExpression),
@@ -1609,7 +1609,7 @@ internal static partial class Mock
 			get
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIUnionIndexers, global::System.Func<int, bool>, int, string, bool>(this, this.MockRegistry, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get,
-					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(selector),
+					(global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(selector),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression),
 					(global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(name, nameExpression),
 					(global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(flag, flagExpression),
@@ -1641,10 +1641,10 @@ internal static partial class Mock
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	private sealed class MockInScenarioForIUnionIndexers : global::Mockolate.Mock.IMockInScenarioForIUnionIndexers, global::Mockolate.Mock.IMockSetupForIUnionIndexers
 	{
-		private global::Mockolate.MockRegistry MockRegistry { get; }
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 		private string _scenarioName;
 
-		public MockInScenarioForIUnionIndexers(global::Mockolate.MockRegistry mockRegistry, string scenario)
+		public MockInScenarioForIUnionIndexers(global::Mockolate.Internals.MockRegistry mockRegistry, string scenario)
 		{
 			this.MockRegistry = mockRegistry;
 			_scenarioName = scenario;
@@ -1842,7 +1842,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (parameter3 ?? default).ToParameterMatch(), (parameter4 ?? default).ToParameterMatch());
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (parameter3 ?? default).ToParameterMatch(), (parameter4 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -1866,7 +1866,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (parameter3 ?? default).ToParameterMatch(), (parameter4 ?? default).ToParameterMatch());
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (parameter3 ?? default).ToParameterMatch(), (parameter4 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -1890,7 +1890,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (parameter4 ?? default).ToParameterMatch());
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (parameter4 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -1914,7 +1914,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (parameter4 ?? default).ToParameterMatch());
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (parameter4 ?? default).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -1938,7 +1938,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (parameter3 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (parameter3 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -1962,7 +1962,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (parameter3 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (parameter3 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -1986,7 +1986,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (parameter2 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -2010,7 +2010,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.It.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<global::System.Func<int, bool>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<int, bool>>(parameter1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter3, parameter3Expression), (global::Mockolate.Parameters.IParameterMatch<bool>)global::Mockolate.It.Satisfies<bool>(parameter4, parameter4Expression));
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, _scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -2831,11 +2831,11 @@ internal static partial class MockExtensionsForIUnionIndexers
 			}
 
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
-			global::Mockolate.MockRegistry mockRegistry = new global::Mockolate.MockRegistry(mockBehavior, global::Mockolate.Mock.IUnionIndexers.MemberCount, constructorParameters);
+			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.IUnionIndexers.MemberCount, constructorParameters);
 			return CreateMockInstance(mockRegistry, constructorParameters, setup);
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers CreateMockInstance(global::Mockolate.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<global::Mockolate.Mock.IMockSetupForIUnionIndexers>? setup)
+		private static global::Mockolate.Tests.GeneratorCoverage.IUnionIndexers CreateMockInstance(global::Mockolate.Internals.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<global::Mockolate.Mock.IMockSetupForIUnionIndexers>? setup)
 		{
 			var value = new global::Mockolate.Mock.IUnionIndexers(mockRegistry);
 			if (setup is not null)
@@ -2856,8 +2856,8 @@ internal static partial class MockExtensionsForIUnionIndexers
 		{
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
-				global::Mockolate.MockRegistry wrappingRegistry = new global::Mockolate.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IUnionIndexers.CreateFastInteractions(wrappingRegistry.Behavior));
+				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IUnionIndexers.CreateFastInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

@@ -190,12 +190,12 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3, T4, T5>,
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5>
 	{
-		private readonly global::Mockolate.MockRegistry _mockRegistry;
-		private global::Mockolate.Setup.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _callbacks = [];
-		private global::Mockolate.Setup.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>? _returnCallbacks = [];
+		private readonly global::Mockolate.Internals.MockRegistry _mockRegistry;
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _callbacks = [];
+		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>? _returnCallbacks = [];
 		private bool? _skipBaseClass;
 
-		protected ReturnMethodSetup(global::Mockolate.MockRegistry mockRegistry, string name)
+		protected ReturnMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
 		{
 			_mockRegistry = mockRegistry;
@@ -212,7 +212,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Do(global::System.Action callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>? currentCallback = new((_, _, _, _, _, _) => callback());
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -220,7 +220,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5>.Do(global::System.Action<T1, T2, T3, T4, T5> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>? currentCallback = new((_, p1, p2, p3, p4, p5) => callback(p1, p2, p3, p4, p5));
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -228,7 +228,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5>.Do(global::System.Action<int, T1, T2, T3, T4, T5> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>? currentCallback = new(callback);
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -237,7 +237,7 @@ namespace Mockolate.Setup
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>? currentCallback = new((_, _, _, _, _, _) => _mockRegistry.TransitionTo(scenario));
 			currentCallback.InParallel();
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -245,7 +245,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5>.Returns(global::System.Func<T1, T2, T3, T4, T5, TReturn> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, p1, p2, p3, p4, p5) => callback(p1, p2, p3, p4, p5));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -253,7 +253,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Returns(global::System.Func<TReturn> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -261,7 +261,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Returns(TReturn returnValue)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => returnValue);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -269,7 +269,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws<TException>()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => throw new TException());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -277,7 +277,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws(global::System.Exception exception)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => throw exception);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -285,7 +285,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5>.Throws(global::System.Func<T1, T2, T3, T4, T5, global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, p1, p2, p3, p4, p5) => throw callback(p1, p2, p3, p4, p5));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -293,7 +293,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws(global::System.Func<global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => throw callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -427,7 +427,7 @@ namespace Mockolate.Setup
 			private readonly string _parameterName5;
 
 			/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1, T2, T3, T4, T5}" />
-			public WithParameters(global::Mockolate.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5)
+			public WithParameters(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5)
 				: base(mockRegistry, name)
 			{
 				Parameters = parameters;
@@ -469,7 +469,7 @@ namespace Mockolate.Setup
 
 			/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1, T2, T3, T4, T5}" />
 			public WithParameterCollection(
-				global::Mockolate.MockRegistry mockRegistry,
+				global::Mockolate.Internals.MockRegistry mockRegistry,
 				string name,
 				global::Mockolate.Parameters.IParameterMatch<T1> parameter1,
 				global::Mockolate.Parameters.IParameterMatch<T2> parameter2,
@@ -705,12 +705,12 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5>,
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5>
 {
-		private readonly global::Mockolate.MockRegistry _mockRegistry;
-		private global::Mockolate.Setup.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _callbacks = [];
-		private global::Mockolate.Setup.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _returnCallbacks = [];
+		private readonly global::Mockolate.Internals.MockRegistry _mockRegistry;
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _callbacks = [];
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _returnCallbacks = [];
 		private bool? _skipBaseClass;
 
-		protected VoidMethodSetup(global::Mockolate.MockRegistry mockRegistry, string name)
+		protected VoidMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
 		{
 			_mockRegistry = mockRegistry;
@@ -734,7 +734,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5>.Do(global::System.Action callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>? currentCallback = new((_, _, _, _, _, _) => callback());
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -744,7 +744,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5>.Do(global::System.Action<T1, T2, T3, T4, T5> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>? currentCallback = new((_, p1, p2, p3, p4, p5) => callback(p1, p2, p3, p4, p5));
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -754,7 +754,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5>.Do(global::System.Action<int, T1, T2, T3, T4, T5> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>? currentCallback = new(callback);
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -763,7 +763,7 @@ namespace Mockolate.Setup
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>? currentCallback = new((_, _, _, _, _, _) => _mockRegistry.TransitionTo(scenario));
 			currentCallback.InParallel();
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -773,7 +773,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5>.DoesNotThrow()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>((_, _, _, _, _, _) => { });
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -783,7 +783,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5>.Throws<TException>()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>((_, _, _, _, _, _) => throw new TException());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -793,7 +793,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5>.Throws(global::System.Exception exception)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>((_, _, _, _, _, _) => throw exception);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -803,7 +803,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5>.Throws(global::System.Func<T1, T2, T3, T4, T5, global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>((_, p1, p2, p3, p4, p5) => throw callback(p1, p2, p3, p4, p5));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -813,7 +813,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5>.Throws(global::System.Func<global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5>>((_, _, _, _, _, _) => throw callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -930,7 +930,7 @@ namespace Mockolate.Setup
 			private readonly string _parameterName5;
 
 			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5}" />
-			public WithParameters(global::Mockolate.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5)
+			public WithParameters(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5)
 				: base(mockRegistry, name)
 			{
 				Parameters = parameters;
@@ -972,7 +972,7 @@ namespace Mockolate.Setup
 
 			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5}" />
 			public WithParameterCollection(
-				global::Mockolate.MockRegistry mockRegistry,
+				global::Mockolate.Internals.MockRegistry mockRegistry,
 				string name,
 				global::Mockolate.Parameters.IParameterMatch<T1> parameter1,
 				global::Mockolate.Parameters.IParameterMatch<T2> parameter2,
@@ -1208,12 +1208,12 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7>,
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7>
 {
-		private readonly global::Mockolate.MockRegistry _mockRegistry;
-		private global::Mockolate.Setup.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>? _callbacks = [];
-		private global::Mockolate.Setup.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>? _returnCallbacks = [];
+		private readonly global::Mockolate.Internals.MockRegistry _mockRegistry;
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>? _callbacks = [];
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>? _returnCallbacks = [];
 		private bool? _skipBaseClass;
 
-		protected VoidMethodSetup(global::Mockolate.MockRegistry mockRegistry, string name)
+		protected VoidMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
 		{
 			_mockRegistry = mockRegistry;
@@ -1237,7 +1237,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7>.Do(global::System.Action callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>? currentCallback = new((_, _, _, _, _, _, _, _) => callback());
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -1247,7 +1247,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5, T6, T7>.Do(global::System.Action<T1, T2, T3, T4, T5, T6, T7> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>? currentCallback = new((_, p1, p2, p3, p4, p5, p6, p7) => callback(p1, p2, p3, p4, p5, p6, p7));
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -1257,7 +1257,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5, T6, T7>.Do(global::System.Action<int, T1, T2, T3, T4, T5, T6, T7> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>? currentCallback = new(callback);
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -1266,7 +1266,7 @@ namespace Mockolate.Setup
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>? currentCallback = new((_, _, _, _, _, _, _, _) => _mockRegistry.TransitionTo(scenario));
 			currentCallback.InParallel();
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -1276,7 +1276,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7>.DoesNotThrow()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>((_, _, _, _, _, _, _, _) => { });
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1286,7 +1286,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7>.Throws<TException>()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>((_, _, _, _, _, _, _, _) => throw new TException());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1296,7 +1296,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7>.Throws(global::System.Exception exception)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>((_, _, _, _, _, _, _, _) => throw exception);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1306,7 +1306,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5, T6, T7>.Throws(global::System.Func<T1, T2, T3, T4, T5, T6, T7, global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>((_, p1, p2, p3, p4, p5, p6, p7) => throw callback(p1, p2, p3, p4, p5, p6, p7));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1316,7 +1316,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7>.Throws(global::System.Func<global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7>>((_, _, _, _, _, _, _, _) => throw callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1435,7 +1435,7 @@ namespace Mockolate.Setup
 			private readonly string _parameterName7;
 
 			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5, T6, T7}" />
-			public WithParameters(global::Mockolate.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5, string parameterName6, string parameterName7)
+			public WithParameters(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5, string parameterName6, string parameterName7)
 				: base(mockRegistry, name)
 			{
 				Parameters = parameters;
@@ -1479,7 +1479,7 @@ namespace Mockolate.Setup
 
 			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5, T6, T7}" />
 			public WithParameterCollection(
-				global::Mockolate.MockRegistry mockRegistry,
+				global::Mockolate.Internals.MockRegistry mockRegistry,
 				string name,
 				global::Mockolate.Parameters.IParameterMatch<T1> parameter1,
 				global::Mockolate.Parameters.IParameterMatch<T2> parameter2,
@@ -1737,12 +1737,12 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>,
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>
 	{
-		private readonly global::Mockolate.MockRegistry _mockRegistry;
-		private global::Mockolate.Setup.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? _callbacks = [];
-		private global::Mockolate.Setup.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>? _returnCallbacks = [];
+		private readonly global::Mockolate.Internals.MockRegistry _mockRegistry;
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? _callbacks = [];
+		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>? _returnCallbacks = [];
 		private bool? _skipBaseClass;
 
-		protected ReturnMethodSetup(global::Mockolate.MockRegistry mockRegistry, string name)
+		protected ReturnMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
 		{
 			_mockRegistry = mockRegistry;
@@ -1759,7 +1759,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Do(global::System.Action callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? currentCallback = new((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => callback());
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -1767,7 +1767,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Do(global::System.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? currentCallback = new((_, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) => callback(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -1775,7 +1775,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Do(global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? currentCallback = new(callback);
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -1784,7 +1784,7 @@ namespace Mockolate.Setup
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? currentCallback = new((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => _mockRegistry.TransitionTo(scenario));
 			currentCallback.InParallel();
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -1792,7 +1792,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Returns(global::System.Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) => callback(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1800,7 +1800,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Returns(global::System.Func<TReturn> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1808,7 +1808,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Returns(TReturn returnValue)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => returnValue);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1816,7 +1816,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Throws<TException>()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => throw new TException());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1824,7 +1824,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Throws(global::System.Exception exception)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => throw exception);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1832,7 +1832,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Throws(global::System.Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) => throw callback(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1840,7 +1840,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Throws(global::System.Func<global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => throw callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -1986,7 +1986,7 @@ namespace Mockolate.Setup
 			private readonly string _parameterName17;
 
 			/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17}" />
-			public WithParameters(global::Mockolate.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5, string parameterName6, string parameterName7, string parameterName8, string parameterName9, string parameterName10, string parameterName11, string parameterName12, string parameterName13, string parameterName14, string parameterName15, string parameterName16, string parameterName17)
+			public WithParameters(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5, string parameterName6, string parameterName7, string parameterName8, string parameterName9, string parameterName10, string parameterName11, string parameterName12, string parameterName13, string parameterName14, string parameterName15, string parameterName16, string parameterName17)
 				: base(mockRegistry, name)
 			{
 				Parameters = parameters;
@@ -2040,7 +2040,7 @@ namespace Mockolate.Setup
 
 			/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17}" />
 			public WithParameterCollection(
-				global::Mockolate.MockRegistry mockRegistry,
+				global::Mockolate.Internals.MockRegistry mockRegistry,
 				string name,
 				global::Mockolate.Parameters.IParameterMatch<T1> parameter1,
 				global::Mockolate.Parameters.IParameterMatch<T2> parameter2,
@@ -2348,12 +2348,12 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>,
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>
 {
-		private readonly global::Mockolate.MockRegistry _mockRegistry;
-		private global::Mockolate.Setup.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? _callbacks = [];
-		private global::Mockolate.Setup.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? _returnCallbacks = [];
+		private readonly global::Mockolate.Internals.MockRegistry _mockRegistry;
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? _callbacks = [];
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? _returnCallbacks = [];
 		private bool? _skipBaseClass;
 
-		protected VoidMethodSetup(global::Mockolate.MockRegistry mockRegistry, string name)
+		protected VoidMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
 		{
 			_mockRegistry = mockRegistry;
@@ -2377,7 +2377,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Do(global::System.Action callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? currentCallback = new((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => callback());
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -2387,7 +2387,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Do(global::System.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? currentCallback = new((_, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) => callback(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -2397,7 +2397,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Do(global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> callback)
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? currentCallback = new(callback);
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -2406,7 +2406,7 @@ namespace Mockolate.Setup
 		{
 			global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>? currentCallback = new((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => _mockRegistry.TransitionTo(scenario));
 			currentCallback.InParallel();
-			_callbacks = _callbacks.Register(currentCallback);
+			_callbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_callbacks, currentCallback);
 			return this;
 		}
 
@@ -2416,7 +2416,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.DoesNotThrow()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => { });
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -2426,7 +2426,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Throws<TException>()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => throw new TException());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -2436,7 +2436,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Throws(global::System.Exception exception)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => throw exception);
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -2446,7 +2446,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Throws(global::System.Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>((_, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) => throw callback(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -2456,7 +2456,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> global::Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>.Throws(global::System.Func<global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Action<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => throw callback());
-			_returnCallbacks = _returnCallbacks.Register(currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -2585,7 +2585,7 @@ namespace Mockolate.Setup
 			private readonly string _parameterName17;
 
 			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17}" />
-			public WithParameters(global::Mockolate.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5, string parameterName6, string parameterName7, string parameterName8, string parameterName9, string parameterName10, string parameterName11, string parameterName12, string parameterName13, string parameterName14, string parameterName15, string parameterName16, string parameterName17)
+			public WithParameters(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5, string parameterName6, string parameterName7, string parameterName8, string parameterName9, string parameterName10, string parameterName11, string parameterName12, string parameterName13, string parameterName14, string parameterName15, string parameterName16, string parameterName17)
 				: base(mockRegistry, name)
 			{
 				Parameters = parameters;
@@ -2639,7 +2639,7 @@ namespace Mockolate.Setup
 
 			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17}" />
 			public WithParameterCollection(
-				global::Mockolate.MockRegistry mockRegistry,
+				global::Mockolate.Internals.MockRegistry mockRegistry,
 				string name,
 				global::Mockolate.Parameters.IParameterMatch<T1> parameter1,
 				global::Mockolate.Parameters.IParameterMatch<T2> parameter2,
@@ -2985,140 +2985,6 @@ namespace Mockolate.Interactions
 		}
 	}
 	/// <summary>
-	///     Per-member buffer for 5-parameter methods, synthesized for arity 5 use sites.
-	/// </summary>
-	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
-	internal sealed class FastMethod5Buffer<T1, T2, T3, T4, T5> : IFastMemberBuffer
-	{
-		private readonly FastMockInteractions _owner;
-#if NET10_0_OR_GREATER
-		private readonly global::System.Threading.Lock _growLock = new();
-#else
-		private readonly object _growLock = new();
-#endif
-		private Record[] _records = new Record[4];
-		private bool[] _verifiedSlots = new bool[4];
-		private int _reserved;
-		private int _published;
-
-		internal FastMethod5Buffer(FastMockInteractions owner) => _owner = owner;
-
-		public int Count => global::System.Threading.Volatile.Read(ref _published);
-
-		public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5)
-		{
-			long seq = _owner.NextSequence();
-			int slot = global::System.Threading.Interlocked.Increment(ref _reserved) - 1;
-			Record[] records = global::System.Threading.Volatile.Read(ref _records);
-			if (slot >= records.Length) records = GrowToFit(slot);
-
-			records[slot].Seq = seq;
-			records[slot].Name = name;
-			records[slot].P1 = parameter1;
-			records[slot].P2 = parameter2;
-			records[slot].P3 = parameter3;
-			records[slot].P4 = parameter4;
-			records[slot].P5 = parameter5;
-			records[slot].Boxed = null;
-			global::System.Threading.Interlocked.Increment(ref _published);
-
-			if (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();
-		}
-
-		private Record[] GrowToFit(int slot)
-		{
-			lock (_growLock)
-			{
-				Record[] records = _records;
-				while (slot >= records.Length)
-				{
-					Record[] bigger = new Record[records.Length * 2];
-					global::System.Array.Copy(records, bigger, records.Length);
-					records = bigger;
-				}
-				global::System.Threading.Volatile.Write(ref _records, records);
-				if (_verifiedSlots.Length < records.Length)
-				{
-					bool[] biggerBits = new bool[records.Length];
-					global::System.Array.Copy(_verifiedSlots, biggerBits, _verifiedSlots.Length);
-					_verifiedSlots = biggerBits;
-				}
-				return records;
-			}
-		}
-
-		public void Clear()
-		{
-			lock (_growLock) { global::System.Array.Clear(_records, 0, _published); _reserved = 0; global::System.Threading.Volatile.Write(ref _published, 0); global::System.Array.Clear(_verifiedSlots, 0, _verifiedSlots.Length); }
-		}
-
-		void IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, IInteraction>> dest)
-		{
-			lock (_growLock)
-			{
-				int n = _published;
-				Record[] records = _records;
-				for (int i = 0; i < n; i++)
-				{
-					ref Record r = ref records[i];
-					r.Boxed ??= new MethodInvocation<T1, T2, T3, T4, T5>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5);
-					dest.Add(new global::System.ValueTuple<long, IInteraction>(r.Seq, r.Boxed));
-				}
-			}
-		}
-
-		void IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, IInteraction>> dest)
-		{
-			lock (_growLock)
-			{
-				int n = _published;
-				Record[] records = _records;
-				bool[] verified = _verifiedSlots;
-				for (int i = 0; i < n; i++)
-				{
-					if (verified[i]) continue;
-					ref Record r = ref records[i];
-					r.Boxed ??= new MethodInvocation<T1, T2, T3, T4, T5>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5);
-					dest.Add(new global::System.ValueTuple<long, IInteraction>(r.Seq, r.Boxed));
-				}
-			}
-		}
-
-		public int ConsumeMatching(global::Mockolate.Parameters.IParameterMatch<T1> match1, global::Mockolate.Parameters.IParameterMatch<T2> match2, global::Mockolate.Parameters.IParameterMatch<T3> match3, global::Mockolate.Parameters.IParameterMatch<T4> match4, global::Mockolate.Parameters.IParameterMatch<T5> match5)
-		{
-			int matches = 0;
-			lock (_growLock)
-			{
-				int n = _published;
-				Record[] records = _records;
-				bool[] verified = _verifiedSlots;
-				for (int i = 0; i < n; i++)
-				{
-					ref Record r = ref records[i];
-					if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5))
-					{
-						matches++;
-						verified[i] = true;
-					}
-				}
-			}
-
-			return matches;
-		}
-
-		private struct Record
-		{
-			public long Seq;
-			public string Name;
-			public T1 P1;
-			public T2 P2;
-			public T3 P3;
-			public T4 P4;
-			public T5 P5;
-			public IInteraction? Boxed;
-		}
-	}
-	/// <summary>
 	///     An invocation of a method with 7 parameters <paramref name="parameter1"/>, <paramref name="parameter2"/>, <paramref name="parameter3"/>, <paramref name="parameter4"/>, <paramref name="parameter5"/>, <paramref name="parameter6"/> and <paramref name="parameter7"/>.
 	/// </summary>
 	[global::System.Diagnostics.DebuggerDisplay("{ToString()}")]
@@ -3165,144 +3031,6 @@ namespace Mockolate.Interactions
 				int index = name.LastIndexOf(c);
 				return index >= 0 ? name.Substring(index + 1) : name;
 			}
-		}
-	}
-	/// <summary>
-	///     Per-member buffer for 7-parameter methods, synthesized for arity 7 use sites.
-	/// </summary>
-	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
-	internal sealed class FastMethod7Buffer<T1, T2, T3, T4, T5, T6, T7> : IFastMemberBuffer
-	{
-		private readonly FastMockInteractions _owner;
-#if NET10_0_OR_GREATER
-		private readonly global::System.Threading.Lock _growLock = new();
-#else
-		private readonly object _growLock = new();
-#endif
-		private Record[] _records = new Record[4];
-		private bool[] _verifiedSlots = new bool[4];
-		private int _reserved;
-		private int _published;
-
-		internal FastMethod7Buffer(FastMockInteractions owner) => _owner = owner;
-
-		public int Count => global::System.Threading.Volatile.Read(ref _published);
-
-		public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7)
-		{
-			long seq = _owner.NextSequence();
-			int slot = global::System.Threading.Interlocked.Increment(ref _reserved) - 1;
-			Record[] records = global::System.Threading.Volatile.Read(ref _records);
-			if (slot >= records.Length) records = GrowToFit(slot);
-
-			records[slot].Seq = seq;
-			records[slot].Name = name;
-			records[slot].P1 = parameter1;
-			records[slot].P2 = parameter2;
-			records[slot].P3 = parameter3;
-			records[slot].P4 = parameter4;
-			records[slot].P5 = parameter5;
-			records[slot].P6 = parameter6;
-			records[slot].P7 = parameter7;
-			records[slot].Boxed = null;
-			global::System.Threading.Interlocked.Increment(ref _published);
-
-			if (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();
-		}
-
-		private Record[] GrowToFit(int slot)
-		{
-			lock (_growLock)
-			{
-				Record[] records = _records;
-				while (slot >= records.Length)
-				{
-					Record[] bigger = new Record[records.Length * 2];
-					global::System.Array.Copy(records, bigger, records.Length);
-					records = bigger;
-				}
-				global::System.Threading.Volatile.Write(ref _records, records);
-				if (_verifiedSlots.Length < records.Length)
-				{
-					bool[] biggerBits = new bool[records.Length];
-					global::System.Array.Copy(_verifiedSlots, biggerBits, _verifiedSlots.Length);
-					_verifiedSlots = biggerBits;
-				}
-				return records;
-			}
-		}
-
-		public void Clear()
-		{
-			lock (_growLock) { global::System.Array.Clear(_records, 0, _published); _reserved = 0; global::System.Threading.Volatile.Write(ref _published, 0); global::System.Array.Clear(_verifiedSlots, 0, _verifiedSlots.Length); }
-		}
-
-		void IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, IInteraction>> dest)
-		{
-			lock (_growLock)
-			{
-				int n = _published;
-				Record[] records = _records;
-				for (int i = 0; i < n; i++)
-				{
-					ref Record r = ref records[i];
-					r.Boxed ??= new MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7);
-					dest.Add(new global::System.ValueTuple<long, IInteraction>(r.Seq, r.Boxed));
-				}
-			}
-		}
-
-		void IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, IInteraction>> dest)
-		{
-			lock (_growLock)
-			{
-				int n = _published;
-				Record[] records = _records;
-				bool[] verified = _verifiedSlots;
-				for (int i = 0; i < n; i++)
-				{
-					if (verified[i]) continue;
-					ref Record r = ref records[i];
-					r.Boxed ??= new MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7);
-					dest.Add(new global::System.ValueTuple<long, IInteraction>(r.Seq, r.Boxed));
-				}
-			}
-		}
-
-		public int ConsumeMatching(global::Mockolate.Parameters.IParameterMatch<T1> match1, global::Mockolate.Parameters.IParameterMatch<T2> match2, global::Mockolate.Parameters.IParameterMatch<T3> match3, global::Mockolate.Parameters.IParameterMatch<T4> match4, global::Mockolate.Parameters.IParameterMatch<T5> match5, global::Mockolate.Parameters.IParameterMatch<T6> match6, global::Mockolate.Parameters.IParameterMatch<T7> match7)
-		{
-			int matches = 0;
-			lock (_growLock)
-			{
-				int n = _published;
-				Record[] records = _records;
-				bool[] verified = _verifiedSlots;
-				for (int i = 0; i < n; i++)
-				{
-					ref Record r = ref records[i];
-					if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5) && match6.Matches(r.P6) && match7.Matches(r.P7))
-					{
-						matches++;
-						verified[i] = true;
-					}
-				}
-			}
-
-			return matches;
-		}
-
-		private struct Record
-		{
-			public long Seq;
-			public string Name;
-			public T1 P1;
-			public T2 P2;
-			public T3 P3;
-			public T4 P4;
-			public T5 P5;
-			public T6 P6;
-			public T7 P7;
-			public IInteraction? Boxed;
 		}
 	}
 	/// <summary>
@@ -3394,13 +3122,16 @@ namespace Mockolate.Interactions
 			}
 		}
 	}
+}
+namespace Mockolate.Internals
+{
 	/// <summary>
-	///     Per-member buffer for 17-parameter methods, synthesized for arity 17 use sites.
+	///     Per-member buffer for 5-parameter methods, synthesized for arity 5 use sites.
 	/// </summary>
 	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
-	internal sealed class FastMethod17Buffer<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> : IFastMemberBuffer
+	internal sealed class FastMethod5Buffer<T1, T2, T3, T4, T5> : global::Mockolate.Internals.IFastMemberBuffer
 	{
-		private readonly FastMockInteractions _owner;
+		private readonly global::Mockolate.Internals.FastMockInteractions _owner;
 #if NET10_0_OR_GREATER
 		private readonly global::System.Threading.Lock _growLock = new();
 #else
@@ -3411,7 +3142,279 @@ namespace Mockolate.Interactions
 		private int _reserved;
 		private int _published;
 
-		internal FastMethod17Buffer(FastMockInteractions owner) => _owner = owner;
+		internal FastMethod5Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;
+
+		public int Count => global::System.Threading.Volatile.Read(ref _published);
+
+		public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5)
+		{
+			long seq = _owner.NextSequence();
+			int slot = global::System.Threading.Interlocked.Increment(ref _reserved) - 1;
+			Record[] records = global::System.Threading.Volatile.Read(ref _records);
+			if (slot >= records.Length) records = GrowToFit(slot);
+
+			records[slot].Seq = seq;
+			records[slot].Name = name;
+			records[slot].P1 = parameter1;
+			records[slot].P2 = parameter2;
+			records[slot].P3 = parameter3;
+			records[slot].P4 = parameter4;
+			records[slot].P5 = parameter5;
+			records[slot].Boxed = null;
+			global::System.Threading.Interlocked.Increment(ref _published);
+
+			if (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();
+		}
+
+		private Record[] GrowToFit(int slot)
+		{
+			lock (_growLock)
+			{
+				Record[] records = _records;
+				while (slot >= records.Length)
+				{
+					Record[] bigger = new Record[records.Length * 2];
+					global::System.Array.Copy(records, bigger, records.Length);
+					records = bigger;
+				}
+				global::System.Threading.Volatile.Write(ref _records, records);
+				if (_verifiedSlots.Length < records.Length)
+				{
+					bool[] biggerBits = new bool[records.Length];
+					global::System.Array.Copy(_verifiedSlots, biggerBits, _verifiedSlots.Length);
+					_verifiedSlots = biggerBits;
+				}
+				return records;
+			}
+		}
+
+		public void Clear()
+		{
+			lock (_growLock) { global::System.Array.Clear(_records, 0, _published); _reserved = 0; global::System.Threading.Volatile.Write(ref _published, 0); global::System.Array.Clear(_verifiedSlots, 0, _verifiedSlots.Length); }
+		}
+
+		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
+		{
+			lock (_growLock)
+			{
+				int n = _published;
+				Record[] records = _records;
+				for (int i = 0; i < n; i++)
+				{
+					ref Record r = ref records[i];
+					r.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5);
+					dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));
+				}
+			}
+		}
+
+		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
+		{
+			lock (_growLock)
+			{
+				int n = _published;
+				Record[] records = _records;
+				bool[] verified = _verifiedSlots;
+				for (int i = 0; i < n; i++)
+				{
+					if (verified[i]) continue;
+					ref Record r = ref records[i];
+					r.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5);
+					dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));
+				}
+			}
+		}
+
+		public int ConsumeMatching(global::Mockolate.Parameters.IParameterMatch<T1> match1, global::Mockolate.Parameters.IParameterMatch<T2> match2, global::Mockolate.Parameters.IParameterMatch<T3> match3, global::Mockolate.Parameters.IParameterMatch<T4> match4, global::Mockolate.Parameters.IParameterMatch<T5> match5)
+		{
+			int matches = 0;
+			lock (_growLock)
+			{
+				int n = _published;
+				Record[] records = _records;
+				bool[] verified = _verifiedSlots;
+				for (int i = 0; i < n; i++)
+				{
+					ref Record r = ref records[i];
+					if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5))
+					{
+						matches++;
+						verified[i] = true;
+					}
+				}
+			}
+
+			return matches;
+		}
+
+		private struct Record
+		{
+			public long Seq;
+			public string Name;
+			public T1 P1;
+			public T2 P2;
+			public T3 P3;
+			public T4 P4;
+			public T5 P5;
+			public global::Mockolate.Interactions.IInteraction? Boxed;
+		}
+	}
+	/// <summary>
+	///     Per-member buffer for 7-parameter methods, synthesized for arity 7 use sites.
+	/// </summary>
+	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
+	internal sealed class FastMethod7Buffer<T1, T2, T3, T4, T5, T6, T7> : global::Mockolate.Internals.IFastMemberBuffer
+	{
+		private readonly global::Mockolate.Internals.FastMockInteractions _owner;
+#if NET10_0_OR_GREATER
+		private readonly global::System.Threading.Lock _growLock = new();
+#else
+		private readonly object _growLock = new();
+#endif
+		private Record[] _records = new Record[4];
+		private bool[] _verifiedSlots = new bool[4];
+		private int _reserved;
+		private int _published;
+
+		internal FastMethod7Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;
+
+		public int Count => global::System.Threading.Volatile.Read(ref _published);
+
+		public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7)
+		{
+			long seq = _owner.NextSequence();
+			int slot = global::System.Threading.Interlocked.Increment(ref _reserved) - 1;
+			Record[] records = global::System.Threading.Volatile.Read(ref _records);
+			if (slot >= records.Length) records = GrowToFit(slot);
+
+			records[slot].Seq = seq;
+			records[slot].Name = name;
+			records[slot].P1 = parameter1;
+			records[slot].P2 = parameter2;
+			records[slot].P3 = parameter3;
+			records[slot].P4 = parameter4;
+			records[slot].P5 = parameter5;
+			records[slot].P6 = parameter6;
+			records[slot].P7 = parameter7;
+			records[slot].Boxed = null;
+			global::System.Threading.Interlocked.Increment(ref _published);
+
+			if (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();
+		}
+
+		private Record[] GrowToFit(int slot)
+		{
+			lock (_growLock)
+			{
+				Record[] records = _records;
+				while (slot >= records.Length)
+				{
+					Record[] bigger = new Record[records.Length * 2];
+					global::System.Array.Copy(records, bigger, records.Length);
+					records = bigger;
+				}
+				global::System.Threading.Volatile.Write(ref _records, records);
+				if (_verifiedSlots.Length < records.Length)
+				{
+					bool[] biggerBits = new bool[records.Length];
+					global::System.Array.Copy(_verifiedSlots, biggerBits, _verifiedSlots.Length);
+					_verifiedSlots = biggerBits;
+				}
+				return records;
+			}
+		}
+
+		public void Clear()
+		{
+			lock (_growLock) { global::System.Array.Clear(_records, 0, _published); _reserved = 0; global::System.Threading.Volatile.Write(ref _published, 0); global::System.Array.Clear(_verifiedSlots, 0, _verifiedSlots.Length); }
+		}
+
+		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
+		{
+			lock (_growLock)
+			{
+				int n = _published;
+				Record[] records = _records;
+				for (int i = 0; i < n; i++)
+				{
+					ref Record r = ref records[i];
+					r.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7);
+					dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));
+				}
+			}
+		}
+
+		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
+		{
+			lock (_growLock)
+			{
+				int n = _published;
+				Record[] records = _records;
+				bool[] verified = _verifiedSlots;
+				for (int i = 0; i < n; i++)
+				{
+					if (verified[i]) continue;
+					ref Record r = ref records[i];
+					r.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7);
+					dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));
+				}
+			}
+		}
+
+		public int ConsumeMatching(global::Mockolate.Parameters.IParameterMatch<T1> match1, global::Mockolate.Parameters.IParameterMatch<T2> match2, global::Mockolate.Parameters.IParameterMatch<T3> match3, global::Mockolate.Parameters.IParameterMatch<T4> match4, global::Mockolate.Parameters.IParameterMatch<T5> match5, global::Mockolate.Parameters.IParameterMatch<T6> match6, global::Mockolate.Parameters.IParameterMatch<T7> match7)
+		{
+			int matches = 0;
+			lock (_growLock)
+			{
+				int n = _published;
+				Record[] records = _records;
+				bool[] verified = _verifiedSlots;
+				for (int i = 0; i < n; i++)
+				{
+					ref Record r = ref records[i];
+					if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5) && match6.Matches(r.P6) && match7.Matches(r.P7))
+					{
+						matches++;
+						verified[i] = true;
+					}
+				}
+			}
+
+			return matches;
+		}
+
+		private struct Record
+		{
+			public long Seq;
+			public string Name;
+			public T1 P1;
+			public T2 P2;
+			public T3 P3;
+			public T4 P4;
+			public T5 P5;
+			public T6 P6;
+			public T7 P7;
+			public global::Mockolate.Interactions.IInteraction? Boxed;
+		}
+	}
+	/// <summary>
+	///     Per-member buffer for 17-parameter methods, synthesized for arity 17 use sites.
+	/// </summary>
+	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
+	internal sealed class FastMethod17Buffer<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> : global::Mockolate.Internals.IFastMemberBuffer
+	{
+		private readonly global::Mockolate.Internals.FastMockInteractions _owner;
+#if NET10_0_OR_GREATER
+		private readonly global::System.Threading.Lock _growLock = new();
+#else
+		private readonly object _growLock = new();
+#endif
+		private Record[] _records = new Record[4];
+		private bool[] _verifiedSlots = new bool[4];
+		private int _reserved;
+		private int _published;
+
+		internal FastMethod17Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;
 
 		public int Count => global::System.Threading.Volatile.Read(ref _published);
 
@@ -3474,7 +3477,7 @@ namespace Mockolate.Interactions
 			lock (_growLock) { global::System.Array.Clear(_records, 0, _published); _reserved = 0; global::System.Threading.Volatile.Write(ref _published, 0); global::System.Array.Clear(_verifiedSlots, 0, _verifiedSlots.Length); }
 		}
 
-		void IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, IInteraction>> dest)
+		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
 		{
 			lock (_growLock)
 			{
@@ -3483,13 +3486,13 @@ namespace Mockolate.Interactions
 				for (int i = 0; i < n; i++)
 				{
 					ref Record r = ref records[i];
-					r.Boxed ??= new MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7, r.P8, r.P9, r.P10, r.P11, r.P12, r.P13, r.P14, r.P15, r.P16, r.P17);
-					dest.Add(new global::System.ValueTuple<long, IInteraction>(r.Seq, r.Boxed));
+					r.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7, r.P8, r.P9, r.P10, r.P11, r.P12, r.P13, r.P14, r.P15, r.P16, r.P17);
+					dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));
 				}
 			}
 		}
 
-		void IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, IInteraction>> dest)
+		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
 		{
 			lock (_growLock)
 			{
@@ -3500,8 +3503,8 @@ namespace Mockolate.Interactions
 				{
 					if (verified[i]) continue;
 					ref Record r = ref records[i];
-					r.Boxed ??= new MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7, r.P8, r.P9, r.P10, r.P11, r.P12, r.P13, r.P14, r.P15, r.P16, r.P17);
-					dest.Add(new global::System.ValueTuple<long, IInteraction>(r.Seq, r.Boxed));
+					r.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7, r.P8, r.P9, r.P10, r.P11, r.P12, r.P13, r.P14, r.P15, r.P16, r.P17);
+					dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));
 				}
 			}
 		}
@@ -3549,7 +3552,7 @@ namespace Mockolate.Interactions
 			public T15 P15;
 			public T16 P16;
 			public T17 P17;
-			public IInteraction? Boxed;
+			public global::Mockolate.Interactions.IInteraction? Boxed;
 		}
 	}
 }

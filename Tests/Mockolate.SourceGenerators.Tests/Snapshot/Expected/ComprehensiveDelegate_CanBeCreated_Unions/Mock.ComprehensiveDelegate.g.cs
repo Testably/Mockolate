@@ -26,11 +26,11 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
-		private global::Mockolate.MockRegistry MockRegistry { get; }
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 
 		/// <inheritdoc cref="ComprehensiveDelegate" />
-		public ComprehensiveDelegate(global::Mockolate.MockRegistry mockRegistry)
+		public ComprehensiveDelegate(global::Mockolate.Internals.MockRegistry mockRegistry)
 		{
 			this.MockRegistry = mockRegistry;
 		}
@@ -219,13 +219,13 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate> IMockForComprehensiveDelegate.Monitor()
-			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveDelegate(new global::Mockolate.MockRegistry(this.MockRegistry, interactions)));
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveDelegate(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class VerifyMonitorComprehensiveDelegate(global::Mockolate.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForComprehensiveDelegate
+	private sealed class VerifyMonitorComprehensiveDelegate(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForComprehensiveDelegate
 	{
-		private global::Mockolate.MockRegistry MockRegistry { get; } = mockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
 
 		#region IMockVerifyForComprehensiveDelegate
 
@@ -477,7 +477,7 @@ internal static partial class MockExtensionsForComprehensiveDelegate
 		public static global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate CreateMock(global::Mockolate.MockBehavior? mockBehavior = null, params global::System.Action<global::Mockolate.Mock.IMockSetupForComprehensiveDelegate>[] setups)
 		{
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
-			var mockRegistry = new global::Mockolate.MockRegistry(mockBehavior, new global::Mockolate.Interactions.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
+			var mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
 			global::Mockolate.Mock.ComprehensiveDelegate mockTarget = new global::Mockolate.Mock.ComprehensiveDelegate(mockRegistry);
 			if (setups.Length > 0)
 			{

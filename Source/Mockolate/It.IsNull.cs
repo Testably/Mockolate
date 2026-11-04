@@ -16,15 +16,14 @@ public partial class It
 	///     <see cref="IsNotNull{T}(string)" />.
 	/// </remarks>
 	/// <typeparam name="T">The declared type of the parameter. Should be a reference type or a <see cref="System.Nullable{T}" />; for other value types this matcher never matches.</typeparam>
-	/// <param name="toString">Optional override for the matcher's <see cref="object.ToString" /> rendering, used in failure messages.</param>
 	/// <returns>A parameter matcher that only accepts <see langword="null" />.</returns>
-	public static IParameterWithCallback<T> IsNull<T>(string? toString = null)
-		=> toString is null ? NullParameterMatch<T>.Shared : new NullParameterMatch<T>(toString);
+	public static IParameterWithCallback<T> IsNull<T>()
+		=> NullParameterMatch<T>.Shared;
 
 #if !DEBUG
 	[System.Diagnostics.DebuggerNonUserCode]
 #endif
-	private class NullParameterMatch<T>(string? toString) : TypedMatch<T>
+	internal class NullParameterMatch<T>(string? toString) : TypedMatch<T>
 	{
 		internal static readonly NullParameterMatch<T> Shared = new SharedNullParameterMatch();
 

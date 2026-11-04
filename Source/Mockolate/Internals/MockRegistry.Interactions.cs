@@ -7,7 +7,7 @@ using Mockolate.Exceptions;
 using Mockolate.Interactions;
 using Mockolate.Setup;
 
-namespace Mockolate;
+namespace Mockolate.Internals;
 
 public partial class MockRegistry
 {

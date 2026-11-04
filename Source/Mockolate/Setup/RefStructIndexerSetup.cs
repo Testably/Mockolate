@@ -64,7 +64,7 @@ public sealed class RefStructIndexerSetup<TValue, T> : MethodSetup, IRefStructIn
 	///     The combined setup itself is not registered directly with the registry; only
 	///     <see cref="Getter" /> and <see cref="Setter" /> are. This override exists to satisfy the
 	///     abstract contract and returns <see langword="false" /> so the combined instance never
-	///     participates in <see cref="MockRegistry.GetMethodSetups{T}" /> lookups.
+	///     participates in <see cref="Internals.MockRegistry.GetMethodSetups{T}" /> lookups.
 	/// </remarks>
 	protected override bool MatchesInteraction(Interactions.IMethodInteraction interaction) => false;
 

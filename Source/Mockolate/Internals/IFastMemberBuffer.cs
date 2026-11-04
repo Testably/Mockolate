@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.ComponentModel;
+using Mockolate.Interactions;
 
-namespace Mockolate.Interactions;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Per-member typed-storage contract for <see cref="FastMockInteractions" />. Each mocked member
@@ -10,6 +12,7 @@ namespace Mockolate.Interactions;
 ///     The contract is arity-agnostic so the runtime never has to pattern-match on the typed
 ///     buffer to enumerate or clear it.
 /// </summary>
+[EditorBrowsable(EditorBrowsableState.Never)]
 public interface IFastMemberBuffer
 {
 	/// <summary>

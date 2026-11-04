@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Mockolate.Interactions;
+using Mockolate.Internals;
 using Mockolate.Parameters;
 
 namespace Mockolate.Verify;

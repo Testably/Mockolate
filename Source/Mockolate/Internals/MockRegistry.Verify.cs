@@ -4,12 +4,11 @@ using System.Diagnostics;
 using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
-using Mockolate.Internals;
 using Mockolate.Parameters;
 using Mockolate.Setup;
 using Mockolate.Verify;
 
-namespace Mockolate;
+namespace Mockolate.Internals;
 
 public partial class MockRegistry
 {
