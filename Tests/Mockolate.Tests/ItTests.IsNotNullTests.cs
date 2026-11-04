@@ -51,17 +51,6 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithCustomValue_ShouldReturnCustomValue()
-		{
-			IParameter<string> sut = It.IsNotNull<string>("custom");
-			string expectedValue = "custom";
-
-			string? result = sut.ToString();
-
-			await That(result).IsEqualTo(expectedValue);
-		}
-
-		[Test]
 		public async Task WhenTypeDoesNotMatch_ShouldReturnTrue()
 		{
 			MyFlavor flavor = MyFlavor.Dark;

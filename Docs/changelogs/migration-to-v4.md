@@ -61,6 +61,8 @@ The generated `ParameterArg<T>` type relies on `UnionAttribute`, `OverloadResolu
 ## Removed APIs
 
 - **`IMockBehaviorInitializer`:** the empty marker interface in the `Mockolate.Behavior` namespace was never used by Mockolate and is removed. Remove any implementation of it; it had no effect.
+- **`toString` parameter of `It.IsNull<T>()` and `It.IsNotNull<T>()`:** the optional parameter only replaced the matcher's description in failure messages and is removed. Remove the argument; failure messages show `It.IsNull<T>()` or `It.IsNotNull<T>()`.
+- **Infrastructure for generated code:** `MockRegistry`, `FastMockInteractions`, the `Fast*Buffer` types, `Callbacks<T>` and the other types that only generated code calls moved to the `Mockolate.Internals` namespace, and members that generated code does not need are no longer public. `It.IsValue` is removed. These types have no compatibility guarantee; use `sut.Mock` instead. If you access `IMock.MockRegistry`, add `using Mockolate.Internals;`.
 
 ## New in v4
 
