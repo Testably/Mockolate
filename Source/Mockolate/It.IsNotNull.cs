@@ -16,15 +16,14 @@ public partial class It
 	///     <typeparamref name="T" /> also match - their very presence proves they aren't <see langword="null" />.
 	/// </remarks>
 	/// <typeparam name="T">The declared type of the parameter.</typeparam>
-	/// <param name="toString">Optional override for the matcher's <see cref="object.ToString" /> rendering, used in failure messages.</param>
 	/// <returns>A parameter matcher that accepts every non-<see langword="null" /> argument.</returns>
-	public static IParameterWithCallback<T> IsNotNull<T>(string? toString = null)
-		=> toString is null ? NotNullParameterMatch<T>.Shared : new NotNullParameterMatch<T>(toString);
+	public static IParameterWithCallback<T> IsNotNull<T>()
+		=> NotNullParameterMatch<T>.Shared;
 
 #if !DEBUG
 	[System.Diagnostics.DebuggerNonUserCode]
 #endif
-	private class NotNullParameterMatch<T>(string? toString) : TypedMatch<T>
+	private class NotNullParameterMatch<T> : TypedMatch<T>
 	{
 		internal static readonly NotNullParameterMatch<T> Shared = new SharedNotNullParameterMatch();
 
@@ -35,15 +34,15 @@ public partial class It
 		protected override bool MatchesOfDifferentType(object? value) => true;
 
 		/// <inheritdoc cref="object.ToString()" />
-		public override string ToString() => toString ?? $"It.IsNotNull<{typeof(T).FormatType()}>()";
+		public override string ToString() => $"It.IsNotNull<{typeof(T).FormatType()}>()";
 
 #if !DEBUG
 		[System.Diagnostics.DebuggerNonUserCode]
 #endif
-		private sealed class SharedNotNullParameterMatch() : NotNullParameterMatch<T>(null)
+		private sealed class SharedNotNullParameterMatch : NotNullParameterMatch<T>
 		{
 			protected override IParameterWithCallback<T> AddCallback(Action<T> callback)
-				=> ((IParameterWithCallback<T>)new NotNullParameterMatch<T>(null)).Do(callback);
+				=> ((IParameterWithCallback<T>)new NotNullParameterMatch<T>()).Do(callback);
 		}
 	}
 }

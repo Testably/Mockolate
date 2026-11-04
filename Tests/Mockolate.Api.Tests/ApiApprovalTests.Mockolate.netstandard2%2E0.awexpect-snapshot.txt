@@ -89,7 +89,7 @@ namespace Mockolate
         public static Mockolate.Parameters.IParameterWithCallback<bool> IsFalse() { }
         public static Mockolate.It.IInRangeParameter<T> IsInRange<T>(T minimum, T maximum, [System.Runtime.CompilerServices.CallerArgumentExpression("minimum")] string doNotPopulateThisValue1 = "", [System.Runtime.CompilerServices.CallerArgumentExpression("maximum")] string doNotPopulateThisValue2 = "") where T : System.IComparable<T> { }
         public static Mockolate.It.IIsNotParameter<T> IsNot<T>(T value, [System.Runtime.CompilerServices.CallerArgumentExpression("value")] string doNotPopulateThisValue = "") { }
-        public static Mockolate.Parameters.IParameterWithCallback<T> IsNotNull<T>(string? toString = null) { }
+        public static Mockolate.Parameters.IParameterWithCallback<T> IsNotNull<T>() { }
         public static Mockolate.It.IIsNotOneOfParameter<T> IsNotOneOf<T>(params System.Collections.Generic.IEnumerable<T> values) { }
         public static Mockolate.Parameters.IParameterWithCallback<T> IsNull<T>() { }
         public static Mockolate.It.IIsOneOfParameter<T> IsOneOf<T>(params System.Collections.Generic.IEnumerable<T> values) { }
