@@ -19,7 +19,7 @@ namespace Mockolate.Interactions;
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-public sealed class FastPropertyGetterBuffer : IFastMemberBuffer
+internal sealed class FastPropertyGetterBuffer : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
 	private readonly ChunkedSlotStorage<Record> _storage = new();
@@ -138,7 +138,7 @@ public sealed class FastPropertyGetterBuffer : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-public sealed class FastPropertySetterBuffer<T> : IFastMemberBuffer
+internal sealed class FastPropertySetterBuffer<T> : IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
 	private readonly ChunkedSlotStorage<Record> _storage = new();

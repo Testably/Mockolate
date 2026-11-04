@@ -24,7 +24,7 @@ public partial class MockRegistry
 	/// <param name="predicate">Argument predicate applied to each matching interaction.</param>
 	/// <param name="expectation">Factory producing the expectation description used in failure messages.</param>
 	/// <returns>A verification result exposing <c>AnyParameters()</c> in addition to the usual terminators.</returns>
-	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, TMethod>(T subject, string methodName, Func<TMethod, bool> predicate, Func<string> expectation) where TMethod : IMethodInteraction
+	internal VerificationResult<T>.IgnoreParameters VerifyMethod<T, TMethod>(T subject, string methodName, Func<TMethod, bool> predicate, Func<string> expectation) where TMethod : IMethodInteraction
 	{
 		return new VerificationResult<T>.IgnoreParameters(
 			subject,
@@ -114,7 +114,7 @@ public partial class MockRegistry
 	/// <param name="subject">The verification facade the result is bound to.</param>
 	/// <param name="memberId">The generator-emitted member id for the property getter.</param>
 	/// <param name="propertyName">The simple property name.</param>
-	public VerificationResult<T> VerifyProperty<T>(T subject, int memberId, string propertyName)
+	internal VerificationResult<T> VerifyProperty<T>(T subject, int memberId, string propertyName)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is null)
@@ -167,7 +167,7 @@ public partial class MockRegistry
 	/// <param name="memberId">The generator-emitted member id for the property setter.</param>
 	/// <param name="propertyName">The simple property name.</param>
 	/// <param name="value">Parameter matcher evaluated against the assigned value.</param>
-	public VerificationResult<TSubject> VerifyProperty<TSubject, TValue>(TSubject subject, int memberId,
+	internal VerificationResult<TSubject> VerifyProperty<TSubject, TValue>(TSubject subject, int memberId,
 		string propertyName, IParameterMatch<TValue> value)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
@@ -343,7 +343,7 @@ public partial class MockRegistry
 	/// <param name="subject">The verification facade the result is bound to.</param>
 	/// <param name="memberId">The generator-emitted member id for the event subscribe.</param>
 	/// <param name="eventName">The simple event name.</param>
-	public VerificationResult<T> SubscribedTo<T>(T subject, int memberId, string eventName)
+	internal VerificationResult<T> SubscribedTo<T>(T subject, int memberId, string eventName)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is null)
@@ -386,7 +386,7 @@ public partial class MockRegistry
 	/// <param name="subject">The verification facade the result is bound to.</param>
 	/// <param name="memberId">The generator-emitted member id for the event unsubscribe.</param>
 	/// <param name="eventName">The simple event name.</param>
-	public VerificationResult<T> UnsubscribedFrom<T>(T subject, int memberId, string eventName)
+	internal VerificationResult<T> UnsubscribedFrom<T>(T subject, int memberId, string eventName)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is null)
@@ -595,7 +595,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for property getter accesses.
 	/// </summary>
-	public VerificationResult<T> VerifyPropertyTyped<T>(T subject, int memberId, string propertyName)
+	internal VerificationResult<T> VerifyPropertyTyped<T>(T subject, int memberId, string propertyName)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is FastPropertyGetterBuffer typed)
@@ -612,7 +612,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for property setter accesses.
 	/// </summary>
-	public VerificationResult<TSubject> VerifyPropertyTyped<TSubject, TValue>(TSubject subject, int memberId,
+	internal VerificationResult<TSubject> VerifyPropertyTyped<TSubject, TValue>(TSubject subject, int memberId,
 		string propertyName, IParameterMatch<TValue> value)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
@@ -630,7 +630,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for 1-key indexer getter.
 	/// </summary>
-	public VerificationResult<T> IndexerGotTyped<T, T1>(T subject, int memberId,
+	internal VerificationResult<T> IndexerGotTyped<T, T1>(T subject, int memberId,
 		IParameterMatch<T1> match1, Func<string> parametersDescription)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
@@ -650,7 +650,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for 2-key indexer getter.
 	/// </summary>
-	public VerificationResult<T> IndexerGotTyped<T, T1, T2>(T subject, int memberId,
+	internal VerificationResult<T> IndexerGotTyped<T, T1, T2>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, Func<string> parametersDescription)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
@@ -670,7 +670,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for 3-key indexer getter.
 	/// </summary>
-	public VerificationResult<T> IndexerGotTyped<T, T1, T2, T3>(T subject, int memberId,
+	internal VerificationResult<T> IndexerGotTyped<T, T1, T2, T3>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
 		Func<string> parametersDescription)
 	{
@@ -691,7 +691,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for 4-key indexer getter.
 	/// </summary>
-	public VerificationResult<T> IndexerGotTyped<T, T1, T2, T3, T4>(T subject, int memberId,
+	internal VerificationResult<T> IndexerGotTyped<T, T1, T2, T3, T4>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		Func<string> parametersDescription)
 	{
@@ -712,7 +712,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for 1-key indexer setter.
 	/// </summary>
-	public VerificationResult<T> IndexerSetTyped<T, T1, TValue>(T subject, int memberId,
+	internal VerificationResult<T> IndexerSetTyped<T, T1, TValue>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<TValue> value, Func<string> parametersDescription)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
@@ -732,7 +732,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for 2-key indexer setter.
 	/// </summary>
-	public VerificationResult<T> IndexerSetTyped<T, T1, T2, TValue>(T subject, int memberId,
+	internal VerificationResult<T> IndexerSetTyped<T, T1, T2, TValue>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
 		IParameterMatch<TValue> value, Func<string> parametersDescription)
 	{
@@ -753,7 +753,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for 3-key indexer setter.
 	/// </summary>
-	public VerificationResult<T> IndexerSetTyped<T, T1, T2, T3, TValue>(T subject, int memberId,
+	internal VerificationResult<T> IndexerSetTyped<T, T1, T2, T3, TValue>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
 		IParameterMatch<TValue> value, Func<string> parametersDescription)
 	{
@@ -774,7 +774,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for 4-key indexer setter.
 	/// </summary>
-	public VerificationResult<T> IndexerSetTyped<T, T1, T2, T3, T4, TValue>(T subject, int memberId,
+	internal VerificationResult<T> IndexerSetTyped<T, T1, T2, T3, T4, TValue>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		IParameterMatch<TValue> value, Func<string> parametersDescription)
 	{
@@ -795,7 +795,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for event subscribe.
 	/// </summary>
-	public VerificationResult<T> SubscribedToTyped<T>(T subject, int memberId, string eventName)
+	internal VerificationResult<T> SubscribedToTyped<T>(T subject, int memberId, string eventName)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is FastEventBuffer typed)
@@ -812,7 +812,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Typed fast-path Verify for event unsubscribe.
 	/// </summary>
-	public VerificationResult<T> UnsubscribedFromTyped<T>(T subject, int memberId, string eventName)
+	internal VerificationResult<T> UnsubscribedFromTyped<T>(T subject, int memberId, string eventName)
 	{
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is FastEventBuffer typed)

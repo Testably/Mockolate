@@ -46,39 +46,6 @@ public sealed partial class VerificationResultTests
 	}
 
 	[Test]
-	public async Task CustomVerificationResult_ShouldKeepExpectation()
-	{
-		IMockInteractions interactions = new FastMockInteractions(0);
-		VerificationResult<int> sut = new(1, interactions, _ => false, "foo");
-
-		string result = ((IVerificationResult)sut).Expectation;
-
-		await That(result).IsEqualTo("foo");
-	}
-
-	[Test]
-	public async Task CustomVerificationResult_WithFuncExpectation_ShouldKeepExpectation()
-	{
-		IMockInteractions interactions = new FastMockInteractions(0);
-		VerificationResult<int> sut = new(1, interactions, _ => false, () => "foo");
-
-		string result = ((IVerificationResult)sut).Expectation;
-
-		await That(result).IsEqualTo("foo");
-	}
-
-	[Test]
-	public async Task CustomVerificationResult_WithIMockInteractions_ShouldExposeInteractions()
-	{
-		IMockInteractions interactions = new FastMockInteractions(0);
-		VerificationResult<int> sut = new(1, interactions, _ => false, "foo");
-
-		IMockInteractions exposed = ((IVerificationResult)sut).Interactions;
-
-		await That(exposed).IsSameAs(interactions);
-	}
-
-	[Test]
 	public async Task VerificationResult_Got_ShouldHaveExpectedValue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();

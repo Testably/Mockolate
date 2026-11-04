@@ -62,7 +62,7 @@ public partial class MockRegistry
 	///     Registers <paramref name="indexerSetup" /> for the default scenario.
 	/// </summary>
 	/// <param name="indexerSetup">The indexer setup produced by the fluent <c>Setup[...]</c> API.</param>
-	public void SetupIndexer(IndexerSetup indexerSetup)
+	internal void SetupIndexer(IndexerSetup indexerSetup)
 		=> SetupIndexer("", indexerSetup);
 
 	/// <summary>
@@ -70,7 +70,7 @@ public partial class MockRegistry
 	/// </summary>
 	/// <param name="scenario">The scenario name the setup applies to. The setup only applies while <see cref="Scenario" /> equals <paramref name="scenario" /> and does not leak into the default bucket.</param>
 	/// <param name="indexerSetup">The indexer setup produced by the fluent <c>Setup[...]</c> API.</param>
-	public void SetupIndexer(string scenario, IndexerSetup indexerSetup)
+	private void SetupIndexer(string scenario, IndexerSetup indexerSetup)
 		=> Setup.GetOrCreateScenario(scenario).Indexers.Add(indexerSetup);
 
 	/// <summary>
@@ -156,7 +156,7 @@ public partial class MockRegistry
 	///     Registers <paramref name="methodSetup" /> for the default scenario.
 	/// </summary>
 	/// <param name="methodSetup">The method setup produced by the fluent <c>Setup.MethodName(...)</c> API.</param>
-	public void SetupMethod(MethodSetup methodSetup)
+	internal void SetupMethod(MethodSetup methodSetup)
 		=> SetupMethod("", methodSetup);
 
 	/// <summary>
@@ -164,7 +164,7 @@ public partial class MockRegistry
 	/// </summary>
 	/// <param name="scenario">The scenario name the setup applies to. The setup only applies while <see cref="Scenario" /> equals <paramref name="scenario" /> and does not leak into the default bucket.</param>
 	/// <param name="methodSetup">The method setup produced by the fluent <c>Setup.MethodName(...)</c> API.</param>
-	public void SetupMethod(string scenario, MethodSetup methodSetup)
+	private void SetupMethod(string scenario, MethodSetup methodSetup)
 		=> Setup.GetOrCreateScenario(scenario).Methods.Add(methodSetup);
 
 	/// <summary>
@@ -252,7 +252,7 @@ public partial class MockRegistry
 	///     Registers <paramref name="propertySetup" /> for the default scenario.
 	/// </summary>
 	/// <param name="propertySetup">The property setup produced by the fluent <c>Setup.PropertyName</c> API.</param>
-	public void SetupProperty(PropertySetup propertySetup)
+	internal void SetupProperty(PropertySetup propertySetup)
 		=> SetupProperty("", propertySetup);
 
 	/// <summary>
@@ -260,7 +260,7 @@ public partial class MockRegistry
 	/// </summary>
 	/// <param name="scenario">The scenario name the setup applies to. The setup only applies while <see cref="Scenario" /> equals <paramref name="scenario" /> and does not leak into the default bucket.</param>
 	/// <param name="propertySetup">The property setup produced by the fluent <c>Setup.PropertyName</c> API.</param>
-	public void SetupProperty(string scenario, PropertySetup propertySetup)
+	private void SetupProperty(string scenario, PropertySetup propertySetup)
 		=> Setup.GetOrCreateScenario(scenario).Properties.Add(propertySetup);
 
 	/// <summary>
@@ -338,7 +338,7 @@ public partial class MockRegistry
 	///     Registers <paramref name="eventSetup" /> for the default scenario.
 	/// </summary>
 	/// <param name="eventSetup">The event setup produced by the fluent <c>Setup.EventName</c> API.</param>
-	public void SetupEvent(EventSetup eventSetup)
+	internal void SetupEvent(EventSetup eventSetup)
 		=> SetupEvent("", eventSetup);
 
 	/// <summary>
@@ -346,7 +346,7 @@ public partial class MockRegistry
 	/// </summary>
 	/// <param name="scenario">The scenario name the setup applies to. The setup only applies while <see cref="Scenario" /> equals <paramref name="scenario" /> and does not leak into the default bucket.</param>
 	/// <param name="eventSetup">The event setup produced by the fluent <c>Setup.EventName</c> API.</param>
-	public void SetupEvent(string scenario, EventSetup eventSetup)
+	private void SetupEvent(string scenario, EventSetup eventSetup)
 		=> Setup.GetOrCreateScenario(scenario).Events.Add(eventSetup);
 
 	/// <summary>

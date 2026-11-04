@@ -202,26 +202,6 @@ public sealed partial class SetupIndexerTests
 	}
 
 	[Test]
-	public async Task WhenTypeOfGetIndexerDoesNotMatch_ShouldReturnDefaultValue()
-	{
-		IIndexerService sut = IIndexerService.CreateMock();
-		sut.Mock.Setup[It.IsAny<int>()].Returns("foo");
-		MockRegistry registry = ((IMock)sut).MockRegistry;
-
-		IndexerSetup? stringSetup = registry.GetIndexerSetup<IndexerSetup>(s => true);
-		IndexerGetterAccess<int> access1 = new(1);
-		IndexerGetterAccess<int> access2 = new(1);
-		string result1 = registry.ApplyIndexerGetter<string>(access1, stringSetup, () => "", 0);
-		// Use a different signature index for the int-typed access: each per-signature storage slot
-		// is bound to a single TValue on first access (it is an IndexerValueStorage<TValue>), so
-		// reusing index 0 with TValue=int would now throw an InvalidOperationException.
-		int result2 = registry.ApplyIndexerGetter(access2, stringSetup, () => 0, 100);
-
-		await That(result1).IsEqualTo("foo");
-		await That(result2).IsEqualTo(0);
-	}
-
-	[Test]
 	public async Task WithoutSetup_ShouldStoreLastValue()
 	{
 		IIndexerService sut = IIndexerService.CreateMock();
@@ -453,22 +433,6 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task ApplyIndexerGetter_WithGenerator_WithNegativeSignatureIndex_ShouldThrow()
-		{
-			IIndexerService sut = IIndexerService.CreateMock();
-			MockRegistry registry = ((IMock)sut).MockRegistry;
-			IndexerGetterAccess<int> access = new(1);
-
-			void Act()
-			{
-				registry.ApplyIndexerGetter<string>(access, null, () => "base", -1);
-			}
-
-			await That(Act).Throws<ArgumentOutOfRangeException>()
-				.WithParamName("signatureIndex");
-		}
-
-		[Test]
 		public async Task ApplyIndexerSetter_WithNegativeSignatureIndex_ShouldThrow()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -478,24 +442,6 @@ public sealed partial class SetupIndexerTests
 			void Act()
 			{
 				registry.ApplyIndexerSetter<string>(access, null, "foo", -1);
-			}
-
-			await That(Act).Throws<ArgumentOutOfRangeException>()
-				.WithParamName("signatureIndex");
-		}
-
-		[Test]
-		public async Task ApplyIndexerSetup_WithNegativeSignatureIndex_ShouldThrow()
-		{
-			IIndexerService sut = IIndexerService.CreateMock();
-			sut.Mock.Setup[It.IsAny<int>()].Returns("foo");
-			MockRegistry registry = ((IMock)sut).MockRegistry;
-			IndexerSetup setup = registry.GetIndexerSetup<IndexerSetup>(s => true)!;
-			IndexerGetterAccess<int> access = new(1);
-
-			void Act()
-			{
-				registry.ApplyIndexerSetup<string>(access, setup, -1);
 			}
 
 			await That(Act).Throws<ArgumentOutOfRangeException>()
