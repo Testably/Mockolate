@@ -936,6 +936,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -1094,7 +1100,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -1256,7 +1263,8 @@ window.BENCHMARK_DATA = {
           293.40065100987755,
           288.5225689252218,
           192.25682717959086,
-          366.5493694941203
+          366.5493694941203,
+          257.9443990389506
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1417,6 +1425,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592,
           1592,
@@ -1593,7 +1602,8 @@ window.BENCHMARK_DATA = {
           103957.50416666667,
           103639.6522623698,
           31618.44760131836,
-          74363.20009068081
+          74363.20009068081,
+          36908.16186116536
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1760,7 +1770,8 @@ window.BENCHMARK_DATA = {
           9064,
           9064,
           9063,
-          9058
+          9058,
+          9054
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1930,7 +1941,8 @@ window.BENCHMARK_DATA = {
           4401.6820505778,
           4411.303000386556,
           2486.1039644877114,
-          4535.375265938895
+          4535.375265938895,
+          3807.2346300760905
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2091,6 +2103,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2267,7 +2280,8 @@ window.BENCHMARK_DATA = {
           4314.742598900428,
           4348.530887058803,
           2505.0562512534007,
-          4493.930472310384
+          4493.930472310384,
+          2853.626109568278
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2434,7 +2448,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6930,
-          6919
+          6919,
+          6924
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2604,7 +2619,8 @@ window.BENCHMARK_DATA = {
           223.26663596289498,
           214.8471007687705,
           142.06945767769446,
-          229.04550206661224
+          229.04550206661224,
+          177.3716778596242
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2770,6 +2786,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616
         ],
@@ -2941,7 +2958,8 @@ window.BENCHMARK_DATA = {
           455.50019855499266,
           468.634088243757,
           352.00359531811307,
-          614.1829153060913
+          614.1829153060913,
+          435.5658322016398
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3102,6 +3120,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4058,6 +4077,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -4216,7 +4241,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -4378,7 +4404,8 @@ window.BENCHMARK_DATA = {
           283.52810904184975,
           355.0077907562256,
           247.92445074717205,
-          280.3047614097595
+          280.3047614097595,
+          183.41668256123862
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4539,6 +4566,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728,
           1728,
@@ -4715,7 +4743,8 @@ window.BENCHMARK_DATA = {
           15094.450260416666,
           13924.317114257812,
           9916.20210484096,
-          15157.652369907924
+          15157.652369907924,
+          7609.9301523061895
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4882,7 +4911,8 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12761,
-          12761
+          12761,
+          12760
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5052,7 +5082,8 @@ window.BENCHMARK_DATA = {
           5808.791439819336,
           5641.8437291463215,
           3953.2268107096356,
-          5655.311745234898
+          5655.311745234898,
+          2890.643433979579
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5213,6 +5244,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -5389,7 +5421,8 @@ window.BENCHMARK_DATA = {
           226222.96469726562,
           184441.96487630208,
           104917.86033528646,
-          222466.74064127603
+          222466.74064127603,
+          105941.47786771334
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5556,7 +5589,8 @@ window.BENCHMARK_DATA = {
           15618,
           15619,
           15579,
-          15618
+          15618,
+          15630
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5726,7 +5760,8 @@ window.BENCHMARK_DATA = {
           177.2094450791677,
           218.74971243540446,
           161.5647304058075,
-          179.57731091181438
+          179.57731091181438,
+          110.92109416325887
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5867,6 +5902,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -6063,7 +6099,8 @@ window.BENCHMARK_DATA = {
           177.1922587076823,
           230.787553580602,
           157.1711869398753,
-          185.58969909350077
+          185.58969909350077,
+          110.31721276044846
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6197,6 +6234,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -7180,6 +7218,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -7338,7 +7382,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -7500,7 +7545,8 @@ window.BENCHMARK_DATA = {
           889.7125863393147,
           953.9986998240153,
           821.1068165852473,
-          691.3491800308227
+          691.3491800308227,
+          575.6421167373658
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7661,6 +7707,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832,
           3832,
@@ -7837,7 +7884,8 @@ window.BENCHMARK_DATA = {
           232756.85006510417,
           229591.07369290866,
           225793.84337439903,
-          139450.29264322916
+          139450.29264322916,
+          69698.46577336238
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8004,7 +8052,8 @@ window.BENCHMARK_DATA = {
           20884,
           20692,
           20804,
-          20804
+          20804,
+          20898
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8174,7 +8223,8 @@ window.BENCHMARK_DATA = {
           10418.099943978446,
           10630.651528494698,
           10411.168753051757,
-          7398.55519917806
+          7398.55519917806,
+          5598.409770085262
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8341,6 +8391,7 @@ window.BENCHMARK_DATA = {
           13088,
           13032,
           13088,
+          13032,
           13032
         ],
         "borderColor": "#5E2750",
@@ -8511,7 +8562,8 @@ window.BENCHMARK_DATA = {
           11483.947267972506,
           11420.782601928711,
           10754.14619915302,
-          7458.434225463867
+          7458.434225463867,
+          5472.327402750651
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8672,6 +8724,7 @@ window.BENCHMARK_DATA = {
           13948,
           13954,
           13954,
+          13593,
           13593,
           13593,
           13593,
@@ -8848,7 +8901,8 @@ window.BENCHMARK_DATA = {
           303.4171221596854,
           319.16877873738605,
           296.68424399693805,
-          248.2451124986013
+          248.2451124986013,
+          200.34221294720967
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9009,6 +9063,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -9965,6 +10020,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -10123,7 +10184,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -10285,7 +10347,8 @@ window.BENCHMARK_DATA = {
           2374.650614674886,
           2419.6989916287935,
           2304.0232396443685,
-          1911.3009403773717
+          1911.3009403773717,
+          1743.296314239502
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10446,6 +10509,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912,
           4912,
@@ -10622,7 +10686,8 @@ window.BENCHMARK_DATA = {
           240954.29979529747,
           244182.126499721,
           238683.6279471261,
-          149443.01936222956
+          149443.01936222956,
+          73160.8728922526
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10789,7 +10854,8 @@ window.BENCHMARK_DATA = {
           30491,
           29287,
           30410,
-          30410
+          30410,
+          30490
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10959,7 +11025,8 @@ window.BENCHMARK_DATA = {
           25215.908040364582,
           25804.415592447916,
           25465.622717721122,
-          18560.783462524414
+          18560.783462524414,
+          13510.493182373048
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -11126,6 +11193,7 @@ window.BENCHMARK_DATA = {
           26193,
           26137,
           26697,
+          26137,
           26137
         ],
         "borderColor": "#5E2750",
@@ -11296,7 +11364,8 @@ window.BENCHMARK_DATA = {
           24299.910774739583,
           25140.224802652996,
           23001.619779459634,
-          15823.788283284504
+          15823.788283284504,
+          11484.868956502278
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11463,7 +11532,8 @@ window.BENCHMARK_DATA = {
           33247,
           33247,
           33247,
-          33247
+          33247,
+          33249
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11633,7 +11703,8 @@ window.BENCHMARK_DATA = {
           742.15822874705,
           755.9440560658772,
           717.2650862421308,
-          621.0673935572306
+          621.0673935572306,
+          483.0519430796305
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11794,6 +11865,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -12750,6 +12822,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -12908,7 +12986,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -13070,7 +13149,8 @@ window.BENCHMARK_DATA = {
           195.45280379515427,
           636.7928786277771,
           427.6315315882365,
-          437.5251867430551
+          437.5251867430551,
+          221.53089453379314
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13231,6 +13311,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936,
           1936,
@@ -13407,7 +13488,8 @@ window.BENCHMARK_DATA = {
           57887.85966796875,
           195477.8564828726,
           145094.8978515625,
-          152385.44410807293
+          152385.44410807293,
+          60097.42790876116
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13574,7 +13656,8 @@ window.BENCHMARK_DATA = {
           14920,
           14902,
           14915,
-          14915
+          14915,
+          14920
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13744,7 +13827,8 @@ window.BENCHMARK_DATA = {
           2912.4440095084055,
           5999.059625752767,
           6117.373592122396,
-          6534.203831263951
+          6534.203831263951,
+          3175.794727071126
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13905,6 +13989,7 @@ window.BENCHMARK_DATA = {
           9280,
           9336,
           9280,
+          9320,
           9320,
           9320,
           9320,
@@ -14081,7 +14166,8 @@ window.BENCHMARK_DATA = {
           2868.0031285967148,
           5655.8720942905975,
           5514.333977254232,
-          5562.269921366374
+          5562.269921366374,
+          2870.5204755147297
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14248,7 +14334,8 @@ window.BENCHMARK_DATA = {
           8104,
           8103,
           8147,
-          8147
+          8147,
+          8160
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14418,7 +14505,8 @@ window.BENCHMARK_DATA = {
           117.1991636912028,
           191.49387214734003,
           201.29436259610313,
-          207.41172444820404
+          207.41172444820404,
+          112.67578936417898
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14584,6 +14672,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728
         ],
@@ -14755,7 +14844,8 @@ window.BENCHMARK_DATA = {
           266.44954182306924,
           554.4309750239055,
           601.697824205671,
-          604.1552943502154
+          604.1552943502154,
+          301.8941381454468
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -14889,6 +14979,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -15872,6 +15963,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -16030,7 +16127,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -16192,7 +16290,8 @@ window.BENCHMARK_DATA = {
           448.5376396519797,
           625.879505666097,
           867.2121771403721,
-          858.9501743952434
+          858.9501743952434,
+          471.6808890660604
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16353,6 +16452,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152,
           2152,
@@ -16529,7 +16629,8 @@ window.BENCHMARK_DATA = {
           57460.73246111189,
           199096.30390276227,
           152829.22127278647,
-          156415.9711350661
+          156415.9711350661,
+          61923.7111554827
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16695,6 +16796,7 @@ window.BENCHMARK_DATA = {
           18901,
           18905,
           18901,
+          18906,
           18906,
           18906
         ],
@@ -16866,7 +16968,8 @@ window.BENCHMARK_DATA = {
           4246.124969991049,
           9389.506107875279,
           8876.053157552084,
-          9477.27206217448
+          9477.27206217448,
+          4670.000818888347
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17032,6 +17135,7 @@ window.BENCHMARK_DATA = {
           12345,
           12344,
           12345,
+          12344,
           12344,
           12344
         ],
@@ -17203,7 +17307,8 @@ window.BENCHMARK_DATA = {
           4329.289336613247,
           8952.484565734863,
           9168.355974324544,
-          9279.40106528146
+          9279.40106528146,
+          4815.850271371694
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17370,7 +17475,8 @@ window.BENCHMARK_DATA = {
           15834,
           15834,
           16396,
-          16396
+          16396,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17540,7 +17646,8 @@ window.BENCHMARK_DATA = {
           284.7574588571276,
           484.10012868245445,
           404.90194521631514,
-          407.9311366875966
+          407.9311366875966,
+          259.99937512079873
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17706,6 +17813,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088
         ],
@@ -17877,7 +17985,8 @@ window.BENCHMARK_DATA = {
           930.5187760761806,
           1312.2150447028023,
           1784.942815653483,
-          1772.096599306379
+          1772.096599306379,
+          1035.1698557535808
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18011,6 +18120,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -18994,6 +19104,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -19152,7 +19268,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -19314,7 +19431,8 @@ window.BENCHMARK_DATA = {
           312.47515290578207,
           518.1840232213339,
           501.37377446492513,
-          321.07124786376954
+          321.07124786376954,
+          1290.9341271718342
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19475,6 +19593,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432,
           2432,
@@ -19651,7 +19770,8 @@ window.BENCHMARK_DATA = {
           5489.071241106306,
           11723.066737583706,
           11051.894679478237,
-          5658.072788783482
+          5658.072788783482,
+          11172.785813551684
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19818,7 +19938,8 @@ window.BENCHMARK_DATA = {
           10584,
           10585,
           10585,
-          10584
+          10584,
+          10585
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19988,7 +20109,8 @@ window.BENCHMARK_DATA = {
           3786.777397664388,
           7676.895345052083,
           7587.362730916341,
-          4116.010515848796
+          4116.010515848796,
+          7994.335784912109
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20149,6 +20271,7 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
+          11664,
           11664,
           11664,
           11664,
@@ -20325,7 +20448,8 @@ window.BENCHMARK_DATA = {
           3827.0114720662436,
           8192.855172729493,
           7800.360832801232,
-          4166.659249441965
+          4166.659249441965,
+          8078.477163461538
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20487,6 +20611,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212,
           11212,
           11212,
@@ -20662,7 +20787,8 @@ window.BENCHMARK_DATA = {
           106.88196419874826,
           159.85069710413615,
           164.96318600972492,
-          118.02260237473708
+          118.02260237473708,
+          177.54422392845154
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20828,6 +20954,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672
         ],
@@ -20999,7 +21126,8 @@ window.BENCHMARK_DATA = {
           313.5607860883077,
           449.25719788869225,
           454.0033738772074,
-          311.1371433394296
+          311.1371433394296,
+          479.47552089691163
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21133,6 +21261,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -22116,6 +22245,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -22274,7 +22409,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -22436,7 +22572,8 @@ window.BENCHMARK_DATA = {
           760.1741065979004,
           1057.1713092803955,
           1024.6592313130698,
-          776.5009858058049
+          776.5009858058049,
+          1057.3394566853842
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22597,6 +22734,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936,
           2936,
@@ -22773,7 +22911,8 @@ window.BENCHMARK_DATA = {
           9314.622047424316,
           18198.86651963454,
           17419.116455078125,
-          9586.29392678397
+          9586.29392678397,
+          17906.70026942662
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22935,6 +23074,7 @@ window.BENCHMARK_DATA = {
           18721,
           18721,
           18520,
+          18521,
           18521,
           18521,
           18521,
@@ -23110,7 +23250,8 @@ window.BENCHMARK_DATA = {
           8526.9782976423,
           17120.057507324218,
           17861.84867553711,
-          9374.597903660366
+          9374.597903660366,
+          18044.248480660575
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23272,6 +23413,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21528,
+          21529,
           21529,
           21529,
           21529,
@@ -23447,7 +23589,8 @@ window.BENCHMARK_DATA = {
           9651.259450639996,
           19966.93584391276,
           19420.741865030923,
-          10440.296095784504
+          10440.296095784504,
+          20527.313064575195
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23609,6 +23752,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801,
           30801,
           30801,
@@ -23784,7 +23928,8 @@ window.BENCHMARK_DATA = {
           254.0317507156959,
           330.6790758450826,
           328.73376156489053,
-          271.5540695373829
+          271.5540695373829,
+          344.6265371526991
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -23950,6 +24095,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960
         ],
@@ -24121,7 +24267,8 @@ window.BENCHMARK_DATA = {
           1182.063137463161,
           1600.4954804738363,
           1549.98767048972,
-          1260.4710096631732
+          1260.4710096631732,
+          1665.1712877909342
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24255,6 +24402,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -25238,6 +25386,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 08:55:07 2026 \u002B0100",
         "message": "chore: pin patched System.Security.Cryptography packages via transitive pinning (#935)"
+      },
+      {
+        "sha": "ea92d6d4d821ddc7f0e50bd5c8feda1302d6acfb",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 4 14:33:08 2026 \u002B0100",
+        "message": "test: exclude Mockolate.Internals from the API snapshots (#938)"
       }
     ],
     "labels": [
@@ -25396,7 +25550,8 @@ window.BENCHMARK_DATA = {
       "837fc193",
       "fd64533c",
       "12bc327b",
-      "888c875c"
+      "888c875c",
+      "ea92d6d4"
     ],
     "datasets": [
       {
@@ -25558,7 +25713,8 @@ window.BENCHMARK_DATA = {
           22.60207208196322,
           18.402057021856308,
           16.779239173730215,
-          18.565687426498958
+          18.565687426498958,
+          18.360957525173824
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -25616,6 +25772,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -25895,7 +26052,8 @@ window.BENCHMARK_DATA = {
           137.15199728012084,
           117.73352032048362,
           87.98766373736518,
-          115.92666292985281
+          115.92666292985281,
+          94.77969667116801
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26061,6 +26219,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504
         ],
@@ -26232,7 +26391,8 @@ window.BENCHMARK_DATA = {
           42.579158638204845,
           38.50420067707697,
           32.991241308359,
-          37.24485977490743
+          37.24485977490743,
+          35.751406069596605
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26366,6 +26526,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -26569,7 +26730,8 @@ window.BENCHMARK_DATA = {
           1343.4410523732504,
           1363.261083984375,
           1313.478104863848,
-          1310.5996140071325
+          1310.5996140071325,
+          1353.266222000122
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -26730,6 +26892,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -26906,7 +27069,8 @@ window.BENCHMARK_DATA = {
           1904.7414728800456,
           2089.07447378976,
           1952.073802057902,
-          1795.9633244832357
+          1795.9633244832357,
+          1830.2929374694825
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -27067,6 +27231,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -27243,7 +27408,8 @@ window.BENCHMARK_DATA = {
           1617.0624989827475,
           1785.1638791402181,
           1733.0488015492758,
-          1534.979822953542
+          1534.979822953542,
+          1568.1272285461425
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -27408,6 +27574,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2764,
+          2755,
           2755,
           2755,
           2755
