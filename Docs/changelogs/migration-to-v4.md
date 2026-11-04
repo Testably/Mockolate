@@ -58,6 +58,11 @@ You can also name the type in a matcher, e.g. `It.Is<TimeSpan>(new(0, 0, 5))`.
 
 The generated `ParameterArg<T>` type relies on `UnionAttribute`, `OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute`, and Mockolate declares those the compilation lacks. If another generator such as PolySharp declares them too, set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>`. See [union parameters](../06-parameter-matching.md#union-parameters-c-15).
 
+## MockBehavior
+
+- **`with { DefaultValue = … }`:** `DefaultValue` can no longer be set with a `with` expression, because that silently dropped the factories registered with `WithDefaultValueFor`. Use `.WithDefaultValueGenerator(…)` instead; it keeps the factories in any order. The other flags still support `with { … }`.
+- **`MockBehaviorExtensions`:** `SkippingBaseClass`, `ThrowingWhenNotSetup`, `SkippingInteractionRecording` and `WithDefaultValueFor<T>` are now instance methods of `MockBehavior` and the static class is removed. Calls like `MockBehavior.Default.SkippingBaseClass()` compile unchanged; only calls through the class name, e.g. `MockBehaviorExtensions.SkippingBaseClass(behavior)`, need to change.
+
 ## Removed APIs
 
 - **`IMockBehaviorInitializer`:** the empty marker interface in the `Mockolate.Behavior` namespace was never used by Mockolate and is removed. Remove any implementation of it; it had no effect.
