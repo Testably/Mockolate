@@ -60,7 +60,7 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Method_TUnitMocks()
 	{
-		Mock<IMyMethodInterface> mock = TUnit.Mocks.Mock.Of<IMyMethodInterface>();
+		Mock<IMyMethodInterface> mock = IMyMethodInterface.Mock();
 		mock.MyFunc(Any<int>()).Returns(true);
 		IMyMethodInterface sut = mock.Object;
 
