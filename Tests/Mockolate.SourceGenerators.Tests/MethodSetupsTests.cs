@@ -44,6 +44,38 @@ public sealed class MethodSetupsTests
 	}
 
 	[Test]
+	public async Task GenerateMethodSetupsForDelegatesWithMoreParameters()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode
+			     {
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = MyFunc.CreateMock();
+			     			_ = MyAction.CreateMock();
+			             }
+			         }
+
+			         public delegate bool MyFunc(int v1, bool v2, double v3, long v4, string v5);
+			         public delegate void MyAction(int v1, bool v2, double v3, long v4, string v5, char v6);
+			     }
+			     """);
+
+		await That(result.Sources).ContainsKey("MethodSetups.g.cs");
+		await That(result.Sources["MethodSetups.g.cs"])
+			.Contains(
+				"internal abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> : global::Mockolate.Setup.MethodSetup")
+			.And
+			.Contains(
+				"internal abstract class VoidMethodSetup<T1, T2, T3, T4, T5, T6> : global::Mockolate.Setup.MethodSetup");
+	}
+
+	[Test]
 	public async Task WhenAllMethodsHaveUpTo4Parameters_ShouldNotGenerateMethodSetups()
 	{
 		GeneratorResult result = Generator

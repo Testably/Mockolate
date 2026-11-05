@@ -417,6 +417,11 @@ public class MockGenerator : IIncrementalGenerator
 					set.Add(new MethodSetupKey(m.Parameters.Count, m.ReturnType == Type.Void));
 				}
 			}
+
+			if (mc.Delegate is { Parameters.Count: > 4, } @delegate)
+			{
+				set.Add(new MethodSetupKey(@delegate.Parameters.Count, @delegate.ReturnType == Type.Void));
+			}
 		}
 
 		MethodSetupKey[] sorted = set.ToArray();
