@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 // ReSharper disable once RedundantUsingDirective
 using System;
 // ReSharper disable once RedundantUsingDirective
@@ -10,114 +11,402 @@ using System.Collections.Generic;
 namespace Build;
 
 /// <summary>
-///     Pure logic for transforming BenchmarkDotNet GitHub-flavored markdown reports
-///     into the body posted as a PR comment.
+///     Pure logic for transforming BenchmarkDotNet reports into the body posted as a PR comment, compared to the
+///     results of <c>main</c> on the benchmark page.
 /// </summary>
 static class BenchmarkReport
 {
+    public const string Heading = "## :rocket: Benchmark Results";
+
+    /// <summary>
+    ///     The number of runs on <c>main</c> whose median is the baseline of the time, as a single run on a shared
+    ///     runner is too noisy.
+    /// </summary>
+    public const int BaselineRuns = 10;
+
+    public const double RelativeChangeThreshold = 0.15;
+
+    /// <summary>
+    ///     Leaves room for the summaries within the limit of a GitHub comment.
+    /// </summary>
+    public const int MaxRawResultsLength = 45000;
+
+    const string BaselineLibrary = "Mockolate";
+    const string StrongWorse = "🔴";
+    const string StrongBetter = "🟢";
+    const string WeakWorse = "🔸";
+    const string WeakBetter = "🔹";
+
     // ReSharper disable once UnusedMember.Global
     public static readonly string[] DefaultColumnsToRemove = ["RatioSD", "Gen0", "Gen1", "Gen2",];
 
-    public static string BuildBody(IReadOnlyList<BenchmarkReportFile> files, string[] columnsToRemove)
+    /// <summary>
+    ///     The source-generated libraries, whose ratio to Mockolate is stable between runs on <c>main</c>, unlike the one to
+    ///     the reflection-based libraries.
+    /// </summary>
+    static readonly string[] ComparedLibraries = ["Imposter", "TUnitMocks",];
+
+    public static string BuildBody(IReadOnlyList<BenchmarkReportFile> files, BenchmarkBaseline? baseline,
+        string[] columnsToRemove)
     {
         StringBuilder sb = new();
-        sb.AppendLine("## :rocket: Benchmark Results");
-        var anyBaselineInjected = false;
-        foreach (var file in files)
+        sb.AppendLine(Heading);
+        if (baseline == null)
         {
-            var baselineRows = LoadBaselineRows(file.BaselineLines, columnsToRemove);
-            var injectBaseline = baselineRows.Count > 0;
-            var count = 0;
-            sb.AppendLine();
-            sb.AppendLine("<details>");
-            sb.AppendLine("<summary>Details</summary>");
-            BenchmarkTableParser parser = new(columnsToRemove);
-            List<TableRow> tableBuffer = new();
-            var tableMeanIndex = -1;
-            foreach (var line in file.ReportLines)
-            {
-                if (line.StartsWith("```"))
-                {
-                    FlushTableBuffer(sb, tableBuffer, tableMeanIndex, baselineRows, injectBaseline,
-                        ref anyBaselineInjected);
-                    tableMeanIndex = -1;
-
-                    count++;
-                    if (count == 1)
-                    {
-                        sb.AppendLine("<pre>");
-                    }
-                    else if (count == 2)
-                    {
-                        sb.AppendLine("</pre>");
-                        sb.AppendLine("</details>");
-                        sb.AppendLine();
-                    }
-
-                    parser.Reset();
-                    continue;
-                }
-
-                if (!parser.TryConsume(line, out var rowIndex, out _, out var filteredTokens))
-                {
-                    FlushTableBuffer(sb, tableBuffer, tableMeanIndex, baselineRows, injectBaseline,
-                        ref anyBaselineInjected);
-                    tableMeanIndex = -1;
-                    sb.AppendLine(line);
-                    continue;
-                }
-
-                if (rowIndex == 0) tableMeanIndex = parser.MeanIndex;
-
-                tableBuffer.Add(new TableRow(rowIndex, filteredTokens));
-            }
-
-            FlushTableBuffer(sb, tableBuffer, tableMeanIndex, baselineRows, injectBaseline, ref anyBaselineInjected);
+            sb.AppendLine("_There are no results of `main` to compare to._");
+        }
+        else
+        {
+            sb.AppendLine(
+                $"Compared to `main` @ `{baseline.Sha.Substring(0, Math.Min(8, baseline.Sha.Length))}`: memory to the latest run, time to the median of the last {BaselineRuns} runs, as the runners differ in speed. " +
+                $"A relative change marks when Mockolate gets more than {FormatPercent(RelativeChangeThreshold).TrimStart('+')} faster or slower relative to " +
+                $"{string.Join(" and ", ComparedLibraries)}: {StrongWorse} / {StrongBetter} against both of them, " +
+                $"{WeakWorse} / {WeakBetter} against only one.");
         }
 
-        if (anyBaselineInjected)
+        sb.AppendLine();
+        HashSet<string> measuredBenchmarks = new();
+        var rawResultsLength = 0;
+        foreach (var file in files)
         {
+            var measurements = ReadMeasurements(file.MeasurementsJson);
+            measuredBenchmarks.UnionWith(measurements.Keys);
+            sb.AppendLine($"### {file.Name}");
+            if (baseline != null)
+            {
+                sb.Append(CreateSummary(measurements, baseline));
+            }
+
+            var rawResults = CreateRawResults(file.ReportLines, columnsToRemove);
+            // The summaries take precedence over the raw results when the comment would get too long.
+            rawResultsLength += rawResults.Length;
+            sb.AppendLine(rawResultsLength <= MaxRawResultsLength
+                ? rawResults
+                : $"_The raw results do not fit into this comment, see the artifact `Benchmarks-{file.Name}` of the workflow run._");
             sb.AppendLine();
-            sb.AppendLine(
-                "> `baseline*` rows show the corresponding Mockolate benchmark from the most recent successful main branch build with results, for regression comparison.");
+        }
+
+        var removedBenchmarks = baseline?.Benchmarks.Keys.Except(measuredBenchmarks).Order(StringComparer.Ordinal)
+            .ToArray() ?? [];
+        if (removedBenchmarks.Length > 0)
+        {
+            sb.AppendLine($"Removed: {string.Join(", ", removedBenchmarks.Select(name => $"`{name}`"))}");
         }
 
         return sb.ToString();
     }
 
-    internal static Dictionary<string, string[]> LoadBaselineRows(string[]? baselineLines, string[] columnsToRemove)
+    /// <summary>
+    ///     Reads the results of <c>main</c> from the benchmark data that the docs site shows.
+    /// </summary>
+    /// <remarks>
+    ///     A benchmark that was removed from <c>main</c> is ignored, as its last result belongs to an older commit than
+    ///     the latest one.
+    /// </remarks>
+    public static BenchmarkBaseline? ReadBaseline(string? content)
     {
-        Dictionary<string, string[]> result = new();
-        if (baselineLines == null) return result;
-
-        BenchmarkTableParser parser = new(columnsToRemove);
-        foreach (var line in baselineLines)
+        const string prefix = "window.BENCHMARK_DATA = ";
+        if (content?.StartsWith(prefix, StringComparison.Ordinal) != true)
         {
-            if (!parser.TryConsume(line, out var rowIndex, out _, out var tokens)) continue;
+            return null;
+        }
 
-            if (rowIndex >= BenchmarkTableParser.DataRowStartIndex
-                && parser.MeanIndex > 0
-                && tokens.Length > parser.MeanIndex)
+        using var document = JsonDocument.Parse(content.Substring(prefix.Length));
+        List<(string Sha, string Name, BaselineBenchmark Benchmark)> benchmarks = new();
+        foreach (var benchmark in document.RootElement.EnumerateObject())
+        {
+            var commits = benchmark.Value.GetProperty("commits").EnumerateArray().ToArray();
+            var datasets = benchmark.Value.GetProperty("datasets").EnumerateArray().ToDictionary(
+                dataset => dataset.GetProperty("label").GetString()!,
+                dataset => dataset.GetProperty("data").EnumerateArray().Select(value => value.GetDouble()).ToArray());
+            if (commits.Length == 0 ||
+                !datasets.TryGetValue($"{BaselineLibrary} time", out var times) || times.Length == 0 ||
+                !datasets.TryGetValue($"{BaselineLibrary} memory", out var allocated) || allocated.Length == 0)
             {
-                var key = string.Join("|", tokens.Take(parser.MeanIndex));
-                result[key] = tokens;
+                continue;
             }
+
+            Dictionary<string, double> ratios = new();
+            foreach (var library in ComparedLibraries)
+            {
+                if (datasets.TryGetValue($"{library} time", out var otherTimes) && otherTimes.Length > 0)
+                {
+                    // The libraries of a run are appended together, so the datasets align at their end.
+                    ratios[library] = Median(times.Reverse().Zip(otherTimes.Reverse(), (m, o) => m / o)
+                        .Take(BaselineRuns));
+                }
+            }
+
+            benchmarks.Add((commits[^1].GetProperty("sha").GetString()!, benchmark.Name,
+                new BaselineBenchmark(Median(times.TakeLast(BaselineRuns)), allocated[^1], ratios)));
+        }
+
+        if (benchmarks.Count == 0)
+        {
+            return null;
+        }
+
+        var latestSha = benchmarks.GroupBy(benchmark => benchmark.Sha).MaxBy(group => group.Count())!.Key;
+        return new BenchmarkBaseline(latestSha, benchmarks
+            .Where(benchmark => benchmark.Sha == latestSha)
+            .ToDictionary(benchmark => benchmark.Name, benchmark => benchmark.Benchmark));
+    }
+
+    /// <summary>
+    ///     Reads the measurements of each library per benchmark from a full BenchmarkDotNet JSON report, keyed like the
+    ///     charts of the benchmark page.
+    /// </summary>
+    internal static Dictionary<string, Dictionary<string, BenchmarkMeasurement>> ReadMeasurements(string json)
+    {
+        Dictionary<string, Dictionary<string, BenchmarkMeasurement>> result = new();
+        using var document = JsonDocument.Parse(json);
+        foreach (var benchmark in document.RootElement.GetProperty("Benchmarks").EnumerateArray())
+        {
+            var method = benchmark.GetProperty("Method").GetString()!;
+            var index = method.LastIndexOf('_');
+            if (index <= 0)
+            {
+                continue;
+            }
+
+            var parameters = benchmark.TryGetProperty("Parameters", out var p) ? p.GetString() : null;
+            var scenario = method.Substring(0, index);
+            var name = string.IsNullOrWhiteSpace(parameters) ? scenario : $"{scenario} ({parameters})";
+            var allocated = benchmark.GetProperty("Metrics").EnumerateArray()
+                .Where(metric => metric.GetProperty("Descriptor").GetProperty("Id").GetString() == "Allocated Memory")
+                .Select(metric => metric.GetProperty("Value").GetDouble())
+                .FirstOrDefault();
+            if (!result.TryGetValue(name, out var libraries))
+            {
+                libraries = new Dictionary<string, BenchmarkMeasurement>();
+                result[name] = libraries;
+            }
+
+            libraries[method.Substring(index + 1)] = new BenchmarkMeasurement(
+                benchmark.GetProperty("Statistics").GetProperty("Mean").GetDouble(), allocated);
         }
 
         return result;
     }
 
-    internal static void FlushTableBuffer(StringBuilder sb, List<TableRow> tableBuffer, int meanIndex,
-        Dictionary<string, string[]> baselineRows, bool injectBaseline, ref bool anyBaselineInjected)
+    internal static string CreateSummary(Dictionary<string, Dictionary<string, BenchmarkMeasurement>> measurements,
+        BenchmarkBaseline baseline)
+    {
+        var benchmarks = measurements
+            .Where(pair => pair.Value.ContainsKey(BaselineLibrary))
+            .Select(pair => pair.Key)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
+        var libraries = ComparedLibraries
+            .Where(library => measurements.Values.Any(m => m.ContainsKey(library)))
+            .ToArray();
+        var newBenchmarks = benchmarks.Where(name => !baseline.Benchmarks.ContainsKey(name)).ToArray();
+        List<string> memoryRows = new();
+        List<string> relativeRows = new();
+        List<string> allRows = new();
+        foreach (var name in benchmarks.Except(newBenchmarks))
+        {
+            var current = measurements[name][BaselineLibrary];
+            var main = baseline.Benchmarks[name];
+            var relativeCells = CompareRelativePerformance(measurements[name], main, libraries, out var relativeChanged);
+            if (current.Allocated != main.Allocated)
+            {
+                memoryRows.Add(
+                    $"| `{name}` | {FormatBytes(main.Allocated)} | {FormatBytes(current.Allocated)} | {FormatMemoryChange(main.Allocated, current.Allocated)} |");
+            }
+
+            if (relativeChanged)
+            {
+                relativeRows.Add($"| `{name}` | {string.Join(" | ", relativeCells)} |");
+            }
+
+            allRows.Add(
+                $"| `{name}` | {FormatTime(main.Mean)} → {FormatTime(current.Mean)} ({FormatPercent(current.Mean / main.Mean - 1)}) | " +
+                $"{FormatBytes(main.Allocated)} → {FormatBytes(current.Allocated)} | {string.Join(" | ", relativeCells)} |");
+        }
+
+        StringBuilder sb = new();
+        if (memoryRows.Count == 0 && relativeRows.Count == 0)
+        {
+            sb.AppendLine($"✅ No changes in memory or relative performance ({allRows.Count} benchmarks)");
+            sb.AppendLine();
+        }
+
+        if (memoryRows.Count > 0)
+        {
+            sb.AppendLine("**Memory**");
+            sb.AppendLine();
+            sb.AppendLine("| Benchmark | main | PR | Δ |");
+            sb.AppendLine("|---|--:|--:|--:|");
+            memoryRows.ForEach(row => sb.AppendLine(row));
+            sb.AppendLine();
+        }
+
+        if (relativeRows.Count > 0)
+        {
+            sb.AppendLine(
+                "**Relative performance** (how many times as long the other library takes as Mockolate, main → PR)");
+            sb.AppendLine();
+            sb.AppendLine($"| Benchmark | {string.Join(" | ", libraries.Select(library => $"vs {library}"))} |");
+            sb.AppendLine($"|---|{string.Concat(libraries.Select(_ => "--:|"))}");
+            relativeRows.ForEach(row => sb.AppendLine(row));
+            sb.AppendLine();
+        }
+
+        if (newBenchmarks.Length > 0)
+        {
+            sb.AppendLine($"New, without results on `main`: {string.Join(", ", newBenchmarks.Select(name => $"`{name}`"))}");
+            sb.AppendLine();
+        }
+
+        if (allRows.Count > 0)
+        {
+            sb.AppendLine("<details>");
+            sb.AppendLine("<summary>All benchmarks compared to main</summary>");
+            sb.AppendLine();
+            sb.AppendLine(
+                $"| Benchmark | Time | Memory | {string.Join(" | ", libraries.Select(library => $"vs {library}"))} |");
+            sb.AppendLine($"|---|--:|--:|{string.Concat(libraries.Select(_ => "--:|"))}");
+            allRows.ForEach(row => sb.AppendLine(row));
+            sb.AppendLine();
+            sb.AppendLine("</details>");
+            sb.AppendLine();
+        }
+
+        return sb.ToString();
+    }
+
+    /// <summary>
+    ///     Compares the time of Mockolate relative to each of the <paramref name="libraries" /> with <c>main</c>.
+    /// </summary>
+    /// <remarks>
+    ///     The ratio of two benchmarks of the same run does not depend on the speed of the runner. A change against
+    ///     all of the libraries in the same direction is most likely caused by Mockolate and gets a stronger marker.
+    /// </remarks>
+    internal static string[] CompareRelativePerformance(Dictionary<string, BenchmarkMeasurement> measurements,
+        BaselineBenchmark main, string[] libraries, out bool changed)
+    {
+        var mockolate = measurements[BaselineLibrary];
+        var ratios = libraries
+            .Select(library => measurements.TryGetValue(library, out var other)
+                ? mockolate.Mean / other.Mean
+                : (double?)null)
+            .ToArray();
+        var relativeChanges = libraries
+            .Select((library, index) => main.Ratios.TryGetValue(library, out var mainRatio) && ratios[index] != null
+                ? ratios[index] / mainRatio - 1
+                : null)
+            .ToArray();
+        var compared = relativeChanges.Count(relativeChange => relativeChange != null);
+        var slower = relativeChanges.Count(relativeChange => relativeChange > RelativeChangeThreshold);
+        var faster = relativeChanges.Count(relativeChange => relativeChange < -RelativeChangeThreshold);
+        changed = slower + faster > 0;
+        var strongSlower = compared > 1 && slower == compared;
+        var strongFaster = compared > 1 && faster == compared;
+        return libraries.Select((library, index) =>
+        {
+            if (ratios[index] == null)
+            {
+                return "";
+            }
+
+            var cell = main.Ratios.TryGetValue(library, out var mainRatio)
+                ? $"{FormatRatio(mainRatio)} → {FormatRatio(ratios[index]!.Value)}"
+                : $"→ {FormatRatio(ratios[index]!.Value)}";
+            var relativeChange = relativeChanges[index];
+            if (relativeChange > RelativeChangeThreshold)
+            {
+                cell += $" {(strongSlower ? StrongWorse : WeakWorse)} {FormatPercent(relativeChange.Value)}";
+            }
+            else if (relativeChange < -RelativeChangeThreshold)
+            {
+                cell += $" {(strongFaster ? StrongBetter : WeakBetter)} {FormatPercent(relativeChange.Value)}";
+            }
+
+            return cell;
+        }).ToArray();
+    }
+
+    internal static double Median(IEnumerable<double> values)
+    {
+        var sorted = values.Order().ToArray();
+        var middle = sorted.Length / 2;
+        return sorted.Length % 2 == 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle];
+    }
+
+    internal static string FormatPercent(double relativeChange)
+        => (relativeChange * 100).ToString("+0;-0;±0", CultureInfo.InvariantCulture) + "%";
+
+    /// <summary>
+    ///     Formats the <paramref name="ratio" /> of Mockolate to another library as the factor of the other library, as
+    ///     the docs site does, which keeps its precision when Mockolate is much faster.
+    /// </summary>
+    internal static string FormatRatio(double ratio)
+        => (1 / ratio).ToString(ratio > 0.1 ? "0.00" : "0.0", CultureInfo.InvariantCulture) + "×";
+
+    internal static string FormatBytes(double bytes)
+        => bytes.ToString("N0", CultureInfo.InvariantCulture) + " B";
+
+    internal static string FormatMemoryChange(double main, double current)
+    {
+        var difference = current - main;
+        var change =
+            $"{(difference > 0 ? StrongWorse : StrongBetter)} {difference.ToString("+#,0;-#,0", CultureInfo.InvariantCulture)} B";
+        return main == 0 ? change : $"{change} ({FormatPercent(current / main - 1)})";
+    }
+
+    internal static string FormatTime(double nanoseconds)
+        => nanoseconds switch
+        {
+            < 1_000 => nanoseconds.ToString("0.0", CultureInfo.InvariantCulture) + " ns",
+            < 1_000_000 => (nanoseconds / 1_000).ToString("0.00", CultureInfo.InvariantCulture) + " μs",
+            _ => (nanoseconds / 1_000_000).ToString("0.00", CultureInfo.InvariantCulture) + " ms",
+        };
+
+    internal static string CreateRawResults(string[] reportLines, string[] columnsToRemove)
+    {
+        StringBuilder sb = new();
+        sb.AppendLine("<details>");
+        sb.AppendLine("<summary>Raw results</summary>");
+        sb.AppendLine();
+        BenchmarkTableParser parser = new(columnsToRemove);
+        List<TableRow> tableBuffer = new();
+        var inCodeBlock = false;
+        foreach (var line in reportLines)
+        {
+            if (line.StartsWith("```"))
+            {
+                FlushTableBuffer(sb, tableBuffer);
+                inCodeBlock = !inCodeBlock;
+                sb.AppendLine(inCodeBlock ? "<pre>" : "</pre>");
+                if (!inCodeBlock) sb.AppendLine();
+
+                parser.Reset();
+                continue;
+            }
+
+            if (!parser.TryConsume(line, out var rowIndex, out _, out var filteredTokens))
+            {
+                FlushTableBuffer(sb, tableBuffer);
+                sb.AppendLine(line);
+                continue;
+            }
+
+            tableBuffer.Add(new TableRow(rowIndex, filteredTokens));
+        }
+
+        FlushTableBuffer(sb, tableBuffer);
+        sb.AppendLine();
+        sb.AppendLine("</details>");
+        return sb.ToString();
+    }
+
+    internal static void FlushTableBuffer(StringBuilder sb, List<TableRow> tableBuffer)
     {
         if (tableBuffer.Count == 0) return;
 
         var commonPrefix = FindCommonRowPrefix(tableBuffer);
-
         var headerRow = tableBuffer[0].RowIndex == 0 ? tableBuffer[0] : null;
-        var allocatedIndex = headerRow != null ? FindColumnIndex(headerRow.Tokens, "Allocated") : -1;
-        var ratioIndex = headerRow != null ? FindColumnIndex(headerRow.Tokens, "Ratio") : -1;
-        var allocRatioIndex = headerRow != null ? FindColumnIndex(headerRow.Tokens, "Alloc Ratio") : -1;
 
         foreach (var row in tableBuffer)
         {
@@ -133,33 +422,10 @@ static class BenchmarkReport
                 continue;
             }
 
-            var displayTokens = ApplyHeaderAndPrefixStripping(row, commonPrefix);
-            var displayLine = JoinTokens(displayTokens);
+            var displayLine = JoinTokens(ApplyHeaderAndPrefixStripping(row, commonPrefix));
 
             var isMockolateRow = row.RowIndex >= BenchmarkTableParser.DataRowStartIndex
-                                 && row.Tokens.Length > 0
                                  && row.Tokens[0].Contains("_Mockolate", StringComparison.OrdinalIgnoreCase);
-
-            if (isMockolateRow && injectBaseline && meanIndex > 0)
-            {
-                var key = string.Join("|", row.Tokens.Take(meanIndex));
-                if (baselineRows.TryGetValue(key, out var baselineTokens) && baselineTokens.Length > 0)
-                {
-                    var modifiedBaseline = (string[])baselineTokens.Clone();
-                    RecomputeBaselineRatio(modifiedBaseline, row.Tokens, meanIndex, ratioIndex);
-                    RecomputeBaselineRatio(modifiedBaseline, row.Tokens, allocatedIndex, allocRatioIndex);
-
-                    var italicized = new string[modifiedBaseline.Length];
-                    for (var i = 0; i < modifiedBaseline.Length; i++)
-                    {
-                        var content = i == 0 ? "baseline*" : modifiedBaseline[i];
-                        italicized[i] = string.IsNullOrWhiteSpace(content) ? content : $"_{content}_";
-                    }
-
-                    sb.AppendLine(JoinTokens(italicized));
-                    anyBaselineInjected = true;
-                }
-            }
 
             if (isMockolateRow)
                 MakeLineBold(sb, displayLine);
@@ -168,23 +434,6 @@ static class BenchmarkReport
         }
 
         tableBuffer.Clear();
-    }
-
-    internal static void RecomputeBaselineRatio(string[] baselineTokens, string[] mockolateTokens,
-        int valueIndex, int ratioIndex)
-    {
-        if (valueIndex <= 0 || ratioIndex <= 0) return;
-
-        if (valueIndex >= baselineTokens.Length || valueIndex >= mockolateTokens.Length
-                                                || ratioIndex >= baselineTokens.Length)
-            return;
-
-        if (!TryParseQuantity(baselineTokens[valueIndex], out var baselineValue)
-            || !TryParseQuantity(mockolateTokens[valueIndex], out var mockolateValue)
-            || mockolateValue <= 0)
-            return;
-
-        baselineTokens[ratioIndex] = (baselineValue / mockolateValue).ToString("F2", CultureInfo.InvariantCulture);
     }
 
     internal static string[] ApplyHeaderAndPrefixStripping(TableRow row, string? commonPrefix)
@@ -211,8 +460,6 @@ static class BenchmarkReport
             if (row.Tokens.Length == 0) continue;
 
             var name = row.Tokens[0];
-            if (string.Equals(name, "baseline*", StringComparison.Ordinal)) continue;
-
             var underscoreIdx = name.IndexOf('_');
             if (underscoreIdx <= 0) return null;
 
@@ -237,47 +484,6 @@ static class BenchmarkReport
         }
 
         return sb.ToString();
-    }
-
-    internal static int FindColumnIndex(string[] tokens, string columnName) =>
-        Array.FindIndex(tokens, t => string.Equals(t, columnName, StringComparison.OrdinalIgnoreCase));
-
-    internal static bool TryParseQuantity(string value, out double normalized)
-    {
-        normalized = 0;
-        if (string.IsNullOrWhiteSpace(value)) return false;
-
-        var trimmed = value.Trim();
-        var spaceIdx = trimmed.LastIndexOf(' ');
-        var numberPart = spaceIdx > 0 ? trimmed.Substring(0, spaceIdx).Trim() : trimmed;
-        var unitPart = spaceIdx > 0 ? trimmed.Substring(spaceIdx + 1).Trim() : string.Empty;
-
-        if (!double.TryParse(numberPart,
-                NumberStyles.Float | NumberStyles.AllowThousands,
-                CultureInfo.InvariantCulture,
-                out var number))
-            return false;
-
-        var multiplier = unitPart switch
-        {
-            "" => 1,
-            "ps" => 0.001,
-            "ns" => 1,
-            "μs" => 1000,
-            "us" => 1000,
-            "ms" => 1_000_000,
-            "s" => 1_000_000_000,
-            "B" => 1,
-            "KB" => 1024,
-            "MB" => 1024d * 1024,
-            "GB" => 1024d * 1024 * 1024,
-            _ => double.NaN,
-        };
-
-        if (double.IsNaN(multiplier)) return false;
-
-        normalized = number * multiplier;
-        return true;
     }
 
     internal static int[] DetermineDroppedColumnIndices(string headerLine, string[] columnsToRemove)
@@ -348,9 +554,16 @@ static class BenchmarkReport
     }
 }
 
-sealed record BenchmarkReportFile(string[] ReportLines, string[]? BaselineLines);
+/// <param name="Name">The benchmark class, which is also the suffix of its workflow artifact.</param>
+sealed record BenchmarkReportFile(string Name, string[] ReportLines, string MeasurementsJson);
 
 sealed record TableRow(int RowIndex, string[] Tokens);
+
+sealed record BenchmarkMeasurement(double Mean, double Allocated);
+
+sealed record BaselineBenchmark(double Mean, double Allocated, Dictionary<string, double> Ratios);
+
+sealed record BenchmarkBaseline(string Sha, Dictionary<string, BaselineBenchmark> Benchmarks);
 
 /// <summary>
 ///     Parses the markdown tables produced by BenchmarkDotNet's GitHub exporter.
@@ -373,8 +586,6 @@ sealed class BenchmarkTableParser
         _columnsToRemove = columnsToRemove;
     }
 
-    public int MeanIndex { get; private set; } = -1;
-
     public bool TryConsume(string line, out int rowIndex,
         [NotNullWhen(true)] out string? filteredLine,
         [NotNullWhen(true)] out string[]? tokens)
@@ -394,10 +605,6 @@ sealed class BenchmarkTableParser
         tokens = filteredLine.Split('|', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
         for (var i = 0; i < tokens.Length; i++) tokens[i] = BenchmarkReport.StripMarkdownBold(tokens[i]);
 
-        if (_nextRowIndex == 0)
-            MeanIndex = Array.FindIndex(tokens,
-                t => string.Equals(t, "Mean", StringComparison.OrdinalIgnoreCase));
-
         rowIndex = _nextRowIndex;
         _nextRowIndex++;
         return true;
@@ -406,7 +613,6 @@ sealed class BenchmarkTableParser
     public void Reset()
     {
         _droppedColumnIndices = null;
-        MeanIndex = -1;
         _nextRowIndex = 0;
     }
 }

@@ -53,22 +53,6 @@ public sealed class BenchmarkReportHelpersTests
 	}
 
 	[Test]
-	public async Task FindColumnIndex_ShouldMatchCaseInsensitively()
-	{
-		int index = BenchmarkReport.FindColumnIndex(["Method", "Mean", "Alloc Ratio",], "alloc ratio");
-
-		await That(index).IsEqualTo(2);
-	}
-
-	[Test]
-	public async Task FindColumnIndex_WhenColumnNotFound_ShouldReturnMinusOne()
-	{
-		int index = BenchmarkReport.FindColumnIndex(["Method", "Mean",], "Ratio");
-
-		await That(index).IsEqualTo(-1);
-	}
-
-	[Test]
 	public async Task FindCommonRowPrefix_ShouldIgnoreHeaderAndSeparatorRows()
 	{
 		List<TableRow> rows =
@@ -80,21 +64,6 @@ public sealed class BenchmarkReportHelpersTests
 		string prefix = BenchmarkReport.FindCommonRowPrefix(rows);
 
 		await That(prefix).IsNull();
-	}
-
-	[Test]
-	public async Task FindCommonRowPrefix_ShouldSkipBaselineMarkerRow()
-	{
-		List<TableRow> rows =
-		[
-			new(BenchmarkTableParser.DataRowStartIndex, ["baseline*", "1",]),
-			new(3, ["Indexer_Mockolate", "1",]),
-			new(4, ["Indexer_Moq", "1",]),
-		];
-
-		string prefix = BenchmarkReport.FindCommonRowPrefix(rows);
-
-		await That(prefix).IsEqualTo("Indexer_");
 	}
 
 	[Test]
@@ -158,36 +127,219 @@ public sealed class BenchmarkReportHelpersTests
 	}
 
 	[Test]
-	public async Task RecomputeBaselineRatio_ShouldOverwriteRatioWithBaselineDividedByMockolate()
+	[Arguments(new[] { 3.0, 1.0, 2.0, }, 2.0)]
+	[Arguments(new[] { 4.0, 1.0, 3.0, 2.0, }, 2.5)]
+	public async Task Median_ShouldReturnTheMiddleValueOrTheMeanOfBothMiddleValues(double[] values, double expected)
 	{
-		string[] baseline = ["Foo_Mockolate", "206.44 ns", "1.00", "1048 B", "1.00",];
-		string[] mockolate = ["Foo_Mockolate", "216.85 ns", "1.00", "1048 B", "1.00",];
+		double median = BenchmarkReport.Median(values);
 
-		BenchmarkReport.RecomputeBaselineRatio(baseline, mockolate, 1, 2);
-
-		await That(baseline[2]).IsEqualTo("0.95");
+		await That(median).IsEqualTo(expected);
 	}
 
 	[Test]
-	public async Task RecomputeBaselineRatio_WhenRatioIndexIsMissing_ShouldNotMutate()
+	[Arguments(0.5, "2.00×")]
+	[Arguments(0.05, "20.0×")]
+	public async Task FormatRatio_ShouldShowHowManyTimesAsLongTheOtherLibraryTakes(double ratio, string expected)
 	{
-		string[] baseline = ["Foo_Mockolate", "206.44 ns",];
-		string[] mockolate = ["Foo_Mockolate", "216.85 ns",];
+		string result = BenchmarkReport.FormatRatio(ratio);
 
-		BenchmarkReport.RecomputeBaselineRatio(baseline, mockolate, 1, -1);
-
-		await That(baseline).IsEqualTo(["Foo_Mockolate", "206.44 ns",]);
+		await That(result).IsEqualTo(expected);
 	}
 
 	[Test]
-	public async Task RecomputeBaselineRatio_WhenValueCannotBeParsed_ShouldNotMutate()
+	[Arguments(0.25, "+25%")]
+	[Arguments(-0.1, "-10%")]
+	[Arguments(0.0, "±0%")]
+	public async Task FormatPercent_ShouldIncludeTheSign(double relativeChange, string expected)
 	{
-		string[] baseline = ["Foo_Mockolate", "junk", "1.00",];
-		string[] mockolate = ["Foo_Mockolate", "216.85 ns", "1.00",];
+		string result = BenchmarkReport.FormatPercent(relativeChange);
 
-		BenchmarkReport.RecomputeBaselineRatio(baseline, mockolate, 1, 2);
+		await That(result).IsEqualTo(expected);
+	}
 
-		await That(baseline[2]).IsEqualTo("1.00");
+	[Test]
+	[Arguments(123.4, "123.4 ns")]
+	[Arguments(12_340.0, "12.34 μs")]
+	[Arguments(12_340_000.0, "12.34 ms")]
+	public async Task FormatTime_ShouldChooseTheUnitByMagnitude(double nanoseconds, string expected)
+	{
+		string result = BenchmarkReport.FormatTime(nanoseconds);
+
+		await That(result).IsEqualTo(expected);
+	}
+
+	[Test]
+	[Arguments(1000.0, 1200.0, "🔴 +200 B (+20%)")]
+	[Arguments(1000.0, 800.0, "🟢 -200 B (-20%)")]
+	[Arguments(0.0, 64.0, "🔴 +64 B")]
+	public async Task FormatMemoryChange_ShouldMarkTheDirection(double main, double current, string expected)
+	{
+		string result = BenchmarkReport.FormatMemoryChange(main, current);
+
+		await That(result).IsEqualTo(expected);
+	}
+
+	[Test]
+	public async Task ReadMeasurements_ShouldKeyByScenarioAndParametersPerLibrary()
+	{
+		string json = BenchmarkReportTestData.Measurements(
+			("Method_Mockolate", "N=1", 100, 64),
+			("Method_Moq", "N=1", 1000, 512),
+			("CreateMock_Mockolate", "", 50, 32));
+
+		Dictionary<string, Dictionary<string, BenchmarkMeasurement>> result = BenchmarkReport.ReadMeasurements(json);
+
+		await That(result.Keys).IsEqualTo(["Method (N=1)", "CreateMock",]).InAnyOrder();
+		await That(result["Method (N=1)"]["Mockolate"]).IsEqualTo(new BenchmarkMeasurement(100, 64));
+		await That(result["Method (N=1)"]["Moq"]).IsEqualTo(new BenchmarkMeasurement(1000, 512));
+		await That(result["CreateMock"]["Mockolate"]).IsEqualTo(new BenchmarkMeasurement(50, 32));
+	}
+
+	[Test]
+	public async Task ReadBaseline_ShouldUseTheMedianTimeAndRatioOfTheLastRunsAndTheLatestMemory()
+	{
+		string content = BenchmarkReportTestData.BaselineData(("Method (N=1)", ["a", "b", "c",],
+		[
+			("Mockolate time", [100, 200, 300,]),
+			("Mockolate memory", [64, 64, 96,]),
+			("Imposter time", [1000, 1000, 1000,]),
+			("Moq time", [1000, 1000, 1000,]),
+		]));
+
+		BenchmarkBaseline? baseline = BenchmarkReport.ReadBaseline(content);
+
+		await That(baseline?.Sha).IsEqualTo("c");
+		BaselineBenchmark benchmark = baseline!.Benchmarks["Method (N=1)"];
+		await That(benchmark.Mean).IsEqualTo(200.0);
+		await That(benchmark.Allocated).IsEqualTo(96.0);
+		await That(benchmark.Ratios["Imposter"]).IsEqualTo(0.2).Within(0.0001);
+		await That(benchmark.Ratios.Keys).IsEqualTo(["Imposter",]).InAnyOrder()
+			.Because("the reflection-based libraries are too noisy to compare with");
+	}
+
+	[Test]
+	public async Task ReadBaseline_ShouldIgnoreBenchmarksWhoseLatestCommitIsOutdated()
+	{
+		string content = BenchmarkReportTestData.BaselineData(
+			("Kept", ["a", "b",], [("Mockolate time", [1, 2,]), ("Mockolate memory", [1, 1,]),]),
+			("AlsoKept", ["a", "b",], [("Mockolate time", [1, 2,]), ("Mockolate memory", [1, 1,]),]),
+			("Removed", ["a",], [("Mockolate time", [1,]), ("Mockolate memory", [1,]),]));
+
+		BenchmarkBaseline? baseline = BenchmarkReport.ReadBaseline(content);
+
+		await That(baseline?.Benchmarks.Keys).IsEqualTo(["Kept", "AlsoKept",]).InAnyOrder();
+	}
+
+	[Test]
+	[Arguments(null)]
+	[Arguments("not the benchmark data")]
+	[Arguments("window.BENCHMARK_DATA = {}")]
+	public async Task ReadBaseline_WhenThereAreNoResults_ShouldReturnNull(string? content)
+	{
+		BenchmarkBaseline? baseline = BenchmarkReport.ReadBaseline(content);
+
+		await That(baseline).IsNull();
+	}
+
+	[Test]
+	public async Task CompareRelativePerformance_WhenAllLibrariesAgree_ShouldUseStrongMarkers()
+	{
+		Dictionary<string, BenchmarkMeasurement> measurements = new()
+		{
+			["Mockolate"] = new BenchmarkMeasurement(150, 0),
+			["Imposter"] = new BenchmarkMeasurement(1000, 0),
+			["TUnitMocks"] = new BenchmarkMeasurement(1000, 0),
+		};
+		BaselineBenchmark main = new(100, 0, new Dictionary<string, double>
+		{
+			["Imposter"] = 0.1,
+			["TUnitMocks"] = 0.1,
+		});
+
+		string[] cells = BenchmarkReport.CompareRelativePerformance(measurements, main,
+			["Imposter", "TUnitMocks",], out bool changed);
+
+		await That(changed).IsTrue();
+		await That(cells).IsEqualTo(["10.0× → 6.67× 🔴 +50%", "10.0× → 6.67× 🔴 +50%",]);
+	}
+
+	[Test]
+	public async Task CompareRelativePerformance_WhenOnlyOneLibraryChanges_ShouldUseWeakMarkers()
+	{
+		Dictionary<string, BenchmarkMeasurement> measurements = new()
+		{
+			["Mockolate"] = new BenchmarkMeasurement(100, 0),
+			["Imposter"] = new BenchmarkMeasurement(500, 0),
+			["TUnitMocks"] = new BenchmarkMeasurement(1000, 0),
+		};
+		BaselineBenchmark main = new(100, 0, new Dictionary<string, double>
+		{
+			["Imposter"] = 0.1,
+			["TUnitMocks"] = 0.1,
+		});
+
+		string[] cells = BenchmarkReport.CompareRelativePerformance(measurements, main,
+			["Imposter", "TUnitMocks",], out bool changed);
+
+		await That(changed).IsTrue();
+		await That(cells).IsEqualTo(["10.0× → 5.00× 🔸 +100%", "10.0× → 10.0×",]);
+	}
+
+	[Test]
+	public async Task CompareRelativePerformance_WhenMockolateGetsFaster_ShouldUseBetterMarkers()
+	{
+		Dictionary<string, BenchmarkMeasurement> measurements = new()
+		{
+			["Mockolate"] = new BenchmarkMeasurement(50, 0),
+			["Imposter"] = new BenchmarkMeasurement(1000, 0),
+			["TUnitMocks"] = new BenchmarkMeasurement(1000, 0),
+		};
+		BaselineBenchmark main = new(100, 0, new Dictionary<string, double>
+		{
+			["Imposter"] = 0.1,
+			["TUnitMocks"] = 0.1,
+		});
+
+		string[] cells = BenchmarkReport.CompareRelativePerformance(measurements, main,
+			["Imposter", "TUnitMocks",], out bool changed);
+
+		await That(changed).IsTrue();
+		await That(cells).IsEqualTo(["10.0× → 20.0× 🟢 -50%", "10.0× → 20.0× 🟢 -50%",]);
+	}
+
+	[Test]
+	public async Task CompareRelativePerformance_WhenOnlyOneLibraryIsMeasured_ShouldUseWeakMarkers()
+	{
+		Dictionary<string, BenchmarkMeasurement> measurements = new()
+		{
+			["Mockolate"] = new BenchmarkMeasurement(50, 0),
+			["Imposter"] = new BenchmarkMeasurement(1000, 0),
+		};
+		BaselineBenchmark main = new(100, 0, new Dictionary<string, double> { ["Imposter"] = 0.1, });
+
+		string[] cells = BenchmarkReport.CompareRelativePerformance(measurements, main,
+			["Imposter", "TUnitMocks",], out bool changed);
+
+		await That(changed).IsTrue();
+		await That(cells).IsEqualTo(["10.0× → 20.0× 🔹 -50%", "",])
+			.Because("a single library cannot confirm that the change is caused by Mockolate");
+	}
+
+	[Test]
+	public async Task CompareRelativePerformance_WhenTheLibraryIsNewOnMain_ShouldShowOnlyTheCurrentRatio()
+	{
+		Dictionary<string, BenchmarkMeasurement> measurements = new()
+		{
+			["Mockolate"] = new BenchmarkMeasurement(100, 0),
+			["TUnitMocks"] = new BenchmarkMeasurement(1000, 0),
+		};
+		BaselineBenchmark main = new(100, 0, new Dictionary<string, double>());
+
+		string[] cells =
+			BenchmarkReport.CompareRelativePerformance(measurements, main, ["TUnitMocks",], out bool changed);
+
+		await That(changed).IsFalse();
+		await That(cells).IsEqualTo(["→ 10.0×",]);
 	}
 
 	[Test]
@@ -226,43 +378,4 @@ public sealed class BenchmarkReportHelpersTests
 		await That(tokens).IsEqualTo(Array.Empty<string>());
 	}
 
-	[Test]
-	[Arguments("1048 B", 1048.0)]
-	[Arguments("1 KB", 1024.0)]
-	[Arguments("2 MB", 2.0 * 1024 * 1024)]
-	[Arguments("3 GB", 3.0 * 1024 * 1024 * 1024)]
-	public async Task TryParseQuantity_ShouldNormalizeMemoryUnitsToBytes(string value, double expected)
-	{
-		bool ok = BenchmarkReport.TryParseQuantity(value, out double actual);
-
-		await That(ok).IsTrue();
-		await That(actual).IsEqualTo(expected).Within(0.0001);
-	}
-
-	[Test]
-	[Arguments("206.44 ns", 206.44)]
-	[Arguments("1,377.70 ns", 1377.70)]
-	[Arguments("1.00 μs", 1000.0)]
-	[Arguments("1.00 us", 1000.0)]
-	[Arguments("2 ms", 2_000_000.0)]
-	[Arguments("3 s", 3_000_000_000.0)]
-	[Arguments("500 ps", 0.5)]
-	public async Task TryParseQuantity_ShouldNormalizeTimeUnitsToNanoseconds(string value, double expected)
-	{
-		bool ok = BenchmarkReport.TryParseQuantity(value, out double actual);
-
-		await That(ok).IsTrue();
-		await That(actual).IsEqualTo(expected).Within(0.0001);
-	}
-
-	[Test]
-	[Arguments("")]
-	[Arguments("not a number")]
-	[Arguments("100 weird")]
-	public async Task TryParseQuantity_WhenInputIsInvalid_ShouldReturnFalse(string value)
-	{
-		bool ok = BenchmarkReport.TryParseQuantity(value, out _);
-
-		await That(ok).IsFalse();
-	}
 }

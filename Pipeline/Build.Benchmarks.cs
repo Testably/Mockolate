@@ -91,10 +91,20 @@ partial class Build
 				return;
 			}
 
-			AbsolutePath baselineDirectory = ArtifactsDirectory / "Baseline";
-			string baselineResultsDirectory = await DownloadBaselineBenchmarks(baselineDirectory);
+			BuildExtensions.GithubFile baselineFile =
+				await BuildExtensions.ReadBranchFileAsync(BenchmarkLimitedDataPath, BenchmarkBranch, GithubToken);
+			List<BenchmarkReportFile> reportFiles = new();
+			foreach (string file in files.Order(StringComparer.Ordinal))
+			{
+				string prefix = file.Substring(0, file.Length - "-report-github.md".Length);
+				reportFiles.Add(new BenchmarkReportFile(
+					prefix.Substring(prefix.LastIndexOf('.') + 1),
+					await File.ReadAllLinesAsync(file),
+					await File.ReadAllTextAsync(prefix + "-report-full-compressed.json")));
+			}
 
-			string body = CreateBenchmarkCommentBody(files, baselineResultsDirectory).AsUntrustedCommentContent();
+			string body = BenchmarkReport.BuildBody(reportFiles, BenchmarkReport.ReadBaseline(baselineFile?.Content),
+				BenchmarkReport.DefaultColumnsToRemove).AsUntrustedCommentContent();
 			GitHubClient gitHubClient = new(new ProductHeaderValue("Fallout"));
 			Credentials tokenAuth = new(GithubToken);
 			gitHubClient.Credentials = tokenAuth;
@@ -104,7 +114,7 @@ partial class Build
 			Log.Information($"Found {comments.Count} comments");
 			foreach (IssueComment comment in comments)
 			{
-				if (comment.IsPipelineComment("## :rocket: Benchmark Results"))
+				if (comment.IsPipelineComment(BenchmarkReport.Heading))
 				{
 					Log.Information($"Found comment: {comment.Body}");
 					commentId = comment.Id;
@@ -227,66 +237,5 @@ partial class Build
 		}
 
 		return new PageBenchmarkReportGenerator.CommitInfo(commitId, author, date, message);
-	}
-
-	async Task<string> DownloadBaselineBenchmarks(AbsolutePath baselineDirectory)
-	{
-		long[] candidateRunIds = await BuildExtensions.FindRecentSuccessfulRunIds("build.yml", "main", 10, GithubToken);
-		if (candidateRunIds.Length == 0)
-		{
-			Log.Information("No successful main 'Build' run found - skipping baseline column.");
-			return null;
-		}
-
-		AbsolutePath resultsDirectory = baselineDirectory / "Benchmarks" / "results";
-		foreach (long runId in candidateRunIds)
-		{
-			baselineDirectory.CreateOrCleanDirectory();
-			try
-			{
-				await BuildExtensions.DownloadArtifactsFromRunStartingWith(runId, "Benchmarks-",
-					baselineDirectory, GithubToken);
-			}
-			catch (Exception ex)
-			{
-				Log.Warning(ex, "Failed to download artifacts from main run #{RunId}, trying older run.", runId);
-				continue;
-			}
-
-			if (Directory.Exists(resultsDirectory))
-			{
-				Log.Information("Loaded baseline benchmark results from main run #{RunId}.", runId);
-				return resultsDirectory;
-			}
-
-			Log.Information("Main run #{RunId} did not contain benchmark results, trying older run.", runId);
-		}
-
-		Log.Information(
-			"No baseline benchmark results found in the last {Count} successful main runs - skipping baseline column.",
-			candidateRunIds.Length);
-		return null;
-	}
-
-	static string CreateBenchmarkCommentBody(string[] files, string baselineResultsDirectory)
-	{
-		List<BenchmarkReportFile> inputs = new();
-		foreach (string file in files)
-		{
-			string[] reportLines = File.ReadAllLines(file);
-			string[] baselineLines = null;
-			if (baselineResultsDirectory != null)
-			{
-				string baselineFile = Path.Combine(baselineResultsDirectory, Path.GetFileName(file));
-				if (File.Exists(baselineFile))
-				{
-					baselineLines = File.ReadAllLines(baselineFile);
-				}
-			}
-
-			inputs.Add(new BenchmarkReportFile(reportLines, baselineLines));
-		}
-
-		return BenchmarkReport.BuildBody(inputs, BenchmarkReport.DefaultColumnsToRemove);
 	}
 }
