@@ -139,7 +139,7 @@ internal static partial class Sources
 		AppendCreateFastInteractions(sb, "\t\t");
 		sb.AppendLine();
 
-		bool hasMockRegistryProvider = constructors?.Count > 0 || (@class.IsInterface && hasStaticMembers);
+		bool hasMockRegistryProvider = constructors?.Count > 0 || (@class.IsInterface && (hasStaticMembers || hasStaticEvents));
 		AppendCreateRegistryFromBehavior(sb, "\t\t", hasMockRegistryProvider);
 		sb.AppendLine();
 
@@ -159,7 +159,7 @@ internal static partial class Sources
 		else
 		{
 			sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
-			if (hasStaticMembers)
+			if (hasStaticMembers || hasStaticEvents)
 			{
 				sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
 				sb.Append("\t\tinternal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();").AppendLine();
@@ -195,7 +195,7 @@ internal static partial class Sources
 			sb.Append("\t\tpublic ").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry)").AppendLine();
 			sb.Append("\t\t{").AppendLine();
 			sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(" = mockRegistry;").AppendLine();
-			if (hasStaticMembers)
+			if (hasStaticMembers || hasStaticEvents)
 			{
 				sb.Append("\t\t\tMockRegistryProvider.Value = mockRegistry;").AppendLine();
 			}

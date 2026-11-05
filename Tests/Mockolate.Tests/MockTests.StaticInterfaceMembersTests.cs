@@ -93,6 +93,33 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task WithOnlyAbstractStaticEvent()
+		{
+			List<int> receivedCalls = [];
+			IMyServiceWithOnlyAbstractStaticEvent sut = IMyServiceWithOnlyAbstractStaticEvent.CreateMock();
+
+			SubscribeAbstractStaticEvent<
+				Mock.MockTests_StaticInterfaceMembersTests_IMyServiceWithOnlyAbstractStaticEvent>(Callback);
+
+			sut.Mock.RaiseStatic.AbstractStaticEvent(1);
+			sut.Mock.RaiseStatic.AbstractStaticEvent(3);
+
+			await That(receivedCalls).IsEqualTo([1, 3,]);
+			await That(sut.Mock.VerifyStatic.AbstractStaticEvent.Subscribed()).Once();
+
+			void Callback(int value)
+			{
+				receivedCalls.Add(value);
+			}
+
+			static void SubscribeAbstractStaticEvent<T>(Action<int> callback)
+				where T : IMyServiceWithOnlyAbstractStaticEvent
+			{
+				T.AbstractStaticEvent += callback;
+			}
+		}
+
+		[Test]
 		public async Task WithAbstractStaticMethod()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
@@ -398,6 +425,11 @@ public sealed partial class MockTests
 			static abstract int AbstractStaticProperty { get; set; }
 			static abstract int AbstractStaticMethod();
 			static virtual int VirtualStaticMethod() => 0;
+			static abstract event Action<int> AbstractStaticEvent;
+		}
+
+		public interface IMyServiceWithOnlyAbstractStaticEvent
+		{
 			static abstract event Action<int> AbstractStaticEvent;
 		}
 	}
