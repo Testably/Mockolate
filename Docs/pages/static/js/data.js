@@ -966,6 +966,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -1129,7 +1135,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -1296,7 +1303,8 @@ window.BENCHMARK_DATA = {
           236.05229023297628,
           277.0142145792643,
           393.614181298476,
-          171.2395270420955
+          171.2395270420955,
+          216.83447110652924
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1457,6 +1465,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592,
           1592,
@@ -1643,7 +1652,8 @@ window.BENCHMARK_DATA = {
           62006.23157552083,
           34362.04281616211,
           46243.71713692801,
-          30309.266657902645
+          30309.266657902645,
+          60303.012930733814
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1815,6 +1825,7 @@ window.BENCHMARK_DATA = {
           9063,
           9153,
           9041,
+          9063,
           9063
         ],
         "borderColor": "#A052B0",
@@ -1990,7 +2001,8 @@ window.BENCHMARK_DATA = {
           3580.126629892985,
           3250.787077267965,
           4051.402578500601,
-          2203.130430094401
+          2203.130430094401,
+          3273.8543213435582
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2151,6 +2163,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2337,7 +2350,8 @@ window.BENCHMARK_DATA = {
           3418.142892710368,
           2929.796818953294,
           3611.2673204862153,
-          2175.575690968831
+          2175.575690968831,
+          3192.445784977504
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2509,6 +2523,7 @@ window.BENCHMARK_DATA = {
           6930,
           6924,
           6924,
+          6930,
           6930
         ],
         "borderColor": "#4A6FA5",
@@ -2684,7 +2699,8 @@ window.BENCHMARK_DATA = {
           179.0268578529358,
           194.8030913897923,
           241.07353823001569,
-          118.02236139774323
+          118.02236139774323,
+          159.04709620475768
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2850,6 +2866,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3031,7 +3048,8 @@ window.BENCHMARK_DATA = {
           446.79085372289023,
           489.40873710314435,
           605.5532935006278,
-          300.27728370030724
+          300.27728370030724,
+          385.1719798360552
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3192,6 +3210,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4183,6 +4202,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -4346,7 +4371,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -4513,7 +4539,8 @@ window.BENCHMARK_DATA = {
           380.6817900021871,
           376.33558565775553,
           376.07443755467733,
-          155.97044235865275
+          155.97044235865275,
+          222.68327301343282
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4674,6 +4701,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728,
           1728,
@@ -4860,7 +4888,8 @@ window.BENCHMARK_DATA = {
           14087.290564903846,
           13893.74228140024,
           12920.958760579428,
-          7571.170806884766
+          7571.170806884766,
+          11183.059509277344
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5032,7 +5061,8 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12761,
-          12760
+          12760,
+          12761
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5207,7 +5237,8 @@ window.BENCHMARK_DATA = {
           5914.392209189279,
           5879.899325444148,
           5268.812731061663,
-          2764.9333499272666
+          2764.9333499272666,
+          4481.02643937331
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5368,6 +5399,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -5554,7 +5586,8 @@ window.BENCHMARK_DATA = {
           181682.95977313703,
           182060.38094075522,
           153496.38033854167,
-          109142.72085336539
+          109142.72085336539,
+          194295.74006535456
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5726,6 +5759,7 @@ window.BENCHMARK_DATA = {
           15619,
           15619,
           15579,
+          15619,
           15619
         ],
         "borderColor": "#4A6FA5",
@@ -5901,7 +5935,8 @@ window.BENCHMARK_DATA = {
           219.12843476808987,
           224.37457393010456,
           215.07849902373093,
-          107.07357003859111
+          107.07357003859111,
+          158.78514423737158
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6042,6 +6077,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -6248,7 +6284,8 @@ window.BENCHMARK_DATA = {
           262.058830004472,
           266.79941240946454,
           251.7026871272496,
-          95.65467763798577
+          95.65467763798577,
+          127.1600911617279
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6382,6 +6419,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -7400,6 +7438,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -7563,7 +7607,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -7730,7 +7775,8 @@ window.BENCHMARK_DATA = {
           928.2924779256185,
           976.119004543011,
           950.0382138765775,
-          745.0048025676182
+          745.0048025676182,
+          930.7133944193522
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7891,6 +7937,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832,
           3832,
@@ -8077,7 +8124,8 @@ window.BENCHMARK_DATA = {
           230054.09148297991,
           226967.04135366587,
           234608.70242745537,
-          138894.57482910156
+          138894.57482910156,
+          229052.34852013222
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8249,7 +8297,8 @@ window.BENCHMARK_DATA = {
           20804,
           20804,
           20924,
-          21043
+          21043,
+          20692
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8424,7 +8473,8 @@ window.BENCHMARK_DATA = {
           10790.972490583148,
           10287.436516394982,
           10378.55362374442,
-          7365.812227521624
+          7365.812227521624,
+          10901.98749669393
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8596,7 +8646,8 @@ window.BENCHMARK_DATA = {
           13032,
           13032,
           13032,
-          13088
+          13088,
+          13032
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8771,7 +8822,8 @@ window.BENCHMARK_DATA = {
           11194.390734863282,
           10916.880468096051,
           11440.398704528809,
-          7345.0529207502095
+          7345.0529207502095,
+          11255.124760945639
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8932,6 +8984,7 @@ window.BENCHMARK_DATA = {
           13948,
           13954,
           13954,
+          13593,
           13593,
           13593,
           13593,
@@ -9118,7 +9171,8 @@ window.BENCHMARK_DATA = {
           325.81699802325323,
           301.791450659434,
           310.47780309404646,
-          251.65073000590007
+          251.65073000590007,
+          324.2661415100098
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9279,6 +9333,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -10270,6 +10325,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -10433,7 +10494,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -10600,7 +10662,8 @@ window.BENCHMARK_DATA = {
           2437.2878120422365,
           2386.2623601640976,
           2465.7903366088867,
-          1905.965112813314
+          1905.965112813314,
+          2446.821127573649
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10761,6 +10824,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912,
           4912,
@@ -10947,7 +11011,8 @@ window.BENCHMARK_DATA = {
           239452.92116001673,
           239065.68166879506,
           246078.05716145833,
-          148921.4414236886
+          148921.4414236886,
+          238380.31482872597
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11119,7 +11184,8 @@ window.BENCHMARK_DATA = {
           30410,
           30410,
           30530,
-          30650
+          30650,
+          29292
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11294,7 +11360,8 @@ window.BENCHMARK_DATA = {
           27054.802044677734,
           25559.38506673177,
           25252.06101989746,
-          18364.605806477866
+          18364.605806477866,
+          26316.567574637276
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -11466,7 +11533,8 @@ window.BENCHMARK_DATA = {
           26137,
           26137,
           26137,
-          26697
+          26697,
+          26137
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -11641,7 +11709,8 @@ window.BENCHMARK_DATA = {
           24288.033660888672,
           24315.747416178387,
           24481.31539510091,
-          15745.738850911459
+          15745.738850911459,
+          24866.242826334634
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11810,6 +11879,7 @@ window.BENCHMARK_DATA = {
           33247,
           33247,
           33249,
+          33247,
           33247,
           33247,
           33247,
@@ -11988,7 +12058,8 @@ window.BENCHMARK_DATA = {
           744.4061847686768,
           719.4589512164777,
           761.9496662433331,
-          616.7585287094116
+          616.7585287094116,
+          778.5856667836507
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12149,6 +12220,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -13140,6 +13212,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -13303,7 +13381,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -13470,7 +13549,8 @@ window.BENCHMARK_DATA = {
           404.2463307698568,
           331.51902627944946,
           331.7628785769145,
-          186.96484146118163
+          186.96484146118163,
+          347.61042537689207
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13631,6 +13711,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936,
           1936,
@@ -13817,7 +13898,8 @@ window.BENCHMARK_DATA = {
           144815.04311899038,
           198095.4692731585,
           197989.02418619793,
-          56992.60378011068
+          56992.60378011068,
+          194213.68569711538
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13989,7 +14071,8 @@ window.BENCHMARK_DATA = {
           14915,
           14902,
           14902,
-          14920
+          14920,
+          14902
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14164,7 +14247,8 @@ window.BENCHMARK_DATA = {
           5851.206109728132,
           5908.51268357497,
           6145.1167332967125,
-          2851.394453593663
+          2851.394453593663,
+          6141.56008199056
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14325,6 +14409,7 @@ window.BENCHMARK_DATA = {
           9280,
           9336,
           9280,
+          9320,
           9320,
           9320,
           9320,
@@ -14511,7 +14596,8 @@ window.BENCHMARK_DATA = {
           5556.767231532505,
           5583.922849019368,
           5790.730877685547,
-          2634.3759604862757
+          2634.3759604862757,
+          5651.5130065917965
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14681,6 +14767,7 @@ window.BENCHMARK_DATA = {
           8147,
           8160,
           8147,
+          8160,
           8160,
           8160,
           8160
@@ -14858,7 +14945,8 @@ window.BENCHMARK_DATA = {
           195.96253544489542,
           165.93062737782796,
           165.0190189251533,
-          106.35600043194634
+          106.35600043194634,
+          176.2865730603536
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15024,6 +15112,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -15205,7 +15294,8 @@ window.BENCHMARK_DATA = {
           568.9801632336208,
           430.6294204076131,
           455.43014195760094,
-          256.27327493258883
+          256.27327493258883,
+          435.6974775314331
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15339,6 +15429,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -16357,6 +16448,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -16520,7 +16617,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -16687,7 +16785,8 @@ window.BENCHMARK_DATA = {
           848.1868739128113,
           625.7185032027108,
           658.1646708170573,
-          432.1508386685298
+          432.1508386685298,
+          653.243578974406
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16848,6 +16947,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152,
           2152,
@@ -17034,7 +17134,8 @@ window.BENCHMARK_DATA = {
           149206.06215413412,
           202414.74868164063,
           199928.091343471,
-          57930.1433367048
+          57930.1433367048,
+          198263.8190166767
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17206,7 +17307,8 @@ window.BENCHMARK_DATA = {
           18906,
           18901,
           18901,
-          18905
+          18905,
+          18901
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17381,7 +17483,8 @@ window.BENCHMARK_DATA = {
           8719.761790974935,
           8942.875682067872,
           9035.585885184151,
-          4220.261857096354
+          4220.261857096354,
+          9396.480728149414
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17553,7 +17656,8 @@ window.BENCHMARK_DATA = {
           12344,
           12345,
           12345,
-          12344
+          12344,
+          12345
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17728,7 +17832,8 @@ window.BENCHMARK_DATA = {
           9098.335385836088,
           8821.198481968471,
           8771.848975045341,
-          4191.378526306153
+          4191.378526306153,
+          9092.087790934245
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17900,7 +18005,8 @@ window.BENCHMARK_DATA = {
           16396,
           16393,
           16393,
-          16394
+          16394,
+          16393
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18075,7 +18181,8 @@ window.BENCHMARK_DATA = {
           399.67548554738363,
           342.32608661651614,
           344.80437772614613,
-          231.91938347816466
+          231.91938347816466,
+          359.14500722885134
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18241,6 +18348,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -18422,7 +18530,8 @@ window.BENCHMARK_DATA = {
           1728.3691064394438,
           1293.1643619537354,
           1315.7106989542642,
-          918.9327409608023
+          918.9327409608023,
+          1336.1231754302978
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18556,6 +18665,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -19574,6 +19684,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -19737,7 +19853,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -19904,7 +20021,8 @@ window.BENCHMARK_DATA = {
           1159.003954442342,
           1236.4723562876384,
           816.904483795166,
-          854.2025307973225
+          854.2025307973225,
+          319.43450530370075
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20065,6 +20183,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432,
           2432,
@@ -20251,7 +20370,8 @@ window.BENCHMARK_DATA = {
           10329.010221354167,
           10845.640258789062,
           7593.317197672526,
-          7707.479921613421
+          7707.479921613421,
+          5801.515299479167
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20422,6 +20542,7 @@ window.BENCHMARK_DATA = {
           10585,
           10585,
           10585,
+          10584,
           10584,
           10584
         ],
@@ -20598,7 +20719,8 @@ window.BENCHMARK_DATA = {
           7132.045897263747,
           7409.506986764761,
           5184.12635866801,
-          5280.208943049113
+          5280.208943049113,
+          3953.898265838623
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20759,6 +20881,7 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
+          11664,
           11664,
           11664,
           11664,
@@ -20945,7 +21068,8 @@ window.BENCHMARK_DATA = {
           7211.707721455892,
           7933.740878295898,
           5253.632444109236,
-          5112.205027653621
+          5112.205027653621,
+          4133.666046142578
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21107,6 +21231,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212,
           11212,
           11212,
@@ -21292,7 +21417,8 @@ window.BENCHMARK_DATA = {
           177.58083713054657,
           160.0292404294014,
           136.69388427734376,
-          138.18774355252583
+          138.18774355252583,
+          119.5282393353326
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21458,6 +21584,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -21639,7 +21766,8 @@ window.BENCHMARK_DATA = {
           447.6870594365256,
           427.07839742073645,
           334.65929886010974,
-          331.5373659133911
+          331.5373659133911,
+          302.7433972040812
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21773,6 +21901,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -22791,6 +22920,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -22954,7 +23089,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -23121,7 +23257,8 @@ window.BENCHMARK_DATA = {
           1036.509962626866,
           999.819058227539,
           778.3682690938314,
-          769.8385257720947
+          769.8385257720947,
+          758.2075306347439
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -23282,6 +23419,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936,
           2936,
@@ -23468,7 +23606,8 @@ window.BENCHMARK_DATA = {
           16723.263417561848,
           17160.775587815504,
           12541.448852539062,
-          12104.134363027719
+          12104.134363027719,
+          9523.322365394006
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23630,6 +23769,7 @@ window.BENCHMARK_DATA = {
           18721,
           18721,
           18520,
+          18521,
           18521,
           18521,
           18521,
@@ -23815,7 +23955,8 @@ window.BENCHMARK_DATA = {
           15837.034627278646,
           16730.974977620444,
           12146.573400878906,
-          11904.690540858677
+          11904.690540858677,
+          9453.532197134835
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23977,6 +24118,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21528,
+          21529,
           21529,
           21529,
           21529,
@@ -24162,7 +24304,8 @@ window.BENCHMARK_DATA = {
           17260.33676147461,
           19023.680194091798,
           12930.759734017509,
-          12540.707993570964
+          12540.707993570964,
+          10143.615129910982
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24324,6 +24467,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801,
           30801,
           30801,
@@ -24509,7 +24653,8 @@ window.BENCHMARK_DATA = {
           327.4553357124329,
           321.2590056566092,
           259.6621950149536,
-          258.9213773523058
+          258.9213773523058,
+          269.61097351710004
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24675,6 +24820,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -24856,7 +25002,8 @@ window.BENCHMARK_DATA = {
           1602.9423674265543,
           1519.4109588623046,
           1272.1882049560547,
-          1183.3123755821814
+          1183.3123755821814,
+          1238.9242817805364
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24990,6 +25137,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -26008,6 +26156,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 4 20:36:37 2026 \u002B0100",
         "message": "chore: use the TUnit.Mocks static entry point in the benchmarks (#943)"
+      },
+      {
+        "sha": "dd8c0b2750f44a75ca8e6782e4c595fb7bea1375",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 5 17:18:11 2026 \u002B0100",
+        "message": "fix: generate setup types for delegates with more than four parameters (#944)"
       }
     ],
     "labels": [
@@ -26171,7 +26325,8 @@ window.BENCHMARK_DATA = {
       "64d58a0b",
       "cc0dba11",
       "6826595d",
-      "3abbae25"
+      "3abbae25",
+      "dd8c0b27"
     ],
     "datasets": [
       {
@@ -26338,7 +26493,8 @@ window.BENCHMARK_DATA = {
           15.65285866856575,
           18.409149527549744,
           16.531438157955805,
-          13.198273296867098
+          13.198273296867098,
+          16.52711489370891
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -26396,6 +26552,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -26685,7 +26842,8 @@ window.BENCHMARK_DATA = {
           86.48937627474467,
           99.54600954850515,
           89.52369226614634,
-          75.71587142774037
+          75.71587142774037,
+          93.73830922444661
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26851,6 +27009,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -27032,7 +27191,8 @@ window.BENCHMARK_DATA = {
           32.02979480822881,
           37.86967719976719,
           33.76613402764003,
-          22.3170774102211
+          22.3170774102211,
+          27.38363268283697
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -27166,6 +27326,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -27379,7 +27540,8 @@ window.BENCHMARK_DATA = {
           1283.2047364371163,
           1397.2129890441895,
           1312.7431652069092,
-          1036.307047843933
+          1036.307047843933,
+          1323.6549841562908
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27540,6 +27702,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -27726,7 +27889,8 @@ window.BENCHMARK_DATA = {
           1832.9732468922932,
           1923.623343149821,
           1883.8722508748372,
-          1399.4878997802734
+          1399.4878997802734,
+          1909.928182474772
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -27887,6 +28051,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -28073,7 +28238,8 @@ window.BENCHMARK_DATA = {
           1577.235441716512,
           1489.9891974131267,
           1551.819639714559,
-          1218.5742774963378
+          1218.5742774963378,
+          1549.5453034718832
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28238,6 +28404,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2764,
+          2755,
           2755,
           2755,
           2755,
