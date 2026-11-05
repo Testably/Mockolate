@@ -3,7 +3,7 @@ namespace Build.Tests;
 public sealed class BenchmarkTableParserTests
 {
 	[Test]
-	public async Task Reset_ShouldClearMeanIndexAndAllowFreshTable()
+	public async Task Reset_ShouldAllowFreshTable()
 	{
 		BenchmarkTableParser parser = new([]);
 		parser.TryConsume("| Method | Mean |", out _, out _, out _);
@@ -13,7 +13,6 @@ public sealed class BenchmarkTableParserTests
 		parser.TryConsume("| Other | Allocated |", out int header, out _, out _);
 
 		await That(header).IsEqualTo(0);
-		await That(parser.MeanIndex).IsEqualTo(-1);
 	}
 
 	[Test]
@@ -44,16 +43,6 @@ public sealed class BenchmarkTableParserTests
 	}
 
 	[Test]
-	public async Task TryConsume_ShouldDetectMeanColumnFromHeader()
-	{
-		BenchmarkTableParser parser = new([]);
-
-		parser.TryConsume("| Method | Error | Mean | Allocated |", out _, out _, out _);
-
-		await That(parser.MeanIndex).IsEqualTo(2);
-	}
-
-	[Test]
 	public async Task TryConsume_ShouldDropConfiguredColumnsCaseInsensitively()
 	{
 		BenchmarkTableParser parser = new(["Gen0", "GEN1",]);
@@ -78,16 +67,6 @@ public sealed class BenchmarkTableParserTests
 		parser.TryConsume("| **Indexer_Mockolate** | **1** | **923 ns** |", out _, out _, out string[]? tokens);
 
 		await That(tokens).IsEqualTo(["Indexer_Mockolate", "1", "923 ns",]);
-	}
-
-	[Test]
-	public async Task TryConsume_WhenHeaderHasNoMeanColumn_ShouldReportNegativeMeanIndex()
-	{
-		BenchmarkTableParser parser = new([]);
-
-		parser.TryConsume("| Method | Allocated |", out _, out _, out _);
-
-		await That(parser.MeanIndex).IsEqualTo(-1);
 	}
 
 	[Test]
@@ -116,6 +95,5 @@ public sealed class BenchmarkTableParserTests
 
 		parser.TryConsume("| Other | Allocated |", out int restartHeader, out _, out _);
 		await That(restartHeader).IsEqualTo(0);
-		await That(parser.MeanIndex).IsEqualTo(-1);
 	}
 }

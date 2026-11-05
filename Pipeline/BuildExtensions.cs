@@ -148,54 +148,6 @@ public static class BuildExtensions
 		=> DownloadArtifactsWhere(name => name.StartsWith(artifactNamePrefix, StringComparison.OrdinalIgnoreCase),
 			artifactsDirectory, githubToken);
 
-	public static async Task<long[]> FindRecentSuccessfulRunIds(string workflowFileName, string branch, int count,
-		string githubToken)
-	{
-		if (string.IsNullOrEmpty(githubToken))
-		{
-			throw new ArgumentException("A GitHub token is required.", nameof(githubToken));
-		}
-
-		using HttpClient client = new();
-		client.DefaultRequestHeaders.UserAgent.ParseAdd("Mockolate");
-		client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", githubToken);
-
-		string url = $"{RepositoryApiBaseUrl}/actions/workflows/{Uri.EscapeDataString(workflowFileName)}/runs" +
-		             $"?status=success&branch={Uri.EscapeDataString(branch)}&per_page={count}";
-		HttpResponseMessage response = await client.GetAsync(url);
-		string responseContent = await response.Content.ReadAsStringAsync();
-		if (!response.IsSuccessStatusCode)
-		{
-			Log.Warning(
-				$"Could not find recent runs for workflow '{workflowFileName}' on branch '{branch}': {responseContent}");
-			return [];
-		}
-
-		try
-		{
-			using JsonDocument jsonDocument = JsonDocument.Parse(responseContent);
-			JsonElement runs = jsonDocument.RootElement.GetProperty("workflow_runs");
-			long[] ids = new long[runs.GetArrayLength()];
-			for (int i = 0; i < ids.Length; i++)
-			{
-				ids[i] = runs[i].GetProperty("id").GetInt64();
-			}
-
-			return ids;
-		}
-		catch (Exception e) when (e is JsonException or KeyNotFoundException or InvalidOperationException)
-		{
-			Log.Error($"Could not parse workflow runs response: {e.Message}\n{responseContent}");
-			return [];
-		}
-	}
-
-	public static Task DownloadArtifactsFromRunStartingWith(long runId, string artifactNamePrefix,
-		string artifactsDirectory, string githubToken)
-		=> DownloadArtifactsFromRun(runId.ToString(),
-			name => name.StartsWith(artifactNamePrefix, StringComparison.OrdinalIgnoreCase),
-			artifactsDirectory, githubToken);
-
 	private static Task DownloadArtifactsWhere(Func<string, bool> namePredicate, string artifactsDirectory,
 		string githubToken)
 	{
