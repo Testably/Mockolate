@@ -873,8 +873,8 @@ internal static partial class Mock
 			get
 			{
 				var indexerSetup = new global::Mockolate.Setup.RefStructIndexerSetup<string, global::Mockolate.Tests.GeneratorCoverage.Packet, int, global::Mockolate.Tests.GeneratorCoverage.Packet, int, global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.get_Item", "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.set_Item", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)parameter1, (global::Mockolate.Parameters.IParameterMatch<int>?)parameter2, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)parameter3, (global::Mockolate.Parameters.IParameterMatch<int>?)parameter4, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)parameter5);
-				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Indexer_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_Get, _scenarioName, indexerSetup.Getter);
-				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Indexer_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_Set, _scenarioName, indexerSetup.Setter);
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Indexer_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_Get, this._scenarioName, indexerSetup.Getter);
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Indexer_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_Set, this._scenarioName, indexerSetup.Setter);
 				return indexerSetup;
 			}
 		}
@@ -885,7 +885,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.Consume5(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p1, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p2, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p3, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p4, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p5)
 		{
 			var methodSetup = new global::Mockolate.Setup.RefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Consume5", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p1, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p2, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p3, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p4, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p5);
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Consume5, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Consume5, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 #endif
@@ -895,7 +895,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.Produce(global::Mockolate.Parameters.IOutRefStructParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet)
 		{
 			var methodSetup = new global::Mockolate.Setup.RefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Produce", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)packet);
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Produce, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Produce, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 #endif
@@ -905,7 +905,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.Mutate(global::Mockolate.Parameters.IRefRefStructParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet)
 		{
 			var methodSetup = new global::Mockolate.Setup.RefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Mutate", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)packet);
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Mutate, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Mutate, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 #endif
@@ -915,7 +915,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.Inspect(global::Mockolate.Parameters.IRefRefStructParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet)
 		{
 			var methodSetup = new global::Mockolate.Setup.RefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Inspect", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)packet);
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Inspect, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Inspect, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 #endif
@@ -924,7 +924,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.ProduceSpan(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan", parameters, "span");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -932,7 +932,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.ProduceSpan(global::Mockolate.Parameters.IOutParameter<global::Mockolate.Setup.SpanWrapper<int>> span)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Setup.SpanWrapper<int>>)(span));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -940,7 +940,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.MutateSpan(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan", parameters, "span");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -948,7 +948,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.MutateSpan(global::Mockolate.Parameters.IRefParameter<global::Mockolate.Setup.SpanWrapper<int>> span)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Setup.SpanWrapper<int>>)(span));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -956,7 +956,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.ProduceReadOnlySpan(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan", parameters, "span");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -964,7 +964,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.ProduceReadOnlySpan(global::Mockolate.Parameters.IOutParameter<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> span)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>)(span));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -972,7 +972,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.MutateReadOnlySpan(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan", parameters, "span");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -980,7 +980,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.MutateReadOnlySpan(global::Mockolate.Parameters.IRefParameter<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> span)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>)(span));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -989,7 +989,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::System.Span<int>> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.InspectSpan(global::Mockolate.Parameters.IRefRefStructParameter<global::System.Span<int>>? span)
 		{
 			var methodSetup = new global::Mockolate.Setup.RefStructVoidMethodSetup<global::System.Span<int>>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.InspectSpan", (global::Mockolate.Parameters.IParameterMatch<global::System.Span<int>>?)span);
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_InspectSpan, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_InspectSpan, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 #endif

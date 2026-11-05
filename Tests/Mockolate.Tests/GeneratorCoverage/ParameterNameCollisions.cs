@@ -7,17 +7,17 @@ namespace Mockolate.Tests.GeneratorCoverage;
 /// </summary>
 public interface IParameterNameCollisions
 {
-	int this[int MockRegistry] { get; set; }
+	int this[int MockRegistry, int _scenarioName] { get; set; }
 
 	event ParameterNameCollisionsDelegate Event;
 
-	int Method(int MockRegistry);
+	int Method(int MockRegistry, int _scenarioName);
 
-	void VoidMethod(int MockRegistry, ref int other, out int another);
+	void VoidMethod(int MockRegistry, int _scenarioName, ref int other, out int another);
 
-	int Five(int MockRegistry, int b, int c, int d, int e);
+	int Five(int MockRegistry, int _scenarioName, int c, int d, int e);
 
-	T Generic<T>(T MockRegistry);
+	T Generic<T>(T MockRegistry, int _scenarioName);
 }
 
 /// <summary>
@@ -25,17 +25,17 @@ public interface IParameterNameCollisions
 /// </summary>
 public abstract class ParameterNameCollisionsBase
 {
-	public virtual int this[int MockRegistry]
+	public virtual int this[int MockRegistry, int _scenarioName]
 	{
 		get => 0;
 		set { }
 	}
 
-	public virtual int Method(int MockRegistry) => 0;
+	public virtual int Method(int MockRegistry, int _scenarioName) => 0;
 
-	public virtual void VoidMethod(int MockRegistry, ref int other, out int another) => another = 0;
+	public virtual void VoidMethod(int MockRegistry, int _scenarioName, ref int other, out int another) => another = 0;
 
-	protected virtual int ProtectedMethod(int MockRegistry) => 0;
+	protected virtual int ProtectedMethod(int MockRegistry, int _scenarioName) => 0;
 }
 
 /// <summary>

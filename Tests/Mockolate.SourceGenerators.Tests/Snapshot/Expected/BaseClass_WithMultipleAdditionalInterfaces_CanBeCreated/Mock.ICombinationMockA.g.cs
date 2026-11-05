@@ -265,7 +265,7 @@ internal static partial class Mock
 			get
 			{
 				var propertySetup = new global::Mockolate.Setup.PropertySetup<int>(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Value");
-				this.MockRegistry.SetupProperty(global::Mockolate.Mock.ICombinationMockA.MemberId_Value_Get, _scenarioName, propertySetup);
+				this.MockRegistry.SetupProperty(global::Mockolate.Mock.ICombinationMockA.MemberId_Value_Get, this._scenarioName, propertySetup);
 				return propertySetup;
 			}
 		}
@@ -274,7 +274,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetup global::Mockolate.Mock.IMockSetupForICombinationMockA.Run()
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ICombinationMockA.MemberId_Run, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ICombinationMockA.MemberId_Run, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 

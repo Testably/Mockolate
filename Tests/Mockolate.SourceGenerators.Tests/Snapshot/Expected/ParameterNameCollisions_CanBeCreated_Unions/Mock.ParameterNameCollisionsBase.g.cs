@@ -21,8 +21,8 @@ internal static partial class Mock
 		global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase, IMockForParameterNameCollisionsBase, IMockSetupForParameterNameCollisionsBase, IMockProtectedSetupForParameterNameCollisionsBase, global::Mockolate.MockExtensionsForParameterNameCollisionsBase.IMockSetupInitializationForParameterNameCollisionsBase, IMockVerifyForParameterNameCollisionsBase, IMockProtectedVerifyForParameterNameCollisionsBase,
 		global::Mockolate.IMock
 	{
-		internal const int MemberId_Indexer_int_Get = 0;
-		internal const int MemberId_Indexer_int_Set = 1;
+		internal const int MemberId_Indexer_int_int_Get = 0;
+		internal const int MemberId_Indexer_int_int_Set = 1;
 		internal const int MemberId_Method = 2;
 		internal const int MemberId_VoidMethod = 3;
 		internal const int MemberId_ProtectedMethod = 4;
@@ -57,20 +57,20 @@ internal static partial class Mock
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastIndexerGetterBuffer<int> MockolateBuffer_Indexer_int_Get
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerGetterBuffer<int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, static fast => new global::Mockolate.Internals.FastIndexerGetterBuffer<int>(fast)));
+		private global::Mockolate.Internals.FastIndexerGetterBuffer<int, int> MockolateBuffer_Indexer_int_int_Get
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerGetterBuffer<int, int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, static fast => new global::Mockolate.Internals.FastIndexerGetterBuffer<int, int>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastIndexerSetterBuffer<int, int> MockolateBuffer_Indexer_int_Set
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerSetterBuffer<int, int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Set, static fast => new global::Mockolate.Internals.FastIndexerSetterBuffer<int, int>(fast)));
+		private global::Mockolate.Internals.FastIndexerSetterBuffer<int, int, int> MockolateBuffer_Indexer_int_int_Set
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerSetterBuffer<int, int, int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set, static fast => new global::Mockolate.Internals.FastIndexerSetterBuffer<int, int, int>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod1Buffer<int> MockolateBuffer_Method
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, static fast => new global::Mockolate.Internals.FastMethod1Buffer<int>(fast)));
+		private global::Mockolate.Internals.FastMethod2Buffer<int, int> MockolateBuffer_Method
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod2Buffer<int, int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, static fast => new global::Mockolate.Internals.FastMethod2Buffer<int, int>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod3Buffer<int, int, int> MockolateBuffer_VoidMethod
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod3Buffer<int, int, int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, static fast => new global::Mockolate.Internals.FastMethod3Buffer<int, int, int>(fast)));
+		private global::Mockolate.Internals.FastMethod4Buffer<int, int, int, int> MockolateBuffer_VoidMethod
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod4Buffer<int, int, int, int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, static fast => new global::Mockolate.Internals.FastMethod4Buffer<int, int, int, int>(fast)));
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod1Buffer<int> MockolateBuffer_ProtectedMethod
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, static fast => new global::Mockolate.Internals.FastMethod1Buffer<int>(fast)));
+		private global::Mockolate.Internals.FastMethod2Buffer<int, int> MockolateBuffer_ProtectedMethod
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod2Buffer<int, int>>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, static fast => new global::Mockolate.Internals.FastMethod2Buffer<int, int>(fast)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -144,24 +144,24 @@ internal static partial class Mock
 
 		#region Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int]" />
-		public override int this[int MockRegistry]
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]" />
+		public override int this[int MockRegistry, int _scenarioName]
 		{
 			get
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					this.MockolateBuffer_Indexer_int_Get.Append(MockRegistry);
+					this.MockolateBuffer_Indexer_int_int_Get.Append(MockRegistry, _scenarioName);
 				}
-				global::Mockolate.Setup.IndexerSetup<int, int>? setup = null;
+				global::Mockolate.Setup.IndexerSetup<int, int, int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
 				{
-					global::Mockolate.Setup.IndexerSetup[]? snapshot_setup = this.MockRegistry.GetIndexerSetupSnapshot(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get);
+					global::Mockolate.Setup.IndexerSetup[]? snapshot_setup = this.MockRegistry.GetIndexerSetupSnapshot(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get);
 					if (snapshot_setup is not null)
 					{
 						for (int i_setup = snapshot_setup.Length - 1; i_setup >= 0; i_setup--)
 						{
-							if (snapshot_setup[i_setup] is global::Mockolate.Setup.IndexerSetup<int, int> s_setup && s_setup.Matches(MockRegistry))
+							if (snapshot_setup[i_setup] is global::Mockolate.Setup.IndexerSetup<int, int, int> s_setup && s_setup.Matches(MockRegistry, _scenarioName))
 							{
 								setup = s_setup;
 								break;
@@ -169,11 +169,11 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerGetterAccess<int> access = new(MockRegistry);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int>>(access);
+				global::Mockolate.Interactions.IndexerGetterAccess<int, int> access = new(MockRegistry, _scenarioName);
+				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int, int>>(access);
 				if (!(setup?.SkipBaseClass() ?? this.MockRegistry.Behavior.SkipBaseClass))
 				{
-					int baseResult = this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase wraps ? wraps[MockRegistry] : base[MockRegistry];
+					int baseResult = this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase wraps ? wraps[MockRegistry, _scenarioName] : base[MockRegistry, _scenarioName];
 					return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 0);
 				}
 				return setup is null
@@ -184,17 +184,17 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					this.MockolateBuffer_Indexer_int_Set.Append(MockRegistry, value);
+					this.MockolateBuffer_Indexer_int_int_Set.Append(MockRegistry, _scenarioName, value);
 				}
-				global::Mockolate.Setup.IndexerSetup<int, int>? setup = null;
+				global::Mockolate.Setup.IndexerSetup<int, int, int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
 				{
-					global::Mockolate.Setup.IndexerSetup[]? snapshot_setup = this.MockRegistry.GetIndexerSetupSnapshot(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get);
+					global::Mockolate.Setup.IndexerSetup[]? snapshot_setup = this.MockRegistry.GetIndexerSetupSnapshot(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get);
 					if (snapshot_setup is not null)
 					{
 						for (int i_setup = snapshot_setup.Length - 1; i_setup >= 0; i_setup--)
 						{
-							if (snapshot_setup[i_setup] is global::Mockolate.Setup.IndexerSetup<int, int> s_setup && s_setup.Matches(MockRegistry, value))
+							if (snapshot_setup[i_setup] is global::Mockolate.Setup.IndexerSetup<int, int, int> s_setup && s_setup.Matches(MockRegistry, _scenarioName, value))
 							{
 								setup = s_setup;
 								break;
@@ -202,26 +202,26 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerSetterAccess<int, int> access = new(MockRegistry, value);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int>>(access);
+				global::Mockolate.Interactions.IndexerSetterAccess<int, int, int> access = new(MockRegistry, _scenarioName, value);
+				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int, int>>(access);
 				if (!this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 0))
 				{
 					if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase wraps)
 					{
-						wraps[MockRegistry] = value;
+						wraps[MockRegistry, _scenarioName] = value;
 					}
 					else
 					{
-						base[MockRegistry] = value;
+						base[MockRegistry, _scenarioName] = value;
 					}
 				}
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int)" />
-		public override int Method(int MockRegistry)
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)" />
+		public override int Method(int MockRegistry, int _scenarioName)
 		{
-			global::Mockolate.Setup.ReturnMethodSetup<int, int>? methodSetup = null;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int>? methodSetup = null;
 			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
 			{
 				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method);
@@ -229,7 +229,7 @@ internal static partial class Mock
 				{
 					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
 					{
-						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup && s_methodSetup.Matches(MockRegistry))
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup && s_methodSetup.Matches(MockRegistry, _scenarioName))
 						{
 							methodSetup = s_methodSetup;
 							break;
@@ -239,9 +239,9 @@ internal static partial class Mock
 			}
 			if (methodSetup is null)
 			{
-				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method"))
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method"))
 				{
-					if (s_methodSetup.Matches(MockRegistry))
+					if (s_methodSetup.Matches(MockRegistry, _scenarioName))
 					{
 						methodSetup = s_methodSetup;
 						break;
@@ -252,41 +252,41 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer_Method.Append("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistry);
+				this.MockolateBuffer_Method.Append("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistry, _scenarioName);
 			}
 			try
 			{
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase wraps)
 				{
-					wrappedResult = wraps.Method(MockRegistry);
+					wrappedResult = wraps.Method(MockRegistry, _scenarioName);
 					hasWrappedResult = true;
 				}
 				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass) && !hasWrappedResult)
 				{
-					wrappedResult = base.Method(MockRegistry);
+					wrappedResult = base.Method(MockRegistry, _scenarioName);
 					hasWrappedResult = true;
 				}
 			}
 			finally
 			{
-				methodSetup?.TriggerCallbacks(MockRegistry);
+				methodSetup?.TriggerCallbacks(MockRegistry, _scenarioName);
 			}
 			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
 			{
-				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int)' was invoked without prior setup.");
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)' was invoked without prior setup.");
 			}
 			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(MockRegistry, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry);
+			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, ref int, out int)" />
-		public override void VoidMethod(int MockRegistry, ref int other, out int another)
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)" />
+		public override void VoidMethod(int MockRegistry, int _scenarioName, ref int other, out int another)
 		{
 			var ref_other = other;
-			global::Mockolate.Setup.VoidMethodSetup<int, int, int>? methodSetup = null;
+			global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>? methodSetup = null;
 			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
 			{
 				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod);
@@ -294,7 +294,7 @@ internal static partial class Mock
 				{
 					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
 					{
-						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<int, int, int> s_methodSetup && s_methodSetup.Matches(MockRegistry, ref_other, default))
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<int, int, int, int> s_methodSetup && s_methodSetup.Matches(MockRegistry, _scenarioName, ref_other, default))
 						{
 							methodSetup = s_methodSetup;
 							break;
@@ -304,9 +304,9 @@ internal static partial class Mock
 			}
 			if (methodSetup is null)
 			{
-				foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod"))
+				foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod"))
 				{
-					if (s_methodSetup.Matches(MockRegistry, ref_other, default))
+					if (s_methodSetup.Matches(MockRegistry, _scenarioName, ref_other, default))
 					{
 						methodSetup = s_methodSetup;
 						break;
@@ -317,29 +317,29 @@ internal static partial class Mock
 			another = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer_VoidMethod.Append("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistry, other, another);
+				this.MockolateBuffer_VoidMethod.Append("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistry, _scenarioName, other, another);
 			}
 			try
 			{
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase wraps)
 				{
-					wraps.VoidMethod(MockRegistry, ref other, out another);
+					wraps.VoidMethod(MockRegistry, _scenarioName, ref other, out another);
 					hasWrappedResult = true;
 				}
 				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass) && !hasWrappedResult)
 				{
-					base.VoidMethod(MockRegistry, ref other, out another);
+					base.VoidMethod(MockRegistry, _scenarioName, ref other, out another);
 					hasWrappedResult = true;
 				}
-				if (!hasWrappedResult || methodSetup is global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameterCollection)
+				if (!hasWrappedResult || methodSetup is global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection)
 				{
-					if (methodSetup is global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameterCollection wpc)
+					if (methodSetup is global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection wpc)
 					{
-						if (wpc.Parameter2 is global::Mockolate.Parameters.IRefParameter<int> refParam2)
+						if (wpc.Parameter3 is global::Mockolate.Parameters.IRefParameter<int> refParam3)
 						{
-							other = refParam2.GetValue(other);
+							other = refParam3.GetValue(other);
 						}
-						if (wpc.Parameter3 is not global::Mockolate.Parameters.IOutParameter<int> outParam3 || !outParam3.TryGetValue(out another))
+						if (wpc.Parameter4 is not global::Mockolate.Parameters.IOutParameter<int> outParam4 || !outParam4.TryGetValue(out another))
 						{
 							another = this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!);
 						}
@@ -352,18 +352,18 @@ internal static partial class Mock
 			}
 			finally
 			{
-				methodSetup?.TriggerCallbacks(MockRegistry, other, another);
+				methodSetup?.TriggerCallbacks(MockRegistry, _scenarioName, other, another);
 			}
 			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
 			{
-				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, int)' was invoked without prior setup.");
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, int, int)' was invoked without prior setup.");
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int)" />
-		protected override int ProtectedMethod(int MockRegistry)
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)" />
+		protected override int ProtectedMethod(int MockRegistry, int _scenarioName)
 		{
-			global::Mockolate.Setup.ReturnMethodSetup<int, int>? methodSetup = null;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int>? methodSetup = null;
 			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
 			{
 				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod);
@@ -371,7 +371,7 @@ internal static partial class Mock
 				{
 					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
 					{
-						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup && s_methodSetup.Matches(MockRegistry))
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup && s_methodSetup.Matches(MockRegistry, _scenarioName))
 						{
 							methodSetup = s_methodSetup;
 							break;
@@ -381,9 +381,9 @@ internal static partial class Mock
 			}
 			if (methodSetup is null)
 			{
-				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod"))
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod"))
 				{
-					if (s_methodSetup.Matches(MockRegistry))
+					if (s_methodSetup.Matches(MockRegistry, _scenarioName))
 					{
 						methodSetup = s_methodSetup;
 						break;
@@ -394,29 +394,29 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer_ProtectedMethod.Append("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistry);
+				this.MockolateBuffer_ProtectedMethod.Append("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistry, _scenarioName);
 			}
 			try
 			{
 				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass))
 				{
-					wrappedResult = base.ProtectedMethod(MockRegistry);
+					wrappedResult = base.ProtectedMethod(MockRegistry, _scenarioName);
 					hasWrappedResult = true;
 				}
 			}
 			finally
 			{
-				methodSetup?.TriggerCallbacks(MockRegistry);
+				methodSetup?.TriggerCallbacks(MockRegistry, _scenarioName);
 			}
 			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
 			{
-				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int)' was invoked without prior setup.");
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)' was invoked without prior setup.");
 			}
 			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(MockRegistry, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry);
+			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName);
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase
@@ -425,84 +425,146 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<int>? parameter2]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch());
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, indexerSetup);
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, indexerSetup);
 				return indexerSetup;
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, string parameter1Expression]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<int>? parameter2, string parameter1Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression));
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, indexerSetup);
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (parameter2 ?? default).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, indexerSetup);
 				return indexerSetup;
 			}
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.Parameters.IParameters parameters)
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<int, bool> parameter2, string parameter2Expression]
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", parameters, "MockRegistry");
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, global::System.Func<int, bool> parameter2, string parameter1Expression, string parameter2Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", parameters, "MockRegistry", "_scenarioName");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			global::Mockolate.Setup.ReturnMethodSetup<int, int> methodSetup;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!, _scenarioNameArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression));
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", parameters, "MockRegistry", "other", "another");
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", parameters, "MockRegistry", "_scenarioName", "other", "another");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another)
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
-			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression)
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
-			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
 		}
 
 		#endregion IMockSetupForParameterNameCollisionsBase
@@ -510,36 +572,55 @@ internal static partial class Mock
 		#region IMockProtectedSetupForParameterNameCollisionsBase
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", parameters, "MockRegistry");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", parameters, "MockRegistry", "_scenarioName");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			global::Mockolate.Setup.ReturnMethodSetup<int, int> methodSetup;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.Literal!, _scenarioNameArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression));
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		#endregion IMockProtectedSetupForParameterNameCollisionsBase
@@ -548,80 +629,154 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? MockRegistry]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName]
 		{
 			get
 			{
-				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Set,
+				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set,
 					(MockRegistry ?? default).ToParameterMatch(),
-					() => global::System.String.Format("[{0}]", (object?)(MockRegistry ?? default)));
+					(_scenarioName ?? default).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}]", (object?)(MockRegistry ?? default), (object?)(_scenarioName ?? default)));
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::System.Func<int, bool> MockRegistry, string MockRegistryExpression]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression]
 		{
 			get
 			{
-				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Set,
+				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression),
-					() => global::System.String.Format("[{0}]", (object?)MockRegistryExpression));
+					(_scenarioName ?? default).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}]", (object?)MockRegistryExpression, (object?)(_scenarioName ?? default)));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set,
+					(MockRegistry ?? default).ToParameterMatch(),
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression),
+					() => global::System.String.Format("[{0}, {1}]", (object?)(MockRegistry ?? default), (object?)_scenarioNameExpression));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set,
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression),
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression),
+					() => global::System.String.Format("[{0}, {1}]", (object?)MockRegistryExpression, (object?)_scenarioNameExpression));
 			}
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase> IMockVerifyForParameterNameCollisionsBase.Method(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", __i => parameters switch
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", __i => parameters switch
 				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1)]),
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1), ("_scenarioName", __i.Parameter2)]),
 					_ => true
 				}, () => $"Method({parameters})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!, () => $"Method({MockRegistryArg})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!, _scenarioNameArg.Literal!, () => $"Method({MockRegistryArg}, {_scenarioNameArg})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), () => $"Method({MockRegistryArg})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch(), () => $"Method({MockRegistryArg}, {_scenarioNameArg})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), () => $"Method({MockRegistryExpression})");
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch(), () => $"Method({MockRegistryExpression}, {_scenarioNameArg})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), () => $"Method({MockRegistryArg}, {_scenarioNameExpression})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), () => $"Method({MockRegistryExpression}, {_scenarioNameExpression})");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase> IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => parameters switch
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => parameters switch
 				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1), ("other", __i.Parameter2), ("another", __i.Parameter3)]),
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3, __i.Parameter4]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1), ("_scenarioName", __i.Parameter2), ("other", __i.Parameter3), ("another", __i.Parameter4)]),
 					_ => true
 				}, () => $"VoidMethod({parameters})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
 			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = MockRegistryArg.ToParameterMatch();
-			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
+			global::Mockolate.Parameters.IParameterMatch<int> _scenarioNameMatch = _scenarioNameArg.ToParameterMatch();
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
 				(MockRegistryMatch.Matches(__i.Parameter1)) && 
-				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
-				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))), () => $"VoidMethod({MockRegistryArg}, {other}, {another})");
+				(_scenarioNameMatch.Matches(__i.Parameter2)) && 
+				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
+				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))), () => $"VoidMethod({MockRegistryArg}, {_scenarioNameArg}, {other}, {another})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, string MockRegistryExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, string MockRegistryExpression)
+		{
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression);
+			global::Mockolate.Parameters.IParameterMatch<int> _scenarioNameMatch = _scenarioNameArg.ToParameterMatch();
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
+				(MockRegistryMatch.Matches(__i.Parameter1)) && 
+				(_scenarioNameMatch.Matches(__i.Parameter2)) && 
+				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
+				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))), () => $"VoidMethod({MockRegistryExpression}, {_scenarioNameArg}, {other}, {another})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = MockRegistryArg.ToParameterMatch();
+			global::Mockolate.Parameters.IParameterMatch<int> _scenarioNameMatch = (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
+				(MockRegistryMatch.Matches(__i.Parameter1)) && 
+				(_scenarioNameMatch.Matches(__i.Parameter2)) && 
+				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
+				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))), () => $"VoidMethod({MockRegistryArg}, {_scenarioNameExpression}, {other}, {another})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, string MockRegistryExpression, string _scenarioNameExpression)
 		{
 			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
+			global::Mockolate.Parameters.IParameterMatch<int> _scenarioNameMatch = (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
 				(MockRegistryMatch.Matches(__i.Parameter1)) && 
-				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
-				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))), () => $"VoidMethod({MockRegistryExpression}, {other}, {another})");
+				(_scenarioNameMatch.Matches(__i.Parameter2)) && 
+				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
+				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))), () => $"VoidMethod({MockRegistryExpression}, {_scenarioNameExpression}, {other}, {another})");
 		}
 
 		#endregion IMockVerifyForParameterNameCollisionsBase
@@ -630,27 +785,42 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase> IMockProtectedVerifyForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", __i => parameters switch
+			=> this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", __i => parameters switch
 				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1)]),
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1), ("_scenarioName", __i.Parameter2)]),
 					_ => true
 				}, () => $"ProtectedMethod({parameters})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockProtectedVerifyForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockProtectedVerifyForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.Literal!, () => $"ProtectedMethod({MockRegistryArg})");
+				return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.Literal!, _scenarioNameArg.Literal!, () => $"ProtectedMethod({MockRegistryArg}, {_scenarioNameArg})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), () => $"ProtectedMethod({MockRegistryArg})");
+			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch(), () => $"ProtectedMethod({MockRegistryArg}, {_scenarioNameArg})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockProtectedVerifyForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockProtectedVerifyForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), () => $"ProtectedMethod({MockRegistryExpression})");
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch(), () => $"ProtectedMethod({MockRegistryExpression}, {_scenarioNameArg})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockProtectedVerifyForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), () => $"ProtectedMethod({MockRegistryArg}, {_scenarioNameExpression})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockProtectedVerifyForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), () => $"ProtectedMethod({MockRegistryExpression}, {_scenarioNameExpression})");
 		}
 
 		#endregion IMockProtectedVerifyForParameterNameCollisionsBase
@@ -665,80 +835,154 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? MockRegistry]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName]
 		{
 			get
 			{
-				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Set,
+				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set,
 					(MockRegistry ?? default).ToParameterMatch(),
-					() => global::System.String.Format("[{0}]", (object?)(MockRegistry ?? default)));
+					(_scenarioName ?? default).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}]", (object?)(MockRegistry ?? default), (object?)(_scenarioName ?? default)));
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::System.Func<int, bool> MockRegistry, string MockRegistryExpression]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression]
 		{
 			get
 			{
-				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Set,
+				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression),
-					() => global::System.String.Format("[{0}]", (object?)MockRegistryExpression));
+					(_scenarioName ?? default).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}]", (object?)MockRegistryExpression, (object?)(_scenarioName ?? default)));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set,
+					(MockRegistry ?? default).ToParameterMatch(),
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression),
+					() => global::System.String.Format("[{0}, {1}]", (object?)(MockRegistry ?? default), (object?)_scenarioNameExpression));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> IMockVerifyForParameterNameCollisionsBase.this[global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Set,
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression),
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression),
+					() => global::System.String.Format("[{0}, {1}]", (object?)MockRegistryExpression, (object?)_scenarioNameExpression));
 			}
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase> IMockVerifyForParameterNameCollisionsBase.Method(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", __i => parameters switch
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", __i => parameters switch
 				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1)]),
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1), ("_scenarioName", __i.Parameter2)]),
 					_ => true
 				}, () => $"Method({parameters})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!, () => $"Method({MockRegistryArg})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!, _scenarioNameArg.Literal!, () => $"Method({MockRegistryArg}, {_scenarioNameArg})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), () => $"Method({MockRegistryArg})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch(), () => $"Method({MockRegistryArg}, {_scenarioNameArg})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), () => $"Method({MockRegistryExpression})");
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch(), () => $"Method({MockRegistryExpression}, {_scenarioNameArg})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), () => $"Method({MockRegistryArg}, {_scenarioNameExpression})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, int, int>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), () => $"Method({MockRegistryExpression}, {_scenarioNameExpression})");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase> IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => parameters switch
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => parameters switch
 				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1), ("other", __i.Parameter2), ("another", __i.Parameter3)]),
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3, __i.Parameter4]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("MockRegistry", __i.Parameter1), ("_scenarioName", __i.Parameter2), ("other", __i.Parameter3), ("another", __i.Parameter4)]),
 					_ => true
 				}, () => $"VoidMethod({parameters})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
 			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = MockRegistryArg.ToParameterMatch();
-			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
+			global::Mockolate.Parameters.IParameterMatch<int> _scenarioNameMatch = _scenarioNameArg.ToParameterMatch();
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
 				(MockRegistryMatch.Matches(__i.Parameter1)) && 
-				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
-				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))), () => $"VoidMethod({MockRegistryArg}, {other}, {another})");
+				(_scenarioNameMatch.Matches(__i.Parameter2)) && 
+				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
+				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))), () => $"VoidMethod({MockRegistryArg}, {_scenarioNameArg}, {other}, {another})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, string MockRegistryExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, string MockRegistryExpression)
+		{
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression);
+			global::Mockolate.Parameters.IParameterMatch<int> _scenarioNameMatch = _scenarioNameArg.ToParameterMatch();
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
+				(MockRegistryMatch.Matches(__i.Parameter1)) && 
+				(_scenarioNameMatch.Matches(__i.Parameter2)) && 
+				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
+				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))), () => $"VoidMethod({MockRegistryExpression}, {_scenarioNameArg}, {other}, {another})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = MockRegistryArg.ToParameterMatch();
+			global::Mockolate.Parameters.IParameterMatch<int> _scenarioNameMatch = (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
+				(MockRegistryMatch.Matches(__i.Parameter1)) && 
+				(_scenarioNameMatch.Matches(__i.Parameter2)) && 
+				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
+				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))), () => $"VoidMethod({MockRegistryArg}, {_scenarioNameExpression}, {other}, {another})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters IMockVerifyForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, string MockRegistryExpression, string _scenarioNameExpression)
 		{
 			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
+			global::Mockolate.Parameters.IParameterMatch<int> _scenarioNameMatch = (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsBase, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", __i => 
 				(MockRegistryMatch.Matches(__i.Parameter1)) && 
-				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
-				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))), () => $"VoidMethod({MockRegistryExpression}, {other}, {another})");
+				(_scenarioNameMatch.Matches(__i.Parameter2)) && 
+				(other is global::Mockolate.Parameters.IParameterMatch<int> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
+				(another is global::Mockolate.Parameters.IParameterMatch<int> anotherMatch ? anotherMatch.Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))), () => $"VoidMethod({MockRegistryExpression}, {_scenarioNameExpression}, {other}, {another})");
 		}
 
 		#endregion IMockVerifyForParameterNameCollisionsBase
@@ -768,84 +1012,146 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<int>? parameter2]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch());
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, _scenarioName, indexerSetup);
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, this._scenarioName, indexerSetup);
 				return indexerSetup;
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, string parameter1Expression]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<int>? parameter2, string parameter1Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression));
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, _scenarioName, indexerSetup);
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (parameter2 ?? default).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, this._scenarioName, indexerSetup);
 				return indexerSetup;
 			}
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.Parameters.IParameters parameters)
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<int, bool> parameter2, string parameter2Expression]
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", parameters, "MockRegistry");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, _scenarioName, methodSetup);
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, global::System.Func<int, bool> parameter2, string parameter1Expression, string parameter2Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", parameters, "MockRegistry", "_scenarioName");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			global::Mockolate.Setup.ReturnMethodSetup<int, int> methodSetup;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!, _scenarioNameArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch());
 			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, _scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, _scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", parameters, "MockRegistry", "other", "another");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, _scenarioName, methodSetup);
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", parameters, "MockRegistry", "_scenarioName", "other", "another");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another)
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, _scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression)
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, _scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
 		}
 
 		#endregion IMockSetupForParameterNameCollisionsBase
@@ -853,36 +1159,55 @@ internal static partial class Mock
 		#region IMockProtectedSetupForParameterNameCollisionsBase
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", parameters, "MockRegistry");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, _scenarioName, methodSetup);
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", parameters, "MockRegistry", "_scenarioName");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			global::Mockolate.Setup.ReturnMethodSetup<int, int> methodSetup;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.Literal!, _scenarioNameArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch());
 			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, _scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, _scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		#endregion IMockProtectedSetupForParameterNameCollisionsBase
@@ -1030,76 +1355,130 @@ internal static partial class Mock
 	internal interface IMockSetupForParameterNameCollisionsBase : global::Mockolate.Setup.IMockSetup<global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase>
 	{
 		/// <summary>
-		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int]">this[int]</see>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]">this[int, int]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Setup.IndexerSetup<int, int> this[global::Mockolate.ParameterArg<int>? parameter1] { get; }
+		global::Mockolate.Setup.IndexerSetup<int, int, int> this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<int>? parameter2] { get; }
 
 		/// <summary>
-		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int]">this[int]</see>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]">this[int, int]</see>
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Setup.IndexerSetup<int, int> this[global::System.Func<int, bool> parameter1, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<int>? parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int)">Method(int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]">this[int, int]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<int, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
+
+		/// <summary>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]">this[int, int]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> this[global::System.Func<int, bool> parameter1, global::System.Func<int, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> Method(global::Mockolate.Parameters.IParameters parameters);
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> Method(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int)">Method(int)</see> with the given <paramref name="MockRegistry"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> Method(global::Mockolate.ParameterArg<int>? MockRegistry);
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int)">Method(int)</see> with the given <paramref name="MockRegistry"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="_scenarioName" /> and a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> Method(global::System.Func<int, bool> MockRegistry, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Method(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, ref int, out int)">VoidMethod(int, ref int, out int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and a predicate for <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="MockRegistry" />, <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Method(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int> VoidMethod(global::Mockolate.Parameters.IParameters parameters);
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> VoidMethod(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, ref int, out int)">VoidMethod(int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="other"/>, <paramref name="another"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>, <paramref name="other"/>, <paramref name="another"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" />, <paramref name="_scenarioName" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int> VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another);
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, ref int, out int)">VoidMethod(int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="other"/>, <paramref name="another"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>, <paramref name="other"/>, <paramref name="another"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="MockRegistry" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="_scenarioName" /> and a predicate for <paramref name="MockRegistry" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>, <paramref name="other"/>, <paramref name="another"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and a predicate for <paramref name="_scenarioName" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>, <paramref name="other"/>, <paramref name="another"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="MockRegistry" />, <paramref name="_scenarioName" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int> VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> VoidMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
 
 	}
 
@@ -1109,31 +1488,49 @@ internal static partial class Mock
 	internal interface IMockProtectedSetupForParameterNameCollisionsBase
 	{
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int)">ProtectedMethod(int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> ProtectedMethod(global::Mockolate.Parameters.IParameters parameters);
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> ProtectedMethod(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int)">ProtectedMethod(int)</see> with the given <paramref name="MockRegistry"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry);
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int)">ProtectedMethod(int)</see> with the given <paramref name="MockRegistry"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="_scenarioName" /> and a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and a predicate for <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="MockRegistry" />, <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> ProtectedMethod(global::System.Func<int, bool> MockRegistry, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
 
 	}
 
@@ -1143,25 +1540,43 @@ internal static partial class Mock
 	internal interface IMockVerifyForParameterNameCollisionsBase : global::Mockolate.Verify.IMockVerify<global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase>
 	{
 		/// <summary>
-		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int]">this[int]</see>.
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]">this[int, int]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> this[global::Mockolate.ParameterArg<int>? MockRegistry] { get; }
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> this[global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName] { get; }
 
 		/// <summary>
-		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int]">this[int]</see>.
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]">this[int, int]</see>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="_scenarioName" /> and a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> this[global::System.Func<int, bool> MockRegistry, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = ""] { get; }
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> this[global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = ""] { get; }
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int)">Method(int)</see> with the given <paramref name="parameters"/>.
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]">this[int, int]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and a predicate for <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> this[global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = ""] { get; }
+
+		/// <summary>
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.this[int, int]">this[int, int]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="MockRegistry" />, <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForParameterNameCollisionsBase, int> this[global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = ""] { get; }
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1170,25 +1585,43 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase> Method(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int)">Method(int)</see> with the given <paramref name="MockRegistry"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? MockRegistry);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int)">Method(int)</see> with the given <paramref name="MockRegistry"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="_scenarioName" /> and a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters Method(global::System.Func<int, bool> MockRegistry, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters Method(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, ref int, out int)">VoidMethod(int, ref int, out int)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and a predicate for <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method(int, int)">Method(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="MockRegistry" />, <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters Method(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1197,22 +1630,40 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase> VoidMethod(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, ref int, out int)">VoidMethod(int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="other"/>, <paramref name="another"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>, <paramref name="other"/>, <paramref name="another"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" />, <paramref name="_scenarioName" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, ref int, out int)">VoidMethod(int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="other"/>, <paramref name="another"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>, <paramref name="other"/>, <paramref name="another"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="MockRegistry" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="_scenarioName" /> and a predicate for <paramref name="MockRegistry" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>, <paramref name="other"/>, <paramref name="another"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and a predicate for <paramref name="_scenarioName" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)">VoidMethod(int, int, ref int, out int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>, <paramref name="other"/>, <paramref name="another"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="MockRegistry" />, <paramref name="_scenarioName" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="other" />, <paramref name="another" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsBase>.IgnoreParameters VoidMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IVerifyRefParameter<int> other, global::Mockolate.Parameters.IVerifyOutParameter<int> another, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
 
 	}
 
@@ -1222,7 +1673,7 @@ internal static partial class Mock
 	internal interface IMockProtectedVerifyForParameterNameCollisionsBase
 	{
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int)">ProtectedMethod(int)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1231,22 +1682,40 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase> ProtectedMethod(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int)">ProtectedMethod(int)</see> with the given <paramref name="MockRegistry"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry);
+		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int)">ProtectedMethod(int)</see> with the given <paramref name="MockRegistry"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="_scenarioName" /> and a predicate for <paramref name="MockRegistry" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="MockRegistry" /> and a predicate for <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod(int, int)">ProtectedMethod(int, int)</see> with the given <paramref name="MockRegistry"/>, <paramref name="_scenarioName"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="MockRegistry" />, <paramref name="_scenarioName" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters ProtectedMethod(global::System.Func<int, bool> MockRegistry, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "");
+		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForParameterNameCollisionsBase>.IgnoreParameters ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, [global::System.Runtime.CompilerServices.CallerArgumentExpression("MockRegistry")] string MockRegistryExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("_scenarioName")] string _scenarioNameExpression = "");
 
 	}
 }
@@ -1460,84 +1929,146 @@ internal static partial class MockExtensionsForParameterNameCollisionsBase
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<int>? parameter2]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch());
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, indexerSetup);
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, indexerSetup);
 				return indexerSetup;
 			}
 		}
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		global::Mockolate.Setup.IndexerSetup<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, string parameter1Expression]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<int>? parameter2, string parameter1Expression]
 		{
 			get
 			{
-				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression));
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_Get, indexerSetup);
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (parameter2 ?? default).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, indexerSetup);
 				return indexerSetup;
 			}
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.Parameters.IParameters parameters)
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<int, bool> parameter2, string parameter2Expression]
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", parameters, "MockRegistry");
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IndexerSetup<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.this[global::System.Func<int, bool> parameter1, global::System.Func<int, bool> parameter2, string parameter1Expression, string parameter2Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, int>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter2, parameter2Expression));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", parameters, "MockRegistry", "_scenarioName");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			global::Mockolate.Setup.ReturnMethodSetup<int, int> methodSetup;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.Literal!, _scenarioNameArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression));
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", parameters, "MockRegistry", "other", "another");
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.Method(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Method, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", parameters, "MockRegistry", "_scenarioName", "other", "another");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another)
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
-			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression)
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
-			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForParameterNameCollisionsBase.VoidMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, global::Mockolate.Parameters.IRefParameter<int> other, global::Mockolate.Parameters.IOutParameter<int> another, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression), (global::Mockolate.Parameters.IParameterMatch<int>)(other), (global::Mockolate.Parameters.IParameterMatch<int>)(another));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_VoidMethod, methodSetup);
+			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int>)methodSetup;
 		}
 
 		#endregion IMockSetupForParameterNameCollisionsBase
@@ -1545,36 +2076,55 @@ internal static partial class MockExtensionsForParameterNameCollisionsBase
 		#region IMockProtectedSetupForParameterNameCollisionsBase
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", parameters, "MockRegistry");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", parameters, "MockRegistry", "_scenarioName");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName)
 		{
 			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
-			global::Mockolate.Setup.ReturnMethodSetup<int, int> methodSetup;
-			if (MockRegistryArg.IsLiteral)
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
+			if (MockRegistryArg.IsLiteral && _scenarioNameArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.Literal!, _scenarioNameArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), _scenarioNameArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, string MockRegistryExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::Mockolate.ParameterArg<int>? _scenarioName, string MockRegistryExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression));
+			global::Mockolate.ParameterArg<int> _scenarioNameArg = _scenarioName ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), _scenarioNameArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int>)methodSetup;
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::Mockolate.ParameterArg<int>? MockRegistry, global::System.Func<int, bool> _scenarioName, string _scenarioNameExpression)
+		{
+			global::Mockolate.ParameterArg<int> MockRegistryArg = MockRegistry ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", MockRegistryArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockProtectedSetupForParameterNameCollisionsBase.ProtectedMethod(global::System.Func<int, bool> MockRegistry, global::System.Func<int, bool> _scenarioName, string MockRegistryExpression, string _scenarioNameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.ProtectedMethod", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(MockRegistry, MockRegistryExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(_scenarioName, _scenarioNameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_ProtectedMethod, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		#endregion IMockProtectedSetupForParameterNameCollisionsBase
