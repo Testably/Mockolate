@@ -192,7 +192,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetup global::Mockolate.Mock.IMockSetupForICombinationMockB.Run()
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ICombinationMockB.MemberId_Run, methodSetup);
 			return methodSetup;
 		}
@@ -273,7 +273,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetup global::Mockolate.Mock.IMockSetupForICombinationMockB.Run()
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ICombinationMockB.MemberId_Run, _scenarioName, methodSetup);
 			return methodSetup;
 		}

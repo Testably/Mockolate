@@ -2567,7 +2567,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", parameters, "a", "b", "c", "tail");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", parameters, "a", "b", "c", "tail");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, methodSetup);
 			return methodSetup;
 		}
@@ -2575,7 +2575,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, global::Mockolate.Parameters.IParameter<int[]>? tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, methodSetup);
 			return methodSetup;
 		}
@@ -2583,7 +2583,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, params global::Mockolate.Parameters.IParameter<int>[] tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(tail));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(tail));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, methodSetup);
 			return methodSetup;
 		}
@@ -2591,7 +2591,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, long c, global::Mockolate.Parameters.IParameter<int[]>? tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(c), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(c), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, methodSetup);
 			return methodSetup;
 		}
@@ -2599,7 +2599,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, params int[] tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, methodSetup);
 			return methodSetup;
 		}
@@ -2607,7 +2607,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, long c, params int[] tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(c), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(c), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, methodSetup);
 			return methodSetup;
 		}
@@ -2615,7 +2615,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", parameters, "i", "e", "d", "f", "c", "s", "st");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", parameters, "i", "e", "d", "f", "c", "s", "st");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return methodSetup;
 		}
@@ -2630,7 +2630,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = c ?? default;
 			global::Mockolate.ParameterArg<string?> sArg = s ?? default;
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = st ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -2645,7 +2645,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = c ?? default;
 			global::Mockolate.ParameterArg<string?> sArg = s ?? default;
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -2660,7 +2660,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = c ?? default;
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -2675,7 +2675,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -2690,7 +2690,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -2705,7 +2705,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -2720,7 +2720,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -2735,7 +2735,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -2743,7 +2743,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithCollidingNames(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", parameters, "wraps", "result", "outParam1", "methodExecution", "returnValue");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", parameters, "wraps", "result", "outParam1", "methodExecution", "returnValue");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, methodSetup);
 			return methodSetup;
 		}
@@ -2756,7 +2756,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> outParam1Arg = outParam1 ?? default;
 			global::Mockolate.ParameterArg<int> methodExecutionArg = methodExecution ?? default;
 			global::Mockolate.ParameterArg<int> returnValueArg = returnValue ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", wrapsArg.ToParameterMatch(), resultArg.ToParameterMatch(), outParam1Arg.ToParameterMatch(), methodExecutionArg.ToParameterMatch(), returnValueArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", wrapsArg.ToParameterMatch(), resultArg.ToParameterMatch(), outParam1Arg.ToParameterMatch(), methodExecutionArg.ToParameterMatch(), returnValueArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int, int>)methodSetup;
 		}
@@ -2764,7 +2764,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<string?, string?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetMaybeNull(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", parameters, "s");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", parameters, "s");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, methodSetup);
 			return methodSetup;
 		}
@@ -2776,11 +2776,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<string?, string?> methodSetup;
 			if (sArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", sArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", sArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", sArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", sArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<string?, string?>)methodSetup;
@@ -2789,7 +2789,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<string?, string?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetMaybeNull(global::System.Func<string?, bool> s, string sExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(s, sExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(s, sExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<string?, string?>)methodSetup;
 		}
@@ -2797,7 +2797,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", parameters, "obj");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", parameters, "obj");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, methodSetup);
 			return methodSetup;
 		}
@@ -2809,11 +2809,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<bool, object?> methodSetup;
 			if (objArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", objArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", objArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", objArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", objArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, object?>)methodSetup;
@@ -2822,7 +2822,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeObject(global::System.Func<object?, bool> obj, string objExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, object?>)methodSetup;
 		}
@@ -2830,7 +2830,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, object?, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", parameters, "first", "second");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", parameters, "first", "second");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, methodSetup);
 			return methodSetup;
 		}
@@ -2843,11 +2843,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?> methodSetup;
 			if (firstArg.IsLiteral && secondArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.Literal!, secondArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.Literal!, secondArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.ToParameterMatch(), secondArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.ToParameterMatch(), secondArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?>)methodSetup;
@@ -2857,7 +2857,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeTwoObjects(global::System.Func<object?, bool> first, global::Mockolate.ParameterArg<object?>? second, string firstExpression)
 		{
 			global::Mockolate.ParameterArg<object?> secondArg = second ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(first, firstExpression), secondArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(first, firstExpression), secondArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?>)methodSetup;
 		}
@@ -2866,7 +2866,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.ParameterArg<object?>? first, global::System.Func<object?, bool> second, string secondExpression)
 		{
 			global::Mockolate.ParameterArg<object?> firstArg = first ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(second, secondExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(second, secondExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?>)methodSetup;
 		}
@@ -2874,7 +2874,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeTwoObjects(global::System.Func<object?, bool> first, global::System.Func<object?, bool> second, string firstExpression, string secondExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(first, firstExpression), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(second, secondExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(first, firstExpression), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(second, secondExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?>)methodSetup;
 		}
@@ -2882,7 +2882,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", parameters, "n", "obj");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", parameters, "n", "obj");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, methodSetup);
 			return methodSetup;
 		}
@@ -2895,11 +2895,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<int, int, object?> methodSetup;
 			if (nArg.IsLiteral && objArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.Literal!, objArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.Literal!, objArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.ToParameterMatch(), objArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.ToParameterMatch(), objArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?>)methodSetup;
@@ -2909,7 +2909,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeIntAndObject(global::System.Func<int, bool> n, global::Mockolate.ParameterArg<object?>? obj, string nExpression)
 		{
 			global::Mockolate.ParameterArg<object?> objArg = obj ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression), objArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression), objArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?>)methodSetup;
 		}
@@ -2918,7 +2918,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.ParameterArg<int>? n, global::System.Func<object?, bool> obj, string objExpression)
 		{
 			global::Mockolate.ParameterArg<int> nArg = n ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?>)methodSetup;
 		}
@@ -2926,7 +2926,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeIntAndObject(global::System.Func<int, bool> n, global::System.Func<object?, bool> obj, string nExpression, string objExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?>)methodSetup;
 		}
@@ -2934,7 +2934,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.Threading.Tasks.Task> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.DoTask()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTask, methodSetup);
 			return methodSetup;
 		}
@@ -2942,7 +2942,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.Threading.Tasks.Task<int>> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.DoTaskOf()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<int>>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<int>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTaskOf, methodSetup);
 			return methodSetup;
 		}
@@ -2950,7 +2950,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.Threading.Tasks.ValueTask> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.DoVT()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVT");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVT");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVT, methodSetup);
 			return methodSetup;
 		}
@@ -2958,7 +2958,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.DoVTOf()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVTOf, methodSetup);
 			return methodSetup;
 		}
@@ -2966,7 +2966,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<(int Code, string Msg)> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetTuple()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Code, string Msg)>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetTuple");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Code, string Msg)>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetTuple");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetTuple, methodSetup);
 			return methodSetup;
 		}
@@ -2974,7 +2974,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetNullable()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetNullable, methodSetup);
 			return methodSetup;
 		}
@@ -2982,7 +2982,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetSpan(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", parameters, "n");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", parameters, "n");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, methodSetup);
 			return methodSetup;
 		}
@@ -2994,11 +2994,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int> methodSetup;
 			if (nArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", nArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", nArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", nArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", nArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int>)methodSetup;
@@ -3007,7 +3007,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetSpan(global::System.Func<int, bool> n, string nExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int>)methodSetup;
 		}
@@ -3015,7 +3015,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetROSpan(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", parameters, "n");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", parameters, "n");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, methodSetup);
 			return methodSetup;
 		}
@@ -3027,11 +3027,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> methodSetup;
 			if (nArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", nArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", nArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", nArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", nArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>)methodSetup;
@@ -3040,7 +3040,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetROSpan(global::System.Func<int, bool> n, string nExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>)methodSetup;
 		}
@@ -3048,7 +3048,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetByRef()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRef, methodSetup);
 			return methodSetup;
 		}
@@ -3056,7 +3056,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetByRefReadonly()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRefReadonly, methodSetup);
 			return methodSetup;
 		}
@@ -3064,7 +3064,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G1<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G1_T_, methodSetup);
 			return methodSetup;
 		}
@@ -3072,7 +3072,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G2<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G2_T_, methodSetup);
 			return methodSetup;
 		}
@@ -3080,7 +3080,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G3<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G3_T_, methodSetup);
 			return methodSetup;
 		}
@@ -3088,7 +3088,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G4<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G4_T_, methodSetup);
 			return methodSetup;
 		}
@@ -3096,7 +3096,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G5<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G5_T_, methodSetup);
 			return methodSetup;
 		}
@@ -3104,7 +3104,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G6<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G6_T_, methodSetup);
 			return methodSetup;
 		}
@@ -3112,7 +3112,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G7<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G7_T_, methodSetup);
 			return methodSetup;
 		}
@@ -3120,7 +3120,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.Five(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", parameters, "a", "b", "c", "d", "e");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", parameters, "a", "b", "c", "d", "e");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, methodSetup);
 			return methodSetup;
 		}
@@ -3133,7 +3133,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> cArg = c ?? default;
 			global::Mockolate.ParameterArg<int> dArg = d ?? default;
 			global::Mockolate.ParameterArg<int> eArg = e ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", aArg.ToParameterMatch(), bArg.ToParameterMatch(), cArg.ToParameterMatch(), dArg.ToParameterMatch(), eArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", aArg.ToParameterMatch(), bArg.ToParameterMatch(), cArg.ToParameterMatch(), dArg.ToParameterMatch(), eArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int>)methodSetup;
 		}
@@ -3141,7 +3141,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.Seventeen(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", parameters, "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", parameters, "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, methodSetup);
 			return methodSetup;
 		}
@@ -3166,7 +3166,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> a15Arg = a15 ?? default;
 			global::Mockolate.ParameterArg<int> a16Arg = a16 ?? default;
 			global::Mockolate.ParameterArg<int> a17Arg = a17 ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", a1Arg.ToParameterMatch(), a2Arg.ToParameterMatch(), a3Arg.ToParameterMatch(), a4Arg.ToParameterMatch(), a5Arg.ToParameterMatch(), a6Arg.ToParameterMatch(), a7Arg.ToParameterMatch(), a8Arg.ToParameterMatch(), a9Arg.ToParameterMatch(), a10Arg.ToParameterMatch(), a11Arg.ToParameterMatch(), a12Arg.ToParameterMatch(), a13Arg.ToParameterMatch(), a14Arg.ToParameterMatch(), a15Arg.ToParameterMatch(), a16Arg.ToParameterMatch(), a17Arg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", a1Arg.ToParameterMatch(), a2Arg.ToParameterMatch(), a3Arg.ToParameterMatch(), a4Arg.ToParameterMatch(), a5Arg.ToParameterMatch(), a6Arg.ToParameterMatch(), a7Arg.ToParameterMatch(), a8Arg.ToParameterMatch(), a9Arg.ToParameterMatch(), a10Arg.ToParameterMatch(), a11Arg.ToParameterMatch(), a12Arg.ToParameterMatch(), a13Arg.ToParameterMatch(), a14Arg.ToParameterMatch(), a15Arg.ToParameterMatch(), a16Arg.ToParameterMatch(), a17Arg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>)methodSetup;
 		}
@@ -3174,7 +3174,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.SeventeenVoid(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", parameters, "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", parameters, "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, methodSetup);
 			return methodSetup;
 		}
@@ -3199,7 +3199,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> a15Arg = a15 ?? default;
 			global::Mockolate.ParameterArg<int> a16Arg = a16 ?? default;
 			global::Mockolate.ParameterArg<int> a17Arg = a17 ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", a1Arg.ToParameterMatch(), a2Arg.ToParameterMatch(), a3Arg.ToParameterMatch(), a4Arg.ToParameterMatch(), a5Arg.ToParameterMatch(), a6Arg.ToParameterMatch(), a7Arg.ToParameterMatch(), a8Arg.ToParameterMatch(), a9Arg.ToParameterMatch(), a10Arg.ToParameterMatch(), a11Arg.ToParameterMatch(), a12Arg.ToParameterMatch(), a13Arg.ToParameterMatch(), a14Arg.ToParameterMatch(), a15Arg.ToParameterMatch(), a16Arg.ToParameterMatch(), a17Arg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", a1Arg.ToParameterMatch(), a2Arg.ToParameterMatch(), a3Arg.ToParameterMatch(), a4Arg.ToParameterMatch(), a5Arg.ToParameterMatch(), a6Arg.ToParameterMatch(), a7Arg.ToParameterMatch(), a8Arg.ToParameterMatch(), a9Arg.ToParameterMatch(), a10Arg.ToParameterMatch(), a11Arg.ToParameterMatch(), a12Arg.ToParameterMatch(), a13Arg.ToParameterMatch(), a14Arg.ToParameterMatch(), a15Arg.ToParameterMatch(), a16Arg.ToParameterMatch(), a17Arg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>)methodSetup;
 		}
@@ -3223,7 +3223,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockStaticSetupForIComprehensiveInterface.StaticAbstractMethod()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.StaticAbstractMethod");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.StaticAbstractMethod");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_StaticAbstractMethod, methodSetup);
 			return methodSetup;
 		}
@@ -5401,7 +5401,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", parameters, "a", "b", "c", "tail");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", parameters, "a", "b", "c", "tail");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5409,7 +5409,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, global::Mockolate.Parameters.IParameter<int[]>? tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5417,7 +5417,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, params global::Mockolate.Parameters.IParameter<int>[] tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(tail));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(tail));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5425,7 +5425,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, long c, global::Mockolate.Parameters.IParameter<int[]>? tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(c), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(c), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5433,7 +5433,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, params int[] tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)(c ?? global::Mockolate.Internals.Matchers.IsNull<long>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5441,7 +5441,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, long c, params int[] tail)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(c), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", (global::Mockolate.Parameters.IParameterMatch<int>)(a), (global::Mockolate.Parameters.IParameterMatch<string>)(b), (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(c), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5449,7 +5449,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", parameters, "i", "e", "d", "f", "c", "s", "st");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", parameters, "i", "e", "d", "f", "c", "s", "st");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5464,7 +5464,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = c ?? default;
 			global::Mockolate.ParameterArg<string?> sArg = s ?? default;
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = st ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -5479,7 +5479,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = c ?? default;
 			global::Mockolate.ParameterArg<string?> sArg = s ?? default;
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -5494,7 +5494,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = c ?? default;
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -5509,7 +5509,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -5524,7 +5524,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -5539,7 +5539,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -5554,7 +5554,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -5569,7 +5569,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<char> cArg = new global::Mockolate.ParameterArg<char>((char)('x'));
 			global::Mockolate.ParameterArg<string?> sArg = new global::Mockolate.ParameterArg<string?>((string?)(null));
 			global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct> stArg = new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", iArg.ToParameterMatch(), eArg.ToParameterMatch(), dArg.ToParameterMatch(), fArg.ToParameterMatch(), cArg.ToParameterMatch(), sArg.ToParameterMatch(), stArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>)methodSetup;
 		}
@@ -5577,7 +5577,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithCollidingNames(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", parameters, "wraps", "result", "outParam1", "methodExecution", "returnValue");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", parameters, "wraps", "result", "outParam1", "methodExecution", "returnValue");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5590,7 +5590,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> outParam1Arg = outParam1 ?? default;
 			global::Mockolate.ParameterArg<int> methodExecutionArg = methodExecution ?? default;
 			global::Mockolate.ParameterArg<int> returnValueArg = returnValue ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", wrapsArg.ToParameterMatch(), resultArg.ToParameterMatch(), outParam1Arg.ToParameterMatch(), methodExecutionArg.ToParameterMatch(), returnValueArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", wrapsArg.ToParameterMatch(), resultArg.ToParameterMatch(), outParam1Arg.ToParameterMatch(), methodExecutionArg.ToParameterMatch(), returnValueArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int, int>)methodSetup;
 		}
@@ -5598,7 +5598,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<string?, string?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetMaybeNull(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", parameters, "s");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", parameters, "s");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5610,11 +5610,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<string?, string?> methodSetup;
 			if (sArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", sArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", sArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", sArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", sArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<string?, string?>)methodSetup;
@@ -5623,7 +5623,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<string?, string?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetMaybeNull(global::System.Func<string?, bool> s, string sExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(s, sExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string?, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(s, sExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<string?, string?>)methodSetup;
 		}
@@ -5631,7 +5631,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", parameters, "obj");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", parameters, "obj");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5643,11 +5643,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<bool, object?> methodSetup;
 			if (objArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", objArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", objArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", objArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", objArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, object?>)methodSetup;
@@ -5656,7 +5656,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeObject(global::System.Func<object?, bool> obj, string objExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, object?>)methodSetup;
 		}
@@ -5664,7 +5664,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, object?, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", parameters, "first", "second");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", parameters, "first", "second");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5677,11 +5677,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?> methodSetup;
 			if (firstArg.IsLiteral && secondArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.Literal!, secondArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.Literal!, secondArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.ToParameterMatch(), secondArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.ToParameterMatch(), secondArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?>)methodSetup;
@@ -5691,7 +5691,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeTwoObjects(global::System.Func<object?, bool> first, global::Mockolate.ParameterArg<object?>? second, string firstExpression)
 		{
 			global::Mockolate.ParameterArg<object?> secondArg = second ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(first, firstExpression), secondArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(first, firstExpression), secondArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?>)methodSetup;
 		}
@@ -5700,7 +5700,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.ParameterArg<object?>? first, global::System.Func<object?, bool> second, string secondExpression)
 		{
 			global::Mockolate.ParameterArg<object?> firstArg = first ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(second, secondExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", firstArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(second, secondExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?>)methodSetup;
 		}
@@ -5708,7 +5708,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeTwoObjects(global::System.Func<object?, bool> first, global::System.Func<object?, bool> second, string firstExpression, string secondExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(first, firstExpression), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(second, secondExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(first, firstExpression), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(second, secondExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?>)methodSetup;
 		}
@@ -5716,7 +5716,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", parameters, "n", "obj");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", parameters, "n", "obj");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5729,11 +5729,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<int, int, object?> methodSetup;
 			if (nArg.IsLiteral && objArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.Literal!, objArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.Literal!, objArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.ToParameterMatch(), objArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.ToParameterMatch(), objArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?>)methodSetup;
@@ -5743,7 +5743,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeIntAndObject(global::System.Func<int, bool> n, global::Mockolate.ParameterArg<object?>? obj, string nExpression)
 		{
 			global::Mockolate.ParameterArg<object?> objArg = obj ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression), objArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression), objArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?>)methodSetup;
 		}
@@ -5752,7 +5752,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.ParameterArg<int>? n, global::System.Func<object?, bool> obj, string objExpression)
 		{
 			global::Mockolate.ParameterArg<int> nArg = n ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", nArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?>)methodSetup;
 		}
@@ -5760,7 +5760,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeIntAndObject(global::System.Func<int, bool> n, global::System.Func<object?, bool> obj, string nExpression, string objExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression), (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Satisfies<object?>(obj, objExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?>)methodSetup;
 		}
@@ -5768,7 +5768,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.Threading.Tasks.Task> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.DoTask()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTask, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5776,7 +5776,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.Threading.Tasks.Task<int>> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.DoTaskOf()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<int>>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<int>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTaskOf, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5784,7 +5784,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.Threading.Tasks.ValueTask> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.DoVT()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVT");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVT");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVT, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5792,7 +5792,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.DoVTOf()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVTOf, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5800,7 +5800,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<(int Code, string Msg)> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetTuple()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Code, string Msg)>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetTuple");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Code, string Msg)>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetTuple");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetTuple, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5808,7 +5808,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetNullable()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int?>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetNullable, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5816,7 +5816,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetSpan(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", parameters, "n");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", parameters, "n");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5828,11 +5828,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int> methodSetup;
 			if (nArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", nArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", nArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", nArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", nArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int>)methodSetup;
@@ -5841,7 +5841,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetSpan(global::System.Func<int, bool> n, string nExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.SpanWrapper<char>, int>)methodSetup;
 		}
@@ -5849,7 +5849,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetROSpan(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", parameters, "n");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", parameters, "n");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5861,11 +5861,11 @@ internal static partial class Mock
 			global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> methodSetup;
 			if (nArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithLiteralValues(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", nArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", nArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", nArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", nArg.ToParameterMatch());
 			}
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>)methodSetup;
@@ -5874,7 +5874,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetROSpan(global::System.Func<int, bool> n, string nExpression)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(n, nExpression));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>)methodSetup;
 		}
@@ -5882,7 +5882,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetByRef()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRef, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5890,7 +5890,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.GetByRefReadonly()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRefReadonly, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5898,7 +5898,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G1<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G1_T_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5906,7 +5906,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G2<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G2_T_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5914,7 +5914,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G3<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G3_T_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5922,7 +5922,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G4<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G4_T_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5930,7 +5930,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G5<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G5_T_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5938,7 +5938,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G6<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G6_T_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5946,7 +5946,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G7<T>()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G7_T_, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5954,7 +5954,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.Five(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", parameters, "a", "b", "c", "d", "e");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", parameters, "a", "b", "c", "d", "e");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5967,7 +5967,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> cArg = c ?? default;
 			global::Mockolate.ParameterArg<int> dArg = d ?? default;
 			global::Mockolate.ParameterArg<int> eArg = e ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", aArg.ToParameterMatch(), bArg.ToParameterMatch(), cArg.ToParameterMatch(), dArg.ToParameterMatch(), eArg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", aArg.ToParameterMatch(), bArg.ToParameterMatch(), cArg.ToParameterMatch(), dArg.ToParameterMatch(), eArg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int>)methodSetup;
 		}
@@ -5975,7 +5975,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.Seventeen(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", parameters, "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", parameters, "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -6000,7 +6000,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> a15Arg = a15 ?? default;
 			global::Mockolate.ParameterArg<int> a16Arg = a16 ?? default;
 			global::Mockolate.ParameterArg<int> a17Arg = a17 ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", a1Arg.ToParameterMatch(), a2Arg.ToParameterMatch(), a3Arg.ToParameterMatch(), a4Arg.ToParameterMatch(), a5Arg.ToParameterMatch(), a6Arg.ToParameterMatch(), a7Arg.ToParameterMatch(), a8Arg.ToParameterMatch(), a9Arg.ToParameterMatch(), a10Arg.ToParameterMatch(), a11Arg.ToParameterMatch(), a12Arg.ToParameterMatch(), a13Arg.ToParameterMatch(), a14Arg.ToParameterMatch(), a15Arg.ToParameterMatch(), a16Arg.ToParameterMatch(), a17Arg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", a1Arg.ToParameterMatch(), a2Arg.ToParameterMatch(), a3Arg.ToParameterMatch(), a4Arg.ToParameterMatch(), a5Arg.ToParameterMatch(), a6Arg.ToParameterMatch(), a7Arg.ToParameterMatch(), a8Arg.ToParameterMatch(), a9Arg.ToParameterMatch(), a10Arg.ToParameterMatch(), a11Arg.ToParameterMatch(), a12Arg.ToParameterMatch(), a13Arg.ToParameterMatch(), a14Arg.ToParameterMatch(), a15Arg.ToParameterMatch(), a16Arg.ToParameterMatch(), a17Arg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>)methodSetup;
 		}
@@ -6008,7 +6008,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.SeventeenVoid(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameters(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", parameters, "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", parameters, "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, _scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -6033,7 +6033,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> a15Arg = a15 ?? default;
 			global::Mockolate.ParameterArg<int> a16Arg = a16 ?? default;
 			global::Mockolate.ParameterArg<int> a17Arg = a17 ?? default;
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", a1Arg.ToParameterMatch(), a2Arg.ToParameterMatch(), a3Arg.ToParameterMatch(), a4Arg.ToParameterMatch(), a5Arg.ToParameterMatch(), a6Arg.ToParameterMatch(), a7Arg.ToParameterMatch(), a8Arg.ToParameterMatch(), a9Arg.ToParameterMatch(), a10Arg.ToParameterMatch(), a11Arg.ToParameterMatch(), a12Arg.ToParameterMatch(), a13Arg.ToParameterMatch(), a14Arg.ToParameterMatch(), a15Arg.ToParameterMatch(), a16Arg.ToParameterMatch(), a17Arg.ToParameterMatch());
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", a1Arg.ToParameterMatch(), a2Arg.ToParameterMatch(), a3Arg.ToParameterMatch(), a4Arg.ToParameterMatch(), a5Arg.ToParameterMatch(), a6Arg.ToParameterMatch(), a7Arg.ToParameterMatch(), a8Arg.ToParameterMatch(), a9Arg.ToParameterMatch(), a10Arg.ToParameterMatch(), a11Arg.ToParameterMatch(), a12Arg.ToParameterMatch(), a13Arg.ToParameterMatch(), a14Arg.ToParameterMatch(), a15Arg.ToParameterMatch(), a16Arg.ToParameterMatch(), a17Arg.ToParameterMatch());
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, _scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>)methodSetup;
 		}
