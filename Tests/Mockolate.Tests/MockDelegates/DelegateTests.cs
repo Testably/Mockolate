@@ -111,6 +111,37 @@ public partial class DelegateTests
 	}
 
 	[Test]
+	public async Task WithCustomDelegateWithMoreThanFourParameters_SetupAndVerifyShouldWork()
+	{
+		DoSomethingWithSevenInts sut = DoSomethingWithSevenInts.CreateMock();
+		sut.Mock.Setup(1, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
+			It.IsAny<int>()).Returns(42);
+
+		int result1 = sut(1, 2, 3, 4, 5, 6, 7);
+		int result2 = sut(2, 2, 3, 4, 5, 6, 7);
+
+		await That(result1).IsEqualTo(42);
+		await That(result2).IsEqualTo(0);
+		await That(sut.Mock.Verify(It.IsAny<int>(), 2, 3, 4, 5, 6, 7)).Twice();
+	}
+
+	[Test]
+	public async Task WithCustomDelegateWithMoreThanSixteenParameters_SetupAndVerifyShouldWork()
+	{
+		int callbackCount = 0;
+		DoSomethingWithEighteenInts sut = DoSomethingWithEighteenInts.CreateMock();
+		sut.Mock.Setup(Match.AnyParameters())
+			.Do((a, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, r) => callbackCount += a + r)
+			.Returns((a, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, r) => a * r);
+
+		int result = sut(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
+
+		await That(result).IsEqualTo(6);
+		await That(callbackCount).IsEqualTo(5);
+		await That(sut.Mock.Verify(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3)).Once();
+	}
+
+	[Test]
 	public async Task WithCustomDelegateWithRefAndOut_SetupShouldWork()
 	{
 		DoSomethingWithRefAndOut sut = DoSomethingWithRefAndOut.CreateMock();
@@ -173,4 +204,9 @@ public partial class DelegateTests
 		where T2 : class;
 
 	internal delegate int DoSomethingWithInts(int a, int b, int c);
+
+	internal delegate int DoSomethingWithSevenInts(int a, int b, int c, int d, int e, int f, int g);
+
+	internal delegate int DoSomethingWithEighteenInts(int a, int b, int c, int d, int e, int f, int g, int h, int i,
+		int j, int k, int l, int m, int n, int o, int p, int q, int r);
 }
