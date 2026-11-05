@@ -438,7 +438,7 @@ internal static partial class Mock
 			get
 			{
 				var propertySetup = new global::Mockolate.Setup.PropertySetup<int>(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V");
-				this.MockRegistry.SetupProperty(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_V_Get, _scenarioName, propertySetup);
+				this.MockRegistry.SetupProperty(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_V_Get, this._scenarioName, propertySetup);
 				return propertySetup;
 			}
 		}
@@ -447,7 +447,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockSetupForComprehensiveAbstractClass.A()
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_A, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_A, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -459,7 +459,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockProtectedSetupForComprehensiveAbstractClass.P()
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_P, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_P, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 

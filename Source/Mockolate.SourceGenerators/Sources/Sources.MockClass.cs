@@ -399,7 +399,7 @@ internal static partial class Sources
 		sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 		sb.AppendLine();
 		
-		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, "_scenarioName", useUnionOverloads);
+		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, "this._scenarioName", useUnionOverloads);
 		
 		sb.Append("\t\t#endregion IMockSetupFor").Append(name).AppendLine();
 		if (hasProtectedMembers)
@@ -408,7 +408,7 @@ internal static partial class Sources
 			sb.Append("\t\t#region IMockProtectedSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
 			
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, "_scenarioName", useUnionOverloads);
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, "this._scenarioName", useUnionOverloads);
 			
 			sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 		}

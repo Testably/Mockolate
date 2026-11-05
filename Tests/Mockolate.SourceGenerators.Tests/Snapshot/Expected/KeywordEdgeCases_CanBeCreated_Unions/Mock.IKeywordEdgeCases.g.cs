@@ -854,7 +854,7 @@ internal static partial class Mock
 			get
 			{
 				var propertySetup = new global::Mockolate.Setup.PropertySetup<int>(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@class");
-				this.MockRegistry.SetupProperty(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__class_Get, _scenarioName, propertySetup);
+				this.MockRegistry.SetupProperty(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__class_Get, this._scenarioName, propertySetup);
 				return propertySetup;
 			}
 		}
@@ -866,7 +866,7 @@ internal static partial class Mock
 			get
 			{
 				global::Mockolate.Setup.EventSetup eventSetup = new global::Mockolate.Setup.EventSetup(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@event");
-				this.MockRegistry.SetupEvent(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__event_Subscribe, _scenarioName, eventSetup);
+				this.MockRegistry.SetupEvent(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__event_Subscribe, this._scenarioName, eventSetup);
 				return eventSetup;
 			}
 		}
@@ -878,7 +878,7 @@ internal static partial class Mock
 			get
 			{
 				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch());
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, this._scenarioName, indexerSetup);
 				return indexerSetup;
 			}
 		}
@@ -890,7 +890,7 @@ internal static partial class Mock
 			get
 			{
 				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (parameter2 ?? default).ToParameterMatch());
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, this._scenarioName, indexerSetup);
 				return indexerSetup;
 			}
 		}
@@ -902,7 +902,7 @@ internal static partial class Mock
 			get
 			{
 				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter2, parameter2Expression));
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, this._scenarioName, indexerSetup);
 				return indexerSetup;
 			}
 		}
@@ -914,7 +914,7 @@ internal static partial class Mock
 			get
 			{
 				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<string, int, string>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Satisfies<string>(parameter2, parameter2Expression));
-				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, _scenarioName, indexerSetup);
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, this._scenarioName, indexerSetup);
 				return indexerSetup;
 			}
 		}
@@ -923,7 +923,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetup<string> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@return()
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<string>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__return, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__return, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -931,7 +931,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@if(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", parameters, "@params");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -948,7 +948,7 @@ internal static partial class Mock
 			{
 				methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.ToParameterMatch());
 			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, this._scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int>)methodSetup;
 		}
 
@@ -956,7 +956,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int> global::Mockolate.Mock.IMockSetupForIKeywordEdgeCases.@if(global::System.Func<int, bool> @params, string @paramsExpression)
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, this._scenarioName, methodSetup);
 			return (global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int>)methodSetup;
 		}
 
@@ -965,7 +965,7 @@ internal static partial class Mock
 			where @class : default
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameters(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", parameters, "@ref");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -974,7 +974,7 @@ internal static partial class Mock
 			where @class : default
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -983,7 +983,7 @@ internal static partial class Mock
 			where @class : default
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", @ref);
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, _scenarioName, methodSetup);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
