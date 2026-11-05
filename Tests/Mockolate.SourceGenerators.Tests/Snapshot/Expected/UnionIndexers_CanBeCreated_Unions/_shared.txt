@@ -1,4 +1,4 @@
-IndexerSetups.g.cs|IndexerSetups.06151d52.g.cs
+IndexerSetups.g.cs|IndexerSetups.RefStructConsumer_CanBeCreated.g.cs
 Mock.g.cs|Mock.g.cs
 MockBehaviorExtensions.g.cs|MockBehaviorExtensions.g.cs
 ParameterArg.g.cs|ParameterArg.g.cs

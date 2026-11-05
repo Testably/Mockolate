@@ -1,4 +1,4 @@
-MethodSetups.g.cs|MethodSetups.8a49b3e6.g.cs
+MethodSetups.g.cs|MethodSetups.ComprehensiveDelegate_CanBeCreated.g.cs
 Mock.g.cs|Mock.g.cs
 MockBehaviorExtensions.g.cs|MockBehaviorExtensions.g.cs
-ReturnsThrowsAsyncExtensions.g.cs|ReturnsThrowsAsyncExtensions.d2d185ae.g.cs
+ReturnsThrowsAsyncExtensions.g.cs|ReturnsThrowsAsyncExtensions.ComprehensiveDelegate_CanBeCreated.g.cs

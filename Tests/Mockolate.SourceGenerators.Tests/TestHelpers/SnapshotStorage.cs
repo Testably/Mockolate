@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Mockolate.SourceGenerators.Tests.TestHelpers;
@@ -60,7 +58,7 @@ public static partial class SnapshotStorage
 
     public static void SetExpected(IReadOnlyDictionary<string, IReadOnlyDictionary<string, string>> scenarios)
     {
-        Dictionary<(string FileName, string Content), int> useCounts = new();
+        Dictionary<(string FileName, string Content), List<string>> users = new();
         Dictionary<string, Dictionary<string, string>> normalized = new();
         foreach (var scenario in scenarios)
         {
@@ -69,23 +67,28 @@ public static partial class SnapshotStorage
             {
                 var content = StripConfigSpecificLines(source.Value.Replace("\r\n", "\n"));
                 files[source.Key] = content;
-                useCounts.TryGetValue((source.Key, content), out var count);
-                useCounts[(source.Key, content)] = count + 1;
+                if (!users.TryGetValue((source.Key, content), out var scenarioNames))
+                {
+                    scenarioNames = new List<string>();
+                    users[(source.Key, content)] = scenarioNames;
+                }
+
+                scenarioNames.Add(scenario.Key);
             }
 
             normalized[scenario.Key] = files;
         }
 
         // A (name, content) pair used by more than one scenario is stored once in _Shared; when several
-        // distinct contents of the same name are shared, a short content hash keeps them apart.
+        // distinct contents of the same name are shared, the first scenario using each one keeps them apart.
         Dictionary<(string FileName, string Content), string> sharedNames = new();
-        foreach (var group in useCounts.Where(x => x.Value > 1).GroupBy(x => x.Key.FileName))
+        foreach (var group in users.Where(x => x.Value.Count > 1).GroupBy(x => x.Key.FileName))
         {
-            var variants = group.Select(x => x.Key).OrderBy(x => x.Content, StringComparer.Ordinal).ToList();
+            var variants = group.ToList();
             foreach (var variant in variants)
-                sharedNames[variant] = variants.Count == 1
-                    ? variant.FileName
-                    : InsertHash(variant.FileName, variant.Content);
+                sharedNames[variant.Key] = variants.Count == 1
+                    ? variant.Key.FileName
+                    : InsertScenarioName(variant.Key.FileName, variant.Value.Min(StringComparer.Ordinal)!);
         }
 
         var expectedRoot = Path.GetDirectoryName(ExpectedFolder(SharedFolderName))!;
@@ -134,12 +137,10 @@ public static partial class SnapshotStorage
         File.WriteAllText(path, content.Replace("\n", Environment.NewLine));
     }
 
-    private static string InsertHash(string fileName, string content)
+    private static string InsertScenarioName(string fileName, string scenario)
     {
-        var hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(content)))
-            .Substring(0, 8).ToLowerInvariant();
         var dot = fileName.IndexOf('.');
-        return dot < 0 ? $"{fileName}.{hash}" : $"{fileName.Substring(0, dot)}.{hash}{fileName.Substring(dot)}";
+        return dot < 0 ? $"{fileName}.{scenario}" : $"{fileName.Substring(0, dot)}.{scenario}{fileName.Substring(dot)}";
     }
 
     private static string ExpectedFolder(string scenario) =>
