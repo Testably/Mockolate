@@ -505,7 +505,7 @@ internal static partial class Sources
 		bool isGeneric = delegateMethod.GenericParameters is not null &&
 		                 delegateMethod.GenericParameters.Value.Count > 0;
 		EmitFastMethodSetupLookup(sb, "\t\t\t", $"this.{mockRegistryName}", methodSetup, methodSetupType,
-			memberIdRef, delegateMethod.GetUniqueNameString(), sb2.ToString(), isGeneric);
+			memberIdRef, delegateMethod.GetUniqueNameString(), sb2.ToString(), isGeneric, delegateMethod.Parameters);
 
 		if (hasOutParams)
 		{

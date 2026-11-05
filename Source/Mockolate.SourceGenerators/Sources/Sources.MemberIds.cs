@@ -28,15 +28,14 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	internal static void EmitFastMethodSetupLookup(StringBuilder sb, string indent, string mockRegistry,
 		string methodSetup, string methodSetupType, string memberIdRef, string uniqueNameString, string matchArgs,
-		bool isGeneric)
+		bool isGeneric, EquatableArray<MethodParameter> parameters)
 #pragma warning restore S107
 	{
-		// All loop-locals carry the unique `methodSetup` suffix so they inherit its
-		// parameter-dedup property and stay distinct across nested scopes.
-		string snapshotVar = $"snapshot_{methodSetup}";
-		string nameVar = $"name_{methodSetup}";
-		string indexVar = $"i_{methodSetup}";
-		string itemVar = $"s_{methodSetup}";
+		// All loop-locals carry the `methodSetup` suffix so they stay distinct across nested scopes.
+		string snapshotVar = Helpers.GetUniqueLocalVariableName($"snapshot_{methodSetup}", parameters);
+		string nameVar = Helpers.GetUniqueLocalVariableName($"name_{methodSetup}", parameters);
+		string indexVar = Helpers.GetUniqueLocalVariableName($"i_{methodSetup}", parameters);
+		string itemVar = Helpers.GetUniqueLocalVariableName($"s_{methodSetup}", parameters);
 
 		sb.Append(indent).Append(methodSetupType).Append("? ").Append(methodSetup).Append(" = null;").AppendLine();
 		sb.Append(indent).Append("if (string.IsNullOrEmpty(").Append(mockRegistry).Append(".Scenario))").AppendLine();

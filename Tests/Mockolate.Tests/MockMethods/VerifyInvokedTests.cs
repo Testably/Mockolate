@@ -191,6 +191,18 @@ public sealed partial class VerifyInvokedTests
 		await That(result).IsEqualTo(default(int));
 	}
 
+	[Test]
+	public async Task WhenParameterIsNamedLikeTheInvocationLambdaParameter_ShouldMatchTheArgument()
+	{
+		IMethodWithInvocationLikeParameterName sut = IMethodWithInvocationLikeParameterName.CreateMock();
+		int value = 1;
+
+		sut.Method(ref value, 2);
+
+		await That(sut.Mock.Verify.Method(It.IsRef<int>(), It.Is(2))).Once()
+			.Because("the parameter __i must not be shadowed by the generated verification lambda");
+	}
+
 	public class ReturnMethodWith1Parameters
 	{
 		[Test]
@@ -505,5 +517,10 @@ public sealed partial class VerifyInvokedTests
 
 			await That(sut.Mock.Verify.Method5(1, 2, 3, 4, 5).AnyParameters()).Twice();
 		}
+	}
+
+	public interface IMethodWithInvocationLikeParameterName
+	{
+		void Method(ref int __i, int other);
 	}
 }

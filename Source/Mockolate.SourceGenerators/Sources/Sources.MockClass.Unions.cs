@@ -701,9 +701,11 @@ internal static partial class Sources
 				sb.Append(';').AppendLine();
 			}
 
+			string invocation = Helpers.GetUniqueLocalVariableName("__i", method.Parameters);
 			sb.Append("\t\t\treturn this.").Append(mockRegistryName).Append(".VerifyMethod<").Append(verifyName)
 				.Append(", global::Mockolate.Interactions.MethodInvocation<").Append(typeArguments).Append(">>(this, ")
-				.Append(methodMemberId).Append(", ").Append(method.GetUniqueNameString()).Append(", __i => ");
+				.Append(methodMemberId).Append(", ").Append(method.GetUniqueNameString()).Append(", ").Append(invocation)
+				.Append(" => ");
 			for (int i = 0; i < parameters.Length; i++)
 			{
 				if (i > 0)
@@ -714,7 +716,7 @@ internal static partial class Sources
 				sb.AppendLine().Append("\t\t\t\t");
 				MethodParameter parameter = parameters[i];
 				string type = parameter.ToTypeOrWrapper();
-				string invocationValue = $"__i.Parameter{i + 1}";
+				string invocationValue = $"{invocation}.Parameter{i + 1}";
 				switch (slots[i])
 				{
 					case UnionSlot.Union:

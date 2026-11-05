@@ -326,9 +326,9 @@ internal static partial class Sources
 			return;
 		}
 
-		string snapshotVar = "snapshot_" + setupVarName;
-		string indexVar = "i_" + setupVarName;
-		string itemVar = "s_" + setupVarName;
+		string snapshotVar = Helpers.GetUniqueLocalVariableName("snapshot_" + setupVarName, parameters);
+		string indexVar = Helpers.GetUniqueLocalVariableName("i_" + setupVarName, parameters);
+		string itemVar = Helpers.GetUniqueLocalVariableName("s_" + setupVarName, parameters);
 		sb.Append(indent).Append(typedSetupName).Append("? ").Append(setupVarName).Append(" = null;").AppendLine();
 		sb.Append(indent).Append("if (string.IsNullOrEmpty(").Append(mockRegistry).Append(".Scenario))").AppendLine();
 		sb.Append(indent).Append('{').AppendLine();
