@@ -2494,7 +2494,7 @@ internal static partial class Sources
 		string memberIdRef = memberIdPrefix + memberIds.GetMethodIdentifier(method);
 		bool isGeneric = method.GenericParameters is not null && method.GenericParameters.Value.Count > 0;
 		EmitFastMethodSetupLookup(sb, "\t\t\t", mockRegistry, methodSetup, methodSetupType, memberIdRef,
-			method.GetUniqueNameString(), sb2.ToString(), isGeneric);
+			method.GetUniqueNameString(), sb2.ToString(), isGeneric, method.Parameters);
 		sb.Append("\t\t\tbool ").Append(hasWrappedResult).Append(" = false;").AppendLine();
 		if (method.ReturnType != Type.Void)
 		{
@@ -5980,26 +5980,27 @@ internal static partial class Sources
 		}
 
 		sb.Append(">(this, ").Append(methodMemberId).Append(", ").Append(method.GetUniqueNameString());
+		string invocation = Helpers.GetUniqueLocalVariableName("__i", method.Parameters);
 		if (useParameters)
 		{
-			sb.Append(", __i => parameters switch").AppendLine();
+			sb.Append(", ").Append(invocation).Append(" => parameters switch").AppendLine();
 			sb.Append("\t\t\t\t{").AppendLine();
 			sb.Append("\t\t\t\t\tglobal::Mockolate.Parameters.IParametersMatch m => m.Matches([")
-				.Append(string.Join(", ", Enumerable.Range(1, method.Parameters.Count).Select(i => $"__i.Parameter{i}")))
+				.Append(string.Join(", ", Enumerable.Range(1, method.Parameters.Count).Select(i => $"{invocation}.Parameter{i}")))
 				.Append("]),").AppendLine();
 			sb.Append("\t\t\t\t\tglobal::Mockolate.Parameters.INamedParametersMatch m => m.Matches([")
-				.Append(string.Join(", ", method.Parameters.Select((p, i) => $"(\"{p.Name}\", __i.Parameter{i + 1})")))
+				.Append(string.Join(", ", method.Parameters.Select((p, i) => $"(\"{p.Name}\", {invocation}.Parameter{i + 1})")))
 				.Append("]),").AppendLine();
 			sb.Append("\t\t\t\t\t_ => true").AppendLine();
 			sb.Append("\t\t\t\t}");
 		}
 		else if (method.Parameters.Count == 0)
 		{
-			sb.Append(", __i => true");
+			sb.Append(", ").Append(invocation).Append(" => true");
 		}
 		else
 		{
-			sb.Append(", __i => ");
+			sb.Append(", ").Append(invocation).Append(" => ");
 
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
@@ -6017,18 +6018,18 @@ internal static partial class Sources
 				{
 					sb.Append("(new global::Mockolate.Internals.ParamsArrayParameterMatch<")
 						.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
-						.Append(").Matches(__i.Parameter").Append(i + 1).Append("))");
+						.Append(").Matches(").Append(invocation).Append(".Parameter").Append(i + 1).Append("))");
 				}
 				else if (isValueParam)
 				{
 					sb.Append(
 						parameter.IsParams && parameter.Type.ElementType is not null
-							? $"(global::Mockolate.CovariantParameterAdapter<{parameter.Type.Fullname}>.Wrap(global::Mockolate.It.SequenceEquals<{parameter.Type.ElementType.Fullname}>({parameter.Name})).Matches(__i.Parameter{i + 1}))"
-							: $"(global::System.Collections.Generic.EqualityComparer<{parameter.ToTypeOrWrapper()}>.Default.Equals({parameter.Name}, __i.Parameter{i + 1}))");
+							? $"(global::Mockolate.CovariantParameterAdapter<{parameter.Type.Fullname}>.Wrap(global::Mockolate.It.SequenceEquals<{parameter.Type.ElementType.Fullname}>({parameter.Name})).Matches({invocation}.Parameter{i + 1}))"
+							: $"(global::System.Collections.Generic.EqualityComparer<{parameter.ToTypeOrWrapper()}>.Default.Equals({parameter.Name}, {invocation}.Parameter{i + 1}))");
 				}
 				else
 				{
-					AppendSlowVerifyMatcherCondition(sb, parameter, $"__i.Parameter{i + 1}");
+					AppendSlowVerifyMatcherCondition(sb, parameter, $"{invocation}.Parameter{i + 1}");
 				}
 
 				i++;

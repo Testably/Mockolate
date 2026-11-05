@@ -18,6 +18,14 @@ public interface IParameterNameCollisions
 	int Five(int MockRegistry, int _scenarioName, int c, int d, int e);
 
 	T Generic<T>(T MockRegistry, int _scenarioName);
+
+	string this[string snapshot_setup, string i_setup, string s_setup] { get; set; }
+
+	int Locals(int __i, int snapshot_methodSetup, int i_methodSetup, int s_methodSetup);
+
+	T GenericLocals<T>(T __i, int name_methodSetup);
+
+	void RefLocals(ref int __i, int other);
 }
 
 /// <summary>
@@ -36,10 +44,12 @@ public abstract class ParameterNameCollisionsBase
 	public virtual void VoidMethod(int MockRegistry, int _scenarioName, ref int other, out int another) => another = 0;
 
 	protected virtual int ProtectedMethod(int MockRegistry, int _scenarioName) => 0;
+
+	public virtual int Locals(int __i, int snapshot_methodSetup, int i_methodSetup, int s_methodSetup) => 0;
 }
 
 /// <summary>
 ///     The delegate-mock counterpart of <see cref="IParameterNameCollisions" />.
 /// </summary>
-public delegate int ParameterNameCollisionsDelegate(int MockRegistry);
+public delegate int ParameterNameCollisionsDelegate(int MockRegistry, int __i, int snapshot_methodSetup, int s_methodSetup);
 #endif
