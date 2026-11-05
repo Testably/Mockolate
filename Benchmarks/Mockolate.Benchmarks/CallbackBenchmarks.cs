@@ -53,7 +53,7 @@ public class CallbackBenchmarks : BenchmarksBase
 	public int Callback_TUnitMocks()
 	{
 		int count = 0;
-		Mock<IMyCallbackInterface> mock = IMyCallbackInterface.Mock();
+		CallbackBenchmarks_IMyCallbackInterfaceMock mock = IMyCallbackInterface.Mock();
 		mock.MyFunc(Any<int>())
 			.Callback(() => count++);
 

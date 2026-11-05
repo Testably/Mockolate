@@ -27,7 +27,7 @@ public class MockCreationBenchmarks : BenchmarksBase
 	[Benchmark]
 	public object CreateMock_TUnitMocks()
 	{
-		Mock<ICalculatorService> mock = ICalculatorService.Mock();
+		MockCreationBenchmarks_ICalculatorServiceMock mock = ICalculatorService.Mock();
 		return mock.Object;
 	}
 
