@@ -12,37 +12,6 @@ public static class Generator
 	private static readonly string[] NoWarn =
 	[
 		"CS8019" /* Unnecessary using directive. */,
-		"CS8321" /* The local function is declared but never used */,
-		"CS1061" /* 'type' does not contain a definition for 'name' and no accessible extension method 'name' accepting a first argument of type 'type' could be found (are you missing a using directive or an assembly reference?). */,
-		// TODO: Remove the following errors when tests work with extension syntax
-		"CS0106" /* The modifier 'public' is not valid for this item */,
-		"CS0116" /* A namespace cannot directly contain members such as fields or methods */,
-		"CS1520" /* Method must have a return type */,
-		"CS0710" /* Static classes cannot have instance constructors */,
-		"CS1503" /* cannot convert from ... */,
-		"CS1513" /* } expected */,
-		"CS1001" /* Identifier expected */,
-		"CS1002" /* ; expected */,
-		"CS1026" /* ) expected */,
-		"CS1519" /* Invalid token '(' in class, record, � */,
-		"CS0501" /*  */,
-		"CS8124" /* Tuple must contain at least two elem� */,
-		"CS1003" /* Syntax error, ',' expected */,
-		"CS0119" /* 'identifier' is a type, which is not valid in the given context */,
-		"CS0128" /* A local variable named 'variable' is already defined in this scope */,
-		"CS0246" /* A namespace cannot directly contain members such as fields or methods */,
-		"CS0305" /* Using the generic type 'type' requires 1 type arguments */,
-		"CS8803" /* Top-level statements must precede namespace and type declarations */,
-		"CS1022" /* Type or namespace definition, or end-of-file expected */,
-		"CS0708" /* 'member': cannot declare instance members in a static class */,
-		"CS0103" /* The name 'name' does not exist in the current context */,
-		"CS7022" /* The entry point of the program is global code */,
-		"CS8802" /* Only one compilation unit can have top-level statements */,
-		"CS0102" /* The type '<invalid-global-code>' already con*/,
-		"CS8801" /* Cannot use local variable or local function*/,
-		"CS0111" /* Type '<invalid-global-code>' already defines a */,
-		"CS0721" /* 'Mock': static types cannot be us */,
-		"CS0759" /* No defining declaration found for implementing declaration of partial method. */,
 	];
 
 	public static GeneratorResult Run([StringSyntax("c#-test")] string source, params Type[] assemblyTypes)
