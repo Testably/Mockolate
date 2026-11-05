@@ -577,7 +577,7 @@ internal static partial class Sources
 
 		void AppendLiteralSetup(StringBuilder target)
 		{
-			target.Append(".WithLiteralValues(").Append(mockRegistryName).Append(", ")
+			target.Append(".WithLiteralValues(this.").Append(mockRegistryName).Append(", ")
 				.Append(method.GetUniqueNameString());
 			for (int i = 0; i < parameters.Length; i++)
 			{
@@ -589,7 +589,7 @@ internal static partial class Sources
 
 		void AppendCollectionSetup(StringBuilder target)
 		{
-			target.Append(".WithParameterCollection(").Append(mockRegistryName).Append(", ")
+			target.Append(".WithParameterCollection(this.").Append(mockRegistryName).Append(", ")
 				.Append(method.GetUniqueNameString());
 			for (int i = 0; i < parameters.Length; i++)
 			{

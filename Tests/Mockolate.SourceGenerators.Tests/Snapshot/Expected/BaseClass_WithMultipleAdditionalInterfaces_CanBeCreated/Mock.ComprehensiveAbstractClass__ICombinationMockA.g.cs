@@ -392,7 +392,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockSetupForComprehensiveAbstractClass.A()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_A, methodSetup);
 			return methodSetup;
 		}
@@ -404,7 +404,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockProtectedSetupForComprehensiveAbstractClass.P()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_P, methodSetup);
 			return methodSetup;
 		}
@@ -428,7 +428,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetup global::Mockolate.Mock.IMockSetupForICombinationMockA.Run()
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Run, methodSetup);
 			return methodSetup;
 		}

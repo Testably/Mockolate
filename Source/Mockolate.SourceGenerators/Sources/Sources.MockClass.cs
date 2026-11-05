@@ -4192,7 +4192,7 @@ internal static partial class Sources
 		string memberIdRef = memberIdPrefix + memberIds.GetMethodIdentifier(method);
 		if (useParameters)
 		{
-			sb.Append(".WithParameters(").Append(mockRegistryName).Append(", ").Append(method.GetUniqueNameString())
+			sb.Append(".WithParameters(this.").Append(mockRegistryName).Append(", ").Append(method.GetUniqueNameString())
 				.Append(", parameters");
 			foreach (MethodParameter parameter in method.Parameters)
 			{
@@ -4221,7 +4221,7 @@ internal static partial class Sources
 			                                                    p.RefKind == RefKind.RefReadOnlyParameter);
 			if (useLiteralValues)
 			{
-				sb.Append(".WithLiteralValues(").Append(mockRegistryName).Append(", ")
+				sb.Append(".WithLiteralValues(this.").Append(mockRegistryName).Append(", ")
 					.Append(method.GetUniqueNameString());
 				foreach (MethodParameter parameter in method.Parameters)
 				{
@@ -4232,7 +4232,7 @@ internal static partial class Sources
 			}
 			else
 			{
-				sb.Append(".WithParameterCollection(").Append(mockRegistryName).Append(", ")
+				sb.Append(".WithParameterCollection(this.").Append(mockRegistryName).Append(", ")
 					.Append(method.GetUniqueNameString());
 				int j = 0;
 				foreach (MethodParameter parameter in method.Parameters)

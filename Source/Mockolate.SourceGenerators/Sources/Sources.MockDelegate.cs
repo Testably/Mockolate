@@ -549,9 +549,9 @@ internal static partial class Sources
 			sb.Append("\t\t\t}").AppendLine();
 		}
 
-		sb.Append("\t\t\tif (").Append(mockRegistryName).Append(".Behavior.SkipInteractionRecording == false)").AppendLine();
+		sb.Append("\t\t\tif (this.").Append(mockRegistryName).Append(".Behavior.SkipInteractionRecording == false)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t").Append(mockRegistryName).Append(".RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation");
+		sb.Append("\t\t\t\tthis.").Append(mockRegistryName).Append(".RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation");
 		if (delegateMethod.Parameters.Count > 0)
 		{
 			sb.Append('<').Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToTypeOrWrapper()))).Append('>');

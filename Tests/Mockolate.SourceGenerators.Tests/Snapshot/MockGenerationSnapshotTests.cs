@@ -89,6 +89,15 @@ public sealed class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "ParameterNameCollisions_CanBeCreated",
+            ["ParameterNameCollisions.cs",],
+            """
+            IParameterNameCollisions sut1 = IParameterNameCollisions.CreateMock();
+            ParameterNameCollisionsBase sut2 = ParameterNameCollisionsBase.CreateMock();
+            ParameterNameCollisionsDelegate sut3 = ParameterNameCollisionsDelegate.CreateMock();
+            """,
+            []),
+        new(
             "RefStructConsumer_CanBeCreated",
             ["IRefStructConsumer.cs", "Packet.cs",],
             """
@@ -126,6 +135,16 @@ public sealed class MockGenerationSnapshotTests
             ["IKeywordEdgeCases.cs",],
             """
             IKeywordEdgeCases sut = IKeywordEdgeCases.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "ParameterNameCollisions_CanBeCreated_Unions",
+            ["ParameterNameCollisions.cs",],
+            """
+            IParameterNameCollisions sut1 = IParameterNameCollisions.CreateMock();
+            ParameterNameCollisionsBase sut2 = ParameterNameCollisionsBase.CreateMock();
+            ParameterNameCollisionsDelegate sut3 = ParameterNameCollisionsDelegate.CreateMock();
             """,
             [],
             UnionMode: true),

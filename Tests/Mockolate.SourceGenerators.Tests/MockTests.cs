@@ -1238,7 +1238,7 @@ public sealed partial class MockTests
 			.Contains("""
 			          		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int> global::Mockolate.Mock.IMockSetupForIMyService.DoSomething(global::Mockolate.Parameters.IParameter<int>? @event)
 			          		{
-			          			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameterCollection(MockRegistry, "global::MyCode.IMyService.DoSomething", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@event ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			          			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::MyCode.IMyService.DoSomething", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@event ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
 			          			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IMyService.MemberId_DoSomething, methodSetup);
 			          			return methodSetup;
 			          		}

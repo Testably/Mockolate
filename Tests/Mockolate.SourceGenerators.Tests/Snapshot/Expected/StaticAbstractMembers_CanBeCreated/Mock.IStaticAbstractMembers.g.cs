@@ -329,7 +329,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockStaticSetupForIStaticAbstractMembers.AbstractStaticMethod()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.AbstractStaticMethod");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.AbstractStaticMethod");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IStaticAbstractMembers.MemberId_AbstractStaticMethod, methodSetup);
 			return methodSetup;
 		}
@@ -337,7 +337,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<int> global::Mockolate.Mock.IMockStaticSetupForIStaticAbstractMembers.VirtualStaticMethod()
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.VirtualStaticMethod");
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.VirtualStaticMethod");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IStaticAbstractMembers.MemberId_VirtualStaticMethod, methodSetup);
 			return methodSetup;
 		}

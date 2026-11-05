@@ -95,8 +95,8 @@ public sealed class UnionOverloadTests
 		await That(mock)
 			.Contains("global::Mockolate.ParameterArg<int> valueArg = value ?? default;").And
 			.Contains("if (valueArg.IsLiteral && textArg.IsLiteral)").And
-			.Contains(".WithLiteralValues(MockRegistry, \"global::MyCode.IMyService.Plain\", valueArg.Literal!, textArg.Literal!);").And
-			.Contains(".WithParameterCollection(MockRegistry, \"global::MyCode.IMyService.Plain\", valueArg.ToParameterMatch(), textArg.ToParameterMatch());").And
+			.Contains(".WithLiteralValues(this.MockRegistry, \"global::MyCode.IMyService.Plain\", valueArg.Literal!, textArg.Literal!);").And
+			.Contains(".WithParameterCollection(this.MockRegistry, \"global::MyCode.IMyService.Plain\", valueArg.ToParameterMatch(), textArg.ToParameterMatch());").And
 			.Contains("(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(value, valueExpression)");
 	}
 

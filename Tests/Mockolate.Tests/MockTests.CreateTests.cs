@@ -234,6 +234,17 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task ParameterNameCollisions_CanBeCreated()
+		{
+			IParameterNameCollisions sut1 = IParameterNameCollisions.CreateMock();
+			ParameterNameCollisionsBase sut2 = ParameterNameCollisionsBase.CreateMock();
+			ParameterNameCollisionsDelegate sut3 = ParameterNameCollisionsDelegate.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+		}
+
+		[Test]
 		public async Task RefStructConsumer_CanBeCreated()
 		{
 			IRefStructConsumer sut = IRefStructConsumer.CreateMock();
