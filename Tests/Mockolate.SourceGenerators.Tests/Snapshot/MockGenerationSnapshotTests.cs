@@ -1,7 +1,11 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using aweXpect.Core;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
@@ -12,31 +16,28 @@ namespace Mockolate.SourceGenerators.Tests.Snapshot;
 ///     <c>Mockolate.Tests.MockCreationTests</c> and reuses the same
 ///     <c>Tests/Mockolate.Tests/GeneratorCoverage</c> source files as input, so the
 ///     example types remain the single source of truth for "every special case in the
-///     source generator". The full set of generated <c>.g.cs</c> files is diffed against
-///     <c>Tests/Mockolate.SourceGenerators.Tests/Snapshot/Expected/&lt;scenario&gt;/</c>; files identical across
-///     scenarios are stored once under <c>Expected/_Shared/</c> and listed in the scenario's <c>_shared.txt</c>.
-///     When a scenario fails because the change was intentional, run
-///     <see cref="MockGenerationSnapshotAcceptance.AcceptSnapshotChanges" />.
+///     source generator". Every generated <c>.g.cs</c> file is compared with an aweXpect snapshot in
+///     <c>MockGenerationSnapshotTests/GeneratorOutput_MatchesExpectedSnapshot/</c>.
+///     When a scenario fails because the change was intentional, run the tests with the environment variable
+///     <c>AWEXPECT_ACCEPT_SNAPSHOTS</c> set to <c>all</c>.
 /// </summary>
-public sealed class MockGenerationSnapshotTests
+public sealed partial class MockGenerationSnapshotTests
 {
+    private static readonly Lazy<IReadOnlyDictionary<string, GeneratedScenario>> Generated = new(GenerateAll);
+
+    [GeneratedRegex(@"[ \t]*\[global::System\.Diagnostics\.DebuggerNonUserCode\]\r?\n?")]
+    private static partial Regex DebuggerNonUserCodeRegex { get; }
+
     [Test]
     [MethodDataSource(nameof(ScenarioNames))]
     public async Task GeneratorOutput_MatchesExpectedSnapshot(string scenarioName)
     {
-        var scenario = Scenarios.Single(s => s.Name == scenarioName);
-        var result = RunGenerator(scenario);
-        await That(result.Diagnostics).IsEmpty();
+        var scenario = Generated.Value[scenarioName];
+        await That(scenario.Diagnostics).IsEmpty();
 
-        var generated = NormalizeSources(result);
-        var expected = SnapshotStorage.GetExpected(scenarioName);
-
-        await That(generated.Keys).IsEqualTo(expected.Keys).InAnyOrder();
-
-        foreach (var fileName in expected.Keys)
-            await That(SnapshotStorage.StripConfigSpecificLines(generated[fileName]))
-                .IsEqualTo(SnapshotStorage.StripConfigSpecificLines(expected[fileName]))
-                .IgnoringNewlineStyle();
+        await ThatAll(scenario.Files
+            .Select(file => (Expectation)That(file.Content).MatchesSnapshot().Named(file.SnapshotName).WithExtension("cs"))
+            .ToArray());
     }
 
     internal static readonly IReadOnlyList<SnapshotScenario> Scenarios =
@@ -161,10 +162,54 @@ public sealed class MockGenerationSnapshotTests
     public static IEnumerable<string> ScenarioNames()
         => Scenarios.Select(scenario => scenario.Name);
 
-    internal static GeneratorResult RunGenerator(SnapshotScenario scenario)
+    /// <summary>
+    ///     Runs the generator for every scenario, so that scenarios with the same content of a generated file share its
+    ///     snapshot. It is named after the file, or, when the scenarios generate several contents of the file, after the
+    ///     first scenario with each content, e.g. <c>MethodSetups.ComprehensiveInterface_CanBeCreated.g</c>.
+    /// </summary>
+    /// <remarks>
+    ///     <c>[DebuggerNonUserCode]</c> is only emitted by a Release build of the generator, so it is stripped to make the
+    ///     snapshots independent of the build configuration.
+    /// </remarks>
+    private static IReadOnlyDictionary<string, GeneratedScenario> GenerateAll()
+    {
+        Dictionary<string, GeneratorResult> results = Scenarios.ToDictionary(s => s.Name, RunGenerator);
+        Dictionary<(string FileName, string Content), string> snapshotNames = new();
+        foreach (var file in results
+                     .SelectMany(result => result.Value.Sources.Select(source =>
+                         (Scenario: result.Key, FileName: source.Key, Content: Normalize(source.Value))))
+                     .GroupBy(source => source.FileName))
+        {
+            var variants = file
+                .GroupBy(source => source.Content)
+                .Select(variant => (variant.Key, Scenario: variant.Select(source => source.Scenario).Min(StringComparer.Ordinal)!))
+                .ToList();
+            var name = Path.GetFileNameWithoutExtension(file.Key);
+            foreach (var variant in variants)
+                snapshotNames[(file.Key, variant.Key)] = variants.Count == 1
+                    ? name
+                    : $"{Path.GetFileNameWithoutExtension(name)}.{variant.Scenario}{Path.GetExtension(name)}";
+        }
+
+        return results.ToDictionary(result => result.Key, result => new GeneratedScenario(
+            result.Value.Diagnostics,
+            result.Value.Sources
+                .OrderBy(source => source.Key, StringComparer.Ordinal)
+                .Select(source =>
+                {
+                    var content = Normalize(source.Value);
+                    return new GeneratedFile(snapshotNames[(source.Key, content)], content);
+                })
+                .ToArray()));
+
+        static string Normalize(string content)
+            => DebuggerNonUserCodeRegex.Replace(content.Replace("\r\n", "\n"), string.Empty);
+    }
+
+    private static GeneratorResult RunGenerator(SnapshotScenario scenario)
     {
         List<string> sources = new();
-        foreach (var coverageFile in scenario.CoverageFiles) sources.Add("#nullable enable\n" + SnapshotStorage.ReadCoverageFile(coverageFile));
+        foreach (var coverageFile in scenario.CoverageFiles) sources.Add("#nullable enable\n" + ReadCoverageFile(coverageFile));
 
         var usingDirective = scenario.CoverageFiles.Length > 0
             ? "using Mockolate.Tests.GeneratorCoverage;\n"
@@ -207,13 +252,11 @@ public sealed class MockGenerationSnapshotTests
             scenario.AssemblyTypes);
     }
 
-    internal static IReadOnlyDictionary<string, string> NormalizeSources(GeneratorResult result)
-    {
-        Dictionary<string, string> normalized = new();
-        foreach (var source in result.Sources
-                     .OrderBy(s => s.Key, StringComparer.Ordinal))
-            normalized[source.Key] = source.Value.Replace("\r\n", "\n");
+    private static string ReadCoverageFile(string coverageFileName, [CallerFilePath] string path = "")
+        => File.ReadAllText(Path.Combine(Path.GetDirectoryName(path)!, "..", "..", "Mockolate.Tests", "GeneratorCoverage",
+            coverageFileName));
 
-        return normalized;
-    }
+    private sealed record GeneratedScenario(string[] Diagnostics, GeneratedFile[] Files);
+
+    private sealed record GeneratedFile(string SnapshotName, string Content);
 }

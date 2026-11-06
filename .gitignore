@@ -8,6 +8,9 @@
 # Temporary files from Sonarqube
 .sonarqube/
 
+# Pending snapshots of aweXpect.Snapshots
+*.awexpect-snapshot.pending.*
+
 ## Common IntelliJ Platform excludes
 ##
 ## Get latest from https://github.com/JetBrains/resharper-rider-samples/blob/master/.gitignore

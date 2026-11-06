@@ -28,8 +28,8 @@ Correctness is a must. The other goals are strong defaults and win in this order
 ## Validation
 
 - Run the tests for what you changed before pushing; see [workflows](Docs/agents/workflows.md#which-tests-to-run).
-- Generator output changes must update the snapshots in `Tests/Mockolate.SourceGenerators.Tests/Snapshot/Expected`: run the explicit `AcceptSnapshotChanges` test and review the diff. New generator special cases go into `Tests/Mockolate.Tests/GeneratorCoverage`, which both test projects share.
-- Public API changes must update `Tests/Mockolate.Api.Tests/*.awexpect-snapshot.txt` (one per target framework). Never commit `*.awexpect-snapshot.pending.txt`.
+- Generator output changes must update the snapshots in `Tests/Mockolate.SourceGenerators.Tests/Snapshot/MockGenerationSnapshotTests`: run the tests with `AWEXPECT_ACCEPT_SNAPSHOTS=all` and review the diff. New generator special cases go into `Tests/Mockolate.Tests/GeneratorCoverage`, which both test projects share.
+- Public API changes must update `Tests/Mockolate.Api.Tests/ApiApprovalTests/Mockolate/*.awexpect-snapshot.cs` (one per target framework). Never commit `*.awexpect-snapshot.pending.*`.
 - Analyzer and code fix changes need tests in `Tests/Mockolate.Analyzers.Tests`.
 - Changes in `Pipeline/BenchmarkReport.cs` need `Tests/Build.Tests`.
 - Coverage must stay above 90% and SonarCloud must report no issues.

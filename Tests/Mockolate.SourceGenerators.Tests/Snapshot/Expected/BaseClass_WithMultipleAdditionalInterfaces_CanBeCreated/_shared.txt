@@ -1,3 +1,0 @@
-Mock.ComprehensiveAbstractClass.g.cs|Mock.ComprehensiveAbstractClass.g.cs
-Mock.g.cs|Mock.g.cs
-MockBehaviorExtensions.g.cs|MockBehaviorExtensions.g.cs

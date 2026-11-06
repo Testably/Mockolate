@@ -12,7 +12,7 @@ The test projects reference the generator as an analyzer through a project refer
 
 ## Test
 
-The tests use TUnit on the Microsoft.Testing.Platform, which `global.json` selects as the runner of `dotnet test`. Each test project is an executable, so `dotnet run` works as well. The explicit tests (the snapshot acceptance tests) run only when the filter selects nothing but explicit tests.
+The tests use TUnit on the Microsoft.Testing.Platform, which `global.json` selects as the runner of `dotnet test`. Each test project is an executable, so `dotnet run` works as well. The explicit tests (the API snapshot acceptance test) run only when the filter selects nothing but explicit tests.
 
 ```powershell
 # One project, all of its target frameworks
@@ -54,20 +54,24 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 
 ### Generator output
 
-`Tests/Mockolate.SourceGenerators.Tests/Snapshot/MockGenerationSnapshotTests.cs` runs the generator for each scenario and compares every emitted `.g.cs` file with `Snapshot/Expected/<scenario>/`. The inputs are the files in `Tests/Mockolate.Tests/GeneratorCoverage`. `[DebuggerNonUserCode]` is emitted only by a Release build of the generator and is stripped before comparing.
+`Tests/Mockolate.SourceGenerators.Tests/Snapshot/MockGenerationSnapshotTests.cs` runs the generator for each scenario and compares every emitted `.g.cs` file with an aweXpect snapshot in `Snapshot/MockGenerationSnapshotTests/GeneratorOutput_MatchesExpectedSnapshot/`. The inputs are the files in `Tests/Mockolate.Tests/GeneratorCoverage`. `[DebuggerNonUserCode]` is emitted only by a Release build of the generator and is stripped before comparing.
 
-After an intended change, overwrite the expected files with the explicit acceptance test and review the diff:
+Scenarios that generate the same content of a file share its snapshot, named after the file (`Mock.g`). When the scenarios generate several contents of a file, each is named after the first scenario (in ordinal order) that generates it, e.g. `MethodSetups.ComprehensiveInterface_CanBeCreated.g`. A change can therefore rename snapshots of other scenarios.
+
+After an intended change, accept the snapshots and review the diff:
 
 ```powershell
-dotnet test --project Tests/Mockolate.SourceGenerators.Tests --treenode-filter "/*/*/*/AcceptSnapshotChanges"
+$env:AWEXPECT_ACCEPT_SNAPSHOTS = "all"; dotnet test --project Tests/Mockolate.SourceGenerators.Tests; Remove-Item Env:AWEXPECT_ACCEPT_SNAPSHOTS
 git diff -- Tests/Mockolate.SourceGenerators.Tests/Snapshot
 ```
 
-To add a scenario, add an entry to `Scenarios` and run the acceptance test.
+The accepting run still fails, so that the next run compares with the accepted snapshots. A snapshot that no scenario uses any more is reported after the test run on a build server and deleted while accepting; to check locally, run all tests of the project with `CI=true`.
+
+To add a scenario, add an entry to `Scenarios` and accept the snapshots.
 
 ### Public API
 
-`Tests/Mockolate.Api.Tests` uses aweXpect.Snapshots.PublicApi. It reads the built `Mockolate.dll` of every target framework listed in `Source/Directory.Build.props` (in the same configuration as the tests) and compares it, without the `Mockolate.Internals` namespace, with `ApiApprovalTests.Mockolate.<framework>.awexpect-snapshot.txt`. On a change it writes `*.awexpect-snapshot.pending.txt` next to the snapshot. To accept:
+`Tests/Mockolate.Api.Tests` uses aweXpect.Snapshots.PublicApi. It reads the built `Mockolate.dll` of every target framework listed in `Source/Directory.Build.props` (in the same configuration as the tests) and compares it, without the `Mockolate.Internals` namespace, with `ApiApprovalTests/Mockolate/<framework>.awexpect-snapshot.cs`. On a change it writes `*.awexpect-snapshot.pending.cs` next to the snapshot. To accept:
 
 - rename the pending file to the snapshot name, or
 - run the explicit `AcceptApiChanges` test, or
