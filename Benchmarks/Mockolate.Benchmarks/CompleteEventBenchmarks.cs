@@ -54,7 +54,7 @@ public class CompleteEventBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Event_TUnitMocks()
 	{
-		Mock<IMyEventInterface> mock = IMyEventInterface.Mock();
+		CompleteEventBenchmarks_IMyEventInterfaceMock mock = IMyEventInterface.Mock();
 		EventHandler handler = (_, _) => { };
 
 		mock.Object.SomeEvent += handler;

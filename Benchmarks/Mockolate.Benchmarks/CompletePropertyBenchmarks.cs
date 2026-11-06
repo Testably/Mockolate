@@ -64,7 +64,7 @@ public class CompletePropertyBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Property_TUnitMocks()
 	{
-		Mock<IMyPropertyInterface> mock = IMyPropertyInterface.Mock();
+		CompletePropertyBenchmarks_IMyPropertyInterfaceMock mock = IMyPropertyInterface.Mock();
 		mock.Counter.Returns(42);
 		IMyPropertyInterface sut = mock.Object;
 
