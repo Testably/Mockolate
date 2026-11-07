@@ -164,6 +164,18 @@ public class MockVerifyTests
 	}
 
 	[Test]
+	public async Task ThatAllSetupsAreUsed_WithoutSetupAfterClearAllInteractions_ShouldReturnTrue()
+	{
+		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+
+		_ = sut.TotalDispensed;
+		sut.Mock.ClearAllInteractions();
+
+		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsTrue()
+			.Because("accessing a property without setup must not leave a user-visible setup behind");
+	}
+
+	[Test]
 	public async Task ThatAllSetupsAreUsed_WithoutSetup_ShouldReturnTrue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
