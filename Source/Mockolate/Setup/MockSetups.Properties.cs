@@ -101,8 +101,9 @@ internal partial class MockSetups
 				return [];
 			}
 
-			return storage.Where(propertySetup => interactions.OfType<PropertyAccess>()
-					.All(propertyAccess => !((IInteractivePropertySetup)propertySetup).Matches(propertyAccess)))
+			return storage.Where(propertySetup => propertySetup is not PropertySetup.Default &&
+			                                      interactions.OfType<PropertyAccess>()
+				                                      .All(propertyAccess => !((IInteractivePropertySetup)propertySetup).Matches(propertyAccess)))
 				.ToList();
 		}
 
