@@ -1020,6 +1020,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -1192,7 +1198,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -1368,7 +1375,8 @@ window.BENCHMARK_DATA = {
           290.4576242520259,
           405.0602857044765,
           335.18685677846275,
-          382.9983128400949
+          382.9983128400949,
+          226.1563317298889
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1529,6 +1537,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592,
           1592,
@@ -1733,7 +1742,8 @@ window.BENCHMARK_DATA = {
           78628.49314778646,
           47410.48767961775,
           105164.73369140625,
-          74102.04881068638
+          74102.04881068638,
+          61251.293701171875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1914,7 +1924,8 @@ window.BENCHMARK_DATA = {
           9176,
           9041,
           9064,
-          9058
+          9058,
+          9063
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2098,7 +2109,8 @@ window.BENCHMARK_DATA = {
           4461.055259159633,
           4259.738754781088,
           4679.280414036342,
-          4548.9915281023295
+          4548.9915281023295,
+          3421.9531244913737
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2259,6 +2271,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2463,7 +2476,8 @@ window.BENCHMARK_DATA = {
           4271.8318344116215,
           3766.842127482096,
           4747.879411315918,
-          4295.044630323137
+          4295.044630323137,
+          3247.444842474801
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2644,7 +2658,8 @@ window.BENCHMARK_DATA = {
           6930,
           6924,
           6930,
-          6919
+          6919,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2828,7 +2843,8 @@ window.BENCHMARK_DATA = {
           200.86160412201514,
           258.20341842515126,
           210.440100812912,
-          233.90786973635355
+          233.90786973635355,
+          158.32126358350118
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2994,6 +3010,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3193,7 +3210,8 @@ window.BENCHMARK_DATA = {
           500.8069942338126,
           619.5606256212507,
           471.8702169145857,
-          606.8123143269465
+          606.8123143269465,
+          394.27297054926555
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3354,6 +3372,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4408,6 +4427,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -4580,7 +4605,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -4756,7 +4782,8 @@ window.BENCHMARK_DATA = {
           307.86104147250836,
           156.61570491393408,
           228.38387068112692,
-          144.06581909315926
+          144.06581909315926,
+          167.2784881224999
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4917,6 +4944,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728,
           1728,
@@ -5121,7 +5149,8 @@ window.BENCHMARK_DATA = {
           10390.846361432757,
           7857.894302368164,
           10926.91652738131,
-          6949.383998616537
+          6949.383998616537,
+          7493.015641432542
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5302,7 +5331,8 @@ window.BENCHMARK_DATA = {
           12761,
           12760,
           12761,
-          12920
+          12920,
+          12760
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5486,7 +5516,8 @@ window.BENCHMARK_DATA = {
           3905.5250199635825,
           2912.557017190116,
           4459.176307678223,
-          2574.750067784236
+          2574.750067784236,
+          2892.7760721842446
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5647,6 +5678,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -5851,7 +5883,8 @@ window.BENCHMARK_DATA = {
           194739.87383563703,
           109206.52379557291,
           196237.01404747597,
-          103283.24660644532
+          103283.24660644532,
+          107767.70040189303
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6032,7 +6065,8 @@ window.BENCHMARK_DATA = {
           15619,
           15619,
           15619,
-          15630
+          15630,
+          15731
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6216,7 +6250,8 @@ window.BENCHMARK_DATA = {
           146.15486871279202,
           111.16581583023071,
           161.15084943404565,
-          99.7584449478558
+          99.7584449478558,
+          111.7839204231898
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6357,6 +6392,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -6581,7 +6617,8 @@ window.BENCHMARK_DATA = {
           120.5615080503317,
           96.24103161493937,
           147.87568113009135,
-          88.4702405055364
+          88.4702405055364,
+          96.90697708129883
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6715,6 +6752,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -7796,6 +7834,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -7968,7 +8012,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -8144,7 +8189,8 @@ window.BENCHMARK_DATA = {
           849.2462257385254,
           884.8890288216727,
           882.1972503662109,
-          773.997855313619
+          773.997855313619,
+          890.2083965937296
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8305,6 +8351,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832,
           3832,
@@ -8509,7 +8556,8 @@ window.BENCHMARK_DATA = {
           222414.1369140625,
           229192.46717247597,
           222043.0088266226,
-          92904.33052884616
+          92904.33052884616,
+          229472.24058314733
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8690,7 +8738,8 @@ window.BENCHMARK_DATA = {
           20804,
           21091,
           20804,
-          20817
+          20817,
+          20772
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8874,7 +8923,8 @@ window.BENCHMARK_DATA = {
           10428.849190266927,
           10543.218188476563,
           9981.046134440105,
-          8452.820002964565
+          8452.820002964565,
+          10709.85032043457
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9052,6 +9102,7 @@ window.BENCHMARK_DATA = {
           13032,
           13032,
           13088,
+          13032,
           13032,
           13032,
           13032,
@@ -9239,7 +9290,8 @@ window.BENCHMARK_DATA = {
           10751.186433156332,
           11637.97221476237,
           10830.317226954869,
-          6560.750454711914
+          6560.750454711914,
+          10968.551312255859
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9420,7 +9472,8 @@ window.BENCHMARK_DATA = {
           13593,
           13593,
           13834,
-          13586
+          13586,
+          13593
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9604,7 +9657,8 @@ window.BENCHMARK_DATA = {
           305.49839245478313,
           305.64064790407815,
           297.070488350732,
-          289.6372296015422
+          289.6372296015422,
+          312.6233175595601
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9765,6 +9819,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -10819,6 +10874,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -10991,7 +11052,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -11167,7 +11229,8 @@ window.BENCHMARK_DATA = {
           2351.5477395738876,
           2419.9326680501304,
           2383.1439191182453,
-          2382.1373875935874
+          2382.1373875935874,
+          2386.2243189493815
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11328,6 +11391,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912,
           4912,
@@ -11532,7 +11596,8 @@ window.BENCHMARK_DATA = {
           234954.11934988838,
           241369.7801106771,
           233741.42808314733,
-          98677.56024169922
+          98677.56024169922,
+          237966.63380533856
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11713,7 +11778,8 @@ window.BENCHMARK_DATA = {
           30410,
           30698,
           30410,
-          30394
+          30394,
+          29372
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11897,7 +11963,8 @@ window.BENCHMARK_DATA = {
           24768.916776384627,
           25809.32389119466,
           24604.613262939452,
-          20389.491396390476
+          20389.491396390476,
+          26166.57025364467
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12078,7 +12145,8 @@ window.BENCHMARK_DATA = {
           26137,
           26137,
           26137,
-          26136
+          26136,
+          26137
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12262,7 +12330,8 @@ window.BENCHMARK_DATA = {
           23040.962186540877,
           24833.71327311198,
           23518.167342122397,
-          16422.483906337195
+          16422.483906337195,
+          23529.498057047527
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12443,7 +12512,8 @@ window.BENCHMARK_DATA = {
           33247,
           33247,
           33486,
-          33249
+          33249,
+          33247
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12627,7 +12697,8 @@ window.BENCHMARK_DATA = {
           731.9141253789265,
           732.5122088704791,
           739.8918264389038,
-          663.0935176440647
+          663.0935176440647,
+          746.2065457661946
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12788,6 +12859,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -13842,6 +13914,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -14014,7 +14092,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -14190,7 +14269,8 @@ window.BENCHMARK_DATA = {
           320.3615331990378,
           190.3776682217916,
           658.5886912663777,
-          320.7831968579973
+          320.7831968579973,
+          225.82277008465357
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14351,6 +14431,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936,
           1936,
@@ -14555,7 +14636,8 @@ window.BENCHMARK_DATA = {
           195212.33098493304,
           61201.142390324516,
           201858.57205636162,
-          196663.4642857143
+          196663.4642857143,
+          61128.81053748498
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14736,7 +14818,8 @@ window.BENCHMARK_DATA = {
           14902,
           14920,
           14902,
-          14902
+          14902,
+          14920
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14920,7 +15003,8 @@ window.BENCHMARK_DATA = {
           6117.387535095215,
           3095.324709756034,
           6436.443391927083,
-          6148.904876708984
+          6148.904876708984,
+          3191.457491048177
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15101,7 +15185,8 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
-          9264
+          9264,
+          9320
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15285,7 +15370,8 @@ window.BENCHMARK_DATA = {
           5718.92077091762,
           2843.324734006609,
           5706.63075038365,
-          5676.622251657339
+          5676.622251657339,
+          3004.817759377616
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15455,6 +15541,7 @@ window.BENCHMARK_DATA = {
           8147,
           8160,
           8147,
+          8160,
           8160,
           8160,
           8160,
@@ -15650,7 +15737,8 @@ window.BENCHMARK_DATA = {
           165.86494490078516,
           105.67004468611309,
           177.81829841931662,
-          164.41381508111954
+          164.41381508111954,
+          119.29513661066692
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15816,6 +15904,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -16015,7 +16104,8 @@ window.BENCHMARK_DATA = {
           443.58801185167755,
           280.94533920288086,
           468.41140308380125,
-          421.2888129870097
+          421.2888129870097,
+          271.90188901765003
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16149,6 +16239,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -17230,6 +17321,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -17402,7 +17499,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -17578,7 +17676,8 @@ window.BENCHMARK_DATA = {
           612.8831224441528,
           466.8680348736899,
           670.9175623575846,
-          609.9851670631996
+          609.9851670631996,
+          486.9970721464891
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -17739,6 +17838,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152,
           2152,
@@ -17943,7 +18043,8 @@ window.BENCHMARK_DATA = {
           199385.18582589287,
           58883.368685208836,
           199967.11389160156,
-          199489.81749549278
+          199489.81749549278,
+          61802.97449669471
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18124,7 +18225,8 @@ window.BENCHMARK_DATA = {
           18901,
           18905,
           18901,
-          18901
+          18901,
+          18905
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18308,7 +18410,8 @@ window.BENCHMARK_DATA = {
           8902.817575727191,
           4453.802077702114,
           9763.262591552735,
-          8950.600428989956
+          8950.600428989956,
+          4636.841949971517
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18489,7 +18592,8 @@ window.BENCHMARK_DATA = {
           12345,
           12344,
           12345,
-          11785
+          11785,
+          12344
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18673,7 +18777,8 @@ window.BENCHMARK_DATA = {
           9084.969463641826,
           4471.404682795207,
           9523.852343045748,
-          9328.580637613932
+          9328.580637613932,
+          4675.315765889486
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18854,7 +18959,8 @@ window.BENCHMARK_DATA = {
           16393,
           16394,
           16393,
-          16393
+          16393,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19038,7 +19144,8 @@ window.BENCHMARK_DATA = {
           348.951496664683,
           240.3774663289388,
           367.95149895350136,
-          346.40589933395387
+          346.40589933395387,
+          263.59794890085857
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19204,6 +19311,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -19403,7 +19511,8 @@ window.BENCHMARK_DATA = {
           1300.7948138373238,
           940.7524780860314,
           1364.9917317708334,
-          1273.150990041097
+          1273.150990041097,
+          1038.3217920939128
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19537,6 +19646,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -20618,6 +20728,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -20790,7 +20906,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -20966,7 +21083,8 @@ window.BENCHMARK_DATA = {
           299.9432365735372,
           301.2101905822754,
           459.52104161580405,
-          383.18100525538125
+          383.18100525538125,
+          310.5408348303575
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21127,6 +21245,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432,
           2432,
@@ -21331,7 +21450,8 @@ window.BENCHMARK_DATA = {
           5566.950245448521,
           5548.477382405599,
           10814.703957693917,
-          7722.337585449219
+          7722.337585449219,
+          5483.877809651693
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21512,6 +21632,7 @@ window.BENCHMARK_DATA = {
           10584,
           10584,
           10585,
+          10584,
           10584
         ],
         "borderColor": "#A052B0",
@@ -21696,7 +21817,8 @@ window.BENCHMARK_DATA = {
           3916.3376415797643,
           3645.1480000813804,
           7618.20666402181,
-          5447.2287587483725
+          5447.2287587483725,
+          3834.508007322039
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21857,6 +21979,7 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
+          11664,
           11664,
           11664,
           11664,
@@ -22061,7 +22184,8 @@ window.BENCHMARK_DATA = {
           3846.7914657592773,
           3620.1485645587627,
           7758.830675760905,
-          5235.777962239584
+          5235.777962239584,
+          3747.008393859863
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22223,6 +22347,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212,
           11212,
           11212,
@@ -22426,7 +22551,8 @@ window.BENCHMARK_DATA = {
           108.94791294847217,
           113.28485623200734,
           166.11076617240906,
-          137.1522524527141
+          137.1522524527141,
+          114.9769394672834
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22592,6 +22718,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -22791,7 +22918,8 @@ window.BENCHMARK_DATA = {
           282.1614308724037,
           292.84611885888233,
           408.21675605773925,
-          329.0474768956502
+          329.0474768956502,
+          280.1815710385641
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22925,6 +23053,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -24006,6 +24135,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -24178,7 +24313,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -24354,7 +24490,8 @@ window.BENCHMARK_DATA = {
           755.9821308135986,
           725.4714107513428,
           962.1772866566976,
-          769.5258606501988
+          769.5258606501988,
+          730.5422256469726
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24515,6 +24652,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936,
           2936,
@@ -24719,7 +24857,8 @@ window.BENCHMARK_DATA = {
           8787.91859109061,
           8446.908712533805,
           17130.94754464286,
-          12221.105095999581
+          12221.105095999581,
+          9182.367804391044
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -24896,6 +25035,7 @@ window.BENCHMARK_DATA = {
           18521,
           18521,
           17513,
+          18521,
           18521,
           18521,
           18521,
@@ -25084,7 +25224,8 @@ window.BENCHMARK_DATA = {
           8470.141602652413,
           8222.462369646344,
           17401.7641998291,
-          12443.157293047223
+          12443.157293047223,
+          8917.350229535785
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25246,6 +25387,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21528,
+          21529,
           21529,
           21529,
           21529,
@@ -25449,7 +25591,8 @@ window.BENCHMARK_DATA = {
           8748.860775287334,
           9004.600548377404,
           19234.539269080527,
-          12787.823380690355
+          12787.823380690355,
+          9747.70774943034
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -25611,6 +25754,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801,
           30801,
           30801,
@@ -25814,7 +25958,8 @@ window.BENCHMARK_DATA = {
           256.90951375961305,
           251.4045929590861,
           321.3646549860636,
-          259.98570367268155
+          259.98570367268155,
+          257.6699391878568
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -25980,6 +26125,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -26179,7 +26325,8 @@ window.BENCHMARK_DATA = {
           1125.1492947896322,
           1137.1623957707332,
           1492.010061945234,
-          1208.2439903531756
+          1208.2439903531756,
+          1180.2285190309797
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26313,6 +26460,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -27394,6 +27542,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 7 08:03:32 2026 \u002B0100",
         "message": "fix: ignore default property setups when verifying that all setups are used (#956)"
+      },
+      {
+        "sha": "e76b823e575debd16bb91a83aaf316cbe9b2d8ec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 8 01:48:42 2026 \u002B0100",
+        "message": "docs: let the Mockolate icon wink (#957)"
       }
     ],
     "labels": [
@@ -27566,7 +27720,8 @@ window.BENCHMARK_DATA = {
       "4e137ace",
       "98c00b29",
       "165081f9",
-      "c0c4bfdf"
+      "c0c4bfdf",
+      "e76b823e"
     ],
     "datasets": [
       {
@@ -27742,7 +27897,8 @@ window.BENCHMARK_DATA = {
           13.342074992259343,
           10.457661073406538,
           18.242474742730458,
-          16.287169714768726
+          16.287169714768726,
+          20.929712078968684
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27800,6 +27956,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -28107,7 +28264,8 @@ window.BENCHMARK_DATA = {
           77.69518236603055,
           65.08335360458919,
           98.88067088127136,
-          86.97865931804364
+          86.97865931804364,
+          105.62157156834236
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -28273,6 +28431,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -28472,7 +28631,8 @@ window.BENCHMARK_DATA = {
           22.176157623529434,
           18.942242308457693,
           30.06598661740621,
-          26.32224234143893
+          26.32224234143893,
+          33.10304131905238
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -28606,6 +28766,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -28837,7 +28998,8 @@ window.BENCHMARK_DATA = {
           1038.7043197338398,
           836.0383377808791,
           1358.0844291687013,
-          1307.0755442210607
+          1307.0755442210607,
+          1412.2481388092042
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28998,6 +29160,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -29202,7 +29365,8 @@ window.BENCHMARK_DATA = {
           1522.5397291819254,
           1179.7101317814418,
           1967.9171788533529,
-          1868.0309497833252
+          1868.0309497833252,
+          2233.6598073323566
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29363,6 +29527,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -29567,7 +29732,8 @@ window.BENCHMARK_DATA = {
           1365.7168328421455,
           1014.3608848865216,
           1745.3307680765788,
-          1559.5550047067495
+          1559.5550047067495,
+          1830.2673824310302
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29732,6 +29898,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2764,
+          2755,
           2755,
           2755,
           2755,
