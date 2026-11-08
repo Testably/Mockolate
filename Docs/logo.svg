@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <mask id="m-theater" maskContentUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="128" height="128" fill="white"/>
+      <ellipse cx="55" cy="56" rx="5" ry="4" fill="black"/>
+      <path d="M 68 56.6 Q 73 54.2 78 56.6 A 5 3.6 0 0 1 68 56.6 Z" fill="black"/>
+      <path d="M 48 72 Q 64 84 80 72 Q 64 79 48 72 Z" fill="black"/>
+    </mask>
+  </defs>
+  <path d="M 16 16 L 36 16 L 36 27 L 27 27 L 27 101 L 36 101 L 36 112 L 16 112 Z" fill="#c8c0b4"/>
+  <path d="M 112 16 L 92 16 L 92 27 L 101 27 L 101 101 L 92 101 L 92 112 L 112 112 Z" fill="#c8c0b4"/>
+  <path d="M 52 34 L 76 34 C 82 34 88 40 88 56 C 88 74 78 88 64 90 C 50 88 40 74 40 56 C 40 40 46 34 52 34 Z" fill="#9d6f4d" mask="url(#m-theater)"/>
+</svg>
