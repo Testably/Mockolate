@@ -31,7 +31,7 @@
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" Version="1.1.4"/>
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing" Version="1.1.4"/>
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing" Version="1.1.4"/>
-		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.403"/>
+		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="11.0.100"/>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageVersion Include="BenchmarkDotNet" Version="0.15.8"/>
