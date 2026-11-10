@@ -61,7 +61,7 @@ public sealed class BenchmarkReportHelpersTests
 			new(1, ["---", "---",]),
 		];
 
-		string prefix = BenchmarkReport.FindCommonRowPrefix(rows);
+		string? prefix = BenchmarkReport.FindCommonRowPrefix(rows);
 
 		await That(prefix).IsNull();
 	}
@@ -78,7 +78,7 @@ public sealed class BenchmarkReportHelpersTests
 			new(6, ["Indexer_Moq", "10",]),
 		];
 
-		string prefix = BenchmarkReport.FindCommonRowPrefix(rows);
+		string? prefix = BenchmarkReport.FindCommonRowPrefix(rows);
 
 		await That(prefix).IsEqualTo("Indexer_");
 	}
@@ -91,7 +91,7 @@ public sealed class BenchmarkReportHelpersTests
 			new(BenchmarkTableParser.DataRowStartIndex, ["NoUnderscore", "1",]),
 		];
 
-		string prefix = BenchmarkReport.FindCommonRowPrefix(rows);
+		string? prefix = BenchmarkReport.FindCommonRowPrefix(rows);
 
 		await That(prefix).IsNull();
 	}
@@ -107,7 +107,7 @@ public sealed class BenchmarkReportHelpersTests
 			new(3, ["PropRead_Imposter", "2",]),
 		];
 
-		string prefix = BenchmarkReport.FindCommonRowPrefix(rows);
+		string? prefix = BenchmarkReport.FindCommonRowPrefix(rows);
 
 		await That(prefix).IsEqualTo("PropRead_");
 	}
@@ -121,7 +121,7 @@ public sealed class BenchmarkReportHelpersTests
 			new(3, ["B_Imposter", "2",]),
 		];
 
-		string prefix = BenchmarkReport.FindCommonRowPrefix(rows);
+		string? prefix = BenchmarkReport.FindCommonRowPrefix(rows);
 
 		await That(prefix).IsNull();
 	}

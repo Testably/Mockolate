@@ -351,6 +351,10 @@ internal class Class : IEquatable<Class>
 		    _surfaceHash == other._surfaceHash &&
 		    ClassFullName == other.ClassFullName);
 
+	public override bool Equals(object? obj) => Equals(obj as Class);
+
+	public override int GetHashCode() => _surfaceHash;
+
 	/// <summary>
 	///     Folds the member surface (methods, properties, events, recursive base/interface chain,
 	///     reserved names, kind, required-member flag) into a single content-derived integer.
@@ -797,10 +801,6 @@ internal class Class : IEquatable<Class>
 
 		return _classNameWithoutDots = sb.ToString();
 	}
-
-	public override bool Equals(object? obj) => Equals(obj as Class);
-
-	public override int GetHashCode() => _surfaceHash;
 
 	public static bool operator ==(Class? left, Class? right)
 	{

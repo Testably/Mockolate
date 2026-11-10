@@ -107,6 +107,12 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		    _mockSurfaceHash == other._mockSurfaceHash &&
 		    ClassFullName == other.ClassFullName);
 
+	public override bool Equals(Class? other) => other is MockClass mc && Equals(mc);
+
+	public override bool Equals(object? obj) => Equals(obj as MockClass);
+
+	public override int GetHashCode() => _mockSurfaceHash;
+
 	/// <summary>
 	///     The member of the mocked class that implements <paramref name="interfaceMember" />, or
 	///     <see langword="null" /> when the mocked class does not implement it.
@@ -250,12 +256,6 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 			yield return hiddenBaseInterface;
 		}
 	}
-
-	public override bool Equals(Class? other) => other is MockClass mc && Equals(mc);
-
-	public override bool Equals(object? obj) => Equals(obj as MockClass);
-
-	public override int GetHashCode() => _mockSurfaceHash;
 
 	private int ComputeMockSurfaceHash()
 	{

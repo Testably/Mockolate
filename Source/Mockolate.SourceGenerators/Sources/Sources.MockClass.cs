@@ -3611,9 +3611,11 @@ internal static partial class Sources
 	private static string IndexerCref(Property indexer)
 		=> $"{indexer.DeclaredContainingType.EscapeForXmlDoc()}.this[{string.Join(", ", indexer.IndexerParameters!.Value.Select(p => p.RefKind.GetString() + p.Type.Fullname.EscapeForXmlDoc()))}]";
 
+#pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMethodSetupDefinition(StringBuilder sb, Class @class, Method method,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
 		bool hasOverloadResolutionPriority = false, bool perElementParams = false)
+#pragma warning restore S107
 	{
 		// Three shapes cannot expose a setup surface, all for the same reason: IReturnMethodSetup<T> /
 		// IVoidMethodSetup<T> do not carry the `allows ref struct` anti-constraint. A generic type
@@ -5489,9 +5491,11 @@ internal static partial class Sources
 		#endregion
 	}
 
+#pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMethodVerifyDefinition(StringBuilder sb, Method method, string verifyName,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
 		bool hasOverloadResolutionPriority = false, bool perElementParams = false)
+#pragma warning restore S107
 	{
 		// For methods with ref-struct parameters, skip Verify emission entirely. The
 		// VerificationResult pipeline takes IParameter<T>? matchers that then feed into

@@ -10,6 +10,7 @@ using Mockolate.Parameters;
 namespace Mockolate.Web;
 
 #pragma warning disable S2325 // Methods and properties that don't access instance data should be static
+#pragma warning disable S3218 // Inner class members should not shadow outer class "static" or type members
 public static partial class ItExtensions
 {
 	/// <inheritdoc cref="ItExtensions" />
@@ -417,4 +418,5 @@ public static partial class ItExtensions
 			=> parameterString();
 	}
 }
+#pragma warning restore S3218 // Inner class members should not shadow outer class "static" or type members
 #pragma warning restore S2325 // Methods and properties that don't access instance data should be static
