@@ -58,7 +58,7 @@ static class BenchmarkReport
         else
         {
             sb.AppendLine(
-                $"Compared to `main` @ `{baseline.Sha.Substring(0, Math.Min(8, baseline.Sha.Length))}`: memory to the latest run, time to the median of the last {BaselineRuns} runs, as the runners differ in speed. " +
+                $"Compared to `main` @ `{baseline.Sha.AsSpan(0, Math.Min(8, baseline.Sha.Length))}`: memory to the latest run, time to the median of the last {BaselineRuns} runs, as the runners differ in speed. " +
                 $"A relative change marks when Mockolate gets more than {FormatPercent(RelativeChangeThreshold).TrimStart('+')} faster or slower relative to " +
                 $"{string.Join(" and ", ComparedLibraries)}: {StrongWorse} / {StrongBetter} against both of them, " +
                 $"{WeakWorse} / {WeakBetter} against only one.");

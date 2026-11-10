@@ -23,7 +23,7 @@ namespace Mockolate.SourceGenerators.Tests.Snapshot;
 /// </summary>
 public sealed partial class MockGenerationSnapshotTests
 {
-    private static readonly Lazy<IReadOnlyDictionary<string, GeneratedScenario>> Generated = new(GenerateAll);
+    private static readonly Lazy<Dictionary<string, GeneratedScenario>> Generated = new(GenerateAll);
 
     [GeneratedRegex(@"[ \t]*\[global::System\.Diagnostics\.DebuggerNonUserCode\]\r?\n?")]
     private static partial Regex DebuggerNonUserCodeRegex { get; }
@@ -171,7 +171,7 @@ public sealed partial class MockGenerationSnapshotTests
     ///     <c>[DebuggerNonUserCode]</c> is only emitted by a Release build of the generator, so it is stripped to make the
     ///     snapshots independent of the build configuration.
     /// </remarks>
-    private static IReadOnlyDictionary<string, GeneratedScenario> GenerateAll()
+    private static Dictionary<string, GeneratedScenario> GenerateAll()
     {
         Dictionary<string, GeneratorResult> results = Scenarios.ToDictionary(s => s.Name, RunGenerator);
         Dictionary<(string FileName, string Content), string> snapshotNames = new();
