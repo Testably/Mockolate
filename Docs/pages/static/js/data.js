@@ -1032,6 +1032,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -1206,7 +1212,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -1384,7 +1391,8 @@ window.BENCHMARK_DATA = {
           335.18685677846275,
           382.9983128400949,
           226.1563317298889,
-          399.3644999504089
+          399.3644999504089,
+          216.85176839147294
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1545,6 +1553,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592,
           1592,
@@ -1753,7 +1762,8 @@ window.BENCHMARK_DATA = {
           105164.73369140625,
           74102.04881068638,
           61251.293701171875,
-          47482.379134114584
+          47482.379134114584,
+          60823.112342247594
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1936,7 +1946,8 @@ window.BENCHMARK_DATA = {
           9064,
           9058,
           9063,
-          9041
+          9041,
+          9063
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2122,7 +2133,8 @@ window.BENCHMARK_DATA = {
           4679.280414036342,
           4548.9915281023295,
           3421.9531244913737,
-          4251.539533342634
+          4251.539533342634,
+          3230.142731730143
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2283,6 +2295,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2491,7 +2504,8 @@ window.BENCHMARK_DATA = {
           4747.879411315918,
           4295.044630323137,
           3247.444842474801,
-          3774.650957924979
+          3774.650957924979,
+          3121.8919852120534
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2674,7 +2688,8 @@ window.BENCHMARK_DATA = {
           6930,
           6919,
           6930,
-          6924
+          6924,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2860,7 +2875,8 @@ window.BENCHMARK_DATA = {
           210.440100812912,
           233.90786973635355,
           158.32126358350118,
-          245.8561657025264
+          245.8561657025264,
+          154.0487236658732
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3026,6 +3042,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3229,7 +3246,8 @@ window.BENCHMARK_DATA = {
           471.8702169145857,
           606.8123143269465,
           394.27297054926555,
-          615.2281888961792
+          615.2281888961792,
+          377.6431225776672
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3390,6 +3408,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4458,6 +4477,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -4632,7 +4657,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -4810,7 +4836,8 @@ window.BENCHMARK_DATA = {
           228.38387068112692,
           144.06581909315926,
           167.2784881224999,
-          196.22637136777243
+          196.22637136777243,
+          351.83105615207126
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4971,6 +4998,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728,
           1728,
@@ -5179,7 +5207,8 @@ window.BENCHMARK_DATA = {
           10926.91652738131,
           6949.383998616537,
           7493.015641432542,
-          8195.3454691569
+          8195.3454691569,
+          12522.74736328125
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5362,7 +5391,8 @@ window.BENCHMARK_DATA = {
           12761,
           12920,
           12760,
-          12760
+          12760,
+          12761
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5548,7 +5578,8 @@ window.BENCHMARK_DATA = {
           4459.176307678223,
           2574.750067784236,
           2892.7760721842446,
-          3339.320728302002
+          3339.320728302002,
+          5069.097631726946
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5709,6 +5740,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -5917,7 +5949,8 @@ window.BENCHMARK_DATA = {
           196237.01404747597,
           103283.24660644532,
           107767.70040189303,
-          122203.97122395833
+          122203.97122395833,
+          144919.6285869892
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6100,7 +6133,8 @@ window.BENCHMARK_DATA = {
           15619,
           15630,
           15731,
-          15619
+          15619,
+          15578
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6286,7 +6320,8 @@ window.BENCHMARK_DATA = {
           161.15084943404565,
           99.7584449478558,
           111.7839204231898,
-          125.37237260891841
+          125.37237260891841,
+          211.60230750697
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6427,6 +6462,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -6655,7 +6691,8 @@ window.BENCHMARK_DATA = {
           147.87568113009135,
           88.4702405055364,
           96.90697708129883,
-          121.7384567896525
+          121.7384567896525,
+          227.68961407457078
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6789,6 +6826,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -7884,6 +7922,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -8058,7 +8102,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -8236,7 +8281,8 @@ window.BENCHMARK_DATA = {
           882.1972503662109,
           773.997855313619,
           890.2083965937296,
-          692.8649901662554
+          692.8649901662554,
+          1097.3103373600886
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8397,6 +8443,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832,
           3832,
@@ -8605,7 +8652,8 @@ window.BENCHMARK_DATA = {
           222043.0088266226,
           92904.33052884616,
           229472.24058314733,
-          141190.08072916666
+          141190.08072916666,
+          113756.58387044272
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8788,7 +8836,8 @@ window.BENCHMARK_DATA = {
           20804,
           20817,
           20772,
-          20804
+          20804,
+          20817
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8974,7 +9023,8 @@ window.BENCHMARK_DATA = {
           9981.046134440105,
           8452.820002964565,
           10709.85032043457,
-          7329.113300323486
+          7329.113300323486,
+          10349.544282023113
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9157,6 +9207,7 @@ window.BENCHMARK_DATA = {
           13032,
           13032,
           13032,
+          13088,
           13088
         ],
         "borderColor": "#5E2750",
@@ -9343,7 +9394,8 @@ window.BENCHMARK_DATA = {
           10830.317226954869,
           6560.750454711914,
           10968.551312255859,
-          7115.281918452336
+          7115.281918452336,
+          8217.385646275112
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9526,7 +9578,8 @@ window.BENCHMARK_DATA = {
           13834,
           13586,
           13593,
-          13593
+          13593,
+          13588
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9712,7 +9765,8 @@ window.BENCHMARK_DATA = {
           297.070488350732,
           289.6372296015422,
           312.6233175595601,
-          247.67800065449305
+          247.67800065449305,
+          373.6195079939706
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9873,6 +9927,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -10941,6 +10996,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -11115,7 +11176,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -11293,7 +11355,8 @@ window.BENCHMARK_DATA = {
           2383.1439191182453,
           2382.1373875935874,
           2386.2243189493815,
-          1853.4218038831439
+          1853.4218038831439,
+          2941.8863372802734
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11454,6 +11517,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912,
           4912,
@@ -11662,7 +11726,8 @@ window.BENCHMARK_DATA = {
           233741.42808314733,
           98677.56024169922,
           237966.63380533856,
-          150708.58537597657
+          150708.58537597657,
+          119965.23813069661
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11845,7 +11910,8 @@ window.BENCHMARK_DATA = {
           30410,
           30394,
           29372,
-          30410
+          30410,
+          30394
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12031,7 +12097,8 @@ window.BENCHMARK_DATA = {
           24604.613262939452,
           20389.491396390476,
           26166.57025364467,
-          17926.091087928184
+          17926.091087928184,
+          24307.206283569336
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12214,7 +12281,8 @@ window.BENCHMARK_DATA = {
           26137,
           26136,
           26137,
-          26193
+          26193,
+          26192
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12400,7 +12468,8 @@ window.BENCHMARK_DATA = {
           23518.167342122397,
           16422.483906337195,
           23529.498057047527,
-          16975.460599772134
+          16975.460599772134,
+          19807.98189653669
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12583,7 +12652,8 @@ window.BENCHMARK_DATA = {
           33486,
           33249,
           33247,
-          33247
+          33247,
+          33249
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12769,7 +12839,8 @@ window.BENCHMARK_DATA = {
           739.8918264389038,
           663.0935176440647,
           746.2065457661946,
-          594.3675506591796
+          594.3675506591796,
+          844.6998968857986
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12930,6 +13001,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -13998,6 +14070,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -14172,7 +14250,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -14350,7 +14429,8 @@ window.BENCHMARK_DATA = {
           658.5886912663777,
           320.7831968579973,
           225.82277008465357,
-          332.42053624561856
+          332.42053624561856,
+          276.210106747491
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14511,6 +14591,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936,
           1936,
@@ -14719,7 +14800,8 @@ window.BENCHMARK_DATA = {
           201858.57205636162,
           196663.4642857143,
           61128.81053748498,
-          197417.152734375
+          197417.152734375,
+          116123.83623395648
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14902,7 +14984,8 @@ window.BENCHMARK_DATA = {
           14902,
           14902,
           14920,
-          14902
+          14902,
+          15074
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15088,7 +15171,8 @@ window.BENCHMARK_DATA = {
           6436.443391927083,
           6148.904876708984,
           3191.457491048177,
-          6008.6924235026045
+          6008.6924235026045,
+          4653.4485767909455
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15270,6 +15354,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9264,
+          9320,
           9320,
           9320
         ],
@@ -15457,7 +15542,8 @@ window.BENCHMARK_DATA = {
           5706.63075038365,
           5676.622251657339,
           3004.817759377616,
-          5686.86719156901
+          5686.86719156901,
+          4066.3201143900556
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15627,6 +15713,7 @@ window.BENCHMARK_DATA = {
           8147,
           8160,
           8147,
+          8160,
           8160,
           8160,
           8160,
@@ -15826,7 +15913,8 @@ window.BENCHMARK_DATA = {
           177.81829841931662,
           164.41381508111954,
           119.29513661066692,
-          162.89444189412254
+          162.89444189412254,
+          155.1157685438792
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15992,6 +16080,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -16195,7 +16284,8 @@ window.BENCHMARK_DATA = {
           468.41140308380125,
           421.2888129870097,
           271.90188901765003,
-          425.26497166497364
+          425.26497166497364,
+          378.7518380800883
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16329,6 +16419,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -17424,6 +17515,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -17598,7 +17695,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -17776,7 +17874,8 @@ window.BENCHMARK_DATA = {
           670.9175623575846,
           609.9851670631996,
           486.9970721464891,
-          625.8145052102896
+          625.8145052102896,
+          477.01217292149863
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -17937,6 +18036,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152,
           2152,
@@ -18145,7 +18245,8 @@ window.BENCHMARK_DATA = {
           199967.11389160156,
           199489.81749549278,
           61802.97449669471,
-          200422.51982770648
+          200422.51982770648,
+          119116.18076171874
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18328,7 +18429,8 @@ window.BENCHMARK_DATA = {
           18901,
           18901,
           18905,
-          18901
+          18901,
+          19065
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18514,7 +18616,8 @@ window.BENCHMARK_DATA = {
           9763.262591552735,
           8950.600428989956,
           4636.841949971517,
-          8907.699197622445
+          8907.699197622445,
+          6767.279128519694
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18697,7 +18800,8 @@ window.BENCHMARK_DATA = {
           12345,
           11785,
           12344,
-          12345
+          12345,
+          12344
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18883,7 +18987,8 @@ window.BENCHMARK_DATA = {
           9523.852343045748,
           9328.580637613932,
           4675.315765889486,
-          9086.993317740304
+          9086.993317740304,
+          6640.91982797476
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19066,7 +19171,8 @@ window.BENCHMARK_DATA = {
           16393,
           16393,
           16394,
-          16393
+          16393,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19252,7 +19358,8 @@ window.BENCHMARK_DATA = {
           367.95149895350136,
           346.40589933395387,
           263.59794890085857,
-          344.6567186287471
+          344.6567186287471,
+          299.5667750994364
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19418,6 +19525,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -19621,7 +19729,8 @@ window.BENCHMARK_DATA = {
           1364.9917317708334,
           1273.150990041097,
           1038.3217920939128,
-          1268.6001424153646
+          1268.6001424153646,
+          1057.5504992167155
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19755,6 +19864,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -20850,6 +20960,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -21024,7 +21140,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -21202,7 +21319,8 @@ window.BENCHMARK_DATA = {
           459.52104161580405,
           383.18100525538125,
           310.5408348303575,
-          504.8149297577994
+          504.8149297577994,
+          329.20055809020994
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21363,6 +21481,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432,
           2432,
@@ -21571,7 +21690,8 @@ window.BENCHMARK_DATA = {
           10814.703957693917,
           7722.337585449219,
           5483.877809651693,
-          9761.6142578125
+          9761.6142578125,
+          5729.901005671574
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21754,7 +21874,8 @@ window.BENCHMARK_DATA = {
           10585,
           10584,
           10584,
-          10585
+          10585,
+          10584
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21940,7 +22061,8 @@ window.BENCHMARK_DATA = {
           7618.20666402181,
           5447.2287587483725,
           3834.508007322039,
-          6992.881287794847
+          6992.881287794847,
+          4248.304035949707
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22101,6 +22223,7 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
+          11664,
           11664,
           11664,
           11664,
@@ -22309,7 +22432,8 @@ window.BENCHMARK_DATA = {
           7758.830675760905,
           5235.777962239584,
           3747.008393859863,
-          6894.079901475173
+          6894.079901475173,
+          4006.040327344622
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22471,6 +22595,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212,
           11212,
           11212,
@@ -22678,7 +22803,8 @@ window.BENCHMARK_DATA = {
           166.11076617240906,
           137.1522524527141,
           114.9769394672834,
-          170.582661151886
+          170.582661151886,
+          117.03408260345459
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22844,6 +22970,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -23047,7 +23174,8 @@ window.BENCHMARK_DATA = {
           408.21675605773925,
           329.0474768956502,
           280.1815710385641,
-          427.902588335673
+          427.902588335673,
+          300.11117390791577
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -23181,6 +23309,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -24276,6 +24405,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -24450,7 +24585,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -24628,7 +24764,8 @@ window.BENCHMARK_DATA = {
           962.1772866566976,
           769.5258606501988,
           730.5422256469726,
-          990.3717020579746
+          990.3717020579746,
+          766.8155290603638
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24789,6 +24926,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936,
           2936,
@@ -24997,7 +25135,8 @@ window.BENCHMARK_DATA = {
           17130.94754464286,
           12221.105095999581,
           9182.367804391044,
-          15740.642256516676
+          15740.642256516676,
+          9187.90698829064
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25174,6 +25313,7 @@ window.BENCHMARK_DATA = {
           18521,
           18521,
           17513,
+          18521,
           18521,
           18521,
           18521,
@@ -25366,7 +25506,8 @@ window.BENCHMARK_DATA = {
           17401.7641998291,
           12443.157293047223,
           8917.350229535785,
-          15752.722704206195
+          15752.722704206195,
+          8850.514273507255
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25528,6 +25669,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21528,
+          21529,
           21529,
           21529,
           21529,
@@ -25735,7 +25877,8 @@ window.BENCHMARK_DATA = {
           19234.539269080527,
           12787.823380690355,
           9747.70774943034,
-          17011.95603121244
+          17011.95603121244,
+          9661.570333862304
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -25897,6 +26040,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801,
           30801,
           30801,
@@ -26104,7 +26248,8 @@ window.BENCHMARK_DATA = {
           321.3646549860636,
           259.98570367268155,
           257.6699391878568,
-          331.45368561377893
+          331.45368561377893,
+          274.26058885029386
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26270,6 +26415,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -26473,7 +26619,8 @@ window.BENCHMARK_DATA = {
           1492.010061945234,
           1208.2439903531756,
           1180.2285190309797,
-          1557.454486301967
+          1557.454486301967,
+          1203.8379524230957
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26607,6 +26754,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -27702,6 +27850,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:04:01 2026 \u002B0100",
         "message": "chore: build with the .NET 11 SDK (#959)"
+      },
+      {
+        "sha": "e26a5a007e523e3f57b394acc3757082a1f69f18",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
+        "message": "fix: resolve Sonar issues and build warnings (#958)"
       }
     ],
     "labels": [
@@ -27876,7 +28030,8 @@ window.BENCHMARK_DATA = {
       "165081f9",
       "c0c4bfdf",
       "e76b823e",
-      "cd7cb3a5"
+      "cd7cb3a5",
+      "e26a5a00"
     ],
     "datasets": [
       {
@@ -28054,7 +28209,8 @@ window.BENCHMARK_DATA = {
           18.242474742730458,
           16.287169714768726,
           20.929712078968684,
-          19.310226661960282
+          19.310226661960282,
+          16.429777654012046
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28112,6 +28268,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -28423,7 +28580,8 @@ window.BENCHMARK_DATA = {
           98.88067088127136,
           86.97865931804364,
           105.62157156834236,
-          110.11990514596303
+          110.11990514596303,
+          88.95226967334747
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -28589,6 +28747,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -28792,7 +28951,8 @@ window.BENCHMARK_DATA = {
           30.06598661740621,
           26.32224234143893,
           33.10304131905238,
-          31.194885406891505
+          31.194885406891505,
+          26.361467993685178
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -28926,6 +29086,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -29161,7 +29322,8 @@ window.BENCHMARK_DATA = {
           1358.0844291687013,
           1307.0755442210607,
           1412.2481388092042,
-          1308.6477850400483
+          1308.6477850400483,
+          1342.0690951714148
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -29322,6 +29484,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -29530,7 +29693,8 @@ window.BENCHMARK_DATA = {
           1967.9171788533529,
           1868.0309497833252,
           2233.6598073323566,
-          1944.3292958577474
+          1944.3292958577474,
+          1867.9468187967937
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29691,6 +29855,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -29899,7 +30064,8 @@ window.BENCHMARK_DATA = {
           1745.3307680765788,
           1559.5550047067495,
           1830.2673824310302,
-          1680.3028875350951
+          1680.3028875350951,
+          1557.0776572908674
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30064,6 +30230,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2764,
+          2755,
           2755,
           2755,
           2755,
