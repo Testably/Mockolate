@@ -1062,6 +1062,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -1241,7 +1247,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -1424,7 +1431,8 @@ window.BENCHMARK_DATA = {
           286.09034538269043,
           234.94951248168945,
           363.99907976786295,
-          256.2871820449829
+          256.2871820449829,
+          298.8744008357708
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1585,6 +1593,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592,
           1592,
@@ -1803,7 +1812,8 @@ window.BENCHMARK_DATA = {
           74506.57433268228,
           61973.164986746655,
           76754.05033052884,
-          61467.05799153646
+          61467.05799153646,
+          103797.3034342448
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1991,7 +2001,8 @@ window.BENCHMARK_DATA = {
           9064,
           9063,
           9058,
-          9063
+          9063,
+          9064
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2182,7 +2193,8 @@ window.BENCHMARK_DATA = {
           4263.466378275553,
           3167.8481001172745,
           4414.228634425572,
-          3360.0047248840333
+          3360.0047248840333,
+          4639.590835571289
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2343,6 +2355,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2561,7 +2574,8 @@ window.BENCHMARK_DATA = {
           4105.843688964844,
           3110.5077880223594,
           4510.70824584961,
-          3148.92191696167
+          3148.92191696167,
+          4533.54350789388
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2749,6 +2763,7 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6919,
+          6930,
           6930
         ],
         "borderColor": "#4A6FA5",
@@ -2940,7 +2955,8 @@ window.BENCHMARK_DATA = {
           200.9244197148543,
           153.26560916219438,
           230.3311434586843,
-          186.17160142262776
+          186.17160142262776,
+          203.60541432698568
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3106,6 +3122,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3319,7 +3336,8 @@ window.BENCHMARK_DATA = {
           507.6216178894043,
           377.8379806836446,
           586.5557397206625,
-          397.5118169784546
+          397.5118169784546,
+          481.35787848063876
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3480,6 +3498,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4583,6 +4602,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -4762,7 +4787,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -4945,7 +4971,8 @@ window.BENCHMARK_DATA = {
           208.52232686110906,
           480.2754444758097,
           148.1231463296073,
-          206.64164381027223
+          206.64164381027223,
+          288.3049288113912
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5106,6 +5133,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728,
           1728,
@@ -5324,7 +5352,8 @@ window.BENCHMARK_DATA = {
           10656.154820033482,
           15304.735905573918,
           6995.674863542829,
-          8284.711293538412
+          8284.711293538412,
+          13910.370275878906
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5512,7 +5541,8 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
-          12760
+          12760,
+          12761
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5703,7 +5733,8 @@ window.BENCHMARK_DATA = {
           4180.157293047224,
           5681.074565342495,
           2710.7143721947305,
-          3114.839119466146
+          3114.839119466146,
+          5544.478521219889
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5864,6 +5895,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -6082,7 +6114,8 @@ window.BENCHMARK_DATA = {
           194873.44529622394,
           223178.79486553484,
           106875.51970966045,
-          119934.22447791466
+          119934.22447791466,
+          233945.388671875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6270,7 +6303,8 @@ window.BENCHMARK_DATA = {
           15739,
           15618,
           15630,
-          15619
+          15619,
+          15586
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6461,7 +6495,8 @@ window.BENCHMARK_DATA = {
           149.2667930920919,
           176.0953058242798,
           104.99361203267024,
-          125.53947269121805
+          125.53947269121805,
+          203.5677381038666
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6602,6 +6637,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -6840,7 +6876,8 @@ window.BENCHMARK_DATA = {
           123.49401144981384,
           166.92886638641357,
           89.91674185593924,
-          113.65312689940134
+          113.65312689940134,
+          184.16528488794964
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6974,6 +7011,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -8104,6 +8142,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -8283,7 +8327,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -8466,7 +8511,8 @@ window.BENCHMARK_DATA = {
           755.6293950762067,
           1063.2779532841273,
           862.8404173169818,
-          657.1048325220744
+          657.1048325220744,
+          1095.8970967610678
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8627,6 +8673,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832,
           3832,
@@ -8845,7 +8892,8 @@ window.BENCHMARK_DATA = {
           80658.33999399039,
           113058.40888323102,
           230451.63480050224,
-          140019.86352539062
+          140019.86352539062,
+          227610.30140904017
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9033,7 +9081,8 @@ window.BENCHMARK_DATA = {
           20817,
           20817,
           20804,
-          20804
+          20804,
+          20956
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9224,7 +9273,8 @@ window.BENCHMARK_DATA = {
           7653.310168457031,
           10214.792980739048,
           10232.146564737955,
-          7166.3299118042
+          7166.3299118042,
+          10561.895131037785
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9411,6 +9461,7 @@ window.BENCHMARK_DATA = {
           13088,
           13088,
           13032,
+          13088,
           13088,
           13088
         ],
@@ -9603,7 +9654,8 @@ window.BENCHMARK_DATA = {
           6427.582906595866,
           8211.900020345052,
           10922.021455891927,
-          6869.662966047014
+          6869.662966047014,
+          11039.209345890926
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9790,6 +9842,7 @@ window.BENCHMARK_DATA = {
           13588,
           13586,
           13588,
+          13593,
           13593,
           13593
         ],
@@ -9982,7 +10035,8 @@ window.BENCHMARK_DATA = {
           261.01961348851523,
           370.86343772594745,
           294.74029912948606,
-          250.02521835962932
+          250.02521835962932,
+          289.493791784559
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10143,6 +10197,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -11246,6 +11301,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -11425,7 +11486,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -11608,7 +11670,8 @@ window.BENCHMARK_DATA = {
           2184.606906636556,
           2871.7378308614093,
           2318.71773147583,
-          1761.998075757708
+          1761.998075757708,
+          2413.7247868855793
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11769,6 +11832,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912,
           4912,
@@ -11987,7 +12051,8 @@ window.BENCHMARK_DATA = {
           86497.77492675782,
           120107.32315266927,
           243132.2307779948,
-          147532.03549804687
+          147532.03549804687,
+          238012.5591796875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12175,7 +12240,8 @@ window.BENCHMARK_DATA = {
           30394,
           30394,
           30410,
-          30410
+          30410,
+          30562
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12366,7 +12432,8 @@ window.BENCHMARK_DATA = {
           18568.983260091147,
           24433.350771222795,
           24872.440255737303,
-          18382.355993652345
+          18382.355993652345,
+          25535.744574410575
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12553,6 +12620,7 @@ window.BENCHMARK_DATA = {
           26192,
           26192,
           26136,
+          26193,
           26193,
           26193
         ],
@@ -12745,7 +12813,8 @@ window.BENCHMARK_DATA = {
           14234.14583231608,
           20183.5185546875,
           23445.60695139567,
-          15010.317458089192
+          15010.317458089192,
+          24107.711399332682
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12932,6 +13001,7 @@ window.BENCHMARK_DATA = {
           33249,
           33247,
           33249,
+          33247,
           33247,
           33247
         ],
@@ -13124,7 +13194,8 @@ window.BENCHMARK_DATA = {
           612.124958928426,
           842.8223165103367,
           711.5473888397216,
-          588.3592576980591
+          588.3592576980591,
+          719.6081498691013
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13285,6 +13356,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -14388,6 +14460,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -14567,7 +14645,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -14750,7 +14829,8 @@ window.BENCHMARK_DATA = {
           650.1101814587911,
           304.02793941497805,
           251.35247710772924,
-          183.94108416239422
+          183.94108416239422,
+          399.1185636520386
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14911,6 +14991,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936,
           1936,
@@ -15129,7 +15210,8 @@ window.BENCHMARK_DATA = {
           196167.99850260417,
           120362.68512369791,
           113788.35185895648,
-          59586.19403483073
+          59586.19403483073,
+          87110.14233398438
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15317,7 +15399,8 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14914,
-          15079
+          15079,
+          14874
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15508,7 +15591,8 @@ window.BENCHMARK_DATA = {
           5945.162805997408,
           4844.448714192708,
           4198.401870218912,
-          3150.431142425537
+          3150.431142425537,
+          5431.455342102051
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15696,6 +15780,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9264,
+          9320,
           9320
         ],
         "borderColor": "#5E2750",
@@ -15887,7 +15972,8 @@ window.BENCHMARK_DATA = {
           5595.398514811198,
           4273.143077087402,
           3801.71773147583,
-          3114.1216117858885
+          3114.1216117858885,
+          4320.820637294224
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16075,7 +16161,8 @@ window.BENCHMARK_DATA = {
           8160,
           8160,
           8160,
-          8160
+          8160,
+          8153
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16266,7 +16353,8 @@ window.BENCHMARK_DATA = {
           163.8490554186014,
           174.55056482950846,
           137.44004252978735,
-          106.9272232566561
+          106.9272232566561,
+          193.30999744733174
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16432,6 +16520,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -16645,7 +16734,8 @@ window.BENCHMARK_DATA = {
           415.1615800857544,
           389.70800762176515,
           353.08045463562013,
-          286.0047244389852
+          286.0047244389852,
+          540.7850090662638
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16779,6 +16869,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -17909,6 +18000,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -18088,7 +18185,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -18271,7 +18369,8 @@ window.BENCHMARK_DATA = {
           613.4468080080472,
           524.5257754007976,
           459.3461194356283,
-          471.6318332036336
+          471.6318332036336,
+          826.6805768013
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18432,6 +18531,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152,
           2152,
@@ -18650,7 +18750,8 @@ window.BENCHMARK_DATA = {
           201034.35150553385,
           124018.70227864584,
           116469.99832857572,
-          62214.29185603215
+          62214.29185603215,
+          92789.384958903
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18838,7 +18939,8 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18905,
-          19065
+          19065,
+          18883
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19029,7 +19131,8 @@ window.BENCHMARK_DATA = {
           9073.6902148907,
           7128.72010345459,
           6367.321278708322,
-          4919.372604370117
+          4919.372604370117,
+          7725.500627790178
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19217,6 +19320,7 @@ window.BENCHMARK_DATA = {
           12345,
           12344,
           11784,
+          12344,
           12344
         ],
         "borderColor": "#5E2750",
@@ -19408,7 +19512,8 @@ window.BENCHMARK_DATA = {
           8969.99576979417,
           7200.3999715169275,
           6791.607298787435,
-          5140.153885432652
+          5140.153885432652,
+          7730.014926147461
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19596,7 +19701,8 @@ window.BENCHMARK_DATA = {
           16393,
           16394,
           16394,
-          16394
+          16394,
+          16391
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19787,7 +19893,8 @@ window.BENCHMARK_DATA = {
           340.88061625616893,
           354.20241457621256,
           276.69483410517375,
-          266.19013363520304
+          266.19013363520304,
+          399.0550447872707
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19953,6 +20060,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -20166,7 +20274,8 @@ window.BENCHMARK_DATA = {
           1320.4778376261393,
           1314.9460587819417,
           1060.1263870826135,
-          1055.1791201371414
+          1055.1791201371414,
+          1697.6949164072673
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -20300,6 +20409,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -21430,6 +21540,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -21609,7 +21725,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -21792,7 +21909,8 @@ window.BENCHMARK_DATA = {
           494.7082709584917,
           1249.4101423899333,
           535.6313749949137,
-          487.7318231718881
+          487.7318231718881,
+          543.4907119115194
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21953,6 +22071,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432,
           2432,
@@ -22171,7 +22290,8 @@ window.BENCHMARK_DATA = {
           11044.393637520927,
           11074.128387451172,
           11379.023120117188,
-          10768.49351283482
+          10768.49351283482,
+          10995.089421198918
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22359,7 +22479,8 @@ window.BENCHMARK_DATA = {
           10473,
           10585,
           10585,
-          10585
+          10585,
+          10666
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22550,7 +22671,8 @@ window.BENCHMARK_DATA = {
           7512.259745788574,
           7518.541633605957,
           7517.652689615886,
-          7490.72405406407
+          7490.72405406407,
+          7663.374772753034
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22711,6 +22833,7 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
+          11664,
           11664,
           11664,
           11664,
@@ -22929,7 +23052,8 @@ window.BENCHMARK_DATA = {
           7911.729253496443,
           7908.023752848308,
           8000.666157313755,
-          7711.161084856306
+          7711.161084856306,
+          7957.01967729841
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23091,6 +23215,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212,
           11212,
           11212,
@@ -23308,7 +23433,8 @@ window.BENCHMARK_DATA = {
           161.63474615414938,
           162.07111673355104,
           174.68900666236877,
-          160.8488770042147
+          160.8488770042147,
+          166.76802883148193
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -23474,6 +23600,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -23687,7 +23814,8 @@ window.BENCHMARK_DATA = {
           413.9439167022705,
           432.53224131266273,
           432.1772157986959,
-          431.77563552856446
+          431.77563552856446,
+          440.4864945411682
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -23821,6 +23949,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -24951,6 +25080,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -25130,7 +25265,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -25313,7 +25449,8 @@ window.BENCHMARK_DATA = {
           978.1125202178955,
           1012.551939646403,
           1031.2109486897787,
-          1022.661919148763
+          1022.661919148763,
+          1064.995245388576
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -25474,6 +25611,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936,
           2936,
@@ -25692,7 +25830,8 @@ window.BENCHMARK_DATA = {
           17743.63512166341,
           17537.24652317592,
           17948.156447190504,
-          17374.29231160482
+          17374.29231160482,
+          17735.097678629558
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25880,7 +26019,8 @@ window.BENCHMARK_DATA = {
           17400,
           18521,
           18521,
-          18521
+          18521,
+          18600
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -26071,7 +26211,8 @@ window.BENCHMARK_DATA = {
           17958.281354631697,
           17098.34477887835,
           17163.528501238143,
-          17490.619177246095
+          17490.619177246095,
+          17420.227999005998
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -26233,6 +26374,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21528,
+          21529,
           21529,
           21529,
           21529,
@@ -26450,7 +26592,8 @@ window.BENCHMARK_DATA = {
           18687.59634399414,
           18667.784869384766,
           20165.812052408855,
-          18734.87115275065
+          18734.87115275065,
+          20658.400974527995
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26612,6 +26755,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801,
           30801,
           30801,
@@ -26829,7 +26973,8 @@ window.BENCHMARK_DATA = {
           325.9913319269816,
           318.7354917866843,
           342.23338655325085,
-          325.19478069941204
+          325.19478069941204,
+          335.7144852002462
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26995,6 +27140,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -27208,7 +27354,8 @@ window.BENCHMARK_DATA = {
           1515.8604465484618,
           1505.5473316192626,
           1552.053547177996,
-          1532.3166995729719
+          1532.3166995729719,
+          1572.5065533955892
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -27342,6 +27489,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -28472,6 +28620,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 10 23:35:02 2026 \u002B0000",
         "message": "chore: Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#967)"
+      },
+      {
+        "sha": "907dd03d6507e5bf2319a656d1140d4eb585c76d",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:35:11 2026 \u002B0000",
+        "message": "chore: Bump EnricoMi/publish-unit-test-result-action from 2.25.0 to 2.26.0 (#966)"
       }
     ],
     "labels": [
@@ -28651,7 +28805,8 @@ window.BENCHMARK_DATA = {
       "05da90b2",
       "b6a4094e",
       "877f0e45",
-      "760cf1c1"
+      "760cf1c1",
+      "907dd03d"
     ],
     "datasets": [
       {
@@ -28834,7 +28989,8 @@ window.BENCHMARK_DATA = {
           16.71360356074113,
           9.109316486865282,
           15.44218107845102,
-          24.854529875516892
+          24.854529875516892,
+          9.594472545843859
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28892,6 +29048,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -29213,7 +29370,8 @@ window.BENCHMARK_DATA = {
           90.35115466799054,
           53.50510448217392,
           88.21028002670833,
-          118.25188322067261
+          118.25188322067261,
+          57.392804835523876
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -29379,6 +29537,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -29592,7 +29751,8 @@ window.BENCHMARK_DATA = {
           29.033918610640935,
           16.331298312315575,
           25.68760729233424,
-          38.64556487798691
+          38.64556487798691,
+          17.348986855575017
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -29726,6 +29886,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -29971,7 +30132,8 @@ window.BENCHMARK_DATA = {
           1434.8735892956074,
           713.6159929911296,
           1289.0819625854492,
-          1155.288776143392
+          1155.288776143392,
+          782.2658353952261
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -30132,6 +30294,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -30350,7 +30513,8 @@ window.BENCHMARK_DATA = {
           1942.7699274698894,
           954.8088868686131,
           1911.0700798034668,
-          1661.0860673268637
+          1661.0860673268637,
+          1095.398726526896
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -30511,6 +30675,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -30729,7 +30894,8 @@ window.BENCHMARK_DATA = {
           1594.3606374447163,
           821.5055187861125,
           1572.652706010001,
-          1353.5613198598226
+          1353.5613198598226,
+          994.1327246257237
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30917,7 +31083,8 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2755,
-          2751
+          2751,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
