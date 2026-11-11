@@ -56,6 +56,11 @@
 		<Reference Include="System.Net.Http"/>
 	</ItemGroup>
 
+	<!-- TUnit runs its netstandard2.0 build on net8.0, which references Microsoft.Bcl.AsyncInterfaces without declaring it. -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces"/>
+	</ItemGroup>
+
 	<ItemGroup>
 		<Using Include="TUnit.Core"/>
 	</ItemGroup>
