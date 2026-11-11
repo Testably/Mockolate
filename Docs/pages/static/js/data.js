@@ -1038,6 +1038,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -1213,7 +1219,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -1392,7 +1399,8 @@ window.BENCHMARK_DATA = {
           382.9983128400949,
           226.1563317298889,
           399.3644999504089,
-          216.85176839147294
+          216.85176839147294,
+          286.09034538269043
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1553,6 +1561,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592,
           1592,
@@ -1763,7 +1772,8 @@ window.BENCHMARK_DATA = {
           74102.04881068638,
           61251.293701171875,
           47482.379134114584,
-          60823.112342247594
+          60823.112342247594,
+          74506.57433268228
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1947,7 +1957,8 @@ window.BENCHMARK_DATA = {
           9058,
           9063,
           9041,
-          9063
+          9063,
+          9064
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2134,7 +2145,8 @@ window.BENCHMARK_DATA = {
           4548.9915281023295,
           3421.9531244913737,
           4251.539533342634,
-          3230.142731730143
+          3230.142731730143,
+          4263.466378275553
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2295,6 +2307,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2505,7 +2518,8 @@ window.BENCHMARK_DATA = {
           4295.044630323137,
           3247.444842474801,
           3774.650957924979,
-          3121.8919852120534
+          3121.8919852120534,
+          4105.843688964844
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2689,6 +2703,7 @@ window.BENCHMARK_DATA = {
           6919,
           6930,
           6924,
+          6930,
           6930
         ],
         "borderColor": "#4A6FA5",
@@ -2876,7 +2891,8 @@ window.BENCHMARK_DATA = {
           233.90786973635355,
           158.32126358350118,
           245.8561657025264,
-          154.0487236658732
+          154.0487236658732,
+          200.9244197148543
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3042,6 +3058,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3247,7 +3264,8 @@ window.BENCHMARK_DATA = {
           606.8123143269465,
           394.27297054926555,
           615.2281888961792,
-          377.6431225776672
+          377.6431225776672,
+          507.6216178894043
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3408,6 +3426,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4483,6 +4502,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -4658,7 +4683,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -4837,7 +4863,8 @@ window.BENCHMARK_DATA = {
           144.06581909315926,
           167.2784881224999,
           196.22637136777243,
-          351.83105615207126
+          351.83105615207126,
+          208.52232686110906
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4998,6 +5025,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728,
           1728,
@@ -5208,7 +5236,8 @@ window.BENCHMARK_DATA = {
           6949.383998616537,
           7493.015641432542,
           8195.3454691569,
-          12522.74736328125
+          12522.74736328125,
+          10656.154820033482
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5392,6 +5421,7 @@ window.BENCHMARK_DATA = {
           12920,
           12760,
           12760,
+          12761,
           12761
         ],
         "borderColor": "#A052B0",
@@ -5579,7 +5609,8 @@ window.BENCHMARK_DATA = {
           2574.750067784236,
           2892.7760721842446,
           3339.320728302002,
-          5069.097631726946
+          5069.097631726946,
+          4180.157293047224
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5740,6 +5771,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -5950,7 +5982,8 @@ window.BENCHMARK_DATA = {
           103283.24660644532,
           107767.70040189303,
           122203.97122395833,
-          144919.6285869892
+          144919.6285869892,
+          194873.44529622394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6134,7 +6167,8 @@ window.BENCHMARK_DATA = {
           15630,
           15731,
           15619,
-          15578
+          15578,
+          15739
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6321,7 +6355,8 @@ window.BENCHMARK_DATA = {
           99.7584449478558,
           111.7839204231898,
           125.37237260891841,
-          211.60230750697
+          211.60230750697,
+          149.2667930920919
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6462,6 +6497,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -6692,7 +6728,8 @@ window.BENCHMARK_DATA = {
           88.4702405055364,
           96.90697708129883,
           121.7384567896525,
-          227.68961407457078
+          227.68961407457078,
+          123.49401144981384
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6826,6 +6863,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -7928,6 +7966,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -8103,7 +8147,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -8282,7 +8327,8 @@ window.BENCHMARK_DATA = {
           773.997855313619,
           890.2083965937296,
           692.8649901662554,
-          1097.3103373600886
+          1097.3103373600886,
+          755.6293950762067
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8443,6 +8489,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832,
           3832,
@@ -8653,7 +8700,8 @@ window.BENCHMARK_DATA = {
           92904.33052884616,
           229472.24058314733,
           141190.08072916666,
-          113756.58387044272
+          113756.58387044272,
+          80658.33999399039
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8837,6 +8885,7 @@ window.BENCHMARK_DATA = {
           20817,
           20772,
           20804,
+          20817,
           20817
         ],
         "borderColor": "#A052B0",
@@ -9024,7 +9073,8 @@ window.BENCHMARK_DATA = {
           8452.820002964565,
           10709.85032043457,
           7329.113300323486,
-          10349.544282023113
+          10349.544282023113,
+          7653.310168457031
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9207,6 +9257,7 @@ window.BENCHMARK_DATA = {
           13032,
           13032,
           13032,
+          13088,
           13088,
           13088
         ],
@@ -9395,7 +9446,8 @@ window.BENCHMARK_DATA = {
           6560.750454711914,
           10968.551312255859,
           7115.281918452336,
-          8217.385646275112
+          8217.385646275112,
+          6427.582906595866
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9579,7 +9631,8 @@ window.BENCHMARK_DATA = {
           13586,
           13593,
           13593,
-          13588
+          13588,
+          13586
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9766,7 +9819,8 @@ window.BENCHMARK_DATA = {
           289.6372296015422,
           312.6233175595601,
           247.67800065449305,
-          373.6195079939706
+          373.6195079939706,
+          261.01961348851523
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9927,6 +9981,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -11002,6 +11057,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -11177,7 +11238,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -11356,7 +11418,8 @@ window.BENCHMARK_DATA = {
           2382.1373875935874,
           2386.2243189493815,
           1853.4218038831439,
-          2941.8863372802734
+          2941.8863372802734,
+          2184.606906636556
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11517,6 +11580,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912,
           4912,
@@ -11727,7 +11791,8 @@ window.BENCHMARK_DATA = {
           98677.56024169922,
           237966.63380533856,
           150708.58537597657,
-          119965.23813069661
+          119965.23813069661,
+          86497.77492675782
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11911,6 +11976,7 @@ window.BENCHMARK_DATA = {
           30394,
           29372,
           30410,
+          30394,
           30394
         ],
         "borderColor": "#A052B0",
@@ -12098,7 +12164,8 @@ window.BENCHMARK_DATA = {
           20389.491396390476,
           26166.57025364467,
           17926.091087928184,
-          24307.206283569336
+          24307.206283569336,
+          18568.983260091147
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12282,6 +12349,7 @@ window.BENCHMARK_DATA = {
           26136,
           26137,
           26193,
+          26192,
           26192
         ],
         "borderColor": "#5E2750",
@@ -12469,7 +12537,8 @@ window.BENCHMARK_DATA = {
           16422.483906337195,
           23529.498057047527,
           16975.460599772134,
-          19807.98189653669
+          19807.98189653669,
+          14234.14583231608
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12653,7 +12722,8 @@ window.BENCHMARK_DATA = {
           33249,
           33247,
           33247,
-          33249
+          33249,
+          33247
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12840,7 +12910,8 @@ window.BENCHMARK_DATA = {
           663.0935176440647,
           746.2065457661946,
           594.3675506591796,
-          844.6998968857986
+          844.6998968857986,
+          612.124958928426
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13001,6 +13072,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -14076,6 +14148,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -14251,7 +14329,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -14430,7 +14509,8 @@ window.BENCHMARK_DATA = {
           320.7831968579973,
           225.82277008465357,
           332.42053624561856,
-          276.210106747491
+          276.210106747491,
+          650.1101814587911
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14591,6 +14671,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936,
           1936,
@@ -14801,7 +14882,8 @@ window.BENCHMARK_DATA = {
           196663.4642857143,
           61128.81053748498,
           197417.152734375,
-          116123.83623395648
+          116123.83623395648,
+          196167.99850260417
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14985,7 +15067,8 @@ window.BENCHMARK_DATA = {
           14902,
           14920,
           14902,
-          15074
+          15074,
+          14902
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15172,7 +15255,8 @@ window.BENCHMARK_DATA = {
           6148.904876708984,
           3191.457491048177,
           6008.6924235026045,
-          4653.4485767909455
+          4653.4485767909455,
+          5945.162805997408
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15354,6 +15438,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9264,
+          9320,
           9320,
           9320,
           9320
@@ -15543,7 +15628,8 @@ window.BENCHMARK_DATA = {
           5676.622251657339,
           3004.817759377616,
           5686.86719156901,
-          4066.3201143900556
+          4066.3201143900556,
+          5595.398514811198
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15713,6 +15799,7 @@ window.BENCHMARK_DATA = {
           8147,
           8160,
           8147,
+          8160,
           8160,
           8160,
           8160,
@@ -15914,7 +16001,8 @@ window.BENCHMARK_DATA = {
           164.41381508111954,
           119.29513661066692,
           162.89444189412254,
-          155.1157685438792
+          155.1157685438792,
+          163.8490554186014
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16080,6 +16168,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -16285,7 +16374,8 @@ window.BENCHMARK_DATA = {
           421.2888129870097,
           271.90188901765003,
           425.26497166497364,
-          378.7518380800883
+          378.7518380800883,
+          415.1615800857544
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16419,6 +16509,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -17521,6 +17612,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -17696,7 +17793,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -17875,7 +17973,8 @@ window.BENCHMARK_DATA = {
           609.9851670631996,
           486.9970721464891,
           625.8145052102896,
-          477.01217292149863
+          477.01217292149863,
+          613.4468080080472
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18036,6 +18135,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152,
           2152,
@@ -18246,7 +18346,8 @@ window.BENCHMARK_DATA = {
           199489.81749549278,
           61802.97449669471,
           200422.51982770648,
-          119116.18076171874
+          119116.18076171874,
+          201034.35150553385
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18430,7 +18531,8 @@ window.BENCHMARK_DATA = {
           18901,
           18905,
           18901,
-          19065
+          19065,
+          18901
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18617,7 +18719,8 @@ window.BENCHMARK_DATA = {
           8950.600428989956,
           4636.841949971517,
           8907.699197622445,
-          6767.279128519694
+          6767.279128519694,
+          9073.6902148907
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18801,7 +18904,8 @@ window.BENCHMARK_DATA = {
           11785,
           12344,
           12345,
-          12344
+          12344,
+          12345
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18988,7 +19092,8 @@ window.BENCHMARK_DATA = {
           9328.580637613932,
           4675.315765889486,
           9086.993317740304,
-          6640.91982797476
+          6640.91982797476,
+          8969.99576979417
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19172,7 +19277,8 @@ window.BENCHMARK_DATA = {
           16393,
           16394,
           16393,
-          16394
+          16394,
+          16393
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19359,7 +19465,8 @@ window.BENCHMARK_DATA = {
           346.40589933395387,
           263.59794890085857,
           344.6567186287471,
-          299.5667750994364
+          299.5667750994364,
+          340.88061625616893
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19525,6 +19632,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -19730,7 +19838,8 @@ window.BENCHMARK_DATA = {
           1273.150990041097,
           1038.3217920939128,
           1268.6001424153646,
-          1057.5504992167155
+          1057.5504992167155,
+          1320.4778376261393
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19864,6 +19973,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -20966,6 +21076,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -21141,7 +21257,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -21320,7 +21437,8 @@ window.BENCHMARK_DATA = {
           383.18100525538125,
           310.5408348303575,
           504.8149297577994,
-          329.20055809020994
+          329.20055809020994,
+          494.7082709584917
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21481,6 +21599,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432,
           2432,
@@ -21691,7 +21810,8 @@ window.BENCHMARK_DATA = {
           7722.337585449219,
           5483.877809651693,
           9761.6142578125,
-          5729.901005671574
+          5729.901005671574,
+          11044.393637520927
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21875,7 +21995,8 @@ window.BENCHMARK_DATA = {
           10584,
           10584,
           10585,
-          10584
+          10584,
+          10473
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22062,7 +22183,8 @@ window.BENCHMARK_DATA = {
           5447.2287587483725,
           3834.508007322039,
           6992.881287794847,
-          4248.304035949707
+          4248.304035949707,
+          7512.259745788574
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22223,6 +22345,7 @@ window.BENCHMARK_DATA = {
           11720,
           11720,
           11720,
+          11664,
           11664,
           11664,
           11664,
@@ -22433,7 +22556,8 @@ window.BENCHMARK_DATA = {
           5235.777962239584,
           3747.008393859863,
           6894.079901475173,
-          4006.040327344622
+          4006.040327344622,
+          7911.729253496443
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22595,6 +22719,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212,
           11212,
           11212,
@@ -22804,7 +22929,8 @@ window.BENCHMARK_DATA = {
           137.1522524527141,
           114.9769394672834,
           170.582661151886,
-          117.03408260345459
+          117.03408260345459,
+          161.63474615414938
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22970,6 +23096,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -23175,7 +23302,8 @@ window.BENCHMARK_DATA = {
           329.0474768956502,
           280.1815710385641,
           427.902588335673,
-          300.11117390791577
+          300.11117390791577,
+          413.9439167022705
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -23309,6 +23437,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -24411,6 +24540,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -24586,7 +24721,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -24765,7 +24901,8 @@ window.BENCHMARK_DATA = {
           769.5258606501988,
           730.5422256469726,
           990.3717020579746,
-          766.8155290603638
+          766.8155290603638,
+          978.1125202178955
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24926,6 +25063,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936,
           2936,
@@ -25136,7 +25274,8 @@ window.BENCHMARK_DATA = {
           12221.105095999581,
           9182.367804391044,
           15740.642256516676,
-          9187.90698829064
+          9187.90698829064,
+          17743.63512166341
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25320,7 +25459,8 @@ window.BENCHMARK_DATA = {
           18521,
           18521,
           18521,
-          18521
+          18521,
+          17400
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25507,7 +25647,8 @@ window.BENCHMARK_DATA = {
           12443.157293047223,
           8917.350229535785,
           15752.722704206195,
-          8850.514273507255
+          8850.514273507255,
+          17958.281354631697
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25669,6 +25810,7 @@ window.BENCHMARK_DATA = {
           21585,
           21585,
           21528,
+          21529,
           21529,
           21529,
           21529,
@@ -25878,7 +26020,8 @@ window.BENCHMARK_DATA = {
           12787.823380690355,
           9747.70774943034,
           17011.95603121244,
-          9661.570333862304
+          9661.570333862304,
+          18687.59634399414
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26040,6 +26183,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801,
           30801,
           30801,
@@ -26249,7 +26393,8 @@ window.BENCHMARK_DATA = {
           259.98570367268155,
           257.6699391878568,
           331.45368561377893,
-          274.26058885029386
+          274.26058885029386,
+          325.9913319269816
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26415,6 +26560,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -26620,7 +26766,8 @@ window.BENCHMARK_DATA = {
           1208.2439903531756,
           1180.2285190309797,
           1557.454486301967,
-          1203.8379524230957
+          1203.8379524230957,
+          1515.8604465484618
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26754,6 +26901,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -27856,6 +28004,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 11 00:12:55 2026 \u002B0100",
         "message": "fix: resolve Sonar issues and build warnings (#958)"
+      },
+      {
+        "sha": "05da90b2b561dd3a6c6cb8426b48bc258664d04a",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 10 23:22:53 2026 \u002B0000",
+        "message": "chore: Bump the fallout group with 2 updates (#960)"
       }
     ],
     "labels": [
@@ -28031,7 +28185,8 @@ window.BENCHMARK_DATA = {
       "c0c4bfdf",
       "e76b823e",
       "cd7cb3a5",
-      "e26a5a00"
+      "e26a5a00",
+      "05da90b2"
     ],
     "datasets": [
       {
@@ -28210,7 +28365,8 @@ window.BENCHMARK_DATA = {
           16.287169714768726,
           20.929712078968684,
           19.310226661960282,
-          16.429777654012046
+          16.429777654012046,
+          16.71360356074113
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28268,6 +28424,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -28581,7 +28738,8 @@ window.BENCHMARK_DATA = {
           86.97865931804364,
           105.62157156834236,
           110.11990514596303,
-          88.95226967334747
+          88.95226967334747,
+          90.35115466799054
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -28747,6 +28905,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -28952,7 +29111,8 @@ window.BENCHMARK_DATA = {
           26.32224234143893,
           33.10304131905238,
           31.194885406891505,
-          26.361467993685178
+          26.361467993685178,
+          29.033918610640935
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -29086,6 +29246,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -29323,7 +29484,8 @@ window.BENCHMARK_DATA = {
           1307.0755442210607,
           1412.2481388092042,
           1308.6477850400483,
-          1342.0690951714148
+          1342.0690951714148,
+          1434.8735892956074
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -29484,6 +29646,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -29694,7 +29857,8 @@ window.BENCHMARK_DATA = {
           1868.0309497833252,
           2233.6598073323566,
           1944.3292958577474,
-          1867.9468187967937
+          1867.9468187967937,
+          1942.7699274698894
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29855,6 +30019,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -30065,7 +30230,8 @@ window.BENCHMARK_DATA = {
           1559.5550047067495,
           1830.2673824310302,
           1680.3028875350951,
-          1557.0776572908674
+          1557.0776572908674,
+          1594.3606374447163
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30230,6 +30396,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2764,
+          2755,
           2755,
           2755,
           2755,
