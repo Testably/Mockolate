@@ -48,7 +48,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all"/>
+		<!-- Keeps the System.IO.Hashing dependency out of the compilation: on net8.0 its netstandard2.0 build adds a second CallerArgumentExpressionAttribute (CS0419). -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all" ExcludeAssets="compile;runtime"/>
 	</ItemGroup>
 
 	<ItemGroup>
