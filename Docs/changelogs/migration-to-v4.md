@@ -16,7 +16,7 @@ To upgrade:
 A test project below C# 15 keeps the setup and verify methods of v3, so only the first step applies to it.
 
 :::tip[Keep the v3 methods]
-Set `<MockolateUnionParameters>false</MockolateUnionParameters>` in the project file to keep the setup and verify methods of v3 on any compiler, e.g. to retarget to .NET 11 first and switch to the new methods later.
+Set `<MockolateDisableUnionParameters>true</MockolateDisableUnionParameters>` in the project file to keep the setup and verify methods of v3 with C# 15, e.g. to retarget to .NET 11 first and switch to the new methods later.
 :::
 
 ## Changes the compiler does not catch

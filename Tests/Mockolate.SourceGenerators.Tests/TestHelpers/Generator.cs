@@ -40,7 +40,7 @@ public static class Generator
 
 	private static GeneratorResult RunCore(string[] sources, DocumentationMode documentationMode,
 		string[] preprocessorSymbols, MetadataReference[] externalReferences, Type[] assemblyTypes,
-		LanguageVersion languageVersion = LanguageVersion.Latest,
+		LanguageVersion languageVersion = LanguageVersion.CSharp14,
 		IReadOnlyDictionary<string, string>? globalOptions = null)
 	{
 		MockGenerator generator = new();

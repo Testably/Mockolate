@@ -4,7 +4,7 @@ using Mockolate.Verify;
 
 namespace Mockolate.Tests;
 
-// On this target the generator emits the union-typed setup and verify overloads (C# preview): one ParameterArg<T>? or Func<T, bool> slot per parameter.
+// On this target the generator emits the union-typed setup and verify overloads (C# 15): one ParameterArg<T>? or Func<T, bool> slot per parameter.
 public sealed class UnionSetupTests
 {
 	[Test]

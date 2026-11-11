@@ -42,6 +42,15 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
+	public async Task WithDisablePropertyFalse_BelowCSharp15_ShouldNotEmitParameterArg()
+	{
+		GeneratorResult result = Generator.Run(Source, LanguageVersion.CSharp14,
+			new Dictionary<string, string> { [DisableUnionParametersProperty] = "false", });
+
+		await That(result.Sources.Keys).DoesNotContain(ParameterArgFile);
+	}
+
+	[Test]
 	[Arguments(LanguageVersion.CSharp15)]
 	[Arguments(LanguageVersion.Preview)]
 	public async Task WithCSharp15OrLater_ShouldEmitParameterArg(LanguageVersion languageVersion)

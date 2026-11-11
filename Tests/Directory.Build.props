@@ -37,11 +37,6 @@
 	<!-- Project references do not import the package props, so make the generator see the property here too. -->
 	<Import Project="$(MSBuildThisFileDirectory)/../Source/Mockolate/build/Mockolate.props"/>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net11.0'">
-		<!-- Compiles with C# 15 unions, so the union-typed setup surface is exercised on this target. -->
-		<LangVersion>preview</LangVersion>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="TUnit.Engine"/>
 		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport"/>
