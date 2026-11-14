@@ -1,16 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net11.0</TargetFrameworks>
+		<TargetFrameworks>net11.0;net10.0</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj"/>
 		<ProjectReference Include="..\..\Source\Mockolate\Mockolate.csproj"/>
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all"/>
+		<PackageReference Include="aweXpect.Snapshots"/>
+	</ItemGroup>
+
+	<!-- net10.0 runs the generator in the oldest compiler it must load in, which predates C# 15. -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
 		<PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="all" VersionOverride="$(MinimumRoslynVersion)"/>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" VersionOverride="$(MinimumRoslynVersion)"/>
-		<PackageReference Include="aweXpect.Snapshots"/>
+		<!-- The snapshots cover the union scenarios too, so they are only checked with the C# 15 compiler. -->
+		<Compile Remove="Snapshot\**;UnionOverloadTests.cs;UnionParameterArgTests.cs"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' != 'net10.0'">
+		<PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="all"/>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all"/>
+		<Compile Remove="MinimumRoslynTests.cs"/>
 	</ItemGroup>
 
 </Project>

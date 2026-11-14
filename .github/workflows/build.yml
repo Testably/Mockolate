@@ -97,7 +97,7 @@ jobs:
                         ./TestResults/*.trx
     
     union-tests:
-        name: "Union tests (net11.0, C# preview)"
+        name: "Union tests (net11.0, C# 15)"
         runs-on: ubuntu-latest
         env:
             DOTNET_NOLOGO: true
