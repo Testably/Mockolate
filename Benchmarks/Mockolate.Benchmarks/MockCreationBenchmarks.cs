@@ -4,7 +4,7 @@ using Imposter.Abstractions;
 using Mockolate.Benchmarks;
 using NSubstitute;
 
-[assembly: GenerateImposter(typeof(MockCreationBenchmarks.ICalculatorService))]
+[assembly: GenerateImposter(typeof(MockCreationBenchmarks.IChocolateRecipe))]
 
 namespace Mockolate.Benchmarks;
 #pragma warning disable CA1822 // Mark members as static
@@ -15,43 +15,43 @@ public class MockCreationBenchmarks : BenchmarksBase
 {
 	[Benchmark(Baseline = true)]
 	public object CreateMock_Mockolate()
-		=> ICalculatorService.CreateMock();
+		=> IChocolateRecipe.CreateMock();
 
 	[Benchmark]
 	public object CreateMock_Imposter()
 	{
-		ICalculatorServiceImposter imposter = ICalculatorService.Imposter();
+		IChocolateRecipeImposter imposter = IChocolateRecipe.Imposter();
 		return imposter.Instance();
 	}
 
 	[Benchmark]
 	public object CreateMock_TUnitMocks()
 	{
-		MockCreationBenchmarks_ICalculatorServiceMock mock = ICalculatorService.Mock();
+		MockCreationBenchmarks_IChocolateRecipeMock mock = IChocolateRecipe.Mock();
 		return mock.Object;
 	}
 
 	[Benchmark]
 	public object CreateMock_Moq()
 	{
-		Moq.Mock<ICalculatorService> mock = new();
+		Moq.Mock<IChocolateRecipe> mock = new();
 		return mock.Object;
 	}
 
 	[Benchmark]
 	public object CreateMock_NSubstitute()
-		=> Substitute.For<ICalculatorService>();
+		=> Substitute.For<IChocolateRecipe>();
 
 	[Benchmark]
 	public object CreateMock_FakeItEasy()
-		=> A.Fake<ICalculatorService>();
+		=> A.Fake<IChocolateRecipe>();
 
-	public interface ICalculatorService
+	public interface IChocolateRecipe
 	{
-		int Zero { get; }
-		int Add(int a, int b);
-		double Divide(double numerator, double denominator);
-		string Format(int value);
+		int Servings { get; }
+		int Mix(int cocoa, int sugar);
+		double Split(double weight, double pieces);
+		string Label(int batch);
 	}
 }
 #pragma warning restore CA1822 // Mark members as static

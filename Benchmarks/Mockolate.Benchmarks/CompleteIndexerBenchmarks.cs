@@ -7,7 +7,7 @@ using NSubstitute;
 using Arg = NSubstitute.Arg;
 using Times = Moq.Times;
 
-[assembly: GenerateImposter(typeof(CompleteIndexerBenchmarks.IMyIndexerInterface))]
+[assembly: GenerateImposter(typeof(CompleteIndexerBenchmarks.IChocolateCatalog))]
 
 namespace Mockolate.Benchmarks;
 #pragma warning disable CA1822 // Mark members as static
@@ -25,13 +25,13 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	[Benchmark(Baseline = true)]
 	public void Indexer_Mockolate()
 	{
-		IMyIndexerInterface sut = IMyIndexerInterface.CreateMock();
-		sut.Mock.Setup[It.IsAny<int>()].Returns("foo");
+		IChocolateCatalog sut = IChocolateCatalog.CreateMock();
+		sut.Mock.Setup[It.IsAny<int>()].Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
 			_ = sut[42];
-			sut[42] = "bar";
+			sut[42] = "Milk";
 		}
 
 		sut.Mock.Verify[It.IsAny<int>()].Got().Exactly(N);
@@ -44,14 +44,14 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Indexer_Imposter()
 	{
-		IMyIndexerInterfaceImposter imposter = IMyIndexerInterface.Imposter();
-		imposter[Imposter.Abstractions.Arg<int>.Any()].Getter().Returns("foo");
-		IMyIndexerInterface sut = imposter.Instance();
+		IChocolateCatalogImposter imposter = IChocolateCatalog.Imposter();
+		imposter[Imposter.Abstractions.Arg<int>.Any()].Getter().Returns("Dark");
+		IChocolateCatalog sut = imposter.Instance();
 
 		for (int i = 0; i < N; i++)
 		{
 			_ = sut[42];
-			sut[42] = "bar";
+			sut[42] = "Milk";
 		}
 
 		imposter[Imposter.Abstractions.Arg<int>.Any()].Getter().Called(Count.Exactly(N));
@@ -65,13 +65,13 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Indexer_TUnitMocks()
 	{
-		TUnit.Mocks.Mock<IMyIndexerInterface> mock = IMyIndexerInterface.Mock();
-		mock[Any<int>()].Returns("foo");
+		TUnit.Mocks.Mock<IChocolateCatalog> mock = IChocolateCatalog.Mock();
+		mock[Any<int>()].Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
 			_ = mock.Object[42];
-			mock.Object[42] = "bar";
+			mock.Object[42] = "Milk";
 		}
 
 		mock[Any<int>()].WasCalled(TUnit.Mocks.Times.Exactly(N));
@@ -84,14 +84,14 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Indexer_Moq()
 	{
-		Moq.Mock<IMyIndexerInterface> mock = new();
-		mock.Setup(x => x[Moq.It.IsAny<int>()]).Returns("foo");
-		IMyIndexerInterface sut = mock.Object;
+		Moq.Mock<IChocolateCatalog> mock = new();
+		mock.Setup(x => x[Moq.It.IsAny<int>()]).Returns("Dark");
+		IChocolateCatalog sut = mock.Object;
 
 		for (int i = 0; i < N; i++)
 		{
 			_ = sut[42];
-			sut[42] = "bar";
+			sut[42] = "Milk";
 		}
 
 		mock.Verify(x => x[Moq.It.IsAny<int>()], Times.Exactly(N));
@@ -104,13 +104,13 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Indexer_NSubstitute()
 	{
-		IMyIndexerInterface mock = Substitute.For<IMyIndexerInterface>();
-		mock[Arg.Any<int>()].Returns("foo");
+		IChocolateCatalog mock = Substitute.For<IChocolateCatalog>();
+		mock[Arg.Any<int>()].Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
 			_ = mock[42];
-			mock[42] = "bar";
+			mock[42] = "Milk";
 		}
 
 		_ = mock.Received(N)[Arg.Any<int>()];
@@ -123,22 +123,22 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Indexer_FakeItEasy()
 	{
-		IMyIndexerInterface mock = A.Fake<IMyIndexerInterface>();
-		A.CallTo(() => mock[A<int>.Ignored]).Returns("foo");
+		IChocolateCatalog mock = A.Fake<IChocolateCatalog>();
+		A.CallTo(() => mock[A<int>.Ignored]).Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
 			_ = mock[42];
-			mock[42] = "bar";
+			mock[42] = "Milk";
 		}
 
 		A.CallTo(() => mock[A<int>.Ignored]).MustHaveHappened(N, FakeItEasy.Times.Exactly);
 		A.CallToSet(() => mock[A<int>.Ignored]).MustHaveHappened(N, FakeItEasy.Times.Exactly);
 	}
 
-	public interface IMyIndexerInterface
+	public interface IChocolateCatalog
 	{
-		string this[int index] { get; set; }
+		string this[int number] { get; set; }
 	}
 }
 #pragma warning restore CA1822 // Mark members as static

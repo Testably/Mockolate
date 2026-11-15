@@ -7,7 +7,7 @@ using NSubstitute;
 using Arg = NSubstitute.Arg;
 using Times = Moq.Times;
 
-[assembly: GenerateImposter(typeof(CompletePropertyBenchmarks.IMyPropertyInterface))]
+[assembly: GenerateImposter(typeof(CompletePropertyBenchmarks.IChocolateShelf))]
 
 namespace Mockolate.Benchmarks;
 #pragma warning disable CA1822 // Mark members as static
@@ -25,17 +25,17 @@ public class CompletePropertyBenchmarks : BenchmarksBase
 	[Benchmark(Baseline = true)]
 	public void Property_Mockolate()
 	{
-		IMyPropertyInterface sut = IMyPropertyInterface.CreateMock();
-		sut.Mock.Setup.Counter.InitializeWith(42);
+		IChocolateShelf sut = IChocolateShelf.CreateMock();
+		sut.Mock.Setup.Stock.InitializeWith(42);
 
 		for (int i = 0; i < N; i++)
 		{
-			_ = sut.Counter;
-			sut.Counter = i;
+			_ = sut.Stock;
+			sut.Stock = i;
 		}
 
-		sut.Mock.Verify.Counter.Got().Exactly(N);
-		sut.Mock.Verify.Counter.Set(It.IsAny<int>()).Exactly(N);
+		sut.Mock.Verify.Stock.Got().Exactly(N);
+		sut.Mock.Verify.Stock.Set(It.IsAny<int>()).Exactly(N);
 	}
 
 	/// <summary>
@@ -44,18 +44,18 @@ public class CompletePropertyBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Property_Imposter()
 	{
-		IMyPropertyInterfaceImposter imposter = IMyPropertyInterface.Imposter();
-		imposter.Counter.Getter().Returns(42);
-		IMyPropertyInterface sut = imposter.Instance();
+		IChocolateShelfImposter imposter = IChocolateShelf.Imposter();
+		imposter.Stock.Getter().Returns(42);
+		IChocolateShelf sut = imposter.Instance();
 
 		for (int i = 0; i < N; i++)
 		{
-			_ = sut.Counter;
-			sut.Counter = i;
+			_ = sut.Stock;
+			sut.Stock = i;
 		}
 
-		imposter.Counter.Getter().Called(Count.Exactly(N));
-		imposter.Counter.Setter(Imposter.Abstractions.Arg<int>.Any()).Called(Count.Exactly(N));
+		imposter.Stock.Getter().Called(Count.Exactly(N));
+		imposter.Stock.Setter(Imposter.Abstractions.Arg<int>.Any()).Called(Count.Exactly(N));
 	}
 
 	/// <summary>
@@ -64,18 +64,18 @@ public class CompletePropertyBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Property_TUnitMocks()
 	{
-		CompletePropertyBenchmarks_IMyPropertyInterfaceMock mock = IMyPropertyInterface.Mock();
-		mock.Counter.Returns(42);
-		IMyPropertyInterface sut = mock.Object;
+		CompletePropertyBenchmarks_IChocolateShelfMock mock = IChocolateShelf.Mock();
+		mock.Stock.Returns(42);
+		IChocolateShelf sut = mock.Object;
 
 		for (int i = 0; i < N; i++)
 		{
-			_ = sut.Counter;
-			sut.Counter = i;
+			_ = sut.Stock;
+			sut.Stock = i;
 		}
 
-		mock.Counter.WasCalled(TUnit.Mocks.Times.Exactly(N));
-		mock.Counter.Setter.WasCalled(TUnit.Mocks.Times.Exactly(N));
+		mock.Stock.WasCalled(TUnit.Mocks.Times.Exactly(N));
+		mock.Stock.Setter.WasCalled(TUnit.Mocks.Times.Exactly(N));
 	}
 
 	/// <summary>
@@ -84,18 +84,18 @@ public class CompletePropertyBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Property_Moq()
 	{
-		Moq.Mock<IMyPropertyInterface> mock = new();
-		mock.SetupGet(x => x.Counter).Returns(42);
-		IMyPropertyInterface sut = mock.Object;
+		Moq.Mock<IChocolateShelf> mock = new();
+		mock.SetupGet(x => x.Stock).Returns(42);
+		IChocolateShelf sut = mock.Object;
 
 		for (int i = 0; i < N; i++)
 		{
-			_ = sut.Counter;
-			sut.Counter = i;
+			_ = sut.Stock;
+			sut.Stock = i;
 		}
 
-		mock.VerifyGet(x => x.Counter, Times.Exactly(N));
-		mock.VerifySet(x => x.Counter = Moq.It.IsAny<int>(), Times.Exactly(N));
+		mock.VerifyGet(x => x.Stock, Times.Exactly(N));
+		mock.VerifySet(x => x.Stock = Moq.It.IsAny<int>(), Times.Exactly(N));
 	}
 
 	/// <summary>
@@ -104,17 +104,17 @@ public class CompletePropertyBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Property_NSubstitute()
 	{
-		IMyPropertyInterface mock = Substitute.For<IMyPropertyInterface>();
-		mock.Counter.Returns(42);
+		IChocolateShelf mock = Substitute.For<IChocolateShelf>();
+		mock.Stock.Returns(42);
 
 		for (int i = 0; i < N; i++)
 		{
-			_ = mock.Counter;
-			mock.Counter = i;
+			_ = mock.Stock;
+			mock.Stock = i;
 		}
 
-		_ = mock.Received(N).Counter;
-		mock.Received(N).Counter = Arg.Any<int>();
+		_ = mock.Received(N).Stock;
+		mock.Received(N).Stock = Arg.Any<int>();
 	}
 
 	/// <summary>
@@ -123,22 +123,22 @@ public class CompletePropertyBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Property_FakeItEasy()
 	{
-		IMyPropertyInterface mock = A.Fake<IMyPropertyInterface>();
-		A.CallTo(() => mock.Counter).Returns(42);
+		IChocolateShelf mock = A.Fake<IChocolateShelf>();
+		A.CallTo(() => mock.Stock).Returns(42);
 
 		for (int i = 0; i < N; i++)
 		{
-			_ = mock.Counter;
-			mock.Counter = i;
+			_ = mock.Stock;
+			mock.Stock = i;
 		}
 
-		A.CallTo(() => mock.Counter).MustHaveHappened(N, FakeItEasy.Times.Exactly);
-		A.CallToSet(() => mock.Counter).MustHaveHappened(N, FakeItEasy.Times.Exactly);
+		A.CallTo(() => mock.Stock).MustHaveHappened(N, FakeItEasy.Times.Exactly);
+		A.CallToSet(() => mock.Stock).MustHaveHappened(N, FakeItEasy.Times.Exactly);
 	}
 
-	public interface IMyPropertyInterface
+	public interface IChocolateShelf
 	{
-		int Counter { get; set; }
+		int Stock { get; set; }
 	}
 }
 #pragma warning restore CA1822 // Mark members as static
