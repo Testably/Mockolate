@@ -364,6 +364,111 @@ public class VerificationResultTests
 		}
 
 		[Test]
+		public async Task Map_AfterAnyParameters_ShouldCountAllInteractions()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo", 1);
+			buffer.Append("Foo", 2);
+			buffer.Append("Foo", 3);
+
+			VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod(
+				new object(), 0, "Foo", (IParameterMatch<int>)It.Is(1), () => "Foo(1)");
+			VerificationResult<object> widened = result.AnyParameters();
+
+			VerificationResult<string> mapped = widened.Map("newMock");
+
+			void Act()
+			{
+				mapped.Exactly(3);
+			}
+
+			await That(Act).DoesNotThrow();
+		}
+
+		[Test]
+		public async Task Map_AfterAnyParameters_ThenWithin_ShouldCountAllInteractions()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo", 1);
+			buffer.Append("Foo", 2);
+			buffer.Append("Foo", 3);
+
+			VerificationResult<object> widened = registry.VerifyMethod(
+					new object(), 0, "Foo", (IParameterMatch<int>)It.Is(1), () => "Foo(1)")
+				.AnyParameters();
+
+			void Act()
+			{
+				widened.Map("newMock").Within(50.Milliseconds()).Exactly(3);
+			}
+
+			await That(Act).DoesNotThrow();
+		}
+
+		[Test]
+		public async Task Map_AfterWithin_ShouldWaitForLateInteraction()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod0Buffer buffer = InstallMethod(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo");
+
+			VerificationResult<string> mapped = registry.VerifyMethod(new object(), 0, "Foo", () => "Foo()")
+				.Within(5.Seconds())
+				.Map("newMock");
+
+			Task lateCall = Task.Run(async () =>
+			{
+				await Task.Delay(100, CancellationToken.None);
+				buffer.Append("Foo");
+			}, CancellationToken.None);
+
+			void Act()
+			{
+				mapped.Exactly(2);
+			}
+
+			await That(Act).DoesNotThrow();
+			await lateCall;
+		}
+
+		[Test]
+		public async Task Map_AfterWithCancellation_ShouldWaitForLateInteraction()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod0Buffer buffer = InstallMethod(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+			using CancellationTokenSource cts = new(5.Seconds());
+
+			buffer.Append("Foo");
+
+			VerificationResult<string> mapped = registry.VerifyMethod(new object(), 0, "Foo", () => "Foo()")
+				.WithCancellation(cts.Token)
+				.Map("newMock");
+
+			Task lateCall = Task.Run(async () =>
+			{
+				await Task.Delay(100, CancellationToken.None);
+				buffer.Append("Foo");
+			}, CancellationToken.None);
+
+			void Act()
+			{
+				mapped.Exactly(2);
+			}
+
+			await That(Act).DoesNotThrow();
+			await lateCall;
+		}
+
+		[Test]
 		public async Task Map_WithFastPathSource_ShouldCollectOnlyInteractionsMatchingTheSource()
 		{
 			FastMockInteractions store = new(1);

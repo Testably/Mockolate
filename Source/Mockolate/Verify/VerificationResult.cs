@@ -130,12 +130,15 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 	internal VerificationResult<T> Map<T>(T mock)
 	{
-		if (_buffer is null && _fastCountSource is null)
+		VerificationResult<T> mapped = _buffer is null && _fastCountSource is null
+			? new VerificationResult<T>(mock, _interactions, _predicate!, _expectation)
+			: new VerificationResult<T>(mock, _interactions, _buffer, _fastCountSource, _predicate, _expectation);
+		if (_useCountAll)
 		{
-			return new VerificationResult<T>(mock, _interactions, _predicate!, _expectation);
+			mapped.EnableCountAll();
 		}
 
-		return new VerificationResult<T>(mock, _interactions, _buffer, _fastCountSource, _predicate, _expectation);
+		return this is Awaitable awaitable ? awaitable.WaitLikewise(mapped) : mapped;
 	}
 
 	private protected bool HasBuffer => _buffer is not null;
@@ -465,6 +468,21 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		{
 			_cancellationToken = cancellationToken;
 			return this;
+		}
+
+		internal VerificationResult<T> WaitLikewise<T>(VerificationResult<T> result)
+		{
+			if (_timeout is not null)
+			{
+				result = result.Within(_timeout.Value);
+			}
+
+			if (_cancellationToken is not null)
+			{
+				result = result.WithCancellation(_cancellationToken.Value);
+			}
+
+			return result;
 		}
 	}
 
