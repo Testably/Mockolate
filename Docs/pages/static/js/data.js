@@ -1134,6 +1134,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -1325,7 +1331,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -1520,7 +1527,8 @@ window.BENCHMARK_DATA = {
           240.77803999582926,
           195.63072540078844,
           377.59912080031177,
-          323.4472259112767
+          323.4472259112767,
+          209.73270478248597
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1720,6 +1728,7 @@ window.BENCHMARK_DATA = {
           1584,
           1584,
           1584,
+          1536,
           1536
         ],
         "borderColor": "#63A2AC",
@@ -1923,7 +1932,8 @@ window.BENCHMARK_DATA = {
           36065.54618326823,
           31730.580397385816,
           77350.76473563058,
-          36479.27454833985
+          36479.27454833985,
+          60938.11365559896
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2123,7 +2133,8 @@ window.BENCHMARK_DATA = {
           9126,
           9055,
           9162,
-          9046
+          9046,
+          9055
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2326,7 +2337,8 @@ window.BENCHMARK_DATA = {
           2981.2787532806396,
           2546.5038764953615,
           4483.919738769531,
-          3351.2112758343037
+          3351.2112758343037,
+          3360.6454109191895
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2487,6 +2499,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2729,7 +2742,8 @@ window.BENCHMARK_DATA = {
           2655.8930288042343,
           2607.994808451335,
           4408.542574201311,
-          3119.1240912846156
+          3119.1240912846156,
+          3259.008768463135
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2929,7 +2943,8 @@ window.BENCHMARK_DATA = {
           6924,
           6930,
           6919,
-          6924
+          6924,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3132,7 +3147,8 @@ window.BENCHMARK_DATA = {
           168.8008945465088,
           133.03923511505127,
           234.65227932196396,
-          192.2984754017421
+          192.2984754017421,
+          177.94654641151428
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3298,6 +3314,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3535,7 +3552,8 @@ window.BENCHMARK_DATA = {
           400.17277135848997,
           339.4056424776713,
           619.3652561823527,
-          494.50412400563556
+          494.50412400563556,
+          406.5650698979696
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3696,6 +3714,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4883,6 +4902,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -5074,7 +5099,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -5269,7 +5295,8 @@ window.BENCHMARK_DATA = {
           178.69267988204956,
           172.83867874145508,
           250.00094362894694,
-          185.79663619995117
+          185.79663619995117,
+          175.88336645762126
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5468,6 +5495,7 @@ window.BENCHMARK_DATA = {
           1728,
           1064,
           1000,
+          984,
           984,
           984
         ],
@@ -5672,7 +5700,8 @@ window.BENCHMARK_DATA = {
           10211.546377328727,
           10959.454170735677,
           13884.901041666666,
-          9452.60596110026
+          9452.60596110026,
+          10995.121826171875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5864,6 +5893,7 @@ window.BENCHMARK_DATA = {
           12761,
           12760,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -6075,7 +6105,8 @@ window.BENCHMARK_DATA = {
           3912.9401830037436,
           4318.372051239014,
           5600.695864868164,
-          3765.021493021647
+          3765.021493021647,
+          4364.654597473144
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6236,6 +6267,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -6478,7 +6510,8 @@ window.BENCHMARK_DATA = {
           195014.0569719587,
           194772.66458333333,
           181975.46859305244,
-          107632.36938476562
+          107632.36938476562,
+          195045.11373197116
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6678,7 +6711,8 @@ window.BENCHMARK_DATA = {
           15619,
           15619,
           15619,
-          15579
+          15579,
+          15619
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6881,7 +6915,8 @@ window.BENCHMARK_DATA = {
           142.857879559199,
           147.70952083383287,
           201.40224090644293,
-          152.8577496210734
+          152.8577496210734,
+          150.46257309913636
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7022,6 +7057,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -7284,7 +7320,8 @@ window.BENCHMARK_DATA = {
           119.39973682623643,
           125.8586666243417,
           186.41773379643757,
-          141.87227628628412
+          141.87227628628412,
+          134.49586027009147
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -7418,6 +7455,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -8632,6 +8670,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -8823,7 +8867,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -9018,7 +9063,8 @@ window.BENCHMARK_DATA = {
           830.9030879974365,
           726.1504243850708,
           768.3444949467977,
-          568.8388895670573
+          568.8388895670573,
+          593.7886833190918
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9218,6 +9264,7 @@ window.BENCHMARK_DATA = {
           2864,
           2768,
           2616,
+          2544,
           2544
         ],
         "borderColor": "#63A2AC",
@@ -9421,7 +9468,8 @@ window.BENCHMARK_DATA = {
           225740.42121233259,
           84862.31798502603,
           227142.38204520088,
-          139580.54997907366
+          139580.54997907366,
+          140981.76569010416
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9620,6 +9668,7 @@ window.BENCHMARK_DATA = {
           20804,
           20804,
           20809,
+          20804,
           20804,
           20804
         ],
@@ -9824,7 +9873,8 @@ window.BENCHMARK_DATA = {
           10581.633460411658,
           7990.054473876953,
           10329.27488301595,
-          7218.916964394705
+          7218.916964394705,
+          7326.035906655447
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10024,7 +10074,8 @@ window.BENCHMARK_DATA = {
           13032,
           13088,
           13032,
-          13032
+          13032,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10227,7 +10278,8 @@ window.BENCHMARK_DATA = {
           11139.921729532878,
           6505.914584568569,
           11203.673392662635,
-          7120.504902179425
+          7120.504902179425,
+          7085.926547459194
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10427,6 +10479,7 @@ window.BENCHMARK_DATA = {
           13593,
           13924,
           13706,
+          13593,
           13593
         ],
         "borderColor": "#4A6FA5",
@@ -10630,7 +10683,8 @@ window.BENCHMARK_DATA = {
           307.358739789327,
           292.9980200131734,
           313.1953067779541,
-          261.9671388626099
+          261.9671388626099,
+          238.4057968213008
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10791,6 +10845,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -11978,6 +12033,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -12169,7 +12230,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -12364,7 +12426,8 @@ window.BENCHMARK_DATA = {
           2497.335089111328,
           2251.718914794922,
           2439.488294474284,
-          1755.447514851888
+          1755.447514851888,
+          1805.5143945058187
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12564,6 +12627,7 @@ window.BENCHMARK_DATA = {
           4968,
           4872,
           4720,
+          4216,
           4216
         ],
         "borderColor": "#63A2AC",
@@ -12767,7 +12831,8 @@ window.BENCHMARK_DATA = {
           237884.17799479168,
           89394.84178748497,
           239865.06580403645,
-          148282.97647530693
+          148282.97647530693,
+          148876.2030203683
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12966,6 +13031,7 @@ window.BENCHMARK_DATA = {
           30403,
           30403,
           30386,
+          30403,
           30403,
           30403
         ],
@@ -13170,7 +13236,8 @@ window.BENCHMARK_DATA = {
           25137.834693400066,
           18984.361551920574,
           25588.249430338543,
-          17796.050248209634
+          17796.050248209634,
+          17928.157560076033
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13370,7 +13437,8 @@ window.BENCHMARK_DATA = {
           26137,
           26192,
           26137,
-          26137
+          26137,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13573,7 +13641,8 @@ window.BENCHMARK_DATA = {
           23770.987279256184,
           15585.318453107562,
           23641.558005196708,
-          15529.88242667062
+          15529.88242667062,
+          15731.753153483072
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13773,6 +13842,7 @@ window.BENCHMARK_DATA = {
           33247,
           33585,
           33359,
+          33247,
           33247
         ],
         "borderColor": "#4A6FA5",
@@ -13976,7 +14046,8 @@ window.BENCHMARK_DATA = {
           754.9406044823783,
           643.2918408075968,
           744.9160280227661,
-          624.9217786153157
+          624.9217786153157,
+          581.9464255741665
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14137,6 +14208,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -15324,6 +15396,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -15515,7 +15593,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -15710,7 +15789,8 @@ window.BENCHMARK_DATA = {
           379.76593389511106,
           239.99372369902474,
           206.19589587847392,
-          162.48106358846027
+          162.48106358846027,
+          309.1837072690328
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15910,6 +15990,7 @@ window.BENCHMARK_DATA = {
           1392,
           1272,
           1176,
+          1152,
           1152
         ],
         "borderColor": "#63A2AC",
@@ -16113,7 +16194,8 @@ window.BENCHMARK_DATA = {
           147829.46564592634,
           113425.31290108817,
           114596.81993689903,
-          61447.07981654576
+          61447.07981654576,
+          195999.59166666667
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16313,7 +16395,8 @@ window.BENCHMARK_DATA = {
           14915,
           14914,
           14914,
-          14920
+          14920,
+          14902
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16516,7 +16599,8 @@ window.BENCHMARK_DATA = {
           5932.567389424642,
           4232.403960673014,
           4227.750889117901,
-          3193.277750015259
+          3193.277750015259,
+          6456.742013549805
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16704,6 +16788,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9264,
+          9320,
           9320,
           9320,
           9320,
@@ -16919,7 +17004,8 @@ window.BENCHMARK_DATA = {
           5774.791123072307,
           3947.987423706055,
           3786.9979073660716,
-          2998.1377179463702
+          2998.1377179463702,
+          6128.380231039865
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17117,6 +17203,7 @@ window.BENCHMARK_DATA = {
           8153,
           8151,
           8147,
+          8160,
           8160,
           8160,
           8160
@@ -17322,7 +17409,8 @@ window.BENCHMARK_DATA = {
           206.2309895992279,
           137.59822485844293,
           136.8011028583233,
-          112.83192845753261
+          112.83192845753261,
+          213.62365255355834
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17488,6 +17576,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -17725,7 +17814,8 @@ window.BENCHMARK_DATA = {
           600.8322137832641,
           353.3510405222575,
           349.9412428855896,
-          313.40233217875164
+          313.40233217875164,
+          525.0739980061849
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17859,6 +17949,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -19073,6 +19164,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -19264,7 +19361,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -19459,7 +19557,8 @@ window.BENCHMARK_DATA = {
           897.0931079728263,
           479.51544039590016,
           453.62262503306073,
-          478.7105027607509
+          478.7105027607509,
+          625.4780567169189
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19659,6 +19758,7 @@ window.BENCHMARK_DATA = {
           2184,
           2064,
           1968,
+          1728,
           1728
         ],
         "borderColor": "#63A2AC",
@@ -19862,7 +19962,8 @@ window.BENCHMARK_DATA = {
           154109.79127604168,
           115868.2253766741,
           117137.24388776507,
-          62283.663853236605
+          62283.663853236605,
+          202685.34742954798
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20062,7 +20163,8 @@ window.BENCHMARK_DATA = {
           18906,
           18906,
           18906,
-          18906
+          18906,
+          18901
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20265,7 +20367,8 @@ window.BENCHMARK_DATA = {
           8664.866506304059,
           6273.948965454101,
           6454.621248372396,
-          4945.5673924764
+          4945.5673924764,
+          10080.029922485352
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20465,7 +20568,8 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12344,
-          12344
+          12344,
+          12345
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20668,7 +20772,8 @@ window.BENCHMARK_DATA = {
           9460.427512613933,
           6384.223139626639,
           6520.112243652344,
-          5042.33634185791
+          5042.33634185791,
+          9834.811682564872
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20868,7 +20973,8 @@ window.BENCHMARK_DATA = {
           16396,
           16394,
           16394,
-          16394
+          16394,
+          16393
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21071,7 +21177,8 @@ window.BENCHMARK_DATA = {
           434.4699682848794,
           273.65024722417195,
           275.7956486770085,
-          269.96148675282797
+          269.96148675282797,
+          405.0642305056254
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21237,6 +21344,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -21474,7 +21582,8 @@ window.BENCHMARK_DATA = {
           1775.6559305924636,
           1059.3151915413994,
           1071.777410252889,
-          1057.2942045529683
+          1057.2942045529683,
+          1448.647311147054
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21608,6 +21717,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -22822,6 +22932,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -23013,7 +23129,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -23208,7 +23325,8 @@ window.BENCHMARK_DATA = {
           326.17586496898105,
           249.33015513420105,
           620.5056836446126,
-          392.25640932718915
+          392.25640932718915,
+          289.0349073043236
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -23408,6 +23526,7 @@ window.BENCHMARK_DATA = {
           1704,
           1592,
           1480,
+          1424,
           1424
         ],
         "borderColor": "#63A2AC",
@@ -23611,7 +23730,8 @@ window.BENCHMARK_DATA = {
           7499.418021647135,
           4934.534212552584,
           9910.709511893136,
-          6958.144216684194
+          6958.144216684194,
+          7282.493067814754
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23811,7 +23931,8 @@ window.BENCHMARK_DATA = {
           10569,
           10568,
           10457,
-          10569
+          10569,
+          10568
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -24014,7 +24135,8 @@ window.BENCHMARK_DATA = {
           5286.792530822754,
           3456.873764038086,
           7137.650674947103,
-          5264.676703389486
+          5264.676703389486,
+          5180.168565477644
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -24208,6 +24330,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -24417,7 +24540,8 @@ window.BENCHMARK_DATA = {
           5173.396819559733,
           3503.9923645655313,
           7061.293697611491,
-          4782.398817952474
+          4782.398817952474,
+          5024.0090134938555
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24617,7 +24741,8 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11196,
-          11191
+          11191,
+          11196
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24820,7 +24945,8 @@ window.BENCHMARK_DATA = {
           135.09221610001154,
           105.69902212619782,
           174.6531124966485,
-          172.09095210295456
+          172.09095210295456,
+          132.21465063095093
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24986,6 +25112,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -25223,7 +25350,8 @@ window.BENCHMARK_DATA = {
           325.95643714496066,
           260.11170084135875,
           445.2454371111734,
-          422.35421323776245
+          422.35421323776245,
+          334.64789292017616
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25419,6 +25547,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -26571,6 +26700,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -26762,7 +26897,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -26957,7 +27093,8 @@ window.BENCHMARK_DATA = {
           783.2963221623347,
           707.1085819097666,
           1034.8726263682047,
-          980.4576249803815
+          980.4576249803815,
+          721.358322652181
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27157,6 +27294,7 @@ window.BENCHMARK_DATA = {
           2976,
           2864,
           2752,
+          2192,
           2192
         ],
         "borderColor": "#63A2AC",
@@ -27360,7 +27498,8 @@ window.BENCHMARK_DATA = {
           12430.817181396484,
           8169.327586582729,
           15977.022051130023,
-          11726.401975191557
+          11726.401975191557,
+          11954.449875967843
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27560,7 +27699,8 @@ window.BENCHMARK_DATA = {
           18505,
           18505,
           17385,
-          18504
+          18504,
+          18505
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27763,7 +27903,8 @@ window.BENCHMARK_DATA = {
           13034.721998948316,
           8337.768132890973,
           16256.12250773112,
-          11767.665353393555
+          11767.665353393555,
+          12041.036349956807
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -27963,7 +28104,8 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21529,
-          21528
+          21528,
+          21529
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28166,7 +28308,8 @@ window.BENCHMARK_DATA = {
           13207.44711630685,
           8829.932998657227,
           16889.003973388673,
-          12914.500006103515
+          12914.500006103515,
+          12278.190543541541
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28366,7 +28509,8 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30785,
-          30780
+          30780,
+          30785
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28569,7 +28713,8 @@ window.BENCHMARK_DATA = {
           251.91329011917114,
           246.5995974858602,
           325.04482151667276,
-          348.87672939300535
+          348.87672939300535,
+          258.23838764826456
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -28735,6 +28880,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -28972,7 +29118,8 @@ window.BENCHMARK_DATA = {
           1193.1871874491374,
           1127.6584082285563,
           1580.3972807566324,
-          1706.382491938273
+          1706.382491938273,
+          1172.52191895705
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -29168,6 +29315,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -30320,6 +30468,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -30511,7 +30665,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -30706,7 +30861,8 @@ window.BENCHMARK_DATA = {
           17.674256736040114,
           9.681411770979564,
           15.917360814554351,
-          12.794352920850118
+          12.794352920850118,
+          26.276707410812378
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -30764,6 +30920,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -31109,7 +31266,8 @@ window.BENCHMARK_DATA = {
           95.9673278757504,
           56.80328116218249,
           90.04609665075938,
-          74.79060479310843
+          74.79060479310843,
+          122.78382506370545
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -31275,6 +31433,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -31512,7 +31671,8 @@ window.BENCHMARK_DATA = {
           27.549818372726442,
           16.540679273860796,
           26.315658060709634,
-          21.30437360803286
+          21.30437360803286,
+          39.38185837864876
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -31646,6 +31806,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -31915,7 +32076,8 @@ window.BENCHMARK_DATA = {
           1005.1865075429281,
           756.089461517334,
           1327.4617106119792,
-          963.8767893864558
+          963.8767893864558,
+          1301.9388403211321
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -32076,6 +32238,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -32318,7 +32481,8 @@ window.BENCHMARK_DATA = {
           1427.7982984270368,
           1099.2663105010986,
           1933.8291549682617,
-          1353.094614982605
+          1353.094614982605,
+          2035.969805399577
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -32479,6 +32643,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -32721,7 +32886,8 @@ window.BENCHMARK_DATA = {
           1164.2990531921387,
           879.0166946411133,
           1606.9401889214148,
-          1169.7041988372803
+          1169.7041988372803,
+          1716.9706268310547
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -32921,7 +33087,8 @@ window.BENCHMARK_DATA = {
           2751,
           2755,
           2755,
-          2755
+          2755,
+          2764
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -32971,6 +33138,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 23:30:39 2026 \u002B0100",
         "message": "perf: remove per-call closures and the redundant setup scan from mock dispatch (#975)"
+      },
+      {
+        "sha": "5ed8c4ac7a8b48f8dac5faadbc8993ff8bf55aec",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:49:55 2026 \u002B0100",
+        "message": "fix: keep the count mode and wait settings when mapping a verification result (#976)"
       }
     ],
     "labels": [
@@ -32979,7 +33152,8 @@ window.BENCHMARK_DATA = {
       "0fecd21d",
       "249928d6",
       "4c822185",
-      "6a40cd15"
+      "6a40cd15",
+      "5ed8c4ac"
     ],
     "datasets": [
       {
@@ -32991,7 +33165,8 @@ window.BENCHMARK_DATA = {
           1334.533590044294,
           1210.7515065329414,
           1315.4716439928327,
-          1069.8300762176514
+          1069.8300762176514,
+          810.1518845876058
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33008,6 +33183,7 @@ window.BENCHMARK_DATA = {
           5288,
           4888,
           4744,
+          4632,
           4632
         ],
         "borderColor": "#63A2AC",
@@ -33028,7 +33204,8 @@ window.BENCHMARK_DATA = {
           759.5771551132202,
           679.2193373271397,
           835.2401878650372,
-          739.0230976513454
+          739.0230976513454,
+          475.03614950180054
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -33041,6 +33218,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           3000,
+          2968,
           2968,
           2968,
           2968,
@@ -33065,7 +33243,8 @@ window.BENCHMARK_DATA = {
           2196.0403044382733,
           1927.3387701851982,
           2319.209545680455,
-          1839.6043249766033
+          1839.6043249766033,
+          1312.449578412374
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -33078,6 +33257,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           8936,
+          9528,
           9528,
           9528,
           9528,
@@ -33102,7 +33282,8 @@ window.BENCHMARK_DATA = {
           219750.56204427083,
           217040.5570591518,
           219694.95912388392,
-          122240.66625976562
+          122240.66625976562,
+          102590.4010103666
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33119,7 +33300,8 @@ window.BENCHMARK_DATA = {
           36013,
           36013,
           36069,
-          36372
+          36372,
+          36097
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33139,7 +33321,8 @@ window.BENCHMARK_DATA = {
           17185.69405255999,
           16219.239137922015,
           17658.93692452567,
-          17642.44758097331
+          17642.44758097331,
+          12785.231559753418
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33156,7 +33339,8 @@ window.BENCHMARK_DATA = {
           36171,
           36171,
           36171,
-          36169
+          36169,
+          36171
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33176,7 +33360,8 @@ window.BENCHMARK_DATA = {
           15356.19872233073,
           14381.058146158854,
           15706.492543538412,
-          12948.900413004558
+          12948.900413004558,
+          11084.932986450196
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -33193,7 +33378,8 @@ window.BENCHMARK_DATA = {
           28541,
           28540,
           28541,
-          28510
+          28510,
+          28620
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
