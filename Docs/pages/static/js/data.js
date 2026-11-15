@@ -1092,6 +1092,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -1276,7 +1282,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -1464,7 +1471,8 @@ window.BENCHMARK_DATA = {
           180.08648599111118,
           238.8373113632202,
           345.39183603922527,
-          307.0938798359462
+          307.0938798359462,
+          292.3590480486552
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1625,6 +1633,7 @@ window.BENCHMARK_DATA = {
           1608,
           1608,
           1608,
+          1592,
           1592,
           1592,
           1592,
@@ -1853,7 +1862,8 @@ window.BENCHMARK_DATA = {
           30449.211036095254,
           59994.11440604074,
           104532.95825195312,
-          104718.71336263021
+          104718.71336263021,
+          36942.30495779855
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2046,7 +2056,8 @@ window.BENCHMARK_DATA = {
           9063,
           9063,
           9064,
-          9176
+          9176,
+          9054
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2242,7 +2253,8 @@ window.BENCHMARK_DATA = {
           2435.131436920166,
           3445.6385773250036,
           4727.12739054362,
-          4563.53843943278
+          4563.53843943278,
+          3288.6486200968425
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2403,6 +2415,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2631,7 +2644,8 @@ window.BENCHMARK_DATA = {
           2565.3048503582295,
           3390.0111227769116,
           4686.54597676595,
-          4444.699447631836
+          4444.699447631836,
+          3057.6138211568195
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2824,7 +2838,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6930,
-          6930
+          6930,
+          6924
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3020,7 +3035,8 @@ window.BENCHMARK_DATA = {
           128.5214929262797,
           160.22627285321553,
           222.61682238578797,
-          205.51474788983663
+          205.51474788983663,
+          187.604438606898
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3186,6 +3202,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3409,7 +3426,8 @@ window.BENCHMARK_DATA = {
           292.05748990376793,
           384.8357188860575,
           460.70639791488645,
-          440.862400497709
+          440.862400497709,
+          442.0644829089825
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3570,6 +3588,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4708,6 +4727,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -4892,7 +4917,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -5080,7 +5106,8 @@ window.BENCHMARK_DATA = {
           163.19829376538596,
           165.48434278170268,
           327.0031217257182,
-          330.0708694458008
+          330.0708694458008,
+          210.03136234624046
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5241,6 +5268,7 @@ window.BENCHMARK_DATA = {
           1744,
           1744,
           1744,
+          1728,
           1728,
           1728,
           1728,
@@ -5469,7 +5497,8 @@ window.BENCHMARK_DATA = {
           7161.9351806640625,
           7285.825140380859,
           10634.62132380559,
-          14222.150550255408
+          14222.150550255408,
+          10463.053551307092
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5661,6 +5690,7 @@ window.BENCHMARK_DATA = {
           12761,
           12760,
           12760,
+          12761,
           12761,
           12761
         ],
@@ -5858,7 +5888,8 @@ window.BENCHMARK_DATA = {
           2707.2611841055063,
           2941.1004231770835,
           4214.391150883266,
-          6025.821259634836
+          6025.821259634836,
+          4207.275629170736
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6019,6 +6050,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -6247,7 +6279,8 @@ window.BENCHMARK_DATA = {
           107293.44045584543,
           108122.13854980469,
           193456.02221679688,
-          185313.76181640624
+          185313.76181640624,
+          194144.54462890624
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6438,6 +6471,7 @@ window.BENCHMARK_DATA = {
           15619,
           15586,
           15630,
+          15619,
           15619,
           15619,
           15619
@@ -6636,7 +6670,8 @@ window.BENCHMARK_DATA = {
           102.58946164449056,
           111.49906100432078,
           145.03707197507222,
-          209.78884353637696
+          209.78884353637696,
+          149.5892383318681
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6777,6 +6812,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -7025,7 +7061,8 @@ window.BENCHMARK_DATA = {
           92.26910201140812,
           100.4155831416448,
           122.22142158235822,
-          189.57358543078104
+          189.57358543078104,
+          128.49766760213035
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -7159,6 +7196,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -8324,6 +8362,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -8508,7 +8552,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -8696,7 +8741,8 @@ window.BENCHMARK_DATA = {
           653.7832855497088,
           1078.468193934514,
           958.9460875193278,
-          1017.4035755157471
+          1017.4035755157471,
+          870.8340041978018
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8857,6 +8903,7 @@ window.BENCHMARK_DATA = {
           3904,
           3904,
           3904,
+          3832,
           3832,
           3832,
           3832,
@@ -9085,7 +9132,8 @@ window.BENCHMARK_DATA = {
           140179.7567313058,
           176118.50697544642,
           181396.73308454241,
-          228170.70654296875
+          228170.70654296875,
+          143181.78113731972
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9278,7 +9326,8 @@ window.BENCHMARK_DATA = {
           20802,
           20793,
           20804,
-          20916
+          20916,
+          20804
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9474,7 +9523,8 @@ window.BENCHMARK_DATA = {
           7296.373080444336,
           10410.56091090611,
           9827.225915091378,
-          10969.833808312049
+          10969.833808312049,
+          7766.970725468227
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9667,7 +9717,8 @@ window.BENCHMARK_DATA = {
           13032,
           13032,
           13088,
-          13032
+          13032,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9863,7 +9914,8 @@ window.BENCHMARK_DATA = {
           7154.923428853353,
           10455.804825846355,
           9486.4005472819,
-          11528.80370279948
+          11528.80370279948,
+          7868.683263506208
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10055,6 +10107,7 @@ window.BENCHMARK_DATA = {
           13593,
           13593,
           13583,
+          13593,
           13593,
           13593
         ],
@@ -10252,7 +10305,8 @@ window.BENCHMARK_DATA = {
           239.1641044276101,
           365.07844809123446,
           316.99483793122425,
-          310.50138664245605
+          310.50138664245605,
+          262.78093664986744
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10413,6 +10467,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -11551,6 +11606,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -11735,7 +11796,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -11923,7 +11985,8 @@ window.BENCHMARK_DATA = {
           1800.0202943256922,
           2878.9608657836916,
           2483.520674387614,
-          2620.697517903646
+          2620.697517903646,
+          2119.186178334554
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12084,6 +12147,7 @@ window.BENCHMARK_DATA = {
           4984,
           4984,
           4984,
+          4912,
           4912,
           4912,
           4912,
@@ -12312,7 +12376,8 @@ window.BENCHMARK_DATA = {
           151273.05536760602,
           186354.31126302082,
           194046.59578450522,
-          241691.8094075521
+          241691.8094075521,
+          152583.32983398438
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12505,7 +12570,8 @@ window.BENCHMARK_DATA = {
           30410,
           30403,
           30410,
-          30517
+          30517,
+          30410
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12701,7 +12767,8 @@ window.BENCHMARK_DATA = {
           18295.977876935685,
           24017.499720646785,
           23579.91263224284,
-          25622.225313626805
+          25622.225313626805,
+          18612.81063406808
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12894,7 +12961,8 @@ window.BENCHMARK_DATA = {
           26137,
           26137,
           26697,
-          26137
+          26137,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13090,7 +13158,8 @@ window.BENCHMARK_DATA = {
           15643.305196126303,
           22364.421852620442,
           20511.697713216145,
-          25341.544867379325
+          25341.544867379325,
+          16767.014020647322
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13282,6 +13351,7 @@ window.BENCHMARK_DATA = {
           33247,
           33247,
           33252,
+          33247,
           33247,
           33247
         ],
@@ -13479,7 +13549,8 @@ window.BENCHMARK_DATA = {
           597.7101236979166,
           841.9176134381976,
           761.4062056223552,
-          789.1042165756226
+          789.1042165756226,
+          630.8685435567584
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13640,6 +13711,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -14778,6 +14850,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -14962,7 +15040,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -15150,7 +15229,8 @@ window.BENCHMARK_DATA = {
           249.52249772208077,
           355.79238147735595,
           430.5607594490051,
-          172.41036140918732
+          172.41036140918732,
+          180.75922899246217
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15311,6 +15391,7 @@ window.BENCHMARK_DATA = {
           1976,
           1976,
           1976,
+          1936,
           1936,
           1936,
           1936,
@@ -15539,7 +15620,8 @@ window.BENCHMARK_DATA = {
           64134.86553548177,
           194638.27411358172,
           90538.44949776786,
-          55304.673095703125
+          55304.673095703125,
+          55209.94587925502
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15732,6 +15814,7 @@ window.BENCHMARK_DATA = {
           14920,
           14902,
           15098,
+          14920,
           14920
         ],
         "borderColor": "#A052B0",
@@ -15928,7 +16011,8 @@ window.BENCHMARK_DATA = {
           3498.769820912679,
           6411.795629374186,
           5684.68086344401,
-          2774.9727564493814
+          2774.9727564493814,
+          2808.0780393160308
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16116,6 +16200,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9264,
+          9320,
           9320,
           9320,
           9320,
@@ -16317,7 +16402,8 @@ window.BENCHMARK_DATA = {
           3322.1152404785157,
           5694.232404581706,
           4642.814242045085,
-          2590.876777648926
+          2590.876777648926,
+          2609.654499053955
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16510,6 +16596,7 @@ window.BENCHMARK_DATA = {
           8160,
           8160,
           8153,
+          8160,
           8160
         ],
         "borderColor": "#4A6FA5",
@@ -16706,7 +16793,8 @@ window.BENCHMARK_DATA = {
           125.81895691553751,
           177.57987044652302,
           211.39604897158486,
-          96.2333013500486
+          96.2333013500486,
+          96.2710304359595
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16872,6 +16960,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -17095,7 +17184,8 @@ window.BENCHMARK_DATA = {
           311.9723205884298,
           447.62777455647785,
           564.6355354944865,
-          249.60699014663697
+          249.60699014663697,
+          246.14307425816853
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17229,6 +17319,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -18394,6 +18485,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -18578,7 +18675,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -18766,7 +18864,8 @@ window.BENCHMARK_DATA = {
           537.5789606730143,
           639.2209087371826,
           864.5917678197225,
-          432.7879420598348
+          432.7879420598348,
+          440.8203578631083
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18927,6 +19026,7 @@ window.BENCHMARK_DATA = {
           2192,
           2192,
           2192,
+          2152,
           2152,
           2152,
           2152,
@@ -19155,7 +19255,8 @@ window.BENCHMARK_DATA = {
           62630.00619070871,
           202744.5787109375,
           96933.4676920573,
-          56039.956298828125
+          56039.956298828125,
+          58293.77685781626
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19348,6 +19449,7 @@ window.BENCHMARK_DATA = {
           18905,
           18901,
           19107,
+          18905,
           18905
         ],
         "borderColor": "#A052B0",
@@ -19544,7 +19646,8 @@ window.BENCHMARK_DATA = {
           4772.579281943185,
           9517.897151692709,
           8279.029457600911,
-          4215.305217488607
+          4215.305217488607,
+          4282.783336639404
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19736,6 +19839,7 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12345,
+          12344,
           12344,
           12344
         ],
@@ -19933,7 +20037,8 @@ window.BENCHMARK_DATA = {
           5227.660549926758,
           9606.057780674526,
           8077.926532999674,
-          4254.347325461252
+          4254.347325461252,
+          4221.535345894949
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20126,6 +20231,7 @@ window.BENCHMARK_DATA = {
           16394,
           16393,
           16393,
+          16394,
           16394
         ],
         "borderColor": "#4A6FA5",
@@ -20322,7 +20428,8 @@ window.BENCHMARK_DATA = {
           280.09667781194054,
           369.1848823865255,
           416.86072063446045,
-          225.59727829297384
+          225.59727829297384,
+          226.2790811220805
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20488,6 +20595,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -20711,7 +20819,8 @@ window.BENCHMARK_DATA = {
           1076.434886042277,
           1391.7930783589682,
           1740.2081017812093,
-          896.7147958462054
+          896.7147958462054,
+          922.1086741129558
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -20845,6 +20954,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -22010,6 +22120,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -22194,7 +22310,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -22382,7 +22499,8 @@ window.BENCHMARK_DATA = {
           536.8912160873413,
           904.7666501363118,
           370.06354778153553,
-          317.29385868708295
+          317.29385868708295,
+          283.7965848604838
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22543,6 +22661,7 @@ window.BENCHMARK_DATA = {
           2472,
           2472,
           2472,
+          2432,
           2432,
           2432,
           2432,
@@ -22771,7 +22890,8 @@ window.BENCHMARK_DATA = {
           11304.669869559151,
           7878.856205240885,
           7414.3556565504805,
-          5627.112306867327
+          5627.112306867327,
+          5327.460963322566
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22964,7 +23084,8 @@ window.BENCHMARK_DATA = {
           10585,
           10473,
           10584,
-          10584
+          10584,
+          10696
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23160,7 +23281,8 @@ window.BENCHMARK_DATA = {
           7728.482756551107,
           5694.942175183977,
           5230.932688395183,
-          4114.802936008999
+          4114.802936008999,
+          4066.940049852644
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23353,7 +23475,8 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11664,
-          11688
+          11688,
+          11664
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23549,7 +23672,8 @@ window.BENCHMARK_DATA = {
           8168.269523111979,
           5720.047951834543,
           5126.4538824898855,
-          4172.873125457763
+          4172.873125457763,
+          4006.82332938058
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23711,6 +23835,7 @@ window.BENCHMARK_DATA = {
           11508,
           11508,
           11207,
+          11212,
           11212,
           11212,
           11212,
@@ -23938,7 +24063,8 @@ window.BENCHMARK_DATA = {
           171.88794663747152,
           143.73735219637553,
           131.89026660919188,
-          120.68386276563008
+          120.68386276563008,
+          107.5022532258715
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24104,6 +24230,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -24327,7 +24454,8 @@ window.BENCHMARK_DATA = {
           581.5268288294475,
           356.95520000457765,
           345.27723554202487,
-          310.5986008644104
+          310.5986008644104,
+          277.51695118631636
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24461,6 +24589,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1696,
           1696,
           1696,
           1696,
@@ -25626,6 +25755,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -25810,7 +25945,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -25998,7 +26134,8 @@ window.BENCHMARK_DATA = {
           1008.2446596963065,
           820.8290496190389,
           768.812644513448,
-          789.1673593521118
+          789.1673593521118,
+          762.3463807787214
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -26159,6 +26296,7 @@ window.BENCHMARK_DATA = {
           2976,
           2976,
           2976,
+          2936,
           2936,
           2936,
           2936,
@@ -26387,7 +26525,8 @@ window.BENCHMARK_DATA = {
           17750.171626790365,
           12755.772395207332,
           12049.64857155936,
-          9359.624296061198
+          9359.624296061198,
+          8234.733607700893
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -26580,7 +26719,8 @@ window.BENCHMARK_DATA = {
           18521,
           17400,
           18521,
-          18521
+          18521,
+          18632
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -26776,7 +26916,8 @@ window.BENCHMARK_DATA = {
           17760.1077545166,
           13054.930764770508,
           12258.663889958309,
-          9419.185052054268
+          9419.185052054268,
+          7911.06982828776
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -26969,7 +27110,8 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21529,
-          21553
+          21553,
+          21529
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -27165,7 +27307,8 @@ window.BENCHMARK_DATA = {
           19868.1749420166,
           13947.026955740792,
           13086.788272094727,
-          10238.046496582032
+          10238.046496582032,
+          8345.249271937779
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -27327,6 +27470,7 @@ window.BENCHMARK_DATA = {
           31546,
           31546,
           30796,
+          30801,
           30801,
           30801,
           30801,
@@ -27554,7 +27698,8 @@ window.BENCHMARK_DATA = {
           326.2440780321757,
           256.1730312347412,
           256.956298383077,
-          274.7106280644735
+          274.7106280644735,
+          269.13324996403287
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -27720,6 +27865,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -27943,7 +28089,8 @@ window.BENCHMARK_DATA = {
           1602.1013163248697,
           1299.3832088470458,
           1217.1484673363823,
-          1230.7151131947835
+          1230.7151131947835,
+          1203.4538833618165
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -28077,6 +28224,7 @@ window.BENCHMARK_DATA = {
           4032,
           4032,
           4032,
+          4048,
           4048,
           4048,
           4048,
@@ -29242,6 +29390,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 14 09:11:59 2026 \u002B0100",
         "message": "feat: replace the MockolateUnionParameters opt-in with the MockolateDisableUnionParameters kill switch (#929)"
+      },
+      {
+        "sha": "9e0117a5cd64a37a6e9b8b34708b491ac6d37e27",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 10:32:15 2026 \u002B0100",
+        "message": "chore: update the Mockolate logo (#968)"
       }
     ],
     "labels": [
@@ -29426,7 +29580,8 @@ window.BENCHMARK_DATA = {
       "130e803f",
       "344f7cd5",
       "be3f621a",
-      "d6b68824"
+      "d6b68824",
+      "9e0117a5"
     ],
     "datasets": [
       {
@@ -29614,7 +29769,8 @@ window.BENCHMARK_DATA = {
           16.049942170580227,
           9.632732629776001,
           14.226132329021182,
-          17.68247762322426
+          17.68247762322426,
+          13.089017924666404
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -29672,6 +29828,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -30003,7 +30160,8 @@ window.BENCHMARK_DATA = {
           91.61010182698568,
           55.641955733299255,
           84.83808630307516,
-          84.33532576901572
+          84.33532576901572,
+          75.80557880231312
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -30169,6 +30327,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -30392,7 +30551,8 @@ window.BENCHMARK_DATA = {
           27.042701810598373,
           16.68554391179766,
           23.69981466929118,
-          25.470780504601343
+          25.470780504601343,
+          21.56835705935955
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30526,6 +30686,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -30781,7 +30942,8 @@ window.BENCHMARK_DATA = {
           1297.1027134486608,
           739.9637746810913,
           1053.1394617898125,
-          864.7582003275553
+          864.7582003275553,
+          961.4357971463885
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -30942,6 +31104,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -31170,7 +31333,8 @@ window.BENCHMARK_DATA = {
           1884.9170295715332,
           1001.2024229594639,
           1564.121669769287,
-          1188.6771003723145
+          1188.6771003723145,
+          1325.3440365110125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -31331,6 +31495,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -31559,7 +31724,8 @@ window.BENCHMARK_DATA = {
           1579.5610313415527,
           902.642796925136,
           1359.3946840922038,
-          993.8317335764567
+          993.8317335764567,
+          1131.4559643609184
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -31752,7 +31918,8 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2755,
-          2751
+          2751,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
