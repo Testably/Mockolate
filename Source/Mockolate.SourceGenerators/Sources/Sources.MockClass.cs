@@ -5947,8 +5947,7 @@ internal static partial class Sources
 				sb.Append(", ").Append(parameter.Name);
 			}
 
-			sb.Append(", () => $\"").Append(method.Name).Append("(")
-				.Append(string.Join(", ", method.Parameters.Select(p => $"{{{p.Name}}}"))).Append(")\");").AppendLine();
+			AppendStaticExpectationLambda(sb, method);
 			return;
 		}
 
@@ -5971,8 +5970,18 @@ internal static partial class Sources
 					.Append(")");
 			}
 
-			sb.Append(", () => $\"").Append(method.Name).Append("(")
-				.Append(string.Join(", ", method.Parameters.Select(p => $"{{{p.Name}}}"))).Append(")\");").AppendLine();
+			if (method.Parameters.Count == 0)
+			{
+				sb.Append(", () => $\"").Append(method.Name).Append("()\");").AppendLine();
+				return;
+			}
+
+			foreach (MethodParameter parameter in method.Parameters)
+			{
+				sb.Append(", ").Append(parameter.Name);
+			}
+
+			AppendStaticExpectationLambda(sb, method);
 			return;
 		}
 
@@ -6043,6 +6052,13 @@ internal static partial class Sources
 		sb.Append(", () => $\"").Append(method.Name).Append("(")
 			.Append(useParameters ? "{parameters}" : string.Join(", ", method.Parameters.Select(p => $"{{{p.Name}}}")))
 			.Append(")\");").AppendLine();
+	}
+
+	private static void AppendStaticExpectationLambda(StringBuilder sb, Method method)
+	{
+		string parameters = string.Join(", ", method.Parameters.Select(p => p.Name));
+		sb.Append(", static (").Append(parameters).Append(") => $\"").Append(method.Name).Append("(")
+			.Append(string.Join(", ", method.Parameters.Select(p => $"{{{p.Name}}}"))).Append(")\");").AppendLine();
 	}
 
 	/// <summary>

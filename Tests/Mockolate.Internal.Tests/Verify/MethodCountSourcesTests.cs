@@ -213,7 +213,7 @@ public class MethodCountSourcesTests
 		buffer.Append("M", 1);
 		buffer.Append("M", 2);
 
-		Method1CountSource<int> source = new(buffer, (IParameterMatch<int>)It.Is(1));
+		Method1CountSource<int> source = new(buffer, (IParameterMatch<int>)It.Is(1), null);
 		await That(source.CountAll()).IsEqualTo(2);
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
@@ -231,13 +231,13 @@ public class MethodCountSourcesTests
 		buffer.Append("M", 2);
 		buffer.Append("M", 1);
 
-		Method1CountSource<int> matchAny = new(buffer, (IParameterMatch<int>)It.IsAny<int>());
+		Method1CountSource<int> matchAny = new(buffer, (IParameterMatch<int>)It.IsAny<int>(), null);
 		await That(matchAny.CountAll()).IsEqualTo(3);
 
-		Method1CountSource<int> matchOne = new(buffer, (IParameterMatch<int>)It.Is(1));
+		Method1CountSource<int> matchOne = new(buffer, (IParameterMatch<int>)It.Is(1), null);
 		await That(matchOne.Count()).IsEqualTo(2);
 
-		Method1CountSource<int> matchNone = new(buffer, (IParameterMatch<int>)It.Is(99));
+		Method1CountSource<int> matchNone = new(buffer, (IParameterMatch<int>)It.Is(99), null);
 		await That(matchNone.Count()).IsEqualTo(0);
 	}
 
@@ -252,7 +252,8 @@ public class MethodCountSourcesTests
 
 		Method2CountSource<int, string> source = new(buffer,
 			(IParameterMatch<int>)It.Is(1),
-			(IParameterMatch<string>)It.Is<string>("a"));
+			(IParameterMatch<string>)It.Is<string>("a"),
+			null, null);
 		await That(source.CountAll()).IsEqualTo(2);
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
@@ -272,7 +273,8 @@ public class MethodCountSourcesTests
 
 		Method2CountSource<int, string> source = new(buffer,
 			(IParameterMatch<int>)It.Is(1),
-			(IParameterMatch<string>)It.Is<string>("a"));
+			(IParameterMatch<string>)It.Is<string>("a"),
+			null, null);
 
 		await That(source.CountAll()).IsEqualTo(3);
 		await That(source.Count()).IsEqualTo(1);
@@ -290,7 +292,8 @@ public class MethodCountSourcesTests
 		Method3CountSource<int, string, bool> source = new(buffer,
 			(IParameterMatch<int>)It.Is(1),
 			(IParameterMatch<string>)It.Is<string>("a"),
-			(IParameterMatch<bool>)It.Is(true));
+			(IParameterMatch<bool>)It.Is(true),
+			null, null, null);
 		await That(source.CountAll()).IsEqualTo(2);
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
@@ -311,7 +314,8 @@ public class MethodCountSourcesTests
 		Method3CountSource<int, string, bool> source = new(buffer,
 			(IParameterMatch<int>)It.Is(1),
 			(IParameterMatch<string>)It.IsAny<string>(),
-			(IParameterMatch<bool>)It.Is(true));
+			(IParameterMatch<bool>)It.Is(true),
+			null, null, null);
 
 		await That(source.CountAll()).IsEqualTo(3);
 		await That(source.Count()).IsEqualTo(2);
@@ -331,7 +335,8 @@ public class MethodCountSourcesTests
 			(IParameterMatch<int>)It.Is(1),
 			(IParameterMatch<string>)It.Is<string>("a"),
 			(IParameterMatch<bool>)It.Is(true),
-			(IParameterMatch<double>)It.Is(0.5));
+			(IParameterMatch<double>)It.Is(0.5),
+			null, null, null, null);
 		await That(source.CountAll()).IsEqualTo(2);
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
@@ -354,7 +359,8 @@ public class MethodCountSourcesTests
 			(IParameterMatch<int>)It.Is(1),
 			(IParameterMatch<string>)It.Is<string>("a"),
 			(IParameterMatch<bool>)It.Is(true),
-			(IParameterMatch<double>)It.IsAny<double>());
+			(IParameterMatch<double>)It.IsAny<double>(),
+			null, null, null, null);
 
 		await That(source.CountAll()).IsEqualTo(3);
 		await That(source.Count()).IsEqualTo(2);

@@ -20,14 +20,15 @@ public class VerificationResultTests
 	public sealed class ConstructorTests
 	{
 		[Test]
-		public async Task WithFuncExpectation_ShouldKeepExpectation()
+		public async Task WithLazyExpectation_ShouldCreateExpectationFromStateAndArgument()
 		{
 			IMockInteractions interactions = new FastMockInteractions(0);
-			VerificationResult<int> sut = new(1, interactions, _ => false, () => "foo");
+			VerificationResult<int> sut = new(1, interactions, _ => false,
+				new VerificationExpectation("foo", "bar", static (state, argument) => $"{state}-{argument}"));
 
 			string result = ((IVerificationResult)sut).Expectation;
 
-			await That(result).IsEqualTo("foo");
+			await That(result).IsEqualTo("foo-bar");
 		}
 
 		[Test]
@@ -492,7 +493,7 @@ public class VerificationResultTests
 				"Foo",
 				_ => false,
 				null,
-				() => "Foo");
+				new VerificationExpectation("Foo", null, static (state, _) => (string)state!));
 
 			void Act()
 			{
