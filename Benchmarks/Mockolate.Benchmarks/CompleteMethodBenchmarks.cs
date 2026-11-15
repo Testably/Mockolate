@@ -7,7 +7,7 @@ using NSubstitute;
 using Arg = NSubstitute.Arg;
 using Times = Moq.Times;
 
-[assembly: GenerateImposter(typeof(CompleteMethodBenchmarks.IMyMethodInterface))]
+[assembly: GenerateImposter(typeof(CompleteMethodBenchmarks.IChocolateMachine))]
 
 namespace Mockolate.Benchmarks;
 #pragma warning disable CA1822 // Mark members as static
@@ -25,15 +25,15 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	[Benchmark(Baseline = true)]
 	public void Method_Mockolate()
 	{
-		IMyMethodInterface sut = IMyMethodInterface.CreateMock();
-		sut.Mock.Setup.MyFunc(It.IsAny<int>()).Returns(true);
+		IChocolateMachine sut = IChocolateMachine.CreateMock();
+		sut.Mock.Setup.Dispense(It.IsAny<int>()).Returns(true);
 
 		for (int i = 0; i < N; i++)
 		{
-			sut.MyFunc(42);
+			sut.Dispense(42);
 		}
 
-		sut.Mock.Verify.MyFunc(It.IsAny<int>()).Exactly(N);
+		sut.Mock.Verify.Dispense(It.IsAny<int>()).Exactly(N);
 	}
 
 	/// <summary>
@@ -42,16 +42,16 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Method_Imposter()
 	{
-		IMyMethodInterfaceImposter imposter = IMyMethodInterface.Imposter();
-		imposter.MyFunc(Imposter.Abstractions.Arg<int>.Any()).Returns(true);
-		IMyMethodInterface sut = imposter.Instance();
+		IChocolateMachineImposter imposter = IChocolateMachine.Imposter();
+		imposter.Dispense(Imposter.Abstractions.Arg<int>.Any()).Returns(true);
+		IChocolateMachine sut = imposter.Instance();
 
 		for (int i = 0; i < N; i++)
 		{
-			sut.MyFunc(42);
+			sut.Dispense(42);
 		}
 
-		imposter.MyFunc(Imposter.Abstractions.Arg<int>.Any()).Called(Count.Exactly(N));
+		imposter.Dispense(Imposter.Abstractions.Arg<int>.Any()).Called(Count.Exactly(N));
 	}
 
 	/// <summary>
@@ -60,16 +60,16 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Method_TUnitMocks()
 	{
-		CompleteMethodBenchmarks_IMyMethodInterfaceMock mock = IMyMethodInterface.Mock();
-		mock.MyFunc(Any<int>()).Returns(true);
-		IMyMethodInterface sut = mock.Object;
+		CompleteMethodBenchmarks_IChocolateMachineMock mock = IChocolateMachine.Mock();
+		mock.Dispense(Any<int>()).Returns(true);
+		IChocolateMachine sut = mock.Object;
 
 		for (int i = 0; i < N; i++)
 		{
-			sut.MyFunc(42);
+			sut.Dispense(42);
 		}
 
-		mock.MyFunc(Any<int>()).WasCalled(TUnit.Mocks.Times.Exactly(N));
+		mock.Dispense(Any<int>()).WasCalled(TUnit.Mocks.Times.Exactly(N));
 	}
 
 	/// <summary>
@@ -78,16 +78,16 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Method_Moq()
 	{
-		Moq.Mock<IMyMethodInterface> mock = new();
-		mock.Setup(x => x.MyFunc(Moq.It.IsAny<int>())).Returns(true);
-		IMyMethodInterface sut = mock.Object;
+		Moq.Mock<IChocolateMachine> mock = new();
+		mock.Setup(x => x.Dispense(Moq.It.IsAny<int>())).Returns(true);
+		IChocolateMachine sut = mock.Object;
 
 		for (int i = 0; i < N; i++)
 		{
-			sut.MyFunc(42);
+			sut.Dispense(42);
 		}
 
-		mock.Verify(x => x.MyFunc(Moq.It.IsAny<int>()), Times.Exactly(N));
+		mock.Verify(x => x.Dispense(Moq.It.IsAny<int>()), Times.Exactly(N));
 	}
 
 	/// <summary>
@@ -96,15 +96,15 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Method_NSubstitute()
 	{
-		IMyMethodInterface mock = Substitute.For<IMyMethodInterface>();
-		mock.MyFunc(Arg.Any<int>()).Returns(true);
+		IChocolateMachine mock = Substitute.For<IChocolateMachine>();
+		mock.Dispense(Arg.Any<int>()).Returns(true);
 
 		for (int i = 0; i < N; i++)
 		{
-			mock.MyFunc(42);
+			mock.Dispense(42);
 		}
 
-		mock.Received(N).MyFunc(Arg.Any<int>());
+		mock.Received(N).Dispense(Arg.Any<int>());
 	}
 
 	/// <summary>
@@ -113,20 +113,20 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Method_FakeItEasy()
 	{
-		IMyMethodInterface mock = A.Fake<IMyMethodInterface>();
-		A.CallTo(() => mock.MyFunc(A<int>.Ignored)).Returns(true);
+		IChocolateMachine mock = A.Fake<IChocolateMachine>();
+		A.CallTo(() => mock.Dispense(A<int>.Ignored)).Returns(true);
 
 		for (int i = 0; i < N; i++)
 		{
-			mock.MyFunc(42);
+			mock.Dispense(42);
 		}
 
-		A.CallTo(() => mock.MyFunc(A<int>.Ignored)).MustHaveHappened(N, FakeItEasy.Times.Exactly);
+		A.CallTo(() => mock.Dispense(A<int>.Ignored)).MustHaveHappened(N, FakeItEasy.Times.Exactly);
 	}
 
-	public interface IMyMethodInterface
+	public interface IChocolateMachine
 	{
-		bool MyFunc(int value);
+		bool Dispense(int amount);
 	}
 }
 #pragma warning restore CA1822 // Mark members as static

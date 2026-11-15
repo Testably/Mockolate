@@ -5,7 +5,7 @@ using Mockolate.Benchmarks;
 using NSubstitute;
 using Arg = NSubstitute.Arg;
 
-[assembly: GenerateImposter(typeof(CallbackBenchmarks.IMyCallbackInterface))]
+[assembly: GenerateImposter(typeof(CallbackBenchmarks.IChocolateTaster))]
 
 namespace Mockolate.Benchmarks;
 #pragma warning disable CA1822 // Mark members as static
@@ -22,11 +22,11 @@ public class CallbackBenchmarks : BenchmarksBase
 	public int Callback_Mockolate()
 	{
 		int count = 0;
-		IMyCallbackInterface sut = IMyCallbackInterface.CreateMock();
-		sut.Mock.Setup.MyFunc(It.IsAny<int>()).Do(() => count++);
+		IChocolateTaster sut = IChocolateTaster.CreateMock();
+		sut.Mock.Setup.Taste(It.IsAny<int>()).Do(() => count++);
 
-		sut.MyFunc(1);
-		sut.MyFunc(2);
+		sut.Taste(1);
+		sut.Taste(2);
 		return count;
 	}
 
@@ -37,12 +37,12 @@ public class CallbackBenchmarks : BenchmarksBase
 	public int Callback_Imposter()
 	{
 		int count = 0;
-		IMyCallbackInterfaceImposter imposter = IMyCallbackInterface.Imposter();
-		imposter.MyFunc(Imposter.Abstractions.Arg<int>.Any()).Callback(_ => count++);
+		IChocolateTasterImposter imposter = IChocolateTaster.Imposter();
+		imposter.Taste(Imposter.Abstractions.Arg<int>.Any()).Callback(_ => count++);
 
-		IMyCallbackInterface instance = imposter.Instance();
-		instance.MyFunc(1);
-		instance.MyFunc(2);
+		IChocolateTaster instance = imposter.Instance();
+		instance.Taste(1);
+		instance.Taste(2);
 		return count;
 	}
 
@@ -53,13 +53,13 @@ public class CallbackBenchmarks : BenchmarksBase
 	public int Callback_TUnitMocks()
 	{
 		int count = 0;
-		CallbackBenchmarks_IMyCallbackInterfaceMock mock = IMyCallbackInterface.Mock();
-		mock.MyFunc(Any<int>())
+		CallbackBenchmarks_IChocolateTasterMock mock = IChocolateTaster.Mock();
+		mock.Taste(Any<int>())
 			.Callback(() => count++);
 
-		IMyCallbackInterface svc = mock.Object;
-		svc.MyFunc(1);
-		svc.MyFunc(2);
+		IChocolateTaster svc = mock.Object;
+		svc.Taste(1);
+		svc.Taste(2);
 		return count;
 	}
 
@@ -70,12 +70,12 @@ public class CallbackBenchmarks : BenchmarksBase
 	public int Callback_Moq()
 	{
 		int count = 0;
-		Moq.Mock<IMyCallbackInterface> mock = new();
-		mock.Setup(x => x.MyFunc(Moq.It.IsAny<int>())).Callback(() => count++);
+		Moq.Mock<IChocolateTaster> mock = new();
+		mock.Setup(x => x.Taste(Moq.It.IsAny<int>())).Callback(() => count++);
 
-		IMyCallbackInterface instance = mock.Object;
-		instance.MyFunc(1);
-		instance.MyFunc(2);
+		IChocolateTaster instance = mock.Object;
+		instance.Taste(1);
+		instance.Taste(2);
 		return count;
 	}
 
@@ -86,11 +86,11 @@ public class CallbackBenchmarks : BenchmarksBase
 	public int Callback_NSubstitute()
 	{
 		int count = 0;
-		IMyCallbackInterface mock = Substitute.For<IMyCallbackInterface>();
-		mock.When(x => x.MyFunc(Arg.Any<int>())).Do(_ => count++);
+		IChocolateTaster mock = Substitute.For<IChocolateTaster>();
+		mock.When(x => x.Taste(Arg.Any<int>())).Do(_ => count++);
 
-		mock.MyFunc(1);
-		mock.MyFunc(2);
+		mock.Taste(1);
+		mock.Taste(2);
 		return count;
 	}
 
@@ -101,17 +101,17 @@ public class CallbackBenchmarks : BenchmarksBase
 	public int Callback_FakeItEasy()
 	{
 		int count = 0;
-		IMyCallbackInterface mock = A.Fake<IMyCallbackInterface>();
-		A.CallTo(() => mock.MyFunc(A<int>.Ignored)).Invokes(() => count++);
+		IChocolateTaster mock = A.Fake<IChocolateTaster>();
+		A.CallTo(() => mock.Taste(A<int>.Ignored)).Invokes(() => count++);
 
-		mock.MyFunc(1);
-		mock.MyFunc(2);
+		mock.Taste(1);
+		mock.Taste(2);
 		return count;
 	}
 
-	public interface IMyCallbackInterface
+	public interface IChocolateTaster
 	{
-		void MyFunc(int value);
+		void Taste(int pieces);
 	}
 }
 #pragma warning restore CA1822 // Mark members as static

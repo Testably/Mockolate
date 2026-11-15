@@ -8,7 +8,7 @@ using Arg = NSubstitute.Arg;
 using Raise = NSubstitute.Raise;
 using Times = Moq.Times;
 
-[assembly: GenerateImposter(typeof(CompleteEventBenchmarks.IMyEventInterface))]
+[assembly: GenerateImposter(typeof(CompleteEventBenchmarks.IChocolateFactory))]
 
 namespace Mockolate.Benchmarks;
 #pragma warning disable CA1822 // Mark members as static
@@ -24,13 +24,13 @@ public class CompleteEventBenchmarks : BenchmarksBase
 	[Benchmark(Baseline = true)]
 	public void Event_Mockolate()
 	{
-		IMyEventInterface sut = IMyEventInterface.CreateMock();
+		IChocolateFactory sut = IChocolateFactory.CreateMock();
 		EventHandler handler = (_, _) => { };
 
-		sut.SomeEvent += handler;
-		sut.Mock.Raise.SomeEvent(null, EventArgs.Empty);
+		sut.BatchFinished += handler;
+		sut.Mock.Raise.BatchFinished(null, EventArgs.Empty);
 
-		sut.Mock.Verify.SomeEvent.Subscribed().Once();
+		sut.Mock.Verify.BatchFinished.Subscribed().Once();
 	}
 
 	/// <summary>
@@ -39,13 +39,13 @@ public class CompleteEventBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Event_Imposter()
 	{
-		IMyEventInterfaceImposter imposter = IMyEventInterface.Imposter();
+		IChocolateFactoryImposter imposter = IChocolateFactory.Imposter();
 		EventHandler handler = (_, _) => { };
 
-		imposter.Instance().SomeEvent += handler;
-		imposter.SomeEvent.Raise(null!, EventArgs.Empty);
+		imposter.Instance().BatchFinished += handler;
+		imposter.BatchFinished.Raise(null!, EventArgs.Empty);
 
-		imposter.SomeEvent.Subscribed(handler, Count.Once());
+		imposter.BatchFinished.Subscribed(handler, Count.Once());
 	}
 
 	/// <summary>
@@ -54,13 +54,13 @@ public class CompleteEventBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Event_TUnitMocks()
 	{
-		CompleteEventBenchmarks_IMyEventInterfaceMock mock = IMyEventInterface.Mock();
+		CompleteEventBenchmarks_IChocolateFactoryMock mock = IChocolateFactory.Mock();
 		EventHandler handler = (_, _) => { };
 
-		mock.Object.SomeEvent += handler;
-		mock.RaiseSomeEvent(EventArgs.Empty);
+		mock.Object.BatchFinished += handler;
+		mock.RaiseBatchFinished(EventArgs.Empty);
 
-		_ = mock.Events.SomeEvent.SubscriberCount;
+		_ = mock.Events.BatchFinished.SubscriberCount;
 	}
 
 	/// <summary>
@@ -69,14 +69,14 @@ public class CompleteEventBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Event_Moq()
 	{
-		Moq.Mock<IMyEventInterface> mock = new();
-		mock.SetupAdd(m => m.SomeEvent += Moq.It.IsAny<EventHandler>());
+		Moq.Mock<IChocolateFactory> mock = new();
+		mock.SetupAdd(m => m.BatchFinished += Moq.It.IsAny<EventHandler>());
 		EventHandler handler = (_, _) => { };
 
-		mock.Object.SomeEvent += handler;
-		mock.Raise(m => m.SomeEvent += null, null!, EventArgs.Empty);
+		mock.Object.BatchFinished += handler;
+		mock.Raise(m => m.BatchFinished += null, null!, EventArgs.Empty);
 
-		mock.VerifyAdd(m => m.SomeEvent += Moq.It.IsAny<EventHandler>(), Times.Once());
+		mock.VerifyAdd(m => m.BatchFinished += Moq.It.IsAny<EventHandler>(), Times.Once());
 	}
 
 	/// <summary>
@@ -85,13 +85,13 @@ public class CompleteEventBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Event_NSubstitute()
 	{
-		IMyEventInterface mock = Substitute.For<IMyEventInterface>();
+		IChocolateFactory mock = Substitute.For<IChocolateFactory>();
 		EventHandler handler = (_, _) => { };
 
-		mock.SomeEvent += handler;
-		mock.SomeEvent += Raise.EventWith(null!, EventArgs.Empty);
+		mock.BatchFinished += handler;
+		mock.BatchFinished += Raise.EventWith(null!, EventArgs.Empty);
 
-		mock.Received(1).SomeEvent += Arg.Any<EventHandler>();
+		mock.Received(1).BatchFinished += Arg.Any<EventHandler>();
 	}
 
 	/// <summary>
@@ -100,21 +100,21 @@ public class CompleteEventBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Event_FakeItEasy()
 	{
-		IMyEventInterface mock = A.Fake<IMyEventInterface>();
+		IChocolateFactory mock = A.Fake<IChocolateFactory>();
 		EventHandler handler = (_, _) => { };
 
-		mock.SomeEvent += handler;
-		mock.SomeEvent += FakeItEasy.Raise.FreeForm.With(null, EventArgs.Empty);
+		mock.BatchFinished += handler;
+		mock.BatchFinished += FakeItEasy.Raise.FreeForm.With(null, EventArgs.Empty);
 
 		A.CallTo(mock)
-			.Where(call => call.Method.Name == "add_SomeEvent")
+			.Where(call => call.Method.Name == "add_BatchFinished")
 			// Expect 2, because raising an event in FakeItEasy is implemented as a call to the add accessor of the event.
 			.MustHaveHappened(2, FakeItEasy.Times.Exactly);
 	}
 
-	public interface IMyEventInterface
+	public interface IChocolateFactory
 	{
-		event EventHandler? SomeEvent;
+		event EventHandler? BatchFinished;
 	}
 }
 #pragma warning restore CA1822 // Mark members as static

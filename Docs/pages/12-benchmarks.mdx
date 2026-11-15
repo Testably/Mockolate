@@ -19,24 +19,24 @@ These benchmarks measure Mockolate's runtime overhead against
 
 <TabItem value="Complete" label="Complete test" default>
 
-A complete unit test: an `OrderService` checks out an order with four mocked dependencies. The mocks are set up with exact values, argument matchers and a property, and verified afterwards.
+A complete unit test: a `ChocolateShop` sells three bars of dark chocolate with four mocked dependencies. The mocks are set up with exact values, argument matchers and a property, and verified afterwards.
 
 <MockolateBenchmarkResult name="Complete" />
 
 ```csharp
-IOrderRepository repository = IOrderRepository.CreateMock();
-IPaymentGateway payment = IPaymentGateway.CreateMock();
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+ICashRegister register = ICashRegister.CreateMock();
 IClock clock = IClock.CreateMock();
-INotifier notifier = INotifier.CreateMock();
-repository.Mock.Setup.Find(1).Returns(new Order(1, "Alice", 42m));
-payment.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
+IReceiptPrinter printer = IReceiptPrinter.CreateMock();
+dispenser.Mock.Setup.Dispense("Dark", 3).Returns(true);
+register.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
 clock.Mock.Setup.Now.InitializeWith(Now);
 
-new OrderService(repository, payment, clock, notifier).Checkout(1);
+new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
 
-payment.Mock.Verify.Charge("Alice", 42m).Once();
-repository.Mock.Verify.Save(It.IsAny<Order>()).Once();
-notifier.Mock.Verify.Send("Alice", It.IsAny<string>()).Once();
+register.Mock.Verify.Charge("Alice", 4.5m).Once();
+dispenser.Mock.Verify.Dispense("Dark", 3).Once();
+printer.Mock.Verify.Print("Alice", It.IsAny<string>()).Once();
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteWorkflowBenchmarks.cs)
@@ -50,13 +50,13 @@ Set up a method, call it `N` times with `It.IsAny<int>()`, then verify it ran ex
 <MockolateBenchmarkResult name="Method" />
 
 ```csharp
-IMyMethodInterface mock = IMyMethodInterface.CreateMock();
-mock.Mock.Setup.MyFunc(It.IsAny<int>()).Returns(true);
+IChocolateMachine machine = IChocolateMachine.CreateMock();
+machine.Mock.Setup.Dispense(It.IsAny<int>()).Returns(true);
 
 for (int i = 0; i < N; i++)
-    mock.MyFunc(42);
+    machine.Dispense(42);
 
-mock.Mock.Verify.MyFunc(It.IsAny<int>()).Exactly(N);
+machine.Mock.Verify.Dispense(It.IsAny<int>()).Exactly(N);
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteMethodBenchmarks.cs)
@@ -70,17 +70,17 @@ Initialize an `int` property to 42, read+write it `N` times, then verify the get
 <MockolateBenchmarkResult name="Property" />
 
 ```csharp
-IMyPropertyInterface mock = IMyPropertyInterface.CreateMock();
-mock.Mock.Setup.Counter.InitializeWith(42);
+IChocolateShelf shelf = IChocolateShelf.CreateMock();
+shelf.Mock.Setup.Stock.InitializeWith(42);
 
 for (int i = 0; i < N; i++)
 {
-    _ = mock.Counter;
-    mock.Counter = i;
+    _ = shelf.Stock;
+    shelf.Stock = i;
 }
 
-mock.Mock.Verify.Counter.Got().Exactly(N);
-mock.Mock.Verify.Counter.Set(It.IsAny<int>()).Exactly(N);
+shelf.Mock.Verify.Stock.Got().Exactly(N);
+shelf.Mock.Verify.Stock.Set(It.IsAny<int>()).Exactly(N);
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompletePropertyBenchmarks.cs)
@@ -94,17 +94,17 @@ Set up a `string this[int]` indexer, read+write it `N` times, then verify the ge
 <MockolateBenchmarkResult name="Indexer" />
 
 ```csharp
-IMyIndexerInterface mock = IMyIndexerInterface.CreateMock();
-mock.Mock.Setup[It.IsAny<int>()].Returns("foo");
+IChocolateCatalog catalog = IChocolateCatalog.CreateMock();
+catalog.Mock.Setup[It.IsAny<int>()].Returns("Dark");
 
 for (int i = 0; i < N; i++)
 {
-    _ = mock[42];
-    mock[42] = "bar";
+    _ = catalog[42];
+    catalog[42] = "Milk";
 }
 
-mock.Mock.Verify[It.IsAny<int>()].Got().Exactly(N);
-mock.Mock.Verify[It.IsAny<int>()].Set(It.IsAny<string>()).Exactly(N);
+catalog.Mock.Verify[It.IsAny<int>()].Got().Exactly(N);
+catalog.Mock.Verify[It.IsAny<int>()].Set(It.IsAny<string>()).Exactly(N);
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteIndexerBenchmarks.cs)
@@ -118,13 +118,13 @@ Subscribe to a mock event, raise it once, then verify the subscription was recor
 <MockolateBenchmarkResult name="Event" />
 
 ```csharp
-IMyEventInterface mock = IMyEventInterface.CreateMock();
+IChocolateFactory factory = IChocolateFactory.CreateMock();
 EventHandler handler = (_, _) => { };
 
-mock.SomeEvent += handler;
-mock.Mock.Raise.SomeEvent(null, EventArgs.Empty);
+factory.BatchFinished += handler;
+factory.Mock.Raise.BatchFinished(null, EventArgs.Empty);
 
-mock.Mock.Verify.SomeEvent.Subscribed().Once();
+factory.Mock.Verify.BatchFinished.Subscribed().Once();
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteEventBenchmarks.cs)
@@ -139,11 +139,11 @@ Configure a callback on a method invocation and trigger it twice. This measures 
 
 ```csharp
 int count = 0;
-IMyCallbackInterface mock = IMyCallbackInterface.CreateMock();
-mock.Mock.Setup.MyFunc(It.IsAny<int>()).Do(() => count++);
+IChocolateTaster taster = IChocolateTaster.CreateMock();
+taster.Mock.Setup.Taste(It.IsAny<int>()).Do(() => count++);
 
-mock.MyFunc(1);
-mock.MyFunc(2);
+taster.Taste(1);
+taster.Taste(2);
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CallbackBenchmarks.cs)
@@ -157,7 +157,7 @@ Cost of constructing an empty mock: no setup, no invocations, no verification. T
 <MockolateBenchmarkResult name="CreateMock" />
 
 ```csharp
-ICalculatorService.CreateMock();
+IChocolateRecipe.CreateMock();
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/MockCreationBenchmarks.cs)
