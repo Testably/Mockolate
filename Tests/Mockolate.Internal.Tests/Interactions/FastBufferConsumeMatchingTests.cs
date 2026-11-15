@@ -249,7 +249,7 @@ public class FastBufferConsumeMatchingTests
 
 		await That(consumed).IsEqualTo(0)
 			.Because(
-				"the `slot < n` loop bound in Method1 ConsumeAll must keep an empty buffer out of the loop; entering it at slot 0 would dereference the not-yet-allocated VerifiedChunks[0]");
+				"the `slot < n` loop bound in Method1 ConsumeAll must keep an empty buffer out of the loop; entering it at slot 0 would index past the verified flags, which are sized to the published slots");
 	}
 
 	[Test]

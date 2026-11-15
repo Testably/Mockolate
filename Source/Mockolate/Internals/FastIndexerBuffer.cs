@@ -97,7 +97,7 @@ public sealed class FastIndexerGetterBuffer<T1> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -230,7 +230,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -366,7 +366,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -505,7 +505,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -641,7 +641,7 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -778,7 +778,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -918,7 +918,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : IFastMemberBuf
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -1061,7 +1061,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : IFastMembe
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}

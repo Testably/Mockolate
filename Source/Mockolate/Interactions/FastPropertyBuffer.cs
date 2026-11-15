@@ -94,7 +94,7 @@ internal sealed class FastPropertyGetterBuffer : IFastMemberBuffer
 			PropertyGetterAccess access = _access;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -200,7 +200,7 @@ internal sealed class FastPropertySetterBuffer<T> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}

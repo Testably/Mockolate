@@ -74,7 +74,7 @@ public sealed class FastMethod0Buffer : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -186,7 +186,7 @@ public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -345,7 +345,7 @@ public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -505,7 +505,7 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
@@ -667,7 +667,7 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : IFastMemberBuffer
 			int n = _storage.PublishedUnderLock;
 			for (int slot = 0; slot < n; slot++)
 			{
-				if (_storage.VerifiedUnderLock(slot))
+				if (_storage.IsVerifiedUnderLock(slot))
 				{
 					continue;
 				}
