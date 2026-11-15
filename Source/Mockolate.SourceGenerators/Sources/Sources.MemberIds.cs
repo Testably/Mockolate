@@ -18,11 +18,13 @@ internal static partial class Sources
 	///         <c>MethodSetups.GetMatching</c> walk.
 	///     </para>
 	///     <para>
-	///         Slow-path fallback: invoked when an active scenario is set or when the fast path finds no
-	///         match. The member-id array is only populated by the <c>SetupMethod(int, ...)</c> overloads
-	///         emitted by the generator; setups registered through the hand-written
-	///         <c>SetupMethod(MethodSetup)</c> overload (e.g. the <c>HttpClientExtensions.SetupMethod</c>
-	///         pipeline) live only in the string-keyed list, so the fallback also covers them.
+	///         Slow-path fallback: <c>GetMethodSetups</c> when an active scenario is set, and
+	///         <c>GetFallbackMethodSetups</c>, which skips the bucket the fast path already searched, when
+	///         the fast path finds no match. The member-id array is only populated by the
+	///         <c>SetupMethod(int, ...)</c> overloads emitted by the generator; setups registered through the
+	///         hand-written <c>SetupMethod(MethodSetup)</c> overload (e.g. the
+	///         <c>HttpClientExtensions.SetupMethod</c> pipeline) live only in the string-keyed list, so the
+	///         fallback also covers them.
 	///     </para>
 	/// </remarks>
 #pragma warning disable S107 // Methods should not have too many parameters
@@ -74,20 +76,31 @@ internal static partial class Sources
 		sb.Append(indent).Append("\t\t\t}").AppendLine();
 		sb.Append(indent).Append("\t\t}").AppendLine();
 		sb.Append(indent).Append("\t}").AppendLine();
-		sb.Append(indent).Append('}').AppendLine();
-		sb.Append(indent).Append("if (").Append(methodSetup).Append(" is null)").AppendLine();
-		sb.Append(indent).Append('{').AppendLine();
-		sb.Append(indent).Append("\tforeach (").Append(methodSetupType).Append(' ').Append(itemVar).Append(" in ").Append(mockRegistry)
-			.Append(".GetMethodSetups<").Append(methodSetupType).Append(">(").Append(uniqueNameString).Append("))")
-			.AppendLine();
+		sb.Append(indent).Append("\tif (").Append(methodSetup).Append(" is null)").AppendLine();
 		sb.Append(indent).Append("\t{").AppendLine();
-		sb.Append(indent).Append("\t\tif (").Append(itemVar).Append(".Matches(").Append(matchArgs).Append("))").AppendLine();
-		sb.Append(indent).Append("\t\t{").AppendLine();
-		sb.Append(indent).Append("\t\t\t").Append(methodSetup).Append(" = ").Append(itemVar).Append(';').AppendLine();
-		sb.Append(indent).Append("\t\t\tbreak;").AppendLine();
-		sb.Append(indent).Append("\t\t}").AppendLine();
+		AppendSetupLoop(indent + "\t\t", ".GetFallbackMethodSetups<", memberIdRef + ", " + (isGeneric ? nameVar : uniqueNameString));
 		sb.Append(indent).Append("\t}").AppendLine();
 		sb.Append(indent).Append('}').AppendLine();
+		sb.Append(indent).Append("else").AppendLine();
+		sb.Append(indent).Append('{').AppendLine();
+		AppendSetupLoop(indent + "\t", ".GetMethodSetups<", uniqueNameString);
+		sb.Append(indent).Append('}').AppendLine();
+
+		void AppendSetupLoop(string loopIndent, string getSetupsMethod, string arguments)
+		{
+			sb.Append(loopIndent).Append("foreach (").Append(methodSetupType).Append(' ').Append(itemVar).Append(" in ")
+				.Append(mockRegistry).Append(getSetupsMethod).Append(methodSetupType).Append(">(").Append(arguments)
+				.Append("))").AppendLine();
+			sb.Append(loopIndent).Append('{').AppendLine();
+			sb.Append(loopIndent).Append("\tif (").Append(itemVar).Append(".Matches(").Append(matchArgs).Append("))")
+				.AppendLine();
+			sb.Append(loopIndent).Append("\t{").AppendLine();
+			sb.Append(loopIndent).Append("\t\t").Append(methodSetup).Append(" = ").Append(itemVar).Append(';')
+				.AppendLine();
+			sb.Append(loopIndent).Append("\t\tbreak;").AppendLine();
+			sb.Append(loopIndent).Append("\t}").AppendLine();
+			sb.Append(loopIndent).Append('}').AppendLine();
+		}
 	}
 
 	internal static MemberIdTable ComputeMemberIds(params Class[] classes)

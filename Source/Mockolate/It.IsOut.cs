@@ -213,7 +213,10 @@ public partial class It
 		{
 			if (_callbacks is not null)
 			{
-				_callbacks.ForEach(a => a.Invoke(value));
+				foreach (Action<T> callback in _callbacks)
+				{
+					callback.Invoke(value);
+				}
 			}
 		}
 	}

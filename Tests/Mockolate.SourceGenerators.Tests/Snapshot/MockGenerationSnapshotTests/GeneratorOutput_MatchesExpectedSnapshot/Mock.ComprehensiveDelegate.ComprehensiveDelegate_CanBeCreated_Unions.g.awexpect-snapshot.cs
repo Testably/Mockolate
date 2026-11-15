@@ -57,8 +57,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>>(global::Mockolate.Mock.ComprehensiveDelegate.MemberId_Invoke, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke"))
+					{
+						if (s_methodSetup.Matches(x, ref_y, default, w))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long>>("global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate.Invoke"))
 				{

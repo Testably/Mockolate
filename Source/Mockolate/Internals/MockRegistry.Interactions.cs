@@ -154,7 +154,57 @@ public partial class MockRegistry
 			return setups is null ? Array.Empty<T>() : setups.Methods.EnumerateByName<T>(methodName);
 		}
 
-		return EnumerateGlobalMethodSetups<T>(methodName, snapshot);
+		return EnumerateGlobalMethodSetups<T>(methodName, snapshot, -1);
+	}
+
+	/// <summary>
+	///     Enumerates the default-scope method setups of type <typeparamref name="T" /> matching
+	///     <paramref name="methodName" />, in the order of <see cref="GetMethodSetups{T}(string)" />, but without
+	///     the snapshot bucket of <paramref name="memberId" /> (see <see cref="GetMethodSetupSnapshot(int)" />).
+	/// </summary>
+	/// <remarks>
+	///     Generator-emitted dispatch calls this only when no scenario is active and after it searched the
+	///     snapshot bucket of <paramref name="memberId" /> for a setup of type <typeparamref name="T" /> without
+	///     a match, so the matchers of that bucket are not evaluated a second time. When no other bucket holds a
+	///     setup of type <typeparamref name="T" /> with the same name, the common case of an unmatched call
+	///     returns the string-keyed setups or <see cref="Array.Empty{T}" /> without an iterator allocation.
+	/// </remarks>
+	/// <typeparam name="T">The concrete <see cref="MethodSetup" /> subtype to return.</typeparam>
+	/// <param name="memberId">The generator-emitted member id whose snapshot bucket was already searched.</param>
+	/// <param name="methodName">The simple method name.</param>
+	/// <returns>A lazy stream of the remaining default-scope setups.</returns>
+	public IEnumerable<T> GetFallbackMethodSetups<T>(int memberId, string methodName) where T : MethodSetup
+	{
+		MethodSetup[]?[]? snapshot = Volatile.Read(ref _setupsByMemberId);
+		if (snapshot is not null && HasNamedSetupInOtherBucket<T>(methodName, memberId, snapshot))
+		{
+			return EnumerateGlobalMethodSetups<T>(methodName, snapshot, memberId);
+		}
+
+		return _setups is { } setups ? setups.Methods.EnumerateByName<T>(methodName) : Array.Empty<T>();
+	}
+
+	private static bool HasNamedSetupInOtherBucket<T>(string methodName, int memberId,
+		MethodSetup[]?[] snapshot) where T : MethodSetup
+	{
+		for (int b = 0; b < snapshot.Length; b++)
+		{
+			MethodSetup[]? bucket = snapshot[b];
+			if (b == memberId || bucket is null)
+			{
+				continue;
+			}
+
+			foreach (MethodSetup setup in bucket)
+			{
+				if (setup is T && setup.Name.Equals(methodName))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	private IEnumerable<T> EnumerateScopedAndGlobalMethodSetups<T>(string methodName,
@@ -168,7 +218,7 @@ public partial class MockRegistry
 		MethodSetup[]?[]? snapshot = Volatile.Read(ref _setupsByMemberId);
 		if (snapshot is not null)
 		{
-			foreach (T setup in EnumerateSnapshotByName<T>(methodName, snapshot))
+			foreach (T setup in EnumerateSnapshotByName<T>(methodName, snapshot, -1))
 			{
 				yield return setup;
 			}
@@ -181,9 +231,9 @@ public partial class MockRegistry
 	}
 
 	private IEnumerable<T> EnumerateGlobalMethodSetups<T>(string methodName,
-		MethodSetup[]?[] snapshot) where T : MethodSetup
+		MethodSetup[]?[] snapshot, int excludedMemberId) where T : MethodSetup
 	{
-		foreach (T setup in EnumerateSnapshotByName<T>(methodName, snapshot))
+		foreach (T setup in EnumerateSnapshotByName<T>(methodName, snapshot, excludedMemberId))
 		{
 			yield return setup;
 		}
@@ -201,7 +251,7 @@ public partial class MockRegistry
 	}
 
 	private static IEnumerable<T> EnumerateSnapshotByName<T>(string methodName,
-		MethodSetup[]?[] snapshot) where T : MethodSetup
+		MethodSetup[]?[] snapshot, int excludedMemberId) where T : MethodSetup
 	{
 		// Walk every memberId bucket: the snapshot is keyed by member id, but a name-based caller
 		// (scenario-active dispatch, ref-struct dispatch) doesn't know the id, so we filter by Name
@@ -210,7 +260,7 @@ public partial class MockRegistry
 		for (int b = 0; b < snapshot.Length; b++)
 		{
 			MethodSetup[]? bucket = snapshot[b];
-			if (bucket is null)
+			if (b == excludedMemberId || bucket is null)
 			{
 				continue;
 			}
@@ -670,9 +720,16 @@ public partial class MockRegistry
 			}
 		}
 
+		return ResolvePropertySlow(propertyName, defaultValueGenerator, baseValueAccessor);
+	}
+
+	private TResult ResolvePropertySlow<TResult>(string propertyName,
+		Func<MockBehavior, TResult> defaultValueGenerator, Func<TResult>? baseValueAccessor)
+	{
 		// Cold path: scenario, uninitialized snapshot, base-class wrapping, or legacy SetupProperty overload.
 		// Bridge to the existing closure-based resolver via a per-call adapter — this allocation is
-		// acceptable because we only land here outside the hot path.
+		// acceptable because we only land here outside the hot path. It lives in its own method, because
+		// the closure captures a parameter and would otherwise be allocated on the hot path, too.
 		MockBehavior behavior = Behavior;
 		Func<TResult> bridge = () => defaultValueGenerator(behavior);
 		return ResolveGetterInternal(propertyName, bridge, baseValueAccessor, null);

@@ -358,7 +358,13 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetSet_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps ? null : () => wraps.GetSet);
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)
+				{
+					global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps = (global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)this.MockRegistry.Wraps;
+					return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetSet_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.GetSet);
+				}
+
+				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetSet_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 			set
 			{
@@ -375,7 +381,13 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetOnly_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps ? null : () => wraps.GetOnly);
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)
+				{
+					global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps = (global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)this.MockRegistry.Wraps;
+					return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetOnly_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.GetOnly);
+				}
+
+				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetOnly_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -397,7 +409,13 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_NullableProp_Get, static b => b.DefaultValue.Generate(default(string?)!), this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps ? null : () => wraps.NullableProp);
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)
+				{
+					global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps = (global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)this.MockRegistry.Wraps;
+					return this.MockRegistry.GetPropertyFast<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_NullableProp_Get, static b => b.DefaultValue.Generate(default(string?)!), () => wraps.NullableProp);
+				}
+
+				return this.MockRegistry.GetPropertyFast<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_NullableProp_Get, static b => b.DefaultValue.Generate(default(string?)!));
 			}
 			set
 			{
@@ -414,7 +432,13 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_InitOnly_Get, static b => b.DefaultValue.Generate(default(string)!), this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps ? null : () => wraps.InitOnly);
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)
+				{
+					global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps = (global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)this.MockRegistry.Wraps;
+					return this.MockRegistry.GetPropertyFast<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_InitOnly_Get, static b => b.DefaultValue.Generate(default(string)!), () => wraps.InitOnly);
+				}
+
+				return this.MockRegistry.GetPropertyFast<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_InitOnly_Get, static b => b.DefaultValue.Generate(default(string)!));
 			}
 			init
 			{
@@ -667,8 +691,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in MockRegistryProvider.Value.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_StaticAbstractMethod, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.StaticAbstractMethod"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in MockRegistryProvider.Value.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.StaticAbstractMethod"))
 				{
@@ -723,8 +758,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers"))
+					{
+						if (s_methodSetup.Matches(ref_a, default, ref_c, tail))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, string, long, int[]>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers"))
 				{
@@ -795,8 +841,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults"))
+					{
+						if (s_methodSetup.Matches(i, e, d, f, c, s, st))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults"))
 				{
@@ -848,8 +905,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames"))
+					{
+						if (s_methodSetup.Matches(wraps, result, outParam1, methodExecution, returnValue))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames"))
 				{
@@ -901,8 +969,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<string?, string?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<string?, string?>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull"))
+					{
+						if (s_methodSetup.Matches(s))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<string?, string?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<string?, string?>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull"))
 				{
@@ -960,8 +1039,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, object?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, object?>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject"))
+					{
+						if (s_methodSetup.Matches(obj))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, object?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, object?>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject"))
 				{
@@ -1019,8 +1109,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects"))
+					{
+						if (s_methodSetup.Matches(first, second))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects"))
 				{
@@ -1078,8 +1179,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, object?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject"))
+					{
+						if (s_methodSetup.Matches(n, obj))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, object?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject"))
 				{
@@ -1137,8 +1249,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTask, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask"))
 				{
@@ -1196,8 +1319,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<int>>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTaskOf, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<int>> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<int>>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf"))
 				{
@@ -1255,8 +1389,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVT, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVT"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVT"))
 				{
@@ -1314,8 +1459,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVTOf, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.ValueTask<int>>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf"))
 				{
@@ -1373,8 +1529,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<(int Code, string Msg)> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<(int Code, string Msg)>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetTuple, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetTuple"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<(int Code, string Msg)> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<(int Code, string Msg)>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetTuple"))
 				{
@@ -1432,8 +1599,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int?>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetNullable, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int?>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable"))
 				{
@@ -1491,8 +1669,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan"))
+					{
+						if (s_methodSetup.Matches(n))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan"))
 				{
@@ -1550,8 +1739,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan"))
+					{
+						if (s_methodSetup.Matches(n))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan"))
 				{
@@ -1610,8 +1810,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRef, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef"))
 				{
@@ -1672,8 +1883,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRefReadonly, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly"))
 				{
@@ -1735,8 +1957,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G1_T_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>($"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>"))
 				{
@@ -1796,8 +2029,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G2_T_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>($"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<{typeof(T)}>"))
 				{
@@ -1857,8 +2101,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G3_T_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>($"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>"))
 				{
@@ -1918,8 +2173,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G4_T_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>($"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<{typeof(T)}>"))
 				{
@@ -1979,8 +2245,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G5_T_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>($"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>"))
 				{
@@ -2040,8 +2317,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G6_T_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T>>($"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>"))
 				{
@@ -2101,8 +2389,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T?>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G7_T_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T?>>($"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>"))
 				{
@@ -2167,8 +2466,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five"))
+					{
+						if (s_methodSetup.Matches(a, b, c, d, e))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five"))
 				{
@@ -2226,8 +2536,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen"))
+					{
+						if (s_methodSetup.Matches(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen"))
 				{
@@ -2285,8 +2606,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid"))
+					{
+						if (s_methodSetup.Matches(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid"))
 				{

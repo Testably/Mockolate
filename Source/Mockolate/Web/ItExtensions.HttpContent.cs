@@ -199,7 +199,10 @@ public static partial class ItExtensions
 		{
 			if (_callbacks is not null)
 			{
-				_callbacks.ForEach(a => a.Invoke(value));
+				foreach (Action<HttpContent?> callback in _callbacks)
+				{
+					callback.Invoke(value);
+				}
 			}
 		}
 

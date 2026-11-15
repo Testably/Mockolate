@@ -30,7 +30,7 @@ public sealed partial class MockTests
 			await That(result.Sources).ContainsKey("Mock.MyService.g.cs");
 			await That(result.Sources["Mock.MyService.g.cs"])
 				.Contains(
-					"foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>(\"global::MyCode.MyService.ProcessData\"))")
+					"foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>(global::Mockolate.Mock.MyService.MemberId_ProcessData, \"global::MyCode.MyService.ProcessData\"))")
 				.IgnoringNewlineStyle().And
 				.Contains("wrappedResult = base.ProcessData(baseResult);")
 				.IgnoringNewlineStyle().And
