@@ -148,7 +148,15 @@ public static partial class ItExtensions
 
 		/// <inheritdoc cref="IParameterMatch{T}.InvokeCallbacks(T)" />
 		public void InvokeCallbacks(HttpRequestMessage value)
-			=> _callbacks?.ForEach(a => a.Invoke(value));
+		{
+			if (_callbacks is not null)
+			{
+				foreach (Action<HttpRequestMessage> callback in _callbacks)
+				{
+					callback.Invoke(value);
+				}
+			}
+		}
 
 		bool IParameterMatch<HttpRequestMessage>.Matches(HttpRequestMessage value)
 			=> Matches(value);

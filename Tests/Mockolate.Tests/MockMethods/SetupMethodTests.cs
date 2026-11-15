@@ -115,6 +115,31 @@ public sealed partial class SetupMethodTests
 	}
 
 	[Test]
+	public async Task OverloadWithSameSetupType_WhenOwnSetupDoesNotMatch_ShouldUseSetupOfOverload()
+	{
+		IMethodServiceWithRefOverload sut = IMethodServiceWithRefOverload.CreateMock();
+		sut.Mock.Setup.Get(It.Is(5)).Returns(1);
+		sut.Mock.Setup.Get(It.IsRef<int>(_ => true)).Returns(2);
+
+		int result = sut.Get(3);
+
+		await That(result).IsEqualTo(2)
+			.Because("setups of an overload with the same name and setup type are considered after the own setups");
+	}
+
+	[Test]
+	public async Task OverloadWithSameSetupType_WhenOwnSetupMatches_ShouldPreferOwnSetup()
+	{
+		IMethodServiceWithRefOverload sut = IMethodServiceWithRefOverload.CreateMock();
+		sut.Mock.Setup.Get(It.IsRef<int>(_ => true)).Returns(2);
+		sut.Mock.Setup.Get(It.IsAny<int>()).Returns(1);
+
+		int result = sut.Get(3);
+
+		await That(result).IsEqualTo(1);
+	}
+
+	[Test]
 	public async Task Parameter_Do_ShouldExecuteCallback()
 	{
 		List<int> capturedValues = [];
@@ -1978,6 +2003,12 @@ public sealed partial class SetupMethodTests
 		bool Equals(object? obj);
 		bool Equals(int other);
 		int GetHashCode();
+	}
+
+	public interface IMethodServiceWithRefOverload
+	{
+		int Get(int value);
+		int Get(ref int value);
 	}
 
 	public interface IMyServiceWithMethodsWithMoreThan16Parameters

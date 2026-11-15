@@ -111,18 +111,17 @@ internal static partial class Mock
 		/// </summary>
 		protected virtual bool TryGenerate(global::System.Type type, object?[] parameters, out object? value)
 		{
-			IDefaultValueFactory? matchingFactory = global::System.Linq.Enumerable.FirstOrDefault(_factories, Predicate);
-			if (matchingFactory is not null)
+			foreach (IDefaultValueFactory factory in _factories)
 			{
-				value = matchingFactory.Create(type, this, parameters);
-				return true;
+				if (factory.IsMatch(type))
+				{
+					value = factory.Create(type, this, parameters);
+					return true;
+				}
 			}
 
 			value = null;
 			return false;
-
-			bool Predicate(global::Mockolate.Mock.IDefaultValueFactory f)
-				=> f.IsMatch(type);
 		}
 	
 		private static bool HasCanceledCancellationToken(object?[] parameters, out global::System.Threading.CancellationToken cancellationToken)

@@ -316,8 +316,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan"))
+					{
+						if (s_methodSetup.Matches(default))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan"))
 				{
@@ -389,8 +400,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan"))
+					{
+						if (s_methodSetup.Matches(ref_span))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan"))
 				{
@@ -455,8 +477,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan"))
+					{
+						if (s_methodSetup.Matches(default))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan"))
 				{
@@ -528,8 +561,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan"))
+					{
+						if (s_methodSetup.Matches(ref_span))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan"))
 				{

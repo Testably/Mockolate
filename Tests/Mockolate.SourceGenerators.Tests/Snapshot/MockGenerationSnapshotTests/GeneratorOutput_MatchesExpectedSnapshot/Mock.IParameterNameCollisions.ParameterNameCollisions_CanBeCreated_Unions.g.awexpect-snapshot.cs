@@ -332,8 +332,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method"))
+					{
+						if (s_methodSetup.Matches(MockRegistry, _scenarioName))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method"))
 				{
@@ -392,8 +403,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_VoidMethod, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.VoidMethod"))
+					{
+						if (s_methodSetup.Matches(MockRegistry, _scenarioName, ref_other, default))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.VoidMethod"))
 				{
@@ -464,8 +486,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Five, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Five"))
+					{
+						if (s_methodSetup.Matches(MockRegistry, _scenarioName, c, d, e))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Five"))
 				{
@@ -524,8 +557,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T, T, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T, T, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Generic_T_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches(MockRegistry, _scenarioName))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T, T, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T, T, int>>($"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>"))
 				{
@@ -583,8 +627,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int> s_methodSetup1 in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals"))
+					{
+						if (s_methodSetup1.Matches(__i, snapshot_methodSetup, i_methodSetup, s_methodSetup))
+						{
+							methodSetup = s_methodSetup1;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int> s_methodSetup1 in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals"))
 				{
@@ -643,8 +698,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<T, T, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T, T, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_GenericLocals_T_, name_methodSetup1))
+					{
+						if (s_methodSetup.Matches(__i, name_methodSetup))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<T, T, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<T, T, int>>($"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>"))
 				{
@@ -703,8 +769,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_RefLocals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.RefLocals"))
+					{
+						if (s_methodSetup.Matches(ref___i, other))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int>>("global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.RefLocals"))
 				{

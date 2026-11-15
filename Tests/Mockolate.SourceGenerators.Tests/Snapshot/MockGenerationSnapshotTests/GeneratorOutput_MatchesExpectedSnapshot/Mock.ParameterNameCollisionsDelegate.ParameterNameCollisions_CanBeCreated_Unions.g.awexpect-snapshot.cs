@@ -56,8 +56,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int> s_methodSetup1 in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int>>(global::Mockolate.Mock.ParameterNameCollisionsDelegate.MemberId_Invoke, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsDelegate.Invoke"))
+					{
+						if (s_methodSetup1.Matches(MockRegistry, __i, snapshot_methodSetup, s_methodSetup))
+						{
+							methodSetup = s_methodSetup1;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int> s_methodSetup1 in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsDelegate.Invoke"))
 				{

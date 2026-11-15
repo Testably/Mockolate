@@ -165,7 +165,13 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__class_Get, global::Mockolate.Mock.IKeywordEdgeCases.PropertyAccess__class_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases wraps ? null : () => wraps.@class);
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases)
+				{
+					global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases wraps = (global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases)this.MockRegistry.Wraps;
+					return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__class_Get, global::Mockolate.Mock.IKeywordEdgeCases.PropertyAccess__class_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.@class);
+				}
+
+				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__class_Get, global::Mockolate.Mock.IKeywordEdgeCases.PropertyAccess__class_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -255,8 +261,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<string> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<string>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__return, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<string> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<string>>("global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return"))
 				{
@@ -314,8 +331,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if"))
+					{
+						if (s_methodSetup.Matches(@params))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int>>("global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if"))
 				{
@@ -368,8 +396,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, name_methodSetup))
+					{
+						if (s_methodSetup.Matches(@ref))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>($"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>"))
 				{

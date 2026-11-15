@@ -116,7 +116,13 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB wraps ? null : () => wraps.Value);
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB)
+				{
+					global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB wraps = (global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB)this.MockRegistry.Wraps;
+					return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.Value);
+				}
+
+				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -138,8 +144,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup>(global::Mockolate.Mock.ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run"))
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup>("global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run"))
 				{

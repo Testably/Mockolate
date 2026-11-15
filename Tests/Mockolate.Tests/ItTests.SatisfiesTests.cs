@@ -1,4 +1,5 @@
 using Mockolate.Parameters;
+using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests;
 
@@ -28,6 +29,45 @@ public sealed partial class ItTests
 			bool result = ((IParameterMatch<string>)sut).Matches("foo");
 
 			await That(result).IsEqualTo(predicateValue);
+		}
+
+		[Test]
+		public async Task WhenSetupDoesNotMatch_ShouldEvaluatePredicateOnce()
+		{
+			int evaluations = 0;
+			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+			sut.Mock.Setup.Dispense(It.Satisfies<string>(_ =>
+				{
+					evaluations++;
+					return false;
+				}), It.IsAny<int>())
+				.Returns(true);
+
+			bool result = sut.Dispense("Dark", 1);
+
+			await That(result).IsFalse();
+			await That(evaluations).IsEqualTo(1)
+				.Because("the setups of the member are only searched once per call");
+		}
+
+		[Test]
+		public async Task WhenSetupDoesNotMatchAndOverloadHasSetup_ShouldEvaluatePredicateOnce()
+		{
+			int evaluations = 0;
+			IOverloadedByRef sut = IOverloadedByRef.CreateMock();
+			sut.Mock.Setup.Get(It.Satisfies<int>(_ =>
+				{
+					evaluations++;
+					return false;
+				}))
+				.Returns(1);
+			sut.Mock.Setup.Get(It.IsRef<int>(_ => false)).Returns(2);
+
+			int result = sut.Get(3);
+
+			await That(result).IsEqualTo(0);
+			await That(evaluations).IsEqualTo(1)
+				.Because("the setups of the member are only searched once per call, even when an overload with the same name has setups");
 		}
 
 		[Test]
@@ -105,6 +145,12 @@ public sealed partial class ItTests
 		public interface IMyService
 		{
 			int DoSomething(IMyBase value);
+		}
+
+		public interface IOverloadedByRef
+		{
+			int Get(int value);
+			int Get(ref int value);
 		}
 	}
 }

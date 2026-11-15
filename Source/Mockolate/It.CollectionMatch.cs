@@ -38,7 +38,10 @@ public partial class It
 				return;
 			}
 
-			_callbacks.ForEach(c => c.Invoke(value));
+			foreach (Action<object?> callback in _callbacks)
+			{
+				callback.Invoke(value);
+			}
 		}
 
 		protected void Register<TCollection>(Action<TCollection> callback)

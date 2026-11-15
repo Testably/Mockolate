@@ -83,7 +83,7 @@ public sealed partial class MockTests
 				          """)
 				.IgnoringNewlineStyle().And
 				.Contains(
-					"foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>>(\"global::MyCode.Program.DoSomething1.Invoke\"))")
+					"foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.SpanWrapper<char>, int>>(global::Mockolate.Mock.Program_DoSomething1.MemberId_Invoke, \"global::MyCode.Program.DoSomething1.Invoke\"))")
 				.IgnoringNewlineStyle().And
 				.Contains("""
 				          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
@@ -107,7 +107,7 @@ public sealed partial class MockTests
 				          """)
 				.IgnoringNewlineStyle().And
 				.Contains(
-					"foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>>(\"global::MyCode.Program.DoSomething2.Invoke\"))")
+					"foreach (global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<char>, int>>(global::Mockolate.Mock.Program_DoSomething2.MemberId_Invoke, \"global::MyCode.Program.DoSomething2.Invoke\"))")
 				.IgnoringNewlineStyle().And
 				.Contains("""
 				          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
@@ -252,7 +252,7 @@ public sealed partial class MockTests
 			await That(result.Sources).ContainsKey("Mock.Func_int_bool.g.cs");
 			await That(result.Sources["Mock.Func_int_bool.g.cs"])
 				.Contains(
-					"foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, int>>(\"global::System.Func<int, bool>.Invoke\"))")
+					"foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, int>>(global::Mockolate.Mock.Func_int_bool.MemberId_Invoke, \"global::System.Func<int, bool>.Invoke\"))")
 				.IgnoringNewlineStyle().And
 				.Contains("global::System.Func<int, bool> Object").IgnoringNewlineStyle();
 		}
@@ -340,7 +340,7 @@ public sealed partial class MockTests
 
 			await That(result.Sources).ContainsKey("Mock.Program_ProcessResult.g.cs");
 			await That(result.Sources["Mock.Program_ProcessResult.g.cs"])
-				.Contains("foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup1 in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>(")
+				.Contains("foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup1 in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>(")
 				.IgnoringNewlineStyle().And
 				.Contains("methodSetup1?.TriggerCallbacks(methodSetup);")
 				.IgnoringNewlineStyle().And
@@ -371,7 +371,7 @@ public sealed partial class MockTests
 
 			await That(result.Sources).ContainsKey("Mock.Program_ProcessResult.g.cs");
 			await That(result.Sources["Mock.Program_ProcessResult.g.cs"])
-				.Contains("foreach (global::Mockolate.Setup.VoidMethodSetup<string, int> s_methodSetup1 in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<string, int>>(")
+				.Contains("foreach (global::Mockolate.Setup.VoidMethodSetup<string, int> s_methodSetup1 in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<string, int>>(")
 				.IgnoringNewlineStyle().And
 				.Contains("methodSetup1?.TriggerCallbacks(methodSetup, value);")
 				.IgnoringNewlineStyle();

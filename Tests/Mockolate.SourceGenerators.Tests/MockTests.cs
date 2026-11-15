@@ -670,7 +670,8 @@ public sealed partial class MockTests
 		await That(result.Diagnostics).IsEmpty()
 			.Because("CS0266: the hiding member has a narrower property type than the hidden member");
 		await That(result.Sources["Mock.ITest.g.cs"])
-			.Contains("this.MockRegistry.Wraps is not global::MyCode.ITestParent wraps ? null : () => wraps.Items")
+			.Contains("global::MyCode.ITestParent wraps = (global::MyCode.ITestParent)this.MockRegistry.Wraps;").And
+			.Contains("() => wraps.Items);")
 			.Because("the getter of the explicit implementation must read the declaring interface").And
 			.Contains("""
 			          				if (this.MockRegistry.Wraps is global::MyCode.ITestParent wraps)
@@ -712,7 +713,8 @@ public sealed partial class MockTests
 		await That(result.Diagnostics).IsEmpty()
 			.Because("CS0029: the hiding member has a type unrelated to the hidden member");
 		await That(result.Sources["Mock.ITest.g.cs"])
-			.Contains("this.MockRegistry.Wraps is not global::MyCode.ITestParent wraps ? null : () => wraps.Label")
+			.Contains("global::MyCode.ITestParent wraps = (global::MyCode.ITestParent)this.MockRegistry.Wraps;").And
+			.Contains("() => wraps.Label);")
 			.And
 			.Contains("""
 			          				if (this.MockRegistry.Wraps is global::MyCode.ITestParent wraps)
@@ -752,7 +754,8 @@ public sealed partial class MockTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources["Mock.ITest.g.cs"])
-			.Contains("this.MockRegistry.Wraps is not global::MyCode.ITestParent wraps ? null : () => wraps.Items")
+			.Contains("global::MyCode.ITestParent wraps = (global::MyCode.ITestParent)this.MockRegistry.Wraps;").And
+			.Contains("() => wraps.Items);")
 			.Because("a get-only hidden property must still read from the declaring interface");
 	}
 
@@ -787,7 +790,8 @@ public sealed partial class MockTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources["Mock.ITest.g.cs"])
-			.Contains("this.MockRegistry.Wraps is not global::MyCode.ITestParent wraps ? null : () => wraps.Items")
+			.Contains("global::MyCode.ITestParent wraps = (global::MyCode.ITestParent)this.MockRegistry.Wraps;").And
+			.Contains("() => wraps.Items);")
 			.Because("the getter of the explicit implementation must read the declaring interface").And
 			.DoesNotContain("wraps.Items = value")
 			.Because("an init accessor cannot be forwarded to an already constructed instance");
@@ -950,9 +954,11 @@ public sealed partial class MockTests
 		await That(result.Diagnostics).IsEmpty()
 			.Because("CS0266: each hidden member has its own property type");
 		await That(result.Sources["Mock.ITest.g.cs"])
-			.Contains("this.MockRegistry.Wraps is not global::MyCode.ITestParent wraps ? null : () => wraps.Items")
+			.Contains("global::MyCode.ITestParent wraps = (global::MyCode.ITestParent)this.MockRegistry.Wraps;").And
+			.Contains("() => wraps.Items);")
 			.And
-			.Contains("this.MockRegistry.Wraps is not global::MyCode.IGrandParent wraps ? null : () => wraps.Items")
+			.Contains("global::MyCode.IGrandParent wraps = (global::MyCode.IGrandParent)this.MockRegistry.Wraps;").And
+			.Contains("() => wraps.Items);")
 			.Because("every level of the hierarchy must delegate to its own declaring interface");
 	}
 
@@ -991,8 +997,10 @@ public sealed partial class MockTests
 		await That(result.Diagnostics).IsEmpty()
 			.Because("CS0229: accessing the member on the mocked interface is ambiguous between the siblings");
 		await That(result.Sources["Mock.ITest.g.cs"])
-			.Contains("this.MockRegistry.Wraps is not global::MyCode.ITestLeft wraps ? null : () => wraps.Name").And
-			.Contains("this.MockRegistry.Wraps is not global::MyCode.ITestRight wraps ? null : () => wraps.Name").And
+			.Contains("global::MyCode.ITestLeft wraps = (global::MyCode.ITestLeft)this.MockRegistry.Wraps;").And
+			.Contains("() => wraps.Name);").And
+			.Contains("global::MyCode.ITestRight wraps = (global::MyCode.ITestRight)this.MockRegistry.Wraps;").And
+			.Contains("() => wraps.Name);").And
 			.Contains("""
 			          				if (this.MockRegistry.Wraps is global::MyCode.ITestLeft wraps)
 			          				{
@@ -1455,7 +1463,7 @@ public sealed partial class MockTests
 			          """)
 			.IgnoringNewlineStyle().And
 			.Contains(
-				"foreach (global::Mockolate.Setup.VoidMethodSetup<object, bool, string, char, byte, sbyte, short, ushort, int, uint, long, ulong, float, double, decimal> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object, bool, string, char, byte, sbyte, short, ushort, int, uint, long, ulong, float, double, decimal>>(\"global::MyCode.IMyService.MyMethod\"))")
+				"foreach (global::Mockolate.Setup.VoidMethodSetup<object, bool, string, char, byte, sbyte, short, ushort, int, uint, long, ulong, float, double, decimal> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object, bool, string, char, byte, sbyte, short, ushort, int, uint, long, ulong, float, double, decimal>>(global::Mockolate.Mock.IMyService.MemberId_MyMethod, \"global::MyCode.IMyService.MyMethod\"))")
 			.IgnoringNewlineStyle().And
 			.Contains("""
 			          			bool hasWrappedResult = false;

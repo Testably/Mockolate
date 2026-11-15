@@ -126,7 +126,15 @@ public static partial class ItExtensions
 
 		/// <inheritdoc cref="IParameterMatch{T}.InvokeCallbacks(T)" />
 		void IParameterMatch<Uri?>.InvokeCallbacks(Uri? value)
-			=> _callbacks?.ForEach(a => a.Invoke(value));
+		{
+			if (_callbacks is not null)
+			{
+				foreach (Action<Uri?> callback in _callbacks)
+				{
+					callback.Invoke(value);
+				}
+			}
+		}
 
 		bool IParameterMatch<Uri?>.Matches(Uri? value)
 			=> Matches(value);

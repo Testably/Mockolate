@@ -12,7 +12,7 @@ internal sealed class FakeMethodMatch : IMethodMatch
 
 internal sealed class FakeMethodSetup : MethodSetup
 {
-	internal FakeMethodSetup() : base("foo") { }
+	internal FakeMethodSetup(string name = "foo") : base(name) { }
 
 	protected override bool MatchesInteraction(IMethodInteraction interaction) => false;
 }

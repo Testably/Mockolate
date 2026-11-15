@@ -1896,18 +1896,35 @@ internal static partial class Sources
 					string accessFieldRef = memberIdPrefix + memberIds.GetPropertyGetterAccessFieldName(property);
 					if (useFastForProperty)
 					{
-						sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".GetPropertyFast<")
-							.AppendTypeOrWrapper(property.Type).Append(">(")
-							.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property))
-							.Append(", ").Append(accessFieldRef).Append(", static b => ")
-							.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue");
-						if (!property.IsStatic)
+						void AppendGetPropertyFastCall(string indent, string? baseValueAccessor)
 						{
-							sb.Append(", ").Append(mockRegistry).Append(".Wraps is not ").Append(wrapsType)
-								.Append(" wraps ? null : () => wraps.").Append(property.Name);
+							sb.Append(indent).Append("return ").Append(mockRegistry).Append(".GetPropertyFast<")
+								.AppendTypeOrWrapper(property.Type).Append(">(")
+								.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property))
+								.Append(", ").Append(accessFieldRef).Append(", static b => ")
+								.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue");
+							if (baseValueAccessor is not null)
+							{
+								sb.Append(", ").Append(baseValueAccessor);
+							}
+
+							sb.Append(");").AppendLine();
 						}
 
-						sb.Append(");").AppendLine();
+						if (!property.IsStatic)
+						{
+							// A local declared inside the block keeps the closure allocation off the non-wrapping path.
+							sb.Append("\t\t\t\tif (").Append(mockRegistry).Append(".Wraps is ").Append(wrapsType)
+								.Append(')').AppendLine();
+							sb.Append("\t\t\t\t{").AppendLine();
+							sb.Append("\t\t\t\t\t").Append(wrapsType).Append(" wraps = (").Append(wrapsType)
+								.Append(')').Append(mockRegistry).Append(".Wraps;").AppendLine();
+							AppendGetPropertyFastCall("\t\t\t\t\t", "() => wraps." + property.Name);
+							sb.Append("\t\t\t\t}").AppendLine();
+							sb.AppendLine();
+						}
+
+						AppendGetPropertyFastCall("\t\t\t\t", null);
 					}
 					else
 					{

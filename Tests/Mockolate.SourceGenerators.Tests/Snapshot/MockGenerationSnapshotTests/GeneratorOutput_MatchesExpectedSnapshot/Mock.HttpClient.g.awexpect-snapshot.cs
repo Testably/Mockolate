@@ -184,8 +184,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>(global::Mockolate.Mock.HttpClient.MemberId_Send, "global::System.Net.Http.HttpMessageInvoker.Send"))
+					{
+						if (s_methodSetup.Matches(request, cancellationToken))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Net.Http.HttpResponseMessage, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>("global::System.Net.Http.HttpMessageInvoker.Send"))
 				{
@@ -260,8 +271,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>(global::Mockolate.Mock.HttpClient.MemberId_SendAsync, "global::System.Net.Http.HttpMessageInvoker.SendAsync"))
+					{
+						if (s_methodSetup.Matches(request, cancellationToken))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>, global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>("global::System.Net.Http.HttpMessageInvoker.SendAsync"))
 				{
@@ -336,8 +358,19 @@ internal static partial class Mock
 						}
 					}
 				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<bool> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<bool>>(global::Mockolate.Mock.HttpClient.MemberId_Dispose, "global::System.Net.Http.HttpMessageInvoker.Dispose"))
+					{
+						if (s_methodSetup.Matches(disposing))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
 			}
-			if (methodSetup is null)
+			else
 			{
 				foreach (global::Mockolate.Setup.VoidMethodSetup<bool> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<bool>>("global::System.Net.Http.HttpMessageInvoker.Dispose"))
 				{
