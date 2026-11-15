@@ -5,18 +5,22 @@ namespace Mockolate.Interactions;
 
 /// <summary>
 ///     Lock-free, append-only slot storage for <see cref="Internals.IFastMemberBuffer" /> implementations.
-///     Records live in fixed-size chunks; growing only adds a chunk reference, never copies record
+///     Records live in chunks that never move; growing only adds a chunk, never copies record
 ///     data. This eliminates the orphaned-write race that arose when an array-doubling buffer
 ///     snapshot the current array while a concurrent writer was still mid-write to a slot inside it.
 /// </summary>
 /// <remarks>
-///     Slot N is stored at <c>chunks[N &gt;&gt; <see cref="ChunkShift" />][N &amp; <see cref="ChunkMask" />]</c>.
+///     Chunk 0 holds only slot 0 and every later chunk holds <see cref="ChunkSize" /> slots, so a member called
+///     once (the common case in a unit test) only pays for a single slot.
 ///     A writer reserves a unique slot via <see cref="Reserve" />, obtains its destination via
 ///     <see cref="SlotForWrite" />, writes its fields, then calls <see cref="Publish" />.
-///     The chunks array itself is allocated lazily on the first <see cref="SlotForWrite" /> and
-///     doubles when a new chunk index is past its end; that grow only copies chunk references
-///     (which are stable once installed), so a concurrent writer to an existing chunk cannot lose
-///     its data. A buffer that is never written into stays allocation-free past its own header.
+///     Chunk 0 is installed without the lock, and also by any write into a later chunk, so a reader never finds
+///     it missing below a published slot. The array referencing the later chunks is allocated lazily
+///     and doubles under the lock when needed. That grow only copies chunk references (which are stable
+///     once installed), so a concurrent writer to an existing chunk cannot lose its data.
+///     The verified flags live in a separate flat array indexed by slot that is created by the first
+///     <see cref="VerifiedUnderLock" /> call, so a member that is never verified does not pay for them.
+///     They are only accessed under <see cref="Lock" />, so growing that array by copying is safe.
 /// </remarks>
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
@@ -28,8 +32,9 @@ internal sealed class ChunkedSlotStorage<TRecord> where TRecord : struct
 	internal const int ChunkMask = ChunkSize - 1;
 
 	internal readonly MockolateLock Lock = new();
-	internal TRecord[]?[]? Chunks;
-	internal bool[]?[]? VerifiedChunks;
+	private TRecord[]? _firstChunk;
+	private TRecord[]?[]? _laterChunks;
+	private bool[]? _verified;
 	private int _reserved;
 	private int _published;
 
@@ -37,7 +42,7 @@ internal sealed class ChunkedSlotStorage<TRecord> where TRecord : struct
 	public int Count => Volatile.Read(ref _published);
 
 	/// <summary>The number of slots fully written. Caller must hold <see cref="Lock" /> for a stable read.</summary>
-	public int PublishedUnderLock => _published;
+	public int PublishedUnderLock => Volatile.Read(ref _published);
 
 	/// <summary>Atomically reserves the next unique slot index.</summary>
 	public int Reserve() => Interlocked.Increment(ref _reserved) - 1;
@@ -51,15 +56,24 @@ internal sealed class ChunkedSlotStorage<TRecord> where TRecord : struct
 	/// </summary>
 	public ref TRecord SlotForWrite(int slot)
 	{
-		int chunkIdx = slot >> ChunkShift;
-		int offset = slot & ChunkMask;
-		TRecord[]?[]? chunks = Volatile.Read(ref Chunks);
-		TRecord[]? chunk = chunks is not null && chunkIdx < chunks.Length
-			? Volatile.Read(ref chunks[chunkIdx])
-			: null;
-		if (chunk is null)
+		int chunkIdx = ChunkIndex(slot, out int offset);
+		TRecord[]? chunk;
+		if (chunkIdx == 0)
 		{
-			chunk = EnsureChunk(chunkIdx);
+			chunk = Volatile.Read(ref _firstChunk);
+			if (chunk is null)
+			{
+				TRecord[] created = new TRecord[1];
+				chunk = Interlocked.CompareExchange(ref _firstChunk, created, null) ?? created;
+			}
+		}
+		else
+		{
+			TRecord[]?[]? chunks = Volatile.Read(ref _laterChunks);
+			chunk = chunks is not null && chunkIdx <= chunks.Length
+				? Volatile.Read(ref chunks[chunkIdx - 1])
+				: null;
+			chunk ??= EnsureLaterChunk(chunkIdx);
 		}
 
 		return ref chunk[offset];
@@ -72,20 +86,37 @@ internal sealed class ChunkedSlotStorage<TRecord> where TRecord : struct
 	/// </summary>
 	public ref TRecord SlotUnderLock(int slot)
 	{
-		int chunkIdx = slot >> ChunkShift;
-		int offset = slot & ChunkMask;
-		return ref Chunks![chunkIdx]![offset];
+		int chunkIdx = ChunkIndex(slot, out int offset);
+		TRecord[] chunk = chunkIdx == 0 ? _firstChunk! : _laterChunks![chunkIdx - 1]!;
+		return ref chunk[offset];
 	}
 
 	/// <summary>
-	///     Returns a writable reference to the per-slot verified flag. Callers must hold <see cref="Lock" />.
+	///     Returns a writable reference to the per-slot verified flag, creating the verified storage on first use.
+	///     Callers must hold <see cref="Lock" /> and only pass slots in <c>[0, <see cref="PublishedUnderLock" />)</c>.
 	/// </summary>
 	public ref bool VerifiedUnderLock(int slot)
 	{
-		int chunkIdx = slot >> ChunkShift;
-		int offset = slot & ChunkMask;
-		return ref VerifiedChunks![chunkIdx]![offset];
+		bool[]? verified = _verified;
+		if (verified is null || slot >= verified.Length)
+		{
+			bool[] bigger = new bool[Math.Max(_published, 2 * (verified?.Length ?? 0))];
+			if (verified is not null)
+			{
+				Array.Copy(verified, bigger, verified.Length);
+			}
+
+			_verified = verified = bigger;
+		}
+
+		return ref verified[slot];
 	}
+
+	/// <summary>
+	///     Returns whether <paramref name="slot" /> is marked as verified, without creating the verified storage.
+	///     Callers must hold <see cref="Lock" />.
+	/// </summary>
+	public bool IsVerifiedUnderLock(int slot) => _verified is { } verified && slot < verified.Length && verified[slot];
 
 	/// <summary>
 	///     Resets the buffer to an empty state. Caller must not hold <see cref="Lock" /> on entry.
@@ -95,64 +126,67 @@ internal sealed class ChunkedSlotStorage<TRecord> where TRecord : struct
 		lock (Lock)
 		{
 			int n = _published;
-			if (n > 0)
+			for (int slot = 0; slot < n; slot++)
 			{
-				TRecord[]?[] chunks = Chunks!;
-				bool[]?[] verified = VerifiedChunks!;
-				for (int slot = 0; slot < n; slot++)
-				{
-					int chunkIdx = slot >> ChunkShift;
-					int offset = slot & ChunkMask;
-					chunks[chunkIdx]![offset] = default;
-					verified[chunkIdx]![offset] = false;
-				}
+				SlotUnderLock(slot) = default;
 			}
 
+			_verified = null;
 			_reserved = 0;
 			Volatile.Write(ref _published, 0);
 		}
 	}
 
-	private TRecord[] EnsureChunk(int chunkIdx)
+	/// <summary>
+	///     Maps <paramref name="slot" /> to its chunk index and the <paramref name="offset" /> inside that chunk.
+	/// </summary>
+	internal static int ChunkIndex(int slot, out int offset)
 	{
+		if (slot == 0)
+		{
+			offset = 0;
+			return 0;
+		}
+
+		int laterSlot = slot - 1;
+		offset = laterSlot & ChunkMask;
+		return (laterSlot >> ChunkShift) + 1;
+	}
+
+	private TRecord[] EnsureLaterChunk(int chunkIdx)
+	{
+		int index = chunkIdx - 1;
 		lock (Lock)
 		{
-			TRecord[]?[]? chunks = Chunks;
-			if (chunks is null)
+			if (Volatile.Read(ref _firstChunk) is null)
 			{
-				int initialLen = 1;
-				while (chunkIdx >= initialLen)
-				{
-					initialLen *= 2;
-				}
-
-				chunks = new TRecord[initialLen][];
-				VerifiedChunks = new bool[initialLen][];
-				Volatile.Write(ref Chunks, chunks);
+				Interlocked.CompareExchange(ref _firstChunk, new TRecord[1], null);
 			}
-			else if (chunkIdx >= chunks.Length)
+
+			TRecord[]?[]? chunks = _laterChunks;
+			if (chunks is null || index >= chunks.Length)
 			{
-				int newLen = chunks.Length;
-				while (chunkIdx >= newLen)
+				int newLen = chunks?.Length ?? 1;
+				while (index >= newLen)
 				{
 					newLen *= 2;
 				}
 
 				TRecord[]?[] biggerChunks = new TRecord[newLen][];
-				Array.Copy(chunks, biggerChunks, chunks.Length);
-				bool[]?[] biggerVerified = new bool[newLen][];
-				Array.Copy(VerifiedChunks!, biggerVerified, VerifiedChunks!.Length);
+				if (chunks is not null)
+				{
+					Array.Copy(chunks, biggerChunks, chunks.Length);
+				}
+
 				chunks = biggerChunks;
-				VerifiedChunks = biggerVerified;
-				Volatile.Write(ref Chunks, chunks);
+				Volatile.Write(ref _laterChunks, chunks);
 			}
 
-			TRecord[]? chunk = chunks[chunkIdx];
+			TRecord[]? chunk = chunks[index];
 			if (chunk is null)
 			{
 				chunk = new TRecord[ChunkSize];
-				VerifiedChunks![chunkIdx] = new bool[ChunkSize];
-				Volatile.Write(ref chunks[chunkIdx], chunk);
+				Volatile.Write(ref chunks[index], chunk);
 			}
 
 			return chunk;
