@@ -485,6 +485,50 @@ internal static partial class Sources
 		return $"() => $\"{method.Name}({string.Join(", ", placeholders)})\"";
 	}
 
+	/// <summary>
+	///     The static formatter for the literal branch: it rebuilds the <c>ParameterArg&lt;T&gt;</c> of each union slot
+	///     from the literal value, so the text stays the one of <see cref="UnionExpectationLambda" />.
+	/// </summary>
+	private static string UnionLiteralExpectationLambda(Method method, UnionSlot[] slots)
+	{
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		IEnumerable<string> placeholders = parameters.Select((p, i) => slots[i] is UnionSlot.Union or UnionSlot.Omitted
+			? $"{{(new global::Mockolate.ParameterArg<{p.ToNullableType()}>({p.Name}))}}"
+			: $"{{{p.Name}}}");
+		return
+			$"static ({string.Join(", ", parameters.Select(p => p.Name))}) => $\"{method.Name}({string.Join(", ", placeholders)})\"";
+	}
+
+	/// <summary>
+	///     The <c>TState</c> type, its value and the static formatter for the typed branch: the union arguments,
+	///     predicate expressions and raw delegates the message prints, as one value or a value tuple.
+	/// </summary>
+	private static (string Type, string Value, string Expectation) UnionExpectationState(Method method,
+		UnionSlot[] slots)
+	{
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		string[] types = parameters.Select((p, i) => slots[i] switch
+		{
+			UnionSlot.Union or UnionSlot.Omitted => $"global::Mockolate.ParameterArg<{p.ToNullableType()}>",
+			UnionSlot.Predicate => "string",
+			_ => p.ToNullableType(),
+		}).ToArray();
+		string[] values = parameters.Select((p, i) => slots[i] switch
+		{
+			UnionSlot.Union or UnionSlot.Omitted => UnionArgumentLocalName(method, p),
+			UnionSlot.Predicate => UnionExpressionParameterName(method, p),
+			_ => p.Name,
+		}).ToArray();
+		if (parameters.Length == 1)
+		{
+			return (types[0], values[0], $"static state => $\"{method.Name}({{state}})\"");
+		}
+
+		string placeholders = string.Join(", ", parameters.Select((_, i) => $"{{state.Item{i + 1}}}"));
+		return ($"({string.Join(", ", types)})", $"({string.Join(", ", values)})",
+			$"static state => $\"{method.Name}({placeholders})\"");
+	}
+
 	private static string UnionLiteralCondition(Method method, UnionSlot[] slots)
 	{
 		MethodParameter[] parameters = method.Parameters.AsArray();
@@ -626,7 +670,6 @@ internal static partial class Sources
 			? memberIdPrefix + memberIds.GetMethodIdentifier(method)
 			: "-1";
 		string typeArguments = string.Join(", ", parameters.Select(p => p.ToTypeOrWrapper()));
-		string expectation = UnionExpectationLambda(method, slots);
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(verifyName).Append(">.IgnoreParameters ")
@@ -662,7 +705,7 @@ internal static partial class Sources
 				sb.Append(", ").Append(UnionLiteralExpression(method, parameters[i], slots[i]));
 			}
 
-			sb.Append(", ").Append(expectation).Append(");").AppendLine();
+			sb.Append(", ").Append(UnionLiteralExpectationLambda(method, slots)).Append(");").AppendLine();
 			if (literalCondition.Length == 0)
 			{
 				sb.AppendLine("\t\t}");
@@ -675,16 +718,17 @@ internal static partial class Sources
 
 		if (typedEligible)
 		{
+			(string stateType, string stateValue, string stateExpectation) = UnionExpectationState(method, slots);
 			sb.Append("\t\t\treturn this.").Append(mockRegistryName).Append(".VerifyMethod<").Append(verifyName)
-				.Append(", ").Append(typeArguments).Append(">(this, ").Append(methodMemberId).Append(", ")
-				.Append(method.GetUniqueNameString());
+				.Append(", ").Append(typeArguments).Append(", ").Append(stateType).Append(">(this, ")
+				.Append(methodMemberId).Append(", ").Append(method.GetUniqueNameString());
 			for (int i = 0; i < parameters.Length; i++)
 			{
 				sb.Append(", ");
 				AppendUnionMatchExpression(sb, method, parameters[i], slots[i]);
 			}
 
-			sb.Append(", ").Append(expectation).Append(");").AppendLine();
+			sb.Append(", ").Append(stateValue).Append(", ").Append(stateExpectation).Append(");").AppendLine();
 		}
 		else
 		{
@@ -735,7 +779,7 @@ internal static partial class Sources
 				}
 			}
 
-			sb.Append(", ").Append(expectation).Append(");").AppendLine();
+			sb.Append(", ").Append(UnionExpectationLambda(method, slots)).Append(");").AppendLine();
 		}
 
 		sb.AppendLine("\t\t}");

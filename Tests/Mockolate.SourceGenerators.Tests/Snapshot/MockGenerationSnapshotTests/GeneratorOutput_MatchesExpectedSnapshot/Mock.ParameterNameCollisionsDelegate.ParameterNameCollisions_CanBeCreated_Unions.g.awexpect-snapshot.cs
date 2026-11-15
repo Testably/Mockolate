@@ -288,7 +288,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> s_methodSetupArg = s_methodSetup ?? default;
 			if (MockRegistryArg.IsLiteral && __iArg.IsLiteral && snapshot_methodSetupArg.IsLiteral && s_methodSetupArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsDelegate, int, int, int, int>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsDelegate.Invoke", MockRegistryArg.Literal!, __iArg.Literal!, snapshot_methodSetupArg.Literal!, s_methodSetupArg.Literal!, () => $"Invoke({MockRegistryArg}, {__iArg}, {snapshot_methodSetupArg}, {s_methodSetupArg})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsDelegate, int, int, int, int>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsDelegate.Invoke", MockRegistryArg.Literal!, __iArg.Literal!, snapshot_methodSetupArg.Literal!, s_methodSetupArg.Literal!, static (MockRegistry, __i, snapshot_methodSetup, s_methodSetup) => $"Invoke({(new global::Mockolate.ParameterArg<int>(MockRegistry))}, {(new global::Mockolate.ParameterArg<int>(__i))}, {(new global::Mockolate.ParameterArg<int>(snapshot_methodSetup))}, {(new global::Mockolate.ParameterArg<int>(s_methodSetup))})");
 			}
 			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = MockRegistryArg.ToParameterMatch();
 			global::Mockolate.Parameters.IParameterMatch<int> __iMatch = __iArg.ToParameterMatch();
@@ -584,7 +584,7 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> s_methodSetupArg = s_methodSetup ?? default;
 			if (MockRegistryArg.IsLiteral && __iArg.IsLiteral && snapshot_methodSetupArg.IsLiteral && s_methodSetupArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsDelegate, int, int, int, int>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsDelegate.Invoke", MockRegistryArg.Literal!, __iArg.Literal!, snapshot_methodSetupArg.Literal!, s_methodSetupArg.Literal!, () => $"Invoke({MockRegistryArg}, {__iArg}, {snapshot_methodSetupArg}, {s_methodSetupArg})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForParameterNameCollisionsDelegate, int, int, int, int>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsDelegate.Invoke", MockRegistryArg.Literal!, __iArg.Literal!, snapshot_methodSetupArg.Literal!, s_methodSetupArg.Literal!, static (MockRegistry, __i, snapshot_methodSetup, s_methodSetup) => $"Invoke({(new global::Mockolate.ParameterArg<int>(MockRegistry))}, {(new global::Mockolate.ParameterArg<int>(__i))}, {(new global::Mockolate.ParameterArg<int>(snapshot_methodSetup))}, {(new global::Mockolate.ParameterArg<int>(s_methodSetup))})");
 			}
 			global::Mockolate.Parameters.IParameterMatch<int> MockRegistryMatch = MockRegistryArg.ToParameterMatch();
 			global::Mockolate.Parameters.IParameterMatch<int> __iMatch = __iArg.ToParameterMatch();
