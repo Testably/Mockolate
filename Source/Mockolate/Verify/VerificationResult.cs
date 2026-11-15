@@ -42,7 +42,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	private readonly IMockInteractions _interactions;
 	private readonly IFastMemberBuffer? _buffer;
 	private readonly IFastCountSource? _fastCountSource;
-	private Func<IInteraction, bool> _predicate;
+	private Func<IInteraction, bool>? _predicate;
 	private readonly TVerify _verify;
 
 	/// <inheritdoc cref="VerificationResult{TVerify}" />
@@ -82,11 +82,15 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		_expectation = expectation;
 	}
 
-	internal VerificationResult(TVerify verify,
+	/// <summary>
+	///     Copies the state of another result. It is private, so a <see langword="null" /> predicate only ever arrives
+	///     together with the fast count source that <see cref="IsMatch" /> falls back to.
+	/// </summary>
+	private VerificationResult(TVerify verify,
 		IMockInteractions interactions,
 		IFastMemberBuffer? buffer,
 		IFastCountSource? fastCountSource,
-		Func<IInteraction, bool> predicate,
+		Func<IInteraction, bool>? predicate,
 		VerificationExpectation expectation)
 	{
 		_verify = verify;
@@ -95,6 +99,25 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		_fastCountSource = fastCountSource;
 		_predicate = predicate;
 		_expectation = expectation;
+	}
+
+	/// <summary>
+	///     For a subclass that is its own <see cref="IFastCountSource" />, so a fast-path verification allocates
+	///     a single object. The predicate is the source's <see cref="IFastCountSource.Matches" /> and the
+	///     expectation state is the subclass itself. The derived type must implement <see cref="IFastCountSource" />,
+	///     otherwise the constructor throws an <see cref="InvalidCastException" />.
+	/// </summary>
+	private protected VerificationResult(TVerify verify,
+		IMockInteractions interactions,
+		IFastMemberBuffer buffer,
+		object? expectationArgument,
+		Func<object?, object?, string> expectationFactory)
+	{
+		_verify = verify;
+		_interactions = interactions;
+		_buffer = buffer;
+		_fastCountSource = (IFastCountSource)this;
+		_expectation = new VerificationExpectation(this, expectationArgument, expectationFactory);
 	}
 
 	#region IVerificationResult<TVerify>
@@ -109,7 +132,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	{
 		if (_buffer is null && _fastCountSource is null)
 		{
-			return new VerificationResult<T>(mock, _interactions, _predicate, _expectation);
+			return new VerificationResult<T>(mock, _interactions, _predicate!, _expectation);
 		}
 
 		return new VerificationResult<T>(mock, _interactions, _buffer, _fastCountSource, _predicate, _expectation);
@@ -124,11 +147,14 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	private void ReplacePredicate(Func<IInteraction, bool> predicate)
 		=> _predicate = predicate;
 
+	private bool IsMatch(IInteraction interaction)
+		=> _predicate is null ? _fastCountSource!.Matches(interaction) : _predicate(interaction);
+
 	private IInteraction[] CollectMatching()
 	{
 		if (_buffer is null)
 		{
-			return _interactions.Where(_predicate).ToArray();
+			return _interactions.Where(_predicate!).ToArray();
 		}
 
 		List<(long Seq, IInteraction Interaction)> records = new();
@@ -146,7 +172,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		List<IInteraction>? matching = null;
 		foreach ((long _, IInteraction interaction) in records)
 		{
-			if (_predicate(interaction))
+			if (IsMatch(interaction))
 			{
 				(matching ??= new List<IInteraction>(records.Count)).Add(interaction);
 			}
@@ -528,15 +554,14 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			_methodName = methodName;
 		}
 
-		internal IgnoreParameters(
+		private protected IgnoreParameters(
 			TVerify verify,
 			IMockInteractions interactions,
-			IFastMemberBuffer? buffer,
-			IFastCountSource? fastCountSource,
+			IFastMemberBuffer buffer,
 			string methodName,
-			Func<IInteraction, bool> predicate,
-			VerificationExpectation expectation)
-			: base(verify, interactions, buffer, fastCountSource, predicate, expectation)
+			object? expectationArgument,
+			Func<object?, object?, string> expectationFactory)
+			: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 		{
 			_methodName = methodName;
 		}

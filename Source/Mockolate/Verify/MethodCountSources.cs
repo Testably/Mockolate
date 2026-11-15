@@ -7,32 +7,44 @@ using Mockolate.Parameters;
 namespace Mockolate.Verify;
 
 /// <summary>
-///     Allocation-free count source backed by a parameterless method buffer.
+///     Allocation-free count source backed by a parameterless method buffer. It is also the verification result,
+///     so a fast-path verification allocates a single object.
 /// </summary>
-internal sealed class Method0CountSource : IFastMethodCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method0CountSource<TVerify> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
 {
 	private readonly FastMethod0Buffer _buffer;
 
-	public Method0CountSource(FastMethod0Buffer buffer)
+	public Method0CountSource(TVerify verify, IMockInteractions interactions, FastMethod0Buffer buffer,
+		string methodName, object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 	}
 
 	public int Count() => _buffer.ConsumeMatching();
 	public int CountAll() => _buffer.ConsumeMatching();
+	public bool Matches(IInteraction interaction) => true;
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 1-parameter method buffer and a typed matcher.
 /// </summary>
-internal sealed class Method1CountSource<T1> : IFastMethodCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method1CountSource<TVerify, T1> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
 {
 	private readonly FastMethod1Buffer<T1> _buffer;
 	private readonly IParameterMatch<T1> _match1;
 	private readonly IParameter<T1>? _parameter1;
 
-	public Method1CountSource(FastMethod1Buffer<T1> buffer, IParameterMatch<T1> match1,
-		IParameter<T1>? parameter1)
+	public Method1CountSource(TVerify verify, IMockInteractions interactions, FastMethod1Buffer<T1> buffer,
+		string methodName, IParameterMatch<T1> match1, IParameter<T1>? parameter1,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_match1 = match1;
@@ -42,6 +54,9 @@ internal sealed class Method1CountSource<T1> : IFastMethodCountSource
 	public int Count() => _buffer.ConsumeMatching(_match1);
 	public int CountAll() => _buffer.ConsumeAll();
 
+	public bool Matches(IInteraction interaction)
+		=> interaction is MethodInvocation<T1> m && _match1.Matches(m.Parameter1);
+
 	public string Describe(Func<IParameter<T1>?, string> expectation)
 		=> expectation(_parameter1);
 }
@@ -49,7 +64,10 @@ internal sealed class Method1CountSource<T1> : IFastMethodCountSource
 /// <summary>
 ///     Allocation-free count source backed by a 2-parameter method buffer.
 /// </summary>
-internal sealed class Method2CountSource<T1, T2> : IFastMethodCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method2CountSource<TVerify, T1, T2> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
 {
 	private readonly FastMethod2Buffer<T1, T2> _buffer;
 	private readonly IParameterMatch<T1> _match1;
@@ -57,9 +75,11 @@ internal sealed class Method2CountSource<T1, T2> : IFastMethodCountSource
 	private readonly IParameter<T1>? _parameter1;
 	private readonly IParameter<T2>? _parameter2;
 
-	public Method2CountSource(FastMethod2Buffer<T1, T2> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
-		IParameter<T1>? parameter1, IParameter<T2>? parameter2)
+	public Method2CountSource(TVerify verify, IMockInteractions interactions, FastMethod2Buffer<T1, T2> buffer,
+		string methodName, IParameterMatch<T1> match1, IParameterMatch<T2> match2,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_match1 = match1;
@@ -71,6 +91,9 @@ internal sealed class Method2CountSource<T1, T2> : IFastMethodCountSource
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2);
 	public int CountAll() => _buffer.ConsumeAll();
 
+	public bool Matches(IInteraction interaction)
+		=> interaction is MethodInvocation<T1, T2> m && _match1.Matches(m.Parameter1) && _match2.Matches(m.Parameter2);
+
 	public string Describe(Func<IParameter<T1>?, IParameter<T2>?, string> expectation)
 		=> expectation(_parameter1, _parameter2);
 }
@@ -78,7 +101,10 @@ internal sealed class Method2CountSource<T1, T2> : IFastMethodCountSource
 /// <summary>
 ///     Allocation-free count source backed by a 3-parameter method buffer.
 /// </summary>
-internal sealed class Method3CountSource<T1, T2, T3> : IFastMethodCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method3CountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
 {
 	private readonly FastMethod3Buffer<T1, T2, T3> _buffer;
 	private readonly IParameterMatch<T1> _match1;
@@ -88,9 +114,13 @@ internal sealed class Method3CountSource<T1, T2, T3> : IFastMethodCountSource
 	private readonly IParameter<T2>? _parameter2;
 	private readonly IParameter<T3>? _parameter3;
 
-	public Method3CountSource(FastMethod3Buffer<T1, T2, T3> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
-		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3)
+#pragma warning disable S107 // Methods should not have too many parameters
+	public Method3CountSource(TVerify verify, IMockInteractions interactions, FastMethod3Buffer<T1, T2, T3> buffer,
+		string methodName, IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
+#pragma warning restore S107
 	{
 		_buffer = buffer;
 		_match1 = match1;
@@ -104,6 +134,10 @@ internal sealed class Method3CountSource<T1, T2, T3> : IFastMethodCountSource
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3);
 	public int CountAll() => _buffer.ConsumeAll();
 
+	public bool Matches(IInteraction interaction)
+		=> interaction is MethodInvocation<T1, T2, T3> m && _match1.Matches(m.Parameter1) &&
+		   _match2.Matches(m.Parameter2) && _match3.Matches(m.Parameter3);
+
 	public string Describe(Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, string> expectation)
 		=> expectation(_parameter1, _parameter2, _parameter3);
 }
@@ -111,7 +145,12 @@ internal sealed class Method3CountSource<T1, T2, T3> : IFastMethodCountSource
 /// <summary>
 ///     Allocation-free count source backed by a 4-parameter method buffer.
 /// </summary>
-internal sealed class Method4CountSource<T1, T2, T3, T4> : IFastMethodCountSource
+#pragma warning disable S2436 // Types and methods should not have too many generic parameters
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method4CountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+#pragma warning restore S2436
 {
 	private readonly FastMethod4Buffer<T1, T2, T3, T4> _buffer;
 	private readonly IParameterMatch<T1> _match1;
@@ -123,11 +162,15 @@ internal sealed class Method4CountSource<T1, T2, T3, T4> : IFastMethodCountSourc
 	private readonly IParameter<T3>? _parameter3;
 	private readonly IParameter<T4>? _parameter4;
 
-	public Method4CountSource(FastMethod4Buffer<T1, T2, T3, T4> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
+#pragma warning disable S107 // Methods should not have too many parameters
+	public Method4CountSource(TVerify verify, IMockInteractions interactions, FastMethod4Buffer<T1, T2, T3, T4> buffer,
+		string methodName, IParameterMatch<T1> match1, IParameterMatch<T2> match2,
 		IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		IParameter<T1>? parameter1, IParameter<T2>? parameter2,
-		IParameter<T3>? parameter3, IParameter<T4>? parameter4)
+		IParameter<T3>? parameter3, IParameter<T4>? parameter4,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
+#pragma warning restore S107
 	{
 		_buffer = buffer;
 		_match1 = match1;
@@ -143,23 +186,31 @@ internal sealed class Method4CountSource<T1, T2, T3, T4> : IFastMethodCountSourc
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3, _match4);
 	public int CountAll() => _buffer.ConsumeAll();
 
+	public bool Matches(IInteraction interaction)
+		=> interaction is MethodInvocation<T1, T2, T3, T4> m && _match1.Matches(m.Parameter1) &&
+		   _match2.Matches(m.Parameter2) && _match3.Matches(m.Parameter3) && _match4.Matches(m.Parameter4);
+
 	public string Describe(Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, IParameter<T4>?, string> expectation)
 		=> expectation(_parameter1, _parameter2, _parameter3, _parameter4);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 1-parameter method buffer and a captured literal value.
-///     Sibling of <see cref="Method1CountSource{T1}" /> that fuses the expected value into the source so
+///     Sibling of <see cref="Method1CountSource{TVerify, T1}" /> that fuses the expected value into the source so
 ///     no <see cref="IParameterMatch{T1}" /> wrapper has to be allocated for bare-value verifies.
-///     Also exposes <see cref="Matches" /> so the verify predicate can be passed as a method group on this
-///     instance instead of a capturing lambda, keeping the fast verify path free of closure allocations.
 /// </summary>
-internal sealed class Method1LiteralCountSource<T1> : IFastMethodCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method1LiteralCountSource<TVerify, T1> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
 {
 	private readonly FastMethod1Buffer<T1> _buffer;
 	private readonly T1 _value1;
 
-	public Method1LiteralCountSource(FastMethod1Buffer<T1> buffer, T1 value1)
+	public Method1LiteralCountSource(TVerify verify, IMockInteractions interactions, FastMethod1Buffer<T1> buffer,
+		string methodName, T1 value1,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_value1 = value1;
@@ -179,13 +230,19 @@ internal sealed class Method1LiteralCountSource<T1> : IFastMethodCountSource
 /// <summary>
 ///     Allocation-free count source backed by a 2-parameter method buffer and captured literal values.
 /// </summary>
-internal sealed class Method2LiteralCountSource<T1, T2> : IFastMethodCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method2LiteralCountSource<TVerify, T1, T2> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
 {
 	private readonly FastMethod2Buffer<T1, T2> _buffer;
 	private readonly T1 _value1;
 	private readonly T2 _value2;
 
-	public Method2LiteralCountSource(FastMethod2Buffer<T1, T2> buffer, T1 value1, T2 value2)
+	public Method2LiteralCountSource(TVerify verify, IMockInteractions interactions, FastMethod2Buffer<T1, T2> buffer,
+		string methodName, T1 value1, T2 value2,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_value1 = value1;
@@ -207,14 +264,20 @@ internal sealed class Method2LiteralCountSource<T1, T2> : IFastMethodCountSource
 /// <summary>
 ///     Allocation-free count source backed by a 3-parameter method buffer and captured literal values.
 /// </summary>
-internal sealed class Method3LiteralCountSource<T1, T2, T3> : IFastMethodCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method3LiteralCountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
 {
 	private readonly FastMethod3Buffer<T1, T2, T3> _buffer;
 	private readonly T1 _value1;
 	private readonly T2 _value2;
 	private readonly T3 _value3;
 
-	public Method3LiteralCountSource(FastMethod3Buffer<T1, T2, T3> buffer, T1 value1, T2 value2, T3 value3)
+	public Method3LiteralCountSource(TVerify verify, IMockInteractions interactions, FastMethod3Buffer<T1, T2, T3> buffer,
+		string methodName, T1 value1, T2 value2, T3 value3,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_value1 = value1;
@@ -238,7 +301,12 @@ internal sealed class Method3LiteralCountSource<T1, T2, T3> : IFastMethodCountSo
 /// <summary>
 ///     Allocation-free count source backed by a 4-parameter method buffer and captured literal values.
 /// </summary>
-internal sealed class Method4LiteralCountSource<T1, T2, T3, T4> : IFastMethodCountSource
+#pragma warning disable S2436 // Types and methods should not have too many generic parameters
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method4LiteralCountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+#pragma warning restore S2436
 {
 	private readonly FastMethod4Buffer<T1, T2, T3, T4> _buffer;
 	private readonly T1 _value1;
@@ -246,8 +314,12 @@ internal sealed class Method4LiteralCountSource<T1, T2, T3, T4> : IFastMethodCou
 	private readonly T3 _value3;
 	private readonly T4 _value4;
 
-	public Method4LiteralCountSource(FastMethod4Buffer<T1, T2, T3, T4> buffer,
-		T1 value1, T2 value2, T3 value3, T4 value4)
+#pragma warning disable S107 // Methods should not have too many parameters
+	public Method4LiteralCountSource(TVerify verify, IMockInteractions interactions, FastMethod4Buffer<T1, T2, T3, T4> buffer,
+		string methodName, T1 value1, T2 value2, T3 value3, T4 value4,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
+#pragma warning restore S107
 	{
 		_buffer = buffer;
 		_value1 = value1;
@@ -273,63 +345,91 @@ internal sealed class Method4LiteralCountSource<T1, T2, T3, T4> : IFastMethodCou
 /// <summary>
 ///     Allocation-free count source backed by a property getter buffer.
 /// </summary>
-internal sealed class PropertyGetterCountSource : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class PropertyGetterCountSource<TVerify> : VerificationResult<TVerify>, IFastCountSource
 {
 	private readonly FastPropertyGetterBuffer _buffer;
 
-	public PropertyGetterCountSource(FastPropertyGetterBuffer buffer)
+	public PropertyGetterCountSource(TVerify verify, IMockInteractions interactions, FastPropertyGetterBuffer buffer,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 	}
 
 	public int Count() => _buffer.ConsumeMatching();
+	public bool Matches(IInteraction interaction) => true;
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a property setter buffer and a typed value matcher.
 /// </summary>
-internal sealed class PropertySetterCountSource<T> : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class PropertySetterCountSource<TVerify, T> : VerificationResult<TVerify>, IFastCountSource
 {
 	private readonly FastPropertySetterBuffer<T> _buffer;
-	private readonly IParameterMatch<T> _match;
 
-	public PropertySetterCountSource(FastPropertySetterBuffer<T> buffer, IParameterMatch<T> match)
+	public PropertySetterCountSource(TVerify verify, IMockInteractions interactions, FastPropertySetterBuffer<T> buffer,
+		IParameterMatch<T> match, object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
-		_match = match;
+		Value = match;
 	}
 
-	public int Count() => _buffer.ConsumeMatching(_match);
+	public IParameterMatch<T> Value { get; }
+
+	public int Count() => _buffer.ConsumeMatching(Value);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is PropertySetterAccess<T> p && Value.Matches(p.Value);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 1-key indexer getter buffer.
 /// </summary>
-internal sealed class IndexerGetter1CountSource<T1> : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class IndexerGetter1CountSource<TVerify, T1> : VerificationResult<TVerify>, IFastCountSource
 {
 	private readonly FastIndexerGetterBuffer<T1> _buffer;
 	private readonly IParameterMatch<T1> _match1;
 
-	public IndexerGetter1CountSource(FastIndexerGetterBuffer<T1> buffer, IParameterMatch<T1> match1)
+	public IndexerGetter1CountSource(TVerify verify, IMockInteractions interactions, FastIndexerGetterBuffer<T1> buffer,
+		IParameterMatch<T1> match1, object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_match1 = match1;
 	}
 
 	public int Count() => _buffer.ConsumeMatching(_match1);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is IndexerGetterAccess<T1> g && _match1.Matches(g.Parameter1);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 2-key indexer getter buffer.
 /// </summary>
-internal sealed class IndexerGetter2CountSource<T1, T2> : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class IndexerGetter2CountSource<TVerify, T1, T2> : VerificationResult<TVerify>, IFastCountSource
 {
 	private readonly FastIndexerGetterBuffer<T1, T2> _buffer;
 	private readonly IParameterMatch<T1> _match1;
 	private readonly IParameterMatch<T2> _match2;
 
-	public IndexerGetter2CountSource(FastIndexerGetterBuffer<T1, T2> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<T2> match2)
+	public IndexerGetter2CountSource(TVerify verify, IMockInteractions interactions, FastIndexerGetterBuffer<T1, T2> buffer,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_match1 = match1;
@@ -337,20 +437,28 @@ internal sealed class IndexerGetter2CountSource<T1, T2> : IFastCountSource
 	}
 
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is IndexerGetterAccess<T1, T2> g && _match1.Matches(g.Parameter1) && _match2.Matches(g.Parameter2);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 3-key indexer getter buffer.
 /// </summary>
-internal sealed class IndexerGetter3CountSource<T1, T2, T3> : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class IndexerGetter3CountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>, IFastCountSource
 {
 	private readonly FastIndexerGetterBuffer<T1, T2, T3> _buffer;
 	private readonly IParameterMatch<T1> _match1;
 	private readonly IParameterMatch<T2> _match2;
 	private readonly IParameterMatch<T3> _match3;
 
-	public IndexerGetter3CountSource(FastIndexerGetterBuffer<T1, T2, T3> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3)
+	public IndexerGetter3CountSource(TVerify verify, IMockInteractions interactions, FastIndexerGetterBuffer<T1, T2, T3> buffer,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_match1 = match1;
@@ -359,12 +467,21 @@ internal sealed class IndexerGetter3CountSource<T1, T2, T3> : IFastCountSource
 	}
 
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is IndexerGetterAccess<T1, T2, T3> g && _match1.Matches(g.Parameter1) &&
+		   _match2.Matches(g.Parameter2) && _match3.Matches(g.Parameter3);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 4-key indexer getter buffer.
 /// </summary>
-internal sealed class IndexerGetter4CountSource<T1, T2, T3, T4> : IFastCountSource
+#pragma warning disable S2436 // Types and methods should not have too many generic parameters
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class IndexerGetter4CountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>, IFastCountSource
+#pragma warning restore S2436
 {
 	private readonly FastIndexerGetterBuffer<T1, T2, T3, T4> _buffer;
 	private readonly IParameterMatch<T1> _match1;
@@ -372,9 +489,13 @@ internal sealed class IndexerGetter4CountSource<T1, T2, T3, T4> : IFastCountSour
 	private readonly IParameterMatch<T3> _match3;
 	private readonly IParameterMatch<T4> _match4;
 
-	public IndexerGetter4CountSource(FastIndexerGetterBuffer<T1, T2, T3, T4> buffer,
+#pragma warning disable S107 // Methods should not have too many parameters
+	public IndexerGetter4CountSource(TVerify verify, IMockInteractions interactions, FastIndexerGetterBuffer<T1, T2, T3, T4> buffer,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
-		IParameterMatch<T3> match3, IParameterMatch<T4> match4)
+		IParameterMatch<T3> match3, IParameterMatch<T4> match4,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
+#pragma warning restore S107
 	{
 		_buffer = buffer;
 		_match1 = match1;
@@ -384,80 +505,120 @@ internal sealed class IndexerGetter4CountSource<T1, T2, T3, T4> : IFastCountSour
 	}
 
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3, _match4);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is IndexerGetterAccess<T1, T2, T3, T4> g && _match1.Matches(g.Parameter1) &&
+		   _match2.Matches(g.Parameter2) && _match3.Matches(g.Parameter3) && _match4.Matches(g.Parameter4);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 1-key indexer setter buffer.
 /// </summary>
-internal sealed class IndexerSetter1CountSource<T1, TValue> : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class IndexerSetter1CountSource<TVerify, T1, TValue> : VerificationResult<TVerify>, IFastCountSource
 {
 	private readonly FastIndexerSetterBuffer<T1, TValue> _buffer;
 	private readonly IParameterMatch<T1> _match1;
-	private readonly IParameterMatch<TValue> _matchValue;
 
-	public IndexerSetter1CountSource(FastIndexerSetterBuffer<T1, TValue> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<TValue> matchValue)
+	public IndexerSetter1CountSource(TVerify verify, IMockInteractions interactions, FastIndexerSetterBuffer<T1, TValue> buffer,
+		IParameterMatch<T1> match1, IParameterMatch<TValue> matchValue,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_match1 = match1;
-		_matchValue = matchValue;
+		Value = matchValue;
 	}
 
-	public int Count() => _buffer.ConsumeMatching(_match1, _matchValue);
+	public IParameterMatch<TValue> Value { get; }
+
+	public int Count() => _buffer.ConsumeMatching(_match1, Value);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is IndexerSetterAccess<T1, TValue> s && _match1.Matches(s.Parameter1) && Value.Matches(s.TypedValue);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 2-key indexer setter buffer.
 /// </summary>
-internal sealed class IndexerSetter2CountSource<T1, T2, TValue> : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class IndexerSetter2CountSource<TVerify, T1, T2, TValue> : VerificationResult<TVerify>, IFastCountSource
 {
 	private readonly FastIndexerSetterBuffer<T1, T2, TValue> _buffer;
 	private readonly IParameterMatch<T1> _match1;
 	private readonly IParameterMatch<T2> _match2;
-	private readonly IParameterMatch<TValue> _matchValue;
 
-	public IndexerSetter2CountSource(FastIndexerSetterBuffer<T1, T2, TValue> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<TValue> matchValue)
+	public IndexerSetter2CountSource(TVerify verify, IMockInteractions interactions, FastIndexerSetterBuffer<T1, T2, TValue> buffer,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<TValue> matchValue,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 		_match1 = match1;
 		_match2 = match2;
-		_matchValue = matchValue;
+		Value = matchValue;
 	}
 
-	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _matchValue);
+	public IParameterMatch<TValue> Value { get; }
+
+	public int Count() => _buffer.ConsumeMatching(_match1, _match2, Value);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is IndexerSetterAccess<T1, T2, TValue> s && _match1.Matches(s.Parameter1) &&
+		   _match2.Matches(s.Parameter2) && Value.Matches(s.TypedValue);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 3-key indexer setter buffer.
 /// </summary>
-internal sealed class IndexerSetter3CountSource<T1, T2, T3, TValue> : IFastCountSource
+#pragma warning disable S2436 // Types and methods should not have too many generic parameters
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class IndexerSetter3CountSource<TVerify, T1, T2, T3, TValue> : VerificationResult<TVerify>, IFastCountSource
+#pragma warning restore S2436
 {
 	private readonly FastIndexerSetterBuffer<T1, T2, T3, TValue> _buffer;
 	private readonly IParameterMatch<T1> _match1;
 	private readonly IParameterMatch<T2> _match2;
 	private readonly IParameterMatch<T3> _match3;
-	private readonly IParameterMatch<TValue> _matchValue;
 
-	public IndexerSetter3CountSource(FastIndexerSetterBuffer<T1, T2, T3, TValue> buffer,
+#pragma warning disable S107 // Methods should not have too many parameters
+	public IndexerSetter3CountSource(TVerify verify, IMockInteractions interactions, FastIndexerSetterBuffer<T1, T2, T3, TValue> buffer,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
-		IParameterMatch<T3> match3, IParameterMatch<TValue> matchValue)
+		IParameterMatch<T3> match3, IParameterMatch<TValue> matchValue,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
+#pragma warning restore S107
 	{
 		_buffer = buffer;
 		_match1 = match1;
 		_match2 = match2;
 		_match3 = match3;
-		_matchValue = matchValue;
+		Value = matchValue;
 	}
 
-	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3, _matchValue);
+	public IParameterMatch<TValue> Value { get; }
+
+	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3, Value);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is IndexerSetterAccess<T1, T2, T3, TValue> s && _match1.Matches(s.Parameter1) &&
+		   _match2.Matches(s.Parameter2) && _match3.Matches(s.Parameter3) && Value.Matches(s.TypedValue);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by a 4-key indexer setter buffer.
 /// </summary>
 #pragma warning disable S2436 // Types and methods should not have too many generic parameters
-internal sealed class IndexerSetter4CountSource<T1, T2, T3, T4, TValue> : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class IndexerSetter4CountSource<TVerify, T1, T2, T3, T4, TValue> : VerificationResult<TVerify>, IFastCountSource
 #pragma warning restore S2436 // Types and methods should not have too many generic parameters
 {
 	private readonly FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> _buffer;
@@ -465,34 +626,50 @@ internal sealed class IndexerSetter4CountSource<T1, T2, T3, T4, TValue> : IFastC
 	private readonly IParameterMatch<T2> _match2;
 	private readonly IParameterMatch<T3> _match3;
 	private readonly IParameterMatch<T4> _match4;
-	private readonly IParameterMatch<TValue> _matchValue;
 
-	public IndexerSetter4CountSource(FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> buffer,
+#pragma warning disable S107 // Methods should not have too many parameters
+	public IndexerSetter4CountSource(TVerify verify, IMockInteractions interactions, FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> buffer,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
-		IParameterMatch<T3> match3, IParameterMatch<T4> match4, IParameterMatch<TValue> matchValue)
+		IParameterMatch<T3> match3, IParameterMatch<T4> match4, IParameterMatch<TValue> matchValue,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
+#pragma warning restore S107
 	{
 		_buffer = buffer;
 		_match1 = match1;
 		_match2 = match2;
 		_match3 = match3;
 		_match4 = match4;
-		_matchValue = matchValue;
+		Value = matchValue;
 	}
 
-	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3, _match4, _matchValue);
+	public IParameterMatch<TValue> Value { get; }
+
+	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3, _match4, Value);
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is IndexerSetterAccess<T1, T2, T3, T4, TValue> s && _match1.Matches(s.Parameter1) &&
+		   _match2.Matches(s.Parameter2) && _match3.Matches(s.Parameter3) && _match4.Matches(s.Parameter4) &&
+		   Value.Matches(s.TypedValue);
 }
 
 /// <summary>
 ///     Allocation-free count source backed by an event subscribe/unsubscribe buffer.
 /// </summary>
-internal sealed class EventCountSource : IFastCountSource
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class EventCountSource<TVerify> : VerificationResult<TVerify>, IFastCountSource
 {
 	private readonly FastEventBuffer _buffer;
 
-	public EventCountSource(FastEventBuffer buffer)
+	public EventCountSource(TVerify verify, IMockInteractions interactions, FastEventBuffer buffer,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, expectationArgument, expectationFactory)
 	{
 		_buffer = buffer;
 	}
 
 	public int Count() => _buffer.ConsumeMatching();
+	public bool Matches(IInteraction interaction) => true;
 }

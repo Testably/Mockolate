@@ -62,6 +62,72 @@ public class TypedVerifyFastPathTests
 	}
 
 	[Test]
+	public async Task IndexerGotTyped_FourKeys_ShouldCollectMatchesAndDescribeExpectation()
+	{
+		FastMockInteractions store = new(1);
+		FastIndexerGetterBuffer<int, int, int, int> buffer =
+			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, int, int, int>>(0,
+				static f => new FastIndexerGetterBuffer<int, int, int, int>(f));
+		MockRegistry registry = new(MockBehavior.Default, store);
+		buffer.Append(1, 2, 3, 4);
+		buffer.Append(1, 2, 3, 5);
+		buffer.Append(1, 2, 3, 4);
+
+		VerificationResult<object> result = registry.IndexerGotTyped(new object(), 0,
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<int>)It.Is(2),
+			(IParameterMatch<int>)It.Is(3),
+			(IParameterMatch<int>)It.Is(4),
+			() => "[1, 2, 3, 4]");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("got indexer [1, 2, 3, 4]");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
+	}
+
+	[Test]
+	public async Task IndexerGotTyped_ThreeKeys_ShouldCollectMatchesAndDescribeExpectation()
+	{
+		FastMockInteractions store = new(1);
+		FastIndexerGetterBuffer<int, int, int> buffer =
+			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, int, int>>(0,
+				static f => new FastIndexerGetterBuffer<int, int, int>(f));
+		MockRegistry registry = new(MockBehavior.Default, store);
+		buffer.Append(1, 2, 3);
+		buffer.Append(1, 2, 4);
+		buffer.Append(1, 2, 3);
+
+		VerificationResult<object> result = registry.IndexerGotTyped(new object(), 0,
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<int>)It.Is(2),
+			(IParameterMatch<int>)It.Is(3),
+			() => "[1, 2, 3]");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("got indexer [1, 2, 3]");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
+	}
+
+	[Test]
+	public async Task IndexerGotTyped_TwoKeys_ShouldCollectMatchesAndDescribeExpectation()
+	{
+		FastMockInteractions store = new(1);
+		FastIndexerGetterBuffer<int, int> buffer =
+			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, int>>(0,
+				static f => new FastIndexerGetterBuffer<int, int>(f));
+		MockRegistry registry = new(MockBehavior.Default, store);
+		buffer.Append(1, 2);
+		buffer.Append(1, 3);
+		buffer.Append(1, 2);
+
+		VerificationResult<object> result = registry.IndexerGotTyped(new object(), 0,
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<int>)It.Is(2),
+			() => "[1, 2]");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("got indexer [1, 2]");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
+	}
+
+	[Test]
 	public async Task IndexerGotTyped_WithBuffer_ProducesParametersDescriptionInExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -136,6 +202,53 @@ public class TypedVerifyFastPathTests
 
 		await That(((IVerificationResult)result).Expectation).Contains("set indexer (5)");
 		await That(((IVerificationResult)result).Expectation).Contains(value.ToString()!);
+	}
+
+	[Test]
+	public async Task IndexerSetTyped_FourKeys_ShouldCollectMatchesAndDescribeExpectation()
+	{
+		FastMockInteractions store = new(1);
+		FastIndexerSetterBuffer<int, int, int, int, string> buffer =
+			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, int, int, int, string>>(0,
+				static f => new FastIndexerSetterBuffer<int, int, int, int, string>(f));
+		MockRegistry registry = new(MockBehavior.Default, store);
+		buffer.Append(1, 2, 3, 4, "v");
+		buffer.Append(1, 2, 3, 4, "w");
+		buffer.Append(1, 2, 3, 5, "v");
+
+		VerificationResult<object> result = registry.IndexerSetTyped(new object(), 0,
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<int>)It.Is(2),
+			(IParameterMatch<int>)It.Is(3),
+			(IParameterMatch<int>)It.Is(4),
+			(IParameterMatch<string>)It.Is("v"),
+			() => "[1, 2, 3, 4]");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("set indexer [1, 2, 3, 4] to \"v\"");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	public async Task IndexerSetTyped_ThreeKeys_ShouldCollectMatchesAndDescribeExpectation()
+	{
+		FastMockInteractions store = new(1);
+		FastIndexerSetterBuffer<int, int, int, string> buffer =
+			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, int, int, string>>(0,
+				static f => new FastIndexerSetterBuffer<int, int, int, string>(f));
+		MockRegistry registry = new(MockBehavior.Default, store);
+		buffer.Append(1, 2, 3, "v");
+		buffer.Append(1, 2, 3, "w");
+		buffer.Append(1, 2, 4, "v");
+
+		VerificationResult<object> result = registry.IndexerSetTyped(new object(), 0,
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<int>)It.Is(2),
+			(IParameterMatch<int>)It.Is(3),
+			(IParameterMatch<string>)It.Is("v"),
+			() => "[1, 2, 3]");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("set indexer [1, 2, 3] to \"v\"");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
 	}
 
 	[Test]

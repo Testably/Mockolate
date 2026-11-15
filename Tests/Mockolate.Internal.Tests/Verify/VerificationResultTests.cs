@@ -77,6 +77,107 @@ public class VerificationResultTests
 		}
 
 		[Test]
+		public async Task Verify_WithFastPathAnyParameters_ShouldCollectAllInteractions()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo", 1);
+			buffer.Append("Foo", 2);
+			buffer.Append("Foo", 3);
+
+			VerificationResult<object> awaitable = registry.VerifyMethod(
+					new object(), 0, "Foo", (IParameterMatch<int>)It.Is(1), () => "Foo(1)")
+				.AnyParameters()
+				.Within(1.Seconds());
+
+			int observedLength = -1;
+			bool verified = ((IVerificationResult)awaitable).Verify(arr =>
+			{
+				observedLength = arr.Length;
+				return true;
+			});
+
+			await That(verified).IsTrue();
+			await That(observedLength).IsEqualTo(3);
+		}
+
+		[Test]
+		public async Task Verify_WithFastPathLiteralSource_ShouldCollectOnlyMatchingInteractions()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo", 10);
+			buffer.Append("Foo", 20);
+			buffer.Append("Foo", 10);
+
+			VerificationResult<object> awaitable = registry.VerifyMethod(
+					new object(), 0, "Foo", 10, static v => $"Foo({v})")
+				.Within(1.Seconds());
+
+			int observedLength = -1;
+			bool verified = ((IVerificationResult)awaitable).Verify(arr =>
+			{
+				observedLength = arr.Length;
+				return true;
+			});
+
+			await That(verified).IsTrue();
+			await That(observedLength).IsEqualTo(2);
+		}
+
+		[Test]
+		public async Task Verify_WithFastPathLiteralSource_WhenNeverSatisfied_ShouldTimeOut()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo", 10);
+			buffer.Append("Foo", 20);
+
+			VerificationResult<object> awaitable = registry.VerifyMethod(
+					new object(), 0, "Foo", 10, static v => $"Foo({v})")
+				.Within(50.Milliseconds());
+
+			void Act()
+			{
+				((IVerificationResult)awaitable).Verify(arr => arr.Length == 2);
+			}
+
+			await That(Act).Throws<MockVerificationTimeoutException>();
+		}
+
+		[Test]
+		public async Task VerifyAsync_WithFastPathLiteralSource_ShouldCollectOnlyMatchingInteractions()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo", 10);
+			buffer.Append("Foo", 20);
+			buffer.Append("Foo", 10);
+
+			VerificationResult<object> awaitable = registry.VerifyMethod(
+					new object(), 0, "Foo", 10, static v => $"Foo({v})")
+				.WithCancellation(CancellationToken.None);
+
+			int observedLength = -1;
+			bool verified = await ((IAsyncVerificationResult)awaitable).VerifyAsync(arr =>
+			{
+				observedLength = arr.Length;
+				return true;
+			});
+
+			await That(verified).IsTrue();
+			await That(observedLength).IsEqualTo(2);
+		}
+
+		[Test]
 		public async Task VerifyCount_WhenPredicateNeverSatisfies_ShouldTimeOut()
 		{
 			FastMockInteractions store = new(1);
@@ -263,6 +364,33 @@ public class VerificationResultTests
 		}
 
 		[Test]
+		public async Task Map_WithFastPathSource_ShouldCollectOnlyInteractionsMatchingTheSource()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo", 1);
+			buffer.Append("Foo", 2);
+			buffer.Append("Foo", 1);
+
+			VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod(
+				new object(), 0, "Foo", (IParameterMatch<int>)It.Is(1), () => "Foo(1)");
+
+			VerificationResult<string> mapped = result.Map("newMock");
+
+			int observedLength = -1;
+			bool verified = ((IVerificationResult)mapped).Verify(arr =>
+			{
+				observedLength = arr.Length;
+				return true;
+			});
+
+			await That(verified).IsTrue();
+			await That(observedLength).IsEqualTo(2);
+		}
+
+		[Test]
 		public async Task Map_WithoutBuffer_StillCarriesPredicate()
 		{
 			FastMockInteractions store = new(0);
@@ -407,6 +535,35 @@ public class VerificationResultTests
 
 			await That(verified).IsTrue();
 			await That(observed).IsEqualTo(0);
+		}
+
+		[Test]
+		public async Task WithFastPathSource_ShouldCollectOnlyInteractionsMatchingTheSource()
+		{
+			FastMockInteractions store = new(1);
+			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			buffer.Append("Foo", 10);
+			buffer.Append("Foo", 20);
+			buffer.Append("Foo", 10);
+
+			VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod(
+				new object(), 0, "Foo", 10, static v => $"Foo({v})");
+
+			List<int> values = new();
+			bool verified = ((IVerificationResult)result).Verify(arr =>
+			{
+				foreach (IInteraction interaction in arr)
+				{
+					values.Add(((MethodInvocation<int>)interaction).Parameter1);
+				}
+
+				return true;
+			});
+
+			await That(verified).IsTrue();
+			await That(values).IsEqualTo([10, 10,]);
 		}
 	}
 
