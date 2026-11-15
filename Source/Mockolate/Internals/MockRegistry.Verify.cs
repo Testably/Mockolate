@@ -31,7 +31,7 @@ public partial class MockRegistry
 			methodName,
 			Predicate,
 			OverloadFilter,
-			() => $"invoked method {expectation()}");
+			InvokedMethodExpectation(expectation));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -74,7 +74,7 @@ public partial class MockRegistry
 			buffer,
 			methodName,
 			Predicate,
-			() => $"invoked method {expectation()}");
+			InvokedMethodExpectation(expectation));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -95,7 +95,7 @@ public partial class MockRegistry
 		return new VerificationResult<T>(subject,
 			Interactions,
 			Predicate,
-			() => $"got property {propertyName.SubstringAfterLast('.')}");
+			GotPropertyExpectation(propertyName));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -125,7 +125,7 @@ public partial class MockRegistry
 			Interactions,
 			buffer,
 			static _ => true,
-			() => $"got property {propertyName.SubstringAfterLast('.')}");
+			GotPropertyExpectation(propertyName));
 	}
 
 	/// <summary>
@@ -144,7 +144,7 @@ public partial class MockRegistry
 		return new VerificationResult<TSubject>(subject,
 			Interactions,
 			Predicate,
-			() => $"set property {propertyName.SubstringAfterLast('.')} to {value}");
+			SetPropertyExpectation(propertyName, value));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -179,7 +179,7 @@ public partial class MockRegistry
 			Interactions,
 			buffer,
 			Predicate,
-			() => $"set property {propertyName.SubstringAfterLast('.')} to {value}");
+			SetPropertyExpectation(propertyName, value));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -209,7 +209,7 @@ public partial class MockRegistry
 			Interactions,
 			methodSetup.Name,
 			Predicate,
-			() => $"invoked method {methodSetup}");
+			InvokedMethodSetupExpectation(methodSetup));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -234,7 +234,7 @@ public partial class MockRegistry
 		=> new(subject,
 			Interactions,
 			gotPredicate,
-			() => $"got indexer {parametersDescription()}");
+			GotIndexerExpectation(parametersDescription));
 
 	/// <summary>
 	///     Member-id-keyed fast-path overload of
@@ -253,7 +253,7 @@ public partial class MockRegistry
 			Interactions,
 			TryGetBuffer(memberId),
 			gotPredicate,
-			() => $"got indexer {parametersDescription()}");
+			GotIndexerExpectation(parametersDescription));
 
 	/// <summary>
 	///     Counts indexer setter accesses on <paramref name="subject" /> where the recorded interaction matches
@@ -274,7 +274,7 @@ public partial class MockRegistry
 		return new VerificationResult<T>(subject,
 			Interactions,
 			Predicate,
-			() => $"set indexer {parametersDescription()} to {value}");
+			SetIndexerExpectation(parametersDescription, value));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -304,7 +304,7 @@ public partial class MockRegistry
 			Interactions,
 			TryGetBuffer(memberId),
 			Predicate,
-			() => $"set indexer {parametersDescription()} to {value}");
+			SetIndexerExpectation(parametersDescription, value));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -324,7 +324,7 @@ public partial class MockRegistry
 	{
 		return new VerificationResult<T>(subject, Interactions,
 			Predicate,
-			() => $"subscribed to event {eventName.SubstringAfterLast('.')}");
+			SubscribedToEventExpectation(eventName));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -353,7 +353,7 @@ public partial class MockRegistry
 		return new VerificationResult<T>(subject, Interactions,
 			buffer,
 			static _ => true,
-			() => $"subscribed to event {eventName.SubstringAfterLast('.')}");
+			SubscribedToEventExpectation(eventName));
 	}
 
 	/// <summary>
@@ -367,7 +367,7 @@ public partial class MockRegistry
 	{
 		return new VerificationResult<T>(subject, Interactions,
 			Predicate,
-			() => $"unsubscribed from event {eventName.SubstringAfterLast('.')}");
+			UnsubscribedFromEventExpectation(eventName));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
@@ -396,7 +396,7 @@ public partial class MockRegistry
 		return new VerificationResult<T>(subject, Interactions,
 			buffer,
 			static _ => true,
-			() => $"unsubscribed from event {eventName.SubstringAfterLast('.')}");
+			UnsubscribedFromEventExpectation(eventName));
 	}
 
 	/// <summary>
@@ -414,7 +414,7 @@ public partial class MockRegistry
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				static _ => true,
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, IMethodInteraction>(subject, methodName, _ => true, expectation);
@@ -429,11 +429,11 @@ public partial class MockRegistry
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is FastMethod1Buffer<T1> typed)
 		{
-			Method1CountSource<T1> source = new(typed, match1);
+			Method1CountSource<T1> source = new(typed, match1, null);
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				interaction => interaction is MethodInvocation<T1> m && match1.Matches(m.Parameter1),
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1>>(subject, methodName,
@@ -449,11 +449,11 @@ public partial class MockRegistry
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is FastMethod2Buffer<T1, T2> typed)
 		{
-			Method2CountSource<T1, T2> source = new(typed, match1, match2);
+			Method2CountSource<T1, T2> source = new(typed, match1, match2, null, null);
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				interaction => interaction is MethodInvocation<T1, T2> m && match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2),
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1, T2>>(subject, methodName,
@@ -469,11 +469,11 @@ public partial class MockRegistry
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is FastMethod3Buffer<T1, T2, T3> typed)
 		{
-			Method3CountSource<T1, T2, T3> source = new(typed, match1, match2, match3);
+			Method3CountSource<T1, T2, T3> source = new(typed, match1, match2, match3, null, null, null);
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				interaction => interaction is MethodInvocation<T1, T2, T3> m && match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2) && match3.Matches(m.Parameter3),
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1, T2, T3>>(subject, methodName,
@@ -490,11 +490,12 @@ public partial class MockRegistry
 		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
 		if (buffer is FastMethod4Buffer<T1, T2, T3, T4> typed)
 		{
-			Method4CountSource<T1, T2, T3, T4> source = new(typed, match1, match2, match3, match4);
+			Method4CountSource<T1, T2, T3, T4> source = new(typed, match1, match2, match3, match4,
+				null, null, null, null);
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				interaction => interaction is MethodInvocation<T1, T2, T3, T4> m && match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2) && match3.Matches(m.Parameter3) && match4.Matches(m.Parameter4),
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1, T2, T3, T4>>(subject, methodName,
@@ -517,7 +518,7 @@ public partial class MockRegistry
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				source.Matches,
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1>>(subject, methodName,
@@ -537,7 +538,7 @@ public partial class MockRegistry
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				source.Matches,
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1, T2>>(subject, methodName,
@@ -558,7 +559,7 @@ public partial class MockRegistry
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				source.Matches,
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1, T2, T3>>(subject, methodName,
@@ -581,7 +582,7 @@ public partial class MockRegistry
 			return new VerificationResult<T>.IgnoreParameters(
 				subject, Interactions, buffer, source, methodName,
 				source.Matches,
-				() => $"invoked method {expectation()}");
+				InvokedMethodExpectation(expectation));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1, T2, T3, T4>>(subject, methodName,
@@ -590,6 +591,303 @@ public partial class MockRegistry
 			     EqualityComparer<T3>.Default.Equals(literalValue3, m.Parameter3) &&
 			     EqualityComparer<T4>.Default.Equals(literalValue4, m.Parameter4), expectation);
 	}
+
+	/// <summary>
+	///     Typed fast-path Verify for 1-parameter methods. The failure message is built from
+	///     <paramref name="parameter1" /> only when the verification fails.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="match1">The matcher for the first parameter.</param>
+	/// <param name="parameter1">The first parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1>(T subject, int memberId, string methodName,
+		IParameterMatch<T1> match1, IParameter<T1>? parameter1, Func<IParameter<T1>?, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod1Buffer<T1> typed)
+		{
+			Method1CountSource<T1> source = new(typed, match1, parameter1);
+			return new VerificationResult<T>.IgnoreParameters(
+				subject, Interactions, typed, source, methodName,
+				interaction => interaction is MethodInvocation<T1> m && match1.Matches(m.Parameter1),
+				new VerificationExpectation(source, expectation, static (state, format)
+					=> $"invoked method {((Method1CountSource<T1>)state!).Describe((Func<IParameter<T1>?, string>)format!)}"));
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, match1, parameter1, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1>(T subject, string methodName,
+		IParameterMatch<T1> match1, IParameter<T1>? parameter1, Func<IParameter<T1>?, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1>>(subject, methodName,
+			m => match1.Matches(m.Parameter1),
+			() => expectation(parameter1));
+
+	/// <summary>
+	///     Typed fast-path Verify for 2-parameter methods. The failure message is built from the parameters as
+	///     passed by the caller only when the verification fails.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="match1">The matcher for the first parameter.</param>
+	/// <param name="match2">The matcher for the second parameter.</param>
+	/// <param name="parameter1">The first parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="parameter2">The second parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+#pragma warning disable S107 // Methods should not have too many parameters
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2>(T subject, int memberId, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2,
+		Func<IParameter<T1>?, IParameter<T2>?, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod2Buffer<T1, T2> typed)
+		{
+			Method2CountSource<T1, T2> source = new(typed, match1, match2, parameter1, parameter2);
+			return new VerificationResult<T>.IgnoreParameters(
+				subject, Interactions, typed, source, methodName,
+				interaction => interaction is MethodInvocation<T1, T2> m && match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2),
+				new VerificationExpectation(source, expectation, static (state, format)
+					=> $"invoked method {((Method2CountSource<T1, T2>)state!).Describe((Func<IParameter<T1>?, IParameter<T2>?, string>)format!)}"));
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, parameter1, parameter2, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2>(T subject, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2,
+		Func<IParameter<T1>?, IParameter<T2>?, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2>>(subject, methodName,
+			m => match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2),
+			() => expectation(parameter1, parameter2));
+
+	/// <summary>
+	///     Typed fast-path Verify for 3-parameter methods. The failure message is built from the parameters as
+	///     passed by the caller only when the verification fails.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="match1">The matcher for the first parameter.</param>
+	/// <param name="match2">The matcher for the second parameter.</param>
+	/// <param name="match3">The matcher for the third parameter.</param>
+	/// <param name="parameter1">The first parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="parameter2">The second parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="parameter3">The third parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3>(T subject, int memberId, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3,
+		Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod3Buffer<T1, T2, T3> typed)
+		{
+			Method3CountSource<T1, T2, T3> source = new(typed, match1, match2, match3, parameter1, parameter2, parameter3);
+			return new VerificationResult<T>.IgnoreParameters(
+				subject, Interactions, typed, source, methodName,
+				interaction => interaction is MethodInvocation<T1, T2, T3> m && match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2) && match3.Matches(m.Parameter3),
+				new VerificationExpectation(source, expectation, static (state, format)
+					=> $"invoked method {((Method3CountSource<T1, T2, T3>)state!).Describe((Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, string>)format!)}"));
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, match3,
+			parameter1, parameter2, parameter3, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3>(T subject, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3,
+		Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2, T3>>(subject, methodName,
+			m => match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2) && match3.Matches(m.Parameter3),
+			() => expectation(parameter1, parameter2, parameter3));
+
+	/// <summary>
+	///     Typed fast-path Verify for 4-parameter methods. The failure message is built from the parameters as
+	///     passed by the caller only when the verification fails.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="match1">The matcher for the first parameter.</param>
+	/// <param name="match2">The matcher for the second parameter.</param>
+	/// <param name="match3">The matcher for the third parameter.</param>
+	/// <param name="match4">The matcher for the fourth parameter.</param>
+	/// <param name="parameter1">The first parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="parameter2">The second parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="parameter3">The third parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="parameter4">The fourth parameter as passed by the caller, used for the failure message.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3, T4>(T subject, int memberId, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3, IParameter<T4>? parameter4,
+		Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, IParameter<T4>?, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod4Buffer<T1, T2, T3, T4> typed)
+		{
+			Method4CountSource<T1, T2, T3, T4> source = new(typed, match1, match2, match3, match4,
+				parameter1, parameter2, parameter3, parameter4);
+			return new VerificationResult<T>.IgnoreParameters(
+				subject, Interactions, typed, source, methodName,
+				interaction => interaction is MethodInvocation<T1, T2, T3, T4> m && match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2) && match3.Matches(m.Parameter3) && match4.Matches(m.Parameter4),
+				new VerificationExpectation(source, expectation, static (state, format)
+					=> $"invoked method {((Method4CountSource<T1, T2, T3, T4>)state!).Describe((Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, IParameter<T4>?, string>)format!)}"));
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, match3, match4,
+			parameter1, parameter2, parameter3, parameter4, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3, T4>(T subject, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3, IParameter<T4>? parameter4,
+		Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, IParameter<T4>?, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2, T3, T4>>(subject, methodName,
+			m => match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2) && match3.Matches(m.Parameter3) && match4.Matches(m.Parameter4),
+			() => expectation(parameter1, parameter2, parameter3, parameter4));
+#pragma warning restore S107
+
+	/// <summary>
+	///     Literal-value fast-path Verify for 1-parameter methods. The failure message is built from
+	///     <paramref name="literalValue1" /> only when the verification fails.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="literalValue1">The expected value of the first parameter.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1>(T subject, int memberId, string methodName,
+		T1 literalValue1, Func<T1, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod1Buffer<T1> typed)
+		{
+			Method1LiteralCountSource<T1> source = new(typed, literalValue1);
+			return new VerificationResult<T>.IgnoreParameters(
+				subject, Interactions, typed, source, methodName,
+				source.Matches,
+				new VerificationExpectation(source, expectation, static (state, format)
+					=> $"invoked method {((Method1LiteralCountSource<T1>)state!).Describe((Func<T1, string>)format!)}"));
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, literalValue1, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1>(T subject, string methodName,
+		T1 literalValue1, Func<T1, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1>>(subject, methodName,
+			m => EqualityComparer<T1>.Default.Equals(literalValue1, m.Parameter1),
+			() => expectation(literalValue1));
+
+	/// <summary>
+	///     Literal-value fast-path Verify for 2-parameter methods. The failure message is built from the literal
+	///     values only when the verification fails.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="literalValue1">The expected value of the first parameter.</param>
+	/// <param name="literalValue2">The expected value of the second parameter.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2>(T subject, int memberId, string methodName,
+		T1 literalValue1, T2 literalValue2, Func<T1, T2, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod2Buffer<T1, T2> typed)
+		{
+			Method2LiteralCountSource<T1, T2> source = new(typed, literalValue1, literalValue2);
+			return new VerificationResult<T>.IgnoreParameters(
+				subject, Interactions, typed, source, methodName,
+				source.Matches,
+				new VerificationExpectation(source, expectation, static (state, format)
+					=> $"invoked method {((Method2LiteralCountSource<T1, T2>)state!).Describe((Func<T1, T2, string>)format!)}"));
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, literalValue1, literalValue2, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2>(T subject, string methodName,
+		T1 literalValue1, T2 literalValue2, Func<T1, T2, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2>>(subject, methodName,
+			m => EqualityComparer<T1>.Default.Equals(literalValue1, m.Parameter1) &&
+			     EqualityComparer<T2>.Default.Equals(literalValue2, m.Parameter2),
+			() => expectation(literalValue1, literalValue2));
+
+	/// <summary>
+	///     Literal-value fast-path Verify for 3-parameter methods. The failure message is built from the literal
+	///     values only when the verification fails.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="literalValue1">The expected value of the first parameter.</param>
+	/// <param name="literalValue2">The expected value of the second parameter.</param>
+	/// <param name="literalValue3">The expected value of the third parameter.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3>(T subject, int memberId, string methodName,
+		T1 literalValue1, T2 literalValue2, T3 literalValue3, Func<T1, T2, T3, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod3Buffer<T1, T2, T3> typed)
+		{
+			Method3LiteralCountSource<T1, T2, T3> source = new(typed, literalValue1, literalValue2, literalValue3);
+			return new VerificationResult<T>.IgnoreParameters(
+				subject, Interactions, typed, source, methodName,
+				source.Matches,
+				new VerificationExpectation(source, expectation, static (state, format)
+					=> $"invoked method {((Method3LiteralCountSource<T1, T2, T3>)state!).Describe((Func<T1, T2, T3, string>)format!)}"));
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, literalValue1, literalValue2, literalValue3, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3>(T subject, string methodName,
+		T1 literalValue1, T2 literalValue2, T3 literalValue3, Func<T1, T2, T3, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2, T3>>(subject, methodName,
+			m => EqualityComparer<T1>.Default.Equals(literalValue1, m.Parameter1) &&
+			     EqualityComparer<T2>.Default.Equals(literalValue2, m.Parameter2) &&
+			     EqualityComparer<T3>.Default.Equals(literalValue3, m.Parameter3),
+			() => expectation(literalValue1, literalValue2, literalValue3));
+
+	/// <summary>
+	///     Literal-value fast-path Verify for 4-parameter methods. The failure message is built from the literal
+	///     values only when the verification fails.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="literalValue1">The expected value of the first parameter.</param>
+	/// <param name="literalValue2">The expected value of the second parameter.</param>
+	/// <param name="literalValue3">The expected value of the third parameter.</param>
+	/// <param name="literalValue4">The expected value of the fourth parameter.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+#pragma warning disable S107 // Methods should not have too many parameters
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3, T4>(T subject, int memberId, string methodName,
+		T1 literalValue1, T2 literalValue2, T3 literalValue3, T4 literalValue4, Func<T1, T2, T3, T4, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod4Buffer<T1, T2, T3, T4> typed)
+		{
+			Method4LiteralCountSource<T1, T2, T3, T4> source = new(typed,
+				literalValue1, literalValue2, literalValue3, literalValue4);
+			return new VerificationResult<T>.IgnoreParameters(
+				subject, Interactions, typed, source, methodName,
+				source.Matches,
+				new VerificationExpectation(source, expectation, static (state, format)
+					=> $"invoked method {((Method4LiteralCountSource<T1, T2, T3, T4>)state!).Describe((Func<T1, T2, T3, T4, string>)format!)}"));
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName,
+			literalValue1, literalValue2, literalValue3, literalValue4, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3, T4>(T subject, string methodName,
+		T1 literalValue1, T2 literalValue2, T3 literalValue3, T4 literalValue4, Func<T1, T2, T3, T4, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2, T3, T4>>(subject, methodName,
+			m => EqualityComparer<T1>.Default.Equals(literalValue1, m.Parameter1) &&
+			     EqualityComparer<T2>.Default.Equals(literalValue2, m.Parameter2) &&
+			     EqualityComparer<T3>.Default.Equals(literalValue3, m.Parameter3) &&
+			     EqualityComparer<T4>.Default.Equals(literalValue4, m.Parameter4),
+			() => expectation(literalValue1, literalValue2, literalValue3, literalValue4));
+#pragma warning restore S107
 
 	/// <summary>
 	///     Typed fast-path Verify for property getter accesses.
@@ -602,7 +900,7 @@ public partial class MockRegistry
 			PropertyGetterCountSource source = new(typed);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				static _ => true,
-				() => $"got property {propertyName.SubstringAfterLast('.')}");
+				GotPropertyExpectation(propertyName));
 		}
 
 		return VerifyProperty(subject, propertyName);
@@ -620,7 +918,7 @@ public partial class MockRegistry
 			PropertySetterCountSource<TValue> source = new(typed, value);
 			return new VerificationResult<TSubject>(subject, Interactions, buffer, source,
 				interaction => interaction is PropertySetterAccess<TValue> p && value.Matches(p.Value),
-				() => $"set property {propertyName.SubstringAfterLast('.')} to {value}");
+				SetPropertyExpectation(propertyName, value));
 		}
 
 		return VerifyProperty(subject, propertyName, value);
@@ -638,7 +936,7 @@ public partial class MockRegistry
 			IndexerGetter1CountSource<T1> source = new(typed, match1);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				interaction => interaction is IndexerGetterAccess<T1> g && match1.Matches(g.Parameter1),
-				() => $"got indexer {parametersDescription()}");
+				GotIndexerExpectation(parametersDescription));
 		}
 
 		return IndexerGot(subject,
@@ -658,7 +956,7 @@ public partial class MockRegistry
 			IndexerGetter2CountSource<T1, T2> source = new(typed, match1, match2);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				interaction => interaction is IndexerGetterAccess<T1, T2> g && match1.Matches(g.Parameter1) && match2.Matches(g.Parameter2),
-				() => $"got indexer {parametersDescription()}");
+				GotIndexerExpectation(parametersDescription));
 		}
 
 		return IndexerGot(subject,
@@ -679,7 +977,7 @@ public partial class MockRegistry
 			IndexerGetter3CountSource<T1, T2, T3> source = new(typed, match1, match2, match3);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				interaction => interaction is IndexerGetterAccess<T1, T2, T3> g && match1.Matches(g.Parameter1) && match2.Matches(g.Parameter2) && match3.Matches(g.Parameter3),
-				() => $"got indexer {parametersDescription()}");
+				GotIndexerExpectation(parametersDescription));
 		}
 
 		return IndexerGot(subject,
@@ -700,7 +998,7 @@ public partial class MockRegistry
 			IndexerGetter4CountSource<T1, T2, T3, T4> source = new(typed, match1, match2, match3, match4);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				interaction => interaction is IndexerGetterAccess<T1, T2, T3, T4> g && match1.Matches(g.Parameter1) && match2.Matches(g.Parameter2) && match3.Matches(g.Parameter3) && match4.Matches(g.Parameter4),
-				() => $"got indexer {parametersDescription()}");
+				GotIndexerExpectation(parametersDescription));
 		}
 
 		return IndexerGot(subject,
@@ -720,7 +1018,7 @@ public partial class MockRegistry
 			IndexerSetter1CountSource<T1, TValue> source = new(typed, match1, value);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				interaction => interaction is IndexerSetterAccess<T1, TValue> s && match1.Matches(s.Parameter1) && value.Matches(s.TypedValue),
-				() => $"set indexer {parametersDescription()} to {value}");
+				SetIndexerExpectation(parametersDescription, value));
 		}
 
 		return IndexerSet(subject,
@@ -741,7 +1039,7 @@ public partial class MockRegistry
 			IndexerSetter2CountSource<T1, T2, TValue> source = new(typed, match1, match2, value);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				interaction => interaction is IndexerSetterAccess<T1, T2, TValue> s && match1.Matches(s.Parameter1) && match2.Matches(s.Parameter2) && value.Matches(s.TypedValue),
-				() => $"set indexer {parametersDescription()} to {value}");
+				SetIndexerExpectation(parametersDescription, value));
 		}
 
 		return IndexerSet(subject,
@@ -762,7 +1060,7 @@ public partial class MockRegistry
 			IndexerSetter3CountSource<T1, T2, T3, TValue> source = new(typed, match1, match2, match3, value);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				interaction => interaction is IndexerSetterAccess<T1, T2, T3, TValue> s && match1.Matches(s.Parameter1) && match2.Matches(s.Parameter2) && match3.Matches(s.Parameter3) && value.Matches(s.TypedValue),
-				() => $"set indexer {parametersDescription()} to {value}");
+				SetIndexerExpectation(parametersDescription, value));
 		}
 
 		return IndexerSet(subject,
@@ -783,7 +1081,7 @@ public partial class MockRegistry
 			IndexerSetter4CountSource<T1, T2, T3, T4, TValue> source = new(typed, match1, match2, match3, match4, value);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				interaction => interaction is IndexerSetterAccess<T1, T2, T3, T4, TValue> s && match1.Matches(s.Parameter1) && match2.Matches(s.Parameter2) && match3.Matches(s.Parameter3) && match4.Matches(s.Parameter4) && value.Matches(s.TypedValue),
-				() => $"set indexer {parametersDescription()} to {value}");
+				SetIndexerExpectation(parametersDescription, value));
 		}
 
 		return IndexerSet(subject,
@@ -802,7 +1100,7 @@ public partial class MockRegistry
 			EventCountSource source = new(typed);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				static _ => true,
-				() => $"subscribed to event {eventName.SubstringAfterLast('.')}");
+				SubscribedToEventExpectation(eventName));
 		}
 
 		return SubscribedTo(subject, eventName);
@@ -819,11 +1117,35 @@ public partial class MockRegistry
 			EventCountSource source = new(typed);
 			return new VerificationResult<T>(subject, Interactions, buffer, source,
 				static _ => true,
-				() => $"unsubscribed from event {eventName.SubstringAfterLast('.')}");
+				UnsubscribedFromEventExpectation(eventName));
 		}
 
 		return UnsubscribedFrom(subject, eventName);
 	}
+
+	private static VerificationExpectation InvokedMethodExpectation(Func<string> expectation)
+		=> new(expectation, null, static (state, _) => $"invoked method {((Func<string>)state!)()}");
+
+	private static VerificationExpectation InvokedMethodSetupExpectation(IMethodSetup methodSetup)
+		=> new(methodSetup, null, static (state, _) => $"invoked method {state}");
+
+	private static VerificationExpectation GotPropertyExpectation(string propertyName)
+		=> new(propertyName, null, static (state, _) => $"got property {((string)state!).SubstringAfterLast('.')}");
+
+	private static VerificationExpectation SetPropertyExpectation(string propertyName, object value)
+		=> new(propertyName, value, static (state, value) => $"set property {((string)state!).SubstringAfterLast('.')} to {value}");
+
+	private static VerificationExpectation GotIndexerExpectation(Func<string> parametersDescription)
+		=> new(parametersDescription, null, static (state, _) => $"got indexer {((Func<string>)state!)()}");
+
+	private static VerificationExpectation SetIndexerExpectation(Func<string> parametersDescription, object value)
+		=> new(parametersDescription, value, static (state, value) => $"set indexer {((Func<string>)state!)()} to {value}");
+
+	private static VerificationExpectation SubscribedToEventExpectation(string eventName)
+		=> new(eventName, null, static (state, _) => $"subscribed to event {((string)state!).SubstringAfterLast('.')}");
+
+	private static VerificationExpectation UnsubscribedFromEventExpectation(string eventName)
+		=> new(eventName, null, static (state, _) => $"unsubscribed from event {((string)state!).SubstringAfterLast('.')}");
 
 	private IFastMemberBuffer? TryGetBuffer(int memberId)
 	{

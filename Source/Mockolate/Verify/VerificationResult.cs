@@ -38,7 +38,7 @@ namespace Mockolate.Verify;
 #endif
 public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerificationResult, IFastVerifyCountResult
 {
-	private readonly Func<string> _expectationFactory;
+	private readonly VerificationExpectation _expectation;
 	private readonly IMockInteractions _interactions;
 	private readonly IFastMemberBuffer? _buffer;
 	private readonly IFastCountSource? _fastCountSource;
@@ -54,32 +54,32 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		_verify = verify;
 		_interactions = interactions;
 		_predicate = predicate;
-		_expectationFactory = () => expectation;
+		_expectation = new VerificationExpectation(expectation, null, static (state, _) => (string)state!);
 	}
 
 	/// <inheritdoc cref="VerificationResult{TVerify}" />
 	internal VerificationResult(TVerify verify,
 		IMockInteractions interactions,
 		Func<IInteraction, bool> predicate,
-		Func<string> expectation)
+		VerificationExpectation expectation)
 	{
 		_verify = verify;
 		_interactions = interactions;
 		_predicate = predicate;
-		_expectationFactory = expectation;
+		_expectation = expectation;
 	}
 
 	internal VerificationResult(TVerify verify,
 		IMockInteractions interactions,
 		IFastMemberBuffer? buffer,
 		Func<IInteraction, bool> predicate,
-		Func<string> expectation)
+		VerificationExpectation expectation)
 	{
 		_verify = verify;
 		_interactions = interactions;
 		_buffer = buffer;
 		_predicate = predicate;
-		_expectationFactory = expectation;
+		_expectation = expectation;
 	}
 
 	internal VerificationResult(TVerify verify,
@@ -87,14 +87,14 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		IFastMemberBuffer? buffer,
 		IFastCountSource? fastCountSource,
 		Func<IInteraction, bool> predicate,
-		Func<string> expectation)
+		VerificationExpectation expectation)
 	{
 		_verify = verify;
 		_interactions = interactions;
 		_buffer = buffer;
 		_fastCountSource = fastCountSource;
 		_predicate = predicate;
-		_expectationFactory = expectation;
+		_expectation = expectation;
 	}
 
 	#region IVerificationResult<TVerify>
@@ -109,10 +109,10 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	{
 		if (_buffer is null && _fastCountSource is null)
 		{
-			return new VerificationResult<T>(mock, _interactions, _predicate, _expectationFactory);
+			return new VerificationResult<T>(mock, _interactions, _predicate, _expectation);
 		}
 
-		return new VerificationResult<T>(mock, _interactions, _buffer, _fastCountSource, _predicate, _expectationFactory);
+		return new VerificationResult<T>(mock, _interactions, _buffer, _fastCountSource, _predicate, _expectation);
 	}
 
 	private protected bool HasBuffer => _buffer is not null;
@@ -216,7 +216,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		///     expected interactions to occur.
 		/// </summary>
 		public Awaitable(VerificationResult<TVerify> inner, TimeSpan timeout)
-			: base(inner._verify, inner._interactions, inner._buffer, inner._fastCountSource, inner._predicate, inner._expectationFactory)
+			: base(inner._verify, inner._interactions, inner._buffer, inner._fastCountSource, inner._predicate, inner._expectation)
 		{
 			_timeout = timeout;
 			if (inner._useCountAll)
@@ -231,7 +231,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		///     expected interactions to occur.
 		/// </summary>
 		public Awaitable(VerificationResult<TVerify> inner, CancellationToken cancellationToken)
-			: base(inner._verify, inner._interactions, inner._buffer, inner._fastCountSource, inner._predicate, inner._expectationFactory)
+			: base(inner._verify, inner._interactions, inner._buffer, inner._fastCountSource, inner._predicate, inner._expectation)
 		{
 			_cancellationToken = cancellationToken;
 			if (inner._useCountAll)
@@ -446,7 +446,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 	/// <inheritdoc cref="IVerificationResult.Expectation" />
 	string IVerificationResult.Expectation
-		=> _expectationFactory();
+		=> _expectation.Create();
 
 	/// <inheritdoc cref="IVerificationResult.Interactions" />
 	IMockInteractions IVerificationResult.Interactions
@@ -496,7 +496,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			IMockInteractions interactions,
 			string methodName,
 			Func<IInteraction, bool> predicate,
-			Func<string> expectation)
+			VerificationExpectation expectation)
 			: this(verify, interactions, methodName, predicate, null, expectation)
 		{
 		}
@@ -507,7 +507,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			string methodName,
 			Func<IInteraction, bool> predicate,
 			Func<IInteraction, bool>? overloadFilter,
-			Func<string> expectation)
+			VerificationExpectation expectation)
 			: base(verify, interactions,
 				interaction => MatchesMethodName(interaction, methodName) && predicate(interaction),
 				expectation)
@@ -522,7 +522,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			IFastMemberBuffer buffer,
 			string methodName,
 			Func<IInteraction, bool> predicate,
-			Func<string> expectation)
+			VerificationExpectation expectation)
 			: base(verify, interactions, buffer, predicate, expectation)
 		{
 			_methodName = methodName;
@@ -535,7 +535,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			IFastCountSource? fastCountSource,
 			string methodName,
 			Func<IInteraction, bool> predicate,
-			Func<string> expectation)
+			VerificationExpectation expectation)
 			: base(verify, interactions, buffer, fastCountSource, predicate, expectation)
 		{
 			_methodName = methodName;

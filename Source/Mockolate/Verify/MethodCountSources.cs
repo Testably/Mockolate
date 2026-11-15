@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Mockolate.Interactions;
 using Mockolate.Internals;
@@ -28,15 +29,21 @@ internal sealed class Method1CountSource<T1> : IFastMethodCountSource
 {
 	private readonly FastMethod1Buffer<T1> _buffer;
 	private readonly IParameterMatch<T1> _match1;
+	private readonly IParameter<T1>? _parameter1;
 
-	public Method1CountSource(FastMethod1Buffer<T1> buffer, IParameterMatch<T1> match1)
+	public Method1CountSource(FastMethod1Buffer<T1> buffer, IParameterMatch<T1> match1,
+		IParameter<T1>? parameter1)
 	{
 		_buffer = buffer;
 		_match1 = match1;
+		_parameter1 = parameter1;
 	}
 
 	public int Count() => _buffer.ConsumeMatching(_match1);
 	public int CountAll() => _buffer.ConsumeAll();
+
+	public string Describe(Func<IParameter<T1>?, string> expectation)
+		=> expectation(_parameter1);
 }
 
 /// <summary>
@@ -47,17 +54,25 @@ internal sealed class Method2CountSource<T1, T2> : IFastMethodCountSource
 	private readonly FastMethod2Buffer<T1, T2> _buffer;
 	private readonly IParameterMatch<T1> _match1;
 	private readonly IParameterMatch<T2> _match2;
+	private readonly IParameter<T1>? _parameter1;
+	private readonly IParameter<T2>? _parameter2;
 
 	public Method2CountSource(FastMethod2Buffer<T1, T2> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<T2> match2)
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2)
 	{
 		_buffer = buffer;
 		_match1 = match1;
 		_match2 = match2;
+		_parameter1 = parameter1;
+		_parameter2 = parameter2;
 	}
 
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2);
 	public int CountAll() => _buffer.ConsumeAll();
+
+	public string Describe(Func<IParameter<T1>?, IParameter<T2>?, string> expectation)
+		=> expectation(_parameter1, _parameter2);
 }
 
 /// <summary>
@@ -69,18 +84,28 @@ internal sealed class Method3CountSource<T1, T2, T3> : IFastMethodCountSource
 	private readonly IParameterMatch<T1> _match1;
 	private readonly IParameterMatch<T2> _match2;
 	private readonly IParameterMatch<T3> _match3;
+	private readonly IParameter<T1>? _parameter1;
+	private readonly IParameter<T2>? _parameter2;
+	private readonly IParameter<T3>? _parameter3;
 
 	public Method3CountSource(FastMethod3Buffer<T1, T2, T3> buffer,
-		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3)
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3)
 	{
 		_buffer = buffer;
 		_match1 = match1;
 		_match2 = match2;
 		_match3 = match3;
+		_parameter1 = parameter1;
+		_parameter2 = parameter2;
+		_parameter3 = parameter3;
 	}
 
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3);
 	public int CountAll() => _buffer.ConsumeAll();
+
+	public string Describe(Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, string> expectation)
+		=> expectation(_parameter1, _parameter2, _parameter3);
 }
 
 /// <summary>
@@ -93,20 +118,33 @@ internal sealed class Method4CountSource<T1, T2, T3, T4> : IFastMethodCountSourc
 	private readonly IParameterMatch<T2> _match2;
 	private readonly IParameterMatch<T3> _match3;
 	private readonly IParameterMatch<T4> _match4;
+	private readonly IParameter<T1>? _parameter1;
+	private readonly IParameter<T2>? _parameter2;
+	private readonly IParameter<T3>? _parameter3;
+	private readonly IParameter<T4>? _parameter4;
 
 	public Method4CountSource(FastMethod4Buffer<T1, T2, T3, T4> buffer,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
-		IParameterMatch<T3> match3, IParameterMatch<T4> match4)
+		IParameterMatch<T3> match3, IParameterMatch<T4> match4,
+		IParameter<T1>? parameter1, IParameter<T2>? parameter2,
+		IParameter<T3>? parameter3, IParameter<T4>? parameter4)
 	{
 		_buffer = buffer;
 		_match1 = match1;
 		_match2 = match2;
 		_match3 = match3;
 		_match4 = match4;
+		_parameter1 = parameter1;
+		_parameter2 = parameter2;
+		_parameter3 = parameter3;
+		_parameter4 = parameter4;
 	}
 
 	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3, _match4);
 	public int CountAll() => _buffer.ConsumeAll();
+
+	public string Describe(Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, IParameter<T4>?, string> expectation)
+		=> expectation(_parameter1, _parameter2, _parameter3, _parameter4);
 }
 
 /// <summary>
@@ -133,6 +171,9 @@ internal sealed class Method1LiteralCountSource<T1> : IFastMethodCountSource
 	public bool Matches(IInteraction interaction)
 		=> interaction is MethodInvocation<T1> m &&
 		   EqualityComparer<T1>.Default.Equals(_value1, m.Parameter1);
+
+	public string Describe(Func<T1, string> expectation)
+		=> expectation(_value1);
 }
 
 /// <summary>
@@ -158,6 +199,9 @@ internal sealed class Method2LiteralCountSource<T1, T2> : IFastMethodCountSource
 		=> interaction is MethodInvocation<T1, T2> m &&
 		   EqualityComparer<T1>.Default.Equals(_value1, m.Parameter1) &&
 		   EqualityComparer<T2>.Default.Equals(_value2, m.Parameter2);
+
+	public string Describe(Func<T1, T2, string> expectation)
+		=> expectation(_value1, _value2);
 }
 
 /// <summary>
@@ -186,6 +230,9 @@ internal sealed class Method3LiteralCountSource<T1, T2, T3> : IFastMethodCountSo
 		   EqualityComparer<T1>.Default.Equals(_value1, m.Parameter1) &&
 		   EqualityComparer<T2>.Default.Equals(_value2, m.Parameter2) &&
 		   EqualityComparer<T3>.Default.Equals(_value3, m.Parameter3);
+
+	public string Describe(Func<T1, T2, T3, string> expectation)
+		=> expectation(_value1, _value2, _value3);
 }
 
 /// <summary>
@@ -218,6 +265,9 @@ internal sealed class Method4LiteralCountSource<T1, T2, T3, T4> : IFastMethodCou
 		   EqualityComparer<T2>.Default.Equals(_value2, m.Parameter2) &&
 		   EqualityComparer<T3>.Default.Equals(_value3, m.Parameter3) &&
 		   EqualityComparer<T4>.Default.Equals(_value4, m.Parameter4);
+
+	public string Describe(Func<T1, T2, T3, T4, string> expectation)
+		=> expectation(_value1, _value2, _value3, _value4);
 }
 
 /// <summary>

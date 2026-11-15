@@ -454,6 +454,260 @@ public class TypedVerifyFastPathTests
 	}
 
 	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod1_WithLiteralFormatter_ShouldCountAndDescribeLiteralValues(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0, static f => new FastMethod1Buffer<int>(f))
+				.Append("M", 1);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int>("M", 1));
+		}
+
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, int>(
+			new object(), 0, "M", 1, static a => $"M({a})");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("invoked method M(1)");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod1_WithNullReferenceLiteral_ShouldCountAndDescribeNullAsEmpty(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod1Buffer<string?>>(0, static f => new FastMethod1Buffer<string?>(f))
+				.Append("M", null);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<string?>("M", null));
+		}
+
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, string?>(
+			new object(), 0, "M", null, static a => $"M({a})");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("invoked method M()");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	public async Task VerifyMethod1_WithBufferOfOtherArityAtMemberId_ShouldFallBackToInteractionList()
+	{
+		FastMockInteractions store = new(1);
+		store.GetOrCreateBuffer<FastMethod2Buffer<int, int>>(0, static f => new FastMethod2Buffer<int, int>(f));
+		MockRegistry registry = new(MockBehavior.Default, store);
+		((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int>("M", 1));
+
+		VerificationResult<object>.IgnoreParameters literal = registry.VerifyMethod<object, int>(
+			new object(), 0, "M", 1, static a => $"M({a})");
+		VerificationResult<object>.IgnoreParameters matcher = registry.VerifyMethod<object, int>(
+			new object(), 0, "M", (IParameterMatch<int>)It.IsAny<int>(), null, static a => $"M({a})");
+
+		await That(((IVerificationResult)literal).Expectation).IsEqualTo("invoked method M(1)");
+		await That(((IVerificationResult)literal).Verify(arr => arr.Length == 1)).IsTrue();
+		await That(((IVerificationResult)matcher).Expectation).IsEqualTo("invoked method M()");
+		await That(((IVerificationResult)matcher).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod1_WithParameterFormatter_ShouldCountAndDescribeCallerParameters(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0, static f => new FastMethod1Buffer<int>(f))
+				.Append("M", 1);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int>("M", 1));
+		}
+
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, int>(
+			new object(), 0, "M", (IParameterMatch<int>)It.IsAny<int>(), null, static a => $"M({a})");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("invoked method M()")
+			.Because("a null parameter is described as an empty string");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod2_WithLiteralFormatter_ShouldCountAndDescribeLiteralValues(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod2Buffer<int, int>>(0, static f => new FastMethod2Buffer<int, int>(f))
+				.Append("M", 1, 2);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int, int>("M", 1, 2));
+		}
+
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, int, int>(
+			new object(), 0, "M", 1, 2, static (a, b) => $"M({a}, {b})");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("invoked method M(1, 2)");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod2_WithParameterFormatter_ShouldCountAndDescribeCallerParameters(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod2Buffer<int, int>>(0, static f => new FastMethod2Buffer<int, int>(f))
+				.Append("M", 1, 2);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int, int>("M", 1, 2));
+		}
+
+		IParameter<int> parameter1 = It.Is(1);
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, int, int>(
+			new object(), 0, "M", (IParameterMatch<int>)parameter1, (IParameterMatch<int>)It.IsAny<int>(),
+			parameter1, null, static (a, b) => $"M({a}, {b})");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo($"invoked method M({parameter1}, )");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod3_WithLiteralFormatter_ShouldCountAndDescribeLiteralValues(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod3Buffer<int, int, int>>(0,
+					static f => new FastMethod3Buffer<int, int, int>(f))
+				.Append("M", 1, 2, 3);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int, int, int>("M", 1, 2, 3));
+		}
+
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, int, int, int>(
+			new object(), 0, "M", 1, 2, 3, static (a, b, c) => $"M({a}, {b}, {c})");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("invoked method M(1, 2, 3)");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod3_WithParameterFormatter_ShouldCountAndDescribeCallerParameters(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod3Buffer<int, int, int>>(0,
+					static f => new FastMethod3Buffer<int, int, int>(f))
+				.Append("M", 1, 2, 3);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int, int, int>("M", 1, 2, 3));
+		}
+
+		IParameter<int> parameter1 = It.Is(1);
+		IParameter<int> parameter3 = It.Is(3);
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, int, int, int>(
+			new object(), 0, "M", (IParameterMatch<int>)parameter1, (IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<int>)parameter3, parameter1, null, parameter3,
+			static (a, b, c) => $"M({a}, {b}, {c})");
+
+		await That(((IVerificationResult)result).Expectation)
+			.IsEqualTo($"invoked method M({parameter1}, , {parameter3})");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod4_WithLiteralFormatter_ShouldCountAndDescribeLiteralValues(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod4Buffer<int, int, int, int>>(0,
+					static f => new FastMethod4Buffer<int, int, int, int>(f))
+				.Append("M", 1, 2, 3, 4);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int, int, int, int>("M", 1, 2, 3, 4));
+		}
+
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, int, int, int, int>(
+			new object(), 0, "M", 1, 2, 3, 4, static (a, b, c, d) => $"M({a}, {b}, {c}, {d})");
+
+		await That(((IVerificationResult)result).Expectation).IsEqualTo("invoked method M(1, 2, 3, 4)");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task VerifyMethod4_WithParameterFormatter_ShouldCountAndDescribeCallerParameters(bool withBuffer)
+	{
+		FastMockInteractions store = new(1);
+		MockRegistry registry = new(MockBehavior.Default, store);
+		if (withBuffer)
+		{
+			store.GetOrCreateBuffer<FastMethod4Buffer<int, int, int, int>>(0,
+					static f => new FastMethod4Buffer<int, int, int, int>(f))
+				.Append("M", 1, 2, 3, 4);
+		}
+		else
+		{
+			((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int, int, int, int>("M", 1, 2, 3, 4));
+		}
+
+		IParameter<int> parameter1 = It.Is(1);
+		IParameter<int> parameter2 = It.Is(2);
+		IParameter<int> parameter4 = It.Is(4);
+		VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, int, int, int, int>(
+			new object(), 0, "M", (IParameterMatch<int>)parameter1, (IParameterMatch<int>)parameter2,
+			(IParameterMatch<int>)It.IsAny<int>(), (IParameterMatch<int>)parameter4,
+			parameter1, parameter2, null, parameter4,
+			static (a, b, c, d) => $"M({a}, {b}, {c}, {d})");
+
+		await That(((IVerificationResult)result).Expectation)
+			.IsEqualTo($"invoked method M({parameter1}, {parameter2}, , {parameter4})");
+		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
+	}
+
+	[Test]
 	public async Task VerifyProperty_GetterWithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);

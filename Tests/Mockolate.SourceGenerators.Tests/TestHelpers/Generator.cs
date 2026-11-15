@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Emit;
 
 namespace Mockolate.SourceGenerators.Tests.TestHelpers;
 
@@ -75,6 +78,30 @@ public static class Generator
 			..diagnostics.Where(x => !NoWarn.Contains(x.Id)).Select(ToDiagnosticString),
 		];
 		return new GeneratorResult(generatedSources, diagnosticMessages);
+	}
+
+	public static Assembly CompileAndLoad([StringSyntax("c#-test")] string source, LanguageVersion languageVersion)
+	{
+		CSharpParseOptions parseOptions = new(languageVersion);
+		CSharpCompilation compilation = CSharpCompilation.Create(
+			$"TestAssembly{Guid.NewGuid():N}",
+			[CSharpSyntaxTree.ParseText(source, parseOptions),],
+			GetReferences([]),
+			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary,
+				nullableContextOptions: NullableContextOptions.Enable));
+		CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [], parseOptions)
+			.RunGeneratorsAndUpdateCompilation(compilation, out Compilation outputCompilation, out _);
+
+		using MemoryStream stream = new();
+		EmitResult emitResult = outputCompilation.Emit(stream);
+		if (!emitResult.Success)
+		{
+			throw new InvalidOperationException(string.Join(Environment.NewLine, emitResult.Diagnostics
+				.Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
+				.Select(diagnostic => diagnostic.ToString())));
+		}
+
+		return Assembly.Load(stream.ToArray());
 	}
 
 	private static string ToDiagnosticString(Diagnostic d)
