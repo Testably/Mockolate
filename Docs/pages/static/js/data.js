@@ -1116,6 +1116,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -1304,7 +1310,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -1496,7 +1503,8 @@ window.BENCHMARK_DATA = {
           292.3590480486552,
           255.44367736180624,
           215.54641661277185,
-          240.77803999582926
+          240.77803999582926,
+          195.63072540078844
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1693,6 +1701,7 @@ window.BENCHMARK_DATA = {
           1592,
           1592,
           1592,
+          1584,
           1584
         ],
         "borderColor": "#63A2AC",
@@ -1893,7 +1902,8 @@ window.BENCHMARK_DATA = {
           36942.30495779855,
           60642.80814906529,
           62378.21617838542,
-          36065.54618326823
+          36065.54618326823,
+          31730.580397385816
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2090,7 +2100,8 @@ window.BENCHMARK_DATA = {
           9054,
           9063,
           9055,
-          9126
+          9126,
+          9055
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2290,7 +2301,8 @@ window.BENCHMARK_DATA = {
           3288.6486200968425,
           3577.1242429097492,
           3295.368689400809,
-          2981.2787532806396
+          2981.2787532806396,
+          2546.5038764953615
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2451,6 +2463,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2687,7 +2700,8 @@ window.BENCHMARK_DATA = {
           3057.6138211568195,
           3487.293377509484,
           3187.926383972168,
-          2655.8930288042343
+          2655.8930288042343,
+          2607.994808451335
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2884,7 +2898,8 @@ window.BENCHMARK_DATA = {
           6924,
           6930,
           6930,
-          6924
+          6924,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3084,7 +3099,8 @@ window.BENCHMARK_DATA = {
           187.604438606898,
           161.43688852970416,
           153.253276348114,
-          168.8008945465088
+          168.8008945465088,
+          133.03923511505127
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3250,6 +3266,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3481,7 +3498,8 @@ window.BENCHMARK_DATA = {
           442.0644829089825,
           418.3516041437785,
           379.0006707631625,
-          400.17277135848997
+          400.17277135848997,
+          339.4056424776713
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3642,6 +3660,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4808,6 +4827,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -4996,7 +5021,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -5188,7 +5214,8 @@ window.BENCHMARK_DATA = {
           210.03136234624046,
           264.95720052719116,
           288.0201601346334,
-          178.69267988204956
+          178.69267988204956,
+          172.83867874145508
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5385,7 +5412,8 @@ window.BENCHMARK_DATA = {
           1728,
           1728,
           1728,
-          1064
+          1064,
+          1000
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5585,7 +5613,8 @@ window.BENCHMARK_DATA = {
           10463.053551307092,
           14891.741681780133,
           14903.06953125,
-          10211.546377328727
+          10211.546377328727,
+          10959.454170735677
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5777,6 +5806,7 @@ window.BENCHMARK_DATA = {
           12761,
           12760,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -5982,7 +6012,8 @@ window.BENCHMARK_DATA = {
           4207.275629170736,
           5506.012459891183,
           5599.91186726888,
-          3912.9401830037436
+          3912.9401830037436,
+          4318.372051239014
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6143,6 +6174,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -6379,7 +6411,8 @@ window.BENCHMARK_DATA = {
           194144.54462890624,
           222149.10556640624,
           223778.63364257812,
-          195014.0569719587
+          195014.0569719587,
+          194772.66458333333
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6576,6 +6609,7 @@ window.BENCHMARK_DATA = {
           15619,
           15618,
           15618,
+          15619,
           15619
         ],
         "borderColor": "#4A6FA5",
@@ -6776,7 +6810,8 @@ window.BENCHMARK_DATA = {
           149.5892383318681,
           167.45135323206583,
           173.62184923887253,
-          142.857879559199
+          142.857879559199,
+          147.70952083383287
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6917,6 +6952,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -7173,7 +7209,8 @@ window.BENCHMARK_DATA = {
           128.49766760213035,
           157.59108572006227,
           162.5057808986077,
-          119.39973682623643
+          119.39973682623643,
+          125.8586666243417
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -7307,6 +7344,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -8500,6 +8538,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -8688,7 +8732,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -8880,7 +8925,8 @@ window.BENCHMARK_DATA = {
           870.8340041978018,
           1045.6103745869227,
           650.5307882015521,
-          830.9030879974365
+          830.9030879974365,
+          726.1504243850708
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9077,7 +9123,8 @@ window.BENCHMARK_DATA = {
           3832,
           3832,
           3832,
-          2864
+          2864,
+          2768
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9277,7 +9324,8 @@ window.BENCHMARK_DATA = {
           143181.78113731972,
           178080.8478515625,
           137961.71276041667,
-          225740.42121233259
+          225740.42121233259,
+          84862.31798502603
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9474,7 +9522,8 @@ window.BENCHMARK_DATA = {
           20804,
           20793,
           20804,
-          20804
+          20804,
+          20809
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9674,7 +9723,8 @@ window.BENCHMARK_DATA = {
           7766.970725468227,
           10502.056841169086,
           7081.410173034668,
-          10581.633460411658
+          10581.633460411658,
+          7990.054473876953
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9871,7 +9921,8 @@ window.BENCHMARK_DATA = {
           13088,
           13088,
           13032,
-          13032
+          13032,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10071,7 +10122,8 @@ window.BENCHMARK_DATA = {
           7868.683263506208,
           10424.74954693134,
           6920.281484750601,
-          11139.921729532878
+          11139.921729532878,
+          6505.914584568569
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10268,7 +10320,8 @@ window.BENCHMARK_DATA = {
           13593,
           13583,
           13593,
-          13593
+          13593,
+          13924
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10468,7 +10521,8 @@ window.BENCHMARK_DATA = {
           262.78093664986744,
           360.51593477385387,
           240.43448281288147,
-          307.358739789327
+          307.358739789327,
+          292.9980200131734
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10629,6 +10683,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -11795,6 +11850,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -11983,7 +12044,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -12175,7 +12237,8 @@ window.BENCHMARK_DATA = {
           2119.186178334554,
           2862.762487411499,
           1811.9744416750395,
-          2497.335089111328
+          2497.335089111328,
+          2251.718914794922
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12372,7 +12435,8 @@ window.BENCHMARK_DATA = {
           4912,
           4912,
           4912,
-          4968
+          4968,
+          4872
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12572,7 +12636,8 @@ window.BENCHMARK_DATA = {
           152583.32983398438,
           189277.18364257814,
           147421.1382359096,
-          237884.17799479168
+          237884.17799479168,
+          89394.84178748497
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12769,7 +12834,8 @@ window.BENCHMARK_DATA = {
           30410,
           30403,
           30403,
-          30403
+          30403,
+          30386
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12969,7 +13035,8 @@ window.BENCHMARK_DATA = {
           18612.81063406808,
           25092.379427396336,
           17285.34650675456,
-          25137.834693400066
+          25137.834693400066,
+          18984.361551920574
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13166,7 +13233,8 @@ window.BENCHMARK_DATA = {
           26193,
           26193,
           26137,
-          26137
+          26137,
+          26192
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13366,7 +13434,8 @@ window.BENCHMARK_DATA = {
           16767.014020647322,
           23054.15292794364,
           14955.19176701137,
-          23770.987279256184
+          23770.987279256184,
+          15585.318453107562
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13563,7 +13632,8 @@ window.BENCHMARK_DATA = {
           33247,
           33252,
           33249,
-          33247
+          33247,
+          33585
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13763,7 +13833,8 @@ window.BENCHMARK_DATA = {
           630.8685435567584,
           809.6639968327114,
           583.8947372436523,
-          754.9406044823783
+          754.9406044823783,
+          643.2918408075968
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13924,6 +13995,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -15090,6 +15162,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -15278,7 +15356,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -15470,7 +15549,8 @@ window.BENCHMARK_DATA = {
           180.75922899246217,
           350.3135098457336,
           291.4573980649312,
-          379.76593389511106
+          379.76593389511106,
+          239.99372369902474
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15667,7 +15747,8 @@ window.BENCHMARK_DATA = {
           1936,
           1936,
           1936,
-          1392
+          1392,
+          1272
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15867,7 +15948,8 @@ window.BENCHMARK_DATA = {
           55209.94587925502,
           71887.40821940104,
           70869.44180733817,
-          147829.46564592634
+          147829.46564592634,
+          113425.31290108817
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16064,7 +16146,8 @@ window.BENCHMARK_DATA = {
           14920,
           14906,
           14906,
-          14915
+          14915,
+          14914
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16264,7 +16347,8 @@ window.BENCHMARK_DATA = {
           2808.0780393160308,
           4795.807982381185,
           4402.05319922311,
-          5932.567389424642
+          5932.567389424642,
+          4232.403960673014
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16452,6 +16536,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9264,
+          9320,
           9320,
           9320,
           9320,
@@ -16661,7 +16746,8 @@ window.BENCHMARK_DATA = {
           2609.654499053955,
           3847.7351984296524,
           3515.435796356201,
-          5774.791123072307
+          5774.791123072307,
+          3947.987423706055
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16858,7 +16944,8 @@ window.BENCHMARK_DATA = {
           8160,
           8153,
           8151,
-          8147
+          8147,
+          8160
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17058,7 +17145,8 @@ window.BENCHMARK_DATA = {
           96.2710304359595,
           171.59161171913146,
           156.90808733872004,
-          206.2309895992279
+          206.2309895992279,
+          137.59822485844293
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17224,6 +17312,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -17455,7 +17544,8 @@ window.BENCHMARK_DATA = {
           246.14307425816853,
           466.3227458318075,
           425.48184766769407,
-          600.8322137832641
+          600.8322137832641,
+          353.3510405222575
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17589,6 +17679,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -18782,6 +18873,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -18970,7 +19067,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -19162,7 +19260,8 @@ window.BENCHMARK_DATA = {
           440.8203578631083,
           643.2279163360596,
           616.6636442184448,
-          897.0931079728263
+          897.0931079728263,
+          479.51544039590016
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19359,7 +19458,8 @@ window.BENCHMARK_DATA = {
           2152,
           2152,
           2152,
-          2184
+          2184,
+          2064
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19559,7 +19659,8 @@ window.BENCHMARK_DATA = {
           58293.77685781626,
           72987.9671468099,
           71904.88934326172,
-          154109.79127604168
+          154109.79127604168,
+          115868.2253766741
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19756,6 +19857,7 @@ window.BENCHMARK_DATA = {
           18905,
           18883,
           18883,
+          18906,
           18906
         ],
         "borderColor": "#A052B0",
@@ -19956,7 +20058,8 @@ window.BENCHMARK_DATA = {
           4282.783336639404,
           6797.007681710379,
           6370.281375630697,
-          8664.866506304059
+          8664.866506304059,
+          6273.948965454101
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20148,6 +20251,7 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12345,
+          12344,
           12344,
           12344,
           12344,
@@ -20353,7 +20457,8 @@ window.BENCHMARK_DATA = {
           4221.535345894949,
           6637.021882120768,
           6044.871779305594,
-          9460.427512613933
+          9460.427512613933,
+          6384.223139626639
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20550,7 +20655,8 @@ window.BENCHMARK_DATA = {
           16394,
           16391,
           16391,
-          16396
+          16396,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20750,7 +20856,8 @@ window.BENCHMARK_DATA = {
           226.2790811220805,
           321.8198471409934,
           301.2876017570496,
-          434.4699682848794
+          434.4699682848794,
+          273.65024722417195
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20916,6 +21023,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -21147,7 +21255,8 @@ window.BENCHMARK_DATA = {
           922.1086741129558,
           1337.945392481486,
           1264.803489957537,
-          1775.6559305924636
+          1775.6559305924636,
+          1059.3151915413994
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21281,6 +21390,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -22474,6 +22584,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -22662,7 +22778,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -22854,7 +22971,8 @@ window.BENCHMARK_DATA = {
           283.7965848604838,
           395.2850313504537,
           295.86764863559176,
-          326.17586496898105
+          326.17586496898105,
+          249.33015513420105
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -23051,7 +23169,8 @@ window.BENCHMARK_DATA = {
           2432,
           2432,
           2432,
-          1704
+          1704,
+          1592
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -23251,7 +23370,8 @@ window.BENCHMARK_DATA = {
           5327.460963322566,
           7622.159676106771,
           5721.707970755441,
-          7499.418021647135
+          7499.418021647135,
+          4934.534212552584
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23448,7 +23568,8 @@ window.BENCHMARK_DATA = {
           10696,
           10585,
           10568,
-          10569
+          10569,
+          10568
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23648,7 +23769,8 @@ window.BENCHMARK_DATA = {
           4066.940049852644,
           5320.544917297363,
           4080.0906903584796,
-          5286.792530822754
+          5286.792530822754,
+          3456.873764038086
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23842,6 +23964,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -24045,7 +24168,8 @@ window.BENCHMARK_DATA = {
           4006.82332938058,
           5476.108680725098,
           4234.037783402663,
-          5173.396819559733
+          5173.396819559733,
+          3503.9923645655313
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24241,6 +24365,7 @@ window.BENCHMARK_DATA = {
           11212,
           11212,
           11212,
+          11196,
           11196,
           11196
         ],
@@ -24442,7 +24567,8 @@ window.BENCHMARK_DATA = {
           107.5022532258715,
           133.58757328987122,
           110.28889459371567,
-          135.09221610001154
+          135.09221610001154,
+          105.69902212619782
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24608,6 +24734,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -24839,7 +24966,8 @@ window.BENCHMARK_DATA = {
           277.51695118631636,
           346.4666202545166,
           287.29541938645497,
-          325.95643714496066
+          325.95643714496066,
+          260.11170084135875
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25035,6 +25163,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672
         ],
@@ -26166,6 +26295,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -26354,7 +26489,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -26546,7 +26682,8 @@ window.BENCHMARK_DATA = {
           762.3463807787214,
           820.5870927810669,
           755.3834853490193,
-          783.2963221623347
+          783.2963221623347,
+          707.1085819097666
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -26743,7 +26880,8 @@ window.BENCHMARK_DATA = {
           2936,
           2936,
           2936,
-          2976
+          2976,
+          2864
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -26943,7 +27081,8 @@ window.BENCHMARK_DATA = {
           8234.733607700893,
           12416.024525960287,
           9221.493698120117,
-          12430.817181396484
+          12430.817181396484,
+          8169.327586582729
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27139,6 +27278,7 @@ window.BENCHMARK_DATA = {
           18521,
           18632,
           18521,
+          18505,
           18505,
           18505
         ],
@@ -27340,7 +27480,8 @@ window.BENCHMARK_DATA = {
           7911.06982828776,
           12483.55306599935,
           9364.931142534528,
-          13034.721998948316
+          13034.721998948316,
+          8337.768132890973
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -27534,6 +27675,7 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21553,
+          21529,
           21529,
           21529,
           21529,
@@ -27737,7 +27879,8 @@ window.BENCHMARK_DATA = {
           8345.249271937779,
           13158.132937622071,
           9943.638846764197,
-          13207.44711630685
+          13207.44711630685,
+          8829.932998657227
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -27933,6 +28076,7 @@ window.BENCHMARK_DATA = {
           30801,
           30801,
           30801,
+          30785,
           30785,
           30785
         ],
@@ -28134,7 +28278,8 @@ window.BENCHMARK_DATA = {
           269.13324996403287,
           253.62903779347738,
           277.79939505259193,
-          251.91329011917114
+          251.91329011917114,
+          246.5995974858602
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -28300,6 +28445,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -28531,7 +28677,8 @@ window.BENCHMARK_DATA = {
           1203.4538833618165,
           1228.9821952819825,
           1253.2530009405953,
-          1193.1871874491374
+          1193.1871874491374,
+          1127.6584082285563
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -28727,6 +28874,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024
         ],
@@ -29858,6 +30006,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
@@ -30046,7 +30200,8 @@ window.BENCHMARK_DATA = {
       "9e0117a5",
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -30238,7 +30393,8 @@ window.BENCHMARK_DATA = {
           13.089017924666404,
           10.03970227042834,
           24.887103306395666,
-          17.674256736040114
+          17.674256736040114,
+          9.681411770979564
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -30296,6 +30452,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -30635,7 +30792,8 @@ window.BENCHMARK_DATA = {
           75.80557880231312,
           58.76912273679461,
           120.15148566563924,
-          95.9673278757504
+          95.9673278757504,
+          56.80328116218249
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -30801,6 +30959,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -31032,7 +31191,8 @@ window.BENCHMARK_DATA = {
           21.56835705935955,
           16.994438529014587,
           38.98434979915619,
-          27.549818372726442
+          27.549818372726442,
+          16.540679273860796
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -31166,6 +31326,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -31429,7 +31590,8 @@ window.BENCHMARK_DATA = {
           961.4357971463885,
           768.4789414723714,
           1138.9257455553327,
-          1005.1865075429281
+          1005.1865075429281,
+          756.089461517334
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -31590,6 +31752,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -31826,7 +31989,8 @@ window.BENCHMARK_DATA = {
           1325.3440365110125,
           1088.4586663564046,
           1617.5005063374838,
-          1427.7982984270368
+          1427.7982984270368,
+          1099.2663105010986
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -31987,6 +32151,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -32223,7 +32388,8 @@ window.BENCHMARK_DATA = {
           1131.4559643609184,
           939.2087739944458,
           1307.759957093459,
-          1164.2990531921387
+          1164.2990531921387,
+          879.0166946411133
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -32420,7 +32586,8 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2751,
-          2751
+          2751,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -32452,12 +32619,19 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 15 22:59:31 2026 \u002B0100",
         "message": "perf: allocate a single slot for the first recorded call of a member (#971)"
+      },
+      {
+        "sha": "249928d6a7886b75549a5cd576c17591780f81dc",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 15 23:18:59 2026 \u002B0100",
+        "message": "perf: build verification expectation messages lazily without closures (#972)"
       }
     ],
     "labels": [
       "196425f5",
       "bb3dede7",
-      "0fecd21d"
+      "0fecd21d",
+      "249928d6"
     ],
     "datasets": [
       {
@@ -32466,7 +32640,8 @@ window.BENCHMARK_DATA = {
         "data": [
           1440.1965640141414,
           1388.4141639981951,
-          1334.533590044294
+          1334.533590044294,
+          1210.7515065329414
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -32480,7 +32655,8 @@ window.BENCHMARK_DATA = {
         "data": [
           8464,
           7648,
-          5288
+          5288,
+          4888
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -32497,7 +32673,8 @@ window.BENCHMARK_DATA = {
         "data": [
           647.8155679702759,
           727.3428524653117,
-          759.5771551132202
+          759.5771551132202,
+          679.2193373271397
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -32510,6 +32687,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           3000,
+          2968,
           2968,
           2968
         ],
@@ -32528,7 +32706,8 @@ window.BENCHMARK_DATA = {
         "data": [
           1799.2781644185384,
           2070.298959986369,
-          2196.0403044382733
+          2196.0403044382733,
+          1927.3387701851982
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -32541,6 +32720,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           8936,
+          9528,
           9528,
           9528
         ],
@@ -32559,7 +32739,8 @@ window.BENCHMARK_DATA = {
         "data": [
           288841.2497558594,
           220921.4330705915,
-          219750.56204427083
+          219750.56204427083,
+          217040.5570591518
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -32573,6 +32754,7 @@ window.BENCHMARK_DATA = {
         "data": [
           39966,
           36069,
+          36013,
           36013
         ],
         "borderColor": "#A052B0",
@@ -32590,7 +32772,8 @@ window.BENCHMARK_DATA = {
         "data": [
           16374.223419189453,
           16907.429935709635,
-          17185.69405255999
+          17185.69405255999,
+          16219.239137922015
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -32603,6 +32786,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           36294,
+          36171,
           36171,
           36171
         ],
@@ -32621,7 +32805,8 @@ window.BENCHMARK_DATA = {
         "data": [
           14597.357864379883,
           13809.085371907551,
-          15356.19872233073
+          15356.19872233073,
+          14381.058146158854
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -32635,7 +32820,8 @@ window.BENCHMARK_DATA = {
         "data": [
           29119,
           28700,
-          28541
+          28541,
+          28540
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
