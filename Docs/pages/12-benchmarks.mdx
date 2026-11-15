@@ -15,17 +15,33 @@ These benchmarks measure Mockolate's runtime overhead against
 [TUnit.Mocks](https://github.com/thomhurst/TUnit/) and
 [Imposter](https://github.com/themidnightgospel/Imposter) for the same end-to-end mocking flow.
 
-:::note[Methodology]
+<Tabs groupId="mockolateBenchmark" className="benchmark-tabs">
 
-- **Suite**: [`Mockolate.Benchmarks`](https://github.com/Testably/Mockolate/tree/main/Benchmarks/Mockolate.Benchmarks) driven by [BenchmarkDotNet](https://benchmarkdotnet.org/).
-- **Job**: `MediumRun` with the in-process toolchain.
-- **Runner**: `ubuntu-latest` GitHub Actions agent, refreshed on every push to `main`.
-- Each row shows time and allocated memory, sorted fastest-first; bars are scaled within the row so length corresponds to magnitude. The Mockolate row is highlighted as the baseline (`1.00x`) and every other row shows its ratio relative to Mockolate. **Lower is better.**
-- Benchmarks parameterized with `[Params(1, 10)]` (Method/Property/Indexer) repeat their inner body 1× or 10× to surface fixed-cost vs per-call overhead; switch between them with the inline tabs.
+<TabItem value="Complete" label="Complete test" default>
 
-:::
+A complete unit test: an `OrderService` checks out an order with four mocked dependencies. The mocks are set up with exact values, argument matchers and a property, and verified afterwards.
 
-<Tabs groupId="mockolateBenchmark">
+<MockolateBenchmarkResult name="Complete" />
+
+```csharp
+IOrderRepository repository = IOrderRepository.CreateMock();
+IPaymentGateway payment = IPaymentGateway.CreateMock();
+IClock clock = IClock.CreateMock();
+INotifier notifier = INotifier.CreateMock();
+repository.Mock.Setup.Find(1).Returns(new Order(1, "Alice", 42m));
+payment.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
+clock.Mock.Setup.Now.InitializeWith(Now);
+
+new OrderService(repository, payment, clock, notifier).Checkout(1);
+
+payment.Mock.Verify.Charge("Alice", 42m).Once();
+repository.Mock.Verify.Save(It.IsAny<Order>()).Once();
+notifier.Mock.Verify.Send("Alice", It.IsAny<string>()).Once();
+```
+
+[View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteWorkflowBenchmarks.cs)
+
+</TabItem>
 
 <TabItem value="Method" label="Method">
 
@@ -134,7 +150,7 @@ mock.MyFunc(2);
 
 </TabItem>
 
-<TabItem value="CreateMock" label="Create mock" default>
+<TabItem value="CreateMock" label="Create mock">
 
 Cost of constructing an empty mock: no setup, no invocations, no verification. The fixed overhead every test pays.
 
@@ -149,3 +165,15 @@ ICalculatorService.CreateMock();
 </TabItem>
 
 </Tabs>
+
+<details>
+<summary>How these numbers are measured</summary>
+
+- **Suite**: [`Mockolate.Benchmarks`](https://github.com/Testably/Mockolate/tree/main/Benchmarks/Mockolate.Benchmarks) driven by [BenchmarkDotNet](https://benchmarkdotnet.org/).
+- **Job**: `MediumRun` with the in-process toolchain.
+- **Runner**: `ubuntu-latest` GitHub Actions agent, refreshed on every push to `main`.
+- **Parameters**: Method, Property and Indexer repeat their inner body 1 or 10 times (`N=1`, `N=10`) to separate the fixed cost from the cost per call.
+- **Charts**: every multiple is relative to Mockolate, and bars longer than four times the fastest library are cut so the others stay comparable. Lower is better.
+- **Trend**: the recent runs compare each library with Mockolate in the same run, so the line does not depend on the speed of the runner. The dashed line marks equal time.
+
+</details>

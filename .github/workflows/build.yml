@@ -134,6 +134,7 @@ jobs:
                     - CompleteIndexerBenchmarks
                     - CompleteMethodBenchmarks
                     - CompletePropertyBenchmarks
+                    - CompleteWorkflowBenchmarks
                     - MockCreationBenchmarks
         runs-on: ubuntu-latest
         permissions:
