@@ -19,24 +19,24 @@ These benchmarks measure Mockolate's runtime overhead against
 
 <TabItem value="Complete" label="Complete test" default>
 
-A complete unit test: an `OrderService` checks out an order with four mocked dependencies. The mocks are set up with exact values, argument matchers and a property, and verified afterwards.
+A complete unit test: a `ChocolateShop` sells three bars of dark chocolate with four mocked dependencies. The mocks are set up with exact values, argument matchers and a property, and verified afterwards.
 
 <MockolateBenchmarkResult name="Complete" />
 
 ```csharp
-IOrderRepository repository = IOrderRepository.CreateMock();
-IPaymentGateway payment = IPaymentGateway.CreateMock();
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+ICashRegister register = ICashRegister.CreateMock();
 IClock clock = IClock.CreateMock();
-INotifier notifier = INotifier.CreateMock();
-repository.Mock.Setup.Find(1).Returns(new Order(1, "Alice", 42m));
-payment.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
+IReceiptPrinter printer = IReceiptPrinter.CreateMock();
+dispenser.Mock.Setup.Dispense("Dark", 3).Returns(true);
+register.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
 clock.Mock.Setup.Now.InitializeWith(Now);
 
-new OrderService(repository, payment, clock, notifier).Checkout(1);
+new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
 
-payment.Mock.Verify.Charge("Alice", 42m).Once();
-repository.Mock.Verify.Save(It.IsAny<Order>()).Once();
-notifier.Mock.Verify.Send("Alice", It.IsAny<string>()).Once();
+register.Mock.Verify.Charge("Alice", 4.5m).Once();
+dispenser.Mock.Verify.Dispense("Dark", 3).Once();
+printer.Mock.Verify.Print("Alice", It.IsAny<string>()).Once();
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteWorkflowBenchmarks.cs)

@@ -7,16 +7,16 @@ using NSubstitute;
 using Arg = NSubstitute.Arg;
 using Times = Moq.Times;
 
-[assembly: GenerateImposter(typeof(CompleteWorkflowBenchmarks.IOrderRepository))]
-[assembly: GenerateImposter(typeof(CompleteWorkflowBenchmarks.IPaymentGateway))]
+[assembly: GenerateImposter(typeof(CompleteWorkflowBenchmarks.IChocolateDispenser))]
+[assembly: GenerateImposter(typeof(CompleteWorkflowBenchmarks.ICashRegister))]
 [assembly: GenerateImposter(typeof(CompleteWorkflowBenchmarks.IClock))]
-[assembly: GenerateImposter(typeof(CompleteWorkflowBenchmarks.INotifier))]
+[assembly: GenerateImposter(typeof(CompleteWorkflowBenchmarks.IReceiptPrinter))]
 
 namespace Mockolate.Benchmarks;
 #pragma warning disable CA1822 // Mark members as static
 /// <summary>
-///     In this benchmark we simulate a complete unit test: an <see cref="OrderService" /> checks out an order with four
-///     mocked dependencies, which are set up with exact values, argument matchers and a property, and verified afterwards.
+///     In this benchmark we simulate a complete unit test: a <see cref="ChocolateShop" /> sells chocolate with four mocked
+///     dependencies, which are set up with exact values, argument matchers and a property, and verified afterwards.
 /// </summary>
 public class CompleteWorkflowBenchmarks : BenchmarksBase
 {
@@ -28,19 +28,19 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 	[Benchmark(Baseline = true)]
 	public bool Complete_Mockolate()
 	{
-		IOrderRepository repository = IOrderRepository.CreateMock();
-		IPaymentGateway payment = IPaymentGateway.CreateMock();
+		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+		ICashRegister register = ICashRegister.CreateMock();
 		IClock clock = IClock.CreateMock();
-		INotifier notifier = INotifier.CreateMock();
-		repository.Mock.Setup.Find(1).Returns(new Order(1, "Alice", 42m));
-		payment.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
+		IReceiptPrinter printer = IReceiptPrinter.CreateMock();
+		dispenser.Mock.Setup.Dispense("Dark", 3).Returns(true);
+		register.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
 		clock.Mock.Setup.Now.InitializeWith(Now);
 
-		bool result = new OrderService(repository, payment, clock, notifier).Checkout(1);
+		bool result = new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
 
-		payment.Mock.Verify.Charge("Alice", 42m).Once();
-		repository.Mock.Verify.Save(It.IsAny<Order>()).Once();
-		notifier.Mock.Verify.Send("Alice", It.IsAny<string>()).Once();
+		register.Mock.Verify.Charge("Alice", 4.5m).Once();
+		dispenser.Mock.Verify.Dispense("Dark", 3).Once();
+		printer.Mock.Verify.Print("Alice", It.IsAny<string>()).Once();
 		return result;
 	}
 
@@ -50,20 +50,20 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 	[Benchmark]
 	public bool Complete_Imposter()
 	{
-		IOrderRepositoryImposter repository = IOrderRepository.Imposter();
-		IPaymentGatewayImposter payment = IPaymentGateway.Imposter();
+		IChocolateDispenserImposter dispenser = IChocolateDispenser.Imposter();
+		ICashRegisterImposter register = ICashRegister.Imposter();
 		IClockImposter clock = IClock.Imposter();
-		INotifierImposter notifier = INotifier.Imposter();
-		repository.Find(1).Returns(new Order(1, "Alice", 42m));
-		payment.Charge(Imposter.Abstractions.Arg<string>.Any(), Imposter.Abstractions.Arg<decimal>.Any()).Returns(true);
+		IReceiptPrinterImposter printer = IReceiptPrinter.Imposter();
+		dispenser.Dispense("Dark", 3).Returns(true);
+		register.Charge(Imposter.Abstractions.Arg<string>.Any(), Imposter.Abstractions.Arg<decimal>.Any()).Returns(true);
 		clock.Now.Getter().Returns(Now);
 
-		bool result = new OrderService(repository.Instance(), payment.Instance(), clock.Instance(), notifier.Instance())
-			.Checkout(1);
+		bool result = new ChocolateShop(dispenser.Instance(), register.Instance(), clock.Instance(), printer.Instance())
+			.Sell("Alice", "Dark", 3);
 
-		payment.Charge("Alice", 42m).Called(Count.Once());
-		repository.Save(Imposter.Abstractions.Arg<Order>.Any()).Called(Count.Once());
-		notifier.Send("Alice", Imposter.Abstractions.Arg<string>.Any()).Called(Count.Once());
+		register.Charge("Alice", 4.5m).Called(Count.Once());
+		dispenser.Dispense("Dark", 3).Called(Count.Once());
+		printer.Print("Alice", Imposter.Abstractions.Arg<string>.Any()).Called(Count.Once());
 		return result;
 	}
 
@@ -73,19 +73,20 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 	[Benchmark]
 	public bool Complete_TUnitMocks()
 	{
-		CompleteWorkflowBenchmarks_IOrderRepositoryMock repository = IOrderRepository.Mock();
-		CompleteWorkflowBenchmarks_IPaymentGatewayMock payment = IPaymentGateway.Mock();
+		CompleteWorkflowBenchmarks_IChocolateDispenserMock dispenser = IChocolateDispenser.Mock();
+		CompleteWorkflowBenchmarks_ICashRegisterMock register = ICashRegister.Mock();
 		CompleteWorkflowBenchmarks_IClockMock clock = IClock.Mock();
-		CompleteWorkflowBenchmarks_INotifierMock notifier = INotifier.Mock();
-		repository.Find(1).Returns(new Order(1, "Alice", 42m));
-		payment.Charge(Any<string>(), Any<decimal>()).Returns(true);
+		CompleteWorkflowBenchmarks_IReceiptPrinterMock printer = IReceiptPrinter.Mock();
+		dispenser.Dispense("Dark", 3).Returns(true);
+		register.Charge(Any<string>(), Any<decimal>()).Returns(true);
 		clock.Now.Returns(Now);
 
-		bool result = new OrderService(repository.Object, payment.Object, clock.Object, notifier.Object).Checkout(1);
+		bool result = new ChocolateShop(dispenser.Object, register.Object, clock.Object, printer.Object)
+			.Sell("Alice", "Dark", 3);
 
-		payment.Charge("Alice", 42m).WasCalled(TUnit.Mocks.Times.Once);
-		repository.Save(Any<Order>()).WasCalled(TUnit.Mocks.Times.Once);
-		notifier.Send("Alice", Any<string>()).WasCalled(TUnit.Mocks.Times.Once);
+		register.Charge("Alice", 4.5m).WasCalled(TUnit.Mocks.Times.Once);
+		dispenser.Dispense("Dark", 3).WasCalled(TUnit.Mocks.Times.Once);
+		printer.Print("Alice", Any<string>()).WasCalled(TUnit.Mocks.Times.Once);
 		return result;
 	}
 
@@ -95,19 +96,20 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 	[Benchmark]
 	public bool Complete_Moq()
 	{
-		Moq.Mock<IOrderRepository> repository = new();
-		Moq.Mock<IPaymentGateway> payment = new();
+		Moq.Mock<IChocolateDispenser> dispenser = new();
+		Moq.Mock<ICashRegister> register = new();
 		Moq.Mock<IClock> clock = new();
-		Moq.Mock<INotifier> notifier = new();
-		repository.Setup(x => x.Find(1)).Returns(new Order(1, "Alice", 42m));
-		payment.Setup(x => x.Charge(Moq.It.IsAny<string>(), Moq.It.IsAny<decimal>())).Returns(true);
+		Moq.Mock<IReceiptPrinter> printer = new();
+		dispenser.Setup(x => x.Dispense("Dark", 3)).Returns(true);
+		register.Setup(x => x.Charge(Moq.It.IsAny<string>(), Moq.It.IsAny<decimal>())).Returns(true);
 		clock.SetupGet(x => x.Now).Returns(Now);
 
-		bool result = new OrderService(repository.Object, payment.Object, clock.Object, notifier.Object).Checkout(1);
+		bool result = new ChocolateShop(dispenser.Object, register.Object, clock.Object, printer.Object)
+			.Sell("Alice", "Dark", 3);
 
-		payment.Verify(x => x.Charge("Alice", 42m), Times.Once());
-		repository.Verify(x => x.Save(Moq.It.IsAny<Order>()), Times.Once());
-		notifier.Verify(x => x.Send("Alice", Moq.It.IsAny<string>()), Times.Once());
+		register.Verify(x => x.Charge("Alice", 4.5m), Times.Once());
+		dispenser.Verify(x => x.Dispense("Dark", 3), Times.Once());
+		printer.Verify(x => x.Print("Alice", Moq.It.IsAny<string>()), Times.Once());
 		return result;
 	}
 
@@ -117,19 +119,19 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 	[Benchmark]
 	public bool Complete_NSubstitute()
 	{
-		IOrderRepository repository = Substitute.For<IOrderRepository>();
-		IPaymentGateway payment = Substitute.For<IPaymentGateway>();
+		IChocolateDispenser dispenser = Substitute.For<IChocolateDispenser>();
+		ICashRegister register = Substitute.For<ICashRegister>();
 		IClock clock = Substitute.For<IClock>();
-		INotifier notifier = Substitute.For<INotifier>();
-		repository.Find(1).Returns(new Order(1, "Alice", 42m));
-		payment.Charge(Arg.Any<string>(), Arg.Any<decimal>()).Returns(true);
+		IReceiptPrinter printer = Substitute.For<IReceiptPrinter>();
+		dispenser.Dispense("Dark", 3).Returns(true);
+		register.Charge(Arg.Any<string>(), Arg.Any<decimal>()).Returns(true);
 		clock.Now.Returns(Now);
 
-		bool result = new OrderService(repository, payment, clock, notifier).Checkout(1);
+		bool result = new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
 
-		payment.Received(1).Charge("Alice", 42m);
-		repository.Received(1).Save(Arg.Any<Order>());
-		notifier.Received(1).Send("Alice", Arg.Any<string>());
+		register.Received(1).Charge("Alice", 4.5m);
+		dispenser.Received(1).Dispense("Dark", 3);
+		printer.Received(1).Print("Alice", Arg.Any<string>());
 		return result;
 	}
 
@@ -139,37 +141,28 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 	[Benchmark]
 	public bool Complete_FakeItEasy()
 	{
-		IOrderRepository repository = A.Fake<IOrderRepository>();
-		IPaymentGateway payment = A.Fake<IPaymentGateway>();
+		IChocolateDispenser dispenser = A.Fake<IChocolateDispenser>();
+		ICashRegister register = A.Fake<ICashRegister>();
 		IClock clock = A.Fake<IClock>();
-		INotifier notifier = A.Fake<INotifier>();
-		A.CallTo(() => repository.Find(1)).Returns(new Order(1, "Alice", 42m));
-		A.CallTo(() => payment.Charge(A<string>.Ignored, A<decimal>.Ignored)).Returns(true);
+		IReceiptPrinter printer = A.Fake<IReceiptPrinter>();
+		A.CallTo(() => dispenser.Dispense("Dark", 3)).Returns(true);
+		A.CallTo(() => register.Charge(A<string>.Ignored, A<decimal>.Ignored)).Returns(true);
 		A.CallTo(() => clock.Now).Returns(Now);
 
-		bool result = new OrderService(repository, payment, clock, notifier).Checkout(1);
+		bool result = new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
 
-		A.CallTo(() => payment.Charge("Alice", 42m)).MustHaveHappenedOnceExactly();
-		A.CallTo(() => repository.Save(A<Order>.Ignored)).MustHaveHappenedOnceExactly();
-		A.CallTo(() => notifier.Send("Alice", A<string>.Ignored)).MustHaveHappenedOnceExactly();
+		A.CallTo(() => register.Charge("Alice", 4.5m)).MustHaveHappenedOnceExactly();
+		A.CallTo(() => dispenser.Dispense("Dark", 3)).MustHaveHappenedOnceExactly();
+		A.CallTo(() => printer.Print("Alice", A<string>.Ignored)).MustHaveHappenedOnceExactly();
 		return result;
 	}
 
-	public class Order(int id, string customer, decimal total)
+	public interface IChocolateDispenser
 	{
-		public int Id { get; } = id;
-		public string Customer { get; } = customer;
-		public decimal Total { get; } = total;
-		public DateTime? PaidAt { get; set; }
+		bool Dispense(string type, int amount);
 	}
 
-	public interface IOrderRepository
-	{
-		Order? Find(int id);
-		void Save(Order order);
-	}
-
-	public interface IPaymentGateway
+	public interface ICashRegister
 	{
 		bool Charge(string customer, decimal amount);
 	}
@@ -179,28 +172,27 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 		DateTime Now { get; }
 	}
 
-	public interface INotifier
+	public interface IReceiptPrinter
 	{
-		void Send(string customer, string message);
+		void Print(string customer, string text);
 	}
 
-	private sealed class OrderService(
-		IOrderRepository repository,
-		IPaymentGateway payment,
+	private sealed class ChocolateShop(
+		IChocolateDispenser dispenser,
+		ICashRegister register,
 		IClock clock,
-		INotifier notifier)
+		IReceiptPrinter printer)
 	{
-		public bool Checkout(int orderId)
+		private const decimal PricePerBar = 1.5m;
+
+		public bool Sell(string customer, string type, int amount)
 		{
-			Order? order = repository.Find(orderId);
-			if (order is null || !payment.Charge(order.Customer, order.Total))
+			if (!register.Charge(customer, amount * PricePerBar) || !dispenser.Dispense(type, amount))
 			{
 				return false;
 			}
 
-			order.PaidAt = clock.Now;
-			repository.Save(order);
-			notifier.Send(order.Customer, $"Order {order.Id} paid");
+			printer.Print(customer, $"{amount} x {type} on {clock.Now:yyyy-MM-dd}");
 			return true;
 		}
 	}
