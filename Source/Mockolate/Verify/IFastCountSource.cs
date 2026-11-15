@@ -1,3 +1,5 @@
+using Mockolate.Interactions;
+
 namespace Mockolate.Verify;
 
 /// <summary>
@@ -12,6 +14,12 @@ internal interface IFastCountSource
 	///     Counts recorded interactions whose parameters satisfy the source's captured matchers.
 	/// </summary>
 	int Count();
+
+	/// <summary>
+	///     Checks a boxed interaction against the source's captured matchers, for the paths that walk
+	///     <see cref="IInteraction" /> instances (ordering, failure output, waiting).
+	/// </summary>
+	bool Matches(IInteraction interaction);
 }
 
 /// <summary>
