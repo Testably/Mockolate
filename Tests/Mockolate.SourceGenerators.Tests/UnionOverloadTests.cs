@@ -100,7 +100,7 @@ public sealed class UnionOverloadTests
 		await That(mock)
 			.Contains("global::Mockolate.Verify.VerificationResult<IMockVerifyForIMyService>.IgnoreParameters Plain(global::Mockolate.ParameterArg<int>? value, global::Mockolate.ParameterArg<string>? text);").And
 			.Contains("global::Mockolate.Verify.VerificationResult<IMockVerifyForIMyService>.IgnoreParameters Plain(global::System.Func<int, bool> value, global::Mockolate.ParameterArg<string>? text, [global::System.Runtime.CompilerServices.CallerArgumentExpression(\"value\")] string valueExpression = \"\");").And
-			.Contains("() => $\"Plain({valueExpression}, {textArg})\"");
+			.Contains("(valueExpression, textArg), static state => $\"Plain({state.Item1}, {state.Item2})\"");
 	}
 
 	[Test]

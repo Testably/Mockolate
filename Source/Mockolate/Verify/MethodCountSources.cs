@@ -343,6 +343,161 @@ internal sealed class Method4LiteralCountSource<TVerify, T1, T2, T3, T4> : Verif
 }
 
 /// <summary>
+///     Allocation-free count source backed by a 1-parameter method buffer and a typed matcher. It keeps the
+///     caller's arguments as <typeparamref name="TState" />, so the failure message needs no closure.
+/// </summary>
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method1StateCountSource<TVerify, T1, TState> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+{
+	private readonly FastMethod1Buffer<T1> _buffer;
+	private readonly IParameterMatch<T1> _match1;
+	private readonly TState _state;
+
+	public Method1StateCountSource(TVerify verify, IMockInteractions interactions, FastMethod1Buffer<T1> buffer,
+		string methodName, IParameterMatch<T1> match1, TState state,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
+	{
+		_buffer = buffer;
+		_match1 = match1;
+		_state = state;
+	}
+
+	public int Count() => _buffer.ConsumeMatching(_match1);
+	public int CountAll() => _buffer.ConsumeAll();
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is MethodInvocation<T1> m && _match1.Matches(m.Parameter1);
+
+	public string Describe(Func<TState, string> expectation)
+		=> expectation(_state);
+}
+
+/// <summary>
+///     Allocation-free count source backed by a 2-parameter method buffer that keeps the caller's arguments as
+///     <typeparamref name="TState" />.
+/// </summary>
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method2StateCountSource<TVerify, T1, T2, TState> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+{
+	private readonly FastMethod2Buffer<T1, T2> _buffer;
+	private readonly IParameterMatch<T1> _match1;
+	private readonly IParameterMatch<T2> _match2;
+	private readonly TState _state;
+
+	public Method2StateCountSource(TVerify verify, IMockInteractions interactions, FastMethod2Buffer<T1, T2> buffer,
+		string methodName, IParameterMatch<T1> match1, IParameterMatch<T2> match2, TState state,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
+	{
+		_buffer = buffer;
+		_match1 = match1;
+		_match2 = match2;
+		_state = state;
+	}
+
+	public int Count() => _buffer.ConsumeMatching(_match1, _match2);
+	public int CountAll() => _buffer.ConsumeAll();
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is MethodInvocation<T1, T2> m && _match1.Matches(m.Parameter1) && _match2.Matches(m.Parameter2);
+
+	public string Describe(Func<TState, string> expectation)
+		=> expectation(_state);
+}
+
+/// <summary>
+///     Allocation-free count source backed by a 3-parameter method buffer that keeps the caller's arguments as
+///     <typeparamref name="TState" />.
+/// </summary>
+#pragma warning disable S2436 // Types and methods should not have too many generic parameters
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method3StateCountSource<TVerify, T1, T2, T3, TState> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+#pragma warning restore S2436
+{
+	private readonly FastMethod3Buffer<T1, T2, T3> _buffer;
+	private readonly IParameterMatch<T1> _match1;
+	private readonly IParameterMatch<T2> _match2;
+	private readonly IParameterMatch<T3> _match3;
+	private readonly TState _state;
+
+#pragma warning disable S107 // Methods should not have too many parameters
+	public Method3StateCountSource(TVerify verify, IMockInteractions interactions, FastMethod3Buffer<T1, T2, T3> buffer,
+		string methodName, IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
+		TState state, object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
+#pragma warning restore S107
+	{
+		_buffer = buffer;
+		_match1 = match1;
+		_match2 = match2;
+		_match3 = match3;
+		_state = state;
+	}
+
+	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3);
+	public int CountAll() => _buffer.ConsumeAll();
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is MethodInvocation<T1, T2, T3> m && _match1.Matches(m.Parameter1) &&
+		   _match2.Matches(m.Parameter2) && _match3.Matches(m.Parameter3);
+
+	public string Describe(Func<TState, string> expectation)
+		=> expectation(_state);
+}
+
+/// <summary>
+///     Allocation-free count source backed by a 4-parameter method buffer that keeps the caller's arguments as
+///     <typeparamref name="TState" />.
+/// </summary>
+#pragma warning disable S2436 // Types and methods should not have too many generic parameters
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
+internal sealed class Method4StateCountSource<TVerify, T1, T2, T3, T4, TState> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+#pragma warning restore S2436
+{
+	private readonly FastMethod4Buffer<T1, T2, T3, T4> _buffer;
+	private readonly IParameterMatch<T1> _match1;
+	private readonly IParameterMatch<T2> _match2;
+	private readonly IParameterMatch<T3> _match3;
+	private readonly IParameterMatch<T4> _match4;
+	private readonly TState _state;
+
+#pragma warning disable S107 // Methods should not have too many parameters
+	public Method4StateCountSource(TVerify verify, IMockInteractions interactions, FastMethod4Buffer<T1, T2, T3, T4> buffer,
+		string methodName, IParameterMatch<T1> match1, IParameterMatch<T2> match2,
+		IParameterMatch<T3> match3, IParameterMatch<T4> match4, TState state,
+		object? expectationArgument, Func<object?, object?, string> expectationFactory)
+		: base(verify, interactions, buffer, methodName, expectationArgument, expectationFactory)
+#pragma warning restore S107
+	{
+		_buffer = buffer;
+		_match1 = match1;
+		_match2 = match2;
+		_match3 = match3;
+		_match4 = match4;
+		_state = state;
+	}
+
+	public int Count() => _buffer.ConsumeMatching(_match1, _match2, _match3, _match4);
+	public int CountAll() => _buffer.ConsumeAll();
+
+	public bool Matches(IInteraction interaction)
+		=> interaction is MethodInvocation<T1, T2, T3, T4> m && _match1.Matches(m.Parameter1) &&
+		   _match2.Matches(m.Parameter2) && _match3.Matches(m.Parameter3) && _match4.Matches(m.Parameter4);
+
+	public string Describe(Func<TState, string> expectation)
+		=> expectation(_state);
+}
+
+/// <summary>
 ///     Allocation-free count source backed by a property getter buffer.
 /// </summary>
 #if !DEBUG

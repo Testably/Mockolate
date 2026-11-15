@@ -692,15 +692,15 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> @paramsArg = @params ?? default;
 			if (@paramsArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.Literal!, () => $"@if({@paramsArg})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.Literal!, static (@params) => $"@if({(new global::Mockolate.ParameterArg<int>(@params))})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.ToParameterMatch(), () => $"@if({@paramsArg})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int, global::Mockolate.ParameterArg<int>>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.ToParameterMatch(), @paramsArg, static state => $"@if({state})");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@if(global::System.Func<int, bool> @params, string @paramsExpression)
 		{
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression), () => $"@if({@paramsExpression})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int, string>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression), @paramsExpression, static state => $"@if({state})");
 		}
 
 		/// <inheritdoc />
@@ -823,15 +823,15 @@ internal static partial class Mock
 			global::Mockolate.ParameterArg<int> @paramsArg = @params ?? default;
 			if (@paramsArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.Literal!, () => $"@if({@paramsArg})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.Literal!, static (@params) => $"@if({(new global::Mockolate.ParameterArg<int>(@params))})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.ToParameterMatch(), () => $"@if({@paramsArg})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int, global::Mockolate.ParameterArg<int>>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @paramsArg.ToParameterMatch(), @paramsArg, static state => $"@if({state})");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@if(global::System.Func<int, bool> @params, string @paramsExpression)
 		{
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression), () => $"@if({@paramsExpression})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, int, string>(this, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(@params, @paramsExpression), @paramsExpression, static state => $"@if({state})");
 		}
 
 		/// <inheritdoc />
