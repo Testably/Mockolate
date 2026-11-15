@@ -261,6 +261,53 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task MethodWithFiveParameters_HighContention_ShouldRecordEveryCall()
+		{
+			const int threadCount = 16;
+			const int iterationsPerThread = 16;
+			const int expectedCalls = threadCount * iterationsPerThread;
+			for (int round = 0; round < 500; round++)
+			{
+				IMyThreadSafetyService sut = IMyThreadSafetyService.CreateMock();
+				using Barrier barrier = new(threadCount);
+				Thread[] threads = new Thread[threadCount];
+				for (int i = 0; i < threadCount; i++)
+				{
+					int offset = i * iterationsPerThread;
+					threads[i] = new Thread(() =>
+					{
+						barrier.SignalAndWait();
+						for (int j = 1; j <= iterationsPerThread; j++)
+						{
+							int value = offset + j;
+							sut.MyMethodWithFiveParameters(value, -value, value, -value, value);
+						}
+					});
+					threads[i].Start();
+				}
+
+				foreach (Thread thread in threads)
+				{
+					thread.Join();
+				}
+
+				ConcurrentQueue<int> recorded = [];
+				await That(sut.Mock.Verify.MyMethodWithFiveParameters(
+						It.Satisfies<int>(v =>
+						{
+							recorded.Enqueue(v);
+							return v > 0;
+						}),
+						It.Satisfies<int>(v => v < 0),
+						It.Satisfies<int>(v => v > 0),
+						It.Satisfies<int>(v => v < 0),
+						It.Satisfies<int>(v => v > 0)))
+					.Exactly(expectedCalls).Because("no concurrent call may be lost or recorded with default values");
+				await That(recorded.OrderBy(v => v)).IsEqualTo(Enumerable.Range(1, expectedCalls));
+			}
+		}
+
+		[Test]
 		public async Task Method_ShouldBeThreadSafe()
 		{
 			IMyThreadSafetyService sut = IMyThreadSafetyService.CreateMock();
@@ -441,6 +488,7 @@ public sealed partial class MockTests
 			Guid MyGuidProperty { get; set; }
 			string this[int index] { get; set; }
 			int MyMethod(int value);
+			void MyMethodWithFiveParameters(int p1, int p2, int p3, int p4, int p5);
 			event EventHandler? MyEvent;
 		}
 	}

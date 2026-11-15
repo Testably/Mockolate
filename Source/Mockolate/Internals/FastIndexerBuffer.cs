@@ -37,12 +37,12 @@ public sealed class FastIndexerGetterBuffer<T1> : IFastMemberBuffer
 	public void Append(T1 parameter1)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = parameter1;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -60,12 +60,12 @@ public sealed class FastIndexerGetterBuffer<T1> : IFastMemberBuffer
 	public void Append(IndexerGetterAccess<T1> access)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = access.Parameter1;
 		r.Boxed = access;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -172,13 +172,13 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : IFastMemberBuffer
 	public void Append(T1 parameter1, T2 parameter2)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -192,13 +192,13 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : IFastMemberBuffer
 	public void Append(IndexerGetterAccess<T1, T2> access)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.Boxed = access;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -306,14 +306,14 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : IFastMemberBuffer
 	public void Append(T1 parameter1, T2 parameter2, T3 parameter3)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -327,14 +327,14 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : IFastMemberBuffer
 	public void Append(IndexerGetterAccess<T1, T2, T3> access)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.P3 = access.Parameter3;
 		r.Boxed = access;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -443,15 +443,15 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : IFastMemberBuffer
 	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
 		r.P4 = parameter4;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -465,15 +465,15 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : IFastMemberBuffer
 	public void Append(IndexerGetterAccess<T1, T2, T3, T4> access)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.P3 = access.Parameter3;
 		r.P4 = access.Parameter4;
 		r.Boxed = access;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -583,13 +583,13 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : IFastMemberBuffer
 	public void Append(T1 parameter1, TValue value)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = parameter1;
 		r.Value = value;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -603,13 +603,13 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : IFastMemberBuffer
 	public void Append(IndexerSetterAccess<T1, TValue> access)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = access.Parameter1;
 		r.Value = access.TypedValue;
 		r.Boxed = access;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -718,14 +718,14 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : IFastMemberBuffer
 	public void Append(T1 parameter1, T2 parameter2, TValue value)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.Value = value;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -739,14 +739,14 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : IFastMemberBuffer
 	public void Append(IndexerSetterAccess<T1, T2, TValue> access)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.Value = access.TypedValue;
 		r.Boxed = access;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -856,15 +856,15 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : IFastMemberBuf
 	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, TValue value)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
 		r.Value = value;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -878,15 +878,15 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : IFastMemberBuf
 	public void Append(IndexerSetterAccess<T1, T2, T3, TValue> access)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.P3 = access.Parameter3;
 		r.Value = access.TypedValue;
 		r.Boxed = access;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -997,8 +997,8 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : IFastMembe
 	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, TValue value)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
@@ -1006,7 +1006,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : IFastMembe
 		r.P4 = parameter4;
 		r.Value = value;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -1020,8 +1020,8 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : IFastMembe
 	public void Append(IndexerSetterAccess<T1, T2, T3, T4, TValue> access)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
@@ -1029,7 +1029,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : IFastMembe
 		r.P4 = access.Parameter4;
 		r.Value = access.TypedValue;
 		r.Boxed = access;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
