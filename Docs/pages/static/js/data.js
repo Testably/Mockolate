@@ -1170,6 +1170,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -1367,7 +1373,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -1568,7 +1575,8 @@ window.BENCHMARK_DATA = {
           381.99791325055634,
           296.0793134053548,
           200.84604130472457,
-          182.09172969598038
+          182.09172969598038,
+          230.30229560534158
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1770,6 +1778,7 @@ window.BENCHMARK_DATA = {
           1584,
           1536,
           1536,
+          1552,
           1552,
           1552,
           1552,
@@ -1983,7 +1992,8 @@ window.BENCHMARK_DATA = {
           45208.342381068636,
           104531.74973958333,
           30970.677045549666,
-          30120.586809430803
+          30120.586809430803,
+          60835.60144856771
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2188,6 +2198,7 @@ window.BENCHMARK_DATA = {
           9055,
           9033,
           9056,
+          9055,
           9055,
           9055
         ],
@@ -2398,7 +2409,8 @@ window.BENCHMARK_DATA = {
           4117.86364034017,
           4498.389132573055,
           2572.7672688620432,
-          2395.3764895121258
+          2395.3764895121258,
+          3384.9119705200196
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2559,6 +2571,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2813,7 +2826,8 @@ window.BENCHMARK_DATA = {
           3645.806244913737,
           4456.430449422201,
           2595.9352888379776,
-          2600.4792592366534
+          2600.4792592366534,
+          3301.053909301758
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3017,6 +3031,7 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6924,
+          6930,
           6930,
           6930,
           6930
@@ -3228,7 +3243,8 @@ window.BENCHMARK_DATA = {
           238.76458147593908,
           196.6030101776123,
           137.02469608416925,
-          123.32271293004354
+          123.32271293004354,
+          176.0046610514323
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3394,6 +3410,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3643,7 +3660,8 @@ window.BENCHMARK_DATA = {
           594.4942095620291,
           441.8769151142665,
           349.1262240043053,
-          305.6469223499298
+          305.6469223499298,
+          387.78381900787355
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3804,6 +3822,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -5033,6 +5052,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -5230,7 +5255,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -5431,7 +5457,8 @@ window.BENCHMARK_DATA = {
           225.98512681325278,
           167.6281405289968,
           219.73799839019776,
-          229.75133141449518
+          229.75133141449518,
+          225.24648151397705
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5633,6 +5660,7 @@ window.BENCHMARK_DATA = {
           984,
           984,
           984,
+          1000,
           1000,
           1000,
           1000,
@@ -5846,7 +5874,8 @@ window.BENCHMARK_DATA = {
           15798.360548753004,
           10461.640848795572,
           9627.89455472506,
-          15320.993082682291
+          15320.993082682291,
+          15703.126383463541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6038,6 +6067,7 @@ window.BENCHMARK_DATA = {
           12761,
           12760,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -6261,7 +6291,8 @@ window.BENCHMARK_DATA = {
           5503.338150611291,
           4123.004422505696,
           4021.7968638102216,
-          6307.370543924967
+          6307.370543924967,
+          5946.098884037563
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6422,6 +6453,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -6676,7 +6708,8 @@ window.BENCHMARK_DATA = {
           223523.26450892858,
           194735.97485351562,
           105455.53466796875,
-          217268.8603515625
+          217268.8603515625,
+          218350.19635416666
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6882,7 +6915,8 @@ window.BENCHMARK_DATA = {
           15618,
           15619,
           15579,
-          15586
+          15586,
+          15707
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7091,7 +7125,8 @@ window.BENCHMARK_DATA = {
           178.86626796722413,
           140.30645079272134,
           165.12167075475057,
-          192.46921733447485
+          192.46921733447485,
+          180.36047739642007
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7232,6 +7267,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -7506,7 +7542,8 @@ window.BENCHMARK_DATA = {
           164.6714285850525,
           119.97831453595843,
           154.92528407914298,
-          190.233983533723
+          190.233983533723,
+          179.53608306248984
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -7640,6 +7677,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -8896,6 +8934,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -9093,7 +9137,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -9294,7 +9339,8 @@ window.BENCHMARK_DATA = {
           433.74811964035035,
           748.6944073994954,
           392.90398597717285,
-          567.4215467316764
+          567.4215467316764,
+          653.9880882263184
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9496,6 +9542,7 @@ window.BENCHMARK_DATA = {
           2616,
           2544,
           2544,
+          2576,
           2576,
           2576,
           2576,
@@ -9709,7 +9756,8 @@ window.BENCHMARK_DATA = {
           62483.49983097957,
           227270.80726841517,
           61957.08653913225,
-          140042.6896158854
+          140042.6896158854,
+          82709.66305338542
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9915,7 +9963,8 @@ window.BENCHMARK_DATA = {
           20810,
           20804,
           20811,
-          20804
+          20804,
+          20809
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10124,7 +10173,8 @@ window.BENCHMARK_DATA = {
           5205.922994341169,
           10631.81816805326,
           4901.026585388184,
-          7238.644451686314
+          7238.644451686314,
+          7818.46955871582
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10328,6 +10378,7 @@ window.BENCHMARK_DATA = {
           13088,
           13032,
           13032,
+          13088,
           13088,
           13088,
           13088
@@ -10539,7 +10590,8 @@ window.BENCHMARK_DATA = {
           4680.775892530169,
           11385.972166878837,
           4901.8424489339195,
-          7118.873644510905
+          7118.873644510905,
+          6389.327170308431
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10745,7 +10797,8 @@ window.BENCHMARK_DATA = {
           13593,
           13593,
           13593,
-          13593
+          13593,
+          13586
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10954,7 +11007,8 @@ window.BENCHMARK_DATA = {
           173.85099339485168,
           292.739363861084,
           173.9464748541514,
-          247.0855244568416
+          247.0855244568416,
+          267.5406218528748
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11115,6 +11169,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -12344,6 +12399,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -12541,7 +12602,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -12742,7 +12804,8 @@ window.BENCHMARK_DATA = {
           1508.2574728329976,
           2397.9147881825766,
           1524.2772798538208,
-          1823.6893504006523
+          1823.6893504006523,
+          2209.760404968262
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12944,6 +13007,7 @@ window.BENCHMARK_DATA = {
           4720,
           4216,
           4216,
+          4248,
           4248,
           4248,
           4248,
@@ -13157,7 +13221,8 @@ window.BENCHMARK_DATA = {
           66682.71053641183,
           237765.12657877605,
           72441.32338169643,
-          147525.2632359096
+          147525.2632359096,
+          88048.50779622396
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13363,7 +13428,8 @@ window.BENCHMARK_DATA = {
           30402,
           30403,
           30402,
-          30403
+          30403,
+          30386
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13572,7 +13638,8 @@ window.BENCHMARK_DATA = {
           11696.453641451322,
           25882.188317871092,
           13152.85044148763,
-          17588.0736214774
+          17588.0736214774,
+          18518.59865722656
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13778,7 +13845,8 @@ window.BENCHMARK_DATA = {
           26137,
           26193,
           26193,
-          26193
+          26193,
+          26192
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13987,7 +14055,8 @@ window.BENCHMARK_DATA = {
           10314.730500539144,
           23568.656106802133,
           10604.783422851562,
-          15231.627821702223
+          15231.627821702223,
+          15076.881912231445
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14193,6 +14262,7 @@ window.BENCHMARK_DATA = {
           33249,
           33247,
           33249,
+          33247,
           33247
         ],
         "borderColor": "#4A6FA5",
@@ -14402,7 +14472,8 @@ window.BENCHMARK_DATA = {
           429.33333792005266,
           727.8502813747951,
           465.84171590805056,
-          591.3782945632935
+          591.3782945632935,
+          644.789986038208
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14563,6 +14634,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -15792,6 +15864,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -15989,7 +16067,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -16190,7 +16269,8 @@ window.BENCHMARK_DATA = {
           319.2373482159206,
           208.137848172869,
           163.88407681538507,
-          165.8001003605979
+          165.8001003605979,
+          177.7620151213237
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16392,6 +16472,7 @@ window.BENCHMARK_DATA = {
           1176,
           1152,
           1152,
+          1168,
           1168,
           1168,
           1168,
@@ -16605,7 +16686,8 @@ window.BENCHMARK_DATA = {
           116558.37601143973,
           113555.8346842448,
           61886.91504720052,
-          59600.62922014509
+          59600.62922014509,
+          60975.42252022879
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16810,6 +16892,7 @@ window.BENCHMARK_DATA = {
           14920,
           14914,
           14914,
+          14920,
           14920,
           14920
         ],
@@ -17020,7 +17103,8 @@ window.BENCHMARK_DATA = {
           4713.031227620443,
           4599.862610371908,
           3222.294300896781,
-          3195.909085845947
+          3195.909085845947,
+          3432.2790285746255
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17226,6 +17310,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9264,
+          9320,
           9320
         ],
         "borderColor": "#5E2750",
@@ -17435,7 +17520,8 @@ window.BENCHMARK_DATA = {
           4264.301360539028,
           4073.348527018229,
           3114.4560508728027,
-          3042.9415657043455
+          3042.9415657043455,
+          2905.44413172404
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17633,6 +17719,7 @@ window.BENCHMARK_DATA = {
           8153,
           8151,
           8147,
+          8160,
           8160,
           8160,
           8160,
@@ -17850,7 +17937,8 @@ window.BENCHMARK_DATA = {
           144.75615776379902,
           151.32437105178832,
           111.97279674666268,
-          106.6967311779658
+          106.6967311779658,
+          108.3269066731135
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18016,6 +18104,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -18265,7 +18354,8 @@ window.BENCHMARK_DATA = {
           372.48112395604454,
           365.08741416249956,
           289.8296204635075,
-          280.90058323542274
+          280.90058323542274,
+          278.5254461606344
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18399,6 +18489,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -19655,6 +19746,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -19852,7 +19949,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -20053,7 +20151,8 @@ window.BENCHMARK_DATA = {
           472.5553637822469,
           453.9947872479757,
           480.4529591878255,
-          474.2404373032706
+          474.2404373032706,
+          477.88664957193225
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20255,6 +20354,7 @@ window.BENCHMARK_DATA = {
           1968,
           1728,
           1728,
+          1744,
           1744,
           1744,
           1744,
@@ -20468,7 +20568,8 @@ window.BENCHMARK_DATA = {
           119602.14426676433,
           116706.4296875,
           63484.7180867513,
-          62412.94247000558
+          62412.94247000558,
+          62712.94105747768
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20674,6 +20775,7 @@ window.BENCHMARK_DATA = {
           18906,
           18906,
           18905,
+          18906,
           18906
         ],
         "borderColor": "#A052B0",
@@ -20883,7 +20985,8 @@ window.BENCHMARK_DATA = {
           6604.017646280924,
           6756.638706970215,
           5068.471751621792,
-          5214.816133771624
+          5214.816133771624,
+          5106.925076998197
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21089,6 +21192,7 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           11784,
+          12344,
           12344
         ],
         "borderColor": "#5E2750",
@@ -21298,7 +21402,8 @@ window.BENCHMARK_DATA = {
           6707.957502746582,
           6813.65259399414,
           4571.2804768880205,
-          5297.582765306745
+          5297.582765306745,
+          5278.90275984544
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21500,6 +21605,7 @@ window.BENCHMARK_DATA = {
           16394,
           16394,
           16393,
+          16394,
           16394,
           16394,
           16394,
@@ -21713,7 +21819,8 @@ window.BENCHMARK_DATA = {
           284.3333911214556,
           292.31322585619415,
           255.89785715511866,
-          253.3074231147766
+          253.3074231147766,
+          277.0800842603048
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21879,6 +21986,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -22128,7 +22236,8 @@ window.BENCHMARK_DATA = {
           1034.4850791295369,
           1095.917633565267,
           1016.4984710693359,
-          1046.0063049316407
+          1046.0063049316407,
+          1096.4231646401543
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22262,6 +22371,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -23518,6 +23628,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -23715,7 +23831,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -23916,7 +24033,8 @@ window.BENCHMARK_DATA = {
           382.60410369237263,
           255.44014399846395,
           307.9462333361308,
-          337.81029783884685
+          337.81029783884685,
+          592.3143683161054
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24118,6 +24236,7 @@ window.BENCHMARK_DATA = {
           1480,
           1424,
           1424,
+          1456,
           1456,
           1456,
           1456,
@@ -24331,7 +24450,8 @@ window.BENCHMARK_DATA = {
           6585.086171468099,
           5295.405768761268,
           7754.109379359654,
-          7955.311850411551
+          7955.311850411551,
+          11323.329150390626
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -24536,6 +24656,7 @@ window.BENCHMARK_DATA = {
           10568,
           10568,
           10568,
+          10569,
           10569,
           10569
         ],
@@ -24746,7 +24867,8 @@ window.BENCHMARK_DATA = {
           4764.118060302734,
           3823.0908314841136,
           5545.182074991862,
-          5698.65376340426
+          5698.65376340426,
+          7856.798731122698
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -24952,6 +25074,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664
         ],
         "borderColor": "#5E2750",
@@ -25161,7 +25284,8 @@ window.BENCHMARK_DATA = {
           4137.044982910156,
           3993.7084407806396,
           5634.978484090169,
-          5832.834835597447
+          5832.834835597447,
+          7910.24141031901
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -25365,6 +25489,7 @@ window.BENCHMARK_DATA = {
           11196,
           11191,
           11191,
+          11196,
           11196,
           11196,
           11196
@@ -25576,7 +25701,8 @@ window.BENCHMARK_DATA = {
           149.66689137050085,
           110.94742981876645,
           138.4424471060435,
-          141.12630442472604
+          141.12630442472604,
+          184.69698662757872
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -25742,6 +25868,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -25991,7 +26118,8 @@ window.BENCHMARK_DATA = {
           357.34865891138713,
           284.48967768351235,
           357.4843024253845,
-          365.2814069112142
+          365.2814069112142,
+          467.6369476954142
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26187,6 +26315,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -27381,6 +27510,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -27578,7 +27713,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -27779,7 +27915,8 @@ window.BENCHMARK_DATA = {
           870.6368214533879,
           722.3599241696871,
           803.2546578089397,
-          791.7518674410306
+          791.7518674410306,
+          1008.7077271779378
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27981,6 +28118,7 @@ window.BENCHMARK_DATA = {
           2752,
           2192,
           2192,
+          2224,
           2224,
           2224,
           2224,
@@ -28194,7 +28332,8 @@ window.BENCHMARK_DATA = {
           10752.744160970053,
           8764.925625392369,
           12657.92612508138,
-          12957.620084490094
+          12957.620084490094,
+          17631.1753519694
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28398,6 +28537,7 @@ window.BENCHMARK_DATA = {
           18505,
           18504,
           18504,
+          18505,
           18505,
           18505,
           18505
@@ -28609,7 +28749,8 @@ window.BENCHMARK_DATA = {
           10800.442730243389,
           8683.094585712139,
           12984.736166817802,
-          12820.205350603375
+          12820.205350603375,
+          17927.914076741537
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28815,6 +28956,7 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21553,
+          21529,
           21529
         ],
         "borderColor": "#5E2750",
@@ -29024,7 +29166,8 @@ window.BENCHMARK_DATA = {
           11073.582284545899,
           9801.067907714843,
           14190.921563720703,
-          14218.770533243814
+          14218.770533243814,
+          19010.73832397461
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29228,6 +29371,7 @@ window.BENCHMARK_DATA = {
           30785,
           30780,
           30780,
+          30785,
           30785,
           30785,
           30785
@@ -29439,7 +29583,8 @@ window.BENCHMARK_DATA = {
           296.1011825243632,
           260.08306051890054,
           262.96113106182645,
-          264.0987120408278
+          264.0987120408278,
+          338.3238596280416
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -29605,6 +29750,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -29854,7 +30000,8 @@ window.BENCHMARK_DATA = {
           1347.943098195394,
           1153.6064796447754,
           1322.9628125508627,
-          1278.3094535555158
+          1278.3094535555158,
+          1561.9472770690918
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30050,6 +30197,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -31244,6 +31392,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -31441,7 +31595,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -31642,7 +31797,8 @@ window.BENCHMARK_DATA = {
           11.573837202787399,
           19.309521669149397,
           15.860366838318962,
-          18.115634971431323
+          18.115634971431323,
+          18.134504275520644
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -31700,6 +31856,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -32057,7 +32214,8 @@ window.BENCHMARK_DATA = {
           67.70999589136669,
           97.97615648110708,
           89.08502229054768,
-          98.52827002320971
+          98.52827002320971,
+          103.58112748180118
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -32223,6 +32381,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -32472,7 +32631,8 @@ window.BENCHMARK_DATA = {
           20.199988458837783,
           30.716077760855356,
           26.738974041663685,
-          30.746168812115986
+          30.746168812115986,
+          30.335250359773635
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -32606,6 +32766,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -32887,7 +33048,8 @@ window.BENCHMARK_DATA = {
           845.1609384830182,
           1354.7364214383638,
           1313.614723939162,
-          1329.1459451402936
+          1329.1459451402936,
+          1318.2081212361654
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33048,6 +33210,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -33302,7 +33465,8 @@ window.BENCHMARK_DATA = {
           1227.60467676016,
           1958.1298830849785,
           1937.9443157741002,
-          2012.2413401285808
+          2012.2413401285808,
+          1953.7882886614118
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33463,6 +33627,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -33717,7 +33882,8 @@ window.BENCHMARK_DATA = {
           1079.3349177042644,
           1621.6129161834717,
           1574.1391498020716,
-          1727.6056103025164
+          1727.6056103025164,
+          1725.5911404927572
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -33923,6 +34089,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2755,
+          2755,
           2755
         ],
         "borderColor": "#4A6FA5",
@@ -34009,6 +34176,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 08:53:52 2026 \u002B0100",
         "message": "fix: stop turning \u0060T?\u0060 into \u0060Nullable\u003CT\u003E\u0060 when a mocked generic is closed over a value type (#984)"
+      },
+      {
+        "sha": "869bdffc07a5a2ca93283283006323ce8d551ba5",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 09:56:17 2026 \u002B0100",
+        "message": "fix: treat a lone null literal as the null argument instead of any parameters (#987)"
       }
     ],
     "labels": [
@@ -34023,7 +34196,8 @@ window.BENCHMARK_DATA = {
       "d8960b95",
       "eef40ae2",
       "e49c4a99",
-      "edafeff6"
+      "edafeff6",
+      "869bdffc"
     ],
     "datasets": [
       {
@@ -34041,7 +34215,8 @@ window.BENCHMARK_DATA = {
           1201.818130356925,
           1041.1083996636528,
           1016.7114921569824,
-          1208.7626222882952
+          1208.7626222882952,
+          1419.0511953989665
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -34061,6 +34236,7 @@ window.BENCHMARK_DATA = {
           4632,
           4632,
           4696,
+          4064,
           4064,
           4064,
           4064,
@@ -34090,7 +34266,8 @@ window.BENCHMARK_DATA = {
           865.8292795499166,
           778.450737953186,
           776.1830383936564,
-          897.8000202814738
+          897.8000202814738,
+          976.3350034441266
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -34103,6 +34280,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           3000,
+          2968,
           2968,
           2968,
           2968,
@@ -34139,7 +34317,8 @@ window.BENCHMARK_DATA = {
           2440.1592091878256,
           2175.535662514823,
           2136.686660473163,
-          2436.2193824768065
+          2436.2193824768065,
+          2612.7304171244305
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -34152,6 +34331,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           8936,
+          9528,
           9528,
           9528,
           9528,
@@ -34188,7 +34368,8 @@ window.BENCHMARK_DATA = {
           336658.040625,
           219771.9701497396,
           221881.46647135416,
-          280257.4273111979
+          280257.4273111979,
+          158149.725
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34211,7 +34392,8 @@ window.BENCHMARK_DATA = {
           36164,
           36133,
           36013,
-          36235
+          36235,
+          36239
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34237,7 +34419,8 @@ window.BENCHMARK_DATA = {
           22543.712475585937,
           17616.525580772988,
           16835.30600382487,
-          21179.19870867048
+          21179.19870867048,
+          22667.448178804836
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34260,7 +34443,8 @@ window.BENCHMARK_DATA = {
           36171,
           36171,
           36171,
-          36171
+          36171,
+          36169
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34286,7 +34470,8 @@ window.BENCHMARK_DATA = {
           20082.225685628255,
           15310.003158569336,
           15065.054030354817,
-          17443.901737467448
+          17443.901737467448,
+          16238.345012958232
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34309,7 +34494,8 @@ window.BENCHMARK_DATA = {
           28541,
           28541,
           28540,
-          28541
+          28541,
+          28510
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
