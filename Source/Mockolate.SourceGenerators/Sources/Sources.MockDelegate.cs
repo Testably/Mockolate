@@ -70,7 +70,7 @@ internal static partial class Sources
 
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
-			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup");
+			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", memberIds, memberIdPrefix, slots, "Setup");
@@ -82,7 +82,7 @@ internal static partial class Sources
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup");
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
@@ -105,7 +105,7 @@ internal static partial class Sources
 		// Delegate mocks use a plain MockRegistry (no FastMockInteractions), so emit the slow Verify path.
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
-			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, false, slots, "Verify");
@@ -116,7 +116,7 @@ internal static partial class Sources
 			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify");
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
@@ -180,7 +180,7 @@ internal static partial class Sources
 		// Delegate mocks use a plain MockRegistry (no FastMockInteractions), so emit the slow Verify path.
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
-			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, false, slots, "Verify");
@@ -192,7 +192,7 @@ internal static partial class Sources
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify");
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
@@ -255,7 +255,7 @@ internal static partial class Sources
 		{
 			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
 			AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup",
-				hasOverloadResolutionPriority: true);
+				hasOverloadResolutionPriority: true, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodSetupDefinition(sb, @class, delegateMethod, slots, "Setup");
@@ -267,7 +267,7 @@ internal static partial class Sources
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup");
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
@@ -302,7 +302,7 @@ internal static partial class Sources
 		{
 			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
 			AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
-				hasOverloadResolutionPriority: true);
+				hasOverloadResolutionPriority: true, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", slots, "Verify");
@@ -314,7 +314,7 @@ internal static partial class Sources
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify");
+				AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
