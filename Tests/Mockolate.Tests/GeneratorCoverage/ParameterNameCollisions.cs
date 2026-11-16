@@ -26,6 +26,8 @@ public interface IParameterNameCollisions
 	T GenericLocals<T>(T __i, int name_methodSetup);
 
 	void RefLocals(ref int __i, int other);
+
+	void Literals(int @params, int paramsLiteral, int __literal1, int __literal2);
 }
 
 /// <summary>

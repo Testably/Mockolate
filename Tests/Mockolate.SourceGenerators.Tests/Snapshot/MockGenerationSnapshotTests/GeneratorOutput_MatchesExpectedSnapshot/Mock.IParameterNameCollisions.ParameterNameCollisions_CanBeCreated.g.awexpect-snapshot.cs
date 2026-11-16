@@ -34,7 +34,8 @@ internal static partial class Mock
 		internal const int MemberId_Locals = 10;
 		internal const int MemberId_GenericLocals_T_ = 11;
 		internal const int MemberId_RefLocals = 12;
-		internal const int MemberCount = 13;
+		internal const int MemberId_Literals = 13;
+		internal const int MemberCount = 14;
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
@@ -84,6 +85,9 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		private global::Mockolate.Internals.FastMethod2Buffer<int, int> MockolateBuffer_RefLocals
 			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod2Buffer<int, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_RefLocals, static fast => new global::Mockolate.Internals.FastMethod2Buffer<int, int>(fast)));
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		private global::Mockolate.Internals.FastMethod4Buffer<int, int, int, int> MockolateBuffer_Literals
+			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod4Buffer<int, int, int, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, static fast => new global::Mockolate.Internals.FastMethod4Buffer<int, int, int, int>(fast)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -828,6 +832,70 @@ internal static partial class Mock
 			}
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)" />
+		public void Literals(int @params, int paramsLiteral, int __literal1, int __literal2)
+		{
+			global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals);
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<int, int, int, int> s_methodSetup && s_methodSetup.Matches(@params, paramsLiteral, __literal1, __literal2))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals"))
+					{
+						if (s_methodSetup.Matches(@params, paramsLiteral, __literal1, __literal2))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.VoidMethodSetup<int, int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals"))
+				{
+					if (s_methodSetup.Matches(@params, paramsLiteral, __literal1, __literal2))
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				this.MockolateBuffer_Literals.Append("global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params, paramsLiteral, __literal1, __literal2);
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions wraps)
+				{
+					wraps.Literals(@params, paramsLiteral, __literal1, __literal2);
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks(@params, paramsLiteral, __literal1, __literal2);
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)' was invoked without prior setup.");
+			}
+		}
+
 		#endregion Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions
 
 		#region IMockSetupForIParameterNameCollisions
@@ -1342,6 +1410,142 @@ internal static partial class Mock
 			return methodSetup;
 		}
 
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", parameters, "@params", "paramsLiteral", "__literal1", "__literal2");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, int paramsLiteral, int __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params, paramsLiteral, __literal1, __literal2);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, methodSetup);
+			return methodSetup;
+		}
+
 		#endregion IMockSetupForIParameterNameCollisions
 
 		#region IMockRaiseOnIParameterNameCollisions
@@ -1540,14 +1744,16 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", MockRegistry is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(MockRegistry), _scenarioName is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName), MockRegistry, _scenarioName, static (MockRegistry, _scenarioName) => $"Method({MockRegistry}, {_scenarioName})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Method(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? _scenarioName)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", __i => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(MockRegistry, __i.Parameter1)) && 
-				(_scenarioName is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Method({MockRegistry}, {_scenarioName})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(MockRegistry);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", __literal1, _scenarioName is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName), __literal1, _scenarioName, static (MockRegistry, _scenarioName) => $"Method({MockRegistry}, {_scenarioName})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Method(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int _scenarioName)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", __i => 
-				(MockRegistry is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(MockRegistry).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(_scenarioName, __i.Parameter2)), () => $"Method({MockRegistry}, {_scenarioName})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(_scenarioName);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", MockRegistry is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(MockRegistry), __literal2, MockRegistry, __literal2, static (MockRegistry, _scenarioName) => $"Method({MockRegistry}, {_scenarioName})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.Method(int MockRegistry, int _scenarioName)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", MockRegistry, _scenarioName, static (MockRegistry, _scenarioName) => $"Method({MockRegistry}, {_scenarioName})");
@@ -1657,102 +1863,102 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __i, snapshot_methodSetup, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __literal1, snapshot_methodSetup, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), __literal2, i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __i, __literal2, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, __literal2, i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __literal1, __literal2, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), __literal3, s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __i, snapshot_methodSetup, __literal3, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), __literal3, s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __literal1, snapshot_methodSetup, __literal3, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, int i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), __literal2, __literal3, s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __i, __literal2, __literal3, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, int snapshot_methodSetup, int i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, __literal2, __literal3, s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __literal1, __literal2, __literal3, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), __literal4, __i, snapshot_methodSetup, i_methodSetup, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), __literal4, __literal1, snapshot_methodSetup, i_methodSetup, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), __literal2, i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), __literal4, __i, __literal2, i_methodSetup, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, __literal2, i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), __literal4, __literal1, __literal2, i_methodSetup, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), __literal3, __literal4, __i, snapshot_methodSetup, __literal3, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), __literal3, __literal4, __literal1, snapshot_methodSetup, __literal3, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, int i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), __literal2, __literal3, __literal4, __i, __literal2, __literal3, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.Locals(int __i, int snapshot_methodSetup, int i_methodSetup, int s_methodSetup)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i, snapshot_methodSetup, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
@@ -1807,6 +2013,118 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_RefLocals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.RefLocals", __i1 => 
 				(__i is global::Mockolate.Parameters.IParameterMatch<int> __iMatch ? __iMatch.Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(other, __i1.Parameter2)), () => $"RefLocals({__i}, {other})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3, __i.Parameter4]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("@params", __i.Parameter1), ("paramsLiteral", __i.Parameter2), ("__literal1", __i.Parameter3), ("__literal2", __i.Parameter4)]),
+					_ => true
+				}, () => $"Literals({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), @params, paramsLiteral, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), __literal_11, paramsLiteral, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), __literal_12, __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), @params, __literal_12, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, __literal_12, __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), __literal_11, __literal_12, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal_13, __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), @params, paramsLiteral, __literal_13, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal_13, __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), __literal_11, paramsLiteral, __literal_13, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), __literal_12, __literal_13, __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), @params, __literal_12, __literal_13, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, __literal_12, __literal_13, __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), __literal_11, __literal_12, __literal_13, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal_14, @params, paramsLiteral, __literal1, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal_14, __literal_11, paramsLiteral, __literal1, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), __literal_12, __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal_14, @params, __literal_12, __literal1, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, __literal_12, __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal_14, __literal_11, __literal_12, __literal1, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal_13, __literal_14, @params, paramsLiteral, __literal_13, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal_13, __literal_14, __literal_11, paramsLiteral, __literal_13, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), __literal_12, __literal_13, __literal_14, @params, __literal_12, __literal_13, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.Literals(int @params, int paramsLiteral, int __literal1, int __literal2)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params, paramsLiteral, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
 		/// <summary>
 		///     Verify subscriptions on the Event event <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Event">Event</see>.
 		/// </summary>
@@ -2006,14 +2324,16 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", MockRegistry is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(MockRegistry), _scenarioName is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName), MockRegistry, _scenarioName, static (MockRegistry, _scenarioName) => $"Method({MockRegistry}, {_scenarioName})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Method(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? _scenarioName)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", __i => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(MockRegistry, __i.Parameter1)) && 
-				(_scenarioName is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Method({MockRegistry}, {_scenarioName})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(MockRegistry);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", __literal1, _scenarioName is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName), __literal1, _scenarioName, static (MockRegistry, _scenarioName) => $"Method({MockRegistry}, {_scenarioName})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Method(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int _scenarioName)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", __i => 
-				(MockRegistry is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(MockRegistry).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(_scenarioName, __i.Parameter2)), () => $"Method({MockRegistry}, {_scenarioName})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(_scenarioName);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", MockRegistry is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(MockRegistry), __literal2, MockRegistry, __literal2, static (MockRegistry, _scenarioName) => $"Method({MockRegistry}, {_scenarioName})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.Method(int MockRegistry, int _scenarioName)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Method", MockRegistry, _scenarioName, static (MockRegistry, _scenarioName) => $"Method({MockRegistry}, {_scenarioName})");
@@ -2123,102 +2443,102 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __i, snapshot_methodSetup, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __literal1, snapshot_methodSetup, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), __literal2, i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __i, __literal2, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, __literal2, i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __literal1, __literal2, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), __literal3, s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __i, snapshot_methodSetup, __literal3, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), __literal3, s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __literal1, snapshot_methodSetup, __literal3, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, int i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), __literal2, __literal3, s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __i, __literal2, __literal3, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, int snapshot_methodSetup, int i_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(s_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup).Matches(__i1.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter4, default(int))), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, __literal2, __literal3, s_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(s_methodSetup), __literal1, __literal2, __literal3, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), __literal4, __i, snapshot_methodSetup, i_methodSetup, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), __literal4, __literal1, snapshot_methodSetup, i_methodSetup, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), __literal2, i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), __literal4, __i, __literal2, i_methodSetup, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(i_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup).Matches(__i1.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter3, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, __literal2, i_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(i_methodSetup), __literal4, __literal1, __literal2, i_methodSetup, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), __literal3, __literal4, __i, snapshot_methodSetup, __literal3, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i, __i1.Parameter1)) && 
-				(snapshot_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__i);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __literal1, snapshot_methodSetup is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(snapshot_methodSetup), __literal3, __literal4, __literal1, snapshot_methodSetup, __literal3, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Locals(global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, int i_methodSetup, int s_methodSetup)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i1 => 
-				(__i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i).Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(snapshot_methodSetup, __i1.Parameter2)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(i_methodSetup, __i1.Parameter3)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(s_methodSetup, __i1.Parameter4)), () => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(snapshot_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal3 = new global::Mockolate.Internals.LiteralParameterMatch<int>(i_methodSetup);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal4 = new global::Mockolate.Internals.LiteralParameterMatch<int>(s_methodSetup);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__i), __literal2, __literal3, __literal4, __i, __literal2, __literal3, __literal4, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.Locals(int __i, int snapshot_methodSetup, int i_methodSetup, int s_methodSetup)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Locals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals", __i, snapshot_methodSetup, i_methodSetup, s_methodSetup, static (__i, snapshot_methodSetup, i_methodSetup, s_methodSetup) => $"Locals({__i}, {snapshot_methodSetup}, {i_methodSetup}, {s_methodSetup})");
@@ -2273,6 +2593,118 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_RefLocals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.RefLocals", __i1 => 
 				(__i is global::Mockolate.Parameters.IParameterMatch<int> __iMatch ? __iMatch.Matches(__i1.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter1, default(int))) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(other, __i1.Parameter2)), () => $"RefLocals({__i}, {other})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<int, int, int, int>>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3, __i.Parameter4]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("@params", __i.Parameter1), ("paramsLiteral", __i.Parameter2), ("__literal1", __i.Parameter3), ("__literal2", __i.Parameter4)]),
+					_ => true
+				}, () => $"Literals({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), @params, paramsLiteral, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), __literal_11, paramsLiteral, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), __literal_12, __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), @params, __literal_12, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, __literal_12, __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), __literal_11, __literal_12, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal_13, __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), @params, paramsLiteral, __literal_13, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal_13, __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), __literal_11, paramsLiteral, __literal_13, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), __literal_12, __literal_13, __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), @params, __literal_12, __literal_13, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, __literal_12, __literal_13, __literal2 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2), __literal_11, __literal_12, __literal_13, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal_14, @params, paramsLiteral, __literal1, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal_14, __literal_11, paramsLiteral, __literal1, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), __literal_12, __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal_14, @params, __literal_12, __literal1, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, __literal_12, __literal1 is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1), __literal_14, __literal_11, __literal_12, __literal1, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal_13, __literal_14, @params, paramsLiteral, __literal_13, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_11 = new global::Mockolate.Internals.LiteralParameterMatch<int>(@params);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", __literal_11, paramsLiteral is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral), __literal_13, __literal_14, __literal_11, paramsLiteral, __literal_13, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, int __literal2)
+		{
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_12 = new global::Mockolate.Internals.LiteralParameterMatch<int>(paramsLiteral);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_13 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal1);
+			global::Mockolate.Internals.LiteralParameterMatch<int> __literal_14 = new global::Mockolate.Internals.LiteralParameterMatch<int>(__literal2);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params), __literal_12, __literal_13, __literal_14, @params, __literal_12, __literal_13, __literal_14, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.Literals(int @params, int paramsLiteral, int __literal1, int __literal2)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, int, int, int, int>(this, global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params, paramsLiteral, __literal1, __literal2, static (@params, paramsLiteral, __literal1, __literal2) => $"Literals({@params}, {paramsLiteral}, {__literal1}, {__literal2})");
 		/// <summary>
 		///     Verify subscriptions on the Event event <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Event">Event</see>.
 		/// </summary>
@@ -2813,6 +3245,142 @@ internal static partial class Mock
 		{
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.RefLocals", (global::Mockolate.Parameters.IParameterMatch<int>)(__i), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(other));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_RefLocals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", parameters, "@params", "paramsLiteral", "__literal1", "__literal2");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal2 ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), global::Mockolate.CovariantParameterAdapter<int>.Wrap(__literal1 ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(@params), global::Mockolate.CovariantParameterAdapter<int>.Wrap(paramsLiteral ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", global::Mockolate.CovariantParameterAdapter<int>.Wrap(@params ?? global::Mockolate.Internals.Matchers.IsNull<int>()), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(paramsLiteral), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal1), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(__literal2));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Literals(int @params, int paramsLiteral, int __literal1, int __literal2)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals", @params, paramsLiteral, __literal1, __literal2);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Literals, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -3447,6 +4015,159 @@ internal static partial class Mock
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int> RefLocals(global::Mockolate.Parameters.IRefParameter<int> __i, int other);
 
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="parameters" />.
+		/// </summary>
+		/// <remarks>
+		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(4)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="paramsLiteral" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="__literal1" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__literal1" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="__literal1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="__literal1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="paramsLiteral" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(int @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="paramsLiteral" />, <paramref name="__literal1" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="__literal1" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__literal1" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="__literal1" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="paramsLiteral" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="__literal1" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="paramsLiteral" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, int __literal2);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(int @params, int paramsLiteral, int __literal1, int __literal2);
+
 	}
 
 	/// <summary>
@@ -3965,6 +4686,159 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> RefLocals(global::Mockolate.Parameters.IVerifyRefParameter<int> __i, int other);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="parameters"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(4)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="paramsLiteral" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="__literal1" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__literal1" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="__literal1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="__literal1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="paramsLiteral" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__literal2" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(int @params, int paramsLiteral, int __literal1, global::Mockolate.Parameters.IParameter<int>? __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="paramsLiteral" />, <paramref name="__literal1" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="__literal1" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__literal1" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(int @params, int paramsLiteral, global::Mockolate.Parameters.IParameter<int>? __literal1, int __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="__literal1" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />, <paramref name="paramsLiteral" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameter<int>? @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="@params" />, <paramref name="__literal1" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="paramsLiteral" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(int @params, global::Mockolate.Parameters.IParameter<int>? paramsLiteral, int __literal1, int __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="@params" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameter<int>? @params, int paramsLiteral, int __literal1, int __literal2);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(int @params, int paramsLiteral, int __literal1, int __literal2);
 
 		/// <summary>
 		///     Verify subscriptions on the Event event of <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Event">Event</see>.

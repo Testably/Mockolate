@@ -5942,7 +5942,7 @@ internal static partial class Sources
 		                         && !useParameters
 		                         && method.Parameters.Count <= 4
 		                         && (method.GenericParameters is null || method.GenericParameters.Value.Count == 0)
-		                         && (valueFlags is null || !valueFlags.Any(x => x))
+		                         && !HasParamsValueParameter(method, valueFlags)
 		                         && noRefStruct;
 
 		if (canUseLiteralVerify)
@@ -5970,15 +5970,45 @@ internal static partial class Sources
 
 		if (canUseTypedVerify)
 		{
-			sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".VerifyMethod<").Append(verifyName);
+			// A literal value in a mixed overload becomes a LiteralParameterMatch, which serves both as the matcher
+			// and as the failure-message argument.
+			MethodParameter[] parameters = method.Parameters.AsArray();
+			string literalBase = Helpers.GetUniqueIndexedLocalVariableBase("__literal", method.Parameters);
+			string?[] literalNames = parameters
+				.Select((_, i) => valueFlags?[i] == true ? $"{literalBase}{i + 1}" : null)
+				.ToArray();
+			bool hasLiterals = literalNames.Any(x => x is not null);
+			if (hasLiterals)
+			{
+				sb.Append("\t\t{").AppendLine();
+				for (int i = 0; i < parameters.Length; i++)
+				{
+					if (literalNames[i] is not null)
+					{
+						string literalType = $"global::Mockolate.Internals.LiteralParameterMatch<{parameters[i].ToTypeOrWrapper()}>";
+						sb.Append("\t\t\t").Append(literalType).Append(' ').Append(literalNames[i]).Append(" = new ")
+							.Append(literalType).Append('(').Append(parameters[i].Name).Append(");").AppendLine();
+					}
+				}
+			}
+
+			sb.Append(hasLiterals ? "\t\t\treturn this." : "\t\t\t=> this.").Append(mockRegistryName)
+				.Append(".VerifyMethod<").Append(verifyName);
 			foreach (MethodParameter parameter in method.Parameters)
 			{
 				sb.Append(", ").Append(parameter.ToTypeOrWrapper());
 			}
 
 			sb.Append(">(this, ").Append(methodMemberId).Append(", ").Append(method.GetUniqueNameString());
-			foreach (MethodParameter parameter in method.Parameters)
+			for (int i = 0; i < parameters.Length; i++)
 			{
+				MethodParameter parameter = parameters[i];
+				if (literalNames[i] is not null)
+				{
+					sb.Append(", ").Append(literalNames[i]);
+					continue;
+				}
+
 				string paramType = parameter.ToTypeOrWrapper();
 				sb.Append(", ").Append(parameter.Name).Append(" is null ? ")
 					.Append("(global::Mockolate.Parameters.IParameterMatch<").Append(paramType)
@@ -5993,12 +6023,17 @@ internal static partial class Sources
 				return;
 			}
 
-			foreach (MethodParameter parameter in method.Parameters)
+			for (int i = 0; i < parameters.Length; i++)
 			{
-				sb.Append(", ").Append(parameter.Name);
+				sb.Append(", ").Append(literalNames[i] ?? parameters[i].Name);
 			}
 
 			AppendStaticExpectationLambda(sb, method);
+			if (hasLiterals)
+			{
+				sb.Append("\t\t}").AppendLine();
+			}
+
 			return;
 		}
 
