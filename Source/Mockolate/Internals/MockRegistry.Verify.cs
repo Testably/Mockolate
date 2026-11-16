@@ -826,6 +826,132 @@ public partial class MockRegistry
 			     EqualityComparer<T3>.Default.Equals(literalValue3, m.Parameter3) &&
 			     EqualityComparer<T4>.Default.Equals(literalValue4, m.Parameter4),
 			() => expectation(literalValue1, literalValue2, literalValue3, literalValue4));
+
+	/// <summary>
+	///     Typed fast-path Verify for 1-parameter methods whose failure message is formatted from
+	///     <paramref name="state" /> only when the verification fails, so the caller needs no closure.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="match1">The matcher for the first parameter.</param>
+	/// <param name="state">The arguments as passed by the caller, used for the failure message.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, TState>(T subject, int memberId, string methodName,
+		IParameterMatch<T1> match1, TState state, Func<TState, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod1Buffer<T1> typed)
+		{
+			return new Method1StateCountSource<T, T1, TState>(subject, Interactions, typed, methodName, match1, state,
+				expectation, static (source, format)
+					=> $"invoked method {((Method1StateCountSource<T, T1, TState>)source!).Describe((Func<TState, string>)format!)}");
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, match1, state, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, TState>(T subject, string methodName,
+		IParameterMatch<T1> match1, TState state, Func<TState, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1>>(subject, methodName,
+			m => match1.Matches(m.Parameter1),
+			() => expectation(state));
+
+	/// <summary>
+	///     Typed fast-path Verify for 2-parameter methods whose failure message is formatted from
+	///     <paramref name="state" /> only when the verification fails, so the caller needs no closure.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="match1">The matcher for the first parameter.</param>
+	/// <param name="match2">The matcher for the second parameter.</param>
+	/// <param name="state">The arguments as passed by the caller, used for the failure message.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, TState>(T subject, int memberId, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, TState state, Func<TState, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod2Buffer<T1, T2> typed)
+		{
+			return new Method2StateCountSource<T, T1, T2, TState>(subject, Interactions, typed, methodName,
+				match1, match2, state, expectation, static (source, format)
+					=> $"invoked method {((Method2StateCountSource<T, T1, T2, TState>)source!).Describe((Func<TState, string>)format!)}");
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, state, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, TState>(T subject, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, TState state, Func<TState, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2>>(subject, methodName,
+			m => match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2),
+			() => expectation(state));
+
+	/// <summary>
+	///     Typed fast-path Verify for 3-parameter methods whose failure message is formatted from
+	///     <paramref name="state" /> only when the verification fails, so the caller needs no closure.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="match1">The matcher for the first parameter.</param>
+	/// <param name="match2">The matcher for the second parameter.</param>
+	/// <param name="match3">The matcher for the third parameter.</param>
+	/// <param name="state">The arguments as passed by the caller, used for the failure message.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3, TState>(T subject, int memberId, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
+		TState state, Func<TState, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod3Buffer<T1, T2, T3> typed)
+		{
+			return new Method3StateCountSource<T, T1, T2, T3, TState>(subject, Interactions, typed, methodName,
+				match1, match2, match3, state, expectation, static (source, format)
+					=> $"invoked method {((Method3StateCountSource<T, T1, T2, T3, TState>)source!).Describe((Func<TState, string>)format!)}");
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, match3, state, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3, TState>(T subject, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
+		TState state, Func<TState, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2, T3>>(subject, methodName,
+			m => match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2) && match3.Matches(m.Parameter3),
+			() => expectation(state));
+
+	/// <summary>
+	///     Typed fast-path Verify for 4-parameter methods whose failure message is formatted from
+	///     <paramref name="state" /> only when the verification fails, so the caller needs no closure.
+	/// </summary>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="memberId">The generator-emitted member id for the method.</param>
+	/// <param name="methodName">The simple method name (e.g. <c>"Greet"</c>).</param>
+	/// <param name="match1">The matcher for the first parameter.</param>
+	/// <param name="match2">The matcher for the second parameter.</param>
+	/// <param name="match3">The matcher for the third parameter.</param>
+	/// <param name="match4">The matcher for the fourth parameter.</param>
+	/// <param name="state">The arguments as passed by the caller, used for the failure message.</param>
+	/// <param name="expectation">A static formatter for the expectation description used in failure messages.</param>
+	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3, T4, TState>(T subject, int memberId, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
+		TState state, Func<TState, string> expectation)
+	{
+		if (TryGetBuffer(memberId) is FastMethod4Buffer<T1, T2, T3, T4> typed)
+		{
+			return new Method4StateCountSource<T, T1, T2, T3, T4, TState>(subject, Interactions, typed, methodName,
+				match1, match2, match3, match4, state, expectation, static (source, format)
+					=> $"invoked method {((Method4StateCountSource<T, T1, T2, T3, T4, TState>)source!).Describe((Func<TState, string>)format!)}");
+		}
+
+		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, match3, match4, state, expectation);
+	}
+
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3, T4, TState>(T subject, string methodName,
+		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
+		TState state, Func<TState, string> expectation)
+		=> VerifyMethod<T, MethodInvocation<T1, T2, T3, T4>>(subject, methodName,
+			m => match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2) && match3.Matches(m.Parameter3) && match4.Matches(m.Parameter4),
+			() => expectation(state));
 #pragma warning restore S107
 
 	/// <summary>
