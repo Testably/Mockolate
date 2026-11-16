@@ -80,13 +80,14 @@ public static class Generator
 		return new GeneratorResult(generatedSources, diagnosticMessages);
 	}
 
-	public static Assembly CompileAndLoad([StringSyntax("c#-test")] string source, LanguageVersion languageVersion)
+	public static Assembly CompileAndLoad([StringSyntax("c#-test")] string source, LanguageVersion languageVersion,
+		params Type[] assemblyTypes)
 	{
 		CSharpParseOptions parseOptions = new(languageVersion);
 		CSharpCompilation compilation = CSharpCompilation.Create(
 			$"TestAssembly{Guid.NewGuid():N}",
 			[CSharpSyntaxTree.ParseText(source, parseOptions),],
-			GetReferences([]),
+			GetReferences(assemblyTypes),
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary,
 				nullableContextOptions: NullableContextOptions.Enable));
 		CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [], parseOptions)

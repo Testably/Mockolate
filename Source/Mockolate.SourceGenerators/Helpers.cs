@@ -215,6 +215,17 @@ internal static class Helpers
 			_ => true,
 		};
 
+	/// <summary>
+	///     Whether <paramref name="a" /> and <paramref name="b" /> are emitted as the same type, which also holds for
+	///     <see langword="dynamic" /> and <see langword="object" /> (see <see cref="Type" />).
+	/// </summary>
+	public static bool IsSameEmittedType(ITypeSymbol a, ITypeSymbol b)
+		=> SymbolEqualityComparer.Default.Equals(a, b) ||
+		   (IsObjectOrDynamic(a) && IsObjectOrDynamic(b));
+
+	private static bool IsObjectOrDynamic(ITypeSymbol type)
+		=> type.TypeKind == TypeKind.Dynamic || type.SpecialType == SpecialType.System_Object;
+
 	private static bool HasInternalAccess(IAssemblySymbol? containingAssembly, IAssemblySymbol? sourceAssembly)
 	{
 		if (sourceAssembly is null || containingAssembly is null)

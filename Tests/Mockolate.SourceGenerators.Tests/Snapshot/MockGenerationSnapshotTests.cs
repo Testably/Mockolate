@@ -76,6 +76,16 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "DynamicMembers_CanBeCreated",
+            ["IDynamicMembers.cs",],
+            """
+            IDynamicMembers sut1 = IDynamicMembers.CreateMock();
+            DynamicMembersBase sut2 = DynamicMembersBase.CreateMock();
+            IDynamicOverloads sut3 = IDynamicOverloads.CreateMock();
+            DynamicHidingDerived sut4 = DynamicHidingDerived.CreateMock();
+            """,
+            [typeof(DynamicAttribute),]),
+        new(
             "HttpClient_CanBeCreated",
             [],
             """
@@ -130,6 +140,17 @@ public sealed partial class MockGenerationSnapshotTests
             IComprehensiveInterface sut = IComprehensiveInterface.CreateMock();
             """,
             [],
+            UnionMode: true),
+        new(
+            "DynamicMembers_CanBeCreated_Unions",
+            ["IDynamicMembers.cs",],
+            """
+            IDynamicMembers sut1 = IDynamicMembers.CreateMock();
+            DynamicMembersBase sut2 = DynamicMembersBase.CreateMock();
+            IDynamicOverloads sut3 = IDynamicOverloads.CreateMock();
+            DynamicHidingDerived sut4 = DynamicHidingDerived.CreateMock();
+            """,
+            [typeof(DynamicAttribute),],
             UnionMode: true),
         new(
             "KeywordEdgeCases_CanBeCreated_Unions",

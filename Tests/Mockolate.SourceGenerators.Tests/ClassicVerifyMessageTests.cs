@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace Mockolate.SourceGenerators.Tests;
@@ -255,5 +256,97 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 			"True",
 		]).Because("the mixed overloads must keep the predicate path's matching, culture-dependent formatting, cancellation and unverified-interaction tracking");
+	}
+
+	[Test]
+	public async Task Verify_InClassicMode_WithDynamicMembers_ShouldCompileMatchAndDescribeArguments()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using Mockolate;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public interface IDyn
+		                                             {
+		                                                 dynamic Value { get; set; }
+		                                                 dynamic this[dynamic key] { get; set; }
+		                                                 void Dyn1(dynamic d);
+		                                                 void Dyn2(dynamic d, int x);
+		                                                 dynamic Dyn4(dynamic a, dynamic b, int c, string d);
+		                                                 void Dyn5(dynamic a, int b, int c, int d, dynamic e);
+		                                             }
+
+		                                             public abstract class DynBase
+		                                             {
+		                                                 public virtual dynamic Combine(dynamic a, int b) => a;
+		                                                 public virtual dynamic this[dynamic key] => key;
+		                                             }
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     IDyn sut = IDyn.CreateMock();
+		                                                     sut.Mock.Setup.Dyn4(It.IsAny<object>(), 2, It.IsAny<int>(), It.IsAny<string>()).Returns("four");
+		                                                     sut.Mock.Setup["k"].Returns("v");
+		                                                     sut.Dyn1(42);
+		                                                     sut.Dyn2("a", 1);
+		                                                     sut.Dyn5("a", 2, 3, 4, 5);
+		                                                     object four = sut.Dyn4(1, 2, 3, "d");
+		                                                     object indexed = sut["k"];
+		                                                     sut.Value = 5;
+		                                                     DynBase dynBase = DynBase.CreateMock();
+		                                                     object combined = dynBase.Combine("base", 1);
+		                                                     object baseIndexed = dynBase["key"];
+		                                                     return
+		                                                     [
+		                                                         four.ToString()!,
+		                                                         indexed.ToString()!,
+		                                                         combined.ToString()!,
+		                                                         baseIndexed.ToString()!,
+		                                                         Capture(() => sut.Mock.Verify.Dyn1(42).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Dyn2(It.IsAny<object>(), 1).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Dyn5(It.IsAny<object>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<object>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Value.Set(5).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Dyn1(43).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Dyn2("b", It.IsAny<int>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Dyn5("a", 2, 3, 4, 6).Once()),
+		                                                         Capture(() => sut.Mock.Verify["x"].Got().Once()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14, typeof(DynamicAttribute));
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"four",
+			"v",
+			"base",
+			"key",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"Expected that mock invoked method Dyn1(43) exactly once, but it never did.",
+			"Expected that mock invoked method Dyn2(b, It.IsAny<int>()) exactly once, but it never did.",
+			"Expected that mock invoked method Dyn5(a, 2, 3, 4, 6) exactly once, but it never did.",
+			"Expected that mock got indexer [x] exactly once, but it never did.",
+		]).Because("classic mode must compile dynamic members without dynamic binding and treat them like object");
 	}
 }
