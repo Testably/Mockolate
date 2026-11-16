@@ -3285,6 +3285,55 @@ internal static partial class Sources
 	}
 
 	/// <summary>
+	///     Whether a lone <see langword="null" /> argument binds to the <c>IParameters</c> overload although it means the
+	///     literal <see langword="null" /> for the first parameter: the <c>IParameters</c> overload outranks the overload
+	///     for a single <see langword="object" /> parameter and the overloads that leave out optional parameters or an
+	///     empty <c>params</c> array. Its <see langword="null" /> then forwards to the call with every argument given
+	///     (<see cref="LoneNullArguments" />). A same-named sibling could capture that call (<paramref name="class" /> is
+	///     <see langword="null" /> for a delegate, which has none), and a classic <see langword="null" /> for a
+	///     non-nullable value type is a matcher rather than a value, so both keep the plain <c>IParameters</c> overload.
+	/// </summary>
+	private static bool ForwardsLoneNull(Class? @class, Method method, bool useUnionOverloads)
+	{
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		if (parameters.Length == 0 ||
+		    (method.GenericParameters is not null && method.GenericParameters.Value.Count > 0) ||
+		    (@class is not null && !HasUniqueMethodName(@class, method)))
+		{
+			return false;
+		}
+
+		MethodParameter first = parameters[0];
+		int optionalCount = parameters.Length > 1 && parameters[parameters.Length - 1].IsParams
+			? parameters.Length - 2
+			: parameters.Length - 1;
+		return !first.IsParams &&
+		       first.CanUseNullableParameterOverload() &&
+		       (useUnionOverloads || !first.Type.IsValueType || first.Type.CanBeNullable) &&
+		       (parameters.Length > 1 || first.Type.SpecialType == SpecialType.System_Object) &&
+		       parameters.Skip(1).Take(optionalCount)
+			       .All(p => p.HasExplicitDefaultValue && p.CanUseNullableParameterOverload());
+	}
+
+	/// <summary>
+	///     <c>default(T)</c> for the first parameter and the declared default value for the optional ones, each typed, so
+	///     that the call binds the all-values overload without relying on overload priorities.
+	/// </summary>
+	private static string LoneNullArguments(Method method)
+	{
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		StringBuilder arguments = new();
+		arguments.Append("default(").Append(parameters[0].ToNullableType()).Append(')');
+		foreach (MethodParameter parameter in parameters.Skip(1).Where(p => !p.IsParams))
+		{
+			arguments.Append(", (").Append(parameter.ToNullableType()).Append(")(")
+				.Append(parameter.ExplicitDefaultValue).Append(')');
+		}
+
+		return arguments.ToString();
+	}
+
+	/// <summary>
 	///     Which accessors of <paramref name="property" /> the mock actually intercepts, and therefore
 	///     which setup/verify facade the generated surface exposes. The setup type, the verify type and the
 	///     verify constructor arguments all derive from this one classification so they cannot disagree.
@@ -3471,7 +3520,8 @@ internal static partial class Sources
 				if (method.Parameters.Count > 0)
 				{
 					AppendMethodSetupDefinition(sb, @class, method, true,
-						hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+						hasOverloadResolutionPriority: hasOverloadResolutionPriority,
+						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
 			}
 
@@ -3631,7 +3681,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMethodSetupDefinition(StringBuilder sb, Class @class, Method method,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
-		bool hasOverloadResolutionPriority = false, bool perElementParams = false)
+		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false)
 #pragma warning restore S107
 	{
 		// Three shapes cannot expose a setup surface, all for the same reason: IReturnMethodSetup<T> /
@@ -3779,7 +3829,7 @@ internal static partial class Sources
 
 		if (useParameters)
 		{
-			sb.Append("global::Mockolate.Parameters.IParameters parameters)");
+			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters)");
 		}
 		else
 		{
@@ -3969,7 +4019,8 @@ internal static partial class Sources
 				if (method.Parameters.Count > 0)
 				{
 					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, true,
-						memberIds, memberIdPrefix, scopeExpression: scopeExpression);
+						memberIds, memberIdPrefix, scopeExpression: scopeExpression,
+						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
 			}
 
@@ -4027,7 +4078,7 @@ internal static partial class Sources
 		string setupName,
 		bool useParameters, MemberIdTable memberIds, string memberIdPrefix,
 		string? methodNameOverride = null, bool[]? valueFlags = null,
-		string? scopeExpression = null, bool perElementParams = false)
+		string? scopeExpression = null, bool perElementParams = false, bool forwardsLoneNull = false)
 	{
 		// Setup-side carve-out: methods using a generic type parameter that declares
 		// `allows ref struct`, methods returning a non-span ref struct, and delegates with a ref-struct
@@ -4116,7 +4167,7 @@ internal static partial class Sources
 
 		if (useParameters)
 		{
-			sb.Append("global::Mockolate.Parameters.IParameters parameters)");
+			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters)");
 		}
 		else
 		{
@@ -4171,6 +4222,16 @@ internal static partial class Sources
 
 		sb.AppendLine();
 		sb.AppendLine("\t\t{");
+		if (useParameters && forwardsLoneNull)
+		{
+			sb.Append("\t\t\tif (parameters is null)").AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\treturn ((global::Mockolate.Mock.").Append(setupName).Append(")this).").Append(methodName)
+				.Append('(').Append(LoneNullArguments(method)).Append(");").AppendLine();
+			sb.Append("\t\t\t}").AppendLine();
+			sb.AppendLine();
+		}
+
 		string methodSetupVar = Helpers.GetUniqueLocalVariableName("methodSetup", method.Parameters);
 		if (method.ReturnType != Type.Void)
 		{
@@ -5440,7 +5501,8 @@ internal static partial class Sources
 				if (method.Parameters.Count > 0)
 				{
 					AppendMethodVerifyDefinition(sb, method, verifyName, true,
-						hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+						hasOverloadResolutionPriority: hasOverloadResolutionPriority,
+						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
 			}
 
@@ -5511,7 +5573,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMethodVerifyDefinition(StringBuilder sb, Method method, string verifyName,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
-		bool hasOverloadResolutionPriority = false, bool perElementParams = false)
+		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false)
 #pragma warning restore S107
 	{
 		// For methods with ref-struct parameters, skip Verify emission entirely. The
@@ -5583,7 +5645,7 @@ internal static partial class Sources
 
 		if (useParameters)
 		{
-			sb.Append("global::Mockolate.Parameters.IParameters parameters");
+			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters");
 		}
 		else
 		{
@@ -5752,7 +5814,8 @@ internal static partial class Sources
 				if (method.Parameters.Count > 0)
 				{
 					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, true,
-						memberIds, memberIdPrefix, useFastBuffers);
+						memberIds, memberIdPrefix, useFastBuffers,
+						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
 			}
 
@@ -5843,7 +5906,8 @@ internal static partial class Sources
 	private static void AppendMethodVerifyImplementation(StringBuilder sb, Method method, string mockRegistryName,
 		string verifyName,
 		bool useParameters, MemberIdTable memberIds, string memberIdPrefix, bool useFastBuffers,
-		string? methodNameOverride = null, bool[]? valueFlags = null, bool perElementParams = false)
+		string? methodNameOverride = null, bool[]? valueFlags = null, bool perElementParams = false,
+		bool forwardsLoneNull = false)
 #pragma warning restore S107
 	{
 		// Mirror the AppendMethodVerifyDefinition short-circuit for ref-struct signatures.
@@ -5868,7 +5932,7 @@ internal static partial class Sources
 		sb.Append(' ').Append(verifyName).Append('.').Append(methodName).Append("(");
 		if (useParameters)
 		{
-			sb.Append("global::Mockolate.Parameters.IParameters parameters");
+			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters");
 		}
 		else
 		{
@@ -6037,7 +6101,16 @@ internal static partial class Sources
 			return;
 		}
 
-		sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".VerifyMethod<").Append(verifyName)
+		sb.Append("\t\t\t=> ");
+		if (useParameters && forwardsLoneNull)
+		{
+			sb.Append("parameters is null").AppendLine();
+			sb.Append("\t\t\t\t? ((").Append(verifyName).Append(")this).").Append(methodName).Append('(')
+				.Append(LoneNullArguments(method)).Append(')').AppendLine();
+			sb.Append("\t\t\t\t: ");
+		}
+
+		sb.Append("this.").Append(mockRegistryName).Append(".VerifyMethod<").Append(verifyName)
 			.Append(", global::Mockolate.Interactions.MethodInvocation");
 		if (method.Parameters.Count > 0)
 		{
