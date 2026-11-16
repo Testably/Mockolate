@@ -48,10 +48,10 @@ internal sealed class FastPropertyGetterBuffer : IFastMemberBuffer
 	public void Append()
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -162,13 +162,13 @@ internal sealed class FastPropertySetterBuffer<T> : IFastMemberBuffer
 	public void Append(string name, T value)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.Name = name;
 		r.Value = value;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{

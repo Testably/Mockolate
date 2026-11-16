@@ -78,9 +78,9 @@ public class ChunkedSlotStorageTests
 				barrier.SignalAndWait();
 				for (int i = 0; i < perThread; i++)
 				{
-					int slot = storage.Reserve();
-					storage.SlotForWrite(slot) = (t * perThread) + i + 1;
-					storage.Publish();
+					ChunkedSlotStorage<int>.Generation generation = storage.Reserve(out int slot);
+					generation.SlotForWrite(slot) = (t * perThread) + i + 1;
+					generation.Publish(slot);
 				}
 			})).ToArray();
 
@@ -100,22 +100,157 @@ public class ChunkedSlotStorageTests
 	}
 
 	[Test]
-	public async Task SlotUnderLock_WhenLaterSlotIsPublishedBeforeSlot0_ShouldReturnDefaultRecord()
+	public async Task Publish_WhenSlot0IsStillBeingWritten_ShouldNotExposeSlot1()
 	{
 		ChunkedSlotStorage<int> storage = new();
-		storage.Reserve();
-		int slot = storage.Reserve();
-		storage.SlotForWrite(slot) = 42;
-		storage.Publish();
+		ChunkedSlotStorage<int>.Generation first = storage.Reserve(out int firstSlot);
+		ChunkedSlotStorage<int>.Generation second = storage.Reserve(out int secondSlot);
+		second.SlotForWrite(secondSlot) = 2;
+		second.Publish(secondSlot);
 
-		int record;
-		lock (storage.Lock)
+		List<int> recordsWhileSlot0IsWritten = ReadRecords(storage);
+		first.SlotForWrite(firstSlot) = 1;
+		first.Publish(firstSlot);
+
+		await That(recordsWhileSlot0IsWritten).IsEmpty()
+			.Because("a reader must not see slot 0 before it is fully written");
+		await That(ReadRecords(storage)).IsEqualTo([1, 2,])
+			.Because("publishing slot 0 must also publish the already written slot 1");
+	}
+
+	[Test]
+	[Arguments(ChunkedSlotStorage<int>.ChunkSize + 1)]
+	[Arguments((ChunkedSlotStorage<int>.ChunkSize * 3) + 2)]
+	public async Task Publish_InReverseOrder_ShouldOnlyExposeRecordsOncePrecedingSlotsAreWritten(int count)
+	{
+		ChunkedSlotStorage<int> storage = new();
+		ChunkedSlotStorage<int>.Generation[] generations = new ChunkedSlotStorage<int>.Generation[count];
+		for (int i = 0; i < count; i++)
 		{
-			record = storage.SlotUnderLock(0);
+			generations[i] = storage.Reserve(out _);
 		}
 
-		await That(record).IsEqualTo(0)
-			.Because("writing a later chunk must also install chunk 0, so a reader of a published range never finds it missing");
+		List<int> visibleCounts = [];
+		for (int slot = count - 1; slot >= 0; slot--)
+		{
+			generations[slot].SlotForWrite(slot) = slot;
+			generations[slot].Publish(slot);
+			visibleCounts.Add(ReadRecords(storage).Count);
+		}
+
+		await That(visibleCounts.Take(count - 1)).All().AreEqualTo(0)
+			.Because("no slot may become visible while slot 0 is still being written");
+		await That(ReadRecords(storage)).IsEqualTo(Enumerable.Range(0, count))
+			.Because("publishing slot 0 must also publish every slot written before it");
+	}
+
+	[Test]
+	[Arguments(1)]
+	[Arguments(ChunkedSlotStorage<int>.ChunkSize + 1)]
+	public async Task Publish_WhenSlotWasReservedBeforeClear_ShouldNotBecomeVisible(int slotsBeforeClear)
+	{
+		ChunkedSlotStorage<int> storage = new();
+		Append(storage, slotsBeforeClear - 1);
+		ChunkedSlotStorage<int>.Generation stale = storage.Reserve(out int staleSlot);
+		stale.SlotForWrite(staleSlot) = -1;
+
+		storage.Clear();
+		stale.Publish(staleSlot);
+
+		await That(storage.Count).IsEqualTo(0)
+			.Because("a write that started before Clear completes in the discarded generation");
+	}
+
+	[Test]
+	public async Task SlotForWrite_WhenSlotWasReservedBeforeClear_ShouldNotOverwriteLaterRecords()
+	{
+		ChunkedSlotStorage<int> storage = new();
+		ChunkedSlotStorage<int>.Generation stale = storage.Reserve(out int staleSlot);
+		storage.Clear();
+		Append(storage, 2);
+
+		List<int> recordsWhileStaleSlotIsPending = ReadRecords(storage);
+		stale.SlotForWrite(staleSlot) = -1;
+		stale.Publish(staleSlot);
+
+		await That(recordsWhileStaleSlotIsPending).IsEqualTo([0, 1,])
+			.Because("records written after Clear must not depend on a slot reserved before Clear");
+		await That(ReadRecords(storage)).IsEqualTo([0, 1,])
+			.Because("a writer that reserved its slot before Clear must not overwrite the records written after it");
+	}
+
+	[Test]
+	public async Task Publish_WhenReadAndClearedConcurrently_ShouldOnlyExposeFullyWrittenRecords()
+	{
+		const int threads = 8;
+		const int perThread = 2_000;
+		ChunkedSlotStorage<int> storage = new();
+		using Barrier barrier = new(threads + 1);
+		Thread[] writers = Enumerable.Range(0, threads).Select(_ => new Thread(() =>
+		{
+			barrier.SignalAndWait();
+			for (int i = 0; i < perThread; i++)
+			{
+				ChunkedSlotStorage<int>.Generation generation = storage.Reserve(out int slot);
+				generation.SlotForWrite(slot) = slot + 1;
+				generation.Publish(slot);
+				if (i % 500 == 250)
+				{
+					storage.Clear();
+				}
+			}
+		})).ToArray();
+		foreach (Thread writer in writers)
+		{
+			writer.Start();
+		}
+
+		barrier.SignalAndWait();
+		List<int> unexpected = [];
+		while (writers.Any(w => w.IsAlive))
+		{
+			lock (storage.Lock)
+			{
+				for (int slot = 0; slot < storage.PublishedUnderLock; slot++)
+				{
+					if (storage.SlotUnderLock(slot) != slot + 1)
+					{
+						unexpected.Add(slot);
+					}
+				}
+			}
+		}
+
+		ChunkedSlotStorage<int>.Generation last = storage.Reserve(out int lastSlot);
+		last.SlotForWrite(lastSlot) = lastSlot + 1;
+		last.Publish(lastSlot);
+
+		await That(unexpected).IsEmpty()
+			.Because("readers must only see slots whose writers have finished, even across Clear");
+		await That(storage.Count).IsEqualTo(lastSlot + 1)
+			.Because("once every writer has finished, no written slot may remain unpublished");
+	}
+
+	[Test]
+	public async Task Publish_WhenGapIsClosedWhileLaterWriterWaitsForTheLock_ShouldLetTheLaterWriterPublishItself()
+	{
+		ChunkedSlotStorage<int> storage = new();
+		ChunkedSlotStorage<int>.Generation first = storage.Reserve(out int firstSlot);
+		ChunkedSlotStorage<int>.Generation second = storage.Reserve(out int secondSlot);
+		first.SlotForWrite(firstSlot) = 1;
+		second.SlotForWrite(secondSlot) = 2;
+		Thread secondWriter = new(() => second.Publish(secondSlot));
+
+		(bool secondWriterWaitedForLock, int countBeforeLockIsReleased) =
+			PublishWhileHoldingTheLock(storage, secondWriter, () => first.Publish(firstSlot));
+		secondWriter.Join();
+
+		await That(secondWriterWaitedForLock).IsTrue()
+			.Because("the later writer must take the slow path while slot 0 is unpublished");
+		await That(countBeforeLockIsReleased).IsEqualTo(1)
+			.Because("the gap closer sees no pending slot yet, so it only publishes its own slot");
+		await That(ReadRecords(storage)).IsEqualTo([1, 2,])
+			.Because("the later writer must publish its own slot once it gets the lock");
 	}
 
 	[Test]
@@ -275,9 +410,22 @@ public class ChunkedSlotStorageTests
 	{
 		for (int i = 0; i < count; i++)
 		{
-			int slot = storage.Reserve();
-			storage.SlotForWrite(slot) = slot;
-			storage.Publish();
+			ChunkedSlotStorage<int>.Generation generation = storage.Reserve(out int slot);
+			generation.SlotForWrite(slot) = slot;
+			generation.Publish(slot);
+		}
+	}
+
+	private static (bool, int) PublishWhileHoldingTheLock(ChunkedSlotStorage<int> storage, Thread waitingWriter,
+		Action publish)
+	{
+		using (storage.EnterLock())
+		{
+			waitingWriter.Start();
+			bool waited = SpinWait.SpinUntil(() => (waitingWriter.ThreadState & ThreadState.WaitSleepJoin) != 0,
+				TimeSpan.FromSeconds(30));
+			publish();
+			return (waited, storage.Count);
 		}
 	}
 

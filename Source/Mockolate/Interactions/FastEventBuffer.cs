@@ -52,14 +52,14 @@ internal sealed class FastEventBuffer : IFastMemberBuffer
 	public void Append(string name, object? target, MethodInfo method)
 	{
 		long seq = _owner.NextSequence();
-		int slot = _storage.Reserve();
-		ref Record r = ref _storage.SlotForWrite(slot);
+		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
+		ref Record r = ref generation.SlotForWrite(slot);
 		r.Seq = seq;
 		r.Name = name;
 		r.Target = target;
 		r.Method = method;
 		r.Boxed = null;
-		_storage.Publish();
+		generation.Publish(slot);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
