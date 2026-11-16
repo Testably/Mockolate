@@ -1146,6 +1146,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -1339,7 +1345,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -1536,7 +1543,8 @@ window.BENCHMARK_DATA = {
           377.59912080031177,
           323.4472259112767,
           209.73270478248597,
-          206.21584713459015
+          206.21584713459015,
+          381.99791325055634
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1738,6 +1746,7 @@ window.BENCHMARK_DATA = {
           1584,
           1536,
           1536,
+          1552,
           1552
         ],
         "borderColor": "#63A2AC",
@@ -1943,7 +1952,8 @@ window.BENCHMARK_DATA = {
           77350.76473563058,
           36479.27454833985,
           60938.11365559896,
-          60759.59237234933
+          60759.59237234933,
+          45208.342381068636
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2145,7 +2155,8 @@ window.BENCHMARK_DATA = {
           9162,
           9046,
           9055,
-          9055
+          9055,
+          9033
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2350,7 +2361,8 @@ window.BENCHMARK_DATA = {
           4483.919738769531,
           3351.2112758343037,
           3360.6454109191895,
-          3251.360431416829
+          3251.360431416829,
+          4117.86364034017
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2511,6 +2523,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2757,7 +2770,8 @@ window.BENCHMARK_DATA = {
           4408.542574201311,
           3119.1240912846156,
           3259.008768463135,
-          3304.0384455362955
+          3304.0384455362955,
+          3645.806244913737
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -2959,7 +2973,8 @@ window.BENCHMARK_DATA = {
           6919,
           6924,
           6930,
-          6930
+          6930,
+          6924
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3164,7 +3179,8 @@ window.BENCHMARK_DATA = {
           234.65227932196396,
           192.2984754017421,
           177.94654641151428,
-          155.09232573849815
+          155.09232573849815,
+          238.76458147593908
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3330,6 +3346,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3571,7 +3588,8 @@ window.BENCHMARK_DATA = {
           619.3652561823527,
           494.50412400563556,
           406.5650698979696,
-          382.60244140625
+          382.60244140625,
+          594.4942095620291
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3732,6 +3750,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -4933,6 +4952,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -5126,7 +5151,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -5323,7 +5349,8 @@ window.BENCHMARK_DATA = {
           250.00094362894694,
           185.79663619995117,
           175.88336645762126,
-          229.25675535202026
+          229.25675535202026,
+          225.98512681325278
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5525,6 +5552,7 @@ window.BENCHMARK_DATA = {
           984,
           984,
           984,
+          1000,
           1000
         ],
         "borderColor": "#63A2AC",
@@ -5730,7 +5758,8 @@ window.BENCHMARK_DATA = {
           13884.901041666666,
           9452.60596110026,
           10995.121826171875,
-          15377.87446812221
+          15377.87446812221,
+          15798.360548753004
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5922,6 +5951,7 @@ window.BENCHMARK_DATA = {
           12761,
           12760,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -6137,7 +6167,8 @@ window.BENCHMARK_DATA = {
           5600.695864868164,
           3765.021493021647,
           4364.654597473144,
-          6599.678004673549
+          6599.678004673549,
+          5503.338150611291
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6298,6 +6329,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -6544,7 +6576,8 @@ window.BENCHMARK_DATA = {
           181975.46859305244,
           107632.36938476562,
           195045.11373197116,
-          225112.01419270833
+          225112.01419270833,
+          223523.26450892858
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6746,6 +6779,7 @@ window.BENCHMARK_DATA = {
           15619,
           15579,
           15619,
+          15618,
           15618
         ],
         "borderColor": "#4A6FA5",
@@ -6951,7 +6985,8 @@ window.BENCHMARK_DATA = {
           201.40224090644293,
           152.8577496210734,
           150.46257309913636,
-          174.47686041318454
+          174.47686041318454,
+          178.86626796722413
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7092,6 +7127,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -7358,7 +7394,8 @@ window.BENCHMARK_DATA = {
           186.41773379643757,
           141.87227628628412,
           134.49586027009147,
-          168.47049176692963
+          168.47049176692963,
+          164.6714285850525
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -7492,6 +7529,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -8720,6 +8758,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -8913,7 +8957,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -9110,7 +9155,8 @@ window.BENCHMARK_DATA = {
           768.3444949467977,
           568.8388895670573,
           593.7886833190918,
-          803.6350022724697
+          803.6350022724697,
+          433.74811964035035
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9312,6 +9358,7 @@ window.BENCHMARK_DATA = {
           2616,
           2544,
           2544,
+          2576,
           2576
         ],
         "borderColor": "#63A2AC",
@@ -9517,7 +9564,8 @@ window.BENCHMARK_DATA = {
           227142.38204520088,
           139580.54997907366,
           140981.76569010416,
-          228494.0633719308
+          228494.0633719308,
+          62483.49983097957
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9719,7 +9767,8 @@ window.BENCHMARK_DATA = {
           20804,
           20804,
           20804,
-          20804
+          20804,
+          20810
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9924,7 +9973,8 @@ window.BENCHMARK_DATA = {
           10329.27488301595,
           7218.916964394705,
           7326.035906655447,
-          10628.497638408955
+          10628.497638408955,
+          5205.922994341169
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10126,6 +10176,7 @@ window.BENCHMARK_DATA = {
           13032,
           13032,
           13088,
+          13032,
           13032
         ],
         "borderColor": "#5E2750",
@@ -10331,7 +10382,8 @@ window.BENCHMARK_DATA = {
           11203.673392662635,
           7120.504902179425,
           7085.926547459194,
-          11586.9656993321
+          11586.9656993321,
+          4680.775892530169
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10531,6 +10583,7 @@ window.BENCHMARK_DATA = {
           13593,
           13924,
           13706,
+          13593,
           13593,
           13593,
           13593
@@ -10738,7 +10791,8 @@ window.BENCHMARK_DATA = {
           313.1953067779541,
           261.9671388626099,
           238.4057968213008,
-          323.35845063527427
+          323.35845063527427,
+          173.85099339485168
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10899,6 +10953,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -12100,6 +12155,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -12293,7 +12354,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -12490,7 +12552,8 @@ window.BENCHMARK_DATA = {
           2439.488294474284,
           1755.447514851888,
           1805.5143945058187,
-          2483.916343688965
+          2483.916343688965,
+          1508.2574728329976
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12692,6 +12755,7 @@ window.BENCHMARK_DATA = {
           4720,
           4216,
           4216,
+          4248,
           4248
         ],
         "borderColor": "#63A2AC",
@@ -12897,7 +12961,8 @@ window.BENCHMARK_DATA = {
           239865.06580403645,
           148282.97647530693,
           148876.2030203683,
-          239346.17600911457
+          239346.17600911457,
+          66682.71053641183
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13099,7 +13164,8 @@ window.BENCHMARK_DATA = {
           30403,
           30403,
           30403,
-          30403
+          30403,
+          30402
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13304,7 +13370,8 @@ window.BENCHMARK_DATA = {
           25588.249430338543,
           17796.050248209634,
           17928.157560076033,
-          25397.746647135416
+          25397.746647135416,
+          11696.453641451322
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13506,6 +13573,7 @@ window.BENCHMARK_DATA = {
           26137,
           26137,
           26193,
+          26137,
           26137
         ],
         "borderColor": "#5E2750",
@@ -13711,7 +13779,8 @@ window.BENCHMARK_DATA = {
           23641.558005196708,
           15529.88242667062,
           15731.753153483072,
-          24974.565016682944
+          24974.565016682944,
+          10314.730500539144
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13913,7 +13982,8 @@ window.BENCHMARK_DATA = {
           33359,
           33247,
           33247,
-          33247
+          33247,
+          33249
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14118,7 +14188,8 @@ window.BENCHMARK_DATA = {
           744.9160280227661,
           624.9217786153157,
           581.9464255741665,
-          787.0417723655701
+          787.0417723655701,
+          429.33333792005266
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14279,6 +14350,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -15480,6 +15552,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -15673,7 +15751,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -15870,7 +15949,8 @@ window.BENCHMARK_DATA = {
           206.19589587847392,
           162.48106358846027,
           309.1837072690328,
-          154.10677615006765
+          154.10677615006765,
+          319.2373482159206
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16072,6 +16152,7 @@ window.BENCHMARK_DATA = {
           1176,
           1152,
           1152,
+          1168,
           1168
         ],
         "borderColor": "#63A2AC",
@@ -16277,7 +16358,8 @@ window.BENCHMARK_DATA = {
           114596.81993689903,
           61447.07981654576,
           195999.59166666667,
-          59162.58732386998
+          59162.58732386998,
+          116558.37601143973
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16479,7 +16561,8 @@ window.BENCHMARK_DATA = {
           14914,
           14920,
           14902,
-          14920
+          14920,
+          14914
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16684,7 +16767,8 @@ window.BENCHMARK_DATA = {
           4227.750889117901,
           3193.277750015259,
           6456.742013549805,
-          3307.270103963216
+          3307.270103963216,
+          4713.031227620443
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16872,6 +16956,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9264,
+          9320,
           9320,
           9320,
           9320,
@@ -17091,7 +17176,8 @@ window.BENCHMARK_DATA = {
           3786.9979073660716,
           2998.1377179463702,
           6128.380231039865,
-          2957.0326778705303
+          2957.0326778705303,
+          4264.301360539028
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17289,6 +17375,7 @@ window.BENCHMARK_DATA = {
           8153,
           8151,
           8147,
+          8160,
           8160,
           8160,
           8160,
@@ -17498,7 +17585,8 @@ window.BENCHMARK_DATA = {
           136.8011028583233,
           112.83192845753261,
           213.62365255355834,
-          107.41493460337321
+          107.41493460337321,
+          144.75615776379902
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17664,6 +17752,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -17905,7 +17994,8 @@ window.BENCHMARK_DATA = {
           349.9412428855896,
           313.40233217875164,
           525.0739980061849,
-          294.7582412719727
+          294.7582412719727,
+          372.48112395604454
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18039,6 +18129,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -19267,6 +19358,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -19460,7 +19557,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -19657,7 +19755,8 @@ window.BENCHMARK_DATA = {
           453.62262503306073,
           478.7105027607509,
           625.4780567169189,
-          463.80742530822755
+          463.80742530822755,
+          472.5553637822469
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19859,6 +19958,7 @@ window.BENCHMARK_DATA = {
           1968,
           1728,
           1728,
+          1744,
           1744
         ],
         "borderColor": "#63A2AC",
@@ -20064,7 +20164,8 @@ window.BENCHMARK_DATA = {
           117137.24388776507,
           62283.663853236605,
           202685.34742954798,
-          61873.39254557292
+          61873.39254557292,
+          119602.14426676433
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20266,6 +20367,7 @@ window.BENCHMARK_DATA = {
           18906,
           18906,
           18901,
+          18906,
           18906
         ],
         "borderColor": "#A052B0",
@@ -20471,7 +20573,8 @@ window.BENCHMARK_DATA = {
           6454.621248372396,
           4945.5673924764,
           10080.029922485352,
-          4830.671490732829
+          4830.671490732829,
+          6604.017646280924
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20673,6 +20776,7 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12345,
+          12344,
           12344
         ],
         "borderColor": "#5E2750",
@@ -20878,7 +20982,8 @@ window.BENCHMARK_DATA = {
           6520.112243652344,
           5042.33634185791,
           9834.811682564872,
-          4666.136647542317
+          4666.136647542317,
+          6707.957502746582
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21080,6 +21185,7 @@ window.BENCHMARK_DATA = {
           16394,
           16394,
           16393,
+          16394,
           16394
         ],
         "borderColor": "#4A6FA5",
@@ -21285,7 +21391,8 @@ window.BENCHMARK_DATA = {
           275.7956486770085,
           269.96148675282797,
           405.0642305056254,
-          244.00556014134332
+          244.00556014134332,
+          284.3333911214556
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21451,6 +21558,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -21692,7 +21800,8 @@ window.BENCHMARK_DATA = {
           1071.777410252889,
           1057.2942045529683,
           1448.647311147054,
-          998.388289642334
+          998.388289642334,
+          1034.4850791295369
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21826,6 +21935,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -23054,6 +23164,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -23247,7 +23363,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -23444,7 +23561,8 @@ window.BENCHMARK_DATA = {
           620.5056836446126,
           392.25640932718915,
           289.0349073043236,
-          355.23450536727904
+          355.23450536727904,
+          382.60410369237263
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -23646,6 +23764,7 @@ window.BENCHMARK_DATA = {
           1480,
           1424,
           1424,
+          1456,
           1456
         ],
         "borderColor": "#63A2AC",
@@ -23851,7 +23970,8 @@ window.BENCHMARK_DATA = {
           9910.709511893136,
           6958.144216684194,
           7282.493067814754,
-          6833.136993408203
+          6833.136993408203,
+          6585.086171468099
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -24052,6 +24172,7 @@ window.BENCHMARK_DATA = {
           10568,
           10457,
           10569,
+          10568,
           10568,
           10568
         ],
@@ -24258,7 +24379,8 @@ window.BENCHMARK_DATA = {
           7137.650674947103,
           5264.676703389486,
           5180.168565477644,
-          5028.351735941569
+          5028.351735941569,
+          4764.118060302734
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -24452,6 +24574,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -24665,7 +24788,8 @@ window.BENCHMARK_DATA = {
           7061.293697611491,
           4782.398817952474,
           5024.0090134938555,
-          4643.789599609375
+          4643.789599609375,
+          4137.044982910156
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24867,6 +24991,7 @@ window.BENCHMARK_DATA = {
           11196,
           11191,
           11196,
+          11191,
           11191
         ],
         "borderColor": "#4A6FA5",
@@ -25072,7 +25197,8 @@ window.BENCHMARK_DATA = {
           174.6531124966485,
           172.09095210295456,
           132.21465063095093,
-          150.78811710675558
+          150.78811710675558,
+          149.66689137050085
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -25238,6 +25364,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -25479,7 +25606,8 @@ window.BENCHMARK_DATA = {
           445.2454371111734,
           422.35421323776245,
           334.64789292017616,
-          385.8456281344096
+          385.8456281344096,
+          357.34865891138713
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25675,6 +25803,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -26841,6 +26970,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -27034,7 +27169,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -27231,7 +27367,8 @@ window.BENCHMARK_DATA = {
           1034.8726263682047,
           980.4576249803815,
           721.358322652181,
-          895.5126467432294
+          895.5126467432294,
+          870.6368214533879
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27433,6 +27570,7 @@ window.BENCHMARK_DATA = {
           2752,
           2192,
           2192,
+          2224,
           2224
         ],
         "borderColor": "#63A2AC",
@@ -27638,7 +27776,8 @@ window.BENCHMARK_DATA = {
           15977.022051130023,
           11726.401975191557,
           11954.449875967843,
-          11435.920018513998
+          11435.920018513998,
+          10752.744160970053
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27840,6 +27979,7 @@ window.BENCHMARK_DATA = {
           17385,
           18504,
           18505,
+          18504,
           18504
         ],
         "borderColor": "#A052B0",
@@ -28045,7 +28185,8 @@ window.BENCHMARK_DATA = {
           16256.12250773112,
           11767.665353393555,
           12041.036349956807,
-          11595.294722493489
+          11595.294722493489,
+          10800.442730243389
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28247,6 +28388,7 @@ window.BENCHMARK_DATA = {
           21529,
           21528,
           21529,
+          21528,
           21528
         ],
         "borderColor": "#5E2750",
@@ -28452,7 +28594,8 @@ window.BENCHMARK_DATA = {
           16889.003973388673,
           12914.500006103515,
           12278.190543541541,
-          12178.885308837891
+          12178.885308837891,
+          11073.582284545899
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28654,6 +28797,7 @@ window.BENCHMARK_DATA = {
           30785,
           30780,
           30785,
+          30780,
           30780
         ],
         "borderColor": "#4A6FA5",
@@ -28859,7 +29003,8 @@ window.BENCHMARK_DATA = {
           325.04482151667276,
           348.87672939300535,
           258.23838764826456,
-          321.9414570172628
+          321.9414570172628,
+          296.1011825243632
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -29025,6 +29170,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -29266,7 +29412,8 @@ window.BENCHMARK_DATA = {
           1580.3972807566324,
           1706.382491938273,
           1172.52191895705,
-          1473.355723953247
+          1473.355723953247,
+          1347.943098195394
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -29462,6 +29609,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -30628,6 +30776,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -30821,7 +30975,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -31018,7 +31173,8 @@ window.BENCHMARK_DATA = {
           15.917360814554351,
           12.794352920850118,
           26.276707410812378,
-          20.701509980360665
+          20.701509980360665,
+          11.573837202787399
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -31076,6 +31232,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -31425,7 +31582,8 @@ window.BENCHMARK_DATA = {
           90.04609665075938,
           74.79060479310843,
           122.78382506370545,
-          94.02068809668224
+          94.02068809668224,
+          67.70999589136669
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -31591,6 +31749,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -31832,7 +31991,8 @@ window.BENCHMARK_DATA = {
           26.315658060709634,
           21.30437360803286,
           39.38185837864876,
-          31.439091781775158
+          31.439091781775158,
+          20.199988458837783
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -31966,6 +32126,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -32239,7 +32400,8 @@ window.BENCHMARK_DATA = {
           1327.4617106119792,
           963.8767893864558,
           1301.9388403211321,
-          859.2543745676677
+          859.2543745676677,
+          845.1609384830182
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -32400,6 +32562,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -32646,7 +32809,8 @@ window.BENCHMARK_DATA = {
           1933.8291549682617,
           1353.094614982605,
           2035.969805399577,
-          1287.0514685312908
+          1287.0514685312908,
+          1227.60467676016
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -32807,6 +32971,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -33053,7 +33218,8 @@ window.BENCHMARK_DATA = {
           1606.9401889214148,
           1169.7041988372803,
           1716.9706268310547,
-          996.2161727905274
+          996.2161727905274,
+          1079.3349177042644
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -33255,7 +33421,8 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2764,
-          2751
+          2751,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -33317,6 +33484,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 07:27:37 2026 \u002B0100",
         "message": "fix: share the chunked recording storage with arity 5\u002B methods and publish slots in order (#979)"
+      },
+      {
+        "sha": "d8960b952e3562c758eaf7ec565ab72a02088187",
+        "author": "Valentin Breu\u00DF",
+        "date": "Mon Nov 16 07:50:21 2026 \u002B0100",
+        "message": "perf: route mixed literal and matcher verifications to the typed fast path (#978)"
       }
     ],
     "labels": [
@@ -33327,7 +33500,8 @@ window.BENCHMARK_DATA = {
       "4c822185",
       "6a40cd15",
       "5ed8c4ac",
-      "9a69edc6"
+      "9a69edc6",
+      "d8960b95"
     ],
     "datasets": [
       {
@@ -33341,7 +33515,8 @@ window.BENCHMARK_DATA = {
           1315.4716439928327,
           1069.8300762176514,
           810.1518845876058,
-          1087.6886582692464
+          1087.6886582692464,
+          1201.818130356925
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33360,7 +33535,8 @@ window.BENCHMARK_DATA = {
           4744,
           4632,
           4632,
-          4696
+          4696,
+          4064
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33382,7 +33558,8 @@ window.BENCHMARK_DATA = {
           835.2401878650372,
           739.0230976513454,
           475.03614950180054,
-          660.5247267314365
+          660.5247267314365,
+          865.8292795499166
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -33395,6 +33572,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           3000,
+          2968,
           2968,
           2968,
           2968,
@@ -33423,7 +33601,8 @@ window.BENCHMARK_DATA = {
           2319.209545680455,
           1839.6043249766033,
           1312.449578412374,
-          1710.9110013521636
+          1710.9110013521636,
+          2440.1592091878256
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -33436,6 +33615,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           8936,
+          9528,
           9528,
           9528,
           9528,
@@ -33464,7 +33644,8 @@ window.BENCHMARK_DATA = {
           219694.95912388392,
           122240.66625976562,
           102590.4010103666,
-          121075.56197916667
+          121075.56197916667,
+          336658.040625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33483,7 +33664,8 @@ window.BENCHMARK_DATA = {
           36069,
           36372,
           36097,
-          36037
+          36037,
+          36164
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33505,7 +33687,8 @@ window.BENCHMARK_DATA = {
           17658.93692452567,
           17642.44758097331,
           12785.231559753418,
-          16224.600742885044
+          16224.600742885044,
+          22543.712475585937
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33524,7 +33707,8 @@ window.BENCHMARK_DATA = {
           36171,
           36169,
           36171,
-          36169
+          36169,
+          36171
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33546,7 +33730,8 @@ window.BENCHMARK_DATA = {
           15706.492543538412,
           12948.900413004558,
           11084.932986450196,
-          11440.761466471355
+          11440.761466471355,
+          20082.225685628255
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -33565,7 +33750,8 @@ window.BENCHMARK_DATA = {
           28541,
           28510,
           28620,
-          28630
+          28630,
+          28541
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
