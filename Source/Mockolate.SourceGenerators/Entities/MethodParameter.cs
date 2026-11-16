@@ -11,7 +11,8 @@ internal readonly record struct MethodParameter
 		Type = Type.From(parameterSymbol.Type);
 		Name = Helpers.EscapeIfKeyword(parameterSymbol.Name);
 		RefKind = parameterSymbol.RefKind;
-		IsNullableAnnotated = parameterSymbol.NullableAnnotation == NullableAnnotation.Annotated;
+		IsNullableAnnotated = parameterSymbol.NullableAnnotation == NullableAnnotation.Annotated &&
+		                      !parameterSymbol.Type.IsValueType;
 		IsParams = parameterSymbol.IsParams;
 		HasExplicitDefaultValue = parameterSymbol.HasExplicitDefaultValue;
 		if (HasExplicitDefaultValue)
