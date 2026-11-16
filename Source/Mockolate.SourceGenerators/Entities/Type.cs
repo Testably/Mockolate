@@ -13,6 +13,18 @@ internal record Type
 
 	internal Type(ITypeSymbol typeSymbol)
 	{
+		// A dynamic argument would bind the generated calls at runtime, so it is emitted as the identical object type.
+		if (typeSymbol.TypeKind == TypeKind.Dynamic)
+		{
+			CanBeNullable = typeSymbol.NullableAnnotation == NullableAnnotation.Annotated;
+			Fullname = CanBeNullable ? "object?" : "object";
+			DisplayName = Fullname;
+			Namespace = "System";
+			SpecialType = SpecialType.System_Object;
+			GenericTypeParameters = new EquatableArray<Type>([]);
+			return;
+		}
+
 		// Removes '*' from multi-dimensional array types
 		Fullname = typeSymbol.ToQualifiedDisplayString(Helpers.TypeDisplayFormat).Replace("*", "");
 		DisplayName = typeSymbol.ToDisplayString(Helpers.TypeDisplayShortFormat).Replace("*", "");

@@ -354,7 +354,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		for (int i = 0; i < a.Length; i++)
 		{
 			if (a[i].RefKind != b[i].RefKind ||
-			    !SymbolEqualityComparer.Default.Equals(a[i].Type, b[i].Type))
+			    !Helpers.IsSameEmittedType(a[i].Type, b[i].Type))
 			{
 				return false;
 			}
