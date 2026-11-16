@@ -245,8 +245,13 @@ internal static partial class Mock
 		#region IMockSetupForIDynamicOverloads
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> global::Mockolate.Mock.IMockSetupForIDynamicOverloads.M(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> global::Mockolate.Mock.IMockSetupForIDynamicOverloads.M(global::Mockolate.Parameters.IParameters? parameters)
 		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForIDynamicOverloads)this).M(default(object));
+			}
+
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", parameters, "x");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IDynamicOverloads.MemberId_M, methodSetup);
 			return methodSetup;
@@ -273,8 +278,10 @@ internal static partial class Mock
 		#region IMockVerifyForIDynamicOverloads
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> IMockVerifyForIDynamicOverloads.M(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, global::Mockolate.Interactions.MethodInvocation<object>>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", __i => parameters switch
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> IMockVerifyForIDynamicOverloads.M(global::Mockolate.Parameters.IParameters? parameters)
+			=> parameters is null
+				? ((IMockVerifyForIDynamicOverloads)this).M(default(object))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, global::Mockolate.Interactions.MethodInvocation<object>>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", __i => parameters switch
 				{
 					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
 					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("x", __i.Parameter1)]),
@@ -297,8 +304,10 @@ internal static partial class Mock
 		#region IMockVerifyForIDynamicOverloads
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> IMockVerifyForIDynamicOverloads.M(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, global::Mockolate.Interactions.MethodInvocation<object>>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", __i => parameters switch
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> IMockVerifyForIDynamicOverloads.M(global::Mockolate.Parameters.IParameters? parameters)
+			=> parameters is null
+				? ((IMockVerifyForIDynamicOverloads)this).M(default(object))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, global::Mockolate.Interactions.MethodInvocation<object>>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", __i => parameters switch
 				{
 					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
 					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("x", __i.Parameter1)]),
@@ -332,8 +341,13 @@ internal static partial class Mock
 		#region IMockSetupForIDynamicOverloads
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> global::Mockolate.Mock.IMockSetupForIDynamicOverloads.M(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> global::Mockolate.Mock.IMockSetupForIDynamicOverloads.M(global::Mockolate.Parameters.IParameters? parameters)
 		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForIDynamicOverloads)this).M(default(object));
+			}
+
 			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", parameters, "x");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IDynamicOverloads.MemberId_M, this._scenarioName, methodSetup);
 			return methodSetup;
@@ -485,7 +499,7 @@ internal static partial class Mock
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> M(global::Mockolate.Parameters.IParameters parameters);
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> M(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)">M(object)</see> with the given <paramref name="x"/>.
@@ -518,7 +532,7 @@ internal static partial class Mock
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> M(global::Mockolate.Parameters.IParameters parameters);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> M(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)">M(object)</see> with the given <paramref name="x"/>.

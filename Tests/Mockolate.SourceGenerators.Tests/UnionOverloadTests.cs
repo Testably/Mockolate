@@ -225,7 +225,7 @@ public sealed class UnionOverloadTests
 
 		await That(mock)
 			.Contains(
-				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]\n\t\tglobal::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> TakeObject(global::Mockolate.Parameters.IParameters parameters);");
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]\n\t\tglobal::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> TakeObject(global::Mockolate.Parameters.IParameters? parameters);");
 	}
 
 	[Test]

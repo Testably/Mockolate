@@ -55,6 +55,7 @@ internal record Type
 		                {
 			                OriginalDefinition.SpecialType: SpecialType.System_Nullable_T,
 		                };
+		IsValueType = typeSymbol.IsValueType;
 		IsFormattable = IsIFormattable(typeSymbol);
 		// IsRefLikeType is true for ref structs (e.g. Span<T>, ReadOnlySpan<T>, Utf8JsonReader,
 		// and any user-defined `ref struct`). Used by the generator to switch to the ref-struct-safe
@@ -69,6 +70,7 @@ internal record Type
 	}
 
 	public bool IsFormattable { get; }
+	public bool IsValueType { get; }
 	public bool CanBeNullable { get; }
 	public bool IsRefStruct { get; }
 	public bool IsDelegate { get; }

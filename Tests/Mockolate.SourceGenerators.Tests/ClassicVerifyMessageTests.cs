@@ -68,6 +68,94 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
+	public async Task NullLiteral_InClassicMode_ShouldMatchOnlyNullArguments()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using Mockolate;
+		                                             using Mockolate.Parameters;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public interface IFoo
+		                                             {
+		                                                 int One(object? value);
+		                                                 int Optional(string? value, int number = 5);
+		                                                 int OptionalWithNonNullDefault(string? value = "x", int number = 5);
+		                                                 int WithParams(object? value, params int[] rest);
+		                                                 int Sibling(object? value);
+		                                                 int Sibling<T>(T value);
+		                                             }
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     IFoo sut = IFoo.CreateMock();
+		                                                     sut.Mock.Setup.One(null).Returns(1);
+		                                                     sut.Mock.Setup.Optional(null).Returns(1);
+		                                                     sut.Mock.Setup.OptionalWithNonNullDefault(null).Returns(1);
+		                                                     sut.Mock.Setup.WithParams(null).Returns(1);
+		                                                     sut.Mock.Setup.Sibling(null!).Returns(1);
+		                                                     int[] results = [sut.One("a"), sut.Optional("a"), sut.Optional(null, 6), sut.OptionalWithNonNullDefault(), sut.WithParams("a"), sut.WithParams(null, 1),];
+		                                                     string[] beforeNullCalls =
+		                                                     [
+		                                                         Capture(() => sut.Mock.Verify.One(null).AtLeastOnce()),
+		                                                         Capture(() => sut.Mock.Verify.Optional(null).AtLeastOnce()),
+		                                                         Capture(() => sut.Mock.Verify.OptionalWithNonNullDefault(null).AtLeastOnce()),
+		                                                         Capture(() => sut.Mock.Verify.WithParams(null).AtLeastOnce()),
+		                                                     ];
+		                                                     int[] nullResults = [sut.One(null), sut.Optional(null), sut.OptionalWithNonNullDefault(null), sut.WithParams(null), sut.Sibling((object?)null),];
+		                                                     IParameters? nullParameters = null;
+		                                                     return
+		                                                     [
+		                                                         string.Join(", ", results),
+		                                                         string.Join(", ", nullResults),
+		                                                         ..beforeNullCalls,
+		                                                         Capture(() => sut.Mock.Verify.One(null).Once()),
+		                                                         Capture(() => sut.Mock.Verify.One(nullParameters).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Optional(null).Once()),
+		                                                         Capture(() => sut.Mock.Verify.OptionalWithNonNullDefault(null).Once()),
+		                                                         Capture(() => sut.Mock.Verify.WithParams(null).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Sibling(null!).Once()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14);
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"0, 0, 0, 0, 0, 0",
+			"1, 1, 1, 1, 1",
+			"Expected that mock invoked method One() at least once, but it never did.",
+			"Expected that mock invoked method Optional(, 5) at least once, but it never did.",
+			"Expected that mock invoked method OptionalWithNonNullDefault(, 5) at least once, but it never did.",
+			"Expected that mock invoked method WithParams(, System.Int32[]) at least once, but it never did.",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+		]).Because("a lone null literal means the call with a null first argument and the declared defaults, also where it binds to the IParameters overload");
+	}
+
+	[Test]
 	public async Task Verify_InClassicMode_WithMixedLiteralsAndMatchers_ShouldMatchAndDescribeArgumentsAsBefore()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""

@@ -3017,8 +3017,13 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters? parameters)
 		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).TakeObject(default(object?));
+			}
+
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", parameters, "obj");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, methodSetup);
 			return methodSetup;
@@ -3742,8 +3747,10 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetMaybeNull(string? s)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s, static (s) => $"GetMaybeNull({s})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<object?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", __i => parameters switch
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters? parameters)
+			=> parameters is null
+				? ((IMockVerifyForIComprehensiveInterface)this).TakeObject(default(object?))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<object?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", __i => parameters switch
 				{
 					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
 					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("obj", __i.Parameter1)]),
@@ -4372,8 +4379,10 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetMaybeNull(string? s)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s, static (s) => $"GetMaybeNull({s})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<object?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", __i => parameters switch
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters? parameters)
+			=> parameters is null
+				? ((IMockVerifyForIComprehensiveInterface)this).TakeObject(default(object?))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<object?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", __i => parameters switch
 				{
 					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
 					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("obj", __i.Parameter1)]),
@@ -5051,8 +5060,13 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters? parameters)
 		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).TakeObject(default(object?));
+			}
+
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, object?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", parameters, "obj");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, this._scenarioName, methodSetup);
 			return methodSetup;
@@ -5831,7 +5845,7 @@ internal static partial class Mock
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> TakeObject(global::Mockolate.Parameters.IParameters parameters);
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> TakeObject(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)">TakeObject(object?)</see> with the given <paramref name="obj"/>.
@@ -6507,7 +6521,7 @@ internal static partial class Mock
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> TakeObject(global::Mockolate.Parameters.IParameters parameters);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> TakeObject(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)">TakeObject(object?)</see> with the given <paramref name="obj"/>.
