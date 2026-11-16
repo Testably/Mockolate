@@ -100,6 +100,14 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "NullableTypeParameter_CanBeCreated",
+            ["INullableTypeParameter.cs",],
+            """
+            INullableTypeParameter<int> sut1 = INullableTypeParameter<int>.CreateMock();
+            INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
+            """,
+            []),
+        new(
             "ParameterNameCollisions_CanBeCreated",
             ["ParameterNameCollisions.cs",],
             """
@@ -157,6 +165,15 @@ public sealed partial class MockGenerationSnapshotTests
             ["IKeywordEdgeCases.cs",],
             """
             IKeywordEdgeCases sut = IKeywordEdgeCases.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "NullableTypeParameter_CanBeCreated_Unions",
+            ["INullableTypeParameter.cs",],
+            """
+            INullableTypeParameter<int> sut1 = INullableTypeParameter<int>.CreateMock();
+            INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
             """,
             [],
             UnionMode: true),
