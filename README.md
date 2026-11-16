@@ -30,7 +30,7 @@ For side-by-side setup, usage, and verification syntax against Moq, NSubstitute,
 [full code comparison](https://docs.testably.org/Mockolate/migration/#side-by-side); for performance, see the
 [benchmarks](https://docs.testably.org/Mockolate/benchmarks).
 
-Already on Moq or NSubstitute? The companion package [`Mockolate.Migration`](https://docs.testably.org/Mockolate/migration/automated/)
+Already on Moq or NSubstitute? The companion package [`Mockolate.Migration`](https://docs.testably.org/Mockolate/migration/)
 ships analyzers and code fixers that translate common Moq and NSubstitute patterns to Mockolate syntax in-place: point it
 at an existing test project and apply the suggested fixes.
 
@@ -78,4 +78,4 @@ Full reference docs at **[docs.testably.org/Mockolate](https://docs.testably.org
 - [Verify interactions](https://docs.testably.org/Mockolate/verify-interactions)
 - Advanced features: [protected members](https://docs.testably.org/Mockolate/advanced-features/protected-members), [static interface members](https://docs.testably.org/Mockolate/advanced-features/static-interface-members), [callbacks](https://docs.testably.org/Mockolate/advanced-features/advanced-callback-features), [monitors](https://docs.testably.org/Mockolate/advanced-features/monitor-interactions), [scenarios](https://docs.testably.org/Mockolate/advanced-features/scenarios), [unexpected-interaction checks](https://docs.testably.org/Mockolate/advanced-features/check-for-unexpected-interactions)
 - Special types: [`HttpClient`](https://docs.testably.org/Mockolate/special-types/httpclient), [delegates](https://docs.testably.org/Mockolate/special-types/delegates)
-- Migration: [from Moq, NSubstitute and FakeItEasy](https://docs.testably.org/Mockolate/migration/), [automated migration](https://docs.testably.org/Mockolate/migration/automated/)
+- Migration: [from Moq, NSubstitute and FakeItEasy](https://docs.testably.org/Mockolate/migration/), [automated migration](https://docs.testably.org/Mockolate/migration/#automated-migration)

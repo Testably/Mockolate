@@ -43,5 +43,5 @@ See the [side-by-side comparison](/Mockolate/migration/#side-by-side) with Moq, 
 ## Where to go next
 
 - **New to Mockolate?** Start with [Getting started](./01-getting-started.mdx), then read the [core concepts](/Mockolate/core-concepts/) to learn how mocks, setups and verifications fit together.
-- **Coming from Moq, NSubstitute or FakeItEasy?** The [migration guide](/Mockolate/migration/) translates the syntax you know, and [Mockolate.Migration](/Mockolate/migration/automated/) rewrites existing Moq and NSubstitute tests for you.
+- **Coming from Moq, NSubstitute or FakeItEasy?** The [migration guide](/Mockolate/migration/) translates the syntax you know, and [Mockolate.Migration](/Mockolate/migration/) rewrites existing Moq and NSubstitute tests for you.
 - **Looking for a specific API?** The [cheat sheet](./02-core-concepts/02-cheat-sheet.md) lists the most common calls on one page.
