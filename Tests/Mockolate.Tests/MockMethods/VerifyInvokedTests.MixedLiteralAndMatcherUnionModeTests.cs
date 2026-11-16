@@ -155,8 +155,8 @@ public sealed partial class VerifyInvokedTests
 			sut.Method3("a", 1, null);
 			sut.Method3("a", 1, "x");
 
-			await That(sut.Mock.Verify.Method2((IParameter<string?>?)null, 1)).Once();
-			await That(sut.Mock.Verify.Method3("a", 1, (IParameter<string?>?)null)).Once();
+			await That(sut.Mock.Verify.Method2((IParameter<string?>)null!, 1)).Once();
+			await That(sut.Mock.Verify.Method3("a", 1, (IParameter<string?>)null!)).Once();
 		}
 
 		[Test]
