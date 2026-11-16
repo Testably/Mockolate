@@ -234,6 +234,15 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task NullableTypeParameter_CanBeCreated()
+		{
+			INullableTypeParameter<int> sut1 = INullableTypeParameter<int>.CreateMock();
+			INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+		}
+
+		[Test]
 		public async Task ParameterNameCollisions_CanBeCreated()
 		{
 			IParameterNameCollisions sut1 = IParameterNameCollisions.CreateMock();
