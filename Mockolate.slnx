@@ -61,10 +61,6 @@
 		<File Path="Docs/pages/02-core-concepts/02-cheat-sheet.md" />
 		<File Path="Docs/pages/02-core-concepts/_category_.json" />
 	</Folder>
-	<Folder Name="/_/Docs/migration/">
-		<File Path="Docs/pages/11-migration/00-index.mdx" />
-		<File Path="Docs/pages/11-migration/_category_.json" />
-	</Folder>
 	<Folder Name="/_/Docs/advanced-features/">
 		<File Path="Docs/pages/08-advanced-features/00-index.md" />
 		<File Path="Docs/pages/08-advanced-features/01-protected-members.md" />
