@@ -720,12 +720,35 @@ public partial class MockRegistry
 						return typed.InvokeGetterTyped();
 					}
 
+					if (snapshot is PropertySetup.Default<TResult> defaultSetup)
+					{
+						return defaultSetup.Value;
+					}
+
 					return snapshot.InvokeGetterFast(Behavior, defaultValueGenerator);
 				}
 			}
+
+			TResult value = ResolvePropertySlow(propertyName, defaultValueGenerator, null);
+			PublishResolvedPropertySetup(memberId, propertyName);
+			return value;
 		}
 
 		return ResolvePropertySlow(propertyName, defaultValueGenerator, baseValueAccessor);
+	}
+
+	/// <summary>
+	///     Indexes the setup that the cold path resolved for a property without a setup under its
+	///     <paramref name="memberId" />, so that the next reads and writes take the hot path instead of
+	///     looking the setup up by name again.
+	/// </summary>
+	private void PublishResolvedPropertySetup(int memberId, string propertyName)
+	{
+		if (memberId >= 0 && _setups is { } setups &&
+		    setups.Properties.TryGetValue(propertyName, out PropertySetup? setup))
+		{
+			PublishPropertyToMemberIdBucket(memberId, setup);
+		}
 	}
 
 	private TResult ResolvePropertySlow<TResult>(string propertyName,

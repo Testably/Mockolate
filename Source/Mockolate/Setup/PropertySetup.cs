@@ -126,6 +126,12 @@ public abstract class PropertySetup : IInteractivePropertySetup
 	{
 		private T _value = initialValue;
 
+		/// <summary>
+		///     The current value, for a getter of exactly <typeparamref name="T" /> that avoids the generic virtual
+		///     call of <see cref="InvokeGetterFast{TResult}(MockBehavior, Func{MockBehavior, TResult})" />.
+		/// </summary>
+		internal T Value => _value;
+
 		/// <inheritdoc cref="PropertySetup.InvokeSetter{TValue}(TValue, MockBehavior)" />
 		protected override void InvokeSetter<TValue>(TValue value, MockBehavior behavior)
 		{
