@@ -403,6 +403,19 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			return VerifyAsync(arr => countPredicate(arr.Length)).ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 
+		/// <inheritdoc cref="IFastVerifyCountResult.VerifyCount(int, int, out int)" />
+		bool IFastVerifyCountResult.VerifyCount(int minimum, int maximum, out int found)
+		{
+			int last = 0;
+			bool result = ((IFastVerifyCountResult)this).VerifyCount(count =>
+			{
+				last = count;
+				return count >= minimum && count <= maximum;
+			});
+			found = last;
+			return result;
+		}
+
 		private async Task<bool> VerifyCountAsync(Func<int, bool> countPredicate)
 		{
 			try
@@ -520,6 +533,26 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		IInteraction[] matchingInteractions = CollectMatching();
 		_interactions.Verified(matchingInteractions);
 		return countPredicate(matchingInteractions.Length);
+	}
+
+	/// <inheritdoc cref="IFastVerifyCountResult.VerifyCount(int, int, out int)" />
+	bool IFastVerifyCountResult.VerifyCount(int minimum, int maximum, out int found)
+	{
+		ThrowIfRecordingDisabled(_interactions);
+		if (_fastCountSource is not null)
+		{
+			found = _useCountAll
+				? ((IFastMethodCountSource)_fastCountSource).CountAll()
+				: _fastCountSource.Count();
+		}
+		else
+		{
+			IInteraction[] matchingInteractions = CollectMatching();
+			_interactions.Verified(matchingInteractions);
+			found = matchingInteractions.Length;
+		}
+
+		return found >= minimum && found <= maximum;
 	}
 
 	#endregion

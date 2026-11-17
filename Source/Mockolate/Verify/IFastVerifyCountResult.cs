@@ -17,4 +17,14 @@ internal interface IFastVerifyCountResult
 	///     <c>ConsumeMatching</c> when available; otherwise fall back to materialising and counting.
 	/// </summary>
 	bool VerifyCount(Func<int, bool> countPredicate);
+
+	/// <summary>
+	///     Counts the matching interactions and returns whether the count lies between
+	///     <paramref name="minimum" /> and <paramref name="maximum" /> (both inclusive). The count terminators
+	///     use this overload, so that a verification needs neither a delegate nor a closure.
+	/// </summary>
+	/// <param name="minimum">The smallest accepted count.</param>
+	/// <param name="maximum">The largest accepted count.</param>
+	/// <param name="found">The count that was checked last.</param>
+	bool VerifyCount(int minimum, int maximum, out int found);
 }
