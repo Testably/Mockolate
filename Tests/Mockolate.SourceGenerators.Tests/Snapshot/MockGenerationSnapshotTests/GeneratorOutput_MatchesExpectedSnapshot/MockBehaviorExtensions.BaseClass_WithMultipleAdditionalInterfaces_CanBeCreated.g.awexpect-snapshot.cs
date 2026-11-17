@@ -84,7 +84,7 @@ internal static partial class Mock
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	private class DefaultValueGenerator : IDefaultValueGenerator, global::Mockolate.Internals.IDefaultValueProbe
 	{
-		private static IDefaultValueFactory[] _factories = [
+		private static readonly IDefaultValueFactory[] _builtInFactories = [
 			new TypedDefaultValueFactory<string>(""),
 			new CancellableTaskFactory(),
 	#if NET8_0_OR_GREATER
@@ -93,7 +93,9 @@ internal static partial class Mock
 			new TypedDefaultValueFactory<global::System.Threading.CancellationToken>(global::System.Threading.CancellationToken.None),
 			new TypedDefaultValueFactory<System.Collections.IEnumerable>(global::System.Array.Empty<object?>()),
 		];
-	
+
+		private static IDefaultValueFactory[] _factories = _builtInFactories;
+
 		/// <inheritdoc cref="IDefaultValueGenerator.GenerateValue(global::System.Type, object?[])" />
 		public object? GenerateValue(global::System.Type type, params object?[] parameters)
 		{
@@ -130,7 +132,13 @@ internal static partial class Mock
 				return global::Mockolate.Internals.DefaultValueSource.WithArguments;
 			}
 
-			foreach (IDefaultValueFactory factory in global::System.Threading.Volatile.Read(ref _factories))
+			IDefaultValueFactory[] factories = global::System.Threading.Volatile.Read(ref _factories);
+			if (ReferenceEquals(factories, _builtInFactories))
+			{
+				return ProbeBuiltIn(type);
+			}
+
+			foreach (IDefaultValueFactory factory in factories)
 			{
 				if (factory.IsMatch(type))
 				{
@@ -142,7 +150,31 @@ internal static partial class Mock
 
 			return global::Mockolate.Internals.DefaultValueSource.None;
 		}
-	
+
+		/// <summary>
+		///     Answers for the built-in factories without calling each of them.
+		/// </summary>
+		private static global::Mockolate.Internals.DefaultValueSource ProbeBuiltIn(global::System.Type type)
+		{
+			if (type == typeof(string) ||
+			    type == typeof(global::System.Threading.CancellationToken) ||
+			    type == typeof(global::System.Collections.IEnumerable))
+			{
+				return global::Mockolate.Internals.DefaultValueSource.WithoutArguments;
+			}
+
+	#if NET8_0_OR_GREATER
+			if (type == typeof(global::System.Threading.Tasks.ValueTask))
+			{
+				return global::Mockolate.Internals.DefaultValueSource.WithArguments;
+			}
+
+	#endif
+			return type == typeof(global::System.Threading.Tasks.Task)
+				? global::Mockolate.Internals.DefaultValueSource.WithArguments
+				: global::Mockolate.Internals.DefaultValueSource.None;
+		}
+
 		/// <summary>
 		///     Tries to generate a default value for the specified type.
 		/// </summary>
