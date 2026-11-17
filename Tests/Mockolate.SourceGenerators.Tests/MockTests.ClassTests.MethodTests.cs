@@ -243,7 +243,7 @@ public sealed partial class MockTests
 					.Contains("methodSetup?.TriggerCallbacks(methodExecution);")
 					.IgnoringNewlineStyle().And
 					.Contains(
-						"return methodSetup?.TryGetReturnValue(methodExecution, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, methodExecution);")
+						"return methodSetup?.TryGetReturnValue(methodExecution, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, methodExecution) : default(int)!);")
 					.IgnoringNewlineStyle();
 			}
 
@@ -312,7 +312,7 @@ public sealed partial class MockTests
 					.Contains("methodSetup?.TriggerCallbacks(result);")
 					.IgnoringNewlineStyle().And
 					.Contains(
-						"return methodSetup?.TryGetReturnValue(result, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, result);")
+						"return methodSetup?.TryGetReturnValue(result, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, result) : default(int)!);")
 					.IgnoringNewlineStyle();
 			}
 
@@ -600,7 +600,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(index, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index);
+					          			return methodSetup?.TryGetReturnValue(index, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<bool>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index) : default(bool)!);
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""
@@ -714,7 +714,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value);
+					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!);
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""
@@ -753,7 +753,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value);
+					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!);
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""
@@ -792,7 +792,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value);
+					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!);
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""
@@ -831,7 +831,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value);
+					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!);
 					          		}
 					          """).IgnoringNewlineStyle();
 			}
@@ -997,7 +997,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(index, isReadOnly, value1, flag, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index, isReadOnly, value1, flag);
+					          			return methodSetup?.TryGetReturnValue(index, isReadOnly, value1, flag, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<bool>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index, isReadOnly, value1, flag) : default(bool)!);
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.DoesNotContain("MyNonVirtualMethod").Because("The method is not virtual!").And
@@ -1248,7 +1248,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(index, isReadOnly, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index, isReadOnly);
+					          			return methodSetup?.TryGetReturnValue(index, isReadOnly, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<bool>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index, isReadOnly) : default(bool)!);
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""

@@ -475,7 +475,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(a, b, c, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, a, b, c);
+			return methodSetup?.TryGetReturnValue(a, b, c, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, a, b, c) : default(int)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)" />
@@ -545,7 +545,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(a, b, c, d, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, a, b, c, d);
+			return methodSetup?.TryGetReturnValue(a, b, c, d, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<object>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, a, b, c, d) : default(object)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(dynamic, int, int, int, dynamic)" />
@@ -903,7 +903,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(o, r, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, o, r), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, o, r));
+			return methodSetup?.TryGetReturnValue(o, r, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.MayGenerate<object>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, o, r) : default(object)!), (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, o, r) : default(int)!));
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.IDynamicMembers

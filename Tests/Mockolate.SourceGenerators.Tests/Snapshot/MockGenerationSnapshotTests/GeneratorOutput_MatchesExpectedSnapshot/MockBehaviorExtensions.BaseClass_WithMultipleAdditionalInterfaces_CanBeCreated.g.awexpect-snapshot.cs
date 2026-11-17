@@ -77,9 +77,9 @@ internal static partial class Mock
 	///     Provides default values for common types used in mocking scenarios.
 	/// </summary>
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private class DefaultValueGenerator : IDefaultValueGenerator
+	private class DefaultValueGenerator : IDefaultValueGenerator, global::Mockolate.Internals.IDefaultValueProbe
 	{
-		private static readonly global::System.Collections.Concurrent.ConcurrentQueue<IDefaultValueFactory> _factories = new([
+		private static IDefaultValueFactory[] _factories = [
 			new TypedDefaultValueFactory<string>(""),
 			new CancellableTaskFactory(),
 	#if NET8_0_OR_GREATER
@@ -87,7 +87,7 @@ internal static partial class Mock
 	#endif
 			new TypedDefaultValueFactory<global::System.Threading.CancellationToken>(global::System.Threading.CancellationToken.None),
 			new TypedDefaultValueFactory<System.Collections.IEnumerable>(global::System.Array.Empty<object?>()),
-		]);
+		];
 	
 		/// <inheritdoc cref="IDefaultValueGenerator.GenerateValue(global::System.Type, object?[])" />
 		public object? GenerateValue(global::System.Type type, params object?[] parameters)
@@ -104,14 +104,44 @@ internal static partial class Mock
 		///     Registers a <paramref name="defaultValueFactory" /> to provide default values for a specific type.
 		/// </summary>
 		public static void Register(IDefaultValueFactory defaultValueFactory)
-			=> _factories.Enqueue(defaultValueFactory);
+		{
+			IDefaultValueFactory[] current;
+			IDefaultValueFactory[] updated;
+			do
+			{
+				current = global::System.Threading.Volatile.Read(ref _factories);
+				updated = new IDefaultValueFactory[current.Length + 1];
+				global::System.Array.Copy(current, updated, current.Length);
+				updated[current.Length] = defaultValueFactory;
+			}
+			while (global::System.Threading.Interlocked.CompareExchange(ref _factories, updated, current) != current);
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Internals.IDefaultValueProbe.MayGenerateValue(global::System.Type)" />
+		bool global::Mockolate.Internals.IDefaultValueProbe.MayGenerateValue(global::System.Type type)
+		{
+			if (GetType() != typeof(DefaultValueGenerator))
+			{
+				return true;
+			}
+
+			foreach (IDefaultValueFactory factory in global::System.Threading.Volatile.Read(ref _factories))
+			{
+				if (factory.IsMatch(type))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 	
 		/// <summary>
 		///     Tries to generate a default value for the specified type.
 		/// </summary>
 		protected virtual bool TryGenerate(global::System.Type type, object?[] parameters, out object? value)
 		{
-			foreach (IDefaultValueFactory factory in _factories)
+			foreach (IDefaultValueFactory factory in global::System.Threading.Volatile.Read(ref _factories))
 			{
 				if (factory.IsMatch(type))
 				{
@@ -278,6 +308,13 @@ internal static class DefaultValueGeneratorExtensions
 
 			return nullValue;
 		}
+
+		/// <summary>
+		///     Checks whether a default value of type <typeparamref name="T" /> has to be requested from the generator,
+		///     so that the invocation parameters are only collected when they are needed.
+		/// </summary>
+		public bool MayGenerate<T>()
+			=> generator is not global::Mockolate.Internals.IDefaultValueProbe probe || probe.MayGenerateValue(typeof(T));
 	}
 }
 

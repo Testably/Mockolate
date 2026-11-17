@@ -188,7 +188,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(x, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, x);
+			return methodSetup?.TryGetReturnValue(x, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<object>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, x) : default(object)!);
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived

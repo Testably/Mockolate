@@ -264,7 +264,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(a, b, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, a, b);
+			return methodSetup?.TryGetReturnValue(a, b, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<object>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, a, b) : default(object)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)" />

@@ -494,6 +494,15 @@ internal static class Helpers
 				return sb;
 			}
 
+			// The arguments are only collected for a type that binds to the general Generate<T> overload, and
+			// only when the generator may have a value for it.
+			bool isLazy = !string.IsNullOrWhiteSpace(suffix) && type.ElementType is null &&
+			              !(type.GenericTypeParameters?.Count > 0);
+			if (isLazy)
+			{
+				sb.Append('(').Append(defaultValueName).Append(".MayGenerate<").Append(type.Fullname).Append(">() ? ");
+			}
+
 			sb.Append(defaultValueName);
 			sb.Append(".Generate(default(");
 
@@ -528,6 +537,11 @@ internal static class Helpers
 			}
 
 			sb.Append(")");
+			if (isLazy)
+			{
+				sb.Append(" : default(").Append(type.Fullname).Append(")!)");
+			}
+
 			return sb;
 		}
 

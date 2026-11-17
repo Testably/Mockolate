@@ -445,7 +445,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(@ref, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, @ref);
+			return methodSetup?.TryGetReturnValue(@ref, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, @ref) : default(int)!);
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases

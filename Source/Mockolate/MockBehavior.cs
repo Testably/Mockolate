@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Mockolate.Internals;
 
 namespace Mockolate;
 
@@ -158,9 +159,7 @@ public record MockBehavior : IMockBehaviorAccess
 	/// <param name="factory">Lazy producer of the default value; invoked once per fallback.</param>
 	/// <returns>A new <see cref="MockBehavior" /> with the factory registered; the original behavior is unchanged.</returns>
 	public MockBehavior WithDefaultValueFor<T>(Func<T> factory)
-		=> WithDefaultValueFor(new DefaultValueFactory(
-			t => t == typeof(T),
-			(_, _) => factory()));
+		=> WithDefaultValueFor(new TypedDefaultValueFactory(typeof(T), (_, _) => factory()));
 
 	/// <summary>
 	///     Replaces the generator that produces default values for un-configured members.
@@ -317,11 +316,39 @@ public record MockBehavior : IMockBehaviorAccess
 	}
 #pragma warning restore S2326
 
+	private sealed class TypedDefaultValueFactory : DefaultValueFactory
+	{
+		public TypedDefaultValueFactory(Type type, Func<Type, object?[], object?> generator)
+			: base(t => t == type, generator)
+		{
+			Type = type;
+		}
+
+		public Type Type { get; }
+	}
+
 	private sealed class DefaultValueGeneratorWithFactories(
 		IDefaultValueGenerator inner,
 		DefaultValueFactory[] factories)
-		: IDefaultValueGenerator
+		: IDefaultValueGenerator, IDefaultValueProbe
 	{
+		/// <summary>
+		///     A factory with a user-defined predicate counts as a possible match, so that the predicate is never
+		///     evaluated more often than without the probe.
+		/// </summary>
+		public bool MayGenerateValue(Type type)
+		{
+			foreach (DefaultValueFactory factory in factories)
+			{
+				if (factory is not TypedDefaultValueFactory typed || typed.Type == type)
+				{
+					return true;
+				}
+			}
+
+			return inner is not IDefaultValueProbe probe || probe.MayGenerateValue(type);
+		}
+
 		public object? GenerateValue(Type type, params object?[] parameters)
 		{
 			foreach (DefaultValueFactory factory in factories)

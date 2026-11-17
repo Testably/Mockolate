@@ -37,7 +37,7 @@ public sealed partial class MockTests
 				.Contains("methodSetup?.TriggerCallbacks(baseResult);")
 				.IgnoringNewlineStyle().And
 				.Contains(
-					"return methodSetup?.TryGetReturnValue(baseResult, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, baseResult);")
+					"return methodSetup?.TryGetReturnValue(baseResult, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, baseResult) : default(int)!);")
 				.IgnoringNewlineStyle();
 		}
 

@@ -487,7 +487,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(a, b, c, d, e, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, a, b, c, d, e);
+			return methodSetup?.TryGetReturnValue(a, b, c, d, e, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, a, b, c, d, e) : default(int)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.TryGet(int, out T)" />
@@ -572,7 +572,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(key, value, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, key, value);
+			return methodSetup?.TryGetReturnValue(key, value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<bool>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, key, value) : default(bool)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Update(ref T)" />

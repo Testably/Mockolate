@@ -294,7 +294,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName);
+			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName) : default(int)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.VoidMethod(int, int, ref int, out int)" />
@@ -453,7 +453,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName);
+			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName) : default(int)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase.Locals(int, int, int, int)" />
@@ -528,7 +528,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(__i, snapshot_methodSetup, i_methodSetup, s_methodSetup, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, __i, snapshot_methodSetup, i_methodSetup, s_methodSetup);
+			return methodSetup?.TryGetReturnValue(__i, snapshot_methodSetup, i_methodSetup, s_methodSetup, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, __i, snapshot_methodSetup, i_methodSetup, s_methodSetup) : default(int)!);
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase

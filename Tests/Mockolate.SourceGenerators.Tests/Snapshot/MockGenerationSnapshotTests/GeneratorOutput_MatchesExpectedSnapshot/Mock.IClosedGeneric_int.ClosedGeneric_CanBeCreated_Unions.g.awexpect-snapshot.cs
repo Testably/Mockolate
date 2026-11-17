@@ -288,7 +288,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, values, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value, values);
+			return methodSetup?.TryGetReturnValue(value, values, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value, values) : default(int)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric{T}.Convert{TOther}(T)" />
@@ -359,7 +359,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(TOther)!, value);
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<TOther>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(TOther)!, value) : default(TOther)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric{T}.Pair(global::System.ValueTuple{T, string})" />
@@ -429,7 +429,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value));
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!), (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!));
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.IClosedGeneric<int>

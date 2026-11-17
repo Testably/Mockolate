@@ -187,7 +187,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, value);
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<string>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, value) : default(string)!);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ClosedGenericBase{T}.Pair(global::System.ValueTuple{T, int})" />
@@ -262,7 +262,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, value), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value));
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.MayGenerate<string>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, value) : default(string)!), (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!));
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.ClosedGenericBase<string>

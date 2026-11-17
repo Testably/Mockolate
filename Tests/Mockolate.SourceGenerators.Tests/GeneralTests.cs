@@ -985,7 +985,7 @@ public class GeneralTests
 			          			{
 			          				return wrappedResult;
 			          			}
-			          			return methodSetup?.TryGetReturnValue(message, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, message);
+			          			return methodSetup?.TryGetReturnValue(message, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<string>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, message) : default(string)!);
 			          		}
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
