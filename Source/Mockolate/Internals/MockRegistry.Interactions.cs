@@ -905,9 +905,27 @@ public partial class MockRegistry
 		{
 			// Stryker disable once Boolean : same equivalence as the SetProperty(int, string, T) path — defaultValueGenerator is null here, so flipping forceReinit only triggers an InitializeWith(null) call that early-returns under the _isUserInitialized || _isInitialized guard.
 			matchingSetup = ResolvePropertySetup<T>(propertyName, null, null, false);
+			if (string.IsNullOrEmpty(Scenario))
+			{
+				PublishResolvedPropertySetup(memberId, propertyName);
+			}
 		}
 
-		((IInteractivePropertySetup)matchingSetup).InvokeSetter(null, value, Behavior);
+		// The exact types skip the generic virtual call; a derived setup may override the setter flow.
+		if (matchingSetup.GetType() == typeof(PropertySetup<T>))
+		{
+			((PropertySetup<T>)matchingSetup).InvokeSetterTyped(value);
+		}
+		else if (matchingSetup is PropertySetup.Default<T> defaultSetup)
+		{
+			defaultSetup.Value = value;
+			return Behavior.SkipBaseClass;
+		}
+		else
+		{
+			((IInteractivePropertySetup)matchingSetup).InvokeSetter(null, value, Behavior);
+		}
+
 		return ((IInteractivePropertySetup)matchingSetup).SkipBaseClass() ?? Behavior.SkipBaseClass;
 	}
 

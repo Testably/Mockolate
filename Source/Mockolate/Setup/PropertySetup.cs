@@ -130,7 +130,11 @@ public abstract class PropertySetup : IInteractivePropertySetup
 		///     The current value, for a getter of exactly <typeparamref name="T" /> that avoids the generic virtual
 		///     call of <see cref="InvokeGetterFast{TResult}(MockBehavior, Func{MockBehavior, TResult})" />.
 		/// </summary>
-		internal T Value => _value;
+		internal T Value
+		{
+			get => _value;
+			set => _value = value;
+		}
 
 		/// <inheritdoc cref="PropertySetup.InvokeSetter{TValue}(TValue, MockBehavior)" />
 		protected override void InvokeSetter<TValue>(TValue value, MockBehavior behavior)
@@ -410,6 +414,16 @@ public class PropertySetup<T> : PropertySetup,
 				$"The property value only supports '{typeof(T).FormatType()}', but is '{typeof(TValue).FormatType()}'.");
 		}
 
+		InvokeSetterTyped(newValue);
+	}
+
+	/// <summary>
+	///     Counterpart of <see cref="InvokeSetter{TValue}(TValue, MockBehavior)" /> for a setter of exactly
+	///     <typeparamref name="T" />. It is not virtual, because a generic virtual call is resolved at runtime on
+	///     every property write.
+	/// </summary>
+	internal void InvokeSetterTyped(T newValue)
+	{
 		if (_setterCallbacks is not null)
 		{
 			bool wasInvoked = false;
