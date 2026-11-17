@@ -23,4 +23,11 @@ public interface IKeywordEdgeCases
 
 	event EventHandler @event;
 }
+
+public abstract class KeywordEdgeCasesBase
+{
+	protected KeywordEdgeCasesBase(string @class, int @event) { }
+
+	public abstract void @if(int @in);
+}
 #endif

@@ -52,6 +52,8 @@ internal class Class : IEquatable<Class>
 			ClassName = nameBuilder.ToString();
 		}
 
+		XmlDocReference = Helpers.ToXmlDocReference(type.OriginalDefinition.ToCref(), type.ToCref());
+
 		IsInterface = type.TypeKind == TypeKind.Interface;
 		HasRequiredMembers = ComputeHasRequiredMembers(type);
 		ImmutableArray<ISymbol> members = type.GetMembers();
@@ -210,6 +212,7 @@ internal class Class : IEquatable<Class>
 		ClassFullName = original.ClassFullName;
 		ClassName = original.ClassName;
 		DisplayString = original.DisplayString;
+		XmlDocReference = original.XmlDocReference;
 		IsInterface = original.IsInterface;
 		HasRequiredMembers = original.HasRequiredMembers;
 		HasInaccessibleRequiredMember = original.HasInaccessibleRequiredMember;
@@ -242,7 +245,7 @@ internal class Class : IEquatable<Class>
 	///     inaccessible signature - is therefore left alone, and the interface member keeps its own
 	///     containing type and stays re-implemented, which is the only way to reach that slot.
 	///     <para />
-	///     Only <see cref="Method.ContainingType" /> is rewritten; <see cref="Method.DeclaredContainingType" />
+	///     Only <see cref="Method.ContainingType" /> is rewritten; <see cref="Method.Cref" />
 	///     keeps naming the interface, so generated documentation still refers to the interface member.
 	///     <para />
 	///     Must be called on an interface; the copy carries only the surface <see cref="Class" /> itself
@@ -331,6 +334,11 @@ internal class Class : IEquatable<Class>
 	public string ClassFullName { get; }
 	public string ClassName { get; }
 	public string DisplayString { get; }
+
+	/// <summary>
+	///     The <c>&lt;see&gt;</c> element that references this type in generated documentation.
+	/// </summary>
+	public string XmlDocReference { get; }
 
 	/// <summary>
 	///     Equality is keyed on <see cref="ClassFullName" /> plus a content-derived hash of the

@@ -154,7 +154,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[object]" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[dynamic]" />
 		public override object this[object key]
 		{
 			get
@@ -192,7 +192,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)" />
 		public override object Combine(object a, int b)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<object, object, int>? methodSetup = null;
@@ -267,7 +267,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(a, b, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, a, b);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)" />
 		public override void Consume(int a, object b)
 		{
 			global::Mockolate.Setup.VoidMethodSetup<int, object>? methodSetup = null;
@@ -1007,7 +1007,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.PropertySetup<object> Value { get; }
 
 		/// <summary>
-		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[object]">this[object]</see>
+		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[dynamic]">this[dynamic]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1016,7 +1016,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<object, object> this[global::Mockolate.ParameterArg<object>? parameter1] { get; }
 
 		/// <summary>
-		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[object]">this[object]</see>
+		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[dynamic]">this[dynamic]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1025,7 +1025,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<object, object> this[global::System.Func<object, bool> parameter1, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1034,7 +1034,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, int> Combine(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1043,7 +1043,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<object, object, int> Combine(global::Mockolate.ParameterArg<object>? a, global::Mockolate.ParameterArg<int>? b);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" /> and a predicate for <paramref name="a" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1052,7 +1052,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<object, object, int> Combine(global::System.Func<object, bool> a, global::Mockolate.ParameterArg<int>? b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1061,7 +1061,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<object, object, int> Combine(global::Mockolate.ParameterArg<object>? a, global::System.Func<int, bool> b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1070,7 +1070,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<object, object, int> Combine(global::System.Func<object, bool> a, global::System.Func<int, bool> b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1079,7 +1079,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, object> Consume(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1088,7 +1088,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, object> Consume(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<object>? b);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" /> and a predicate for <paramref name="a" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1097,7 +1097,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, object> Consume(global::System.Func<int, bool> a, global::Mockolate.ParameterArg<object>? b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1106,7 +1106,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, object> Consume(global::Mockolate.ParameterArg<int>? a, global::System.Func<object, bool> b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1127,7 +1127,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationPropertyResult<IMockVerifyForDynamicMembersBase, object> Value { get; }
 
 		/// <summary>
-		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[object]">this[object]</see>.
+		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[dynamic]">this[dynamic]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1136,7 +1136,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForDynamicMembersBase, object> this[global::Mockolate.ParameterArg<object>? key] { get; }
 
 		/// <summary>
-		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[object]">this[object]</see>.
+		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.this[dynamic]">this[dynamic]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1145,7 +1145,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForDynamicMembersBase, object> this[global::System.Func<object, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = ""] { get; }
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1154,7 +1154,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> Combine(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1163,7 +1163,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters Combine(global::Mockolate.ParameterArg<object>? a, global::Mockolate.ParameterArg<int>? b);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" /> and a predicate for <paramref name="a" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1172,7 +1172,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters Combine(global::System.Func<object, bool> a, global::Mockolate.ParameterArg<int>? b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1181,7 +1181,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters Combine(global::Mockolate.ParameterArg<object>? a, global::System.Func<int, bool> b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(object, int)">Combine(object, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine(dynamic, int)">Combine(dynamic, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1190,7 +1190,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters Combine(global::System.Func<object, bool> a, global::System.Func<int, bool> b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1199,7 +1199,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> Consume(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1208,7 +1208,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters Consume(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<object>? b);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="b" /> and a predicate for <paramref name="a" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1217,7 +1217,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters Consume(global::System.Func<int, bool> a, global::Mockolate.ParameterArg<object>? b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1226,7 +1226,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters Consume(global::Mockolate.ParameterArg<int>? a, global::System.Func<object, bool> b, [global::System.Runtime.CompilerServices.CallerArgumentExpression("b")] string bExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, object)">Consume(int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume(int, dynamic)">Consume(int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="b" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.

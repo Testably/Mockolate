@@ -52,6 +52,17 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "ClosedGeneric_CanBeCreated",
+            ["IClosedGeneric.cs",],
+            """
+            IClosedGeneric<int> sut1 = IClosedGeneric<int>.CreateMock();
+            ClosedGenericBase<string> sut2 = ClosedGenericBase<string>.CreateMock();
+            ClosedGenericDelegate<int, string> sut3 = ClosedGenericDelegate<int, string>.CreateMock();
+            IClosedGeneric<int> sut4 = IClosedGeneric<int>.CreateMock().Implementing<IClosedGeneric<string>>();
+            IClosedGenericDerived sut5 = IClosedGenericDerived.CreateMock();
+            """,
+            []),
+        new(
             "ComprehensiveAbstractClass_CanBeCreated",
             ["ComprehensiveAbstractClass.cs", "MyAbstractBase.cs",],
             """
@@ -96,7 +107,8 @@ public sealed partial class MockGenerationSnapshotTests
             "KeywordEdgeCases_CanBeCreated",
             ["IKeywordEdgeCases.cs",],
             """
-            IKeywordEdgeCases sut = IKeywordEdgeCases.CreateMock();
+            IKeywordEdgeCases sut1 = IKeywordEdgeCases.CreateMock();
+            KeywordEdgeCasesBase sut2 = KeywordEdgeCasesBase.CreateMock("class", 1);
             """,
             []),
         new(
@@ -131,6 +143,18 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "ClosedGeneric_CanBeCreated_Unions",
+            ["IClosedGeneric.cs",],
+            """
+            IClosedGeneric<int> sut1 = IClosedGeneric<int>.CreateMock();
+            ClosedGenericBase<string> sut2 = ClosedGenericBase<string>.CreateMock();
+            ClosedGenericDelegate<int, string> sut3 = ClosedGenericDelegate<int, string>.CreateMock();
+            IClosedGeneric<int> sut4 = IClosedGeneric<int>.CreateMock().Implementing<IClosedGeneric<string>>();
+            IClosedGenericDerived sut5 = IClosedGenericDerived.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
             "ComprehensiveDelegate_CanBeCreated_Unions",
             ["ComprehensiveDelegate.cs",],
             """
@@ -164,7 +188,8 @@ public sealed partial class MockGenerationSnapshotTests
             "KeywordEdgeCases_CanBeCreated_Unions",
             ["IKeywordEdgeCases.cs",],
             """
-            IKeywordEdgeCases sut = IKeywordEdgeCases.CreateMock();
+            IKeywordEdgeCases sut1 = IKeywordEdgeCases.CreateMock();
+            KeywordEdgeCasesBase sut2 = KeywordEdgeCasesBase.CreateMock("class", 1);
             """,
             [],
             UnionMode: true),
@@ -229,8 +254,12 @@ public sealed partial class MockGenerationSnapshotTests
                     : $"{Path.GetFileNameWithoutExtension(name)}.{variant.Scenario}{Path.GetExtension(name)}";
         }
 
+        // The coverage types have no documentation comments, so missing documentation (CS1591) is only checked in
+        // the generated files.
         return results.ToDictionary(result => result.Key, result => new GeneratedScenario(
-            result.Value.Diagnostics,
+            result.Value.Diagnostics
+                .Where(diagnostic => !diagnostic.Contains("CS1591") || diagnostic.Contains(".g.cs("))
+                .ToArray(),
             result.Value.Sources
                 .OrderBy(source => source.Key, StringComparer.Ordinal)
                 .Select(source =>
@@ -270,13 +299,14 @@ public sealed partial class MockGenerationSnapshotTests
         sources.Add(program);
 
         // Classic scenarios are pinned to C# 14 so that they keep describing the classic overload set.
+        // Documentation comments are diagnosed so that an invalid cref in the generated code fails the scenario.
         if (scenario.UnionMode)
         {
             return Generator.Run(
                 sources.ToArray(),
                 ["NET9_0_OR_GREATER", "NET10_0_OR_GREATER", "NET11_0_OR_GREATER",],
                 LanguageVersion.CSharp15,
-                null,
+                DocumentationMode.Diagnose,
                 scenario.AssemblyTypes);
         }
 
@@ -284,7 +314,7 @@ public sealed partial class MockGenerationSnapshotTests
             sources.ToArray(),
             ["NET9_0_OR_GREATER", "NET10_0_OR_GREATER",],
             LanguageVersion.CSharp14,
-            null,
+            DocumentationMode.Diagnose,
             scenario.AssemblyTypes);
     }
 

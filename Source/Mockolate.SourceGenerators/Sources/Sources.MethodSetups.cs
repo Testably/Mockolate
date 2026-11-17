@@ -341,7 +341,7 @@ internal static partial class Sources
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />.",
+			$"Sets up a callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />.",
 			"\t");
 		sb.Append("\tinternal interface IVoidMethodSetupCallbackBuilder<").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<").Append(typeParams).Append(">")

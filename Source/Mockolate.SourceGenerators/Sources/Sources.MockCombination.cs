@@ -21,7 +21,7 @@ internal static partial class Sources
 				.ToArray();
 		}
 
-		string escapedClassName = @class.ClassFullName.EscapeForXmlDoc();
+		string classReference = @class.XmlDocReference;
 		bool hasEvents = @class.AllEvents().Any(x => !x.IsStatic);
 		bool hasStaticEvents = @class.IsInterface && @class.AllEvents().Any(x => x.IsStatic);
 		bool hasStaticMembers = @class.IsInterface &&
@@ -60,7 +60,7 @@ internal static partial class Sources
 		
 		#region MockForXXX
 		
-		sb.AppendXmlSummary($"A mock implementation for <see cref=\"{escapedClassName}\" /> that also implements<br />\n\t///      - {string.Join("<br />\n\t///      - ", additionalInterfaces.Select(x => $"<see cref=\"{x.Class.ClassFullName.EscapeForXmlDoc()}\" />"))}.", "\t");
+		sb.AppendXmlSummary($"A mock implementation for {classReference} that also implements<br />\n\t///      - {string.Join("<br />\n\t///      - ", additionalInterfaces.Select(x => x.Class.XmlDocReference))}.", "\t");
 		sb.Append("\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]").AppendLine();
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
@@ -396,7 +396,7 @@ internal static partial class Sources
 
 		#region Extensions
 
-		sb.AppendXmlSummary($"Mock extensions for <see cref=\"{escapedClassName}\" /> that also implements<br />\n///      - {string.Join("<br />\n///      - ", additionalInterfaces.Select(x => $"<see cref=\"{x.Class.ClassFullName.EscapeForXmlDoc()}\" />"))}.", "");
+		sb.AppendXmlSummary($"Mock extensions for {classReference} that also implements<br />\n///      - {string.Join("<br />\n///      - ", additionalInterfaces.Select(x => x.Class.XmlDocReference))}.", "");
 #if !DEBUG
 		sb.Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
@@ -407,11 +407,11 @@ internal static partial class Sources
 		#region Implementing
 
 		(string Name, Class Class) lastInterface = additionalInterfaces[additionalInterfaces.Length - 1];
-		sb.AppendXmlSummary($"Extends this mock so the returned instance also implements <see cref=\"{lastInterface.Class.ClassFullName.EscapeForXmlDoc()}\" />.");
-		sb.AppendXmlRemarks([$"The returned instance is a brand-new mock that shares the mock registry (recorded interactions, scenario state, setups) of this one. Cast it to <see cref=\"{lastInterface.Class.ClassFullName.EscapeForXmlDoc()}\" /> to exercise the extra surface or use <c>.Mock.As&lt;{lastInterface.Class.ClassName}&gt;()</c> to reach the Setup/Verify surface of the additional interface.",]);
+		sb.AppendXmlSummary($"Extends this mock so the returned instance also implements {lastInterface.Class.XmlDocReference}.");
+		sb.AppendXmlRemarks([$"The returned instance is a brand-new mock that shares the mock registry (recorded interactions, scenario state, setups) of this one. Cast it to {lastInterface.Class.XmlDocReference} to exercise the extra surface or use <c>.Mock.As&lt;{lastInterface.Class.ClassName.Replace("<", "&lt;").Replace(">", "&gt;")}&gt;()</c> to reach the Setup/Verify surface of the additional interface.",]);
 		sb.AppendXmlParam("sut", "The mock instance to extend.");
 		sb.AppendXmlParam("setups", "Optional setup callbacks registered on the additional interface before the mock is returned.");
-		sb.AppendXmlReturns($"A mock of the original type that additionally implements <see cref=\"{lastInterface.Class.ClassFullName.EscapeForXmlDoc()}\" />.");
+		sb.AppendXmlReturns($"A mock of the original type that additionally implements {lastInterface.Class.XmlDocReference}.");
 		sb.Append("\tpublic static ").Append(@class.ClassFullName).Append(" Implementing<TInterface>(this ").Append(@class.ClassFullName).Append(" sut, params global::System.Action<global::Mockolate.Mock.IMockSetupFor").Append(lastInterface.Name).Append(">[] setups)").AppendLine();
 		sb.Append("\t\twhere TInterface : ").Append(lastInterface.Class.ClassFullName).AppendLine();
 		sb.Append("\t{").AppendLine();

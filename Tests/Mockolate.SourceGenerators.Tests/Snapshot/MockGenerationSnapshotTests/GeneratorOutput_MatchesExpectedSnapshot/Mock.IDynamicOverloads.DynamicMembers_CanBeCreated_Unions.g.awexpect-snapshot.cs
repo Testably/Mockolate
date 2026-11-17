@@ -112,7 +112,7 @@ internal static partial class Mock
 
 		#region Mockolate.Tests.GeneratorCoverage.IDynamicOverloads
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(dynamic)" />
 		public void M(object x)
 		{
 			global::Mockolate.Setup.VoidMethodSetup<object>? methodSetup = null;
@@ -533,7 +533,7 @@ internal static partial class Mock
 	internal interface IMockSetupForIDynamicOverloads : global::Mockolate.Setup.IMockSetup<global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloads>
 	{
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)">M(object)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(dynamic)">M(dynamic)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -542,7 +542,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> M(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)">M(object)</see> with the given <paramref name="x"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(dynamic)">M(dynamic)</see> with the given <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -551,7 +551,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<object> M(global::Mockolate.ParameterArg<object>? x);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)">M(object)</see> with the given <paramref name="x"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(dynamic)">M(dynamic)</see> with the given <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="x" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -567,7 +567,7 @@ internal static partial class Mock
 	internal interface IMockVerifyForIDynamicOverloads : global::Mockolate.Verify.IMockVerify<global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloads>
 	{
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)">M(object)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(dynamic)">M(dynamic)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -576,7 +576,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> M(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)">M(object)</see> with the given <paramref name="x"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(dynamic)">M(dynamic)</see> with the given <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -585,7 +585,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads>.IgnoreParameters M(global::Mockolate.ParameterArg<object>? x);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(object)">M(object)</see> with the given <paramref name="x"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M(dynamic)">M(dynamic)</see> with the given <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="x" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.

@@ -23,7 +23,6 @@ internal record Method
 		ReturnType = methodSymbol.ReturnsVoid ? Type.Void : Type.From(methodSymbol.ReturnType);
 		Name = Helpers.EscapeIfKeyword(methodSymbol.ExplicitInterfaceImplementations.Length > 0 ? methodSymbol.ExplicitInterfaceImplementations[0].Name : methodSymbol.Name);
 		ContainingType = methodSymbol.ContainingType.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
-		DeclaredContainingType = ContainingType;
 		Parameters = new EquatableArray<MethodParameter>(
 			methodSymbol.Parameters.Select(MethodParameter.From).ToArray());
 
@@ -33,6 +32,9 @@ internal record Method
 				.Select(x => new GenericParameter((ITypeParameterSymbol)x)).ToArray());
 			Name += $"<{string.Join(", ", GenericParameters.Value.Select(x => x.Name))}>";
 		}
+
+		Cref = Helpers.ToMemberCref(methodSymbol.OriginalDefinition, Name);
+		XmlDocReference = Helpers.ToXmlDocReference(Cref, Helpers.ToMemberCref(methodSymbol, Name));
 
 		Attributes = methodSymbol.GetAttributes().ToAttributeArray(sourceAssembly);
 
@@ -101,11 +103,16 @@ internal record Method
 	public string ContainingType { get; init; }
 
 	/// <summary>
-	///     The containing type the member is declared on. Unlike <see cref="ContainingType" /> it is not
+	///     The XML documentation <c>cref</c> of the declared member. Unlike <see cref="ContainingType" /> it is not
 	///     rewritten by <see cref="Class.RebaseOnto" />, so documentation keeps referring to the interface
 	///     member even when the member is addressed through the implementing class member.
 	/// </summary>
-	public string DeclaredContainingType { get; }
+	public string Cref { get; }
+
+	/// <summary>
+	///     The <c>&lt;see&gt;</c> element that references the declared member in generated documentation.
+	/// </summary>
+	public string XmlDocReference { get; }
 
 	public EquatableArray<MethodParameter> Parameters { get; }
 	public string? ExplicitImplementation { get; }

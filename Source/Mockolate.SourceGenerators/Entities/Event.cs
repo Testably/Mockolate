@@ -18,7 +18,8 @@ internal record Event
 		Name = Helpers.EscapeIfKeyword(eventSymbol.ExplicitInterfaceImplementations.Length > 0 ? eventSymbol.ExplicitInterfaceImplementations[0].Name : eventSymbol.Name);
 		Type = Type.From(eventSymbol.Type);
 		ContainingType = eventSymbol.ContainingType.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
-		DeclaredContainingType = ContainingType;
+		Cref = Helpers.ToMemberCref(eventSymbol.OriginalDefinition, Name);
+		XmlDocReference = Helpers.ToXmlDocReference(Cref, Helpers.ToMemberCref(eventSymbol, Name));
 		Delegate = new Method(delegateInvokeMethod, null, sourceAssembly);
 		Attributes = eventSymbol.GetAttributes().ToAttributeArray(sourceAssembly);
 		IsStatic = eventSymbol.IsStatic;
@@ -46,8 +47,11 @@ internal record Event
 	public Type Type { get; }
 	public string ContainingType { get; init; }
 
-	/// <inheritdoc cref="Method.DeclaredContainingType" />
-	public string DeclaredContainingType { get; }
+	/// <inheritdoc cref="Method.Cref" />
+	public string Cref { get; }
+
+	/// <inheritdoc cref="Method.XmlDocReference" />
+	public string XmlDocReference { get; }
 
 	public bool UseOverride { get; }
 	public bool IsOverridableFromMock { get; }

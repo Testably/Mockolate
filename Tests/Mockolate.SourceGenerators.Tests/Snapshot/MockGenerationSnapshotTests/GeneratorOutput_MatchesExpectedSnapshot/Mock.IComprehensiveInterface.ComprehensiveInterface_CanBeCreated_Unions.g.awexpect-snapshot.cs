@@ -823,7 +823,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)" />
 		public void WithDefaults(int i = 5, global::Mockolate.Tests.GeneratorCoverage.MyEnum e = (global::Mockolate.Tests.GeneratorCoverage.MyEnum)1, decimal d = 1.5m, float f = 0.25f, char c = 'x', string? s = null, global::Mockolate.Tests.GeneratorCoverage.MyStruct st = default)
 		{
 			global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>? methodSetup = null;
@@ -951,7 +951,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string?)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string)" />
 		public string? GetMaybeNull(string? s)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<string?, string?>? methodSetup = null;
@@ -1021,7 +1021,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(s, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(string?)!, s);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object)" />
 		public bool TakeObject(object? obj)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<bool, object?>? methodSetup = null;
@@ -1091,7 +1091,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(obj, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, obj);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)" />
 		public int TakeTwoObjects(object? first, object? second)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<int, object?, object?>? methodSetup = null;
@@ -1161,7 +1161,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(first, second, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, first, second);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)" />
 		public int TakeIntAndObject(int n, object? obj)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<int, int, object?>? methodSetup = null;
@@ -6748,7 +6748,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, string, long, int[]> WithModifiers(global::Mockolate.Parameters.IRefParameter<int> a, global::Mockolate.Parameters.IOutParameter<string> b, long c, params int[] tail);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -6757,7 +6757,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>, <paramref name="st"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>, <paramref name="st"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6766,7 +6766,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d, global::Mockolate.ParameterArg<float>? f, global::Mockolate.ParameterArg<char>? c, global::Mockolate.ParameterArg<string?>? s, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />, <paramref name="d" />, <paramref name="f" />, <paramref name="c" />, <paramref name="s" />. It uses the declared default value for <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6775,7 +6775,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d, global::Mockolate.ParameterArg<float>? f, global::Mockolate.ParameterArg<char>? c, global::Mockolate.ParameterArg<string?>? s);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />, <paramref name="d" />, <paramref name="f" />, <paramref name="c" />. It uses the declared default value for <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6784,7 +6784,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d, global::Mockolate.ParameterArg<float>? f, global::Mockolate.ParameterArg<char>? c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />, <paramref name="d" />, <paramref name="f" />. It uses the declared default value for <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6793,7 +6793,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d, global::Mockolate.ParameterArg<float>? f);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />, <paramref name="d" />. It uses the declared default value for <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6802,7 +6802,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />. It uses the declared default value for <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6811,7 +6811,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />. It uses the declared default value for <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6820,7 +6820,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.ParameterArg<int>? i);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see>.
 		/// </summary>
 		/// <remarks>
 		///     It uses the declared default value for <c>i</c>, <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6847,7 +6847,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int, int> WithCollidingNames(global::Mockolate.ParameterArg<int>? wraps, global::Mockolate.ParameterArg<int>? result, global::Mockolate.ParameterArg<int>? outParam1, global::Mockolate.ParameterArg<int>? methodExecution, global::Mockolate.ParameterArg<int>? returnValue);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string?)">GetMaybeNull(string?)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string)">GetMaybeNull(string)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -6856,7 +6856,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<string?, string?> GetMaybeNull(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string?)">GetMaybeNull(string?)</see> with the given <paramref name="s"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string)">GetMaybeNull(string)</see> with the given <paramref name="s"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6865,7 +6865,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<string?, string?> GetMaybeNull(global::Mockolate.ParameterArg<string?>? s);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string?)">GetMaybeNull(string?)</see> with the given <paramref name="s"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string)">GetMaybeNull(string)</see> with the given <paramref name="s"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="s" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6874,7 +6874,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<string?, string?> GetMaybeNull(global::System.Func<string?, bool> s, [global::System.Runtime.CompilerServices.CallerArgumentExpression("s")] string sExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)">TakeObject(object?)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object)">TakeObject(object)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -6883,7 +6883,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, object?> TakeObject(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)">TakeObject(object?)</see> with the given <paramref name="obj"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object)">TakeObject(object)</see> with the given <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6892,7 +6892,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, object?> TakeObject(global::Mockolate.ParameterArg<object?>? obj);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)">TakeObject(object?)</see> with the given <paramref name="obj"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object)">TakeObject(object)</see> with the given <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="obj" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6901,7 +6901,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, object?> TakeObject(global::System.Func<object?, bool> obj, [global::System.Runtime.CompilerServices.CallerArgumentExpression("obj")] string objExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -6910,7 +6910,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, object?, object?> TakeTwoObjects(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6919,7 +6919,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> TakeTwoObjects(global::Mockolate.ParameterArg<object?>? first, global::Mockolate.ParameterArg<object?>? second);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="second" /> and a predicate for <paramref name="first" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6928,7 +6928,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> TakeTwoObjects(global::System.Func<object?, bool> first, global::Mockolate.ParameterArg<object?>? second, [global::System.Runtime.CompilerServices.CallerArgumentExpression("first")] string firstExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="first" /> and a predicate for <paramref name="second" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6937,7 +6937,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> TakeTwoObjects(global::Mockolate.ParameterArg<object?>? first, global::System.Func<object?, bool> second, [global::System.Runtime.CompilerServices.CallerArgumentExpression("second")] string secondExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="first" />, <paramref name="second" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6946,7 +6946,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, object?, object?> TakeTwoObjects(global::System.Func<object?, bool> first, global::System.Func<object?, bool> second, [global::System.Runtime.CompilerServices.CallerArgumentExpression("first")] string firstExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("second")] string secondExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -6955,7 +6955,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object?> TakeIntAndObject(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6964,7 +6964,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> TakeIntAndObject(global::Mockolate.ParameterArg<int>? n, global::Mockolate.ParameterArg<object?>? obj);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="obj" /> and a predicate for <paramref name="n" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6973,7 +6973,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> TakeIntAndObject(global::System.Func<int, bool> n, global::Mockolate.ParameterArg<object?>? obj, [global::System.Runtime.CompilerServices.CallerArgumentExpression("n")] string nExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="n" /> and a predicate for <paramref name="obj" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -6982,7 +6982,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object?> TakeIntAndObject(global::Mockolate.ParameterArg<int>? n, global::System.Func<object?, bool> obj, [global::System.Runtime.CompilerServices.CallerArgumentExpression("obj")] string objExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="n" />, <paramref name="obj" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7445,7 +7445,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, long c, params int[] tail);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -7454,7 +7454,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>, <paramref name="st"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>, <paramref name="st"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7463,7 +7463,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d, global::Mockolate.ParameterArg<float>? f, global::Mockolate.ParameterArg<char>? c, global::Mockolate.ParameterArg<string?>? s, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />, <paramref name="d" />, <paramref name="f" />, <paramref name="c" />, <paramref name="s" />. It uses the declared default value for <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7472,7 +7472,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d, global::Mockolate.ParameterArg<float>? f, global::Mockolate.ParameterArg<char>? c, global::Mockolate.ParameterArg<string?>? s);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />, <paramref name="d" />, <paramref name="f" />, <paramref name="c" />. It uses the declared default value for <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7481,7 +7481,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d, global::Mockolate.ParameterArg<float>? f, global::Mockolate.ParameterArg<char>? c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />, <paramref name="d" />, <paramref name="f" />. It uses the declared default value for <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7490,7 +7490,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d, global::Mockolate.ParameterArg<float>? f);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />, <paramref name="d" />. It uses the declared default value for <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7499,7 +7499,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.ParameterArg<decimal>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />, <paramref name="e" />. It uses the declared default value for <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7508,7 +7508,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(global::Mockolate.ParameterArg<int>? i, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see> with the given <paramref name="i"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="i" />. It uses the declared default value for <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7517,7 +7517,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(global::Mockolate.ParameterArg<int>? i);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string?, MyStruct)</see>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see>.
 		/// </summary>
 		/// <remarks>
 		///     It uses the declared default value for <c>i</c>, <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7544,7 +7544,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithCollidingNames(global::Mockolate.ParameterArg<int>? wraps, global::Mockolate.ParameterArg<int>? result, global::Mockolate.ParameterArg<int>? outParam1, global::Mockolate.ParameterArg<int>? methodExecution, global::Mockolate.ParameterArg<int>? returnValue);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string?)">GetMaybeNull(string?)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string)">GetMaybeNull(string)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -7553,7 +7553,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> GetMaybeNull(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string?)">GetMaybeNull(string?)</see> with the given <paramref name="s"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string)">GetMaybeNull(string)</see> with the given <paramref name="s"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7562,7 +7562,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters GetMaybeNull(global::Mockolate.ParameterArg<string?>? s);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string?)">GetMaybeNull(string?)</see> with the given <paramref name="s"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull(string)">GetMaybeNull(string)</see> with the given <paramref name="s"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="s" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7571,7 +7571,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters GetMaybeNull(global::System.Func<string?, bool> s, [global::System.Runtime.CompilerServices.CallerArgumentExpression("s")] string sExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)">TakeObject(object?)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object)">TakeObject(object)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -7580,7 +7580,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> TakeObject(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)">TakeObject(object?)</see> with the given <paramref name="obj"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object)">TakeObject(object)</see> with the given <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7589,7 +7589,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeObject(global::Mockolate.ParameterArg<object?>? obj);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object?)">TakeObject(object?)</see> with the given <paramref name="obj"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject(object)">TakeObject(object)</see> with the given <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="obj" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7598,7 +7598,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeObject(global::System.Func<object?, bool> obj, [global::System.Runtime.CompilerServices.CallerArgumentExpression("obj")] string objExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -7607,7 +7607,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> TakeTwoObjects(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7616,7 +7616,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeTwoObjects(global::Mockolate.ParameterArg<object?>? first, global::Mockolate.ParameterArg<object?>? second);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="second" /> and a predicate for <paramref name="first" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7625,7 +7625,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeTwoObjects(global::System.Func<object?, bool> first, global::Mockolate.ParameterArg<object?>? second, [global::System.Runtime.CompilerServices.CallerArgumentExpression("first")] string firstExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="first" /> and a predicate for <paramref name="second" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7634,7 +7634,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeTwoObjects(global::Mockolate.ParameterArg<object?>? first, global::System.Func<object?, bool> second, [global::System.Runtime.CompilerServices.CallerArgumentExpression("second")] string secondExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object?, object?)">TakeTwoObjects(object?, object?)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects(object, object)">TakeTwoObjects(object, object)</see> with the given <paramref name="first"/>, <paramref name="second"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="first" />, <paramref name="second" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7643,7 +7643,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeTwoObjects(global::System.Func<object?, bool> first, global::System.Func<object?, bool> second, [global::System.Runtime.CompilerServices.CallerArgumentExpression("first")] string firstExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("second")] string secondExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -7652,7 +7652,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> TakeIntAndObject(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7661,7 +7661,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeIntAndObject(global::Mockolate.ParameterArg<int>? n, global::Mockolate.ParameterArg<object?>? obj);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="obj" /> and a predicate for <paramref name="n" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7670,7 +7670,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeIntAndObject(global::System.Func<int, bool> n, global::Mockolate.ParameterArg<object?>? obj, [global::System.Runtime.CompilerServices.CallerArgumentExpression("n")] string nExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="n" /> and a predicate for <paramref name="obj" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -7679,7 +7679,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters TakeIntAndObject(global::Mockolate.ParameterArg<int>? n, global::System.Func<object?, bool> obj, [global::System.Runtime.CompilerServices.CallerArgumentExpression("obj")] string objExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object?)">TakeIntAndObject(int, object?)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject(int, object)">TakeIntAndObject(int, object)</see> with the given <paramref name="n"/>, <paramref name="obj"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="n" />, <paramref name="obj" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.

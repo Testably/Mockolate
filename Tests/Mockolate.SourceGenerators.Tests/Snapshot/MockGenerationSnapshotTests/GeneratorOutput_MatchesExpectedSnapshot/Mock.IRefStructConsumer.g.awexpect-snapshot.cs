@@ -24,15 +24,16 @@ internal static partial class Mock
 		internal const int MemberId_Indexer_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_Get = 0;
 		internal const int MemberId_Indexer_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_int_global__Mockolate_Tests_GeneratorCoverage_Packet_Set = 1;
 		internal const int MemberId_Consume5 = 2;
-		internal const int MemberId_Produce = 3;
-		internal const int MemberId_Mutate = 4;
-		internal const int MemberId_Inspect = 5;
-		internal const int MemberId_ProduceSpan = 6;
-		internal const int MemberId_MutateSpan = 7;
-		internal const int MemberId_ProduceReadOnlySpan = 8;
-		internal const int MemberId_MutateReadOnlySpan = 9;
-		internal const int MemberId_InspectSpan = 10;
-		internal const int MemberCount = 11;
+		internal const int MemberId_Compute5 = 3;
+		internal const int MemberId_Produce = 4;
+		internal const int MemberId_Mutate = 5;
+		internal const int MemberId_Inspect = 6;
+		internal const int MemberId_ProduceSpan = 7;
+		internal const int MemberId_MutateSpan = 8;
+		internal const int MemberId_ProduceReadOnlySpan = 9;
+		internal const int MemberId_MutateReadOnlySpan = 10;
+		internal const int MemberId_InspectSpan = 11;
+		internal const int MemberCount = 12;
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
@@ -201,6 +202,39 @@ internal static partial class Mock
 			{
 				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Consume5(Packet, Packet, Packet, Packet, Packet)' was invoked without prior setup.");
 			}
+#else
+#error Mockolate: methods with ref-struct parameters require .NET 9 or later (uses the 'allows ref struct' anti-constraint).
+			throw new global::System.NotSupportedException();
+#endif
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Compute5(global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet)" />
+		public int Compute5(global::Mockolate.Tests.GeneratorCoverage.Packet p1, global::Mockolate.Tests.GeneratorCoverage.Packet p2, global::Mockolate.Tests.GeneratorCoverage.Packet p3, global::Mockolate.Tests.GeneratorCoverage.Packet p4, global::Mockolate.Tests.GeneratorCoverage.Packet p5)
+		{
+#if NET9_0_OR_GREATER
+			this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.RefStructMethodInvocation("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Compute5", "p1", "p2", "p3", "p4", "p5"));
+			bool matched = false;
+			foreach (global::Mockolate.Setup.RefStructReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet> setup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.RefStructReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet>>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Compute5"))
+			{
+				if (!setup.Matches(p1, p2, p3, p4, p5))
+				{
+					continue;
+				}
+
+				matched = true;
+				if (setup.HasReturnValue)
+				{
+					return setup.Invoke(p1, p2, p3, p4, p5, () => default!);
+				}
+
+				setup.Invoke(p1, p2, p3, p4, p5, () => default!);
+				break;
+			}
+			if (!matched && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Compute5(Packet, Packet, Packet, Packet, Packet)' was invoked without prior setup.");
+			}
+			return this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!);
 #else
 #error Mockolate: methods with ref-struct parameters require .NET 9 or later (uses the 'allows ref struct' anti-constraint).
 			throw new global::System.NotSupportedException();
@@ -677,6 +711,16 @@ internal static partial class Mock
 
 #if NET9_0_OR_GREATER
 		/// <inheritdoc />
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.Compute5(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p1, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p2, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p3, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p4, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p5)
+		{
+			var methodSetup = new global::Mockolate.Setup.RefStructReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Compute5", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p1, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p2, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p3, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p4, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p5);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Compute5, methodSetup);
+			return methodSetup;
+		}
+#endif
+
+#if NET9_0_OR_GREATER
+		/// <inheritdoc />
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.Produce(global::Mockolate.Parameters.IOutRefStructParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet)
 		{
 			var methodSetup = new global::Mockolate.Setup.RefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Produce", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)packet);
@@ -936,6 +980,16 @@ internal static partial class Mock
 
 #if NET9_0_OR_GREATER
 		/// <inheritdoc />
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.Compute5(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p1, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p2, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p3, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p4, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p5)
+		{
+			var methodSetup = new global::Mockolate.Setup.RefStructReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Compute5", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p1, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p2, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p3, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p4, (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)p5);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IRefStructConsumer.MemberId_Compute5, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+#endif
+
+#if NET9_0_OR_GREATER
+		/// <inheritdoc />
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIRefStructConsumer.Produce(global::Mockolate.Parameters.IOutRefStructParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet)
 		{
 			var methodSetup = new global::Mockolate.Setup.RefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet>("global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Produce", (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.Packet>?)packet);
@@ -1177,21 +1231,28 @@ internal static partial class Mock
 
 #if NET9_0_OR_GREATER
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Produce(global::Mockolate.Tests.GeneratorCoverage.Packet)">Produce(Packet)</see> — ref-struct parameter pipeline (narrow setup surface).
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Compute5(global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet)">Compute5(Packet, Packet, Packet, Packet, Packet)</see> — ref-struct parameter pipeline (narrow setup surface).
+		/// </summary>
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet, global::Mockolate.Tests.GeneratorCoverage.Packet> Compute5(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p1, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p2, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p3, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p4, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? p5);
+#endif
+
+#if NET9_0_OR_GREATER
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Produce(out global::Mockolate.Tests.GeneratorCoverage.Packet)">Produce(out Packet)</see> — ref-struct parameter pipeline (narrow setup surface).
 		/// </summary>
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet> Produce(global::Mockolate.Parameters.IOutRefStructParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet);
 #endif
 
 #if NET9_0_OR_GREATER
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Mutate(global::Mockolate.Tests.GeneratorCoverage.Packet)">Mutate(Packet)</see> — ref-struct parameter pipeline (narrow setup surface).
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Mutate(ref global::Mockolate.Tests.GeneratorCoverage.Packet)">Mutate(ref Packet)</see> — ref-struct parameter pipeline (narrow setup surface).
 		/// </summary>
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet> Mutate(global::Mockolate.Parameters.IRefRefStructParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet);
 #endif
 
 #if NET9_0_OR_GREATER
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Inspect(global::Mockolate.Tests.GeneratorCoverage.Packet)">Inspect(Packet)</see> — ref-struct parameter pipeline (narrow setup surface).
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.Inspect(ref readonly global::Mockolate.Tests.GeneratorCoverage.Packet)">Inspect(ref readonly Packet)</see> — ref-struct parameter pipeline (narrow setup surface).
 		/// </summary>
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::Mockolate.Tests.GeneratorCoverage.Packet> Inspect(global::Mockolate.Parameters.IRefRefStructParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet);
 #endif
@@ -1270,7 +1331,7 @@ internal static partial class Mock
 
 #if NET9_0_OR_GREATER
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.InspectSpan(global::System.Span{int})">InspectSpan(Span&lt;int&gt;)</see> — ref-struct parameter pipeline (narrow setup surface).
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.InspectSpan(ref readonly global::System.Span{int})">InspectSpan(ref readonly Span&lt;int&gt;)</see> — ref-struct parameter pipeline (narrow setup surface).
 		/// </summary>
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<global::System.Span<int>> InspectSpan(global::Mockolate.Parameters.IRefRefStructParameter<global::System.Span<int>>? span);
 #endif

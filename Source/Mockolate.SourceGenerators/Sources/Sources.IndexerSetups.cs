@@ -827,7 +827,7 @@ internal static partial class Sources
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		sb.Append("\t\t/// <inheritdoc cref=\"IIndexerSetup{TValue, ").Append(typeParams).Append("}.Returns(global::System.Func{")
+		sb.Append("\t\t/// <inheritdoc cref=\"IIndexerSetupWithCallback{TValue, ").Append(typeParams).Append("}.Returns(global::System.Func{")
 			.Append(typeParams).Append(", TValue})\" />").AppendLine();
 		sb.Append("\t\tpublic IIndexerSetupReturnBuilder<TValue, ").Append(typeParams).Append("> Returns(global::System.Func<")
 			.Append(typeParams)
@@ -842,7 +842,7 @@ internal static partial class Sources
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		sb.Append("\t\t/// <inheritdoc cref=\"IIndexerSetup{TValue, ").Append(typeParams).Append("}.Returns(global::System.Func{")
+		sb.Append("\t\t/// <inheritdoc cref=\"IIndexerSetupWithCallback{TValue, ").Append(typeParams).Append("}.Returns(global::System.Func{")
 			.Append(typeParams).Append(", TValue, TValue})\" />").AppendLine();
 		sb.Append("\t\tpublic IIndexerSetupReturnBuilder<TValue, ").Append(typeParams).Append("> Returns(global::System.Func<")
 			.Append(typeParams).Append(", TValue, TValue> callback)").AppendLine();
@@ -894,7 +894,7 @@ internal static partial class Sources
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		sb.Append("\t\t/// <inheritdoc cref=\"IIndexerSetup{TValue, ").Append(typeParams).Append("}.Throws(global::System.Func{")
+		sb.Append("\t\t/// <inheritdoc cref=\"IIndexerSetupWithCallback{TValue, ").Append(typeParams).Append("}.Throws(global::System.Func{")
 			.Append(typeParams).Append(", global::System.Exception})\" />").AppendLine();
 		sb.Append("\t\tpublic IIndexerSetupReturnBuilder<TValue, ").Append(typeParams).Append("> Throws(global::System.Func<")
 			.Append(typeParams)
@@ -908,7 +908,7 @@ internal static partial class Sources
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		sb.Append("\t\t/// <inheritdoc cref=\"IIndexerSetup{TValue, ").Append(typeParams).Append("}.Throws(global::System.Func{")
+		sb.Append("\t\t/// <inheritdoc cref=\"IIndexerSetupWithCallback{TValue, ").Append(typeParams).Append("}.Throws(global::System.Func{")
 			.Append(typeParams).Append(", TValue, global::System.Exception})\" />").AppendLine();
 		sb.Append("\t\tpublic IIndexerSetupReturnBuilder<TValue, ").Append(typeParams).Append("> Throws(global::System.Func<")
 			.Append(typeParams).Append(", TValue, global::System.Exception> callback)").AppendLine();
@@ -1866,6 +1866,9 @@ internal static partial class Sources
 		            			=> mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
 		            				(global::Mockolate.Parameters.IParameterMatch<TParameter>)value, parametersDescription);
 
+		            		/// <summary>
+		            		///     Verifies the indexer write access on the mock with the given <paramref name="value" />.
+		            		/// </summary>
 		            """).AppendLine();
 		if (hasOverloadResolutionPriority)
 		{
@@ -1877,9 +1880,6 @@ internal static partial class Sources
 		// IsValue formats the value lazily and invariantly, so a literal renders exactly as it does
 		// on the shipped surface, and no description is built on the passing path.
 		sb.Append($$"""
-		            		/// <summary>
-		            		///     Verifies the indexer write access on the mock with the given <paramref name="value" />.
-		            		/// </summary>
 		            		public global::Mockolate.Verify.VerificationResult<TSubject> Set(TParameter value)
 		            			=> mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
 		            				(global::Mockolate.Parameters.IParameterMatch<TParameter>)global::Mockolate.Internals.Matchers.IsValue<TParameter>(value), parametersDescription);

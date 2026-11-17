@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Mockolate.SourceGenerators.Entities;
 using Mockolate.SourceGenerators.Internals;
+using Mockolate.SourceGenerators.Sources;
 using Attribute = Mockolate.SourceGenerators.Entities.Attribute;
 using Type = Mockolate.SourceGenerators.Entities.Type;
 
@@ -26,6 +27,61 @@ internal static class Helpers
 		globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
 		typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypes,
 		genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters);
+
+	private static SymbolDisplayFormat CrefTypeFormat { get; } = new(
+		miscellaneousOptions: SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers |
+		                      SymbolDisplayMiscellaneousOptions.UseSpecialTypes |
+		                      SymbolDisplayMiscellaneousOptions.ExpandValueTuple,
+		globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
+		typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+		genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters);
+
+	/// <summary>
+	///     Formats <paramref name="type" /> for an XML documentation <c>cref</c> attribute.
+	/// </summary>
+	/// <remarks>
+	///     Tuple syntax is not valid in a <c>cref</c>, so tuples are spelled as <c>ValueTuple{...}</c>. Nullable reference
+	///     annotations are omitted because <c>T?</c> of an unconstrained type parameter does not resolve.
+	/// </remarks>
+	public static string ToCref(this ITypeSymbol type)
+		=> type.ToQualifiedDisplayString(CrefTypeFormat).Replace('<', '{').Replace('>', '}');
+
+	/// <summary>
+	///     Builds the XML documentation <c>cref</c> of <paramref name="member" /> named <paramref name="name" />.
+	/// </summary>
+	/// <remarks>
+	///     A <c>cref</c> accepts only type parameters, not type arguments, on the containing type
+	///     (<c>IFoo{int}.Bar(int)</c> raises CS1584/CS1658), so pass the <see cref="ISymbol.OriginalDefinition" />
+	///     for a link. The <c>cref</c> of a member of a closed generic type is only fit as display text.
+	/// </remarks>
+	public static string ToMemberCref(ISymbol member, string name)
+	{
+		string containingType = member.ContainingType.ToCref();
+		return member switch
+		{
+			IMethodSymbol { MethodKind: MethodKind.Constructor, } constructor =>
+				$"{containingType}({ToCref(constructor.Parameters)})",
+			IMethodSymbol method =>
+				$"{containingType}.{name.Replace('<', '{').Replace('>', '}')}({ToCref(method.Parameters)})",
+			IPropertySymbol { IsIndexer: true, } indexer => $"{containingType}.this[{ToCref(indexer.Parameters)}]",
+			_ => $"{containingType}.{name}",
+		};
+
+		static string ToCref(ImmutableArray<IParameterSymbol> parameters)
+			=> string.Join(", ", parameters.Select(p => p.RefKind.GetString() + p.Type.ToCref()));
+	}
+
+	/// <summary>
+	///     Builds the <c>&lt;see&gt;</c> element that links <paramref name="cref" /> of an open generic definition and
+	///     shows the <paramref name="closedCref" /> of the mocked closed generic type as its text.
+	/// </summary>
+	/// <remarks>
+	///     When both are equal, the element is self-closing so that <c>Sources.ExpandCrefs</c> derives the text as usual.
+	/// </remarks>
+	public static string ToXmlDocReference(string cref, string closedCref)
+		=> cref == closedCref
+			? $"<see cref=\"{cref}\" />"
+			: $"<see cref=\"{cref}\">{Sources.Sources.SimplifyCrefForDisplay(closedCref)}</see>";
 
 	/// <summary>
 	///     Formats <paramref name="symbol" /> like <see cref="ISymbol.ToDisplayString" />, but qualifies types from a

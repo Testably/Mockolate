@@ -21,7 +21,7 @@ internal sealed class MemberAliases
 	/// </summary>
 	/// <remarks>
 	///     The alias key can never collide with the target: rebasing rewrites only
-	///     <see cref="Method.ContainingType" /> and keeps <see cref="Method.DeclaredContainingType" />,
+	///     <see cref="Method.ContainingType" /> and keeps <see cref="Method.Cref" />,
 	///     which names the interface on the alias and the class on the target. So recording an alias
 	///     never makes <see cref="IsAlias(Method)" /> true for the class member itself.
 	/// </remarks>

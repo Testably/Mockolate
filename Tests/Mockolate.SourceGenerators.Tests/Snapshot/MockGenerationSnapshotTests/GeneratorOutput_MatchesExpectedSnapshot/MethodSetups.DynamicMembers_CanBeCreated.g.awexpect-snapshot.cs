@@ -78,7 +78,7 @@ namespace Mockolate.Setup
 }
 
 	/// <summary>
-	///     Sets up a callback for a method with 5 parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" /> and <typeparamref name="T5" /> returning <typeparamref name="TReturn" />.
+	///     Sets up a callback for a method with 5 parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" /> and <typeparamref name="T5" /> returning <see langword="void" />.
 	/// </summary>
 	internal interface IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5> : global::Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<T1, T2, T3, T4, T5>
 	{

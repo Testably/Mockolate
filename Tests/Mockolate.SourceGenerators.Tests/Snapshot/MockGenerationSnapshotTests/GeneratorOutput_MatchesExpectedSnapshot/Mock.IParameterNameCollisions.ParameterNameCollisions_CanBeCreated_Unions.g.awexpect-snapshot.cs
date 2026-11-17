@@ -4420,7 +4420,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int> Literals(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -4429,136 +4429,136 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::Mockolate.ParameterArg<int>? __literal2);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="paramsLiteral" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="paramsLiteral" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::Mockolate.ParameterArg<int>? @params, global::System.Func<int, bool> paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="@params" />, <paramref name="paramsLiteral" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="params" />, <paramref name="paramsLiteral" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::System.Func<int, bool> @params, global::System.Func<int, bool> paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" /> and a predicate for <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" /> and a predicate for <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::System.Func<int, bool> __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal2" /> and a predicate for <paramref name="@params" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal2" /> and a predicate for <paramref name="params" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::System.Func<int, bool> __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="__literal2" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="__literal2" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::Mockolate.ParameterArg<int>? @params, global::System.Func<int, bool> paramsLiteral, global::System.Func<int, bool> __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal2" /> and a predicate for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal2" /> and a predicate for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::System.Func<int, bool> @params, global::System.Func<int, bool> paramsLiteral, global::System.Func<int, bool> __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" /> and a predicate for <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" /> and a predicate for <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" /> and a predicate for <paramref name="@params" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" /> and a predicate for <paramref name="params" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="__literal1" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="__literal1" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::Mockolate.ParameterArg<int>? @params, global::System.Func<int, bool> paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal1" /> and a predicate for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal1" /> and a predicate for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::System.Func<int, bool> @params, global::System.Func<int, bool> paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" /> and a predicate for <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="paramsLiteral" /> and a predicate for <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::System.Func<int, bool> __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" /> and a predicate for <paramref name="@params" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" /> and a predicate for <paramref name="params" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::System.Func<int, bool> __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::Mockolate.ParameterArg<int>? @params, global::System.Func<int, bool> paramsLiteral, global::System.Func<int, bool> __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts a predicate for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int, int, int> Literals(global::System.Func<int, bool> @params, global::System.Func<int, bool> paramsLiteral, global::System.Func<int, bool> __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
@@ -5083,7 +5083,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> Literals(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -5092,136 +5092,136 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::Mockolate.ParameterArg<int>? __literal2);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="@params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="params" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="paramsLiteral" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="paramsLiteral" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::Mockolate.ParameterArg<int>? @params, global::System.Func<int, bool> paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="@params" />, <paramref name="paramsLiteral" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal1" />, <paramref name="__literal2" /> and a predicate for <paramref name="params" />, <paramref name="paramsLiteral" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::System.Func<int, bool> @params, global::System.Func<int, bool> paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" /> and a predicate for <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" /> and a predicate for <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::System.Func<int, bool> __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal2" /> and a predicate for <paramref name="@params" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal2" /> and a predicate for <paramref name="params" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::System.Func<int, bool> __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="__literal2" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="__literal2" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::Mockolate.ParameterArg<int>? @params, global::System.Func<int, bool> paramsLiteral, global::System.Func<int, bool> __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal2" /> and a predicate for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal2" /> and a predicate for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::System.Func<int, bool> @params, global::System.Func<int, bool> paramsLiteral, global::System.Func<int, bool> __literal1, global::Mockolate.ParameterArg<int>? __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" /> and a predicate for <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" /> and a predicate for <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" /> and a predicate for <paramref name="@params" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" />, <paramref name="__literal1" /> and a predicate for <paramref name="params" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="__literal1" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="__literal1" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::Mockolate.ParameterArg<int>? @params, global::System.Func<int, bool> paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal1" /> and a predicate for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="__literal1" /> and a predicate for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::System.Func<int, bool> @params, global::System.Func<int, bool> paramsLiteral, global::Mockolate.ParameterArg<int>? __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" />, <paramref name="paramsLiteral" /> and a predicate for <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" />, <paramref name="paramsLiteral" /> and a predicate for <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::Mockolate.ParameterArg<int>? @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::System.Func<int, bool> __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" /> and a predicate for <paramref name="@params" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="paramsLiteral" /> and a predicate for <paramref name="params" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::System.Func<int, bool> @params, global::Mockolate.ParameterArg<int>? paramsLiteral, global::System.Func<int, bool> __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="@params" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="params" /> and a predicate for <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::Mockolate.ParameterArg<int>? @params, global::System.Func<int, bool> paramsLiteral, global::System.Func<int, bool> __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="@params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Literals(int, int, int, int)">Literals(int, int, int, int)</see> with the given <paramref name="params"/>, <paramref name="paramsLiteral"/>, <paramref name="__literal1"/>, <paramref name="__literal2"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="@params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts a predicate for <paramref name="params" />, <paramref name="paramsLiteral" />, <paramref name="__literal1" />, <paramref name="__literal2" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters Literals(global::System.Func<int, bool> @params, global::System.Func<int, bool> paramsLiteral, global::System.Func<int, bool> __literal1, global::System.Func<int, bool> __literal2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("params")] string @paramsExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("paramsLiteral")] string paramsLiteralExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal1")] string __literal1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("__literal2")] string __literal2Expression = "");
