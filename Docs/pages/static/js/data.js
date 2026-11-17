@@ -1188,6 +1188,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -1388,7 +1394,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -1592,7 +1599,8 @@ window.BENCHMARK_DATA = {
           182.09172969598038,
           230.30229560534158,
           292.1096217791239,
-          213.08800538948603
+          213.08800538948603,
+          379.166127545493
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1794,6 +1802,7 @@ window.BENCHMARK_DATA = {
           1584,
           1536,
           1536,
+          1552,
           1552,
           1552,
           1552,
@@ -2013,7 +2022,8 @@ window.BENCHMARK_DATA = {
           30120.586809430803,
           60835.60144856771,
           103500.4841796875,
-          60087.861563546314
+          60087.861563546314,
+          45546.33147321428
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2222,7 +2232,8 @@ window.BENCHMARK_DATA = {
           9055,
           9055,
           9056,
-          9055
+          9055,
+          9033
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2434,7 +2445,8 @@ window.BENCHMARK_DATA = {
           2395.3764895121258,
           3384.9119705200196,
           4399.751214090983,
-          3462.9120546976724
+          3462.9120546976724,
+          4069.495992388044
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2595,6 +2607,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2855,7 +2868,8 @@ window.BENCHMARK_DATA = {
           2600.4792592366534,
           3301.053909301758,
           4442.750059000651,
-          3471.9413381723257
+          3471.9413381723257,
+          3749.7882873535154
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3064,7 +3078,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           7042,
-          6930
+          6930,
+          6924
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3276,7 +3291,8 @@ window.BENCHMARK_DATA = {
           123.32271293004354,
           176.0046610514323,
           192.96570070584616,
-          154.7951532143813
+          154.7951532143813,
+          240.52753324508666
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3442,6 +3458,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3697,7 +3714,8 @@ window.BENCHMARK_DATA = {
           305.6469223499298,
           387.78381900787355,
           442.76723895754134,
-          414.52232357660927
+          414.52232357660927,
+          588.3255526678903
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3858,6 +3876,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -5108,6 +5127,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -5308,7 +5333,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -5512,7 +5538,8 @@ window.BENCHMARK_DATA = {
           229.75133141449518,
           225.24648151397705,
           125.24167428016662,
-          198.92676916917165
+          198.92676916917165,
+          223.76604096094766
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5714,6 +5741,7 @@ window.BENCHMARK_DATA = {
           984,
           984,
           984,
+          1000,
           1000,
           1000,
           1000,
@@ -5933,7 +5961,8 @@ window.BENCHMARK_DATA = {
           15320.993082682291,
           15703.126383463541,
           7106.23847249349,
-          9500.93565266927
+          9500.93565266927,
+          15225.940237862724
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6142,6 +6171,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761
         ],
         "borderColor": "#A052B0",
@@ -6354,7 +6384,8 @@ window.BENCHMARK_DATA = {
           6307.370543924967,
           5946.098884037563,
           2716.24684270223,
-          3771.565050760905
+          3771.565050760905,
+          5812.510912068685
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6515,6 +6546,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -6775,7 +6807,8 @@ window.BENCHMARK_DATA = {
           217268.8603515625,
           218350.19635416666,
           103731.80086844308,
-          103682.64728190104
+          103682.64728190104,
+          225897.05385044642
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6984,7 +7017,8 @@ window.BENCHMARK_DATA = {
           15586,
           15707,
           15619,
-          15579
+          15579,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7196,7 +7230,8 @@ window.BENCHMARK_DATA = {
           192.46921733447485,
           180.36047739642007,
           103.0347459157308,
-          158.58984547001975
+          158.58984547001975,
+          180.60109175046284
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7337,6 +7372,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -7617,7 +7653,8 @@ window.BENCHMARK_DATA = {
           190.233983533723,
           179.53608306248984,
           94.27083420753479,
-          144.694726228714
+          144.694726228714,
+          171.1003224849701
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -7751,6 +7788,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -9028,6 +9066,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -9228,7 +9272,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -9432,7 +9477,8 @@ window.BENCHMARK_DATA = {
           567.4215467316764,
           653.9880882263184,
           614.1925495147705,
-          769.7454499562581
+          769.7454499562581,
+          711.5857114058274
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9634,6 +9680,7 @@ window.BENCHMARK_DATA = {
           2616,
           2544,
           2544,
+          2576,
           2576,
           2576,
           2576,
@@ -9853,7 +9900,8 @@ window.BENCHMARK_DATA = {
           140042.6896158854,
           82709.66305338542,
           139485.23322405134,
-          228264.87663922991
+          228264.87663922991,
+          225504.30319010417
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10061,6 +10109,7 @@ window.BENCHMARK_DATA = {
           20811,
           20804,
           20809,
+          20804,
           20804,
           20804
         ],
@@ -10274,7 +10323,8 @@ window.BENCHMARK_DATA = {
           7238.644451686314,
           7818.46955871582,
           7537.753033447266,
-          10430.98877360026
+          10430.98877360026,
+          10415.32712990897
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10483,6 +10533,7 @@ window.BENCHMARK_DATA = {
           13088,
           13088,
           13032,
+          13088,
           13088
         ],
         "borderColor": "#5E2750",
@@ -10695,7 +10746,8 @@ window.BENCHMARK_DATA = {
           7118.873644510905,
           6389.327170308431,
           7692.092213766916,
-          11224.826190185548
+          11224.826190185548,
+          11009.347918701173
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10903,6 +10955,7 @@ window.BENCHMARK_DATA = {
           13593,
           13593,
           13586,
+          13593,
           13593,
           13593
         ],
@@ -11116,7 +11169,8 @@ window.BENCHMARK_DATA = {
           247.0855244568416,
           267.5406218528748,
           258.9492662111918,
-          285.31640179951984
+          285.31640179951984,
+          280.08156817299977
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11277,6 +11331,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -12527,6 +12582,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -12727,7 +12788,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -12931,7 +12993,8 @@ window.BENCHMARK_DATA = {
           1823.6893504006523,
           2209.760404968262,
           1987.7423108418782,
-          2463.8077318827313
+          2463.8077318827313,
+          2330.365155029297
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13133,6 +13196,7 @@ window.BENCHMARK_DATA = {
           4720,
           4216,
           4216,
+          4248,
           4248,
           4248,
           4248,
@@ -13352,7 +13416,8 @@ window.BENCHMARK_DATA = {
           147525.2632359096,
           88048.50779622396,
           151327.94572753907,
-          238820.7459891183
+          238820.7459891183,
+          237150.81600516182
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13561,6 +13626,7 @@ window.BENCHMARK_DATA = {
           30403,
           30386,
           30402,
+          30403,
           30403
         ],
         "borderColor": "#A052B0",
@@ -13773,7 +13839,8 @@ window.BENCHMARK_DATA = {
           17588.0736214774,
           18518.59865722656,
           18842.57079424177,
-          25910.11255100795
+          25910.11255100795,
+          25599.37486368815
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13982,6 +14049,7 @@ window.BENCHMARK_DATA = {
           26193,
           26192,
           26137,
+          26193,
           26193
         ],
         "borderColor": "#5E2750",
@@ -14194,7 +14262,8 @@ window.BENCHMARK_DATA = {
           15231.627821702223,
           15076.881912231445,
           17096.71093280499,
-          24187.787876383463
+          24187.787876383463,
+          23285.589204915366
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14400,6 +14469,7 @@ window.BENCHMARK_DATA = {
           33249,
           33247,
           33249,
+          33247,
           33247,
           33247,
           33247,
@@ -14615,7 +14685,8 @@ window.BENCHMARK_DATA = {
           591.3782945632935,
           644.789986038208,
           641.7701447804769,
-          760.1865837732951
+          760.1865837732951,
+          693.034777768453
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14776,6 +14847,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -16026,6 +16098,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -16226,7 +16304,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -16430,7 +16509,8 @@ window.BENCHMARK_DATA = {
           165.8001003605979,
           177.7620151213237,
           258.96948054858615,
-          248.49770532335555
+          248.49770532335555,
+          280.26212116877235
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16632,6 +16712,7 @@ window.BENCHMARK_DATA = {
           1176,
           1152,
           1152,
+          1168,
           1168,
           1168,
           1168,
@@ -16851,7 +16932,8 @@ window.BENCHMARK_DATA = {
           59600.62922014509,
           60975.42252022879,
           145457.25997488838,
-          142861.22886439733
+          142861.22886439733,
+          203864.05240885416
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17059,6 +17141,7 @@ window.BENCHMARK_DATA = {
           14920,
           14920,
           14920,
+          14902,
           14902,
           14902
         ],
@@ -17272,7 +17355,8 @@ window.BENCHMARK_DATA = {
           3195.909085845947,
           3432.2790285746255,
           5786.70634206136,
-          5470.337717328753
+          5470.337717328753,
+          6237.414722442627
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17481,7 +17565,8 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
-          9320
+          9320,
+          9264
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17693,7 +17778,8 @@ window.BENCHMARK_DATA = {
           3042.9415657043455,
           2905.44413172404,
           5142.934605916341,
-          4997.670302327474
+          4997.670302327474,
+          5863.275697980608
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17891,6 +17977,7 @@ window.BENCHMARK_DATA = {
           8153,
           8151,
           8147,
+          8160,
           8160,
           8160,
           8160,
@@ -18114,7 +18201,8 @@ window.BENCHMARK_DATA = {
           106.6967311779658,
           108.3269066731135,
           179.68496935184186,
-          175.24547559874398
+          175.24547559874398,
+          190.70299750963846
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18280,6 +18368,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -18535,7 +18624,8 @@ window.BENCHMARK_DATA = {
           280.90058323542274,
           278.5254461606344,
           471.5609954516093,
-          443.48585170110067
+          443.48585170110067,
+          485.8339345932007
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18669,6 +18759,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -19946,6 +20037,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -20146,7 +20243,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -20350,7 +20448,8 @@ window.BENCHMARK_DATA = {
           474.2404373032706,
           477.88664957193225,
           586.9609452656338,
-          573.6851449693952
+          573.6851449693952,
+          580.5891625086466
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20552,6 +20651,7 @@ window.BENCHMARK_DATA = {
           1968,
           1728,
           1728,
+          1744,
           1744,
           1744,
           1744,
@@ -20771,7 +20871,8 @@ window.BENCHMARK_DATA = {
           62412.94247000558,
           62712.94105747768,
           152139.08705357142,
-          148598.41001674108
+          148598.41001674108,
+          206844.98175920759
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20980,7 +21081,8 @@ window.BENCHMARK_DATA = {
           18906,
           18906,
           18901,
-          18900
+          18900,
+          18901
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21192,7 +21294,8 @@ window.BENCHMARK_DATA = {
           5214.816133771624,
           5106.925076998197,
           8555.642892456055,
-          8333.834365844727
+          8333.834365844727,
+          9389.882711138043
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21401,7 +21504,8 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12345,
-          12345
+          12345,
+          11785
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21613,7 +21717,8 @@ window.BENCHMARK_DATA = {
           5297.582765306745,
           5278.90275984544,
           8770.562314860026,
-          8120.602615356445
+          8120.602615356445,
+          9467.535686238607
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21821,6 +21926,7 @@ window.BENCHMARK_DATA = {
           16394,
           16394,
           16394,
+          16393,
           16393,
           16393
         ],
@@ -22034,7 +22140,8 @@ window.BENCHMARK_DATA = {
           253.3074231147766,
           277.0800842603048,
           359.89884656270345,
-          348.06772998174034
+          348.06772998174034,
+          385.9180063883463
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22200,6 +22307,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -22455,7 +22563,8 @@ window.BENCHMARK_DATA = {
           1046.0063049316407,
           1096.4231646401543,
           1404.0432623454503,
-          1329.7266114098686
+          1329.7266114098686,
+          1485.7744383130755
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22589,6 +22698,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -23866,6 +23976,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -24066,7 +24182,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -24270,7 +24387,8 @@ window.BENCHMARK_DATA = {
           337.81029783884685,
           592.3143683161054,
           386.99787243207294,
-          401.115576340602
+          401.115576340602,
+          445.7634626706441
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24472,6 +24590,7 @@ window.BENCHMARK_DATA = {
           1480,
           1424,
           1424,
+          1456,
           1456,
           1456,
           1456,
@@ -24691,7 +24810,8 @@ window.BENCHMARK_DATA = {
           7955.311850411551,
           11323.329150390626,
           6961.633583577474,
-          6978.093854631697
+          6978.093854631697,
+          11318.5029296875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -24900,7 +25020,8 @@ window.BENCHMARK_DATA = {
           10569,
           10569,
           10568,
-          10568
+          10568,
+          10569
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25112,7 +25233,8 @@ window.BENCHMARK_DATA = {
           5698.65376340426,
           7856.798731122698,
           5208.112834676107,
-          5344.401841970591
+          5344.401841970591,
+          7880.95794241769
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25318,6 +25440,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -25533,7 +25656,8 @@ window.BENCHMARK_DATA = {
           5832.834835597447,
           7910.24141031901,
           4603.41772257487,
-          4939.33309173584
+          4939.33309173584,
+          8142.387182617187
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -25742,7 +25866,8 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11191,
-          11191
+          11191,
+          11196
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -25954,7 +26079,8 @@ window.BENCHMARK_DATA = {
           141.12630442472604,
           184.69698662757872,
           160.51087495258875,
-          177.04943380355834
+          177.04943380355834,
+          187.87722967465717
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26120,6 +26246,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -26375,7 +26502,8 @@ window.BENCHMARK_DATA = {
           365.2814069112142,
           467.6369476954142,
           398.1207644144694,
-          428.45169159344266
+          428.45169159344266,
+          514.2473182678223
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26571,6 +26699,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -27786,6 +27915,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -27986,7 +28121,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -28190,7 +28326,8 @@ window.BENCHMARK_DATA = {
           791.7518674410306,
           1008.7077271779378,
           898.7890079938448,
-          1032.0032656351725
+          1032.0032656351725,
+          1044.5643367767334
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28392,6 +28529,7 @@ window.BENCHMARK_DATA = {
           2752,
           2192,
           2192,
+          2224,
           2224,
           2224,
           2224,
@@ -28611,7 +28749,8 @@ window.BENCHMARK_DATA = {
           12957.620084490094,
           17631.1753519694,
           11571.815016682942,
-          11841.342625935873
+          11841.342625935873,
+          18115.819281441825
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28820,7 +28959,8 @@ window.BENCHMARK_DATA = {
           18505,
           18505,
           18504,
-          18504
+          18504,
+          18505
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -29032,7 +29172,8 @@ window.BENCHMARK_DATA = {
           12820.205350603375,
           17927.914076741537,
           11347.709490966798,
-          11877.863650512696
+          11877.863650512696,
+          18227.336458333335
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29241,7 +29382,8 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21528,
-          21528
+          21528,
+          21529
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29453,7 +29595,8 @@ window.BENCHMARK_DATA = {
           14218.770533243814,
           19010.73832397461,
           11676.130981445312,
-          12979.281825764974
+          12979.281825764974,
+          20082.15426166241
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29662,7 +29805,8 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30780,
-          30780
+          30780,
+          30785
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29874,7 +30018,8 @@ window.BENCHMARK_DATA = {
           264.0987120408278,
           338.3238596280416,
           318.40764812060763,
-          342.99515393575035
+          342.99515393575035,
+          348.0794144357954
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -30040,6 +30185,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -30295,7 +30441,8 @@ window.BENCHMARK_DATA = {
           1278.3094535555158,
           1561.9472770690918,
           1562.210224004892,
-          1674.950259753636
+          1674.950259753636,
+          1691.7680748530797
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30491,6 +30638,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -31706,6 +31854,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -31906,7 +32060,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -32110,7 +32265,8 @@ window.BENCHMARK_DATA = {
           18.115634971431323,
           18.134504275520644,
           23.508907067775727,
-          18.792607268691064
+          18.792607268691064,
+          12.83204514781634
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -32168,6 +32324,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -32531,7 +32688,8 @@ window.BENCHMARK_DATA = {
           98.52827002320971,
           103.58112748180118,
           120.82220565478006,
-          112.9571656355491
+          112.9571656355491,
+          75.00847987333934
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -32697,6 +32855,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -32952,7 +33111,8 @@ window.BENCHMARK_DATA = {
           30.746168812115986,
           30.335250359773635,
           37.65516211589178,
-          31.754089307785033
+          31.754089307785033,
+          22.022270719210308
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -33086,6 +33246,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -33373,7 +33534,8 @@ window.BENCHMARK_DATA = {
           1329.1459451402936,
           1318.2081212361654,
           1164.2448393957955,
-          1281.9657564163208
+          1281.9657564163208,
+          965.5358498891195
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33534,6 +33696,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -33794,7 +33957,8 @@ window.BENCHMARK_DATA = {
           2012.2413401285808,
           1953.7882886614118,
           1683.7416632516045,
-          1828.8090840657553
+          1828.8090840657553,
+          1397.5297789255778
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33955,6 +34119,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -34215,7 +34380,8 @@ window.BENCHMARK_DATA = {
           1727.6056103025164,
           1725.5911404927572,
           1360.3377011617024,
-          1520.0627497990927
+          1520.0627497990927,
+          1213.6878109711868
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34424,6 +34590,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2751,
+          2755,
           2755
         ],
         "borderColor": "#4A6FA5",
@@ -34528,6 +34695,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Mon Nov 16 11:27:31 2026 \u002B0100",
         "message": "docs: remove the migration pages that Mockolate.Migration supersedes (#989)"
+      },
+      {
+        "sha": "e05f9297fcd7b02598cde3d34b2e42e9e8618393",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
+        "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
       }
     ],
     "labels": [
@@ -34545,7 +34718,8 @@ window.BENCHMARK_DATA = {
       "edafeff6",
       "869bdffc",
       "649b3ebc",
-      "76d7c772"
+      "76d7c772",
+      "e05f9297"
     ],
     "datasets": [
       {
@@ -34566,7 +34740,8 @@ window.BENCHMARK_DATA = {
           1208.7626222882952,
           1419.0511953989665,
           779.4711776097615,
-          899.3399258931478
+          899.3399258931478,
+          893.7968240102132
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -34586,6 +34761,7 @@ window.BENCHMARK_DATA = {
           4632,
           4632,
           4696,
+          4064,
           4064,
           4064,
           4064,
@@ -34621,7 +34797,8 @@ window.BENCHMARK_DATA = {
           897.8000202814738,
           976.3350034441266,
           536.0690596262614,
-          717.814811484019
+          717.814811484019,
+          661.6436131795248
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -34634,6 +34811,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           3000,
+          2968,
           2968,
           2968,
           2968,
@@ -34676,7 +34854,8 @@ window.BENCHMARK_DATA = {
           2436.2193824768065,
           2612.7304171244305,
           1529.3939241262583,
-          1970.3951657613118
+          1970.3951657613118,
+          1698.3433681488036
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -34689,6 +34868,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           8936,
+          9528,
           9528,
           9528,
           9528,
@@ -34731,7 +34911,8 @@ window.BENCHMARK_DATA = {
           280257.4273111979,
           158149.725,
           98249.35779747597,
-          217494.54521484376
+          217494.54521484376,
+          119333.50338541667
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34757,7 +34938,8 @@ window.BENCHMARK_DATA = {
           36235,
           36239,
           36017,
-          36253
+          36253,
+          35981
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34786,7 +34968,8 @@ window.BENCHMARK_DATA = {
           21179.19870867048,
           22667.448178804836,
           11826.410975529598,
-          16496.754311116536
+          16496.754311116536,
+          15818.023978097099
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34812,7 +34995,8 @@ window.BENCHMARK_DATA = {
           36171,
           36169,
           36171,
-          36171
+          36171,
+          36169
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34841,7 +35025,8 @@ window.BENCHMARK_DATA = {
           17443.901737467448,
           16238.345012958232,
           10326.401473999023,
-          14436.847284952799
+          14436.847284952799,
+          11112.337038480318
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34867,7 +35052,8 @@ window.BENCHMARK_DATA = {
           28541,
           28510,
           28540,
-          28540
+          28540,
+          28510
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
