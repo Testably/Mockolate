@@ -17,8 +17,8 @@ public abstract class VoidMethodSetup : MethodSetup,
 	IVoidMethodSetupCallbackBuilder, IVoidMethodSetupReturnBuilder
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int>>? _callbacks = [];
-	private Callbacks<Action<int>>? _returnCallbacks = [];
+	private Callbacks<Action<int>>? _callbacks;
+	private Callbacks<Action<int>>? _returnCallbacks;
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{TReturn, T1}" />
@@ -254,8 +254,8 @@ public abstract class VoidMethodSetup<T1> : MethodSetup,
 	IVoidMethodSetupCallbackBuilder<T1>, IVoidMethodSetupReturnBuilder<T1>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int, T1>>? _callbacks = [];
-	private Callbacks<Action<int, T1>>? _returnCallbacks = [];
+	private Callbacks<Action<int, T1>>? _callbacks;
+	private Callbacks<Action<int, T1>>? _returnCallbacks;
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{T1}" />
@@ -617,8 +617,8 @@ public abstract class VoidMethodSetup<T1, T2> : MethodSetup,
 	IVoidMethodSetupCallbackBuilder<T1, T2>, IVoidMethodSetupReturnBuilder<T1, T2>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int, T1, T2>>? _callbacks = [];
-	private Callbacks<Action<int, T1, T2>>? _returnCallbacks = [];
+	private Callbacks<Action<int, T1, T2>>? _callbacks;
+	private Callbacks<Action<int, T1, T2>>? _returnCallbacks;
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{T1, T2}" />
@@ -999,8 +999,8 @@ public abstract class VoidMethodSetup<T1, T2, T3> : MethodSetup,
 	IVoidMethodSetupCallbackBuilder<T1, T2, T3>, IVoidMethodSetupReturnBuilder<T1, T2, T3>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int, T1, T2, T3>>? _callbacks = [];
-	private Callbacks<Action<int, T1, T2, T3>>? _returnCallbacks = [];
+	private Callbacks<Action<int, T1, T2, T3>>? _callbacks;
+	private Callbacks<Action<int, T1, T2, T3>>? _returnCallbacks;
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3}" />
@@ -1398,8 +1398,8 @@ public abstract class VoidMethodSetup<T1, T2, T3, T4> : MethodSetup,
 	IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4>, IVoidMethodSetupReturnBuilder<T1, T2, T3, T4>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int, T1, T2, T3, T4>>? _callbacks = [];
-	private Callbacks<Action<int, T1, T2, T3, T4>>? _returnCallbacks = [];
+	private Callbacks<Action<int, T1, T2, T3, T4>>? _callbacks;
+	private Callbacks<Action<int, T1, T2, T3, T4>>? _returnCallbacks;
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4}" />
