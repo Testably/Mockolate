@@ -1194,6 +1194,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -1395,7 +1401,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -1600,7 +1607,8 @@ window.BENCHMARK_DATA = {
           230.30229560534158,
           292.1096217791239,
           213.08800538948603,
-          379.166127545493
+          379.166127545493,
+          307.67526620229086
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1802,6 +1810,7 @@ window.BENCHMARK_DATA = {
           1584,
           1536,
           1536,
+          1552,
           1552,
           1552,
           1552,
@@ -2023,7 +2032,8 @@ window.BENCHMARK_DATA = {
           60835.60144856771,
           103500.4841796875,
           60087.861563546314,
-          45546.33147321428
+          45546.33147321428,
+          102591.56291852679
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2233,7 +2243,8 @@ window.BENCHMARK_DATA = {
           9055,
           9056,
           9055,
-          9033
+          9033,
+          9056
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2446,7 +2457,8 @@ window.BENCHMARK_DATA = {
           3384.9119705200196,
           4399.751214090983,
           3462.9120546976724,
-          4069.495992388044
+          4069.495992388044,
+          4645.704312133789
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2607,6 +2619,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -2869,7 +2882,8 @@ window.BENCHMARK_DATA = {
           3301.053909301758,
           4442.750059000651,
           3471.9413381723257,
-          3749.7882873535154
+          3749.7882873535154,
+          4626.407925197056
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3079,7 +3093,8 @@ window.BENCHMARK_DATA = {
           6930,
           7042,
           6930,
-          6924
+          6924,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3292,7 +3307,8 @@ window.BENCHMARK_DATA = {
           176.0046610514323,
           192.96570070584616,
           154.7951532143813,
-          240.52753324508666
+          240.52753324508666,
+          207.23245611190796
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3458,6 +3474,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -3715,7 +3732,8 @@ window.BENCHMARK_DATA = {
           387.78381900787355,
           442.76723895754134,
           414.52232357660927,
-          588.3255526678903
+          588.3255526678903,
+          483.77877855300903
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3876,6 +3894,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -5133,6 +5152,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -5334,7 +5359,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -5539,7 +5565,8 @@ window.BENCHMARK_DATA = {
           225.24648151397705,
           125.24167428016662,
           198.92676916917165,
-          223.76604096094766
+          223.76604096094766,
+          164.2869154725756
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5741,6 +5768,7 @@ window.BENCHMARK_DATA = {
           984,
           984,
           984,
+          1000,
           1000,
           1000,
           1000,
@@ -5962,7 +5990,8 @@ window.BENCHMARK_DATA = {
           15703.126383463541,
           7106.23847249349,
           9500.93565266927,
-          15225.940237862724
+          15225.940237862724,
+          10202.841766357422
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6171,6 +6200,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761,
           12761
         ],
@@ -6385,7 +6415,8 @@ window.BENCHMARK_DATA = {
           5946.098884037563,
           2716.24684270223,
           3771.565050760905,
-          5812.510912068685
+          5812.510912068685,
+          4038.3554921831405
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6546,6 +6577,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -6808,7 +6840,8 @@ window.BENCHMARK_DATA = {
           218350.19635416666,
           103731.80086844308,
           103682.64728190104,
-          225897.05385044642
+          225897.05385044642,
+          194138.2798374721
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7018,7 +7051,8 @@ window.BENCHMARK_DATA = {
           15707,
           15619,
           15579,
-          15618
+          15618,
+          15619
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7231,7 +7265,8 @@ window.BENCHMARK_DATA = {
           180.36047739642007,
           103.0347459157308,
           158.58984547001975,
-          180.60109175046284
+          180.60109175046284,
+          141.45958344752972
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7372,6 +7407,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -7654,7 +7690,8 @@ window.BENCHMARK_DATA = {
           179.53608306248984,
           94.27083420753479,
           144.694726228714,
-          171.1003224849701
+          171.1003224849701,
+          122.17532229423523
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -7788,6 +7825,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -9072,6 +9110,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -9273,7 +9317,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -9478,7 +9523,8 @@ window.BENCHMARK_DATA = {
           653.9880882263184,
           614.1925495147705,
           769.7454499562581,
-          711.5857114058274
+          711.5857114058274,
+          624.9238442693438
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9680,6 +9726,7 @@ window.BENCHMARK_DATA = {
           2616,
           2544,
           2544,
+          2576,
           2576,
           2576,
           2576,
@@ -9901,7 +9948,8 @@ window.BENCHMARK_DATA = {
           82709.66305338542,
           139485.23322405134,
           228264.87663922991,
-          225504.30319010417
+          225504.30319010417,
+          143308.2362530048
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10111,7 +10159,8 @@ window.BENCHMARK_DATA = {
           20809,
           20804,
           20804,
-          20804
+          20804,
+          20884
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10324,7 +10373,8 @@ window.BENCHMARK_DATA = {
           7818.46955871582,
           7537.753033447266,
           10430.98877360026,
-          10415.32712990897
+          10415.32712990897,
+          7283.690654500326
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10534,7 +10584,8 @@ window.BENCHMARK_DATA = {
           13088,
           13032,
           13088,
-          13088
+          13088,
+          13032
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10747,7 +10798,8 @@ window.BENCHMARK_DATA = {
           6389.327170308431,
           7692.092213766916,
           11224.826190185548,
-          11009.347918701173
+          11009.347918701173,
+          6981.841326395671
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10955,6 +11007,7 @@ window.BENCHMARK_DATA = {
           13593,
           13593,
           13586,
+          13593,
           13593,
           13593,
           13593
@@ -11170,7 +11223,8 @@ window.BENCHMARK_DATA = {
           267.5406218528748,
           258.9492662111918,
           285.31640179951984,
-          280.08156817299977
+          280.08156817299977,
+          244.2154608454023
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11331,6 +11385,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1096,
           1096,
           1096,
           1096,
@@ -12588,6 +12643,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -12789,7 +12850,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -12994,7 +13056,8 @@ window.BENCHMARK_DATA = {
           2209.760404968262,
           1987.7423108418782,
           2463.8077318827313,
-          2330.365155029297
+          2330.365155029297,
+          1811.7138554709297
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13196,6 +13259,7 @@ window.BENCHMARK_DATA = {
           4720,
           4216,
           4216,
+          4248,
           4248,
           4248,
           4248,
@@ -13417,7 +13481,8 @@ window.BENCHMARK_DATA = {
           88048.50779622396,
           151327.94572753907,
           238820.7459891183,
-          237150.81600516182
+          237150.81600516182,
+          152720.88467843193
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13627,7 +13692,8 @@ window.BENCHMARK_DATA = {
           30386,
           30402,
           30403,
-          30403
+          30403,
+          30482
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13840,7 +13906,8 @@ window.BENCHMARK_DATA = {
           18518.59865722656,
           18842.57079424177,
           25910.11255100795,
-          25599.37486368815
+          25599.37486368815,
+          18164.394889322917
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14050,7 +14117,8 @@ window.BENCHMARK_DATA = {
           26192,
           26137,
           26193,
-          26193
+          26193,
+          26137
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14263,7 +14331,8 @@ window.BENCHMARK_DATA = {
           15076.881912231445,
           17096.71093280499,
           24187.787876383463,
-          23285.589204915366
+          23285.589204915366,
+          15258.62672627767
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14473,7 +14542,8 @@ window.BENCHMARK_DATA = {
           33247,
           33247,
           33247,
-          33247
+          33247,
+          33249
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14686,7 +14756,8 @@ window.BENCHMARK_DATA = {
           644.789986038208,
           641.7701447804769,
           760.1865837732951,
-          693.034777768453
+          693.034777768453,
+          561.520951637855
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14847,6 +14918,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2176,
           2176,
           2176,
           2176,
@@ -16104,6 +16176,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -16305,7 +16383,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -16510,7 +16589,8 @@ window.BENCHMARK_DATA = {
           177.7620151213237,
           258.96948054858615,
           248.49770532335555,
-          280.26212116877235
+          280.26212116877235,
+          220.58244970866613
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16712,6 +16792,7 @@ window.BENCHMARK_DATA = {
           1176,
           1152,
           1152,
+          1168,
           1168,
           1168,
           1168,
@@ -16933,7 +17014,8 @@ window.BENCHMARK_DATA = {
           60975.42252022879,
           145457.25997488838,
           142861.22886439733,
-          203864.05240885416
+          203864.05240885416,
+          118081.5446451823
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17143,7 +17225,8 @@ window.BENCHMARK_DATA = {
           14920,
           14902,
           14902,
-          14902
+          14902,
+          14914
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17356,7 +17439,8 @@ window.BENCHMARK_DATA = {
           3432.2790285746255,
           5786.70634206136,
           5470.337717328753,
-          6237.414722442627
+          6237.414722442627,
+          4725.980266026088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17566,7 +17650,8 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
-          9264
+          9264,
+          9320
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17779,7 +17864,8 @@ window.BENCHMARK_DATA = {
           2905.44413172404,
           5142.934605916341,
           4997.670302327474,
-          5863.275697980608
+          5863.275697980608,
+          4420.123321533203
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17977,6 +18063,7 @@ window.BENCHMARK_DATA = {
           8153,
           8151,
           8147,
+          8160,
           8160,
           8160,
           8160,
@@ -18202,7 +18289,8 @@ window.BENCHMARK_DATA = {
           108.3269066731135,
           179.68496935184186,
           175.24547559874398,
-          190.70299750963846
+          190.70299750963846,
+          159.55236305509294
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18368,6 +18456,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -18625,7 +18714,8 @@ window.BENCHMARK_DATA = {
           278.5254461606344,
           471.5609954516093,
           443.48585170110067,
-          485.8339345932007
+          485.8339345932007,
+          406.53076248168946
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18759,6 +18849,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -20043,6 +20134,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -20244,7 +20341,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -20449,7 +20547,8 @@ window.BENCHMARK_DATA = {
           477.88664957193225,
           586.9609452656338,
           573.6851449693952,
-          580.5891625086466
+          580.5891625086466,
+          490.35055126462663
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20651,6 +20750,7 @@ window.BENCHMARK_DATA = {
           1968,
           1728,
           1728,
+          1744,
           1744,
           1744,
           1744,
@@ -20872,7 +20972,8 @@ window.BENCHMARK_DATA = {
           62712.94105747768,
           152139.08705357142,
           148598.41001674108,
-          206844.98175920759
+          206844.98175920759,
+          120662.86173502605
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21082,7 +21183,8 @@ window.BENCHMARK_DATA = {
           18906,
           18901,
           18900,
-          18901
+          18901,
+          18906
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21295,7 +21397,8 @@ window.BENCHMARK_DATA = {
           5106.925076998197,
           8555.642892456055,
           8333.834365844727,
-          9389.882711138043
+          9389.882711138043,
+          7031.518410237631
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21505,7 +21608,8 @@ window.BENCHMARK_DATA = {
           12344,
           12345,
           12345,
-          11785
+          11785,
+          12344
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21718,7 +21822,8 @@ window.BENCHMARK_DATA = {
           5278.90275984544,
           8770.562314860026,
           8120.602615356445,
-          9467.535686238607
+          9467.535686238607,
+          7128.98694559733
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21928,7 +22033,8 @@ window.BENCHMARK_DATA = {
           16394,
           16393,
           16393,
-          16393
+          16393,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22141,7 +22247,8 @@ window.BENCHMARK_DATA = {
           277.0800842603048,
           359.89884656270345,
           348.06772998174034,
-          385.9180063883463
+          385.9180063883463,
+          311.67475703557335
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22307,6 +22414,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -22564,7 +22672,8 @@ window.BENCHMARK_DATA = {
           1096.4231646401543,
           1404.0432623454503,
           1329.7266114098686,
-          1485.7744383130755
+          1485.7744383130755,
+          1166.9974824269614
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22698,6 +22807,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -23982,6 +24092,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -24183,7 +24299,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -24388,7 +24505,8 @@ window.BENCHMARK_DATA = {
           592.3143683161054,
           386.99787243207294,
           401.115576340602,
-          445.7634626706441
+          445.7634626706441,
+          268.287948067983
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24590,6 +24708,7 @@ window.BENCHMARK_DATA = {
           1480,
           1424,
           1424,
+          1456,
           1456,
           1456,
           1456,
@@ -24811,7 +24930,8 @@ window.BENCHMARK_DATA = {
           11323.329150390626,
           6961.633583577474,
           6978.093854631697,
-          11318.5029296875
+          11318.5029296875,
+          5619.744224039713
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25021,7 +25141,8 @@ window.BENCHMARK_DATA = {
           10569,
           10568,
           10568,
-          10569
+          10569,
+          10568
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25234,7 +25355,8 @@ window.BENCHMARK_DATA = {
           7856.798731122698,
           5208.112834676107,
           5344.401841970591,
-          7880.95794241769
+          7880.95794241769,
+          3764.692313639323
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25440,6 +25562,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -25657,7 +25780,8 @@ window.BENCHMARK_DATA = {
           7910.24141031901,
           4603.41772257487,
           4939.33309173584,
-          8142.387182617187
+          8142.387182617187,
+          3897.91383488973
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -25867,6 +25991,7 @@ window.BENCHMARK_DATA = {
           11196,
           11191,
           11191,
+          11196,
           11196
         ],
         "borderColor": "#4A6FA5",
@@ -26080,7 +26205,8 @@ window.BENCHMARK_DATA = {
           184.69698662757872,
           160.51087495258875,
           177.04943380355834,
-          187.87722967465717
+          187.87722967465717,
+          116.15354971090953
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26246,6 +26372,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -26503,7 +26630,8 @@ window.BENCHMARK_DATA = {
           467.6369476954142,
           398.1207644144694,
           428.45169159344266,
-          514.2473182678223
+          514.2473182678223,
+          294.58669385910036
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26699,6 +26827,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -27921,6 +28050,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -28122,7 +28257,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -28327,7 +28463,8 @@ window.BENCHMARK_DATA = {
           1008.7077271779378,
           898.7890079938448,
           1032.0032656351725,
-          1044.5643367767334
+          1044.5643367767334,
+          712.2141633351644
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28529,6 +28666,7 @@ window.BENCHMARK_DATA = {
           2752,
           2192,
           2192,
+          2224,
           2224,
           2224,
           2224,
@@ -28750,7 +28888,8 @@ window.BENCHMARK_DATA = {
           17631.1753519694,
           11571.815016682942,
           11841.342625935873,
-          18115.819281441825
+          18115.819281441825,
+          9128.530441792806
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28960,6 +29099,7 @@ window.BENCHMARK_DATA = {
           18505,
           18504,
           18504,
+          18505,
           18505
         ],
         "borderColor": "#A052B0",
@@ -29173,7 +29313,8 @@ window.BENCHMARK_DATA = {
           17927.914076741537,
           11347.709490966798,
           11877.863650512696,
-          18227.336458333335
+          18227.336458333335,
+          8829.666462198893
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29383,6 +29524,7 @@ window.BENCHMARK_DATA = {
           21529,
           21528,
           21528,
+          21529,
           21529
         ],
         "borderColor": "#5E2750",
@@ -29596,7 +29738,8 @@ window.BENCHMARK_DATA = {
           19010.73832397461,
           11676.130981445312,
           12979.281825764974,
-          20082.15426166241
+          20082.15426166241,
+          9469.497249348959
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29806,6 +29949,7 @@ window.BENCHMARK_DATA = {
           30785,
           30780,
           30780,
+          30785,
           30785
         ],
         "borderColor": "#4A6FA5",
@@ -30019,7 +30163,8 @@ window.BENCHMARK_DATA = {
           338.3238596280416,
           318.40764812060763,
           342.99515393575035,
-          348.0794144357954
+          348.0794144357954,
+          255.08180974324543
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -30185,6 +30330,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -30442,7 +30588,8 @@ window.BENCHMARK_DATA = {
           1561.9472770690918,
           1562.210224004892,
           1674.950259753636,
-          1691.7680748530797
+          1691.7680748530797,
+          1155.4464263916016
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30638,6 +30785,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -31860,6 +32008,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -32061,7 +32215,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -32266,7 +32421,8 @@ window.BENCHMARK_DATA = {
           18.134504275520644,
           23.508907067775727,
           18.792607268691064,
-          12.83204514781634
+          12.83204514781634,
+          16.846459764242173
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -32324,6 +32480,7 @@ window.BENCHMARK_DATA = {
           440,
           440,
           440,
+          160,
           160,
           160,
           160,
@@ -32689,7 +32846,8 @@ window.BENCHMARK_DATA = {
           103.58112748180118,
           120.82220565478006,
           112.9571656355491,
-          75.00847987333934
+          75.00847987333934,
+          89.68613068262736
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -32855,6 +33013,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -33112,7 +33271,8 @@ window.BENCHMARK_DATA = {
           30.335250359773635,
           37.65516211589178,
           31.754089307785033,
-          22.022270719210308
+          22.022270719210308,
+          26.467162257858686
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -33246,6 +33406,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -33535,7 +33696,8 @@ window.BENCHMARK_DATA = {
           1318.2081212361654,
           1164.2448393957955,
           1281.9657564163208,
-          965.5358498891195
+          965.5358498891195,
+          1314.4808009221003
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33696,6 +33858,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -33958,7 +34121,8 @@ window.BENCHMARK_DATA = {
           1953.7882886614118,
           1683.7416632516045,
           1828.8090840657553,
-          1397.5297789255778
+          1397.5297789255778,
+          1949.5865242004395
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34119,6 +34283,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -34381,7 +34546,8 @@ window.BENCHMARK_DATA = {
           1725.5911404927572,
           1360.3377011617024,
           1520.0627497990927,
-          1213.6878109711868
+          1213.6878109711868,
+          1572.6970932006836
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34591,6 +34757,7 @@ window.BENCHMARK_DATA = {
           2755,
           2751,
           2755,
+          2755,
           2755
         ],
         "borderColor": "#4A6FA5",
@@ -34701,6 +34868,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 17 11:08:52 2026 \u002B0100",
         "message": "fix: emit valid XML documentation for mocks of closed generic types (#991)"
+      },
+      {
+        "sha": "513e0f2ec7430761832e1376d6b2e12b86867c59",
+        "author": "Valentin Breu\u00DF",
+        "date": "Tue Nov 17 16:14:04 2026 \u002B0100",
+        "message": "ci: wait up to 60 minutes for the NuGet listing before notifying the docs site (#992)"
       }
     ],
     "labels": [
@@ -34719,7 +34892,8 @@ window.BENCHMARK_DATA = {
       "869bdffc",
       "649b3ebc",
       "76d7c772",
-      "e05f9297"
+      "e05f9297",
+      "513e0f2e"
     ],
     "datasets": [
       {
@@ -34741,7 +34915,8 @@ window.BENCHMARK_DATA = {
           1419.0511953989665,
           779.4711776097615,
           899.3399258931478,
-          893.7968240102132
+          893.7968240102132,
+          1313.0446116129558
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -34761,6 +34936,7 @@ window.BENCHMARK_DATA = {
           4632,
           4632,
           4696,
+          4064,
           4064,
           4064,
           4064,
@@ -34798,7 +34974,8 @@ window.BENCHMARK_DATA = {
           976.3350034441266,
           536.0690596262614,
           717.814811484019,
-          661.6436131795248
+          661.6436131795248,
+          956.452172533671
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -34811,6 +34988,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           3000,
+          2968,
           2968,
           2968,
           2968,
@@ -34855,7 +35033,8 @@ window.BENCHMARK_DATA = {
           2612.7304171244305,
           1529.3939241262583,
           1970.3951657613118,
-          1698.3433681488036
+          1698.3433681488036,
+          2617.569265638079
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -34868,6 +35047,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           8936,
+          9528,
           9528,
           9528,
           9528,
@@ -34912,7 +35092,8 @@ window.BENCHMARK_DATA = {
           158149.725,
           98249.35779747597,
           217494.54521484376,
-          119333.50338541667
+          119333.50338541667,
+          344717.2594401042
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34939,7 +35120,8 @@ window.BENCHMARK_DATA = {
           36239,
           36017,
           36253,
-          35981
+          35981,
+          36108
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34969,7 +35151,8 @@ window.BENCHMARK_DATA = {
           22667.448178804836,
           11826.410975529598,
           16496.754311116536,
-          15818.023978097099
+          15818.023978097099,
+          23533.87001546224
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34996,7 +35179,8 @@ window.BENCHMARK_DATA = {
           36169,
           36171,
           36171,
-          36169
+          36169,
+          36171
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -35026,7 +35210,8 @@ window.BENCHMARK_DATA = {
           16238.345012958232,
           10326.401473999023,
           14436.847284952799,
-          11112.337038480318
+          11112.337038480318,
+          21108.67580304827
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35053,7 +35238,8 @@ window.BENCHMARK_DATA = {
           28510,
           28540,
           28540,
-          28510
+          28510,
+          28541
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
