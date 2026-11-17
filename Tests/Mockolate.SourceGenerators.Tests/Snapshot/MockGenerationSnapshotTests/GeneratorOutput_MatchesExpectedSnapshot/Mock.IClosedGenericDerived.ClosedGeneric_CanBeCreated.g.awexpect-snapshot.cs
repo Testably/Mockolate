@@ -370,7 +370,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, values, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<long>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(long)!, value, values) : default(long)!);
+			return methodSetup?.TryGetReturnValue(value, values, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<long>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(long)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(long)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(long)!, value, values) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric{T}.Convert{TOther}(T)" />
@@ -441,7 +441,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<TOther>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(TOther)!, value) : default(TOther)!);
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<TOther>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(TOther)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(TOther)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(TOther)!, value) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric{T}.Pair(global::System.ValueTuple{T, string})" />
@@ -511,7 +511,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.MayGenerate<long>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(long)!, value) : default(long)!), (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!));
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<long>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(long)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(long)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(long)!, value) }), (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) }));
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.IClosedGenericDerived

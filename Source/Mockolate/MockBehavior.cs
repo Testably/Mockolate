@@ -333,20 +333,25 @@ public record MockBehavior : IMockBehaviorAccess
 		: IDefaultValueGenerator, IDefaultValueProbe
 	{
 		/// <summary>
-		///     A factory with a user-defined predicate counts as a possible match, so that the predicate is never
-		///     evaluated more often than without the probe.
+		///     A factory with a user-defined predicate counts as a match that needs the arguments, so that the
+		///     predicate is never evaluated more often than without the probe.
 		/// </summary>
-		public bool MayGenerateValue(Type type)
+		public DefaultValueSource Probe(Type type)
 		{
 			foreach (DefaultValueFactory factory in factories)
 			{
-				if (factory is not TypedDefaultValueFactory typed || typed.Type == type)
+				if (factory is not TypedDefaultValueFactory typed)
 				{
-					return true;
+					return DefaultValueSource.WithArguments;
+				}
+
+				if (typed.Type == type)
+				{
+					return DefaultValueSource.WithoutArguments;
 				}
 			}
 
-			return inner is not IDefaultValueProbe probe || probe.MayGenerateValue(type);
+			return inner is IDefaultValueProbe probe ? probe.Probe(type) : DefaultValueSource.WithArguments;
 		}
 
 		public object? GenerateValue(Type type, params object?[] parameters)

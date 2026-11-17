@@ -187,7 +187,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<string>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, value) : default(string)!);
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<string>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(string)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, value) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.ClosedGenericBase{T}.Pair(global::System.ValueTuple{T, int})" />
@@ -262,7 +262,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.MayGenerate<string>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, value) : default(string)!), (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!));
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<string>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(string)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, value) }), (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) }));
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.ClosedGenericBase<string>

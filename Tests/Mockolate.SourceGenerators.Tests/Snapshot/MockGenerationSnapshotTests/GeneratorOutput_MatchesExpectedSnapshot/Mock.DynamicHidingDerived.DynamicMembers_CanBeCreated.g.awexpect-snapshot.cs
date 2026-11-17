@@ -188,7 +188,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(x, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<object>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, x) : default(object)!);
+			return methodSetup?.TryGetReturnValue(x, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<object>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(object)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, x) });
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived

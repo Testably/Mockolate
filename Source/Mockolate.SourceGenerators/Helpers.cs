@@ -500,7 +500,11 @@ internal static class Helpers
 			              !(type.GenericTypeParameters?.Count > 0);
 			if (isLazy)
 			{
-				sb.Append('(').Append(defaultValueName).Append(".MayGenerate<").Append(type.Fullname).Append(">() ? ");
+				sb.Append('(').Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
+					.Append(">() switch { global::Mockolate.Internals.DefaultValueSource.None => default(")
+					.Append(type.Fullname)
+					.Append(")!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => ")
+					.Append(defaultValueName).Append(".Generate(default(").Append(type.Fullname).Append(")!), _ => ");
 			}
 
 			sb.Append(defaultValueName);
@@ -539,7 +543,7 @@ internal static class Helpers
 			sb.Append(")");
 			if (isLazy)
 			{
-				sb.Append(" : default(").Append(type.Fullname).Append(")!)");
+				sb.Append(" })");
 			}
 
 			return sb;

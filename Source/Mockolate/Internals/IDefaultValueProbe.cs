@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Lets an <see cref="IDefaultValueGenerator" /> tell upfront that it has no value for a type, so that
-///     generated code can skip collecting the invocation arguments for
-///     <see cref="IDefaultValueGenerator.GenerateValue(Type, object?[])" />.
+///     Lets an <see cref="IDefaultValueGenerator" /> tell upfront how it produces the default value of a type, so
+///     that generated code only collects the invocation arguments for
+///     <see cref="IDefaultValueGenerator.GenerateValue(Type, object?[])" /> when they are needed.
 /// </summary>
 /// <remarks>
 ///     This type is public only so that generated code can use it; it is not intended to be used directly.
@@ -15,9 +15,28 @@ namespace Mockolate.Internals;
 public interface IDefaultValueProbe
 {
 	/// <summary>
-	///     Returns <see langword="false" /> only when
-	///     <see cref="IDefaultValueGenerator.GenerateValue(Type, object?[])" /> returns <see langword="null" /> for
-	///     <paramref name="type" />, whatever the arguments are. Must not run user code.
+	///     Tells how <see cref="IDefaultValueGenerator.GenerateValue(Type, object?[])" /> answers for
+	///     <paramref name="type" />. Must not run user code; when in doubt it answers
+	///     <see cref="DefaultValueSource.WithArguments" />.
 	/// </summary>
-	bool MayGenerateValue(Type type);
+	DefaultValueSource Probe(Type type);
+}
+
+/// <summary>
+///     How an <see cref="IDefaultValueGenerator" /> produces the default value of a type.
+/// </summary>
+/// <remarks>
+///     This type is public only so that generated code can use it; it is not intended to be used directly.
+/// </remarks>
+[EditorBrowsable(EditorBrowsableState.Never)]
+public enum DefaultValueSource
+{
+	/// <summary>The generator returns <see langword="null" /> for the type, whatever the arguments are.</summary>
+	None,
+
+	/// <summary>The generator returns the same value for the type with and without the arguments.</summary>
+	WithoutArguments,
+
+	/// <summary>The generator may use the arguments to produce the value.</summary>
+	WithArguments,
 }

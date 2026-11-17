@@ -37,7 +37,7 @@ public sealed partial class MockTests
 				.Contains("methodSetup?.TriggerCallbacks(baseResult);")
 				.IgnoringNewlineStyle().And
 				.Contains(
-					"return methodSetup?.TryGetReturnValue(baseResult, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, baseResult) : default(int)!);")
+					"return methodSetup?.TryGetReturnValue(baseResult, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, baseResult) });")
 				.IgnoringNewlineStyle();
 		}
 

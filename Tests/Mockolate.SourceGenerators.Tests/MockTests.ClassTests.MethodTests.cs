@@ -243,7 +243,7 @@ public sealed partial class MockTests
 					.Contains("methodSetup?.TriggerCallbacks(methodExecution);")
 					.IgnoringNewlineStyle().And
 					.Contains(
-						"return methodSetup?.TryGetReturnValue(methodExecution, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, methodExecution) : default(int)!);")
+						"return methodSetup?.TryGetReturnValue(methodExecution, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, methodExecution) });")
 					.IgnoringNewlineStyle();
 			}
 
@@ -312,7 +312,7 @@ public sealed partial class MockTests
 					.Contains("methodSetup?.TriggerCallbacks(result);")
 					.IgnoringNewlineStyle().And
 					.Contains(
-						"return methodSetup?.TryGetReturnValue(result, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, result) : default(int)!);")
+						"return methodSetup?.TryGetReturnValue(result, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, result) });")
 					.IgnoringNewlineStyle();
 			}
 
@@ -600,7 +600,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(index, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<bool>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index) : default(bool)!);
+					          			return methodSetup?.TryGetReturnValue(index, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<bool>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(bool)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index) });
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""
@@ -714,7 +714,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!);
+					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) });
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""
@@ -753,7 +753,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!);
+					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) });
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""
@@ -792,7 +792,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!);
+					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) });
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""
@@ -831,7 +831,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<int>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) : default(int)!);
+					          			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) });
 					          		}
 					          """).IgnoringNewlineStyle();
 			}
@@ -997,7 +997,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(index, isReadOnly, value1, flag, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<bool>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index, isReadOnly, value1, flag) : default(bool)!);
+					          			return methodSetup?.TryGetReturnValue(index, isReadOnly, value1, flag, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<bool>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(bool)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index, isReadOnly, value1, flag) });
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.DoesNotContain("MyNonVirtualMethod").Because("The method is not virtual!").And
@@ -1248,7 +1248,7 @@ public sealed partial class MockTests
 					          			{
 					          				return wrappedResult;
 					          			}
-					          			return methodSetup?.TryGetReturnValue(index, isReadOnly, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<bool>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index, isReadOnly) : default(bool)!);
+					          			return methodSetup?.TryGetReturnValue(index, isReadOnly, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<bool>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(bool)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, index, isReadOnly) });
 					          		}
 					          """).IgnoringNewlineStyle().And
 					.Contains("""

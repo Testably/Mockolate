@@ -250,7 +250,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(request, cancellationToken, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.MayGenerate<global::System.Net.Http.HttpResponseMessage>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Net.Http.HttpResponseMessage)!, request, cancellationToken) : default(global::System.Net.Http.HttpResponseMessage)!);
+			return methodSetup?.TryGetReturnValue(request, cancellationToken, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<global::System.Net.Http.HttpResponseMessage>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(global::System.Net.Http.HttpResponseMessage)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Net.Http.HttpResponseMessage)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Net.Http.HttpResponseMessage)!, request, cancellationToken) });
 		}
 
 		/// <inheritdoc cref="global::System.Net.Http.HttpMessageInvoker.SendAsync(global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken)" />
@@ -337,7 +337,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(request, cancellationToken, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>)!, (this.MockRegistry.Behavior.DefaultValue.MayGenerate<global::System.Net.Http.HttpResponseMessage>() ? this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Net.Http.HttpResponseMessage)!, request, cancellationToken) : default(global::System.Net.Http.HttpResponseMessage)!), request, cancellationToken);
+			return methodSetup?.TryGetReturnValue(request, cancellationToken, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage>)!, (this.MockRegistry.Behavior.DefaultValue.Probe<global::System.Net.Http.HttpResponseMessage>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(global::System.Net.Http.HttpResponseMessage)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Net.Http.HttpResponseMessage)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Net.Http.HttpResponseMessage)!, request, cancellationToken) }), request, cancellationToken);
 		}
 
 		/// <inheritdoc cref="global::System.Net.Http.HttpMessageInvoker.Dispose(bool)" />

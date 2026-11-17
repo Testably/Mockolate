@@ -56,13 +56,18 @@ internal static partial class Mock
 		/// </summary>
 		object? Create(global::System.Type type, IDefaultValueGenerator defaultValueGenerator, object?[] parameters);
 	}
-	
+
+	/// <summary>
+	///     Marks a <see cref="IDefaultValueFactory">IDefaultValueFactory</see> that creates the same value whatever the parameters are.
+	/// </summary>
+	internal interface IDefaultValueFactoryWithoutParameters;
+
 	/// <summary>
 	///     A <see cref="IDefaultValueFactory">IDefaultValueFactory</see> that returns a specified <paramref name="value" /> for the given type
 	///     parameter <typeparamref name="T" />.
 	/// </summary>
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	internal class TypedDefaultValueFactory<T>(T value) : IDefaultValueFactory
+	internal class TypedDefaultValueFactory<T>(T value) : IDefaultValueFactory, IDefaultValueFactoryWithoutParameters
 	{
 		/// <inheritdoc cref="IDefaultValueFactory.IsMatch(global::System.Type)" />
 		public bool IsMatch(global::System.Type type)
@@ -117,23 +122,25 @@ internal static partial class Mock
 			while (global::System.Threading.Interlocked.CompareExchange(ref _factories, updated, current) != current);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Internals.IDefaultValueProbe.MayGenerateValue(global::System.Type)" />
-		bool global::Mockolate.Internals.IDefaultValueProbe.MayGenerateValue(global::System.Type type)
+		/// <inheritdoc cref="global::Mockolate.Internals.IDefaultValueProbe.Probe(global::System.Type)" />
+		global::Mockolate.Internals.DefaultValueSource global::Mockolate.Internals.IDefaultValueProbe.Probe(global::System.Type type)
 		{
 			if (GetType() != typeof(DefaultValueGenerator))
 			{
-				return true;
+				return global::Mockolate.Internals.DefaultValueSource.WithArguments;
 			}
 
 			foreach (IDefaultValueFactory factory in global::System.Threading.Volatile.Read(ref _factories))
 			{
 				if (factory.IsMatch(type))
 				{
-					return true;
+					return factory is IDefaultValueFactoryWithoutParameters
+						? global::Mockolate.Internals.DefaultValueSource.WithoutArguments
+						: global::Mockolate.Internals.DefaultValueSource.WithArguments;
 				}
 			}
 
-			return false;
+			return global::Mockolate.Internals.DefaultValueSource.None;
 		}
 	
 		/// <summary>
@@ -310,11 +317,13 @@ internal static class DefaultValueGeneratorExtensions
 		}
 
 		/// <summary>
-		///     Checks whether a default value of type <typeparamref name="T" /> has to be requested from the generator,
-		///     so that the invocation parameters are only collected when they are needed.
+		///     Tells how the generator produces the default value of type <typeparamref name="T" />, so that the
+		///     invocation parameters are only collected when they are needed.
 		/// </summary>
-		public bool MayGenerate<T>()
-			=> generator is not global::Mockolate.Internals.IDefaultValueProbe probe || probe.MayGenerateValue(typeof(T));
+		public global::Mockolate.Internals.DefaultValueSource Probe<T>()
+			=> generator is global::Mockolate.Internals.IDefaultValueProbe probe
+				? probe.Probe(typeof(T))
+				: global::Mockolate.Internals.DefaultValueSource.WithArguments;
 	}
 }
 
