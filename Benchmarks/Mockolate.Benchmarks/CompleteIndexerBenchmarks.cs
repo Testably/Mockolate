@@ -17,7 +17,7 @@ namespace Mockolate.Benchmarks;
 /// </summary>
 public class CompleteIndexerBenchmarks : BenchmarksBase
 {
-	[Params(1, 10)] public int N { get; set; }
+	[Params(1, 10, 1000)] public int N { get; set; }
 
 	/// <summary>
 	///     <see href="https://docs.testably.org/Mockolate" />
