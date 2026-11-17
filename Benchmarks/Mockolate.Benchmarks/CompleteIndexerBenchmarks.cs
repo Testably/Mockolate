@@ -58,7 +58,6 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 		imposter[Imposter.Abstractions.Arg<int>.Any()].Setter().Called(Count.Exactly(N));
 	}
 
-	/* Indexers not supported on TUnit.Mocks
 	/// <summary>
 	///     <see href="https://github.com/thomhurst/TUnit/" />
 	/// </summary>
@@ -66,7 +65,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	public void Indexer_TUnitMocks()
 	{
 		TUnit.Mocks.Mock<IChocolateCatalog> mock = IChocolateCatalog.Mock();
-		mock[Any<int>()].Returns("Dark");
+		mock.Item(Any<int>()).Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
@@ -74,9 +73,9 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 			mock.Object[42] = "Milk";
 		}
 
-		mock[Any<int>()].WasCalled(TUnit.Mocks.Times.Exactly(N));
+		mock.Item(Any<int>()).WasCalled(TUnit.Mocks.Times.Exactly(N));
+		mock.SetItem(Any<int>(), Any<string>()).WasCalled(TUnit.Mocks.Times.Exactly(N));
 	}
-	*/
 
 	/// <summary>
 	///     <see href="https://github.com/devlooped/moq" />
