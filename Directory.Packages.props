@@ -43,8 +43,8 @@
 		<PackageVersion Include="aweXpect.Snapshots.DiffEngine" Version="4.2.0"/>
 		<PackageVersion Include="aweXpect.Snapshots.PublicApi" Version="4.2.0"/>
 		<PackageVersion Include="aweXpect" Version="4.2.0"/>
-		<PackageVersion Include="aweXpect.Chronology" Version="1.1.0"/>
-		<PackageVersion Include="aweXpect.Mockolate" Version="4.0.0-pre.4"/>
+		<PackageVersion Include="aweXpect.Chronology" Version="1.2.0"/>
+		<PackageVersion Include="aweXpect.Mockolate" Version="4.0.0"/>
 		<PackageVersion Include="Testably.Abstractions" Version="10.4.0"/>
 		<PackageVersion Include="Azure.Data.Tables" Version="12.13.0"/>
 		<PackageVersion Include="Azure.Storage.Blobs" Version="12.30.1"/>
