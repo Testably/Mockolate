@@ -64,7 +64,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	[Benchmark]
 	public void Indexer_TUnitMocks()
 	{
-		TUnit.Mocks.Mock<IChocolateCatalog> mock = IChocolateCatalog.Mock();
+		CompleteIndexerBenchmarks_IChocolateCatalogMock mock = IChocolateCatalog.Mock();
 		mock.Item(Any<int>()).Returns("Dark");
 
 		for (int i = 0; i < N; i++)
