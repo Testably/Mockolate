@@ -6577,7 +6577,7 @@ internal static partial class Sources
 
 		foreach (MethodParameter parameter in constructor.Parameters)
 		{
-			sb.AppendXmlParam(parameter.Name, "Value forwarded to the base-class constructor.");
+			sb.AppendXmlParam(parameter.Name.TrimStart('@'), "Value forwarded to the base-class constructor.");
 		}
 
 		sb.AppendXmlReturns(createMockReturns);

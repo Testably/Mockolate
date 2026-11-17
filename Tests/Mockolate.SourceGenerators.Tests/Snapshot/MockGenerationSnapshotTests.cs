@@ -59,6 +59,7 @@ public sealed partial class MockGenerationSnapshotTests
             ClosedGenericBase<string> sut2 = ClosedGenericBase<string>.CreateMock();
             ClosedGenericDelegate<int, string> sut3 = ClosedGenericDelegate<int, string>.CreateMock();
             IClosedGeneric<int> sut4 = IClosedGeneric<int>.CreateMock().Implementing<IClosedGeneric<string>>();
+            IClosedGenericDerived sut5 = IClosedGenericDerived.CreateMock();
             """,
             []),
         new(
@@ -106,7 +107,8 @@ public sealed partial class MockGenerationSnapshotTests
             "KeywordEdgeCases_CanBeCreated",
             ["IKeywordEdgeCases.cs",],
             """
-            IKeywordEdgeCases sut = IKeywordEdgeCases.CreateMock();
+            IKeywordEdgeCases sut1 = IKeywordEdgeCases.CreateMock();
+            KeywordEdgeCasesBase sut2 = KeywordEdgeCasesBase.CreateMock("class", 1);
             """,
             []),
         new(
@@ -148,6 +150,7 @@ public sealed partial class MockGenerationSnapshotTests
             ClosedGenericBase<string> sut2 = ClosedGenericBase<string>.CreateMock();
             ClosedGenericDelegate<int, string> sut3 = ClosedGenericDelegate<int, string>.CreateMock();
             IClosedGeneric<int> sut4 = IClosedGeneric<int>.CreateMock().Implementing<IClosedGeneric<string>>();
+            IClosedGenericDerived sut5 = IClosedGenericDerived.CreateMock();
             """,
             [],
             UnionMode: true),
@@ -185,7 +188,8 @@ public sealed partial class MockGenerationSnapshotTests
             "KeywordEdgeCases_CanBeCreated_Unions",
             ["IKeywordEdgeCases.cs",],
             """
-            IKeywordEdgeCases sut = IKeywordEdgeCases.CreateMock();
+            IKeywordEdgeCases sut1 = IKeywordEdgeCases.CreateMock();
+            KeywordEdgeCasesBase sut2 = KeywordEdgeCasesBase.CreateMock("class", 1);
             """,
             [],
             UnionMode: true),

@@ -18,6 +18,11 @@ public interface IClosedGeneric<T>
 	(T Item, int Count) Pair((T, string) value);
 }
 
+public interface IClosedGenericDerived : IClosedGeneric<long>
+{
+	void Other(ref int value);
+}
+
 public abstract class ClosedGenericBase<T>
 {
 	public abstract T Get(T value);
