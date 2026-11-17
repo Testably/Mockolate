@@ -65,7 +65,7 @@ public abstract class RecordList
 	///     yet, so concurrent readers agree on a single instance.
 	/// </summary>
 	protected static IInteraction SetBoxed(RecordNode node, IInteraction boxed)
-		=> Interlocked.CompareExchange(ref node.Boxed, boxed, null) ?? boxed;
+		=> node.SetBoxed(boxed);
 
 	/// <summary>
 	///     Removes every recorded call and drops the calls that are still being recorded.
@@ -91,21 +91,33 @@ public abstract class RecordList
 /// <remarks>
 ///     This type is public only so that generated code can use it; it is not intended to be used directly.
 /// </remarks>
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
 [EditorBrowsable(EditorBrowsableState.Never)]
 public abstract class RecordNode
 {
+	private IInteraction? _boxed;
+
 	/// <summary>The mock-wide sequence number of the call.</summary>
-	public long Seq;
+	public long Seq { get; set; }
 
 	/// <summary>The zero-based position of the call in its list.</summary>
-	public int Index;
+	internal int Index { get; set; }
 
 	/// <summary>The next older call, or <see langword="null" />.</summary>
-	public RecordNode? Next;
+	public RecordNode? Next { get; internal set; }
 
 	/// <summary>Whether a verification has matched the call.</summary>
-	public bool Verified;
+	public bool Verified { get; set; }
 
 	/// <summary>The boxed interaction, created lazily on enumeration.</summary>
-	public IInteraction? Boxed;
+	public IInteraction? Boxed
+	{
+		get => _boxed;
+		internal set => _boxed = value;
+	}
+
+	internal IInteraction SetBoxed(IInteraction boxed)
+		=> Interlocked.CompareExchange(ref _boxed, boxed, null) ?? boxed;
 }
