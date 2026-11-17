@@ -715,6 +715,11 @@ public partial class MockRegistry
 						((IInteractivePropertySetup)snapshot).InitializeWith(defaultValueGenerator(Behavior));
 					}
 
+					if (snapshot is PropertySetup<TResult> typed)
+					{
+						return typed.InvokeGetterTyped();
+					}
+
 					return snapshot.InvokeGetterFast(Behavior, defaultValueGenerator);
 				}
 			}

@@ -339,6 +339,17 @@ public class PropertySetup<T> : PropertySetup,
 		return defaultValueGenerator(behavior);
 	}
 
+	/// <summary>
+	///     Counterpart of <see cref="InvokeGetterFast{TResult}(MockBehavior, Func{MockBehavior, TResult})" /> for a
+	///     getter of exactly <typeparamref name="T" />. It is not virtual, because a generic virtual call is
+	///     resolved at runtime on every property read.
+	/// </summary>
+	internal T InvokeGetterTyped()
+	{
+		RunGetterCallbacks();
+		return _value;
+	}
+
 	private void RunGetterCallbacks()
 	{
 		if (_getterCallbacks is not null)
