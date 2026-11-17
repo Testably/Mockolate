@@ -59,6 +59,8 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 
 Scenarios that generate the same content of a file share its snapshot, named after the file (`Mock.g`). When the scenarios generate several contents of a file, each is named after the first scenario (in ordinal order) that generates it, e.g. `MethodSetups.ComprehensiveInterface_CanBeCreated.g`. A change can therefore rename snapshots of other scenarios.
 
+Locally, a snapshot that is missing or different opens a diff tool through `aweXpect.Snapshots.DiffEngine` (e.g. Rider, Visual Studio or VS Code) that compares the pending file with the snapshot, so a single change can be reviewed and taken over there. It never opens on a build server; set `DiffEngine_Disabled=true` to turn it off locally, e.g. when a generator change touches many snapshots.
+
 After an intended change, accept the snapshots and review the diff:
 
 ```powershell
@@ -76,6 +78,7 @@ To add a scenario, add an entry to `Scenarios` and accept the snapshots.
 
 - rename the pending file to the snapshot name, or
 - run the explicit `AcceptApiChanges` test, or
+- take over the change in the diff tool that opens locally through `aweXpect.Snapshots.DiffEngine` (e.g. Rider, Visual Studio or VS Code; never on a build server, and `DiffEngine_Disabled=true` turns it off), or
 - run the tests with `AWEXPECT_ACCEPT_SNAPSHOTS=all`.
 
 ```powershell
