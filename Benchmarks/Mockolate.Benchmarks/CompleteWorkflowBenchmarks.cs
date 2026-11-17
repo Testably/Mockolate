@@ -15,8 +15,9 @@ using Times = Moq.Times;
 namespace Mockolate.Benchmarks;
 #pragma warning disable CA1822 // Mark members as static
 /// <summary>
-///     In this benchmark we simulate a complete unit test: a <see cref="ChocolateShop" /> sells chocolate with four mocked
-///     dependencies, which are set up with exact values, argument matchers and a property, and verified afterwards.
+///     In this benchmark we simulate a complete unit test: a <see cref="ChocolateShop" /> sells chocolate to three customers
+///     with four mocked dependencies, which are set up with exact values, argument matchers and a property, and verified
+///     afterwards. Each mocked member is called two or three times, because the last sale fails at the dispenser.
 /// </summary>
 public class CompleteWorkflowBenchmarks : BenchmarksBase
 {
@@ -36,10 +37,10 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 		register.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
 		clock.Mock.Setup.Now.InitializeWith(Now);
 
-		bool result = new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
+		bool result = SellToCustomers(new ChocolateShop(dispenser, register, clock, printer));
 
-		register.Mock.Verify.Charge("Alice", 4.5m).Once();
-		dispenser.Mock.Verify.Dispense("Dark", 3).Once();
+		register.Mock.Verify.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Exactly(3);
+		dispenser.Mock.Verify.Dispense("Dark", 3).Twice();
 		printer.Mock.Verify.Print("Alice", It.IsAny<string>()).Once();
 		return result;
 	}
@@ -58,11 +59,11 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 		register.Charge(Imposter.Abstractions.Arg<string>.Any(), Imposter.Abstractions.Arg<decimal>.Any()).Returns(true);
 		clock.Now.Getter().Returns(Now);
 
-		bool result = new ChocolateShop(dispenser.Instance(), register.Instance(), clock.Instance(), printer.Instance())
-			.Sell("Alice", "Dark", 3);
+		bool result = SellToCustomers(
+			new ChocolateShop(dispenser.Instance(), register.Instance(), clock.Instance(), printer.Instance()));
 
-		register.Charge("Alice", 4.5m).Called(Count.Once());
-		dispenser.Dispense("Dark", 3).Called(Count.Once());
+		register.Charge(Imposter.Abstractions.Arg<string>.Any(), Imposter.Abstractions.Arg<decimal>.Any()).Called(Count.Exactly(3));
+		dispenser.Dispense("Dark", 3).Called(Count.Twice());
 		printer.Print("Alice", Imposter.Abstractions.Arg<string>.Any()).Called(Count.Once());
 		return result;
 	}
@@ -81,11 +82,10 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 		register.Charge(Any<string>(), Any<decimal>()).Returns(true);
 		clock.Now.Returns(Now);
 
-		bool result = new ChocolateShop(dispenser.Object, register.Object, clock.Object, printer.Object)
-			.Sell("Alice", "Dark", 3);
+		bool result = SellToCustomers(new ChocolateShop(dispenser.Object, register.Object, clock.Object, printer.Object));
 
-		register.Charge("Alice", 4.5m).WasCalled(TUnit.Mocks.Times.Once);
-		dispenser.Dispense("Dark", 3).WasCalled(TUnit.Mocks.Times.Once);
+		register.Charge(Any<string>(), Any<decimal>()).WasCalled(TUnit.Mocks.Times.Exactly(3));
+		dispenser.Dispense("Dark", 3).WasCalled(TUnit.Mocks.Times.Exactly(2));
 		printer.Print("Alice", Any<string>()).WasCalled(TUnit.Mocks.Times.Once);
 		return result;
 	}
@@ -104,11 +104,10 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 		register.Setup(x => x.Charge(Moq.It.IsAny<string>(), Moq.It.IsAny<decimal>())).Returns(true);
 		clock.SetupGet(x => x.Now).Returns(Now);
 
-		bool result = new ChocolateShop(dispenser.Object, register.Object, clock.Object, printer.Object)
-			.Sell("Alice", "Dark", 3);
+		bool result = SellToCustomers(new ChocolateShop(dispenser.Object, register.Object, clock.Object, printer.Object));
 
-		register.Verify(x => x.Charge("Alice", 4.5m), Times.Once());
-		dispenser.Verify(x => x.Dispense("Dark", 3), Times.Once());
+		register.Verify(x => x.Charge(Moq.It.IsAny<string>(), Moq.It.IsAny<decimal>()), Times.Exactly(3));
+		dispenser.Verify(x => x.Dispense("Dark", 3), Times.Exactly(2));
 		printer.Verify(x => x.Print("Alice", Moq.It.IsAny<string>()), Times.Once());
 		return result;
 	}
@@ -127,10 +126,10 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 		register.Charge(Arg.Any<string>(), Arg.Any<decimal>()).Returns(true);
 		clock.Now.Returns(Now);
 
-		bool result = new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
+		bool result = SellToCustomers(new ChocolateShop(dispenser, register, clock, printer));
 
-		register.Received(1).Charge("Alice", 4.5m);
-		dispenser.Received(1).Dispense("Dark", 3);
+		register.Received(3).Charge(Arg.Any<string>(), Arg.Any<decimal>());
+		dispenser.Received(2).Dispense("Dark", 3);
 		printer.Received(1).Print("Alice", Arg.Any<string>());
 		return result;
 	}
@@ -149,13 +148,16 @@ public class CompleteWorkflowBenchmarks : BenchmarksBase
 		A.CallTo(() => register.Charge(A<string>.Ignored, A<decimal>.Ignored)).Returns(true);
 		A.CallTo(() => clock.Now).Returns(Now);
 
-		bool result = new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
+		bool result = SellToCustomers(new ChocolateShop(dispenser, register, clock, printer));
 
-		A.CallTo(() => register.Charge("Alice", 4.5m)).MustHaveHappenedOnceExactly();
-		A.CallTo(() => dispenser.Dispense("Dark", 3)).MustHaveHappenedOnceExactly();
+		A.CallTo(() => register.Charge(A<string>.Ignored, A<decimal>.Ignored)).MustHaveHappened(3, FakeItEasy.Times.Exactly);
+		A.CallTo(() => dispenser.Dispense("Dark", 3)).MustHaveHappenedTwiceExactly();
 		A.CallTo(() => printer.Print("Alice", A<string>.Ignored)).MustHaveHappenedOnceExactly();
 		return result;
 	}
+
+	private static bool SellToCustomers(ChocolateShop shop)
+		=> shop.Sell("Alice", "Dark", 3) & shop.Sell("Bob", "Dark", 3) & !shop.Sell("Carol", "Milk", 2);
 
 	public interface IChocolateDispenser
 	{
