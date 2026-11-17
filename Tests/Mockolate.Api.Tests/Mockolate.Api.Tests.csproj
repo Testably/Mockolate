@@ -9,6 +9,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="aweXpect.Snapshots.DiffEngine"/>
 		<PackageReference Include="aweXpect.Snapshots.PublicApi"/>
 	</ItemGroup>
 

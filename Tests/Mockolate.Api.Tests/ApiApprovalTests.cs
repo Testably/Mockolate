@@ -10,9 +10,9 @@ namespace Mockolate.Api.Tests;
 /// <summary>
 ///     Whenever a test fails, this means that the public API surface changed.
 ///     If the change was intentional, execute <see cref="AcceptApiChanges" />, rename the pending snapshot next to this
-///     file or run the tests with the environment variable <c>AWEXPECT_ACCEPT_SNAPSHOTS</c> set to <c>all</c> to take
-///     over the current public API surface. The changes will become part of the pull request and will be reviewed
-///     accordingly.
+///     file, take over the change in the diff tool that opens locally or run the tests with the environment variable
+///     <c>AWEXPECT_ACCEPT_SNAPSHOTS</c> set to <c>all</c> to take over the current public API surface. The changes
+///     will become part of the pull request and will be reviewed accordingly.
 /// </summary>
 public sealed class ApiApprovalTests
 {

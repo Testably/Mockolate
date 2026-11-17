@@ -39,9 +39,10 @@
 		<PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.14"/>
 		<PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.5.2"/>
 		<PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.12.0"/>
-		<PackageVersion Include="aweXpect.Snapshots" Version="4.0.0"/>
-		<PackageVersion Include="aweXpect.Snapshots.PublicApi" Version="4.0.0"/>
-		<PackageVersion Include="aweXpect" Version="4.0.0"/>
+		<PackageVersion Include="aweXpect.Snapshots" Version="4.2.0"/>
+		<PackageVersion Include="aweXpect.Snapshots.DiffEngine" Version="4.2.0"/>
+		<PackageVersion Include="aweXpect.Snapshots.PublicApi" Version="4.2.0"/>
+		<PackageVersion Include="aweXpect" Version="4.2.0"/>
 		<PackageVersion Include="aweXpect.Chronology" Version="1.1.0"/>
 		<PackageVersion Include="aweXpect.Mockolate" Version="4.0.0-pre.4"/>
 		<PackageVersion Include="Testably.Abstractions" Version="10.4.0"/>

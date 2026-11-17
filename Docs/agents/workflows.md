@@ -76,6 +76,7 @@ To add a scenario, add an entry to `Scenarios` and accept the snapshots.
 
 - rename the pending file to the snapshot name, or
 - run the explicit `AcceptApiChanges` test, or
+- take over the change in the diff tool that opens locally through `aweXpect.Snapshots.DiffEngine` (e.g. Rider, Visual Studio or VS Code; never on a build server, and `DiffEngine_Disabled=true` turns it off), or
 - run the tests with `AWEXPECT_ACCEPT_SNAPSHOTS=all`.
 
 ```powershell
