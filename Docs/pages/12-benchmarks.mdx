@@ -19,7 +19,7 @@ These benchmarks measure Mockolate's runtime overhead against
 
 <TabItem value="Complete" label="Complete test" default>
 
-A complete unit test: a `ChocolateShop` sells three bars of dark chocolate with four mocked dependencies. The mocks are set up with exact values, argument matchers and a property, and verified afterwards.
+A complete unit test: a `ChocolateShop` sells chocolate to three customers with four mocked dependencies. The mocks are set up with exact values, argument matchers and a property, and verified afterwards. Each mocked member is called two or three times, because the last sale fails at the dispenser.
 
 <MockolateBenchmarkResult name="Complete" />
 
@@ -32,10 +32,13 @@ dispenser.Mock.Setup.Dispense("Dark", 3).Returns(true);
 register.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
 clock.Mock.Setup.Now.InitializeWith(Now);
 
-new ChocolateShop(dispenser, register, clock, printer).Sell("Alice", "Dark", 3);
+ChocolateShop shop = new(dispenser, register, clock, printer);
+shop.Sell("Alice", "Dark", 3);
+shop.Sell("Bob", "Dark", 3);
+shop.Sell("Carol", "Milk", 2);
 
-register.Mock.Verify.Charge("Alice", 4.5m).Once();
-dispenser.Mock.Verify.Dispense("Dark", 3).Once();
+register.Mock.Verify.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Exactly(3);
+dispenser.Mock.Verify.Dispense("Dark", 3).Twice();
 printer.Mock.Verify.Print("Alice", It.IsAny<string>()).Once();
 ```
 
