@@ -20,10 +20,9 @@ namespace Mockolate.Interactions;
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-internal sealed class FastPropertyGetterBuffer : IFastMemberBuffer
+internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
-	private readonly ChunkedSlotStorage<Record> _storage = new();
 	private readonly PropertyGetterAccess _access;
 
 	/// <summary>
@@ -38,20 +37,16 @@ internal sealed class FastPropertyGetterBuffer : IFastMemberBuffer
 		_access = access;
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Count" />
-	public int Count => _storage.Count;
-
 	/// <summary>
 	///     Records a property getter access using the buffer's pre-seeded
 	///     <see cref="PropertyGetterAccess" /> singleton.
 	/// </summary>
 	public void Append()
 	{
-		long seq = _owner.NextSequence();
-		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-		ref Record r = ref generation.SlotForWrite(slot);
-		r.Seq = seq;
-		generation.Publish(slot);
+		int epoch = Epoch;
+		Record r = new();
+		r.Seq = _owner.NextSequence();
+		Push(r, epoch);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -59,49 +54,28 @@ internal sealed class FastPropertyGetterBuffer : IFastMemberBuffer
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Clear" />
-	public void Clear() => _storage.Clear();
-
 	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		PropertyGetterAccess access = _access;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			if (n == 0)
-			{
-				return;
-			}
-
-			PropertyGetterAccess access = _access;
-			for (int slot = 0; slot < n; slot++)
-			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				dest.Add((r.Seq, access));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, access));
 		}
 	}
 
 	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		PropertyGetterAccess access = _access;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			if (n == 0)
+			if (node.Verified)
 			{
-				return;
+				continue;
 			}
 
-			PropertyGetterAccess access = _access;
-			for (int slot = 0; slot < n; slot++)
-			{
-				if (_storage.IsVerifiedUnderLock(slot))
-				{
-					continue;
-				}
-
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				dest.Add((r.Seq, access));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, access));
 		}
 	}
 
@@ -114,21 +88,18 @@ internal sealed class FastPropertyGetterBuffer : IFastMemberBuffer
 	/// </summary>
 	public int ConsumeMatching()
 	{
-		lock (_storage.Lock)
+		int n = 0;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				_storage.VerifiedUnderLock(slot) = true;
-			}
-
-			return n;
+			node.Verified = true;
+			n++;
 		}
+
+		return n;
 	}
 
-	internal struct Record
+	private sealed class Record : RecordNode
 	{
-		public long Seq;
 	}
 }
 
@@ -139,10 +110,9 @@ internal sealed class FastPropertyGetterBuffer : IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-internal sealed class FastPropertySetterBuffer<T> : IFastMemberBuffer
+internal sealed class FastPropertySetterBuffer<T> : RecordList, IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
-	private readonly ChunkedSlotStorage<Record> _storage = new();
 
 	/// <summary>
 	///     Creates a new property-setter buffer attached to <paramref name="owner" />.
@@ -153,22 +123,17 @@ internal sealed class FastPropertySetterBuffer<T> : IFastMemberBuffer
 		_owner = owner;
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Count" />
-	public int Count => _storage.Count;
-
 	/// <summary>
 	///     Records a property setter access.
 	/// </summary>
 	public void Append(string name, T value)
 	{
-		long seq = _owner.NextSequence();
-		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-		ref Record r = ref generation.SlotForWrite(slot);
-		r.Seq = seq;
+		int epoch = Epoch;
+		Record r = new();
+		r.Seq = _owner.NextSequence();
 		r.Name = name;
 		r.Value = value;
-		r.Boxed = null;
-		generation.Publish(slot);
+		Push(r, epoch);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -176,39 +141,26 @@ internal sealed class FastPropertySetterBuffer<T> : IFastMemberBuffer
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Clear" />
-	public void Clear() => _storage.Clear();
-
 	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new PropertySetterAccess<T>(r.Name, r.Value);
-				dest.Add((r.Seq, r.Boxed));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new PropertySetterAccess<T>(r.Name, r.Value))));
 		}
 	}
 
 	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			if (node.Verified)
 			{
-				if (_storage.IsVerifiedUnderLock(slot))
-				{
-					continue;
-				}
-
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new PropertySetterAccess<T>(r.Name, r.Value);
-				dest.Add((r.Seq, r.Boxed));
+				continue;
 			}
+
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new PropertySetterAccess<T>(r.Name, r.Value))));
 		}
 	}
 
@@ -221,28 +173,22 @@ internal sealed class FastPropertySetterBuffer<T> : IFastMemberBuffer
 	public int ConsumeMatching(IParameterMatch<T> match)
 	{
 		int matches = 0;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (match.Matches(r.Value))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (match.Matches(r.Value))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
 		return matches;
 	}
 
-	internal struct Record
+	private sealed class Record : RecordNode
 	{
-		public long Seq;
-		public string Name;
-		public T Value;
-		public IInteraction? Boxed;
+		public string Name = null!;
+		public T Value = default!;
 	}
 }

@@ -637,21 +637,17 @@ namespace Mockolate.Internals
 	///     Per-member buffer for 6-parameter methods, synthesized for arity 6 use sites.
 	/// </summary>
 	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
-	internal sealed class FastMethod6Buffer<T1, T2, T3, T4, T5, T6> : global::Mockolate.Internals.IFastMemberBuffer
+	internal sealed class FastMethod6Buffer<T1, T2, T3, T4, T5, T6> : global::Mockolate.Internals.RecordList, global::Mockolate.Internals.IFastMemberBuffer
 	{
 		private readonly global::Mockolate.Internals.FastMockInteractions _owner;
-		private readonly global::Mockolate.Internals.ChunkedSlotStorage<Record> _storage = new();
 
 		internal FastMethod6Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;
 
-		public int Count => _storage.Count;
-
 		public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6)
 		{
-			long seq = _owner.NextSequence();
-			global::Mockolate.Internals.ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-			ref Record r = ref generation.SlotForWrite(slot);
-			r.Seq = seq;
+			int epoch = Epoch;
+			Record r = new Record();
+			r.Seq = _owner.NextSequence();
 			r.Name = name;
 			r.P1 = parameter1;
 			r.P2 = parameter2;
@@ -659,74 +655,55 @@ namespace Mockolate.Internals
 			r.P4 = parameter4;
 			r.P5 = parameter5;
 			r.P6 = parameter6;
-			r.Boxed = null;
-			generation.Publish(slot);
+			Push(r, epoch);
 
 			if (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();
 		}
 
-		public void Clear() => _storage.Clear();
-
 		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
 		{
-			using (_storage.EnterLock())
+			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
 			{
-				int n = _storage.PublishedUnderLock;
-				for (int i = 0; i < n; i++)
-				{
-					ref Record r = ref _storage.SlotUnderLock(i);
-					r.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6);
-					dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));
-				}
+				Record r = (Record)node;
+				dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6))));
 			}
 		}
 
 		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
 		{
-			using (_storage.EnterLock())
+			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
 			{
-				int n = _storage.PublishedUnderLock;
-				for (int i = 0; i < n; i++)
-				{
-					if (_storage.IsVerifiedUnderLock(i)) continue;
-					ref Record r = ref _storage.SlotUnderLock(i);
-					r.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6);
-					dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));
-				}
+				if (node.Verified) continue;
+				Record r = (Record)node;
+				dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6))));
 			}
 		}
 
 		public int ConsumeMatching(global::Mockolate.Parameters.IParameterMatch<T1> match1, global::Mockolate.Parameters.IParameterMatch<T2> match2, global::Mockolate.Parameters.IParameterMatch<T3> match3, global::Mockolate.Parameters.IParameterMatch<T4> match4, global::Mockolate.Parameters.IParameterMatch<T5> match5, global::Mockolate.Parameters.IParameterMatch<T6> match6)
 		{
 			int matches = 0;
-			using (_storage.EnterLock())
+			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
 			{
-				int n = _storage.PublishedUnderLock;
-				for (int i = 0; i < n; i++)
+				Record r = (Record)node;
+				if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5) && match6.Matches(r.P6))
 				{
-					ref Record r = ref _storage.SlotUnderLock(i);
-					if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5) && match6.Matches(r.P6))
-					{
-						matches++;
-						_storage.VerifiedUnderLock(i) = true;
-					}
+					matches++;
+					r.Verified = true;
 				}
 			}
 
 			return matches;
 		}
 
-		private struct Record
+		private sealed class Record : global::Mockolate.Internals.RecordNode
 		{
-			public long Seq;
-			public string Name;
-			public T1 P1;
-			public T2 P2;
-			public T3 P3;
-			public T4 P4;
-			public T5 P5;
-			public T6 P6;
-			public global::Mockolate.Interactions.IInteraction? Boxed;
+			public string Name = null!;
+			public T1 P1 = default!;
+			public T2 P2 = default!;
+			public T3 P3 = default!;
+			public T4 P4 = default!;
+			public T5 P5 = default!;
+			public T6 P6 = default!;
 		}
 	}
 }

@@ -26,11 +26,10 @@ internal enum FastEventBufferKind
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-internal sealed class FastEventBuffer : IFastMemberBuffer
+internal sealed class FastEventBuffer : RecordList, IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
 	private readonly FastEventBufferKind _kind;
-	private readonly ChunkedSlotStorage<Record> _storage = new();
 
 	/// <summary>
 	///     Creates a new event buffer of the given <paramref name="kind" /> attached to <paramref name="owner" />.
@@ -43,23 +42,18 @@ internal sealed class FastEventBuffer : IFastMemberBuffer
 		_kind = kind;
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Count" />
-	public int Count => _storage.Count;
-
 	/// <summary>
 	///     Records an event subscription or unsubscription.
 	/// </summary>
 	public void Append(string name, object? target, MethodInfo method)
 	{
-		long seq = _owner.NextSequence();
-		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-		ref Record r = ref generation.SlotForWrite(slot);
-		r.Seq = seq;
+		int epoch = Epoch;
+		Record r = new();
+		r.Seq = _owner.NextSequence();
 		r.Name = name;
 		r.Target = target;
 		r.Method = method;
-		r.Boxed = null;
-		generation.Publish(slot);
+		Push(r, epoch);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -67,43 +61,30 @@ internal sealed class FastEventBuffer : IFastMemberBuffer
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Clear" />
-	public void Clear() => _storage.Clear();
-
 	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= _kind == FastEventBufferKind.Subscribe
-					? new EventSubscription(r.Name, r.Target, r.Method)
-					: new EventUnsubscription(r.Name, r.Target, r.Method);
-				dest.Add((r.Seq, r.Boxed));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, _kind == FastEventBufferKind.Subscribe
+				? new EventSubscription(r.Name, r.Target, r.Method)
+				: new EventUnsubscription(r.Name, r.Target, r.Method))));
 		}
 	}
 
 	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			if (node.Verified)
 			{
-				if (_storage.IsVerifiedUnderLock(slot))
-				{
-					continue;
-				}
-
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= _kind == FastEventBufferKind.Subscribe
-					? new EventSubscription(r.Name, r.Target, r.Method)
-					: new EventUnsubscription(r.Name, r.Target, r.Method);
-				dest.Add((r.Seq, r.Boxed));
+				continue;
 			}
+
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, _kind == FastEventBufferKind.Subscribe
+				? new EventSubscription(r.Name, r.Target, r.Method)
+				: new EventUnsubscription(r.Name, r.Target, r.Method))));
 		}
 	}
 
@@ -116,24 +97,20 @@ internal sealed class FastEventBuffer : IFastMemberBuffer
 	/// </summary>
 	public int ConsumeMatching()
 	{
-		lock (_storage.Lock)
+		int n = 0;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				_storage.VerifiedUnderLock(slot) = true;
-			}
-
-			return n;
+			node.Verified = true;
+			n++;
 		}
+
+		return n;
 	}
 
-	internal struct Record
+	private sealed class Record : RecordNode
 	{
-		public long Seq;
-		public string Name;
+		public string Name = null!;
 		public object? Target;
-		public MethodInfo Method;
-		public IInteraction? Boxed;
+		public MethodInfo Method = null!;
 	}
 }

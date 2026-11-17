@@ -14,10 +14,9 @@ namespace Mockolate.Internals;
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod0Buffer : IFastMemberBuffer
+public sealed class FastMethod0Buffer : RecordList, IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
-	private readonly ChunkedSlotStorage<Record> _storage = new();
 
 	/// <summary>
 	///     Creates a new parameterless method buffer attached to <paramref name="owner" />.
@@ -28,21 +27,16 @@ public sealed class FastMethod0Buffer : IFastMemberBuffer
 		_owner = owner;
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Count" />
-	public int Count => _storage.Count;
-
 	/// <summary>
 	///     Records a parameterless method call.
 	/// </summary>
 	public void Append(string name)
 	{
-		long seq = _owner.NextSequence();
-		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-		ref Record r = ref generation.SlotForWrite(slot);
-		r.Seq = seq;
+		int epoch = Epoch;
+		Record r = new();
+		r.Seq = _owner.NextSequence();
 		r.Name = name;
-		r.Boxed = null;
-		generation.Publish(slot);
+		Push(r, epoch);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -50,39 +44,26 @@ public sealed class FastMethod0Buffer : IFastMemberBuffer
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Clear" />
-	public void Clear() => _storage.Clear();
-
 	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation(r.Name);
-				dest.Add((r.Seq, r.Boxed));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation(r.Name))));
 		}
 	}
 
 	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			if (node.Verified)
 			{
-				if (_storage.IsVerifiedUnderLock(slot))
-				{
-					continue;
-				}
-
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation(r.Name);
-				dest.Add((r.Seq, r.Boxed));
+				continue;
 			}
+
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation(r.Name))));
 		}
 	}
 
@@ -97,23 +78,19 @@ public sealed class FastMethod0Buffer : IFastMemberBuffer
 	/// </summary>
 	public int ConsumeMatching()
 	{
-		lock (_storage.Lock)
+		int n = 0;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				_storage.VerifiedUnderLock(slot) = true;
-			}
-
-			return n;
+			node.Verified = true;
+			n++;
 		}
+
+		return n;
 	}
 
-	internal struct Record
+	private sealed class Record : RecordNode
 	{
-		public long Seq;
-		public string Name;
-		public IInteraction? Boxed;
+		public string Name = null!;
 	}
 }
 
@@ -125,10 +102,9 @@ public sealed class FastMethod0Buffer : IFastMemberBuffer
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
+public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
-	private readonly ChunkedSlotStorage<Record> _storage = new();
 
 	/// <summary>
 	///     Creates a new 1-parameter method buffer attached to <paramref name="owner" />.
@@ -139,22 +115,17 @@ public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 		_owner = owner;
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Count" />
-	public int Count => _storage.Count;
-
 	/// <summary>
 	///     Records a 1-parameter method call.
 	/// </summary>
 	public void Append(string name, T1 parameter1)
 	{
-		long seq = _owner.NextSequence();
-		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-		ref Record r = ref generation.SlotForWrite(slot);
-		r.Seq = seq;
+		int epoch = Epoch;
+		Record r = new();
+		r.Seq = _owner.NextSequence();
 		r.Name = name;
 		r.P1 = parameter1;
-		r.Boxed = null;
-		generation.Publish(slot);
+		Push(r, epoch);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -162,39 +133,26 @@ public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Clear" />
-	public void Clear() => _storage.Clear();
-
 	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation<T1>(r.Name, r.P1);
-				dest.Add((r.Seq, r.Boxed));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1>(r.Name, r.P1))));
 		}
 	}
 
 	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			if (node.Verified)
 			{
-				if (_storage.IsVerifiedUnderLock(slot))
-				{
-					continue;
-				}
-
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation<T1>(r.Name, r.P1);
-				dest.Add((r.Seq, r.Boxed));
+				continue;
 			}
+
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1>(r.Name, r.P1))));
 		}
 	}
 
@@ -208,17 +166,13 @@ public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 	public int ConsumeMatching(IParameterMatch<T1> match1)
 	{
 		int matches = 0;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (match1.Matches(r.P1))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (match1.Matches(r.P1))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
@@ -235,17 +189,13 @@ public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 	{
 		int matches = 0;
 		EqualityComparer<T1> cmp = EqualityComparer<T1>.Default;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (cmp.Equals(value1, r.P1))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (cmp.Equals(value1, r.P1))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
@@ -254,24 +204,20 @@ public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 
 	internal int ConsumeAll()
 	{
-		lock (_storage.Lock)
+		int n = 0;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				_storage.VerifiedUnderLock(slot) = true;
-			}
-
-			return n;
+			node.Verified = true;
+			n++;
 		}
+
+		return n;
 	}
 
-	internal struct Record
+	private sealed class Record : RecordNode
 	{
-		public long Seq;
-		public string Name;
-		public T1 P1;
-		public IInteraction? Boxed;
+		public string Name = null!;
+		public T1 P1 = default!;
 	}
 }
 
@@ -283,10 +229,9 @@ public sealed class FastMethod1Buffer<T1> : IFastMemberBuffer
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
+public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
-	private readonly ChunkedSlotStorage<Record> _storage = new();
 
 	/// <summary>
 	///     Creates a new 2-parameter method buffer attached to <paramref name="owner" />.
@@ -297,23 +242,18 @@ public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 		_owner = owner;
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Count" />
-	public int Count => _storage.Count;
-
 	/// <summary>
 	///     Records a 2-parameter method call.
 	/// </summary>
 	public void Append(string name, T1 parameter1, T2 parameter2)
 	{
-		long seq = _owner.NextSequence();
-		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-		ref Record r = ref generation.SlotForWrite(slot);
-		r.Seq = seq;
+		int epoch = Epoch;
+		Record r = new();
+		r.Seq = _owner.NextSequence();
 		r.Name = name;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
-		r.Boxed = null;
-		generation.Publish(slot);
+		Push(r, epoch);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -321,39 +261,26 @@ public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Clear" />
-	public void Clear() => _storage.Clear();
-
 	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation<T1, T2>(r.Name, r.P1, r.P2);
-				dest.Add((r.Seq, r.Boxed));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2>(r.Name, r.P1, r.P2))));
 		}
 	}
 
 	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			if (node.Verified)
 			{
-				if (_storage.IsVerifiedUnderLock(slot))
-				{
-					continue;
-				}
-
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation<T1, T2>(r.Name, r.P1, r.P2);
-				dest.Add((r.Seq, r.Boxed));
+				continue;
 			}
+
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2>(r.Name, r.P1, r.P2))));
 		}
 	}
 
@@ -365,17 +292,13 @@ public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2)
 	{
 		int matches = 0;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (match1.Matches(r.P1) && match2.Matches(r.P2))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (match1.Matches(r.P1) && match2.Matches(r.P2))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
@@ -393,17 +316,13 @@ public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 		int matches = 0;
 		EqualityComparer<T1> cmp1 = EqualityComparer<T1>.Default;
 		EqualityComparer<T2> cmp2 = EqualityComparer<T2>.Default;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
@@ -412,25 +331,21 @@ public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 
 	internal int ConsumeAll()
 	{
-		lock (_storage.Lock)
+		int n = 0;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				_storage.VerifiedUnderLock(slot) = true;
-			}
-
-			return n;
+			node.Verified = true;
+			n++;
 		}
+
+		return n;
 	}
 
-	internal struct Record
+	private sealed class Record : RecordNode
 	{
-		public long Seq;
-		public string Name;
-		public T1 P1;
-		public T2 P2;
-		public IInteraction? Boxed;
+		public string Name = null!;
+		public T1 P1 = default!;
+		public T2 P2 = default!;
 	}
 }
 
@@ -442,10 +357,9 @@ public sealed class FastMethod2Buffer<T1, T2> : IFastMemberBuffer
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
+public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
-	private readonly ChunkedSlotStorage<Record> _storage = new();
 
 	/// <summary>
 	///     Creates a new 3-parameter method buffer attached to <paramref name="owner" />.
@@ -456,24 +370,19 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 		_owner = owner;
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Count" />
-	public int Count => _storage.Count;
-
 	/// <summary>
 	///     Records a 3-parameter method call.
 	/// </summary>
 	public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3)
 	{
-		long seq = _owner.NextSequence();
-		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-		ref Record r = ref generation.SlotForWrite(slot);
-		r.Seq = seq;
+		int epoch = Epoch;
+		Record r = new();
+		r.Seq = _owner.NextSequence();
 		r.Name = name;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
-		r.Boxed = null;
-		generation.Publish(slot);
+		Push(r, epoch);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -481,39 +390,26 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Clear" />
-	public void Clear() => _storage.Clear();
-
 	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation<T1, T2, T3>(r.Name, r.P1, r.P2, r.P3);
-				dest.Add((r.Seq, r.Boxed));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2, T3>(r.Name, r.P1, r.P2, r.P3))));
 		}
 	}
 
 	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			if (node.Verified)
 			{
-				if (_storage.IsVerifiedUnderLock(slot))
-				{
-					continue;
-				}
-
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation<T1, T2, T3>(r.Name, r.P1, r.P2, r.P3);
-				dest.Add((r.Seq, r.Boxed));
+				continue;
 			}
+
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2, T3>(r.Name, r.P1, r.P2, r.P3))));
 		}
 	}
 
@@ -524,17 +420,13 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3)
 	{
 		int matches = 0;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
@@ -553,17 +445,13 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 		EqualityComparer<T1> cmp1 = EqualityComparer<T1>.Default;
 		EqualityComparer<T2> cmp2 = EqualityComparer<T2>.Default;
 		EqualityComparer<T3> cmp3 = EqualityComparer<T3>.Default;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2) && cmp3.Equals(value3, r.P3))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2) && cmp3.Equals(value3, r.P3))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
@@ -572,26 +460,22 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 
 	internal int ConsumeAll()
 	{
-		lock (_storage.Lock)
+		int n = 0;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				_storage.VerifiedUnderLock(slot) = true;
-			}
-
-			return n;
+			node.Verified = true;
+			n++;
 		}
+
+		return n;
 	}
 
-	internal struct Record
+	private sealed class Record : RecordNode
 	{
-		public long Seq;
-		public string Name;
-		public T1 P1;
-		public T2 P2;
-		public T3 P3;
-		public IInteraction? Boxed;
+		public string Name = null!;
+		public T1 P1 = default!;
+		public T2 P2 = default!;
+		public T3 P3 = default!;
 	}
 }
 
@@ -603,10 +487,9 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : IFastMemberBuffer
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod4Buffer<T1, T2, T3, T4> : IFastMemberBuffer
+public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList, IFastMemberBuffer
 {
 	private readonly FastMockInteractions _owner;
-	private readonly ChunkedSlotStorage<Record> _storage = new();
 
 	/// <summary>
 	///     Creates a new 4-parameter method buffer attached to <paramref name="owner" />.
@@ -617,25 +500,20 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : IFastMemberBuffer
 		_owner = owner;
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Count" />
-	public int Count => _storage.Count;
-
 	/// <summary>
 	///     Records a 4-parameter method call.
 	/// </summary>
 	public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
 	{
-		long seq = _owner.NextSequence();
-		ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);
-		ref Record r = ref generation.SlotForWrite(slot);
-		r.Seq = seq;
+		int epoch = Epoch;
+		Record r = new();
+		r.Seq = _owner.NextSequence();
 		r.Name = name;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
 		r.P4 = parameter4;
-		r.Boxed = null;
-		generation.Publish(slot);
+		Push(r, epoch);
 
 		if (_owner.HasInteractionAddedSubscribers)
 		{
@@ -643,39 +521,26 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : IFastMemberBuffer
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.Clear" />
-	public void Clear() => _storage.Clear();
-
 	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation<T1, T2, T3, T4>(r.Name, r.P1, r.P2, r.P3, r.P4);
-				dest.Add((r.Seq, r.Boxed));
-			}
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2, T3, T4>(r.Name, r.P1, r.P2, r.P3, r.P4))));
 		}
 	}
 
 	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			if (node.Verified)
 			{
-				if (_storage.IsVerifiedUnderLock(slot))
-				{
-					continue;
-				}
-
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				r.Boxed ??= new MethodInvocation<T1, T2, T3, T4>(r.Name, r.P1, r.P2, r.P3, r.P4);
-				dest.Add((r.Seq, r.Boxed));
+				continue;
 			}
+
+			Record r = (Record)node;
+			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2, T3, T4>(r.Name, r.P1, r.P2, r.P3, r.P4))));
 		}
 	}
 
@@ -686,17 +551,13 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : IFastMemberBuffer
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4)
 	{
 		int matches = 0;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
@@ -716,18 +577,14 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : IFastMemberBuffer
 		EqualityComparer<T2> cmp2 = EqualityComparer<T2>.Default;
 		EqualityComparer<T3> cmp3 = EqualityComparer<T3>.Default;
 		EqualityComparer<T4> cmp4 = EqualityComparer<T4>.Default;
-		lock (_storage.Lock)
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
+			Record r = (Record)node;
+			if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2) &&
+			    cmp3.Equals(value3, r.P3) && cmp4.Equals(value4, r.P4))
 			{
-				ref Record r = ref _storage.SlotUnderLock(slot);
-				if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2) &&
-				    cmp3.Equals(value3, r.P3) && cmp4.Equals(value4, r.P4))
-				{
-					matches++;
-					_storage.VerifiedUnderLock(slot) = true;
-				}
+				matches++;
+				node.Verified = true;
 			}
 		}
 
@@ -736,26 +593,22 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : IFastMemberBuffer
 
 	internal int ConsumeAll()
 	{
-		lock (_storage.Lock)
+		int n = 0;
+		for (RecordNode? node = First; node is not null; node = node.Next)
 		{
-			int n = _storage.PublishedUnderLock;
-			for (int slot = 0; slot < n; slot++)
-			{
-				_storage.VerifiedUnderLock(slot) = true;
-			}
-
-			return n;
+			node.Verified = true;
+			n++;
 		}
+
+		return n;
 	}
 
-	internal struct Record
+	private sealed class Record : RecordNode
 	{
-		public long Seq;
-		public string Name;
-		public T1 P1;
-		public T2 P2;
-		public T3 P3;
-		public T4 P4;
-		public IInteraction? Boxed;
+		public string Name = null!;
+		public T1 P1 = default!;
+		public T2 P2 = default!;
+		public T3 P3 = default!;
+		public T4 P4 = default!;
 	}
 }
