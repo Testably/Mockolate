@@ -143,7 +143,7 @@ public class RecordListTests
 		RecordNode node = list.Head!;
 		IInteraction[] results = new IInteraction[8];
 
-		RunConcurrently(results.Length, t => results[t] = list.Box(node, new MethodInvocation("Foo")));
+		RunConcurrently(results.Length, t => results[t] = IntList.Box(node, new MethodInvocation("Foo")));
 
 		await That(results.Distinct()).HasCount(1)
 			.Because("the unverified-interactions filter compares boxed interactions by reference");
@@ -243,7 +243,7 @@ public class RecordListTests
 
 		public void Append(int value) => EndAppend(BeginAppend(), value);
 
-		public IInteraction Box(RecordNode node, IInteraction boxed) => SetBoxed(node, boxed);
+		public static IInteraction Box(RecordNode node, IInteraction boxed) => SetBoxed(node, boxed);
 
 		public List<int> Read() => ReadWithChecks().Select(x => x.Value).Reverse().ToList();
 
