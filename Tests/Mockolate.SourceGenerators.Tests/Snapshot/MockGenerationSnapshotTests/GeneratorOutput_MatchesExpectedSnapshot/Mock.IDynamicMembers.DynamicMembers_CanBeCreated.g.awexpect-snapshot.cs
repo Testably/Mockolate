@@ -176,7 +176,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[object]" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[dynamic]" />
 		public object this[object key]
 		{
 			get
@@ -244,7 +244,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, object, string, object, int]" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, dynamic, string, dynamic, int]" />
 		public object this[int a, object b, string c, object d, int e]
 		{
 			get
@@ -280,7 +280,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(object)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(dynamic)" />
 		public void Dyn1(object d)
 		{
 			global::Mockolate.Setup.VoidMethodSetup<object>? methodSetup = null;
@@ -344,7 +344,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)" />
 		public void Dyn2(object d, int x)
 		{
 			global::Mockolate.Setup.VoidMethodSetup<object, int>? methodSetup = null;
@@ -408,7 +408,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)" />
 		public int Dyn3(int a, object b, string c)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<int, int, object, string>? methodSetup = null;
@@ -478,7 +478,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(a, b, c, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, a, b, c);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)" />
 		public object Dyn4(object a, object b, int c, string d)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<object, object, object, int, string>? methodSetup = null;
@@ -548,7 +548,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(a, b, c, d, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(object)!, a, b, c, d);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(object, int, int, int, object)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(dynamic, int, int, int, dynamic)" />
 		public void Dyn5(object a, int b, int c, int d, object e)
 		{
 			global::Mockolate.Setup.VoidMethodSetup<object, int, int, int, object>? methodSetup = null;
@@ -816,7 +816,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(filter, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.List<dynamic>)!, filter);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out object, ref object)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out dynamic, ref dynamic)" />
 		public (dynamic, int) DynTuple(out object o, ref object r)
 		{
 			var ref_r = r;
@@ -2694,7 +2694,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.PropertySetup<object> Value { get; }
 
 		/// <summary>
-		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[object]">this[object]</see>
+		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[dynamic]">this[dynamic]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -2703,7 +2703,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IndexerSetup<object, object> this[global::Mockolate.Parameters.IParameter<object>? parameter1] { get; }
 
 		/// <summary>
-		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[object]">this[object]</see>
+		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[dynamic]">this[dynamic]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
@@ -2712,7 +2712,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IndexerSetup<object, object> this[object parameter1] { get; }
 
 		/// <summary>
-		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, object, string, object, int]">this[int, object, string, object, int]</see>
+		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, dynamic, string, dynamic, int]">this[int, dynamic, string, dynamic, int]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -2721,7 +2721,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IndexerSetup<object, int, object, string, object, int> this[global::Mockolate.Parameters.IParameter<int>? parameter1, global::Mockolate.Parameters.IParameter<object>? parameter2, global::Mockolate.Parameters.IParameter<string>? parameter3, global::Mockolate.Parameters.IParameter<object>? parameter4, global::Mockolate.Parameters.IParameter<int>? parameter5] { get; }
 
 		/// <summary>
-		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, object, string, object, int]">this[int, object, string, object, int]</see>
+		///     Setup for the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, dynamic, string, dynamic, int]">this[int, dynamic, string, dynamic, int]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
@@ -2730,7 +2730,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IndexerSetup<object, int, object, string, object, int> this[int parameter1, object parameter2, string parameter3, object parameter4, int parameter5] { get; }
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(object)">Dyn1(object)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(dynamic)">Dyn1(dynamic)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -2739,7 +2739,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> Dyn1(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(object)">Dyn1(object)</see> with the given <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(dynamic)">Dyn1(dynamic)</see> with the given <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -2748,7 +2748,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object> Dyn1(global::Mockolate.Parameters.IParameter<object>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(object)">Dyn1(object)</see> with the given <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(dynamic)">Dyn1(dynamic)</see> with the given <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
@@ -2756,7 +2756,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<object> Dyn1(object d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -2765,7 +2765,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object, int> Dyn2(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -2774,7 +2774,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object, int> Dyn2(global::Mockolate.Parameters.IParameter<object>? d, global::Mockolate.Parameters.IParameter<int>? x);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="x" />.
@@ -2783,7 +2783,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object, int> Dyn2(object d, global::Mockolate.Parameters.IParameter<int>? x);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="x" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="d" />.
@@ -2792,7 +2792,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object, int> Dyn2(global::Mockolate.Parameters.IParameter<object>? d, int x);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
@@ -2800,7 +2800,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<object, int> Dyn2(object d, int x);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -2809,7 +2809,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object, string> Dyn3(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -2818,7 +2818,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object, string> Dyn3(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<string>? c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />, <paramref name="c" />.
@@ -2827,7 +2827,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object, string> Dyn3(int a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<string>? c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="c" />.
@@ -2836,7 +2836,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object, string> Dyn3(global::Mockolate.Parameters.IParameter<int>? a, object b, global::Mockolate.Parameters.IParameter<string>? c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="b" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="c" />.
@@ -2845,7 +2845,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object, string> Dyn3(int a, object b, global::Mockolate.Parameters.IParameter<string>? c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="b" />.
@@ -2854,7 +2854,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object, string> Dyn3(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<object>? b, string c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />.
@@ -2863,7 +2863,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object, string> Dyn3(int a, global::Mockolate.Parameters.IParameter<object>? b, string c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />.
@@ -2872,7 +2872,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, object, string> Dyn3(global::Mockolate.Parameters.IParameter<int>? a, object b, string c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
@@ -2880,7 +2880,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, object, string> Dyn3(int a, object b, string c);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -2889,7 +2889,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -2898,7 +2898,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />, <paramref name="c" />, <paramref name="d" />.
@@ -2907,7 +2907,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(object a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="c" />, <paramref name="d" />.
@@ -2916,7 +2916,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, object b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="b" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="c" />, <paramref name="d" />.
@@ -2925,7 +2925,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(object a, object b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="b" />, <paramref name="d" />.
@@ -2934,7 +2934,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<object>? b, int c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />, <paramref name="d" />.
@@ -2943,7 +2943,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(object a, global::Mockolate.Parameters.IParameter<object>? b, int c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="d" />.
@@ -2952,7 +2952,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, object b, int c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="b" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="d" />.
@@ -2961,7 +2961,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(object a, object b, int c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="b" />, <paramref name="c" />.
@@ -2970,7 +2970,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<int>? c, string d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />, <paramref name="c" />.
@@ -2979,7 +2979,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(object a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<int>? c, string d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="c" />.
@@ -2988,7 +2988,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, object b, global::Mockolate.Parameters.IParameter<int>? c, string d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="b" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="c" />.
@@ -2997,7 +2997,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(object a, object b, global::Mockolate.Parameters.IParameter<int>? c, string d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="c" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="b" />.
@@ -3006,7 +3006,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<object>? b, int c, string d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="c" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />.
@@ -3015,7 +3015,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(object a, global::Mockolate.Parameters.IParameter<object>? b, int c, string d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" />, <paramref name="c" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />.
@@ -3024,7 +3024,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, object, int, string> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, object b, int c, string d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
@@ -3032,7 +3032,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<object, object, object, int, string> Dyn4(object a, object b, int c, string d);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(object, int, int, int, object)">Dyn5(object, int, int, int, object)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(dynamic, int, int, int, dynamic)">Dyn5(dynamic, int, int, int, dynamic)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -3041,7 +3041,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object, int, int, int, object> Dyn5(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(object, int, int, int, object)">Dyn5(object, int, int, int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(dynamic, int, int, int, dynamic)">Dyn5(dynamic, int, int, int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3050,7 +3050,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object, int, int, int, object> Dyn5(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<int>? b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<int>? d, global::Mockolate.Parameters.IParameter<object>? e);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(object, int, int, int, object)">Dyn5(object, int, int, int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(dynamic, int, int, int, dynamic)">Dyn5(dynamic, int, int, int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
@@ -3145,7 +3145,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.Collections.Generic.List<dynamic>, global::System.Func<dynamic, bool>> DynList(global::System.Func<dynamic, bool> filter);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out object, ref object)">DynTuple(out object, ref object)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out dynamic, ref dynamic)">DynTuple(out dynamic, ref dynamic)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -3154,7 +3154,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<(dynamic, int), object, object> DynTuple(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out object, ref object)">DynTuple(out object, ref object)</see> with the given <paramref name="o"/>, <paramref name="r"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out dynamic, ref dynamic)">DynTuple(out dynamic, ref dynamic)</see> with the given <paramref name="o"/>, <paramref name="r"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3175,7 +3175,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationPropertyResult<IMockVerifyForIDynamicMembers, object> Value { get; }
 
 		/// <summary>
-		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[object]">this[object]</see>.
+		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[dynamic]">this[dynamic]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3184,7 +3184,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIDynamicMembers, object> this[global::Mockolate.Parameters.IParameter<object>? key] { get; }
 
 		/// <summary>
-		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[object]">this[object]</see>.
+		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[dynamic]">this[dynamic]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
@@ -3193,7 +3193,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIDynamicMembers, object> this[object key] { get; }
 
 		/// <summary>
-		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, object, string, object, int]">this[int, object, string, object, int]</see>.
+		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, dynamic, string, dynamic, int]">this[int, dynamic, string, dynamic, int]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3202,7 +3202,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIDynamicMembers, object> this[global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<string>? c, global::Mockolate.Parameters.IParameter<object>? d, global::Mockolate.Parameters.IParameter<int>? e] { get; }
 
 		/// <summary>
-		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, object, string, object, int]">this[int, object, string, object, int]</see>.
+		///     Verify interactions with the object indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.this[int, dynamic, string, dynamic, int]">this[int, dynamic, string, dynamic, int]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
@@ -3211,7 +3211,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIDynamicMembers, object> this[int a, object b, string c, object d, int e] { get; }
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(object)">Dyn1(object)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(dynamic)">Dyn1(dynamic)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -3220,7 +3220,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn1(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(object)">Dyn1(object)</see> with the given <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(dynamic)">Dyn1(dynamic)</see> with the given <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3229,7 +3229,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn1(global::Mockolate.Parameters.IParameter<object>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(object)">Dyn1(object)</see> with the given <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn1(dynamic)">Dyn1(dynamic)</see> with the given <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
@@ -3237,7 +3237,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers>.IgnoreParameters Dyn1(object d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -3246,7 +3246,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn2(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3255,7 +3255,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn2(global::Mockolate.Parameters.IParameter<object>? d, global::Mockolate.Parameters.IParameter<int>? x);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="x" />.
@@ -3264,7 +3264,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn2(object d, global::Mockolate.Parameters.IParameter<int>? x);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="x" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="d" />.
@@ -3273,7 +3273,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn2(global::Mockolate.Parameters.IParameter<object>? d, int x);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(object, int)">Dyn2(object, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn2(dynamic, int)">Dyn2(dynamic, int)</see> with the given <paramref name="d"/>, <paramref name="x"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
@@ -3281,7 +3281,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers>.IgnoreParameters Dyn2(object d, int x);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -3290,7 +3290,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn3(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3299,7 +3299,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn3(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<string>? c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />, <paramref name="c" />.
@@ -3308,7 +3308,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn3(int a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<string>? c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="c" />.
@@ -3317,7 +3317,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn3(global::Mockolate.Parameters.IParameter<int>? a, object b, global::Mockolate.Parameters.IParameter<string>? c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="b" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="c" />.
@@ -3326,7 +3326,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn3(int a, object b, global::Mockolate.Parameters.IParameter<string>? c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="b" />.
@@ -3335,7 +3335,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn3(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<object>? b, string c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />.
@@ -3344,7 +3344,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn3(int a, global::Mockolate.Parameters.IParameter<object>? b, string c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />.
@@ -3353,7 +3353,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn3(global::Mockolate.Parameters.IParameter<int>? a, object b, string c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, object, string)">Dyn3(int, object, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn3(int, dynamic, string)">Dyn3(int, dynamic, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
@@ -3361,7 +3361,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers>.IgnoreParameters Dyn3(int a, object b, string c);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -3370,7 +3370,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3379,7 +3379,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />, <paramref name="c" />, <paramref name="d" />.
@@ -3388,7 +3388,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(object a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="c" />, <paramref name="d" />.
@@ -3397,7 +3397,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, object b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="b" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="c" />, <paramref name="d" />.
@@ -3406,7 +3406,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(object a, object b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="b" />, <paramref name="d" />.
@@ -3415,7 +3415,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<object>? b, int c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />, <paramref name="d" />.
@@ -3424,7 +3424,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(object a, global::Mockolate.Parameters.IParameter<object>? b, int c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="d" />.
@@ -3433,7 +3433,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, object b, int c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="b" />, <paramref name="c" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="d" />.
@@ -3442,7 +3442,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(object a, object b, int c, global::Mockolate.Parameters.IParameter<string>? d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="b" />, <paramref name="c" />.
@@ -3451,7 +3451,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<int>? c, string d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />, <paramref name="c" />.
@@ -3460,7 +3460,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(object a, global::Mockolate.Parameters.IParameter<object>? b, global::Mockolate.Parameters.IParameter<int>? c, string d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="c" />.
@@ -3469,7 +3469,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, object b, global::Mockolate.Parameters.IParameter<int>? c, string d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="b" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="c" />.
@@ -3478,7 +3478,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(object a, object b, global::Mockolate.Parameters.IParameter<int>? c, string d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="c" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />, <paramref name="b" />.
@@ -3487,7 +3487,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<object>? b, int c, string d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" />, <paramref name="c" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="b" />.
@@ -3496,7 +3496,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(object a, global::Mockolate.Parameters.IParameter<object>? b, int c, string d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="b" />, <paramref name="c" />, <paramref name="d" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="a" />.
@@ -3505,7 +3505,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn4(global::Mockolate.Parameters.IParameter<object>? a, object b, int c, string d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(object, object, int, string)">Dyn4(object, object, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn4(dynamic, dynamic, int, string)">Dyn4(dynamic, dynamic, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
@@ -3513,7 +3513,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers>.IgnoreParameters Dyn4(object a, object b, int c, string d);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(object, int, int, int, object)">Dyn5(object, int, int, int, object)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(dynamic, int, int, int, dynamic)">Dyn5(dynamic, int, int, int, dynamic)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -3522,7 +3522,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn5(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(object, int, int, int, object)">Dyn5(object, int, int, int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(dynamic, int, int, int, dynamic)">Dyn5(dynamic, int, int, int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -3531,7 +3531,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> Dyn5(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<int>? b, global::Mockolate.Parameters.IParameter<int>? c, global::Mockolate.Parameters.IParameter<int>? d, global::Mockolate.Parameters.IParameter<object>? e);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(object, int, int, int, object)">Dyn5(object, int, int, int, object)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.Dyn5(dynamic, int, int, int, dynamic)">Dyn5(dynamic, int, int, int, dynamic)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
@@ -3625,7 +3625,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers>.IgnoreParameters DynList(global::System.Func<dynamic, bool> filter);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out object, ref object)">DynTuple(out object, ref object)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out dynamic, ref dynamic)">DynTuple(out dynamic, ref dynamic)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -3634,7 +3634,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> DynTuple(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out object, ref object)">DynTuple(out object, ref object)</see> with the given <paramref name="o"/>, <paramref name="r"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple(out dynamic, ref dynamic)">DynTuple(out dynamic, ref dynamic)</see> with the given <paramref name="o"/>, <paramref name="r"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.

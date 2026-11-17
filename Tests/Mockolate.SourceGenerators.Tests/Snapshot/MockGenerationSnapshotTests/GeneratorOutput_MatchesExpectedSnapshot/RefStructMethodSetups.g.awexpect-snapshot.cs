@@ -13,6 +13,172 @@
 namespace Mockolate.Setup
 {
 	/// <summary>
+	///     Ref-struct-compatible return setup for arity 5. Mirrors the hand-written arity 1-4 surface.
+	/// </summary>
+	public interface IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> : IMethodSetup
+		where T1 : allows ref struct
+		where T2 : allows ref struct
+		where T3 : allows ref struct
+		where T4 : allows ref struct
+		where T5 : allows ref struct
+	{
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructReturnMethodSetup{TReturn, T}.SkippingBaseClass(bool)" />
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> SkippingBaseClass(bool skipBaseClass = true);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructReturnMethodSetup{TReturn, T}.Returns(TReturn)" />
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> Returns(TReturn returnValue);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructReturnMethodSetup{TReturn, T}.Returns(global::System.Func{TReturn})" />
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> Returns(global::System.Func<TReturn> returnFactory);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructReturnMethodSetup{TReturn, T}.Throws{TException}()" />
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> Throws<TException>() where TException : global::System.Exception, new();
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructReturnMethodSetup{TReturn, T}.Throws(global::System.Exception)" />
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> Throws(global::System.Exception exception);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructReturnMethodSetup{TReturn, T}.Throws(global::System.Func{global::System.Exception})" />
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> Throws(global::System.Func<global::System.Exception> exceptionFactory);
+	}
+
+	/// <summary>
+	///     Concrete ref-struct-compatible return setup for arity 5. See <see cref="global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}">RefStructReturnMethodSetup&lt;TReturn, T&gt;</see>.
+	/// </summary>
+#if !DEBUG
+#endif
+	public sealed class RefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> : global::Mockolate.Setup.MethodSetup, global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>
+		where T1 : allows ref struct
+		where T2 : allows ref struct
+		where T3 : allows ref struct
+		where T4 : allows ref struct
+		where T5 : allows ref struct
+	{
+		private readonly global::Mockolate.Parameters.IParameterMatch<T1>? _matcher1;
+		private readonly global::Mockolate.Parameters.IParameterMatch<T2>? _matcher2;
+		private readonly global::Mockolate.Parameters.IParameterMatch<T3>? _matcher3;
+		private readonly global::Mockolate.Parameters.IParameterMatch<T4>? _matcher4;
+		private readonly global::Mockolate.Parameters.IParameterMatch<T5>? _matcher5;
+		private global::System.Func<TReturn>? _returnFactory;
+		private global::System.Func<global::System.Exception?>? _throwAction;
+		private bool? _skipBaseClass;
+
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T1, T2, T3, T4, T5}" />
+		public RefStructReturnMethodSetup(string name, global::Mockolate.Parameters.IParameterMatch<T1>? matcher1 = null, global::Mockolate.Parameters.IParameterMatch<T2>? matcher2 = null, global::Mockolate.Parameters.IParameterMatch<T3>? matcher3 = null, global::Mockolate.Parameters.IParameterMatch<T4>? matcher4 = null, global::Mockolate.Parameters.IParameterMatch<T5>? matcher5 = null) : base(name)
+		{
+			_matcher1 = matcher1;
+			_matcher2 = matcher2;
+			_matcher3 = matcher3;
+			_matcher4 = matcher4;
+			_matcher5 = matcher5;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}.Matches(T)" />
+		public bool Matches(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
+			=> (_matcher1 is null || _matcher1.Matches(value1))
+			   && (_matcher2 is null || _matcher2.Matches(value2))
+			   && (_matcher3 is null || _matcher3.Matches(value3))
+			   && (_matcher4 is null || _matcher4.Matches(value4))
+			   && (_matcher5 is null || _matcher5.Matches(value5));
+
+		/// <summary>
+		///     Returns the matcher for the parameter slot 1.
+		/// </summary>
+		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+		public global::Mockolate.Parameters.IParameterMatch<T1>? GetMatcher1() => _matcher1;
+		/// <summary>
+		///     Returns the matcher for the parameter slot 2.
+		/// </summary>
+		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+		public global::Mockolate.Parameters.IParameterMatch<T2>? GetMatcher2() => _matcher2;
+		/// <summary>
+		///     Returns the matcher for the parameter slot 3.
+		/// </summary>
+		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+		public global::Mockolate.Parameters.IParameterMatch<T3>? GetMatcher3() => _matcher3;
+		/// <summary>
+		///     Returns the matcher for the parameter slot 4.
+		/// </summary>
+		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+		public global::Mockolate.Parameters.IParameterMatch<T4>? GetMatcher4() => _matcher4;
+		/// <summary>
+		///     Returns the matcher for the parameter slot 5.
+		/// </summary>
+		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+		public global::Mockolate.Parameters.IParameterMatch<T5>? GetMatcher5() => _matcher5;
+
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}.Invoke(T, global::System.Func{TReturn})" />
+		public TReturn Invoke(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, global::System.Func<TReturn>? defaultFactory = null)
+		{
+			_matcher1?.InvokeCallbacks(value1);
+			_matcher2?.InvokeCallbacks(value2);
+			_matcher3?.InvokeCallbacks(value3);
+			_matcher4?.InvokeCallbacks(value4);
+			_matcher5?.InvokeCallbacks(value5);
+			if (_throwAction is not null)
+			{
+				global::System.Exception? exception = _throwAction();
+				if (exception is not null)
+				{
+					throw exception;
+				}
+			}
+
+			if (_returnFactory is not null)
+			{
+				return _returnFactory();
+			}
+
+			return defaultFactory is not null ? defaultFactory() : default!;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}.HasReturnValue" />
+		public bool HasReturnValue => _returnFactory is not null;
+
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}.SkipBaseClass(global::Mockolate.MockBehavior)" />
+		public bool SkipBaseClass(global::Mockolate.MockBehavior behavior)
+			=> _skipBaseClass ?? behavior.SkipBaseClass;
+
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.SkippingBaseClass(bool skipBaseClass)
+		{
+			_skipBaseClass = skipBaseClass;
+			return this;
+		}
+
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Returns(TReturn returnValue)
+		{
+			_returnFactory = () => returnValue;
+			return this;
+		}
+
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Returns(global::System.Func<TReturn> returnFactory)
+		{
+			_returnFactory = returnFactory;
+			return this;
+		}
+
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws<TException>()
+		{
+			_throwAction = static () => new TException();
+			return this;
+		}
+
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws(global::System.Exception exception)
+		{
+			_throwAction = () => exception;
+			return this;
+		}
+
+		global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IRefStructReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws(global::System.Func<global::System.Exception> exceptionFactory)
+		{
+			_throwAction = exceptionFactory;
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
+		protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
+			=> interaction is global::Mockolate.Interactions.RefStructMethodInvocation invocation && invocation.Name == Name;
+
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> $"{typeof(TReturn).Name} {Name}({_matcher1?.ToString() ?? $"<{typeof(T1).Name} ref struct>"}, {_matcher2?.ToString() ?? $"<{typeof(T2).Name} ref struct>"}, {_matcher3?.ToString() ?? $"<{typeof(T3).Name} ref struct>"}, {_matcher4?.ToString() ?? $"<{typeof(T4).Name} ref struct>"}, {_matcher5?.ToString() ?? $"<{typeof(T5).Name} ref struct>"})";
+	}
+
+	/// <summary>
 	///     Ref-struct-compatible void setup for arity 5. Mirrors the hand-written arity 1-4 surface.
 	/// </summary>
 	public interface IRefStructVoidMethodSetup<T1, T2, T3, T4, T5> : IMethodSetup
@@ -22,10 +188,15 @@ namespace Mockolate.Setup
 		where T4 : allows ref struct
 		where T5 : allows ref struct
 	{
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructVoidMethodSetup{T}.SkippingBaseClass(bool)" />
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<T1, T2, T3, T4, T5> SkippingBaseClass(bool skipBaseClass = true);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructVoidMethodSetup{T}.DoesNotThrow()" />
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<T1, T2, T3, T4, T5> DoesNotThrow();
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructVoidMethodSetup{T}.Throws{TException}()" />
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<T1, T2, T3, T4, T5> Throws<TException>() where TException : global::System.Exception, new();
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructVoidMethodSetup{T}.Throws(global::System.Exception)" />
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<T1, T2, T3, T4, T5> Throws(global::System.Exception exception);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructVoidMethodSetup{T}.Throws(global::System.Func{global::System.Exception})" />
 		global::Mockolate.Setup.IRefStructVoidMethodSetup<T1, T2, T3, T4, T5> Throws(global::System.Func<global::System.Exception> exceptionFactory);
 	}
 
@@ -49,6 +220,7 @@ namespace Mockolate.Setup
 		private global::System.Func<global::System.Exception?>? _returnAction;
 		private bool? _skipBaseClass;
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructVoidMethodSetup{T1, T2, T3, T4, T5}" />
 		public RefStructVoidMethodSetup(string name, global::Mockolate.Parameters.IParameterMatch<T1>? matcher1 = null, global::Mockolate.Parameters.IParameterMatch<T2>? matcher2 = null, global::Mockolate.Parameters.IParameterMatch<T3>? matcher3 = null, global::Mockolate.Parameters.IParameterMatch<T4>? matcher4 = null, global::Mockolate.Parameters.IParameterMatch<T5>? matcher5 = null) : base(name)
 		{
 			_matcher1 = matcher1;
@@ -58,6 +230,7 @@ namespace Mockolate.Setup
 			_matcher5 = matcher5;
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructVoidMethodSetup{T}.Matches(T)" />
 		public bool Matches(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
 			=> (_matcher1 is null || _matcher1.Matches(value1))
 			   && (_matcher2 is null || _matcher2.Matches(value2))
@@ -65,17 +238,33 @@ namespace Mockolate.Setup
 			   && (_matcher4 is null || _matcher4.Matches(value4))
 			   && (_matcher5 is null || _matcher5.Matches(value5));
 
+		/// <summary>
+		///     Returns the matcher for the parameter slot 1.
+		/// </summary>
 		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 		public global::Mockolate.Parameters.IParameterMatch<T1>? GetMatcher1() => _matcher1;
+		/// <summary>
+		///     Returns the matcher for the parameter slot 2.
+		/// </summary>
 		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 		public global::Mockolate.Parameters.IParameterMatch<T2>? GetMatcher2() => _matcher2;
+		/// <summary>
+		///     Returns the matcher for the parameter slot 3.
+		/// </summary>
 		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 		public global::Mockolate.Parameters.IParameterMatch<T3>? GetMatcher3() => _matcher3;
+		/// <summary>
+		///     Returns the matcher for the parameter slot 4.
+		/// </summary>
 		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 		public global::Mockolate.Parameters.IParameterMatch<T4>? GetMatcher4() => _matcher4;
+		/// <summary>
+		///     Returns the matcher for the parameter slot 5.
+		/// </summary>
 		[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 		public global::Mockolate.Parameters.IParameterMatch<T5>? GetMatcher5() => _matcher5;
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructVoidMethodSetup{T}.Invoke(T)" />
 		public void Invoke(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
 		{
 			_matcher1?.InvokeCallbacks(value1);
@@ -95,6 +284,7 @@ namespace Mockolate.Setup
 			}
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructVoidMethodSetup{T}.SkipBaseClass(global::Mockolate.MockBehavior)" />
 		public bool SkipBaseClass(global::Mockolate.MockBehavior behavior)
 			=> _skipBaseClass ?? behavior.SkipBaseClass;
 
@@ -128,9 +318,11 @@ namespace Mockolate.Setup
 			return this;
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
 		protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
 			=> interaction is global::Mockolate.Interactions.RefStructMethodInvocation invocation && invocation.Name == Name;
 
+		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 			=> $"void {Name}({_matcher1?.ToString() ?? $"<{typeof(T1).Name} ref struct>"}, {_matcher2?.ToString() ?? $"<{typeof(T2).Name} ref struct>"}, {_matcher3?.ToString() ?? $"<{typeof(T3).Name} ref struct>"}, {_matcher4?.ToString() ?? $"<{typeof(T4).Name} ref struct>"}, {_matcher5?.ToString() ?? $"<{typeof(T5).Name} ref struct>"})";
 	}
@@ -145,11 +337,17 @@ namespace Mockolate.Setup
 		where T4 : allows ref struct
 		where T5 : allows ref struct
 	{
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerGetterSetup{TValue, T}.SkippingBaseClass(bool)" />
 		global::Mockolate.Setup.IRefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5> SkippingBaseClass(bool skipBaseClass = true);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerGetterSetup{TValue, T}.Returns(TValue)" />
 		global::Mockolate.Setup.IRefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5> Returns(TValue returnValue);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerGetterSetup{TValue, T}.Returns(global::System.Func{TValue})" />
 		global::Mockolate.Setup.IRefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5> Returns(global::System.Func<TValue> returnFactory);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerGetterSetup{TValue, T}.Throws{TException}()" />
 		global::Mockolate.Setup.IRefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5> Throws<TException>() where TException : global::System.Exception, new();
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerGetterSetup{TValue, T}.Throws(global::System.Exception)" />
 		global::Mockolate.Setup.IRefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5> Throws(global::System.Exception exception);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerGetterSetup{TValue, T}.Throws(global::System.Func{global::System.Exception})" />
 		global::Mockolate.Setup.IRefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5> Throws(global::System.Func<global::System.Exception> exceptionFactory);
 	}
 
@@ -181,6 +379,7 @@ namespace Mockolate.Setup
 		private global::System.Func<global::System.Exception?>? _throwAction;
 		private bool? _skipBaseClass;
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerGetterSetup{TValue, T1, T2, T3, T4, T5}" />
 		public RefStructIndexerGetterSetup(string name, global::Mockolate.Parameters.IParameterMatch<T1>? matcher1 = null, global::Mockolate.Parameters.IParameterMatch<T2>? matcher2 = null, global::Mockolate.Parameters.IParameterMatch<T3>? matcher3 = null, global::Mockolate.Parameters.IParameterMatch<T4>? matcher4 = null, global::Mockolate.Parameters.IParameterMatch<T5>? matcher5 = null) : base(name)
 		{
 			_matcher1 = matcher1;
@@ -199,6 +398,7 @@ namespace Mockolate.Setup
 			}
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerGetterSetup{TValue, T}.Matches(T)" />
 		public bool Matches(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
 			=> (_matcher1 is null || _matcher1.Matches(value1))
 			   && (_matcher2 is null || _matcher2.Matches(value2))
@@ -284,6 +484,7 @@ namespace Mockolate.Setup
 			global::Mockolate.Internals.RefStructStorageHelper.SetLeafValue<TValue>(leaf, value);
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerGetterSetup{TValue, T}.Invoke(T, global::System.Func{TValue})" />
 		public TValue Invoke(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, object? rawKey1 = null, object? rawKey2 = null, object? rawKey3 = null, object? rawKey4 = null, object? rawKey5 = null, global::System.Func<TValue>? defaultFactory = null)
 		{
 			_matcher1?.InvokeCallbacks(value1);
@@ -313,8 +514,10 @@ namespace Mockolate.Setup
 			return defaultFactory is not null ? defaultFactory() : default!;
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerGetterSetup{TValue, T}.HasReturnValue" />
 		public bool HasReturnValue => _returnFactory is not null || _storage is not null;
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerGetterSetup{TValue, T}.SkipBaseClass(global::Mockolate.MockBehavior)" />
 		public bool SkipBaseClass(global::Mockolate.MockBehavior behavior)
 			=> _skipBaseClass ?? behavior.SkipBaseClass;
 
@@ -354,9 +557,11 @@ namespace Mockolate.Setup
 			return this;
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
 		protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
 			=> interaction is global::Mockolate.Interactions.RefStructMethodInvocation invocation && invocation.Name == Name;
 
+		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 			=> $"{typeof(TValue).Name} {Name}[{_matcher1?.ToString() ?? $"<{typeof(T1).Name} ref struct>"}, {_matcher2?.ToString() ?? $"<{typeof(T2).Name} ref struct>"}, {_matcher3?.ToString() ?? $"<{typeof(T3).Name} ref struct>"}, {_matcher4?.ToString() ?? $"<{typeof(T4).Name} ref struct>"}, {_matcher5?.ToString() ?? $"<{typeof(T5).Name} ref struct>"}]";
 	}
@@ -371,10 +576,15 @@ namespace Mockolate.Setup
 		where T4 : allows ref struct
 		where T5 : allows ref struct
 	{
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetterSetup{TValue, T}.SkippingBaseClass(bool)" />
 		global::Mockolate.Setup.IRefStructIndexerSetterSetup<TValue, T1, T2, T3, T4, T5> SkippingBaseClass(bool skipBaseClass = true);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetterSetup{TValue, T}.OnSet(global::System.Action{TValue})" />
 		global::Mockolate.Setup.IRefStructIndexerSetterSetup<TValue, T1, T2, T3, T4, T5> OnSet(global::System.Action<TValue> callback);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetterSetup{TValue, T}.Throws{TException}()" />
 		global::Mockolate.Setup.IRefStructIndexerSetterSetup<TValue, T1, T2, T3, T4, T5> Throws<TException>() where TException : global::System.Exception, new();
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetterSetup{TValue, T}.Throws(global::System.Exception)" />
 		global::Mockolate.Setup.IRefStructIndexerSetterSetup<TValue, T1, T2, T3, T4, T5> Throws(global::System.Exception exception);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetterSetup{TValue, T}.Throws(global::System.Func{global::System.Exception})" />
 		global::Mockolate.Setup.IRefStructIndexerSetterSetup<TValue, T1, T2, T3, T4, T5> Throws(global::System.Func<global::System.Exception> exceptionFactory);
 	}
 
@@ -399,6 +609,7 @@ namespace Mockolate.Setup
 		private global::System.Func<global::System.Exception?>? _throwAction;
 		private bool? _skipBaseClass;
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerSetterSetup{TValue, T1, T2, T3, T4, T5}" />
 		public RefStructIndexerSetterSetup(string name, global::Mockolate.Parameters.IParameterMatch<T1>? matcher1 = null, global::Mockolate.Parameters.IParameterMatch<T2>? matcher2 = null, global::Mockolate.Parameters.IParameterMatch<T3>? matcher3 = null, global::Mockolate.Parameters.IParameterMatch<T4>? matcher4 = null, global::Mockolate.Parameters.IParameterMatch<T5>? matcher5 = null) : base(name)
 		{
 			_matcher1 = matcher1;
@@ -410,6 +621,7 @@ namespace Mockolate.Setup
 
 		internal global::Mockolate.Setup.RefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5>? BoundGetter { get; set; }
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerSetterSetup{TValue, T}.Matches(T)" />
 		public bool Matches(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
 			=> (_matcher1 is null || _matcher1.Matches(value1))
 			   && (_matcher2 is null || _matcher2.Matches(value2))
@@ -417,6 +629,7 @@ namespace Mockolate.Setup
 			   && (_matcher4 is null || _matcher4.Matches(value4))
 			   && (_matcher5 is null || _matcher5.Matches(value5));
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerSetterSetup{TValue, T}.Invoke(T, TValue)" />
 		public void Invoke(T1 k1, T2 k2, T3 k3, T4 k4, T5 k5, TValue value, object? rawKey1 = null, object? rawKey2 = null, object? rawKey3 = null, object? rawKey4 = null, object? rawKey5 = null)
 		{
 			_matcher1?.InvokeCallbacks(k1);
@@ -438,6 +651,7 @@ namespace Mockolate.Setup
 			BoundGetter?.StoreValue(k1, k2, k3, k4, k5, value, rawKey1, rawKey2, rawKey3, rawKey4, rawKey5);
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerSetterSetup{TValue, T}.SkipBaseClass(global::Mockolate.MockBehavior)" />
 		public bool SkipBaseClass(global::Mockolate.MockBehavior behavior)
 			=> _skipBaseClass ?? behavior.SkipBaseClass;
 
@@ -471,9 +685,11 @@ namespace Mockolate.Setup
 			return this;
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
 		protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
 			=> interaction is global::Mockolate.Interactions.RefStructMethodInvocation invocation && invocation.Name == Name;
 
+		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 			=> $"{Name}({_matcher1?.ToString() ?? $"<{typeof(T1).Name} ref struct>"}, {_matcher2?.ToString() ?? $"<{typeof(T2).Name} ref struct>"}, {_matcher3?.ToString() ?? $"<{typeof(T3).Name} ref struct>"}, {_matcher4?.ToString() ?? $"<{typeof(T4).Name} ref struct>"}, {_matcher5?.ToString() ?? $"<{typeof(T5).Name} ref struct>"}) = {typeof(TValue).Name}";
 	}
@@ -488,12 +704,19 @@ namespace Mockolate.Setup
 		where T4 : allows ref struct
 		where T5 : allows ref struct
 	{
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetup{TValue, T}.SkippingBaseClass(bool)" />
 		global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5> SkippingBaseClass(bool skipBaseClass = true);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetup{TValue, T}.Returns(TValue)" />
 		global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5> Returns(TValue returnValue);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetup{TValue, T}.Returns(global::System.Func{TValue})" />
 		global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5> Returns(global::System.Func<TValue> returnFactory);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetup{TValue, T}.OnSet(global::System.Action{TValue})" />
 		global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5> OnSet(global::System.Action<TValue> callback);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetup{TValue, T}.Throws{TException}()" />
 		global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5> Throws<TException>() where TException : global::System.Exception, new();
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetup{TValue, T}.Throws(global::System.Exception)" />
 		global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5> Throws(global::System.Exception exception);
+		/// <inheritdoc cref="global::Mockolate.Setup.IRefStructIndexerSetup{TValue, T}.Throws(global::System.Func{global::System.Exception})" />
 		global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5> Throws(global::System.Func<global::System.Exception> exceptionFactory);
 	}
 
@@ -509,9 +732,12 @@ namespace Mockolate.Setup
 		where T4 : allows ref struct
 		where T5 : allows ref struct
 	{
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerSetup{TValue, T}.Getter" />
 		public global::Mockolate.Setup.RefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5> Getter { get; }
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerSetup{TValue, T}.Setter" />
 		public global::Mockolate.Setup.RefStructIndexerSetterSetup<TValue, T1, T2, T3, T4, T5> Setter { get; }
 
+		/// <inheritdoc cref="global::Mockolate.Setup.RefStructIndexerSetup{TValue, T1, T2, T3, T4, T5}" />
 		public RefStructIndexerSetup(string getterName, string setterName, global::Mockolate.Parameters.IParameterMatch<T1>? matcher1 = null, global::Mockolate.Parameters.IParameterMatch<T2>? matcher2 = null, global::Mockolate.Parameters.IParameterMatch<T3>? matcher3 = null, global::Mockolate.Parameters.IParameterMatch<T4>? matcher4 = null, global::Mockolate.Parameters.IParameterMatch<T5>? matcher5 = null) : base(getterName)
 		{
 			Getter = new global::Mockolate.Setup.RefStructIndexerGetterSetup<TValue, T1, T2, T3, T4, T5>(getterName, matcher1, matcher2, matcher3, matcher4, matcher5);
@@ -519,6 +745,7 @@ namespace Mockolate.Setup
 			Setter.BoundGetter = Getter;
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
 		protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction) => false;
 
 		global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5> global::Mockolate.Setup.IRefStructIndexerSetup<TValue, T1, T2, T3, T4, T5>.SkippingBaseClass(bool skipBaseClass)

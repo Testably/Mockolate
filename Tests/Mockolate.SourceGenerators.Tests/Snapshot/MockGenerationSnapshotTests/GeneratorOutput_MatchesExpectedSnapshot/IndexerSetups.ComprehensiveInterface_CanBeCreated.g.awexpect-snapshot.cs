@@ -494,7 +494,7 @@ namespace Mockolate.Setup
 			return this;
 		}
 
-		/// <inheritdoc cref="IIndexerSetup{TValue, T1, T2, T3, T4, T5}.Returns(global::System.Func{T1, T2, T3, T4, T5, TValue})" />
+		/// <inheritdoc cref="IIndexerSetupWithCallback{TValue, T1, T2, T3, T4, T5}.Returns(global::System.Func{T1, T2, T3, T4, T5, TValue})" />
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Returns(global::System.Func<T1, T2, T3, T4, T5, TValue> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, p1, p2, p3, p4, p5, _) => callback(p1, p2, p3, p4, p5));
@@ -502,7 +502,7 @@ namespace Mockolate.Setup
 			return this;
 		}
 
-		/// <inheritdoc cref="IIndexerSetup{TValue, T1, T2, T3, T4, T5}.Returns(global::System.Func{T1, T2, T3, T4, T5, TValue, TValue})" />
+		/// <inheritdoc cref="IIndexerSetupWithCallback{TValue, T1, T2, T3, T4, T5}.Returns(global::System.Func{T1, T2, T3, T4, T5, TValue, TValue})" />
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Returns(global::System.Func<T1, T2, T3, T4, T5, TValue, TValue> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, v, p1, p2, p3, p4, p5) => callback(v, p1, p2, p3, p4, p5));
@@ -535,7 +535,7 @@ namespace Mockolate.Setup
 			return this;
 		}
 
-		/// <inheritdoc cref="IIndexerSetup{TValue, T1, T2, T3, T4, T5}.Throws(global::System.Func{T1, T2, T3, T4, T5, global::System.Exception})" />
+		/// <inheritdoc cref="IIndexerSetupWithCallback{TValue, T1, T2, T3, T4, T5}.Throws(global::System.Func{T1, T2, T3, T4, T5, global::System.Exception})" />
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Throws(global::System.Func<T1, T2, T3, T4, T5, global::System.Exception> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, p1, p2, p3, p4, p5, _) => throw callback(p1, p2, p3, p4, p5));
@@ -543,7 +543,7 @@ namespace Mockolate.Setup
 			return this;
 		}
 
-		/// <inheritdoc cref="IIndexerSetup{TValue, T1, T2, T3, T4, T5}.Throws(global::System.Func{T1, T2, T3, T4, T5, TValue, global::System.Exception})" />
+		/// <inheritdoc cref="IIndexerSetupWithCallback{TValue, T1, T2, T3, T4, T5}.Throws(global::System.Func{T1, T2, T3, T4, T5, TValue, global::System.Exception})" />
 		public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4, T5> Throws(global::System.Func<T1, T2, T3, T4, T5, TValue, global::System.Exception> callback)
 		{
 			var currentCallback = new Callback<global::System.Func<int, T1, T2, T3, T4, T5, TValue, TValue>>((_, p1, p2, p3, p4, p5, v) => throw callback(p1, p2, p3, p4, p5, v));
@@ -1605,10 +1605,10 @@ namespace Mockolate.Verify
 			=> mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
 				(global::Mockolate.Parameters.IParameterMatch<TParameter>)value, parametersDescription);
 
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		/// <summary>
 		///     Verifies the indexer write access on the mock with the given <paramref name="value" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		public global::Mockolate.Verify.VerificationResult<TSubject> Set(TParameter value)
 			=> mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
 				(global::Mockolate.Parameters.IParameterMatch<TParameter>)global::Mockolate.Internals.Matchers.IsValue<TParameter>(value), parametersDescription);

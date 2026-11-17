@@ -197,6 +197,19 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task ClosedGeneric_CanBeCreated()
+		{
+			IClosedGeneric<int> sut1 = IClosedGeneric<int>.CreateMock();
+			ClosedGenericBase<string> sut2 = ClosedGenericBase<string>.CreateMock();
+			ClosedGenericDelegate<int, string> sut3 = ClosedGenericDelegate<int, string>.CreateMock();
+			IClosedGeneric<int> sut4 = IClosedGeneric<int>.CreateMock().Implementing<IClosedGeneric<string>>();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+			await That(sut4).IsNotNull();
+		}
+
+		[Test]
 		public async Task ComprehensiveAbstractClass_CanBeCreated()
 		{
 			ComprehensiveAbstractClass sut = ComprehensiveAbstractClass.CreateMock();

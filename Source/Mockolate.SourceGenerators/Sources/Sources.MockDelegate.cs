@@ -11,7 +11,7 @@ internal static partial class Sources
 		bool useUnionOverloads = false)
 	{
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
-		string escapedClassName = @class.ClassFullName.EscapeForXmlDoc();
+		string classReference = @class.XmlDocReference;
 		MemberIdTable memberIds = new(new MemberAliases());
 		memberIds.AddMethod(delegateMethod);
 		string memberIdPrefix = $"global::Mockolate.Mock.{name}.";
@@ -28,7 +28,7 @@ internal static partial class Sources
 		#region MockForXXX
 
 		sb.Append("\t/// <summary>").AppendLine();
-		sb.Append("\t///     A mock implementation for <see cref=\"").Append(escapedClassName).Append("\" />.").AppendLine();
+		sb.Append("\t///     A mock implementation for ").Append(classReference).Append('.').AppendLine();
 		sb.Append("\t/// </summary>").AppendLine();
 		sb.Append("\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]").AppendLine();
 #if !DEBUG
@@ -222,7 +222,7 @@ internal static partial class Sources
 
 		#region IMockForXXX
 
-		sb.AppendXmlSummary($"Accesses the mock of <see cref=\"{escapedClassName}\" />.", "\t");
+		sb.AppendXmlSummary($"Accesses the mock of {classReference}.", "\t");
 		sb.Append("\tinternal interface IMockFor").Append(name).Append(" :").AppendLine();
 		sb.Append("\t\t IMockSetupFor").Append(name).Append(", IMockVerifyFor").Append(name).AppendLine();
 		sb.Append("\t{").AppendLine();
@@ -247,7 +247,7 @@ internal static partial class Sources
 
 		#region IMockSetupForXXX
 
-		sb.AppendXmlSummary($"Set up the mock of <see cref=\"{escapedClassName}\" />.", "\t");
+		sb.AppendXmlSummary($"Set up the mock of {classReference}.", "\t");
 		sb.Append("\tinternal interface IMockSetupFor").Append(name).Append(" : global::Mockolate.Setup.IMockSetup<").Append(@class.ClassFullName).Append(">").AppendLine();
 		sb.Append("\t{").AppendLine();
 		
@@ -294,14 +294,14 @@ internal static partial class Sources
 
 		#region IMockVerifyForXXX
 
-		sb.AppendXmlSummary($"Verify interactions with the mock of <see cref=\"{escapedClassName}\" />.", "\t");
+		sb.AppendXmlSummary($"Verify interactions with the mock of {classReference}.", "\t");
 		sb.Append("\tinternal interface IMockVerifyFor").Append(name).Append(" : global::Mockolate.Verify.IMockVerify<").Append(@class.ClassFullName).Append(">").AppendLine();
 		sb.Append("\t{").AppendLine();
 		
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
-			AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
+			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
 				hasOverloadResolutionPriority: true, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
@@ -310,18 +310,18 @@ internal static partial class Sources
 		}
 		else
 		{
-			AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify");
+			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify");
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", true, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", true, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify", valueFlags);
+					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify", valueFlags);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -329,7 +329,7 @@ internal static partial class Sources
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodVerifyDefinition(sb, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
 						allValueFlags);
 				}
 			}
@@ -348,7 +348,7 @@ internal static partial class Sources
 
 		#region MockForXXXExtensions
 
-		sb.AppendXmlSummary($"Mock extensions for <see cref=\"{escapedClassName}\" />.", "");
+		sb.AppendXmlSummary($"Mock extensions for {classReference}.", "");
 #if !DEBUG
 		sb.Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
@@ -362,7 +362,7 @@ internal static partial class Sources
 
 		#region Mock Property
 
-		sb.AppendXmlSummary($"Get access to the mock of <see cref=\"{escapedClassName}\" />.");
+		sb.AppendXmlSummary($"Get access to the mock of {classReference}.");
 		sb.Append("\t\tpublic global::Mockolate.Mock.IMockFor").Append(name).Append(" Mock").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tget").AppendLine();
@@ -383,13 +383,13 @@ internal static partial class Sources
 		#region CreateMock
 
 		sb.AppendXmlSummary(
-			$"Create a new mock of <see cref=\"{escapedClassName}\" /> with the default <see cref=\"global::Mockolate.MockBehavior\" />.");
+			$"Create a new mock of {classReference} with the default <see cref=\"global::Mockolate.MockBehavior\" />.");
 		sb.Append("\t\tpublic static ").Append(@class.ClassFullName).Append(" CreateMock()").AppendLine();
 		sb.Append("\t\t\t=> CreateMock(null, []);").AppendLine();
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Create a new mock of <see cref=\"{escapedClassName}\" /> with the default <see cref=\"global::Mockolate.MockBehavior\" />.");
+			$"Create a new mock of {classReference} with the default <see cref=\"global::Mockolate.MockBehavior\" />.");
 		sb.AppendXmlRemarks("All provided <paramref name=\"setups\" /> are immediately applied to the mock.");
 		sb.Append("\t\tpublic static ").Append(@class.ClassFullName)
 			.Append(" CreateMock(params global::System.Action<global::Mockolate.Mock.IMockSetupFor").Append(name)
@@ -398,7 +398,7 @@ internal static partial class Sources
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Create a new mock of <see cref=\"{escapedClassName}\" /> with the given <paramref name=\"mockBehavior\" />.");
+			$"Create a new mock of {classReference} with the given <paramref name=\"mockBehavior\" />.");
 		sb.AppendXmlRemarks("All provided <paramref name=\"setups\" /> are immediately applied to the mock.");
 		sb.Append("\t\tpublic static ").Append(@class.ClassFullName)
 			.Append(

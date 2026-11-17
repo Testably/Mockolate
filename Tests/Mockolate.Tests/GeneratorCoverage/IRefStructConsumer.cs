@@ -10,6 +10,7 @@ public interface IRefStructConsumer
 {
 	string this[Packet k1, int k2, Packet k3, int k4, Packet k5] { get; set; }
 	void Consume5(Packet p1, Packet p2, Packet p3, Packet p4, Packet p5);
+	int Compute5(Packet p1, Packet p2, Packet p3, Packet p4, Packet p5);
 	void Produce(out Packet packet);
 	void Mutate(ref Packet packet);
 	void Inspect(ref readonly Packet packet);

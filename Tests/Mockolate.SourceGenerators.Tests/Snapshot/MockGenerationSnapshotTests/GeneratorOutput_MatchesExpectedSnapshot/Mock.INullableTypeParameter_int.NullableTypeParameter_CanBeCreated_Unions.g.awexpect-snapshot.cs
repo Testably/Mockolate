@@ -13,7 +13,7 @@ namespace Mockolate;
 internal static partial class Mock
 {
 	/// <summary>
-	///     A mock implementation for <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.
+	///     A mock implementation for <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.
 	/// </summary>
 	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -144,7 +144,7 @@ internal static partial class Mock
 		#region Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>
 
 		private global::System.Action<int, int>? _mockolateEvent_global__Mockolate_Tests_GeneratorCoverage_INullableTypeParameter_int__Changed;
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Changed" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed" />
 		public event global::System.Action<int, int>? Changed
 		{
 			add
@@ -173,7 +173,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Value" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Value" />
 		public int Value
 		{
 			get
@@ -196,7 +196,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.this[int]" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.this[T]" />
 		public int this[int key]
 		{
 			get
@@ -264,7 +264,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.this[int, int, int, int, int]" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.this[T, int, T, int, T]" />
 		public int this[int a, int b, int c, int d, int e]
 		{
 			get
@@ -286,7 +286,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Get()" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Get()" />
 		public int Get()
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<int>? methodSetup = null;
@@ -356,7 +356,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)" />
 		public void Accept(int value, int count)
 		{
 			global::Mockolate.Setup.VoidMethodSetup<int, int>? methodSetup = null;
@@ -420,7 +420,7 @@ internal static partial class Mock
 			}
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Combine(int, int, int, int, int)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Combine(T, int, T, int, T)" />
 		public int Combine(int a, int b, int c, int d, int e)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int>? methodSetup = null;
@@ -490,7 +490,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(a, b, c, d, e, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, a, b, c, d, e);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.TryGet(int, out int)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.TryGet(int, out T)" />
 		public bool TryGet(int key, out int value)
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<bool, int, int>? methodSetup = null;
@@ -575,7 +575,7 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(key, value, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!, key, value);
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Update(ref int)" />
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Update(ref T)" />
 		public void Update(ref int value)
 		{
 			var ref_value = value;
@@ -1023,7 +1023,7 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Update", __i => 
 				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Update({value})");
 		/// <summary>
-		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
+		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		global::Mockolate.Verify.VerificationEventResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Changed
@@ -1207,7 +1207,7 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Update", __i => 
 				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Update({value})");
 		/// <summary>
-		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
+		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		global::Mockolate.Verify.VerificationEventResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Changed
@@ -1425,7 +1425,7 @@ internal static partial class Mock
 	}
 
 	/// <summary>
-	///     The Mockolate accessor for a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>, reached through <c>.Mock</c> on the mocked instance.
+	///     The Mockolate accessor for a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>, reached through <c>.Mock</c> on the mocked instance.
 	/// </summary>
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
@@ -1433,7 +1433,7 @@ internal static partial class Mock
 	internal interface IMockForINullableTypeParameter_int
 	{
 		/// <summary>
-		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> respond when invoked.
+		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> respond when invoked.
 		/// </summary>
 		/// <remarks>
 		///     Each mocked member is available as a strongly-typed entry on this surface. Chain <c>Returns</c>, <c>ReturnsAsync</c>, <c>Throws</c>, <c>ThrowsAsync</c> or <c>Do</c> to control the response; chain <c>InitializeWith</c>/<c>Register</c> to initialize properties and indexers; chain multiple returns/throws to define a sequence; use <c>.For(n)</c>, <c>.Only(n)</c>, <c>.Forever()</c>, <c>.When(predicate)</c> to control when a callback runs.<br />
@@ -1442,7 +1442,7 @@ internal static partial class Mock
 		IMockSetupForINullableTypeParameter_int Setup { get; }
 
 		/// <summary>
-		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> so that additional setups can be registered for that scenario.
+		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> so that additional setups can be registered for that scenario.
 		/// </summary>
 		/// <remarks>
 		///     Scenarios let you define per-state behavior. Setups registered inside the returned <c>IMockInScenarioFor...</c> scope only apply while the mock's current scenario matches <paramref name="scenario" />; switch scenarios with <see cref="TransitionTo">TransitionTo</see>.
@@ -1452,7 +1452,7 @@ internal static partial class Mock
 		IMockInScenarioForINullableTypeParameter_int InScenario(string scenario);
 
 		/// <summary>
-		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> and immediately invokes <paramref name="setup" /> to register scenario-specific setups.
+		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> and immediately invokes <paramref name="setup" /> to register scenario-specific setups.
 		/// </summary>
 		/// <remarks>
 		///     Equivalent to <c>InScenario(scenario)</c> followed by the setup callback, but returns the original <c>IMockFor...</c> accessor so it chains nicely at mock-creation time.
@@ -1463,7 +1463,7 @@ internal static partial class Mock
 		IMockForINullableTypeParameter_int InScenario(string scenario, global::System.Action<IMockInScenarioForINullableTypeParameter_int> setup);
 
 		/// <summary>
-		///     Switches the active scenario of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> to <paramref name="scenario" />.
+		///     Switches the active scenario of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> to <paramref name="scenario" />.
 		/// </summary>
 		/// <remarks>
 		///     After the transition, setups registered via <see cref="InScenario(string)">InScenario(string)</see> under that scenario take effect. Scenarios that have no matching setup for a given member fall back to the default (un-scoped) setups.
@@ -1473,7 +1473,7 @@ internal static partial class Mock
 		IMockForINullableTypeParameter_int TransitionTo(string scenario);
 
 		/// <summary>
-		///     Triggers events declared on <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> so that currently subscribed handlers are invoked.
+		///     Triggers events declared on <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> so that currently subscribed handlers are invoked.
 		/// </summary>
 		/// <remarks>
 		///     One entry per event is generated; the signature matches the event's delegate. Only handlers that are subscribed at the moment of the <c>Raise</c> call are invoked - handlers subscribed later (or already removed) are skipped.
@@ -1481,7 +1481,7 @@ internal static partial class Mock
 		IMockRaiseOnINullableTypeParameter_int Raise { get; }
 
 		/// <summary>
-		///     Asserts how often, and in which order, members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> were invoked.
+		///     Asserts how often, and in which order, members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> were invoked.
 		/// </summary>
 		/// <remarks>
 		///     Each call to a member here returns a <c>VerificationResult</c> that you terminate with a count assertion: <c>Never()</c>, <c>Once()</c>, <c>Twice()</c>, <c>Exactly(n)</c>, <c>AtLeast(n)</c>/<c>AtLeastOnce()</c>/<c>AtLeastTwice()</c>, <c>AtMost(n)</c>/<c>AtMostOnce()</c>/<c>AtMostTwice()</c>, <c>Between(min, max)</c> or <c>Times(predicate)</c>.<br />
@@ -1537,33 +1537,33 @@ internal static partial class Mock
 	}
 
 	/// <summary>
-	///     Scoped access to setups for a scenario on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.
+	///     Scoped access to setups for a scenario on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.
 	/// </summary>
 	internal interface IMockInScenarioForINullableTypeParameter_int
 	{
 		/// <summary>
-		///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> within the scenario scope.
+		///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> within the scenario scope.
 		/// </summary>
 		IMockSetupForINullableTypeParameter_int Setup { get; }
 	}
 
 	/// <summary>
-	///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.
+	///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.
 	/// </summary>
 	internal interface IMockSetupForINullableTypeParameter_int : global::Mockolate.Setup.IMockSetup<global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>>
 	{
 		/// <summary>
-		///     Setup for the int property <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Value">INullableTypeParameter&lt;int&gt;.Value</see>.
+		///     Setup for the int property <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Value">INullableTypeParameter&lt;int&gt;.Value</see>.
 		/// </summary>
 		global::Mockolate.Setup.PropertySetup<int> Value { get; }
 
 		/// <summary>
-		///     Setup for the event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
+		///     Setup for the event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
 		/// </summary>
 		global::Mockolate.Setup.EventSetup Changed { get; }
 
 		/// <summary>
-		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.this[int]">INullableTypeParameter&lt;int&gt;.this[int]</see>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.this[T]">INullableTypeParameter&lt;int&gt;.this[int]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1572,7 +1572,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IndexerSetup<int, int> this[global::Mockolate.ParameterArg<int>? parameter1] { get; }
 
 		/// <summary>
-		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.this[int]">INullableTypeParameter&lt;int&gt;.this[int]</see>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.this[T]">INullableTypeParameter&lt;int&gt;.this[int]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="parameter1" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1581,7 +1581,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IndexerSetup<int, int> this[global::System.Func<int, bool> parameter1, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
 
 		/// <summary>
-		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.this[int, int, int, int, int]">INullableTypeParameter&lt;int&gt;.this[int, int, int, int, int]</see>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.this[T, int, T, int, T]">INullableTypeParameter&lt;int&gt;.this[int, int, int, int, int]</see>
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1590,13 +1590,13 @@ internal static partial class Mock
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, int, int, int, int> this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<int>? parameter2, global::Mockolate.ParameterArg<int>? parameter3, global::Mockolate.ParameterArg<int>? parameter4, global::Mockolate.ParameterArg<int>? parameter5] { get; }
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Get()">INullableTypeParameter&lt;int&gt;.Get()</see>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Get()">INullableTypeParameter&lt;int&gt;.Get()</see>.
 		/// </summary>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetup<int> Get();
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1605,7 +1605,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int> Accept(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1614,7 +1614,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int> Accept(global::Mockolate.ParameterArg<int>? value, global::Mockolate.ParameterArg<int>? count);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="value" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1623,7 +1623,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int> Accept(global::System.Func<int, bool> value, global::Mockolate.ParameterArg<int>? count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("value")] string valueExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="value" /> and a predicate for <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1632,7 +1632,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int> Accept(global::Mockolate.ParameterArg<int>? value, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="value" />, <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1641,7 +1641,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, int> Accept(global::System.Func<int, bool> value, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("value")] string valueExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Combine(int, int, int, int, int)">INullableTypeParameter&lt;int&gt;.Combine(int, int, int, int, int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Combine(T, int, T, int, T)">INullableTypeParameter&lt;int&gt;.Combine(int, int, int, int, int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1650,7 +1650,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int, int> Combine(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Combine(int, int, int, int, int)">INullableTypeParameter&lt;int&gt;.Combine(int, int, int, int, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Combine(T, int, T, int, T)">INullableTypeParameter&lt;int&gt;.Combine(int, int, int, int, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1659,7 +1659,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int> Combine(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d, global::Mockolate.ParameterArg<int>? e);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.TryGet(int, out int)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.TryGet(int, out T)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1668,7 +1668,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, int, int> TryGet(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.TryGet(int, out int)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="key"/>, <paramref name="value"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.TryGet(int, out T)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="key"/>, <paramref name="value"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1677,7 +1677,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, int, int> TryGet(global::Mockolate.ParameterArg<int>? key, global::Mockolate.Parameters.IOutParameter<int> value);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.TryGet(int, out int)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="key"/>, <paramref name="value"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.TryGet(int, out T)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="key"/>, <paramref name="value"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="key" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1686,7 +1686,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<bool, int, int> TryGet(global::System.Func<int, bool> key, global::Mockolate.Parameters.IOutParameter<int> value, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Update(ref int)">INullableTypeParameter&lt;int&gt;.Update(ref int)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Update(ref T)">INullableTypeParameter&lt;int&gt;.Update(ref int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1695,7 +1695,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int> Update(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Update(ref int)">INullableTypeParameter&lt;int&gt;.Update(ref int)</see> with the given <paramref name="value"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Update(ref T)">INullableTypeParameter&lt;int&gt;.Update(ref int)</see> with the given <paramref name="value"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -1706,34 +1706,34 @@ internal static partial class Mock
 	}
 
 	/// <summary>
-	///     Raise events on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.
+	///     Raise events on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.
 	/// </summary>
 	internal interface IMockRaiseOnINullableTypeParameter_int
 	{
 		/// <summary>
-		///     Raise the <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see> event.
+		///     Raise the <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see> event.
 		/// </summary>
 		void Changed(int arg1, int arg2);
 
 		/// <summary>
-		///     Raise the <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see> event.
+		///     Raise the <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see> event.
 		/// </summary>
 		void Changed(global::Mockolate.Parameters.IDefaultEventParameters parameters);
 
 	}
 
 	/// <summary>
-	///     Verify interactions with the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.
+	///     Verify interactions with the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.
 	/// </summary>
 	internal interface IMockVerifyForINullableTypeParameter_int : global::Mockolate.Verify.IMockVerify<global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>>
 	{
 		/// <summary>
-		///     Verify interactions with the int property <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Value">INullableTypeParameter&lt;int&gt;.Value</see>.
+		///     Verify interactions with the int property <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Value">INullableTypeParameter&lt;int&gt;.Value</see>.
 		/// </summary>
 		global::Mockolate.Verify.VerificationPropertyResult<IMockVerifyForINullableTypeParameter_int, int> Value { get; }
 
 		/// <summary>
-		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.this[int]">INullableTypeParameter&lt;int&gt;.this[int]</see>.
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.this[T]">INullableTypeParameter&lt;int&gt;.this[int]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1742,7 +1742,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForINullableTypeParameter_int, int> this[global::Mockolate.ParameterArg<int>? key] { get; }
 
 		/// <summary>
-		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.this[int]">INullableTypeParameter&lt;int&gt;.this[int]</see>.
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.this[T]">INullableTypeParameter&lt;int&gt;.this[int]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1751,7 +1751,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForINullableTypeParameter_int, int> this[global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = ""] { get; }
 
 		/// <summary>
-		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.this[int, int, int, int, int]">INullableTypeParameter&lt;int&gt;.this[int, int, int, int, int]</see>.
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.this[T, int, T, int, T]">INullableTypeParameter&lt;int&gt;.this[int, int, int, int, int]</see>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1760,12 +1760,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForINullableTypeParameter_int, int, int, int, int, int> this[global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d, global::Mockolate.ParameterArg<int>? e] { get; }
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Get()">INullableTypeParameter&lt;int&gt;.Get()</see>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Get()">INullableTypeParameter&lt;int&gt;.Get()</see>.
 		/// </summary>
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters Get();
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1774,7 +1774,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> Accept(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1783,7 +1783,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters Accept(global::Mockolate.ParameterArg<int>? value, global::Mockolate.ParameterArg<int>? count);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="value" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1792,7 +1792,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters Accept(global::System.Func<int, bool> value, global::Mockolate.ParameterArg<int>? count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("value")] string valueExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="value" /> and a predicate for <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1801,7 +1801,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters Accept(global::Mockolate.ParameterArg<int>? value, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Accept(int, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Accept(T, int)">INullableTypeParameter&lt;int&gt;.Accept(int, int)</see> with the given <paramref name="value"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="value" />, <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1810,7 +1810,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters Accept(global::System.Func<int, bool> value, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("value")] string valueExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Combine(int, int, int, int, int)">INullableTypeParameter&lt;int&gt;.Combine(int, int, int, int, int)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Combine(T, int, T, int, T)">INullableTypeParameter&lt;int&gt;.Combine(int, int, int, int, int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1819,7 +1819,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> Combine(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Combine(int, int, int, int, int)">INullableTypeParameter&lt;int&gt;.Combine(int, int, int, int, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Combine(T, int, T, int, T)">INullableTypeParameter&lt;int&gt;.Combine(int, int, int, int, int)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>, <paramref name="e"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1828,7 +1828,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters Combine(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d, global::Mockolate.ParameterArg<int>? e);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.TryGet(int, out int)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.TryGet(int, out T)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1837,7 +1837,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> TryGet(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.TryGet(int, out int)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="key"/>, <paramref name="value"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.TryGet(int, out T)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="key"/>, <paramref name="value"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1846,7 +1846,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters TryGet(global::Mockolate.ParameterArg<int>? key, global::Mockolate.Parameters.IVerifyOutParameter<int> value);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.TryGet(int, out int)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="key"/>, <paramref name="value"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.TryGet(int, out T)">INullableTypeParameter&lt;int&gt;.TryGet(int, out int)</see> with the given <paramref name="key"/>, <paramref name="value"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts a predicate for <paramref name="key" /> and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
@@ -1855,7 +1855,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters TryGet(global::System.Func<int, bool> key, global::Mockolate.Parameters.IVerifyOutParameter<int> value, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Update(ref int)">INullableTypeParameter&lt;int&gt;.Update(ref int)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Update(ref T)">INullableTypeParameter&lt;int&gt;.Update(ref int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
@@ -1864,7 +1864,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> Update(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Update(ref int)">INullableTypeParameter&lt;int&gt;.Update(ref int)</see> with the given <paramref name="value"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Update(ref T)">INullableTypeParameter&lt;int&gt;.Update(ref int)</see> with the given <paramref name="value"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
@@ -1873,14 +1873,14 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> Update(global::Mockolate.Parameters.IVerifyRefParameter<int> value);
 
 		/// <summary>
-		///     Verify subscriptions on the Changed event of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
+		///     Verify subscriptions on the Changed event of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
 		/// </summary>
 		global::Mockolate.Verify.VerificationEventResult<IMockVerifyForINullableTypeParameter_int> Changed { get; }
 
 	}
 }
 /// <summary>
-///     Mock extensions for <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.
+///     Mock extensions for <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.
 /// </summary>
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal static partial class MockExtensionsForINullableTypeParameter_int
@@ -1889,10 +1889,10 @@ internal static partial class MockExtensionsForINullableTypeParameter_int
 	extension(global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int> mock)
 	{
 		/// <summary>
-		///     Gets the mock accessor for <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> - the entry point for configuring setups, verifying interactions and raising events.
+		///     Gets the mock accessor for <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> - the entry point for configuring setups, verifying interactions and raising events.
 		/// </summary>
 		/// <remarks>
-		///     The accessor is the bridge between the strongly-typed instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> returned by <c>CreateMock(...)</c> and the underlying mock registry where setups and recorded interactions live.<br />
+		///     The accessor is the bridge between the strongly-typed instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> returned by <c>CreateMock(...)</c> and the underlying mock registry where setups and recorded interactions live.<br />
 		///     Through it you can:<br />
 		///     <list type="bullet"><br />
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
@@ -1903,7 +1903,7 @@ internal static partial class MockExtensionsForINullableTypeParameter_int
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>
-		/// <exception cref="global::Mockolate.Exceptions.MockException">The instance is not a Mockolate-generated mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.</exception>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The instance is not a Mockolate-generated mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.</exception>
 		public global::Mockolate.Mock.IMockForINullableTypeParameter_int Mock
 		{
 			get
@@ -1917,10 +1917,10 @@ internal static partial class MockExtensionsForINullableTypeParameter_int
 		}
 
 		/// <summary>
-		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.
 		/// </summary>
 		/// <remarks>
-		///     The returned instance is a strongly-typed mock generated at compile time - it implements <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> and exposes the Mockolate surface through <c>.Mock</c>:<br />
+		///     The returned instance is a strongly-typed mock generated at compile time - it implements <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> and exposes the Mockolate surface through <c>.Mock</c>:<br />
 		///     <list type="bullet"><br />
 		///       <item><description><c>.Mock.Setup</c> configures how members respond (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, sequences, callbacks).</description></item><br />
 		///       <item><description><c>.Mock.Verify</c> asserts how often and in which order members were invoked.</description></item><br />
@@ -1929,43 +1929,43 @@ internal static partial class MockExtensionsForINullableTypeParameter_int
 		///     With the default behavior, un-configured members return <c>default</c> values (empty collections / strings, completed tasks, <see langword="null" /> otherwise) and base-class implementations are invoked for class mocks. Use one of the overloads that accepts a <see cref="global::Mockolate.MockBehavior">MockBehavior</see> to customize this (for example to make un-configured calls throw or to skip the base class).<br />
 		///     Overloads allow you to additionally pass constructor parameters (for class mocks), apply an initial <c>setup</c> callback before the instance is returned, or combine both.
 		/// </remarks>
-		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.</returns>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int> CreateMock()
 			=> CreateMock(null, null, (object?[]?)null);
 
 		/// <summary>
-		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>, applying the given <paramref name="setup" /> immediately.
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>, applying the given <paramref name="setup" /> immediately.
 		/// </summary>
 		/// <remarks>
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.</returns>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int> CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForINullableTypeParameter_int> setup)
 			=> CreateMock(null, setup, (object?[]?)null);
 
 		/// <summary>
-		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> with the given <paramref name="mockBehavior" />.
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> with the given <paramref name="mockBehavior" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.</returns>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int> CreateMock(global::Mockolate.MockBehavior mockBehavior)
 			=> CreateMock(mockBehavior, null, (object?[]?)null);
 
 		/// <summary>
-		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> with the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately.
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> with the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately.
 		/// </summary>
 		/// <remarks>
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.</returns>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int> CreateMock(global::Mockolate.MockBehavior mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForINullableTypeParameter_int> setup)
 			=> CreateMock(mockBehavior, setup, (object?[]?)null);
 
 		/// <summary>
-		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> using the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately, using the given <paramref name="constructorParameters" />.
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> using the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately, using the given <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <remarks>
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
@@ -1973,7 +1973,7 @@ internal static partial class MockExtensionsForINullableTypeParameter_int
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup, or <see langword="null" /> for <c>MockBehavior.Default</c>.</param>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword="null" /> to skip.</param>
 		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use the parameterless constructor.</param>
-		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see>.</returns>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see>.</returns>
 		private static global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int> CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForINullableTypeParameter_int>? setup, object?[]? constructorParameters)
 		{
 			if (mockBehavior is not null)
@@ -2014,7 +2014,7 @@ internal static partial class MockExtensionsForINullableTypeParameter_int
 		///     Public members on the mock forward to <paramref name="instance" /> unless overridden by a setup; protected members still go through the base-class implementation. All forwarded interactions are recorded and can be verified the same as on a plain mock.
 		/// </remarks>
 		/// <param name="instance">The real object whose calls should be forwarded. Must not be <see langword="null" />.</param>
-		/// <returns>A new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> that delegates to <paramref name="instance" />.</returns>
+		/// <returns>A new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> that delegates to <paramref name="instance" />.</returns>
 		public global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int> Wrapping(global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int> instance)
 		{
 			if (mock is global::Mockolate.IMock mockInterface)
@@ -2037,7 +2037,7 @@ internal static partial class MockExtensionsForINullableTypeParameter_int
 		/// <remarks>
 		///     The <paramref name="setup" /> is applied to the mock before the constructor is executed. Calling <c>Initialize</c> again overlays additional setups on top of any previously registered ones.
 		/// </remarks>
-		/// <typeparam name="T">The mockable type derived from <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{int}">INullableTypeParameter&lt;int&gt;</see> that this setup should apply to.</typeparam>
+		/// <typeparam name="T">The mockable type derived from <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}">INullableTypeParameter&lt;int&gt;</see> that this setup should apply to.</typeparam>
 		/// <param name="setup">Callback invoked when a new mock of <typeparamref name="T" /> is created.</param>
 		/// <returns>A new <see cref="global::Mockolate.MockBehavior">MockBehavior</see> with the registered initializer. The original instance is unchanged.</returns>
 		public global::Mockolate.MockBehavior Initialize<T>(global::System.Action<global::Mockolate.Mock.IMockSetupForINullableTypeParameter_int> setup)

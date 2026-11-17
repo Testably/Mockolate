@@ -41,6 +41,10 @@ public static class Generator
 		=> RunCore(sources, DocumentationMode.Parse, preprocessorSymbols, [], assemblyTypes, languageVersion,
 			globalOptions);
 
+	public static GeneratorResult Run(string[] sources, string[] preprocessorSymbols, LanguageVersion languageVersion,
+		DocumentationMode documentationMode, params Type[] assemblyTypes)
+		=> RunCore(sources, documentationMode, preprocessorSymbols, [], assemblyTypes, languageVersion);
+
 	private static GeneratorResult RunCore(string[] sources, DocumentationMode documentationMode,
 		string[] preprocessorSymbols, MetadataReference[] externalReferences, Type[] assemblyTypes,
 		LanguageVersion languageVersion = LanguageVersion.CSharp14,

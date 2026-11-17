@@ -597,7 +597,7 @@ public class MockGenerator : IIncrementalGenerator
 				foreach (NamedClass hiddenBase in hiddenBases)
 				{
 					AddIfNew(seen, ordered, MockAsExtensionPair.Create(
-						nm.ParentName, nm.Mock.ClassFullName, hiddenBase.Name, hiddenBase.Class.ClassFullName));
+						nm.ParentName, nm.Mock, hiddenBase.Name, hiddenBase.Class));
 				}
 			}
 
@@ -609,10 +609,10 @@ public class MockGenerator : IIncrementalGenerator
 			NamedClass[] additionalArr = additional.AsArray();
 			NamedClass last = additionalArr[additionalArr.Length - 1];
 
-			AddIfNew(seen, ordered, MockAsExtensionPair.Create(nm.ParentName, nm.Mock.ClassFullName, last.Name, last.Class.ClassFullName));
+			AddIfNew(seen, ordered, MockAsExtensionPair.Create(nm.ParentName, nm.Mock, last.Name, last.Class));
 			for (int i = 0; i < additionalArr.Length - 1; i++)
 			{
-				AddIfNew(seen, ordered, MockAsExtensionPair.Create(additionalArr[i].Name, additionalArr[i].Class.ClassFullName, last.Name, last.Class.ClassFullName));
+				AddIfNew(seen, ordered, MockAsExtensionPair.Create(additionalArr[i].Name, additionalArr[i].Class, last.Name, last.Class));
 			}
 		}
 
@@ -700,13 +700,15 @@ internal readonly record struct IndexerSetupKey(int Arity, bool NeedsGetterOnly,
 internal readonly record struct MockAsExtensionPair(
 	string SourceName,
 	string SourceFullName,
+	string SourceXmlDocReference,
 	string OtherName,
-	string OtherFullName)
+	string OtherFullName,
+	string OtherXmlDocReference)
 {
-	public static MockAsExtensionPair Create(string nameA, string fullNameA, string nameB, string fullNameB)
+	public static MockAsExtensionPair Create(string nameA, Class a, string nameB, Class b)
 		=> string.CompareOrdinal(nameA, nameB) <= 0
-			? new MockAsExtensionPair(nameA, fullNameA, nameB, fullNameB)
-			: new MockAsExtensionPair(nameB, fullNameB, nameA, fullNameA);
+			? new MockAsExtensionPair(nameA, a.ClassFullName, a.XmlDocReference, nameB, b.ClassFullName, b.XmlDocReference)
+			: new MockAsExtensionPair(nameB, b.ClassFullName, b.XmlDocReference, nameA, a.ClassFullName, a.XmlDocReference);
 }
 
 internal sealed class RefStructAggregate : IEquatable<RefStructAggregate>

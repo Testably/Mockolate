@@ -16,7 +16,8 @@ internal record Property
 		Name = propertySymbol.IsIndexer ? rawName : Helpers.EscapeIfKeyword(rawName);
 		Type = Type.From(propertySymbol.Type);
 		ContainingType = propertySymbol.ContainingType.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
-		DeclaredContainingType = ContainingType;
+		Cref = Helpers.ToMemberCref(propertySymbol.OriginalDefinition, Name);
+		XmlDocReference = Helpers.ToXmlDocReference(Cref, Helpers.ToMemberCref(propertySymbol, Name));
 		IsIndexer = propertySymbol.IsIndexer;
 		IsAbstract = propertySymbol.IsAbstract;
 		IsStatic = propertySymbol.IsStatic;
@@ -77,8 +78,11 @@ internal record Property
 	public Type Type { get; }
 	public string ContainingType { get; init; }
 
-	/// <inheritdoc cref="Method.DeclaredContainingType" />
-	public string DeclaredContainingType { get; }
+	/// <inheritdoc cref="Method.Cref" />
+	public string Cref { get; }
+
+	/// <inheritdoc cref="Method.XmlDocReference" />
+	public string XmlDocReference { get; }
 
 	public Method? Setter { get; }
 

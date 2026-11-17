@@ -603,7 +603,7 @@ namespace Mockolate.Setup
 }
 
 	/// <summary>
-	///     Sets up a callback for a method with 5 parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" /> and <typeparamref name="T5" /> returning <typeparamref name="TReturn" />.
+	///     Sets up a callback for a method with 5 parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" /> and <typeparamref name="T5" /> returning <see langword="void" />.
 	/// </summary>
 	internal interface IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5> : global::Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<T1, T2, T3, T4, T5>
 	{
@@ -1106,7 +1106,7 @@ namespace Mockolate.Setup
 }
 
 	/// <summary>
-	///     Sets up a callback for a method with 7 parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" />, <typeparamref name="T5" />, <typeparamref name="T6" /> and <typeparamref name="T7" /> returning <typeparamref name="TReturn" />.
+	///     Sets up a callback for a method with 7 parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" />, <typeparamref name="T5" />, <typeparamref name="T6" /> and <typeparamref name="T7" /> returning <see langword="void" />.
 	/// </summary>
 	internal interface IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7> : global::Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<T1, T2, T3, T4, T5, T6, T7>
 	{
@@ -2246,7 +2246,7 @@ namespace Mockolate.Setup
 }
 
 	/// <summary>
-	///     Sets up a callback for a method with 17 parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" />, <typeparamref name="T5" />, <typeparamref name="T6" />, <typeparamref name="T7" />, <typeparamref name="T8" />, <typeparamref name="T9" />, <typeparamref name="T10" />, <typeparamref name="T11" />, <typeparamref name="T12" />, <typeparamref name="T13" />, <typeparamref name="T14" />, <typeparamref name="T15" />, <typeparamref name="T16" /> and <typeparamref name="T17" /> returning <typeparamref name="TReturn" />.
+	///     Sets up a callback for a method with 17 parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" />, <typeparamref name="T4" />, <typeparamref name="T5" />, <typeparamref name="T6" />, <typeparamref name="T7" />, <typeparamref name="T8" />, <typeparamref name="T9" />, <typeparamref name="T10" />, <typeparamref name="T11" />, <typeparamref name="T12" />, <typeparamref name="T13" />, <typeparamref name="T14" />, <typeparamref name="T15" />, <typeparamref name="T16" /> and <typeparamref name="T17" /> returning <see langword="void" />.
 	/// </summary>
 	internal interface IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> : global::Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>
 	{

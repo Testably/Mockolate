@@ -607,7 +607,7 @@ internal static partial class Sources
 	///         </item>
 	///     </list>
 	/// </summary>
-	private static string SimplifyCrefForDisplay(string cref)
+	internal static string SimplifyCrefForDisplay(string cref)
 	{
 		string stripped = cref.Replace("global::", string.Empty);
 		int firstBracket = stripped.IndexOfAny(['{', '(',]);

@@ -226,19 +226,16 @@ internal static partial class Sources
 		sb.Append("\t\t/// <summary>").AppendLine();
 		if (methodNameOverride is null)
 		{
-			sb.Append("\t\t///     ").Append(action).Append(" the method <see cref=\"").Append(MethodCref(method))
-				.Append("\"/>");
+			sb.Append("\t\t///     ").Append(action).Append(" the method ").Append(method.XmlDocReference);
 		}
 		else
 		{
-			sb.Append("\t\t///     ").Append(action).Append(" the delegate <see cref=\"")
-				.Append(@class.ClassFullName.EscapeForXmlDoc())
-				.Append("\"/>");
+			sb.Append("\t\t///     ").Append(action).Append(" the delegate ").Append(@class.XmlDocReference);
 		}
 
 		string[] keptParameters = method.Parameters.AsArray()
 			.Where((_, i) => slots[i] != UnionSlot.Omitted)
-			.Select(p => $"<paramref name=\"{p.Name}\"/>")
+			.Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")
 			.ToArray();
 		if (keptParameters.Length > 0)
 		{
@@ -279,7 +276,7 @@ internal static partial class Sources
 		{
 			string[] names = parameterNames
 				.Where((_, i) => slots[i] == slot)
-				.Select(name => $"<paramref name=\"{name}\" />")
+				.Select(name => $"<paramref name=\"{name.TrimStart('@')}\" />")
 				.ToArray();
 			if (names.Length > 0)
 			{
@@ -888,7 +885,7 @@ internal static partial class Sources
 	{
 		string[] names = UnionIndexerSetupNames(indexer);
 		sb.AppendXmlSummary(
-			$"Setup for the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer <see cref=\"{IndexerCref(indexer)}\" />");
+			$"Setup for the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer {indexer.XmlDocReference}");
 		AppendUnionOverloadRemark(sb, names, slots);
 		sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
 			.Append(UnionIndexerPriority(slots)).Append(")]").AppendLine();
@@ -961,7 +958,7 @@ internal static partial class Sources
 	{
 		string[] names = UnionIndexerVerifyNames(indexer);
 		sb.AppendXmlSummary(
-			$"Verify interactions with the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer <see cref=\"{IndexerCref(indexer)}\" />.");
+			$"Verify interactions with the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer {indexer.XmlDocReference}.");
 		AppendUnionOverloadRemark(sb, names, slots);
 		sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
 			.Append(UnionIndexerPriority(slots)).Append(")]").AppendLine();

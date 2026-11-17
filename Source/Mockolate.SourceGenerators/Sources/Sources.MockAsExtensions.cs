@@ -21,26 +21,26 @@ internal static partial class Sources
 
 		foreach (MockAsExtensionPair pair in pairs)
 		{
-			AppendAsBridge(sb, pair.SourceName, pair.OtherName, pair.OtherFullName);
-			AppendAsBridge(sb, pair.OtherName, pair.SourceName, pair.SourceFullName);
+			AppendAsBridge(sb, pair.SourceName, pair.OtherName, pair.OtherFullName, pair.OtherXmlDocReference);
+			AppendAsBridge(sb, pair.OtherName, pair.SourceName, pair.SourceFullName, pair.SourceXmlDocReference);
 		}
 
 		return sb.ToString();
 	}
 
-	private static void AppendAsBridge(StringBuilder sb, string sourceName, string otherName, string otherFullName)
+	private static void AppendAsBridge(StringBuilder sb, string sourceName, string otherName, string otherFullName,
+		string otherReference)
 	{
-		string escapedOtherName = otherFullName.EscapeForXmlDoc();
 		sb.Append("internal static partial class MockExtensionsFor").Append(otherName).AppendLine();
 		sb.Append("{").AppendLine();
 		sb.Append("\textension(global::Mockolate.Mock.IMockFor").Append(sourceName).Append(" mock)").AppendLine();
 		sb.Append("\t{").AppendLine();
-		sb.AppendXmlSummary($"Reinterprets this mock as a mock of <see cref=\"{escapedOtherName}\" /> to reach its Setup/Verify/Raise surface.");
+		sb.AppendXmlSummary($"Reinterprets this mock as a mock of {otherReference} to reach its Setup/Verify/Raise surface.");
 		sb.AppendXmlRemarks(
 			"The returned accessor shares the same mock registry as this one - setups and verifications act on the same mocked instance. Use this when the mock implements multiple interfaces via <c>Implementing&lt;T&gt;()</c> and you need to configure or verify members of a different interface than the one the instance is currently typed as.");
-		sb.AppendXmlReturns($"An <c>IMockFor...</c> accessor targeting <see cref=\"{escapedOtherName}\" />.");
+		sb.AppendXmlReturns($"An <c>IMockFor...</c> accessor targeting {otherReference}.");
 		sb.AppendXmlException("global::Mockolate.Exceptions.MockException",
-			$"The subject does not implement <see cref=\"{escapedOtherName}\" />.");
+			$"The subject does not implement {otherReference}.");
 		sb.Append("\t\tpublic global::Mockolate.Mock.IMockFor").Append(otherName).Append(" As<T>() where T : ").Append(otherFullName).AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (mock is global::Mockolate.Mock.IMockFor").Append(otherName).Append(" typed)").AppendLine();
