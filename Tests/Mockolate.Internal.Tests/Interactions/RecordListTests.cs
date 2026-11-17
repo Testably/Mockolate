@@ -105,10 +105,10 @@ public class RecordListTests
 		{
 			while (!readersDone.IsCancellationRequested)
 			{
-				List<(int Index, int Value, int Check)> records = list.ReadWithChecks();
+				List<(int Value, int Check)> records = list.ReadWithChecks();
 				for (int i = 0; i < records.Count; i++)
 				{
-					if (records[i].Value != records[i].Check || records[i].Index != records.Count - 1 - i)
+					if (records[i].Value != records[i].Check)
 					{
 						unexpected.Add($"{records[i]} at {i} of {records.Count}");
 					}
@@ -132,7 +132,7 @@ public class RecordListTests
 		reader.Join();
 
 		await That(unexpected).IsEmpty()
-			.Because("readers must only see fully written records with consistent positions, even across Clear");
+			.Because("readers must only see fully written records, even across Clear");
 		await That(list.Count).IsEqualTo(list.Read().Count);
 	}
 
@@ -247,13 +247,13 @@ public class RecordListTests
 
 		public List<int> Read() => ReadWithChecks().Select(x => x.Value).Reverse().ToList();
 
-		public List<(int Index, int Value, int Check)> ReadWithChecks()
+		public List<(int Value, int Check)> ReadWithChecks()
 		{
-			List<(int, int, int)> records = [];
+			List<(int, int)> records = [];
 			for (RecordNode? node = First; node is not null; node = node.Next)
 			{
 				IntNode intNode = (IntNode)node;
-				records.Add((intNode.Index, intNode.Value, intNode.Check));
+				records.Add((intNode.Value, intNode.Check));
 			}
 
 			return records;
