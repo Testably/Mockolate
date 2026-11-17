@@ -24,7 +24,7 @@ The rules the code already follows. Read the parts that match the change and cop
 
 Recording, setup matching and counting must not allocate. Measure changes with the benchmarks.
 
-- Interactions are recorded into typed per-member buffers (`FastMockInteractions`, `Fast*Buffer`, `ChunkedSlotStorage`) and boxed into `IInteraction` only on demand.
+- Interactions are recorded into typed per-member buffers (`FastMockInteractions`, `Fast*Buffer`, `RecordList`) and boxed into `IInteraction` only on demand.
 - No LINQ, closures, iterators or boxing on these paths. Use index-based loops, `static` lambdas and the `TState` overloads (`GetOrCreateBuffer`, `Callback<T>.Invoke<TState>`). LINQ is fine on cold paths such as failure messages.
 - Concurrency: the per-member setup tables are copy-on-write arrays published with `Volatile.Write` and read without a lock; lazy fields are created with `Interlocked.CompareExchange`; new locks use the `MockolateLock` alias. Do not run user code (a callback or a matcher) while holding a lock; snapshot under the lock and invoke afterwards, as `MockSetups.Methods.cs` does.
 - The latest matching setup wins: lookups walk the setups backwards, and scenario setups come before the default ones.

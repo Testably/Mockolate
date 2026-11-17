@@ -36,12 +36,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).IsEmpty();
 
 		buffer.Append("E", this, SampleMethod);
 		dest.Clear();
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(1);
 		await That(dest[0].Interaction).IsExactly<EventSubscription>();
@@ -135,6 +137,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(1);
 		await That(dest[0].Interaction).IsExactly<EventUnsubscription>()
@@ -713,6 +716,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((MethodInvocation<int, string, bool>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -786,6 +790,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((MethodInvocation<int, string, bool, double>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -835,6 +840,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxed(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(dest[0].Interaction).IsSameAs(dest[1].Interaction);
@@ -920,6 +926,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((PropertySetterAccess<int>)dest[0].Interaction).Value).IsEqualTo(1);
@@ -939,6 +946,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).IsEmpty()
 			.Because(
@@ -958,6 +966,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((IndexerGetterAccess<int>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -979,6 +988,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((IndexerGetterAccess<int, string>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -1018,6 +1028,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((IndexerGetterAccess<int, string, bool>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -1059,6 +1070,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((IndexerGetterAccess<int, string, bool, double>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -1080,6 +1092,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((IndexerSetterAccess<int, string>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -1103,6 +1116,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((IndexerSetterAccess<int, string, bool>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -1144,6 +1158,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((IndexerSetterAccess<int, string, bool, double>)dest[0].Interaction).Parameter1).IsEqualTo(0);
@@ -1187,6 +1202,7 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
 		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
 		await That(((IndexerSetterAccess<int, string, bool, double, char>)dest[0].Interaction).Parameter1).IsEqualTo(0);

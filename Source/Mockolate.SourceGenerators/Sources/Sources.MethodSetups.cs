@@ -162,7 +162,7 @@ internal static partial class Sources
 		string assignsBuf = string.Concat(Enumerable.Range(1, count).Select(x =>
 			$"\t\t\tr.P{x} = parameter{x};\n"));
 		string structFields = string.Concat(Enumerable.Range(1, count).Select(x =>
-			$"\t\t\tpublic T{x} P{x};\n"));
+			$"\t\t\tpublic T{x} P{x} = default!;\n"));
 		string boxedArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => $"r.P{x}"));
 
 		sb.AppendXmlSummary(
@@ -173,45 +173,33 @@ internal static partial class Sources
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 		sb.Append("\tinternal sealed class FastMethod").Append(count).Append("Buffer<").Append(typeArgs)
-			.Append("> : global::Mockolate.Internals.IFastMemberBuffer").AppendLine();
+			.Append("> : global::Mockolate.Internals.RecordList, global::Mockolate.Internals.IFastMemberBuffer").AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tprivate readonly global::Mockolate.Internals.FastMockInteractions _owner;").AppendLine();
-		sb.Append("\t\tprivate readonly global::Mockolate.Internals.ChunkedSlotStorage<Record> _storage = new();").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\tinternal FastMethod").Append(count).Append("Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;")
 			.AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\tpublic int Count => _storage.Count;").AppendLine();
-		sb.AppendLine();
 		sb.Append("\t\tpublic void Append(string name, ").Append(ctorParams).Append(")").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tlong seq = _owner.NextSequence();").AppendLine();
-		sb.Append("\t\t\tglobal::Mockolate.Internals.ChunkedSlotStorage<Record>.Generation generation = _storage.Reserve(out int slot);").AppendLine();
-		sb.Append("\t\t\tref Record r = ref generation.SlotForWrite(slot);").AppendLine();
-		sb.Append("\t\t\tr.Seq = seq;").AppendLine();
+		sb.Append("\t\t\tint epoch = Epoch;").AppendLine();
+		sb.Append("\t\t\tRecord r = new Record();").AppendLine();
+		sb.Append("\t\t\tr.Seq = _owner.NextSequence();").AppendLine();
 		sb.Append("\t\t\tr.Name = name;").AppendLine();
 		sb.Append(assignsBuf);
-		sb.Append("\t\t\tr.Boxed = null;").AppendLine();
-		sb.Append("\t\t\tgeneration.Publish(slot);").AppendLine();
+		sb.Append("\t\t\tPush(r, epoch);").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\tif (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\tpublic void Clear() => _storage.Clear();").AppendLine();
-		sb.AppendLine();
 		sb.Append("\t\tvoid global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)")
 			.AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tusing (_storage.EnterLock())").AppendLine();
+		sb.Append("\t\t\tfor (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tint n = _storage.PublishedUnderLock;").AppendLine();
-		sb.Append("\t\t\t\tfor (int i = 0; i < n; i++)").AppendLine();
-		sb.Append("\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\tref Record r = ref _storage.SlotUnderLock(i);").AppendLine();
-		sb.Append("\t\t\t\t\tr.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<").Append(typeArgs).Append(">(r.Name, ").Append(boxedArgs)
-			.Append(");").AppendLine();
-		sb.Append("\t\t\t\t\tdest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));").AppendLine();
-		sb.Append("\t\t\t\t}").AppendLine();
+		sb.Append("\t\t\t\tRecord r = (Record)node;").AppendLine();
+		sb.Append("\t\t\t\tdest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<").Append(typeArgs).Append(">(r.Name, ").Append(boxedArgs)
+			.Append("))));").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -219,17 +207,12 @@ internal static partial class Sources
 		sb.Append("\t\tvoid global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)")
 			.AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tusing (_storage.EnterLock())").AppendLine();
+		sb.Append("\t\t\tfor (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tint n = _storage.PublishedUnderLock;").AppendLine();
-		sb.Append("\t\t\t\tfor (int i = 0; i < n; i++)").AppendLine();
-		sb.Append("\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\tif (_storage.IsVerifiedUnderLock(i)) continue;").AppendLine();
-		sb.Append("\t\t\t\t\tref Record r = ref _storage.SlotUnderLock(i);").AppendLine();
-		sb.Append("\t\t\t\t\tr.Boxed ??= new global::Mockolate.Interactions.MethodInvocation<").Append(typeArgs).Append(">(r.Name, ").Append(boxedArgs)
-			.Append(");").AppendLine();
-		sb.Append("\t\t\t\t\tdest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed));").AppendLine();
-		sb.Append("\t\t\t\t}").AppendLine();
+		sb.Append("\t\t\t\tif (node.Verified) continue;").AppendLine();
+		sb.Append("\t\t\t\tRecord r = (Record)node;").AppendLine();
+		sb.Append("\t\t\t\tdest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<").Append(typeArgs).Append(">(r.Name, ").Append(boxedArgs)
+			.Append("))));").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -239,17 +222,13 @@ internal static partial class Sources
 		sb.Append("\t\tpublic int ConsumeMatching(").Append(countMatchingParams).Append(")").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tint matches = 0;").AppendLine();
-		sb.Append("\t\t\tusing (_storage.EnterLock())").AppendLine();
+		sb.Append("\t\t\tfor (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tint n = _storage.PublishedUnderLock;").AppendLine();
-		sb.Append("\t\t\t\tfor (int i = 0; i < n; i++)").AppendLine();
+		sb.Append("\t\t\t\tRecord r = (Record)node;").AppendLine();
+		sb.Append("\t\t\t\tif (").Append(countMatchingPredicate).Append(")").AppendLine();
 		sb.Append("\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\tref Record r = ref _storage.SlotUnderLock(i);").AppendLine();
-		sb.Append("\t\t\t\t\tif (").Append(countMatchingPredicate).Append(")").AppendLine();
-		sb.Append("\t\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\t\tmatches++;").AppendLine();
-		sb.Append("\t\t\t\t\t\t_storage.VerifiedUnderLock(i) = true;").AppendLine();
-		sb.Append("\t\t\t\t\t}").AppendLine();
+		sb.Append("\t\t\t\t\tmatches++;").AppendLine();
+		sb.Append("\t\t\t\t\tr.Verified = true;").AppendLine();
 		sb.Append("\t\t\t\t}").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
@@ -257,12 +236,10 @@ internal static partial class Sources
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		sb.Append("\t\tprivate struct Record").AppendLine();
+		sb.Append("\t\tprivate sealed class Record : global::Mockolate.Internals.RecordNode").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tpublic long Seq;").AppendLine();
-		sb.Append("\t\t\tpublic string Name;").AppendLine();
+		sb.Append("\t\t\tpublic string Name = null!;").AppendLine();
 		sb.Append(structFields);
-		sb.Append("\t\t\tpublic global::Mockolate.Interactions.IInteraction? Boxed;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.Append("\t}").AppendLine();
 	}
