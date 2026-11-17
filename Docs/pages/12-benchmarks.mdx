@@ -172,7 +172,7 @@ IChocolateRecipe.CreateMock();
 - **Suite**: [`Mockolate.Benchmarks`](https://github.com/Testably/Mockolate/tree/main/Benchmarks/Mockolate.Benchmarks) driven by [BenchmarkDotNet](https://benchmarkdotnet.org/).
 - **Job**: `MediumRun` with the in-process toolchain.
 - **Runner**: `ubuntu-latest` GitHub Actions agent, refreshed on every push to `main`.
-- **Parameters**: Method, Property and Indexer repeat their inner body 1 or 10 times (`N=1`, `N=10`) to separate the fixed cost from the cost per call.
+- **Parameters**: Method, Property and Indexer repeat their inner body 1, 10 or 1000 times (`N=1`, `N=10`, `N=1000`) to separate the fixed cost from the cost per call and to show how the cost grows for a member that is called many times. Each value can be selected in the chart.
 - **Charts**: every multiple is relative to Mockolate, and bars longer than four times the fastest library are cut so the others stay comparable. Lower is better.
 - **Trend**: the recent runs compare each library with Mockolate in the same run, so the line does not depend on the speed of the runner. The dashed line marks equal time.
 
