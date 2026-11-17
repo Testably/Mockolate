@@ -114,6 +114,30 @@ catalog.Mock.Verify[It.IsAny<int>()].Set(It.IsAny<string>()).Exactly(N);
 
 </TabItem>
 
+<TabItem value="Unconfigured" label="Without setup">
+
+Use a mock without any setup: call two methods that return a value and one that returns nothing, and read a property and an indexer, each `N` times. Every member answers with its default value. Then verify one method ran exactly `N` times.
+
+<MockolateBenchmarkResult name="Unconfigured" />
+
+```csharp
+IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
+
+for (int i = 0; i < N; i++)
+{
+    warehouse.CountBars("Dark");
+    warehouse.FindShelf("Dark", 3);
+    warehouse.Restock("Dark", 3);
+    _ = warehouse.IsOpen;
+}
+
+warehouse.Mock.Verify.CountBars(It.IsAny<string>()).Exactly(N);
+```
+
+[View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteUnconfiguredBenchmarks.cs)
+
+</TabItem>
+
 <TabItem value="Event" label="Event">
 
 Subscribe to a mock event, raise it once, then verify the subscription was recorded.
@@ -175,7 +199,7 @@ IChocolateRecipe.CreateMock();
 - **Suite**: [`Mockolate.Benchmarks`](https://github.com/Testably/Mockolate/tree/main/Benchmarks/Mockolate.Benchmarks) driven by [BenchmarkDotNet](https://benchmarkdotnet.org/).
 - **Job**: `MediumRun` with the in-process toolchain.
 - **Runner**: `ubuntu-latest` GitHub Actions agent, refreshed on every push to `main`.
-- **Parameters**: Method, Property and Indexer repeat their inner body 1, 10 or 1000 times (`N=1`, `N=10`, `N=1000`) to separate the fixed cost from the cost per call and to show how the cost grows for a member that is called many times. Each value can be selected in the chart.
+- **Parameters**: Method, Property, Indexer and Unconfigured repeat their inner body 1, 10 or 1000 times (`N=1`, `N=10`, `N=1000`) to separate the fixed cost from the cost per call and to show how the cost grows for a member that is called many times. Each value can be selected in the chart.
 - **Charts**: every multiple is relative to Mockolate, and bars longer than four times the fastest library are cut so the others stay comparable. Lower is better.
 - **Trend**: the recent runs compare each library with Mockolate in the same run, so the line does not depend on the speed of the runner. The dashed line marks equal time.
 

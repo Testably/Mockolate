@@ -155,6 +155,7 @@ jobs:
                     - CompleteIndexerBenchmarks
                     - CompleteMethodBenchmarks
                     - CompletePropertyBenchmarks
+                    - CompleteUnconfiguredBenchmarks
                     - CompleteWorkflowBenchmarks
                     - MockCreationBenchmarks
         runs-on: ubuntu-latest
