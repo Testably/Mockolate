@@ -18,8 +18,8 @@ namespace Mockolate.SourceGenerators.Tests.Snapshot;
 ///     example types remain the single source of truth for "every special case in the
 ///     source generator". Every generated <c>.g.cs</c> file is compared with an aweXpect snapshot in
 ///     <c>MockGenerationSnapshotTests/GeneratorOutput_MatchesExpectedSnapshot/</c>.
-///     When a scenario fails because the change was intentional, run the tests with the environment variable
-///     <c>AWEXPECT_ACCEPT_SNAPSHOTS</c> set to <c>all</c>.
+///     When a scenario fails because the change was intentional, take over the change in the diff tool that opens
+///     locally or run the tests with the environment variable <c>AWEXPECT_ACCEPT_SNAPSHOTS</c> set to <c>all</c>.
 /// </summary>
 public sealed partial class MockGenerationSnapshotTests
 {
