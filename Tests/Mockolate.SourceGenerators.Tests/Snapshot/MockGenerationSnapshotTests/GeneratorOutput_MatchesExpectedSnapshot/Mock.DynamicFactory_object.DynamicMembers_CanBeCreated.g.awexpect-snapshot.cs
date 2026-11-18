@@ -261,6 +261,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, global::System.Collections.Generic.List<object>> Setup(global::Mockolate.Parameters.IParameter<object>? value, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<object>>? values);
 
 		/// <summary>
@@ -269,6 +270,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, global::System.Collections.Generic.List<object>> Setup(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
@@ -277,6 +279,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="value" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="values" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, global::System.Collections.Generic.List<object>> Setup(object value, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<object>>? values);
 
 		/// <summary>
@@ -285,6 +288,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="values" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<object, object, global::System.Collections.Generic.List<object>> Setup(global::Mockolate.Parameters.IParameter<object>? value, global::System.Collections.Generic.List<object> values);
 
 		/// <summary>
@@ -308,6 +312,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicFactory_object> Verify(global::Mockolate.Parameters.IParameter<object>? value, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<object>>? values);
 
 		/// <summary>
@@ -316,6 +321,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicFactory_object> Verify(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
@@ -324,6 +330,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="value" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="values" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicFactory_object> Verify(object value, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<object>>? values);
 
 		/// <summary>
@@ -332,6 +339,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="values" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicFactory_object> Verify(global::Mockolate.Parameters.IParameter<object>? value, global::System.Collections.Generic.List<object> values);
 
 		/// <summary>

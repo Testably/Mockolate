@@ -537,6 +537,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(4)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameter<int>? MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -545,6 +546,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
@@ -553,6 +555,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__i" />, <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -561,6 +564,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="__i" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -569,6 +573,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="__i" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(int MockRegistry, int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -577,6 +582,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="snapshot_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="__i" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameter<int>? MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -585,6 +591,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="snapshot_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__i" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -593,6 +600,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="__i" />, <paramref name="snapshot_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -601,6 +609,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="__i" />, <paramref name="snapshot_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(int MockRegistry, int __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -609,6 +618,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="__i" />, <paramref name="snapshot_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameter<int>? MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -617,6 +627,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__i" />, <paramref name="snapshot_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -625,6 +636,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="__i" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="snapshot_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -633,6 +645,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="__i" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="snapshot_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(int MockRegistry, int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -641,6 +654,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="__i" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameter<int>? MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -649,6 +663,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__i" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -657,6 +672,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="__i" />, <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, int, int> Setup(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int __i, int snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -665,6 +681,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int> Setup(int MockRegistry, int __i, int snapshot_methodSetup, int s_methodSetup);
 
 	}
@@ -680,6 +697,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(4)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameter<int>? MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -688,6 +706,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
@@ -696,6 +715,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__i" />, <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -704,6 +724,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="__i" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -712,6 +733,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="__i" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(int MockRegistry, int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -720,6 +742,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="snapshot_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="__i" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameter<int>? MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -728,6 +751,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="snapshot_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__i" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -736,6 +760,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="__i" />, <paramref name="snapshot_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -744,6 +769,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="__i" />, <paramref name="snapshot_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="s_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(int MockRegistry, int __i, int snapshot_methodSetup, global::Mockolate.Parameters.IParameter<int>? s_methodSetup);
 
 		/// <summary>
@@ -752,6 +778,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="__i" />, <paramref name="snapshot_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(3)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameter<int>? MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -760,6 +787,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__i" />, <paramref name="snapshot_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -768,6 +796,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="__i" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="snapshot_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -776,6 +805,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="__i" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="snapshot_methodSetup" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(int MockRegistry, int __i, global::Mockolate.Parameters.IParameter<int>? snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -784,6 +814,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />, <paramref name="__i" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameter<int>? MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -792,6 +823,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="MockRegistry" />, <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="__i" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(int MockRegistry, global::Mockolate.Parameters.IParameter<int>? __i, int snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -800,6 +832,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="__i" />, <paramref name="snapshot_methodSetup" />, <paramref name="s_methodSetup" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="MockRegistry" />.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate> Verify(global::Mockolate.Parameters.IParameter<int>? MockRegistry, int __i, int snapshot_methodSetup, int s_methodSetup);
 
 		/// <summary>
@@ -808,6 +841,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
 		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParameterNameCollisionsDelegate>.IgnoreParameters Verify(int MockRegistry, int __i, int snapshot_methodSetup, int s_methodSetup);
 
 	}

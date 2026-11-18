@@ -8,7 +8,7 @@ namespace Mockolate.SourceGenerators.Sources;
 internal static partial class Sources
 {
 	public static string MockDelegate(string name, MockClass @class, Method delegateMethod,
-		bool useUnionOverloads = false)
+		bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
 	{
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
 		string classReference = @class.XmlDocReference;
@@ -263,18 +263,21 @@ internal static partial class Sources
 		}
 		else
 		{
-			AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup");
+			AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup",
+				hasOverloadResolutionPriority: hasOverloadResolutionPriority);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup",
+					hasOverloadResolutionPriority: hasOverloadResolutionPriority, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags);
+					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags,
+						hasOverloadResolutionPriority);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -282,7 +285,8 @@ internal static partial class Sources
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", allValueFlags);
+					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", allValueFlags,
+						hasOverloadResolutionPriority);
 				}
 			}
 		}
@@ -310,18 +314,21 @@ internal static partial class Sources
 		}
 		else
 		{
-			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify");
+			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+				hasOverloadResolutionPriority: hasOverloadResolutionPriority);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", true, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
+					hasOverloadResolutionPriority: hasOverloadResolutionPriority, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify", valueFlags);
+					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify", valueFlags,
+						hasOverloadResolutionPriority);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -330,7 +337,7 @@ internal static partial class Sources
 				if (allValueFlags.Any(f => f))
 				{
 					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
-						allValueFlags);
+						allValueFlags, hasOverloadResolutionPriority);
 				}
 			}
 		}
