@@ -842,4 +842,138 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 		]).Because("a matcher for a derived type is a matcher for the value type, although it only implements the typed match for the derived type");
 	}
+
+	[Test]
+	public async Task Verify_InClassicMode_WithTypesClosedOverDynamic_ShouldCompileMatchAndDescribeArguments()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using System.Collections.Generic;
+		                                             using Mockolate;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public interface IRepo<T>
+		                                             {
+		                                                 T Value { get; set; }
+		                                                 T this[T key] { get; }
+		                                                 event EventHandler<T>? Changed;
+		                                                 T Get(T key, List<T> values);
+		                                                 void Add(T item);
+		                                             }
+
+		                                             public abstract class RepoBase<T>
+		                                             {
+		                                                 public virtual T Echo(T value) => value;
+		                                             }
+
+		                                             public class DerivedRepo : RepoBase<dynamic>
+		                                             {
+		                                             }
+
+		                                             public class Repo<T> : IRepo<T>
+		                                             {
+		                                                 public virtual T Value { get; set; } = default!;
+		                                                 public virtual T this[T key] => key;
+		                                                 public virtual event EventHandler<T>? Changed;
+		                                                 public virtual T Get(T key, List<T> values) => key;
+		                                                 public virtual void Add(T item) => Changed?.Invoke(this, item);
+		                                             }
+
+		                                             public delegate T Factory<T>(T value);
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     IRepo<dynamic> sut = IRepo<dynamic>.CreateMock();
+		                                                     IRepo<object> objectSut = IRepo<object>.CreateMock();
+		                                                     sut.Mock.Setup.Get("key", It.IsAny<List<dynamic>>()).Returns("value");
+		                                                     sut.Mock.Setup["k"].Returns("indexed");
+		                                                     object? raised = null;
+		                                                     sut.Changed += (_, e) => raised = e;
+		                                                     object value = sut.Get("key", new List<dynamic>());
+		                                                     object indexed = sut["k"];
+		                                                     sut.Value = 5;
+		                                                     sut.Add(42);
+		                                                     sut.Mock.Raise.Changed(null, "event");
+
+		                                                     IRepo<List<dynamic>> nested = IRepo<List<dynamic>>.CreateMock();
+		                                                     nested.Add(new List<dynamic>());
+		                                                     RepoBase<dynamic> repoBase = RepoBase<dynamic>.CreateMock();
+		                                                     object echoed = repoBase.Echo("base");
+		                                                     DerivedRepo derived = DerivedRepo.CreateMock();
+		                                                     object derivedEchoed = derived.Echo("derived");
+		                                                     Repo<dynamic> repo = Repo<dynamic>.CreateMock();
+		                                                     object repoValue = repo.Get("repo", new List<dynamic>());
+		                                                     Factory<dynamic> factory = Factory<dynamic>.CreateMock();
+		                                                     factory.Mock.Setup("a").Returns("created");
+		                                                     object created = factory("a");
+		                                                     IRepo<int> combined = IRepo<int>.CreateMock().Implementing<IRepo<dynamic>>();
+		                                                     ((IRepo<dynamic>)combined).Add("combined");
+		                                                     IRepo<int> objectCombined = IRepo<int>.CreateMock().Implementing<IRepo<object>>();
+		                                                     return
+		                                                     [
+		                                                         value.ToString()!,
+		                                                         indexed.ToString()!,
+		                                                         raised!.ToString()!,
+		                                                         echoed.ToString()!,
+		                                                         derivedEchoed.ToString()!,
+		                                                         repoValue.ToString()!,
+		                                                         created.ToString()!,
+		                                                         (sut.GetType() == objectSut.GetType()).ToString(),
+		                                                         (combined.GetType() == objectCombined.GetType()).ToString(),
+		                                                         Capture(() => sut.Mock.Verify.Get("key", It.IsAny<List<dynamic>>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Value.Set(5).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Add(42).Once()),
+		                                                         Capture(() => nested.Mock.Verify.Add(It.IsAny<List<dynamic>>()).Once()),
+		                                                         Capture(() => derived.Mock.Verify.Echo("derived").Once()),
+		                                                         Capture(() => repo.Mock.Verify.Get("repo", It.IsAny<List<dynamic>>()).Once()),
+		                                                         Capture(() => factory.Mock.Verify("a").Once()),
+		                                                         Capture(() => combined.Mock.As<IRepo<dynamic>>().Verify.Add("combined").Once()),
+		                                                         Capture(() => sut.Mock.Verify.Add(43).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Get("other", It.IsAny<List<dynamic>>()).Once()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14, typeof(DynamicAttribute));
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"value",
+			"indexed",
+			"event",
+			"base",
+			"derived",
+			"repo",
+			"created",
+			"True",
+			"True",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"Expected that mock invoked method Add(43) exactly once, but it never did.",
+			"Expected that mock invoked method Get(other, It.IsAny<List<object>>()) exactly once, but it never did.",
+		]).Because("a type that is constructed with dynamic cannot be implemented, so the mock names the identical type that is constructed with object");
+	}
 }

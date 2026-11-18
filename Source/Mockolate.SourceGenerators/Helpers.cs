@@ -113,6 +113,77 @@ internal static class Helpers
 		return sb.ToString();
 	}
 
+	/// <summary>
+	///     Returns the type that is identical to <paramref name="type" />, but is constructed with
+	///     <see langword="object" /> wherever <paramref name="type" /> is constructed with <see langword="dynamic" />.
+	/// </summary>
+	/// <remarks>
+	///     A type that is constructed with <see langword="dynamic" /> can neither be implemented nor be a constraint
+	///     (CS1966, CS1968), so it is mocked as the identical type that is constructed with <see langword="object" />.
+	///     Replacing the symbol instead of its name makes both spellings the same mock, including the types of the
+	///     members.
+	/// </remarks>
+	public static ITypeSymbol WithDynamicAsObject(this ITypeSymbol type, Compilation compilation)
+	{
+		switch (type)
+		{
+			case IDynamicTypeSymbol:
+				return compilation.ObjectType.WithNullableAnnotation(type.NullableAnnotation);
+			case IArrayTypeSymbol array:
+			{
+				ITypeSymbol elementType = array.ElementType.WithDynamicAsObject(compilation);
+				return IsSameType(elementType, array.ElementType)
+					? type
+					: compilation.CreateArrayTypeSymbol(elementType, array.Rank, array.ElementNullableAnnotation)
+						.WithNullableAnnotation(type.NullableAnnotation);
+			}
+			case INamedTypeSymbol { TypeKind: not TypeKind.Error, } namedType:
+				return WithDynamicTypeArgumentsAsObject(namedType, compilation);
+			default:
+				return type;
+		}
+	}
+
+	private static INamedTypeSymbol WithDynamicTypeArgumentsAsObject(INamedTypeSymbol type, Compilation compilation)
+	{
+		INamedTypeSymbol? containingType = type.ContainingType?.WithDynamicAsObject(compilation) as INamedTypeSymbol;
+		ImmutableArray<ITypeSymbol> typeArguments = type.TypeArguments
+			.Select(typeArgument => typeArgument.WithDynamicAsObject(compilation)).ToImmutableArray();
+		bool isSameContainingType = IsSameType(containingType, type.ContainingType);
+		if (isSameContainingType && typeArguments.SequenceEqual(type.TypeArguments, IsSameType))
+		{
+			return type;
+		}
+
+		INamedTypeSymbol result;
+		if (type.IsTupleType)
+		{
+			// The elements instead of the type arguments, because they keep the names and flatten a long tuple.
+			ImmutableArray<IFieldSymbol> elements = type.TupleElements;
+			result = compilation.CreateTupleTypeSymbol(
+				elements.Select(element => element.Type.WithDynamicAsObject(compilation)).ToImmutableArray(),
+				elements.Select(GetExplicitName).ToImmutableArray(),
+				elementNullableAnnotations: elements.Select(element => element.NullableAnnotation).ToImmutableArray());
+		}
+		else
+		{
+			INamedTypeSymbol definition = isSameContainingType
+				? type.ConstructedFrom
+				: containingType!.GetTypeMembers(type.Name, type.Arity)[0];
+			result = typeArguments.IsEmpty
+				? definition
+				: definition.Construct(typeArguments, type.TypeArgumentNullableAnnotations);
+		}
+
+		return (INamedTypeSymbol)result.WithNullableAnnotation(type.NullableAnnotation);
+
+		static string? GetExplicitName(IFieldSymbol element)
+			=> element.IsExplicitlyNamedTupleElement ? element.Name : null;
+	}
+
+	private static bool IsSameType(ITypeSymbol? a, ITypeSymbol? b)
+		=> SymbolEqualityComparer.IncludeNullability.Equals(a, b);
+
 	public static string EscapeIfKeyword(string name)
 		=> SyntaxFacts.GetKeywordKind(name) != SyntaxKind.None ? "@" + name : name;
 

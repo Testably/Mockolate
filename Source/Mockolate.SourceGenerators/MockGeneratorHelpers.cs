@@ -70,7 +70,7 @@ internal static class MockGeneratorHelpers
 				ITypeSymbol? type = methodSymbol.ContainingType.ExtensionParameter?.Type;
 				if (type is not null && IsMockable(type))
 				{
-					yield return new MockClass([type,], sourceAssembly);
+					yield return CreateMockClass(semanticModel.Compilation, type);
 					foreach (MockClass? additionalMockClass in DiscoverMockableTypes([type,], sourceAssembly))
 					{
 						yield return additionalMockClass;
@@ -78,7 +78,7 @@ internal static class MockGeneratorHelpers
 				}
 				else if (IsMockable(methodSymbol.ReturnType))
 				{
-					yield return new MockClass([methodSymbol.ReturnType,], sourceAssembly);
+					yield return CreateMockClass(semanticModel.Compilation, methodSymbol.ReturnType);
 
 					foreach (MockClass? additionalMockClass in DiscoverMockableTypes([methodSymbol.ReturnType,], sourceAssembly))
 					{
@@ -144,11 +144,14 @@ internal static class MockGeneratorHelpers
 
 				if (IsMockable(rootType))
 				{
-					yield return new MockClass([rootType!, ..collectedTypes,], sourceAssembly);
+					yield return CreateMockClass(semanticModel.Compilation, [rootType!, ..collectedTypes,]);
 				}
 			}
 		}
 	}
+
+	private static MockClass CreateMockClass(Compilation compilation, params ITypeSymbol[] types)
+		=> new(Array.ConvertAll(types, type => type.WithDynamicAsObject(compilation)), compilation.Assembly);
 
 	private static IEnumerable<MockClass> DiscoverMockableTypes(IEnumerable<ITypeSymbol> initialTypes,
 		IAssemblySymbol sourceAssembly)

@@ -94,6 +94,11 @@ public sealed partial class MockGenerationSnapshotTests
             DynamicMembersBase sut2 = DynamicMembersBase.CreateMock();
             IDynamicOverloads sut3 = IDynamicOverloads.CreateMock();
             DynamicHidingDerived sut4 = DynamicHidingDerived.CreateMock();
+            IDynamicRepository<dynamic> sut5 = IDynamicRepository<dynamic>.CreateMock();
+            IDynamicRepository<System.Collections.Generic.List<dynamic>> sut6 = IDynamicRepository<System.Collections.Generic.List<dynamic>>.CreateMock();
+            DynamicRepositoryBase<dynamic> sut7 = DynamicRepositoryBase<dynamic>.CreateMock(1);
+            DynamicFactory<dynamic> sut8 = DynamicFactory<dynamic>.CreateMock();
+            IDynamicMembers sut9 = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<dynamic>>();
             """,
             [typeof(DynamicAttribute),]),
         new(
@@ -207,6 +212,11 @@ public sealed partial class MockGenerationSnapshotTests
             DynamicMembersBase sut2 = DynamicMembersBase.CreateMock();
             IDynamicOverloads sut3 = IDynamicOverloads.CreateMock();
             DynamicHidingDerived sut4 = DynamicHidingDerived.CreateMock();
+            IDynamicRepository<dynamic> sut5 = IDynamicRepository<dynamic>.CreateMock();
+            IDynamicRepository<System.Collections.Generic.List<dynamic>> sut6 = IDynamicRepository<System.Collections.Generic.List<dynamic>>.CreateMock();
+            DynamicRepositoryBase<dynamic> sut7 = DynamicRepositoryBase<dynamic>.CreateMock(1);
+            DynamicFactory<dynamic> sut8 = DynamicFactory<dynamic>.CreateMock();
+            IDynamicMembers sut9 = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<dynamic>>();
             """,
             [typeof(DynamicAttribute),],
             UnionMode: true),

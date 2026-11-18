@@ -198,6 +198,138 @@ public sealed class DynamicMembersTests
 		]).Because("dynamic arguments are described like object arguments");
 	}
 
+	[Test]
+	public async Task InterfaceClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
+	{
+		IDynamicRepository<dynamic> sut = IDynamicRepository<dynamic>.CreateMock();
+		List<dynamic> values = [1, "two",];
+		object? raised = null;
+		sut.Mock.Setup.Get("key", It.IsAny<List<dynamic>>()).Returns("value");
+		sut.Mock.Setup.Value.InitializeWith("initial");
+		sut.Mock.Setup["a"].Returns(1);
+		sut.Changed += (_, e) => raised = e;
+
+		object result = sut.Get("key", values);
+		object unmatched = sut.Get("other", values);
+		object initial = sut.Value;
+		sut.Value = 5;
+		object indexed = sut["a"];
+		sut.Add(42);
+		sut.Mock.Raise.Changed(sut, "event");
+
+		await That(result).IsEqualTo("value");
+		await That(unmatched).IsNull();
+		await That(initial).IsEqualTo("initial");
+		await That(indexed).IsEqualTo(1);
+		await That(raised).IsEqualTo("event");
+		await That(sut.Mock.Verify.Get("key", values)).Once();
+		await That(sut.Mock.Verify.Get(It.IsAny<object>(), It.IsAny<List<dynamic>>())).Twice();
+		await That(sut.Mock.Verify.Value.Set(5)).Once();
+		await That(sut.Mock.Verify["a"].Got()).Once();
+		await That(sut.Mock.Verify.Add(42)).Once();
+		await That(sut.Mock.Verify.Add("other")).Never();
+	}
+
+	[Test]
+	public async Task InterfaceClosedOverDynamic_ShouldShareTheMockOfTheInterfaceClosedOverObject()
+	{
+		IDynamicRepository<object> objectMock = IDynamicRepository<object>.CreateMock();
+		IDynamicRepository<dynamic> dynamicMock = IDynamicRepository<dynamic>.CreateMock();
+		IDynamicMembers objectCombination = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<object>>();
+		IDynamicMembers dynamicCombination = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<dynamic>>();
+
+		await That(dynamicMock.GetType()).IsEqualTo(objectMock.GetType())
+			.Because("both types are identical, so a mock for each would make every call to CreateMock ambiguous");
+		await That(dynamicCombination.GetType()).IsEqualTo(objectCombination.GetType())
+			.Because("both types are identical, so a mock for each would make every call to Implementing ambiguous");
+	}
+
+	[Test]
+	public async Task InterfaceClosedOverNestedDynamic_ShouldBeSetUpInvokedAndVerified()
+	{
+		IDynamicRepository<List<dynamic>> listSut = IDynamicRepository<List<dynamic>>.CreateMock();
+		IDynamicRepository<(dynamic, int)[]> arraySut = IDynamicRepository<(dynamic, int)[]>.CreateMock();
+		List<dynamic> list = [1, "two",];
+		(dynamic, int)[] array = [("a", 1),];
+		listSut.Mock.Setup.Get(list, It.IsAny<List<List<dynamic>>>()).Returns(list);
+		arraySut.Mock.Setup.Value.InitializeWith(array);
+
+		List<dynamic> listResult = listSut.Get(list, []);
+		listSut.Add(list);
+		(dynamic, int)[] arrayResult = arraySut.Value;
+		arraySut.Add(array);
+
+		await That(listResult).IsSameAs(list);
+		await That(arrayResult).IsSameAs(array);
+		await That(listSut.Mock.Verify.Add(list)).Once();
+		await That(arraySut.Mock.Verify.Add(It.IsAny<(dynamic, int)[]>())).Once();
+	}
+
+	[Test]
+	public async Task ClassClosedOverDynamic_ShouldForwardToBaseAndBeVerified()
+	{
+		DynamicRepositoryBase<dynamic> sut = DynamicRepositoryBase<dynamic>.CreateMock("initial");
+
+		object initial = sut.Initial;
+		object echoed = sut.Echo("echo");
+		sut.Mock.Setup.Echo(It.IsAny<object>()).Returns("setup");
+		object setup = sut.Echo(1);
+		sut.Consume(2, [3,]);
+
+		await That(initial).IsEqualTo("initial");
+		await That(echoed).IsEqualTo("echo");
+		await That(setup).IsEqualTo("setup");
+		await That(sut.Mock.Verify.Echo("echo")).Once();
+		await That(sut.Mock.Verify.Consume(2, It.IsAny<IEnumerable<dynamic>>())).Once();
+	}
+
+	[Test]
+	public async Task DelegateClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
+	{
+		DynamicFactory<dynamic> sut = DynamicFactory<dynamic>.CreateMock();
+		sut.Mock.Setup("a", It.IsAny<List<dynamic>>()).Returns("created");
+
+		object result = sut("a", []);
+
+		await That(result).IsEqualTo("created");
+		await That(sut.Mock.Verify("a", It.IsAny<List<dynamic>>())).Once();
+		await That(sut.Mock.Verify("b", It.IsAny<List<dynamic>>())).Never();
+	}
+
+	[Test]
+	public async Task AdditionalInterfaceClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
+	{
+		IDynamicMembers sut = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<dynamic>>();
+		DynamicRepositoryBase<dynamic> classSut = DynamicRepositoryBase<dynamic>.CreateMock(1)
+			.Implementing<IDynamicRepository<List<dynamic>>>();
+		List<dynamic> list = [1,];
+		sut.Mock.As<IDynamicRepository<dynamic>>().Setup.Get("key", It.IsAny<List<dynamic>>()).Returns("value");
+
+		object result = ((IDynamicRepository<dynamic>)sut).Get("key", []);
+		((IDynamicRepository<List<dynamic>>)classSut).Add(list);
+
+		await That(result).IsEqualTo("value");
+		await That(sut.Mock.As<IDynamicRepository<dynamic>>().Verify.Get("key", It.IsAny<List<dynamic>>())).Once();
+		await That(classSut.Mock.As<IDynamicRepository<List<dynamic>>>().Verify.Add(list)).Once();
+	}
+
+	[Test]
+	public async Task InterfaceClosedOverObject_ShouldShareTheAsExtensionsOfTheInterfaceClosedOverDynamic()
+	{
+		IDynamicMembers sut = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<dynamic>>();
+		IDynamicRepository<object> reversedSut = IDynamicRepository<object>.CreateMock().Implementing<IDynamicMembers>();
+		sut.Mock.As<IDynamicRepository<object>>().Setup.Get("key", It.IsAny<List<object>>()).Returns("value");
+		reversedSut.Mock.As<IDynamicMembers>().Setup.Dyn3(1, "b", "c").Returns(3);
+
+		object result = ((IDynamicRepository<dynamic>)sut).Get("key", []);
+		int reversedResult = ((IDynamicMembers)reversedSut).Dyn3(1, "b", "c");
+
+		await That(result).IsEqualTo("value");
+		await That(reversedResult).IsEqualTo(3)
+			.Because("both combinations use the same pair of types, so an As<T> extension for each spelling would be a duplicate");
+		await That(reversedSut.Mock.As<IDynamicMembers>().Verify.Dyn3(1, "b", "c")).Once();
+	}
+
 	private static string Capture(Action act)
 	{
 		try
