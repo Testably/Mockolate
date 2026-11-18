@@ -27,5 +27,17 @@ public static class CallbacksExtensions
 			callbacks.Add(callback);
 			return callbacks;
 		}
-	}
+
+		/// <summary>
+		///     Appends the <paramref name="callback" /> to the <paramref name="callbacks" /> list as if it had
+		///     already been invoked <paramref name="invocations" /> times, so that the sequence of the callbacks
+		///     continues after a value that was returned without a callback.
+		/// </summary>
+		public Callbacks<T> Register(Callback<T> callback, int invocations)
+		{
+			callback.SkipInvocations(invocations);
+			callbacks = callbacks.Register(callback);
+			callbacks.CurrentIndex = invocations;
+			return callbacks;
+		}	}
 }

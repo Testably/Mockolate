@@ -195,6 +195,7 @@ namespace Mockolate.Setup
 		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>? _returnCallbacks;
 		private TReturn _returnValue = default!;
 		private bool _hasReturnValue;
+		private int _returnValueCount;
 		private bool? _skipBaseClass;
 
 		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>? ReturnCallbacks
@@ -206,7 +207,7 @@ namespace Mockolate.Setup
 					TReturn returnValue = _returnValue;
 					_hasReturnValue = false;
 					_returnValue = default!;
-					_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => returnValue));
+					_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => returnValue), _returnValueCount);
 				}
 
 				return _returnCallbacks;
@@ -400,6 +401,7 @@ namespace Mockolate.Setup
 		{
 			if (_hasReturnValue)
 			{
+				_returnValueCount++;
 				returnValue = _returnValue;
 				return true;
 			}
@@ -1773,6 +1775,7 @@ namespace Mockolate.Setup
 		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>? _returnCallbacks;
 		private TReturn _returnValue = default!;
 		private bool _hasReturnValue;
+		private int _returnValueCount;
 		private bool? _skipBaseClass;
 
 		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>? ReturnCallbacks
@@ -1784,7 +1787,7 @@ namespace Mockolate.Setup
 					TReturn returnValue = _returnValue;
 					_hasReturnValue = false;
 					_returnValue = default!;
-					_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => returnValue));
+					_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, TReturn>>((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) => returnValue), _returnValueCount);
 				}
 
 				return _returnCallbacks;
@@ -1978,6 +1981,7 @@ namespace Mockolate.Setup
 		{
 			if (_hasReturnValue)
 			{
+				_returnValueCount++;
 				returnValue = _returnValue;
 				return true;
 			}

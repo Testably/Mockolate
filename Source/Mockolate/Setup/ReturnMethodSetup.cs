@@ -21,6 +21,7 @@ public abstract class ReturnMethodSetup<TReturn>
 	private Callbacks<Func<int, TReturn>>? _returnCallbacks;
 	private TReturn _returnValue = default!;
 	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
 
 	/// <summary>
@@ -36,7 +37,7 @@ public abstract class ReturnMethodSetup<TReturn>
 				_hasReturnValue = false;
 				_returnValue = default!;
 				_returnCallbacks = _returnCallbacks.Register(
-					new Callback<Func<int, TReturn>>((_) => returnValue));
+					new Callback<Func<int, TReturn>>((_) => returnValue), _returnValueCount);
 			}
 
 			return _returnCallbacks;
@@ -237,6 +238,7 @@ public abstract class ReturnMethodSetup<TReturn>
 	{
 		if (_hasReturnValue)
 		{
+			_returnValueCount++;
 			returnValue = _returnValue;
 			return true;
 		}
@@ -324,6 +326,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	private Callbacks<Func<int, T1, TReturn>>? _returnCallbacks;
 	private TReturn _returnValue = default!;
 	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
 
 	/// <summary>
@@ -339,7 +342,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 				_hasReturnValue = false;
 				_returnValue = default!;
 				_returnCallbacks = _returnCallbacks.Register(
-					new Callback<Func<int, T1, TReturn>>((_, _) => returnValue));
+					new Callback<Func<int, T1, TReturn>>((_, _) => returnValue), _returnValueCount);
 			}
 
 			return _returnCallbacks;
@@ -590,6 +593,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	{
 		if (_hasReturnValue)
 		{
+			_returnValueCount++;
 			returnValue = _returnValue;
 			return true;
 		}
@@ -769,6 +773,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	private Callbacks<Func<int, T1, T2, TReturn>>? _returnCallbacks;
 	private TReturn _returnValue = default!;
 	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
 
 	/// <summary>
@@ -784,7 +789,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 				_hasReturnValue = false;
 				_returnValue = default!;
 				_returnCallbacks = _returnCallbacks.Register(
-					new Callback<Func<int, T1, T2, TReturn>>((_, _, _) => returnValue));
+					new Callback<Func<int, T1, T2, TReturn>>((_, _, _) => returnValue), _returnValueCount);
 			}
 
 			return _returnCallbacks;
@@ -1041,6 +1046,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	{
 		if (_hasReturnValue)
 		{
+			_returnValueCount++;
 			returnValue = _returnValue;
 			return true;
 		}
@@ -1239,6 +1245,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	private Callbacks<Func<int, T1, T2, T3, TReturn>>? _returnCallbacks;
 	private TReturn _returnValue = default!;
 	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
 
 	/// <summary>
@@ -1254,7 +1261,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 				_hasReturnValue = false;
 				_returnValue = default!;
 				_returnCallbacks = _returnCallbacks.Register(
-					new Callback<Func<int, T1, T2, T3, TReturn>>((_, _, _, _) => returnValue));
+					new Callback<Func<int, T1, T2, T3, TReturn>>((_, _, _, _) => returnValue), _returnValueCount);
 			}
 
 			return _returnCallbacks;
@@ -1517,6 +1524,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	{
 		if (_hasReturnValue)
 		{
+			_returnValueCount++;
 			returnValue = _returnValue;
 			return true;
 		}
@@ -1733,6 +1741,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 	private Callbacks<Func<int, T1, T2, T3, T4, TReturn>>? _returnCallbacks;
 	private TReturn _returnValue = default!;
 	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
 
 	/// <summary>
@@ -1748,7 +1757,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 				_hasReturnValue = false;
 				_returnValue = default!;
 				_returnCallbacks = _returnCallbacks.Register(
-					new Callback<Func<int, T1, T2, T3, T4, TReturn>>((_, _, _, _, _) => returnValue));
+					new Callback<Func<int, T1, T2, T3, T4, TReturn>>((_, _, _, _, _) => returnValue), _returnValueCount);
 			}
 
 			return _returnCallbacks;
@@ -2017,6 +2026,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 	{
 		if (_hasReturnValue)
 		{
+			_returnValueCount++;
 			returnValue = _returnValue;
 			return true;
 		}

@@ -1093,6 +1093,7 @@ internal static partial class Sources
 		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>? _returnCallbacks;").AppendLine();
 		sb.Append("\t\tprivate TReturn _returnValue = default!;").AppendLine();
 		sb.Append("\t\tprivate bool _hasReturnValue;").AppendLine();
+		sb.Append("\t\tprivate int _returnValueCount;").AppendLine();
 		sb.Append("\t\tprivate bool? _skipBaseClass;").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>? ReturnCallbacks").AppendLine();
@@ -1104,7 +1105,7 @@ internal static partial class Sources
 		sb.Append("\t\t\t\t\tTReturn returnValue = _returnValue;").AppendLine();
 		sb.Append("\t\t\t\t\t_hasReturnValue = false;").AppendLine();
 		sb.Append("\t\t\t\t\t_returnValue = default!;").AppendLine();
-		sb.Append("\t\t\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(discards).Append(") => returnValue));").AppendLine();
+		sb.Append("\t\t\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(discards).Append(") => returnValue), _returnValueCount);").AppendLine();
 		sb.Append("\t\t\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\t\treturn _returnCallbacks;").AppendLine();
@@ -1378,6 +1379,7 @@ internal static partial class Sources
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (_hasReturnValue)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\t_returnValueCount++;").AppendLine();
 		sb.Append("\t\t\t\treturnValue = _returnValue;").AppendLine();
 		sb.Append("\t\t\t\treturn true;").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();

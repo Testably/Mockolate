@@ -108,6 +108,15 @@ public class Callback<TDelegate>(TDelegate @delegate) : Callback where TDelegate
 	private int _invocationCount;
 	private int _matchingCount;
 
+	/// <summary>
+	///     Treats the callback as already invoked <paramref name="count" /> times.
+	/// </summary>
+	internal void SkipInvocations(int count)
+	{
+		_invocationCount = count;
+		_matchingCount = count;
+	}
+
 #pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
 	/// <summary>
 	///     Invokes the wrapped delegate when all gating predicates (<c>.When</c>/<c>.For</c>/<c>.Only</c>) are
