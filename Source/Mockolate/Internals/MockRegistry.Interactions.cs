@@ -698,29 +698,59 @@ public partial class MockRegistry
 	private TResult ResolvePropertyFast<TResult>(int memberId, string propertyName,
 		Func<MockBehavior, TResult> defaultValueGenerator, Func<TResult>? baseValueAccessor)
 	{
-		// Hot path: setup registered via SetupProperty(int, ...), no scenario active, no base accessor.
-		if (baseValueAccessor is null && string.IsNullOrEmpty(Scenario))
+		if (baseValueAccessor is not null || !string.IsNullOrEmpty(Scenario))
 		{
-			PropertySetup?[]? table = Volatile.Read(ref _propertySetupsByMemberId);
-			if (table is not null && (uint)memberId < (uint)table.Length)
-			{
-				PropertySetup? snapshot = table[memberId];
-				if (snapshot is not null)
-				{
-					if (!snapshot.IsValueInitialized)
-					{
-						// First read of a not-yet-initialized setup: seed it with the default value.
-						// Mirrors ResolvePropertySetup's contract — without this the next read would
-						// auto-init via the cold path and overwrite a value set by a prior setter.
-						((IInteractivePropertySetup)snapshot).InitializeWith(defaultValueGenerator(Behavior));
-					}
-
-					return snapshot.InvokeGetterFast(Behavior, defaultValueGenerator);
-				}
-			}
+			return ResolvePropertySlow(propertyName, defaultValueGenerator, baseValueAccessor);
 		}
 
-		return ResolvePropertySlow(propertyName, defaultValueGenerator, baseValueAccessor);
+		// Hot path: setup registered via SetupProperty(int, ...), no scenario active, no base accessor.
+		PropertySetup?[]? table = Volatile.Read(ref _propertySetupsByMemberId);
+		if (table is not null && (uint)memberId < (uint)table.Length && table[memberId] is { } snapshot)
+		{
+			return ReadPropertySetup(snapshot, defaultValueGenerator);
+		}
+
+		TResult value = ResolvePropertySlow(propertyName, defaultValueGenerator, null);
+		PublishResolvedPropertySetup(memberId, propertyName);
+		return value;
+	}
+
+	private TResult ReadPropertySetup<TResult>(PropertySetup setup,
+		Func<MockBehavior, TResult> defaultValueGenerator)
+	{
+		if (!setup.IsValueInitialized)
+		{
+			// First read of a not-yet-initialized setup: seed it with the default value.
+			// Mirrors ResolvePropertySetup's contract — without this the next read would
+			// auto-init via the cold path and overwrite a value set by a prior setter.
+			((IInteractivePropertySetup)setup).InitializeWith(defaultValueGenerator(Behavior));
+		}
+
+		if (setup is PropertySetup<TResult> typed)
+		{
+			return typed.InvokeGetterTyped();
+		}
+
+		if (setup is PropertySetup.Default<TResult> defaultSetup)
+		{
+			return defaultSetup.Value;
+		}
+
+		return setup.InvokeGetterFast(Behavior, defaultValueGenerator);
+	}
+
+	/// <summary>
+	///     Indexes the setup that the cold path resolved for a property without a setup under its
+	///     <paramref name="memberId" />, so that the next reads and writes take the hot path instead of
+	///     looking the setup up by name again.
+	/// </summary>
+	private void PublishResolvedPropertySetup(int memberId, string propertyName)
+	{
+		if (memberId >= 0 && _setups is { } setups &&
+		    setups.Properties.TryGetValue(propertyName, out PropertySetup? setup))
+		{
+			PublishPropertyToMemberIdBucket(memberId, setup);
+		}
 	}
 
 	private TResult ResolvePropertySlow<TResult>(string propertyName,
@@ -877,9 +907,27 @@ public partial class MockRegistry
 		{
 			// Stryker disable once Boolean : same equivalence as the SetProperty(int, string, T) path — defaultValueGenerator is null here, so flipping forceReinit only triggers an InitializeWith(null) call that early-returns under the _isUserInitialized || _isInitialized guard.
 			matchingSetup = ResolvePropertySetup<T>(propertyName, null, null, false);
+			if (string.IsNullOrEmpty(Scenario))
+			{
+				PublishResolvedPropertySetup(memberId, propertyName);
+			}
 		}
 
-		((IInteractivePropertySetup)matchingSetup).InvokeSetter(null, value, Behavior);
+		// The exact types skip the generic virtual call; a derived setup may override the setter flow.
+		if (matchingSetup.GetType() == typeof(PropertySetup<T>))
+		{
+			((PropertySetup<T>)matchingSetup).InvokeSetterTyped(value);
+		}
+		else if (matchingSetup is PropertySetup.Default<T> defaultSetup)
+		{
+			defaultSetup.Value = value;
+			return Behavior.SkipBaseClass;
+		}
+		else
+		{
+			((IInteractivePropertySetup)matchingSetup).InvokeSetter(null, value, Behavior);
+		}
+
 		return ((IInteractivePropertySetup)matchingSetup).SkipBaseClass() ?? Behavior.SkipBaseClass;
 	}
 
