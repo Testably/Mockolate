@@ -91,10 +91,12 @@ public sealed class BuildBodyTests
 		int table = Array.IndexOf(lines, "| Foo | Mean | Allocated |");
 		int end = Array.IndexOf(lines, "</details>");
 		await That(summary).IsGreaterThan(-1);
-		await That(table).IsGreaterThan(Array.IndexOf(lines, "</pre>"));
-		await That(end).IsGreaterThan(table).Because("the raw table belongs inside the collapsed details");
-		await That(lines).Contains("<pre>");
-		await That(lines).Contains("preamble line");
+		int environment = Array.IndexOf(lines, "preamble line");
+		await That(table).IsGreaterThan(summary);
+		await That(environment).IsGreaterThan(table).Because("the environment follows the results");
+		await That(lines[environment - 1]).IsEqualTo("<pre>");
+		await That(lines[environment + 1]).IsEqualTo("</pre>");
+		await That(end).IsGreaterThan(environment).Because("the raw results belong inside the collapsed details");
 		await That(lines).Contains("| **Mockolate** | **100 ns** | **1 KB** |");
 		await That(lines).Contains("| Imposter | 200 ns | 2 KB |");
 	}
