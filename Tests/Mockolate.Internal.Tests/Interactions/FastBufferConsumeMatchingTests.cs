@@ -12,14 +12,14 @@ public class FastBufferConsumeMatchingTests
 		FastMockInteractions store = new(1);
 		FastEventBuffer buffer = new(store, 0);
 
-		await That(buffer.ConsumeMatching()).IsEqualTo(0);
+		await That(buffer.ConsumeAll()).IsEqualTo(0);
 
 		MethodInfo method = typeof(FastBufferConsumeMatchingTests).GetMethod(
 			nameof(FastEventBuffer_ConsumeMatching_ShouldReturnCount))!;
 		buffer.AppendSubscription("OnFoo", null, method);
 		buffer.AppendSubscription("OnFoo", null, method);
 
-		await That(buffer.ConsumeMatching()).IsEqualTo(2);
+		await That(buffer.ConsumeAll()).IsEqualTo(2);
 	}
 
 	[Test]
@@ -214,13 +214,13 @@ public class FastBufferConsumeMatchingTests
 		FastMockInteractions store = new(1);
 		FastMethod0Buffer buffer = new(store, 0);
 
-		await That(buffer.ConsumeMatching()).IsEqualTo(0);
+		await That(buffer.ConsumeAll()).IsEqualTo(0);
 
 		buffer.Append("Foo");
 		buffer.Append("Foo");
 		buffer.Append("Foo");
 
-		await That(buffer.ConsumeMatching()).IsEqualTo(3);
+		await That(buffer.ConsumeAll()).IsEqualTo(3);
 	}
 
 	[Test]
@@ -379,12 +379,12 @@ public class FastBufferConsumeMatchingTests
 		FastMockInteractions store = new(1);
 		FastPropertyGetterBuffer buffer = new(store, 0);
 
-		await That(buffer.ConsumeMatching()).IsEqualTo(0);
+		await That(buffer.ConsumeAll()).IsEqualTo(0);
 
 		buffer.Append();
 		buffer.Append();
 
-		await That(buffer.ConsumeMatching()).IsEqualTo(2);
+		await That(buffer.ConsumeAll()).IsEqualTo(2);
 	}
 
 	[Test]

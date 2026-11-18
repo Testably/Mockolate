@@ -41,25 +41,6 @@ internal sealed class FastPropertyGetterBuffer : RecordList
 		owner.Push(r);
 	}
 
-	/// <summary>
-	///     Returns the number of recorded property getter accesses and marks every currently-published
-	///     slot as verified so a later <see cref="IMockInteractions.GetUnverifiedInteractions" /> walk
-	///     skips them. The name reflects the side effect: this is a <c>Count</c> + <c>MarkVerified</c>
-	///     step, exposed for symmetry with
-	///     <see cref="FastPropertySetterBuffer{T}.ConsumeMatching(IParameterMatch{T})" />.
-	/// </summary>
-	public int ConsumeMatching()
-	{
-		int n = 0;
-		for (RecordNode? node = First; node is not null; node = Following(node))
-		{
-			node.Verified = true;
-			n++;
-		}
-
-		return n;
-	}
-
 	private sealed class Record : RecordNode
 	{
 		protected override IInteraction CreateInteraction()

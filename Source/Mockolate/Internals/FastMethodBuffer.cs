@@ -37,27 +37,6 @@ public sealed class FastMethod0Buffer : RecordList
 		owner.Push(r);
 	}
 
-	/// <summary>
-	///     Returns the number of recorded calls and marks every currently-published slot as verified
-	///     so a subsequent <see cref="IMockInteractions.GetUnverifiedInteractions" /> walk skips them.
-	///     Parameterless overload of the typed
-	///     <see cref="FastMethod1Buffer{T1}.ConsumeMatching(IParameterMatch{T1})" /> family — provided so
-	///     count-only verification can dispatch uniformly across arities without allocating a boxed
-	///     <see cref="IInteraction" /> per recorded call. The name reflects the side effect: this is a
-	///     <c>Count</c> + <c>MarkVerified</c> step, not a pure read.
-	/// </summary>
-	public int ConsumeMatching()
-	{
-		int n = 0;
-		for (RecordNode? node = First; node is not null; node = Following(node))
-		{
-			node.Verified = true;
-			n++;
-		}
-
-		return n;
-	}
-
 	private sealed class Record : RecordNode
 	{
 		public string Name = null!;
@@ -143,18 +122,6 @@ public sealed class FastMethod1Buffer<T1> : RecordList
 		}
 
 		return matches;
-	}
-
-	internal int ConsumeAll()
-	{
-		int n = 0;
-		for (RecordNode? node = First; node is not null; node = Following(node))
-		{
-			node.Verified = true;
-			n++;
-		}
-
-		return n;
 	}
 
 	private sealed class Record : RecordNode
@@ -245,18 +212,6 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList
 		return matches;
 	}
 
-	internal int ConsumeAll()
-	{
-		int n = 0;
-		for (RecordNode? node = First; node is not null; node = Following(node))
-		{
-			node.Verified = true;
-			n++;
-		}
-
-		return n;
-	}
-
 	private sealed class Record : RecordNode
 	{
 		public string Name = null!;
@@ -345,18 +300,6 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList
 		}
 
 		return matches;
-	}
-
-	internal int ConsumeAll()
-	{
-		int n = 0;
-		for (RecordNode? node = First; node is not null; node = Following(node))
-		{
-			node.Verified = true;
-			n++;
-		}
-
-		return n;
 	}
 
 	private sealed class Record : RecordNode
@@ -451,18 +394,6 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList
 		}
 
 		return matches;
-	}
-
-	internal int ConsumeAll()
-	{
-		int n = 0;
-		for (RecordNode? node = First; node is not null; node = Following(node))
-		{
-			node.Verified = true;
-			n++;
-		}
-
-		return n;
 	}
 
 	private sealed class Record : RecordNode
