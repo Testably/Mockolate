@@ -23,21 +23,17 @@ namespace Mockolate.Internals;
 public abstract class RecordList
 {
 	/// <inheritdoc cref="RecordList" />
-	protected RecordList(FastMockInteractions owner)
+	protected RecordList(FastMockInteractions owner, int memberId)
 	{
 		Owner = owner;
-		MemberId = RecordNode.UnboundMemberId;
+		MemberId = memberId;
 	}
 
 	/// <summary>The interactions of the mock that the calls are recorded in.</summary>
-	protected FastMockInteractions Owner { get; }
+	internal FastMockInteractions Owner { get; }
 
-	/// <summary>
-	///     The member id of the calls. A view that was not created through
-	///     <see cref="FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, System.Func{FastMockInteractions, TBuffer})" />
-	///     has an id that no member uses.
-	/// </summary>
-	public int MemberId { get; internal set; }
+	/// <summary>The member id of the calls.</summary>
+	public int MemberId { get; }
 
 	/// <summary>The number of recorded calls of the member. It walks the list of the mock.</summary>
 	public int Count
@@ -72,18 +68,6 @@ public abstract class RecordList
 		}
 	}
 
-	/// <inheritdoc cref="IFastMemberBuffer.AppendBoxedUnverified" />
-	public void AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = Following(node))
-		{
-			if (!node.Verified)
-			{
-				dest.Add((node.Seq, node.Interaction));
-			}
-		}
-	}
-
 	private RecordNode? Skip(RecordNode? node)
 	{
 		int memberId = MemberId;
@@ -109,7 +93,6 @@ public abstract class RecordList
 public abstract class RecordNode
 {
 	internal const int InteractionMemberId = int.MaxValue;
-	internal const int UnboundMemberId = int.MaxValue - 1;
 	private const int VerifiedFlag = int.MinValue;
 
 	private IInteraction? _boxed;
@@ -186,4 +169,5 @@ internal sealed class InteractionRecord : RecordNode
 /// <summary>
 ///     View on the calls of a member whose record type is not known.
 /// </summary>
-internal sealed class MemberRecords(FastMockInteractions owner) : RecordList(owner), IFastMemberBuffer;
+internal sealed class MemberRecords(FastMockInteractions owner, int memberId)
+	: RecordList(owner, memberId), IFastMemberBuffer;

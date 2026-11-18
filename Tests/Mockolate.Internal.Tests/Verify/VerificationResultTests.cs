@@ -12,10 +12,10 @@ namespace Mockolate.Internal.Tests.Verify;
 public class VerificationResultTests
 {
 	private static FastMethod0Buffer InstallMethod(FastMockInteractions store, int memberId)
-		=> store.GetOrCreateBuffer<FastMethod0Buffer>(memberId, static f => new FastMethod0Buffer(f));
+		=> new FastMethod0Buffer(store, memberId);
 
 	private static FastMethod1Buffer<T> InstallMethod<T>(FastMockInteractions store, int memberId)
-		=> store.GetOrCreateBuffer<FastMethod1Buffer<T>>(memberId, static f => new FastMethod1Buffer<T>(f));
+		=> new FastMethod1Buffer<T>(store, memberId);
 
 	public sealed class ConstructorTests
 	{

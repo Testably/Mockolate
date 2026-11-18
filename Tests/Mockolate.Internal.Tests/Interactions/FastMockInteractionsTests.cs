@@ -32,21 +32,6 @@ public class FastMockInteractionsTests
 	}
 
 	[Test]
-	public async Task Buffers_ShouldExposeInstalledBuffersByMemberId()
-	{
-		FastMockInteractions sut = new(3);
-		FastMethod0Buffer method = InstallMethod(sut, 0);
-		FastPropertyGetterBuffer getter = InstallPropertyGetter(sut, 1);
-		FastEventBuffer subscribe = sut.GetOrCreateBuffer<FastEventBuffer>(2,
-			static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
-
-		await That(sut.Buffers).HasCount(3);
-		await That(sut.Buffers[0]).IsSameAs(method);
-		await That(sut.Buffers[1]).IsSameAs(getter);
-		await That(sut.Buffers[2]).IsSameAs(subscribe);
-	}
-
-	[Test]
 	public async Task Clear_FallbackPath_ShouldNotResurfaceOldRecordsAfterRefill()
 	{
 		IMockInteractions sut = new FastMockInteractions(0);
@@ -191,8 +176,7 @@ public class FastMockInteractionsTests
 	{
 		FastMockInteractions sut = new(2);
 		FastMethod1Buffer<int> methodBuffer = InstallMethod<int>(sut, 0);
-		FastPropertySetterBuffer<string> setterBuffer = sut.GetOrCreateBuffer<FastPropertySetterBuffer<string>>(1,
-			static f => new FastPropertySetterBuffer<string>(f));
+		FastPropertySetterBuffer<string> setterBuffer = new(sut, 1);
 
 		methodBuffer.Append("Method", 1);
 		setterBuffer.Append("Property", "x");
@@ -560,14 +544,13 @@ public class FastMockInteractionsTests
 	}
 
 	private static FastMethod0Buffer InstallMethod(FastMockInteractions store, int memberId)
-		=> store.GetOrCreateBuffer<FastMethod0Buffer>(memberId, static f => new FastMethod0Buffer(f));
+		=> new FastMethod0Buffer(store, memberId);
 
 	private static FastMethod1Buffer<T> InstallMethod<T>(FastMockInteractions store, int memberId)
-		=> store.GetOrCreateBuffer<FastMethod1Buffer<T>>(memberId, static f => new FastMethod1Buffer<T>(f));
+		=> new FastMethod1Buffer<T>(store, memberId);
 
 	private static FastPropertyGetterBuffer InstallPropertyGetter(FastMockInteractions store, int memberId)
-		=> store.GetOrCreateBuffer<FastPropertyGetterBuffer>(memberId,
-			static f => new FastPropertyGetterBuffer(f, new PropertyGetterAccess(string.Empty)));
+		=> new FastPropertyGetterBuffer(store, memberId);
 
 	public sealed class MethodBufferTests
 	{
@@ -600,8 +583,7 @@ public class FastMockInteractionsTests
 		public async Task Method2_BoxesAsMethodInvocationT1T2()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-				static f => new FastMethod2Buffer<int, string>(f));
+			FastMethod2Buffer<int, string> buffer = new(store, 0);
 
 			buffer.Append("Foo", 42, "bar");
 
@@ -614,8 +596,7 @@ public class FastMockInteractionsTests
 		public async Task Method3_BoxesAsMethodInvocationT1T2T3()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-				static f => new FastMethod3Buffer<int, string, bool>(f));
+			FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 
 			buffer.Append("Foo", 1, "two", true);
 
@@ -629,9 +610,7 @@ public class FastMockInteractionsTests
 		public async Task Method4_BoxesAsMethodInvocationT1T2T3T4()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod4Buffer<int, string, bool, double> buffer =
-				store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-					static f => new FastMethod4Buffer<int, string, bool, double>(f));
+			FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 
 			buffer.Append("Foo", 1, "two", true, 3.14);
 
@@ -666,10 +645,9 @@ public class FastMockInteractionsTests
 		public async Task Getter_BoxesAsPropertyGetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastPropertyGetterBuffer buffer = store.GetOrCreateBuffer<FastPropertyGetterBuffer, PropertyGetterAccess>(
-				0, static (f, a) => new FastPropertyGetterBuffer(f, a), new PropertyGetterAccess("Foo"));
+			FastPropertyGetterBuffer buffer = new(store, 0);
 
-			buffer.Append();
+			buffer.Append(new PropertyGetterAccess("Foo"));
 
 			PropertyGetterAccess boxed = (PropertyGetterAccess)store.Single();
 			await That(boxed.Name).IsEqualTo("Foo");
@@ -679,8 +657,7 @@ public class FastMockInteractionsTests
 		public async Task Setter_BoxesAsPropertySetterAccessT()
 		{
 			FastMockInteractions store = new(1);
-			FastPropertySetterBuffer<string> buffer = store.GetOrCreateBuffer<FastPropertySetterBuffer<string>>(0,
-				static f => new FastPropertySetterBuffer<string>(f));
+			FastPropertySetterBuffer<string> buffer = new(store, 0);
 
 			buffer.Append("Foo", "value");
 
@@ -696,8 +673,7 @@ public class FastMockInteractionsTests
 		public async Task Getter1_BoxesAsIndexerGetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastIndexerGetterBuffer<string> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<string>>(0,
-				static f => new FastIndexerGetterBuffer<string>(f));
+			FastIndexerGetterBuffer<string> buffer = new(store, 0);
 
 			buffer.Append("k");
 
@@ -709,8 +685,7 @@ public class FastMockInteractionsTests
 		public async Task Getter2_BoxesAsIndexerGetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastIndexerGetterBuffer<string, int> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<string, int>>(0,
-				static f => new FastIndexerGetterBuffer<string, int>(f));
+			FastIndexerGetterBuffer<string, int> buffer = new(store, 0);
 
 			buffer.Append("k", 1);
 
@@ -723,8 +698,7 @@ public class FastMockInteractionsTests
 		public async Task Setter1_BoxesAsIndexerSetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastIndexerSetterBuffer<string, bool> buffer = store.GetOrCreateBuffer<FastIndexerSetterBuffer<string, bool>>(0,
-				static f => new FastIndexerSetterBuffer<string, bool>(f));
+			FastIndexerSetterBuffer<string, bool> buffer = new(store, 0);
 
 			buffer.Append("k", true);
 
@@ -737,9 +711,7 @@ public class FastMockInteractionsTests
 		public async Task Setter2_BoxesAsIndexerSetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastIndexerSetterBuffer<string, int, bool> buffer =
-				store.GetOrCreateBuffer<FastIndexerSetterBuffer<string, int, bool>>(0,
-					static f => new FastIndexerSetterBuffer<string, int, bool>(f));
+			FastIndexerSetterBuffer<string, int, bool> buffer = new(store, 0);
 
 			buffer.Append("k", 7, true);
 
@@ -754,11 +726,10 @@ public class FastMockInteractionsTests
 		public async Task Subscribe_BoxesAsEventSubscription()
 		{
 			FastMockInteractions store = new(1);
-			FastEventBuffer buffer = store.GetOrCreateBuffer<FastEventBuffer>(0,
-				static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
+			FastEventBuffer buffer = new(store, 0);
 			MethodInfo method = typeof(EventBufferTests).GetMethod(nameof(Subscribe_BoxesAsEventSubscription))!;
 
-			buffer.Append("E", this, method);
+			buffer.AppendSubscription("E", this, method);
 
 			EventSubscription boxed = (EventSubscription)store.Single();
 			await That(boxed.Name).IsEqualTo("E");
@@ -770,11 +741,10 @@ public class FastMockInteractionsTests
 		public async Task Unsubscribe_BoxesAsEventUnsubscription()
 		{
 			FastMockInteractions store = new(1);
-			FastEventBuffer buffer = store.GetOrCreateBuffer<FastEventBuffer>(0,
-				static f => new FastEventBuffer(f, FastEventBufferKind.Unsubscribe));
+			FastEventBuffer buffer = new(store, 0);
 			MethodInfo method = typeof(EventBufferTests).GetMethod(nameof(Unsubscribe_BoxesAsEventUnsubscription))!;
 
-			buffer.Append("E", null, method);
+			buffer.AppendUnsubscription("E", null, method);
 
 			EventUnsubscription boxed = (EventUnsubscription)store.Single();
 			await That(boxed.Name).IsEqualTo("E");

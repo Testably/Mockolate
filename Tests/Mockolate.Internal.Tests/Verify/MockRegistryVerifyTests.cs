@@ -13,8 +13,7 @@ public class MockRegistryVerifyTests
 		public async Task IndexerGotTyped_FourKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string, bool, double>>(0,
-				static f => new FastIndexerGetterBuffer<int, string, bool, double>(f));
+			new FastIndexerGetterBuffer<int, string, bool, double>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -35,8 +34,7 @@ public class MockRegistryVerifyTests
 		public async Task IndexerGotTyped_OneKey_FailureMessageIncludesGotIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int>>(0,
-				static f => new FastIndexerGetterBuffer<int>(f));
+			new FastIndexerGetterBuffer<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -54,8 +52,7 @@ public class MockRegistryVerifyTests
 		public async Task IndexerGotTyped_ThreeKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string, bool>>(0,
-				static f => new FastIndexerGetterBuffer<int, string, bool>(f));
+			new FastIndexerGetterBuffer<int, string, bool>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -75,8 +72,7 @@ public class MockRegistryVerifyTests
 		public async Task IndexerGotTyped_TwoKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string>>(0,
-				static f => new FastIndexerGetterBuffer<int, string>(f));
+			new FastIndexerGetterBuffer<int, string>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -95,8 +91,7 @@ public class MockRegistryVerifyTests
 		public async Task IndexerSetTyped_FourKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool, double, char>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool, double, char>(f));
+			new FastIndexerSetterBuffer<int, string, bool, double, char>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -118,8 +113,7 @@ public class MockRegistryVerifyTests
 		public async Task IndexerSetTyped_OneKey_FailureMessageIncludesSetIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string>>(0,
-				static f => new FastIndexerSetterBuffer<int, string>(f));
+			new FastIndexerSetterBuffer<int, string>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -138,8 +132,7 @@ public class MockRegistryVerifyTests
 		public async Task IndexerSetTyped_ThreeKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool, double>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool, double>(f));
+			new FastIndexerSetterBuffer<int, string, bool, double>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -160,8 +153,7 @@ public class MockRegistryVerifyTests
 		public async Task IndexerSetTyped_TwoKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool>(f));
+			new FastIndexerSetterBuffer<int, string, bool>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -181,8 +173,7 @@ public class MockRegistryVerifyTests
 		public async Task SubscribedToTyped_FailureMessageIncludesSubscribedToEventPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastEventBuffer>(0,
-				static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
+			new FastEventBuffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -198,8 +189,7 @@ public class MockRegistryVerifyTests
 		public async Task UnsubscribedFromTyped_FailureMessageIncludesUnsubscribedFromEventPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastEventBuffer>(0,
-				static f => new FastEventBuffer(f, FastEventBufferKind.Unsubscribe));
+			new FastEventBuffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -215,8 +205,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyMethodTyped_FourParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+			new FastMethod4Buffer<int, string, bool, double>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -237,8 +226,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyMethodTyped_OneParameter_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-				static f => new FastMethod1Buffer<int>(f));
+			new FastMethod1Buffer<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -256,8 +244,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyMethodTyped_Parameterless_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastMethod0Buffer>(0,
-				static f => new FastMethod0Buffer(f));
+			new FastMethod0Buffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -273,8 +260,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyMethodTyped_ThreeParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-				static f => new FastMethod3Buffer<int, string, bool>(f));
+			new FastMethod3Buffer<int, string, bool>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -294,8 +280,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyMethodTyped_TwoParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-				static f => new FastMethod2Buffer<int, string>(f));
+			new FastMethod2Buffer<int, string>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -314,8 +299,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyPropertyTyped_Getter_FailureMessageIncludesGotPropertyPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastPropertyGetterBuffer>(0,
-				static f => new FastPropertyGetterBuffer(f, new PropertyGetterAccess(string.Empty)));
+			new FastPropertyGetterBuffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -331,8 +315,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyPropertyTyped_Setter_FailureMessageIncludesSetPropertyPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(0,
-				static f => new FastPropertySetterBuffer<int>(f));
+			new FastPropertySetterBuffer<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -356,8 +339,7 @@ public class MockRegistryVerifyTests
 			// IndexOutOfRangeException-crash on `buffers[memberId]`. Asserting the verify
 			// resolves cleanly via the slow-path fallback documents the boundary.
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastMethod0Buffer>(0,
-				static f => new FastMethod0Buffer(f));
+			new FastMethod0Buffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -372,8 +354,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyMethodTyped_WithMemberIdFarOutOfRange_ShouldFallToSlowPath()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastMethod0Buffer>(0,
-				static f => new FastMethod0Buffer(f));
+			new FastMethod0Buffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -508,8 +489,7 @@ public class MockRegistryVerifyTests
 			// Pins the expectation factory `() => $"got property {propertyName...}"` against the
 			// string-removal mutation that would replace it with an empty interpolation.
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastPropertyGetterBuffer>(0,
-				static f => new FastPropertyGetterBuffer(f, new PropertyGetterAccess(string.Empty)));
+			new FastPropertyGetterBuffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -528,8 +508,7 @@ public class MockRegistryVerifyTests
 			// Mutating it to `static _ => false` would skip every record and turn this Once() into a
 			// failed verification.
 			FastMockInteractions store = new(1);
-			FastPropertyGetterBuffer buffer = store.GetOrCreateBuffer<FastPropertyGetterBuffer>(0,
-				static f => new FastPropertyGetterBuffer(f, new PropertyGetterAccess("X")));
+			FastPropertyGetterBuffer buffer = new(store, 0);
 			buffer.Append();
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -547,8 +526,7 @@ public class MockRegistryVerifyTests
 			// Pins the expectation factory `() => $"set property {propertyName...} to {value}"`
 			// against the string-removal mutation.
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(0,
-				static f => new FastPropertySetterBuffer<int>(f));
+			new FastPropertySetterBuffer<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -568,8 +546,7 @@ public class MockRegistryVerifyTests
 			// Block-removal would turn the predicate into `return default;` (i.e. always false) and
 			// drop every recorded setter, failing this Once().
 			FastMockInteractions store = new(1);
-			FastPropertySetterBuffer<int> buffer = store.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(0,
-				static f => new FastPropertySetterBuffer<int>(f));
+			FastPropertySetterBuffer<int> buffer = new(store, 0);
 			buffer.Append("X", 7);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -588,8 +565,7 @@ public class MockRegistryVerifyTests
 			// Same Predicate body — but exercises the negative branch so the `value.Matches(...)`
 			// term cannot be silently dropped.
 			FastMockInteractions store = new(1);
-			FastPropertySetterBuffer<int> buffer = store.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(0,
-				static f => new FastPropertySetterBuffer<int>(f));
+			FastPropertySetterBuffer<int> buffer = new(store, 0);
 			buffer.Append("X", 99);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -611,8 +587,7 @@ public class MockRegistryVerifyTests
 			// Pins `() => $"got indexer {parametersDescription()}"` in the public memberId-keyed
 			// IndexerGot expression body against the string-removal mutation.
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int>>(0,
-				static f => new FastIndexerGetterBuffer<int>(f));
+			new FastIndexerGetterBuffer<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -632,8 +607,7 @@ public class MockRegistryVerifyTests
 			// Pins `() => $"set indexer {parametersDescription()} to {value}"` against the
 			// string-removal mutation.
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string>>(0,
-				static f => new FastIndexerSetterBuffer<int, string>(f));
+			new FastIndexerSetterBuffer<int, string>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -654,8 +628,7 @@ public class MockRegistryVerifyTests
 			// Pins the local Predicate body in the memberId-keyed IndexerSet overload — the
 			// block-removal mutant would turn it into `return default;` and skip every record.
 			FastMockInteractions store = new(1);
-			FastIndexerSetterBuffer<int, string> buffer = store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string>>(0,
-				static f => new FastIndexerSetterBuffer<int, string>(f));
+			FastIndexerSetterBuffer<int, string> buffer = new(store, 0);
 			buffer.Append(1, "x");
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -679,8 +652,7 @@ public class MockRegistryVerifyTests
 		{
 			// Pins the expectation factory `() => $"subscribed to event {eventName...}"`.
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastEventBuffer>(0,
-				static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
+			new FastEventBuffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -698,9 +670,8 @@ public class MockRegistryVerifyTests
 			// Pins `static _ => true` in the memberId-keyed SubscribedTo. Mutating to `false`
 			// would drop every record and fail Once().
 			FastMockInteractions store = new(1);
-			FastEventBuffer buffer = store.GetOrCreateBuffer<FastEventBuffer>(0,
-				static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
-			buffer.Append("Tick", null, typeof(object).GetMethod(nameof(ToString))!);
+			FastEventBuffer buffer = new(store, 0);
+			buffer.AppendSubscription("Tick", null, typeof(object).GetMethod(nameof(ToString))!);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -742,8 +713,7 @@ public class MockRegistryVerifyTests
 		public async Task FailureMessageIncludesUnsubscribedFromEventPrefix()
 		{
 			FastMockInteractions store = new(1);
-			store.GetOrCreateBuffer<FastEventBuffer>(0,
-				static f => new FastEventBuffer(f, FastEventBufferKind.Unsubscribe));
+			new FastEventBuffer(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -759,9 +729,8 @@ public class MockRegistryVerifyTests
 		public async Task WithBufferAndRecord_PredicateMatchesEveryRecord()
 		{
 			FastMockInteractions store = new(1);
-			FastEventBuffer buffer = store.GetOrCreateBuffer<FastEventBuffer>(0,
-				static f => new FastEventBuffer(f, FastEventBufferKind.Unsubscribe));
-			buffer.Append("Tick", null, typeof(object).GetMethod(nameof(ToString))!);
+			FastEventBuffer buffer = new(store, 0);
+			buffer.AppendUnsubscription("Tick", null, typeof(object).GetMethod(nameof(ToString))!);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()

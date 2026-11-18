@@ -13,8 +13,7 @@ public class FastBufferConcurrencyTests
 		const int appendsPerWriter = 1000;
 
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 
 		Task[] writers = new Task[writerCount];
 		for (int w = 0; w < writerCount; w++)
@@ -40,8 +39,7 @@ public class FastBufferConcurrencyTests
 	public async Task FastMethod1Buffer_InteractionAdded_ShouldFireWhenSubscribed()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 
 		int invocations = 0;
 
@@ -64,6 +62,5 @@ public class FastBufferConcurrencyTests
 		buffer.Append("Foo", 3);
 
 		await That(invocations).IsEqualTo(2);
-		await That(store.HasInteractionAddedSubscribers).IsFalse();
 	}
 }

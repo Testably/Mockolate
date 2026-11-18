@@ -22,32 +22,12 @@ namespace Mockolate.Interactions;
 #endif
 internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 {
-	private readonly PropertyGetterAccess? _access;
-
 	/// <summary>
 	///     Creates a view that reads the recorded accesses of a property getter.
 	/// </summary>
-	internal FastPropertyGetterBuffer(FastMockInteractions owner) : base(owner)
+	internal FastPropertyGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Creates a new property-getter buffer pre-seeded with the shared
-	///     <see cref="PropertyGetterAccess" /> <paramref name="access" /> singleton.
-	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	/// <param name="access">The shared <see cref="PropertyGetterAccess" /> singleton emitted by the source generator.</param>
-	public FastPropertyGetterBuffer(FastMockInteractions owner, PropertyGetterAccess access) : base(owner)
-	{
-		_access = access;
-	}
-
-	/// <summary>
-	///     Records a property getter access using the buffer's pre-seeded
-	///     <see cref="PropertyGetterAccess" /> singleton.
-	/// </summary>
-	public void Append()
-		=> Append(Owner, MemberId, _access!);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -100,15 +80,10 @@ internal sealed class FastPropertySetterBuffer<T> : RecordList, IFastMemberBuffe
 	///     Creates a new property-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastPropertySetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastPropertySetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records a property setter access.
-	/// </summary>
-	public void Append(string name, T value)
-		=> Append(Owner, MemberId, name, value);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
