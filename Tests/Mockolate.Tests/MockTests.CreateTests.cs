@@ -252,6 +252,15 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task GenericParameterDefaultValues_CanBeCreated()
+		{
+			IGenericParameterDefaultValues sut1 = IGenericParameterDefaultValues.CreateMock();
+			GenericParameterDefaultValuesBase sut2 = GenericParameterDefaultValuesBase.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+		}
+
+		[Test]
 		public async Task HttpClient_CanBeCreated()
 		{
 			HttpClient sut = HttpClient.CreateMock();

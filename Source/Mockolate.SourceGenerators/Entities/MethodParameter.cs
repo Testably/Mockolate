@@ -19,7 +19,7 @@ internal readonly record struct MethodParameter
 		{
 			string? explicitDefaultValue = SymbolDisplay.FormatPrimitive(parameterSymbol.ExplicitDefaultValue, true, false);
 			if (explicitDefaultValue == "null"
-			    && parameterSymbol.Type.IsValueType
+			    && parameterSymbol.Type is { IsValueType: true, } or ITypeParameterSymbol { IsReferenceType: false, }
 			    && parameterSymbol.Type is not INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T, })
 			{
 				ExplicitDefaultValue = "default";

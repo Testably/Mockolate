@@ -121,6 +121,14 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "GenericParameterDefaultValues_CanBeCreated",
+            ["IGenericParameterDefaultValues.cs",],
+            """
+            IGenericParameterDefaultValues sut1 = IGenericParameterDefaultValues.CreateMock();
+            GenericParameterDefaultValuesBase sut2 = GenericParameterDefaultValuesBase.CreateMock();
+            """,
+            []),
+        new(
             "HttpClient_CanBeCreated",
             [],
             """
@@ -245,6 +253,15 @@ public sealed partial class MockGenerationSnapshotTests
             ["GenericMethodOverrideBase.cs",],
             """
             GenericMethodOverrideBase sut = GenericMethodOverrideBase.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "GenericParameterDefaultValues_CanBeCreated_Unions",
+            ["IGenericParameterDefaultValues.cs",],
+            """
+            IGenericParameterDefaultValues sut1 = IGenericParameterDefaultValues.CreateMock();
+            GenericParameterDefaultValuesBase sut2 = GenericParameterDefaultValuesBase.CreateMock();
             """,
             [],
             UnionMode: true),
