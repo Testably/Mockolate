@@ -2817,15 +2817,26 @@ internal static partial class Sources
 			}
 
 			string defaultValueGeneratorSuffix = "";
+			string? taskSuffix = null;
 			if (method.Parameters.Count > 0)
 			{
 				sb.Append(string.Join(", ", method.Parameters.Select(p => p.ToNameOrWrapper()))).Append(", ");
 				defaultValueGeneratorSuffix = string.Join(", ", method.Parameters.Select(p => p.ToNameOrWrapper()));
+				MethodParameter[] tokenCandidates =
+					method.Parameters.Where(p => p.Type.MayHoldCancellationToken).ToArray();
+				if (tokenCandidates.Length == 0)
+				{
+					taskSuffix = "";
+				}
+				else if (tokenCandidates.Length == 1 && tokenCandidates[0].Type.IsCancellationToken)
+				{
+					taskSuffix = tokenCandidates[0].ToNameOrWrapper();
+				}
 			}
 
 			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ")
 				.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue",
-					defaultValueGeneratorSuffix)
+					defaultValueGeneratorSuffix, taskSuffix)
 				.Append(';').AppendLine();
 			if (isRefReturn)
 			{

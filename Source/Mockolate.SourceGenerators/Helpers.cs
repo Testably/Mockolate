@@ -543,8 +543,12 @@ internal static class Helpers
 
 	extension(StringBuilder sb)
 	{
+		/// <remarks>
+		///     The <paramref name="taskSuffix" /> holds the arguments for the wrapping of a value in a task, which only
+		///     looks for a cancellation token, or is <see langword="null" /> to use the <paramref name="suffix" />.
+		/// </remarks>
 		public StringBuilder AppendDefaultValueGeneratorFor(Type type,
-			string defaultValueName, string suffix = "")
+			string defaultValueName, string suffix = "", string? taskSuffix = null)
 		{
 			if (type.TupleTypes is not null)
 			{
@@ -558,7 +562,7 @@ internal static class Helpers
 					}
 
 					first = false;
-					sb.AppendDefaultValueGeneratorFor(genericType, defaultValueName, suffix);
+					sb.AppendDefaultValueGeneratorFor(genericType, defaultValueName, suffix, taskSuffix);
 				}
 
 				sb.Append(")");
@@ -596,19 +600,22 @@ internal static class Helpers
 
 			sb.Append(")!");
 
+			string appendedSuffix = suffix;
 			if (type.SpecialGenericType is SpecialGenericType.Task or SpecialGenericType.ValueTask
 			    && type.GenericTypeParameters?.Count > 0)
 			{
 				foreach (Type? genericType in type.GenericTypeParameters.Value)
 				{
 					sb.Append(", ")
-						.AppendDefaultValueGeneratorFor(genericType, defaultValueName, suffix);
+						.AppendDefaultValueGeneratorFor(genericType, defaultValueName, suffix, taskSuffix);
 				}
+
+				appendedSuffix = taskSuffix ?? suffix;
 			}
 
-			if (!string.IsNullOrWhiteSpace(suffix))
+			if (!string.IsNullOrWhiteSpace(appendedSuffix))
 			{
-				sb.Append(", ").Append(suffix);
+				sb.Append(", ").Append(appendedSuffix);
 			}
 
 			sb.Append(")");

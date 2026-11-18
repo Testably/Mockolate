@@ -7,6 +7,78 @@ public sealed partial class InteractionsTests
 	public sealed class CancellationTokenTests
 	{
 		[Test]
+		public async Task WithArrayParameter_WhenAnElementIsCanceled_ShouldReturnCanceledTask()
+		{
+			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
+			CancellationToken canceledToken = new(true);
+
+			Task<int> result = sut.ArrayParameterMethod(["test", canceledToken,]);
+
+			await That(result.IsCanceled).IsTrue();
+		}
+
+		[Test]
+		public async Task WithGenericParameter_WhenItIsCanceled_ShouldReturnCanceledTask()
+		{
+			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
+			CancellationToken canceledToken = new(true);
+
+			Task<int> result = sut.GenericParameterMethod(canceledToken);
+
+			await That(result.IsCanceled).IsTrue();
+		}
+
+		[Test]
+		public async Task WithMultipleTokens_ShouldOnlyConsiderTheFirst()
+		{
+			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
+			CancellationToken canceledToken = new(true);
+
+			Task<int> firstCanceled = sut.TwoTokensMethod(canceledToken, CancellationToken.None);
+			Task<int> secondCanceled = sut.TwoTokensMethod(CancellationToken.None, canceledToken);
+
+			await That(firstCanceled.IsCanceled).IsTrue();
+			await That(secondCanceled.IsCanceled).IsFalse();
+		}
+
+		[Test]
+		public async Task WithNullableToken_WhenItIsCanceled_ShouldReturnCanceledTask()
+		{
+			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
+			CancellationToken canceledToken = new(true);
+
+			Task<int> canceled = sut.NullableTokenMethod(canceledToken);
+			Task<int> withoutToken = sut.NullableTokenMethod(null);
+
+			await That(canceled.IsCanceled).IsTrue();
+			await That(withoutToken.IsCanceled).IsFalse();
+		}
+
+		[Test]
+		public async Task WithObjectParameter_WhenItIsACanceledToken_ShouldReturnCanceledTask()
+		{
+			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
+			CancellationToken canceledToken = new(true);
+
+			Task<int> canceled = sut.ObjectParameterMethod(canceledToken);
+			Task<int> withoutToken = sut.ObjectParameterMethod("test");
+
+			await That(canceled.IsCanceled).IsTrue();
+			await That(withoutToken.IsCanceled).IsFalse();
+		}
+
+		[Test]
+		public async Task WithoutTokenParameter_ShouldReturnDefaultValue()
+		{
+			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
+
+			Task<int> result = sut.WithoutTokenMethod("test");
+
+			await That(result.IsCanceled).IsFalse();
+			await That(await result).IsEqualTo(0);
+		}
+
+		[Test]
 		public async Task WithMultipleParameters_WhenOneIsCanceled_ShouldReturnCanceledTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -124,5 +196,11 @@ public sealed partial class InteractionsTests
 		ValueTask<int> ValueTaskOfIntMethod(CancellationToken cancellationToken);
 		Task<int> MultipleParametersMethod(string param1, int param2, CancellationToken cancellationToken);
 		(Task, string) TupleWithTaskMethod(CancellationToken cancellationToken);
+		Task<int> ArrayParameterMethod(object[] values);
+		Task<int> GenericParameterMethod<T>(T value);
+		Task<int> TwoTokensMethod(CancellationToken first, CancellationToken second);
+		Task<int> NullableTokenMethod(CancellationToken? cancellationToken);
+		Task<int> ObjectParameterMethod(object value);
+		Task<int> WithoutTokenMethod(string value);
 	}
 }
