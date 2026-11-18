@@ -21,10 +21,10 @@ internal static partial class Mock
 		global::System.Net.Http.HttpClient, IMockForHttpClient, IMockSetupForHttpClient, IMockProtectedSetupForHttpClient, global::Mockolate.MockExtensionsForHttpClient.IMockSetupInitializationForHttpClient, IMockVerifyForHttpClient, IMockProtectedVerifyForHttpClient,
 		global::Mockolate.IMock
 	{
-		internal const int MemberId_Send = 0;
-		internal const int MemberId_SendAsync = 1;
-		internal const int MemberId_Dispose = 2;
-		internal const int MemberCount = 3;
+		internal const int MemberId_Send = global::Mockolate.Mock.HttpMessageHandler.MemberCount + 0;
+		internal const int MemberId_SendAsync = global::Mockolate.Mock.HttpMessageHandler.MemberCount + 1;
+		internal const int MemberId_Dispose = global::Mockolate.Mock.HttpMessageHandler.MemberCount + 2;
+		internal const int MemberCount = global::Mockolate.Mock.HttpMessageHandler.MemberCount + 3;
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
