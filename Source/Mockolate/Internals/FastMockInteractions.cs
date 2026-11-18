@@ -30,6 +30,12 @@ public class FastMockInteractions : IMockInteractions
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private RecordNode? _head;
 
+	/// <summary>
+	///     Whether a call was recorded as an interaction instead of a typed record. Only then can a member without
+	///     typed records have calls at all.
+	/// </summary>
+	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	private bool _hasInteractionRecords;
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	[field: DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private MockolateLock VerifiedLock
@@ -113,15 +119,19 @@ public class FastMockInteractions : IMockInteractions
 
 	/// <summary>
 	///     Returns a view on the typed records of the member <paramref name="memberId" />, or
-	///     <see langword="null" /> when the member has none.
+	///     <see langword="null" /> when its calls can only be found among all interactions of the mock.
 	/// </summary>
 	internal MemberRecords? FindRecords(int memberId)
 		=> FindRecords(memberId, static (owner, id) => new UntypedMemberRecords(owner, id));
 
 	/// <summary>
 	///     Returns a typed view on the records of the member <paramref name="memberId" />, or
-	///     <see langword="null" /> when the member has none.
+	///     <see langword="null" /> when its calls can only be found among all interactions of the mock.
 	/// </summary>
+	/// <remarks>
+	///     A member without typed records was either not called or recorded as an interaction. As long as the mock
+	///     holds no interaction record it is the former, and the empty view answers the verification.
+	/// </remarks>
 	internal TRecords? FindRecords<TRecords>(int memberId, Func<FastMockInteractions, int, TRecords> factory)
 		where TRecords : MemberRecords
 	{
@@ -131,7 +141,7 @@ public class FastMockInteractions : IMockInteractions
 		}
 
 		TRecords records = factory(this, memberId);
-		return records.HasRecords ? records : null;
+		return records.HasRecords || !Volatile.Read(ref _hasInteractionRecords) ? records : null;
 	}
 	/// <inheritdoc cref="IMockInteractions.RegisterInteraction{TInteraction}(TInteraction)" />
 	/// <remarks>
@@ -142,7 +152,11 @@ public class FastMockInteractions : IMockInteractions
 	{
 		if (!SkipInteractionRecording)
 		{
+			// Set before and after publishing: a concurrent Clear may reset the flag in between, and it must
+			// never be unset while the record is in the list.
+			Volatile.Write(ref _hasInteractionRecords, true);
 			Push(new InteractionRecord(interaction));
+			Volatile.Write(ref _hasInteractionRecords, true);
 		}
 
 		return interaction;
@@ -197,6 +211,7 @@ public class FastMockInteractions : IMockInteractions
 	/// <inheritdoc cref="IMockInteractions.Clear" />
 	public void Clear()
 	{
+		Volatile.Write(ref _hasInteractionRecords, false);
 		Volatile.Write(ref _head, null);
 
 		lock (VerifiedLock)
