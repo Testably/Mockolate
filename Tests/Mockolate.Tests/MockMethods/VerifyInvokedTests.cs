@@ -203,6 +203,20 @@ public sealed partial class VerifyInvokedTests
 			.Because("the parameter __i must not be shadowed by the generated verification lambda");
 	}
 
+	[Test]
+	public async Task WithOptionalParameters_ShouldUseOptionalValueWhenNotSet()
+	{
+		TestHelpers.IMyService sut = TestHelpers.IMyService.CreateMock();
+
+		sut.MyMethodWithOptionalParameters(5);
+		sut.MyMethodWithOptionalParameters(5, 1);
+		sut.MyMethodWithOptionalParameters(5, c: "bar");
+
+		await That(sut.Mock.Verify.MyMethodWithOptionalParameters(It.IsAny<int>())).Once()
+			.Because("an omitted optional parameter stands for its declared default value, like in the setup");
+		await That(sut.Mock.Verify.MyMethodWithOptionalParameters(5)).Once();
+	}
+
 	public class ReturnMethodWith1Parameters
 	{
 		[Test]
