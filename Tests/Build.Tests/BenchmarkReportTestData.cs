@@ -20,14 +20,4 @@ internal static class BenchmarkReportTestData
 				},
 			}),
 		});
-
-	public static string BaselineData(
-		params (string Name, string[] Commits, (string Label, double[] Data)[] Datasets)[] benchmarks)
-		=> "window.BENCHMARK_DATA = " + JsonSerializer.Serialize(benchmarks.ToDictionary(
-			benchmark => benchmark.Name,
-			benchmark => new
-			{
-				commits = benchmark.Commits.Select(sha => new { sha, }),
-				datasets = benchmark.Datasets.Select(dataset => new { label = dataset.Label, data = dataset.Data, }),
-			}));
 }
