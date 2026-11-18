@@ -156,6 +156,156 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
+	public async Task OptionalParameter_InClassicMode_WhenOmittedOrNullMatcher_ShouldVerifyDeclaredDefaultLikeSetup()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using Mockolate;
+		                                             using Mockolate.Parameters;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public enum Flavor { Dark, Milk, White, }
+
+		                                             public interface IOpt
+		                                             {
+		                                                 int Opt(string? s, int number = 5);
+		                                                 int Many(int a, string? text = "x", Flavor flavor = Flavor.Milk, decimal price = 2m);
+		                                                 int Defaults(int a, string? text = null, TimeSpan time = default, int? count = null, DateTime date = default);
+		                                                 int Nullable(int a, int? count = 7);
+		                                                 int Generic<T>(T value, int number = 5);
+		                                                 int Five(int a, int b, int c, int d, int e = 5);
+		                                                 int GenericClass<T>(int a, T value = null!) where T : class;
+		                                                 int GenericStruct<T>(int a, T value = default, T? other = null) where T : struct;
+		                                             }
+
+		                                             public class Base
+		                                             {
+		                                                 public virtual int Virtual(int a, string text = "x", object? o = null, in int number = 5) => 0;
+		                                             }
+
+		                                             public delegate int Del(string? s, int number = 5);
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     IOpt sut = IOpt.CreateMock();
+		                                                     Del del = Del.CreateMock();
+		                                                     sut.Mock.Setup.Opt(It.IsAny<string?>()).Returns(1);
+		                                                     sut.Mock.Setup.Many(It.IsAny<int>()).Returns(1);
+		                                                     sut.Mock.Setup.Defaults(It.IsAny<int>()).Returns(1);
+		                                                     sut.Mock.Setup.Nullable(It.IsAny<int>()).Returns(1);
+		                                                     sut.Mock.Setup.Generic<string>(It.IsAny<string>()).Returns(1);
+		                                                     sut.Mock.Setup.Five(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Returns(1);
+		                                                     del.Mock.Setup(It.IsAny<string?>()).Returns(1);
+		                                                     int[] results =
+		                                                     [
+		                                                         sut.Opt("a"), sut.Opt("b", 0),
+		                                                         sut.Many(1), sut.Many(2, null, Flavor.Dark, 0m),
+		                                                         sut.Defaults(1), sut.Defaults(2, "t", TimeSpan.FromSeconds(1), 3, new DateTime(2000, 1, 1)),
+		                                                         sut.Nullable(1), sut.Nullable(2, null),
+		                                                         sut.Generic("g"), sut.Generic("h", 0),
+		                                                         sut.Five(1, 2, 3, 4), sut.Five(1, 2, 3, 4, 0),
+		                                                         del("a"), del("b", 0),
+		                                                     ];
+		                                                     Base baseSut = Base.CreateMock();
+		                                                     sut.GenericClass<string>(1);
+		                                                     sut.GenericClass<string>(1, "c");
+		                                                     sut.GenericStruct<int>(1, 2, 3);
+		                                                     sut.GenericStruct<int>(1);
+		                                                     baseSut.Virtual(1);
+		                                                     baseSut.Virtual(2, "y", 1, 6);
+		                                                     return
+		                                                     [
+		                                                         string.Join(", ", results),
+		                                                         Capture(() => sut.Mock.Verify.Opt(It.IsAny<string?>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Opt(It.IsAny<string?>(), null).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Opt("a").Once()),
+		                                                         Capture(() => sut.Mock.Verify.Opt("b").Never()),
+		                                                         Capture(() => sut.Mock.Verify.Many(It.IsAny<int>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Many(It.IsAny<int>(), null, null, null).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Many(1).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Many(It.IsAny<int>(), It.IsAny<string?>(), Flavor.Dark).Never()),
+		                                                         Capture(() => sut.Mock.Verify.Defaults(It.IsAny<int>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Nullable(It.IsAny<int>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Nullable(1).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Generic<string>(It.IsAny<string>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Generic<string>("g").Once()),
+		                                                         Capture(() => sut.Mock.Verify.Five(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Five(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), null).Once()),
+		                                                         Capture(() => del.Mock.Verify(It.IsAny<string?>()).Once()),
+		                                                         Capture(() => del.Mock.Verify("a").Once()),
+		                                                         Capture(() => sut.Mock.Verify.GenericClass<string>(It.IsAny<int>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.GenericStruct<int>(It.IsAny<int>()).Once()),
+		                                                         Capture(() => baseSut.Mock.Verify.Virtual(It.IsAny<int>()).Once()),
+		                                                         Capture(() => baseSut.Mock.Verify.Virtual(1).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Opt(It.IsAny<string?>()).Never()),
+		                                                         Capture(() => sut.Mock.Verify.Opt("a").Never()),
+		                                                         Capture(() => sut.Mock.Verify.Many(It.IsAny<int>()).Never()),
+		                                                         Capture(() => sut.Mock.Verify.Many(1, It.IsAny<string?>()).Never()),
+		                                                         Capture(() => sut.Mock.Verify.Defaults(It.IsAny<int>(), null, null, null, It.IsAny<DateTime>()).Never()),
+		                                                         Capture(() => sut.Mock.Verify.Nullable(It.IsAny<int>()).Never()),
+		                                                         Capture(() => sut.Mock.Verify.Generic<string>(It.IsAny<string>()).Never()),
+		                                                         Capture(() => sut.Mock.Verify.Five(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Never()),
+		                                                         Capture(() => del.Mock.Verify(It.IsAny<string?>()).Never()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14);
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"Expected that mock never invoked method Opt(It.IsAny<string>(), 5), but it did once.",
+			"Expected that mock never invoked method Opt(a, 5), but it did once.",
+			"Expected that mock never invoked method Many(It.IsAny<int>(), x, Milk, 2), but it did once.",
+			"Expected that mock never invoked method Many(1, It.IsAny<string>(), Milk, 2), but it did once.",
+			"Expected that mock never invoked method Defaults(It.IsAny<int>(), , 00:00:00, , It.IsAny<DateTime>()), but it did once.",
+			"Expected that mock never invoked method Nullable(It.IsAny<int>(), 7), but it did once.",
+			"Expected that mock never invoked method Generic<T>(It.IsAny<string>(), 5), but it did once.",
+			"Expected that mock never invoked method Five(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), 5), but it did once.",
+			"Expected that mock never invoked method Invoke(It.IsAny<string>(), 5), but it did once.",
+		]).Because("an omitted optional parameter and a null matcher for it stand for the declared default value in setup and verify");
+	}
+
+	[Test]
 	public async Task Verify_InClassicMode_WithMixedLiteralsAndMatchers_ShouldMatchAndDescribeArgumentsAsBefore()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""

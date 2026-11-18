@@ -6036,6 +6036,14 @@ internal static partial class Sources
 			return;
 		}
 
+		// Like in the setup, an omitted optional parameter and a null matcher for it stand for the declared default
+		// value, so the matcher is replaced up front and every verify path and the failure message see the value.
+		bool[] usesDeclaredDefault = method.Parameters
+			.Select((p, i) => !useParameters && valueFlags?[i] != true &&
+			                  p.HasExplicitDefaultValue && p.CanUseNullableParameterOverload())
+			.ToArray();
+		bool hasDeclaredDefaults = usesDeclaredDefault.Any(x => x);
+
 		if (canUseTypedVerify)
 		{
 			// A literal value in a mixed overload becomes a LiteralParameterMatch, which serves both as the matcher
@@ -6045,10 +6053,11 @@ internal static partial class Sources
 			string?[] literalNames = parameters
 				.Select((_, i) => valueFlags?[i] == true ? $"{literalBase}{i + 1}" : null)
 				.ToArray();
-			bool hasLiterals = literalNames.Any(x => x is not null);
-			if (hasLiterals)
+			bool hasBlockBody = hasDeclaredDefaults || literalNames.Any(x => x is not null);
+			if (hasBlockBody)
 			{
 				sb.Append("\t\t{").AppendLine();
+				AppendDeclaredDefaultMatchers(sb, method, usesDeclaredDefault);
 				for (int i = 0; i < parameters.Length; i++)
 				{
 					if (literalNames[i] is not null)
@@ -6060,7 +6069,7 @@ internal static partial class Sources
 				}
 			}
 
-			sb.Append(hasLiterals ? "\t\t\treturn this." : "\t\t\t=> this.").Append(mockRegistryName)
+			sb.Append(hasBlockBody ? "\t\t\treturn this." : "\t\t\t=> this.").Append(mockRegistryName)
 				.Append(".VerifyMethod<").Append(verifyName);
 			foreach (MethodParameter parameter in method.Parameters)
 			{
@@ -6078,6 +6087,13 @@ internal static partial class Sources
 				}
 
 				string paramType = parameter.ToTypeOrWrapper();
+				if (usesDeclaredDefault[i])
+				{
+					sb.Append(", global::Mockolate.CovariantParameterAdapter<").Append(paramType).Append(">.Wrap(")
+						.Append(parameter.Name).Append(")");
+					continue;
+				}
+
 				sb.Append(", ").Append(parameter.Name).Append(" is null ? ")
 					.Append("(global::Mockolate.Parameters.IParameterMatch<").Append(paramType)
 					.Append(">)global::Mockolate.It.Is<").Append(paramType).Append(">(default!) : ")
@@ -6097,7 +6113,7 @@ internal static partial class Sources
 			}
 
 			AppendStaticExpectationLambda(sb, method);
-			if (hasLiterals)
+			if (hasBlockBody)
 			{
 				sb.Append("\t\t}").AppendLine();
 			}
@@ -6105,7 +6121,13 @@ internal static partial class Sources
 			return;
 		}
 
-		sb.Append("\t\t\t=> ");
+		if (hasDeclaredDefaults)
+		{
+			sb.Append("\t\t{").AppendLine();
+			AppendDeclaredDefaultMatchers(sb, method, usesDeclaredDefault);
+		}
+
+		sb.Append(hasDeclaredDefaults ? "\t\t\treturn " : "\t\t\t=> ");
 		if (useParameters && forwardsLoneNull)
 		{
 			sb.Append("parameters is null").AppendLine();
@@ -6169,6 +6191,12 @@ internal static partial class Sources
 							? $"(global::Mockolate.CovariantParameterAdapter<{parameter.Type.Fullname}>.Wrap(global::Mockolate.It.SequenceEquals<{parameter.Type.ElementType.Fullname}>({parameter.Name})).Matches({invocation}.Parameter{i + 1}))"
 							: $"(global::System.Collections.Generic.EqualityComparer<{parameter.ToTypeOrWrapper()}>.Default.Equals({parameter.Name}, {invocation}.Parameter{i + 1}))");
 				}
+				else if (usesDeclaredDefault[i])
+				{
+					sb.Append("(global::Mockolate.CovariantParameterAdapter<").Append(parameter.ToTypeOrWrapper())
+						.Append(">.Wrap(").Append(parameter.Name).Append(").Matches(").Append(invocation)
+						.Append(".Parameter").Append(i + 1).Append("))");
+				}
 				else
 				{
 					AppendSlowVerifyMatcherCondition(sb, parameter, $"{invocation}.Parameter{i + 1}");
@@ -6181,6 +6209,25 @@ internal static partial class Sources
 		sb.Append(", () => $\"").Append(method.Name).Append("(")
 			.Append(useParameters ? "{parameters}" : string.Join(", ", method.Parameters.Select(p => $"{{{p.Name}}}")))
 			.Append(")\");").AppendLine();
+		if (hasDeclaredDefaults)
+		{
+			sb.Append("\t\t}").AppendLine();
+		}
+	}
+
+	private static void AppendDeclaredDefaultMatchers(StringBuilder sb, Method method, bool[] usesDeclaredDefault)
+	{
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		for (int i = 0; i < parameters.Length; i++)
+		{
+			if (usesDeclaredDefault[i])
+			{
+				sb.Append("\t\t\t").Append(parameters[i].Name)
+					.Append(" ??= new global::Mockolate.Internals.LiteralParameterMatch<")
+					.Append(parameters[i].ToNullableType()).Append(">(").Append(parameters[i].ExplicitDefaultValue)
+					.Append(");").AppendLine();
+			}
+		}
 	}
 
 	private static void AppendStaticExpectationLambda(StringBuilder sb, Method method)
