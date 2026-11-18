@@ -698,43 +698,45 @@ public partial class MockRegistry
 	private TResult ResolvePropertyFast<TResult>(int memberId, string propertyName,
 		Func<MockBehavior, TResult> defaultValueGenerator, Func<TResult>? baseValueAccessor)
 	{
-		// Hot path: setup registered via SetupProperty(int, ...), no scenario active, no base accessor.
-		if (baseValueAccessor is null && string.IsNullOrEmpty(Scenario))
+		if (baseValueAccessor is not null || !string.IsNullOrEmpty(Scenario))
 		{
-			PropertySetup?[]? table = Volatile.Read(ref _propertySetupsByMemberId);
-			if (table is not null && (uint)memberId < (uint)table.Length)
-			{
-				PropertySetup? snapshot = table[memberId];
-				if (snapshot is not null)
-				{
-					if (!snapshot.IsValueInitialized)
-					{
-						// First read of a not-yet-initialized setup: seed it with the default value.
-						// Mirrors ResolvePropertySetup's contract — without this the next read would
-						// auto-init via the cold path and overwrite a value set by a prior setter.
-						((IInteractivePropertySetup)snapshot).InitializeWith(defaultValueGenerator(Behavior));
-					}
-
-					if (snapshot is PropertySetup<TResult> typed)
-					{
-						return typed.InvokeGetterTyped();
-					}
-
-					if (snapshot is PropertySetup.Default<TResult> defaultSetup)
-					{
-						return defaultSetup.Value;
-					}
-
-					return snapshot.InvokeGetterFast(Behavior, defaultValueGenerator);
-				}
-			}
-
-			TResult value = ResolvePropertySlow(propertyName, defaultValueGenerator, null);
-			PublishResolvedPropertySetup(memberId, propertyName);
-			return value;
+			return ResolvePropertySlow(propertyName, defaultValueGenerator, baseValueAccessor);
 		}
 
-		return ResolvePropertySlow(propertyName, defaultValueGenerator, baseValueAccessor);
+		// Hot path: setup registered via SetupProperty(int, ...), no scenario active, no base accessor.
+		PropertySetup?[]? table = Volatile.Read(ref _propertySetupsByMemberId);
+		if (table is not null && (uint)memberId < (uint)table.Length && table[memberId] is { } snapshot)
+		{
+			return ReadPropertySetup(snapshot, defaultValueGenerator);
+		}
+
+		TResult value = ResolvePropertySlow(propertyName, defaultValueGenerator, null);
+		PublishResolvedPropertySetup(memberId, propertyName);
+		return value;
+	}
+
+	private TResult ReadPropertySetup<TResult>(PropertySetup setup,
+		Func<MockBehavior, TResult> defaultValueGenerator)
+	{
+		if (!setup.IsValueInitialized)
+		{
+			// First read of a not-yet-initialized setup: seed it with the default value.
+			// Mirrors ResolvePropertySetup's contract — without this the next read would
+			// auto-init via the cold path and overwrite a value set by a prior setter.
+			((IInteractivePropertySetup)setup).InitializeWith(defaultValueGenerator(Behavior));
+		}
+
+		if (setup is PropertySetup<TResult> typed)
+		{
+			return typed.InvokeGetterTyped();
+		}
+
+		if (setup is PropertySetup.Default<TResult> defaultSetup)
+		{
+			return defaultSetup.Value;
+		}
+
+		return setup.InvokeGetterFast(Behavior, defaultValueGenerator);
 	}
 
 	/// <summary>
