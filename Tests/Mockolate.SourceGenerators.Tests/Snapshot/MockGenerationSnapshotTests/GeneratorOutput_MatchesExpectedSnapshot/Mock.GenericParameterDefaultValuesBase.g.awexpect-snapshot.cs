@@ -333,13 +333,13 @@ internal static partial class Mock
 		{
 			value ??= new global::Mockolate.Internals.LiteralParameterMatch<T>(default);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericParameterDefaultValuesBase, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericParameterDefaultValuesBase.Unconstrained<{typeof(T)}>", __i => 
-				(global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1)), () => $"Unconstrained<T>({value})");
+				(global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1)), () => $"Unconstrained<T>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericParameterDefaultValuesBase>.IgnoreParameters IMockVerifyForGenericParameterDefaultValuesBase.Unconstrained<T>(T value)
 			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForGenericParameterDefaultValuesBase, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericParameterDefaultValuesBase.Unconstrained<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)), () => $"Unconstrained<T>({value})");
+				(global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)), () => $"Unconstrained<T>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericParameterDefaultValuesBase> IMockVerifyForGenericParameterDefaultValuesBase.Virtual<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -355,13 +355,13 @@ internal static partial class Mock
 		{
 			value ??= new global::Mockolate.Internals.LiteralParameterMatch<T>(default);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericParameterDefaultValuesBase, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericParameterDefaultValuesBase.Virtual<{typeof(T)}>", __i => 
-				(global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1)), () => $"Virtual<T>({value})");
+				(global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1)), () => $"Virtual<T>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericParameterDefaultValuesBase>.IgnoreParameters IMockVerifyForGenericParameterDefaultValuesBase.Virtual<T>(T value)
 			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForGenericParameterDefaultValuesBase, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericParameterDefaultValuesBase.Virtual<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)), () => $"Virtual<T>({value})");
+				(global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)), () => $"Virtual<T>({(object?)value ?? "null"})");
 		#endregion IMockVerifyForGenericParameterDefaultValuesBase
 	}
 
@@ -387,13 +387,13 @@ internal static partial class Mock
 		{
 			value ??= new global::Mockolate.Internals.LiteralParameterMatch<T>(default);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericParameterDefaultValuesBase, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericParameterDefaultValuesBase.Unconstrained<{typeof(T)}>", __i => 
-				(global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1)), () => $"Unconstrained<T>({value})");
+				(global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1)), () => $"Unconstrained<T>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericParameterDefaultValuesBase>.IgnoreParameters IMockVerifyForGenericParameterDefaultValuesBase.Unconstrained<T>(T value)
 			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForGenericParameterDefaultValuesBase, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericParameterDefaultValuesBase.Unconstrained<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)), () => $"Unconstrained<T>({value})");
+				(global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)), () => $"Unconstrained<T>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericParameterDefaultValuesBase> IMockVerifyForGenericParameterDefaultValuesBase.Virtual<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -409,13 +409,13 @@ internal static partial class Mock
 		{
 			value ??= new global::Mockolate.Internals.LiteralParameterMatch<T>(default);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericParameterDefaultValuesBase, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericParameterDefaultValuesBase.Virtual<{typeof(T)}>", __i => 
-				(global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1)), () => $"Virtual<T>({value})");
+				(global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1)), () => $"Virtual<T>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericParameterDefaultValuesBase>.IgnoreParameters IMockVerifyForGenericParameterDefaultValuesBase.Virtual<T>(T value)
 			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForGenericParameterDefaultValuesBase, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericParameterDefaultValuesBase.Virtual<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)), () => $"Virtual<T>({value})");
+				(global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)), () => $"Virtual<T>({(object?)value ?? "null"})");
 		#endregion IMockVerifyForGenericParameterDefaultValuesBase
 	}
 
