@@ -176,11 +176,11 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.PropertyAccess_V_Get, () => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps ? () => wraps.V : () => base.V);
+				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.PropertyAccess_V_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps ? () => wraps.V : () => base.V);
 			}
 			set
 			{
-				if (!this.MockRegistry.SetProperty<int>("global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V", value))
+				if (!this.MockRegistry.SetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Set, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V", value))
 				{
 					if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps)
 					{
@@ -239,7 +239,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation("global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A"));
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
 			}
 			try
 			{
@@ -309,7 +309,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation("global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P"));
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
 			}
 			try
 			{
@@ -343,7 +343,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.PropertyAccess_Value_Get, () => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), null);
+				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Value_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -391,7 +391,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation("global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run"));
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
 			}
 			try
 			{
@@ -476,20 +476,20 @@ internal static partial class Mock
 		{
 			get
 			{
-				return new global::Mockolate.Verify.VerificationPropertyResult<IMockVerifyForComprehensiveAbstractClass, int>(this, this.MockRegistry, -1, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V");
+				return new global::Mockolate.Verify.VerificationPropertyResult<IMockVerifyForComprehensiveAbstractClass, int>(this, this.MockRegistry, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Set, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V");
 			}
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForComprehensiveAbstractClass>.IgnoreParameters IMockVerifyForComprehensiveAbstractClass.A()
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForComprehensiveAbstractClass, global::Mockolate.Interactions.MethodInvocation>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A", __i => true, () => $"A()");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForComprehensiveAbstractClass>(this, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A", () => $"A()");
 		#endregion IMockVerifyForComprehensiveAbstractClass
 
 		#region IMockProtectedVerifyForComprehensiveAbstractClass
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockProtectedVerifyForComprehensiveAbstractClass>.IgnoreParameters IMockProtectedVerifyForComprehensiveAbstractClass.P()
-			=> this.MockRegistry.VerifyMethod<IMockProtectedVerifyForComprehensiveAbstractClass, global::Mockolate.Interactions.MethodInvocation>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P", __i => true, () => $"P()");
+			=> this.MockRegistry.VerifyMethod<IMockProtectedVerifyForComprehensiveAbstractClass>(this, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P", () => $"P()");
 		#endregion IMockProtectedVerifyForComprehensiveAbstractClass
 
 		#region IMockVerifyForICombinationMockA
@@ -500,13 +500,13 @@ internal static partial class Mock
 		{
 			get
 			{
-				return new global::Mockolate.Verify.VerificationPropertyGetterResult<IMockVerifyForICombinationMockA>(this, this.MockRegistry, -1, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Value");
+				return new global::Mockolate.Verify.VerificationPropertyGetterResult<IMockVerifyForICombinationMockA>(this, this.MockRegistry, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Value_Get, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Value");
 			}
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForICombinationMockA>.IgnoreParameters IMockVerifyForICombinationMockA.Run()
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForICombinationMockA, global::Mockolate.Interactions.MethodInvocation>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run", __i => true, () => $"Run()");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForICombinationMockA>(this, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run", () => $"Run()");
 		#endregion IMockVerifyForICombinationMockA
 	}
 }

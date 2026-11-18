@@ -125,7 +125,7 @@ public class FastMockInteractions : IMockInteractions
 	internal TRecords? FindRecords<TRecords>(int memberId, Func<FastMockInteractions, int, TRecords> factory)
 		where TRecords : MemberRecords
 	{
-		if ((uint)memberId >= (uint)MemberCount)
+		if (memberId < 0)
 		{
 			return null;
 		}
