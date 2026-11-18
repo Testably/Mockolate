@@ -32,7 +32,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerGot_WithMemberIdAndInstalledBuffer_OnlyWalksBuffer()
 	{
 		FastMockInteractions store = new(1);
-		InstallPropertyGetter(store, 0);
+		InstallPropertyGetter(store, 0).Append();
 		MockRegistry registry = new(MockBehavior.Default, store);
 		IMockInteractions interactions = store;
 
@@ -170,7 +170,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerSet_WithMemberIdAndInstalledBuffer_OnlyWalksBuffer()
 	{
 		FastMockInteractions store = new(1);
-		InstallPropertyGetter(store, 0);
+		InstallPropertyGetter(store, 0).Append();
 		MockRegistry registry = new(MockBehavior.Default, store);
 		IMockInteractions interactions = store;
 

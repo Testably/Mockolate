@@ -27,7 +27,6 @@ internal static partial class Mock
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
-		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Internals.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Internals.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
 		/// </summary>
 		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
 			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
@@ -53,12 +52,6 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod1Buffer<string> MockolateBuffer_Get
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<string>>(global::Mockolate.Mock.ClosedGenericBase_string.MemberId_Get, static fast => new global::Mockolate.Internals.FastMethod1Buffer<string>(fast)));
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod1Buffer<(string, int)> MockolateBuffer_Pair
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<(string, int)>>(global::Mockolate.Mock.ClosedGenericBase_string.MemberId_Pair, static fast => new global::Mockolate.Internals.FastMethod1Buffer<(string, int)>(fast)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -165,7 +158,7 @@ internal static partial class Mock
 			string wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer_Get.Append("global::Mockolate.Tests.GeneratorCoverage.ClosedGenericBase<string>.Get", value);
+				global::Mockolate.Internals.FastMethod1Buffer<string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ClosedGenericBase_string.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.ClosedGenericBase<string>.Get", value);
 			}
 			try
 			{
@@ -235,7 +228,7 @@ internal static partial class Mock
 			(string, int) wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer_Pair.Append("global::Mockolate.Tests.GeneratorCoverage.ClosedGenericBase<string>.Pair", value);
+				global::Mockolate.Internals.FastMethod1Buffer<(string, int)>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ClosedGenericBase_string.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.ClosedGenericBase<string>.Pair", value);
 			}
 			try
 			{

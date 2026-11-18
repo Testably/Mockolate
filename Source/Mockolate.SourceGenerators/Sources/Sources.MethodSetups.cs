@@ -158,88 +158,40 @@ internal static partial class Sources
 	private static void AppendFastMethodBuffer(StringBuilder sb, int count)
 	{
 		string typeArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x}"));
-		string ctorParams = string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x} parameter{x}"));
-		string assignsBuf = string.Concat(Enumerable.Range(1, count).Select(x =>
+		string parameters = string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x} parameter{x}"));
+		string assignments = string.Concat(Enumerable.Range(1, count).Select(x =>
 			$"\t\t\tr.P{x} = parameter{x};\n"));
-		string structFields = string.Concat(Enumerable.Range(1, count).Select(x =>
+		string fields = string.Concat(Enumerable.Range(1, count).Select(x =>
 			$"\t\t\tpublic T{x} P{x} = default!;\n"));
-		string boxedArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => $"r.P{x}"));
+		string interactionArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => $"P{x}"));
 
 		sb.AppendXmlSummary(
-			$"Per-member buffer for {count}-parameter methods, synthesized for arity {count} use sites.",
+			$"Records the calls of {count}-parameter methods, synthesized for arity {count} use sites.",
 			"\t");
-		sb.Append("\t[global::System.Diagnostics.DebuggerDisplay(\"{Count} method calls\")]").AppendLine();
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
-		sb.Append("\tinternal sealed class FastMethod").Append(count).Append("Buffer<").Append(typeArgs)
-			.Append("> : global::Mockolate.Internals.RecordList, global::Mockolate.Internals.IFastMemberBuffer").AppendLine();
+		sb.Append("\tinternal static class FastMethod").Append(count).Append("Buffer<").Append(typeArgs).Append(">")
+			.AppendLine();
 		sb.Append("\t{").AppendLine();
-		sb.Append("\t\tprivate readonly global::Mockolate.Internals.FastMockInteractions _owner;").AppendLine();
-		sb.AppendLine();
-		sb.Append("\t\tinternal FastMethod").Append(count).Append("Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;")
-			.AppendLine();
-		sb.AppendLine();
-		sb.Append("\t\tpublic void Append(string name, ").Append(ctorParams).Append(")").AppendLine();
+		sb.Append("\t\tpublic static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, ")
+			.Append(parameters).Append(")").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tint epoch = Epoch;").AppendLine();
 		sb.Append("\t\t\tRecord r = new Record();").AppendLine();
-		sb.Append("\t\t\tr.Seq = _owner.NextSequence();").AppendLine();
+		sb.Append("\t\t\tr.MemberId = memberId;").AppendLine();
 		sb.Append("\t\t\tr.Name = name;").AppendLine();
-		sb.Append(assignsBuf);
-		sb.Append("\t\t\tPush(r, epoch);").AppendLine();
-		sb.AppendLine();
-		sb.Append("\t\t\tif (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();").AppendLine();
+		sb.Append(assignments);
+		sb.Append("\t\t\towner.Push(r);").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\tvoid global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)")
-			.AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tfor (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)").AppendLine();
-		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tRecord r = (Record)node;").AppendLine();
-		sb.Append("\t\t\t\tdest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<").Append(typeArgs).Append(">(r.Name, ").Append(boxedArgs)
-			.Append("))));").AppendLine();
-		sb.Append("\t\t\t}").AppendLine();
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
-
-		sb.Append("\t\tvoid global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)")
-			.AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tfor (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)").AppendLine();
-		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tif (node.Verified) continue;").AppendLine();
-		sb.Append("\t\t\t\tRecord r = (Record)node;").AppendLine();
-		sb.Append("\t\t\t\tdest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<").Append(typeArgs).Append(">(r.Name, ").Append(boxedArgs)
-			.Append("))));").AppendLine();
-		sb.Append("\t\t\t}").AppendLine();
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
-
-		string countMatchingParams = string.Join(", ", Enumerable.Range(1, count).Select(x => $"global::Mockolate.Parameters.IParameterMatch<T{x}> match{x}"));
-		string countMatchingPredicate = string.Join(" && ", Enumerable.Range(1, count).Select(x => $"match{x}.Matches(r.P{x})"));
-		sb.Append("\t\tpublic int ConsumeMatching(").Append(countMatchingParams).Append(")").AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tint matches = 0;").AppendLine();
-		sb.Append("\t\t\tfor (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)").AppendLine();
-		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tRecord r = (Record)node;").AppendLine();
-		sb.Append("\t\t\t\tif (").Append(countMatchingPredicate).Append(")").AppendLine();
-		sb.Append("\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\tmatches++;").AppendLine();
-		sb.Append("\t\t\t\t\tr.Verified = true;").AppendLine();
-		sb.Append("\t\t\t\t}").AppendLine();
-		sb.Append("\t\t\t}").AppendLine();
-		sb.AppendLine();
-		sb.Append("\t\t\treturn matches;").AppendLine();
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
-
 		sb.Append("\t\tprivate sealed class Record : global::Mockolate.Internals.RecordNode").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tpublic string Name = null!;").AppendLine();
-		sb.Append(structFields);
+		sb.Append(fields);
+		sb.AppendLine();
+		sb.Append("\t\t\tprotected override global::Mockolate.Interactions.IInteraction CreateInteraction()").AppendLine();
+		sb.Append("\t\t\t\t=> new global::Mockolate.Interactions.MethodInvocation<").Append(typeArgs).Append(">(Name, ")
+			.Append(interactionArgs).Append(");").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.Append("\t}").AppendLine();
 	}

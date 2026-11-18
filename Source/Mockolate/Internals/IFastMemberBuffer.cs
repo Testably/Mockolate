@@ -21,11 +21,6 @@ public interface IFastMemberBuffer
 	int Count { get; }
 
 	/// <summary>
-	///     Resets the buffer to an empty state.
-	/// </summary>
-	void Clear();
-
-	/// <summary>
 	///     Appends a boxed <see cref="IInteraction" /> per recorded call into <paramref name="dest" />,
 	///     each tagged with its monotonic sequence number so callers can interleave records from
 	///     several buffers in registration order.

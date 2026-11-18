@@ -16,32 +16,30 @@ namespace Mockolate.Internals;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner)
+	public FastIndexerGetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records an indexer getter access.
 	/// </summary>
 	public void Append(T1 parameter1)
-	{
-		int epoch = Epoch;
-		Record r = new();
-		r.Seq = _owner.NextSequence();
-		r.P1 = parameter1;
-		Push(r, epoch);
+		=> Append(Owner, MemberId, parameter1);
 
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1)
+	{
+		Record r = new();
+		r.MemberId = memberId;
+		r.P1 = parameter1;
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -52,41 +50,19 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
 	///     it as the pre-boxed record so enumeration doesn't allocate a second one.
 	/// </remarks>
 	public void Append(IndexerGetterAccess<T1> access)
+		=> Append(Owner, MemberId, access);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1> access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = access.Parameter1;
 		r.Boxed = access;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerGetterAccess<T1>(r.P1))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerGetterAccess<T1>(r.P1))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -96,7 +72,7 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
 	public int ConsumeMatching(IParameterMatch<T1> match1)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1))
@@ -112,6 +88,9 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
 	private sealed class Record : RecordNode
 	{
 		public T1 P1 = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new IndexerGetterAccess<T1>(P1);
 	}
 }
 
@@ -125,75 +104,51 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner)
+	public FastIndexerGetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records an indexer getter access.
 	/// </summary>
 	public void Append(T1 parameter1, T2 parameter2)
+		=> Append(Owner, MemberId, parameter1, parameter2);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
 	///     Records an indexer getter access using an already-allocated <see cref="IndexerGetterAccess{T1, T2}" />.
 	/// </summary>
 	public void Append(IndexerGetterAccess<T1, T2> access)
+		=> Append(Owner, MemberId, access);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2> access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.Boxed = access;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerGetterAccess<T1, T2>(r.P1, r.P2))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerGetterAccess<T1, T2>(r.P1, r.P2))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -203,7 +158,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList, IFastMemberBuf
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2))
@@ -220,6 +175,9 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList, IFastMemberBuf
 	{
 		public T1 P1 = default!;
 		public T2 P2 = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new IndexerGetterAccess<T1, T2>(P1, P2);
 	}
 }
 
@@ -233,77 +191,53 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList, IFastMemberBuf
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner)
+	public FastIndexerGetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records an indexer getter access.
 	/// </summary>
 	public void Append(T1 parameter1, T2 parameter2, T3 parameter3)
+		=> Append(Owner, MemberId, parameter1, parameter2, parameter3);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
 	///     Records an indexer getter access using an already-allocated <see cref="IndexerGetterAccess{T1, T2, T3}" />.
 	/// </summary>
 	public void Append(IndexerGetterAccess<T1, T2, T3> access)
+		=> Append(Owner, MemberId, access);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2, T3> access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.P3 = access.Parameter3;
 		r.Boxed = access;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerGetterAccess<T1, T2, T3>(r.P1, r.P2, r.P3))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerGetterAccess<T1, T2, T3>(r.P1, r.P2, r.P3))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -313,7 +247,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList, IFastMembe
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3))
@@ -331,6 +265,9 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList, IFastMembe
 		public T1 P1 = default!;
 		public T2 P2 = default!;
 		public T3 P3 = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new IndexerGetterAccess<T1, T2, T3>(P1, P2, P3);
 	}
 }
 
@@ -344,79 +281,55 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList, IFastMembe
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner)
+	public FastIndexerGetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records an indexer getter access.
 	/// </summary>
 	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
+		=> Append(Owner, MemberId, parameter1, parameter2, parameter3, parameter4);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
 		r.P4 = parameter4;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
 	///     Records an indexer getter access using an already-allocated <see cref="IndexerGetterAccess{T1, T2, T3, T4}" />.
 	/// </summary>
 	public void Append(IndexerGetterAccess<T1, T2, T3, T4> access)
+		=> Append(Owner, MemberId, access);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2, T3, T4> access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.P3 = access.Parameter3;
 		r.P4 = access.Parameter4;
 		r.Boxed = access;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerGetterAccess<T1, T2, T3, T4>(r.P1, r.P2, r.P3, r.P4))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerGetterAccess<T1, T2, T3, T4>(r.P1, r.P2, r.P3, r.P4))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -426,7 +339,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList, IFastM
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4))
@@ -445,6 +358,9 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList, IFastM
 		public T2 P2 = default!;
 		public T3 P3 = default!;
 		public T4 P4 = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new IndexerGetterAccess<T1, T2, T3, T4>(P1, P2, P3, P4);
 	}
 }
 
@@ -458,75 +374,51 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList, IFastM
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner)
+	public FastIndexerSetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records an indexer setter access.
 	/// </summary>
 	public void Append(T1 parameter1, TValue value)
+		=> Append(Owner, MemberId, parameter1, value);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, TValue value)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = parameter1;
 		r.Value = value;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
 	///     Records an indexer setter access using an already-allocated <see cref="IndexerSetterAccess{T1, TValue}" />.
 	/// </summary>
 	public void Append(IndexerSetterAccess<T1, TValue> access)
+		=> Append(Owner, MemberId, access);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, TValue> access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = access.Parameter1;
 		r.Value = access.TypedValue;
 		r.Boxed = access;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerSetterAccess<T1, TValue>(r.P1, r.Value))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerSetterAccess<T1, TValue>(r.P1, r.Value))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -537,7 +429,7 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList, IFastMembe
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<TValue> matchValue)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && matchValue.Matches(r.Value))
@@ -554,6 +446,9 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList, IFastMembe
 	{
 		public T1 P1 = default!;
 		public TValue Value = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new IndexerSetterAccess<T1, TValue>(P1, Value);
 	}
 }
 
@@ -567,77 +462,53 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList, IFastMembe
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner)
+	public FastIndexerSetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records an indexer setter access.
 	/// </summary>
 	public void Append(T1 parameter1, T2 parameter2, TValue value)
+		=> Append(Owner, MemberId, parameter1, parameter2, value);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, TValue value)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.Value = value;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
 	///     Records an indexer setter access using an already-allocated <see cref="IndexerSetterAccess{T1, T2, TValue}" />.
 	/// </summary>
 	public void Append(IndexerSetterAccess<T1, T2, TValue> access)
+		=> Append(Owner, MemberId, access);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, TValue> access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.Value = access.TypedValue;
 		r.Boxed = access;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerSetterAccess<T1, T2, TValue>(r.P1, r.P2, r.Value))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerSetterAccess<T1, T2, TValue>(r.P1, r.P2, r.Value))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -648,7 +519,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList, IFastM
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<TValue> matchValue)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2) && matchValue.Matches(r.Value))
@@ -666,6 +537,9 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList, IFastM
 		public T1 P1 = default!;
 		public T2 P2 = default!;
 		public TValue Value = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new IndexerSetterAccess<T1, T2, TValue>(P1, P2, Value);
 	}
 }
 
@@ -679,79 +553,55 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList, IFastM
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner)
+	public FastIndexerSetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records an indexer setter access.
 	/// </summary>
 	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, TValue value)
+		=> Append(Owner, MemberId, parameter1, parameter2, parameter3, value);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, TValue value)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
 		r.Value = value;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
 	///     Records an indexer setter access using an already-allocated <see cref="IndexerSetterAccess{T1, T2, T3, TValue}" />.
 	/// </summary>
 	public void Append(IndexerSetterAccess<T1, T2, T3, TValue> access)
+		=> Append(Owner, MemberId, access);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, T3, TValue> access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.P3 = access.Parameter3;
 		r.Value = access.TypedValue;
 		r.Boxed = access;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerSetterAccess<T1, T2, T3, TValue>(r.P1, r.P2, r.P3, r.Value))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerSetterAccess<T1, T2, T3, TValue>(r.P1, r.P2, r.P3, r.Value))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -762,7 +612,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList, IF
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<TValue> matchValue)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && matchValue.Matches(r.Value))
@@ -781,6 +631,9 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList, IF
 		public T2 P2 = default!;
 		public T3 P3 = default!;
 		public TValue Value = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new IndexerSetterAccess<T1, T2, T3, TValue>(P1, P2, P3, Value);
 	}
 }
 
@@ -794,81 +647,57 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList, IF
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner)
+	public FastIndexerSetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records an indexer setter access.
 	/// </summary>
 	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, TValue value)
+		=> Append(Owner, MemberId, parameter1, parameter2, parameter3, parameter4, value);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, TValue value)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
 		r.P4 = parameter4;
 		r.Value = value;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
 	///     Records an indexer setter access using an already-allocated <see cref="IndexerSetterAccess{T1, T2, T3, T4, TValue}" />.
 	/// </summary>
 	public void Append(IndexerSetterAccess<T1, T2, T3, T4, TValue> access)
+		=> Append(Owner, MemberId, access);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, T3, T4, TValue> access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.P1 = access.Parameter1;
 		r.P2 = access.Parameter2;
 		r.P3 = access.Parameter3;
 		r.P4 = access.Parameter4;
 		r.Value = access.TypedValue;
 		r.Boxed = access;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerSetterAccess<T1, T2, T3, T4, TValue>(r.P1, r.P2, r.P3, r.P4, r.Value))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new IndexerSetterAccess<T1, T2, T3, T4, TValue>(r.P1, r.P2, r.P3, r.P4, r.Value))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -879,7 +708,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4, IParameterMatch<TValue> matchValue)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && matchValue.Matches(r.Value))
@@ -899,5 +728,8 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList
 		public T3 P3 = default!;
 		public T4 P4 = default!;
 		public TValue Value = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new IndexerSetterAccess<T1, T2, T3, T4, TValue>(P1, P2, P3, P4, Value);
 	}
 }

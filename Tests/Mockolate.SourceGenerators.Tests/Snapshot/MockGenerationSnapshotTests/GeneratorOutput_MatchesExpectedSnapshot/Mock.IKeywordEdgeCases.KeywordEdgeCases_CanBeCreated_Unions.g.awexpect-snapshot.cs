@@ -35,7 +35,6 @@ internal static partial class Mock
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
-		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Internals.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Internals.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
 		/// </summary>
 		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
 			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
@@ -54,18 +53,6 @@ internal static partial class Mock
 		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastIndexerGetterBuffer<int, string> MockolateBuffer_Indexer_int_string_Get
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerGetterBuffer<int, string>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, static fast => new global::Mockolate.Internals.FastIndexerGetterBuffer<int, string>(fast)));
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastIndexerSetterBuffer<int, string, string> MockolateBuffer_Indexer_int_string_Set
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastIndexerSetterBuffer<int, string, string>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set, static fast => new global::Mockolate.Internals.FastIndexerSetterBuffer<int, string, string>(fast)));
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod0Buffer MockolateBuffer__return
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod0Buffer>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__return, static fast => new global::Mockolate.Internals.FastMethod0Buffer(fast)));
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod1Buffer<int> MockolateBuffer__if
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<int>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, static fast => new global::Mockolate.Internals.FastMethod1Buffer<int>(fast)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -182,7 +169,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					this.MockolateBuffer_Indexer_int_string_Get.Append(@params, @void);
+					global::Mockolate.Internals.FastIndexerGetterBuffer<int, string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, @params, @void);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, int, string>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -212,7 +199,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					this.MockolateBuffer_Indexer_int_string_Set.Append(@params, @void, value);
+					global::Mockolate.Internals.FastIndexerSetterBuffer<int, string, string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Set, @params, @void, value);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, int, string>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -284,7 +271,7 @@ internal static partial class Mock
 			string wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer__return.Append("global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return");
+				global::Mockolate.Internals.FastMethod0Buffer.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__return, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return");
 			}
 			try
 			{
@@ -353,7 +340,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer__if.Append("global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @params);
+				global::Mockolate.Internals.FastMethod1Buffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if", @params);
 			}
 			try
 			{

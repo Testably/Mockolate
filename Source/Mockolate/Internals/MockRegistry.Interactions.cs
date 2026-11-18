@@ -767,11 +767,9 @@ public partial class MockRegistry
 
 	private void RecordPropertyGetter(int memberId, PropertyGetterAccess access)
 	{
-		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.Buffers.Length)
+		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
 		{
-			FastPropertyGetterBuffer buffer = fast.GetOrCreateBuffer(
-				memberId, static (f, a) => new FastPropertyGetterBuffer(f, a), access);
-			buffer.Append();
+			FastPropertyGetterBuffer.Append(fast, memberId, access);
 			return;
 		}
 
@@ -933,11 +931,9 @@ public partial class MockRegistry
 
 	private void RecordPropertySetter<T>(int memberId, string propertyName, T value)
 	{
-		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.Buffers.Length)
+		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
 		{
-			FastPropertySetterBuffer<T> buffer = fast.GetOrCreateBuffer(
-				memberId, static f => new FastPropertySetterBuffer<T>(f));
-			buffer.Append(propertyName, value);
+			FastPropertySetterBuffer<T>.Append(fast, memberId, propertyName, value);
 			return;
 		}
 
@@ -1152,14 +1148,10 @@ public partial class MockRegistry
 
 	private void RecordEvent(int memberId, string name, object? target, MethodInfo method, bool isSubscribe)
 	{
-		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.Buffers.Length)
+		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
 		{
-			FastEventBuffer buffer = isSubscribe
-				? fast.GetOrCreateBuffer(memberId,
-					static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe))
-				: fast.GetOrCreateBuffer(memberId,
-					static f => new FastEventBuffer(f, FastEventBufferKind.Unsubscribe));
-			buffer.Append(name, target, method);
+			FastEventBuffer.Append(fast, memberId,
+				isSubscribe ? FastEventBufferKind.Subscribe : FastEventBufferKind.Unsubscribe, name, target, method);
 			return;
 		}
 

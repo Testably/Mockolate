@@ -22,8 +22,14 @@ namespace Mockolate.Interactions;
 #endif
 internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-	private readonly PropertyGetterAccess _access;
+	private readonly PropertyGetterAccess? _access;
+
+	/// <summary>
+	///     Creates a view that reads the recorded accesses of a property getter.
+	/// </summary>
+	internal FastPropertyGetterBuffer(FastMockInteractions owner) : base(owner)
+	{
+	}
 
 	/// <summary>
 	///     Creates a new property-getter buffer pre-seeded with the shared
@@ -31,9 +37,8 @@ internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
 	/// <param name="access">The shared <see cref="PropertyGetterAccess" /> singleton emitted by the source generator.</param>
-	public FastPropertyGetterBuffer(FastMockInteractions owner, PropertyGetterAccess access)
+	public FastPropertyGetterBuffer(FastMockInteractions owner, PropertyGetterAccess access) : base(owner)
 	{
-		_owner = owner;
 		_access = access;
 	}
 
@@ -42,41 +47,18 @@ internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 	///     <see cref="PropertyGetterAccess" /> singleton.
 	/// </summary>
 	public void Append()
+		=> Append(Owner, MemberId, _access!);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, PropertyGetterAccess access)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		PropertyGetterAccess access = _access;
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, access));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		PropertyGetterAccess access = _access;
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, access));
-		}
+		r.MemberId = memberId;
+		r.Boxed = access;
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -89,7 +71,7 @@ internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 	public int ConsumeMatching()
 	{
 		int n = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			node.Verified = true;
 			n++;
@@ -100,6 +82,8 @@ internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 
 	private sealed class Record : RecordNode
 	{
+		protected override IInteraction CreateInteraction()
+			=> Boxed!;
 	}
 }
 
@@ -112,56 +96,31 @@ internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 #endif
 internal sealed class FastPropertySetterBuffer<T> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new property-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastPropertySetterBuffer(FastMockInteractions owner)
+	public FastPropertySetterBuffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records a property setter access.
 	/// </summary>
 	public void Append(string name, T value)
+		=> Append(Owner, MemberId, name, value);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, string name, T value)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.Name = name;
 		r.Value = value;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new PropertySetterAccess<T>(r.Name, r.Value))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new PropertySetterAccess<T>(r.Name, r.Value))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -173,7 +132,7 @@ internal sealed class FastPropertySetterBuffer<T> : RecordList, IFastMemberBuffe
 	public int ConsumeMatching(IParameterMatch<T> match)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match.Matches(r.Value))
@@ -190,5 +149,8 @@ internal sealed class FastPropertySetterBuffer<T> : RecordList, IFastMemberBuffe
 	{
 		public string Name = null!;
 		public T Value = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new PropertySetterAccess<T>(Name, Value);
 	}
 }

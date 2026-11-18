@@ -204,33 +204,6 @@ internal static partial class Sources
 		internal string GetEventUnsubscribeIdentifier(Event @event)
 			=> _declarations[EventUnsubscribeIds[_aliases.Resolve(@event)]];
 
-		/// <summary>
-		///     Returns the cached typed-buffer field name for the indexer's getter slot.
-		/// </summary>
-		internal string GetIndexerGetterBufferFieldName(Property indexer)
-			=> ToBufferFieldName(_declarations[IndexerGetIds[_aliases.Resolve(indexer)]]);
-
-		/// <summary>
-		///     Returns the cached typed-buffer field name for the indexer's setter slot.
-		/// </summary>
-		internal string GetIndexerSetterBufferFieldName(Property indexer)
-			=> ToBufferFieldName(_declarations[IndexerSetIds[_aliases.Resolve(indexer)]]);
-
-		/// <summary>
-		///     Returns the cached typed-buffer field name for the method's slot.
-		/// </summary>
-		internal string GetMethodBufferFieldName(Method method)
-			=> ToBufferFieldName(_declarations[MethodIds[_aliases.Resolve(method)]]);
-
-		private static string ToBufferFieldName(string identifier)
-		{
-			const string Prefix = "MemberId_";
-			string suffix = identifier.StartsWith(Prefix, StringComparison.Ordinal)
-				? identifier.Substring(Prefix.Length)
-				: identifier;
-			return "MockolateBuffer_" + suffix;
-		}
-
 		private int AllocateId(string identifier)
 		{
 			int id = _declarations.Count;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using Mockolate.Interactions;
@@ -5,19 +6,15 @@ using Mockolate.Interactions;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Lock-free, append-only list of the calls recorded for one mocked member. Base type of the
-///     <see cref="IFastMemberBuffer" /> implementations of the library and of the generated code.
+///     Typed view on the calls that a <see cref="FastMockInteractions" /> recorded for one mocked member. Base type
+///     of the <see cref="IFastMemberBuffer" /> implementations of the library and of the generated code.
 /// </summary>
 /// <remarks>
 ///     This type is public only so that generated code can use it; it is not intended to be used directly.
 ///     <para />
-///     Each call is one <see cref="RecordNode" />, fully written before a single compare-and-swap publishes it as the
-///     new head, so readers walk the list without a lock and never see a partially written record. The list is
-///     newest first; readers that need the call order sort by <see cref="RecordNode.Seq" />.
-///     <para />
-///     <see cref="Clear" /> drops every call that started before it: a writer captures <see cref="Epoch" /> before it
-///     takes its sequence number and <see cref="Push" /> discards the node when a clear happened in between. Each clear
-///     installs a new empty head, so a writer that read the head before the clear cannot publish over it.
+///     All calls of a mock are recorded in one list, so that the first call of a member needs no storage of its own
+///     and the calls need no sequence counter to keep their order. A view has no state besides the mock and the
+///     member id: it walks the list of the mock and skips the calls of other members.
 /// </remarks>
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
@@ -25,16 +22,30 @@ namespace Mockolate.Internals;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public abstract class RecordList
 {
-	private RecordNode? _head;
-	private int _epoch;
+	/// <inheritdoc cref="RecordList" />
+	protected RecordList(FastMockInteractions owner)
+	{
+		Owner = owner;
+		MemberId = RecordNode.UnboundMemberId;
+	}
 
-	/// <summary>The number of recorded calls. It walks the list, which keeps a counter out of every record.</summary>
+	/// <summary>The interactions of the mock that the calls are recorded in.</summary>
+	protected FastMockInteractions Owner { get; }
+
+	/// <summary>
+	///     The member id of the calls. A view that was not created through
+	///     <see cref="FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, System.Func{FastMockInteractions, TBuffer})" />
+	///     has an id that no member uses.
+	/// </summary>
+	public int MemberId { get; internal set; }
+
+	/// <summary>The number of recorded calls of the member. It walks the list of the mock.</summary>
 	public int Count
 	{
 		get
 		{
 			int count = 0;
-			for (RecordNode? node = First; node is not null; node = node.Next)
+			for (RecordNode? node = First; node is not null; node = Following(node))
 			{
 				count++;
 			}
@@ -43,55 +54,50 @@ public abstract class RecordList
 		}
 	}
 
-	/// <summary>
-	///     The clear epoch, read by a writer before it takes its sequence number and passed to <see cref="Push" />.
-	/// </summary>
-	protected int Epoch => Volatile.Read(ref _epoch);
+	/// <summary>Whether a call of the member was recorded.</summary>
+	public bool HasRecords => First is not null;
 
-	/// <summary>The newest recorded call, or <see langword="null" /> if there is none.</summary>
-	protected RecordNode? First => Volatile.Read(ref _head) is { } head and not EmptyHead ? head : null;
+	/// <summary>The newest recorded call of the member, or <see langword="null" /> if there is none.</summary>
+	protected RecordNode? First => Skip(Owner.First);
 
-	/// <summary>
-	///     Publishes the fully written <paramref name="node" /> as the newest call, unless <see cref="Clear" /> ran since
-	///     <paramref name="epoch" /> was read.
-	/// </summary>
-	protected void Push(RecordNode node, int epoch)
+	/// <summary>The next older call of the member after <paramref name="node" />, or <see langword="null" />.</summary>
+	protected RecordNode? Following(RecordNode node) => Skip(node.Next);
+
+	/// <inheritdoc cref="IFastMemberBuffer.AppendBoxed" />
+	public void AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		RecordNode? head = Volatile.Read(ref _head);
-		while (Volatile.Read(ref _epoch) == epoch)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
-			node.Next = head is EmptyHead ? null : head;
-			RecordNode? previous = Interlocked.CompareExchange(ref _head, node, head);
-			if (ReferenceEquals(previous, head))
-			{
-				return;
-			}
-
-			head = previous;
+			dest.Add((node.Seq, node.Interaction));
 		}
 	}
 
-	/// <summary>
-	///     Returns the boxed interaction of <paramref name="node" />, storing <paramref name="boxed" /> if it has none
-	///     yet, so concurrent readers agree on a single instance.
-	/// </summary>
-	protected static IInteraction SetBoxed(RecordNode node, IInteraction boxed)
-		=> node.SetBoxed(boxed);
-
-	/// <summary>
-	///     Removes every recorded call and drops the calls that are still being recorded.
-	/// </summary>
-	public void Clear()
+	/// <inheritdoc cref="IFastMemberBuffer.AppendBoxedUnverified" />
+	public void AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
 	{
-		Interlocked.Increment(ref _epoch);
-		Volatile.Write(ref _head, new EmptyHead());
+		for (RecordNode? node = First; node is not null; node = Following(node))
+		{
+			if (!node.Verified)
+			{
+				dest.Add((node.Seq, node.Interaction));
+			}
+		}
 	}
 
-	private sealed class EmptyHead : RecordNode;
+	private RecordNode? Skip(RecordNode? node)
+	{
+		int memberId = MemberId;
+		while (node is not null && node.MemberId != memberId)
+		{
+			node = node.Next;
+		}
+
+		return node;
+	}
 }
 
 /// <summary>
-///     A call recorded in a <see cref="RecordList" />.
+///     A call recorded in a <see cref="FastMockInteractions" />.
 /// </summary>
 /// <remarks>
 ///     This type is public only so that generated code can use it; it is not intended to be used directly.
@@ -102,32 +108,82 @@ public abstract class RecordList
 [EditorBrowsable(EditorBrowsableState.Never)]
 public abstract class RecordNode
 {
+	internal const int InteractionMemberId = int.MaxValue;
+	internal const int UnboundMemberId = int.MaxValue - 1;
+	private const int VerifiedFlag = int.MinValue;
+
 	private IInteraction? _boxed;
 	private int _seq;
+	private int _memberIdAndVerified;
 
 	/// <summary>
-	///     The mock-wide sequence number of the call. It is stored in 32 bits, like the interaction count of the
-	///     mock, so that it shares a slot with <see cref="Verified" />.
+	///     The position of the call in the mock, counted from zero. It is stored in 32 bits, like the interaction
+	///     count of the mock.
 	/// </summary>
 	public long Seq
 	{
 		get => _seq;
-		set => _seq = (int)value;
+		internal set => _seq = (int)value;
 	}
 
-	/// <summary>The next older call, or <see langword="null" />.</summary>
+	/// <summary>
+	///     The id of the member that was called. It is not negative, because it shares its storage with
+	///     <see cref="Verified" />, so that the record needs no space of its own for either.
+	/// </summary>
+	public int MemberId
+	{
+		get => _memberIdAndVerified & ~VerifiedFlag;
+		set => _memberIdAndVerified = value;
+	}
+
+	/// <summary>The next older call of the mock, or <see langword="null" />.</summary>
 	public RecordNode? Next { get; internal set; }
 
 	/// <summary>Whether a verification has matched the call.</summary>
-	public bool Verified { get; set; }
+	public bool Verified
+	{
+		get => _memberIdAndVerified < 0;
+		set => _memberIdAndVerified = value
+			? _memberIdAndVerified | VerifiedFlag
+			: _memberIdAndVerified & ~VerifiedFlag;
+	}
 
-	/// <summary>The boxed interaction, created lazily on enumeration.</summary>
+	/// <summary>
+	///     The interaction of the call, if it was already created or the call was recorded with one.
+	/// </summary>
 	public IInteraction? Boxed
 	{
 		get => _boxed;
-		internal set => _boxed = value;
+		set => _boxed = value;
 	}
 
-	internal IInteraction SetBoxed(IInteraction boxed)
-		=> Interlocked.CompareExchange(ref _boxed, boxed, null) ?? boxed;
+	/// <summary>
+	///     The interaction of the call. It is created on first use and stored, so that concurrent readers agree on a
+	///     single instance.
+	/// </summary>
+	public IInteraction Interaction
+		=> _boxed ?? Interlocked.CompareExchange(ref _boxed, CreateInteraction(), null) ?? _boxed!;
+
+	/// <summary>Creates the interaction of the call.</summary>
+	protected abstract IInteraction CreateInteraction();
 }
+
+/// <summary>
+///     A call that was recorded as an interaction, without a typed record.
+/// </summary>
+internal sealed class InteractionRecord : RecordNode
+{
+	public InteractionRecord(IInteraction interaction)
+	{
+		Boxed = interaction;
+		MemberId = InteractionMemberId;
+	}
+
+	protected override IInteraction CreateInteraction()
+		=> Boxed!;
+}
+
+/// <summary>
+///     View on the calls of a member whose record type is not known.
+/// </summary>
+internal sealed class MemberRecords(FastMockInteractions owner) : RecordList(owner), IFastMemberBuffer;

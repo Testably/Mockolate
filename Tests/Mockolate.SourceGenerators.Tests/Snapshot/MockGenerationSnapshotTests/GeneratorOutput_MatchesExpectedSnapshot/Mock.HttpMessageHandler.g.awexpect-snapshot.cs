@@ -28,7 +28,6 @@ internal static partial class Mock
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
-		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Internals.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Internals.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
 		/// </summary>
 		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
 			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
@@ -54,15 +53,6 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> MockolateBuffer_Send
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, static fast => new global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>(fast)));
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken> MockolateBuffer_SendAsync
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, static fast => new global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>(fast)));
-		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private global::Mockolate.Internals.FastMethod1Buffer<bool> MockolateBuffer_Dispose
-			=> field ?? (field = ((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod1Buffer<bool>>(global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, static fast => new global::Mockolate.Internals.FastMethod1Buffer<bool>(fast)));
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -181,7 +171,7 @@ internal static partial class Mock
 			global::System.Net.Http.HttpResponseMessage wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer_Send.Append("global::System.Net.Http.HttpMessageHandler.Send", request, cancellationToken);
+				global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, "global::System.Net.Http.HttpMessageHandler.Send", request, cancellationToken);
 			}
 			try
 			{
@@ -251,7 +241,7 @@ internal static partial class Mock
 			global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer_SendAsync.Append("global::System.Net.Http.HttpMessageHandler.SendAsync", request, cancellationToken);
+				global::Mockolate.Internals.FastMethod2Buffer<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, "global::System.Net.Http.HttpMessageHandler.SendAsync", request, cancellationToken);
 			}
 			try
 			{
@@ -315,7 +305,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				this.MockolateBuffer_Dispose.Append("global::System.Net.Http.HttpMessageHandler.Dispose", disposing);
+				global::Mockolate.Internals.FastMethod1Buffer<bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, "global::System.Net.Http.HttpMessageHandler.Dispose", disposing);
 			}
 			try
 			{

@@ -35,7 +35,6 @@ internal static partial class Mock
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
-		///     Per-member buffers are not allocated up-front: the recording hot paths call <see cref="global::Mockolate.Internals.FastMockInteractions.GetOrCreateBuffer{TBuffer}(int, global::System.Func{global::Mockolate.Internals.FastMockInteractions, TBuffer})">GetOrCreateBuffer&lt;TBuffer&gt;(int, Func&lt;FastMockInteractions, TBuffer&gt;)</see> so a slot is materialized only when its member is first invoked.
 		/// </summary>
 		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
 			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
@@ -219,7 +218,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (MockRegistryProvider.Value.Behavior.SkipInteractionRecording == false)
 			{
-				((global::Mockolate.Internals.FastMockInteractions)MockRegistryProvider.Value.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod0Buffer>(global::Mockolate.Mock.IStaticAbstractMembers.MemberId_AbstractStaticMethod, static fast => new global::Mockolate.Internals.FastMethod0Buffer(fast)).Append("global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.AbstractStaticMethod");
+				global::Mockolate.Internals.FastMethod0Buffer.Append((global::Mockolate.Internals.FastMockInteractions)MockRegistryProvider.Value.Interactions, global::Mockolate.Mock.IStaticAbstractMembers.MemberId_AbstractStaticMethod, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.AbstractStaticMethod");
 			}
 			try
 			{
@@ -284,7 +283,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (MockRegistryProvider.Value.Behavior.SkipInteractionRecording == false)
 			{
-				((global::Mockolate.Internals.FastMockInteractions)MockRegistryProvider.Value.Interactions).GetOrCreateBuffer<global::Mockolate.Internals.FastMethod0Buffer>(global::Mockolate.Mock.IStaticAbstractMembers.MemberId_VirtualStaticMethod, static fast => new global::Mockolate.Internals.FastMethod0Buffer(fast)).Append("global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.VirtualStaticMethod");
+				global::Mockolate.Internals.FastMethod0Buffer.Append((global::Mockolate.Internals.FastMockInteractions)MockRegistryProvider.Value.Interactions, global::Mockolate.Mock.IStaticAbstractMembers.MemberId_VirtualStaticMethod, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.VirtualStaticMethod");
 			}
 			try
 			{
