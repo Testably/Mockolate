@@ -437,4 +437,91 @@ public sealed class ClassicVerifyMessageTests
 			"Expected that mock got indexer [x] exactly once, but it never did.",
 		]).Because("classic mode must compile dynamic members without dynamic binding and treat them like object");
 	}
+
+	[Test]
+	public async Task Verify_InClassicMode_WithAnyParameters_ShouldDescribeAnyParameters()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using Mockolate;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public interface IFoo
+		                                             {
+		                                                 void P0();
+		                                                 void P1(string? value);
+		                                                 void P2(string? a, decimal b);
+		                                                 void P3(int a, string? b, int c);
+		                                                 void P4(int a, int b, int c, int d);
+		                                                 void P5(int a, int b, int c, int d, int e);
+		                                                 T Generic<T>(T value);
+		                                             }
+
+		                                             public delegate int Calculate(int a, int b);
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     IFoo sut = IFoo.CreateMock();
+		                                                     sut.P0();
+		                                                     sut.P1("a");
+		                                                     sut.P2("Bob", 1m);
+		                                                     sut.P3(1, "x", 3);
+		                                                     sut.P4(1, 2, 3, 4);
+		                                                     sut.P5(1, 2, 3, 4, 5);
+		                                                     sut.Generic(1);
+		                                                     Calculate calculate = Calculate.CreateMock();
+		                                                     calculate(1, 2);
+		                                                     return
+		                                                     [
+		                                                         Capture(() => sut.Mock.Verify.P0().AnyParameters().Never()),
+		                                                         Capture(() => sut.Mock.Verify.P1("b").AnyParameters().Never()),
+		                                                         Capture(() => sut.Mock.Verify.P2("Alice", 4.5m).AnyParameters().Never()),
+		                                                         Capture(() => sut.Mock.Verify.P3(9, "y", 9).AnyParameters().Twice()),
+		                                                         Capture(() => sut.Mock.Verify.P4(9, 9, 9, 9).AnyParameters().AtLeast(2)),
+		                                                         Capture(() => sut.Mock.Verify.P5(9, 9, 9, 9, 9).AnyParameters().Exactly(3)),
+		                                                         Capture(() => sut.Mock.Verify.Generic(9).AnyParameters().Never()),
+		                                                         Capture(() => calculate.Mock.Verify(9, 9).AnyParameters().Never()),
+		                                                         Capture(() => sut.Mock.Verify.P2("Alice", 4.5m).AnyParameters().Within(TimeSpan.FromMilliseconds(10)).Twice()),
+		                                                         Capture(() => sut.Mock.Verify.P3(9, "y", 9).AnyParameters().Then(m => m.P2("Alice", 4.5m).AnyParameters())),
+		                                                         Capture(() => sut.Mock.Verify.P2("Alice", 4.5m).AnyParameters().Then(m => m.P3(9, "y", 9).AnyParameters())),
+		                                                         Capture(() => sut.Mock.Verify.P4(9, 9, 9, 9).Once()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14);
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"Expected that mock never invoked method P0(Match.AnyParameters()), but it did once.",
+			"Expected that mock never invoked method P1(Match.AnyParameters()), but it did once.",
+			"Expected that mock never invoked method P2(Match.AnyParameters()), but it did once.",
+			"Expected that mock invoked method P3(Match.AnyParameters()) exactly twice, but it did once.",
+			"Expected that mock invoked method P4(Match.AnyParameters()) at least twice, but it did once.",
+			"Expected that mock invoked method P5(Match.AnyParameters()) exactly 3 times, but it did once.",
+			"Expected that mock never invoked method Generic<T>(Match.AnyParameters()), but it did once.",
+			"Expected that mock never invoked method Invoke(Match.AnyParameters()), but it did once.",
+			"Expected that mock invoked method P2(Match.AnyParameters()) exactly twice, but it timed out after 00:00:00.0100000.",
+			"Expected that mock invoked method P3(Match.AnyParameters()), then invoked method P2(Match.AnyParameters()) in order, but it invoked method P2(Match.AnyParameters()) too early.",
+			"no exception",
+			"Expected that mock invoked method P4(9, 9, 9, 9) exactly once, but it never did.",
+		]).Because("after AnyParameters the verification counts the calls with any arguments, so the message must not name the original ones, while a verification without it keeps them");
+	}
 }
