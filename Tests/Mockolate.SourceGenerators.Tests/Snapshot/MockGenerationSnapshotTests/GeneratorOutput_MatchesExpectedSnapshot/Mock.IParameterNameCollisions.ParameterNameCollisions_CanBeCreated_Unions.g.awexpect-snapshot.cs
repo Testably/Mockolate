@@ -385,7 +385,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName);
+			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.VoidMethod(int, int, ref int, out int)" />
@@ -539,7 +539,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, c, d, e, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName, c, d, e);
+			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, c, d, e, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, MockRegistry, _scenarioName, c, d, e) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic{T}(T, int)" />
@@ -610,7 +610,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(T)!, MockRegistry, _scenarioName);
+			return methodSetup?.TryGetReturnValue(MockRegistry, _scenarioName, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<T>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(T)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(T)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(T)!, MockRegistry, _scenarioName) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Locals(int, int, int, int)" />
@@ -680,7 +680,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(__i, snapshot_methodSetup, i_methodSetup, s_methodSetup, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, __i, snapshot_methodSetup, i_methodSetup, s_methodSetup);
+			return methodSetup?.TryGetReturnValue(__i, snapshot_methodSetup, i_methodSetup, s_methodSetup, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, __i, snapshot_methodSetup, i_methodSetup, s_methodSetup) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals{T}(T, int)" />
@@ -751,7 +751,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(__i, name_methodSetup, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(T)!, __i, name_methodSetup);
+			return methodSetup?.TryGetReturnValue(__i, name_methodSetup, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<T>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(T)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(T)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(T)!, __i, name_methodSetup) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.RefLocals(ref int, int)" />

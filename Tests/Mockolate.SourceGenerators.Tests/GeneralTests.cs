@@ -985,7 +985,7 @@ public class GeneralTests
 			          			{
 			          				return wrappedResult;
 			          			}
-			          			return methodSetup?.TryGetReturnValue(message, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, message);
+			          			return methodSetup?.TryGetReturnValue(message, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<string>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(string)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!, message) });
 			          		}
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
