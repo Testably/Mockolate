@@ -19,10 +19,10 @@ namespace Mockolate.Internals;
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public abstract class RecordList
+public abstract class MemberRecords
 {
-	/// <inheritdoc cref="RecordList" />
-	protected RecordList(FastMockInteractions owner, int memberId)
+	/// <inheritdoc cref="MemberRecords" />
+	protected MemberRecords(FastMockInteractions owner, int memberId)
 	{
 		Owner = owner;
 		MemberId = memberId;
@@ -177,4 +177,4 @@ internal sealed class InteractionRecord : RecordNode
 /// <summary>
 ///     View on the calls of a member whose record type is not known.
 /// </summary>
-internal sealed class MemberRecords(FastMockInteractions owner, int memberId) : RecordList(owner, memberId);
+internal sealed class UntypedMemberRecords(FastMockInteractions owner, int memberId) : MemberRecords(owner, memberId);

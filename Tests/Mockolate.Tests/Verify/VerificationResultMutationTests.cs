@@ -65,7 +65,7 @@ public sealed class VerificationResultMutationTests
 		// IndexerGot(memberId, ...) returns a VerificationResult with a buffer but no fast-count
 		// source, so wrapping it with .Within(...) walks exactly that branch.
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int>.Append(store, 0, 1);
+		IndexerGetterRecords<int>.Append(store, 0, 1);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		registry.IndexerGot(new object(), 0,
@@ -80,9 +80,9 @@ public sealed class VerificationResultMutationTests
 	public async Task CollectMatching_WithMultipleRecords_ShouldReturnThemInRecordedOrder()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int>.Append(store, 0, "Foo", 1);
-		FastMethod1Buffer<int>.Append(store, 0, "Foo", 3);
-		FastMethod1Buffer<int>.Append(store, 0, "Foo", 5);
+		MethodRecords<int>.Append(store, 0, "Foo", 1);
+		MethodRecords<int>.Append(store, 0, "Foo", 3);
+		MethodRecords<int>.Append(store, 0, "Foo", 5);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		VerificationResult<object>.IgnoreParameters result =
@@ -110,7 +110,7 @@ public sealed class VerificationResultMutationTests
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside the non-Awaitable
 		// IFastVerifyCountResult.VerifyCount second branch (when `_fastCountSource is null`).
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int>.Append(store, 0, 1);
+		IndexerGetterRecords<int>.Append(store, 0, 1);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		registry.IndexerGot(new object(), 0,

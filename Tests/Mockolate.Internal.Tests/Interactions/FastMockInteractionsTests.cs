@@ -13,7 +13,7 @@ public class FastMockInteractionsTests
 	public async Task Append_ShouldRaiseInteractionAdded()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod0Buffer buffer = InstallMethod(sut, 0);
+		MethodRecords buffer = InstallMethod(sut, 0);
 
 		int invocations = 0;
 		sut.InteractionAdded += Handler;
@@ -82,8 +82,8 @@ public class FastMockInteractionsTests
 	public async Task Clear_ShouldResetAllBuffersAndCount()
 	{
 		FastMockInteractions sut = new(2);
-		FastMethod0Buffer methodBuffer = InstallMethod(sut, 0);
-		FastPropertyGetterBuffer getterBuffer = InstallPropertyGetter(sut, 1);
+		MethodRecords methodBuffer = InstallMethod(sut, 0);
+		PropertyGetterRecords getterBuffer = InstallPropertyGetter(sut, 1);
 
 		methodBuffer.Append("a");
 		getterBuffer.Append();
@@ -100,8 +100,8 @@ public class FastMockInteractionsTests
 	public async Task Clear_ShouldResetPerBufferVerifiedTracking()
 	{
 		FastMockInteractions sut = new(2);
-		FastMethod1Buffer<int> methodBuffer = InstallMethod<int>(sut, 0);
-		FastPropertyGetterBuffer getterBuffer = InstallPropertyGetter(sut, 1);
+		MethodRecords<int> methodBuffer = InstallMethod<int>(sut, 0);
+		PropertyGetterRecords getterBuffer = InstallPropertyGetter(sut, 1);
 
 		methodBuffer.Append("M", 1);
 		getterBuffer.Append();
@@ -120,7 +120,7 @@ public class FastMockInteractionsTests
 	public async Task Clear_ShouldResetVerifiedBookkeeping()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod0Buffer methodBuffer = InstallMethod(sut, 0);
+		MethodRecords methodBuffer = InstallMethod(sut, 0);
 		methodBuffer.Append("first");
 		List<IInteraction> all = [..sut,];
 		((IMockInteractions)sut).Verified(all);
@@ -136,13 +136,13 @@ public class FastMockInteractionsTests
 	[Test]
 	public async Task Clear_WithSharedSingletonInVerifiedSet_ShouldResurfaceItAsUnverifiedAfterReAppend()
 	{
-		// Pins the `_verified = null;` reset inside Clear. FastPropertyGetterBuffer reuses a
+		// Pins the `_verified = null;` reset inside Clear. PropertyGetterRecords reuses a
 		// single PropertyGetterAccess singleton across records (it is cached in the buffer's
 		// `_access` field, which Clear does NOT reset). With the `_verified = null` write
 		// removed, the verified set keeps the singleton across Clear, and a fresh post-Clear
 		// Append would surface as already-verified — masking the new interaction.
 		FastMockInteractions sut = new(1);
-		FastPropertyGetterBuffer buffer = InstallPropertyGetter(sut, 0);
+		PropertyGetterRecords buffer = InstallPropertyGetter(sut, 0);
 		buffer.Append();
 
 		List<IInteraction> all = [..sut,];
@@ -159,8 +159,8 @@ public class FastMockInteractionsTests
 	public async Task Count_ShouldReflectAppendsAcrossBuffers()
 	{
 		FastMockInteractions sut = new(2);
-		FastMethod0Buffer methodBuffer = InstallMethod(sut, 0);
-		FastPropertyGetterBuffer getterBuffer = InstallPropertyGetter(sut, 1);
+		MethodRecords methodBuffer = InstallMethod(sut, 0);
+		PropertyGetterRecords getterBuffer = InstallPropertyGetter(sut, 1);
 
 		methodBuffer.Append("a");
 		getterBuffer.Append();
@@ -175,8 +175,8 @@ public class FastMockInteractionsTests
 	public async Task GetEnumerator_ShouldReturnInteractionsInRegistrationOrder()
 	{
 		FastMockInteractions sut = new(2);
-		FastMethod1Buffer<int> methodBuffer = InstallMethod<int>(sut, 0);
-		FastPropertySetterBuffer<string> setterBuffer = new(sut, 1);
+		MethodRecords<int> methodBuffer = InstallMethod<int>(sut, 0);
+		PropertySetterRecords<string> setterBuffer = new(sut, 1);
 
 		methodBuffer.Append("Method", 1);
 		setterBuffer.Append("Property", "x");
@@ -236,8 +236,8 @@ public class FastMockInteractionsTests
 		// sequence), the Sort step is what restores chronological order. Mutations that skip the
 		// Sort (`< 1`, `<= 1`, `!(>1)`) leave the snapshot grouped by buffer, not by Seq.
 		FastMockInteractions sut = new(2);
-		FastMethod1Buffer<int> bufA = InstallMethod<int>(sut, 0);
-		FastMethod1Buffer<int> bufB = InstallMethod<int>(sut, 1);
+		MethodRecords<int> bufA = InstallMethod<int>(sut, 0);
+		MethodRecords<int> bufB = InstallMethod<int>(sut, 1);
 
 		bufA.Append("A", 0);
 		bufB.Append("B", 1);
@@ -257,8 +257,8 @@ public class FastMockInteractionsTests
 	public async Task GetUnverifiedInteractions_AcrossMultipleBuffers_ShouldUnionFastAndSlowVerifications()
 	{
 		FastMockInteractions sut = new(2);
-		FastMethod1Buffer<int> methodBuffer = InstallMethod<int>(sut, 0);
-		FastPropertyGetterBuffer getterBuffer = InstallPropertyGetter(sut, 1);
+		MethodRecords<int> methodBuffer = InstallMethod<int>(sut, 0);
+		PropertyGetterRecords getterBuffer = InstallPropertyGetter(sut, 1);
 
 		methodBuffer.Append("M", 7);
 		getterBuffer.Append();
@@ -273,7 +273,7 @@ public class FastMockInteractionsTests
 	public async Task GetUnverifiedInteractions_AfterMatcherLessConsumeMatching_ShouldDropMarkedSlots()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod0Buffer methodBuffer = InstallMethod(sut, 0);
+		MethodRecords methodBuffer = InstallMethod(sut, 0);
 		methodBuffer.Append("first");
 		methodBuffer.Append("second");
 
@@ -292,7 +292,7 @@ public class FastMockInteractionsTests
 	public async Task GetUnverifiedInteractions_AfterTypedConsumeMatching_ShouldDropOnlyMatchedSlots()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod1Buffer<int> methodBuffer = InstallMethod<int>(sut, 0);
+		MethodRecords<int> methodBuffer = InstallMethod<int>(sut, 0);
 		methodBuffer.Append("Dispense", 1);
 		methodBuffer.Append("Dispense", 2);
 
@@ -311,7 +311,7 @@ public class FastMockInteractionsTests
 	public async Task GetUnverifiedInteractions_FastPathPlusSlowPath_ShouldFilterByBoth()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod1Buffer<int> methodBuffer = InstallMethod<int>(sut, 0);
+		MethodRecords<int> methodBuffer = InstallMethod<int>(sut, 0);
 		methodBuffer.Append("M", 1);
 		methodBuffer.Append("M", 2);
 		methodBuffer.Append("M", 3);
@@ -330,7 +330,7 @@ public class FastMockInteractionsTests
 	public async Task GetUnverifiedInteractions_ShouldRespectVerifiedSet()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod0Buffer methodBuffer = InstallMethod(sut, 0);
+		MethodRecords methodBuffer = InstallMethod(sut, 0);
 		methodBuffer.Append("first");
 		methodBuffer.Append("second");
 
@@ -361,7 +361,7 @@ public class FastMockInteractionsTests
 	public async Task GetUnverifiedInteractions_WhenNothingVerified_ShouldReturnEverything()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod0Buffer methodBuffer = InstallMethod(sut, 0);
+		MethodRecords methodBuffer = InstallMethod(sut, 0);
 		methodBuffer.Append("first");
 
 		IReadOnlyCollection<IInteraction> unverified = sut.GetUnverifiedInteractions();
@@ -500,7 +500,7 @@ public class FastMockInteractionsTests
 	public async Task Verified_BeforeAnyAppend_OnSecondCallAddsToExistingSet()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod0Buffer buffer = InstallMethod(sut, 0);
+		MethodRecords buffer = InstallMethod(sut, 0);
 
 		((IMockInteractions)sut).Verified([]);
 
@@ -518,7 +518,7 @@ public class FastMockInteractionsTests
 		// plain `_verified = []`, the second call would reset the verified set, so the first
 		// call's entry would re-surface as "unverified".
 		FastMockInteractions sut = new(1);
-		FastMethod0Buffer buffer = InstallMethod(sut, 0);
+		MethodRecords buffer = InstallMethod(sut, 0);
 		buffer.Append("first");
 		buffer.Append("second");
 		List<IInteraction> all = [..sut,];
@@ -533,7 +533,7 @@ public class FastMockInteractionsTests
 	public async Task Verified_WithMultipleInteractions_AddsAllToInternalSet()
 	{
 		FastMockInteractions sut = new(1);
-		FastMethod0Buffer buffer = InstallMethod(sut, 0);
+		MethodRecords buffer = InstallMethod(sut, 0);
 		buffer.Append("first");
 		buffer.Append("second");
 
@@ -543,14 +543,14 @@ public class FastMockInteractionsTests
 		await That(sut.GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	private static FastMethod0Buffer InstallMethod(FastMockInteractions store, int memberId)
-		=> new FastMethod0Buffer(store, memberId);
+	private static MethodRecords InstallMethod(FastMockInteractions store, int memberId)
+		=> new MethodRecords(store, memberId);
 
-	private static FastMethod1Buffer<T> InstallMethod<T>(FastMockInteractions store, int memberId)
-		=> new FastMethod1Buffer<T>(store, memberId);
+	private static MethodRecords<T> InstallMethod<T>(FastMockInteractions store, int memberId)
+		=> new MethodRecords<T>(store, memberId);
 
-	private static FastPropertyGetterBuffer InstallPropertyGetter(FastMockInteractions store, int memberId)
-		=> new FastPropertyGetterBuffer(store, memberId);
+	private static PropertyGetterRecords InstallPropertyGetter(FastMockInteractions store, int memberId)
+		=> new PropertyGetterRecords(store, memberId);
 
 	public sealed class MethodBufferTests
 	{
@@ -558,7 +558,7 @@ public class FastMockInteractionsTests
 		public async Task Method0_BoxesAsMethodInvocation()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod0Buffer buffer = InstallMethod(store, 0);
+			MethodRecords buffer = InstallMethod(store, 0);
 
 			buffer.Append("Foo");
 
@@ -570,7 +570,7 @@ public class FastMockInteractionsTests
 		public async Task Method1_BoxesAsMethodInvocationT1()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 
 			buffer.Append("Foo", 42);
 
@@ -583,7 +583,7 @@ public class FastMockInteractionsTests
 		public async Task Method2_BoxesAsMethodInvocationT1T2()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod2Buffer<int, string> buffer = new(store, 0);
+			MethodRecords<int, string> buffer = new(store, 0);
 
 			buffer.Append("Foo", 42, "bar");
 
@@ -596,7 +596,7 @@ public class FastMockInteractionsTests
 		public async Task Method3_BoxesAsMethodInvocationT1T2T3()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
+			MethodRecords<int, string, bool> buffer = new(store, 0);
 
 			buffer.Append("Foo", 1, "two", true);
 
@@ -610,7 +610,7 @@ public class FastMockInteractionsTests
 		public async Task Method4_BoxesAsMethodInvocationT1T2T3T4()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
+			MethodRecords<int, string, bool, double> buffer = new(store, 0);
 
 			buffer.Append("Foo", 1, "two", true, 3.14);
 
@@ -623,7 +623,7 @@ public class FastMockInteractionsTests
 		public async Task ResizesAndPreservesOrder()
 		{
 			FastMockInteractions store = new(1);
-			FastMethod1Buffer<int> buffer = InstallMethod<int>(store, 0);
+			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 
 			for (int i = 0; i < 100; i++)
 			{
@@ -645,7 +645,7 @@ public class FastMockInteractionsTests
 		public async Task Getter_BoxesAsPropertyGetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastPropertyGetterBuffer buffer = new(store, 0);
+			PropertyGetterRecords buffer = new(store, 0);
 
 			buffer.Append(new PropertyGetterAccess("Foo"));
 
@@ -657,7 +657,7 @@ public class FastMockInteractionsTests
 		public async Task Setter_BoxesAsPropertySetterAccessT()
 		{
 			FastMockInteractions store = new(1);
-			FastPropertySetterBuffer<string> buffer = new(store, 0);
+			PropertySetterRecords<string> buffer = new(store, 0);
 
 			buffer.Append("Foo", "value");
 
@@ -673,7 +673,7 @@ public class FastMockInteractionsTests
 		public async Task Getter1_BoxesAsIndexerGetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastIndexerGetterBuffer<string> buffer = new(store, 0);
+			IndexerGetterRecords<string> buffer = new(store, 0);
 
 			buffer.Append("k");
 
@@ -685,7 +685,7 @@ public class FastMockInteractionsTests
 		public async Task Getter2_BoxesAsIndexerGetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastIndexerGetterBuffer<string, int> buffer = new(store, 0);
+			IndexerGetterRecords<string, int> buffer = new(store, 0);
 
 			buffer.Append("k", 1);
 
@@ -698,7 +698,7 @@ public class FastMockInteractionsTests
 		public async Task Setter1_BoxesAsIndexerSetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastIndexerSetterBuffer<string, bool> buffer = new(store, 0);
+			IndexerSetterRecords<string, bool> buffer = new(store, 0);
 
 			buffer.Append("k", true);
 
@@ -711,7 +711,7 @@ public class FastMockInteractionsTests
 		public async Task Setter2_BoxesAsIndexerSetterAccess()
 		{
 			FastMockInteractions store = new(1);
-			FastIndexerSetterBuffer<string, int, bool> buffer = new(store, 0);
+			IndexerSetterRecords<string, int, bool> buffer = new(store, 0);
 
 			buffer.Append("k", 7, true);
 
@@ -726,7 +726,7 @@ public class FastMockInteractionsTests
 		public async Task Subscribe_BoxesAsEventSubscription()
 		{
 			FastMockInteractions store = new(1);
-			FastEventBuffer buffer = new(store, 0);
+			EventRecords buffer = new(store, 0);
 			MethodInfo method = typeof(EventBufferTests).GetMethod(nameof(Subscribe_BoxesAsEventSubscription))!;
 
 			buffer.AppendSubscription("E", this, method);
@@ -741,7 +741,7 @@ public class FastMockInteractionsTests
 		public async Task Unsubscribe_BoxesAsEventUnsubscription()
 		{
 			FastMockInteractions store = new(1);
-			FastEventBuffer buffer = new(store, 0);
+			EventRecords buffer = new(store, 0);
 			MethodInfo method = typeof(EventBufferTests).GetMethod(nameof(Unsubscribe_BoxesAsEventUnsubscription))!;
 
 			buffer.AppendUnsubscription("E", null, method);
@@ -759,7 +759,7 @@ public class FastMockInteractionsTests
 			const int threads = 8;
 			const int callsPerThread = 200;
 			FastMockInteractions store = new(threads);
-			FastMethod1Buffer<int>[] buffers = new FastMethod1Buffer<int>[threads];
+			MethodRecords<int>[] buffers = new MethodRecords<int>[threads];
 			for (int t = 0; t < threads; t++)
 			{
 				buffers[t] = InstallMethod<int>(store, t);
@@ -787,7 +787,7 @@ public class FastMockInteractionsTests
 
 			await That(store.Count).IsEqualTo(threads * callsPerThread);
 			int sum = 0;
-			foreach (FastMethod1Buffer<int> buffer in buffers)
+			foreach (MethodRecords<int> buffer in buffers)
 			{
 				sum += buffer.Count;
 			}

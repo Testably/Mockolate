@@ -658,11 +658,11 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendUnionMethodVerifyImplementation(StringBuilder sb, Method method,
 		string mockRegistryName, string verifyName, MemberIdTable memberIds, string memberIdPrefix,
-		bool useFastBuffers, UnionSlot[] slots, string? methodNameOverride = null)
+		bool useTypedRecords, UnionSlot[] slots, string? methodNameOverride = null)
 #pragma warning restore S107
 	{
 		MethodParameter[] parameters = method.Parameters.AsArray();
-		bool useFastForMethod = useFastBuffers && IsFastBufferEligibleMethod(method);
+		bool useFastForMethod = useTypedRecords && IsTypedRecordingEligibleMethod(method);
 		string methodMemberId = useFastForMethod
 			? memberIdPrefix + memberIds.GetMethodIdentifier(method)
 			: "-1";
@@ -677,7 +677,7 @@ internal static partial class Sources
 		AppendUnionArgumentLocals(sb, method, slots);
 
 		// Mirrors the classic verify paths: literal values go through the allocation-free VerifyMethod overload,
-		// matchers through the typed overload when the member has a fast buffer, everything else through the
+		// matchers through the typed overload when the member is recorded typed, everything else through the
 		// MethodInvocation predicate.
 		bool noFixedSlots = slots.All(s => s != UnionSlot.Fixed);
 		bool literalEligible = parameters.Length <= MaxExplicitParameters && noFixedSlots &&
@@ -974,13 +974,13 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendUnionIndexerVerifyImplementation(StringBuilder sb, Property indexer,
 		string mockRegistryName, string verifyName, MemberIdTable memberIds, string memberIdPrefix,
-		bool useFastBuffers, UnionSlot[] slots)
+		bool useTypedRecords, UnionSlot[] slots)
 #pragma warning restore S107
 	{
 		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
 		string[] names = UnionIndexerVerifyNames(indexer);
 		string[] expressionNames = UnionIndexerExpressionNames(indexer, names);
-		bool useFastForIndexer = useFastBuffers && IsFastBufferEligibleIndexer(indexer);
+		bool useFastForIndexer = useTypedRecords && IsTypedRecordingEligibleIndexer(indexer);
 		string indexerGetMemberId = useFastForIndexer
 			? memberIdPrefix + memberIds.GetIndexerGetIdentifier(indexer)
 			: "-1";

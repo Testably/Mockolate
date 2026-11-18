@@ -1299,7 +1299,7 @@ namespace Mockolate.Internals
 	/// <summary>
 	///     Records the calls of 5-parameter methods, synthesized for arity 5 use sites.
 	/// </summary>
-	internal static class FastMethod5Buffer<T1, T2, T3, T4, T5>
+	internal static class MethodRecords<T1, T2, T3, T4, T5>
 	{
 		public static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5)
 		{
@@ -1330,7 +1330,7 @@ namespace Mockolate.Internals
 	/// <summary>
 	///     Records the calls of 6-parameter methods, synthesized for arity 6 use sites.
 	/// </summary>
-	internal static class FastMethod6Buffer<T1, T2, T3, T4, T5, T6>
+	internal static class MethodRecords<T1, T2, T3, T4, T5, T6>
 	{
 		public static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6)
 		{

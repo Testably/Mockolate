@@ -7,27 +7,26 @@ using Mockolate.Parameters;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Per-member buffer for indexer getters with a single key.
+///     Records and typed view for indexer getters with a single key.
 /// </summary>
 [DebuggerDisplay("{Count} indexer gets")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerGetterBuffer<T1> : RecordList
+public sealed class IndexerGetterRecords<T1> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1)
 	{
@@ -38,8 +37,7 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1> access)
 	{
@@ -52,7 +50,7 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList
 
 	/// <summary>
 	///     Counts recorded indexer getter accesses whose key satisfies <paramref name="match1" />,
-	///     marking each matched slot as verified. Allocation-free fast path for count-only verification.
+	///     marking each matched record as verified. Allocation-free fast path for count-only verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1)
 	{
@@ -80,27 +78,26 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for indexer getters with two keys.
+///     Records and typed view for indexer getters with two keys.
 /// </summary>
 [DebuggerDisplay("{Count} indexer gets")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList
+public sealed class IndexerGetterRecords<T1, T2> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2)
 	{
@@ -112,8 +109,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2> access)
 	{
@@ -127,7 +123,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList
 
 	/// <summary>
 	///     Counts recorded indexer getter accesses whose keys satisfy the supplied matchers, marking
-	///     each matched slot as verified. Allocation-free fast path for count-only verification.
+	///     each matched record as verified. Allocation-free fast path for count-only verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2)
 	{
@@ -156,27 +152,26 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for indexer getters with three keys.
+///     Records and typed view for indexer getters with three keys.
 /// </summary>
 [DebuggerDisplay("{Count} indexer gets")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList
+public sealed class IndexerGetterRecords<T1, T2, T3> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3)
 	{
@@ -189,8 +184,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2, T3> access)
 	{
@@ -205,7 +199,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList
 
 	/// <summary>
 	///     Counts recorded indexer getter accesses whose keys satisfy the supplied matchers, marking
-	///     each matched slot as verified. Allocation-free fast path for count-only verification.
+	///     each matched record as verified. Allocation-free fast path for count-only verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3)
 	{
@@ -235,27 +229,26 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for indexer getters with four keys.
+///     Records and typed view for indexer getters with four keys.
 /// </summary>
 [DebuggerDisplay("{Count} indexer gets")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList
+public sealed class IndexerGetterRecords<T1, T2, T3, T4> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
 	{
@@ -269,8 +262,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2, T3, T4> access)
 	{
@@ -286,7 +278,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList
 
 	/// <summary>
 	///     Counts recorded indexer getter accesses whose keys satisfy the supplied matchers, marking
-	///     each matched slot as verified. Allocation-free fast path for count-only verification.
+	///     each matched record as verified. Allocation-free fast path for count-only verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4)
 	{
@@ -317,27 +309,26 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for indexer setters with a single key.
+///     Records and typed view for indexer setters with a single key.
 /// </summary>
 [DebuggerDisplay("{Count} indexer sets")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList
+public sealed class IndexerSetterRecords<T1, TValue> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerSetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, TValue value)
 	{
@@ -349,8 +340,7 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, TValue> access)
 	{
@@ -364,7 +354,7 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList
 
 	/// <summary>
 	///     Counts recorded indexer setter accesses whose key and assigned value satisfy the supplied
-	///     matchers, marking each matched slot as verified. Allocation-free fast path for count-only
+	///     matchers, marking each matched record as verified. Allocation-free fast path for count-only
 	///     verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<TValue> matchValue)
@@ -394,27 +384,26 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for indexer setters with two keys.
+///     Records and typed view for indexer setters with two keys.
 /// </summary>
 [DebuggerDisplay("{Count} indexer sets")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList
+public sealed class IndexerSetterRecords<T1, T2, TValue> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerSetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, TValue value)
 	{
@@ -427,8 +416,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, TValue> access)
 	{
@@ -443,7 +431,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList
 
 	/// <summary>
 	///     Counts recorded indexer setter accesses whose keys and assigned value satisfy the supplied
-	///     matchers, marking each matched slot as verified. Allocation-free fast path for count-only
+	///     matchers, marking each matched record as verified. Allocation-free fast path for count-only
 	///     verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<TValue> matchValue)
@@ -474,27 +462,26 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for indexer setters with three keys.
+///     Records and typed view for indexer setters with three keys.
 /// </summary>
 [DebuggerDisplay("{Count} indexer sets")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList
+public sealed class IndexerSetterRecords<T1, T2, T3, TValue> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerSetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, TValue value)
 	{
@@ -508,8 +495,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, T3, TValue> access)
 	{
@@ -525,7 +511,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList
 
 	/// <summary>
 	///     Counts recorded indexer setter accesses whose keys and assigned value satisfy the supplied
-	///     matchers, marking each matched slot as verified. Allocation-free fast path for count-only
+	///     matchers, marking each matched record as verified. Allocation-free fast path for count-only
 	///     verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<TValue> matchValue)
@@ -557,27 +543,26 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for indexer setters with four keys.
+///     Records and typed view for indexer setters with four keys.
 /// </summary>
 [DebuggerDisplay("{Count} indexer sets")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList
+public sealed class IndexerSetterRecords<T1, T2, T3, T4, TValue> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerSetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, TValue value)
 	{
@@ -592,8 +577,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, T3, T4, TValue> access)
 	{
@@ -610,7 +594,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList
 
 	/// <summary>
 	///     Counts recorded indexer setter accesses whose keys and assigned value satisfy the supplied
-	///     matchers, marking each matched slot as verified. Allocation-free fast path for count-only
+	///     matchers, marking each matched record as verified. Allocation-free fast path for count-only
 	///     verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4, IParameterMatch<TValue> matchValue)

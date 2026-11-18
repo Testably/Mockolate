@@ -196,10 +196,9 @@ internal static partial class Sources
 		Dictionary<string, int> signatureIndices = new();
 		int[] nextSignatureIndex = [0,];
 		
-		// Combined mocks reuse the base mock's MockRegistry (and thus its FastMockInteractions sized
-		// to the base MemberCount). Combined member ids would index past those buffers, so emit the
-		// legacy RegisterInteraction path instead — recordings still flow through FastMockInteractions'
-		// fallback buffer and remain shared with the base mock.
+		// Combined mocks reuse the MockRegistry of the base mock. Typed recording is guarded by the member
+		// count of its FastMockInteractions, which does not cover the member ids of the additional
+		// interfaces, so the calls are recorded through RegisterInteraction instead.
 		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix, signatureIndices, nextSignatureIndex, false);
 		
 		foreach ((string Name, Class Class) item in additionalInterfaces)
@@ -331,11 +330,8 @@ internal static partial class Sources
 		sb.AppendLine();
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
-		// Combined mocks reuse the base mock's MockRegistry whose FastMockInteractions buffers are sized
-		// to the base MemberCount and indexed by the base mock's member ids. The combination's own
-		// memberIds enumerate a different (typically larger) set, so they cannot be used to fetch the
-		// base buffers — emit the slow Verify path here instead. Recordings flow through the
-		// FastMockInteractions fallback buffer (see AppendMockSubject_ImplementClass useFastBuffers: false).
+		// The calls of a combined mock are not recorded typed (see AppendMockSubject_ImplementClass with
+		// useTypedRecords: false), so emit the slow Verify path.
 		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, false, useUnionOverloads);
 		sb.Append("\t\t#endregion IMockVerifyFor").Append(name).AppendLine();
 		if (hasProtectedMembers || hasProtectedEvents)

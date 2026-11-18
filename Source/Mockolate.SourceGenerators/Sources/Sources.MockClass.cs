@@ -1366,7 +1366,7 @@ internal static partial class Sources
 	}
 
 	/// <summary>
-	///     Emits a static helper that creates a typed-buffer-sized <c>MockRegistry</c> from a
+	///     Emits a static helper that creates a <c>MockRegistry</c> for the members of the mock from a
 	///     <c>MockBehavior</c>. Used by the generator-emitted <c>(MockBehavior)</c> constructors so
 	///     subclasses of the generated mock can construct from a behavior without bypassing the FastMockInteractions
 	///     sizing. When <paramref name="setsMockRegistryProvider" /> is true, the helper also primes the
@@ -1377,7 +1377,7 @@ internal static partial class Sources
 		bool setsMockRegistryProvider)
 	{
 		sb.Append(indent).Append("/// <summary>").AppendLine();
-		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.Internals.MockRegistry\" /> backed by a typed-buffer-sized ").Append("<see cref=\"global::Mockolate.Internals.FastMockInteractions\" /> from <paramref name=\"behavior\" />.").AppendLine();
+		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.Internals.MockRegistry\" /> backed by a ").Append("<see cref=\"global::Mockolate.Internals.FastMockInteractions\" /> for the members of the mock, from <paramref name=\"behavior\" />.").AppendLine();
 		sb.Append(indent).Append("/// </summary>").AppendLine();
 		sb.Append(indent).Append("private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)").AppendLine();
 		sb.Append(indent).Append("{").AppendLine();
@@ -1457,7 +1457,7 @@ internal static partial class Sources
 		MockClass? mockClass, MemberIdTable memberIds, string memberIdPrefix,
 		Dictionary<string, int>? signatureIndicesOverride = null,
 		int[]? nextSignatureIndexRef = null,
-		bool useFastBuffers = true)
+		bool useTypedRecords = true)
 #pragma warning restore S107
 	{
 		string className = @class.ClassFullName;
@@ -1474,7 +1474,7 @@ internal static partial class Sources
 			{
 				AppendMockSubject_ImplementClass_AddEvent(sb, @event, mockRegistryName, className,
 					mockClass is not null,
-					@class.IsInterface, memberIds, memberIdPrefix, useFastBuffers);
+					@class.IsInterface, memberIds, memberIdPrefix, useTypedRecords);
 				sb.AppendLine();
 			}
 		}
@@ -1505,7 +1505,7 @@ internal static partial class Sources
 
 				AppendMockSubject_ImplementClass_AddProperty(sb, property, mockRegistryName, className,
 					mockClass is not null,
-					@class.IsInterface, signatureIndex, memberIds, memberIdPrefix, useFastBuffers);
+					@class.IsInterface, signatureIndex, memberIds, memberIdPrefix, useTypedRecords);
 				sb.AppendLine();
 			}
 		}
@@ -1518,7 +1518,7 @@ internal static partial class Sources
 			{
 				AppendMockSubject_ImplementClass_AddMethod(sb, method, mockRegistryName, className,
 					mockClass is not null,
-					@class.IsInterface, @class, memberIds, memberIdPrefix, useFastBuffers);
+					@class.IsInterface, @class, memberIds, memberIdPrefix, useTypedRecords);
 				sb.AppendLine();
 			}
 		}
@@ -1530,11 +1530,11 @@ internal static partial class Sources
 	private static void AppendMockSubject_ImplementClass_AddEvent(StringBuilder sb, Event @event,
 		string mockRegistryName, string className,
 		bool explicitInterfaceImplementation, bool isClassInterface,
-		MemberIdTable memberIds, string memberIdPrefix, bool useFastBuffers)
+		MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords)
 #pragma warning restore S107
 	{
 		string mockRegistry = @event.IsStatic ? "MockRegistryProvider.Value" : $"this.{mockRegistryName}";
-		bool useFast = useFastBuffers && IsFastBufferEligibleEvent(@event);
+		bool useFast = useTypedRecords && IsTypedRecordingEligibleEvent(@event);
 		string subscribeIdRef = memberIdPrefix + memberIds.GetEventSubscribeIdentifier(@event);
 		string unsubscribeIdRef = memberIdPrefix + memberIds.GetEventUnsubscribeIdentifier(@event);
 		string addCall = useFast
@@ -1672,7 +1672,7 @@ internal static partial class Sources
 	private static void AppendMockSubject_ImplementClass_AddProperty(StringBuilder sb, Property property,
 		string mockRegistryName,
 		string className, bool explicitInterfaceImplementation, bool isClassInterface, int signatureIndex,
-		MemberIdTable memberIds, string memberIdPrefix, bool useFastBuffers)
+		MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords)
 #pragma warning restore S107
 	{
 		string mockRegistry = property.IsStatic ? "MockRegistryProvider.Value" : $"this.{mockRegistryName}";
@@ -1681,8 +1681,8 @@ internal static partial class Sources
 		// one reachable through the mocked interface (CS0266), and an implicit member declared by several
 		// sibling interfaces is ambiguous on the mocked interface (CS0229/CS0121).
 		string wrapsType = isClassInterface ? property.ContainingType : className;
-		bool useFastForProperty = useFastBuffers && !property.IsIndexer && IsFastBufferEligibleProperty(property);
-		bool useFastForIndexer = useFastBuffers && property.IsIndexer && IsFastBufferEligibleIndexer(property);
+		bool useFastForProperty = useTypedRecords && !property.IsIndexer && IsTypedRecordingEligibleProperty(property);
+		bool useFastForIndexer = useTypedRecords && property.IsIndexer && IsTypedRecordingEligibleIndexer(property);
 		string indexerGetIdRef = property.IsIndexer
 			? memberIdPrefix + memberIds.GetIndexerGetIdentifier(property)
 			: string.Empty;
@@ -2307,7 +2307,7 @@ internal static partial class Sources
 	private static void AppendMockSubject_ImplementClass_AddMethod(StringBuilder sb, Method method,
 		string mockRegistryName, string className,
 		bool explicitInterfaceImplementation, bool isClassInterface, Class @class,
-		MemberIdTable memberIds, string memberIdPrefix, bool useFastBuffers = true)
+		MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords = true)
 #pragma warning restore S107
 	{
 		string mockRegistry = method.IsStatic ? "MockRegistryProvider.Value" : $"this.{mockRegistryName}";
@@ -2537,15 +2537,15 @@ internal static partial class Sources
 		sb.Append("\t\t\tif (").Append(mockRegistry).Append(".Behavior.SkipInteractionRecording == false)")
 			.AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		if (useFastBuffers && IsFastBufferEligibleMethod(method))
+		if (useTypedRecords && IsTypedRecordingEligibleMethod(method))
 		{
 			int arity = method.Parameters.Count;
 			string typeArgs = arity == 0
 				? string.Empty
 				: "<" + string.Join(", ", method.Parameters.Select(p => p.ToTypeOrWrapper())) + ">";
-			string bufferType = $"global::Mockolate.Internals.FastMethod{arity}Buffer{typeArgs}";
+			string recordsType = $"global::Mockolate.Internals.MethodRecords{typeArgs}";
 
-			sb.Append("\t\t\t\t").Append(bufferType)
+			sb.Append("\t\t\t\t").Append(recordsType)
 				.Append(".Append((global::Mockolate.Internals.FastMockInteractions)")
 				.Append(mockRegistry).Append(".Interactions, ").Append(memberIdRef).Append(", ")
 				.Append(method.GetUniqueNameString());
@@ -4996,7 +4996,7 @@ internal static partial class Sources
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendIndexerVerifyImplementation(StringBuilder sb, Property indexer, string mockRegistryName,
-		string verifyName, MemberIdTable memberIds, string memberIdPrefix, bool useFastBuffers,
+		string verifyName, MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords,
 		bool[]? valueFlags = null)
 #pragma warning restore S107
 	{
@@ -5005,7 +5005,7 @@ internal static partial class Sources
 			return;
 		}
 
-		bool useFastForIndexer = useFastBuffers && IsFastBufferEligibleIndexer(indexer);
+		bool useFastForIndexer = useTypedRecords && IsTypedRecordingEligibleIndexer(indexer);
 		string indexerGetMemberId = useFastForIndexer
 			? memberIdPrefix + memberIds.GetIndexerGetIdentifier(indexer)
 			: "-1";
@@ -5688,7 +5688,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementVerifyInterface(StringBuilder sb, Class @class, string mockRegistryName,
 		string verifyName, MemberType memberType, MemberIdTable memberIds, string memberIdPrefix,
-		bool useFastBuffers = true, bool useUnionOverloads = false)
+		bool useTypedRecords = true, bool useUnionOverloads = false)
 #pragma warning restore S107
 	{
 		#region Properties
@@ -5698,7 +5698,7 @@ internal static partial class Sources
 			   property.MemberType == memberType && !property.Type.NeedsRefStructPipeline();
 		foreach (Property property in @class.AllProperties().Where(propertyPredicate))
 		{
-			bool useFastForProperty = useFastBuffers && IsFastBufferEligibleProperty(property);
+			bool useFastForProperty = useTypedRecords && IsTypedRecordingEligibleProperty(property);
 			string propertyGetMemberId = useFastForProperty
 				? memberIdPrefix + memberIds.GetPropertyGetIdentifier(property)
 				: "-1";
@@ -5744,20 +5744,20 @@ internal static partial class Sources
 				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
 				{
 					AppendUnionIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds,
-						memberIdPrefix, useFastBuffers, slots);
+						memberIdPrefix, useTypedRecords, slots);
 				}
 
 				continue;
 			}
 
 			AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds, memberIdPrefix,
-				useFastBuffers);
+				useTypedRecords);
 			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(indexer.IndexerParameters.Value))
 				{
 					AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds,
-						memberIdPrefix, useFastBuffers, valueFlags);
+						memberIdPrefix, useTypedRecords, valueFlags);
 				}
 			}
 			else
@@ -5767,7 +5767,7 @@ internal static partial class Sources
 				if (allValueFlags.Any(f => f))
 				{
 					AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds,
-						memberIdPrefix, useFastBuffers, allValueFlags);
+						memberIdPrefix, useTypedRecords, allValueFlags);
 				}
 			}
 		}
@@ -5791,7 +5791,7 @@ internal static partial class Sources
 				if (method.Parameters.Count > 0)
 				{
 					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, true,
-						memberIds, memberIdPrefix, useFastBuffers,
+						memberIds, memberIdPrefix, useTypedRecords,
 						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
 			}
@@ -5801,24 +5801,24 @@ internal static partial class Sources
 				if (method.Parameters.Count == 0)
 				{
 					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-						memberIds, memberIdPrefix, useFastBuffers);
+						memberIds, memberIdPrefix, useTypedRecords);
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
 				{
 					foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(method.Parameters, allowOmission: true))
 					{
 						AppendUnionMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, memberIds,
-							memberIdPrefix, useFastBuffers, slots);
+							memberIdPrefix, useTypedRecords, slots);
 					}
 				}
 				else
 				{
 					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-						memberIds, memberIdPrefix, useFastBuffers);
+						memberIds, memberIdPrefix, useTypedRecords);
 					if (TryGetPerElementParamsParameter(method))
 					{
 						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-							memberIds, memberIdPrefix, useFastBuffers, perElementParams: true);
+							memberIds, memberIdPrefix, useTypedRecords, perElementParams: true);
 					}
 
 					if (method.Parameters.Count <= MaxExplicitParameters)
@@ -5826,7 +5826,7 @@ internal static partial class Sources
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
 							AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-								memberIds, memberIdPrefix, useFastBuffers, valueFlags: valueFlags);
+								memberIds, memberIdPrefix, useTypedRecords, valueFlags: valueFlags);
 						}
 					}
 					else
@@ -5836,7 +5836,7 @@ internal static partial class Sources
 						if (allValueFlags.Any(f => f))
 						{
 							AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-								memberIds, memberIdPrefix, useFastBuffers, valueFlags: allValueFlags);
+								memberIds, memberIdPrefix, useTypedRecords, valueFlags: allValueFlags);
 						}
 					}
 				}
@@ -5851,7 +5851,7 @@ internal static partial class Sources
 		                                             @event.MemberType == memberType;
 		foreach (Event @event in @class.AllEvents().Where(eventPredicate))
 		{
-			bool useFastForEvent = useFastBuffers && IsFastBufferEligibleEvent(@event);
+			bool useFastForEvent = useTypedRecords && IsTypedRecordingEligibleEvent(@event);
 			string subMemberId = useFastForEvent
 				? memberIdPrefix + memberIds.GetEventSubscribeIdentifier(@event)
 				: "-1";
@@ -5882,7 +5882,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMethodVerifyImplementation(StringBuilder sb, Method method, string mockRegistryName,
 		string verifyName,
-		bool useParameters, MemberIdTable memberIds, string memberIdPrefix, bool useFastBuffers,
+		bool useParameters, MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords,
 		string? methodNameOverride = null, bool[]? valueFlags = null, bool perElementParams = false,
 		bool forwardsLoneNull = false)
 #pragma warning restore S107
@@ -5893,7 +5893,7 @@ internal static partial class Sources
 			return;
 		}
 
-		bool useFastForMethod = useFastBuffers && IsFastBufferEligibleMethod(method);
+		bool useFastForMethod = useTypedRecords && IsTypedRecordingEligibleMethod(method);
 		string methodMemberId = useFastForMethod
 			? memberIdPrefix + memberIds.GetMethodIdentifier(method)
 			: "-1";
@@ -5991,7 +5991,7 @@ internal static partial class Sources
 			// Bare-value verify path: every parameter is a literal value, so we can route through the
 			// MockRegistry.VerifyMethod overload that takes the values directly (no IParameterMatch<T>
 			// allocation) and uses Method{N}LiteralCountSource for the allocation-free fast path. The
-			// memberId may be -1 here when fast buffers are off, which the runtime overload handles by
+			// memberId may be -1 here when typed recording is off, which the runtime overload handles by
 			// dispatching to the slow predicate-based VerifyMethod.
 			sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".VerifyMethod<").Append(verifyName);
 			foreach (MethodParameter parameter in method.Parameters)
@@ -6196,17 +6196,16 @@ internal static partial class Sources
 	}
 
 	/// <summary>
-	///     Properties get a typed per-member buffer when they are not static. Static property recordings stay on
-	///     the legacy <c>RegisterInteraction</c> path because their member id is shared across <c>AsyncLocal</c>
-	///     contexts whereas the buffer instance is stored on a single registry, so per-context isolation breaks.
+	///     Properties are recorded typed when they are not static. Static properties record through
+	///     <c>RegisterInteraction</c>.
 	/// </summary>
-	private static bool IsFastBufferEligibleProperty(Property property)
+	private static bool IsTypedRecordingEligibleProperty(Property property)
 		=> !property.IsStatic;
 
 	/// <summary>
-	///     Indexers with up to four key parameters and a non-ref-struct signature get a typed per-member buffer.
+	///     Indexers with up to four key parameters and a non-ref-struct signature are recorded typed.
 	/// </summary>
-	private static bool IsFastBufferEligibleIndexer(Property indexer)
+	private static bool IsTypedRecordingEligibleIndexer(Property indexer)
 	{
 		if (indexer.IsStatic ||
 		    indexer.IndexerParameters is null ||
@@ -6229,20 +6228,18 @@ internal static partial class Sources
 	}
 
 	/// <summary>
-	///     Events get a typed per-member buffer when they are not static (see <see cref="IsFastBufferEligibleProperty" />
-	///     for the rationale).
+	///     Events are recorded typed when they are not static, like properties.
 	/// </summary>
-	private static bool IsFastBufferEligibleEvent(Event @event)
+	private static bool IsTypedRecordingEligibleEvent(Event @event)
 		=> !@event.IsStatic;
 
 	/// <summary>
-	///     Methods with non-generic, non-ref-struct signatures get a typed per-member buffer; everything
-	///     else (open generics, ref-struct params) records via the legacy <c>RegisterInteraction</c> fallback.
-	///     A non-span ref-struct return is excluded because its body never records - it is a
-	///     <c>NotSupportedException</c> stub, or a passthrough to base - so the buffer field would be
-	///     emitted and never read.
+	///     Methods with non-generic, non-ref-struct signatures are recorded typed; everything else (open
+	///     generics, ref-struct params) records through <c>RegisterInteraction</c>. A non-span ref-struct
+	///     return is excluded because its body never records: it is a <c>NotSupportedException</c> stub or a
+	///     passthrough to base.
 	/// </summary>
-	private static bool IsFastBufferEligibleMethod(Method method)
+	private static bool IsTypedRecordingEligibleMethod(Method method)
 	{
 		if (method.GenericParameters is not null && method.GenericParameters.Value.Count > 0)
 		{

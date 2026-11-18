@@ -102,7 +102,7 @@ internal static partial class Sources
 			}
 		}
 
-		// Delegate mocks use a plain MockRegistry (no FastMockInteractions), so emit the slow Verify path.
+		// Delegate mocks record through RegisterInteraction, so emit the slow Verify path.
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
@@ -177,7 +177,7 @@ internal static partial class Sources
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
 		
-		// Delegate mocks use a plain MockRegistry (no FastMockInteractions), so emit the slow Verify path.
+		// Delegate mocks record through RegisterInteraction, so emit the slow Verify path.
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
 		{
 			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
