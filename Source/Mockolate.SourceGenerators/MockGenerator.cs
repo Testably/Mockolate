@@ -649,8 +649,8 @@ public class MockGenerator : IIncrementalGenerator
 		if (@class is MockClass { Delegate: not null, } mockClass)
 		{
 			context.AddSource($"Mock.{fileName}.g.cs",
-				ToSource(Sources.Sources.MockDelegate(named.ParentName, mockClass, mockClass.Delegate, useUnionOverloads),
-					externAliases));
+				ToSource(Sources.Sources.MockDelegate(named.ParentName, mockClass, mockClass.Delegate,
+					hasOverloadResolutionPriority, useUnionOverloads), externAliases));
 			return;
 		}
 

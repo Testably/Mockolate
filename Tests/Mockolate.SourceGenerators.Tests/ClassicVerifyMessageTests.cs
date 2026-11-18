@@ -306,6 +306,111 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
+	public async Task NullLiteral_InClassicMode_OnDelegates_ShouldMatchOnlyNullArguments()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using Mockolate;
+		                                             using Mockolate.Parameters;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public delegate int Two(string? value, int number);
+		                                             public delegate int Optional(object? value, int number = 5);
+		                                             public delegate int Five(string? a, int b, int c, int d, string? e);
+		                                             public delegate int TwoObjects(object? a, object? b);
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     Func<object?, int> one = Func<object?, int>.CreateMock();
+		                                                     Func<string?, int> oneString = Func<string?, int>.CreateMock();
+		                                                     Action<int?> oneNullableInt = Action<int?>.CreateMock();
+		                                                     Two two = Two.CreateMock();
+		                                                     Optional optional = Optional.CreateMock();
+		                                                     Five five = Five.CreateMock();
+		                                                     TwoObjects twoObjects = TwoObjects.CreateMock();
+		                                                     Action<int> oneInt = Action<int>.CreateMock();
+		                                                     one.Mock.Setup(null).Returns(1);
+		                                                     oneString.Mock.Setup(null).Returns(1);
+		                                                     two.Mock.Setup(null, 1).Returns(1);
+		                                                     optional.Mock.Setup(null).Returns(1);
+		                                                     five.Mock.Setup(null, 1, 2, 3, null).Returns(1);
+		                                                     twoObjects.Mock.Setup(null, null).Returns(1);
+		                                                     oneNullableInt(1);
+		                                                     oneInt(1);
+		                                                     int[] results = [one("a"), oneString("a"), two("a", 1), two(null, 2), optional("a"), optional(null, 6), five("a", 1, 2, 3, null), twoObjects("a", null),];
+		                                                     string[] beforeNullCalls =
+		                                                     [
+		                                                         Capture(() => one.Mock.Verify(null).AtLeastOnce()),
+		                                                         Capture(() => oneString.Mock.Verify(null).AtLeastOnce()),
+		                                                         Capture(() => oneNullableInt.Mock.Verify(null).AtLeastOnce()),
+		                                                         Capture(() => two.Mock.Verify(null, 1).AtLeastOnce()),
+		                                                         Capture(() => optional.Mock.Verify(null).AtLeastOnce()),
+		                                                         Capture(() => five.Mock.Verify(null, 1, 2, 3, null).AtLeastOnce()),
+		                                                         Capture(() => twoObjects.Mock.Verify(null, null).AtLeastOnce()),
+		                                                     ];
+		                                                     oneNullableInt(null);
+		                                                     int[] nullResults = [one(null), oneString(null), two(null, 1), optional(null), five(null, 1, 2, 3, null), twoObjects(null, null),];
+		                                                     return
+		                                                     [
+		                                                         string.Join(", ", results),
+		                                                         string.Join(", ", nullResults),
+		                                                         ..beforeNullCalls,
+		                                                         Capture(() => one.Mock.Verify(null).Once()),
+		                                                         Capture(() => oneString.Mock.Verify(null).Once()),
+		                                                         Capture(() => oneString.Mock.Verify(default).Once()),
+		                                                         Capture(() => oneNullableInt.Mock.Verify(null).Once()),
+		                                                         Capture(() => two.Mock.Verify(null, 1).Once()),
+		                                                         Capture(() => optional.Mock.Verify(null).Once()),
+		                                                         Capture(() => five.Mock.Verify(null, 1, 2, 3, null).Once()),
+		                                                         Capture(() => twoObjects.Mock.Verify(null, null).Once()),
+		                                                         Capture(() => oneInt.Mock.Verify(null).Once()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14);
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"0, 0, 0, 0, 0, 0, 0, 0",
+			"1, 1, 1, 1, 1, 1",
+			"Expected that mock invoked method Invoke() at least once, but it never did.",
+			"Expected that mock invoked method Invoke() at least once, but it never did.",
+			"Expected that mock invoked method Invoke() at least once, but it never did.",
+			"Expected that mock invoked method Invoke(, 1) at least once, but it never did.",
+			"Expected that mock invoked method Invoke(, 5) at least once, but it never did.",
+			"Expected that mock invoked method Invoke(, 1, 2, 3, ) at least once, but it never did.",
+			"Expected that mock invoked method Invoke(, ) at least once, but it never did.",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+		]).Because("a null literal on a delegate means that the argument was null, as for a method, and a lone null for a non-nullable value type keeps matching any call");
+	}
+
+	[Test]
 	public async Task Verify_InClassicMode_WithMixedLiteralsAndMatchers_ShouldMatchAndDescribeArgumentsAsBefore()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""

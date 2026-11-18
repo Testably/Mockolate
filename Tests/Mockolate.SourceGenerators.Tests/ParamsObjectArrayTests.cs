@@ -35,6 +35,10 @@ public sealed class ParamsObjectArrayTests
 	                                        int LogG(int level, params T[] args);
 	                                        int OnlyG(params T[] args);
 	                                    }
+
+	                                    public delegate int LogDelegate(int level, params object[] args);
+
+	                                    public delegate int OnlyDelegate(params object[] args);
 	                                    """;
 
 	private static readonly (string, string)[] LevelAndArgs =
@@ -394,20 +398,98 @@ public sealed class ParamsObjectArrayTests
 			"""),
 	];
 
+	private static readonly OverloadMatrix.Member LogDelegate = new("LogDelegate", null, Probes("sut", LevelAndArgs));
+	private static readonly OverloadMatrix.Member OnlyDelegate = new("OnlyDelegate", null, Probes("sut", OnlyArgs));
+
+	private static readonly (OverloadMatrix.Member Method, OverloadMatrix.Member Delegate, string Calls)[] LikeMethods =
+	[
+		(Log, LogDelegate, """
+			(1)
+			(1, "a")
+			(1, "a", 2)
+			(1, new object[] { "a", 2, })
+			(1, (object)null!)
+			(1, null)
+			(1, default)
+			(level: 1, args: null)
+			(default)
+			(default, "a")
+			(default, default)
+			(1, It.IsAny<object[]>())
+			(1, It.Satisfies<object[]>(a => a?.Length == 2))
+			(default, It.IsAny<object[]>())
+			(It.IsAny<int>(), It.IsAny<object[]>())
+			(It.IsAny<int>(), "a")
+			(null)
+			(null, "a")
+			(Match.AnyParameters())
+			(1).AnyParameters()
+			(default, "a").AnyParameters()
+			(1, It.IsAny<object>())
+			(1, (object[])null!)
+			(1, It.IsAny<object[]>()).AnyParameters()
+			"""),
+		(Only, OnlyDelegate, """
+			("a")
+			("a", 2)
+			(new object[] { "a", 2, })
+			((object)null!)
+			(null, "a")
+			(null)
+			(default)
+			(args: null)
+			(It.IsAny<object[]>())
+			(It.Satisfies<object[]>(a => a?.Length == 2))
+			(Match.AnyParameters())
+			(parameters: null)
+			("a").AnyParameters()
+			("a", It.IsAny<object>())
+			((object[])null!)
+			(It.IsAny<object[]>()).AnyParameters()
+			"""),
+	];
+
+	private static readonly Group[] DelegateGroups =
+	[
+		new(OnlyDelegate, "a delegate has no per-element overload, so no arguments and null literals bind the all-values overload and mean what they mean for a method", """
+			() | (params object[]) matches []
+			().AnyParameters() | (params object[]) matches everything
+			(null, null) | (params object[]) matches [null,null]
+			(default, default) | (params object[]) matches [null,null]
+			"""),
+		new(OnlyDelegate, "a delegate has no per-element overload, so matchers for the elements are captured as values", """
+			(It.IsAny<object>()) | (params object[]) matches nothing
+			(It.IsAny<object>(), It.IsAny<object>()) | (params object[]) matches nothing
+			"""),
+		new(LogDelegate, "a delegate has no per-element overload, so matchers for the elements are captured as values and a null literal next to a matcher is not ambiguous", """
+			(It.IsAny<int>(), It.IsAny<object>()) | (IParameter<int>?, params object[]) matches nothing
+			(It.IsAny<int>()) | (IParameter<int>?, params object[]) matches 0:[] 1:[]
+			(It.IsAny<int>(), null) | (IParameter<int>?, IParameter<object[]>?) matches 0:null 1:null
+			"""),
+	];
+
 	[Test]
 	public async Task ParamsObjectArray_InClassicMode_ShouldBindAndMatchAsExpected()
-		=> await VerifyGroups(LanguageVersion.CSharp14);
+		=> await VerifyGroups(Groups, LanguageVersion.CSharp14);
+
+	[Test]
+	public async Task ParamsObjectArray_InClassicMode_OnDelegates_ShouldBindLikeMethods()
+		=> await VerifyDelegates(LanguageVersion.CSharp14);
 
 #if NET11_0_OR_GREATER
 	[Test]
 	public async Task ParamsObjectArray_InUnionMode_ShouldBindAndMatchAsExpected()
-		=> await VerifyGroups(LanguageVersion.CSharp15);
+		=> await VerifyGroups(Groups, LanguageVersion.CSharp15);
+
+	[Test]
+	public async Task ParamsObjectArray_InUnionMode_OnDelegates_ShouldBindLikeMethods()
+		=> await VerifyDelegates(LanguageVersion.CSharp15);
 #endif
 
-	private static async Task VerifyGroups(LanguageVersion languageVersion)
+	private static async Task VerifyGroups(Group[] expectedGroups, LanguageVersion languageVersion)
 	{
-		(Group Group, string[] Expected)[] groups = Groups
-			.Select(group => (group, group.Expected.Split('\n').Select(line => line.Trim()).ToArray())).ToArray();
+		(Group Group, string[] Expected)[] groups = expectedGroups
+			.Select(group => (group, Lines(group.Expected))).ToArray();
 		string[] results = OverloadMatrix.Run(Declarations, groups
 			.SelectMany(x => x.Expected.Select(line => (x.Group.Member, line.Split(" | ")[0]))).ToArray(), languageVersion);
 
@@ -416,9 +498,34 @@ public sealed class ParamsObjectArrayTests
 		{
 			string[] actual = expected.Select(line => $"{line.Split(" | ")[0]} | {results[index++]}").ToArray();
 
-			await That(actual).IsEqualTo(expected).Because($"on {group.Member.Name}, {group.Because}");
+			await That(actual).IsEqualTo(expected)
+				.Because($"on {group.Member.Name ?? group.Member.Type}, {group.Because}");
 		}
 	}
+
+	private static async Task VerifyDelegates(LanguageVersion languageVersion)
+	{
+		(OverloadMatrix.Member Member, string Call)[] calls = LikeMethods
+			.SelectMany(x => new[] { x.Method, x.Delegate, }.SelectMany(member => Lines(x.Calls).Select(call => (member, call))))
+			.ToArray();
+		string[] results = OverloadMatrix.Run(Declarations, calls, languageVersion);
+
+		int index = 0;
+		foreach ((OverloadMatrix.Member method, OverloadMatrix.Member @delegate, string callLines) in LikeMethods)
+		{
+			string[] callsOfPair = Lines(callLines);
+			string[] onMethod = callsOfPair.Select(call => $"{call} | {results[index++]}").ToArray();
+			string[] onDelegate = callsOfPair.Select(call => $"{call} | {results[index++]}").ToArray();
+
+			await That(onDelegate).IsEqualTo(onMethod)
+				.Because($"{@delegate.Type} carries the priorities of the method {method.Name}");
+		}
+
+		await VerifyGroups(DelegateGroups, languageVersion);
+	}
+
+	private static string[] Lines(string text)
+		=> text.Split('\n').Select(line => line.Trim()).ToArray();
 
 	private static (string, string)[] Probes(string member, (string Label, string Arguments)[] probes)
 		=> probes.Select(probe => (probe.Label, member + probe.Arguments)).ToArray();
