@@ -2192,28 +2192,28 @@ internal static partial class Mock
 				}, () => $"DynParams({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> IMockVerifyForIDynamicMembers.DynParams(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<dynamic[]>? values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, int, dynamic[]>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynParams, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynParams", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), values is null ? (global::Mockolate.Parameters.IParameterMatch<dynamic[]>)global::Mockolate.It.Is<dynamic[]>(default!) : global::Mockolate.CovariantParameterAdapter<dynamic[]>.Wrap(values), a, values, static (a, values) => $"DynParams({a}, {values})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, int, dynamic[]>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynParams, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynParams", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), values is null ? (global::Mockolate.Parameters.IParameterMatch<dynamic[]>)global::Mockolate.It.Is<dynamic[]>(default!) : global::Mockolate.CovariantParameterAdapter<dynamic[]>.Wrap(values), a, values, static (a, values) => $"DynParams({(object?)a ?? "null"}, {(object?)values ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> IMockVerifyForIDynamicMembers.DynParams(global::Mockolate.Parameters.IParameter<int>? a, params global::Mockolate.Parameters.IParameter<object>[] values)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, global::Mockolate.Interactions.MethodInvocation<int, dynamic[]>>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynParams, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynParams", __i => 
 				(a is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(new global::Mockolate.Internals.ParamsArrayParameterMatch<object>(values).Matches(__i.Parameter2)), () => $"DynParams({a}, {values})");
+				(new global::Mockolate.Internals.ParamsArrayParameterMatch<object>(values).Matches(__i.Parameter2)), () => $"DynParams({(object?)a ?? "null"}, {(object?)values ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> IMockVerifyForIDynamicMembers.DynParams(int a, global::Mockolate.Parameters.IParameter<dynamic[]>? values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(a);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, int, dynamic[]>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynParams, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynParams", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<dynamic[]>)global::Mockolate.It.Is<dynamic[]>(default!) : global::Mockolate.CovariantParameterAdapter<dynamic[]>.Wrap(values), __literal1, values, static (a, values) => $"DynParams({a}, {values})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, int, dynamic[]>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynParams, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynParams", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<dynamic[]>)global::Mockolate.It.Is<dynamic[]>(default!) : global::Mockolate.CovariantParameterAdapter<dynamic[]>.Wrap(values), __literal1, values, static (a, values) => $"DynParams({(object?)a ?? "null"}, {(object?)values ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> IMockVerifyForIDynamicMembers.DynParams(global::Mockolate.Parameters.IParameter<int>? a, params dynamic[] values)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, global::Mockolate.Interactions.MethodInvocation<int, dynamic[]>>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynParams, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynParams", __i => 
 				(a is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(global::Mockolate.CovariantParameterAdapter<dynamic[]>.Wrap(global::Mockolate.It.SequenceEquals<object>(values)).Matches(__i.Parameter2)), () => $"DynParams({a}, {values})");
+				(global::Mockolate.CovariantParameterAdapter<dynamic[]>.Wrap(global::Mockolate.It.SequenceEquals<object>(values)).Matches(__i.Parameter2)), () => $"DynParams({(object?)a ?? "null"}, {(object?)values ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers>.IgnoreParameters IMockVerifyForIDynamicMembers.DynParams(int a, params dynamic[] values)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, global::Mockolate.Interactions.MethodInvocation<int, dynamic[]>>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynParams, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynParams", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, __i.Parameter1)) && 
-				(global::Mockolate.CovariantParameterAdapter<dynamic[]>.Wrap(global::Mockolate.It.SequenceEquals<object>(values)).Matches(__i.Parameter2)), () => $"DynParams({a}, {values})");
+				(global::Mockolate.CovariantParameterAdapter<dynamic[]>.Wrap(global::Mockolate.It.SequenceEquals<object>(values)).Matches(__i.Parameter2)), () => $"DynParams({(object?)a ?? "null"}, {(object?)values ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> IMockVerifyForIDynamicMembers.DynList(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, global::Mockolate.Interactions.MethodInvocation<global::System.Func<dynamic, bool>>>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynList, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynList", __i => parameters switch
@@ -2251,7 +2251,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> IMockVerifyForIDynamicMembers.DynTuple(global::Mockolate.Parameters.IVerifyOutParameter<object> o, global::Mockolate.Parameters.IVerifyRefParameter<object> r)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicMembers, global::Mockolate.Interactions.MethodInvocation<object, object>>(this, global::Mockolate.Mock.IDynamicMembers__IDynamicRepository_object.MemberId_DynTuple, "global::Mockolate.Tests.GeneratorCoverage.IDynamicMembers.DynTuple", __i => 
 				(o is global::Mockolate.Parameters.IParameterMatch<object> oMatch ? oMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<object>.Default.Equals(__i.Parameter1, default(object))) && 
-				(r is global::Mockolate.Parameters.IParameterMatch<object> rMatch ? rMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<object>.Default.Equals(__i.Parameter2, default(object))), () => $"DynTuple({o}, {r})");
+				(r is global::Mockolate.Parameters.IParameterMatch<object> rMatch ? rMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<object>.Default.Equals(__i.Parameter2, default(object))), () => $"DynTuple({(object?)o ?? "null"}, {(object?)r ?? "null"})");
 		#endregion IMockVerifyForIDynamicMembers
 
 		#region IMockVerifyForIDynamicRepository_object

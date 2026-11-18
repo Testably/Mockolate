@@ -3429,7 +3429,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIComprehensiveInterface, int, string>(this, this.MockRegistry, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(i, "i"),
-					() => global::System.String.Format("[{0}]", (object?)i));
+					() => global::System.String.Format("[{0}]", (object?)i ?? "null"));
 			}
 		}
 
@@ -3455,7 +3455,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIComprehensiveInterface, string>(this, this.MockRegistry, -1, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, g.Parameter1) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, g.Parameter2) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, g.Parameter3) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, g.Parameter4) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, g.Parameter5),
 					(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<int, int, int, int, int, string> s && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, s.Parameter1) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, s.Parameter2) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, s.Parameter3) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, s.Parameter4) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, s.Parameter5) && value.Matches(s.TypedValue),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a, (object?)b, (object?)c, (object?)d, (object?)e));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
 			}
 		}
 
@@ -3479,7 +3479,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIComprehensiveInterface, byte, byte, byte, byte, byte>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<byte, byte, byte, byte, byte> g && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(a, g.Parameter1) && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(b, g.Parameter2) && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(c, g.Parameter3) && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(d, g.Parameter4) && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(e, g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a, (object?)b, (object?)c, (object?)d, (object?)e));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
 			}
 		}
 
@@ -3503,7 +3503,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIComprehensiveInterface, short, short, short, short, short, long>(this, this.MockRegistry, -1,
 					(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<short, short, short, short, short, long> s && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(a, s.Parameter1) && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(b, s.Parameter2) && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(c, s.Parameter3) && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(d, s.Parameter4) && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(e, s.Parameter5) && value.Matches(s.TypedValue),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a, (object?)b, (object?)c, (object?)d, (object?)e));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
 			}
 		}
 
@@ -3527,7 +3527,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIComprehensiveInterface, double>(this, this.MockRegistry, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_double_Get,
 					(global::Mockolate.Parameters.IParameterMatch<double>)global::Mockolate.It.Is<double>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key));
+					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
 			}
 		}
 
@@ -3551,7 +3551,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIComprehensiveInterface, char, string>(this, this.MockRegistry, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_char_Set,
 					(global::Mockolate.Parameters.IParameterMatch<char>)global::Mockolate.It.Is<char>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key));
+					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
 			}
 		}
 
@@ -3569,35 +3569,35 @@ internal static partial class Mock
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter3, default(long))) && 
-				(tail is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter4, default(int[]))), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(tail is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter4, default(int[]))), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, params global::Mockolate.Parameters.IParameter<int>[] tail)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, string, long, int[]>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", __i => 
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter3, default(long))) && 
-				(new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(tail).Matches(__i.Parameter4)), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(tail).Matches(__i.Parameter4)), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, long c, global::Mockolate.Parameters.IParameter<int[]>? tail)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, string, long, int[]>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", __i => 
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(c, __i.Parameter3)) && 
-				(tail is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter4, default(int[]))), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(tail is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter4, default(int[]))), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, params int[] tail)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, string, long, int[]>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", __i => 
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter3, default(long))) && 
-				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)).Matches(__i.Parameter4)), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)).Matches(__i.Parameter4)), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, long c, params int[] tail)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, string, long, int[]>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", __i => 
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(c, __i.Parameter3)) && 
-				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)).Matches(__i.Parameter4)), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)).Matches(__i.Parameter4)), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", __i => parameters switch
@@ -3623,7 +3623,7 @@ internal static partial class Mock
 				(global::Mockolate.CovariantParameterAdapter<float>.Wrap(f).Matches(__i.Parameter4)) && 
 				(global::Mockolate.CovariantParameterAdapter<char>.Wrap(c).Matches(__i.Parameter5)) && 
 				(global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s).Matches(__i.Parameter6)) && 
-				(global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st).Matches(__i.Parameter7)), () => $"WithDefaults({i}, {e}, {d}, {f}, {c}, {s}, {st})");
+				(global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st).Matches(__i.Parameter7)), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s, global::Mockolate.Tests.GeneratorCoverage.MyStruct st)
@@ -3634,7 +3634,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<float>.Default.Equals(f, __i.Parameter4)) && 
 				(global::System.Collections.Generic.EqualityComparer<char>.Default.Equals(c, __i.Parameter5)) && 
 				(global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(s, __i.Parameter6)) && 
-				(global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Default.Equals(st, __i.Parameter7)), () => $"WithDefaults({i}, {e}, {d}, {f}, {c}, {s}, {st})");
+				(global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Default.Equals(st, __i.Parameter7)), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithCollidingNames(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", __i => parameters switch
@@ -3650,7 +3650,7 @@ internal static partial class Mock
 				(result is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(result).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(outParam1 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(outParam1).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
 				(methodExecution is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(methodExecution).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))) && 
-				(returnValue is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(returnValue).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"WithCollidingNames({wraps}, {result}, {outParam1}, {methodExecution}, {returnValue})");
+				(returnValue is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(returnValue).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"WithCollidingNames({(object?)wraps ?? "null"}, {(object?)result ?? "null"}, {(object?)outParam1 ?? "null"}, {(object?)methodExecution ?? "null"}, {(object?)returnValue ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithCollidingNames(int wraps, int result, int outParam1, int methodExecution, int returnValue)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", __i => 
@@ -3658,7 +3658,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(result, __i.Parameter2)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(outParam1, __i.Parameter3)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(methodExecution, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(returnValue, __i.Parameter5)), () => $"WithCollidingNames({wraps}, {result}, {outParam1}, {methodExecution}, {returnValue})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(returnValue, __i.Parameter5)), () => $"WithCollidingNames({(object?)wraps ?? "null"}, {(object?)result ?? "null"}, {(object?)outParam1 ?? "null"}, {(object?)methodExecution ?? "null"}, {(object?)returnValue ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetMaybeNull(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<string?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", __i => parameters switch
@@ -3669,10 +3669,10 @@ internal static partial class Mock
 				}, () => $"GetMaybeNull({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetMaybeNull(global::Mockolate.Parameters.IParameter<string?>? s)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s is null ? (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Is<string?>(default!) : global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s), s, static (s) => $"GetMaybeNull({s})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s is null ? (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Is<string?>(default!) : global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s), s, static (s) => $"GetMaybeNull({(object?)s ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetMaybeNull(string? s)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s, static (s) => $"GetMaybeNull({s})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s, static (s) => $"GetMaybeNull({(object?)s ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters? parameters)
 			=> parameters is null
@@ -3685,10 +3685,10 @@ internal static partial class Mock
 				}, () => $"TakeObject({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"TakeObject({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"TakeObject({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.TakeObject(object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj, static (obj) => $"TakeObject({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj, static (obj) => $"TakeObject({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<object?, object?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", __i => parameters switch
@@ -3699,22 +3699,22 @@ internal static partial class Mock
 				}, () => $"TakeTwoObjects({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.Parameters.IParameter<object?>? first, global::Mockolate.Parameters.IParameter<object?>? second)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(first), second is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(second), first, second, static (first, second) => $"TakeTwoObjects({first}, {second})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(first), second is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(second), first, second, static (first, second) => $"TakeTwoObjects({(object?)first ?? "null"}, {(object?)second ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeTwoObjects(object? first, global::Mockolate.Parameters.IParameter<object?>? second)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object?> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<object?>(first);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", __literal1, second is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(second), __literal1, second, static (first, second) => $"TakeTwoObjects({first}, {second})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", __literal1, second is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(second), __literal1, second, static (first, second) => $"TakeTwoObjects({(object?)first ?? "null"}, {(object?)second ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.Parameters.IParameter<object?>? first, object? second)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object?> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<object?>(second);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(first), __literal2, first, __literal2, static (first, second) => $"TakeTwoObjects({first}, {second})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(first), __literal2, first, __literal2, static (first, second) => $"TakeTwoObjects({(object?)first ?? "null"}, {(object?)second ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.TakeTwoObjects(object? first, object? second)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first, second, static (first, second) => $"TakeTwoObjects({first}, {second})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first, second, static (first, second) => $"TakeTwoObjects({(object?)first ?? "null"}, {(object?)second ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, object?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", __i => parameters switch
@@ -3725,22 +3725,22 @@ internal static partial class Mock
 				}, () => $"TakeIntAndObject({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.Parameters.IParameter<int>? n, global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), n, obj, static (n, obj) => $"TakeIntAndObject({n}, {obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), n, obj, static (n, obj) => $"TakeIntAndObject({(object?)n ?? "null"}, {(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeIntAndObject(int n, global::Mockolate.Parameters.IParameter<object?>? obj)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(n);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", __literal1, obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), __literal1, obj, static (n, obj) => $"TakeIntAndObject({n}, {obj})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", __literal1, obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), __literal1, obj, static (n, obj) => $"TakeIntAndObject({(object?)n ?? "null"}, {(object?)obj ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.Parameters.IParameter<int>? n, object? obj)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object?> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<object?>(obj);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), __literal2, n, __literal2, static (n, obj) => $"TakeIntAndObject({n}, {obj})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), __literal2, n, __literal2, static (n, obj) => $"TakeIntAndObject({(object?)n ?? "null"}, {(object?)obj ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.TakeIntAndObject(int n, object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n, obj, static (n, obj) => $"TakeIntAndObject({n}, {obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n, obj, static (n, obj) => $"TakeIntAndObject({(object?)n ?? "null"}, {(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.DoTask()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTask, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask", () => $"DoTask()");
@@ -3769,10 +3769,10 @@ internal static partial class Mock
 				}, () => $"GetSpan({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetSpan(global::Mockolate.Parameters.IParameter<int>? n)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), n, static (n) => $"GetSpan({n})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), n, static (n) => $"GetSpan({(object?)n ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetSpan(int n)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n, static (n) => $"GetSpan({n})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n, static (n) => $"GetSpan({(object?)n ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetROSpan(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", __i => parameters switch
@@ -3783,10 +3783,10 @@ internal static partial class Mock
 				}, () => $"GetROSpan({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetROSpan(global::Mockolate.Parameters.IParameter<int>? n)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), n, static (n) => $"GetROSpan({n})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), n, static (n) => $"GetROSpan({(object?)n ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetROSpan(int n)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n, static (n) => $"GetROSpan({n})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n, static (n) => $"GetROSpan({(object?)n ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetByRef()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRef, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef", () => $"GetByRef()");
@@ -3838,7 +3838,7 @@ internal static partial class Mock
 				(b is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(b).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
 				(d is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(d).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))) && 
-				(e is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(e).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"Five({a}, {b}, {c}, {d}, {e})");
+				(e is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(e).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"Five({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.Five(int a, int b, int c, int d, int e)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", __i => 
@@ -3846,7 +3846,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, __i.Parameter2)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, __i.Parameter3)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, __i.Parameter5)), () => $"Five({a}, {b}, {c}, {d}, {e})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, __i.Parameter5)), () => $"Five({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.Seventeen(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", __i => parameters switch
@@ -3874,7 +3874,7 @@ internal static partial class Mock
 				(a14 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a14).Matches(__i.Parameter14) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter14, default(int))) && 
 				(a15 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a15).Matches(__i.Parameter15) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter15, default(int))) && 
 				(a16 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a16).Matches(__i.Parameter16) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter16, default(int))) && 
-				(a17 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a17).Matches(__i.Parameter17) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter17, default(int))), () => $"Seventeen({a1}, {a2}, {a3}, {a4}, {a5}, {a6}, {a7}, {a8}, {a9}, {a10}, {a11}, {a12}, {a13}, {a14}, {a15}, {a16}, {a17})");
+				(a17 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a17).Matches(__i.Parameter17) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter17, default(int))), () => $"Seventeen({(object?)a1 ?? "null"}, {(object?)a2 ?? "null"}, {(object?)a3 ?? "null"}, {(object?)a4 ?? "null"}, {(object?)a5 ?? "null"}, {(object?)a6 ?? "null"}, {(object?)a7 ?? "null"}, {(object?)a8 ?? "null"}, {(object?)a9 ?? "null"}, {(object?)a10 ?? "null"}, {(object?)a11 ?? "null"}, {(object?)a12 ?? "null"}, {(object?)a13 ?? "null"}, {(object?)a14 ?? "null"}, {(object?)a15 ?? "null"}, {(object?)a16 ?? "null"}, {(object?)a17 ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.Seventeen(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", __i => 
@@ -3894,7 +3894,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a14, __i.Parameter14)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a15, __i.Parameter15)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a16, __i.Parameter16)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a17, __i.Parameter17)), () => $"Seventeen({a1}, {a2}, {a3}, {a4}, {a5}, {a6}, {a7}, {a8}, {a9}, {a10}, {a11}, {a12}, {a13}, {a14}, {a15}, {a16}, {a17})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a17, __i.Parameter17)), () => $"Seventeen({(object?)a1 ?? "null"}, {(object?)a2 ?? "null"}, {(object?)a3 ?? "null"}, {(object?)a4 ?? "null"}, {(object?)a5 ?? "null"}, {(object?)a6 ?? "null"}, {(object?)a7 ?? "null"}, {(object?)a8 ?? "null"}, {(object?)a9 ?? "null"}, {(object?)a10 ?? "null"}, {(object?)a11 ?? "null"}, {(object?)a12 ?? "null"}, {(object?)a13 ?? "null"}, {(object?)a14 ?? "null"}, {(object?)a15 ?? "null"}, {(object?)a16 ?? "null"}, {(object?)a17 ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.SeventeenVoid(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", __i => parameters switch
@@ -3922,7 +3922,7 @@ internal static partial class Mock
 				(a14 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a14).Matches(__i.Parameter14) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter14, default(int))) && 
 				(a15 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a15).Matches(__i.Parameter15) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter15, default(int))) && 
 				(a16 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a16).Matches(__i.Parameter16) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter16, default(int))) && 
-				(a17 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a17).Matches(__i.Parameter17) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter17, default(int))), () => $"SeventeenVoid({a1}, {a2}, {a3}, {a4}, {a5}, {a6}, {a7}, {a8}, {a9}, {a10}, {a11}, {a12}, {a13}, {a14}, {a15}, {a16}, {a17})");
+				(a17 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a17).Matches(__i.Parameter17) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter17, default(int))), () => $"SeventeenVoid({(object?)a1 ?? "null"}, {(object?)a2 ?? "null"}, {(object?)a3 ?? "null"}, {(object?)a4 ?? "null"}, {(object?)a5 ?? "null"}, {(object?)a6 ?? "null"}, {(object?)a7 ?? "null"}, {(object?)a8 ?? "null"}, {(object?)a9 ?? "null"}, {(object?)a10 ?? "null"}, {(object?)a11 ?? "null"}, {(object?)a12 ?? "null"}, {(object?)a13 ?? "null"}, {(object?)a14 ?? "null"}, {(object?)a15 ?? "null"}, {(object?)a16 ?? "null"}, {(object?)a17 ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.SeventeenVoid(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", __i => 
@@ -3942,7 +3942,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a14, __i.Parameter14)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a15, __i.Parameter15)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a16, __i.Parameter16)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a17, __i.Parameter17)), () => $"SeventeenVoid({a1}, {a2}, {a3}, {a4}, {a5}, {a6}, {a7}, {a8}, {a9}, {a10}, {a11}, {a12}, {a13}, {a14}, {a15}, {a16}, {a17})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a17, __i.Parameter17)), () => $"SeventeenVoid({(object?)a1 ?? "null"}, {(object?)a2 ?? "null"}, {(object?)a3 ?? "null"}, {(object?)a4 ?? "null"}, {(object?)a5 ?? "null"}, {(object?)a6 ?? "null"}, {(object?)a7 ?? "null"}, {(object?)a8 ?? "null"}, {(object?)a9 ?? "null"}, {(object?)a10 ?? "null"}, {(object?)a11 ?? "null"}, {(object?)a12 ?? "null"}, {(object?)a13 ?? "null"}, {(object?)a14 ?? "null"}, {(object?)a15 ?? "null"}, {(object?)a16 ?? "null"}, {(object?)a17 ?? "null"})");
 		/// <summary>
 		///     Verify subscriptions on the PlainEvent event <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.PlainEvent">PlainEvent</see>.
 		/// </summary>
@@ -4076,7 +4076,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIComprehensiveInterface, int, string>(this, this.MockRegistry, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(i, "i"),
-					() => global::System.String.Format("[{0}]", (object?)i));
+					() => global::System.String.Format("[{0}]", (object?)i ?? "null"));
 			}
 		}
 
@@ -4102,7 +4102,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIComprehensiveInterface, string>(this, this.MockRegistry, -1, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, g.Parameter1) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, g.Parameter2) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, g.Parameter3) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, g.Parameter4) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, g.Parameter5),
 					(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<int, int, int, int, int, string> s && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, s.Parameter1) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, s.Parameter2) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, s.Parameter3) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, s.Parameter4) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, s.Parameter5) && value.Matches(s.TypedValue),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a, (object?)b, (object?)c, (object?)d, (object?)e));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
 			}
 		}
 
@@ -4126,7 +4126,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIComprehensiveInterface, byte, byte, byte, byte, byte>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<byte, byte, byte, byte, byte> g && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(a, g.Parameter1) && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(b, g.Parameter2) && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(c, g.Parameter3) && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(d, g.Parameter4) && global::System.Collections.Generic.EqualityComparer<byte>.Default.Equals(e, g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a, (object?)b, (object?)c, (object?)d, (object?)e));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
 			}
 		}
 
@@ -4150,7 +4150,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIComprehensiveInterface, short, short, short, short, short, long>(this, this.MockRegistry, -1,
 					(interaction, value) => interaction is global::Mockolate.Interactions.IndexerSetterAccess<short, short, short, short, short, long> s && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(a, s.Parameter1) && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(b, s.Parameter2) && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(c, s.Parameter3) && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(d, s.Parameter4) && global::System.Collections.Generic.EqualityComparer<short>.Default.Equals(e, s.Parameter5) && value.Matches(s.TypedValue),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a, (object?)b, (object?)c, (object?)d, (object?)e));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
 			}
 		}
 
@@ -4174,7 +4174,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIComprehensiveInterface, double>(this, this.MockRegistry, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_double_Get,
 					(global::Mockolate.Parameters.IParameterMatch<double>)global::Mockolate.It.Is<double>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key));
+					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
 			}
 		}
 
@@ -4198,7 +4198,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerSetterResult<IMockVerifyForIComprehensiveInterface, char, string>(this, this.MockRegistry, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_char_Set,
 					(global::Mockolate.Parameters.IParameterMatch<char>)global::Mockolate.It.Is<char>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key));
+					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
 			}
 		}
 
@@ -4216,35 +4216,35 @@ internal static partial class Mock
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter3, default(long))) && 
-				(tail is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter4, default(int[]))), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(tail is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter4, default(int[]))), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, params global::Mockolate.Parameters.IParameter<int>[] tail)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, string, long, int[]>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", __i => 
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter3, default(long))) && 
-				(new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(tail).Matches(__i.Parameter4)), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(tail).Matches(__i.Parameter4)), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, long c, global::Mockolate.Parameters.IParameter<int[]>? tail)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, string, long, int[]>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", __i => 
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(c, __i.Parameter3)) && 
-				(tail is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter4, default(int[]))), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(tail is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(tail).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter4, default(int[]))), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, global::Mockolate.Parameters.IParameter<long>? c, params int[] tail)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, string, long, int[]>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", __i => 
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter3, default(long))) && 
-				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)).Matches(__i.Parameter4)), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)).Matches(__i.Parameter4)), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithModifiers(global::Mockolate.Parameters.IVerifyRefParameter<int> a, global::Mockolate.Parameters.IVerifyOutParameter<string> b, long c, params int[] tail)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, string, long, int[]>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", __i => 
 				(a is global::Mockolate.Parameters.IParameterMatch<int> aMatch ? aMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(b is global::Mockolate.Parameters.IParameterMatch<string> bMatch ? bMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter2, default(string))) && 
 				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(c, __i.Parameter3)) && 
-				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)).Matches(__i.Parameter4)), () => $"WithModifiers({a}, {b}, {c}, {tail})");
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(tail)).Matches(__i.Parameter4)), () => $"WithModifiers({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)tail ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", __i => parameters switch
@@ -4270,7 +4270,7 @@ internal static partial class Mock
 				(global::Mockolate.CovariantParameterAdapter<float>.Wrap(f).Matches(__i.Parameter4)) && 
 				(global::Mockolate.CovariantParameterAdapter<char>.Wrap(c).Matches(__i.Parameter5)) && 
 				(global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s).Matches(__i.Parameter6)) && 
-				(global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st).Matches(__i.Parameter7)), () => $"WithDefaults({i}, {e}, {d}, {f}, {c}, {s}, {st})");
+				(global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st).Matches(__i.Parameter7)), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s, global::Mockolate.Tests.GeneratorCoverage.MyStruct st)
@@ -4281,7 +4281,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<float>.Default.Equals(f, __i.Parameter4)) && 
 				(global::System.Collections.Generic.EqualityComparer<char>.Default.Equals(c, __i.Parameter5)) && 
 				(global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(s, __i.Parameter6)) && 
-				(global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Default.Equals(st, __i.Parameter7)), () => $"WithDefaults({i}, {e}, {d}, {f}, {c}, {s}, {st})");
+				(global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Default.Equals(st, __i.Parameter7)), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithCollidingNames(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", __i => parameters switch
@@ -4297,7 +4297,7 @@ internal static partial class Mock
 				(result is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(result).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(outParam1 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(outParam1).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
 				(methodExecution is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(methodExecution).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))) && 
-				(returnValue is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(returnValue).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"WithCollidingNames({wraps}, {result}, {outParam1}, {methodExecution}, {returnValue})");
+				(returnValue is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(returnValue).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"WithCollidingNames({(object?)wraps ?? "null"}, {(object?)result ?? "null"}, {(object?)outParam1 ?? "null"}, {(object?)methodExecution ?? "null"}, {(object?)returnValue ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithCollidingNames(int wraps, int result, int outParam1, int methodExecution, int returnValue)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", __i => 
@@ -4305,7 +4305,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(result, __i.Parameter2)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(outParam1, __i.Parameter3)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(methodExecution, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(returnValue, __i.Parameter5)), () => $"WithCollidingNames({wraps}, {result}, {outParam1}, {methodExecution}, {returnValue})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(returnValue, __i.Parameter5)), () => $"WithCollidingNames({(object?)wraps ?? "null"}, {(object?)result ?? "null"}, {(object?)outParam1 ?? "null"}, {(object?)methodExecution ?? "null"}, {(object?)returnValue ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetMaybeNull(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<string?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", __i => parameters switch
@@ -4316,10 +4316,10 @@ internal static partial class Mock
 				}, () => $"GetMaybeNull({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetMaybeNull(global::Mockolate.Parameters.IParameter<string?>? s)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s is null ? (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Is<string?>(default!) : global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s), s, static (s) => $"GetMaybeNull({s})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s is null ? (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Is<string?>(default!) : global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s), s, static (s) => $"GetMaybeNull({(object?)s ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetMaybeNull(string? s)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s, static (s) => $"GetMaybeNull({s})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, string?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s, static (s) => $"GetMaybeNull({(object?)s ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameters? parameters)
 			=> parameters is null
@@ -4332,10 +4332,10 @@ internal static partial class Mock
 				}, () => $"TakeObject({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeObject(global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"TakeObject({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"TakeObject({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.TakeObject(object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj, static (obj) => $"TakeObject({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj, static (obj) => $"TakeObject({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<object?, object?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", __i => parameters switch
@@ -4346,22 +4346,22 @@ internal static partial class Mock
 				}, () => $"TakeTwoObjects({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.Parameters.IParameter<object?>? first, global::Mockolate.Parameters.IParameter<object?>? second)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(first), second is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(second), first, second, static (first, second) => $"TakeTwoObjects({first}, {second})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(first), second is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(second), first, second, static (first, second) => $"TakeTwoObjects({(object?)first ?? "null"}, {(object?)second ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeTwoObjects(object? first, global::Mockolate.Parameters.IParameter<object?>? second)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object?> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<object?>(first);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", __literal1, second is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(second), __literal1, second, static (first, second) => $"TakeTwoObjects({first}, {second})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", __literal1, second is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(second), __literal1, second, static (first, second) => $"TakeTwoObjects({(object?)first ?? "null"}, {(object?)second ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeTwoObjects(global::Mockolate.Parameters.IParameter<object?>? first, object? second)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object?> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<object?>(second);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(first), __literal2, first, __literal2, static (first, second) => $"TakeTwoObjects({first}, {second})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(first), __literal2, first, __literal2, static (first, second) => $"TakeTwoObjects({(object?)first ?? "null"}, {(object?)second ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.TakeTwoObjects(object? first, object? second)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first, second, static (first, second) => $"TakeTwoObjects({first}, {second})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, object?, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first, second, static (first, second) => $"TakeTwoObjects({(object?)first ?? "null"}, {(object?)second ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, object?>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", __i => parameters switch
@@ -4372,22 +4372,22 @@ internal static partial class Mock
 				}, () => $"TakeIntAndObject({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.Parameters.IParameter<int>? n, global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), n, obj, static (n, obj) => $"TakeIntAndObject({n}, {obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), n, obj, static (n, obj) => $"TakeIntAndObject({(object?)n ?? "null"}, {(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeIntAndObject(int n, global::Mockolate.Parameters.IParameter<object?>? obj)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(n);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", __literal1, obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), __literal1, obj, static (n, obj) => $"TakeIntAndObject({n}, {obj})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", __literal1, obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), __literal1, obj, static (n, obj) => $"TakeIntAndObject({(object?)n ?? "null"}, {(object?)obj ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.TakeIntAndObject(global::Mockolate.Parameters.IParameter<int>? n, object? obj)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object?> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<object?>(obj);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), __literal2, n, __literal2, static (n, obj) => $"TakeIntAndObject({n}, {obj})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), __literal2, n, __literal2, static (n, obj) => $"TakeIntAndObject({(object?)n ?? "null"}, {(object?)obj ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.TakeIntAndObject(int n, object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n, obj, static (n, obj) => $"TakeIntAndObject({n}, {obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int, object?>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n, obj, static (n, obj) => $"TakeIntAndObject({(object?)n ?? "null"}, {(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.DoTask()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTask, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask", () => $"DoTask()");
@@ -4416,10 +4416,10 @@ internal static partial class Mock
 				}, () => $"GetSpan({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetSpan(global::Mockolate.Parameters.IParameter<int>? n)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), n, static (n) => $"GetSpan({n})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), n, static (n) => $"GetSpan({(object?)n ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetSpan(int n)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n, static (n) => $"GetSpan({n})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n, static (n) => $"GetSpan({(object?)n ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetROSpan(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", __i => parameters switch
@@ -4430,10 +4430,10 @@ internal static partial class Mock
 				}, () => $"GetROSpan({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.GetROSpan(global::Mockolate.Parameters.IParameter<int>? n)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), n, static (n) => $"GetROSpan({n})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(n), n, static (n) => $"GetROSpan({(object?)n ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetROSpan(int n)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n, static (n) => $"GetROSpan({n})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, int>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n, static (n) => $"GetROSpan({(object?)n ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.GetByRef()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRef, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef", () => $"GetByRef()");
@@ -4485,7 +4485,7 @@ internal static partial class Mock
 				(b is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(b).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
 				(d is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(d).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))) && 
-				(e is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(e).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"Five({a}, {b}, {c}, {d}, {e})");
+				(e is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(e).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"Five({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.Five(int a, int b, int c, int d, int e)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", __i => 
@@ -4493,7 +4493,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, __i.Parameter2)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, __i.Parameter3)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, __i.Parameter5)), () => $"Five({a}, {b}, {c}, {d}, {e})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, __i.Parameter5)), () => $"Five({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.Seventeen(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", __i => parameters switch
@@ -4521,7 +4521,7 @@ internal static partial class Mock
 				(a14 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a14).Matches(__i.Parameter14) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter14, default(int))) && 
 				(a15 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a15).Matches(__i.Parameter15) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter15, default(int))) && 
 				(a16 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a16).Matches(__i.Parameter16) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter16, default(int))) && 
-				(a17 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a17).Matches(__i.Parameter17) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter17, default(int))), () => $"Seventeen({a1}, {a2}, {a3}, {a4}, {a5}, {a6}, {a7}, {a8}, {a9}, {a10}, {a11}, {a12}, {a13}, {a14}, {a15}, {a16}, {a17})");
+				(a17 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a17).Matches(__i.Parameter17) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter17, default(int))), () => $"Seventeen({(object?)a1 ?? "null"}, {(object?)a2 ?? "null"}, {(object?)a3 ?? "null"}, {(object?)a4 ?? "null"}, {(object?)a5 ?? "null"}, {(object?)a6 ?? "null"}, {(object?)a7 ?? "null"}, {(object?)a8 ?? "null"}, {(object?)a9 ?? "null"}, {(object?)a10 ?? "null"}, {(object?)a11 ?? "null"}, {(object?)a12 ?? "null"}, {(object?)a13 ?? "null"}, {(object?)a14 ?? "null"}, {(object?)a15 ?? "null"}, {(object?)a16 ?? "null"}, {(object?)a17 ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.Seventeen(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", __i => 
@@ -4541,7 +4541,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a14, __i.Parameter14)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a15, __i.Parameter15)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a16, __i.Parameter16)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a17, __i.Parameter17)), () => $"Seventeen({a1}, {a2}, {a3}, {a4}, {a5}, {a6}, {a7}, {a8}, {a9}, {a10}, {a11}, {a12}, {a13}, {a14}, {a15}, {a16}, {a17})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a17, __i.Parameter17)), () => $"Seventeen({(object?)a1 ?? "null"}, {(object?)a2 ?? "null"}, {(object?)a3 ?? "null"}, {(object?)a4 ?? "null"}, {(object?)a5 ?? "null"}, {(object?)a6 ?? "null"}, {(object?)a7 ?? "null"}, {(object?)a8 ?? "null"}, {(object?)a9 ?? "null"}, {(object?)a10 ?? "null"}, {(object?)a11 ?? "null"}, {(object?)a12 ?? "null"}, {(object?)a13 ?? "null"}, {(object?)a14 ?? "null"}, {(object?)a15 ?? "null"}, {(object?)a16 ?? "null"}, {(object?)a17 ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.SeventeenVoid(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", __i => parameters switch
@@ -4569,7 +4569,7 @@ internal static partial class Mock
 				(a14 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a14).Matches(__i.Parameter14) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter14, default(int))) && 
 				(a15 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a15).Matches(__i.Parameter15) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter15, default(int))) && 
 				(a16 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a16).Matches(__i.Parameter16) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter16, default(int))) && 
-				(a17 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a17).Matches(__i.Parameter17) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter17, default(int))), () => $"SeventeenVoid({a1}, {a2}, {a3}, {a4}, {a5}, {a6}, {a7}, {a8}, {a9}, {a10}, {a11}, {a12}, {a13}, {a14}, {a15}, {a16}, {a17})");
+				(a17 is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(a17).Matches(__i.Parameter17) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter17, default(int))), () => $"SeventeenVoid({(object?)a1 ?? "null"}, {(object?)a2 ?? "null"}, {(object?)a3 ?? "null"}, {(object?)a4 ?? "null"}, {(object?)a5 ?? "null"}, {(object?)a6 ?? "null"}, {(object?)a7 ?? "null"}, {(object?)a8 ?? "null"}, {(object?)a9 ?? "null"}, {(object?)a10 ?? "null"}, {(object?)a11 ?? "null"}, {(object?)a12 ?? "null"}, {(object?)a13 ?? "null"}, {(object?)a14 ?? "null"}, {(object?)a15 ?? "null"}, {(object?)a16 ?? "null"}, {(object?)a17 ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.SeventeenVoid(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", __i => 
@@ -4589,7 +4589,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a14, __i.Parameter14)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a15, __i.Parameter15)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a16, __i.Parameter16)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a17, __i.Parameter17)), () => $"SeventeenVoid({a1}, {a2}, {a3}, {a4}, {a5}, {a6}, {a7}, {a8}, {a9}, {a10}, {a11}, {a12}, {a13}, {a14}, {a15}, {a16}, {a17})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a17, __i.Parameter17)), () => $"SeventeenVoid({(object?)a1 ?? "null"}, {(object?)a2 ?? "null"}, {(object?)a3 ?? "null"}, {(object?)a4 ?? "null"}, {(object?)a5 ?? "null"}, {(object?)a6 ?? "null"}, {(object?)a7 ?? "null"}, {(object?)a8 ?? "null"}, {(object?)a9 ?? "null"}, {(object?)a10 ?? "null"}, {(object?)a11 ?? "null"}, {(object?)a12 ?? "null"}, {(object?)a13 ?? "null"}, {(object?)a14 ?? "null"}, {(object?)a15 ?? "null"}, {(object?)a16 ?? "null"}, {(object?)a17 ?? "null"})");
 		/// <summary>
 		///     Verify subscriptions on the PlainEvent event <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.PlainEvent">PlainEvent</see>.
 		/// </summary>

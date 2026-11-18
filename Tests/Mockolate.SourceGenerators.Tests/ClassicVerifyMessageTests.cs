@@ -22,6 +22,7 @@ public sealed class ClassicVerifyMessageTests
 		                                                 void P1(string? value);
 		                                                 void P3(int a, string? b, int c);
 		                                                 void P4(int a, int b, int c, int d);
+		                                                 int this[string? key] { get; }
 		                                             }
 
 		                                             public static class Scenarios
@@ -31,6 +32,8 @@ public sealed class ClassicVerifyMessageTests
 		                                                     IFoo sut = IFoo.CreateMock();
 		                                                     return
 		                                                     [
+		                                                         Capture(() => sut.Mock.Verify[(string?)null].Got().AtLeastOnce()),
+		                                                         Capture(() => sut.Mock.Verify[(IParameter<string>?)null].Got().AtLeastOnce()),
 		                                                         Capture(() => sut.Mock.Verify.P1((IParameter<string>?)null).AtLeastOnce()),
 		                                                         Capture(() => sut.Mock.Verify.P1((string?)null).AtLeastOnce()),
 		                                                         Capture(() => sut.Mock.Verify.P3(1, null, 3).AtLeastOnce()),
@@ -58,13 +61,15 @@ public sealed class ClassicVerifyMessageTests
 		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
 
 		await That(messages).IsEqualTo([
-			"Expected that mock invoked method P1() at least once, but it never did.",
-			"Expected that mock invoked method P1() at least once, but it never did.",
-			"Expected that mock invoked method P3(1, , 3) at least once, but it never did.",
-			"Expected that mock invoked method P3(It.IsAny<int>(), , It.IsAny<int>()) at least once, but it never did.",
+			"Expected that mock got indexer [null] at least once, but it never did.",
+			"Expected that mock got indexer [null] at least once, but it never did.",
+			"Expected that mock invoked method P1(null) at least once, but it never did.",
+			"Expected that mock invoked method P1(null) at least once, but it never did.",
+			"Expected that mock invoked method P3(1, null, 3) at least once, but it never did.",
+			"Expected that mock invoked method P3(It.IsAny<int>(), null, It.IsAny<int>()) at least once, but it never did.",
 			"Expected that mock invoked method P4(1, 2, 3, 4) at least once, but it never did.",
-			"Expected that mock invoked method P4(It.IsAny<int>(), , It.IsAny<int>(), It.IsAny<int>()) at least once, but it never did.",
-		]).Because("classic mode prints a null literal and a null matcher as an empty string");
+			"Expected that mock invoked method P4(It.IsAny<int>(), null, It.IsAny<int>(), It.IsAny<int>()) at least once, but it never did.",
+		]).Because("classic mode prints a null literal and a null matcher as null, like union mode does");
 	}
 
 	[Test]
@@ -142,10 +147,10 @@ public sealed class ClassicVerifyMessageTests
 		await That(messages).IsEqualTo([
 			"0, 0, 0, 0, 0, 0",
 			"1, 1, 1, 1, 1",
-			"Expected that mock invoked method One() at least once, but it never did.",
-			"Expected that mock invoked method Optional(, 5) at least once, but it never did.",
-			"Expected that mock invoked method OptionalWithNonNullDefault(, 5) at least once, but it never did.",
-			"Expected that mock invoked method WithParams(, System.Int32[]) at least once, but it never did.",
+			"Expected that mock invoked method One(null) at least once, but it never did.",
+			"Expected that mock invoked method Optional(null, 5) at least once, but it never did.",
+			"Expected that mock invoked method OptionalWithNonNullDefault(null, 5) at least once, but it never did.",
+			"Expected that mock invoked method WithParams(null, System.Int32[]) at least once, but it never did.",
 			"no exception",
 			"no exception",
 			"no exception",
@@ -297,7 +302,7 @@ public sealed class ClassicVerifyMessageTests
 			"Expected that mock never invoked method Opt(a, 5), but it did once.",
 			"Expected that mock never invoked method Many(It.IsAny<int>(), x, Milk, 2), but it did once.",
 			"Expected that mock never invoked method Many(1, It.IsAny<string>(), Milk, 2), but it did once.",
-			"Expected that mock never invoked method Defaults(It.IsAny<int>(), , 00:00:00, , It.IsAny<DateTime>()), but it did once.",
+			"Expected that mock never invoked method Defaults(It.IsAny<int>(), null, 00:00:00, null, It.IsAny<DateTime>()), but it did once.",
 			"Expected that mock never invoked method Nullable(It.IsAny<int>(), 7), but it did once.",
 			"Expected that mock never invoked method Generic<T>(It.IsAny<string>(), 5), but it did once.",
 			"Expected that mock never invoked method Five(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), 5), but it did once.",
@@ -378,8 +383,8 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 			"Expected that mock invoked method P2(b, It.IsAny<int>()) exactly once, but it never did.",
 			"Expected that mock invoked method P2(It.IsAny<string>(), 3) exactly once, but it never did.",
-			"Expected that mock invoked method P2(, 1) exactly once, but it never did.",
-			"Expected that mock invoked method P2(, 1) exactly once, but it never did.",
+			"Expected that mock invoked method P2(null, 1) exactly once, but it never did.",
+			"Expected that mock invoked method P2(null, 1) exactly once, but it never did.",
 			"Expected that mock invoked method P3(It.IsAny<int>(), y, 3) exactly once, but it never did.",
 			"Expected that mock invoked method P4(It.IsAny<int>(), 5, It.IsAny<int>(), 4) exactly once, but it never did.",
 			"no exception",
@@ -482,8 +487,8 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 			"no exception",
 			"no exception",
-			"Expected that mock invoked method Q3(, It.IsAny<int>(), zz) exactly once, but it never did.",
-			"Expected that mock invoked method Q4(It.IsAny<int>(), , 9, It.IsAny<string>()) exactly once, but it never did.",
+			"Expected that mock invoked method Q3(null, It.IsAny<int>(), zz) exactly once, but it never did.",
+			"Expected that mock invoked method Q4(It.IsAny<int>(), null, 9, It.IsAny<string>()) exactly once, but it never did.",
 			"no exception",
 			"Expected that mock invoked method Money(4,75, It.IsAny<double>(), n) exactly once, but it never did.",
 			"Expected that mock invoked method Money(It.IsAny<decimal>(), 0,5, It.IsAny<string>()) exactly once, but it never did.",

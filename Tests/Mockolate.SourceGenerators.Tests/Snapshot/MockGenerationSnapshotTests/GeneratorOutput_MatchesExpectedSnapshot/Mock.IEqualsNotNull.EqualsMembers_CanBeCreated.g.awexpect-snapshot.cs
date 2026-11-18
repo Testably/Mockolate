@@ -224,10 +224,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsNotNull> IMockVerifyForIEqualsNotNull.Equals(global::Mockolate.Parameters.IParameter<object>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsNotNull, object>(this, global::Mockolate.Mock.IEqualsNotNull.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsNotNull.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(obj), obj, static (obj) => $"Equals({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsNotNull, object>(this, global::Mockolate.Mock.IEqualsNotNull.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsNotNull.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(obj), obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsNotNull>.IgnoreParameters IMockVerifyForIEqualsNotNull.Equals(object obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsNotNull, object>(this, global::Mockolate.Mock.IEqualsNotNull.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsNotNull.Equals", obj, static (obj) => $"Equals({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsNotNull, object>(this, global::Mockolate.Mock.IEqualsNotNull.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsNotNull.Equals", obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
 		#endregion IMockVerifyForIEqualsNotNull
 	}
 
@@ -250,10 +250,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsNotNull> IMockVerifyForIEqualsNotNull.Equals(global::Mockolate.Parameters.IParameter<object>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsNotNull, object>(this, global::Mockolate.Mock.IEqualsNotNull.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsNotNull.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(obj), obj, static (obj) => $"Equals({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsNotNull, object>(this, global::Mockolate.Mock.IEqualsNotNull.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsNotNull.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(obj), obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsNotNull>.IgnoreParameters IMockVerifyForIEqualsNotNull.Equals(object obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsNotNull, object>(this, global::Mockolate.Mock.IEqualsNotNull.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsNotNull.Equals", obj, static (obj) => $"Equals({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsNotNull, object>(this, global::Mockolate.Mock.IEqualsNotNull.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsNotNull.Equals", obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
 		#endregion IMockVerifyForIEqualsNotNull
 	}
 

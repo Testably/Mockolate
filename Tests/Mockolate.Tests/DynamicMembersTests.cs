@@ -189,11 +189,7 @@ public sealed class DynamicMembersTests
 			"Expected that mock invoked method Dyn1(42) exactly once, but it never did.",
 			"Expected that mock invoked method Dyn2(It.IsAny<object>(), 2) exactly once, but it never did.",
 			"Expected that mock invoked method Dyn2(b, It.IsAny<int>()) exactly once, but it never did.",
-#if NET11_0_OR_GREATER
 			"Expected that mock invoked method Dyn3(1, null, c) exactly once, but it never did.",
-#else
-			"Expected that mock invoked method Dyn3(1, , c) exactly once, but it never did.",
-#endif
 			"Expected that mock invoked method Dyn4(It.IsAny<object>(), b, 3, It.IsAny<string>()) exactly once, but it never did.",
 			"Expected that mock invoked method Dyn5(a, 2, 3, 4, It.IsAny<object>()) exactly once, but it never did.",
 			"Expected that mock invoked method Get() exactly once, but it never did.",

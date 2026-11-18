@@ -142,11 +142,7 @@ public sealed partial class VerifyInvokedTests
 			}
 
 			await That(Act).Throws<MockVerificationException>()
-#if NET11_0_OR_GREATER
 				.WithMessage("Expected that mock invoked method Method3(null, It.IsAny<int>(), null) exactly once, but it never did.");
-#else
-				.WithMessage("Expected that mock invoked method Method3(, It.IsAny<int>(), ) exactly once, but it never did.");
-#endif
 		}
 
 		[Test]
