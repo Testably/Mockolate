@@ -24,8 +24,8 @@ internal sealed class Method0CountSource<TVerify> : VerificationResult<TVerify>.
 		_buffer = buffer;
 	}
 
-	public int Count() => _buffer.ConsumeMatching();
-	public int CountAll() => _buffer.ConsumeMatching();
+	public int Count() => _buffer.ConsumeAll();
+	public int CountAll() => _buffer.ConsumeAll();
 	public bool Matches(IInteraction interaction) => true;
 }
 
@@ -514,7 +514,7 @@ internal sealed class PropertyGetterCountSource<TVerify> : VerificationResult<TV
 		_buffer = buffer;
 	}
 
-	public int Count() => _buffer.ConsumeMatching();
+	public int Count() => _buffer.ConsumeAll();
 	public bool Matches(IInteraction interaction) => true;
 }
 
@@ -825,6 +825,6 @@ internal sealed class EventCountSource<TVerify> : VerificationResult<TVerify>, I
 		_buffer = buffer;
 	}
 
-	public int Count() => _buffer.ConsumeMatching();
+	public int Count() => _buffer.ConsumeAll();
 	public bool Matches(IInteraction interaction) => true;
 }

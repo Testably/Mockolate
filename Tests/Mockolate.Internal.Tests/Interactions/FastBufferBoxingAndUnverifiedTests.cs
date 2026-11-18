@@ -32,7 +32,7 @@ public class FastBufferBoxingAndUnverifiedTests
 		buffer.AppendSubscription("E", this, SampleMethod);
 		buffer.AppendSubscription("E", this, SampleMethod);
 
-		_ = buffer.ConsumeMatching();
+		_ = buffer.ConsumeAll();
 
 		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 

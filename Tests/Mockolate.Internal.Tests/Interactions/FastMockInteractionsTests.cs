@@ -106,7 +106,7 @@ public class FastMockInteractionsTests
 		methodBuffer.Append("M", 1);
 		getterBuffer.Append();
 		_ = methodBuffer.ConsumeMatching((IParameterMatch<int>)It.Is(1));
-		_ = getterBuffer.ConsumeMatching();
+		_ = getterBuffer.ConsumeAll();
 
 		sut.Clear();
 
@@ -264,7 +264,7 @@ public class FastMockInteractionsTests
 		getterBuffer.Append();
 
 		_ = methodBuffer.ConsumeMatching((IParameterMatch<int>)It.Is(7));
-		_ = getterBuffer.ConsumeMatching();
+		_ = getterBuffer.ConsumeAll();
 
 		await That(sut.GetUnverifiedInteractions()).IsEmpty();
 	}
@@ -277,7 +277,7 @@ public class FastMockInteractionsTests
 		methodBuffer.Append("first");
 		methodBuffer.Append("second");
 
-		_ = methodBuffer.ConsumeMatching();
+		_ = methodBuffer.ConsumeAll();
 
 		await That(sut.GetUnverifiedInteractions()).IsEmpty();
 

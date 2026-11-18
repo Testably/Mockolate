@@ -59,6 +59,21 @@ public abstract class RecordList
 	protected RecordNode? Following(RecordNode node) => Skip(node.Next);
 
 	/// <summary>
+	///     Marks every recorded call of the member as verified and returns their number, so that a later
+	///     <see cref="IMockInteractions.GetUnverifiedInteractions" /> skips them.
+	/// </summary>
+	internal int ConsumeAll()
+	{
+		int count = 0;
+		for (RecordNode? node = First; node is not null; node = Following(node))
+		{
+			node.Verified = true;
+			count++;
+		}
+
+		return count;
+	}
+	/// <summary>
 	///     Appends the interaction of each recorded call of the member to <paramref name="dest" />, newest first.
 	/// </summary>
 	internal void AppendBoxed(List<IInteraction> dest)
