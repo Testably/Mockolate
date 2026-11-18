@@ -141,9 +141,32 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 {
 	private Callbacks<Action<int, T1, TValue>>? _getterCallbacks;
 	private Callbacks<Func<int, T1, TValue, TValue>>? _returnCallbacks;
+	private TValue _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private Callbacks<Action<int, T1, TValue>>? _setterCallbacks;
 	private Func<T1, TValue>? _initialization;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, T1, TValue, TValue>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TValue returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, T1, TValue, TValue>>((_, _, _) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="IIndexerGetterSetup{TValue, T1}.Do(Action)" />
 	IIndexerGetterSetupCallbackBuilder<TValue, T1> IIndexerGetterSetup<TValue, T1>.Do(Action callback)
@@ -306,8 +329,15 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	/// <inheritdoc cref="IIndexerSetup{TValue, T1}.Returns(TValue)" />
 	public IIndexerSetupReturnBuilder<TValue, T1> Returns(TValue returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -321,7 +351,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	public IIndexerSetupReturnBuilder<TValue, T1> Returns(Func<TValue> callback)
 	{
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -335,7 +365,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	public IIndexerSetupReturnBuilder<TValue, T1> Returns(Func<T1, TValue> callback)
 	{
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -349,7 +379,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	public IIndexerSetupReturnBuilder<TValue, T1> Returns(Func<T1, TValue, TValue> callback)
 	{
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -364,7 +394,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 		where TException : Exception, new()
 	{
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -378,7 +408,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	public IIndexerSetupReturnBuilder<TValue, T1> Throws(Exception exception)
 	{
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -392,7 +422,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	public IIndexerSetupReturnBuilder<TValue, T1> Throws(Func<Exception> callback)
 	{
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -406,7 +436,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	public IIndexerSetupReturnBuilder<TValue, T1> Throws(Func<T1, Exception> callback)
 	{
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -420,7 +450,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	public IIndexerSetupReturnBuilder<TValue, T1> Throws(Func<T1, TValue, Exception> callback)
 	{
 		Callback<Func<int, T1, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -491,21 +521,21 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 	/// <inheritdoc cref="IIndexerSetupReturnBuilder{TValue, T1}.When(Func{int, bool})" />
 	IIndexerSetupReturnWhenBuilder<TValue, T1> IIndexerSetupReturnBuilder<TValue, T1>.When(Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
 	/// <inheritdoc cref="IIndexerSetupReturnWhenBuilder{TValue,T1}.For(int)" />
 	IIndexerSetupReturnWhenBuilder<TValue, T1> IIndexerSetupReturnWhenBuilder<TValue, T1>.For(int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
 	/// <inheritdoc cref="IIndexerSetupReturnWhenBuilder{TValue,T1}.Only(int)" />
 	IIndexerSetup<TValue, T1> IIndexerSetupReturnWhenBuilder<TValue, T1>.Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -726,6 +756,12 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 
 	private TValue ExecuteReturnCallbacks(T1 p1, TValue currentValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			return _returnValue;
+		}
+
 		if (_returnCallbacks is not null)
 		{
 			foreach (Callback<Func<int, T1, TValue, TValue>> _ in _returnCallbacks)
@@ -1050,9 +1086,32 @@ public class IndexerSetup<TValue, T1, T2>(
 {
 	private Callbacks<Action<int, T1, T2, TValue>>? _getterCallbacks;
 	private Callbacks<Func<int, T1, T2, TValue, TValue>>? _returnCallbacks;
+	private TValue _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private Callbacks<Action<int, T1, T2, TValue>>? _setterCallbacks;
 	private Func<T1, T2, TValue>? _initialization;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, T1, T2, TValue, TValue>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TValue returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, T1, T2, TValue, TValue>>((_, _, _, _) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="IIndexerGetterSetup{TValue, T1, T2}.Do(Action)" />
 	IIndexerGetterSetupCallbackBuilder<TValue, T1, T2> IIndexerGetterSetup<TValue, T1, T2>.Do(Action callback)
@@ -1217,8 +1276,15 @@ public class IndexerSetup<TValue, T1, T2>(
 	/// <inheritdoc cref="IIndexerSetup{TValue, T1, T2}.Returns(TValue)" />
 	public IIndexerSetupReturnBuilder<TValue, T1, T2> Returns(TValue returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1232,7 +1298,7 @@ public class IndexerSetup<TValue, T1, T2>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2> Returns(Func<TValue> callback)
 	{
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1246,7 +1312,7 @@ public class IndexerSetup<TValue, T1, T2>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2> Returns(Func<T1, T2, TValue> callback)
 	{
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1260,7 +1326,7 @@ public class IndexerSetup<TValue, T1, T2>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2> Returns(Func<T1, T2, TValue, TValue> callback)
 	{
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1275,7 +1341,7 @@ public class IndexerSetup<TValue, T1, T2>(
 		where TException : Exception, new()
 	{
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1289,7 +1355,7 @@ public class IndexerSetup<TValue, T1, T2>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2> Throws(Exception exception)
 	{
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1303,7 +1369,7 @@ public class IndexerSetup<TValue, T1, T2>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2> Throws(Func<Exception> callback)
 	{
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1317,7 +1383,7 @@ public class IndexerSetup<TValue, T1, T2>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2> Throws(Func<T1, T2, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1331,7 +1397,7 @@ public class IndexerSetup<TValue, T1, T2>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2> Throws(Func<T1, T2, TValue, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1403,21 +1469,21 @@ public class IndexerSetup<TValue, T1, T2>(
 	IIndexerSetupReturnWhenBuilder<TValue, T1, T2> IIndexerSetupReturnBuilder<TValue, T1, T2>.When(
 		Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
 	/// <inheritdoc cref="IIndexerSetupReturnWhenBuilder{TValue,T1,T2}.For(int)" />
 	IIndexerSetupReturnWhenBuilder<TValue, T1, T2> IIndexerSetupReturnWhenBuilder<TValue, T1, T2>.For(int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
 	/// <inheritdoc cref="IIndexerSetupReturnWhenBuilder{TValue,T1,T2}.Only(int)" />
 	IIndexerSetup<TValue, T1, T2> IIndexerSetupReturnWhenBuilder<TValue, T1, T2>.Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -1639,6 +1705,12 @@ public class IndexerSetup<TValue, T1, T2>(
 
 	private TValue ExecuteReturnCallbacks(T1 p1, T2 p2, TValue currentValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			return _returnValue;
+		}
+
 		if (_returnCallbacks is not null)
 		{
 			foreach (Callback<Func<int, T1, T2, TValue, TValue>> _ in _returnCallbacks)
@@ -1968,9 +2040,32 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 {
 	private Callbacks<Action<int, T1, T2, T3, TValue>>? _getterCallbacks;
 	private Callbacks<Func<int, T1, T2, T3, TValue, TValue>>? _returnCallbacks;
+	private TValue _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private Callbacks<Action<int, T1, T2, T3, TValue>>? _setterCallbacks;
 	private Func<T1, T2, T3, TValue>? _initialization;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, T1, T2, T3, TValue, TValue>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TValue returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, T1, T2, T3, TValue, TValue>>((_, _, _, _, _) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="IIndexerGetterSetup{TValue, T1, T2, T3}.Do(Action)" />
 	IIndexerGetterSetupCallbackBuilder<TValue, T1, T2, T3> IIndexerGetterSetup<TValue, T1, T2, T3>.Do(Action callback)
@@ -2143,8 +2238,15 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	/// <inheritdoc cref="IIndexerSetup{TValue, T1, T2, T3}.Returns(TValue)" />
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3> Returns(TValue returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2158,7 +2260,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3> Returns(Func<TValue> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2172,7 +2274,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3> Returns(Func<T1, T2, T3, TValue> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2186,7 +2288,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3> Returns(Func<T1, T2, T3, TValue, TValue> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2201,7 +2303,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 		where TException : Exception, new()
 	{
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2215,7 +2317,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3> Throws(Exception exception)
 	{
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2229,7 +2331,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3> Throws(Func<Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2243,7 +2345,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3> Throws(Func<T1, T2, T3, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2257,7 +2359,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3> Throws(Func<T1, T2, T3, TValue, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -2331,7 +2433,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	IIndexerSetupReturnWhenBuilder<TValue, T1, T2, T3> IIndexerSetupReturnBuilder<TValue, T1, T2, T3>.When(
 		Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
@@ -2339,14 +2441,14 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 	IIndexerSetupReturnWhenBuilder<TValue, T1, T2, T3> IIndexerSetupReturnWhenBuilder<TValue, T1, T2, T3>.For(
 		int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
 	/// <inheritdoc cref="IIndexerSetupReturnWhenBuilder{TValue,T1,T2,T3}.Only(int)" />
 	IIndexerSetup<TValue, T1, T2, T3> IIndexerSetupReturnWhenBuilder<TValue, T1, T2, T3>.Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -2569,6 +2671,12 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 
 	private TValue ExecuteReturnCallbacks(T1 p1, T2 p2, T3 p3, TValue currentValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			return _returnValue;
+		}
+
 		if (_returnCallbacks is not null)
 		{
 			foreach (Callback<Func<int, T1, T2, T3, TValue, TValue>> _ in _returnCallbacks)
@@ -2903,9 +3011,32 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 {
 	private Callbacks<Action<int, T1, T2, T3, T4, TValue>>? _getterCallbacks;
 	private Callbacks<Func<int, T1, T2, T3, T4, TValue, TValue>>? _returnCallbacks;
+	private TValue _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private Callbacks<Action<int, T1, T2, T3, T4, TValue>>? _setterCallbacks;
 	private Func<T1, T2, T3, T4, TValue>? _initialization;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, T1, T2, T3, T4, TValue, TValue>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TValue returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, T1, T2, T3, T4, TValue, TValue>>((_, _, _, _, _, _) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="IIndexerGetterSetup{TValue, T1, T2, T3, T4}.Do(Action)" />
 	IIndexerGetterSetupCallbackBuilder<TValue, T1, T2, T3, T4> IIndexerGetterSetup<TValue, T1, T2, T3, T4>.Do(Action callback)
@@ -3078,8 +3209,15 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	/// <inheritdoc cref="IIndexerSetup{TValue, T1, T2, T3, T4}.Returns(TValue)" />
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4> Returns(TValue returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3093,7 +3231,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4> Returns(Func<TValue> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3107,7 +3245,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4> Returns(Func<T1, T2, T3, T4, TValue> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3121,7 +3259,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4> Returns(Func<T1, T2, T3, T4, TValue, TValue> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3136,7 +3274,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 		where TException : Exception, new()
 	{
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3150,7 +3288,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4> Throws(Exception exception)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3164,7 +3302,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4> Throws(Func<Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3178,7 +3316,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4> Throws(Func<T1, T2, T3, T4, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3192,7 +3330,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	public IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4> Throws(Func<T1, T2, T3, T4, TValue, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -3268,7 +3406,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	IIndexerSetupReturnWhenBuilder<TValue, T1, T2, T3, T4> IIndexerSetupReturnBuilder<TValue, T1, T2, T3, T4>.When(
 		Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
@@ -3276,14 +3414,14 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 	IIndexerSetupReturnWhenBuilder<TValue, T1, T2, T3, T4> IIndexerSetupReturnWhenBuilder<TValue, T1, T2, T3, T4>.For(
 		int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
 	/// <inheritdoc cref="IIndexerSetupReturnWhenBuilder{TValue,T1,T2,T3,T4}.Only(int)" />
 	IIndexerSetup<TValue, T1, T2, T3, T4> IIndexerSetupReturnWhenBuilder<TValue, T1, T2, T3, T4>.Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -3509,6 +3647,12 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 
 	private TValue ExecuteReturnCallbacks(T1 p1, T2 p2, T3 p3, T4 p4, TValue currentValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			return _returnValue;
+		}
+
 		if (_returnCallbacks is not null)
 		{
 			foreach (Callback<Func<int, T1, T2, T3, T4, TValue, TValue>> _ in _returnCallbacks)

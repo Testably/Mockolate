@@ -72,6 +72,27 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
+			public async Task Returns_AddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
+			{
+				IIndexerService sut = IIndexerService.CreateMock();
+				IIndexerSetupReturnBuilder<string, int> setup = sut.Mock.Setup[It.IsAny<int>()].Returns("a");
+
+				string result1 = sut[1];
+				string result2 = sut[1];
+				string result3 = sut[1];
+				setup.Returns("b");
+				string result4 = sut[1];
+				string result5 = sut[1];
+
+				await That(result1).IsEqualTo("a");
+				await That(result2).IsEqualTo("a");
+				await That(result3).IsEqualTo("a");
+				await That(result4).IsEqualTo("b")
+					.Because("three values were already returned, so the sequence continues with its second entry");
+				await That(result5).IsEqualTo("a");
+			}
+
+			[Test]
 			public async Task Returns_Callback_ShouldReturnExpectedValue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
