@@ -56,8 +56,11 @@ public class VerificationPropertyResult<TSubject, TParameter>
 	public VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> _mockRegistry.VerifyPropertyTyped(_subject, _setMemberId, _propertyName,
-			It.Is(value, doNotPopulateThisValue).AsParameterMatch());
+		// IsValueType first: only a reference type can be a matcher, and testing a value type would box it.
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: _mockRegistry.VerifyPropertyTyped(_subject, _setMemberId, _propertyName,
+				It.Is(value, doNotPopulateThisValue).AsParameterMatch());
 }
 
 /// <summary>
@@ -139,6 +142,8 @@ public class VerificationPropertySetterResult<TSubject, TParameter>
 	public VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> _mockRegistry.VerifyPropertyTyped(_subject, _setMemberId, _propertyName,
-			It.Is(value, doNotPopulateThisValue).AsParameterMatch());
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: _mockRegistry.VerifyPropertyTyped(_subject, _setMemberId, _propertyName,
+				It.Is(value, doNotPopulateThisValue).AsParameterMatch());
 }

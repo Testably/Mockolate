@@ -1603,15 +1603,17 @@ namespace Mockolate.Verify
 		/// <inheritdoc cref="global::Mockolate.Verify.VerificationIndexerResult{TSubject, TParameter}.Set(global::Mockolate.Parameters.IParameter{TParameter})" />
 		public global::Mockolate.Verify.VerificationResult<TSubject> Set(global::Mockolate.Parameters.IParameter<TParameter> value)
 			=> mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
-				(global::Mockolate.Parameters.IParameterMatch<TParameter>)value, parametersDescription);
+				global::Mockolate.CovariantParameterAdapter<TParameter>.Wrap(value), parametersDescription);
 
 		/// <summary>
 		///     Verifies the indexer write access on the mock with the given <paramref name="value" />.
 		/// </summary>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		public global::Mockolate.Verify.VerificationResult<TSubject> Set(TParameter value)
-			=> mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
-				(global::Mockolate.Parameters.IParameterMatch<TParameter>)global::Mockolate.Internals.Matchers.IsValue<TParameter>(value), parametersDescription);
+			=> !typeof(TParameter).IsValueType && value is global::Mockolate.Parameters.IParameter<TParameter> parameter
+				? Set(parameter)
+				: mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
+					(global::Mockolate.Parameters.IParameterMatch<TParameter>)global::Mockolate.Internals.Matchers.IsValue<TParameter>(value), parametersDescription);
 	}
 }
 

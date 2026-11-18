@@ -86,7 +86,7 @@ public class VerificationIndexerResult<TSubject, TParameter>
 	/// </summary>
 	public virtual VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> MockRegistry.IndexerSet(Subject, SetMemberId, _setPredicate!,
-			(IParameterMatch<TParameter>)value, ParametersDescription);
+			value.AsParameterMatch(), ParametersDescription);
 
 	/// <summary>
 	///     Verifies the indexer write access on the mock with the given <paramref name="value" />.
@@ -95,8 +95,11 @@ public class VerificationIndexerResult<TSubject, TParameter>
 	public virtual VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> MockRegistry.IndexerSet(Subject, SetMemberId, _setPredicate!,
-			(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), ParametersDescription);
+		// IsValueType first: only a reference type can be a matcher, and testing a value type would box it.
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: MockRegistry.IndexerSet(Subject, SetMemberId, _setPredicate!,
+				(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), ParametersDescription);
 }
 
 /// <summary>
@@ -131,14 +134,16 @@ public sealed class VerificationIndexerResult<TSubject, T1, TParameter>
 	/// <inheritdoc />
 	public override VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> MockRegistry.IndexerSetTyped(Subject, SetMemberId,
-			_match1, (IParameterMatch<TParameter>)value, ParametersDescription);
+			_match1, value.AsParameterMatch(), ParametersDescription);
 
 	/// <inheritdoc />
 	public override VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> MockRegistry.IndexerSetTyped(Subject, SetMemberId,
-			_match1, (IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), ParametersDescription);
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: MockRegistry.IndexerSetTyped(Subject, SetMemberId,
+				_match1, (IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), ParametersDescription);
 }
 
 /// <summary>
@@ -172,14 +177,17 @@ public sealed class VerificationIndexerResult<TSubject, T1, T2, TParameter>
 	/// <inheritdoc />
 	public override VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> MockRegistry.IndexerSetTyped(Subject, SetMemberId,
-			_match1, _match2, (IParameterMatch<TParameter>)value, ParametersDescription);
+			_match1, _match2, value.AsParameterMatch(), ParametersDescription);
 
 	/// <inheritdoc />
 	public override VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> MockRegistry.IndexerSetTyped(Subject, SetMemberId,
-			_match1, _match2, (IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), ParametersDescription);
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: MockRegistry.IndexerSetTyped(Subject, SetMemberId,
+				_match1, _match2, (IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue),
+				ParametersDescription);
 }
 
 /// <summary>
@@ -216,15 +224,17 @@ public sealed class VerificationIndexerResult<TSubject, T1, T2, T3, TParameter>
 	/// <inheritdoc />
 	public override VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> MockRegistry.IndexerSetTyped(Subject, SetMemberId,
-			_match1, _match2, _match3, (IParameterMatch<TParameter>)value, ParametersDescription);
+			_match1, _match2, _match3, value.AsParameterMatch(), ParametersDescription);
 
 	/// <inheritdoc />
 	public override VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> MockRegistry.IndexerSetTyped(Subject, SetMemberId,
-			_match1, _match2, _match3, (IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue),
-			ParametersDescription);
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: MockRegistry.IndexerSetTyped(Subject, SetMemberId,
+				_match1, _match2, _match3, (IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue),
+				ParametersDescription);
 }
 
 /// <summary>
@@ -264,15 +274,17 @@ public sealed class VerificationIndexerResult<TSubject, T1, T2, T3, T4, TParamet
 	/// <inheritdoc />
 	public override VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> MockRegistry.IndexerSetTyped(Subject, SetMemberId,
-			_match1, _match2, _match3, _match4, (IParameterMatch<TParameter>)value, ParametersDescription);
+			_match1, _match2, _match3, _match4, value.AsParameterMatch(), ParametersDescription);
 
 	/// <inheritdoc />
 	public override VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> MockRegistry.IndexerSetTyped(Subject, SetMemberId,
-			_match1, _match2, _match3, _match4,
-			(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), ParametersDescription);
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: MockRegistry.IndexerSetTyped(Subject, SetMemberId,
+				_match1, _match2, _match3, _match4,
+				(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), ParametersDescription);
 }
 
 /// <summary>
@@ -354,15 +366,17 @@ public class VerificationIndexerSetterResult<TSubject, T1, TParameter>
 	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}.Set(IParameter{TParameter})" />
 	public VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1,
-			(IParameterMatch<TParameter>)value, _parametersDescription);
+			value.AsParameterMatch(), _parametersDescription);
 
 	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}.Set(TParameter, string)" />
 	[OverloadResolutionPriority(1)]
 	public VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1,
-			(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), _parametersDescription);
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1,
+				(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), _parametersDescription);
 }
 
 /// <summary>
@@ -441,15 +455,17 @@ public class VerificationIndexerSetterResult<TSubject, T1, T2, TParameter>
 	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}.Set(IParameter{TParameter})" />
 	public VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2,
-			(IParameterMatch<TParameter>)value, _parametersDescription);
+			value.AsParameterMatch(), _parametersDescription);
 
 	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}.Set(TParameter, string)" />
 	[OverloadResolutionPriority(1)]
 	public VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2,
-			(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), _parametersDescription);
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2,
+				(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), _parametersDescription);
 }
 
 /// <summary>
@@ -536,15 +552,17 @@ public class VerificationIndexerSetterResult<TSubject, T1, T2, T3, TParameter>
 	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}.Set(IParameter{TParameter})" />
 	public VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2, _match3,
-			(IParameterMatch<TParameter>)value, _parametersDescription);
+			value.AsParameterMatch(), _parametersDescription);
 
 	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}.Set(TParameter, string)" />
 	[OverloadResolutionPriority(1)]
 	public VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2, _match3,
-			(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), _parametersDescription);
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2, _match3,
+				(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), _parametersDescription);
 }
 
 /// <summary>
@@ -638,13 +656,15 @@ public class VerificationIndexerSetterResult<TSubject, T1, T2, T3, T4, TParamete
 	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}.Set(IParameter{TParameter})" />
 	public VerificationResult<TSubject> Set(IParameter<TParameter> value)
 		=> _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2, _match3, _match4,
-			(IParameterMatch<TParameter>)value, _parametersDescription);
+			value.AsParameterMatch(), _parametersDescription);
 
 	/// <inheritdoc cref="VerificationIndexerResult{TSubject, TParameter}.Set(TParameter, string)" />
 	[OverloadResolutionPriority(1)]
 	public VerificationResult<TSubject> Set(TParameter value,
 		[CallerArgumentExpression(nameof(value))]
 		string doNotPopulateThisValue = "")
-		=> _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2, _match3, _match4,
-			(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), _parametersDescription);
+		=> !typeof(TParameter).IsValueType && value is IParameter<TParameter> parameter
+			? Set(parameter)
+			: _mockRegistry.IndexerSetTyped(_subject, _setMemberId, _match1, _match2, _match3, _match4,
+				(IParameterMatch<TParameter>)It.Is(value, doNotPopulateThisValue), _parametersDescription);
 }

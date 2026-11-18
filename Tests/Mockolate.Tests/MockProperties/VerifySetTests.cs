@@ -1,4 +1,5 @@
 using Mockolate.Exceptions;
+using Mockolate.Verify;
 
 namespace Mockolate.Tests.MockProperties;
 
@@ -25,6 +26,77 @@ public sealed class VerifySetTests
 
 		await That(sut.Mock.Verify.Name.Set("goodbye")).Never();
 		await That(sut.Mock.Verify.Name.Set("hello")).Once();
+	}
+
+	[Test]
+	public async Task Set_WithMatcherOnObjectProperty_ShouldUseTheMatcher()
+	{
+		IServiceWithObjectProperties sut = IServiceWithObjectProperties.CreateMock();
+
+		sut.Value = 5;
+		sut.Value = "foo";
+
+		await That(sut.Mock.Verify.Value.Set(It.IsAny<object>())).Twice()
+			.Because("a matcher also converts to object, but must not be compared as a value");
+		await That(sut.Mock.Verify.Value.Set(It.Is<object>(5))).Once();
+		await That(sut.Mock.Verify.Value.Set(It.IsAny<string>())).Once();
+		await That(sut.Mock.Verify.Value.Set(5)).Once();
+		await That(sut.Mock.Verify.Value.Set("foo")).Once();
+		await That(sut.Mock.Verify.Value.Set(6)).Never();
+	}
+
+	[Test]
+	public async Task Set_WithMatcherOnNullableObjectProperty_ShouldUseTheMatcher()
+	{
+		IServiceWithObjectProperties sut = IServiceWithObjectProperties.CreateMock();
+
+		sut.NullableValue = 5;
+		sut.NullableValue = null;
+
+		await That(sut.Mock.Verify.NullableValue.Set(It.IsAny<object?>())).Twice();
+		await That(sut.Mock.Verify.NullableValue.Set(It.IsNull<object?>())).Once();
+		await That(sut.Mock.Verify.NullableValue.Set(null)).Once();
+		await That(sut.Mock.Verify.NullableValue.Set(5)).Once();
+	}
+
+	[Test]
+	public async Task Set_WithMatcherOnWriteOnlyObjectProperty_ShouldUseTheMatcher()
+	{
+		IServiceWithObjectProperties sut = IServiceWithObjectProperties.CreateMock();
+
+		sut.WriteOnly = 5;
+		sut.WriteOnly = "foo";
+
+		await That(sut.Mock.Verify.WriteOnly.Set(It.IsAny<object>())).Twice();
+		await That(sut.Mock.Verify.WriteOnly.Set(It.Is<object>(5))).Once();
+		await That(sut.Mock.Verify.WriteOnly.Set(5)).Once();
+	}
+
+	[Test]
+	public async Task Set_WithWrappedMatcherOnObjectProperty_ShouldCompareTheMatcherAsValue()
+	{
+		IServiceWithObjectProperties sut = IServiceWithObjectProperties.CreateMock();
+		object matcher = It.IsAny<object>();
+
+		sut.Value = matcher;
+		sut.Value = 5;
+
+		await That(sut.Mock.Verify.Value.Set(It.Is(matcher))).Once();
+	}
+
+	[Test]
+	public async Task Set_WithMatcherOnObjectProperty_WhenNotMatching_ShouldDescribeTheMatcher()
+	{
+		IServiceWithObjectProperties sut = IServiceWithObjectProperties.CreateMock();
+
+		void Act()
+		{
+			sut.Mock.Verify.Value.Set(It.Is<object>(6)).Once();
+		}
+
+		await That(Act).Throws<MockVerificationException>()
+			.WithMessage("Expected that mock set property Value to 6 exactly once, but it never did.")
+			.Because("the matcher describes itself, while a value is described by its source expression");
 	}
 
 	[Test]
@@ -89,5 +161,12 @@ public sealed class VerifySetTests
 	public interface IServiceWithStringProperty
 	{
 		string Name { get; set; }
+	}
+
+	public interface IServiceWithObjectProperties
+	{
+		object Value { get; set; }
+		object? NullableValue { get; set; }
+		object WriteOnly { set; }
 	}
 }

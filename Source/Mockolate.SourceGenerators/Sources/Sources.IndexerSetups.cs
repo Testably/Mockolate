@@ -1864,7 +1864,7 @@ internal static partial class Sources
 		            		/// <inheritdoc cref="global::Mockolate.Verify.VerificationIndexerResult{TSubject, TParameter}.Set(global::Mockolate.Parameters.IParameter{TParameter})" />
 		            		public global::Mockolate.Verify.VerificationResult<TSubject> Set(global::Mockolate.Parameters.IParameter<TParameter> value)
 		            			=> mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
-		            				(global::Mockolate.Parameters.IParameterMatch<TParameter>)value, parametersDescription);
+		            				global::Mockolate.CovariantParameterAdapter<TParameter>.Wrap(value), parametersDescription);
 
 		            		/// <summary>
 		            		///     Verifies the indexer write access on the mock with the given <paramref name="value" />.
@@ -1879,10 +1879,13 @@ internal static partial class Sources
 		// cannot see the internal CallerArgumentExpression polyfill the shipped result relies on.
 		// IsValue formats the value lazily and invariantly, so a literal renders exactly as it does
 		// on the shipped surface, and no description is built on the passing path.
+		// IsValueType first: only a reference type can be a matcher, and testing a value type would box it.
 		sb.Append($$"""
 		            		public global::Mockolate.Verify.VerificationResult<TSubject> Set(TParameter value)
-		            			=> mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
-		            				(global::Mockolate.Parameters.IParameterMatch<TParameter>)global::Mockolate.Internals.Matchers.IsValue<TParameter>(value), parametersDescription);
+		            			=> !typeof(TParameter).IsValueType && value is global::Mockolate.Parameters.IParameter<TParameter> parameter
+		            				? Set(parameter)
+		            				: mockRegistry.IndexerSet(subject, setMemberId, setPredicate,
+		            					(global::Mockolate.Parameters.IParameterMatch<TParameter>)global::Mockolate.Internals.Matchers.IsValue<TParameter>(value), parametersDescription);
 		            	}
 		            """).AppendLine();
 	}
