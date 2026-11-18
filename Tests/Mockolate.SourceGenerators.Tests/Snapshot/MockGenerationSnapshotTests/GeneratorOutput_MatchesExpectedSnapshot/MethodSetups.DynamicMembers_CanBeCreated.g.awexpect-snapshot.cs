@@ -181,8 +181,8 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4, T5>
 {
 		private readonly global::Mockolate.Internals.MockRegistry _mockRegistry;
-		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _callbacks = [];
-		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _returnCallbacks = [];
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _callbacks;
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _returnCallbacks;
 		private bool? _skipBaseClass;
 
 		protected VoidMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)

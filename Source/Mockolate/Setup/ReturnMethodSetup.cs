@@ -17,9 +17,32 @@ public abstract class ReturnMethodSetup<TReturn>
 	: MethodSetup, IReturnMethodSetupCallbackBuilder<TReturn>, IReturnMethodSetupReturnBuilder<TReturn>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int>>? _callbacks = [];
-	private Callbacks<Func<int, TReturn>>? _returnCallbacks = [];
+	private Callbacks<Action<int>>? _callbacks;
+	private Callbacks<Func<int, TReturn>>? _returnCallbacks;
+	private TReturn _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, TReturn>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TReturn returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, TReturn>>((_) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1}" />
 	protected ReturnMethodSetup(MockRegistry mockRegistry, string name) : base(name)
@@ -69,7 +92,7 @@ public abstract class ReturnMethodSetup<TReturn>
 	IReturnMethodSetupReturnBuilder<TReturn> IReturnMethodSetup<TReturn>.Returns(Func<TReturn> callback)
 	{
 		Callback<Func<int, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -82,8 +105,15 @@ public abstract class ReturnMethodSetup<TReturn>
 	/// <inheritdoc cref="IReturnMethodSetup{TReturn}.Returns(TReturn)" />
 	IReturnMethodSetupReturnBuilder<TReturn> IReturnMethodSetup<TReturn>.Returns(TReturn returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -97,7 +127,7 @@ public abstract class ReturnMethodSetup<TReturn>
 	IReturnMethodSetupReturnBuilder<TReturn> IReturnMethodSetup<TReturn>.Throws<TException>()
 	{
 		Callback<Func<int, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -111,7 +141,7 @@ public abstract class ReturnMethodSetup<TReturn>
 	IReturnMethodSetupReturnBuilder<TReturn> IReturnMethodSetup<TReturn>.Throws(Exception exception)
 	{
 		Callback<Func<int, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -125,7 +155,7 @@ public abstract class ReturnMethodSetup<TReturn>
 	IReturnMethodSetupReturnBuilder<TReturn> IReturnMethodSetup<TReturn>.Throws(Func<Exception> callback)
 	{
 		Callback<Func<int, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -168,21 +198,21 @@ public abstract class ReturnMethodSetup<TReturn>
 	IReturnMethodSetupReturnWhenBuilder<TReturn> IReturnMethodSetupReturnBuilder<TReturn>.When(
 		Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
 	/// <inheritdoc cref="IReturnMethodSetupReturnWhenBuilder{TReturn}.For(int)" />
 	IReturnMethodSetupReturnWhenBuilder<TReturn> IReturnMethodSetupReturnWhenBuilder<TReturn>.For(int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
 	/// <inheritdoc cref="IReturnMethodSetupReturnWhenBuilder{TReturn}.Only(int)" />
 	IReturnMethodSetup<TReturn> IReturnMethodSetupReturnWhenBuilder<TReturn>.Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -193,7 +223,7 @@ public abstract class ReturnMethodSetup<TReturn>
 	/// <summary>
 	///     Flag indicating, if any return callbacks have been registered on this setup.
 	/// </summary>
-	public bool HasReturnCallbacks => _returnCallbacks is { Count: > 0, };
+	public bool HasReturnCallbacks => _hasReturnValue || _returnCallbacks is { Count: > 0, };
 
 	/// <summary>
 	///     Gets the flag indicating if the base class implementation should be skipped.
@@ -206,6 +236,13 @@ public abstract class ReturnMethodSetup<TReturn>
 	/// </summary>
 	public bool TryGetReturnValue(out TReturn returnValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			returnValue = _returnValue;
+			return true;
+		}
+
 		if (_returnCallbacks != null)
 		{
 			foreach (Callback<Func<int, TReturn>> _ in _returnCallbacks)
@@ -285,9 +322,32 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	IReturnMethodSetupCallbackBuilder<TReturn, T1>, IReturnMethodSetupReturnBuilder<TReturn, T1>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int, T1>>? _callbacks = [];
-	private Callbacks<Func<int, T1, TReturn>>? _returnCallbacks = [];
+	private Callbacks<Action<int, T1>>? _callbacks;
+	private Callbacks<Func<int, T1, TReturn>>? _returnCallbacks;
+	private TReturn _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, T1, TReturn>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TReturn returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, T1, TReturn>>((_, _) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1}" />
 	protected ReturnMethodSetup(MockRegistry mockRegistry, string name) : base(name)
@@ -352,7 +412,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1> IReturnMethodSetupWithCallback<TReturn, T1>.Returns(Func<T1, TReturn> callback)
 	{
 		Callback<Func<int, T1, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -366,7 +426,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1> IReturnMethodSetup<TReturn, T1>.Returns(Func<TReturn> callback)
 	{
 		Callback<Func<int, T1, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -379,8 +439,15 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	/// <inheritdoc cref="IReturnMethodSetup{TReturn, T1}.Returns(TReturn)" />
 	IReturnMethodSetupReturnBuilder<TReturn, T1> IReturnMethodSetup<TReturn, T1>.Returns(TReturn returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, T1, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -394,7 +461,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1> IReturnMethodSetup<TReturn, T1>.Throws<TException>()
 	{
 		Callback<Func<int, T1, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -408,7 +475,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1> IReturnMethodSetup<TReturn, T1>.Throws(Exception exception)
 	{
 		Callback<Func<int, T1, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -422,7 +489,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1> IReturnMethodSetup<TReturn, T1>.Throws(Func<Exception> callback)
 	{
 		Callback<Func<int, T1, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -436,7 +503,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1> IReturnMethodSetupWithCallback<TReturn, T1>.Throws(Func<T1, Exception> callback)
 	{
 		Callback<Func<int, T1, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -479,21 +546,21 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	IReturnMethodSetupReturnWhenBuilder<TReturn, T1> IReturnMethodSetupReturnBuilder<TReturn, T1>.When(
 		Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
 	/// <inheritdoc cref="IReturnMethodSetupReturnWhenBuilder{TReturn, T1}.For(int)" />
 	IReturnMethodSetupReturnWhenBuilder<TReturn, T1> IReturnMethodSetupReturnWhenBuilder<TReturn, T1>.For(int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
 	/// <inheritdoc cref="IReturnMethodSetupReturnWhenBuilder{TReturn, T1}.Only(int)" />
 	IReturnMethodSetup<TReturn, T1> IReturnMethodSetupReturnWhenBuilder<TReturn, T1>.Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -511,7 +578,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	/// <summary>
 	///     Flag indicating, if any return callbacks have been registered on this setup.
 	/// </summary>
-	public bool HasReturnCallbacks => _returnCallbacks is { Count: > 0, };
+	public bool HasReturnCallbacks => _hasReturnValue || _returnCallbacks is { Count: > 0, };
 
 	/// <summary>
 	///     Gets the flag indicating if the base class implementation should be skipped.
@@ -524,6 +591,13 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 	/// </summary>
 	public bool TryGetReturnValue(T1 p1, out TReturn returnValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			returnValue = _returnValue;
+			return true;
+		}
+
 		if (_returnCallbacks != null)
 		{
 			foreach (Callback<Func<int, T1, TReturn>> _ in _returnCallbacks)
@@ -695,9 +769,32 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	IReturnMethodSetupCallbackBuilder<TReturn, T1, T2>, IReturnMethodSetupReturnBuilder<TReturn, T1, T2>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int, T1, T2>>? _callbacks = [];
-	private Callbacks<Func<int, T1, T2, TReturn>>? _returnCallbacks = [];
+	private Callbacks<Action<int, T1, T2>>? _callbacks;
+	private Callbacks<Func<int, T1, T2, TReturn>>? _returnCallbacks;
+	private TReturn _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, T1, T2, TReturn>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TReturn returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, T1, T2, TReturn>>((_, _, _) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1, T2}" />
 	protected ReturnMethodSetup(MockRegistry mockRegistry, string name) : base(name)
@@ -764,7 +861,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 		Func<T1, T2, TReturn> callback)
 	{
 		Callback<Func<int, T1, T2, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -778,7 +875,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1, T2> IReturnMethodSetup<TReturn, T1, T2>.Returns(Func<TReturn> callback)
 	{
 		Callback<Func<int, T1, T2, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -791,8 +888,15 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	/// <inheritdoc cref="IReturnMethodSetup{TReturn, T1, T2}.Returns(TReturn)" />
 	IReturnMethodSetupReturnBuilder<TReturn, T1, T2> IReturnMethodSetup<TReturn, T1, T2>.Returns(TReturn returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, T1, T2, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -806,7 +910,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1, T2> IReturnMethodSetup<TReturn, T1, T2>.Throws<TException>()
 	{
 		Callback<Func<int, T1, T2, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -820,7 +924,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1, T2> IReturnMethodSetup<TReturn, T1, T2>.Throws(Exception exception)
 	{
 		Callback<Func<int, T1, T2, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -835,7 +939,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 		Func<Exception> callback)
 	{
 		Callback<Func<int, T1, T2, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -850,7 +954,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 		Func<T1, T2, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -894,7 +998,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2> IReturnMethodSetupReturnBuilder<TReturn, T1, T2>.When(
 		Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
@@ -902,14 +1006,14 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2> IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2>.
 		For(int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
 	/// <inheritdoc cref="IReturnMethodSetupReturnWhenBuilder{TReturn, T1, T2}.Only(int)" />
 	IReturnMethodSetup<TReturn, T1, T2> IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2>.Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -927,7 +1031,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	/// <summary>
 	///     Flag indicating, if any return callbacks have been registered on this setup.
 	/// </summary>
-	public bool HasReturnCallbacks => _returnCallbacks is { Count: > 0, };
+	public bool HasReturnCallbacks => _hasReturnValue || _returnCallbacks is { Count: > 0, };
 
 	/// <summary>
 	///     Gets the flag indicating if the base class implementation should be skipped.
@@ -940,6 +1044,13 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 	/// </summary>
 	public bool TryGetReturnValue(T1 p1, T2 p2, out TReturn returnValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			returnValue = _returnValue;
+			return true;
+		}
+
 		if (_returnCallbacks != null)
 		{
 			foreach (Callback<Func<int, T1, T2, TReturn>> _ in _returnCallbacks)
@@ -1130,9 +1241,32 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	IReturnMethodSetupCallbackBuilder<TReturn, T1, T2, T3>, IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int, T1, T2, T3>>? _callbacks = [];
-	private Callbacks<Func<int, T1, T2, T3, TReturn>>? _returnCallbacks = [];
+	private Callbacks<Action<int, T1, T2, T3>>? _callbacks;
+	private Callbacks<Func<int, T1, T2, T3, TReturn>>? _returnCallbacks;
+	private TReturn _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, T1, T2, T3, TReturn>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TReturn returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, T1, T2, T3, TReturn>>((_, _, _, _) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1, T2, T3}" />
 	protected ReturnMethodSetup(MockRegistry mockRegistry, string name) : base(name)
@@ -1201,7 +1335,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 		Func<T1, T2, T3, TReturn> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1216,7 +1350,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 		Func<TReturn> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1230,8 +1364,15 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3> IReturnMethodSetup<TReturn, T1, T2, T3>.Returns(
 		TReturn returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, T1, T2, T3, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1245,7 +1386,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3> IReturnMethodSetup<TReturn, T1, T2, T3>.Throws<TException>()
 	{
 		Callback<Func<int, T1, T2, T3, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1260,7 +1401,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 		Exception exception)
 	{
 		Callback<Func<int, T1, T2, T3, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1275,7 +1416,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 		Func<Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1290,7 +1431,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 		Func<T1, T2, T3, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1335,7 +1476,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3> IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3>.When(
 		Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
@@ -1343,14 +1484,14 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3> IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3>.
 		For(int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
 	/// <inheritdoc cref="IReturnMethodSetupReturnWhenBuilder{TReturn, T1, T2, T3}.Only(int)" />
 	IReturnMethodSetup<TReturn, T1, T2, T3> IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3>.Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -1368,7 +1509,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	/// <summary>
 	///     Flag indicating, if any return callbacks have been registered on this setup.
 	/// </summary>
-	public bool HasReturnCallbacks => _returnCallbacks is { Count: > 0, };
+	public bool HasReturnCallbacks => _hasReturnValue || _returnCallbacks is { Count: > 0, };
 
 	/// <summary>
 	///     Gets the flag indicating if the base class implementation should be skipped.
@@ -1381,6 +1522,13 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 	/// </summary>
 	public bool TryGetReturnValue(T1 p1, T2 p2, T3 p3, out TReturn returnValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			returnValue = _returnValue;
+			return true;
+		}
+
 		if (_returnCallbacks != null)
 		{
 			foreach (Callback<Func<int, T1, T2, T3, TReturn>> _ in _returnCallbacks)
@@ -1589,9 +1737,32 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4>
 {
 	private readonly MockRegistry _mockRegistry;
-	private Callbacks<Action<int, T1, T2, T3, T4>>? _callbacks = [];
-	private Callbacks<Func<int, T1, T2, T3, T4, TReturn>>? _returnCallbacks = [];
+	private Callbacks<Action<int, T1, T2, T3, T4>>? _callbacks;
+	private Callbacks<Func<int, T1, T2, T3, T4, TReturn>>? _returnCallbacks;
+	private TReturn _returnValue = default!;
+	private bool _hasReturnValue;
+	private int _returnValueCount;
 	private bool? _skipBaseClass;
+
+	/// <summary>
+	///     The return callbacks, after turning a directly stored return value into a regular callback.
+	/// </summary>
+	private Callbacks<Func<int, T1, T2, T3, T4, TReturn>>? ReturnCallbacks
+	{
+		get
+		{
+			if (_hasReturnValue)
+			{
+				TReturn returnValue = _returnValue;
+				_hasReturnValue = false;
+				_returnValue = default!;
+				_returnCallbacks = _returnCallbacks.Register(
+					new Callback<Func<int, T1, T2, T3, T4, TReturn>>((_, _, _, _, _) => returnValue), _returnValueCount);
+			}
+
+			return _returnCallbacks;
+		}
+	}
 
 	/// <inheritdoc cref="ReturnMethodSetup{TReturn, T1, T2, T3, T4}" />
 	protected ReturnMethodSetup(MockRegistry mockRegistry, string name) : base(name)
@@ -1661,7 +1832,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 		Func<T1, T2, T3, T4, TReturn> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1676,7 +1847,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 		Func<TReturn> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1690,8 +1861,15 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 	IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4> IReturnMethodSetup<TReturn, T1, T2, T3, T4>.Returns(
 		TReturn returnValue)
 	{
+		if (!_hasReturnValue && _returnCallbacks is null)
+		{
+			_returnValue = returnValue;
+			_hasReturnValue = true;
+			return this;
+		}
+
 		Callback<Func<int, T1, T2, T3, T4, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1706,7 +1884,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 		Throws<TException>()
 	{
 		Callback<Func<int, T1, T2, T3, T4, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1721,7 +1899,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 		Exception exception)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1736,7 +1914,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 		Func<Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1751,7 +1929,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 		Func<T1, T2, T3, T4, Exception> callback)
 	{
 		Callback<Func<int, T1, T2, T3, T4, TReturn>> currentCallback = new(Delegate);
-		_returnCallbacks = _returnCallbacks.Register(currentCallback);
+		_returnCallbacks = ReturnCallbacks.Register(currentCallback);
 		return this;
 
 		[DebuggerNonUserCode]
@@ -1798,7 +1976,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 	IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4>
 		IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4>.When(Func<int, bool> predicate)
 	{
-		_returnCallbacks?.Active?.When(predicate);
+		ReturnCallbacks?.Active?.When(predicate);
 		return this;
 	}
 
@@ -1807,7 +1985,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 		IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4>.
 		For(int times)
 	{
-		_returnCallbacks?.Active?.For(times);
+		ReturnCallbacks?.Active?.For(times);
 		return this;
 	}
 
@@ -1815,7 +1993,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 	IReturnMethodSetup<TReturn, T1, T2, T3, T4> IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4>.
 		Only(int times)
 	{
-		_returnCallbacks?.Active?.Only(times);
+		ReturnCallbacks?.Active?.Only(times);
 		return this;
 	}
 
@@ -1833,7 +2011,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 	/// <summary>
 	///     Flag indicating, if any return callbacks have been registered on this setup.
 	/// </summary>
-	public bool HasReturnCallbacks => _returnCallbacks is { Count: > 0, };
+	public bool HasReturnCallbacks => _hasReturnValue || _returnCallbacks is { Count: > 0, };
 
 	/// <summary>
 	///     Gets the flag indicating if the base class implementation should be skipped.
@@ -1846,6 +2024,13 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 	/// </summary>
 	public bool TryGetReturnValue(T1 p1, T2 p2, T3 p3, T4 p4, out TReturn returnValue)
 	{
+		if (_hasReturnValue)
+		{
+			_returnValueCount++;
+			returnValue = _returnValue;
+			return true;
+		}
+
 		if (_returnCallbacks != null)
 		{
 			foreach (Callback<Func<int, T1, T2, T3, T4, TReturn>> _ in _returnCallbacks)

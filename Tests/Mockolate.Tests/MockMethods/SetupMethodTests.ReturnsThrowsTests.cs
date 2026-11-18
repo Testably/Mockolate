@@ -11,6 +11,27 @@ public sealed partial class SetupMethodTests
 		public class ReturnMethodWith0Parameters
 		{
 			[Test]
+			public async Task Returns_AddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
+			{
+				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
+				IReturnMethodSetupReturnBuilder<string> setup = sut.Mock.Setup.Method0().Returns("a");
+
+				string result1 = sut.Method0();
+				string result2 = sut.Method0();
+				string result3 = sut.Method0();
+				setup.Returns("b");
+				string result4 = sut.Method0();
+				string result5 = sut.Method0();
+
+				await That(result1).IsEqualTo("a");
+				await That(result2).IsEqualTo("a");
+				await That(result3).IsEqualTo("a");
+				await That(result4).IsEqualTo("b")
+					.Because("three values were already returned, so the sequence continues with its second entry");
+				await That(result5).IsEqualTo("a");
+			}
+
+			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
 			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
@@ -1806,6 +1827,29 @@ public sealed partial class SetupMethodTests
 
 				await That(Act).Throws<ArgumentOutOfRangeException>()
 					.WithMessage("Times must be greater than zero.").AsPrefix();
+			}
+
+			[Test]
+			public async Task Returns_AddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
+			{
+				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
+				IReturnMethodSetupReturnBuilder<string, int, int, int, int, int> setup = sut.Mock.Setup
+					.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
+					.Returns("a");
+
+				string result1 = sut.Method5(1, 2, 3, 4, 5);
+				string result2 = sut.Method5(1, 2, 3, 4, 5);
+				string result3 = sut.Method5(1, 2, 3, 4, 5);
+				setup.Returns("b");
+				string result4 = sut.Method5(1, 2, 3, 4, 5);
+				string result5 = sut.Method5(1, 2, 3, 4, 5);
+
+				await That(result1).IsEqualTo("a");
+				await That(result2).IsEqualTo("a");
+				await That(result3).IsEqualTo("a");
+				await That(result4).IsEqualTo("b")
+					.Because("three values were already returned, so the sequence continues with its second entry");
+				await That(result5).IsEqualTo("a");
 			}
 
 			[Test]

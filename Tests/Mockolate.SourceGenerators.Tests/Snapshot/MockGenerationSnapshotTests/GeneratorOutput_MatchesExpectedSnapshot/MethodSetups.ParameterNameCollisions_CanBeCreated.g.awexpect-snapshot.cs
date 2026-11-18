@@ -191,9 +191,28 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5>
 	{
 		private readonly global::Mockolate.Internals.MockRegistry _mockRegistry;
-		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _callbacks = [];
-		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>? _returnCallbacks = [];
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5>>? _callbacks;
+		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>? _returnCallbacks;
+		private TReturn _returnValue = default!;
+		private bool _hasReturnValue;
+		private int _returnValueCount;
 		private bool? _skipBaseClass;
+
+		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>? ReturnCallbacks
+		{
+			get
+			{
+				if (_hasReturnValue)
+				{
+					TReturn returnValue = _returnValue;
+					_hasReturnValue = false;
+					_returnValue = default!;
+					_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => returnValue), _returnValueCount);
+				}
+
+				return _returnCallbacks;
+			}
+		}
 
 		protected ReturnMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
@@ -245,7 +264,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5>.Returns(global::System.Func<T1, T2, T3, T4, T5, TReturn> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, p1, p2, p3, p4, p5) => callback(p1, p2, p3, p4, p5));
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -253,15 +272,22 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Returns(global::System.Func<TReturn> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => callback());
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Setup.IReturnMethodSetup{TReturn, T1, T2, T3, T4, T5}.Returns(TReturn)" />
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Returns(TReturn returnValue)
 		{
+			if (!_hasReturnValue && _returnCallbacks is null)
+			{
+				_returnValue = returnValue;
+				_hasReturnValue = true;
+				return this;
+			}
+
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => returnValue);
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -269,7 +295,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws<TException>()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => throw new TException());
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -277,7 +303,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws(global::System.Exception exception)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => throw exception);
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -285,7 +311,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5>.Throws(global::System.Func<T1, T2, T3, T4, T5, global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, p1, p2, p3, p4, p5) => throw callback(p1, p2, p3, p4, p5));
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -293,7 +319,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5>.Throws(global::System.Func<global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, TReturn>>((_, _, _, _, _, _) => throw callback());
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -328,21 +354,21 @@ namespace Mockolate.Setup
 		/// <inheritdoc cref="global::Mockolate.Setup.IReturnMethodSetupReturnBuilder{TReturn, T1, T2, T3, T4, T5}.When(global::System.Func{int, bool})" />
 		global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5>.When(global::System.Func<int, bool> predicate)
 		{
-			_returnCallbacks?.Active?.When(predicate);
+			ReturnCallbacks?.Active?.When(predicate);
 			return this;
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder{TReturn, T1, T2, T3, T4, T5}.For(int)" />
 		global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4, T5>.For(int times)
 		{
-			_returnCallbacks?.Active?.For(times);
+			ReturnCallbacks?.Active?.For(times);
 			return this;
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder{TReturn, T1, T2, T3, T4, T5}.Only(int)" />
 		global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5> global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4, T5>.Only(int times)
 		{
-			_returnCallbacks?.Active?.Only(times);
+			ReturnCallbacks?.Active?.Only(times);
 			return this;
 		}
 
@@ -360,7 +386,7 @@ namespace Mockolate.Setup
 		///     Flag indicating, if any return callbacks have been registered on this setup.
 		/// </summary>
 		public bool HasReturnCallbacks
-			=> _returnCallbacks is { Count: > 0, };
+			=> _hasReturnValue || _returnCallbacks is { Count: > 0, };
 
 		/// <summary>
 		///     Gets the flag indicating if the base class implementation should be skipped.
@@ -373,6 +399,13 @@ namespace Mockolate.Setup
 		/// </summary>
 		public bool TryGetReturnValue(T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, out TReturn returnValue)
 		{
+			if (_hasReturnValue)
+			{
+				_returnValueCount++;
+				returnValue = _returnValue;
+				return true;
+			}
+
 			if (_returnCallbacks != null)
 			{
 				foreach (var _ in _returnCallbacks)
@@ -716,9 +749,28 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6>
 	{
 		private readonly global::Mockolate.Internals.MockRegistry _mockRegistry;
-		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6>>? _callbacks = [];
-		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>? _returnCallbacks = [];
+		private global::Mockolate.Internals.Callbacks<global::System.Action<int, T1, T2, T3, T4, T5, T6>>? _callbacks;
+		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>? _returnCallbacks;
+		private TReturn _returnValue = default!;
+		private bool _hasReturnValue;
+		private int _returnValueCount;
 		private bool? _skipBaseClass;
+
+		private global::Mockolate.Internals.Callbacks<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>? ReturnCallbacks
+		{
+			get
+			{
+				if (_hasReturnValue)
+				{
+					TReturn returnValue = _returnValue;
+					_hasReturnValue = false;
+					_returnValue = default!;
+					_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>((_, _, _, _, _, _, _) => returnValue), _returnValueCount);
+				}
+
+				return _returnCallbacks;
+			}
+		}
 
 		protected ReturnMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
@@ -770,7 +822,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5, T6>.Returns(global::System.Func<T1, T2, T3, T4, T5, T6, TReturn> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>((_, p1, p2, p3, p4, p5, p6) => callback(p1, p2, p3, p4, p5, p6));
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -778,15 +830,22 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6>.Returns(global::System.Func<TReturn> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>((_, _, _, _, _, _, _) => callback());
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Setup.IReturnMethodSetup{TReturn, T1, T2, T3, T4, T5, T6}.Returns(TReturn)" />
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6>.Returns(TReturn returnValue)
 		{
+			if (!_hasReturnValue && _returnCallbacks is null)
+			{
+				_returnValue = returnValue;
+				_hasReturnValue = true;
+				return this;
+			}
+
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>((_, _, _, _, _, _, _) => returnValue);
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -794,7 +853,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6>.Throws<TException>()
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>((_, _, _, _, _, _, _) => throw new TException());
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -802,7 +861,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6>.Throws(global::System.Exception exception)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>((_, _, _, _, _, _, _) => throw exception);
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -810,7 +869,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, T1, T2, T3, T4, T5, T6>.Throws(global::System.Func<T1, T2, T3, T4, T5, T6, global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>((_, p1, p2, p3, p4, p5, p6) => throw callback(p1, p2, p3, p4, p5, p6));
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -818,7 +877,7 @@ namespace Mockolate.Setup
 		global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6>.Throws(global::System.Func<global::System.Exception> callback)
 		{
 			var currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, T1, T2, T3, T4, T5, T6, TReturn>>((_, _, _, _, _, _, _) => throw callback());
-			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);
+			_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);
 			return this;
 		}
 
@@ -853,21 +912,21 @@ namespace Mockolate.Setup
 		/// <inheritdoc cref="global::Mockolate.Setup.IReturnMethodSetupReturnBuilder{TReturn, T1, T2, T3, T4, T5, T6}.When(global::System.Func{int, bool})" />
 		global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, T1, T2, T3, T4, T5, T6>.When(global::System.Func<int, bool> predicate)
 		{
-			_returnCallbacks?.Active?.When(predicate);
+			ReturnCallbacks?.Active?.When(predicate);
 			return this;
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder{TReturn, T1, T2, T3, T4, T5, T6}.For(int)" />
 		global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4, T5, T6>.For(int times)
 		{
-			_returnCallbacks?.Active?.For(times);
+			ReturnCallbacks?.Active?.For(times);
 			return this;
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder{TReturn, T1, T2, T3, T4, T5, T6}.Only(int)" />
 		global::Mockolate.Setup.IReturnMethodSetup<TReturn, T1, T2, T3, T4, T5, T6> global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, T1, T2, T3, T4, T5, T6>.Only(int times)
 		{
-			_returnCallbacks?.Active?.Only(times);
+			ReturnCallbacks?.Active?.Only(times);
 			return this;
 		}
 
@@ -885,7 +944,7 @@ namespace Mockolate.Setup
 		///     Flag indicating, if any return callbacks have been registered on this setup.
 		/// </summary>
 		public bool HasReturnCallbacks
-			=> _returnCallbacks is { Count: > 0, };
+			=> _hasReturnValue || _returnCallbacks is { Count: > 0, };
 
 		/// <summary>
 		///     Gets the flag indicating if the base class implementation should be skipped.
@@ -898,6 +957,13 @@ namespace Mockolate.Setup
 		/// </summary>
 		public bool TryGetReturnValue(T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, out TReturn returnValue)
 		{
+			if (_hasReturnValue)
+			{
+				_returnValueCount++;
+				returnValue = _returnValue;
+				return true;
+			}
+
 			if (_returnCallbacks != null)
 			{
 				foreach (var _ in _returnCallbacks)

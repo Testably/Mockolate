@@ -434,8 +434,8 @@ internal static partial class Sources
 		sb.Append("\t\tglobal::Mockolate.Setup.IVoidMethodSetupReturnBuilder<").Append(typeParams).Append(">").AppendLine();
 		sb.Append("{").AppendLine();
 		sb.Append("\t\tprivate readonly global::Mockolate.Internals.MockRegistry _mockRegistry;").AppendLine();
-		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Action<int, ").Append(typeParams).Append(">>? _callbacks = [];").AppendLine();
-		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Action<int, ").Append(typeParams).Append(">>? _returnCallbacks = [];").AppendLine();
+		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Action<int, ").Append(typeParams).Append(">>? _callbacks;").AppendLine();
+		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Action<int, ").Append(typeParams).Append(">>? _returnCallbacks;").AppendLine();
 		sb.Append("\t\tprivate bool? _skipBaseClass;").AppendLine();
 		sb.AppendLine();
 
@@ -1089,9 +1089,28 @@ internal static partial class Sources
 		sb.Append("\t\tglobal::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, ").Append(typeParams).Append(">").AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tprivate readonly global::Mockolate.Internals.MockRegistry _mockRegistry;").AppendLine();
-		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Action<int, ").Append(typeParams).Append(">>? _callbacks = [];").AppendLine();
-		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>? _returnCallbacks = [];").AppendLine();
+		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Action<int, ").Append(typeParams).Append(">>? _callbacks;").AppendLine();
+		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>? _returnCallbacks;").AppendLine();
+		sb.Append("\t\tprivate TReturn _returnValue = default!;").AppendLine();
+		sb.Append("\t\tprivate bool _hasReturnValue;").AppendLine();
+		sb.Append("\t\tprivate int _returnValueCount;").AppendLine();
 		sb.Append("\t\tprivate bool? _skipBaseClass;").AppendLine();
+		sb.AppendLine();
+		sb.Append("\t\tprivate global::Mockolate.Internals.Callbacks<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>? ReturnCallbacks").AppendLine();
+		sb.Append("\t\t{").AppendLine();
+		sb.Append("\t\t\tget").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\tif (_hasReturnValue)").AppendLine();
+		sb.Append("\t\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\t\tTReturn returnValue = _returnValue;").AppendLine();
+		sb.Append("\t\t\t\t\t_hasReturnValue = false;").AppendLine();
+		sb.Append("\t\t\t\t\t_returnValue = default!;").AppendLine();
+		sb.Append("\t\t\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(discards).Append(") => returnValue), _returnValueCount);").AppendLine();
+		sb.Append("\t\t\t\t}").AppendLine();
+		sb.AppendLine();
+		sb.Append("\t\t\t\treturn _returnCallbacks;").AppendLine();
+		sb.Append("\t\t\t}").AppendLine();
+		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
 		sb.Append("\t\tprotected ReturnMethodSetup(global::Mockolate.Internals.MockRegistry mockRegistry, string name)").AppendLine();
@@ -1168,7 +1187,7 @@ internal static partial class Sources
 			.Append(">.Returns(global::System.Func<").Append(typeParams).Append(", TReturn> callback)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tvar currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(parameters).Append(") => callback(").Append(parameters).Append("));").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);").AppendLine();
+		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1180,7 +1199,7 @@ internal static partial class Sources
 			.Append(">.Returns(global::System.Func<TReturn> callback)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tvar currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(discards).Append(") => callback());").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);").AppendLine();
+		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1191,8 +1210,15 @@ internal static partial class Sources
 			.Append("> global::Mockolate.Setup.IReturnMethodSetup<TReturn, ").Append(typeParams)
 			.Append(">.Returns(TReturn returnValue)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
+		sb.Append("\t\t\tif (!_hasReturnValue && _returnCallbacks is null)").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\t_returnValue = returnValue;").AppendLine();
+		sb.Append("\t\t\t\t_hasReturnValue = true;").AppendLine();
+		sb.Append("\t\t\t\treturn this;").AppendLine();
+		sb.Append("\t\t\t}").AppendLine();
+		sb.AppendLine();
 		sb.Append("\t\t\tvar currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(discards).Append(") => returnValue);").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);").AppendLine();
+		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1204,7 +1230,7 @@ internal static partial class Sources
 			.Append(">.Throws<TException>()").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tvar currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(discards).Append(") => throw new TException());").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);").AppendLine();
+		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1216,7 +1242,7 @@ internal static partial class Sources
 			.Append(">.Throws(global::System.Exception exception)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tvar currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(discards).Append(") => throw exception);").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);").AppendLine();
+		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1228,7 +1254,7 @@ internal static partial class Sources
 			.Append(">.Throws(global::System.Func<").Append(typeParams).Append(", global::System.Exception> callback)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tvar currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(parameters).Append(") => throw callback(").Append(parameters).Append("));").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);").AppendLine();
+		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1240,7 +1266,7 @@ internal static partial class Sources
 			.Append(">.Throws(global::System.Func<global::System.Exception> callback)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tvar currentCallback = new global::Mockolate.Setup.Callback<global::System.Func<int, ").Append(typeParams).Append(", TReturn>>((_, ").Append(discards).Append(") => throw callback());").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(_returnCallbacks, currentCallback);").AppendLine();
+		sb.Append("\t\t\t_returnCallbacks = global::Mockolate.Internals.CallbacksExtensions.Register(ReturnCallbacks, currentCallback);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1295,7 +1321,7 @@ internal static partial class Sources
 			.Append("> global::Mockolate.Setup.IReturnMethodSetupReturnBuilder<TReturn, ").Append(typeParams)
 			.Append(">.When(global::System.Func<int, bool> predicate)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks?.Active?.When(predicate);").AppendLine();
+		sb.Append("\t\t\tReturnCallbacks?.Active?.When(predicate);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1306,7 +1332,7 @@ internal static partial class Sources
 			.Append("> global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, ").Append(typeParams)
 			.Append(">.For(int times)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks?.Active?.For(times);").AppendLine();
+		sb.Append("\t\t\tReturnCallbacks?.Active?.For(times);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1317,7 +1343,7 @@ internal static partial class Sources
 			.Append("> global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, ").Append(typeParams)
 			.Append(">.Only(int times)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_returnCallbacks?.Active?.Only(times);").AppendLine();
+		sb.Append("\t\t\tReturnCallbacks?.Active?.Only(times);").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1335,7 +1361,7 @@ internal static partial class Sources
 
 		sb.AppendXmlSummary("Flag indicating, if any return callbacks have been registered on this setup.");
 		sb.Append("\t\tpublic bool HasReturnCallbacks").AppendLine();
-		sb.Append("\t\t\t=> _returnCallbacks is { Count: > 0, };").AppendLine();
+		sb.Append("\t\t\t=> _hasReturnValue || _returnCallbacks is { Count: > 0, };").AppendLine();
 		sb.AppendLine();
 
 		sb.AppendXmlSummary("Gets the flag indicating if the base class implementation should be skipped.");
@@ -1351,6 +1377,13 @@ internal static partial class Sources
 		sb.AppendXmlSummary("Gets the registered return value.");
 		sb.Append("\t\tpublic bool TryGetReturnValue(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} p{i}"))).Append(", out TReturn returnValue)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
+		sb.Append("\t\t\tif (_hasReturnValue)").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\t_returnValueCount++;").AppendLine();
+		sb.Append("\t\t\t\treturnValue = _returnValue;").AppendLine();
+		sb.Append("\t\t\t\treturn true;").AppendLine();
+		sb.Append("\t\t\t}").AppendLine();
+		sb.AppendLine();
 		sb.Append("\t\t\tif (_returnCallbacks != null)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\tforeach (var _ in _returnCallbacks)").AppendLine();
