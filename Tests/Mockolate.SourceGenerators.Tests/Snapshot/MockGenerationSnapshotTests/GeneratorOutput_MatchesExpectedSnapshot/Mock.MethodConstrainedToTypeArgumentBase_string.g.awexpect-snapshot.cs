@@ -313,12 +313,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForMethodConstrainedToTypeArgumentBase_string> IMockVerifyForMethodConstrainedToTypeArgumentBase_string.Accept<U>(global::Mockolate.Parameters.IParameter<U?>? value)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForMethodConstrainedToTypeArgumentBase_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.MethodConstrainedToTypeArgumentBase<string>.Accept<{typeof(U)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"Accept<U>({value})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"Accept<U>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForMethodConstrainedToTypeArgumentBase_string>.IgnoreParameters IMockVerifyForMethodConstrainedToTypeArgumentBase_string.Accept<U>(U? value)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForMethodConstrainedToTypeArgumentBase_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.MethodConstrainedToTypeArgumentBase<string>.Accept<{typeof(U)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)), () => $"Accept<U>({value})");
+				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)), () => $"Accept<U>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForMethodConstrainedToTypeArgumentBase_string>.IgnoreParameters IMockVerifyForMethodConstrainedToTypeArgumentBase_string.Get<U>()
 			where U : class
@@ -346,12 +346,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForMethodConstrainedToTypeArgumentBase_string> IMockVerifyForMethodConstrainedToTypeArgumentBase_string.Accept<U>(global::Mockolate.Parameters.IParameter<U?>? value)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForMethodConstrainedToTypeArgumentBase_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.MethodConstrainedToTypeArgumentBase<string>.Accept<{typeof(U)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"Accept<U>({value})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"Accept<U>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForMethodConstrainedToTypeArgumentBase_string>.IgnoreParameters IMockVerifyForMethodConstrainedToTypeArgumentBase_string.Accept<U>(U? value)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForMethodConstrainedToTypeArgumentBase_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.MethodConstrainedToTypeArgumentBase<string>.Accept<{typeof(U)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)), () => $"Accept<U>({value})");
+				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)), () => $"Accept<U>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForMethodConstrainedToTypeArgumentBase_string>.IgnoreParameters IMockVerifyForMethodConstrainedToTypeArgumentBase_string.Get<U>()
 			where U : class
