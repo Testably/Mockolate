@@ -14,9 +14,8 @@ public class FastEventBufferTests
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
 		int subscribeId = Mock.FastEventBufferTests_IFastEventService.MemberId_SomeEvent_Subscribe;
-		FastEventBuffer? buffer = fast.Buffers[subscribeId] as FastEventBuffer;
-		await That(buffer).IsNotNull();
-		await That(buffer!.Count).IsEqualTo(2);
+		FastEventBuffer buffer = fast.GetOrCreateBuffer<FastEventBuffer>(subscribeId, static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
+		await That(buffer.Count).IsEqualTo(2);
 	}
 
 	[Test]
@@ -32,9 +31,8 @@ public class FastEventBufferTests
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
 		int unsubscribeId = Mock.FastEventBufferTests_IFastEventService.MemberId_SomeEvent_Unsubscribe;
-		FastEventBuffer? buffer = fast.Buffers[unsubscribeId] as FastEventBuffer;
-		await That(buffer).IsNotNull();
-		await That(buffer!.Count).IsEqualTo(1);
+		FastEventBuffer buffer = fast.GetOrCreateBuffer<FastEventBuffer>(unsubscribeId, static f => new FastEventBuffer(f, FastEventBufferKind.Unsubscribe));
+		await That(buffer.Count).IsEqualTo(1);
 	}
 
 	public interface IFastEventService

@@ -120,20 +120,19 @@ internal static partial class Sources
 	///     var setup = mockRegistry.GetIndexerSetup&lt;IndexerSetup&lt;TValue, T...&gt;&gt;(access);</code>
 	/// </summary>
 	/// <remarks>
-	///     When <paramref name="cachedBufferRef" /> is provided, the recording branch reads from the
-	///     cached typed-buffer property on the mock instead of paying the per-call cast / array-index /
-	///     property-chain to reach the typed buffer.
+	///     When <paramref name="useFastBuffers" /> is set and a <paramref name="memberIdRef" /> is provided, the
+	///     recording branch records the typed parameters directly and needs no access object.
 	/// </remarks>
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void EmitIndexerGetterAccessAndSetup(StringBuilder sb, string indent,
 		string mockRegistry, string accessVarName, string setupVarName,
 		Type propertyType, EquatableArray<MethodParameter> parameters,
 		bool useFastBuffers = false, string? memberIdRef = null,
-		string? setupMemberIdRef = null,
-		string? cachedBufferRef = null)
+		string? setupMemberIdRef = null)
 #pragma warning restore S107
 	{
-		bool deferAccess = CanDeferIndexerAccess(parameters, cachedBufferRef);
+		bool recordsTyped = useFastBuffers && memberIdRef is not null;
+		bool deferAccess = CanDeferIndexerAccess(parameters, recordsTyped);
 
 		if (!deferAccess)
 		{
@@ -143,22 +142,14 @@ internal static partial class Sources
 		sb.Append(indent).Append("if (").Append(mockRegistry).Append(".Behavior.SkipInteractionRecording == false)")
 			.AppendLine();
 		sb.Append(indent).Append("{").AppendLine();
-		if (cachedBufferRef is not null)
+		if (recordsTyped)
 		{
-			sb.Append(indent).Append('\t').Append(cachedBufferRef).Append(".Append(");
+			sb.Append(indent).Append("\tglobal::Mockolate.Internals.FastIndexerGetterBuffer<");
+			AppendIndexerParameterTypes(sb, parameters);
+			sb.Append(">.Append((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
+				.Append(".Interactions, ").Append(memberIdRef).Append(", ");
 			AppendIndexerParameterArguments(sb, parameters);
 			sb.Append(");").AppendLine();
-		}
-		else if (useFastBuffers && memberIdRef is not null)
-		{
-			StringBuilder bufferType = new("global::Mockolate.Internals.FastIndexerGetterBuffer<");
-			AppendIndexerParameterTypes(bufferType, parameters);
-			bufferType.Append('>');
-			string bufferTypeName = bufferType.ToString();
-			sb.Append(indent).Append("\t((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
-				.Append(".Interactions).GetOrCreateBuffer<").Append(bufferTypeName).Append(">(")
-				.Append(memberIdRef).Append(", static fast => new ").Append(bufferTypeName)
-				.Append("(fast)).Append(").Append(accessVarName).Append(");").AppendLine();
 		}
 		else
 		{
@@ -190,13 +181,13 @@ internal static partial class Sources
 
 	/// <summary>
 	///     Determines whether the access-struct allocation can be deferred past the snapshot-scan loop.
-	///     Only applied when the cached typed buffer is in use (so the recording branch never references the
-	///     access object) and when no parameter is a Span/ReadOnlySpan (whose wrapper allocation would otherwise
-	///     repeat per loop iteration).
+	///     Only applied when the access is recorded with its typed parameters (so the recording branch never
+	///     references the access object) and when no parameter is a Span/ReadOnlySpan (whose wrapper allocation
+	///     would otherwise repeat per loop iteration).
 	/// </summary>
-	private static bool CanDeferIndexerAccess(EquatableArray<MethodParameter> parameters, string? cachedBufferRef)
+	private static bool CanDeferIndexerAccess(EquatableArray<MethodParameter> parameters, bool recordsTyped)
 	{
-		if (cachedBufferRef is null)
+		if (!recordsTyped)
 		{
 			return false;
 		}
@@ -216,8 +207,8 @@ internal static partial class Sources
 	///     Whether the indexer accessors call the typed <c>GetIndexer</c> / <c>SetIndexer</c> methods of the
 	///     registry, which need no access object. The library only has them for up to four parameters.
 	/// </summary>
-	private static bool UsesTypedIndexerDispatch(EquatableArray<MethodParameter> parameters, string? cachedBufferRef)
-		=> parameters.Count <= 4 && CanDeferIndexerAccess(parameters, cachedBufferRef);
+	private static bool UsesTypedIndexerDispatch(EquatableArray<MethodParameter> parameters, bool recordsTyped)
+		=> parameters.Count <= 4 && CanDeferIndexerAccess(parameters, recordsTyped);
 
 	private static void AppendIndexerTypeArguments(StringBuilder sb, Type propertyType,
 		EquatableArray<MethodParameter> parameters)
@@ -250,20 +241,16 @@ internal static partial class Sources
 	/// <summary>
 	///     Emits variable declarations for the indexer setter access and matching setup.
 	/// </summary>
-	/// <remarks>
-	///     See <see cref="EmitIndexerGetterAccessAndSetup" /> for how <paramref name="cachedBufferRef" />
-	///     short-circuits the per-call buffer lookup.
-	/// </remarks>
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void EmitIndexerSetterAccessAndSetup(StringBuilder sb, string indent,
 		string mockRegistry, string accessVarName, string setupVarName,
 		Type propertyType, EquatableArray<MethodParameter> parameters,
 		bool useFastBuffers = false, string? memberIdRef = null,
-		string? setupMemberIdRef = null,
-		string? cachedBufferRef = null)
+		string? setupMemberIdRef = null)
 #pragma warning restore S107
 	{
-		bool deferAccess = CanDeferIndexerAccess(parameters, cachedBufferRef);
+		bool recordsTyped = useFastBuffers && memberIdRef is not null;
+		bool deferAccess = CanDeferIndexerAccess(parameters, recordsTyped);
 
 		if (!deferAccess)
 		{
@@ -273,22 +260,15 @@ internal static partial class Sources
 		sb.Append(indent).Append("if (").Append(mockRegistry).Append(".Behavior.SkipInteractionRecording == false)")
 			.AppendLine();
 		sb.Append(indent).Append("{").AppendLine();
-		if (cachedBufferRef is not null)
+		if (recordsTyped)
 		{
-			sb.Append(indent).Append('\t').Append(cachedBufferRef).Append(".Append(");
+			sb.Append(indent).Append("\tglobal::Mockolate.Internals.FastIndexerSetterBuffer<");
+			AppendIndexerParameterTypes(sb, parameters);
+			sb.Append(", ").AppendTypeOrWrapper(propertyType)
+				.Append(">.Append((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
+				.Append(".Interactions, ").Append(memberIdRef).Append(", ");
 			AppendIndexerParameterArguments(sb, parameters);
 			sb.Append(", value);").AppendLine();
-		}
-		else if (useFastBuffers && memberIdRef is not null)
-		{
-			StringBuilder bufferType = new("global::Mockolate.Internals.FastIndexerSetterBuffer<");
-			AppendIndexerParameterTypes(bufferType, parameters);
-			bufferType.Append(", ").AppendTypeOrWrapper(propertyType).Append('>');
-			string bufferTypeName = bufferType.ToString();
-			sb.Append(indent).Append("\t((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
-				.Append(".Interactions).GetOrCreateBuffer<").Append(bufferTypeName).Append(">(")
-				.Append(memberIdRef).Append(", static fast => new ").Append(bufferTypeName)
-				.Append("(fast)).Append(").Append(accessVarName).Append(");").AppendLine();
 		}
 		else
 		{

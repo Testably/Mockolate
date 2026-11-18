@@ -33,9 +33,8 @@ public class FastPropertyBufferTests
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
 		int getterId = Mock.FastPropertyBufferTests_IFastPropertyService.MemberId_Counter_Get;
-		FastPropertyGetterBuffer? buffer = fast.Buffers[getterId] as FastPropertyGetterBuffer;
-		await That(buffer).IsNotNull();
-		await That(buffer!.Count).IsEqualTo(2);
+		FastPropertyGetterBuffer buffer = fast.GetOrCreateBuffer<FastPropertyGetterBuffer>(getterId, static f => new FastPropertyGetterBuffer(f));
+		await That(buffer.Count).IsEqualTo(2);
 		await That(fast.Count).IsEqualTo(2);
 	}
 
@@ -50,9 +49,8 @@ public class FastPropertyBufferTests
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
 		int setterId = Mock.FastPropertyBufferTests_IFastPropertyService.MemberId_Counter_Set;
-		FastPropertySetterBuffer<int>? buffer = fast.Buffers[setterId] as FastPropertySetterBuffer<int>;
-		await That(buffer).IsNotNull();
-		await That(buffer!.Count).IsEqualTo(3);
+		FastPropertySetterBuffer<int> buffer = fast.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(setterId, static f => new FastPropertySetterBuffer<int>(f));
+		await That(buffer.Count).IsEqualTo(3);
 	}
 
 	[Test]

@@ -30,7 +30,7 @@ public partial class MockRegistry
 	///     instead of growing one slot at a time as setups for higher-numbered members come in.
 	/// </summary>
 	private int GetMemberCountHint()
-		=> _interactions is FastMockInteractions fast ? fast.Buffers.Length : _interactionMemberCount;
+		=> _interactions is FastMockInteractions fast ? fast.MemberCount : _interactionMemberCount;
 
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private EventSetup[]?[]? _eventSetupsByMemberId;

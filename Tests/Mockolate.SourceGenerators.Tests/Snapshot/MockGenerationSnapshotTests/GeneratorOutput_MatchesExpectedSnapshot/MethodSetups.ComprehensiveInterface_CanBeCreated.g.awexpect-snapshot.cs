@@ -3192,64 +3192,21 @@ namespace Mockolate.Interactions
 namespace Mockolate.Internals
 {
 	/// <summary>
-	///     Per-member buffer for 5-parameter methods, synthesized for arity 5 use sites.
+	///     Records the calls of 5-parameter methods, synthesized for arity 5 use sites.
 	/// </summary>
-	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
-	internal sealed class FastMethod5Buffer<T1, T2, T3, T4, T5> : global::Mockolate.Internals.RecordList, global::Mockolate.Internals.IFastMemberBuffer
+	internal static class FastMethod5Buffer<T1, T2, T3, T4, T5>
 	{
-		private readonly global::Mockolate.Internals.FastMockInteractions _owner;
-
-		internal FastMethod5Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;
-
-		public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5)
+		public static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5)
 		{
-			int epoch = Epoch;
 			Record r = new Record();
-			r.Seq = _owner.NextSequence();
+			r.MemberId = memberId;
 			r.Name = name;
 			r.P1 = parameter1;
 			r.P2 = parameter2;
 			r.P3 = parameter3;
 			r.P4 = parameter4;
 			r.P5 = parameter5;
-			Push(r, epoch);
-
-			if (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();
-		}
-
-		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
-		{
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				Record r = (Record)node;
-				dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5))));
-			}
-		}
-
-		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
-		{
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				if (node.Verified) continue;
-				Record r = (Record)node;
-				dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5))));
-			}
-		}
-
-		public int ConsumeMatching(global::Mockolate.Parameters.IParameterMatch<T1> match1, global::Mockolate.Parameters.IParameterMatch<T2> match2, global::Mockolate.Parameters.IParameterMatch<T3> match3, global::Mockolate.Parameters.IParameterMatch<T4> match4, global::Mockolate.Parameters.IParameterMatch<T5> match5)
-		{
-			int matches = 0;
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				Record r = (Record)node;
-				if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5))
-				{
-					matches++;
-					r.Verified = true;
-				}
-			}
-
-			return matches;
+			owner.Push(r);
 		}
 
 		private sealed class Record : global::Mockolate.Internals.RecordNode
@@ -3260,23 +3217,20 @@ namespace Mockolate.Internals
 			public T3 P3 = default!;
 			public T4 P4 = default!;
 			public T5 P5 = default!;
+
+			protected override global::Mockolate.Interactions.IInteraction CreateInteraction()
+				=> new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5>(Name, P1, P2, P3, P4, P5);
 		}
 	}
 	/// <summary>
-	///     Per-member buffer for 7-parameter methods, synthesized for arity 7 use sites.
+	///     Records the calls of 7-parameter methods, synthesized for arity 7 use sites.
 	/// </summary>
-	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
-	internal sealed class FastMethod7Buffer<T1, T2, T3, T4, T5, T6, T7> : global::Mockolate.Internals.RecordList, global::Mockolate.Internals.IFastMemberBuffer
+	internal static class FastMethod7Buffer<T1, T2, T3, T4, T5, T6, T7>
 	{
-		private readonly global::Mockolate.Internals.FastMockInteractions _owner;
-
-		internal FastMethod7Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;
-
-		public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7)
+		public static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7)
 		{
-			int epoch = Epoch;
 			Record r = new Record();
-			r.Seq = _owner.NextSequence();
+			r.MemberId = memberId;
 			r.Name = name;
 			r.P1 = parameter1;
 			r.P2 = parameter2;
@@ -3285,44 +3239,7 @@ namespace Mockolate.Internals
 			r.P5 = parameter5;
 			r.P6 = parameter6;
 			r.P7 = parameter7;
-			Push(r, epoch);
-
-			if (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();
-		}
-
-		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
-		{
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				Record r = (Record)node;
-				dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7))));
-			}
-		}
-
-		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
-		{
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				if (node.Verified) continue;
-				Record r = (Record)node;
-				dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7))));
-			}
-		}
-
-		public int ConsumeMatching(global::Mockolate.Parameters.IParameterMatch<T1> match1, global::Mockolate.Parameters.IParameterMatch<T2> match2, global::Mockolate.Parameters.IParameterMatch<T3> match3, global::Mockolate.Parameters.IParameterMatch<T4> match4, global::Mockolate.Parameters.IParameterMatch<T5> match5, global::Mockolate.Parameters.IParameterMatch<T6> match6, global::Mockolate.Parameters.IParameterMatch<T7> match7)
-		{
-			int matches = 0;
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				Record r = (Record)node;
-				if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5) && match6.Matches(r.P6) && match7.Matches(r.P7))
-				{
-					matches++;
-					r.Verified = true;
-				}
-			}
-
-			return matches;
+			owner.Push(r);
 		}
 
 		private sealed class Record : global::Mockolate.Internals.RecordNode
@@ -3335,23 +3252,20 @@ namespace Mockolate.Internals
 			public T5 P5 = default!;
 			public T6 P6 = default!;
 			public T7 P7 = default!;
+
+			protected override global::Mockolate.Interactions.IInteraction CreateInteraction()
+				=> new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(Name, P1, P2, P3, P4, P5, P6, P7);
 		}
 	}
 	/// <summary>
-	///     Per-member buffer for 17-parameter methods, synthesized for arity 17 use sites.
+	///     Records the calls of 17-parameter methods, synthesized for arity 17 use sites.
 	/// </summary>
-	[global::System.Diagnostics.DebuggerDisplay("{Count} method calls")]
-	internal sealed class FastMethod17Buffer<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> : global::Mockolate.Internals.RecordList, global::Mockolate.Internals.IFastMemberBuffer
+	internal static class FastMethod17Buffer<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>
 	{
-		private readonly global::Mockolate.Internals.FastMockInteractions _owner;
-
-		internal FastMethod17Buffer(global::Mockolate.Internals.FastMockInteractions owner) => _owner = owner;
-
-		public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7, T8 parameter8, T9 parameter9, T10 parameter10, T11 parameter11, T12 parameter12, T13 parameter13, T14 parameter14, T15 parameter15, T16 parameter16, T17 parameter17)
+		public static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7, T8 parameter8, T9 parameter9, T10 parameter10, T11 parameter11, T12 parameter12, T13 parameter13, T14 parameter14, T15 parameter15, T16 parameter16, T17 parameter17)
 		{
-			int epoch = Epoch;
 			Record r = new Record();
-			r.Seq = _owner.NextSequence();
+			r.MemberId = memberId;
 			r.Name = name;
 			r.P1 = parameter1;
 			r.P2 = parameter2;
@@ -3370,44 +3284,7 @@ namespace Mockolate.Internals
 			r.P15 = parameter15;
 			r.P16 = parameter16;
 			r.P17 = parameter17;
-			Push(r, epoch);
-
-			if (_owner.HasInteractionAddedSubscribers) _owner.RaiseAdded();
-		}
-
-		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxed(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
-		{
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				Record r = (Record)node;
-				dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7, r.P8, r.P9, r.P10, r.P11, r.P12, r.P13, r.P14, r.P15, r.P16, r.P17))));
-			}
-		}
-
-		void global::Mockolate.Internals.IFastMemberBuffer.AppendBoxedUnverified(global::System.Collections.Generic.List<global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>> dest)
-		{
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				if (node.Verified) continue;
-				Record r = (Record)node;
-				dest.Add(new global::System.ValueTuple<long, global::Mockolate.Interactions.IInteraction>(r.Seq, r.Boxed ?? SetBoxed(r, new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(r.Name, r.P1, r.P2, r.P3, r.P4, r.P5, r.P6, r.P7, r.P8, r.P9, r.P10, r.P11, r.P12, r.P13, r.P14, r.P15, r.P16, r.P17))));
-			}
-		}
-
-		public int ConsumeMatching(global::Mockolate.Parameters.IParameterMatch<T1> match1, global::Mockolate.Parameters.IParameterMatch<T2> match2, global::Mockolate.Parameters.IParameterMatch<T3> match3, global::Mockolate.Parameters.IParameterMatch<T4> match4, global::Mockolate.Parameters.IParameterMatch<T5> match5, global::Mockolate.Parameters.IParameterMatch<T6> match6, global::Mockolate.Parameters.IParameterMatch<T7> match7, global::Mockolate.Parameters.IParameterMatch<T8> match8, global::Mockolate.Parameters.IParameterMatch<T9> match9, global::Mockolate.Parameters.IParameterMatch<T10> match10, global::Mockolate.Parameters.IParameterMatch<T11> match11, global::Mockolate.Parameters.IParameterMatch<T12> match12, global::Mockolate.Parameters.IParameterMatch<T13> match13, global::Mockolate.Parameters.IParameterMatch<T14> match14, global::Mockolate.Parameters.IParameterMatch<T15> match15, global::Mockolate.Parameters.IParameterMatch<T16> match16, global::Mockolate.Parameters.IParameterMatch<T17> match17)
-		{
-			int matches = 0;
-			for (global::Mockolate.Internals.RecordNode? node = First; node is not null; node = node.Next)
-			{
-				Record r = (Record)node;
-				if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4) && match5.Matches(r.P5) && match6.Matches(r.P6) && match7.Matches(r.P7) && match8.Matches(r.P8) && match9.Matches(r.P9) && match10.Matches(r.P10) && match11.Matches(r.P11) && match12.Matches(r.P12) && match13.Matches(r.P13) && match14.Matches(r.P14) && match15.Matches(r.P15) && match16.Matches(r.P16) && match17.Matches(r.P17))
-				{
-					matches++;
-					r.Verified = true;
-				}
-			}
-
-			return matches;
+			owner.Push(r);
 		}
 
 		private sealed class Record : global::Mockolate.Internals.RecordNode
@@ -3430,6 +3307,9 @@ namespace Mockolate.Internals
 			public T15 P15 = default!;
 			public T16 P16 = default!;
 			public T17 P17 = default!;
+
+			protected override global::Mockolate.Interactions.IInteraction CreateInteraction()
+				=> new global::Mockolate.Interactions.MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(Name, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17);
 		}
 	}
 }

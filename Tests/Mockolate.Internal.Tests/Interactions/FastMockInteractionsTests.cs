@@ -47,39 +47,6 @@ public class FastMockInteractionsTests
 	}
 
 	[Test]
-	public async Task Clear_FallbackPath_ShouldClearStrongReferencesInRecordsArray()
-	{
-		// Pins the `Array.Clear(_records, 0, _count);` call inside FallbackBuffer.Clear. With
-		// the statement removed, _count is still reset to 0 but the underlying _records array
-		// keeps strong references to the cleared interactions. The behavioral surface (Count,
-		// enumeration) is unchanged — but the array contents leak. Inspect via reflection.
-		IMockInteractions sut = new FastMockInteractions(0);
-		MethodInvocation first = new("first");
-		MethodInvocation second = new("second");
-		sut.RegisterInteraction(first);
-		sut.RegisterInteraction(second);
-
-		sut.Clear();
-
-		FieldInfo fallbackField = typeof(FastMockInteractions).GetField(
-			"_fallback", BindingFlags.NonPublic | BindingFlags.Instance)!;
-		object fallback = fallbackField.GetValue(sut)!;
-
-		FieldInfo recordsField = fallback.GetType().GetField(
-			"_records", BindingFlags.NonPublic | BindingFlags.Instance)!;
-		Array records = (Array)recordsField.GetValue(fallback)!;
-
-		Type slotType = records.GetType().GetElementType()!;
-		FieldInfo interactionField = slotType.GetField("Item2")!;
-		for (int i = 0; i < records.Length; i++)
-		{
-			object? slot = records.GetValue(i);
-			object? interaction = interactionField.GetValue(slot);
-			await That(interaction).IsNull();
-		}
-	}
-
-	[Test]
 	public async Task Clear_FallbackPath_ShouldNotResurfaceOldRecordsAfterRefill()
 	{
 		IMockInteractions sut = new FastMockInteractions(0);
@@ -243,64 +210,6 @@ public class FastMockInteractionsTests
 		await That(((MethodInvocation<int>)ordered[2]).Parameter1).IsEqualTo(2);
 		await That(((PropertySetterAccess<string>)ordered[1]).Value).IsEqualTo("x");
 		await That(((PropertySetterAccess<string>)ordered[3]).Value).IsEqualTo("y");
-	}
-
-	[Test]
-	public async Task GetOrCreateFallbackBuffer_BarrierSynchronizedRace_AllCallersResolveToTheSameInstalledBuffer(CancellationToken cancellationToken)
-	{
-		// Pins the `existing ?? created` null-coalesce in GetOrCreateFallbackBuffer. With the
-		// left side removed (`existing ?? created` → `created`), CompareExchange losers return
-		// their freshly-allocated buffer instead of the winner's installed one — even though
-		// only the winner's buffer ends up referenced by `_fallback`. Calls private method
-		// directly via reflection from many threads released in lockstep by a Barrier; resets
-		// `_fallback` to null between rounds so every round races from a clean slate. After
-		// each round, every returned buffer must be identical to the one referenced by
-		// `_fallback` — otherwise a loser was handed an orphan instance.
-		const int threads = 32;
-		const int rounds = 5;
-
-		FastMockInteractions sut = new(0);
-		FieldInfo fallbackField = typeof(FastMockInteractions).GetField(
-			"_fallback", BindingFlags.NonPublic | BindingFlags.Instance)!;
-		MethodInfo getOrCreate = typeof(FastMockInteractions).GetMethod(
-			"GetOrCreateFallbackBuffer", BindingFlags.NonPublic | BindingFlags.Instance)!;
-
-		object?[] returnedBuffers = new object?[threads];
-
-		using Barrier barrier = new(threads + 1);
-
-		Task[] tasks = new Task[threads];
-		for (int t = 0; t < threads; t++)
-		{
-			int threadId = t;
-#pragma warning disable xUnit1051
-			tasks[t] = Task.Factory.StartNew(() =>
-#pragma warning restore xUnit1051
-			{
-				for (int round = 0; round < rounds; round++)
-				{
-					barrier.SignalAndWait();
-					returnedBuffers[threadId] = getOrCreate.Invoke(sut, null);
-					barrier.SignalAndWait();
-				}
-			}, TaskCreationOptions.LongRunning);
-		}
-
-		for (int round = 0; round < rounds; round++)
-		{
-			fallbackField.SetValue(sut, null);
-			barrier.SignalAndWait(cancellationToken);
-			barrier.SignalAndWait(cancellationToken);
-
-			object? installed = fallbackField.GetValue(sut);
-			await That(installed).IsNotNull();
-			for (int t = 0; t < threads; t++)
-			{
-				await That(returnedBuffers[t]).IsSameAs(installed);
-			}
-		}
-
-		await Task.WhenAll(tasks);
 	}
 
 	[Test]
@@ -477,17 +386,20 @@ public class FastMockInteractionsTests
 	}
 
 	[Test]
-	public async Task NextSequence_ShouldReturnZeroBasedMonotonicValues()
+	public async Task Push_ShouldAssignZeroBasedMonotonicPositions()
 	{
 		FastMockInteractions sut = new(0);
+		InteractionRecord first = new(new MethodInvocation("Foo"));
+		InteractionRecord second = new(new MethodInvocation("Foo"));
+		InteractionRecord third = new(new MethodInvocation("Foo"));
 
-		long first = sut.NextSequence();
-		long second = sut.NextSequence();
-		long third = sut.NextSequence();
+		sut.Push(first);
+		sut.Push(second);
+		sut.Push(third);
 
-		await That(first).IsEqualTo(0L);
-		await That(second).IsEqualTo(1L);
-		await That(third).IsEqualTo(2L);
+		await That(first.Seq).IsEqualTo(0L);
+		await That(second.Seq).IsEqualTo(1L);
+		await That(third.Seq).IsEqualTo(2L);
 	}
 
 	[Test]

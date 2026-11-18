@@ -19,7 +19,7 @@ public class RecordListTests
 			buffer.Append("Foo", i);
 		}
 
-		buffer.Clear();
+		store.Clear();
 		await That(buffer.Count).IsEqualTo(0);
 
 		buffer.Append("Foo", 99);
@@ -36,7 +36,7 @@ public class RecordListTests
 		buffer.Append("Foo", 1);
 		buffer.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>());
 
-		buffer.Clear();
+		store.Clear();
 		buffer.Append("Foo", 2);
 
 		await That(store.GetUnverifiedInteractions()).HasCount(1)
@@ -80,17 +80,17 @@ public class RecordListTests
 	[Test]
 	[Arguments(0)]
 	[Arguments(3)]
-	public async Task Push_WhenClearRanAfterTheWriterStarted_ShouldDropTheRecord(int recordsBeforeClear)
+	public async Task Push_AfterClear_ShouldStartANewSequence(int recordsBeforeClear)
 	{
 		IntList list = CreateList(recordsBeforeClear);
-		int staleEpoch = list.BeginAppend();
 
 		list.Clear();
-		list.EndAppend(staleEpoch, -1);
 		list.Append(1);
 
-		await That(list.Read()).IsEqualTo([1,])
-			.Because("a call that started before Clear must not be recorded after it, even when the list was empty");
+		await That(list.Read()).IsEqualTo([1,]);
+		await That(list.Head!.Seq).IsEqualTo(0)
+			.Because("the position of a call is counted from the last Clear");
+		await That(list.Count).IsEqualTo(1);
 	}
 
 	[Test]
@@ -137,16 +137,52 @@ public class RecordListTests
 	}
 
 	[Test]
-	public async Task SetBoxed_WhenCalledConcurrently_ShouldReturnASingleInstance()
+	public async Task Interaction_WhenReadConcurrently_ShouldReturnASingleInstance()
 	{
 		IntList list = CreateList(1);
 		RecordNode node = list.Head!;
 		IInteraction[] results = new IInteraction[8];
 
-		RunConcurrently(results.Length, t => results[t] = IntList.Box(node, new MethodInvocation("Foo")));
+		RunConcurrently(results.Length, t => results[t] = node.Interaction);
 
 		await That(results.Distinct()).HasCount(1)
 			.Because("the unverified-interactions filter compares boxed interactions by reference");
+	}
+
+	[Test]
+	public async Task Verified_ShouldNotChangeTheMemberId()
+	{
+		IntNode node = new(1)
+		{
+			MemberId = 42,
+		};
+
+		node.Verified = true;
+		int memberIdWhenVerified = node.MemberId;
+		bool verified = node.Verified;
+		node.Verified = false;
+
+		await That(memberIdWhenVerified).IsEqualTo(42).Because("both values share one field");
+		await That(verified).IsTrue();
+		await That(node.MemberId).IsEqualTo(42);
+		await That(node.Verified).IsFalse();
+	}
+
+	[Test]
+	public async Task Append_WithoutBuffer_ShouldBeVisibleInTheViewOfItsMemberOnly()
+	{
+		FastMockInteractions store = new(2);
+
+		FastMethod1Buffer<int>.Append(store, 0, "Foo", 1);
+		FastMethod1Buffer<int>.Append(store, 1, "Bar", 2);
+		FastMethod1Buffer<int>.Append(store, 0, "Foo", 3);
+
+		FastMethod1Buffer<int> view = CreateBuffer(store);
+		await That(view.Count).IsEqualTo(2);
+		await That(view.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>())).IsEqualTo(2);
+		await That(store.Buffers[1]).IsNull().Because("recording a call needs no view");
+		await That(store.Count).IsEqualTo(3);
+		await That(store.GetUnverifiedInteractions().Select(x => ((MethodInvocation<int>)x).Name)).IsEqualTo(["Bar",]);
 	}
 
 	[Test]
@@ -233,24 +269,24 @@ public class RecordListTests
 		}
 	}
 
-	private sealed class IntList : RecordList
+	private sealed class IntList
 	{
-		public RecordNode? Head => First;
+		private readonly FastMockInteractions _store = new(1);
 
-		public int BeginAppend() => Epoch;
+		public RecordNode? Head => _store.First;
 
-		public void EndAppend(int epoch, int value) => Push(new IntNode(value), epoch);
+		public int Count => _store.Count;
 
-		public void Append(int value) => EndAppend(BeginAppend(), value);
+		public void Append(int value) => _store.Push(new IntNode(value));
 
-		public static IInteraction Box(RecordNode node, IInteraction boxed) => SetBoxed(node, boxed);
+		public void Clear() => _store.Clear();
 
 		public List<int> Read() => ReadWithChecks().Select(x => x.Value).Reverse().ToList();
 
 		public List<(int Value, int Check)> ReadWithChecks()
 		{
 			List<(int, int)> records = [];
-			for (RecordNode? node = First; node is not null; node = node.Next)
+			for (RecordNode? node = Head; node is not null; node = node.Next)
 			{
 				IntNode intNode = (IntNode)node;
 				records.Add((intNode.Value, intNode.Check));
@@ -270,5 +306,7 @@ public class RecordListTests
 
 		public int Value { get; }
 		public int Check { get; }
+
+		protected override IInteraction CreateInteraction() => new MethodInvocation("Foo");
 	}
 }

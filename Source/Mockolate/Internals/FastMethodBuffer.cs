@@ -16,55 +16,30 @@ namespace Mockolate.Internals;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod0Buffer : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new parameterless method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod0Buffer(FastMockInteractions owner)
+	public FastMethod0Buffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records a parameterless method call.
 	/// </summary>
 	public void Append(string name)
+		=> Append(Owner, MemberId, name);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, string name)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.Name = name;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation(r.Name))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation(r.Name))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -79,7 +54,7 @@ public sealed class FastMethod0Buffer : RecordList, IFastMemberBuffer
 	public int ConsumeMatching()
 	{
 		int n = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			node.Verified = true;
 			n++;
@@ -91,6 +66,9 @@ public sealed class FastMethod0Buffer : RecordList, IFastMemberBuffer
 	private sealed class Record : RecordNode
 	{
 		public string Name = null!;
+
+		protected override IInteraction CreateInteraction()
+			=> new MethodInvocation(Name);
 	}
 }
 
@@ -104,56 +82,31 @@ public sealed class FastMethod0Buffer : RecordList, IFastMemberBuffer
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new 1-parameter method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod1Buffer(FastMockInteractions owner)
+	public FastMethod1Buffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records a 1-parameter method call.
 	/// </summary>
 	public void Append(string name, T1 parameter1)
+		=> Append(Owner, MemberId, name, parameter1);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.Name = name;
 		r.P1 = parameter1;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1>(r.Name, r.P1))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1>(r.Name, r.P1))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -166,7 +119,7 @@ public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 	public int ConsumeMatching(IParameterMatch<T1> match1)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1))
@@ -189,7 +142,7 @@ public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 	{
 		int matches = 0;
 		EqualityComparer<T1> cmp = EqualityComparer<T1>.Default;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (cmp.Equals(value1, r.P1))
@@ -205,7 +158,7 @@ public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 	internal int ConsumeAll()
 	{
 		int n = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			node.Verified = true;
 			n++;
@@ -218,6 +171,9 @@ public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 	{
 		public string Name = null!;
 		public T1 P1 = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new MethodInvocation<T1>(Name, P1);
 	}
 }
 
@@ -231,57 +187,32 @@ public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new 2-parameter method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod2Buffer(FastMockInteractions owner)
+	public FastMethod2Buffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records a 2-parameter method call.
 	/// </summary>
 	public void Append(string name, T1 parameter1, T2 parameter2)
+		=> Append(Owner, MemberId, name, parameter1, parameter2);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.Name = name;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2>(r.Name, r.P1, r.P2))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2>(r.Name, r.P1, r.P2))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -292,7 +223,7 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2))
@@ -316,7 +247,7 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 		int matches = 0;
 		EqualityComparer<T1> cmp1 = EqualityComparer<T1>.Default;
 		EqualityComparer<T2> cmp2 = EqualityComparer<T2>.Default;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2))
@@ -332,7 +263,7 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 	internal int ConsumeAll()
 	{
 		int n = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			node.Verified = true;
 			n++;
@@ -346,6 +277,9 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 		public string Name = null!;
 		public T1 P1 = default!;
 		public T2 P2 = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new MethodInvocation<T1, T2>(Name, P1, P2);
 	}
 }
 
@@ -359,58 +293,33 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new 3-parameter method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod3Buffer(FastMockInteractions owner)
+	public FastMethod3Buffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records a 3-parameter method call.
 	/// </summary>
 	public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3)
+		=> Append(Owner, MemberId, name, parameter1, parameter2, parameter3);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.Name = name;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2, T3>(r.Name, r.P1, r.P2, r.P3))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2, T3>(r.Name, r.P1, r.P2, r.P3))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -420,7 +329,7 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffe
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3))
@@ -445,7 +354,7 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffe
 		EqualityComparer<T1> cmp1 = EqualityComparer<T1>.Default;
 		EqualityComparer<T2> cmp2 = EqualityComparer<T2>.Default;
 		EqualityComparer<T3> cmp3 = EqualityComparer<T3>.Default;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2) && cmp3.Equals(value3, r.P3))
@@ -461,7 +370,7 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffe
 	internal int ConsumeAll()
 	{
 		int n = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			node.Verified = true;
 			n++;
@@ -476,6 +385,9 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffe
 		public T1 P1 = default!;
 		public T2 P2 = default!;
 		public T3 P3 = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new MethodInvocation<T1, T2, T3>(Name, P1, P2, P3);
 	}
 }
 
@@ -489,59 +401,34 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffe
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList, IFastMemberBuffer
 {
-	private readonly FastMockInteractions _owner;
-
 	/// <summary>
 	///     Creates a new 4-parameter method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod4Buffer(FastMockInteractions owner)
+	public FastMethod4Buffer(FastMockInteractions owner) : base(owner)
 	{
-		_owner = owner;
 	}
 
 	/// <summary>
 	///     Records a 4-parameter method call.
 	/// </summary>
 	public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
+		=> Append(Owner, MemberId, name, parameter1, parameter2, parameter3, parameter4);
+
+	/// <summary>
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
+	///     the need for a buffer instance.
+	/// </summary>
+	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
 	{
-		int epoch = Epoch;
 		Record r = new();
-		r.Seq = _owner.NextSequence();
+		r.MemberId = memberId;
 		r.Name = name;
 		r.P1 = parameter1;
 		r.P2 = parameter2;
 		r.P3 = parameter3;
 		r.P4 = parameter4;
-		Push(r, epoch);
-
-		if (_owner.HasInteractionAddedSubscribers)
-		{
-			_owner.RaiseAdded();
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2, T3, T4>(r.Name, r.P1, r.P2, r.P3, r.P4))));
-		}
-	}
-
-	void IFastMemberBuffer.AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-	{
-		for (RecordNode? node = First; node is not null; node = node.Next)
-		{
-			if (node.Verified)
-			{
-				continue;
-			}
-
-			Record r = (Record)node;
-			dest.Add((r.Seq, r.Boxed ?? SetBoxed(r, new MethodInvocation<T1, T2, T3, T4>(r.Name, r.P1, r.P2, r.P3, r.P4))));
-		}
+		owner.Push(r);
 	}
 
 	/// <summary>
@@ -551,7 +438,7 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList, IFastMemberB
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4)
 	{
 		int matches = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (match1.Matches(r.P1) && match2.Matches(r.P2) && match3.Matches(r.P3) && match4.Matches(r.P4))
@@ -577,7 +464,7 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList, IFastMemberB
 		EqualityComparer<T2> cmp2 = EqualityComparer<T2>.Default;
 		EqualityComparer<T3> cmp3 = EqualityComparer<T3>.Default;
 		EqualityComparer<T4> cmp4 = EqualityComparer<T4>.Default;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			Record r = (Record)node;
 			if (cmp1.Equals(value1, r.P1) && cmp2.Equals(value2, r.P2) &&
@@ -594,7 +481,7 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList, IFastMemberB
 	internal int ConsumeAll()
 	{
 		int n = 0;
-		for (RecordNode? node = First; node is not null; node = node.Next)
+		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
 			node.Verified = true;
 			n++;
@@ -610,5 +497,8 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList, IFastMemberB
 		public T2 P2 = default!;
 		public T3 P3 = default!;
 		public T4 P4 = default!;
+
+		protected override IInteraction CreateInteraction()
+			=> new MethodInvocation<T1, T2, T3, T4>(Name, P1, P2, P3, P4);
 	}
 }
