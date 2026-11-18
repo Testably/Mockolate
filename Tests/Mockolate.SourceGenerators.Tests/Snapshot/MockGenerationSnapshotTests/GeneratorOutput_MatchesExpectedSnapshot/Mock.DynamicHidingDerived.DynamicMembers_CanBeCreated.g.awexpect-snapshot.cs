@@ -236,10 +236,10 @@ internal static partial class Mock
 				}, () => $"M({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicHidingDerived> IMockVerifyForDynamicHidingDerived.M(global::Mockolate.Parameters.IParameter<object>? x)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicHidingDerived, object>(this, global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M", x is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(x), x, static (x) => $"M({x})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicHidingDerived, object>(this, global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M", x is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(x), x, static (x) => $"M({(object?)x ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicHidingDerived>.IgnoreParameters IMockVerifyForDynamicHidingDerived.M(object x)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicHidingDerived, object>(this, global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M", x, static (x) => $"M({x})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicHidingDerived, object>(this, global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M", x, static (x) => $"M({(object?)x ?? "null"})");
 		#endregion IMockVerifyForDynamicHidingDerived
 	}
 
@@ -262,10 +262,10 @@ internal static partial class Mock
 				}, () => $"M({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicHidingDerived> IMockVerifyForDynamicHidingDerived.M(global::Mockolate.Parameters.IParameter<object>? x)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicHidingDerived, object>(this, global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M", x is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(x), x, static (x) => $"M({x})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicHidingDerived, object>(this, global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M", x is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(x), x, static (x) => $"M({(object?)x ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicHidingDerived>.IgnoreParameters IMockVerifyForDynamicHidingDerived.M(object x)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicHidingDerived, object>(this, global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M", x, static (x) => $"M({x})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicHidingDerived, object>(this, global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M", x, static (x) => $"M({(object?)x ?? "null"})");
 		#endregion IMockVerifyForDynamicHidingDerived
 	}
 

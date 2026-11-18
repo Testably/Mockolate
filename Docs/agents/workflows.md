@@ -32,11 +32,13 @@ Target frameworks per test project:
 
 | Project | Frameworks |
 |---|---|
-| `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.ExampleTests` | `net11.0` (C# 15, union parameters), `net10.0`, `net8.0`, `net48` (Windows only) |
+| `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.ExampleTests` | `net11.0` (union mode); `net10.0`, `net8.0` and `net48` (Windows only) in classic mode |
 | `Mockolate.SourceGenerators.Tests` | `net11.0`, `net10.0` (compiles against `MinimumRoslynVersion`, without the snapshot and union tests) |
 | `Mockolate.Analyzers.Tests` | `net11.0` |
 | `Build.Tests` | `net10.0` |
 | `Mockolate.Api.Tests` | `net8.0` |
+
+Every framework compiles with C# 15. The setup surface is decided by `MockolateDisableUnionParameters`, which `Tests/Directory.Build.props` sets for every framework except `net11.0`, not by the framework itself. Guard tests of union-only syntax (a lambda as an argument, `AnyParameters()` after matchers, values mixed with matchers on a member with more than four parameters) with `#if NET11_0_OR_GREATER`; write tests that hold in both modes so they compile in both. Classic failure messages describe a null argument as an empty string, union ones as `null`.
 
 A newer language feature can compile for `net10.0` and fail for `net48`; build or test `net48` too when you use one.
 
@@ -45,7 +47,7 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 | Change in | Run |
 |---|---|
 | `Source/Mockolate` | `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Api.Tests` |
-| `Source/Mockolate.SourceGenerators` | `Mockolate.SourceGenerators.Tests`, `Mockolate.Tests` (it compiles the generated mocks) |
+| `Source/Mockolate.SourceGenerators` | `Mockolate.SourceGenerators.Tests`, `Mockolate.Tests` (it compiles the generated mocks; `net11.0` for union mode and `net10.0` for classic mode) |
 | `Source/Mockolate.Analyzers*` | `Mockolate.Analyzers.Tests` |
 | Usage examples | `Mockolate.ExampleTests` |
 | `Pipeline/BenchmarkReport.cs` | `Build.Tests` |

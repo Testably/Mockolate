@@ -302,10 +302,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsAndGetHashCode> IMockVerifyForIEqualsAndGetHashCode.Equals(global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode, object?>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode, object?>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsAndGetHashCode>.IgnoreParameters IMockVerifyForIEqualsAndGetHashCode.Equals(object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode, object?>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals", obj, static (obj) => $"Equals({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode, object?>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals", obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsAndGetHashCode>.IgnoreParameters IMockVerifyForIEqualsAndGetHashCode.GetHashCode()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_GetHashCode, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.GetHashCode", () => $"GetHashCode()");
@@ -331,10 +331,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsAndGetHashCode> IMockVerifyForIEqualsAndGetHashCode.Equals(global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode, object?>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode, object?>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsAndGetHashCode>.IgnoreParameters IMockVerifyForIEqualsAndGetHashCode.Equals(object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode, object?>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals", obj, static (obj) => $"Equals({obj})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode, object?>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals", obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsAndGetHashCode>.IgnoreParameters IMockVerifyForIEqualsAndGetHashCode.GetHashCode()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsAndGetHashCode>(this, global::Mockolate.Mock.IEqualsAndGetHashCode.MemberId_GetHashCode, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.GetHashCode", () => $"GetHashCode()");

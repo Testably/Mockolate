@@ -8,8 +8,8 @@ namespace Mockolate.Tests.MockMethods;
 public sealed partial class VerifyInvokedTests
 {
 	/// <summary>
-	///     Regression coverage for mixed literal and matcher verifications in union mode, which every target framework
-	///     of this project compiles in. The classic overloads are covered by <c>ClassicVerifyMessageTests</c>.
+	///     Regression coverage for mixed literal and matcher verifications, in union mode on net11.0 and with the
+	///     classic overloads on the other target frameworks.
 	/// </summary>
 	public sealed class MixedLiteralAndMatcherUnionModeTests
 	{

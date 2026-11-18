@@ -5381,21 +5381,9 @@ internal static partial class Sources
 		}
 
 		sb.Append("]\"");
-		int kk = 0;
 		foreach (string? parameterName in indexer.IndexerParameters.Value.Select(p => p.Name))
 		{
-			sb.Append(", ");
-			bool isValueParam = valueFlags?[kk] == true;
-			if (isValueParam)
-			{
-				sb.Append("(object?)").Append(parameterName);
-			}
-			else
-			{
-				sb.Append("(object?)").Append(parameterName).Append(" ?? \"null\"");
-			}
-
-			kk++;
+			sb.Append(", (object?)").Append(parameterName).Append(" ?? \"null\"");
 		}
 
 		sb.Append("));").AppendLine();
@@ -6425,7 +6413,7 @@ internal static partial class Sources
 		}
 
 		sb.Append(", () => $\"").Append(method.Name).Append("(")
-			.Append(useParameters ? "{parameters}" : string.Join(", ", method.Parameters.Select(p => $"{{{p.Name}}}")))
+			.Append(useParameters ? "{parameters}" : string.Join(", ", method.Parameters.Select(ExpectationPlaceholder)))
 			.Append(")\");").AppendLine();
 		if (usesBlockBody)
 		{
@@ -6452,8 +6440,11 @@ internal static partial class Sources
 	{
 		string parameters = string.Join(", ", method.Parameters.Select(p => p.Name));
 		sb.Append(", static (").Append(parameters).Append(") => $\"").Append(method.Name).Append("(")
-			.Append(string.Join(", ", method.Parameters.Select(p => $"{{{p.Name}}}"))).Append(")\");").AppendLine();
+			.Append(string.Join(", ", method.Parameters.Select(ExpectationPlaceholder))).Append(")\");").AppendLine();
 	}
+
+	private static string ExpectationPlaceholder(MethodParameter parameter)
+		=> $"{{(object?){parameter.Name} ?? \"null\"}}";
 
 	/// <summary>
 	///     The slow verify path's condition for one classic matcher argument, shared between the classic and the

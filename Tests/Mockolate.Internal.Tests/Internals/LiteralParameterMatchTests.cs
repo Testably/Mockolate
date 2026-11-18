@@ -86,7 +86,8 @@ public class LiteralParameterMatchTests
 			await That(result).IsEqualTo($"{value}");
 			await That(result).IsEqualTo("4,5");
 			await That(stringResult).IsEqualTo("Alice");
-			await That(nullResult).IsEqualTo($"{nullValue}");
+			await That(nullResult).IsEqualTo("null")
+				.Because("failure messages print a null argument as null instead of an empty string");
 		}
 		finally
 		{

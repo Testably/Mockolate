@@ -688,12 +688,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_int> IMockVerifyForIClosedGeneric_int.Convert<TOther>(global::Mockolate.Parameters.IParameter<int>? value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<int>.Convert<{typeof(TOther)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Convert<TOther>({value})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Convert<TOther>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_int>.IgnoreParameters IMockVerifyForIClosedGeneric_int.Convert<TOther>(int value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<int>.Convert<{typeof(TOther)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({value})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_int> IMockVerifyForIClosedGeneric_int.Pair(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_int, global::Mockolate.Interactions.MethodInvocation<(int, string)>>(this, global::Mockolate.Mock.IClosedGeneric_int.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<int>.Pair", __i => parameters switch
@@ -828,12 +828,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_int> IMockVerifyForIClosedGeneric_int.Convert<TOther>(global::Mockolate.Parameters.IParameter<int>? value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<int>.Convert<{typeof(TOther)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Convert<TOther>({value})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Convert<TOther>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_int>.IgnoreParameters IMockVerifyForIClosedGeneric_int.Convert<TOther>(int value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<int>.Convert<{typeof(TOther)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({value})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(object?)value ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_int> IMockVerifyForIClosedGeneric_int.Pair(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_int, global::Mockolate.Interactions.MethodInvocation<(int, string)>>(this, global::Mockolate.Mock.IClosedGeneric_int.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<int>.Pair", __i => parameters switch
