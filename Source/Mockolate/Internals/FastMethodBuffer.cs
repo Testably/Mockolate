@@ -14,7 +14,7 @@ namespace Mockolate.Internals;
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod0Buffer : RecordList, IFastMemberBuffer
+public sealed class FastMethod0Buffer : RecordList
 {
 	/// <summary>
 	///     Creates a new parameterless method buffer attached to <paramref name="owner" />.
@@ -75,7 +75,7 @@ public sealed class FastMethod0Buffer : RecordList, IFastMemberBuffer
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
+public sealed class FastMethod1Buffer<T1> : RecordList
 {
 	/// <summary>
 	///     Creates a new 1-parameter method buffer attached to <paramref name="owner" />.
@@ -175,7 +175,7 @@ public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
+public sealed class FastMethod2Buffer<T1, T2> : RecordList
 {
 	/// <summary>
 	///     Creates a new 2-parameter method buffer attached to <paramref name="owner" />.
@@ -276,7 +276,7 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffer
+public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList
 {
 	/// <summary>
 	///     Creates a new 3-parameter method buffer attached to <paramref name="owner" />.
@@ -379,7 +379,7 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffe
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList, IFastMemberBuffer
+public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList
 {
 	/// <summary>
 	///     Creates a new 4-parameter method buffer attached to <paramref name="owner" />.

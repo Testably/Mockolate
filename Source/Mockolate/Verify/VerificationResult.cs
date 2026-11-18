@@ -40,7 +40,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 {
 	private readonly VerificationExpectation _expectation;
 	private readonly IMockInteractions _interactions;
-	private readonly IFastMemberBuffer? _buffer;
+	private readonly RecordList? _buffer;
 	private readonly IFastCountSource? _fastCountSource;
 	private Func<IInteraction, bool>? _predicate;
 	private readonly TVerify _verify;
@@ -71,7 +71,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 	internal VerificationResult(TVerify verify,
 		IMockInteractions interactions,
-		IFastMemberBuffer? buffer,
+		RecordList? buffer,
 		Func<IInteraction, bool> predicate,
 		VerificationExpectation expectation)
 	{
@@ -88,7 +88,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	/// </summary>
 	private VerificationResult(TVerify verify,
 		IMockInteractions interactions,
-		IFastMemberBuffer? buffer,
+		RecordList? buffer,
 		IFastCountSource? fastCountSource,
 		Func<IInteraction, bool>? predicate,
 		VerificationExpectation expectation)
@@ -109,7 +109,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	/// </summary>
 	private protected VerificationResult(TVerify verify,
 		IMockInteractions interactions,
-		IFastMemberBuffer buffer,
+		RecordList buffer,
 		object? expectationArgument,
 		Func<object?, object?, string> expectationFactory)
 	{
@@ -596,7 +596,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		internal IgnoreParameters(
 			TVerify verify,
 			IMockInteractions interactions,
-			IFastMemberBuffer buffer,
+			RecordList buffer,
 			string methodName,
 			Func<IInteraction, bool> predicate,
 			VerificationExpectation expectation)
@@ -608,7 +608,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		private protected IgnoreParameters(
 			TVerify verify,
 			IMockInteractions interactions,
-			IFastMemberBuffer buffer,
+			RecordList buffer,
 			string methodName,
 			object? expectationArgument,
 			Func<object?, object?, string> expectationFactory)

@@ -115,7 +115,7 @@ public class FastMockInteractions : IMockInteractions
 	///     Returns a view on the typed records of the member <paramref name="memberId" />, or
 	///     <see langword="null" /> when the member has none.
 	/// </summary>
-	internal IFastMemberBuffer? FindBuffer(int memberId)
+	internal RecordList? FindBuffer(int memberId)
 		=> FindBuffer(memberId, static (owner, id) => new MemberRecords(owner, id));
 
 	/// <summary>

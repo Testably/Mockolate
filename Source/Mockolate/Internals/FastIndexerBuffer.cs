@@ -14,7 +14,7 @@ namespace Mockolate.Internals;
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
+public sealed class FastIndexerGetterBuffer<T1> : RecordList
 {
 	/// <summary>
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
@@ -87,7 +87,7 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList, IFastMemberBuffer
+public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList
 {
 	/// <summary>
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
@@ -163,7 +163,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList, IFastMemberBuf
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList, IFastMemberBuffer
+public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList
 {
 	/// <summary>
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
@@ -242,7 +242,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList, IFastMembe
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList, IFastMemberBuffer
+public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList
 {
 	/// <summary>
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
@@ -324,7 +324,7 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList, IFastM
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList, IFastMemberBuffer
+public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList
 {
 	/// <summary>
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
@@ -401,7 +401,7 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList, IFastMembe
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList, IFastMemberBuffer
+public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList
 {
 	/// <summary>
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
@@ -481,7 +481,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList, IFastM
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList, IFastMemberBuffer
+public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList
 {
 	/// <summary>
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
@@ -564,7 +564,7 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList, IF
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList, IFastMemberBuffer
+public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList
 {
 	/// <summary>
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.

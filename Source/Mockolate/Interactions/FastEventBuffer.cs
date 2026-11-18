@@ -25,7 +25,7 @@ internal enum FastEventBufferKind
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-internal sealed class FastEventBuffer : RecordList, IFastMemberBuffer
+internal sealed class FastEventBuffer : RecordList
 {
 	/// <summary>
 	///     Creates a view that reads the recorded subscriptions or unsubscriptions of an event.
