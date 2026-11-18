@@ -180,7 +180,6 @@ public class RecordListTests
 		FastMethod1Buffer<int> view = CreateBuffer(store);
 		await That(view.Count).IsEqualTo(2);
 		await That(view.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>())).IsEqualTo(2);
-		await That(store.Buffers[1]).IsNull().Because("recording a call needs no view");
 		await That(store.Count).IsEqualTo(3);
 		await That(store.GetUnverifiedInteractions().Select(x => ((MethodInvocation<int>)x).Name)).IsEqualTo(["Bar",]);
 	}
@@ -237,7 +236,7 @@ public class RecordListTests
 	}
 
 	private static FastMethod1Buffer<int> CreateBuffer(FastMockInteractions store)
-		=> store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0, static f => new FastMethod1Buffer<int>(f));
+		=> new FastMethod1Buffer<int>(store, 0);
 
 	private static IntList CreateList(int count)
 	{

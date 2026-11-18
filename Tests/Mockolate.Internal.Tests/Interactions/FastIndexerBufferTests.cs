@@ -14,7 +14,7 @@ public class FastIndexerBufferTests
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
 		int getterId = Mock.FastIndexerBufferTests_IFastIndexerService.MemberId_Indexer_string_Get;
-		FastIndexerGetterBuffer<string> buffer = fast.GetOrCreateBuffer<FastIndexerGetterBuffer<string>>(getterId, static f => new FastIndexerGetterBuffer<string>(f));
+		FastIndexerGetterBuffer<string> buffer = new(fast, getterId);
 		await That(buffer.Count).IsEqualTo(2);
 	}
 
@@ -29,7 +29,7 @@ public class FastIndexerBufferTests
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
 		int setterId = Mock.FastIndexerBufferTests_IFastIndexerService.MemberId_Indexer_string_Set;
-		FastIndexerSetterBuffer<string, bool> buffer = fast.GetOrCreateBuffer<FastIndexerSetterBuffer<string, bool>>(setterId, static f => new FastIndexerSetterBuffer<string, bool>(f));
+		FastIndexerSetterBuffer<string, bool> buffer = new(fast, setterId);
 		await That(buffer.Count).IsEqualTo(3);
 	}
 

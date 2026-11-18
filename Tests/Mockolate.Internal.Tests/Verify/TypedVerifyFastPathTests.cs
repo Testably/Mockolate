@@ -12,8 +12,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerGot_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<int>>(0,
-			static f => new FastIndexerGetterBuffer<int>(f));
+		FastIndexerGetterBuffer<int> buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		buffer.Append(5);
 		buffer.Append(7);
@@ -65,9 +64,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerGotTyped_FourKeys_ShouldCollectMatchesAndDescribeExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, int, int, int> buffer =
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, int, int, int>>(0,
-				static f => new FastIndexerGetterBuffer<int, int, int, int>(f));
+		FastIndexerGetterBuffer<int, int, int, int> buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		buffer.Append(1, 2, 3, 4);
 		buffer.Append(1, 2, 3, 5);
@@ -88,9 +85,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerGotTyped_ThreeKeys_ShouldCollectMatchesAndDescribeExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, int, int> buffer =
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, int, int>>(0,
-				static f => new FastIndexerGetterBuffer<int, int, int>(f));
+		FastIndexerGetterBuffer<int, int, int> buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		buffer.Append(1, 2, 3);
 		buffer.Append(1, 2, 4);
@@ -110,9 +105,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerGotTyped_TwoKeys_ShouldCollectMatchesAndDescribeExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, int> buffer =
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, int>>(0,
-				static f => new FastIndexerGetterBuffer<int, int>(f));
+		FastIndexerGetterBuffer<int, int> buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		buffer.Append(1, 2);
 		buffer.Append(1, 3);
@@ -131,8 +124,6 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerGotTyped_WithBuffer_ProducesParametersDescriptionInExpectation()
 	{
 		FastMockInteractions store = new(1);
-		store.GetOrCreateBuffer<FastIndexerGetterBuffer<int>>(0,
-			static f => new FastIndexerGetterBuffer<int>(f));
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		VerificationResult<object> result = registry.IndexerGotTyped(
@@ -147,8 +138,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerSet_WithMemberIdAndBuffer_CountsMatchingValuesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string> buffer = store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string>>(0,
-			static f => new FastIndexerSetterBuffer<int, string>(f));
+		FastIndexerSetterBuffer<int, string> buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		buffer.Append(5, "v");
 		buffer.Append(7, "v");
@@ -208,9 +198,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerSetTyped_FourKeys_ShouldCollectMatchesAndDescribeExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, int, int, int, string> buffer =
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, int, int, int, string>>(0,
-				static f => new FastIndexerSetterBuffer<int, int, int, int, string>(f));
+		FastIndexerSetterBuffer<int, int, int, int, string> buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		buffer.Append(1, 2, 3, 4, "v");
 		buffer.Append(1, 2, 3, 4, "w");
@@ -232,9 +220,7 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerSetTyped_ThreeKeys_ShouldCollectMatchesAndDescribeExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, int, int, string> buffer =
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, int, int, string>>(0,
-				static f => new FastIndexerSetterBuffer<int, int, int, string>(f));
+		FastIndexerSetterBuffer<int, int, int, string> buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		buffer.Append(1, 2, 3, "v");
 		buffer.Append(1, 2, 3, "w");
@@ -255,8 +241,6 @@ public class TypedVerifyFastPathTests
 	public async Task IndexerSetTyped_WithBuffer_ProducesParametersDescriptionInExpectation()
 	{
 		FastMockInteractions store = new(1);
-		store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string>>(0,
-			static f => new FastIndexerSetterBuffer<int, string>(f));
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		IParameterMatch<string> value = (IParameterMatch<string>)It.Is("v");
@@ -274,13 +258,12 @@ public class TypedVerifyFastPathTests
 	public async Task SubscribedTo_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastEventBuffer buffer = store.GetOrCreateBuffer<FastEventBuffer>(0,
-			static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
+		FastEventBuffer buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		MethodInfo method = typeof(TypedVerifyFastPathTests).GetMethod(
 			nameof(SubscribedTo_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation))!;
-		buffer.Append("E", null, method);
-		buffer.Append("E", null, method);
+		buffer.AppendSubscription("E", null, method);
+		buffer.AppendSubscription("E", null, method);
 
 		VerificationResult<object> result = registry.SubscribedTo(new object(), 0, "E");
 
@@ -310,8 +293,6 @@ public class TypedVerifyFastPathTests
 	public async Task SubscribedToTyped_WithBuffer_ProducesEventNameInExpectation()
 	{
 		FastMockInteractions store = new(1);
-		store.GetOrCreateBuffer<FastEventBuffer>(0,
-			static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		VerificationResult<object> result = registry.SubscribedToTyped(new object(), 0, "OnFoo");
@@ -334,8 +315,7 @@ public class TypedVerifyFastPathTests
 	public async Task TryGetBuffer_WhenBufferReturned_TypedFastPathIgnoresOtherInteractions()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod0Buffer buffer = store.GetOrCreateBuffer<FastMethod0Buffer>(0,
-			static f => new FastMethod0Buffer(f));
+		FastMethod0Buffer buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		IMockInteractions interactions = store;
 
@@ -353,13 +333,12 @@ public class TypedVerifyFastPathTests
 	public async Task UnsubscribedFrom_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastEventBuffer buffer = store.GetOrCreateBuffer<FastEventBuffer>(0,
-			static f => new FastEventBuffer(f, FastEventBufferKind.Unsubscribe));
+		FastEventBuffer buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		MethodInfo method = typeof(TypedVerifyFastPathTests).GetMethod(
 			nameof(UnsubscribedFrom_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation))!;
-		buffer.Append("E", null, method);
-		buffer.Append("E", null, method);
+		buffer.AppendUnsubscription("E", null, method);
+		buffer.AppendUnsubscription("E", null, method);
 
 		VerificationResult<object> result = registry.UnsubscribedFrom(new object(), 0, "E");
 
@@ -389,8 +368,6 @@ public class TypedVerifyFastPathTests
 	public async Task UnsubscribedFromTyped_WithBuffer_ProducesEventNameInExpectation()
 	{
 		FastMockInteractions store = new(1);
-		store.GetOrCreateBuffer<FastEventBuffer>(0,
-			static f => new FastEventBuffer(f, FastEventBufferKind.Unsubscribe));
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		VerificationResult<object> result = registry.UnsubscribedFromTyped(new object(), 0, "OnFoo");
@@ -413,7 +390,6 @@ public class TypedVerifyFastPathTests
 	public async Task UnsubscribedFromTyped_WithMemberIdButNonMatchingBufferKind_FallsBackToStringKeyedPath()
 	{
 		FastMockInteractions store = new(1);
-		store.GetOrCreateBuffer<FastMethod0Buffer>(0, static f => new FastMethod0Buffer(f));
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		VerificationResult<object> result = registry.UnsubscribedFromTyped(new object(), 0, "OnFoo");
@@ -426,8 +402,7 @@ public class TypedVerifyFastPathTests
 	public async Task VerifyMethod0_TypedFastPath_ShouldCount()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod0Buffer buffer = store.GetOrCreateBuffer<FastMethod0Buffer>(0,
-			static f => new FastMethod0Buffer(f));
+		FastMethod0Buffer buffer = new(store, 0);
 
 		MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -460,8 +435,7 @@ public class TypedVerifyFastPathTests
 	public async Task VerifyMethod1_TypedFastPath_FailsWithExpectedMessage()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 
 		MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -477,8 +451,7 @@ public class TypedVerifyFastPathTests
 	public async Task VerifyMethod1_TypedFastPath_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 
 		MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -498,8 +471,7 @@ public class TypedVerifyFastPathTests
 	public async Task VerifyMethod2_TypedFastPath_AnyParameters_UsesCountAll()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 
 		MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -575,7 +547,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0, static f => new FastMethod1Buffer<int>(f))
+			new FastMethod1Buffer<int>(store, 0)
 				.Append("M", 1);
 		}
 		else
@@ -599,7 +571,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod1Buffer<string?>>(0, static f => new FastMethod1Buffer<string?>(f))
+			new FastMethod1Buffer<string?>(store, 0)
 				.Append("M", null);
 		}
 		else
@@ -618,7 +590,6 @@ public class TypedVerifyFastPathTests
 	public async Task VerifyMethod1_WithBufferOfOtherArityAtMemberId_ShouldFallBackToInteractionList()
 	{
 		FastMockInteractions store = new(1);
-		store.GetOrCreateBuffer<FastMethod2Buffer<int, int>>(0, static f => new FastMethod2Buffer<int, int>(f));
 		MockRegistry registry = new(MockBehavior.Default, store);
 		((IMockInteractions)store).RegisterInteraction(new MethodInvocation<int>("M", 1));
 
@@ -642,7 +613,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0, static f => new FastMethod1Buffer<int>(f))
+			new FastMethod1Buffer<int>(store, 0)
 				.Append("M", 1);
 		}
 		else
@@ -667,7 +638,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod2Buffer<int, int>>(0, static f => new FastMethod2Buffer<int, int>(f))
+			new FastMethod2Buffer<int, int>(store, 0)
 				.Append("M", 1, 2);
 		}
 		else
@@ -691,7 +662,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod2Buffer<int, int>>(0, static f => new FastMethod2Buffer<int, int>(f))
+			new FastMethod2Buffer<int, int>(store, 0)
 				.Append("M", 1, 2);
 		}
 		else
@@ -717,8 +688,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod3Buffer<int, int, int>>(0,
-					static f => new FastMethod3Buffer<int, int, int>(f))
+			new FastMethod3Buffer<int, int, int>(store, 0)
 				.Append("M", 1, 2, 3);
 		}
 		else
@@ -742,8 +712,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod3Buffer<int, int, int>>(0,
-					static f => new FastMethod3Buffer<int, int, int>(f))
+			new FastMethod3Buffer<int, int, int>(store, 0)
 				.Append("M", 1, 2, 3);
 		}
 		else
@@ -772,8 +741,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, int, int, int>>(0,
-					static f => new FastMethod4Buffer<int, int, int, int>(f))
+			new FastMethod4Buffer<int, int, int, int>(store, 0)
 				.Append("M", 1, 2, 3, 4);
 		}
 		else
@@ -797,8 +765,7 @@ public class TypedVerifyFastPathTests
 		MockRegistry registry = new(MockBehavior.Default, store);
 		if (withBuffer)
 		{
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, int, int, int>>(0,
-					static f => new FastMethod4Buffer<int, int, int, int>(f))
+			new FastMethod4Buffer<int, int, int, int>(store, 0)
 				.Append("M", 1, 2, 3, 4);
 		}
 		else
@@ -839,8 +806,7 @@ public class TypedVerifyFastPathTests
 	public async Task VerifyProperty_SetterWithMemberIdAndBuffer_CountsMatchingValuesAndProducesExpectation()
 	{
 		FastMockInteractions store = new(1);
-		FastPropertySetterBuffer<int> buffer = store.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(0,
-			static f => new FastPropertySetterBuffer<int>(f));
+		FastPropertySetterBuffer<int> buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 		buffer.Append("P", 1);
 		buffer.Append("P", 2);
@@ -936,8 +902,6 @@ public class TypedVerifyFastPathTests
 	public async Task VerifyPropertyTyped_Setter_WithBuffer_ProducesPropertyNameInExpectation()
 	{
 		FastMockInteractions store = new(1);
-		store.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(0,
-			static f => new FastPropertySetterBuffer<int>(f));
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		IParameterMatch<int> value = (IParameterMatch<int>)It.Is(42);
@@ -948,6 +912,5 @@ public class TypedVerifyFastPathTests
 	}
 
 	private static FastPropertyGetterBuffer InstallPropertyGetter(FastMockInteractions store, int memberId)
-		=> store.GetOrCreateBuffer<FastPropertyGetterBuffer>(memberId,
-			static f => new FastPropertyGetterBuffer(f, new PropertyGetterAccess(string.Empty)));
+		=> new FastPropertyGetterBuffer(store, memberId);
 }

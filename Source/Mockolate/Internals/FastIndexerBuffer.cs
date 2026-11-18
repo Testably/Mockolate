@@ -20,15 +20,10 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastIndexerGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records an indexer getter access.
-	/// </summary>
-	public void Append(T1 parameter1)
-		=> Append(Owner, MemberId, parameter1);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -41,16 +36,6 @@ public sealed class FastIndexerGetterBuffer<T1> : RecordList, IFastMemberBuffer
 		r.P1 = parameter1;
 		owner.Push(r);
 	}
-
-	/// <summary>
-	///     Records an indexer getter access using an already-allocated <see cref="IndexerGetterAccess{T1}" />.
-	/// </summary>
-	/// <remarks>
-	///     The generator allocates the access value to use as a setup-matching key; this overload reuses
-	///     it as the pre-boxed record so enumeration doesn't allocate a second one.
-	/// </remarks>
-	public void Append(IndexerGetterAccess<T1> access)
-		=> Append(Owner, MemberId, access);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -108,15 +93,10 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList, IFastMemberBuf
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastIndexerGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records an indexer getter access.
-	/// </summary>
-	public void Append(T1 parameter1, T2 parameter2)
-		=> Append(Owner, MemberId, parameter1, parameter2);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -130,12 +110,6 @@ public sealed class FastIndexerGetterBuffer<T1, T2> : RecordList, IFastMemberBuf
 		r.P2 = parameter2;
 		owner.Push(r);
 	}
-
-	/// <summary>
-	///     Records an indexer getter access using an already-allocated <see cref="IndexerGetterAccess{T1, T2}" />.
-	/// </summary>
-	public void Append(IndexerGetterAccess<T1, T2> access)
-		=> Append(Owner, MemberId, access);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -195,15 +169,10 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList, IFastMembe
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastIndexerGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records an indexer getter access.
-	/// </summary>
-	public void Append(T1 parameter1, T2 parameter2, T3 parameter3)
-		=> Append(Owner, MemberId, parameter1, parameter2, parameter3);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -218,12 +187,6 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3> : RecordList, IFastMembe
 		r.P3 = parameter3;
 		owner.Push(r);
 	}
-
-	/// <summary>
-	///     Records an indexer getter access using an already-allocated <see cref="IndexerGetterAccess{T1, T2, T3}" />.
-	/// </summary>
-	public void Append(IndexerGetterAccess<T1, T2, T3> access)
-		=> Append(Owner, MemberId, access);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -285,15 +248,10 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList, IFastM
 	///     Creates a new indexer-getter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerGetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastIndexerGetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records an indexer getter access.
-	/// </summary>
-	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
-		=> Append(Owner, MemberId, parameter1, parameter2, parameter3, parameter4);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -309,12 +267,6 @@ public sealed class FastIndexerGetterBuffer<T1, T2, T3, T4> : RecordList, IFastM
 		r.P4 = parameter4;
 		owner.Push(r);
 	}
-
-	/// <summary>
-	///     Records an indexer getter access using an already-allocated <see cref="IndexerGetterAccess{T1, T2, T3, T4}" />.
-	/// </summary>
-	public void Append(IndexerGetterAccess<T1, T2, T3, T4> access)
-		=> Append(Owner, MemberId, access);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -378,15 +330,10 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList, IFastMembe
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastIndexerSetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records an indexer setter access.
-	/// </summary>
-	public void Append(T1 parameter1, TValue value)
-		=> Append(Owner, MemberId, parameter1, value);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -400,12 +347,6 @@ public sealed class FastIndexerSetterBuffer<T1, TValue> : RecordList, IFastMembe
 		r.Value = value;
 		owner.Push(r);
 	}
-
-	/// <summary>
-	///     Records an indexer setter access using an already-allocated <see cref="IndexerSetterAccess{T1, TValue}" />.
-	/// </summary>
-	public void Append(IndexerSetterAccess<T1, TValue> access)
-		=> Append(Owner, MemberId, access);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -466,15 +407,10 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList, IFastM
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastIndexerSetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records an indexer setter access.
-	/// </summary>
-	public void Append(T1 parameter1, T2 parameter2, TValue value)
-		=> Append(Owner, MemberId, parameter1, parameter2, value);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -489,12 +425,6 @@ public sealed class FastIndexerSetterBuffer<T1, T2, TValue> : RecordList, IFastM
 		r.Value = value;
 		owner.Push(r);
 	}
-
-	/// <summary>
-	///     Records an indexer setter access using an already-allocated <see cref="IndexerSetterAccess{T1, T2, TValue}" />.
-	/// </summary>
-	public void Append(IndexerSetterAccess<T1, T2, TValue> access)
-		=> Append(Owner, MemberId, access);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -557,15 +487,10 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList, IF
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastIndexerSetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records an indexer setter access.
-	/// </summary>
-	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, TValue value)
-		=> Append(Owner, MemberId, parameter1, parameter2, parameter3, value);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -581,12 +506,6 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, TValue> : RecordList, IF
 		r.Value = value;
 		owner.Push(r);
 	}
-
-	/// <summary>
-	///     Records an indexer setter access using an already-allocated <see cref="IndexerSetterAccess{T1, T2, T3, TValue}" />.
-	/// </summary>
-	public void Append(IndexerSetterAccess<T1, T2, T3, TValue> access)
-		=> Append(Owner, MemberId, access);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -651,15 +570,10 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList
 	///     Creates a new indexer-setter buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastIndexerSetterBuffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastIndexerSetterBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records an indexer setter access.
-	/// </summary>
-	public void Append(T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, TValue value)
-		=> Append(Owner, MemberId, parameter1, parameter2, parameter3, parameter4, value);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -676,12 +590,6 @@ public sealed class FastIndexerSetterBuffer<T1, T2, T3, T4, TValue> : RecordList
 		r.Value = value;
 		owner.Push(r);
 	}
-
-	/// <summary>
-	///     Records an indexer setter access using an already-allocated <see cref="IndexerSetterAccess{T1, T2, T3, T4, TValue}" />.
-	/// </summary>
-	public void Append(IndexerSetterAccess<T1, T2, T3, T4, TValue> access)
-		=> Append(Owner, MemberId, access);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without

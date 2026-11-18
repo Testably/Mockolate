@@ -1189,8 +1189,7 @@ public sealed class MockRegistryTests
 		{
 			FastMockInteractions store = new(1);
 			PropertyGetterAccess access = new("P");
-			FastPropertyGetterBuffer buffer = store.GetOrCreateBuffer<FastPropertyGetterBuffer, PropertyGetterAccess>(
-				0, static (f, a) => new FastPropertyGetterBuffer(f, a), access);
+			FastPropertyGetterBuffer buffer = new(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			int result = registry.GetPropertyFast(0, access, _ => 7);
@@ -1217,8 +1216,7 @@ public sealed class MockRegistryTests
 		{
 			FastMockInteractions store = new(1);
 			PropertyGetterAccess access = new("P");
-			FastPropertyGetterBuffer buffer = store.GetOrCreateBuffer<FastPropertyGetterBuffer, PropertyGetterAccess>(
-				0, static (f, a) => new FastPropertyGetterBuffer(f, a), access);
+			FastPropertyGetterBuffer buffer = new(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			int result = registry.GetPropertyFast(0, access, _ => 7);
@@ -1258,8 +1256,7 @@ public sealed class MockRegistryTests
 			MockBehavior behavior = MockBehavior.Default.SkippingInteractionRecording();
 			FastMockInteractions store = new(1, behavior.SkipInteractionRecording);
 			PropertyGetterAccess access = new("P");
-			FastPropertyGetterBuffer buffer = store.GetOrCreateBuffer<FastPropertyGetterBuffer, PropertyGetterAccess>(
-				0, static (f, a) => new FastPropertyGetterBuffer(f, a), access);
+			FastPropertyGetterBuffer buffer = new(store, 0);
 			MockRegistry registry = new(behavior, store);
 
 			registry.GetPropertyFast(0, access, _ => 7);

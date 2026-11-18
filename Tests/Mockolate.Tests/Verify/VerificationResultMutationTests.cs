@@ -65,9 +65,7 @@ public sealed class VerificationResultMutationTests
 		// IndexerGot(memberId, ...) returns a VerificationResult with a buffer but no fast-count
 		// source, so wrapping it with .Within(...) walks exactly that branch.
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<int>>(0,
-			static f => new FastIndexerGetterBuffer<int>(f));
-		buffer.Append(1);
+		FastIndexerGetterBuffer<int>.Append(store, 0, 1);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		registry.IndexerGot(new object(), 0,
@@ -79,24 +77,12 @@ public sealed class VerificationResultMutationTests
 	}
 
 	[Test]
-	public async Task CollectMatching_WithMultipleRecordsOutOfSeqOrder_SortsBySeqBeforeReturning()
+	public async Task CollectMatching_WithMultipleRecords_ShouldReturnThemInRecordedOrder()
 	{
-		// Kills the `records.Sort(...)` statement removal and the `records.Count > 1` → `<= 1`
-		// flip in CollectMatching's buffer-walking branch. With a custom buffer that emits
-		// records in non-Seq order, the sort is the only thing that puts them back in seq
-		// order — without it, the user predicate sees the buffer's natural order and the
-		// assertion below fails.
 		FastMockInteractions store = new(1);
-		MethodInvocation<int> rec5 = new("Foo", 5);
-		MethodInvocation<int> rec1 = new("Foo", 1);
-		MethodInvocation<int> rec3 = new("Foo", 3);
-		OutOfOrderBuffer buffer = new(
-		[
-			(5L, rec5),
-			(1L, rec1),
-			(3L, rec3),
-		]);
-		store.Buffers[0] = buffer;
+		FastMethod1Buffer<int>.Append(store, 0, "Foo", 1);
+		FastMethod1Buffer<int>.Append(store, 0, "Foo", 3);
+		FastMethod1Buffer<int>.Append(store, 0, "Foo", 5);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		VerificationResult<object>.IgnoreParameters result =
@@ -124,9 +110,7 @@ public sealed class VerificationResultMutationTests
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside the non-Awaitable
 		// IFastVerifyCountResult.VerifyCount second branch (when `_fastCountSource is null`).
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<int>>(0,
-			static f => new FastIndexerGetterBuffer<int>(f));
-		buffer.Append(1);
+		FastIndexerGetterBuffer<int>.Append(store, 0, 1);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		registry.IndexerGot(new object(), 0,
@@ -136,32 +120,4 @@ public sealed class VerificationResultMutationTests
 		await That(((IMockInteractions)store).GetUnverifiedInteractions()).IsEmpty();
 	}
 
-	private sealed class OutOfOrderBuffer : IFastMemberBuffer
-	{
-		private readonly List<(long Seq, IInteraction Interaction)> _records;
-
-		public OutOfOrderBuffer(IEnumerable<(long, IInteraction)> records)
-		{
-			_records = new List<(long, IInteraction)>();
-			foreach ((long seq, IInteraction interaction) in records)
-			{
-				_records.Add((seq, interaction));
-			}
-		}
-
-		public int Count => _records.Count;
-
-		public void Clear() => _records.Clear();
-
-		public void AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
-		{
-			foreach ((long Seq, IInteraction Interaction) record in _records)
-			{
-				dest.Add(record);
-			}
-		}
-
-		public void AppendBoxedUnverified(List<(long Seq, IInteraction Interaction)> dest)
-			=> AppendBoxed(dest);
-	}
 }

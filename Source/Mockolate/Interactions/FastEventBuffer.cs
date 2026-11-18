@@ -18,33 +18,21 @@ internal enum FastEventBufferKind
 }
 
 /// <summary>
-///     Per-member buffer for event subscribe or unsubscribe access. The kind is fixed at construction
-///     time so the boxed records produce <see cref="EventSubscription" /> or
-///     <see cref="EventUnsubscription" /> as appropriate.
+///     Per-member buffer for event subscribe or unsubscribe access. Each record carries its kind, so that it
+///     produces an <see cref="EventSubscription" /> or an <see cref="EventUnsubscription" /> as appropriate.
 /// </summary>
-[DebuggerDisplay("{Count} event {_kind}s")]
+[DebuggerDisplay("{Count} event accesses")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 internal sealed class FastEventBuffer : RecordList, IFastMemberBuffer
 {
-	private readonly FastEventBufferKind _kind;
-
 	/// <summary>
-	///     Creates a new event buffer of the given <paramref name="kind" /> attached to <paramref name="owner" />.
+	///     Creates a view that reads the recorded subscriptions or unsubscriptions of an event.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	/// <param name="kind">Distinguishes a subscribe-recording buffer from an unsubscribe-recording buffer.</param>
-	public FastEventBuffer(FastMockInteractions owner, FastEventBufferKind kind) : base(owner)
+	public FastEventBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
-		_kind = kind;
 	}
-
-	/// <summary>
-	///     Records an event subscription or unsubscription.
-	/// </summary>
-	public void Append(string name, object? target, MethodInfo method)
-		=> Append(Owner, MemberId, _kind, name, target, method);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without

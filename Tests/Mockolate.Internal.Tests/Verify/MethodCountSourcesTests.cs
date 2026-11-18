@@ -14,8 +14,7 @@ public class MethodCountSourcesTests
 	public async Task EventCountSource_Matches_ShouldAcceptEveryInteraction()
 	{
 		FastMockInteractions store = new(1);
-		FastEventBuffer buffer = store.GetOrCreateBuffer<FastEventBuffer>(0,
-			static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
+		FastEventBuffer buffer = new(store, 0);
 
 		EventCountSource<object> source = new(new object(), store, buffer, null, Expectation);
 
@@ -26,12 +25,11 @@ public class MethodCountSourcesTests
 	public async Task EventCountSource_ShouldReturnSubscribeCount()
 	{
 		FastMockInteractions store = new(1);
-		FastEventBuffer buffer = store.GetOrCreateBuffer<FastEventBuffer>(0,
-			static f => new FastEventBuffer(f, FastEventBufferKind.Subscribe));
+		FastEventBuffer buffer = new(store, 0);
 		MethodInfo handler = typeof(MethodCountSourcesTests).GetMethod(
 			nameof(EventCountSource_ShouldReturnSubscribeCount))!;
-		buffer.Append("E", null, handler);
-		buffer.Append("E", null, handler);
+		buffer.AppendSubscription("E", null, handler);
+		buffer.AppendSubscription("E", null, handler);
 
 		EventCountSource<object> source = new(new object(), store, buffer, null, Expectation);
 
@@ -42,8 +40,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerGetter1CountSource_Matches_ShouldCheckTypeAndKey()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<int>>(0,
-			static f => new FastIndexerGetterBuffer<int>(f));
+		FastIndexerGetterBuffer<int> buffer = new(store, 0);
 
 		IndexerGetter1CountSource<object, int> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1), null, Expectation);
@@ -57,8 +54,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerGetter1CountSource_ShouldHonorKeyMatcher()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<int>>(0,
-			static f => new FastIndexerGetterBuffer<int>(f));
+		FastIndexerGetterBuffer<int> buffer = new(store, 0);
 		buffer.Append(1);
 		buffer.Append(2);
 		buffer.Append(1);
@@ -73,8 +69,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerGetter2CountSource_Matches_ShouldCheckTypeAndEveryKey()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string>>(0,
-			static f => new FastIndexerGetterBuffer<int, string>(f));
+		FastIndexerGetterBuffer<int, string> buffer = new(store, 0);
 
 		IndexerGetter2CountSource<object, int, string> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1),
@@ -91,8 +86,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerGetter2CountSource_ShouldHonorBothMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string> buffer = store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string>>(0,
-			static f => new FastIndexerGetterBuffer<int, string>(f));
+		FastIndexerGetterBuffer<int, string> buffer = new(store, 0);
 		buffer.Append(1, "a");
 		buffer.Append(2, "a");
 		buffer.Append(1, "b");
@@ -109,9 +103,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerGetter3CountSource_Matches_ShouldCheckTypeAndEveryKey()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string, bool> buffer =
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string, bool>>(0,
-				static f => new FastIndexerGetterBuffer<int, string, bool>(f));
+		FastIndexerGetterBuffer<int, string, bool> buffer = new(store, 0);
 
 		IndexerGetter3CountSource<object, int, string, bool> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1),
@@ -130,9 +122,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerGetter3CountSource_ShouldHonorAllThreeMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string, bool> buffer =
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string, bool>>(0,
-				static f => new FastIndexerGetterBuffer<int, string, bool>(f));
+		FastIndexerGetterBuffer<int, string, bool> buffer = new(store, 0);
 		buffer.Append(1, "a", true);
 		buffer.Append(1, "a", false);
 		buffer.Append(2, "a", true);
@@ -150,9 +140,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerGetter4CountSource_Matches_ShouldCheckTypeAndEveryKey()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string, bool, double>>(0,
-				static f => new FastIndexerGetterBuffer<int, string, bool, double>(f));
+		FastIndexerGetterBuffer<int, string, bool, double> buffer = new(store, 0);
 
 		IndexerGetter4CountSource<object, int, string, bool, double> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1),
@@ -173,9 +161,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerGetter4CountSource_ShouldHonorAllFourMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastIndexerGetterBuffer<int, string, bool, double>>(0,
-				static f => new FastIndexerGetterBuffer<int, string, bool, double>(f));
+		FastIndexerGetterBuffer<int, string, bool, double> buffer = new(store, 0);
 		buffer.Append(1, "a", true, 0.5);
 		buffer.Append(1, "a", true, 1.5);
 		buffer.Append(2, "a", true, 0.5);
@@ -194,8 +180,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerSetter1CountSource_Matches_ShouldCheckTypeKeyAndValue()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string> buffer = store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string>>(0,
-			static f => new FastIndexerSetterBuffer<int, string>(f));
+		FastIndexerSetterBuffer<int, string> buffer = new(store, 0);
 
 		IndexerSetter1CountSource<object, int, string> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1),
@@ -212,8 +197,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerSetter1CountSource_ShouldHonorKeyAndValueMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string> buffer = store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string>>(0,
-			static f => new FastIndexerSetterBuffer<int, string>(f));
+		FastIndexerSetterBuffer<int, string> buffer = new(store, 0);
 		buffer.Append(1, "a");
 		buffer.Append(1, "b");
 		buffer.Append(2, "a");
@@ -230,9 +214,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerSetter2CountSource_Matches_ShouldCheckTypeKeysAndValue()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool> buffer =
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool>(f));
+		FastIndexerSetterBuffer<int, string, bool> buffer = new(store, 0);
 
 		IndexerSetter2CountSource<object, int, string, bool> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1),
@@ -251,9 +233,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerSetter2CountSource_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool> buffer =
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool>(f));
+		FastIndexerSetterBuffer<int, string, bool> buffer = new(store, 0);
 		buffer.Append(1, "a", true);
 		buffer.Append(1, "a", false);
 		buffer.Append(2, "a", true);
@@ -271,9 +251,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerSetter3CountSource_Matches_ShouldCheckTypeKeysAndValue()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool, double>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool, double>(f));
+		FastIndexerSetterBuffer<int, string, bool, double> buffer = new(store, 0);
 
 		IndexerSetter3CountSource<object, int, string, bool, double> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1),
@@ -294,9 +272,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerSetter3CountSource_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool, double>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool, double>(f));
+		FastIndexerSetterBuffer<int, string, bool, double> buffer = new(store, 0);
 		buffer.Append(1, "a", true, 0.5);
 		buffer.Append(1, "a", true, 1.5);
 		buffer.Append(2, "a", true, 0.5);
@@ -315,9 +291,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerSetter4CountSource_Matches_ShouldCheckTypeKeysAndValue()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool, double, char> buffer =
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool, double, char>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool, double, char>(f));
+		FastIndexerSetterBuffer<int, string, bool, double, char> buffer = new(store, 0);
 
 		IndexerSetter4CountSource<object, int, string, bool, double, char> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1),
@@ -340,9 +314,7 @@ public class MethodCountSourcesTests
 	public async Task IndexerSetter4CountSource_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool, double, char> buffer =
-			store.GetOrCreateBuffer<FastIndexerSetterBuffer<int, string, bool, double, char>>(0,
-				static f => new FastIndexerSetterBuffer<int, string, bool, double, char>(f));
+		FastIndexerSetterBuffer<int, string, bool, double, char> buffer = new(store, 0);
 		buffer.Append(1, "a", true, 0.5, 'x');
 		buffer.Append(1, "a", true, 0.5, 'y');
 		buffer.Append(2, "a", true, 0.5, 'x');
@@ -362,16 +334,14 @@ public class MethodCountSourcesTests
 	public async Task Method0CountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod0Buffer buffer = store.GetOrCreateBuffer<FastMethod0Buffer>(0,
-			static f => new FastMethod0Buffer(f));
+		FastMethod0Buffer buffer = new(store, 0);
 		buffer.Append("M");
 		buffer.Append("M");
 
 		Method0CountSource<object> source = new(new object(), store, buffer, "M", null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -379,8 +349,7 @@ public class MethodCountSourcesTests
 	public async Task Method0CountSource_Matches_ShouldAcceptEveryInteraction()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod0Buffer buffer = store.GetOrCreateBuffer<FastMethod0Buffer>(0,
-			static f => new FastMethod0Buffer(f));
+		FastMethod0Buffer buffer = new(store, 0);
 
 		Method0CountSource<object> source = new(new object(), store, buffer, "M", null, Expectation);
 
@@ -391,8 +360,7 @@ public class MethodCountSourcesTests
 	public async Task Method0CountSource_ShouldRouteCountAndCountAllThroughBuffer()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod0Buffer buffer = store.GetOrCreateBuffer<FastMethod0Buffer>(0,
-			static f => new FastMethod0Buffer(f));
+		FastMethod0Buffer buffer = new(store, 0);
 		buffer.Append("M");
 		buffer.Append("M");
 
@@ -406,8 +374,7 @@ public class MethodCountSourcesTests
 	public async Task Method1CountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 		buffer.Append("M", 1);
 		buffer.Append("M", 2);
 
@@ -415,8 +382,7 @@ public class MethodCountSourcesTests
 			(IParameterMatch<int>)It.Is(1), null, null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -424,8 +390,7 @@ public class MethodCountSourcesTests
 	public async Task Method1CountSource_Matches_ShouldCheckTypeAndParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 
 		Method1CountSource<object, int> source = new(new object(), store, buffer, "M",
 			(IParameterMatch<int>)It.Is(1), null, null, Expectation);
@@ -439,8 +404,7 @@ public class MethodCountSourcesTests
 	public async Task Method1CountSource_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 		buffer.Append("M", 1);
 		buffer.Append("M", 2);
 		buffer.Append("M", 1);
@@ -462,8 +426,7 @@ public class MethodCountSourcesTests
 	public async Task Method1LiteralCountSource_Matches_ShouldCheckTypeAndParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 
 		Method1LiteralCountSource<object, int> source = new(new object(), store, buffer, "M", 1, null, Expectation);
 
@@ -476,8 +439,7 @@ public class MethodCountSourcesTests
 	public async Task Method2CountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 		buffer.Append("M", 1, "a");
 		buffer.Append("M", 2, "b");
 
@@ -487,8 +449,7 @@ public class MethodCountSourcesTests
 			null, null, null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -496,8 +457,7 @@ public class MethodCountSourcesTests
 	public async Task Method2CountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 
 		Method2CountSource<object, int, string> source = new(new object(), store, buffer, "M",
 			(IParameterMatch<int>)It.Is(1),
@@ -514,8 +474,7 @@ public class MethodCountSourcesTests
 	public async Task Method2CountSource_ShouldHonorBothMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 		buffer.Append("M", 1, "a");
 		buffer.Append("M", 2, "a");
 		buffer.Append("M", 1, "b");
@@ -533,8 +492,7 @@ public class MethodCountSourcesTests
 	public async Task Method2LiteralCountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 
 		Method2LiteralCountSource<object, int, string> source = new(new object(), store, buffer, "M",
 			1, "a", null, Expectation);
@@ -549,8 +507,7 @@ public class MethodCountSourcesTests
 	public async Task Method3CountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-			static f => new FastMethod3Buffer<int, string, bool>(f));
+		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 		buffer.Append("M", 1, "a", true);
 		buffer.Append("M", 2, "b", false);
 
@@ -561,8 +518,7 @@ public class MethodCountSourcesTests
 			null, null, null, null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -570,8 +526,7 @@ public class MethodCountSourcesTests
 	public async Task Method3CountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-			static f => new FastMethod3Buffer<int, string, bool>(f));
+		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 
 		Method3CountSource<object, int, string, bool> source = new(new object(), store, buffer, "M",
 			(IParameterMatch<int>)It.Is(1),
@@ -590,8 +545,7 @@ public class MethodCountSourcesTests
 	public async Task Method3CountSource_ShouldHonorAllThreeMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-			static f => new FastMethod3Buffer<int, string, bool>(f));
+		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 		buffer.Append("M", 1, "a", true);
 		buffer.Append("M", 2, "a", false);
 		buffer.Append("M", 1, "b", true);
@@ -610,8 +564,7 @@ public class MethodCountSourcesTests
 	public async Task Method3LiteralCountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-			static f => new FastMethod3Buffer<int, string, bool>(f));
+		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 
 		Method3LiteralCountSource<object, int, string, bool> source = new(new object(), store, buffer, "M",
 			1, "a", true, null, Expectation);
@@ -627,9 +580,7 @@ public class MethodCountSourcesTests
 	public async Task Method4CountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 		buffer.Append("M", 1, "a", true, 0.5);
 		buffer.Append("M", 2, "b", false, 1.5);
 
@@ -641,8 +592,7 @@ public class MethodCountSourcesTests
 			null, null, null, null, null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -650,9 +600,7 @@ public class MethodCountSourcesTests
 	public async Task Method4CountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 
 		Method4CountSource<object, int, string, bool, double> source = new(new object(), store, buffer, "M",
 			(IParameterMatch<int>)It.Is(1),
@@ -673,9 +621,7 @@ public class MethodCountSourcesTests
 	public async Task Method4CountSource_ShouldHonorAllFourMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 		buffer.Append("M", 1, "a", true, 0.5);
 		buffer.Append("M", 2, "a", false, 1.5);
 		buffer.Append("M", 1, "a", true, 2.5);
@@ -695,9 +641,7 @@ public class MethodCountSourcesTests
 	public async Task Method4LiteralCountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 
 		Method4LiteralCountSource<object, int, string, bool, double> source = new(new object(), store, buffer, "M",
 			1, "a", true, 0.5, null, Expectation);
@@ -714,8 +658,7 @@ public class MethodCountSourcesTests
 	public async Task Method1StateCountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 		buffer.Append("M", 1);
 		buffer.Append("M", 2);
 
@@ -723,8 +666,7 @@ public class MethodCountSourcesTests
 			(IParameterMatch<int>)It.Is(1), "s", null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -732,8 +674,7 @@ public class MethodCountSourcesTests
 	public async Task Method1StateCountSource_Describe_ShouldPassTheStateToTheFormatter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 
 		Method1StateCountSource<object, int, string> source = new(new object(), store, buffer, "M",
 			(IParameterMatch<int>)It.Is(1), "x => x > 0", null, Expectation);
@@ -745,8 +686,7 @@ public class MethodCountSourcesTests
 	public async Task Method1StateCountSource_Matches_ShouldCheckTypeAndParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 
 		Method1StateCountSource<object, int, string> source = new(new object(), store, buffer, "M",
 			(IParameterMatch<int>)It.Is(1), "s", null, Expectation);
@@ -760,8 +700,7 @@ public class MethodCountSourcesTests
 	public async Task Method1StateCountSource_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = store.GetOrCreateBuffer<FastMethod1Buffer<int>>(0,
-			static f => new FastMethod1Buffer<int>(f));
+		FastMethod1Buffer<int> buffer = new(store, 0);
 		buffer.Append("M", 1);
 		buffer.Append("M", 2);
 		buffer.Append("M", 1);
@@ -777,8 +716,7 @@ public class MethodCountSourcesTests
 	public async Task Method2StateCountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 		buffer.Append("M", 1, "a");
 		buffer.Append("M", 2, "b");
 
@@ -788,8 +726,7 @@ public class MethodCountSourcesTests
 			(1, "a"), null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -797,8 +734,7 @@ public class MethodCountSourcesTests
 	public async Task Method2StateCountSource_Describe_ShouldPassTheStateToTheFormatter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 
 		Method2StateCountSource<object, int, string, (int, string)> source = new(new object(), store, buffer, "M",
 			(IParameterMatch<int>)It.Is(1),
@@ -812,8 +748,7 @@ public class MethodCountSourcesTests
 	public async Task Method2StateCountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 
 		Method2StateCountSource<object, int, string, (int, string)> source = new(new object(), store, buffer, "M",
 			(IParameterMatch<int>)It.Is(1),
@@ -830,8 +765,7 @@ public class MethodCountSourcesTests
 	public async Task Method2StateCountSource_ShouldHonorBothMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = store.GetOrCreateBuffer<FastMethod2Buffer<int, string>>(0,
-			static f => new FastMethod2Buffer<int, string>(f));
+		FastMethod2Buffer<int, string> buffer = new(store, 0);
 		buffer.Append("M", 1, "a");
 		buffer.Append("M", 2, "a");
 		buffer.Append("M", 1, "b");
@@ -849,8 +783,7 @@ public class MethodCountSourcesTests
 	public async Task Method3StateCountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-			static f => new FastMethod3Buffer<int, string, bool>(f));
+		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 		buffer.Append("M", 1, "a", true);
 		buffer.Append("M", 2, "b", false);
 
@@ -862,8 +795,7 @@ public class MethodCountSourcesTests
 			(1, "a", true), null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -871,8 +803,7 @@ public class MethodCountSourcesTests
 	public async Task Method3StateCountSource_Describe_ShouldPassTheStateToTheFormatter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-			static f => new FastMethod3Buffer<int, string, bool>(f));
+		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 
 		Method3StateCountSource<object, int, string, bool, (int, string, bool)> source = new(new object(), store,
 			buffer, "M",
@@ -889,8 +820,7 @@ public class MethodCountSourcesTests
 	public async Task Method3StateCountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-			static f => new FastMethod3Buffer<int, string, bool>(f));
+		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 
 		Method3StateCountSource<object, int, string, bool, (int, string, bool)> source = new(new object(), store,
 			buffer, "M",
@@ -910,8 +840,7 @@ public class MethodCountSourcesTests
 	public async Task Method3StateCountSource_ShouldHonorAllThreeMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = store.GetOrCreateBuffer<FastMethod3Buffer<int, string, bool>>(0,
-			static f => new FastMethod3Buffer<int, string, bool>(f));
+		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
 		buffer.Append("M", 1, "a", true);
 		buffer.Append("M", 2, "a", false);
 		buffer.Append("M", 1, "b", true);
@@ -931,9 +860,7 @@ public class MethodCountSourcesTests
 	public async Task Method4StateCountSource_CountAll_ShouldMarkSlotsVerified()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 		buffer.Append("M", 1, "a", true, 0.5);
 		buffer.Append("M", 2, "b", false, 1.5);
 
@@ -946,8 +873,7 @@ public class MethodCountSourcesTests
 			(1, "a", true, 0.5), null, Expectation);
 		await That(source.CountAll()).IsEqualTo(2);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxedUnverified(dest);
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
 		await That(dest).IsEmpty();
 	}
 
@@ -955,9 +881,7 @@ public class MethodCountSourcesTests
 	public async Task Method4StateCountSource_Describe_ShouldPassTheStateToTheFormatter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 
 		Method4StateCountSource<object, int, string, bool, double, (int, string, bool, string)> source = new(
 			new object(), store, buffer, "M",
@@ -976,9 +900,7 @@ public class MethodCountSourcesTests
 	public async Task Method4StateCountSource_Matches_ShouldCheckTypeAndEveryParameter()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 
 		Method4StateCountSource<object, int, string, bool, double, (int, string, bool, double)> source = new(
 			new object(), store, buffer, "M",
@@ -1000,9 +922,7 @@ public class MethodCountSourcesTests
 	public async Task Method4StateCountSource_ShouldHonorAllFourMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer =
-			store.GetOrCreateBuffer<FastMethod4Buffer<int, string, bool, double>>(0,
-				static f => new FastMethod4Buffer<int, string, bool, double>(f));
+		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
 		buffer.Append("M", 1, "a", true, 0.5);
 		buffer.Append("M", 2, "a", false, 1.5);
 		buffer.Append("M", 1, "a", true, 2.5);
@@ -1023,8 +943,7 @@ public class MethodCountSourcesTests
 	public async Task PropertyGetterCountSource_Matches_ShouldAcceptEveryInteraction()
 	{
 		FastMockInteractions store = new(1);
-		FastPropertyGetterBuffer buffer = store.GetOrCreateBuffer<FastPropertyGetterBuffer>(0,
-			static f => new FastPropertyGetterBuffer(f, new PropertyGetterAccess("P")));
+		FastPropertyGetterBuffer buffer = new(store, 0);
 
 		PropertyGetterCountSource<object> source = new(new object(), store, buffer, null, Expectation);
 
@@ -1035,8 +954,7 @@ public class MethodCountSourcesTests
 	public async Task PropertyGetterCountSource_ShouldReturnRecordedCount()
 	{
 		FastMockInteractions store = new(1);
-		FastPropertyGetterBuffer buffer = store.GetOrCreateBuffer<FastPropertyGetterBuffer>(0,
-			static f => new FastPropertyGetterBuffer(f, new PropertyGetterAccess("P")));
+		FastPropertyGetterBuffer buffer = new(store, 0);
 		buffer.Append();
 		buffer.Append();
 		buffer.Append();
@@ -1050,8 +968,7 @@ public class MethodCountSourcesTests
 	public async Task PropertySetterCountSource_Matches_ShouldCheckTypeAndValue()
 	{
 		FastMockInteractions store = new(1);
-		FastPropertySetterBuffer<int> buffer = store.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(0,
-			static f => new FastPropertySetterBuffer<int>(f));
+		FastPropertySetterBuffer<int> buffer = new(store, 0);
 
 		PropertySetterCountSource<object, int> source = new(new object(), store, buffer,
 			(IParameterMatch<int>)It.Is(1), null, Expectation);
@@ -1065,8 +982,7 @@ public class MethodCountSourcesTests
 	public async Task PropertySetterCountSource_ShouldHonorValueMatcher()
 	{
 		FastMockInteractions store = new(1);
-		FastPropertySetterBuffer<int> buffer = store.GetOrCreateBuffer<FastPropertySetterBuffer<int>>(0,
-			static f => new FastPropertySetterBuffer<int>(f));
+		FastPropertySetterBuffer<int> buffer = new(store, 0);
 		buffer.Append("P", 1);
 		buffer.Append("P", 2);
 		buffer.Append("P", 1);

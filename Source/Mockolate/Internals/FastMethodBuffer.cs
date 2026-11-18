@@ -20,15 +20,10 @@ public sealed class FastMethod0Buffer : RecordList, IFastMemberBuffer
 	///     Creates a new parameterless method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod0Buffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastMethod0Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records a parameterless method call.
-	/// </summary>
-	public void Append(string name)
-		=> Append(Owner, MemberId, name);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -86,15 +81,10 @@ public sealed class FastMethod1Buffer<T1> : RecordList, IFastMemberBuffer
 	///     Creates a new 1-parameter method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod1Buffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastMethod1Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records a 1-parameter method call.
-	/// </summary>
-	public void Append(string name, T1 parameter1)
-		=> Append(Owner, MemberId, name, parameter1);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -191,15 +181,10 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList, IFastMemberBuffer
 	///     Creates a new 2-parameter method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod2Buffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastMethod2Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records a 2-parameter method call.
-	/// </summary>
-	public void Append(string name, T1 parameter1, T2 parameter2)
-		=> Append(Owner, MemberId, name, parameter1, parameter2);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -297,15 +282,10 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList, IFastMemberBuffe
 	///     Creates a new 3-parameter method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod3Buffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastMethod3Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records a 3-parameter method call.
-	/// </summary>
-	public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3)
-		=> Append(Owner, MemberId, name, parameter1, parameter2, parameter3);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
@@ -405,15 +385,10 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList, IFastMemberB
 	///     Creates a new 4-parameter method buffer attached to <paramref name="owner" />.
 	/// </summary>
 	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
-	public FastMethod4Buffer(FastMockInteractions owner) : base(owner)
+	/// <param name="memberId">The id of the member whose calls the view reads.</param>
+	public FastMethod4Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
-
-	/// <summary>
-	///     Records a 4-parameter method call.
-	/// </summary>
-	public void Append(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
-		=> Append(Owner, MemberId, name, parameter1, parameter2, parameter3, parameter4);
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without

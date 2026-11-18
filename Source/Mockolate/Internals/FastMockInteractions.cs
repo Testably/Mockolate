@@ -31,9 +31,6 @@ public class FastMockInteractions : IMockInteractions
 	private RecordNode? _head;
 
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	private IFastMemberBuffer?[]? _buffers;
-
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	[field: DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private MockolateLock VerifiedLock
 	{
@@ -68,25 +65,6 @@ public class FastMockInteractions : IMockInteractions
 	/// </summary>
 	public int MemberCount { get; }
 
-	/// <summary>
-	///     The views on the calls of each member that were requested through
-	///     <see cref="GetOrCreateBuffer{TBuffer}(int, Func{FastMockInteractions, TBuffer})" />, by member id. Recording
-	///     a call does not need a view, so a slot can be empty although the member was called.
-	/// </summary>
-	public IFastMemberBuffer?[] Buffers
-	{
-		get
-		{
-			if (_buffers is { } existing)
-			{
-				return existing;
-			}
-
-			Interlocked.CompareExchange(ref _buffers, new IFastMemberBuffer?[MemberCount], null);
-			return _buffers!;
-		}
-	}
-
 	/// <inheritdoc cref="IMockInteractions.SkipInteractionRecording" />
 	public bool SkipInteractionRecording { get; }
 
@@ -95,12 +73,6 @@ public class FastMockInteractions : IMockInteractions
 
 	/// <inheritdoc cref="IMockInteractions.OnClearing" />
 	public event EventHandler? OnClearing;
-
-	/// <summary>
-	///     <see langword="true" /> when at least one subscriber has registered with
-	///     <see cref="InteractionAdded" />.
-	/// </summary>
-	public bool HasInteractionAddedSubscribers => InteractionAdded is not null;
 
 	/// <summary>
 	///     The number of interactions recorded for the mock.
@@ -140,86 +112,17 @@ public class FastMockInteractions : IMockInteractions
 	}
 
 	/// <summary>
-	///     Returns the view on the calls of the member <paramref name="memberId" />, creating it via
-	///     <paramref name="factory" /> on first use. The factory must be a static lambda so the runtime never
-	///     allocates a closure.
-	/// </summary>
-	/// <typeparam name="TBuffer">The concrete buffer type of the member.</typeparam>
-	/// <param name="memberId">The generator-emitted member id for the buffer's target member.</param>
-	/// <param name="factory">
-	///     Builds a new buffer when none was requested yet. Under contention the loser's allocation is discarded
-	///     and the winner is returned.
-	/// </param>
-	public TBuffer GetOrCreateBuffer<TBuffer>(int memberId, Func<FastMockInteractions, TBuffer> factory)
-		where TBuffer : class, IFastMemberBuffer
-	{
-		IFastMemberBuffer?[] buffers = Buffers;
-		if (Volatile.Read(ref buffers[memberId]) is TBuffer typed)
-		{
-			return typed;
-		}
-
-		return Publish(buffers, memberId, factory(this));
-	}
-
-	/// <summary>
-	///     <typeparamref name="TState" />-passing variant of
-	///     <see cref="GetOrCreateBuffer{TBuffer}(int, Func{FastMockInteractions, TBuffer})" /> that lets
-	///     callers supply the buffer's construction parameter without allocating a closure.
-	/// </summary>
-	/// <typeparam name="TBuffer">The concrete buffer type of the member.</typeparam>
-	/// <typeparam name="TState">Type of the construction parameter forwarded to <paramref name="factory" />.</typeparam>
-	/// <param name="memberId">The generator-emitted member id for the buffer's target member.</param>
-	/// <param name="factory">
-	///     Builds a new buffer from <paramref name="state" /> when none was requested yet. Must be a
-	///     static lambda; <paramref name="state" /> is the only flow path so closures are unnecessary.
-	/// </param>
-	/// <param name="state">Forwarded to <paramref name="factory" /> on construction.</param>
-	public TBuffer GetOrCreateBuffer<TBuffer, TState>(int memberId,
-		Func<FastMockInteractions, TState, TBuffer> factory, TState state)
-		where TBuffer : class, IFastMemberBuffer
-	{
-		IFastMemberBuffer?[] buffers = Buffers;
-		if (Volatile.Read(ref buffers[memberId]) is TBuffer typed)
-		{
-			return typed;
-		}
-
-		return Publish(buffers, memberId, factory(this, state));
-	}
-
-	private static TBuffer Publish<TBuffer>(IFastMemberBuffer?[] buffers, int memberId, TBuffer created)
-		where TBuffer : class, IFastMemberBuffer
-	{
-		if (created is RecordList view)
-		{
-			view.MemberId = memberId;
-		}
-
-		IFastMemberBuffer? previous = Interlocked.CompareExchange(ref buffers[memberId], created, null);
-		return previous is TBuffer winner ? winner : created;
-	}
-
-	/// <summary>
 	///     Returns a view on the typed records of the member <paramref name="memberId" />, or
 	///     <see langword="null" /> when the member has none.
 	/// </summary>
 	internal IFastMemberBuffer? FindBuffer(int memberId)
-	{
-		if ((uint)memberId >= (uint)MemberCount)
-		{
-			return null;
-		}
-
-		IFastMemberBuffer buffer = _buffers?[memberId] ?? new MemberRecords(this) { MemberId = memberId, };
-		return buffer is RecordList { HasRecords: false, } ? null : buffer;
-	}
+		=> FindBuffer(memberId, static (owner, id) => new MemberRecords(owner, id));
 
 	/// <summary>
 	///     Returns a typed view on the records of the member <paramref name="memberId" />, or
 	///     <see langword="null" /> when the member has none.
 	/// </summary>
-	internal TBuffer? FindBuffer<TBuffer>(int memberId, Func<FastMockInteractions, TBuffer> factory)
+	internal TBuffer? FindBuffer<TBuffer>(int memberId, Func<FastMockInteractions, int, TBuffer> factory)
 		where TBuffer : RecordList
 	{
 		if ((uint)memberId >= (uint)MemberCount)
@@ -227,15 +130,9 @@ public class FastMockInteractions : IMockInteractions
 			return null;
 		}
 
-		if (_buffers?[memberId] is not TBuffer buffer)
-		{
-			buffer = factory(this);
-			buffer.MemberId = memberId;
-		}
-
+		TBuffer buffer = factory(this, memberId);
 		return buffer.HasRecords ? buffer : null;
 	}
-
 	/// <inheritdoc cref="IMockInteractions.RegisterInteraction{TInteraction}(TInteraction)" />
 	/// <remarks>
 	///     Fallback for code paths that produce a heap-allocated <see cref="IInteraction" /> instance. The
