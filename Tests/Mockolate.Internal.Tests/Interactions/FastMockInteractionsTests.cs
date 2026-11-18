@@ -381,9 +381,9 @@ public class FastMockInteractionsTests
 		sut.Push(second);
 		sut.Push(third);
 
-		await That(first.Seq).IsEqualTo(0L);
-		await That(second.Seq).IsEqualTo(1L);
-		await That(third.Seq).IsEqualTo(2L);
+		await That(first.Seq).IsEqualTo(0);
+		await That(second.Seq).IsEqualTo(1);
+		await That(third.Seq).IsEqualTo(2);
 	}
 
 	[Test]

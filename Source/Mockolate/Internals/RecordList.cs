@@ -112,18 +112,10 @@ public abstract class RecordNode
 	private const int VerifiedFlag = int.MinValue;
 
 	private IInteraction? _boxed;
-	private int _seq;
 	private int _memberIdAndVerified;
 
-	/// <summary>
-	///     The position of the call in the mock, counted from zero. It is stored in 32 bits, like the interaction
-	///     count of the mock.
-	/// </summary>
-	public long Seq
-	{
-		get => _seq;
-		internal set => _seq = (int)value;
-	}
+	/// <summary>The position of the call in the mock, counted from zero.</summary>
+	public int Seq { get; internal set; }
 
 	/// <summary>
 	///     The id of the member that was called. It is not negative, because it shares its storage with
