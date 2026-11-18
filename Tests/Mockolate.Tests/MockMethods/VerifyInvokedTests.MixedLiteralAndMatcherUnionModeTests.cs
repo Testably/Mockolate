@@ -8,8 +8,8 @@ namespace Mockolate.Tests.MockMethods;
 public sealed partial class VerifyInvokedTests
 {
 	/// <summary>
-	///     Regression coverage for mixed literal and matcher verifications in union mode, which every target framework
-	///     of this project compiles in. The classic overloads are covered by <c>ClassicVerifyMessageTests</c>.
+	///     Regression coverage for mixed literal and matcher verifications, in union mode on net11.0 and with the
+	///     classic overloads on the other target frameworks.
 	/// </summary>
 	public sealed class MixedLiteralAndMatcherUnionModeTests
 	{
@@ -142,7 +142,11 @@ public sealed partial class VerifyInvokedTests
 			}
 
 			await That(Act).Throws<MockVerificationException>()
+#if NET11_0_OR_GREATER
 				.WithMessage("Expected that mock invoked method Method3(null, It.IsAny<int>(), null) exactly once, but it never did.");
+#else
+				.WithMessage("Expected that mock invoked method Method3(, It.IsAny<int>(), ) exactly once, but it never did.");
+#endif
 		}
 
 		[Test]

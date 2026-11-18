@@ -31,7 +31,7 @@ public sealed partial class VerifyInvokedTests
 				Capture(() => sut.Mock.Verify.OneObject(null).Once()),
 				Capture(() => sut.Mock.Verify.OneString(null).Once()),
 				Capture(() => sut.Mock.Verify.OneObjectNotAnnotated(null).Once()),
-				Capture(() => sut.Mock.Verify.OneStringNotAnnotated(null).Once()),
+				Capture(() => sut.Mock.Verify.OneStringNotAnnotated(null!).Once()),
 				Capture(() => sut.Mock.Verify.OneInterface(null).Once()),
 				Capture(() => sut.Mock.Verify.OneNullableInt(null).Once()),
 				Capture(() => sut.Mock.Verify.TwoObject(null, 1).Once()),
@@ -44,6 +44,7 @@ public sealed partial class VerifyInvokedTests
 			];
 
 			await That(messages).IsEqualTo([
+#if NET11_0_OR_GREATER
 				"Expected that mock invoked method OneObject(null) exactly once, but it never did.",
 				"Expected that mock invoked method OneString(null) exactly once, but it never did.",
 				"Expected that mock invoked method OneObjectNotAnnotated(null) exactly once, but it never did.",
@@ -56,8 +57,22 @@ public sealed partial class VerifyInvokedTests
 				"Expected that mock invoked method OptionalObject(null, 5) exactly once, but it never did.",
 				"Expected that mock invoked method OptionalString(null, 5) exactly once, but it never did.",
 				"Expected that mock invoked method OptionalWithNonNullDefault(null, 5) exactly once, but it never did.",
+#else
+				"Expected that mock invoked method OneObject() exactly once, but it never did.",
+				"Expected that mock invoked method OneString() exactly once, but it never did.",
+				"Expected that mock invoked method OneObjectNotAnnotated() exactly once, but it never did.",
+				"Expected that mock invoked method OneStringNotAnnotated() exactly once, but it never did.",
+				"Expected that mock invoked method OneInterface() exactly once, but it never did.",
+				"Expected that mock invoked method OneNullableInt() exactly once, but it never did.",
+				"Expected that mock invoked method TwoObject(, 1) exactly once, but it never did.",
+				"Expected that mock invoked method TwoString(, 1) exactly once, but it never did.",
+				"Expected that mock invoked method TwoNullableInt(, 1) exactly once, but it never did.",
+				"Expected that mock invoked method OptionalObject(, 5) exactly once, but it never did.",
+				"Expected that mock invoked method OptionalString(, 5) exactly once, but it never did.",
+				"Expected that mock invoked method OptionalWithNonNullDefault(, 5) exactly once, but it never did.",
+#endif
 				"Expected that mock invoked method WithParams(, System.Int32[]) exactly once, but it never did.",
-			]).Because("a null literal means that the argument was null, not that any argument matches");
+			]).Because("a null literal means that the argument was null, not that any argument matches; the classic overloads describe a null value as an empty string");
 		}
 
 		[Test]
@@ -102,7 +117,7 @@ public sealed partial class VerifyInvokedTests
 				Capture(() => sut.Mock.Verify.OneObject(null).Once()),
 				Capture(() => sut.Mock.Verify.OneString(null).Once()),
 				Capture(() => sut.Mock.Verify.OneObjectNotAnnotated(null).Once()),
-				Capture(() => sut.Mock.Verify.OneStringNotAnnotated(null).Once()),
+				Capture(() => sut.Mock.Verify.OneStringNotAnnotated(null!).Once()),
 				Capture(() => sut.Mock.Verify.OneInterface(null).Once()),
 				Capture(() => sut.Mock.Verify.OneNullableInt(null).Once()),
 				Capture(() => sut.Mock.Verify.TwoObject(null, 1).Once()),
@@ -125,7 +140,7 @@ public sealed partial class VerifyInvokedTests
 			sut.Mock.Setup.OneObject(null).Returns(1);
 			sut.Mock.Setup.OneString(null).Returns(1);
 			sut.Mock.Setup.OneObjectNotAnnotated(null).Returns(1);
-			sut.Mock.Setup.OneStringNotAnnotated(null).Returns(1);
+			sut.Mock.Setup.OneStringNotAnnotated(null!).Returns(1);
 			sut.Mock.Setup.OneInterface(null).Returns(1);
 			sut.Mock.Setup.OneNullableInt(null).Returns(1);
 			sut.Mock.Setup.TwoObject(null, 1).Returns(1);
@@ -220,6 +235,8 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.M(null!)).Once();
 		}
 
+#if NET11_0_OR_GREATER
+		// In classic mode a null literal is ambiguous here: unlike for methods, the delegate overloads carry no OverloadResolutionPriority.
 		[Test]
 		public async Task Delegate_SetupAndVerifyNull_ShouldMatchOnlyNullCalls()
 		{
@@ -242,6 +259,7 @@ public sealed partial class VerifyInvokedTests
 				.Because("a setup with a null literal matches a null argument");
 			await That(sut.Mock.Verify(null)).Once();
 		}
+#endif
 
 		private static string Capture(Action act)
 		{

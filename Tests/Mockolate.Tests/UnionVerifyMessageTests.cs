@@ -1,3 +1,4 @@
+#if NET11_0_OR_GREATER
 using Mockolate.Exceptions;
 using Mockolate.Parameters;
 using Mockolate.Verify;
@@ -145,3 +146,4 @@ public sealed class UnionVerifyMessageTests
 		void Many(int a, int b, int c, int d, string? e);
 	}
 }
+#endif

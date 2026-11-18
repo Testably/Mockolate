@@ -22,6 +22,11 @@
 		<GenerateRuntimeConfigDevFile>false</GenerateRuntimeConfigDevFile>
 	</PropertyGroup>
 
+	<!-- Every framework compiles with C# 15, so the switch keeps the classic setup surface tested below net11.0. -->
+	<PropertyGroup Condition="'$(TargetFramework)' != 'net11.0'">
+		<MockolateDisableUnionParameters>true</MockolateDisableUnionParameters>
+	</PropertyGroup>
+
 	<!--
 	    The tests run on TUnit as executables of the Microsoft.Testing.Platform. TUnit discovers them through
 	    reflection instead of its source generator, which keeps the compilation of the large test projects fast.

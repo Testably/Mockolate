@@ -53,7 +53,7 @@ public sealed class DynamicMembersTests
 		await That(sut.Mock.Verify.Dyn3(1, 2.5, "c")).Once();
 		await That(sut.Mock.Verify.Dyn4(It.IsAny<object>(), "b", 3, It.IsAny<string>())).Once();
 		await That(sut.Mock.Verify.Dyn5("a", 2, 3, 4, 5)).Once();
-		await That(sut.Mock.Verify.Dyn5(It.IsAny<object>(), 2, It.IsAny<int>(), 4, It.Satisfies<object>(v => v is int))).Once();
+		await That(sut.Mock.Verify.Dyn5(It.IsAny<object>(), It.Is(2), It.IsAny<int>(), It.Is(4), It.Satisfies<object>(v => v is int))).Once();
 		await That(sut.Mock.Verify.Dyn5("b", 2, 3, 4, 5)).Never();
 		await That(sut.Mock.Verify.DynParams(Match.AnyParameters())).Once();
 	}
@@ -108,7 +108,7 @@ public sealed class DynamicMembersTests
 		IDynamicMembers sut = IDynamicMembers.CreateMock();
 		sut.Mock.Setup["a"].Returns(1);
 		sut.Mock.Setup[It.Satisfies<object>(k => k is int)].Returns(2);
-		sut.Mock.Setup[1, It.IsAny<object>(), "c", 4, It.IsAny<int>()].Returns(5);
+		sut.Mock.Setup[It.Is(1), It.IsAny<object>(), It.Is("c"), It.Is<object>(4), It.IsAny<int>()].Returns(5);
 
 		object result1 = sut["a"];
 		object result2 = sut[7];
@@ -122,7 +122,7 @@ public sealed class DynamicMembersTests
 		await That(sut.Mock.Verify["a"].Got()).Once();
 		await That(sut.Mock.Verify[It.IsAny<object>()].Got()).Twice();
 		await That(sut.Mock.Verify["k"].Set("v")).Once();
-		await That(sut.Mock.Verify[1, It.IsAny<object>(), "c", 4, 5].Got()).Once();
+		await That(sut.Mock.Verify[It.Is(1), It.IsAny<object>(), It.Is("c"), It.Is<object>(4), It.Is(5)].Got()).Once();
 		await That(sut.Mock.Verify[1, 2, "c", 4, 5].Set("w")).Once();
 	}
 
@@ -189,7 +189,11 @@ public sealed class DynamicMembersTests
 			"Expected that mock invoked method Dyn1(42) exactly once, but it never did.",
 			"Expected that mock invoked method Dyn2(It.IsAny<object>(), 2) exactly once, but it never did.",
 			"Expected that mock invoked method Dyn2(b, It.IsAny<int>()) exactly once, but it never did.",
+#if NET11_0_OR_GREATER
 			"Expected that mock invoked method Dyn3(1, null, c) exactly once, but it never did.",
+#else
+			"Expected that mock invoked method Dyn3(1, , c) exactly once, but it never did.",
+#endif
 			"Expected that mock invoked method Dyn4(It.IsAny<object>(), b, 3, It.IsAny<string>()) exactly once, but it never did.",
 			"Expected that mock invoked method Dyn5(a, 2, 3, 4, It.IsAny<object>()) exactly once, but it never did.",
 			"Expected that mock invoked method Get() exactly once, but it never did.",

@@ -114,7 +114,7 @@ public partial class DelegateTests
 	public async Task WithCustomDelegateWithMoreThanFourParameters_SetupAndVerifyShouldWork()
 	{
 		DoSomethingWithSevenInts sut = DoSomethingWithSevenInts.CreateMock();
-		sut.Mock.Setup(1, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
+		sut.Mock.Setup(It.Is(1), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
 			It.IsAny<int>()).Returns(42);
 
 		int result1 = sut(1, 2, 3, 4, 5, 6, 7);
@@ -122,7 +122,7 @@ public partial class DelegateTests
 
 		await That(result1).IsEqualTo(42);
 		await That(result2).IsEqualTo(0);
-		await That(sut.Mock.Verify(It.IsAny<int>(), 2, 3, 4, 5, 6, 7)).Twice();
+		await That(sut.Mock.Verify(It.IsAny<int>(), It.Is(2), It.Is(3), It.Is(4), It.Is(5), It.Is(6), It.Is(7))).Twice();
 	}
 
 	[Test]

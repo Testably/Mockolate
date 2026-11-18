@@ -67,6 +67,7 @@ public sealed partial class VerifyInvokedTests
 			]).Because("the copies of the result for waiting and ordering keep the widening to any parameters");
 		}
 
+#if NET11_0_OR_GREATER
 		[Test]
 		public async Task AnyParameters_WithMatchersAndPredicates_WhenVerificationFails_ShouldDescribeAnyParameters()
 		{
@@ -94,6 +95,7 @@ public sealed partial class VerifyInvokedTests
 				"Expected that mock never invoked method Five(Match.AnyParameters()), but it did once.",
 			]).Because("the union overloads expose AnyParameters for matchers, predicates and mixed arguments as well");
 		}
+#endif
 
 		private static string Capture(Action act)
 		{
