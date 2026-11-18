@@ -129,6 +129,7 @@ jobs:
             fail-fast: false
             matrix:
                 benchmark:
+                    - AsyncBenchmarks
                     - CallbackBenchmarks
                     - CompleteEventBenchmarks
                     - CompleteIndexerBenchmarks
@@ -137,6 +138,7 @@ jobs:
                     - CompleteUnconfiguredBenchmarks
                     - CompleteWorkflowBenchmarks
                     - MockCreationBenchmarks
+                    - SequenceBenchmarks
         runs-on: ubuntu-latest
         permissions:
             contents: write

@@ -112,7 +112,7 @@ A check that fails only in the published run points to code that behaves differe
 dotnet run -c Release --project Benchmarks/Mockolate.Benchmarks -- --filter "*MockCreationBenchmarks*"
 ```
 
-CI runs one job per class: `CallbackBenchmarks`, `CompleteEventBenchmarks`, `CompleteIndexerBenchmarks`, `CompleteMethodBenchmarks`, `CompletePropertyBenchmarks`, `CompleteUnconfiguredBenchmarks`, `CompleteWorkflowBenchmarks`, `MockCreationBenchmarks`. A new benchmark class must be added to the matrix in both `.github/workflows/ci.yml` and `build.yml`. On PRs each job also runs the Mockolate benchmarks of `main` (`BenchmarkMain`) on the same runner, and the comment compares with them; on `main` the results are appended to `Docs/pages/static/js/data.js` on the `benchmarks` branch, which feeds the benchmarks page of the docs site.
+CI runs one job per class: `AsyncBenchmarks`, `CallbackBenchmarks`, `CompleteEventBenchmarks`, `CompleteIndexerBenchmarks`, `CompleteMethodBenchmarks`, `CompletePropertyBenchmarks`, `CompleteUnconfiguredBenchmarks`, `CompleteWorkflowBenchmarks`, `MockCreationBenchmarks`, `SequenceBenchmarks`. A new benchmark class must be added to the matrix in both `.github/workflows/ci.yml` and `build.yml`. On PRs each job also runs the Mockolate benchmarks of `main` (`BenchmarkMain`) on the same runner, and the comment compares with them; on `main` the results are appended to `Docs/pages/static/js/data.js` on the `benchmarks` branch, which feeds the benchmarks page of the docs site.
 
 ## Mutation Tests
 
