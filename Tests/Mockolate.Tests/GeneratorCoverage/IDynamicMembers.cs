@@ -63,3 +63,31 @@ public class DynamicHidingDerived : DynamicHidingBase
 {
 	public new virtual object M(object x) => $"derived {x}";
 }
+
+/// <summary>
+///     Generic types that are mocked closed over <see langword="dynamic" />. A class cannot implement an interface that
+///     is constructed with <see langword="dynamic" />, so the generated code must name the identical
+///     <see langword="object" /> construction.
+/// </summary>
+public interface IDynamicRepository<T>
+{
+	T Value { get; set; }
+	T this[T key] { get; set; }
+	event System.EventHandler<T>? Changed;
+	T Get(T key, System.Collections.Generic.List<T> values);
+	void Add(T item);
+}
+
+public abstract class DynamicRepositoryBase<T>
+{
+	protected DynamicRepositoryBase(T initial)
+	{
+		Initial = initial;
+	}
+
+	public T Initial { get; }
+	public virtual T Echo(T value) => value;
+	public abstract void Consume(T value, System.Collections.Generic.IEnumerable<T> values);
+}
+
+public delegate T DynamicFactory<T>(T value, System.Collections.Generic.List<T> values);
