@@ -20,7 +20,7 @@ namespace Mockolate.Interactions;
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
+internal sealed class FastPropertyGetterBuffer : RecordList
 {
 	/// <summary>
 	///     Creates a view that reads the recorded accesses of a property getter.
@@ -74,7 +74,7 @@ internal sealed class FastPropertyGetterBuffer : RecordList, IFastMemberBuffer
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-internal sealed class FastPropertySetterBuffer<T> : RecordList, IFastMemberBuffer
+internal sealed class FastPropertySetterBuffer<T> : RecordList
 {
 	/// <summary>
 	///     Creates a new property-setter buffer attached to <paramref name="owner" />.

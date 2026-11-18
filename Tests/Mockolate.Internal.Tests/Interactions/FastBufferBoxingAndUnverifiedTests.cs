@@ -56,8 +56,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -81,8 +81,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -130,8 +130,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -165,8 +165,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -202,8 +202,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -240,8 +240,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -276,8 +276,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -313,8 +313,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -351,8 +351,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -389,8 +389,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -418,8 +418,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -444,8 +444,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -479,8 +479,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -529,8 +529,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -578,8 +578,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
@@ -597,7 +597,7 @@ public class FastBufferBoxingAndUnverifiedTests
 		buffer.Append(access);
 
 		List<(long Seq, IInteraction Interaction)> dest = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(dest);
+		buffer.AppendBoxed(dest);
 		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
 
 		await That(dest).HasCount(2);
@@ -613,11 +613,11 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(access);
 		List<(long Seq, IInteraction Interaction)> firstSnapshot = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(firstSnapshot);
+		buffer.AppendBoxed(firstSnapshot);
 
 		buffer.Append(access);
 		List<(long Seq, IInteraction Interaction)> secondSnapshot = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(secondSnapshot);
+		buffer.AppendBoxed(secondSnapshot);
 
 		await That(firstSnapshot).HasCount(1);
 		await That(secondSnapshot).HasCount(2);
@@ -643,8 +643,8 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		List<(long Seq, IInteraction Interaction)> first = [];
 		List<(long Seq, IInteraction Interaction)> second = [];
-		((IFastMemberBuffer)buffer).AppendBoxed(first);
-		((IFastMemberBuffer)buffer).AppendBoxed(second);
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);

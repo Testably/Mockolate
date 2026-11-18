@@ -62,7 +62,7 @@ public partial class MockRegistry
 	/// <param name="expectation">Factory producing the expectation description used in failure messages.</param>
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, TMethod>(T subject, int memberId, string methodName, Func<TMethod, bool> predicate, Func<string> expectation) where TMethod : IMethodInteraction
 	{
-		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
+		RecordList? buffer = TryGetBuffer(memberId);
 		if (buffer is null)
 		{
 			return VerifyMethod(subject, methodName, predicate, expectation);
@@ -115,7 +115,7 @@ public partial class MockRegistry
 	/// <param name="propertyName">The simple property name.</param>
 	internal VerificationResult<T> VerifyProperty<T>(T subject, int memberId, string propertyName)
 	{
-		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
+		RecordList? buffer = TryGetBuffer(memberId);
 		if (buffer is null)
 		{
 			return VerifyProperty(subject, propertyName);
@@ -169,7 +169,7 @@ public partial class MockRegistry
 	internal VerificationResult<TSubject> VerifyProperty<TSubject, TValue>(TSubject subject, int memberId,
 		string propertyName, IParameterMatch<TValue> value)
 	{
-		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
+		RecordList? buffer = TryGetBuffer(memberId);
 		if (buffer is null)
 		{
 			return VerifyProperty(subject, propertyName, value);
@@ -344,7 +344,7 @@ public partial class MockRegistry
 	/// <param name="eventName">The simple event name.</param>
 	internal VerificationResult<T> SubscribedTo<T>(T subject, int memberId, string eventName)
 	{
-		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
+		RecordList? buffer = TryGetBuffer(memberId);
 		if (buffer is null)
 		{
 			return SubscribedTo(subject, eventName);
@@ -387,7 +387,7 @@ public partial class MockRegistry
 	/// <param name="eventName">The simple event name.</param>
 	internal VerificationResult<T> UnsubscribedFrom<T>(T subject, int memberId, string eventName)
 	{
-		IFastMemberBuffer? buffer = TryGetBuffer(memberId);
+		RecordList? buffer = TryGetBuffer(memberId);
 		if (buffer is null)
 		{
 			return UnsubscribedFrom(subject, eventName);
@@ -1209,7 +1209,7 @@ public partial class MockRegistry
 	///     The view on the typed records of the member, or <see langword="null" /> when it has none, so that the
 	///     caller verifies against all interactions of the mock instead.
 	/// </summary>
-	private IFastMemberBuffer? TryGetBuffer(int memberId)
+	private RecordList? TryGetBuffer(int memberId)
 		=> Interactions is FastMockInteractions fast ? fast.FindBuffer(memberId) : null;
 
 	/// <inheritdoc cref="TryGetBuffer(int)" />

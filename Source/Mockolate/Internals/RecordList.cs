@@ -6,8 +6,7 @@ using Mockolate.Interactions;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Typed view on the calls that a <see cref="FastMockInteractions" /> recorded for one mocked member. Base type
-///     of the <see cref="IFastMemberBuffer" /> implementations of the library and of the generated code.
+///     Typed view on the calls that a <see cref="FastMockInteractions" /> recorded for one mocked member.
 /// </summary>
 /// <remarks>
 ///     This type is public only so that generated code can use it; it is not intended to be used directly.
@@ -59,7 +58,10 @@ public abstract class RecordList
 	/// <summary>The next older call of the member after <paramref name="node" />, or <see langword="null" />.</summary>
 	protected RecordNode? Following(RecordNode node) => Skip(node.Next);
 
-	/// <inheritdoc cref="IFastMemberBuffer.AppendBoxed" />
+	/// <summary>
+	///     Appends the interaction of each recorded call of the member to <paramref name="dest" />, newest first,
+	///     together with its position in the mock.
+	/// </summary>
 	public void AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
 	{
 		for (RecordNode? node = First; node is not null; node = Following(node))
@@ -169,5 +171,4 @@ internal sealed class InteractionRecord : RecordNode
 /// <summary>
 ///     View on the calls of a member whose record type is not known.
 /// </summary>
-internal sealed class MemberRecords(FastMockInteractions owner, int memberId)
-	: RecordList(owner, memberId), IFastMemberBuffer;
+internal sealed class MemberRecords(FastMockInteractions owner, int memberId) : RecordList(owner, memberId);
