@@ -280,21 +280,26 @@ internal static partial class Sources
 			MethodIds[method] = id;
 		}
 
-		internal void Emit(StringBuilder sb, string indent)
+		/// <remarks>
+		///     <paramref name="idOffset" /> is the expression for the id of the first member, for a mock that
+		///     shares its registry with another mock and must not reuse the ids of that mock.
+		/// </remarks>
+		internal void Emit(StringBuilder sb, string indent, string? idOffset = null)
 		{
+			string offsetPrefix = idOffset is null ? "" : idOffset + " + ";
 			if (_declarations.Count == 0)
 			{
-				sb.Append(indent).Append("internal const int MemberCount = 0;").AppendLine();
+				sb.Append(indent).Append("internal const int MemberCount = ").Append(offsetPrefix).Append("0;").AppendLine();
 				return;
 			}
 
 			for (int i = 0; i < _declarations.Count; i++)
 			{
 				sb.Append(indent).Append("internal const int ").Append(_declarations[i])
-					.Append(" = ").Append(i).Append(';').AppendLine();
+					.Append(" = ").Append(offsetPrefix).Append(i).Append(';').AppendLine();
 			}
 
-			sb.Append(indent).Append("internal const int MemberCount = ").Append(_declarations.Count)
+			sb.Append(indent).Append("internal const int MemberCount = ").Append(offsetPrefix).Append(_declarations.Count)
 				.Append(';').AppendLine();
 
 			foreach ((Property property, string fieldName) in _propertyGetterAccessFields)

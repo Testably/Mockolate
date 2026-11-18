@@ -133,7 +133,7 @@ internal static partial class Sources
 		sb.Append("\t\tglobal::Mockolate.IMock").AppendLine();
 		sb.Append("\t{").AppendLine();
 
-		memberIds.Emit(sb, "\t\t");
+		memberIds.Emit(sb, "\t\t", @class is { ClassFullName: "global::System.Net.Http.HttpClient", } ? "global::Mockolate.Mock.HttpMessageHandler.MemberCount" : null);
 		sb.AppendLine();
 
 		AppendCreateFastInteractions(sb, "\t\t");
