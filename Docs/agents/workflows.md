@@ -110,7 +110,7 @@ A check that fails only in the published run points to code that behaves differe
 dotnet run -c Release --project Benchmarks/Mockolate.Benchmarks -- --filter "*MockCreationBenchmarks*"
 ```
 
-CI runs one job per class: `CallbackBenchmarks`, `CompleteEventBenchmarks`, `CompleteIndexerBenchmarks`, `CompleteMethodBenchmarks`, `CompletePropertyBenchmarks`, `CompleteUnconfiguredBenchmarks`, `CompleteWorkflowBenchmarks`, `MockCreationBenchmarks`. A new benchmark class must be added to the matrix in both `.github/workflows/ci.yml` and `build.yml`. On PRs the results are posted as a comment with the latest `main` run as baseline; on `main` they are appended to `Docs/pages/static/js/data.js` on the `benchmarks` branch, which feeds the benchmarks page of the docs site.
+CI runs one job per class: `CallbackBenchmarks`, `CompleteEventBenchmarks`, `CompleteIndexerBenchmarks`, `CompleteMethodBenchmarks`, `CompletePropertyBenchmarks`, `CompleteUnconfiguredBenchmarks`, `CompleteWorkflowBenchmarks`, `MockCreationBenchmarks`. A new benchmark class must be added to the matrix in both `.github/workflows/ci.yml` and `build.yml`. On PRs each job also runs the Mockolate benchmarks of `main` (`BenchmarkMain`) on the same runner, and the comment compares with them; on `main` the results are appended to `Docs/pages/static/js/data.js` on the `benchmarks` branch, which feeds the benchmarks page of the docs site.
 
 ## Mutation Tests
 
@@ -136,6 +136,7 @@ Reports go to `Artifacts/Stryker`, the Markdown body of the PR comment to `Artif
 | `CodeAnalysis` | SonarCloud analysis (needs `SonarToken`) |
 | `Pack` | Build the NuGet package into `Artifacts/Packages`, with a release-specific README |
 | `Benchmarks` | Run the benchmarks (`--benchmark-filter`, default `*`) and print the reports |
+| `BenchmarkMain` | Run the Mockolate benchmarks of the `main` that `HEAD` is based on into `Artifacts/MainBenchmarks` |
 | `BenchmarkComment`, `PublishBenchmarkReport` | CI only: PR comment and docs site data |
 | `MutationTests`, `MutationTestsComment`, `MutationTestsDashboard` | Stryker run, PR comment and dashboard upload |
 | `UpdateReadme` | Write the packaged README to `Artifacts/README.md` |

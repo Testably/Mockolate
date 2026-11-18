@@ -12,19 +12,13 @@ namespace Build;
 
 /// <summary>
 ///     Pure logic for transforming BenchmarkDotNet reports into the body posted as a PR comment, compared to the
-///     results of <c>main</c> on the benchmark page.
+///     results of <c>main</c> from the same runner.
 /// </summary>
 static class BenchmarkReport
 {
     public const string Heading = "## :rocket: Benchmark Results";
 
-    /// <summary>
-    ///     The number of runs on <c>main</c> whose median is the baseline of the time, as a single run on a shared
-    ///     runner is too noisy.
-    /// </summary>
-    public const int BaselineRuns = 10;
-
-    public const double RelativeChangeThreshold = 0.15;
+    public const double TimeChangeThreshold = 0.10;
 
     /// <summary>
     ///     Leaves room for the summaries within the limit of a GitHub comment.
@@ -32,129 +26,143 @@ static class BenchmarkReport
     public const int MaxRawResultsLength = 45000;
 
     const string BaselineLibrary = "Mockolate";
-    const string StrongWorse = "🔴";
-    const string StrongBetter = "🟢";
-    const string WeakWorse = "🔸";
-    const string WeakBetter = "🔹";
+    const string Worse = "🔴";
+    const string Better = "🟢";
 
     // ReSharper disable once UnusedMember.Global
     public static readonly string[] DefaultColumnsToRemove = ["RatioSD", "Gen0", "Gen1", "Gen2",];
 
     /// <summary>
-    ///     The source-generated libraries, whose ratio to Mockolate is stable between runs on <c>main</c>, unlike the one to
-    ///     the reflection-based libraries.
+    ///     The order of the tabs on the benchmarks page of the docs site.
     /// </summary>
-    static readonly string[] ComparedLibraries = ["Imposter", "TUnitMocks",];
+    static readonly string[] BenchmarkOrder =
+    [
+        "CompleteWorkflowBenchmarks", "MockCreationBenchmarks", "CompleteUnconfiguredBenchmarks",
+        "CompleteMethodBenchmarks", "CompletePropertyBenchmarks", "CompleteIndexerBenchmarks",
+        "CompleteEventBenchmarks", "CallbackBenchmarks",
+    ];
 
-    public static string BuildBody(IReadOnlyList<BenchmarkReportFile> files, BenchmarkBaseline? baseline,
+    /// <param name="mainCommitUrl">The link to the commit of <c>main</c> that ran, or <see langword="null" /> when it is unknown.</param>
+    public static string BuildBody(IReadOnlyList<BenchmarkReportFile> files, string? mainCommitUrl,
         string[] columnsToRemove)
     {
+        files = files
+            .OrderBy(file => Array.IndexOf(BenchmarkOrder, file.Name) is var index and >= 0 ? index : int.MaxValue)
+            .ThenBy(file => file.Name, StringComparer.Ordinal)
+            .ToArray();
+        List<string> memoryRows = new();
+        List<string> timeRows = new();
+        var comparedBenchmarks = 0;
+        List<string> newBenchmarks = new();
+        List<string> removedBenchmarks = new();
+        foreach (var file in files.Where(file => file.MainMeasurementsJson != null))
+        {
+            var measurements = ReadMeasurements(file.MeasurementsJson);
+            var mainMeasurements = ReadMeasurements(file.MainMeasurementsJson!);
+            var benchmarks = measurements
+                .Where(pair => pair.Value.ContainsKey(BaselineLibrary))
+                .Select(pair => pair.Key)
+                .Order(StringComparer.Ordinal)
+                .ToArray();
+            removedBenchmarks.AddRange(mainMeasurements.Keys.Except(benchmarks).Order(StringComparer.Ordinal));
+            foreach (var name in benchmarks)
+            {
+                var current = measurements[name][BaselineLibrary];
+                if (!mainMeasurements.TryGetValue(name, out var mainLibraries) ||
+                    !mainLibraries.TryGetValue(BaselineLibrary, out var main))
+                {
+                    newBenchmarks.Add(name);
+                    continue;
+                }
+
+                if (current.Allocated != main.Allocated)
+                {
+                    memoryRows.Add(
+                        $"| `{name}` | {FormatBytes(main.Allocated)} | {FormatBytes(current.Allocated)} | {FormatMemoryChange(main.Allocated, current.Allocated)} |");
+                }
+
+                var timeChange = current.Mean / main.Mean - 1;
+                if (Math.Abs(timeChange) > TimeChangeThreshold)
+                {
+                    timeRows.Add(
+                        $"| `{name}` | {FormatTime(main.Mean)} | {FormatTime(current.Mean)} | {(timeChange > 0 ? Worse : Better)} {FormatPercent(timeChange)} |");
+                }
+
+                comparedBenchmarks++;
+            }
+        }
+
         StringBuilder sb = new();
         sb.AppendLine(Heading);
-        if (baseline == null)
-        {
-            sb.AppendLine("_There are no results of `main` to compare to._");
-        }
-        else
+        var filesWithoutMain = files.Where(file => file.MainMeasurementsJson == null).ToArray();
+        var compared = filesWithoutMain.Length < files.Count;
+        if (compared)
         {
             sb.AppendLine(
-                $"Compared to `main` @ `{baseline.Sha.AsSpan(0, Math.Min(8, baseline.Sha.Length))}`: memory to the latest run, time to the median of the last {BaselineRuns} runs, as the runners differ in speed. " +
-                $"A relative change marks when Mockolate gets more than {FormatPercent(RelativeChangeThreshold).TrimStart('+')} faster or slower relative to " +
-                $"{string.Join(" and ", ComparedLibraries)}: {StrongWorse} / {StrongBetter} against both of them, " +
-                $"{WeakWorse} / {WeakBetter} against only one.");
+                $"Compared to {(mainCommitUrl == null ? "`main`" : $"[`main`]({mainCommitUrl})")}, which ran on the same runner. Times that change by more than {FormatPercent(TimeChangeThreshold).TrimStart('+')} are marked.");
+        }
+
+        if (filesWithoutMain.Length > 0)
+        {
+            sb.AppendLine(
+                $"⚠️ There are no results of `main` for {string.Join(", ", filesWithoutMain.Select(file => $"`{file.Name}`"))}, so they are not compared.");
         }
 
         sb.AppendLine();
-        HashSet<string> measuredBenchmarks = new();
-        var rawResultsLength = 0;
-        foreach (var file in files)
+        if (compared && memoryRows.Count == 0 && timeRows.Count == 0)
         {
-            var measurements = ReadMeasurements(file.MeasurementsJson);
-            measuredBenchmarks.UnionWith(measurements.Keys);
-            sb.AppendLine($"### {file.Name}");
-            if (baseline != null)
-            {
-                sb.Append(CreateSummary(measurements, baseline));
-            }
-
-            var rawResults = CreateRawResults(file.ReportLines, columnsToRemove);
-            // The summaries take precedence over the raw results when the comment would get too long.
-            rawResultsLength += rawResults.Length;
-            sb.AppendLine(rawResultsLength <= MaxRawResultsLength
-                ? rawResults
-                : $"_The raw results do not fit into this comment, see the artifact `Benchmarks-{file.Name}` of the workflow run._");
+            sb.AppendLine($"✅ No changes in memory or time ({comparedBenchmarks} benchmarks)");
             sb.AppendLine();
         }
 
-        var removedBenchmarks = baseline?.Benchmarks.Keys.Except(measuredBenchmarks).Order(StringComparer.Ordinal)
-            .ToArray() ?? [];
-        if (removedBenchmarks.Length > 0)
+        AppendChangeTable(sb, "Memory", memoryRows);
+        AppendChangeTable(sb, "Time", timeRows);
+        if (newBenchmarks.Count > 0)
+        {
+            sb.AppendLine($"New, without results on `main`: {string.Join(", ", newBenchmarks.Select(name => $"`{name}`"))}");
+            sb.AppendLine();
+        }
+
+        if (removedBenchmarks.Count > 0)
         {
             sb.AppendLine($"Removed: {string.Join(", ", removedBenchmarks.Select(name => $"`{name}`"))}");
+            sb.AppendLine();
+        }
+
+        var rawResultsLength = 0;
+        foreach (var file in files)
+        {
+            var rawResults = CreateRawResults(file.Name, file.ReportLines, columnsToRemove);
+            // The comparison takes precedence over the raw results when the comment would get too long.
+            rawResultsLength += rawResults.Length;
+            sb.AppendLine(rawResultsLength <= MaxRawResultsLength
+                ? rawResults
+                : $"_The raw results of `{file.Name}` do not fit into this comment, see the artifact `Benchmarks-{file.Name}` of the workflow run._");
+            sb.AppendLine();
         }
 
         return sb.ToString();
     }
 
-    /// <summary>
-    ///     Reads the results of <c>main</c> from the benchmark data that the docs site shows.
-    /// </summary>
-    /// <remarks>
-    ///     A benchmark that was removed from <c>main</c> is ignored, as its last result belongs to an older commit than
-    ///     the latest one.
-    /// </remarks>
-    public static BenchmarkBaseline? ReadBaseline(string? content)
+    static void AppendChangeTable(StringBuilder sb, string title, List<string> rows)
     {
-        const string prefix = "window.BENCHMARK_DATA = ";
-        if (content?.StartsWith(prefix, StringComparison.Ordinal) != true)
+        if (rows.Count == 0)
         {
-            return null;
+            return;
         }
 
-        using var document = JsonDocument.Parse(content.Substring(prefix.Length));
-        List<(string Sha, string Name, BaselineBenchmark Benchmark)> benchmarks = new();
-        foreach (var benchmark in document.RootElement.EnumerateObject())
-        {
-            var commits = benchmark.Value.GetProperty("commits").EnumerateArray().ToArray();
-            var datasets = benchmark.Value.GetProperty("datasets").EnumerateArray().ToDictionary(
-                dataset => dataset.GetProperty("label").GetString()!,
-                dataset => dataset.GetProperty("data").EnumerateArray().Select(value => value.GetDouble()).ToArray());
-            if (commits.Length == 0 ||
-                !datasets.TryGetValue($"{BaselineLibrary} time", out var times) || times.Length == 0 ||
-                !datasets.TryGetValue($"{BaselineLibrary} memory", out var allocated) || allocated.Length == 0)
-            {
-                continue;
-            }
-
-            Dictionary<string, double> ratios = new();
-            foreach (var library in ComparedLibraries)
-            {
-                if (datasets.TryGetValue($"{library} time", out var otherTimes) && otherTimes.Length > 0)
-                {
-                    // The libraries of a run are appended together, so the datasets align at their end.
-                    ratios[library] = Median(times.Reverse().Zip(otherTimes.Reverse(), (m, o) => m / o)
-                        .Take(BaselineRuns));
-                }
-            }
-
-            benchmarks.Add((commits[^1].GetProperty("sha").GetString()!, benchmark.Name,
-                new BaselineBenchmark(Median(times.TakeLast(BaselineRuns)), allocated[^1], ratios)));
-        }
-
-        if (benchmarks.Count == 0)
-        {
-            return null;
-        }
-
-        var latestSha = benchmarks.GroupBy(benchmark => benchmark.Sha).MaxBy(group => group.Count())!.Key;
-        return new BenchmarkBaseline(latestSha, benchmarks
-            .Where(benchmark => benchmark.Sha == latestSha)
-            .ToDictionary(benchmark => benchmark.Name, benchmark => benchmark.Benchmark));
+        sb.AppendLine($"**{title}**");
+        sb.AppendLine();
+        sb.AppendLine("| Benchmark | main | PR | Δ |");
+        sb.AppendLine("|---|--:|--:|--:|");
+        rows.ForEach(row => sb.AppendLine(row));
+        sb.AppendLine();
     }
 
     /// <summary>
     ///     Reads the measurements of each library per benchmark from a full BenchmarkDotNet JSON report, keyed like the
     ///     charts of the benchmark page.
+    /// </summary>
     /// </summary>
     internal static Dictionary<string, Dictionary<string, BenchmarkMeasurement>> ReadMeasurements(string json)
     {
@@ -189,160 +197,8 @@ static class BenchmarkReport
         return result;
     }
 
-    internal static string CreateSummary(Dictionary<string, Dictionary<string, BenchmarkMeasurement>> measurements,
-        BenchmarkBaseline baseline)
-    {
-        var benchmarks = measurements
-            .Where(pair => pair.Value.ContainsKey(BaselineLibrary))
-            .Select(pair => pair.Key)
-            .Order(StringComparer.Ordinal)
-            .ToArray();
-        var libraries = ComparedLibraries
-            .Where(library => measurements.Values.Any(m => m.ContainsKey(library)))
-            .ToArray();
-        var newBenchmarks = benchmarks.Where(name => !baseline.Benchmarks.ContainsKey(name)).ToArray();
-        List<string> memoryRows = new();
-        List<string> relativeRows = new();
-        List<string> allRows = new();
-        foreach (var name in benchmarks.Except(newBenchmarks))
-        {
-            var current = measurements[name][BaselineLibrary];
-            var main = baseline.Benchmarks[name];
-            var relativeCells = CompareRelativePerformance(measurements[name], main, libraries, out var relativeChanged);
-            if (current.Allocated != main.Allocated)
-            {
-                memoryRows.Add(
-                    $"| `{name}` | {FormatBytes(main.Allocated)} | {FormatBytes(current.Allocated)} | {FormatMemoryChange(main.Allocated, current.Allocated)} |");
-            }
-
-            if (relativeChanged)
-            {
-                relativeRows.Add($"| `{name}` | {string.Join(" | ", relativeCells)} |");
-            }
-
-            allRows.Add(
-                $"| `{name}` | {FormatTime(main.Mean)} → {FormatTime(current.Mean)} ({FormatPercent(current.Mean / main.Mean - 1)}) | " +
-                $"{FormatBytes(main.Allocated)} → {FormatBytes(current.Allocated)} | {string.Join(" | ", relativeCells)} |");
-        }
-
-        StringBuilder sb = new();
-        if (memoryRows.Count == 0 && relativeRows.Count == 0)
-        {
-            sb.AppendLine($"✅ No changes in memory or relative performance ({allRows.Count} benchmarks)");
-            sb.AppendLine();
-        }
-
-        if (memoryRows.Count > 0)
-        {
-            sb.AppendLine("**Memory**");
-            sb.AppendLine();
-            sb.AppendLine("| Benchmark | main | PR | Δ |");
-            sb.AppendLine("|---|--:|--:|--:|");
-            memoryRows.ForEach(row => sb.AppendLine(row));
-            sb.AppendLine();
-        }
-
-        if (relativeRows.Count > 0)
-        {
-            sb.AppendLine(
-                "**Relative performance** (how many times as long the other library takes as Mockolate, main → PR)");
-            sb.AppendLine();
-            sb.AppendLine($"| Benchmark | {string.Join(" | ", libraries.Select(library => $"vs {library}"))} |");
-            sb.AppendLine($"|---|{string.Concat(libraries.Select(_ => "--:|"))}");
-            relativeRows.ForEach(row => sb.AppendLine(row));
-            sb.AppendLine();
-        }
-
-        if (newBenchmarks.Length > 0)
-        {
-            sb.AppendLine($"New, without results on `main`: {string.Join(", ", newBenchmarks.Select(name => $"`{name}`"))}");
-            sb.AppendLine();
-        }
-
-        if (allRows.Count > 0)
-        {
-            sb.AppendLine("<details>");
-            sb.AppendLine("<summary>All benchmarks compared to main</summary>");
-            sb.AppendLine();
-            sb.AppendLine(
-                $"| Benchmark | Time | Memory | {string.Join(" | ", libraries.Select(library => $"vs {library}"))} |");
-            sb.AppendLine($"|---|--:|--:|{string.Concat(libraries.Select(_ => "--:|"))}");
-            allRows.ForEach(row => sb.AppendLine(row));
-            sb.AppendLine();
-            sb.AppendLine("</details>");
-            sb.AppendLine();
-        }
-
-        return sb.ToString();
-    }
-
-    /// <summary>
-    ///     Compares the time of Mockolate relative to each of the <paramref name="libraries" /> with <c>main</c>.
-    /// </summary>
-    /// <remarks>
-    ///     The ratio of two benchmarks of the same run does not depend on the speed of the runner. A change against
-    ///     all of the libraries in the same direction is most likely caused by Mockolate and gets a stronger marker.
-    /// </remarks>
-    internal static string[] CompareRelativePerformance(Dictionary<string, BenchmarkMeasurement> measurements,
-        BaselineBenchmark main, string[] libraries, out bool changed)
-    {
-        var mockolate = measurements[BaselineLibrary];
-        var ratios = libraries
-            .Select(library => measurements.TryGetValue(library, out var other)
-                ? mockolate.Mean / other.Mean
-                : (double?)null)
-            .ToArray();
-        var relativeChanges = libraries
-            .Select((library, index) => main.Ratios.TryGetValue(library, out var mainRatio) && ratios[index] != null
-                ? ratios[index] / mainRatio - 1
-                : null)
-            .ToArray();
-        var compared = relativeChanges.Count(relativeChange => relativeChange != null);
-        var slower = relativeChanges.Count(relativeChange => relativeChange > RelativeChangeThreshold);
-        var faster = relativeChanges.Count(relativeChange => relativeChange < -RelativeChangeThreshold);
-        changed = slower + faster > 0;
-        var strongSlower = compared > 1 && slower == compared;
-        var strongFaster = compared > 1 && faster == compared;
-        return libraries.Select((library, index) =>
-        {
-            if (ratios[index] == null)
-            {
-                return "";
-            }
-
-            var cell = main.Ratios.TryGetValue(library, out var mainRatio)
-                ? $"{FormatRatio(mainRatio)} → {FormatRatio(ratios[index]!.Value)}"
-                : $"→ {FormatRatio(ratios[index]!.Value)}";
-            var relativeChange = relativeChanges[index];
-            if (relativeChange > RelativeChangeThreshold)
-            {
-                cell += $" {(strongSlower ? StrongWorse : WeakWorse)} {FormatPercent(relativeChange.Value)}";
-            }
-            else if (relativeChange < -RelativeChangeThreshold)
-            {
-                cell += $" {(strongFaster ? StrongBetter : WeakBetter)} {FormatPercent(relativeChange.Value)}";
-            }
-
-            return cell;
-        }).ToArray();
-    }
-
-    internal static double Median(IEnumerable<double> values)
-    {
-        var sorted = values.Order().ToArray();
-        var middle = sorted.Length / 2;
-        return sorted.Length % 2 == 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle];
-    }
-
     internal static string FormatPercent(double relativeChange)
         => (relativeChange * 100).ToString("+0;-0;±0", CultureInfo.InvariantCulture) + "%";
-
-    /// <summary>
-    ///     Formats the <paramref name="ratio" /> of Mockolate to another library as the factor of the other library, as
-    ///     the docs site does, which keeps its precision when Mockolate is much faster.
-    /// </summary>
-    internal static string FormatRatio(double ratio)
-        => (1 / ratio).ToString(ratio > 0.1 ? "0.00" : "0.0", CultureInfo.InvariantCulture) + "×";
 
     internal static string FormatBytes(double bytes)
         => bytes.ToString("N0", CultureInfo.InvariantCulture) + " B";
@@ -351,7 +207,7 @@ static class BenchmarkReport
     {
         var difference = current - main;
         var change =
-            $"{(difference > 0 ? StrongWorse : StrongBetter)} {difference.ToString("+#,0;-#,0", CultureInfo.InvariantCulture)} B";
+            $"{(difference > 0 ? Worse : Better)} {difference.ToString("+#,0;-#,0", CultureInfo.InvariantCulture)} B";
         return main == 0 ? change : $"{change} ({FormatPercent(current / main - 1)})";
     }
 
@@ -363,11 +219,11 @@ static class BenchmarkReport
             _ => (nanoseconds / 1_000_000).ToString("0.00", CultureInfo.InvariantCulture) + " ms",
         };
 
-    internal static string CreateRawResults(string[] reportLines, string[] columnsToRemove)
+    internal static string CreateRawResults(string name, string[] reportLines, string[] columnsToRemove)
     {
         StringBuilder sb = new();
         sb.AppendLine("<details>");
-        sb.AppendLine("<summary>Raw results</summary>");
+        sb.AppendLine($"<summary>{name}</summary>");
         sb.AppendLine();
         BenchmarkTableParser parser = new(columnsToRemove);
         List<TableRow> tableBuffer = new();
@@ -555,15 +411,12 @@ static class BenchmarkReport
 }
 
 /// <param name="Name">The benchmark class, which is also the suffix of its workflow artifact.</param>
-sealed record BenchmarkReportFile(string Name, string[] ReportLines, string MeasurementsJson);
+/// <param name="MainMeasurementsJson">The report of <c>main</c> from the same runner, or <see langword="null" /> when it is missing.</param>
+sealed record BenchmarkReportFile(string Name, string[] ReportLines, string MeasurementsJson, string? MainMeasurementsJson);
 
 sealed record TableRow(int RowIndex, string[] Tokens);
 
 sealed record BenchmarkMeasurement(double Mean, double Allocated);
-
-sealed record BaselineBenchmark(double Mean, double Allocated, Dictionary<string, double> Ratios);
-
-sealed record BenchmarkBaseline(string Sha, Dictionary<string, BaselineBenchmark> Benchmarks);
 
 /// <summary>
 ///     Parses the markdown tables produced by BenchmarkDotNet's GitHub exporter.

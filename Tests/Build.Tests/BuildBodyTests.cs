@@ -78,15 +78,16 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WithoutBaseline_ShouldRenderTheRawResultsCollapsedBelowTheSectionHeading()
+	public async Task BuildBody_WithoutMain_ShouldWarnAndRenderTheRawResultsCollapsedUnderTheClassName()
 	{
 		string body = BenchmarkReport.BuildBody([CreateFile(_reportLines),], null, _columnsToRemove);
 
 		string[] lines = body.Split(Environment.NewLine);
 		await That(lines[0]).IsEqualTo("## :rocket: Benchmark Results");
-		await That(lines[1]).IsEqualTo("_There are no results of `main` to compare to._");
-		await That(lines).Contains("### FooBenchmarks");
-		int summary = Array.IndexOf(lines, "<summary>Raw results</summary>");
+		await That(lines[1]).IsEqualTo(
+			"⚠️ There are no results of `main` for `FooBenchmarks`, so they are not compared.");
+		await That(body).DoesNotContain("✅");
+		int summary = Array.IndexOf(lines, "<summary>FooBenchmarks</summary>");
 		int table = Array.IndexOf(lines, "| Foo | Mean | Allocated |");
 		int end = Array.IndexOf(lines, "</details>");
 		await That(summary).IsGreaterThan(-1);
@@ -99,34 +100,72 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenNothingChanged_ShouldConfirmItAndListAllBenchmarksCollapsed()
+	public async Task BuildBody_WhenMainIsMissingForSomeClasses_ShouldWarnOnceAndCompareTheOthers()
 	{
-		BenchmarkReportFile file = CreateFile(_reportLines,
-			("Foo_Mockolate", "", 100, 64),
-			("Foo_Imposter", "", 1000, 512),
-			("Foo_Moq", "", 2000, 1024));
-		BenchmarkBaseline baseline = CreateBaseline(("Foo", 100, 64, 0.1));
+		BenchmarkReportFile compared = CreateFile("FooBenchmarks", _reportLines,
+			[("Foo_Mockolate", "", 100, 64),], ("Foo_Mockolate", "", 100, 64));
+		BenchmarkReportFile bar = CreateFile("BarBenchmarks", _reportLines, null, ("Bar_Mockolate", "", 100, 96));
+		BenchmarkReportFile baz = CreateFile("BazBenchmarks", _reportLines, null, ("Baz_Mockolate", "", 100, 96));
 
-		string body = BenchmarkReport.BuildBody([file,], baseline, _columnsToRemove);
+		string body = BenchmarkReport.BuildBody([compared, bar, baz,], null, _columnsToRemove);
 
 		string[] lines = body.Split(Environment.NewLine);
-		await That(lines[1]).StartsWith("Compared to `main` @ `abcdef12`:");
-		await That(lines).Contains("✅ No changes in memory or relative performance (1 benchmarks)");
-		await That(lines).Contains("<summary>All benchmarks compared to main</summary>");
-		await That(lines).Contains("| Benchmark | Time | Memory | vs Imposter |")
-			.Because("only the measured source-generated libraries are compared");
-		await That(lines).Contains("| `Foo` | 100.0 ns → 100.0 ns (±0%) | 64 B → 64 B | 10.0× → 10.0× |");
+		await That(lines[1]).StartsWith("Compared to `main`, which ran on the same runner.");
+		await That(lines[2]).IsEqualTo(
+			"⚠️ There are no results of `main` for `BarBenchmarks`, `BazBenchmarks`, so they are not compared.");
+		await That(lines.Count(line => line.Contains("⚠️"))).IsEqualTo(1);
+		await That(lines).Contains("✅ No changes in memory or time (1 benchmarks)");
+		await That(body).DoesNotContain("New, without results");
+	}
+
+	[Test]
+	public async Task BuildBody_ShouldOrderTheClassesLikeTheBenchmarksPage()
+	{
+		string[] names =
+		[
+			"CallbackBenchmarks", "UnknownBenchmarks", "CompleteMethodBenchmarks", "MockCreationBenchmarks",
+			"CompleteWorkflowBenchmarks",
+		];
+
+		string body = BenchmarkReport.BuildBody(
+			names.Select(name => CreateFile(name, _reportLines, null)).ToArray(), null, _columnsToRemove);
+
+		string[] summaries = body.Split(Environment.NewLine).Where(line => line.StartsWith("<summary>")).ToArray();
+		await That(summaries).IsEqualTo([
+			"<summary>CompleteWorkflowBenchmarks</summary>",
+			"<summary>MockCreationBenchmarks</summary>",
+			"<summary>CompleteMethodBenchmarks</summary>",
+			"<summary>CallbackBenchmarks</summary>",
+			"<summary>UnknownBenchmarks</summary>",
+		]);
+	}
+
+	[Test]
+	public async Task BuildBody_WhenNothingChanged_ShouldConfirmItAndLinkTheCommitOfMain()
+	{
+		BenchmarkReportFile file = CreateFile("FooBenchmarks", _reportLines,
+			[("Foo_Mockolate", "", 100, 64),],
+			("Foo_Mockolate", "", 109, 64),
+			("Foo_Imposter", "", 1000, 512));
+
+		string body = BenchmarkReport.BuildBody([file,], "https://example.com/commit/abc", _columnsToRemove);
+
+		string[] lines = body.Split(Environment.NewLine);
+		await That(lines[1]).IsEqualTo(
+			"Compared to [`main`](https://example.com/commit/abc), which ran on the same runner. Times that change by more than 10% are marked.");
+		await That(lines).Contains("✅ No changes in memory or time (1 benchmarks)");
+		await That(body).DoesNotContain("⚠️");
 		await That(body).DoesNotContain("**Memory**");
-		await That(body).DoesNotContain("**Relative performance**");
+		await That(body).DoesNotContain("**Time**");
 	}
 
 	[Test]
 	public async Task BuildBody_WhenMemoryChanged_ShouldListItInTheMemoryTable()
 	{
-		BenchmarkReportFile file = CreateFile(_reportLines, ("Foo_Mockolate", "N=1", 100, 96));
-		BenchmarkBaseline baseline = CreateBaseline(("Foo (N=1)", 100, 64, null));
+		BenchmarkReportFile file = CreateFile("FooBenchmarks", _reportLines,
+			[("Foo_Mockolate", "N=1", 100, 64),], ("Foo_Mockolate", "N=1", 100, 96));
 
-		string body = BenchmarkReport.BuildBody([file,], baseline, _columnsToRemove);
+		string body = BenchmarkReport.BuildBody([file,], null, _columnsToRemove);
 
 		string[] lines = body.Split(Environment.NewLine);
 		await That(lines).Contains("**Memory**");
@@ -135,32 +174,50 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenRelativePerformanceChanged_ShouldListItInTheRelativePerformanceTable()
+	[Arguments(111.0, "| `Foo` | 100.0 ns | 111.0 ns | 🔴 +11% |")]
+	[Arguments(89.0, "| `Foo` | 100.0 ns | 89.0 ns | 🟢 -11% |")]
+	public async Task BuildBody_WhenTimeChangedByMoreThanTheThreshold_ShouldListItInTheTimeTable(double mean,
+		string expectedRow)
 	{
-		BenchmarkReportFile file = CreateFile(_reportLines,
-			("Foo_Mockolate", "", 200, 64),
-			("Foo_Imposter", "", 1000, 512),
-			("Foo_TUnitMocks", "", 1000, 512));
-		BenchmarkBaseline baseline = CreateBaseline(("Foo", 100, 64, 0.1));
+		BenchmarkReportFile file = CreateFile("FooBenchmarks", _reportLines,
+			[("Foo_Mockolate", "", 100, 64),], ("Foo_Mockolate", "", mean, 64));
 
-		string body = BenchmarkReport.BuildBody([file,], baseline, _columnsToRemove);
+		string body = BenchmarkReport.BuildBody([file,], null, _columnsToRemove);
 
 		string[] lines = body.Split(Environment.NewLine);
-		await That(lines).Contains(
-			"**Relative performance** (how many times as long the other library takes as Mockolate, main → PR)");
-		await That(lines).Contains("| Benchmark | vs Imposter | vs TUnitMocks |");
-		await That(lines).Contains("| `Foo` | 10.0× → 5.00× 🔴 +100% | 10.0× → 5.00× 🔴 +100% |");
+		await That(lines).Contains("**Time**");
+		await That(lines).Contains(expectedRow);
+		await That(body).DoesNotContain("✅");
+	}
+
+	[Test]
+	public async Task BuildBody_ShouldCombineTheChangesOfAllClassesBeforeTheRawResults()
+	{
+		BenchmarkReportFile foo = CreateFile("FooBenchmarks", _reportLines,
+			[("Foo_Mockolate", "", 100, 64),], ("Foo_Mockolate", "", 200, 64));
+		BenchmarkReportFile bar = CreateFile("BarBenchmarks", _reportLines,
+			[("Bar_Mockolate", "", 100, 64),], ("Bar_Mockolate", "", 50, 64));
+
+		string body = BenchmarkReport.BuildBody([foo, bar,], null, _columnsToRemove);
+
+		string[] lines = body.Split(Environment.NewLine);
+		await That(lines.Count(line => line == "**Time**")).IsEqualTo(1);
+		int fooRow = Array.IndexOf(lines, "| `Foo` | 100.0 ns | 200.0 ns | 🔴 +100% |");
+		int barRow = Array.IndexOf(lines, "| `Bar` | 100.0 ns | 50.0 ns | 🟢 -50% |");
+		await That(fooRow).IsGreaterThan(-1);
+		await That(barRow).IsGreaterThan(-1);
+		await That(Array.IndexOf(lines, "<summary>BarBenchmarks</summary>")).IsGreaterThan(Math.Max(fooRow, barRow));
 	}
 
 	[Test]
 	public async Task BuildBody_ShouldListNewAndRemovedBenchmarks()
 	{
-		BenchmarkReportFile file = CreateFile(_reportLines,
+		BenchmarkReportFile file = CreateFile("FooBenchmarks", _reportLines,
+			[("Foo_Mockolate", "", 100, 64), ("Baz_Mockolate", "", 100, 64),],
 			("Foo_Mockolate", "", 100, 64),
 			("Bar_Mockolate", "", 100, 64));
-		BenchmarkBaseline baseline = CreateBaseline(("Foo", 100, 64, null), ("Baz", 100, 64, null));
 
-		string body = BenchmarkReport.BuildBody([file,], baseline, _columnsToRemove);
+		string body = BenchmarkReport.BuildBody([file,], null, _columnsToRemove);
 
 		string[] lines = body.Split(Environment.NewLine);
 		await That(lines).Contains("New, without results on `main`: `Bar`");
@@ -180,26 +237,18 @@ public sealed class BuildBodyTests
 			_columnsToRemove);
 
 		await That(body).Contains(
-			"_The raw results do not fit into this comment, see the artifact `Benchmarks-FooBenchmarks` of the workflow run._");
-		await That(body).DoesNotContain("<summary>Raw results</summary>").Because("not even the first raw results fit");
+			"_The raw results of `FooBenchmarks` do not fit into this comment, see the artifact `Benchmarks-FooBenchmarks` of the workflow run._");
+		await That(body).DoesNotContain("<summary>FooBenchmarks</summary>").Because("not even the first raw results fit");
 	}
 
-	private static BenchmarkReportFile CreateFile(string[] reportLines,
-		params (string Method, string Parameters, double Mean, double Allocated)[] measurements)
-		=> new("FooBenchmarks", reportLines, BenchmarkReportTestData.Measurements(measurements));
+	private static BenchmarkReportFile CreateFile(string[] reportLines)
+		=> CreateFile("FooBenchmarks", reportLines, null);
 
-	private static BenchmarkBaseline CreateBaseline(
-		params (string Name, double Mean, double Allocated, double? Ratio)[] benchmarks)
-		=> new("abcdef1234567890", benchmarks.ToDictionary(
-			benchmark => benchmark.Name,
-			benchmark => new BaselineBenchmark(benchmark.Mean, benchmark.Allocated,
-				benchmark.Ratio == null
-					? new Dictionary<string, double>()
-					: new Dictionary<string, double>
-					{
-						["Imposter"] = benchmark.Ratio.Value,
-						["TUnitMocks"] = benchmark.Ratio.Value,
-					})));
+	private static BenchmarkReportFile CreateFile(string name, string[] reportLines,
+		(string Method, string Parameters, double Mean, double Allocated)[]? main,
+		params (string Method, string Parameters, double Mean, double Allocated)[] measurements)
+		=> new(name, reportLines, BenchmarkReportTestData.Measurements(measurements),
+			main == null ? null : BenchmarkReportTestData.Measurements(main));
 
 	private static readonly string[] _columnsToRemove = ["RatioSD", "Gen0", "Gen1", "Gen2",];
 

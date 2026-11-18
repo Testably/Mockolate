@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Fallout.Common;
 using Fallout.Common.IO;
@@ -39,6 +40,39 @@ partial class Build
 			DotNet(
 				$"{Solution.Benchmarks.Mockolate_Benchmarks.Name}.dll --exporters json --filter {BenchmarkFilter} --artifacts \"{benchmarkDirectory}\"",
 				Solution.Benchmarks.Mockolate_Benchmarks.Directory / "bin" / "Release");
+		});
+
+	AbsolutePath MainBenchmarkDirectory => ArtifactsDirectory / "MainBenchmarks";
+
+	Target BenchmarkMain => _ => _
+		.Description("Runs the Mockolate benchmarks of the 'main' that the current commit is based on, so that the " +
+		             "benchmark comment compares results from the same runner.")
+		.Executes(() =>
+		{
+			MainBenchmarkDirectory.CreateOrCleanDirectory();
+			string mainSha = GitTasks.Git("merge-base HEAD origin/main").Single().Text;
+			File.WriteAllText(MainBenchmarkDirectory / "sha.txt", mainSha);
+			// Outside the repository, so that MSBuild does not pick up the props files of the current commit.
+			AbsolutePath mainDirectory = AbsolutePath.Create(Path.Combine(Path.GetTempPath(), $"Mockolate-main-{mainSha}"));
+			GitTasks.Git($"worktree add --force --detach \"{mainDirectory}\" {mainSha}");
+			try
+			{
+				AbsolutePath projectDirectory = mainDirectory /
+				                                Path.GetRelativePath(RootDirectory, Solution.Benchmarks.Mockolate_Benchmarks.Directory);
+				DotNetBuild(s => s
+					.SetProjectFile(projectDirectory)
+					.SetConfiguration(Configuration.Release)
+					.EnableNoLogo());
+
+				// The other libraries do not change between 'main' and the pull request.
+				DotNet(
+					$"{Solution.Benchmarks.Mockolate_Benchmarks.Name}.dll --exporters json --filter {BenchmarkFilter}_Mockolate --artifacts \"{MainBenchmarkDirectory}\"",
+					projectDirectory / "bin" / "Release");
+			}
+			finally
+			{
+				GitTasks.Git($"worktree remove --force \"{mainDirectory}\"");
+			}
 		});
 
 	Target BenchmarkResult => _ => _
@@ -91,20 +125,27 @@ partial class Build
 				return;
 			}
 
-			BuildExtensions.GithubFile baselineFile =
-				await BuildExtensions.ReadBranchFileAsync(BenchmarkLimitedDataPath, BenchmarkBranch, GithubToken);
 			List<BenchmarkReportFile> reportFiles = new();
 			foreach (string file in files.Order(StringComparer.Ordinal))
 			{
 				string prefix = file.Substring(0, file.Length - "-report-github.md".Length);
+				string mainFile = MainBenchmarkDirectory / "results" /
+				                  (Path.GetFileName(prefix) + "-report-full-compressed.json");
 				reportFiles.Add(new BenchmarkReportFile(
 					prefix.Substring(prefix.LastIndexOf('.') + 1),
 					await File.ReadAllLinesAsync(file),
-					await File.ReadAllTextAsync(prefix + "-report-full-compressed.json")));
+					await File.ReadAllTextAsync(prefix + "-report-full-compressed.json"),
+					File.Exists(mainFile) ? await File.ReadAllTextAsync(mainFile) : null));
 			}
 
-			string body = BenchmarkReport.BuildBody(reportFiles, BenchmarkReport.ReadBaseline(baselineFile?.Content),
-				BenchmarkReport.DefaultColumnsToRemove).AsUntrustedCommentContent();
+			AbsolutePath mainShaFile = MainBenchmarkDirectory / "sha.txt";
+			string mainSha = File.Exists(mainShaFile) ? (await File.ReadAllTextAsync(mainShaFile)).Trim() : null;
+			// The artifact is untrusted, so only a commit hash may become part of the link.
+			string mainCommitUrl = mainSha != null && Regex.IsMatch(mainSha, "^[0-9a-f]{40}$")
+				? $"https://github.com/{BuildExtensions.Owner}/{BuildExtensions.Repo}/commit/{mainSha}"
+				: null;
+			string body = BenchmarkReport.BuildBody(reportFiles, mainCommitUrl, BenchmarkReport.DefaultColumnsToRemove)
+				.AsUntrustedCommentContent();
 			GitHubClient gitHubClient = new(new ProductHeaderValue("Fallout"));
 			Credentials tokenAuth = new(GithubToken);
 			gitHubClient.Credentials = tokenAuth;
