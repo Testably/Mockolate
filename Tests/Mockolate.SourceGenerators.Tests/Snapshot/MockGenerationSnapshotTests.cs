@@ -109,6 +109,13 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "GenericMethodOverride_CanBeCreated",
+            ["GenericMethodOverrideBase.cs",],
+            """
+            GenericMethodOverrideBase sut = GenericMethodOverrideBase.CreateMock();
+            """,
+            []),
+        new(
             "HttpClient_CanBeCreated",
             [],
             """
@@ -213,6 +220,14 @@ public sealed partial class MockGenerationSnapshotTests
             IEqualsAndGetHashCode sut4 = IEqualsAndGetHashCode.CreateMock();
             EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
             IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "GenericMethodOverride_CanBeCreated_Unions",
+            ["GenericMethodOverrideBase.cs",],
+            """
+            GenericMethodOverrideBase sut = GenericMethodOverrideBase.CreateMock();
             """,
             [],
             UnionMode: true),
