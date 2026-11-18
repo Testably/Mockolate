@@ -29,22 +29,9 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		new LocalizableResourceString(nameof(Resources.Mockolate0003Description),
 			Resources.ResourceManager, typeof(Resources)));
 
-	private static readonly DiagnosticDescriptor s_singleSpellingRule = new(
-		"Mockolate0004",
-		new LocalizableResourceString(nameof(Resources.Mockolate0004Title),
-			Resources.ResourceManager, typeof(Resources)),
-		new LocalizableResourceString(nameof(Resources.Mockolate0004MessageFormat),
-			Resources.ResourceManager, typeof(Resources)),
-		"Usage",
-		DiagnosticSeverity.Error,
-		true,
-		new LocalizableResourceString(nameof(Resources.Mockolate0004Description),
-			Resources.ResourceManager, typeof(Resources)),
-		customTags: WellKnownDiagnosticTags.CompilationEnd);
-
 	/// <inheritdoc cref="DiagnosticAnalyzer.SupportedDiagnostics" />
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
-		=> ImmutableArray.Create(Rules.MockabilityRule, s_refStructRule, s_singleSpellingRule);
+		=> ImmutableArray.Create(Rules.MockabilityRule, s_refStructRule, Rules.SingleSpellingRule);
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.Initialize(AnalysisContext)" />
 	public override void Initialize(AnalysisContext context)
@@ -522,7 +509,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 					.Distinct()
 					.OrderBy(display => display, StringComparer.Ordinal));
 				context.ReportDiagnostic(Diagnostic.Create(
-					s_singleSpellingRule,
+					Rules.SingleSpellingRule,
 					spelling.Location,
 					spelling.Display,
 					otherSpellings));

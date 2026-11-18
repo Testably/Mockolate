@@ -21,14 +21,21 @@ public static class Rules
 	public static readonly DiagnosticDescriptor MockabilityRule =
 		CreateDescriptor("Mockolate0002", UsageCategory, DiagnosticSeverity.Error);
 
-	// Mockolate0003 (ref-struct-mockability) and Mockolate0004 (single-spelling) are declared in-place on
+	// Mockolate0003 (ref-struct-mockability) is declared in-place on
 	// <see cref="MockabilityAnalyzer" /> rather than here. The Roslyn
 	// ReleaseTrackingAnalyzer needs the descriptor in the same assembly as the analyzer that
 	// lists it in SupportedDiagnostics; defining it here as a cross-file static confused it
 	// (RS2002).
 
+	/// <summary>
+	///     A mocked type must be spelled the same way in the whole compilation.
+	/// </summary>
+	public static readonly DiagnosticDescriptor SingleSpellingRule =
+		CreateDescriptor("Mockolate0004", UsageCategory, DiagnosticSeverity.Error,
+			WellKnownDiagnosticTags.CompilationEnd);
+
 	private static DiagnosticDescriptor CreateDescriptor(string diagnosticId, string category,
-		DiagnosticSeverity severity) => new(
+		DiagnosticSeverity severity, params string[] customTags) => new(
 		diagnosticId,
 		new LocalizableResourceString(diagnosticId + "Title",
 			Resources.ResourceManager, typeof(Resources)),
@@ -38,6 +45,7 @@ public static class Rules
 		severity,
 		true,
 		new LocalizableResourceString(diagnosticId + "Description", Resources.ResourceManager,
-			typeof(Resources))
+			typeof(Resources)),
+		customTags: customTags
 	);
 }
