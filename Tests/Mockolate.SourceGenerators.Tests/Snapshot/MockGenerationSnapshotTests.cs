@@ -112,6 +112,13 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "NullableMethodTypeParameter_CanBeCreated",
+            ["INullableMethodTypeParameter.cs",],
+            """
+            INullableMethodTypeParameter sut = INullableMethodTypeParameter.CreateMock();
+            """,
+            []),
+        new(
             "NullableTypeParameter_CanBeCreated",
             ["INullableTypeParameter.cs",],
             """
@@ -190,6 +197,14 @@ public sealed partial class MockGenerationSnapshotTests
             """
             IKeywordEdgeCases sut1 = IKeywordEdgeCases.CreateMock();
             KeywordEdgeCasesBase sut2 = KeywordEdgeCasesBase.CreateMock("class", 1);
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "NullableMethodTypeParameter_CanBeCreated_Unions",
+            ["INullableMethodTypeParameter.cs",],
+            """
+            INullableMethodTypeParameter sut = INullableMethodTypeParameter.CreateMock();
             """,
             [],
             UnionMode: true),

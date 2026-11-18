@@ -15,6 +15,8 @@ internal readonly record struct GenericParameter
 		HasConstructor = typeSymbol.HasConstructorConstraint;
 		AllowsRefStruct = typeSymbol.AllowsRefLikeType;
 		NullableAnnotation = typeSymbol.ReferenceTypeConstraintNullableAnnotation;
+		IsReferenceType = typeSymbol.IsReferenceType;
+		IsValueType = typeSymbol.IsValueType;
 
 		ConstraintTypes = new EquatableArray<Type>(typeSymbol.ConstraintTypes
 			.Select(Type.From).ToArray());
@@ -30,6 +32,8 @@ internal readonly record struct GenericParameter
 	public bool AllowsRefStruct { get; }
 	public NullableAnnotation NullableAnnotation { get; }
 	public bool IsClass { get; }
+	public bool IsReferenceType { get; }
+	public bool IsValueType { get; }
 
 	public void AppendWhereConstraint(StringBuilder sb, string prefix, bool inheritsConstraints = false, bool isExplicitInterfaceImpl = false)
 	{
@@ -51,6 +55,13 @@ internal readonly record struct GenericParameter
 		if (inheritsConstraints)
 		{
 			// Constrained type parameters are inherited in override and explicit interface implementation methods (CS0460)
+			if (isExplicitInterfaceImpl && !IsValueType)
+			{
+				// Without `class` or `default` a `T?` in the signature would bind to `Nullable<T>`.
+				sb.AppendLine().Append(prefix).Append("where ").Append(Name)
+					.Append(IsReferenceType ? " : class" : " : default");
+			}
+
 			return;
 		}
 
