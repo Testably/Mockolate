@@ -32,11 +32,13 @@ Target frameworks per test project:
 
 | Project | Frameworks |
 |---|---|
-| `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.ExampleTests` | `net11.0` (C# 15, union parameters), `net10.0`, `net8.0`, `net48` (Windows only) |
+| `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.ExampleTests` | `net11.0`, `net10.0`, `net8.0`, `net48` (Windows only) |
 | `Mockolate.SourceGenerators.Tests` | `net11.0`, `net10.0` (compiles against `MinimumRoslynVersion`, without the snapshot and union tests) |
 | `Mockolate.Analyzers.Tests` | `net11.0` |
 | `Build.Tests` | `net10.0` |
 | `Mockolate.Api.Tests` | `net8.0` |
+
+`Tests/Directory.Build.props` sets `LangVersion` to `latest`, which is C# 15 with the pinned SDK whatever the target framework, so the mocks of `Mockolate.Tests`, `Mockolate.Internal.Tests` and `Mockolate.ExampleTests` have the union parameters on every framework, not only on `net11.0`. None of them is compiled in classic mode: that is covered in `Mockolate.SourceGenerators.Tests`, whose tests run the generator with C# 14 unless they ask for C# 15 (the `Classic*` tests also compile and run the generated mocks), and compiled in the benchmarks, which set `MockolateDisableUnionParameters`.
 
 A newer language feature can compile for `net10.0` and fail for `net48`; build or test `net48` too when you use one.
 

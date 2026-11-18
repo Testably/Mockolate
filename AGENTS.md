@@ -4,7 +4,7 @@ Mockolate is a source-generated mocking library for .NET. Users write `IFoo.Crea
 
 ## SDK and Build
 
-- Use the SDK pinned in `global.json` (currently .NET 11, `rollForward: latestPatch`). Tests also run on .NET 10 and .NET 8, and on .NET Framework 4.8 on Windows only. On .NET 11 the test projects compile with C# 15, so the union-typed setup surface is exercised there.
+- Use the SDK pinned in `global.json` (currently .NET 11, `rollForward: latestPatch`). Tests also run on .NET 10 and .NET 8, and on .NET Framework 4.8 on Windows only. The test projects set `LangVersion` to `latest`, which is C# 15 with this SDK on every target framework, so `Mockolate.Tests`, `Mockolate.Internal.Tests` and `Mockolate.ExampleTests` exercise the union-typed setup surface on all of them and never the classic one. The classic surface is covered in `Mockolate.SourceGenerators.Tests`, whose tests run the generator with C# 14 unless they ask for C# 15.
 - Build from the root with `dotnet build Mockolate.slnx`. Shared settings live in the root `Directory.Build.props` (strong naming, `MinimumRoslynVersion`), `Source/Directory.Build.props` (target frameworks, warnings as errors, AOT and trimming flags) and `Tests/Directory.Build.props` (test frameworks, TUnit, aweXpect).
 - Package versions belong only in `Directory.Packages.props`. `VersionOverride` is used only to pin Roslyn packages to `$(MinimumRoslynVersion)`.
 
