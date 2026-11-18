@@ -28,8 +28,20 @@ public abstract class RecordList
 	private RecordNode? _head;
 	private int _epoch;
 
-	/// <summary>The number of recorded calls.</summary>
-	public int Count => Volatile.Read(ref _head) is { } head ? head.Index + 1 : 0;
+	/// <summary>The number of recorded calls. It walks the list, which keeps a counter out of every record.</summary>
+	public int Count
+	{
+		get
+		{
+			int count = 0;
+			for (RecordNode? node = First; node is not null; node = node.Next)
+			{
+				count++;
+			}
+
+			return count;
+		}
+	}
 
 	/// <summary>
 	///     The clear epoch, read by a writer before it takes its sequence number and passed to <see cref="Push" />.
@@ -37,7 +49,7 @@ public abstract class RecordList
 	protected int Epoch => Volatile.Read(ref _epoch);
 
 	/// <summary>The newest recorded call, or <see langword="null" /> if there is none.</summary>
-	protected RecordNode? First => Volatile.Read(ref _head) is { Index: >= 0, } head ? head : null;
+	protected RecordNode? First => Volatile.Read(ref _head) is { } head and not EmptyHead ? head : null;
 
 	/// <summary>
 	///     Publishes the fully written <paramref name="node" /> as the newest call, unless <see cref="Clear" /> ran since
@@ -48,8 +60,7 @@ public abstract class RecordList
 		RecordNode? head = Volatile.Read(ref _head);
 		while (Volatile.Read(ref _epoch) == epoch)
 		{
-			node.Next = head is { Index: >= 0, } ? head : null;
-			node.Index = head is null ? 0 : head.Index + 1;
+			node.Next = head is EmptyHead ? null : head;
 			RecordNode? previous = Interlocked.CompareExchange(ref _head, node, head);
 			if (ReferenceEquals(previous, head))
 			{
@@ -76,13 +87,7 @@ public abstract class RecordList
 		Volatile.Write(ref _head, new EmptyHead());
 	}
 
-	private sealed class EmptyHead : RecordNode
-	{
-		public EmptyHead()
-		{
-			Index = -1;
-		}
-	}
+	private sealed class EmptyHead : RecordNode;
 }
 
 /// <summary>
@@ -98,12 +103,17 @@ public abstract class RecordList
 public abstract class RecordNode
 {
 	private IInteraction? _boxed;
+	private int _seq;
 
-	/// <summary>The mock-wide sequence number of the call.</summary>
-	public long Seq { get; set; }
-
-	/// <summary>The zero-based position of the call in its list.</summary>
-	internal int Index { get; set; }
+	/// <summary>
+	///     The mock-wide sequence number of the call. It is stored in 32 bits, like the interaction count of the
+	///     mock, so that it shares a slot with <see cref="Verified" />.
+	/// </summary>
+	public long Seq
+	{
+		get => _seq;
+		set => _seq = (int)value;
+	}
 
 	/// <summary>The next older call, or <see langword="null" />.</summary>
 	public RecordNode? Next { get; internal set; }
