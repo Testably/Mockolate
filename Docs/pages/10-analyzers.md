@@ -111,6 +111,26 @@ are the ones the warning reports.
 
 See [Ref struct parameters](06-parameter-matching.md#ref-struct-parameters-net-9) for the supported features.
 
+## Mockolate0004
+
+**A type that is mocked in more than one spelling.**
+
+Spellings of a generic type that differ only in tuple element names or in nullable annotations are the same type, so they cannot have separate mocks. The rule reports every spelling when one compilation mocks more than one of them, through `CreateMock()` or `Implementing<T>()`. Use the same spelling everywhere:
+
+```csharp
+public interface IRepository<T>
+{
+    T Get(T key);
+}
+
+// Mockolate0004: Type 'IRepository<string?>' is also mocked as 'IRepository<string>', which differs only in tuple element names or nullable annotations; use a single spelling
+IRepository<string?> nullable = IRepository<string?>.CreateMock();
+// Mockolate0004: Type 'IRepository<string>' is also mocked as 'IRepository<string?>', ...
+IRepository<string> notNullable = IRepository<string>.CreateMock();
+```
+
+The same applies to `IRepository<(int Id, string Name)>` and `IRepository<(int, string)>`, also when the difference is nested, as in `IRepository<List<string?>>` and `IRepository<List<string>>`. The calls on these mocks also fail with CS0121 or CS9339, because the mock of each spelling applies to the other one too. `dynamic` and `object` do not count as different spellings: they share one mock.
+
 ## Explicit types for union parameters
 
 With [union parameters](06-parameter-matching.md#union-parameters-c-15), a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion does not compile as a `Setup` or `Verify` argument (CS1503, CS1729 or CS9174). The included code fix adds the parameter type:

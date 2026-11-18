@@ -154,6 +154,15 @@
 	<data name="Mockolate0003Title" xml:space="preserve">
     <value>Ref-struct usage is not supported on this compilation</value>
   </data>
+	<data name="Mockolate0004Description" xml:space="preserve">
+		<value>Spellings of a type that differ only in tuple element names or nullable annotations are the same type, so they share one mock. Mocking the type in more than one of these spellings in one compilation is not supported.</value>
+	</data>
+	<data name="Mockolate0004MessageFormat" xml:space="preserve">
+		<value>Type '{0}' is also mocked as {1}, which differs only in tuple element names or nullable annotations; use a single spelling</value>
+	</data>
+	<data name="Mockolate0004Title" xml:space="preserve">
+		<value>Mocked types must use a single spelling</value>
+	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>
 		<comment>The title of the code fix for an argument that cannot convert to a union-typed setup or verify parameter.</comment>

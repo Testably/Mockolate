@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,7 +31,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.SupportedDiagnostics" />
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
-		=> ImmutableArray.Create(Rules.MockabilityRule, s_refStructRule);
+		=> ImmutableArray.Create(Rules.MockabilityRule, s_refStructRule, Rules.SingleSpellingRule);
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.Initialize(AnalysisContext)" />
 	public override void Initialize(AnalysisContext context)
@@ -37,10 +39,17 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
 		context.EnableConcurrentExecution();
 
-		context.RegisterSyntaxNodeAction(AnalyzeInvocation, SyntaxKind.InvocationExpression);
+		context.RegisterCompilationStartAction(static startContext =>
+		{
+			ConcurrentBag<MockedSpelling> spellings = new();
+			startContext.RegisterSyntaxNodeAction(
+				nodeContext => AnalyzeInvocation(nodeContext, spellings), SyntaxKind.InvocationExpression);
+			startContext.RegisterCompilationEndAction(
+				endContext => ReportMultipleSpellings(endContext, spellings));
+		});
 	}
 
-	private static void AnalyzeInvocation(SyntaxNodeAnalysisContext context)
+	private static void AnalyzeInvocation(SyntaxNodeAnalysisContext context, ConcurrentBag<MockedSpelling> spellings)
 	{
 		if (context.Node is not InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccess, } invocation)
 		{
@@ -67,17 +76,18 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 
 		if (methodName == "CreateMock")
 		{
-			AnalyzeCreateMock(context, memberAccess, method);
+			AnalyzeCreateMock(context, memberAccess, method, spellings);
 		}
 		else
 		{
-			AnalyzeImplementing(context, invocation, memberAccess, method);
+			AnalyzeImplementing(context, invocation, memberAccess, method, spellings);
 		}
 	}
 
 	private static void AnalyzeCreateMock(SyntaxNodeAnalysisContext context,
 		MemberAccessExpressionSyntax memberAccess,
-		IMethodSymbol? method)
+		IMethodSymbol? method,
+		ConcurrentBag<MockedSpelling> spellings)
 	{
 		// The receiver of CreateMock() is always a type name, not a value.
 		// GetSymbolInfo on the receiver returns the type symbol directly.
@@ -97,6 +107,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 			return;
 		}
 
+		spellings.Add(new MockedSpelling(receiverType, memberAccess.Expression.GetLocation()));
 		ReportRefStructIssuesForType(context, receiverType, memberAccess.Expression.GetLocation());
 	}
 
@@ -437,7 +448,8 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	private static void AnalyzeImplementing(SyntaxNodeAnalysisContext context,
 		InvocationExpressionSyntax invocation,
 		MemberAccessExpressionSyntax memberAccess,
-		IMethodSymbol? method)
+		IMethodSymbol? method,
+		ConcurrentBag<MockedSpelling> spellings)
 	{
 		// Get the type argument — from the resolved method if available, otherwise from syntax.
 		ITypeSymbol? typeArgument = method is not null
@@ -469,6 +481,39 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 				typeArgumentLocation,
 				typeArgument.ToDisplayString(),
 				"You can only implement additional interfaces"));
+			return;
+		}
+
+		spellings.Add(new MockedSpelling(typeArgument, typeArgumentLocation));
+	}
+
+	/// <summary>
+	///     Reports every mocked spelling of a type that is also mocked in another spelling, because the generator
+	///     emits a mock per spelling and their extensions make each other ambiguous (CS0121).
+	/// </summary>
+	private static void ReportMultipleSpellings(CompilationAnalysisContext context,
+		ConcurrentBag<MockedSpelling> spellings)
+	{
+		foreach (IGrouping<string, MockedSpelling> type in spellings.GroupBy(spelling => spelling.Type))
+		{
+			if (type.Select(spelling => spelling.Spelling).Distinct().Count() < 2)
+			{
+				continue;
+			}
+
+			foreach (MockedSpelling spelling in type)
+			{
+				string otherSpellings = string.Join(", ", type
+					.Where(other => other.Spelling != spelling.Spelling)
+					.Select(other => $"'{other.Display}'")
+					.Distinct()
+					.OrderBy(display => display, StringComparer.Ordinal));
+				context.ReportDiagnostic(Diagnostic.Create(
+					Rules.SingleSpellingRule,
+					spelling.Location,
+					spelling.Display,
+					otherSpellings));
+			}
 		}
 	}
 
@@ -804,5 +849,67 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		IAssemblySymbol containingAssembly = member.ContainingAssembly;
 		return SymbolEqualityComparer.Default.Equals(containingAssembly, sourceAssembly) ||
 		       containingAssembly.GivesAccessTo(sourceAssembly);
+	}
+
+	/// <summary>
+	///     A type that is mocked through <c>CreateMock()</c> or <c>Implementing&lt;T&gt;()</c>, as it is spelled at
+	///     <see cref="Location" />.
+	/// </summary>
+	private sealed class MockedSpelling
+	{
+		private static readonly SymbolDisplayFormat s_spellingFormat = new(
+			globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
+			typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+			genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
+			miscellaneousOptions: SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers |
+			                      SymbolDisplayMiscellaneousOptions.UseSpecialTypes |
+			                      SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier);
+
+		private static readonly SymbolDisplayFormat s_typeFormat = s_spellingFormat.WithMiscellaneousOptions(
+			SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers |
+			SymbolDisplayMiscellaneousOptions.UseSpecialTypes |
+			SymbolDisplayMiscellaneousOptions.ExpandValueTuple);
+
+		private static readonly SymbolDisplayFormat s_displayFormat =
+			s_spellingFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted);
+
+		private readonly ITypeSymbol _type;
+
+		public MockedSpelling(ITypeSymbol type, Location location)
+		{
+			_type = type;
+			Type = ToDisplayStringWithDynamicAsObject(type, s_typeFormat);
+			Spelling = ToDisplayStringWithDynamicAsObject(type, s_spellingFormat);
+			Location = location;
+		}
+
+		/// <summary>
+		///     The type without tuple element names and nullable annotations.
+		/// </summary>
+		public string Type { get; }
+
+		/// <summary>
+		///     The name of the mocked type in the generated code, which differs per spelling.
+		/// </summary>
+		/// <remarks>
+		///     Mirrors <c>Class.ClassFullName</c> in the generator, which mocks <see langword="dynamic" /> as
+		///     <see langword="object" />, so that these two spellings are not reported.
+		/// </remarks>
+		public string Spelling { get; }
+
+		public string Display => _type.ToDisplayString(s_displayFormat);
+
+		public Location Location { get; }
+
+		private static string ToDisplayStringWithDynamicAsObject(ITypeSymbol type, SymbolDisplayFormat format)
+		{
+			StringBuilder sb = new();
+			foreach (SymbolDisplayPart part in type.ToDisplayParts(format))
+			{
+				sb.Append(part.Symbol is IDynamicTypeSymbol ? "object" : part.ToString());
+			}
+
+			return sb.ToString();
+		}
 	}
 }
