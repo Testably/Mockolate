@@ -244,9 +244,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<string>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__return, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<string> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<string>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__return, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@return"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<string> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{
@@ -314,9 +314,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@if"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(@params))
 						{
@@ -379,9 +379,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int>>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId__void__class_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(@ref))
 						{

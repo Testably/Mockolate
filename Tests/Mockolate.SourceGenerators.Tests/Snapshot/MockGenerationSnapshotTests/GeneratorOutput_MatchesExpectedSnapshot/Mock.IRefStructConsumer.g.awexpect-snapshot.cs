@@ -337,9 +337,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(default))
 						{
@@ -421,9 +421,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(ref_span))
 						{
@@ -498,9 +498,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(default))
 						{
@@ -582,9 +582,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>>(global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(ref_span))
 						{

@@ -259,9 +259,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{
@@ -329,9 +329,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{
@@ -412,9 +412,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{
@@ -484,9 +484,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Run_2, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Run_2, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{

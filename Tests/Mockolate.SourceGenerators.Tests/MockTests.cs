@@ -1463,7 +1463,7 @@ public sealed partial class MockTests
 			          """)
 			.IgnoringNewlineStyle().And
 			.Contains(
-				"foreach (global::Mockolate.Setup.VoidMethodSetup<object, bool, string, char, byte, sbyte, short, ushort, int, uint, long, ulong, float, double, decimal> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object, bool, string, char, byte, sbyte, short, ushort, int, uint, long, ulong, float, double, decimal>>(global::Mockolate.Mock.IMyService.MemberId_MyMethod, \"global::MyCode.IMyService.MyMethod\"))")
+				"if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object, bool, string, char, byte, sbyte, short, ushort, int, uint, long, ulong, float, double, decimal>>(global::Mockolate.Mock.IMyService.MemberId_MyMethod, \"global::MyCode.IMyService.MyMethod\") is { } fallback_methodSetup)")
 			.IgnoringNewlineStyle().And
 			.Contains("""
 			          			bool hasWrappedResult = false;

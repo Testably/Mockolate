@@ -151,9 +151,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptClass_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<U?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptClass_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<U?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value))
 						{
@@ -217,9 +217,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_GetNotNull_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_GetNotNull_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{
@@ -289,9 +289,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?, U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_GetComparable_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?, U?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?, U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_GetComparable_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?, U?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value))
 						{
@@ -366,9 +366,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Accept_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<U?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Accept_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<U?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value))
 						{
@@ -432,9 +432,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Get_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Get_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{
@@ -504,9 +504,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptVirtual_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<U?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptVirtual_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<U?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value))
 						{
@@ -575,9 +575,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_GetVirtual_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_GetVirtual_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{
@@ -653,9 +653,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?, U?, V>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?, U?, V> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U?, U?, V>>(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<U?, U?, V> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(first, second))
 						{

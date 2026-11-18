@@ -146,9 +146,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, object?>>(global::Mockolate.Mock.IEqualsOnly__IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, object?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, object?>>(global::Mockolate.Mock.IEqualsOnly__IEqualsAndGetHashCode.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, object?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(obj))
 						{
@@ -220,9 +220,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, object?>>(global::Mockolate.Mock.IEqualsOnly__IEqualsAndGetHashCode.MemberId_Equals_2, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, object?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, object?>>(global::Mockolate.Mock.IEqualsOnly__IEqualsAndGetHashCode.MemberId_Equals_2, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.Equals"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, object?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(obj))
 						{
@@ -285,9 +285,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IEqualsOnly__IEqualsAndGetHashCode.MemberId_GetHashCode, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.GetHashCode") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IEqualsOnly__IEqualsAndGetHashCode.MemberId_GetHashCode, "global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode.GetHashCode"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{

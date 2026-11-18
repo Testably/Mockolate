@@ -123,9 +123,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object>>(global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<object> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object>>(global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<object> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(x))
 						{
@@ -187,9 +187,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object>>(global::Mockolate.Mock.IDynamicOverloads.MemberId_M_2, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadB.M") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<object> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object>>(global::Mockolate.Mock.IDynamicOverloads.MemberId_M_2, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadB.M"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<object> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(x))
 						{
