@@ -200,16 +200,13 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerGetterAccess<int, string> access = new(@params, @void);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string, int, string>>(access);
+				setup ??= this.MockRegistry.FindIndexerGetterSetup<string, int, string>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, @params, @void);
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases wraps)
 				{
-					return setup is null
-						? this.MockRegistry.GetIndexerFallback<string>(access, 0)
-						: this.MockRegistry.ApplyIndexerSetup<string>(access, setup, 0);
+					return this.MockRegistry.GetIndexer<string, int, string>(setup, @params, @void, 0);
 				}
 				string baseResult = wraps[@params, @void];
-				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 0);
+				return this.MockRegistry.GetIndexer<string, int, string>(setup, @params, @void, baseResult, 0);
 			}
 			set
 			{
@@ -233,9 +230,8 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerSetterAccess<int, string, string> access = new(@params, @void, value);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string, int, string>>(access);
-				this.MockRegistry.ApplyIndexerSetter<string>(access, setup, value, 0);
+				setup ??= this.MockRegistry.FindIndexerSetterSetup<string, int, string>(global::Mockolate.Mock.IKeywordEdgeCases.MemberId_Indexer_int_string_Get, @params, @void, value);
+				this.MockRegistry.SetIndexer<string, int, string>(setup, @params, @void, value, 0);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases wraps)
 				{
 					wraps[@params, @void] = value;

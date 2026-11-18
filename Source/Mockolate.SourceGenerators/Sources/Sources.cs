@@ -213,6 +213,41 @@ internal static partial class Sources
 	}
 
 	/// <summary>
+	///     Whether the indexer accessors call the typed <c>GetIndexer</c> / <c>SetIndexer</c> methods of the
+	///     registry, which need no access object. The library only has them for up to four parameters.
+	/// </summary>
+	private static bool UsesTypedIndexerDispatch(EquatableArray<MethodParameter> parameters, string? cachedBufferRef)
+		=> parameters.Count <= 4 && CanDeferIndexerAccess(parameters, cachedBufferRef);
+
+	private static void AppendIndexerTypeArguments(StringBuilder sb, Type propertyType,
+		EquatableArray<MethodParameter> parameters)
+	{
+		sb.AppendTypeOrWrapper(propertyType).Append(", ");
+		AppendIndexerParameterTypes(sb, parameters);
+	}
+
+	/// <summary>
+	///     Emits <c>registry.Method&lt;TValue, T...&gt;(setup, p..., [value, ]signatureIndex)</c>.
+	/// </summary>
+#pragma warning disable S107 // Methods should not have too many parameters
+	private static void AppendTypedIndexerCall(StringBuilder sb, string mockRegistry, string method,
+		string setupVarName, Type propertyType, EquatableArray<MethodParameter> parameters, string? valueArgument,
+		int signatureIndex)
+#pragma warning restore S107
+	{
+		sb.Append(mockRegistry).Append('.').Append(method).Append('<');
+		AppendIndexerTypeArguments(sb, propertyType, parameters);
+		sb.Append(">(").Append(setupVarName).Append(", ");
+		AppendIndexerParameterArguments(sb, parameters);
+		if (valueArgument is not null)
+		{
+			sb.Append(", ").Append(valueArgument);
+		}
+
+		sb.Append(", ").Append(signatureIndex).Append(')');
+	}
+
+	/// <summary>
 	///     Emits variable declarations for the indexer setter access and matching setup.
 	/// </summary>
 	/// <remarks>
@@ -384,6 +419,17 @@ internal static partial class Sources
 		sb.Append(indent).Append("\t\t}").AppendLine();
 		sb.Append(indent).Append("\t}").AppendLine();
 		sb.Append(indent).Append('}').AppendLine();
+		if (deferAccess && parameters.Count <= 4)
+		{
+			sb.Append(indent).Append(setupVarName).Append(" ??= ").Append(mockRegistry)
+				.Append(isSetter ? ".FindIndexerSetterSetup<" : ".FindIndexerGetterSetup<");
+			AppendIndexerTypeArguments(sb, propertyType, parameters);
+			sb.Append(">(").Append(memberIdRef).Append(", ");
+			AppendIndexerParameterArguments(sb, parameters);
+			sb.Append(isSetter ? ", value);" : ");").AppendLine();
+			return;
+		}
+
 		if (deferAccess)
 		{
 			emitAccessDeclaration?.Invoke(sb);

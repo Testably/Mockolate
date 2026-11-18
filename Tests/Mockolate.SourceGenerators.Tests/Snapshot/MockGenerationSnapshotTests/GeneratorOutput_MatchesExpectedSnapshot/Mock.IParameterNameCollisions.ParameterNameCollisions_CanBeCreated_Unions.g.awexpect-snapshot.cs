@@ -207,16 +207,13 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerGetterAccess<int, int> access = new(MockRegistry, _scenarioName);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int, int>>(access);
+				setup ??= this.MockRegistry.FindIndexerGetterSetup<int, int, int>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Indexer_int_int_Get, MockRegistry, _scenarioName);
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions wraps)
 				{
-					return setup is null
-						? this.MockRegistry.GetIndexerFallback<int>(access, 0)
-						: this.MockRegistry.ApplyIndexerSetup<int>(access, setup, 0);
+					return this.MockRegistry.GetIndexer<int, int, int>(setup, MockRegistry, _scenarioName, 0);
 				}
 				int baseResult = wraps[MockRegistry, _scenarioName];
-				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 0);
+				return this.MockRegistry.GetIndexer<int, int, int>(setup, MockRegistry, _scenarioName, baseResult, 0);
 			}
 			set
 			{
@@ -240,9 +237,8 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerSetterAccess<int, int, int> access = new(MockRegistry, _scenarioName, value);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int, int>>(access);
-				this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 0);
+				setup ??= this.MockRegistry.FindIndexerSetterSetup<int, int, int>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Indexer_int_int_Get, MockRegistry, _scenarioName, value);
+				this.MockRegistry.SetIndexer<int, int, int>(setup, MockRegistry, _scenarioName, value, 0);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions wraps)
 				{
 					wraps[MockRegistry, _scenarioName] = value;
@@ -275,16 +271,13 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerGetterAccess<string, string, string> access = new(snapshot_setup, i_setup, s_setup);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string, string, string, string>>(access);
+				setup ??= this.MockRegistry.FindIndexerGetterSetup<string, string, string, string>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Indexer_string_string_string_Get, snapshot_setup, i_setup, s_setup);
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions wraps)
 				{
-					return setup is null
-						? this.MockRegistry.GetIndexerFallback<string>(access, 1)
-						: this.MockRegistry.ApplyIndexerSetup<string>(access, setup, 1);
+					return this.MockRegistry.GetIndexer<string, string, string, string>(setup, snapshot_setup, i_setup, s_setup, 1);
 				}
 				string baseResult = wraps[snapshot_setup, i_setup, s_setup];
-				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 1);
+				return this.MockRegistry.GetIndexer<string, string, string, string>(setup, snapshot_setup, i_setup, s_setup, baseResult, 1);
 			}
 			set
 			{
@@ -308,9 +301,8 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerSetterAccess<string, string, string, string> access = new(snapshot_setup, i_setup, s_setup, value);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string, string, string, string>>(access);
-				this.MockRegistry.ApplyIndexerSetter<string>(access, setup, value, 1);
+				setup ??= this.MockRegistry.FindIndexerSetterSetup<string, string, string, string>(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Indexer_string_string_string_Get, snapshot_setup, i_setup, s_setup, value);
+				this.MockRegistry.SetIndexer<string, string, string, string>(setup, snapshot_setup, i_setup, s_setup, value, 1);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions wraps)
 				{
 					wraps[snapshot_setup, i_setup, s_setup] = value;

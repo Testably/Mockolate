@@ -179,16 +179,13 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerGetterAccess<object> access = new(key);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<object, object>>(access);
+				setup ??= this.MockRegistry.FindIndexerGetterSetup<object, object>(global::Mockolate.Mock.DynamicMembersBase.MemberId_Indexer_object_Get, key);
 				if (!(setup?.SkipBaseClass() ?? this.MockRegistry.Behavior.SkipBaseClass))
 				{
 					object baseResult = this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase wraps ? wraps[key] : base[key];
-					return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 0);
+					return this.MockRegistry.GetIndexer<object, object>(setup, key, baseResult, 0);
 				}
-				return setup is null
-					? this.MockRegistry.GetIndexerFallback<object>(access, 0)
-					: this.MockRegistry.ApplyIndexerSetup<object>(access, setup, 0);
+				return this.MockRegistry.GetIndexer<object, object>(setup, key, 0);
 			}
 		}
 
