@@ -54,14 +54,14 @@ public class FastBufferBoxingAndUnverifiedTests
 		FastEventBuffer buffer = InstallEventSubscribe(store, 0);
 		buffer.AppendSubscription("E", this, SampleMethod);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -79,14 +79,14 @@ public class FastBufferBoxingAndUnverifiedTests
 		FastEventBuffer buffer = InstallEventUnsubscribe(store, 0);
 		buffer.AppendUnsubscription("E", this, SampleMethod);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -128,14 +128,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(7);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -163,14 +163,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(7, "k");
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -200,14 +200,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(7, "k", true);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -238,14 +238,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(7, "k", true, 3.14);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -274,14 +274,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(7, "k");
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -311,14 +311,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(7, "k", true);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -349,14 +349,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(7, "k", true, 3.14);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -387,14 +387,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append(7, "k", true, 3.14, 'z');
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -416,14 +416,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append("M");
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -442,14 +442,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append("M", 1);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -477,14 +477,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append("M", 1, "a", true);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -527,14 +527,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append("M", 1, "a", true, 1.0);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -576,14 +576,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append();
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
@@ -596,12 +596,12 @@ public class FastBufferBoxingAndUnverifiedTests
 		buffer.Append(access);
 		buffer.Append(access);
 
-		List<(long Seq, IInteraction Interaction)> dest = [];
+		List<IInteraction> dest = [];
 		buffer.AppendBoxed(dest);
-		dest.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
+		dest.Reverse();
 
 		await That(dest).HasCount(2);
-		await That(dest[0].Interaction).IsSameAs(dest[1].Interaction);
+		await That(dest[0]).IsSameAs(dest[1]);
 	}
 
 	[Test]
@@ -612,17 +612,17 @@ public class FastBufferBoxingAndUnverifiedTests
 		PropertyGetterAccess access = new("P");
 
 		buffer.Append(access);
-		List<(long Seq, IInteraction Interaction)> firstSnapshot = [];
+		List<IInteraction> firstSnapshot = [];
 		buffer.AppendBoxed(firstSnapshot);
 
 		buffer.Append(access);
-		List<(long Seq, IInteraction Interaction)> secondSnapshot = [];
+		List<IInteraction> secondSnapshot = [];
 		buffer.AppendBoxed(secondSnapshot);
 
 		await That(firstSnapshot).HasCount(1);
 		await That(secondSnapshot).HasCount(2);
-		await That(secondSnapshot[0].Interaction).IsSameAs(firstSnapshot[0].Interaction);
-		await That(secondSnapshot[1].Interaction).IsSameAs(firstSnapshot[0].Interaction);
+		await That(secondSnapshot[0]).IsSameAs(firstSnapshot[0]);
+		await That(secondSnapshot[1]).IsSameAs(firstSnapshot[0]);
 	}
 
 	[Test]
@@ -641,14 +641,14 @@ public class FastBufferBoxingAndUnverifiedTests
 
 		buffer.Append("P", 5);
 
-		List<(long Seq, IInteraction Interaction)> first = [];
-		List<(long Seq, IInteraction Interaction)> second = [];
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
 		buffer.AppendBoxed(first);
 		buffer.AppendBoxed(second);
 
 		await That(first).HasCount(1);
 		await That(second).HasCount(1);
-		await That(second[0].Interaction).IsSameAs(first[0].Interaction);
+		await That(second[0]).IsSameAs(first[0]);
 	}
 
 	[Test]
