@@ -118,6 +118,9 @@ internal record Method
 	public string? ExplicitImplementation { get; }
 	public EquatableArray<Attribute>? Attributes { get; }
 
+	public bool HasInheritedOnlyConstraint
+		=> GenericParameters?.Any(genericParameter => genericParameter.HasInheritedOnlyConstraint) == true;
+
 	/// <summary>
 	///     A method has an unsupported <c>allows ref struct</c> type parameter when one of its
 	///     own generic parameters declares the anti-constraint <i>and</i> is referenced in the

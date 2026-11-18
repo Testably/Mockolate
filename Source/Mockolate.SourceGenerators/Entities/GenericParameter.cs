@@ -19,10 +19,33 @@ internal readonly record struct GenericParameter
 		IsValueType = typeSymbol.IsValueType;
 
 		ConstraintTypes = new EquatableArray<Type>(typeSymbol.ConstraintTypes
-			.Select(Type.From).ToArray());
+			.Where(IsDeclarableConstraint).Select(Type.From).ToArray());
+		HasInheritedOnlyConstraint = DependsOnInheritedOnlyConstraint(typeSymbol);
+		DeclaresClassForInheritedOnlyConstraint = HasInheritedOnlyConstraint && IsReferenceType &&
+		                                          !IsClass && !IsStruct && !IsUnmanaged &&
+		                                          !typeSymbol.ConstraintTypes.Any(constraintType =>
+			                                          constraintType.TypeKind == TypeKind.Class &&
+			                                          IsDeclarableConstraint(constraintType));
 	}
 
+	/// <summary>
+	///     The constraint types that can be written in a <c>where</c> clause, i.e. without those that C# accepts only
+	///     when inherited (see <see cref="HasInheritedOnlyConstraint" />).
+	/// </summary>
 	public EquatableArray<Type> ConstraintTypes { get; }
+
+	/// <summary>
+	///     Whether the type parameter, directly or through another type parameter, is constrained to a type that C#
+	///     accepts as a constraint only when it is inherited (CS0701, CS0702, CS0706): a sealed class, a struct or an
+	///     array, which a <c>where U : T</c> becomes when the mocked type closes <c>T</c> over it.
+	/// </summary>
+	public bool HasInheritedOnlyConstraint { get; }
+
+	/// <summary>
+	///     Whether a declaration states <c>class</c> in place of the inherited-only constraints, so that the type
+	///     parameter stays a reference type, as the <c>where T : class</c> of its explicit implementations requires.
+	/// </summary>
+	public bool DeclaresClassForInheritedOnlyConstraint { get; }
 
 	public string Name { get; }
 	public bool IsStruct { get; }
@@ -37,10 +60,10 @@ internal readonly record struct GenericParameter
 
 	public void AppendWhereConstraint(StringBuilder sb, string prefix, bool inheritsConstraints = false, bool isExplicitInterfaceImpl = false)
 	{
-		bool isUnconstrained = !ConstraintTypes.Any() && !IsStruct && !IsClass && !IsNotNull && !IsUnmanaged &&
-		                       !HasConstructor && !AllowsRefStruct;
+		bool hasDeclarableConstraint = ConstraintTypes.Any() || IsStruct || IsClass || IsNotNull || IsUnmanaged ||
+		                               HasConstructor || AllowsRefStruct;
 
-		if (isUnconstrained)
+		if (!hasDeclarableConstraint && !HasInheritedOnlyConstraint)
 		{
 			if (isExplicitInterfaceImpl)
 			{
@@ -62,6 +85,11 @@ internal readonly record struct GenericParameter
 					.Append(IsReferenceType ? " : class" : " : default");
 			}
 
+			return;
+		}
+
+		if (!hasDeclarableConstraint && !DeclaresClassForInheritedOnlyConstraint)
+		{
 			return;
 		}
 
@@ -87,8 +115,13 @@ internal readonly record struct GenericParameter
 				sb.Append('?');
 			}
 		}
+		else if (DeclaresClassForInheritedOnlyConstraint)
+		{
+			count++;
+			sb.Append("class");
+		}
 
-		if (IsNotNull)
+		if (IsNotNull && !DeclaresClassForInheritedOnlyConstraint)
 		{
 			if (count++ > 0)
 			{
@@ -98,7 +131,7 @@ internal readonly record struct GenericParameter
 			sb.Append("notnull");
 		}
 
-		if (AllowsRefStruct)
+		if (AllowsRefStruct && !DeclaresClassForInheritedOnlyConstraint)
 		{
 			if (count++ > 0)
 			{
@@ -128,4 +161,18 @@ internal readonly record struct GenericParameter
 			sb.Append("new()");
 		}
 	}
+
+	private static bool DependsOnInheritedOnlyConstraint(ITypeParameterSymbol typeParameter)
+		=> typeParameter.ConstraintTypes.Any(constraintType => constraintType is ITypeParameterSymbol other
+			? DependsOnInheritedOnlyConstraint(other)
+			: !IsDeclarableConstraint(constraintType));
+
+	private static bool IsDeclarableConstraint(ITypeSymbol constraintType)
+		=> constraintType.TypeKind switch
+		{
+			TypeKind.Class => !constraintType.IsSealed && constraintType.SpecialType is not
+				(SpecialType.System_Object or SpecialType.System_ValueType or SpecialType.System_Array),
+			TypeKind.Interface or TypeKind.TypeParameter or TypeKind.Error => true,
+			_ => false,
+		};
 }
