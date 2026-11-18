@@ -3318,6 +3318,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G1<T>()
+			where T : class
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G1_T_, methodSetup);
@@ -3334,6 +3335,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G3<T>()
+			where T : default
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G3_T_, methodSetup);
@@ -3350,6 +3352,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G5<T>()
+			where T : default
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G5_T_, methodSetup);
@@ -3358,6 +3361,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G6<T>()
+			where T : class
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G6_T_, methodSetup);
@@ -3366,6 +3370,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G7<T>()
+			where T : class
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G7_T_, methodSetup);
@@ -4237,27 +4242,33 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRefReadonly, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly", () => $"GetByRefReadonly()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G1<T>()
+			where T : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>", __i => true, () => $"G1<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G2<T>()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<{typeof(T)}>", __i => true, () => $"G2<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G3<T>()
+			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>", __i => true, () => $"G3<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G4<T>()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<{typeof(T)}>", __i => true, () => $"G4<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G5<T>()
+			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>", __i => true, () => $"G5<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G6<T>()
+			where T : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>", __i => true, () => $"G6<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G7<T>()
+			where T : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>", __i => true, () => $"G7<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G8<T>()
+			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G8<{typeof(T)}>", __i => true, () => $"G8<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.Five(global::Mockolate.Parameters.IParameters parameters)
@@ -5183,27 +5194,33 @@ internal static partial class Mock
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRefReadonly, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly", () => $"GetByRefReadonly()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G1<T>()
+			where T : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>", __i => true, () => $"G1<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G2<T>()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<{typeof(T)}>", __i => true, () => $"G2<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G3<T>()
+			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>", __i => true, () => $"G3<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G4<T>()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<{typeof(T)}>", __i => true, () => $"G4<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G5<T>()
+			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>", __i => true, () => $"G5<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G6<T>()
+			where T : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>", __i => true, () => $"G6<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G7<T>()
+			where T : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>", __i => true, () => $"G7<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.G8<T>()
+			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G8<{typeof(T)}>", __i => true, () => $"G8<T>()");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.Five(global::Mockolate.Parameters.IParameters parameters)
@@ -6170,6 +6187,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G1<T>()
+			where T : class
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G1_T_, this._scenarioName, methodSetup);
@@ -6186,6 +6204,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G3<T>()
+			where T : default
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G3_T_, this._scenarioName, methodSetup);
@@ -6202,6 +6221,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G5<T>()
+			where T : default
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G5_T_, this._scenarioName, methodSetup);
@@ -6210,6 +6230,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G6<T>()
+			where T : class
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G6_T_, this._scenarioName, methodSetup);
@@ -6218,6 +6239,7 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<T> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.G7<T>()
+			where T : class
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<{typeof(T)}>");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_G7_T_, this._scenarioName, methodSetup);
