@@ -97,6 +97,18 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [typeof(DynamicAttribute),]),
         new(
+            "EqualsMembers_CanBeCreated",
+            ["IEqualsMembers.cs",],
+            """
+            IEqualsOnly sut1 = IEqualsOnly.CreateMock();
+            IEqualsOnlyDerived sut2 = IEqualsOnlyDerived.CreateMock();
+            IEqualsNotNull sut3 = IEqualsNotNull.CreateMock();
+            IEqualsAndGetHashCode sut4 = IEqualsAndGetHashCode.CreateMock();
+            EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
+            IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
+            """,
+            []),
+        new(
             "HttpClient_CanBeCreated",
             [],
             """
@@ -183,6 +195,19 @@ public sealed partial class MockGenerationSnapshotTests
             DynamicHidingDerived sut4 = DynamicHidingDerived.CreateMock();
             """,
             [typeof(DynamicAttribute),],
+            UnionMode: true),
+        new(
+            "EqualsMembers_CanBeCreated_Unions",
+            ["IEqualsMembers.cs",],
+            """
+            IEqualsOnly sut1 = IEqualsOnly.CreateMock();
+            IEqualsOnlyDerived sut2 = IEqualsOnlyDerived.CreateMock();
+            IEqualsNotNull sut3 = IEqualsNotNull.CreateMock();
+            IEqualsAndGetHashCode sut4 = IEqualsAndGetHashCode.CreateMock();
+            EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
+            IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
+            """,
+            [],
             UnionMode: true),
         new(
             "KeywordEdgeCases_CanBeCreated_Unions",

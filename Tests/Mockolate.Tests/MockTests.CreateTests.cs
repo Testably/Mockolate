@@ -235,6 +235,23 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task EqualsMembers_CanBeCreated()
+		{
+			IEqualsOnly sut1 = IEqualsOnly.CreateMock();
+			IEqualsOnlyDerived sut2 = IEqualsOnlyDerived.CreateMock();
+			IEqualsNotNull sut3 = IEqualsNotNull.CreateMock();
+			IEqualsAndGetHashCode sut4 = IEqualsAndGetHashCode.CreateMock();
+			EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
+			IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+			await That(sut4).IsNotNull();
+			await That(sut5).IsNotNull();
+			await That(sut6).IsNotNull();
+		}
+
+		[Test]
 		public async Task HttpClient_CanBeCreated()
 		{
 			HttpClient sut = HttpClient.CreateMock();

@@ -39,8 +39,14 @@ internal static partial class Sources
 		MemberIdTable memberIds = ComputeMemberIds(memberIdClasses);
 		string memberIdPrefix = $"global::Mockolate.Mock.{name}.";
 		
+		bool overridesEqualsWithoutGetHashCode = OverridesEqualsWithoutGetHashCode(@class);
 		StringBuilder sb = InitializeBuilder();
 		sb.Append("#nullable enable annotations").AppendLine();
+		if (overridesEqualsWithoutGetHashCode)
+		{
+			sb.Append(DisableEqualsWithoutGetHashCodeWarning).AppendLine();
+		}
+
 		sb.Append("namespace Mockolate;").AppendLine();
 		sb.AppendLine();
 
@@ -1186,8 +1192,29 @@ internal static partial class Sources
 		#endregion MockForXXXExtensions
 		
 		sb.AppendLine();
+		if (overridesEqualsWithoutGetHashCode)
+		{
+			sb.AppendLine(RestoreEqualsWithoutGetHashCodeWarning);
+		}
+
 		sb.AppendLine("#nullable disable annotations");
 		return sb.ToString();
+	}
+
+	private const string DisableEqualsWithoutGetHashCodeWarning =
+		"#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()";
+
+	private const string RestoreEqualsWithoutGetHashCodeWarning = "#pragma warning restore CS0659";
+
+	/// <summary>
+	///     True when the mock overrides <c>Equals(object)</c> for a mocked member, but not <c>GetHashCode()</c>, for
+	///     which the compiler reports CS0659 on the mock. The warning is suppressed instead of adding an override of
+	///     <c>GetHashCode()</c>, because the mocked class can seal it.
+	/// </summary>
+	private static bool OverridesEqualsWithoutGetHashCode(Class @class)
+	{
+		List<Method> overrides = @class.AllMethods().Where(method => method.ExplicitImplementation is null).ToList();
+		return overrides.Any(method => method.IsEquals()) && !overrides.Any(method => method.IsGetHashCode());
 	}
 
 #pragma warning disable S107 // Methods should not have too many parameters

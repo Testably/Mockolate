@@ -47,9 +47,15 @@ internal static partial class Sources
 
 		MemberIdTable memberIds = ComputeMemberIds(aliases, allMemberClasses);
 		string memberIdPrefix = $"global::Mockolate.Mock.{fileName}.";
+		bool overridesEqualsWithoutGetHashCode = OverridesEqualsWithoutGetHashCode(@class);
 		StringBuilder sb = InitializeBuilder();
 
 		sb.Append("#nullable enable annotations").AppendLine();
+		if (overridesEqualsWithoutGetHashCode)
+		{
+			sb.Append(DisableEqualsWithoutGetHashCodeWarning).AppendLine();
+		}
+
 		sb.Append("namespace Mockolate;").AppendLine();
 		sb.AppendLine();
 
@@ -550,6 +556,11 @@ internal static partial class Sources
 		sb.AppendLine();
 
 		#endregion Extensions
+
+		if (overridesEqualsWithoutGetHashCode)
+		{
+			sb.AppendLine(RestoreEqualsWithoutGetHashCodeWarning);
+		}
 
 		sb.AppendLine("#nullable disable annotations");
 		return sb.ToString();
