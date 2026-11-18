@@ -136,6 +136,15 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "MethodConstrainedToTypeArgument_CanBeCreated",
+            ["IMethodConstrainedToTypeArgument.cs",],
+            """
+            IMethodConstrainedToTypeArgument<int> sut1 = IMethodConstrainedToTypeArgument<int>.CreateMock();
+            IMethodConstrainedToTypeArgument<string> sut2 = IMethodConstrainedToTypeArgument<string>.CreateMock();
+            MethodConstrainedToTypeArgumentBase<string> sut3 = MethodConstrainedToTypeArgumentBase<string>.CreateMock();
+            """,
+            []),
+        new(
             "NullableMethodTypeParameter_CanBeCreated",
             ["INullableMethodTypeParameter.cs",],
             """
@@ -247,6 +256,16 @@ public sealed partial class MockGenerationSnapshotTests
             """
             IKeywordEdgeCases sut1 = IKeywordEdgeCases.CreateMock();
             KeywordEdgeCasesBase sut2 = KeywordEdgeCasesBase.CreateMock("class", 1);
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "MethodConstrainedToTypeArgument_CanBeCreated_Unions",
+            ["IMethodConstrainedToTypeArgument.cs",],
+            """
+            IMethodConstrainedToTypeArgument<int> sut1 = IMethodConstrainedToTypeArgument<int>.CreateMock();
+            IMethodConstrainedToTypeArgument<string> sut2 = IMethodConstrainedToTypeArgument<string>.CreateMock();
+            MethodConstrainedToTypeArgumentBase<string> sut3 = MethodConstrainedToTypeArgumentBase<string>.CreateMock();
             """,
             [],
             UnionMode: true),

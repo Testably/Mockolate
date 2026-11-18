@@ -2362,9 +2362,13 @@ internal static partial class Sources
 				.Append(refReturnStorageField).Append(';').AppendLine();
 		}
 
+		// An implicit implementation would have to restate a constraint that C# accepts only when inherited (CS0425).
+		bool isExplicitForInheritedOnlyConstraint = !explicitInterfaceImplementation && isClassInterface &&
+		                                            method.ExplicitImplementation is null &&
+		                                            method.HasInheritedOnlyConstraint;
 		sb.Append("\t\t/// <inheritdoc cref=\"").Append(method.Cref).AppendLine("\" />");
 		sb.Append(method.Attributes, "\t\t");
-		if (explicitInterfaceImplementation)
+		if (explicitInterfaceImplementation || isExplicitForInheritedOnlyConstraint)
 		{
 			sb.Append("\t\t");
 			if (method.IsStatic)
@@ -2372,7 +2376,8 @@ internal static partial class Sources
 				sb.Append("static ");
 			}
 
-			sb.Append(returnRefPrefix).Append(method.ReturnType.Fullname).Append(' ').Append(className).Append('.').Append(method.Name)
+			sb.Append(returnRefPrefix).Append(method.ReturnType.Fullname).Append(' ')
+				.Append(explicitInterfaceImplementation ? className : method.ContainingType).Append('.').Append(method.Name)
 				.Append('(');
 		}
 		else
@@ -2422,7 +2427,8 @@ internal static partial class Sources
 			}
 
 			sb.Append(parameter.Type.Fullname).Append(' ').Append(parameter.Name);
-			if (!explicitInterfaceImplementation && parameter.HasExplicitDefaultValue)
+			if (!explicitInterfaceImplementation && !isExplicitForInheritedOnlyConstraint &&
+			    parameter.HasExplicitDefaultValue)
 			{
 				sb.Append(" = ").Append(parameter.ExplicitDefaultValue);
 			}
@@ -2432,8 +2438,9 @@ internal static partial class Sources
 		if (method.GenericParameters is not null && method.GenericParameters.Value.Count > 0)
 		{
 			bool isOverride = !isClassInterface && method.UseOverride;
-			bool isExplicitImplementation =
-				explicitInterfaceImplementation || method.ExplicitImplementation is not null;
+			bool isExplicitImplementation = explicitInterfaceImplementation ||
+			                                isExplicitForInheritedOnlyConstraint ||
+			                                method.ExplicitImplementation is not null;
 			bool inheritsConstraints = isExplicitImplementation || isOverride || method.IsEquals() ||
 			                           method.IsGetHashCode() || method.IsToString();
 			foreach (GenericParameter gp in method.GenericParameters.Value)
