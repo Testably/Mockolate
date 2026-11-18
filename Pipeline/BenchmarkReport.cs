@@ -227,6 +227,8 @@ static class BenchmarkReport
         sb.AppendLine();
         BenchmarkTableParser parser = new(columnsToRemove);
         List<TableRow> tableBuffer = new();
+        // The environment, like the BenchmarkDotNet version and the hardware, follows the results.
+        StringBuilder environment = new();
         var inCodeBlock = false;
         foreach (var line in reportLines)
         {
@@ -234,10 +236,13 @@ static class BenchmarkReport
             {
                 FlushTableBuffer(sb, tableBuffer);
                 inCodeBlock = !inCodeBlock;
-                sb.AppendLine(inCodeBlock ? "<pre>" : "</pre>");
-                if (!inCodeBlock) sb.AppendLine();
-
                 parser.Reset();
+                continue;
+            }
+
+            if (inCodeBlock)
+            {
+                environment.AppendLine(line);
                 continue;
             }
 
@@ -252,6 +257,14 @@ static class BenchmarkReport
         }
 
         FlushTableBuffer(sb, tableBuffer);
+        if (environment.Length > 0)
+        {
+            sb.AppendLine();
+            sb.AppendLine("<pre>");
+            sb.Append(environment);
+            sb.AppendLine("</pre>");
+        }
+
         sb.AppendLine();
         sb.AppendLine("</details>");
         return sb.ToString();
