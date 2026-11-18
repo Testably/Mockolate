@@ -47,6 +47,28 @@ public static class VerificationResultExtensions
 			? fast.VerifyCount(countPredicate)
 			: result.Verify(arr => countPredicate(arr.Length));
 
+	/// <summary>
+	///     Checks that the count of the matching interactions lies between <paramref name="minimum" /> and
+	///     <paramref name="maximum" /> (both inclusive), without a delegate or a closure on the fast path.
+	/// </summary>
+	private static bool VerifyCount(this IVerificationResult result, int minimum, int maximum, out int found)
+		=> result is IFastVerifyCountResult fast
+			? fast.VerifyCount(minimum, maximum, out found)
+			: VerifyCountByInteractions(result, minimum, maximum, out found);
+
+	private static bool VerifyCountByInteractions(IVerificationResult result, int minimum, int maximum,
+		out int found)
+	{
+		int count = 0;
+		bool isValid = result.Verify(arr =>
+		{
+			count = arr.Length;
+			return count >= minimum && count <= maximum;
+		});
+		found = count;
+		return isValid;
+	}
+
 	extension<TMock>(VerificationResult<TMock> verificationResult)
 	{
 		/// <summary>
@@ -61,12 +83,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count >= times;
-				    }))
+				if (!result.VerifyCount(times, int.MaxValue, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} at least {times.ToTimes()}, but it {found.ToTimes("did")}.");
@@ -91,12 +108,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count >= 1;
-				    }))
+				if (!result.VerifyCount(1, int.MaxValue, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} at least {1.ToTimes()}, but it {found.ToTimes("did")}.");
@@ -121,12 +133,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count >= 2;
-				    }))
+				if (!result.VerifyCount(2, int.MaxValue, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} at least {2.ToTimes()}, but it {found.ToTimes("did")}.");
@@ -151,12 +158,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count <= times;
-				    }))
+				if (!result.VerifyCount(int.MinValue, times, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} at most {times.ToTimes()}, but it {found.ToTimes("did")}.");
@@ -200,12 +202,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count >= minimum && count <= maximum;
-				    }))
+				if (!result.VerifyCount(minimum, maximum, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} between {minimum} and {maximum} times, but it {found.ToTimes("did")}.");
@@ -230,12 +227,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count <= 1;
-				    }))
+				if (!result.VerifyCount(int.MinValue, 1, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} at most {1.ToTimes()}, but it {found.ToTimes("did")}.");
@@ -260,12 +252,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count <= 2;
-				    }))
+				if (!result.VerifyCount(int.MinValue, 2, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} at most {2.ToTimes()}, but it {found.ToTimes("did")}.");
@@ -290,12 +277,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count == times;
-				    }))
+				if (!result.VerifyCount(times, times, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} exactly {times.ToTimes()}, but it {found.ToTimes("did")}.");
@@ -320,12 +302,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count == 0;
-				    }))
+				if (!result.VerifyCount(0, 0, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {0.ToTimes()} {result.Expectation}, but it {found.ToTimes("did")}.");
@@ -350,12 +327,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count == 1;
-				    }))
+				if (!result.VerifyCount(1, 1, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} exactly {1.ToTimes()}, but it {found.ToTimes("did")}.");
@@ -380,12 +352,7 @@ public static class VerificationResultExtensions
 			IVerificationResult result = verificationResult;
 			try
 			{
-				int found = 0;
-				if (!result.VerifyCount(count =>
-				    {
-					    found = count;
-					    return count == 2;
-				    }))
+				if (!result.VerifyCount(2, 2, out int found))
 				{
 					throw new MockVerificationException(
 						$"Expected that mock {result.Expectation} exactly {2.ToTimes()}, but it {found.ToTimes("did")}.");
