@@ -3265,24 +3265,91 @@ internal static partial class Sources
 	//   pure IParameter<T>?   : parameterCount     (just below all-values, above any mixed combo)
 	//   mixed                 : count of non-value (matcher) params, in [1, parameterCount - 1]
 	// parameterCount == 0 returns int.MaxValue so the lone zero-arg overload keeps its historical priority.
-	private static string ComputeMethodOverloadPriority(bool useParameters, bool[]? valueFlags, int parameterCount)
+	// The all-values overload is not promoted for an `object` parameter (ParametersBlockAllValuesPromotion).
+	// A trailing `params object[]` (RanksArrayMatcherFirst) moves the overloads that differ from all-values only by
+	// matchers for that parameter above it:
+	//   values + IParameter<object[]>?           : int.MaxValue
+	//   with other parameters                    : all-values int.MaxValue - 1, IParameters int.MaxValue - 2
+	//   alone                                    : IParameters int.MaxValue - 1, params IParameter<object>[]
+	//                                              int.MaxValue - 2, all-values int.MaxValue - 3
+	//   alone, next to an `object` overload      : params IParameter<object>[] 1, all-values not promoted
+	private static string ComputeMethodOverloadPriority(Class @class, Method method, bool useParameters,
+		bool[]? valueFlags, bool perElementParams)
 	{
+		int parameterCount = method.Parameters.Count;
 		if (parameterCount == 0)
 		{
 			return "int.MaxValue";
 		}
 
+		bool arrayMatcherFirst = RanksArrayMatcherFirst(method.Parameters);
 		if (useParameters)
 		{
-			return "int.MaxValue - 1";
+			return arrayMatcherFirst && parameterCount > 1 ? "int.MaxValue - 2" : "int.MaxValue - 1";
 		}
 
 		if (valueFlags is null)
 		{
-			return parameterCount.ToString();
+			if (!arrayMatcherFirst || parameterCount > 1 ||
+			    (perElementParams && HasSiblingWithObjectParameter(@class, method)))
+			{
+				return parameterCount.ToString();
+			}
+
+			return perElementParams ? "int.MaxValue - 2" : "int.MaxValue";
 		}
 
-		return valueFlags.Count(x => !x).ToString();
+		int matcherCount = valueFlags.Count(x => !x);
+		return arrayMatcherFirst && matcherCount == 1 && !valueFlags[parameterCount - 1]
+			? "int.MaxValue"
+			: matcherCount.ToString();
+	}
+
+	/// <summary>
+	///     The priority of the all-values overload, or <see langword="null" /> when it is not promoted. The overload
+	///     without parameters for an empty <c>params object[]</c> (<paramref name="emptyParams" />) is the only one
+	///     for a call without arguments that keeps <c>AnyParameters()</c>, so it comes first.
+	/// </summary>
+	private static string? ComputeAllValuesOverloadPriority(Class @class, Method method, bool[] valueFlags,
+		bool emptyParams)
+	{
+		if (emptyParams)
+		{
+			return "int.MaxValue";
+		}
+
+		if (ParametersBlockAllValuesPromotion(method.Parameters, valueFlags))
+		{
+			return null;
+		}
+
+		if (!RanksArrayMatcherFirst(method.Parameters))
+		{
+			return "int.MaxValue";
+		}
+
+		if (method.Parameters.Count > 1)
+		{
+			return "int.MaxValue - 1";
+		}
+
+		return HasSiblingWithObjectParameter(@class, method) ? null : "int.MaxValue - 3";
+	}
+
+	/// <summary>
+	///     Whether an overload of <paramref name="method" /> has an <see langword="object" /> parameter, so that its
+	///     all-values overload is not promoted. The all-values overload of a lone <c>params object[]</c> then stays
+	///     unpromoted as well: at equal priority <c>Setup.M("a")</c> prefers <c>M(object)</c> over the expanded form of
+	///     <c>M(params object[])</c>, as the call on the mock does.
+	/// </summary>
+	private static bool HasSiblingWithObjectParameter(Class @class, Method method)
+	{
+		string bareName = BareMethodName(method);
+		return @class.AllMethods().Any(m => m.ExplicitImplementation is null &&
+		                                    m.MemberType == method.MemberType &&
+		                                    BareMethodName(m) == bareName &&
+		                                    m.Parameters.Any(p => p.Type.SpecialType == SpecialType.System_Object &&
+		                                                          p.CanUseNullableParameterOverload()));
 	}
 
 	// Object-typed parameters defeat the all-values bump: every reference type — including the
@@ -3302,6 +3369,78 @@ internal static partial class Sources
 		}
 
 		return false;
+	}
+
+	/// <summary>
+	///     Whether a matcher for the whole array of a trailing <c>params object[]</c> must outrank the all-values
+	///     overload, which accepts any argument list in its expanded form and would capture the matcher as one element.
+	///     Only the all-values overload moves below it: the overloads that replace other values by matchers stay
+	///     below all-values, so a <see langword="default" /> literal for such a parameter keeps meaning the value.
+	///     An <see langword="object" /> parameter already keeps all-values from being promoted, and above
+	///     <see cref="MaxExplicitParameters" /> no overload combines values with a matcher for the array.
+	/// </summary>
+	private static bool RanksArrayMatcherFirst(EquatableArray<MethodParameter> parameters)
+	{
+		ReadOnlySpan<MethodParameter> span = parameters.AsSpan();
+		if (span.Length == 0 || span.Length > MaxExplicitParameters || !IsObjectParams(span[span.Length - 1]))
+		{
+			return false;
+		}
+
+		for (int i = 0; i < span.Length; i++)
+		{
+			if (!span[i].CanUseNullableParameterOverload() || span[i].Type.SpecialType == SpecialType.System_Object)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private static bool IsObjectParams(MethodParameter parameter)
+		=> parameter.IsParams && parameter.Type.ElementType?.SpecialType == SpecialType.System_Object;
+
+	/// <summary>
+	///     The end of the parameter type of the per-element overload. For a lone <c>params object[]</c> that overload
+	///     outranks all-values, so a <see langword="null" /> literal binds to it as a <see langword="null" /> element
+	///     and the elements are nullable.
+	/// </summary>
+	private static string PerElementArraySuffix(Method method)
+		=> method.Parameters.Count == 1 && RanksArrayMatcherFirst(method.Parameters) ? ">?[] " : ">[] ";
+
+	/// <summary>
+	///     Declares the empty <c>params</c> array of the overload without parameters as a local, so that the body of
+	///     the all-values overload follows unchanged. Forwarding to that overload instead would go through overload
+	///     resolution, where a sibling that accepts an array could win.
+	/// </summary>
+	private static void AppendEmptyParamsLocal(StringBuilder sb, Method method)
+	{
+		MethodParameter parameter = method.Parameters.AsArray()[0];
+		sb.Append("\t\t\t").Append(parameter.Type.Fullname).Append(' ').Append(parameter.Name)
+			.Append(" = global::System.Array.Empty<").Append(parameter.Type.ElementType!.Fullname).Append(">();")
+			.AppendLine();
+	}
+
+	/// <summary>
+	///     Whether <paramref name="method" /> gets an overload without parameters for an empty <c>params object[]</c>.
+	///     Its all-values overload ranks below the per-element overload, so a call without arguments would bind to the
+	///     latter and lose <c>AnyParameters()</c>. A sibling without parameters already owns that signature, and a
+	///     delegate has no per-element overload.
+	/// </summary>
+	private static bool HasEmptyParamsOverload(Class @class, Method method)
+	{
+		if (method.Parameters.Count != 1 || !RanksArrayMatcherFirst(method.Parameters) ||
+		    method.HasUnsupportedAllowsRefStructTypeParameter || method.ReturnType.NeedsRefStructPipeline())
+		{
+			return false;
+		}
+
+		string bareName = BareMethodName(method);
+		return !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
+		                                     m.MemberType == method.MemberType &&
+		                                     m.Parameters.Count == 0 &&
+		                                     BareMethodName(m) == bareName);
 	}
 
 	/// <summary>
@@ -3569,6 +3708,12 @@ internal static partial class Sources
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
 					}
 
+					if (HasEmptyParamsOverload(@class, method))
+					{
+						AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: [true,],
+							hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
+					}
+
 					if (method.Parameters.Count <= MaxExplicitParameters)
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
@@ -3689,7 +3834,8 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMethodSetupDefinition(StringBuilder sb, Class @class, Method method,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
-		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false)
+		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false,
+		bool emptyParams = false)
 #pragma warning restore S107
 	{
 		// Three shapes cannot expose a setup surface, all for the same reason: IReturnMethodSetup<T> /
@@ -3737,6 +3883,10 @@ internal static partial class Sources
 		{
 			sb.Append(" with the given <paramref name=\"parameters\" />");
 		}
+		else if (emptyParams)
+		{
+			sb.Append(" without arguments");
+		}
 		else if (method.Parameters.Any())
 		{
 			sb.Append(" with the given ")
@@ -3745,18 +3895,23 @@ internal static partial class Sources
 
 		sb.Append(".").AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
-		AppendOverloadDifferentiatorRemark(sb, method.Parameters.Select(p => p.Name).ToArray(), useParameters,
-			valueFlags);
+		if (!emptyParams)
+		{
+			AppendOverloadDifferentiatorRemark(sb, method.Parameters.Select(p => p.Name).ToArray(), useParameters,
+				valueFlags);
+		}
+
+		string? allValuesPriority = valueFlags?.All(x => x) == true && hasOverloadResolutionPriority
+			? ComputeAllValuesOverloadPriority(@class, method, valueFlags, emptyParams)
+			: null;
 		if (method.ReturnType != Type.Void)
 		{
 			if (valueFlags?.All(x => x) == true)
 			{
-				if (hasOverloadResolutionPriority &&
-				    !ParametersBlockAllValuesPromotion(method.Parameters, valueFlags))
+				if (allValuesPriority is not null)
 				{
-					sb.Append(
-							"\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]")
-						.AppendLine();
+					sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
+						.Append(allValuesPriority).Append(")]").AppendLine();
 				}
 
 				sb.Append("\t\tglobal::Mockolate.Setup.IReturnMethodSetupParameterIgnorer");
@@ -3766,7 +3921,8 @@ internal static partial class Sources
 				if (hasOverloadResolutionPriority)
 				{
 					sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-						.Append(ComputeMethodOverloadPriority(useParameters, valueFlags, method.Parameters.Count))
+						.Append(ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
+							perElementParams))
 						.Append(")]").AppendLine();
 				}
 
@@ -3789,12 +3945,10 @@ internal static partial class Sources
 		{
 			if (valueFlags?.All(x => x) == true)
 			{
-				if (hasOverloadResolutionPriority &&
-				    !ParametersBlockAllValuesPromotion(method.Parameters, valueFlags))
+				if (allValuesPriority is not null)
 				{
-					sb.Append(
-							"\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]")
-						.AppendLine();
+					sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
+						.Append(allValuesPriority).Append(")]").AppendLine();
 				}
 
 				sb.Append("\t\tglobal::Mockolate.Setup.IVoidMethodSetupParameterIgnorer");
@@ -3804,7 +3958,8 @@ internal static partial class Sources
 				if (hasOverloadResolutionPriority)
 				{
 					sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-						.Append(ComputeMethodOverloadPriority(useParameters, valueFlags, method.Parameters.Count))
+						.Append(ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
+							perElementParams))
 						.Append(")]").AppendLine();
 				}
 
@@ -3837,6 +3992,10 @@ internal static partial class Sources
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters)");
 		}
+		else if (emptyParams)
+		{
+			sb.Append(")");
+		}
 		else
 		{
 			ReadOnlySpan<MethodParameter> paramSpan = method.Parameters.AsSpan();
@@ -3855,7 +4014,8 @@ internal static partial class Sources
 				    parameter.Type.ElementType is not null)
 				{
 					sb.Append("params global::Mockolate.Parameters.IParameter<")
-						.Append(parameter.Type.ElementType.Fullname).Append(">[] ").Append(parameter.Name);
+						.Append(parameter.Type.ElementType.Fullname).Append(PerElementArraySuffix(method))
+						.Append(parameter.Name);
 				}
 				else if (isValueParam)
 				{
@@ -4055,6 +4215,13 @@ internal static partial class Sources
 							memberIds, memberIdPrefix, scopeExpression: scopeExpression, perElementParams: true);
 					}
 
+					if (HasEmptyParamsOverload(@class, method))
+					{
+						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+							memberIds, memberIdPrefix, valueFlags: [true,], scopeExpression: scopeExpression,
+							emptyParams: true);
+					}
+
 					if (method.Parameters.Count <= MaxExplicitParameters)
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
@@ -4084,7 +4251,8 @@ internal static partial class Sources
 		string setupName,
 		bool useParameters, MemberIdTable memberIds, string memberIdPrefix,
 		string? methodNameOverride = null, bool[]? valueFlags = null,
-		string? scopeExpression = null, bool perElementParams = false, bool forwardsLoneNull = false)
+		string? scopeExpression = null, bool perElementParams = false, bool forwardsLoneNull = false,
+		bool emptyParams = false)
 	{
 		// Setup-side carve-out: methods using a generic type parameter that declares
 		// `allows ref struct`, methods returning a non-span ref struct, and delegates with a ref-struct
@@ -4175,6 +4343,10 @@ internal static partial class Sources
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters)");
 		}
+		else if (emptyParams)
+		{
+			sb.Append(")");
+		}
 		else
 		{
 			int i = 0;
@@ -4190,7 +4362,8 @@ internal static partial class Sources
 				    parameter.Type.ElementType is not null)
 				{
 					sb.Append("params global::Mockolate.Parameters.IParameter<")
-						.Append(parameter.Type.ElementType.Fullname).Append(">[] ").Append(parameter.Name);
+						.Append(parameter.Type.ElementType.Fullname).Append(PerElementArraySuffix(method))
+						.Append(parameter.Name);
 				}
 				else if (isValueParam)
 				{
@@ -4228,6 +4401,11 @@ internal static partial class Sources
 
 		sb.AppendLine();
 		sb.AppendLine("\t\t{");
+		if (emptyParams)
+		{
+			AppendEmptyParamsLocal(sb, method);
+		}
+
 		if (useParameters && forwardsLoneNull)
 		{
 			sb.Append("\t\t\tif (parameters is null)").AppendLine();
@@ -5536,6 +5714,12 @@ internal static partial class Sources
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
 					}
 
+					if (HasEmptyParamsOverload(@class, method))
+					{
+						AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: [true,],
+							hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
+					}
+
 					if (method.Parameters.Count <= MaxExplicitParameters)
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
@@ -5579,7 +5763,8 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMethodVerifyDefinition(StringBuilder sb, Class @class, Method method, string verifyName,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
-		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false)
+		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false,
+		bool emptyParams = false)
 #pragma warning restore S107
 	{
 		// For methods with ref-struct parameters, skip Verify emission entirely. The
@@ -5608,27 +5793,38 @@ internal static partial class Sources
 			sb.Append("\t\t///     Verify invocations for the delegate ").Append(@class.XmlDocReference);
 		}
 
-		sb.Append(method.Parameters.Count > 0 ? " with the given " : "");
-		if (useParameters)
+		if (emptyParams)
 		{
-			sb.Append("<paramref name=\"parameters\"/>");
+			sb.Append(" without arguments");
 		}
-		else
+		else if (useParameters)
 		{
-			sb.Append(string.Join(", ", method.Parameters.Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")));
+			sb.Append(" with the given <paramref name=\"parameters\"/>");
+		}
+		else if (method.Parameters.Count > 0)
+		{
+			sb.Append(" with the given ")
+				.Append(string.Join(", ", method.Parameters.Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")));
 		}
 
 		sb.Append(".").AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
-		AppendOverloadDifferentiatorRemark(sb, method.Parameters.Select(p => p.Name).ToArray(), useParameters,
-			valueFlags, true);
+		if (!emptyParams)
+		{
+			AppendOverloadDifferentiatorRemark(sb, method.Parameters.Select(p => p.Name).ToArray(), useParameters,
+				valueFlags, true);
+		}
+
 		if (valueFlags?.All(x => x) == true || (method.Parameters.Count == 0 && !useParameters))
 		{
-			if (hasOverloadResolutionPriority && method.Parameters.Count > 0 && valueFlags is not null &&
-			    !ParametersBlockAllValuesPromotion(method.Parameters, valueFlags))
+			string? allValuesPriority = hasOverloadResolutionPriority && method.Parameters.Count > 0 &&
+			                            valueFlags is not null
+				? ComputeAllValuesOverloadPriority(@class, method, valueFlags, emptyParams)
+				: null;
+			if (allValuesPriority is not null)
 			{
-				sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]")
-					.AppendLine();
+				sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
+					.Append(allValuesPriority).Append(")]").AppendLine();
 			}
 
 			sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(verifyName)
@@ -5639,7 +5835,8 @@ internal static partial class Sources
 			if (hasOverloadResolutionPriority)
 			{
 				sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-					.Append(ComputeMethodOverloadPriority(useParameters, valueFlags, method.Parameters.Count))
+					.Append(ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
+						perElementParams))
 					.Append(")]").AppendLine();
 			}
 
@@ -5651,7 +5848,7 @@ internal static partial class Sources
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters");
 		}
-		else
+		else if (!emptyParams)
 		{
 			ReadOnlySpan<MethodParameter> paramSpan = method.Parameters.AsSpan();
 			bool[] hasTrailingDefault = ComputeTrailingDefaults(paramSpan, valueFlags);
@@ -5669,7 +5866,8 @@ internal static partial class Sources
 				    parameter.Type.ElementType is not null)
 				{
 					sb.Append("params global::Mockolate.Parameters.IParameter<")
-						.Append(parameter.Type.ElementType.Fullname).Append(">[] ").Append(parameter.Name);
+						.Append(parameter.Type.ElementType.Fullname).Append(PerElementArraySuffix(method))
+						.Append(parameter.Name);
 				}
 				else if (isValueParam)
 				{
@@ -5848,6 +6046,12 @@ internal static partial class Sources
 							memberIds, memberIdPrefix, useTypedRecords, perElementParams: true);
 					}
 
+					if (HasEmptyParamsOverload(@class, method))
+					{
+						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+							memberIds, memberIdPrefix, useTypedRecords, valueFlags: [true,], emptyParams: true);
+					}
+
 					if (method.Parameters.Count <= MaxExplicitParameters)
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
@@ -5911,7 +6115,7 @@ internal static partial class Sources
 		string verifyName,
 		bool useParameters, MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords,
 		string? methodNameOverride = null, bool[]? valueFlags = null, bool perElementParams = false,
-		bool forwardsLoneNull = false)
+		bool forwardsLoneNull = false, bool emptyParams = false)
 #pragma warning restore S107
 	{
 		// Mirror the AppendMethodVerifyDefinition short-circuit for ref-struct signatures.
@@ -5938,7 +6142,7 @@ internal static partial class Sources
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters");
 		}
-		else
+		else if (!emptyParams)
 		{
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
@@ -5953,7 +6157,8 @@ internal static partial class Sources
 				    parameter.Type.ElementType is not null)
 				{
 					sb.Append("params global::Mockolate.Parameters.IParameter<")
-						.Append(parameter.Type.ElementType.Fullname).Append(">[] ").Append(parameter.Name);
+						.Append(parameter.Type.ElementType.Fullname).Append(PerElementArraySuffix(method))
+						.Append(parameter.Name);
 				}
 				else if (isValueParam)
 				{
@@ -6121,13 +6326,19 @@ internal static partial class Sources
 			return;
 		}
 
-		if (hasDeclaredDefaults)
+		bool usesBlockBody = hasDeclaredDefaults || emptyParams;
+		if (usesBlockBody)
 		{
 			sb.Append("\t\t{").AppendLine();
 			AppendDeclaredDefaultMatchers(sb, method, usesDeclaredDefault);
 		}
 
-		sb.Append(hasDeclaredDefaults ? "\t\t\treturn " : "\t\t\t=> ");
+		if (emptyParams)
+		{
+			AppendEmptyParamsLocal(sb, method);
+		}
+
+		sb.Append(usesBlockBody ? "\t\t\treturn " : "\t\t\t=> ");
 		if (useParameters && forwardsLoneNull)
 		{
 			sb.Append("parameters is null").AppendLine();
@@ -6209,7 +6420,7 @@ internal static partial class Sources
 		sb.Append(", () => $\"").Append(method.Name).Append("(")
 			.Append(useParameters ? "{parameters}" : string.Join(", ", method.Parameters.Select(p => $"{{{p.Name}}}")))
 			.Append(")\");").AppendLine();
-		if (hasDeclaredDefaults)
+		if (usesBlockBody)
 		{
 			sb.Append("\t\t}").AppendLine();
 		}

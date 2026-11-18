@@ -160,6 +160,13 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "ParamsObjectArray_CanBeCreated",
+            ["IParamsObjectArray.cs",],
+            """
+            IParamsObjectArray sut = IParamsObjectArray.CreateMock();
+            """,
+            []),
+        new(
             "RefStructConsumer_CanBeCreated",
             ["IRefStructConsumer.cs", "Packet.cs",],
             """
@@ -274,6 +281,14 @@ public sealed partial class MockGenerationSnapshotTests
             IParameterNameCollisions sut1 = IParameterNameCollisions.CreateMock();
             ParameterNameCollisionsBase sut2 = ParameterNameCollisionsBase.CreateMock();
             ParameterNameCollisionsDelegate sut3 = ParameterNameCollisionsDelegate.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "ParamsObjectArray_CanBeCreated_Unions",
+            ["IParamsObjectArray.cs",],
+            """
+            IParamsObjectArray sut = IParamsObjectArray.CreateMock();
             """,
             [],
             UnionMode: true),

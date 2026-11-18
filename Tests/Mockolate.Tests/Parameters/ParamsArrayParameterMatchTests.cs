@@ -62,6 +62,19 @@ public sealed class ParamsArrayParameterMatchTests
 	}
 
 	[Test]
+	public async Task Matches_WhenMatcherElementIsNull_ShouldMatchOnlyANullElement()
+	{
+		ParamsArrayParameterMatch<string?> sut = new(null, null);
+
+		bool matchesNullElements = sut.Matches([null, null,]);
+		bool matchesValue = sut.Matches([null, "a",]);
+
+		await That(matchesNullElements).IsTrue()
+			.Because("a null literal for an element of a params object[] means that the element is null");
+		await That(matchesValue).IsFalse();
+	}
+
+	[Test]
 	public async Task InvokeCallbacks_WhenLengthMatches_ShouldInvokeEachMatcher()
 	{
 		StubParameter first = new(true, "first");

@@ -89,16 +89,16 @@ internal static partial class Sources
 	/// </summary>
 	private static bool HasUniqueMethodName(Class @class, Method method)
 	{
-		string bareName = BareName(method);
+		string bareName = BareMethodName(method);
 		return @class.AllMethods().Count(m => m.ExplicitImplementation is null &&
 		                                      m.MemberType == method.MemberType &&
-		                                      BareName(m) == bareName) == 1;
+		                                      BareMethodName(m) == bareName) == 1;
+	}
 
-		static string BareName(Method m)
-		{
-			int typeParameterList = m.Name.IndexOf('<');
-			return typeParameterList < 0 ? m.Name : m.Name.Substring(0, typeParameterList);
-		}
+	private static string BareMethodName(Method method)
+	{
+		int typeParameterList = method.Name.IndexOf('<');
+		return typeParameterList < 0 ? method.Name : method.Name.Substring(0, typeParameterList);
 	}
 
 	/// <summary>
