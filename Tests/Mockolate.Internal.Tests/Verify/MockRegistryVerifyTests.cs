@@ -312,12 +312,12 @@ public class MockRegistryVerifyTests
 		}
 	}
 
-	public sealed class TryGetBufferBoundaryTests
+	public sealed class TryGetRecordsBoundaryTests
 	{
 		[Test]
 		public async Task VerifyMethodTyped_WithMemberIdEqualToBufferLength_ShouldFallToSlowPath()
 		{
-			// Pins the `(uint)memberId < (uint)buffers.Length` boundary in TryGetBuffer.
+			// Pins the `(uint)memberId < (uint)buffers.Length` boundary in TryGetRecords.
 			// Mutation `<=` would let memberId == buffers.Length pass the bounds check and
 			// IndexOutOfRangeException-crash on `buffers[memberId]`. Asserting the verify
 			// resolves cleanly via the slow-path fallback documents the boundary.
@@ -420,7 +420,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_TwoParam_SlowPath_RejectsWhenFirstMatcherFails()
 		{
-			// The "logical mutation" survivors live in the slow-path lambda used when TryGetBuffer
+			// The "logical mutation" survivors live in the slow-path lambda used when TryGetRecords
 			// returns null. With an out-of-range memberId we force that branch; then we record an
 			// interaction that satisfies match2 but NOT match1, and verify it is correctly excluded.
 			// This kills the mutation that drops the `&& match1` term from the AND-chain.
@@ -488,7 +488,7 @@ public class MockRegistryVerifyTests
 			// Mutating it to `static _ => false` would skip every record and turn this Once() into a
 			// failed verification.
 			FastMockInteractions store = new(1);
-			FastPropertyGetterBuffer buffer = new(store, 0);
+			PropertyGetterRecords buffer = new(store, 0);
 			buffer.Append();
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -525,7 +525,7 @@ public class MockRegistryVerifyTests
 			// Block-removal would turn the predicate into `return default;` (i.e. always false) and
 			// drop every recorded setter, failing this Once().
 			FastMockInteractions store = new(1);
-			FastPropertySetterBuffer<int> buffer = new(store, 0);
+			PropertySetterRecords<int> buffer = new(store, 0);
 			buffer.Append("X", 7);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -544,7 +544,7 @@ public class MockRegistryVerifyTests
 			// Same Predicate body — but exercises the negative branch so the `value.Matches(...)`
 			// term cannot be silently dropped.
 			FastMockInteractions store = new(1);
-			FastPropertySetterBuffer<int> buffer = new(store, 0);
+			PropertySetterRecords<int> buffer = new(store, 0);
 			buffer.Append("X", 99);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -605,7 +605,7 @@ public class MockRegistryVerifyTests
 			// Pins the local Predicate body in the memberId-keyed IndexerSet overload — the
 			// block-removal mutant would turn it into `return default;` and skip every record.
 			FastMockInteractions store = new(1);
-			FastIndexerSetterBuffer<int, string> buffer = new(store, 0);
+			IndexerSetterRecords<int, string> buffer = new(store, 0);
 			buffer.Append(1, "x");
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -646,7 +646,7 @@ public class MockRegistryVerifyTests
 			// Pins `static _ => true` in the memberId-keyed SubscribedTo. Mutating to `false`
 			// would drop every record and fail Once().
 			FastMockInteractions store = new(1);
-			FastEventBuffer buffer = new(store, 0);
+			EventRecords buffer = new(store, 0);
 			buffer.AppendSubscription("Tick", null, typeof(object).GetMethod(nameof(ToString))!);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -704,7 +704,7 @@ public class MockRegistryVerifyTests
 		public async Task WithBufferAndRecord_PredicateMatchesEveryRecord()
 		{
 			FastMockInteractions store = new(1);
-			FastEventBuffer buffer = new(store, 0);
+			EventRecords buffer = new(store, 0);
 			buffer.AppendUnsubscription("Tick", null, typeof(object).GetMethod(nameof(ToString))!);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -737,11 +737,11 @@ public class MockRegistryVerifyTests
 	public sealed class VerifyMethodFallbackTests
 	{
 		[Test]
-		public async Task Parameterless_WithoutFastMethod0Buffer_PredicateMatchesAllMethodInvocations()
+		public async Task Parameterless_WithoutMethodRecords0_PredicateMatchesAllMethodInvocations()
 		{
 			// Kills the `_ => true` → `_ => false` mutation in the slow-path fallback at the bottom
 			// of `VerifyMethod<T>(subject, memberId, methodName, expectation)`. We enter the
-			// fallback because no FastMethod0Buffer is installed at memberId 0; the registered
+			// fallback because no MethodRecords is installed at memberId 0; the registered
 			// MethodInvocation must still be counted.
 			FastMockInteractions store = new(0);
 			MockRegistry registry = new(MockBehavior.Default, store);

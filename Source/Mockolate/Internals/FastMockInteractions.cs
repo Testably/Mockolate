@@ -89,7 +89,7 @@ public class FastMockInteractions : IMockInteractions
 	///     <see cref="InteractionAdded" />.
 	/// </summary>
 	/// <remarks>
-	///     Public because the source generator emits arity-N buffers in the consumer assembly that record their
+	///     Public because the source generator emits the recorders of methods with more than four parameters in the consumer assembly that record their
 	///     calls here. Not intended for end-user code.
 	/// </remarks>
 	public void Push(RecordNode node)
@@ -115,23 +115,23 @@ public class FastMockInteractions : IMockInteractions
 	///     Returns a view on the typed records of the member <paramref name="memberId" />, or
 	///     <see langword="null" /> when the member has none.
 	/// </summary>
-	internal RecordList? FindBuffer(int memberId)
-		=> FindBuffer(memberId, static (owner, id) => new MemberRecords(owner, id));
+	internal MemberRecords? FindRecords(int memberId)
+		=> FindRecords(memberId, static (owner, id) => new UntypedMemberRecords(owner, id));
 
 	/// <summary>
 	///     Returns a typed view on the records of the member <paramref name="memberId" />, or
 	///     <see langword="null" /> when the member has none.
 	/// </summary>
-	internal TBuffer? FindBuffer<TBuffer>(int memberId, Func<FastMockInteractions, int, TBuffer> factory)
-		where TBuffer : RecordList
+	internal TRecords? FindRecords<TRecords>(int memberId, Func<FastMockInteractions, int, TRecords> factory)
+		where TRecords : MemberRecords
 	{
 		if ((uint)memberId >= (uint)MemberCount)
 		{
 			return null;
 		}
 
-		TBuffer buffer = factory(this, memberId);
-		return buffer.HasRecords ? buffer : null;
+		TRecords records = factory(this, memberId);
+		return records.HasRecords ? records : null;
 	}
 	/// <inheritdoc cref="IMockInteractions.RegisterInteraction{TInteraction}(TInteraction)" />
 	/// <remarks>

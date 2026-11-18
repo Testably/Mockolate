@@ -49,8 +49,8 @@ public partial class MockRegistry
 	/// <summary>
 	///     Member-id-keyed fast-path overload of
 	///     <see cref="VerifyMethod{T, TMethod}(T, string, Func{TMethod, bool}, Func{string})" />. When the mock is
-	///     wired to a <see cref="FastMockInteractions" /> with a typed buffer at <paramref name="memberId" />, the
-	///     resulting <see cref="VerificationResult{T}.IgnoreParameters" /> walks only that buffer instead of the
+	///     wired to a <see cref="FastMockInteractions" /> with typed records of the member <paramref name="memberId" />, the
+	///     resulting <see cref="VerificationResult{T}.IgnoreParameters" /> walks only those records instead of the
 	///     full shared interaction list. Falls back to the legacy full-list scan otherwise.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type; returned to the caller so chaining can continue.</typeparam>
@@ -62,8 +62,8 @@ public partial class MockRegistry
 	/// <param name="expectation">Factory producing the expectation description used in failure messages.</param>
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, TMethod>(T subject, int memberId, string methodName, Func<TMethod, bool> predicate, Func<string> expectation) where TMethod : IMethodInteraction
 	{
-		RecordList? buffer = TryGetBuffer(memberId);
-		if (buffer is null)
+		MemberRecords? records = TryGetRecords(memberId);
+		if (records is null)
 		{
 			return VerifyMethod(subject, methodName, predicate, expectation);
 		}
@@ -71,7 +71,7 @@ public partial class MockRegistry
 		return new VerificationResult<T>.IgnoreParameters(
 			subject,
 			Interactions,
-			buffer,
+			records,
 			methodName,
 			Predicate,
 			InvokedMethodExpectation(expectation));
@@ -107,7 +107,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Member-id-keyed fast-path overload of <see cref="VerifyProperty{T}(T, string)" />. Walks only the typed
-	///     getter buffer when the mock is wired to a <see cref="FastMockInteractions" />.
+	///     getter records when the mock is wired to a <see cref="FastMockInteractions" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
 	/// <param name="subject">The verification facade the result is bound to.</param>
@@ -115,15 +115,15 @@ public partial class MockRegistry
 	/// <param name="propertyName">The simple property name.</param>
 	internal VerificationResult<T> VerifyProperty<T>(T subject, int memberId, string propertyName)
 	{
-		RecordList? buffer = TryGetBuffer(memberId);
-		if (buffer is null)
+		MemberRecords? records = TryGetRecords(memberId);
+		if (records is null)
 		{
 			return VerifyProperty(subject, propertyName);
 		}
 
 		return new VerificationResult<T>(subject,
 			Interactions,
-			buffer,
+			records,
 			static _ => true,
 			GotPropertyExpectation(propertyName));
 	}
@@ -158,7 +158,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Member-id-keyed fast-path overload of
 	///     <see cref="VerifyProperty{TSubject, TValue}(TSubject, string, IParameterMatch{TValue})" />. Walks only the
-	///     typed setter buffer when the mock is wired to a <see cref="FastMockInteractions" />.
+	///     typed setter records when the mock is wired to a <see cref="FastMockInteractions" />.
 	/// </summary>
 	/// <typeparam name="TSubject">The verification facade type.</typeparam>
 	/// <typeparam name="TValue">The property's type.</typeparam>
@@ -169,15 +169,15 @@ public partial class MockRegistry
 	internal VerificationResult<TSubject> VerifyProperty<TSubject, TValue>(TSubject subject, int memberId,
 		string propertyName, IParameterMatch<TValue> value)
 	{
-		RecordList? buffer = TryGetBuffer(memberId);
-		if (buffer is null)
+		MemberRecords? records = TryGetRecords(memberId);
+		if (records is null)
 		{
 			return VerifyProperty(subject, propertyName, value);
 		}
 
 		return new VerificationResult<TSubject>(subject,
 			Interactions,
-			buffer,
+			records,
 			Predicate,
 			SetPropertyExpectation(propertyName, value));
 
@@ -239,7 +239,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Member-id-keyed fast-path overload of
 	///     <see cref="IndexerGot{T}(T, Func{IInteraction, bool}, Func{string})" />. Walks only the typed indexer
-	///     getter buffer when the mock is wired to a <see cref="FastMockInteractions" />.
+	///     getter records when the mock is wired to a <see cref="FastMockInteractions" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
 	/// <param name="subject">The verification facade the result is bound to.</param>
@@ -251,7 +251,7 @@ public partial class MockRegistry
 		Func<string> parametersDescription)
 		=> new(subject,
 			Interactions,
-			TryGetBuffer(memberId),
+			TryGetRecords(memberId),
 			gotPredicate,
 			GotIndexerExpectation(parametersDescription));
 
@@ -286,7 +286,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Member-id-keyed fast-path overload of
 	///     <see cref="IndexerSet{T, TValue}(T, Func{IInteraction, IParameterMatch{TValue}, bool}, IParameterMatch{TValue}, Func{string})" />.
-	///     Walks only the typed indexer setter buffer when the mock is wired to a <see cref="FastMockInteractions" />.
+	///     Walks only the typed indexer setter records when the mock is wired to a <see cref="FastMockInteractions" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
 	/// <typeparam name="TValue">The indexer's value type.</typeparam>
@@ -302,7 +302,7 @@ public partial class MockRegistry
 	{
 		return new VerificationResult<T>(subject,
 			Interactions,
-			TryGetBuffer(memberId),
+			TryGetRecords(memberId),
 			Predicate,
 			SetIndexerExpectation(parametersDescription, value));
 
@@ -336,7 +336,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Member-id-keyed fast-path overload of <see cref="SubscribedTo{T}(T, string)" />. Walks only the typed
-	///     event-subscribe buffer when the mock is wired to a <see cref="FastMockInteractions" />.
+	///     event-subscribe records when the mock is wired to a <see cref="FastMockInteractions" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
 	/// <param name="subject">The verification facade the result is bound to.</param>
@@ -344,14 +344,14 @@ public partial class MockRegistry
 	/// <param name="eventName">The simple event name.</param>
 	internal VerificationResult<T> SubscribedTo<T>(T subject, int memberId, string eventName)
 	{
-		RecordList? buffer = TryGetBuffer(memberId);
-		if (buffer is null)
+		MemberRecords? records = TryGetRecords(memberId);
+		if (records is null)
 		{
 			return SubscribedTo(subject, eventName);
 		}
 
 		return new VerificationResult<T>(subject, Interactions,
-			buffer,
+			records,
 			static _ => true,
 			SubscribedToEventExpectation(eventName));
 	}
@@ -379,7 +379,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Member-id-keyed fast-path overload of <see cref="UnsubscribedFrom{T}(T, string)" />. Walks only the typed
-	///     event-unsubscribe buffer when the mock is wired to a <see cref="FastMockInteractions" />.
+	///     event-unsubscribe records when the mock is wired to a <see cref="FastMockInteractions" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
 	/// <param name="subject">The verification facade the result is bound to.</param>
@@ -387,27 +387,27 @@ public partial class MockRegistry
 	/// <param name="eventName">The simple event name.</param>
 	internal VerificationResult<T> UnsubscribedFrom<T>(T subject, int memberId, string eventName)
 	{
-		RecordList? buffer = TryGetBuffer(memberId);
-		if (buffer is null)
+		MemberRecords? records = TryGetRecords(memberId);
+		if (records is null)
 		{
 			return UnsubscribedFrom(subject, eventName);
 		}
 
 		return new VerificationResult<T>(subject, Interactions,
-			buffer,
+			records,
 			static _ => true,
 			UnsubscribedFromEventExpectation(eventName));
 	}
 
 	/// <summary>
 	///     Typed fast-path Verify for parameterless methods. Walks the typed
-	///     <see cref="FastMethod0Buffer" /> via <see cref="IFastCountSource" /> so count terminators
+	///     <see cref="MethodRecords" /> via <see cref="IFastCountSource" /> so count terminators
 	///     run allocation-free.
 	/// </summary>
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T>(T subject, int memberId, string methodName,
 		Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod0Buffer(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords(f, id)) is { } typed)
 		{
 			return new Method0CountSource<T>(subject, Interactions, typed, methodName,
 				expectation, static (_, e) => InvokedMethodText(e));
@@ -422,7 +422,7 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1>(T subject, int memberId, string methodName,
 		IParameterMatch<T1> match1, Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod1Buffer<T1>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1>(f, id)) is { } typed)
 		{
 			return new Method1CountSource<T, T1>(subject, Interactions, typed, methodName, match1, null,
 				expectation, static (_, e) => InvokedMethodText(e));
@@ -438,7 +438,7 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2>(T subject, int memberId, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod2Buffer<T1, T2>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2>(f, id)) is { } typed)
 		{
 			return new Method2CountSource<T, T1, T2>(subject, Interactions, typed, methodName, match1, match2,
 				null, null, expectation, static (_, e) => InvokedMethodText(e));
@@ -454,7 +454,7 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3>(T subject, int memberId, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod3Buffer<T1, T2, T3>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3>(f, id)) is { } typed)
 		{
 			return new Method3CountSource<T, T1, T2, T3>(subject, Interactions, typed, methodName,
 				match1, match2, match3, null, null, null, expectation, static (_, e) => InvokedMethodText(e));
@@ -471,7 +471,7 @@ public partial class MockRegistry
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod4Buffer<T1, T2, T3, T4>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3, T4>(f, id)) is { } typed)
 		{
 			return new Method4CountSource<T, T1, T2, T3, T4>(subject, Interactions, typed, methodName,
 				match1, match2, match3, match4, null, null, null, null,
@@ -491,7 +491,7 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1>(T subject, int memberId, string methodName,
 		T1 literalValue1, Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod1Buffer<T1>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1>(f, id)) is { } typed)
 		{
 			return new Method1LiteralCountSource<T, T1>(subject, Interactions, typed, methodName, literalValue1,
 				expectation, static (_, e) => InvokedMethodText(e));
@@ -507,7 +507,7 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2>(T subject, int memberId, string methodName,
 		T1 literalValue1, T2 literalValue2, Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod2Buffer<T1, T2>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2>(f, id)) is { } typed)
 		{
 			return new Method2LiteralCountSource<T, T1, T2>(subject, Interactions, typed, methodName,
 				literalValue1, literalValue2, expectation, static (_, e) => InvokedMethodText(e));
@@ -524,7 +524,7 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3>(T subject, int memberId, string methodName,
 		T1 literalValue1, T2 literalValue2, T3 literalValue3, Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod3Buffer<T1, T2, T3>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3>(f, id)) is { } typed)
 		{
 			return new Method3LiteralCountSource<T, T1, T2, T3>(subject, Interactions, typed, methodName,
 				literalValue1, literalValue2, literalValue3, expectation, static (_, e) => InvokedMethodText(e));
@@ -542,7 +542,7 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3, T4>(T subject, int memberId, string methodName,
 		T1 literalValue1, T2 literalValue2, T3 literalValue3, T4 literalValue4, Func<string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod4Buffer<T1, T2, T3, T4>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3, T4>(f, id)) is { } typed)
 		{
 			return new Method4LiteralCountSource<T, T1, T2, T3, T4>(subject, Interactions, typed, methodName,
 				literalValue1, literalValue2, literalValue3, literalValue4,
@@ -569,17 +569,17 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1>(T subject, int memberId, string methodName,
 		IParameterMatch<T1> match1, IParameter<T1>? parameter1, Func<IParameter<T1>?, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod1Buffer<T1>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1>(f, id)) is { } typed)
 		{
 			return new Method1CountSource<T, T1>(subject, Interactions, typed, methodName, match1, parameter1,
 				expectation, static (state, format)
 					=> $"invoked method {((Method1CountSource<T, T1>)state!).Describe((Func<IParameter<T1>?, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, match1, parameter1, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, match1, parameter1, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1>(T subject, string methodName,
 		IParameterMatch<T1> match1, IParameter<T1>? parameter1, Func<IParameter<T1>?, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1>>(subject, methodName,
 			m => match1.Matches(m.Parameter1),
@@ -603,17 +603,17 @@ public partial class MockRegistry
 		IParameter<T1>? parameter1, IParameter<T2>? parameter2,
 		Func<IParameter<T1>?, IParameter<T2>?, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod2Buffer<T1, T2>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2>(f, id)) is { } typed)
 		{
 			return new Method2CountSource<T, T1, T2>(subject, Interactions, typed, methodName, match1, match2,
 				parameter1, parameter2, expectation, static (state, format)
 					=> $"invoked method {((Method2CountSource<T, T1, T2>)state!).Describe((Func<IParameter<T1>?, IParameter<T2>?, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, parameter1, parameter2, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, match1, match2, parameter1, parameter2, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2>(T subject, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
 		IParameter<T1>? parameter1, IParameter<T2>? parameter2,
 		Func<IParameter<T1>?, IParameter<T2>?, string> expectation)
@@ -640,18 +640,18 @@ public partial class MockRegistry
 		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3,
 		Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod3Buffer<T1, T2, T3>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3>(f, id)) is { } typed)
 		{
 			return new Method3CountSource<T, T1, T2, T3>(subject, Interactions, typed, methodName,
 				match1, match2, match3, parameter1, parameter2, parameter3, expectation, static (state, format)
 					=> $"invoked method {((Method3CountSource<T, T1, T2, T3>)state!).Describe((Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, match3,
+		return VerifyMethodWithoutRecords(subject, methodName, match1, match2, match3,
 			parameter1, parameter2, parameter3, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2, T3>(T subject, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
 		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3,
 		Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, string> expectation)
@@ -680,7 +680,7 @@ public partial class MockRegistry
 		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3, IParameter<T4>? parameter4,
 		Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, IParameter<T4>?, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod4Buffer<T1, T2, T3, T4>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3, T4>(f, id)) is { } typed)
 		{
 			return new Method4CountSource<T, T1, T2, T3, T4>(subject, Interactions, typed, methodName,
 				match1, match2, match3, match4, parameter1, parameter2, parameter3, parameter4,
@@ -688,11 +688,11 @@ public partial class MockRegistry
 					=> $"invoked method {((Method4CountSource<T, T1, T2, T3, T4>)state!).Describe((Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, IParameter<T4>?, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, match3, match4,
+		return VerifyMethodWithoutRecords(subject, methodName, match1, match2, match3, match4,
 			parameter1, parameter2, parameter3, parameter4, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3, T4>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2, T3, T4>(T subject, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		IParameter<T1>? parameter1, IParameter<T2>? parameter2, IParameter<T3>? parameter3, IParameter<T4>? parameter4,
 		Func<IParameter<T1>?, IParameter<T2>?, IParameter<T3>?, IParameter<T4>?, string> expectation)
@@ -713,17 +713,17 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1>(T subject, int memberId, string methodName,
 		T1 literalValue1, Func<T1, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod1Buffer<T1>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1>(f, id)) is { } typed)
 		{
 			return new Method1LiteralCountSource<T, T1>(subject, Interactions, typed, methodName, literalValue1,
 				expectation, static (state, format)
 					=> $"invoked method {((Method1LiteralCountSource<T, T1>)state!).Describe((Func<T1, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, literalValue1, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, literalValue1, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1>(T subject, string methodName,
 		T1 literalValue1, Func<T1, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1>>(subject, methodName,
 			m => EqualityComparer<T1>.Default.Equals(literalValue1, m.Parameter1),
@@ -742,17 +742,17 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2>(T subject, int memberId, string methodName,
 		T1 literalValue1, T2 literalValue2, Func<T1, T2, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod2Buffer<T1, T2>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2>(f, id)) is { } typed)
 		{
 			return new Method2LiteralCountSource<T, T1, T2>(subject, Interactions, typed, methodName,
 				literalValue1, literalValue2, expectation, static (state, format)
 					=> $"invoked method {((Method2LiteralCountSource<T, T1, T2>)state!).Describe((Func<T1, T2, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, literalValue1, literalValue2, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, literalValue1, literalValue2, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2>(T subject, string methodName,
 		T1 literalValue1, T2 literalValue2, Func<T1, T2, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1, T2>>(subject, methodName,
 			m => EqualityComparer<T1>.Default.Equals(literalValue1, m.Parameter1) &&
@@ -773,17 +773,17 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3>(T subject, int memberId, string methodName,
 		T1 literalValue1, T2 literalValue2, T3 literalValue3, Func<T1, T2, T3, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod3Buffer<T1, T2, T3>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3>(f, id)) is { } typed)
 		{
 			return new Method3LiteralCountSource<T, T1, T2, T3>(subject, Interactions, typed, methodName,
 				literalValue1, literalValue2, literalValue3, expectation, static (state, format)
 					=> $"invoked method {((Method3LiteralCountSource<T, T1, T2, T3>)state!).Describe((Func<T1, T2, T3, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, literalValue1, literalValue2, literalValue3, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, literalValue1, literalValue2, literalValue3, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2, T3>(T subject, string methodName,
 		T1 literalValue1, T2 literalValue2, T3 literalValue3, Func<T1, T2, T3, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1, T2, T3>>(subject, methodName,
 			m => EqualityComparer<T1>.Default.Equals(literalValue1, m.Parameter1) &&
@@ -807,18 +807,18 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, T3, T4>(T subject, int memberId, string methodName,
 		T1 literalValue1, T2 literalValue2, T3 literalValue3, T4 literalValue4, Func<T1, T2, T3, T4, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod4Buffer<T1, T2, T3, T4>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3, T4>(f, id)) is { } typed)
 		{
 			return new Method4LiteralCountSource<T, T1, T2, T3, T4>(subject, Interactions, typed, methodName,
 				literalValue1, literalValue2, literalValue3, literalValue4, expectation, static (state, format)
 					=> $"invoked method {((Method4LiteralCountSource<T, T1, T2, T3, T4>)state!).Describe((Func<T1, T2, T3, T4, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName,
+		return VerifyMethodWithoutRecords(subject, methodName,
 			literalValue1, literalValue2, literalValue3, literalValue4, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3, T4>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2, T3, T4>(T subject, string methodName,
 		T1 literalValue1, T2 literalValue2, T3 literalValue3, T4 literalValue4, Func<T1, T2, T3, T4, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1, T2, T3, T4>>(subject, methodName,
 			m => EqualityComparer<T1>.Default.Equals(literalValue1, m.Parameter1) &&
@@ -840,17 +840,17 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, TState>(T subject, int memberId, string methodName,
 		IParameterMatch<T1> match1, TState state, Func<TState, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod1Buffer<T1>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1>(f, id)) is { } typed)
 		{
 			return new Method1StateCountSource<T, T1, TState>(subject, Interactions, typed, methodName, match1, state,
 				expectation, static (source, format)
 					=> $"invoked method {((Method1StateCountSource<T, T1, TState>)source!).Describe((Func<TState, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, match1, state, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, match1, state, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, TState>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, TState>(T subject, string methodName,
 		IParameterMatch<T1> match1, TState state, Func<TState, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1>>(subject, methodName,
 			m => match1.Matches(m.Parameter1),
@@ -870,17 +870,17 @@ public partial class MockRegistry
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T, T1, T2, TState>(T subject, int memberId, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, TState state, Func<TState, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod2Buffer<T1, T2>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2>(f, id)) is { } typed)
 		{
 			return new Method2StateCountSource<T, T1, T2, TState>(subject, Interactions, typed, methodName,
 				match1, match2, state, expectation, static (source, format)
 					=> $"invoked method {((Method2StateCountSource<T, T1, T2, TState>)source!).Describe((Func<TState, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, state, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, match1, match2, state, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, TState>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2, TState>(T subject, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, TState state, Func<TState, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1, T2>>(subject, methodName,
 			m => match1.Matches(m.Parameter1) && match2.Matches(m.Parameter2),
@@ -902,17 +902,17 @@ public partial class MockRegistry
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
 		TState state, Func<TState, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod3Buffer<T1, T2, T3>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3>(f, id)) is { } typed)
 		{
 			return new Method3StateCountSource<T, T1, T2, T3, TState>(subject, Interactions, typed, methodName,
 				match1, match2, match3, state, expectation, static (source, format)
 					=> $"invoked method {((Method3StateCountSource<T, T1, T2, T3, TState>)source!).Describe((Func<TState, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, match3, state, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, match1, match2, match3, state, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3, TState>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2, T3, TState>(T subject, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
 		TState state, Func<TState, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1, T2, T3>>(subject, methodName,
@@ -936,17 +936,17 @@ public partial class MockRegistry
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		TState state, Func<TState, string> expectation)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastMethod4Buffer<T1, T2, T3, T4>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3, T4>(f, id)) is { } typed)
 		{
 			return new Method4StateCountSource<T, T1, T2, T3, T4, TState>(subject, Interactions, typed, methodName,
 				match1, match2, match3, match4, state, expectation, static (source, format)
 					=> $"invoked method {((Method4StateCountSource<T, T1, T2, T3, T4, TState>)source!).Describe((Func<TState, string>)format!)}");
 		}
 
-		return VerifyMethodWithoutBuffer(subject, methodName, match1, match2, match3, match4, state, expectation);
+		return VerifyMethodWithoutRecords(subject, methodName, match1, match2, match3, match4, state, expectation);
 	}
 
-	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutBuffer<T, T1, T2, T3, T4, TState>(T subject, string methodName,
+	private VerificationResult<T>.IgnoreParameters VerifyMethodWithoutRecords<T, T1, T2, T3, T4, TState>(T subject, string methodName,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		TState state, Func<TState, string> expectation)
 		=> VerifyMethod<T, MethodInvocation<T1, T2, T3, T4>>(subject, methodName,
@@ -959,7 +959,7 @@ public partial class MockRegistry
 	/// </summary>
 	internal VerificationResult<T> VerifyPropertyTyped<T>(T subject, int memberId, string propertyName)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastPropertyGetterBuffer(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new PropertyGetterRecords(f, id)) is { } typed)
 		{
 			return new PropertyGetterCountSource<T>(subject, Interactions, typed,
 				propertyName, static (_, name) => GotPropertyText(name));
@@ -974,7 +974,7 @@ public partial class MockRegistry
 	internal VerificationResult<TSubject> VerifyPropertyTyped<TSubject, TValue>(TSubject subject, int memberId,
 		string propertyName, IParameterMatch<TValue> value)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastPropertySetterBuffer<TValue>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new PropertySetterRecords<TValue>(f, id)) is { } typed)
 		{
 			return new PropertySetterCountSource<TSubject, TValue>(subject, Interactions, typed, value,
 				propertyName, static (state, name)
@@ -990,7 +990,7 @@ public partial class MockRegistry
 	internal VerificationResult<T> IndexerGotTyped<T, T1>(T subject, int memberId,
 		IParameterMatch<T1> match1, Func<string> parametersDescription)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastIndexerGetterBuffer<T1>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new IndexerGetterRecords<T1>(f, id)) is { } typed)
 		{
 			return new IndexerGetter1CountSource<T, T1>(subject, Interactions, typed, match1,
 				parametersDescription, static (_, description) => GotIndexerText(description));
@@ -1007,7 +1007,7 @@ public partial class MockRegistry
 	internal VerificationResult<T> IndexerGotTyped<T, T1, T2>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, Func<string> parametersDescription)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastIndexerGetterBuffer<T1, T2>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new IndexerGetterRecords<T1, T2>(f, id)) is { } typed)
 		{
 			return new IndexerGetter2CountSource<T, T1, T2>(subject, Interactions, typed, match1, match2,
 				parametersDescription, static (_, description) => GotIndexerText(description));
@@ -1025,7 +1025,7 @@ public partial class MockRegistry
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
 		Func<string> parametersDescription)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastIndexerGetterBuffer<T1, T2, T3>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new IndexerGetterRecords<T1, T2, T3>(f, id)) is { } typed)
 		{
 			return new IndexerGetter3CountSource<T, T1, T2, T3>(subject, Interactions, typed, match1, match2, match3,
 				parametersDescription, static (_, description) => GotIndexerText(description));
@@ -1043,7 +1043,7 @@ public partial class MockRegistry
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		Func<string> parametersDescription)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastIndexerGetterBuffer<T1, T2, T3, T4>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new IndexerGetterRecords<T1, T2, T3, T4>(f, id)) is { } typed)
 		{
 			return new IndexerGetter4CountSource<T, T1, T2, T3, T4>(subject, Interactions, typed,
 				match1, match2, match3, match4,
@@ -1061,7 +1061,7 @@ public partial class MockRegistry
 	internal VerificationResult<T> IndexerSetTyped<T, T1, TValue>(T subject, int memberId,
 		IParameterMatch<T1> match1, IParameterMatch<TValue> value, Func<string> parametersDescription)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastIndexerSetterBuffer<T1, TValue>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new IndexerSetterRecords<T1, TValue>(f, id)) is { } typed)
 		{
 			return new IndexerSetter1CountSource<T, T1, TValue>(subject, Interactions, typed, match1, value,
 				parametersDescription, static (state, description)
@@ -1080,7 +1080,7 @@ public partial class MockRegistry
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2,
 		IParameterMatch<TValue> value, Func<string> parametersDescription)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastIndexerSetterBuffer<T1, T2, TValue>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new IndexerSetterRecords<T1, T2, TValue>(f, id)) is { } typed)
 		{
 			return new IndexerSetter2CountSource<T, T1, T2, TValue>(subject, Interactions, typed, match1, match2, value,
 				parametersDescription, static (state, description)
@@ -1099,7 +1099,7 @@ public partial class MockRegistry
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3,
 		IParameterMatch<TValue> value, Func<string> parametersDescription)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastIndexerSetterBuffer<T1, T2, T3, TValue>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new IndexerSetterRecords<T1, T2, T3, TValue>(f, id)) is { } typed)
 		{
 			return new IndexerSetter3CountSource<T, T1, T2, T3, TValue>(subject, Interactions, typed,
 				match1, match2, match3, value,
@@ -1119,7 +1119,7 @@ public partial class MockRegistry
 		IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4,
 		IParameterMatch<TValue> value, Func<string> parametersDescription)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastIndexerSetterBuffer<T1, T2, T3, T4, TValue>(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new IndexerSetterRecords<T1, T2, T3, T4, TValue>(f, id)) is { } typed)
 		{
 			return new IndexerSetter4CountSource<T, T1, T2, T3, T4, TValue>(subject, Interactions, typed,
 				match1, match2, match3, match4, value,
@@ -1137,7 +1137,7 @@ public partial class MockRegistry
 	/// </summary>
 	internal VerificationResult<T> SubscribedToTyped<T>(T subject, int memberId, string eventName)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastEventBuffer(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new EventRecords(f, id)) is { } typed)
 		{
 			return new EventCountSource<T>(subject, Interactions, typed,
 				eventName, static (_, name) => SubscribedToEventText(name));
@@ -1151,7 +1151,7 @@ public partial class MockRegistry
 	/// </summary>
 	internal VerificationResult<T> UnsubscribedFromTyped<T>(T subject, int memberId, string eventName)
 	{
-		if (TryGetBuffer(memberId, static (f, id) => new FastEventBuffer(f, id)) is { } typed)
+		if (TryGetRecords(memberId, static (f, id) => new EventRecords(f, id)) is { } typed)
 		{
 			return new EventCountSource<T>(subject, Interactions, typed,
 				eventName, static (_, name) => UnsubscribedFromEventText(name));
@@ -1209,13 +1209,13 @@ public partial class MockRegistry
 	///     The view on the typed records of the member, or <see langword="null" /> when it has none, so that the
 	///     caller verifies against all interactions of the mock instead.
 	/// </summary>
-	private RecordList? TryGetBuffer(int memberId)
-		=> Interactions is FastMockInteractions fast ? fast.FindBuffer(memberId) : null;
+	private MemberRecords? TryGetRecords(int memberId)
+		=> Interactions is FastMockInteractions fast ? fast.FindRecords(memberId) : null;
 
-	/// <inheritdoc cref="TryGetBuffer(int)" />
-	private TBuffer? TryGetBuffer<TBuffer>(int memberId, Func<FastMockInteractions, int, TBuffer> factory)
-		where TBuffer : RecordList
-		=> Interactions is FastMockInteractions fast ? fast.FindBuffer(memberId, factory) : null;
+	/// <inheritdoc cref="TryGetRecords(int)" />
+	private TRecords? TryGetRecords<TRecords>(int memberId, Func<FastMockInteractions, int, TRecords> factory)
+		where TRecords : MemberRecords
+		=> Interactions is FastMockInteractions fast ? fast.FindRecords(memberId, factory) : null;
 
 	/// <summary>
 	///     Returns every registered setup (indexer, property, method) that was not hit by any of the given

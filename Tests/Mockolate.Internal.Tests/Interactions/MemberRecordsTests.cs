@@ -7,13 +7,13 @@ using Mockolate.Parameters;
 
 namespace Mockolate.Internal.Tests.Interactions;
 
-public class RecordListTests
+public class MemberRecordsTests
 {
 	[Test]
 	public async Task Clear_AfterManyRecords_ResetsCountAndAllowsRefill()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = CreateBuffer(store);
+		MethodRecords<int> buffer = CreateBuffer(store);
 		for (int i = 0; i < 50; i++)
 		{
 			buffer.Append("Foo", i);
@@ -32,7 +32,7 @@ public class RecordListTests
 	public async Task Clear_ShouldNotCarryOverVerifiedFlags()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = CreateBuffer(store);
+		MethodRecords<int> buffer = CreateBuffer(store);
 		buffer.Append("Foo", 1);
 		buffer.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>());
 
@@ -173,11 +173,11 @@ public class RecordListTests
 	{
 		FastMockInteractions store = new(2);
 
-		FastMethod1Buffer<int>.Append(store, 0, "Foo", 1);
-		FastMethod1Buffer<int>.Append(store, 1, "Bar", 2);
-		FastMethod1Buffer<int>.Append(store, 0, "Foo", 3);
+		MethodRecords<int>.Append(store, 0, "Foo", 1);
+		MethodRecords<int>.Append(store, 1, "Bar", 2);
+		MethodRecords<int>.Append(store, 0, "Foo", 3);
 
-		FastMethod1Buffer<int> view = CreateBuffer(store);
+		MethodRecords<int> view = CreateBuffer(store);
 		await That(view.Count).IsEqualTo(2);
 		await That(view.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>())).IsEqualTo(2);
 		await That(store.Count).IsEqualTo(3);
@@ -189,7 +189,7 @@ public class RecordListTests
 	{
 		const int total = 100;
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = CreateBuffer(store);
+		MethodRecords<int> buffer = CreateBuffer(store);
 		for (int i = 0; i < total; i++)
 		{
 			buffer.Append("Foo", i);
@@ -206,7 +206,7 @@ public class RecordListTests
 	public async Task ConsumeMatching_WhenMatcherWaitsForAnotherThreadToRecordACall_ShouldNotDeadlock()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = CreateBuffer(store);
+		MethodRecords<int> buffer = CreateBuffer(store);
 		buffer.Append("Foo", 1);
 
 		int matches = buffer.ConsumeMatching((IParameterMatch<int>)It.Satisfies<int>(_ =>
@@ -226,7 +226,7 @@ public class RecordListTests
 	{
 		const int total = 100;
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = CreateBuffer(store);
+		MethodRecords<int> buffer = CreateBuffer(store);
 		for (int i = 0; i < total; i++)
 		{
 			buffer.Append("Foo", i);
@@ -235,8 +235,8 @@ public class RecordListTests
 		await That(store.Select(x => ((MethodInvocation<int>)x).Parameter1)).IsEqualTo(Enumerable.Range(0, total));
 	}
 
-	private static FastMethod1Buffer<int> CreateBuffer(FastMockInteractions store)
-		=> new FastMethod1Buffer<int>(store, 0);
+	private static MethodRecords<int> CreateBuffer(FastMockInteractions store)
+		=> new MethodRecords<int>(store, 0);
 
 	private static IntList CreateList(int count)
 	{

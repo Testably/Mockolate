@@ -578,7 +578,7 @@ public sealed partial class MockTests
 					          			bool wrappedResult = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod1Buffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod1, "global::MyCode.IMyService.MyMethod1", index);
+					          				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod1, "global::MyCode.IMyService.MyMethod1", index);
 					          			}
 					          			try
 					          			{
@@ -616,7 +616,7 @@ public sealed partial class MockTests
 					          			bool hasWrappedResult = false;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod2Buffer<int, bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod2, "global::MyCode.IMyService.MyMethod2", index, isReadOnly);
+					          				global::Mockolate.Internals.MethodRecords<int, bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod2, "global::MyCode.IMyService.MyMethod2", index, isReadOnly);
 					          			}
 					          			try
 					          			{
@@ -692,7 +692,7 @@ public sealed partial class MockTests
 					          			int wrappedResult = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod1Buffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyDirectMethod, "global::MyCode.IMyService.MyDirectMethod", value);
+					          				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyDirectMethod, "global::MyCode.IMyService.MyDirectMethod", value);
 					          			}
 					          			try
 					          			{
@@ -731,7 +731,7 @@ public sealed partial class MockTests
 					          			int wrappedResult = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod1Buffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyBaseMethod1, "global::MyCode.IMyServiceBase1.MyBaseMethod1", value);
+					          				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyBaseMethod1, "global::MyCode.IMyServiceBase1.MyBaseMethod1", value);
 					          			}
 					          			try
 					          			{
@@ -770,7 +770,7 @@ public sealed partial class MockTests
 					          			int wrappedResult = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod1Buffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyBaseMethod2, "global::MyCode.IMyServiceBase2.MyBaseMethod2", value);
+					          				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyBaseMethod2, "global::MyCode.IMyServiceBase2.MyBaseMethod2", value);
 					          			}
 					          			try
 					          			{
@@ -809,7 +809,7 @@ public sealed partial class MockTests
 					          			int wrappedResult = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod1Buffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyBaseMethod3, "global::MyCode.IMyServiceBase3.MyBaseMethod3", value);
+					          				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyBaseMethod3, "global::MyCode.IMyServiceBase3.MyBaseMethod3", value);
 					          			}
 					          			try
 					          			{
@@ -1164,7 +1164,7 @@ public sealed partial class MockTests
 					          			bool hasWrappedResult = false;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod1Buffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod1, "global::MyCode.IMyService.MyMethod1", index);
+					          				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod1, "global::MyCode.IMyService.MyMethod1", index);
 					          			}
 					          			try
 					          			{
@@ -1212,7 +1212,7 @@ public sealed partial class MockTests
 					          			isReadOnly = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod2Buffer<int, bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod2, "global::MyCode.IMyService.MyMethod2", index, isReadOnly);
+					          				global::Mockolate.Internals.MethodRecords<int, bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod2, "global::MyCode.IMyService.MyMethod2", index, isReadOnly);
 					          			}
 					          			try
 					          			{
@@ -1265,7 +1265,7 @@ public sealed partial class MockTests
 					          			bool hasWrappedResult = false;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod1Buffer<global::MyCode.MyReadonlyStruct>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod3, "global::MyCode.IMyService.MyMethod3", p1);
+					          				global::Mockolate.Internals.MethodRecords<global::MyCode.MyReadonlyStruct>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod3, "global::MyCode.IMyService.MyMethod3", p1);
 					          			}
 					          			try
 					          			{
@@ -1299,7 +1299,7 @@ public sealed partial class MockTests
 					          			bool hasWrappedResult = false;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				global::Mockolate.Internals.FastMethod1Buffer<global::MyCode.MyReadonlyStruct>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod4, "global::MyCode.IMyService.MyMethod4", p1);
+					          				global::Mockolate.Internals.MethodRecords<global::MyCode.MyReadonlyStruct>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMyService.MemberId_MyMethod4, "global::MyCode.IMyService.MyMethod4", p1);
 					          			}
 					          			try
 					          			{
@@ -1423,7 +1423,7 @@ public sealed partial class MockTests
 
 				await That(result.Sources).ContainsKey("Mock.IStaticOps.g.cs");
 				await That(result.Sources["Mock.IStaticOps.g.cs"])
-					.Contains("global::Mockolate.Internals.FastMethod1Buffer<int>").And
+					.Contains("global::Mockolate.Internals.MethodRecords<int>").And
 					.Contains(".Append((global::Mockolate.Internals.FastMockInteractions)MockRegistryProvider.Value.Interactions, ")
 					.Because(
 						"static methods record their calls in the interactions of the AsyncLocal-backed registry")

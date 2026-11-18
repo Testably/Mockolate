@@ -42,7 +42,7 @@ internal static partial class Mock
 			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -364,7 +364,7 @@ internal static partial class Mock
 			span = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan", new global::Mockolate.Setup.SpanWrapper<int>(span));
+				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.SpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan", new global::Mockolate.Setup.SpanWrapper<int>(span));
 			}
 			try
 			{
@@ -447,7 +447,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.SpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan", new global::Mockolate.Setup.SpanWrapper<int>(span));
+				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.SpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan", new global::Mockolate.Setup.SpanWrapper<int>(span));
 			}
 			try
 			{
@@ -525,7 +525,7 @@ internal static partial class Mock
 			span = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan", new global::Mockolate.Setup.ReadOnlySpanWrapper<int>(span));
+				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan", new global::Mockolate.Setup.ReadOnlySpanWrapper<int>(span));
 			}
 			try
 			{
@@ -608,7 +608,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod1Buffer<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan", new global::Mockolate.Setup.ReadOnlySpanWrapper<int>(span));
+				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan", new global::Mockolate.Setup.ReadOnlySpanWrapper<int>(span));
 			}
 			try
 			{

@@ -1027,13 +1027,13 @@ public sealed class MockRegistryTests
 		}
 	}
 
-	public sealed class TryGetBufferTests
+	public sealed class TryGetRecordsTests
 	{
 		[Test]
 		public async Task VerifyMethodTyped_WithNonFastInteractions_ShouldFallToSlowPath()
 		{
 			// Pins the `Interactions is FastMockInteractions` type-pattern guard at the top of
-			// TryGetBuffer. With a non-fast IMockInteractions implementation, the fast-path branch
+			// TryGetRecords. With a non-fast IMockInteractions implementation, the fast-path branch
 			// must short-circuit and the verification must succeed via the slow path. (Lives in the
 			// internal test project because the custom IMockInteractions implementation needs to
 			// satisfy the internal `Verified` contract.)
@@ -1189,7 +1189,7 @@ public sealed class MockRegistryTests
 		{
 			FastMockInteractions store = new(1);
 			PropertyGetterAccess access = new("P");
-			FastPropertyGetterBuffer buffer = new(store, 0);
+			PropertyGetterRecords buffer = new(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			int result = registry.GetPropertyFast(0, access, _ => 7);
@@ -1216,7 +1216,7 @@ public sealed class MockRegistryTests
 		{
 			FastMockInteractions store = new(1);
 			PropertyGetterAccess access = new("P");
-			FastPropertyGetterBuffer buffer = new(store, 0);
+			PropertyGetterRecords buffer = new(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			int result = registry.GetPropertyFast(0, access, _ => 7);
@@ -1256,7 +1256,7 @@ public sealed class MockRegistryTests
 			MockBehavior behavior = MockBehavior.Default.SkippingInteractionRecording();
 			FastMockInteractions store = new(1, behavior.SkipInteractionRecording);
 			PropertyGetterAccess access = new("P");
-			FastPropertyGetterBuffer buffer = new(store, 0);
+			PropertyGetterRecords buffer = new(store, 0);
 			MockRegistry registry = new(behavior, store);
 
 			registry.GetPropertyFast(0, access, _ => 7);

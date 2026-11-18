@@ -146,7 +146,7 @@ internal static partial class Sources
 		sb.Append("{").AppendLine();
 		foreach (int count in methodSetups.GroupBy(x => x.Item1).Select(x => x.Key))
 		{
-			AppendFastMethodBuffer(sb, count);
+			AppendMethodRecords(sb, count);
 		}
 
 		sb.Append("}").AppendLine();
@@ -155,7 +155,7 @@ internal static partial class Sources
 		return sb.ToString();
 	}
 
-	private static void AppendFastMethodBuffer(StringBuilder sb, int count)
+	private static void AppendMethodRecords(StringBuilder sb, int count)
 	{
 		string typeArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x}"));
 		string parameters = string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x} parameter{x}"));
@@ -171,7 +171,7 @@ internal static partial class Sources
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
-		sb.Append("\tinternal static class FastMethod").Append(count).Append("Buffer<").Append(typeArgs).Append(">")
+		sb.Append("\tinternal static class MethodRecords<").Append(typeArgs).Append(">")
 			.AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tpublic static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, ")

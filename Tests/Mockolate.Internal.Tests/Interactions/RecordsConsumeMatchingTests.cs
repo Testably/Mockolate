@@ -4,18 +4,18 @@ using Mockolate.Parameters;
 
 namespace Mockolate.Internal.Tests.Interactions;
 
-public class FastBufferConsumeMatchingTests
+public class RecordsConsumeMatchingTests
 {
 	[Test]
-	public async Task FastEventBuffer_ConsumeMatching_ShouldReturnCount()
+	public async Task EventRecords_ConsumeMatching_ShouldReturnCount()
 	{
 		FastMockInteractions store = new(1);
-		FastEventBuffer buffer = new(store, 0);
+		EventRecords buffer = new(store, 0);
 
 		await That(buffer.ConsumeAll()).IsEqualTo(0);
 
-		MethodInfo method = typeof(FastBufferConsumeMatchingTests).GetMethod(
-			nameof(FastEventBuffer_ConsumeMatching_ShouldReturnCount))!;
+		MethodInfo method = typeof(RecordsConsumeMatchingTests).GetMethod(
+			nameof(EventRecords_ConsumeMatching_ShouldReturnCount))!;
 		buffer.AppendSubscription("OnFoo", null, method);
 		buffer.AppendSubscription("OnFoo", null, method);
 
@@ -23,10 +23,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastIndexerGetterBuffer1_ConsumeMatching_ShouldHonorMatcher()
+	public async Task IndexerGetterRecords1_ConsumeMatching_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int> buffer = new(store, 0);
+		IndexerGetterRecords<int> buffer = new(store, 0);
 
 		buffer.Append(1);
 		buffer.Append(2);
@@ -38,10 +38,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastIndexerGetterBuffer2_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task IndexerGetterRecords2_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string> buffer = new(store, 0);
+		IndexerGetterRecords<int, string> buffer = new(store, 0);
 
 		buffer.Append(1, "a");
 		buffer.Append(1, "b");
@@ -56,10 +56,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastIndexerGetterBuffer3_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task IndexerGetterRecords3_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string, bool> buffer = new(store, 0);
+		IndexerGetterRecords<int, string, bool> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true);
 		buffer.Append(2, "a", false);
@@ -80,10 +80,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastIndexerGetterBuffer4_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task IndexerGetterRecords4_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerGetterBuffer<int, string, bool, double> buffer = new(store, 0);
+		IndexerGetterRecords<int, string, bool, double> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true, 1.0);
 		buffer.Append(1, "b", true, 2.0);
@@ -107,10 +107,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastIndexerSetterBuffer1_ConsumeMatching_ShouldHonorMatchers()
+	public async Task IndexerSetterRecords1_ConsumeMatching_ShouldHonorMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string> buffer = new(store, 0);
+		IndexerSetterRecords<int, string> buffer = new(store, 0);
 
 		buffer.Append(1, "a");
 		buffer.Append(1, "b");
@@ -128,10 +128,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastIndexerSetterBuffer2_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task IndexerSetterRecords2_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool> buffer = new(store, 0);
+		IndexerSetterRecords<int, string, bool> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true);
 		buffer.Append(1, "b", false);
@@ -152,10 +152,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastIndexerSetterBuffer3_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task IndexerSetterRecords3_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool, double> buffer = new(store, 0);
+		IndexerSetterRecords<int, string, bool, double> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true, 1.0);
 		buffer.Append(1, "b", true, 2.0);
@@ -179,10 +179,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastIndexerSetterBuffer4_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task IndexerSetterRecords4_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastIndexerSetterBuffer<int, string, bool, double, char> buffer = new(store, 0);
+		IndexerSetterRecords<int, string, bool, double, char> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true, 1.0, 'x');
 		buffer.Append(1, "b", true, 2.0, 'x');
@@ -209,10 +209,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod0Buffer_ConsumeMatching_ShouldReturnCount()
+	public async Task MethodRecords0_ConsumeMatching_ShouldReturnCount()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod0Buffer buffer = new(store, 0);
+		MethodRecords buffer = new(store, 0);
 
 		await That(buffer.ConsumeAll()).IsEqualTo(0);
 
@@ -224,10 +224,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod1Buffer_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	public async Task MethodRecords1_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = new(store, 0);
+		MethodRecords<int> buffer = new(store, 0);
 
 		int consumed = buffer.ConsumeAll();
 
@@ -237,10 +237,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod1Buffer_ConsumeMatching_ShouldHonorMatcher()
+	public async Task MethodRecords1_ConsumeMatching_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = new(store, 0);
+		MethodRecords<int> buffer = new(store, 0);
 
 		buffer.Append("Foo", 1);
 		buffer.Append("Foo", 2);
@@ -252,10 +252,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod2Buffer_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	public async Task MethodRecords2_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = new(store, 0);
+		MethodRecords<int, string> buffer = new(store, 0);
 
 		int consumed = buffer.ConsumeAll();
 
@@ -263,10 +263,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod2Buffer_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task MethodRecords2_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod2Buffer<int, string> buffer = new(store, 0);
+		MethodRecords<int, string> buffer = new(store, 0);
 
 		buffer.Append("Foo", 1, "a");
 		buffer.Append("Foo", 1, "b");
@@ -287,10 +287,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod3Buffer_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	public async Task MethodRecords3_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
+		MethodRecords<int, string, bool> buffer = new(store, 0);
 
 		int consumed = buffer.ConsumeAll();
 
@@ -298,10 +298,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod3Buffer_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task MethodRecords3_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod3Buffer<int, string, bool> buffer = new(store, 0);
+		MethodRecords<int, string, bool> buffer = new(store, 0);
 
 		buffer.Append("Foo", 1, "a", true);
 		buffer.Append("Foo", 2, "a", false);
@@ -326,10 +326,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod4Buffer_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	public async Task MethodRecords4_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
+		MethodRecords<int, string, bool, double> buffer = new(store, 0);
 
 		int consumed = buffer.ConsumeAll();
 
@@ -337,10 +337,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastMethod4Buffer_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task MethodRecords4_ConsumeMatching_ShouldHonorAllMatchers()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod4Buffer<int, string, bool, double> buffer = new(store, 0);
+		MethodRecords<int, string, bool, double> buffer = new(store, 0);
 
 		buffer.Append("Foo", 1, "a", true, 1.0);
 		buffer.Append("Foo", 1, "b", true, 2.0);
@@ -374,10 +374,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastPropertyGetterBuffer_ConsumeMatching_ShouldReturnCount()
+	public async Task PropertyGetterRecords_ConsumeMatching_ShouldReturnCount()
 	{
 		FastMockInteractions store = new(1);
-		FastPropertyGetterBuffer buffer = new(store, 0);
+		PropertyGetterRecords buffer = new(store, 0);
 
 		await That(buffer.ConsumeAll()).IsEqualTo(0);
 
@@ -388,10 +388,10 @@ public class FastBufferConsumeMatchingTests
 	}
 
 	[Test]
-	public async Task FastPropertySetterBuffer_ConsumeMatching_ShouldHonorMatcher()
+	public async Task PropertySetterRecords_ConsumeMatching_ShouldHonorMatcher()
 	{
 		FastMockInteractions store = new(1);
-		FastPropertySetterBuffer<int> buffer = new(store, 0);
+		PropertySetterRecords<int> buffer = new(store, 0);
 
 		buffer.Append("Bar", 1);
 		buffer.Append("Bar", 2);

@@ -7,27 +7,26 @@ using Mockolate.Parameters;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Per-member buffer for parameterless methods. Records only the method name + sequence number.
+///     Records and typed view for parameterless methods. Records only the method name + sequence number.
 /// </summary>
 [DebuggerDisplay("{Count} method calls")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod0Buffer : RecordList
+public sealed class MethodRecords : MemberRecords
 {
 	/// <summary>
-	///     Creates a new parameterless method buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastMethod0Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, string name)
 	{
@@ -47,27 +46,26 @@ public sealed class FastMethod0Buffer : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for 1-parameter methods.
+///     Records and typed view for 1-parameter methods.
 /// </summary>
 [DebuggerDisplay("{Count} method calls")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod1Buffer<T1> : RecordList
+public sealed class MethodRecords<T1> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new 1-parameter method buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastMethod1Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1)
 	{
@@ -80,7 +78,7 @@ public sealed class FastMethod1Buffer<T1> : RecordList
 
 	/// <summary>
 	///     Counts recorded calls whose parameter satisfies <paramref name="match1" />, marking each
-	///     matched slot as verified so it is skipped by a later
+	///     matched record as verified so it is skipped by a later
 	///     <see cref="IMockInteractions.GetUnverifiedInteractions" /> walk. Walks the typed storage in
 	///     place and never allocates an <see cref="IInteraction" />, so count-only verification is
 	///     allocation-free in the common case.
@@ -135,27 +133,26 @@ public sealed class FastMethod1Buffer<T1> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for 2-parameter methods.
+///     Records and typed view for 2-parameter methods.
 /// </summary>
 [DebuggerDisplay("{Count} method calls")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod2Buffer<T1, T2> : RecordList
+public sealed class MethodRecords<T1, T2> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new 2-parameter method buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastMethod2Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2)
 	{
@@ -169,8 +166,8 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList
 
 	/// <summary>
 	///     Counts recorded calls whose parameters satisfy the supplied matchers, marking each matched
-	///     slot as verified. Allocation-free fast path for count-only verification; mirrors
-	///     <see cref="FastMethod1Buffer{T1}.ConsumeMatching(IParameterMatch{T1})" />.
+	///     record as verified. Allocation-free fast path for count-only verification; mirrors
+	///     <see cref="MethodRecords{T1}.ConsumeMatching(IParameterMatch{T1})" />.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2)
 	{
@@ -224,27 +221,26 @@ public sealed class FastMethod2Buffer<T1, T2> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for 3-parameter methods.
+///     Records and typed view for 3-parameter methods.
 /// </summary>
 [DebuggerDisplay("{Count} method calls")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList
+public sealed class MethodRecords<T1, T2, T3> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new 3-parameter method buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastMethod3Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3)
 	{
@@ -259,7 +255,7 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList
 
 	/// <summary>
 	///     Counts recorded calls whose parameters satisfy the supplied matchers, marking each matched
-	///     slot as verified. Allocation-free fast path for count-only verification.
+	///     record as verified. Allocation-free fast path for count-only verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3)
 	{
@@ -315,27 +311,26 @@ public sealed class FastMethod3Buffer<T1, T2, T3> : RecordList
 }
 
 /// <summary>
-///     Per-member buffer for 4-parameter methods.
+///     Records and typed view for 4-parameter methods.
 /// </summary>
 [DebuggerDisplay("{Count} method calls")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList
+public sealed class MethodRecords<T1, T2, T3, T4> : MemberRecords
 {
 	/// <summary>
-	///     Creates a new 4-parameter method buffer attached to <paramref name="owner" />.
+	///     Creates a view on the calls of the member <paramref name="memberId" /> that <paramref name="owner" /> recorded.
 	/// </summary>
-	/// <param name="owner">The mock-wide <see cref="FastMockInteractions" /> the buffer publishes records into.</param>
+	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public FastMethod4Buffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
 	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
 	{
@@ -351,7 +346,7 @@ public sealed class FastMethod4Buffer<T1, T2, T3, T4> : RecordList
 
 	/// <summary>
 	///     Counts recorded calls whose parameters satisfy the supplied matchers, marking each matched
-	///     slot as verified. Allocation-free fast path for count-only verification.
+	///     record as verified. Allocation-free fast path for count-only verification.
 	/// </summary>
 	public int ConsumeMatching(IParameterMatch<T1> match1, IParameterMatch<T2> match2, IParameterMatch<T3> match3, IParameterMatch<T4> match4)
 	{

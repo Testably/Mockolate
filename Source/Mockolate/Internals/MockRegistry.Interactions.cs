@@ -401,7 +401,7 @@ public partial class MockRegistry
 	///     returns the <see cref="MockBehavior.DefaultValue" />.
 	/// </summary>
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>
-	/// <param name="access">The indexer access whose arguments identify the slot.</param>
+	/// <param name="access">The indexer access whose arguments identify the record.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The stored value, or the freshly generated default.</returns>
 	/// <exception cref="MockNotSetupException"><see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" /> and no value was previously stored for this access.</exception>
@@ -428,7 +428,7 @@ public partial class MockRegistry
 	///     ensuring the indexer value storage is wired up before dispatching.
 	/// </summary>
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>
-	/// <param name="access">The indexer access whose arguments identify the slot.</param>
+	/// <param name="access">The indexer access whose arguments identify the record.</param>
 	/// <param name="setup">The previously matched indexer setup.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The value produced by the setup.</returns>
@@ -447,7 +447,7 @@ public partial class MockRegistry
 	///     <paramref name="baseValue" /> (which is then stored).
 	/// </remarks>
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>
-	/// <param name="access">The indexer access whose arguments identify the slot.</param>
+	/// <param name="access">The indexer access whose arguments identify the record.</param>
 	/// <param name="setup">The matching indexer setup, or <see langword="null" /> to fall through to stored/base value.</param>
 	/// <param name="baseValue">Value returned by the base-class indexer (or a caller-supplied default).</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
@@ -481,7 +481,7 @@ public partial class MockRegistry
 	///     value.
 	/// </remarks>
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>
-	/// <param name="access">The indexer access whose arguments identify the slot.</param>
+	/// <param name="access">The indexer access whose arguments identify the record.</param>
 	/// <param name="setup">The matching indexer setup, or <see langword="null" /> to fall through to stored/default value.</param>
 	/// <param name="defaultValueGenerator">Lazy producer of the default value &#8212; only invoked when a default is actually needed.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
@@ -516,7 +516,7 @@ public partial class MockRegistry
 	///     and optional matching <paramref name="setup" />.
 	/// </summary>
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>
-	/// <param name="access">The indexer access whose arguments identify the slot.</param>
+	/// <param name="access">The indexer access whose arguments identify the record.</param>
 	/// <param name="setup">The matching indexer setup, or <see langword="null" /> to simply store the value.</param>
 	/// <param name="value">The value being assigned.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
@@ -668,7 +668,7 @@ public partial class MockRegistry
 	///     Allocation-free fast-path overload of <see cref="GetProperty{TResult}(string, Func{TResult}, Func{TResult}?)" />
 	///     that records the shared <paramref name="access" /> singleton emitted by the source generator,
 	///     avoiding the per-call <see cref="PropertyGetterAccess" /> allocation. The
-	///     <see cref="FastPropertyGetterBuffer" /> stores only a sequence number per call and emits the
+	///     <see cref="PropertyGetterRecords" /> stores only a sequence number per call and emits the
 	///     same singleton for every recorded record on verification; the cold-path fall-through likewise
 	///     registers the singleton.
 	/// </summary>
@@ -769,7 +769,7 @@ public partial class MockRegistry
 	{
 		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
 		{
-			FastPropertyGetterBuffer.Append(fast, memberId, access);
+			PropertyGetterRecords.Append(fast, memberId, access);
 			return;
 		}
 
@@ -841,7 +841,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Member-id-keyed overload of <see cref="SetProperty{T}(string, T)" /> that records via the typed
-	///     <see cref="FastPropertySetterBuffer{T}" /> when the mock is wired to a
+	///     <see cref="PropertySetterRecords{T}" /> when the mock is wired to a
 	///     <see cref="FastMockInteractions" />, falling back to the legacy list otherwise.
 	/// </summary>
 	/// <typeparam name="T">The property's value type.</typeparam>
@@ -871,7 +871,7 @@ public partial class MockRegistry
 	/// <typeparam name="T">The property's value type.</typeparam>
 	/// <param name="memberId">The generator-emitted member id for the property setter.</param>
 	/// <param name="propertyName">The simple property name.</param>
-	/// <param name="setterMemberId">The generator-emitted member id for the property setter accessor (for FastPropertySetterBuffer dispatch).</param>
+	/// <param name="setterMemberId">The generator-emitted member id for the property setter accessor (for PropertySetterRecords dispatch).</param>
 	/// <param name="value">The value being assigned.</param>
 	/// <returns><see langword="true" /> when the base-class setter should be skipped.</returns>
 	public bool SetPropertyFast<T>(int memberId, int setterMemberId, string propertyName, T value)
@@ -933,7 +933,7 @@ public partial class MockRegistry
 	{
 		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
 		{
-			FastPropertySetterBuffer<T>.Append(fast, memberId, propertyName, value);
+			PropertySetterRecords<T>.Append(fast, memberId, propertyName, value);
 			return;
 		}
 
@@ -1031,7 +1031,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Member-id-keyed overload of <see cref="AddEvent(string, object?, MethodInfo?)" /> that records via the
-	///     typed <see cref="FastEventBuffer" /> when the mock is wired to a <see cref="FastMockInteractions" />,
+	///     typed <see cref="EventRecords" /> when the mock is wired to a <see cref="FastMockInteractions" />,
 	///     falling back to the legacy list otherwise.
 	/// </summary>
 	/// <param name="memberId">The generator-emitted member id for the event subscribe.</param>
@@ -1102,7 +1102,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Member-id-keyed overload of <see cref="RemoveEvent(string, object?, MethodInfo?)" /> that records via
-	///     the typed <see cref="FastEventBuffer" /> when the mock is wired to a <see cref="FastMockInteractions" />,
+	///     the typed <see cref="EventRecords" /> when the mock is wired to a <see cref="FastMockInteractions" />,
 	///     falling back to the legacy list otherwise.
 	/// </summary>
 	/// <param name="memberId">The generator-emitted member id for the event unsubscribe.</param>
@@ -1150,8 +1150,8 @@ public partial class MockRegistry
 	{
 		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
 		{
-			FastEventBuffer.Append(fast, memberId,
-				isSubscribe ? FastEventBufferKind.Subscribe : FastEventBufferKind.Unsubscribe, name, target, method);
+			EventRecords.Append(fast, memberId,
+				isSubscribe ? EventRecordKind.Subscribe : EventRecordKind.Unsubscribe, name, target, method);
 			return;
 		}
 

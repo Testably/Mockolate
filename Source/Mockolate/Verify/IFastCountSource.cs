@@ -4,7 +4,7 @@ namespace Mockolate.Verify;
 
 /// <summary>
 ///     Allocation-free count source for the count-only verify fast path. Implementations call into a
-///     typed per-member buffer's <c>ConsumeMatching</c> overload so verification terminators that only
+///     typed view's <c>ConsumeMatching</c> overload so verification terminators that only
 ///     need a count (<c>Once</c>, <c>Exactly</c>, <c>AtLeast</c>, ...) can avoid materializing
 ///     <see cref="Mockolate.Interactions.IInteraction" /> instances.
 /// </summary>

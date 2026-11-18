@@ -40,7 +40,7 @@ internal static partial class Mock
 			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -120,7 +120,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.FastIndexerGetterBuffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_int_Get, key);
+					global::Mockolate.Internals.IndexerGetterRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_int_Get, key);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -150,7 +150,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.FastIndexerSetterBuffer<int, string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_int_Set, key, value);
+					global::Mockolate.Internals.IndexerSetterRecords<int, string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_int_Set, key, value);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -184,7 +184,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.FastIndexerGetterBuffer<byte, byte>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_byte_byte_Get, a, b);
+					global::Mockolate.Internals.IndexerGetterRecords<byte, byte>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_byte_byte_Get, a, b);
 				}
 				global::Mockolate.Setup.IndexerSetup<long, byte, byte>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -219,7 +219,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.FastIndexerSetterBuffer<short, short, short, long>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_short_short_short_Set, a, b, c, value);
+					global::Mockolate.Internals.IndexerSetterRecords<short, short, short, long>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_short_short_short_Set, a, b, c, value);
 				}
 				global::Mockolate.Setup.IndexerSetup<long, short, short, short>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -253,7 +253,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.FastIndexerGetterBuffer<global::System.Func<int, bool>, int, string, bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, selector, key, name, flag);
+					global::Mockolate.Internals.IndexerGetterRecords<global::System.Func<int, bool>, int, string, bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IUnionIndexers.MemberId_Indexer_global__System_Func_int__bool__int_string_bool_Get, selector, key, name, flag);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, global::System.Func<int, bool>, int, string, bool>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))

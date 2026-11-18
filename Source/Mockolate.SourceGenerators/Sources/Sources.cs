@@ -120,18 +120,18 @@ internal static partial class Sources
 	///     var setup = mockRegistry.GetIndexerSetup&lt;IndexerSetup&lt;TValue, T...&gt;&gt;(access);</code>
 	/// </summary>
 	/// <remarks>
-	///     When <paramref name="useFastBuffers" /> is set and a <paramref name="memberIdRef" /> is provided, the
+	///     When <paramref name="useTypedRecords" /> is set and a <paramref name="memberIdRef" /> is provided, the
 	///     recording branch records the typed parameters directly and needs no access object.
 	/// </remarks>
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void EmitIndexerGetterAccessAndSetup(StringBuilder sb, string indent,
 		string mockRegistry, string accessVarName, string setupVarName,
 		Type propertyType, EquatableArray<MethodParameter> parameters,
-		bool useFastBuffers = false, string? memberIdRef = null,
+		bool useTypedRecords = false, string? memberIdRef = null,
 		string? setupMemberIdRef = null)
 #pragma warning restore S107
 	{
-		bool recordsTyped = useFastBuffers && memberIdRef is not null;
+		bool recordsTyped = useTypedRecords && memberIdRef is not null;
 		bool deferAccess = CanDeferIndexerAccess(parameters, recordsTyped);
 
 		if (!deferAccess)
@@ -144,7 +144,7 @@ internal static partial class Sources
 		sb.Append(indent).Append("{").AppendLine();
 		if (recordsTyped)
 		{
-			sb.Append(indent).Append("\tglobal::Mockolate.Internals.FastIndexerGetterBuffer<");
+			sb.Append(indent).Append("\tglobal::Mockolate.Internals.IndexerGetterRecords<");
 			AppendIndexerParameterTypes(sb, parameters);
 			sb.Append(">.Append((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
 				.Append(".Interactions, ").Append(memberIdRef).Append(", ");
@@ -245,11 +245,11 @@ internal static partial class Sources
 	private static void EmitIndexerSetterAccessAndSetup(StringBuilder sb, string indent,
 		string mockRegistry, string accessVarName, string setupVarName,
 		Type propertyType, EquatableArray<MethodParameter> parameters,
-		bool useFastBuffers = false, string? memberIdRef = null,
+		bool useTypedRecords = false, string? memberIdRef = null,
 		string? setupMemberIdRef = null)
 #pragma warning restore S107
 	{
-		bool recordsTyped = useFastBuffers && memberIdRef is not null;
+		bool recordsTyped = useTypedRecords && memberIdRef is not null;
 		bool deferAccess = CanDeferIndexerAccess(parameters, recordsTyped);
 
 		if (!deferAccess)
@@ -262,7 +262,7 @@ internal static partial class Sources
 		sb.Append(indent).Append("{").AppendLine();
 		if (recordsTyped)
 		{
-			sb.Append(indent).Append("\tglobal::Mockolate.Internals.FastIndexerSetterBuffer<");
+			sb.Append(indent).Append("\tglobal::Mockolate.Internals.IndexerSetterRecords<");
 			AppendIndexerParameterTypes(sb, parameters);
 			sb.Append(", ").AppendTypeOrWrapper(propertyType)
 				.Append(">.Append((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)

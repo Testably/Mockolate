@@ -44,7 +44,7 @@ internal static partial class Mock
 			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -181,7 +181,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.FastIndexerGetterBuffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Get, key);
+					global::Mockolate.Internals.IndexerGetterRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Get, key);
 				}
 				global::Mockolate.Setup.IndexerSetup<int, int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -211,7 +211,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.FastIndexerSetterBuffer<int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Set, key, value);
+					global::Mockolate.Internals.IndexerSetterRecords<int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Set, key, value);
 				}
 				global::Mockolate.Setup.IndexerSetup<int, int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -305,7 +305,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod0Buffer.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Get");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Get");
 			}
 			try
 			{
@@ -374,7 +374,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod2Buffer<int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value, count);
+				global::Mockolate.Internals.MethodRecords<int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value, count);
 			}
 			try
 			{
@@ -439,7 +439,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod5Buffer<int, int, int, int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Combine", a, b, c, d, e);
+				global::Mockolate.Internals.MethodRecords<int, int, int, int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Combine", a, b, c, d, e);
 			}
 			try
 			{
@@ -510,7 +510,7 @@ internal static partial class Mock
 			value = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod2Buffer<int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_TryGet, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.TryGet", key, value);
+				global::Mockolate.Internals.MethodRecords<int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_TryGet, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.TryGet", key, value);
 			}
 			try
 			{
@@ -594,7 +594,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod1Buffer<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Update", value);
+				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Update", value);
 			}
 			try
 			{

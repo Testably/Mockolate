@@ -40,7 +40,7 @@ internal static partial class Mock
 			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a typed-buffer-sized <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -177,7 +177,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.FastIndexerGetterBuffer<string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IClosedGeneric_string.MemberId_Indexer_string_Get, key);
+					global::Mockolate.Internals.IndexerGetterRecords<string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IClosedGeneric_string.MemberId_Indexer_string_Get, key);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, string>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -250,7 +250,7 @@ internal static partial class Mock
 			string wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod2Buffer<string, global::System.Collections.Generic.List<string>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IClosedGeneric_string.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Get", value, values);
+				global::Mockolate.Internals.MethodRecords<string, global::System.Collections.Generic.List<string>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IClosedGeneric_string.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Get", value, values);
 			}
 			try
 			{
@@ -391,7 +391,7 @@ internal static partial class Mock
 			(string Item, int Count) wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.FastMethod1Buffer<(string, string)>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IClosedGeneric_string.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Pair", value);
+				global::Mockolate.Internals.MethodRecords<(string, string)>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IClosedGeneric_string.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Pair", value);
 			}
 			try
 			{

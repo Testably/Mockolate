@@ -13,7 +13,7 @@ internal interface IFastVerifyCountResult
 {
 	/// <summary>
 	///     Counts the matching interactions and returns whether <paramref name="countPredicate" />
-	///     accepts the count. Implementations route through the typed per-member buffer's
+	///     accepts the count. Implementations route through the typed view's
 	///     <c>ConsumeMatching</c> when available; otherwise fall back to materialising and counting.
 	/// </summary>
 	bool VerifyCount(Func<int, bool> countPredicate);

@@ -6,39 +6,38 @@ using Mockolate.Internals;
 namespace Mockolate.Interactions;
 
 /// <summary>
-///     Distinguishes whether a <see cref="FastEventBuffer" /> records subscribe or unsubscribe calls.
+///     Distinguishes whether a <see cref="EventRecords" /> records subscribe or unsubscribe calls.
 /// </summary>
-internal enum FastEventBufferKind
+internal enum EventRecordKind
 {
-	/// <summary>The buffer records event subscriptions.</summary>
+	/// <summary>The record is an event subscription.</summary>
 	Subscribe,
 
-	/// <summary>The buffer records event unsubscriptions.</summary>
+	/// <summary>The record is an event unsubscription.</summary>
 	Unsubscribe,
 }
 
 /// <summary>
-///     Per-member buffer for event subscribe or unsubscribe access. Each record carries its kind, so that it
+///     Records and typed view for event subscribe or unsubscribe access. Each record carries its kind, so that it
 ///     produces an <see cref="EventSubscription" /> or an <see cref="EventUnsubscription" /> as appropriate.
 /// </summary>
 [DebuggerDisplay("{Count} event accesses")]
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-internal sealed class FastEventBuffer : RecordList
+internal sealed class EventRecords : MemberRecords
 {
 	/// <summary>
 	///     Creates a view that reads the recorded subscriptions or unsubscriptions of an event.
 	/// </summary>
-	public FastEventBuffer(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public EventRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
-	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />, without
-	///     the need for a buffer instance.
+	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, FastEventBufferKind kind, string name,
+	public static void Append(FastMockInteractions owner, int memberId, EventRecordKind kind, string name,
 		object? target, MethodInfo method)
 	{
 		Record r = new();
@@ -55,10 +54,10 @@ internal sealed class FastEventBuffer : RecordList
 		public string Name = null!;
 		public object? Target;
 		public MethodInfo Method = null!;
-		public FastEventBufferKind Kind;
+		public EventRecordKind Kind;
 
 		protected override IInteraction CreateInteraction()
-			=> Kind == FastEventBufferKind.Subscribe
+			=> Kind == EventRecordKind.Subscribe
 				? new EventSubscription(Name, Target, Method)
 				: new EventUnsubscription(Name, Target, Method);
 	}

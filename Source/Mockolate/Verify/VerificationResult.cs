@@ -40,7 +40,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 {
 	private readonly VerificationExpectation _expectation;
 	private readonly IMockInteractions _interactions;
-	private readonly RecordList? _buffer;
+	private readonly MemberRecords? _records;
 	private readonly IFastCountSource? _fastCountSource;
 	private Func<IInteraction, bool>? _predicate;
 	private readonly TVerify _verify;
@@ -71,13 +71,13 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 	internal VerificationResult(TVerify verify,
 		IMockInteractions interactions,
-		RecordList? buffer,
+		MemberRecords? records,
 		Func<IInteraction, bool> predicate,
 		VerificationExpectation expectation)
 	{
 		_verify = verify;
 		_interactions = interactions;
-		_buffer = buffer;
+		_records = records;
 		_predicate = predicate;
 		_expectation = expectation;
 	}
@@ -88,14 +88,14 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	/// </summary>
 	private VerificationResult(TVerify verify,
 		IMockInteractions interactions,
-		RecordList? buffer,
+		MemberRecords? records,
 		IFastCountSource? fastCountSource,
 		Func<IInteraction, bool>? predicate,
 		VerificationExpectation expectation)
 	{
 		_verify = verify;
 		_interactions = interactions;
-		_buffer = buffer;
+		_records = records;
 		_fastCountSource = fastCountSource;
 		_predicate = predicate;
 		_expectation = expectation;
@@ -109,13 +109,13 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	/// </summary>
 	private protected VerificationResult(TVerify verify,
 		IMockInteractions interactions,
-		RecordList buffer,
+		MemberRecords records,
 		object? expectationArgument,
 		Func<object?, object?, string> expectationFactory)
 	{
 		_verify = verify;
 		_interactions = interactions;
-		_buffer = buffer;
+		_records = records;
 		_fastCountSource = (IFastCountSource)this;
 		_expectation = new VerificationExpectation(this, expectationArgument, expectationFactory);
 	}
@@ -130,9 +130,9 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 	internal VerificationResult<T> Map<T>(T mock)
 	{
-		VerificationResult<T> mapped = _buffer is null && _fastCountSource is null
+		VerificationResult<T> mapped = _records is null && _fastCountSource is null
 			? new VerificationResult<T>(mock, _interactions, _predicate!, _expectation)
-			: new VerificationResult<T>(mock, _interactions, _buffer, _fastCountSource, _predicate, _expectation);
+			: new VerificationResult<T>(mock, _interactions, _records, _fastCountSource, _predicate, _expectation);
 		if (_useCountAll)
 		{
 			mapped.EnableCountAll();
@@ -141,7 +141,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		return this is Awaitable awaitable ? awaitable.WaitLikewise(mapped) : mapped;
 	}
 
-	private protected bool HasBuffer => _buffer is not null;
+	private protected bool HasMemberRecords => _records is not null;
 
 	private bool _useCountAll;
 
@@ -155,13 +155,13 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 	private IInteraction[] CollectMatching()
 	{
-		if (_buffer is null)
+		if (_records is null)
 		{
 			return _interactions.Where(_predicate!).ToArray();
 		}
 
 		List<IInteraction> records = new();
-		_buffer.AppendBoxed(records);
+		_records.AppendBoxed(records);
 		if (records.Count == 0)
 		{
 			return [];
@@ -242,7 +242,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		///     expected interactions to occur.
 		/// </summary>
 		public Awaitable(VerificationResult<TVerify> inner, TimeSpan timeout)
-			: base(inner._verify, inner._interactions, inner._buffer, inner._fastCountSource, inner._predicate, inner._expectation)
+			: base(inner._verify, inner._interactions, inner._records, inner._fastCountSource, inner._predicate, inner._expectation)
 		{
 			_timeout = timeout;
 			if (inner._useCountAll)
@@ -257,7 +257,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		///     expected interactions to occur.
 		/// </summary>
 		public Awaitable(VerificationResult<TVerify> inner, CancellationToken cancellationToken)
-			: base(inner._verify, inner._interactions, inner._buffer, inner._fastCountSource, inner._predicate, inner._expectation)
+			: base(inner._verify, inner._interactions, inner._records, inner._fastCountSource, inner._predicate, inner._expectation)
 		{
 			_cancellationToken = cancellationToken;
 			if (inner._useCountAll)
@@ -593,11 +593,11 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		internal IgnoreParameters(
 			TVerify verify,
 			IMockInteractions interactions,
-			RecordList buffer,
+			MemberRecords records,
 			string methodName,
 			Func<IInteraction, bool> predicate,
 			VerificationExpectation expectation)
-			: base(verify, interactions, buffer, predicate, expectation)
+			: base(verify, interactions, records, predicate, expectation)
 		{
 			_methodName = methodName;
 		}
@@ -605,11 +605,11 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		private protected IgnoreParameters(
 			TVerify verify,
 			IMockInteractions interactions,
-			RecordList buffer,
+			MemberRecords records,
 			string methodName,
 			object? expectationArgument,
 			Func<object?, object?, string> expectationFactory)
-			: base(verify, interactions, buffer, expectationArgument, expectationFactory)
+			: base(verify, interactions, records, expectationArgument, expectationFactory)
 		{
 			_methodName = methodName;
 		}
@@ -620,7 +620,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		public VerificationResult<TVerify> AnyParameters()
 		{
 			EnableCountAll();
-			if (HasBuffer)
+			if (HasMemberRecords)
 			{
 				ReplacePredicate(static _ => true);
 			}

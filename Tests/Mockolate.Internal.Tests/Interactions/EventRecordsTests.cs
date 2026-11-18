@@ -2,7 +2,7 @@ using Mockolate.Interactions;
 
 namespace Mockolate.Internal.Tests.Interactions;
 
-public class FastEventBufferTests
+public class EventRecordsTests
 {
 	[Test]
 	public async Task EventSubscribe_RoutesThroughTypedBuffer()
@@ -13,8 +13,8 @@ public class FastEventBufferTests
 		sut.SomeEvent += static (_, _) => { };
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
-		int subscribeId = Mock.FastEventBufferTests_IFastEventService.MemberId_SomeEvent_Subscribe;
-		FastEventBuffer buffer = new(fast, subscribeId);
+		int subscribeId = Mock.EventRecordsTests_IFastEventService.MemberId_SomeEvent_Subscribe;
+		EventRecords buffer = new(fast, subscribeId);
 		await That(buffer.Count).IsEqualTo(2);
 	}
 
@@ -30,8 +30,8 @@ public class FastEventBufferTests
 		sut.SomeEvent -= handler1;
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
-		int unsubscribeId = Mock.FastEventBufferTests_IFastEventService.MemberId_SomeEvent_Unsubscribe;
-		FastEventBuffer buffer = new(fast, unsubscribeId);
+		int unsubscribeId = Mock.EventRecordsTests_IFastEventService.MemberId_SomeEvent_Unsubscribe;
+		EventRecords buffer = new(fast, unsubscribeId);
 		await That(buffer.Count).IsEqualTo(1);
 	}
 

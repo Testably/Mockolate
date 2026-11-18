@@ -4,16 +4,16 @@ using Mockolate.Parameters;
 
 namespace Mockolate.Internal.Tests.Interactions;
 
-public class FastBufferConcurrencyTests
+public class RecordsConcurrencyTests
 {
 	[Test]
-	public async Task FastMethod1Buffer_ConcurrentAppend_ShouldRecordAllInteractions(CancellationToken cancellationToken)
+	public async Task MethodRecords1_ConcurrentAppend_ShouldRecordAllInteractions(CancellationToken cancellationToken)
 	{
 		const int writerCount = 8;
 		const int appendsPerWriter = 1000;
 
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = new(store, 0);
+		MethodRecords<int> buffer = new(store, 0);
 
 		Task[] writers = new Task[writerCount];
 		for (int w = 0; w < writerCount; w++)
@@ -36,10 +36,10 @@ public class FastBufferConcurrencyTests
 	}
 
 	[Test]
-	public async Task FastMethod1Buffer_InteractionAdded_ShouldFireWhenSubscribed()
+	public async Task MethodRecords1_InteractionAdded_ShouldFireWhenSubscribed()
 	{
 		FastMockInteractions store = new(1);
-		FastMethod1Buffer<int> buffer = new(store, 0);
+		MethodRecords<int> buffer = new(store, 0);
 
 		int invocations = 0;
 

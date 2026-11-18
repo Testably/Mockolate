@@ -3,7 +3,7 @@ using Mockolate.Interactions;
 
 namespace Mockolate.Internal.Tests.Interactions;
 
-public class FastPropertyBufferTests
+public class PropertyRecordsTests
 {
 	[Test]
 	public async Task PropertyGet_BufferRecordsArePreservedOnEnumeration()
@@ -32,8 +32,8 @@ public class FastPropertyBufferTests
 		_ = sut.Counter;
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
-		int getterId = Mock.FastPropertyBufferTests_IFastPropertyService.MemberId_Counter_Get;
-		FastPropertyGetterBuffer buffer = new(fast, getterId);
+		int getterId = Mock.PropertyRecordsTests_IFastPropertyService.MemberId_Counter_Get;
+		PropertyGetterRecords buffer = new(fast, getterId);
 		await That(buffer.Count).IsEqualTo(2);
 		await That(fast.Count).IsEqualTo(2);
 	}
@@ -48,8 +48,8 @@ public class FastPropertyBufferTests
 		sut.Counter = 11;
 
 		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
-		int setterId = Mock.FastPropertyBufferTests_IFastPropertyService.MemberId_Counter_Set;
-		FastPropertySetterBuffer<int> buffer = new(fast, setterId);
+		int setterId = Mock.PropertyRecordsTests_IFastPropertyService.MemberId_Counter_Set;
+		PropertySetterRecords<int> buffer = new(fast, setterId);
 		await That(buffer.Count).IsEqualTo(3);
 	}
 
