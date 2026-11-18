@@ -56,6 +56,10 @@ public sealed class DynamicMembersTests
 		await That(sut.Mock.Verify.Dyn5(It.IsAny<object>(), 2, It.IsAny<int>(), 4, It.Satisfies<object>(v => v is int))).Once();
 		await That(sut.Mock.Verify.Dyn5("b", 2, 3, 4, 5)).Never();
 		await That(sut.Mock.Verify.DynParams(Match.AnyParameters())).Once();
+		await That(sut.Mock.Verify.DynParams(1, It.IsAny<object[]>())).Once()
+			.Because("a matcher for the array type matches the whole params array instead of one element");
+		await That(sut.Mock.Verify.DynParams(1, "a", 2)).Once();
+		await That(sut.Mock.Verify.DynParams(It.IsAny<int>(), It.IsAny<object>(), It.Is<object>(2))).Once();
 	}
 
 	[Test]

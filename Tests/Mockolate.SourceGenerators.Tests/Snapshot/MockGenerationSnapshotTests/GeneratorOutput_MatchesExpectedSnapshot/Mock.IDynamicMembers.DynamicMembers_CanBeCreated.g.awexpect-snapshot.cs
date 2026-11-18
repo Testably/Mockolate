@@ -3031,7 +3031,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 2)]
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, dynamic[]> DynParams(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
@@ -3058,7 +3058,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="values" />.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, dynamic[]> DynParams(int a, global::Mockolate.Parameters.IParameter<dynamic[]>? values);
 
 		/// <summary>
@@ -3076,7 +3076,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, dynamic[]> DynParams(int a, params dynamic[] values);
 
 		/// <summary>
@@ -3511,7 +3511,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 2)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> DynParams(global::Mockolate.Parameters.IParameters parameters);
 
 		/// <summary>
@@ -3538,7 +3538,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts a direct value for <paramref name="a" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="values" />.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers> DynParams(int a, global::Mockolate.Parameters.IParameter<dynamic[]>? values);
 
 		/// <summary>
@@ -3556,7 +3556,7 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicMembers>.IgnoreParameters DynParams(int a, params dynamic[] values);
 
 		/// <summary>

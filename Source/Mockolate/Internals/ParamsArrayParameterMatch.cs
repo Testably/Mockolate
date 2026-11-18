@@ -7,7 +7,8 @@ namespace Mockolate.Internals;
 /// <summary>
 ///     Matches a <c>params</c> array argument element-by-element against a set of per-element matchers.
 ///     The recorded array matches when its length equals the number of matchers and each element
-///     satisfies the matcher at the same position.
+///     satisfies the matcher at the same position. A <see langword="null" /> matcher, which a <see langword="null" />
+///     literal becomes for a <c>params object[]</c>, stands for a <see langword="null" /> element.
 /// </summary>
 /// <remarks>
 ///     Generated <c>Setup</c>/<c>Verify</c> overloads for <c>params T[]</c> methods wrap the per-element
@@ -21,13 +22,13 @@ namespace Mockolate.Internals;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class ParamsArrayParameterMatch<TElement> : IParameterMatch<TElement[]>
 {
-	private readonly IParameter<TElement>[] _matchers;
+	private readonly IParameter<TElement>?[] _matchers;
 
 	/// <summary>
 	///     Initializes a new <see cref="ParamsArrayParameterMatch{TElement}" /> from the per-element
 	///     <paramref name="matchers" />.
 	/// </summary>
-	public ParamsArrayParameterMatch(params IParameter<TElement>[] matchers)
+	public ParamsArrayParameterMatch(params IParameter<TElement>?[] matchers)
 		=> _matchers = matchers;
 
 	/// <inheritdoc cref="IParameterMatch{T}.Matches(T)" />
@@ -40,7 +41,8 @@ public sealed class ParamsArrayParameterMatch<TElement> : IParameterMatch<TEleme
 
 		for (int i = 0; i < _matchers.Length; i++)
 		{
-			if (_matchers[i] is null || !_matchers[i].Matches(value[i]))
+			IParameter<TElement>? matcher = _matchers[i];
+			if (matcher is null ? value[i] is not null : !matcher.Matches(value[i]))
 			{
 				return false;
 			}
