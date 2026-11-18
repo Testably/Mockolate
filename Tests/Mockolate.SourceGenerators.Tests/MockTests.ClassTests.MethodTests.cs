@@ -898,7 +898,7 @@ public sealed partial class MockTests
 					          			flag = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation<int, int, bool>("global::MyCode.MyService.MyMethod1", index, value1, flag));
+					          				global::Mockolate.Internals.MethodRecords<int, int, bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.MyService__IMyOtherService.MemberId_MyMethod1, "global::MyCode.MyService.MyMethod1", index, value1, flag);
 					          			}
 					          			try
 					          			{
@@ -957,7 +957,7 @@ public sealed partial class MockTests
 					          			flag = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation<int, bool, int, bool>("global::MyCode.MyService.MyMethod2", index, isReadOnly, value1, flag));
+					          				global::Mockolate.Internals.MethodRecords<int, bool, int, bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.MyService__IMyOtherService.MemberId_MyMethod2, "global::MyCode.MyService.MyMethod2", index, isReadOnly, value1, flag);
 					          			}
 					          			try
 					          			{
@@ -1015,7 +1015,7 @@ public sealed partial class MockTests
 					          			int wrappedResult = default!;
 					          			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 					          			{
-					          				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation("global::MyCode.IMyOtherService.SomeOtherMethod"));
+					          				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.MyService__IMyOtherService.MemberId_SomeOtherMethod, "global::MyCode.IMyOtherService.SomeOtherMethod");
 					          			}
 					          			try
 					          			{

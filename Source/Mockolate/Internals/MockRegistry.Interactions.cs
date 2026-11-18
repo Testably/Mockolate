@@ -767,7 +767,7 @@ public partial class MockRegistry
 
 	private void RecordPropertyGetter(int memberId, PropertyGetterAccess access)
 	{
-		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
+		if (memberId >= 0 && Interactions is FastMockInteractions fast)
 		{
 			PropertyGetterRecords.Append(fast, memberId, access);
 			return;
@@ -931,7 +931,7 @@ public partial class MockRegistry
 
 	private void RecordPropertySetter<T>(int memberId, string propertyName, T value)
 	{
-		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
+		if (memberId >= 0 && Interactions is FastMockInteractions fast)
 		{
 			PropertySetterRecords<T>.Append(fast, memberId, propertyName, value);
 			return;
@@ -1148,7 +1148,7 @@ public partial class MockRegistry
 
 	private void RecordEvent(int memberId, string name, object? target, MethodInfo method, bool isSubscribe)
 	{
-		if (Interactions is FastMockInteractions fast && (uint)memberId < (uint)fast.MemberCount)
+		if (memberId >= 0 && Interactions is FastMockInteractions fast)
 		{
 			EventRecords.Append(fast, memberId,
 				isSubscribe ? EventRecordKind.Subscribe : EventRecordKind.Unsubscribe, name, target, method);

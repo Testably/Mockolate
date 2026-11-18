@@ -422,7 +422,7 @@ public sealed partial class MockTests
 					          			{
 					          				if (value is not null)
 					          				{
-					          					this.MockRegistry.AddEvent("global::MyCode.MyService.SomeEvent", value.Target, value.Method);
+					          					this.MockRegistry.AddEvent(global::Mockolate.Mock.MyService__IMyOtherService.MemberId_SomeEvent_Subscribe, "global::MyCode.MyService.SomeEvent", value.Target, value.Method);
 					          				}
 					          				this._mockolateEvent_global__MyCode_MyService_SomeEvent += value;
 					          				if (this.MockRegistry.Wraps is global::MyCode.MyService wraps)
@@ -438,7 +438,7 @@ public sealed partial class MockTests
 					          			{
 					          				if (value is not null)
 					          				{
-					          					this.MockRegistry.RemoveEvent("global::MyCode.MyService.SomeEvent", value.Target, value.Method);
+					          					this.MockRegistry.RemoveEvent(global::Mockolate.Mock.MyService__IMyOtherService.MemberId_SomeEvent_Unsubscribe, "global::MyCode.MyService.SomeEvent", value.Target, value.Method);
 					          				}
 					          				this._mockolateEvent_global__MyCode_MyService_SomeEvent -= value;
 					          				if (this.MockRegistry.Wraps is global::MyCode.MyService wraps)
@@ -462,7 +462,7 @@ public sealed partial class MockTests
 					          			{
 					          				if (value is not null)
 					          				{
-					          					this.MockRegistry.AddEvent("global::MyCode.IMyOtherService.SomeThirdEvent", value.Target, value.Method);
+					          					this.MockRegistry.AddEvent(global::Mockolate.Mock.MyService__IMyOtherService.MemberId_SomeThirdEvent_Subscribe, "global::MyCode.IMyOtherService.SomeThirdEvent", value.Target, value.Method);
 					          				}
 					          				this._mockolateEvent_global__MyCode_IMyOtherService_SomeThirdEvent += value;
 					          			}
@@ -470,7 +470,7 @@ public sealed partial class MockTests
 					          			{
 					          				if (value is not null)
 					          				{
-					          					this.MockRegistry.RemoveEvent("global::MyCode.IMyOtherService.SomeThirdEvent", value.Target, value.Method);
+					          					this.MockRegistry.RemoveEvent(global::Mockolate.Mock.MyService__IMyOtherService.MemberId_SomeThirdEvent_Unsubscribe, "global::MyCode.IMyOtherService.SomeThirdEvent", value.Target, value.Method);
 					          				}
 					          				this._mockolateEvent_global__MyCode_IMyOtherService_SomeThirdEvent -= value;
 					          			}
