@@ -221,16 +221,13 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerGetterAccess<string?> access = new(key);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string?, string?>>(access);
+				setup ??= this.MockRegistry.FindIndexerGetterSetup<string?, string?>(global::Mockolate.Mock.INullableTypeParameter_string.MemberId_Indexer_string__Get, key);
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<string> wraps)
 				{
-					return setup is null
-						? this.MockRegistry.GetIndexerFallback<string?>(access, 0)
-						: this.MockRegistry.ApplyIndexerSetup<string?>(access, setup, 0);
+					return this.MockRegistry.GetIndexer<string?, string?>(setup, key, 0);
 				}
 				string? baseResult = wraps[key];
-				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 0);
+				return this.MockRegistry.GetIndexer<string?, string?>(setup, key, baseResult, 0);
 			}
 			set
 			{
@@ -254,9 +251,8 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerSetterAccess<string?, string?> access = new(key, value);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<string?, string?>>(access);
-				this.MockRegistry.ApplyIndexerSetter<string?>(access, setup, value, 0);
+				setup ??= this.MockRegistry.FindIndexerSetterSetup<string?, string?>(global::Mockolate.Mock.INullableTypeParameter_string.MemberId_Indexer_string__Get, key, value);
+				this.MockRegistry.SetIndexer<string?, string?>(setup, key, value, 0);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<string> wraps)
 				{
 					wraps[key] = value;

@@ -645,6 +645,47 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 			return;
 		}
 
+		ExecuteSetterCallbacks(p1, resultValue);
+	}
+
+	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, MockBehavior behavior)
+	{
+		TValue currentValue;
+		if (leaf.HasValue)
+		{
+			currentValue = leaf.Value;
+		}
+		else if (_initialization is not null)
+		{
+			currentValue = _initialization.Invoke(p1);
+		}
+		else
+		{
+			currentValue = behavior.DefaultValue.GenerateTyped<TValue>();
+		}
+
+		currentValue = ExecuteGetterCallbacks(p1, currentValue);
+		currentValue = ExecuteReturnCallbacks(p1, currentValue);
+		leaf.Store(currentValue);
+		return currentValue;
+	}
+
+	internal TValue GetResultWithBase(IndexerValueStorage<TValue> leaf, T1 p1, TValue baseValue)
+	{
+		TValue currentValue = ExecuteGetterCallbacks(p1, baseValue);
+		currentValue = ExecuteReturnCallbacks(p1, currentValue);
+		leaf.Store(currentValue);
+		return currentValue;
+	}
+
+	internal void SetResult(IndexerValueStorage<TValue> leaf, T1 p1, TValue value)
+	{
+		leaf.Store(value);
+		ExecuteSetterCallbacks(p1, value);
+	}
+
+	private void ExecuteSetterCallbacks(T1 p1, TValue resultValue)
+	{
 		if (_setterCallbacks is not null)
 		{
 			bool wasInvoked = false;
@@ -1517,6 +1558,47 @@ public class IndexerSetup<TValue, T1, T2>(
 			return;
 		}
 
+		ExecuteSetterCallbacks(p1, p2, resultValue);
+	}
+
+	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, MockBehavior behavior)
+	{
+		TValue currentValue;
+		if (leaf.HasValue)
+		{
+			currentValue = leaf.Value;
+		}
+		else if (_initialization is not null)
+		{
+			currentValue = _initialization.Invoke(p1, p2);
+		}
+		else
+		{
+			currentValue = behavior.DefaultValue.GenerateTyped<TValue>();
+		}
+
+		currentValue = ExecuteGetterCallbacks(p1, p2, currentValue);
+		currentValue = ExecuteReturnCallbacks(p1, p2, currentValue);
+		leaf.Store(currentValue);
+		return currentValue;
+	}
+
+	internal TValue GetResultWithBase(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, TValue baseValue)
+	{
+		TValue currentValue = ExecuteGetterCallbacks(p1, p2, baseValue);
+		currentValue = ExecuteReturnCallbacks(p1, p2, currentValue);
+		leaf.Store(currentValue);
+		return currentValue;
+	}
+
+	internal void SetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, TValue value)
+	{
+		leaf.Store(value);
+		ExecuteSetterCallbacks(p1, p2, value);
+	}
+
+	private void ExecuteSetterCallbacks(T1 p1, T2 p2, TValue resultValue)
+	{
 		if (_setterCallbacks is not null)
 		{
 			bool wasInvoked = false;
@@ -2406,6 +2488,47 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 			return;
 		}
 
+		ExecuteSetterCallbacks(p1, p2, p3, resultValue);
+	}
+
+	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, MockBehavior behavior)
+	{
+		TValue currentValue;
+		if (leaf.HasValue)
+		{
+			currentValue = leaf.Value;
+		}
+		else if (_initialization is not null)
+		{
+			currentValue = _initialization.Invoke(p1, p2, p3);
+		}
+		else
+		{
+			currentValue = behavior.DefaultValue.GenerateTyped<TValue>();
+		}
+
+		currentValue = ExecuteGetterCallbacks(p1, p2, p3, currentValue);
+		currentValue = ExecuteReturnCallbacks(p1, p2, p3, currentValue);
+		leaf.Store(currentValue);
+		return currentValue;
+	}
+
+	internal TValue GetResultWithBase(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, TValue baseValue)
+	{
+		TValue currentValue = ExecuteGetterCallbacks(p1, p2, p3, baseValue);
+		currentValue = ExecuteReturnCallbacks(p1, p2, p3, currentValue);
+		leaf.Store(currentValue);
+		return currentValue;
+	}
+
+	internal void SetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, TValue value)
+	{
+		leaf.Store(value);
+		ExecuteSetterCallbacks(p1, p2, p3, value);
+	}
+
+	private void ExecuteSetterCallbacks(T1 p1, T2 p2, T3 p3, TValue resultValue)
+	{
 		if (_setterCallbacks is not null)
 		{
 			bool wasInvoked = false;
@@ -3305,6 +3428,47 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 			return;
 		}
 
+		ExecuteSetterCallbacks(p1, p2, p3, p4, resultValue);
+	}
+
+	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, T4 p4, MockBehavior behavior)
+	{
+		TValue currentValue;
+		if (leaf.HasValue)
+		{
+			currentValue = leaf.Value;
+		}
+		else if (_initialization is not null)
+		{
+			currentValue = _initialization.Invoke(p1, p2, p3, p4);
+		}
+		else
+		{
+			currentValue = behavior.DefaultValue.GenerateTyped<TValue>();
+		}
+
+		currentValue = ExecuteGetterCallbacks(p1, p2, p3, p4, currentValue);
+		currentValue = ExecuteReturnCallbacks(p1, p2, p3, p4, currentValue);
+		leaf.Store(currentValue);
+		return currentValue;
+	}
+
+	internal TValue GetResultWithBase(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, T4 p4, TValue baseValue)
+	{
+		TValue currentValue = ExecuteGetterCallbacks(p1, p2, p3, p4, baseValue);
+		currentValue = ExecuteReturnCallbacks(p1, p2, p3, p4, currentValue);
+		leaf.Store(currentValue);
+		return currentValue;
+	}
+
+	internal void SetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, T4 p4, TValue value)
+	{
+		leaf.Store(value);
+		ExecuteSetterCallbacks(p1, p2, p3, p4, value);
+	}
+
+	private void ExecuteSetterCallbacks(T1 p1, T2 p2, T3 p3, T4 p4, TValue resultValue)
+	{
 		if (_setterCallbacks is not null)
 		{
 			bool wasInvoked = false;

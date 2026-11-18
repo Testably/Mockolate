@@ -173,16 +173,13 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerGetterAccess<int, int> access = new(MockRegistry, _scenarioName);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int, int>>(access);
+				setup ??= this.MockRegistry.FindIndexerGetterSetup<int, int, int>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, MockRegistry, _scenarioName);
 				if (!(setup?.SkipBaseClass() ?? this.MockRegistry.Behavior.SkipBaseClass))
 				{
 					int baseResult = this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase wraps ? wraps[MockRegistry, _scenarioName] : base[MockRegistry, _scenarioName];
-					return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 0);
+					return this.MockRegistry.GetIndexer<int, int, int>(setup, MockRegistry, _scenarioName, baseResult, 0);
 				}
-				return setup is null
-					? this.MockRegistry.GetIndexerFallback<int>(access, 0)
-					: this.MockRegistry.ApplyIndexerSetup<int>(access, setup, 0);
+				return this.MockRegistry.GetIndexer<int, int, int>(setup, MockRegistry, _scenarioName, 0);
 			}
 			set
 			{
@@ -206,9 +203,8 @@ internal static partial class Mock
 						}
 					}
 				}
-				global::Mockolate.Interactions.IndexerSetterAccess<int, int, int> access = new(MockRegistry, _scenarioName, value);
-				setup ??= this.MockRegistry.GetIndexerSetup<global::Mockolate.Setup.IndexerSetup<int, int, int>>(access);
-				if (!this.MockRegistry.ApplyIndexerSetter<int>(access, setup, value, 0))
+				setup ??= this.MockRegistry.FindIndexerSetterSetup<int, int, int>(global::Mockolate.Mock.ParameterNameCollisionsBase.MemberId_Indexer_int_int_Get, MockRegistry, _scenarioName, value);
+				if (!this.MockRegistry.SetIndexer<int, int, int>(setup, MockRegistry, _scenarioName, value, 0))
 				{
 					if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsBase wraps)
 					{

@@ -76,6 +76,12 @@ internal sealed class IndexerValueStorage<TValue> : IndexerValueStorage
 	/// </summary>
 	internal TValue Value = default!;
 
+	internal void Store(TValue value)
+	{
+		Value = value;
+		HasValue = true;
+	}
+
 	/// <inheritdoc cref="IndexerValueStorage.GetChildDispatch{TKey}(TKey)" />
 	public override IndexerValueStorage? GetChildDispatch<TKey>(TKey key) => GetChild(key);
 

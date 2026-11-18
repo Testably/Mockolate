@@ -1696,6 +1696,70 @@ internal static partial class Sources
 		string? indexerSetCachedBufferRef = useFastForIndexer
 			? "this." + memberIds.GetIndexerSetterBufferFieldName(property)
 			: null;
+		bool typedIndexerGet = property.IndexerParameters is not null &&
+		                       UsesTypedIndexerDispatch(property.IndexerParameters.Value, indexerGetCachedBufferRef);
+		bool typedIndexerSet = property.IndexerParameters is not null &&
+		                       UsesTypedIndexerDispatch(property.IndexerParameters.Value, indexerSetCachedBufferRef);
+
+		void AppendIndexerGetReturn(string indent, string accessVarName, string setupVarName)
+		{
+			if (typedIndexerGet)
+			{
+				sb.Append(indent).Append("return ");
+				AppendTypedIndexerCall(sb, mockRegistry, "GetIndexer", setupVarName, property.Type,
+					property.IndexerParameters!.Value, null, signatureIndex);
+				sb.Append(';').AppendLine();
+				return;
+			}
+
+			sb.Append(indent).Append("return ").Append(setupVarName).Append(" is null").AppendLine();
+			sb.Append(indent).Append("\t? ").Append(mockRegistry).Append(".GetIndexerFallback<")
+				.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
+				.Append(signatureIndex).Append(")")
+				.AppendLine();
+			sb.Append(indent).Append("\t: ").Append(mockRegistry).Append(".ApplyIndexerSetup<")
+				.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
+				.Append(setupVarName).Append(", ").Append(signatureIndex).Append(");").AppendLine();
+		}
+
+		void AppendIndexerGetWithBaseReturn(string indent, string accessVarName, string setupVarName,
+			string baseResultVarName)
+		{
+			sb.Append(indent).Append("return ");
+			if (typedIndexerGet)
+			{
+				AppendTypedIndexerCall(sb, mockRegistry, "GetIndexer", setupVarName, property.Type,
+					property.IndexerParameters!.Value, baseResultVarName, signatureIndex);
+			}
+			else
+			{
+				sb.Append(mockRegistry).Append(".ApplyIndexerGetter(")
+					.Append(accessVarName).Append(", ").Append(setupVarName).Append(", ")
+					.Append(baseResultVarName).Append(", ").Append(signatureIndex).Append(')');
+			}
+
+			sb.Append(';').AppendLine();
+		}
+
+		void AppendIndexerSetCall(string prefix, string suffix, string accessVarName, string setupVarName)
+		{
+			sb.Append(prefix);
+			if (typedIndexerSet)
+			{
+				AppendTypedIndexerCall(sb, mockRegistry, "SetIndexer", setupVarName, property.Type,
+					property.IndexerParameters!.Value, "value", signatureIndex);
+			}
+			else
+			{
+				sb.Append(mockRegistry).Append(".ApplyIndexerSetter<")
+					.AppendTypeOrWrapper(property.Type).Append(">(")
+					.Append(accessVarName).Append(", ").Append(setupVarName).Append(", value, ")
+					.Append(signatureIndex).Append(')');
+			}
+
+			sb.Append(suffix).AppendLine();
+		}
+
 		string propertyGetMemberArg = useFastForProperty
 			? memberIdPrefix + memberIds.GetPropertyGetIdentifier(property) + ", "
 			: string.Empty;
@@ -1867,23 +1931,13 @@ internal static partial class Sources
 					sb.Append("\t\t\t\tif (").Append(mockRegistry).Append(".Wraps is not ").Append(wrapsType)
 						.Append(' ').Append(wrapsVarName).Append(')').AppendLine();
 					sb.Append("\t\t\t\t{").AppendLine();
-					sb.Append("\t\t\t\t\treturn ").Append(setupVarName).Append(" is null")
-						.AppendLine();
-					sb.Append("\t\t\t\t\t\t? ").Append(mockRegistry).Append(".GetIndexerFallback<")
-						.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-						.Append(signatureIndex).Append(")")
-						.AppendLine();
-					sb.Append("\t\t\t\t\t\t: ").Append(mockRegistry).Append(".ApplyIndexerSetup<")
-						.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-						.Append(setupVarName).Append(", ").Append(signatureIndex).Append(");").AppendLine();
+					AppendIndexerGetReturn("\t\t\t\t\t", accessVarName, setupVarName);
 					sb.Append("\t\t\t\t}").AppendLine();
 					sb.Append("\t\t\t\t").AppendTypeOrWrapper(property.Type).Append(' ').Append(baseResultVarName)
 						.Append(" = ").Append(wrapsVarName).Append('[')
 						.Append(FormatIndexerParametersAsNames(property.IndexerParameters.Value)).Append("];")
 						.AppendLine();
-					sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".ApplyIndexerGetter(")
-						.Append(accessVarName).Append(", ").Append(setupVarName).Append(", ")
-						.Append(baseResultVarName).Append(", ").Append(signatureIndex).Append(");").AppendLine();
+					AppendIndexerGetWithBaseReturn("\t\t\t\t", accessVarName, setupVarName, baseResultVarName);
 				}
 				else
 				{
@@ -1980,18 +2034,9 @@ internal static partial class Sources
 							.AppendLine();
 					}
 
-					sb.Append("\t\t\t\t\treturn ").Append(mockRegistry).Append(".ApplyIndexerGetter(")
-						.Append(accessVarName).Append(", ").Append(setupVarName).Append(", ")
-						.Append(baseResultVarName).Append(", ").Append(signatureIndex).Append(");").AppendLine();
+					AppendIndexerGetWithBaseReturn("\t\t\t\t\t", accessVarName, setupVarName, baseResultVarName);
 					sb.Append("\t\t\t\t}").AppendLine();
-					sb.Append("\t\t\t\treturn ").Append(setupVarName).Append(" is null").AppendLine();
-					sb.Append("\t\t\t\t\t? ").Append(mockRegistry).Append(".GetIndexerFallback<")
-						.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-						.Append(signatureIndex).Append(")")
-						.AppendLine();
-					sb.Append("\t\t\t\t\t: ").Append(mockRegistry).Append(".ApplyIndexerSetup<")
-						.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-						.Append(setupVarName).Append(", ").Append(signatureIndex).Append(");").AppendLine();
+					AppendIndexerGetReturn("\t\t\t\t", accessVarName, setupVarName);
 				}
 				else
 				{
@@ -2048,14 +2093,7 @@ internal static partial class Sources
 					property.Type, property.IndexerParameters.Value, useFastForIndexer,
 					useFastForIndexer ? indexerGetIdRef : null,
 					cachedBufferRef: indexerGetCachedBufferRef);
-				sb.Append("\t\t\t\treturn ").Append(setupVarName).Append(" is null").AppendLine();
-				sb.Append("\t\t\t\t\t? ").Append(mockRegistry).Append(".GetIndexerFallback<")
-					.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-					.Append(signatureIndex).Append(")")
-					.AppendLine();
-				sb.Append("\t\t\t\t\t: ").Append(mockRegistry).Append(".ApplyIndexerSetup<")
-					.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-					.Append(setupVarName).Append(", ").Append(signatureIndex).Append(");").AppendLine();
+				AppendIndexerGetReturn("\t\t\t\t", accessVarName, setupVarName);
 			}
 			else
 			{
@@ -2121,11 +2159,7 @@ internal static partial class Sources
 						useFastForIndexer ? indexerSetIdRef : null,
 						useFastForIndexer ? indexerGetIdRef : null,
 						indexerSetCachedBufferRef);
-					sb.Append("\t\t\t\t").Append(mockRegistry).Append(".ApplyIndexerSetter<")
-						.AppendTypeOrWrapper(property.Type).Append(">(")
-						.Append(accessVarName).Append(", ").Append(setupVarName).Append(", value, ")
-						.Append(signatureIndex).Append(");")
-						.AppendLine();
+					AppendIndexerSetCall("\t\t\t\t", ";", accessVarName, setupVarName);
 
 					sb.Append("\t\t\t\tif (").Append(mockRegistry).Append(".Wraps is ").Append(wrapsType)
 						.Append(' ').Append(wrapsVarName).Append(')').AppendLine();
@@ -2179,10 +2213,7 @@ internal static partial class Sources
 						useFastForIndexer ? indexerSetIdRef : null,
 						useFastForIndexer ? indexerGetIdRef : null,
 						indexerSetCachedBufferRef);
-					sb.Append("\t\t\t\tif (!").Append(mockRegistry).Append(".ApplyIndexerSetter<")
-						.AppendTypeOrWrapper(property.Type).Append(">(")
-						.Append(accessVarName).Append(", ").Append(setupVarName).Append(", value, ")
-						.Append(signatureIndex).Append("))").AppendLine();
+					AppendIndexerSetCall("\t\t\t\tif (!", ")", accessVarName, setupVarName);
 					sb.Append("\t\t\t\t{").AppendLine();
 					if (property.Setter?.IsProtected != true)
 					{
@@ -2216,10 +2247,7 @@ internal static partial class Sources
 						useFastForIndexer ? indexerSetIdRef : null,
 						useFastForIndexer ? indexerGetIdRef : null,
 						indexerSetCachedBufferRef);
-					sb.Append("\t\t\t\t").Append(mockRegistry).Append(".ApplyIndexerSetter<")
-						.AppendTypeOrWrapper(property.Type).Append(">(")
-						.Append(accessVarName).Append(", ").Append(setupVarName).Append(", value, ")
-						.Append(signatureIndex).Append(");").AppendLine();
+					AppendIndexerSetCall("\t\t\t\t", ";", accessVarName, setupVarName);
 				}
 			}
 			else
