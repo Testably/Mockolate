@@ -500,7 +500,18 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 	/// <inheritdoc cref="IVerificationResult.Expectation" />
 	string IVerificationResult.Expectation
-		=> _expectation.Create();
+		=> _useCountAll ? WithAnyParameters(_expectation.Create()) : _expectation.Create();
+
+	/// <summary>
+	///     Replaces the argument list of the method <paramref name="expectation" /> with
+	///     <see cref="Match.AnyParameters()" />. The name is taken from the expectation text, because the unique
+	///     method name does not show a generic method the way the expectation does.
+	/// </summary>
+	private static string WithAnyParameters(string expectation)
+	{
+		int argumentList = expectation.IndexOf('(');
+		return $"{(argumentList < 0 ? expectation : expectation.Substring(0, argumentList))}(Match.AnyParameters())";
+	}
 
 	/// <inheritdoc cref="IVerificationResult.Interactions" />
 	IMockInteractions IVerificationResult.Interactions

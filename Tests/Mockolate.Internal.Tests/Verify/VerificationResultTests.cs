@@ -741,6 +741,24 @@ public class VerificationResultTests
 	public sealed class IgnoreParametersAnyParametersTests
 	{
 		[Test]
+		public async Task AnyParameters_WhenExpectationHasNoArgumentList_ShouldAppendAnyParameters()
+		{
+			IMockInteractions store = new FastMockInteractions(0);
+			MockRegistry registry = new(MockBehavior.Default, store);
+
+			VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, MethodInvocation<int>>(
+				new object(), "Foo", _ => false, () => "Foo");
+
+			void Act()
+			{
+				result.AnyParameters().Once();
+			}
+
+			await That(Act).Throws<MockVerificationException>()
+				.WithMessage("Expected that mock invoked method Foo(Match.AnyParameters()) exactly once, but it never did.");
+		}
+
+		[Test]
 		public async Task AnyParameters_WithoutBuffer_AndNoOverloadFilter_MatchesAllOfMethodName()
 		{
 			IMockInteractions store = new FastMockInteractions(0);
