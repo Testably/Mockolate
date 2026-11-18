@@ -160,20 +160,17 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			return _interactions.Where(_predicate!).ToArray();
 		}
 
-		List<(long Seq, IInteraction Interaction)> records = new();
+		List<IInteraction> records = new();
 		_buffer.AppendBoxed(records);
 		if (records.Count == 0)
 		{
 			return [];
 		}
 
-		if (records.Count > 1)
-		{
-			records.Sort(static (left, right) => left.Seq.CompareTo(right.Seq));
-		}
+		records.Reverse();
 
 		List<IInteraction>? matching = null;
-		foreach ((long _, IInteraction interaction) in records)
+		foreach (IInteraction interaction in records)
 		{
 			if (IsMatch(interaction))
 			{

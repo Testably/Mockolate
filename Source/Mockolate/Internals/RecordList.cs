@@ -59,14 +59,13 @@ public abstract class RecordList
 	protected RecordNode? Following(RecordNode node) => Skip(node.Next);
 
 	/// <summary>
-	///     Appends the interaction of each recorded call of the member to <paramref name="dest" />, newest first,
-	///     together with its position in the mock.
+	///     Appends the interaction of each recorded call of the member to <paramref name="dest" />, newest first.
 	/// </summary>
-	public void AppendBoxed(List<(long Seq, IInteraction Interaction)> dest)
+	internal void AppendBoxed(List<IInteraction> dest)
 	{
 		for (RecordNode? node = First; node is not null; node = Following(node))
 		{
-			dest.Add((node.Seq, node.Interaction));
+			dest.Add(node.Interaction);
 		}
 	}
 
