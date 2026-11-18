@@ -2438,7 +2438,7 @@ internal static partial class Sources
 			                           method.IsGetHashCode() || method.IsToString();
 			foreach (GenericParameter gp in method.GenericParameters.Value)
 			{
-				gp.AppendWhereConstraint(sb, "\t\t\t", inheritsConstraints, isExplicitImplementation);
+				gp.AppendWhereConstraint(sb, "\t\t\t", inheritsConstraints, isExplicitImplementation || isOverride);
 			}
 		}
 

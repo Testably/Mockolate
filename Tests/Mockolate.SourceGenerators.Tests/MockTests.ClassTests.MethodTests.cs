@@ -1468,11 +1468,63 @@ public sealed partial class MockTests
 					.Contains("""
 					          		/// <inheritdoc cref="global::MyCode.MyService.MyMethod{T}(T)" />
 					          		public override bool MyMethod<T>(T entity)
+					          			where T : default
 					          		{
-					          """).IgnoringNewlineStyle().And
-					.DoesNotContain("public override bool MyMethod<T>(T entity)\n\t\t\twhere T :")
-					.IgnoringNewlineStyle()
-					.Because("CS0460: constraints on override methods are inherited from the base method");
+					          """).IgnoringNewlineStyle()
+					.Because("CS0460: constraints on override methods are inherited from the base method, only `class`, `struct` or `default` may be stated");
+			}
+
+			[Test]
+			public async Task VirtualMethodOverride_WithUnconstrainedGeneric_ShouldHaveDefaultConstraint()
+			{
+				GeneratorResult result = Generator
+					.Run("""
+					     #nullable enable
+					     using Mockolate;
+
+					     namespace MyCode;
+					     public class Program
+					     {
+					         public static void Main(string[] args)
+					         {
+					     		_ = MyService.CreateMock();
+					         }
+					     }
+
+					     public abstract class MyServiceBase
+					     {
+					         public abstract T? MyMethod<T>(T? entity);
+					         public abstract void MyConstrainedMethod<T>(T entity)
+					             where T : class;
+					     }
+
+					     public abstract class MyService : MyServiceBase
+					     {
+					         public override T? MyMethod<T>(T? entity)
+					             where T : default
+					             => entity;
+					         public override void MyConstrainedMethod<T>(T entity)
+					         {
+					         }
+					     }
+					     """);
+
+				await That(result.Diagnostics).IsEmpty()
+					.Because("'where T : default' is only valid for a type parameter that is neither constrained to a reference type nor to a value type (CS8822)");
+				await That(result.Sources).ContainsKey("Mock.MyService.g.cs");
+				await That(result.Sources["Mock.MyService.g.cs"])
+					.Contains("""
+					          		public override T? MyMethod<T>(T? entity)
+					          			where T : default
+					          		{
+					          """).IgnoringNewlineStyle()
+					.Because("without the default constraint T? means Nullable<T> in an override").And
+					.Contains("""
+					          		public override void MyConstrainedMethod<T>(T entity)
+					          			where T : class
+					          		{
+					          """).IgnoringNewlineStyle()
+					.Because("a type parameter that is constrained to a reference type must state `class` instead of `default`");
 			}
 		}
 	}

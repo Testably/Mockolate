@@ -44,8 +44,8 @@ internal readonly record struct GenericParameter
 		{
 			if (isExplicitInterfaceImpl)
 			{
-				// Explicit interface implementations need `where T : default` to disambiguate
-				// nullability for unconstrained type parameters. Override methods don't.
+				// Explicit interface implementations and overrides need `where T : default` for
+				// unconstrained type parameters, because `T?` otherwise means `Nullable<T>` there.
 				sb.AppendLine().Append(prefix).Append("where ").Append(Name).Append(" : default");
 			}
 
