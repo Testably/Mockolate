@@ -77,7 +77,7 @@ public class FastMockInteractions : IMockInteractions
 	/// <summary>
 	///     The number of interactions recorded for the mock.
 	/// </summary>
-	public int Count => First is { } newest ? (int)newest.Seq + 1 : 0;
+	public int Count => First is { } newest ? newest.Seq + 1 : 0;
 
 	/// <summary>
 	///     The newest recorded call of the mock, or <see langword="null" /> if there is none.
