@@ -674,4 +674,172 @@ public sealed class ClassicVerifyMessageTests
 			"Expected that mock invoked method P4(9, 9, 9, 9) exactly once, but it never did.",
 		]).Because("after AnyParameters the verification counts the calls with any arguments, so the message must not name the original ones, while a verification without it keeps them");
 	}
+
+	[Test]
+	public async Task VerifySet_InClassicMode_WithMatcherForObjectValue_ShouldUseTheMatcher()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using Mockolate;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public interface IFoo
+		                                             {
+		                                                 object Value { get; set; }
+		                                                 dynamic Dynamic { get; set; }
+		                                                 object WriteOnly { set; }
+		                                                 object this[int key] { get; set; }
+		                                                 object this[int key1, int key2, int key3, int key4, int key5] { get; set; }
+		                                             }
+
+		                                             public interface IWriteOnly
+		                                             {
+		                                                 object this[int key] { set; }
+		                                                 object this[int key1, int key2, int key3, int key4, int key5] { set; }
+		                                             }
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     IFoo sut = IFoo.CreateMock();
+		                                                     sut.Value = 5;
+		                                                     sut.Dynamic = 5;
+		                                                     sut.WriteOnly = 5;
+		                                                     sut[1] = 5;
+		                                                     sut[1, 2, 3, 4, 5] = 5;
+		                                                     IWriteOnly writeOnly = IWriteOnly.CreateMock();
+		                                                     writeOnly[1] = 5;
+		                                                     writeOnly[1, 2, 3, 4, 5] = 5;
+		                                                     return
+		                                                     [
+		                                                         Capture(() => sut.Mock.Verify.Value.Set(It.IsAny<object>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Value.Set(It.Is<object>(5)).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Value.Set(5).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Dynamic.Set(It.IsAny<object>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify.WriteOnly.Set(It.IsAny<object>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify[1].Set(It.IsAny<object>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify[1].Set(It.Is<object>(5)).Once()),
+		                                                         Capture(() => sut.Mock.Verify[1].Set(5).Once()),
+		                                                         Capture(() => sut.Mock.Verify[1, 2, 3, 4, 5].Set(It.IsAny<object>()).Once()),
+		                                                         Capture(() => writeOnly.Mock.Verify[1].Set(It.IsAny<object>()).Once()),
+		                                                         Capture(() => writeOnly.Mock.Verify[1, 2, 3, 4, 5].Set(It.IsAny<object>()).Once()),
+		                                                         Capture(() => writeOnly.Mock.Verify[1, 2, 3, 4, 5].Set(It.Is<object>(5)).Once()),
+		                                                         Capture(() => writeOnly.Mock.Verify[1, 2, 3, 4, 5].Set(5).Once()),
+		                                                         Capture(() => sut.Mock.Verify.Value.Set(It.Is<object>(6)).Once()),
+		                                                         Capture(() => writeOnly.Mock.Verify[1, 2, 3, 4, 5].Set(It.Is<object>(6)).Once()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14, typeof(DynamicAttribute));
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+			"Expected that mock set property Value to 6 exactly once, but it never did.",
+			"Expected that mock set indexer [1, 2, 3, 4, 5] to 6 exactly once, but it never did.",
+		]).Because("a matcher also converts to object, but must not be compared as a value");
+	}
+
+	[Test]
+	public async Task VerifySet_InClassicMode_WithMatcherForDerivedType_ShouldUseTheMatcher()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using Mockolate;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public class BaseValue;
+
+		                                             public class DerivedValue : BaseValue;
+
+		                                             public interface IFoo
+		                                             {
+		                                                 BaseValue this[int key] { get; set; }
+		                                                 BaseValue this[int key1, int key2, int key3, int key4, int key5] { get; set; }
+		                                             }
+
+		                                             public interface IWriteOnly
+		                                             {
+		                                                 BaseValue this[int key] { set; }
+		                                                 BaseValue this[int key1, int key2, int key3, int key4, int key5] { set; }
+		                                             }
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     IFoo sut = IFoo.CreateMock();
+		                                                     sut[1] = new BaseValue();
+		                                                     sut[1] = new DerivedValue();
+		                                                     sut[1, 2, 3, 4, 5] = new BaseValue();
+		                                                     sut[1, 2, 3, 4, 5] = new DerivedValue();
+		                                                     IWriteOnly writeOnly = IWriteOnly.CreateMock();
+		                                                     writeOnly[1] = new BaseValue();
+		                                                     writeOnly[1] = new DerivedValue();
+		                                                     writeOnly[1, 2, 3, 4, 5] = new BaseValue();
+		                                                     writeOnly[1, 2, 3, 4, 5] = new DerivedValue();
+		                                                     return
+		                                                     [
+		                                                         Capture(() => sut.Mock.Verify[1].Set(It.IsAny<DerivedValue>()).Once()),
+		                                                         Capture(() => sut.Mock.Verify[1, 2, 3, 4, 5].Set(It.IsAny<DerivedValue>()).Once()),
+		                                                         Capture(() => writeOnly.Mock.Verify[1].Set(It.IsAny<DerivedValue>()).Once()),
+		                                                         Capture(() => writeOnly.Mock.Verify[1, 2, 3, 4, 5].Set(It.IsAny<DerivedValue>()).Once()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14);
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"no exception",
+			"no exception",
+			"no exception",
+			"no exception",
+		]).Because("a matcher for a derived type is a matcher for the value type, although it only implements the typed match for the derived type");
+	}
 }
