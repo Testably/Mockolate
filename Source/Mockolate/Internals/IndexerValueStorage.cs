@@ -41,8 +41,6 @@ internal sealed class IndexerChildIndex<TKey, TValue>
 [EditorBrowsable(EditorBrowsableState.Never)]
 public abstract class IndexerValueStorage
 {
-	internal static readonly object DefaultLock = new();
-
 	/// <summary>
 	///     Non-generic dispatch to <see cref="IndexerValueStorage{TValue}.GetChild{TKey}(TKey)" /> on the
 	///     concrete typed node. Used by generated access subclasses that only know the parameter types.
@@ -82,27 +80,6 @@ internal sealed class IndexerValueStorage<TValue> : IndexerValueStorage
 	{
 		Value = value;
 		HasValue = true;
-	}
-
-	/// <summary>
-	///     Stores the default <paramref name="value" /> unless a value is stored already, and returns the stored value.
-	/// </summary>
-	/// <remarks>
-	///     Concurrent first reads of a key then return the same default value, e.g. the same auto-mock. Only the first
-	///     store of each key takes the lock, so a shared lock is enough.
-	/// </remarks>
-	internal TValue StoreDefault(TValue value)
-	{
-		lock (DefaultLock)
-		{
-			if (!HasValue)
-			{
-				Value = value;
-				HasValue = true;
-			}
-
-			return Value;
-		}
 	}
 
 	/// <inheritdoc cref="IndexerValueStorage.GetChildDispatch{TKey}(TKey)" />

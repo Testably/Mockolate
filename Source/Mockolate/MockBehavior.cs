@@ -41,6 +41,7 @@ namespace Mockolate;
 #endif
 public record MockBehavior : IMockBehaviorAccess
 {
+	private readonly AutoMockFactoryHolder _autoMockFactory;
 	private ConcurrentStack<IConstructorParameters>? _constructorParameters;
 	private DefaultValueFactory[]? _defaultValueFactories;
 	private IDefaultValueGenerator _defaultValueGenerator;
@@ -109,7 +110,11 @@ public record MockBehavior : IMockBehaviorAccess
 	/// <summary>
 	///     Creates the auto-mocks of the assembly whose generated <c>CreateMock</c> created the mock with this behavior.
 	/// </summary>
-	internal Func<Type, MockBehavior, object?>? AutoMockFactory { get; init; }
+	internal Func<Type, MockBehavior, object?>? AutoMockFactory
+	{
+		get => _autoMockFactory.Factory;
+		init => _autoMockFactory = new AutoMockFactoryHolder(value);
+	}
 
 	/// <summary>
 	///     The generator for default values when not specified by a setup.
@@ -346,6 +351,23 @@ public record MockBehavior : IMockBehaviorAccess
 	}
 
 	private interface IConstructorParameters;
+
+	/// <summary>
+	///     Keeps the auto-mock factory out of the equality of the behavior: <c>CreateMock</c> adds it to the behavior a
+	///     user passes, which must still equal the original, e.g. when an <c>HttpClient</c> checks that it shares the
+	///     behavior of its handler.
+	/// </summary>
+	private readonly struct AutoMockFactoryHolder(Func<Type, MockBehavior, object?>? factory)
+		: IEquatable<AutoMockFactoryHolder>
+	{
+		public Func<Type, MockBehavior, object?>? Factory { get; } = factory;
+
+		public bool Equals(AutoMockFactoryHolder other) => true;
+
+		public override bool Equals(object? obj) => obj is AutoMockFactoryHolder;
+
+		public override int GetHashCode() => 0;
+	}
 
 #pragma warning disable S2326
 	// ReSharper disable once UnusedTypeParameter

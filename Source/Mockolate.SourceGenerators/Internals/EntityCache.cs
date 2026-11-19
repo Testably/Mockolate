@@ -33,6 +33,8 @@ internal sealed class EntityCache
 
 	private readonly ConcurrentDictionary<ITypeSymbol, MockClass[]> _discoveredMocks = new(SymbolEqualityComparer.IncludeNullability);
 
+	private readonly ConcurrentDictionary<ITypeSymbol, MockClass> _discoveredMock = new(SymbolEqualityComparer.Default);
+
 	private readonly Dictionary<IAssemblySymbol, string> _externAliases;
 
 	private EntityCache(Compilation compilation)
@@ -57,6 +59,12 @@ internal sealed class EntityCache
 
 	public MockClass[] GetOrAddDiscoveredMocks(ITypeSymbol symbol, Func<ITypeSymbol, MockClass[]> factory)
 		=> _discoveredMocks.GetOrAdd(symbol, factory);
+
+	/// <summary>
+	///     The mock discovered for auto-mocking of <paramref name="symbol" />, shared by all mocks that return it.
+	/// </summary>
+	public MockClass GetOrAddDiscoveredMock(INamedTypeSymbol symbol, Func<INamedTypeSymbol, MockClass> factory)
+		=> _discoveredMock.GetOrAdd(symbol, s => factory((INamedTypeSymbol)s));
 
 	public MethodParameter GetOrAddParameter(IParameterSymbol symbol, Func<IParameterSymbol, MethodParameter> factory)
 		=> _parameters.GetOrAdd(symbol, factory);

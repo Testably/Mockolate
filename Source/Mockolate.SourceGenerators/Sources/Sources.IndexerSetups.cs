@@ -6,8 +6,10 @@ internal static partial class Sources
 {
 	public static string IndexerSetups(
 		IEnumerable<IndexerSetupKey> indexerSetups,
-		bool hasOverloadResolutionPriority)
+		bool hasOverloadResolutionPriority,
+		bool autoMocking)
 	{
+		using AutoMockingScope _ = EnterAutoMocking(autoMocking);
 		StringBuilder sb = InitializeBuilder();
 
 		sb.Append("""

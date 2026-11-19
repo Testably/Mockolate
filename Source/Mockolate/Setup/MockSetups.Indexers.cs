@@ -22,8 +22,30 @@ internal partial class MockSetups
 		private readonly MockolateLock _storageLock = new();
 		private IndexerValueStorage?[]? _valueStorages;
 		private readonly object _valueStoragesLock = new();
+		private readonly object _defaultValueLock = new();
 
 		public int Count => Volatile.Read(ref _storage)?.Length ?? 0;
+
+		/// <summary>
+		///     Stores the default <paramref name="value" /> in the <paramref name="leaf" /> unless a value is stored
+		///     already, and returns the stored value.
+		/// </summary>
+		/// <remarks>
+		///     Concurrent first reads of a key then return the same default value, e.g. the same auto-mock. Only the
+		///     first read of each key takes the lock.
+		/// </remarks>
+		internal TValue StoreDefault<TValue>(IndexerValueStorage<TValue> leaf, TValue value)
+		{
+			lock (_defaultValueLock)
+			{
+				if (!leaf.HasValue)
+				{
+					leaf.Store(value);
+				}
+
+				return leaf.Value;
+			}
+		}
 
 		/// <summary>
 		///     Pre-sizes the per-signature value-storage array. Optional — <see cref="GetOrCreateStorage{TValue}(int)" />

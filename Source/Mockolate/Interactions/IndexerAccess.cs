@@ -69,11 +69,8 @@ public abstract class IndexerAccess : IInteraction
 	}
 
 	/// <summary>
-	///     Stores the default <paramref name="value" /> for this access unless a value is stored already, and returns
-	///     the stored value.
+	///     The storage node of this access, created if necessary, or <see langword="null" /> when no storage is attached.
 	/// </summary>
-	internal T StoreDefaultValue<T>(T value)
-		=> TraverseStorage(Storage, true) is IndexerValueStorage<T> typedLeaf
-			? typedLeaf.StoreDefault(value)
-			: value;
+	internal IndexerValueStorage<T>? GetOrCreateLeaf<T>()
+		=> TraverseStorage(Storage, true) as IndexerValueStorage<T>;
 }

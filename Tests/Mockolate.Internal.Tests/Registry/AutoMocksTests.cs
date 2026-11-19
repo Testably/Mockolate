@@ -1,3 +1,6 @@
+// These tests hand the factory to the behavior themselves, so they need no MockolateAutoMocking build property.
+#pragma warning disable Mockolate0005
+
 namespace Mockolate.Internal.Tests.Registry;
 
 public sealed class AutoMocksTests

@@ -13,10 +13,12 @@ internal static partial class Sources
 	public static string MockClass(
 		string name,
 		Class @class,
+		bool autoMocking,
 		bool hasOverloadResolutionPriority = false,
 		(string Name, Class Class)[]? hiddenBaseInterfaces = null,
 		bool useUnionOverloads = false)
 	{
+		using AutoMockingScope _ = EnterAutoMocking(autoMocking);
 		hiddenBaseInterfaces ??= [];
 		EquatableArray<Method>? constructors = (@class as MockClass)?.Constructors;
 		bool hasParameterizedConstructor = !@class.IsInterface &&
@@ -6790,9 +6792,24 @@ internal static partial class Sources
 		=> !@event.IsStatic;
 
 	/// <summary>
-	///     Whether the compilation sets the <c>MockolateAutoMocking</c> build property, while a mock file is emitted.
+	///     Whether the compilation sets the <c>MockolateAutoMocking</c> build property, while a file is emitted.
 	/// </summary>
-	[ThreadStatic] internal static bool AutoMocking;
+	/// <remarks>
+	///     Only the entry points that take the setting as a parameter set it, through <see cref="EnterAutoMocking" />,
+	///     so that the many emitters below them need no extra parameter.
+	/// </remarks>
+	[ThreadStatic] private static bool AutoMocking;
+
+	private static AutoMockingScope EnterAutoMocking(bool autoMocking)
+	{
+		AutoMocking = autoMocking;
+		return default;
+	}
+
+	private readonly struct AutoMockingScope : IDisposable
+	{
+		public void Dispose() => AutoMocking = false;
+	}
 
 	/// <summary>
 	///     A property stores its first default value, so the auto-mock needs no cache of its own.

@@ -131,6 +131,25 @@ IRepository<string> notNullable = IRepository<string>.CreateMock();
 
 The same applies to `IRepository<(int Id, string Name)>` and `IRepository<(int, string)>`, also when the difference is nested, as in `IRepository<List<string?>>` and `IRepository<List<string>>`. The calls on these mocks also fail with CS0121 or CS9339, because the mock of each spelling applies to the other one too. `dynamic` and `object` do not count as different spellings: they share one mock.
 
+## Mockolate0005
+
+**Auto-mocking without the `MockolateAutoMocking` build property.**
+
+`AutoMocking()` returns mocks that the source generator only creates when the project sets the `MockolateAutoMocking` build property (see [Auto-mocking](04-create-mocks.md#auto-mocking)). Without it, the call has no effect and members that return an interface keep returning `null`:
+
+```csharp
+// Mockolate0005: AutoMocking() has no effect, because the project does not set the MockolateAutoMocking build property to true
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock(MockBehavior.Default.AutoMocking());
+```
+
+Set the property in the project file:
+
+```xml
+<PropertyGroup>
+    <MockolateAutoMocking>true</MockolateAutoMocking>
+</PropertyGroup>
+```
+
 ## Explicit types for union parameters
 
 With [union parameters](06-parameter-matching.md#union-parameters-c-15), a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion does not compile as a `Setup` or `Verify` argument (CS1503, CS1729 or CS9174). The included code fix adds the parameter type:

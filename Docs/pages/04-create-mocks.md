@@ -189,14 +189,14 @@ await That(shop.GetDispenser().Dispense("Dark", 5)).IsTrue();
 - Each method, property and delegate creates its auto-mock once and then keeps returning it, independent of the arguments, so you can configure and verify it through its own `Mock` property after the first call. An indexer stores one auto-mock per key, like any other value it returns.
 - The auto-mock uses the same `MockBehavior`, so its own interface members are auto-mocked as well, and `Initialize<T>(…)` applies to it.
 - A method or property that returns a `Task<T>` or `ValueTask<T>` of an interface returns a completed task with an auto-mock. On .NET Framework and .NET Standard, a `ValueTask<T>` keeps returning `default`, like every other un-configured `ValueTask<T>` there.
-- A setup, a `WithDefaultValueFor` factory and the base class implementation of a class mock take precedence. `ThrowingWhenNotSetup()` still throws.
-- Without the `MockolateAutoMocking` property, `AutoMocking()` has no effect.
+- A setup, a `WithDefaultValueFor` factory and the base class implementation of a class mock take precedence. A factory that returns `null` counts as no value, so the member returns an auto-mock instead. `ThrowingWhenNotSetup()` still throws.
+- Without the `MockolateAutoMocking` property, `AutoMocking()` has no effect, and the [Mockolate0005](10-analyzers.md#mockolate0005) analyzer warns about it.
 
 The generator does not create auto-mocks for:
 
-- interfaces in the `System`, `Microsoft` and `Windows` namespaces (and their sub-namespaces, also of other packages), to avoid generating mocks for large parts of the framework,
-- interfaces that the project cannot access, that are obsolete, that still contain a type parameter of a generic method, that have static abstract members or whose members use such a type,
-- `out` parameters and members that the mock cannot override or that have no getter.
+- interfaces in the global namespace or in the `System`, `Microsoft` and `Windows` namespaces (and their sub-namespaces, also of other packages), to avoid generating mocks for large parts of the framework,
+- interfaces that the project cannot access, that are obsolete, that still contain a type parameter of a generic method, that have static abstract members or whose members use such a type, a pointer or a ref struct other than `Span<T>` and `ReadOnlySpan<T>`,
+- `out` parameters, indexers with ref struct keys, indexers that return a task, and members that the mock cannot override or that have no getter.
 
 A member that returns such an interface still returns `null`.
 

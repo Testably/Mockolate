@@ -138,6 +138,58 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task InterfacesWithPointersOrRefStructs_ShouldNotBeMocked()
+	{
+		MetadataReference external = ExternalAssembly.Compile("""
+		                                                      namespace Ext;
+
+		                                                      public interface IRoot
+		                                                      {
+		                                                          IPointer GetPointer();
+		                                                          IFunctionPointer GetFunctionPointer();
+		                                                          IRefStruct GetRefStruct();
+		                                                          IPlain GetPlain();
+		                                                      }
+
+		                                                      public unsafe interface IPointer
+		                                                      {
+		                                                          int* Get();
+		                                                      }
+
+		                                                      public unsafe interface IFunctionPointer
+		                                                      {
+		                                                          delegate*<int> Get();
+		                                                      }
+
+		                                                      public ref struct MyRefStruct { }
+
+		                                                      public interface IRefStruct
+		                                                      {
+		                                                          MyRefStruct Get();
+		                                                      }
+
+		                                                      public interface IPlain { }
+		                                                      """, allowUnsafe: true);
+
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     using Mockolate;
+
+		                                                     namespace MyCode;
+
+		                                                     public class Program
+		                                                     {
+		                                                         public static void Main(string[] args) => _ = Ext.IRoot.CreateMock();
+		                                                     }
+		                                                     """, [external,], AutoMockingEnabled);
+
+		await That(result.Diagnostics).IsEmpty()
+			.Because("the generator emits no compilable mock for these signatures without an analyzer diagnostic");
+		await That(result.Sources).ContainsKey("Mock.IPlain.g.cs");
+		await That(result.Sources.Keys).None().Satisfy(key =>
+			key.Contains("IPointer") || key.Contains("IFunctionPointer") || key.Contains("IRefStruct"));
+	}
+
+	[Test]
 	public async Task MockedTypeNamedLikeTheAutoMockFactory_ShouldNotClash()
 	{
 		GeneratorResult result = Run("""
@@ -152,6 +204,30 @@ public sealed class AutoMockingTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("Mock.CreateAutoMock_1.g.cs");
+	}
+
+	[Test]
+	public async Task MockNamedInCreateMock_ShouldKeepItsNameWhenADiscoveredMockHasTheSameName()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode.A
+		                             {
+		                                 public interface IFoo { }
+		                             }
+
+		                             namespace MyCode.B
+		                             {
+		                                 public interface IFoo
+		                                 {
+		                                     MyCode.A.IFoo GetOther();
+		                                 }
+		                             }
+		                             """, "B.IFoo");
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Mock.IFoo.g.cs"]).Contains("global::MyCode.B.IFoo")
+			.Because("turning on auto-mocking must not rename the generated types of an explicit mock");
+		await That(result.Sources["Mock.IFoo_1.g.cs"]).Contains("global::MyCode.A.IFoo");
 	}
 
 	[Test]
@@ -275,6 +351,77 @@ public sealed class AutoMockingTests
 			.Because("the cycle back to IMyInterface1 ends the walk");
 		await That(result.Sources["MockBehaviorExtensions.g.cs"])
 			.Contains("return global::MyCode.IMyInterface3.CreateMock(behavior);");
+	}
+
+	[Test]
+	public async Task TogglingTheBuildProperty_ShouldUpdateTheOutput()
+	{
+		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
+		CSharpCompilation compilation = CSharpCompilation.Create("TestAssembly",
+			[
+				CSharpSyntaxTree.ParseText("""
+				                           using Mockolate;
+
+				                           namespace MyCode
+				                           {
+				                               public class Program
+				                               {
+				                                   public static void Main(string[] args) => _ = IRoot.CreateMock();
+				                               }
+
+				                               public interface IRoot
+				                               {
+				                                   IChild Get();
+				                               }
+
+				                               public interface IChild { }
+				                           }
+				                           """, parseOptions),
+			],
+			Generator.GetReferences([]),
+			new CSharpCompilationOptions(OutputKind.ConsoleApplication));
+		GeneratorDriver driver = CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [],
+			parseOptions, new TestAnalyzerConfigOptionsProvider(new Dictionary<string, string>()));
+
+		driver = driver.RunGenerators(compilation);
+		string[] withoutProperty = GetHintNames(driver);
+		driver = driver.WithUpdatedAnalyzerConfigOptions(new TestAnalyzerConfigOptionsProvider(AutoMockingEnabled))
+			.RunGenerators(compilation);
+		string[] withProperty = GetHintNames(driver);
+		driver = driver.WithUpdatedAnalyzerConfigOptions(
+				new TestAnalyzerConfigOptionsProvider(new Dictionary<string, string>()))
+			.RunGenerators(compilation);
+		string[] withoutPropertyAgain = GetHintNames(driver);
+
+		await That(withoutProperty).DoesNotContain("Mock.IChild.g.cs");
+		await That(withProperty).Contains("Mock.IChild.g.cs");
+		await That(withoutPropertyAgain).IsEqualTo(withoutProperty).InAnyOrder();
+
+		static string[] GetHintNames(GeneratorDriver driver)
+			=> driver.GetRunResult().Results.SelectMany(result => result.GeneratedSources)
+				.Select(source => source.HintName).ToArray();
+	}
+
+	[Test]
+	public async Task WithoutBuildProperty_ShouldNotReserveTheNameOfTheAutoMockFactory()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args) => _ = CreateAutoMock.CreateMock();
+		                                           }
+
+		                                           public interface CreateAutoMock { }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.CreateAutoMock.g.cs")
+			.Because("the generated output without the build property must not change");
 	}
 
 	[Test]

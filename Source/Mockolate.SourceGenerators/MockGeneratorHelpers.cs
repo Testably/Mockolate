@@ -223,11 +223,19 @@ internal static class MockGeneratorHelpers
 		=> typeSymbol.GetMembers().Concat(typeSymbol.AllInterfaces.SelectMany(i => i.GetMembers()))
 			.Any(member => member is { IsStatic: true, IsAbstract: true, });
 
+	/// <summary>
+	///     Whether a member signature uses a type for which the generator emits no compilable mock without the
+	///     diagnostics of the <c>MockabilityAnalyzer</c>: pointers, ref structs other than spans, obsolete types and
+	///     interfaces with static abstract members.
+	/// </summary>
 	private static bool UsesUnusableType(ITypeSymbol typeSymbol)
 		=> typeSymbol switch
 		{
+			IPointerTypeSymbol or IFunctionPointerTypeSymbol => true,
 			IArrayTypeSymbol array => UsesUnusableType(array.ElementType),
 			INamedTypeSymbol named => IsObsolete(named) ||
+			                          (named.IsRefLikeType && named.GetSpecialType() is not
+				                          (SpecialGenericType.Span or SpecialGenericType.ReadOnlySpan)) ||
 			                          (named.TypeKind == TypeKind.Interface && HasStaticAbstractMembers(named)) ||
 			                          named.TypeArguments.Any(UsesUnusableType),
 			_ => false,
@@ -346,8 +354,9 @@ internal static class MockGeneratorHelpers
 			{
 				if (processedTypes.Add(returnType))
 				{
-					result.Add(new MockClass([returnType.WithDynamicAsObject(compilation),], compilation,
-						isDiscovered: true));
+					result.Add(EntityCache.Current is { } cache
+						? cache.GetOrAddDiscoveredMock(returnType, type => CreateDiscoveredMockClass(type, compilation))
+						: CreateDiscoveredMockClass(returnType, compilation));
 					typesToProcess.Enqueue(returnType);
 				}
 			}
@@ -372,6 +381,9 @@ internal static class MockGeneratorHelpers
 
 		return result.ToArray();
 	}
+
+	private static MockClass CreateDiscoveredMockClass(INamedTypeSymbol type, Compilation compilation)
+		=> new([type.WithDynamicAsObject(compilation),], compilation, isDiscovered: true);
 
 	private static bool IsMockable(ITypeSymbol? typeSymbol)
 		=> typeSymbol is

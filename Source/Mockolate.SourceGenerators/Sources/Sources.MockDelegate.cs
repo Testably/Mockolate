@@ -7,9 +7,10 @@ namespace Mockolate.SourceGenerators.Sources;
 
 internal static partial class Sources
 {
-	public static string MockDelegate(string name, MockClass @class, Method delegateMethod,
+	public static string MockDelegate(string name, MockClass @class, Method delegateMethod, bool autoMocking,
 		bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
 	{
+		using AutoMockingScope _ = EnterAutoMocking(autoMocking);
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
 		string classReference = @class.XmlDocReference;
 		MemberIdTable memberIds = new(new MemberAliases());

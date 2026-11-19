@@ -10,9 +10,11 @@ internal static partial class Sources
 		string name,
 		Class @class,
 		(string Name, Class Class)[] additionalInterfaces,
+		bool autoMocking,
 		bool hasOverloadResolutionPriority,
 		bool useUnionOverloads = false)
 	{
+		using AutoMockingScope _ = EnterAutoMocking(autoMocking);
 		EquatableArray<Method>? constructors = (@class as MockClass)?.Constructors;
 		MemberAliases aliases = new();
 		if (@class is MockClass { HasImplementedMembers: true, } implementor)

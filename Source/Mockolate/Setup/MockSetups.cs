@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -15,7 +16,7 @@ namespace Mockolate.Setup;
 #endif
 internal partial class MockSetups : MockScenarioSetup
 {
-	private Dictionary<int, object>? _autoMocks;
+	private ConcurrentDictionary<int, object>? _autoMocks;
 
 	internal Dictionary<string, MockScenarioSetup>? Scenarios { get; private set; }
 
@@ -23,24 +24,20 @@ internal partial class MockSetups : MockScenarioSetup
 	///     Returns the auto-mock cached for <paramref name="memberId" />, or creates and caches one of the
 	///     <paramref name="type" />, so that the member keeps returning the same configurable mock.
 	/// </summary>
+	/// <remarks>
+	///     The mock is created outside of any lock, because creating it runs user callbacks (e.g. of
+	///     <c>Initialize&lt;T&gt;</c>). When two threads race, both create a mock, but both return the first one stored.
+	/// </remarks>
 	public object? GetOrAddAutoMock(int memberId, Type type, MockBehavior behavior)
 	{
-		Dictionary<int, object> autoMocks = LazyInitializer.EnsureInitialized(ref _autoMocks)!;
-		lock (autoMocks)
+		ConcurrentDictionary<int, object> autoMocks = LazyInitializer.EnsureInitialized(ref _autoMocks)!;
+		if (autoMocks.TryGetValue(memberId, out object? existing))
 		{
-			if (autoMocks.TryGetValue(memberId, out object? existing))
-			{
-				return existing;
-			}
-
-			object? created = AutoMocks.Create(type, behavior);
-			if (created is not null)
-			{
-				autoMocks[memberId] = created;
-			}
-
-			return created;
+			return existing;
 		}
+
+		object? created = AutoMocks.Create(type, behavior);
+		return created is null ? null : autoMocks.GetOrAdd(memberId, created);
 	}
 
 	public MockScenarioSetup GetOrCreateScenario(string setupScenario)

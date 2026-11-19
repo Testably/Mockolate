@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<MockolateAutoMocking>true</MockolateAutoMocking>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\..\Source\Mockolate\Mockolate.csproj"/>
 		<ProjectReference Include="..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>

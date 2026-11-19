@@ -53,11 +53,6 @@ internal partial class MockSetups
 					// Never overwrite a user-configured setup with a default placeholder:
 					// a first property access can race with Setup...InitializeWith(...) and
 					// otherwise lose the user's setup.
-					if (isDefault && !wasDefault)
-					{
-						return setup;
-					}
-
 					if (isDefault)
 					{
 						return old[existingIndex];
