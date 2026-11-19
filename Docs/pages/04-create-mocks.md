@@ -39,7 +39,7 @@ IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
 ChocolateDispenser classMock = ChocolateDispenser.CreateMock();
 ```
 
-For classes without a parameterless constructor, pass the constructor arguments as an array:
+For classes whose constructors need arguments, pass the constructor arguments as an array:
 
 ```csharp
 public abstract class ChocolateDispenserWithCtor(string defaultType, int capacity)

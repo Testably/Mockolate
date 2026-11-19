@@ -1464,7 +1464,7 @@ internal static partial class MockExtensionsForIClosedGeneric_int
 		/// </remarks>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup, or <see langword="null" /> for <c>MockBehavior.Default</c>.</param>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword="null" /> to skip.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use the parameterless constructor.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use a constructor that can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric{T}">IClosedGeneric&lt;int&gt;</see>.</returns>
 		private static global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<int> CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForIClosedGeneric_int>? setup, object?[]? constructorParameters)
 		{

@@ -858,7 +858,7 @@ internal static partial class Sources
 		if (hasParameterizedConstructor)
 		{
 			sb.AppendXmlSummary($"Creates a new mock of {classReference} using the given <paramref name=\"constructorParameters\" /> to invoke the base-class constructor.");
-			sb.AppendXmlParam("constructorParameters", "Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.");
+			sb.AppendXmlParam("constructorParameters", "Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.");
 			sb.AppendXmlReturns(createMockReturns);
 			sb.Append("\t\tpublic static ").Append(@class.ClassFullName).Append(" CreateMock(object?[] constructorParameters)").AppendLine();
 			sb.Append("\t\t\t=> CreateMock(null, null, constructorParameters);").AppendLine();
@@ -866,7 +866,7 @@ internal static partial class Sources
 
 			sb.AppendXmlSummary($"Creates a new mock of {classReference} using the given <paramref name=\"mockBehavior\" /> and <paramref name=\"constructorParameters\" />.");
 			sb.AppendXmlParam("mockBehavior", "Controls how the mock responds when members are invoked without a matching setup; see <see cref=\"global::Mockolate.MockBehavior\" />.");
-			sb.AppendXmlParam("constructorParameters", "Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.");
+			sb.AppendXmlParam("constructorParameters", "Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.");
 			sb.AppendXmlReturns(createMockReturns);
 			sb.Append("\t\tpublic static ").Append(@class.ClassFullName).Append(" CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)").AppendLine();
 			sb.Append("\t\t\t=> CreateMock(mockBehavior, null, constructorParameters);").AppendLine();
@@ -875,7 +875,7 @@ internal static partial class Sources
 			sb.AppendXmlSummary($"Creates a new mock of {classReference} applying the given <paramref name=\"setup\" /> immediately, using the given <paramref name=\"constructorParameters\" />.");
 			sb.AppendXmlRemarks("The provided <paramref name=\"setup\" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.");
 			sb.AppendXmlParam("setup", "Callback that receives the mock's setup surface and registers initial setups before the mock is returned.");
-			sb.AppendXmlParam("constructorParameters", "Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.");
+			sb.AppendXmlParam("constructorParameters", "Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.");
 			sb.AppendXmlReturns(createMockReturns);
 			sb.Append("\t\tpublic static ").Append(@class.ClassFullName).Append(" CreateMock(global::System.Action<").Append(setupType).Append("> setup, object?[] constructorParameters)").AppendLine();
 			sb.Append("\t\t\t=> CreateMock(null, setup, constructorParameters);").AppendLine();
@@ -888,7 +888,7 @@ internal static partial class Sources
 		sb.AppendXmlRemarks("The provided <paramref name=\"setup\" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.");
 		sb.AppendXmlParam("mockBehavior", "Controls how the mock responds when members are invoked without a matching setup, or <see langword=\"null\" /> for <c>MockBehavior.Default</c>.");
 		sb.AppendXmlParam("setup", "Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword=\"null\" /> to skip.");
-		sb.AppendXmlParam("constructorParameters", "Values forwarded to a matching base-class constructor, or <see langword=\"null\" /> to use the parameterless constructor.");
+		sb.AppendXmlParam("constructorParameters", "Values forwarded to a matching base-class constructor, or <see langword=\"null\" /> to use a constructor that can be called without arguments.");
 		sb.AppendXmlReturns(createMockReturns);
 		sb.Append("\t\t").Append(hasParameterizedConstructor ? "public" : "private").Append(" static ").Append(@class.ClassFullName).Append(" CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<").Append(setupType).Append(">? setup, object?[]? constructorParameters)").AppendLine();
 		sb.Append("\t\t{").AppendLine();

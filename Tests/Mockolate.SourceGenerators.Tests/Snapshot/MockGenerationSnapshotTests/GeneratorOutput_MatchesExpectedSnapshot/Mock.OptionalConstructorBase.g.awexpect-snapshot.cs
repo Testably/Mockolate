@@ -381,7 +381,7 @@ internal static partial class MockExtensionsForOptionalConstructorBase
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase">OptionalConstructorBase</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase">OptionalConstructorBase</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -390,7 +390,7 @@ internal static partial class MockExtensionsForOptionalConstructorBase
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase">OptionalConstructorBase</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase">OptionalConstructorBase</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -402,7 +402,7 @@ internal static partial class MockExtensionsForOptionalConstructorBase
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase">OptionalConstructorBase</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForOptionalConstructorBase> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -507,7 +507,7 @@ internal static partial class MockExtensionsForOptionalConstructorBase
 		/// </remarks>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup, or <see langword="null" /> for <c>MockBehavior.Default</c>.</param>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword="null" /> to skip.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use the parameterless constructor.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use a constructor that can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase">OptionalConstructorBase</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.OptionalConstructorBase CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForOptionalConstructorBase>? setup, object?[]? constructorParameters)
 		{
