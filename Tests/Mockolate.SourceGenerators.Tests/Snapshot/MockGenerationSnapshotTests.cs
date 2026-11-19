@@ -107,7 +107,7 @@ public sealed partial class MockGenerationSnapshotTests
             """
             IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
             EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
-            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock();
+            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
             """,
             []),
         new(
@@ -259,7 +259,7 @@ public sealed partial class MockGenerationSnapshotTests
             """
             IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
             EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
-            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock();
+            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
             """,
             [],
             UnionMode: true),

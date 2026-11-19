@@ -13,6 +13,7 @@ public interface IEnumDefaultValues
 	int NullableNegative(int a, EnumWithNegativeValue? level = EnumWithNegativeValue.Unknown);
 	int NullableZero(int a, EnumWithNegativeValue? level = EnumWithNegativeValue.Low);
 	int NullableNull(int a, EnumWithNegativeValue? level = null);
+	int this[int a, EnumWithNegativeValue level = EnumWithNegativeValue.Unknown, EnumWithNegativeValue? nullableLevel = EnumWithNegativeValue.High] { get; }
 }
 
 public delegate int EnumDefaultValuesDelegate(

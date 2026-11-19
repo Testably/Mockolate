@@ -239,7 +239,7 @@ public sealed partial class MockTests
 		{
 			IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
 			EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
-			EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock();
+			EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
 			await That(sut3).IsNotNull();

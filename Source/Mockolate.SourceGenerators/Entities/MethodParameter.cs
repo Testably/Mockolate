@@ -28,7 +28,7 @@ internal readonly record struct MethodParameter
 			else if (effectiveType.TypeKind == TypeKind.Enum && explicitDefaultValue is not (null or "null"))
 			{
 				string enumTypeName = effectiveType.ToQualifiedDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
-				ExplicitDefaultValue = explicitDefaultValue.StartsWith("-")
+				ExplicitDefaultValue = explicitDefaultValue[0] == '-'
 					? "(" + enumTypeName + ")(" + explicitDefaultValue + ")"
 					: "(" + enumTypeName + ")" + explicitDefaultValue;
 			}
