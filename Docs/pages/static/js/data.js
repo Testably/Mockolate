@@ -1416,6 +1416,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -1654,7 +1660,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -1896,7 +1903,8 @@ window.BENCHMARK_DATA = {
           214.42794961195725,
           158.4542533801152,
           165.9485719203949,
-          158.71200476373946
+          158.71200476373946,
+          201.24457687991006
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2127,6 +2135,7 @@ window.BENCHMARK_DATA = {
           888,
           888,
           800,
+          792,
           792,
           792,
           792,
@@ -2393,7 +2402,8 @@ window.BENCHMARK_DATA = {
           104874.41704101562,
           60764.47844587053,
           35713.47573242187,
-          60324.798767089844
+          60324.798767089844,
+          104759.50629882813
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2640,7 +2650,8 @@ window.BENCHMARK_DATA = {
           9056,
           9055,
           9046,
-          9055
+          9055,
+          9056
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2890,7 +2901,8 @@ window.BENCHMARK_DATA = {
           4781.311701965332,
           3205.8105511983235,
           3104.9077270507814,
-          3506.12273641733
+          3506.12273641733,
+          4639.848207600911
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3051,6 +3063,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -3387,7 +3400,8 @@ window.BENCHMARK_DATA = {
           4785.466530391148,
           3199.5720255925107,
           3070.3116439819337,
-          3461.270259094238
+          3461.270259094238,
+          4572.272297450474
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3634,6 +3648,7 @@ window.BENCHMARK_DATA = {
           7010,
           6930,
           6924,
+          6930,
           6930
         ],
         "borderColor": "#4A6FA5",
@@ -3884,7 +3899,8 @@ window.BENCHMARK_DATA = {
           206.96002066135406,
           154.38330948352814,
           185.27449652353923,
-          164.08118087904793
+          164.08118087904793,
+          194.7907156785329
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4050,6 +4066,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -4381,7 +4398,8 @@ window.BENCHMARK_DATA = {
           603.3955371220907,
           372.9083709376199,
           448.39310649236046,
-          400.0404988697597
+          400.0404988697597,
+          446.9105981190999
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -4542,6 +4560,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -6058,6 +6077,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -6296,7 +6321,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -6538,7 +6564,8 @@ window.BENCHMARK_DATA = {
           175.63816746381613,
           114.32845762142769,
           94.60678268330437,
-          116.10691326005119
+          116.10691326005119,
+          193.10782580375673
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -6769,6 +6796,7 @@ window.BENCHMARK_DATA = {
           752,
           752,
           704,
+          696,
           696,
           696,
           696,
@@ -7035,7 +7063,8 @@ window.BENCHMARK_DATA = {
           15351.371276855469,
           10630.131875174386,
           8022.62975369967,
-          10544.418664550782
+          10544.418664550782,
+          12956.080004882813
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7282,6 +7311,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761
         ],
         "borderColor": "#A052B0",
@@ -7532,7 +7562,8 @@ window.BENCHMARK_DATA = {
           5934.540918986003,
           4062.887575785319,
           3327.4341441563197,
-          4214.280495234898
+          4214.280495234898,
+          5283.969250605656
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7693,6 +7724,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -8029,7 +8061,8 @@ window.BENCHMARK_DATA = {
           225024.97684151787,
           195562.9974934896,
           120112.09541829427,
-          196808.89859444756
+          196808.89859444756,
+          156513.61111886162
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8276,7 +8309,8 @@ window.BENCHMARK_DATA = {
           15618,
           15619,
           15619,
-          15619
+          15619,
+          15579
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8526,7 +8560,8 @@ window.BENCHMARK_DATA = {
           186.11095643043518,
           144.85129426320393,
           118.26178941726684,
-          148.0020176887512
+          148.0020176887512,
+          221.6060644728797
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8667,6 +8702,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -9023,7 +9059,8 @@ window.BENCHMARK_DATA = {
           200.06652506192526,
           123.83660578727722,
           109.68197280565897,
-          131.12897404034933
+          131.12897404034933,
+          249.81460986818587
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -9157,6 +9194,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -10700,6 +10738,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -10938,7 +10982,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -11180,7 +11225,8 @@ window.BENCHMARK_DATA = {
           524.923231942313,
           268.8875500134059,
           280.4681700070699,
-          335.7123878683363
+          335.7123878683363,
+          323.3639259974162
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11411,6 +11457,7 @@ window.BENCHMARK_DATA = {
           1952,
           1736,
           1656,
+          1648,
           1648,
           1648,
           1648,
@@ -11677,7 +11724,8 @@ window.BENCHMARK_DATA = {
           175316.07288411458,
           64474.35024414062,
           68310.81278483073,
-          141724.57341657366
+          141724.57341657366,
+          139557.9119140625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11924,7 +11972,8 @@ window.BENCHMARK_DATA = {
           20681,
           20811,
           20699,
-          21003
+          21003,
+          20804
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12174,7 +12223,8 @@ window.BENCHMARK_DATA = {
           10676.574857584636,
           4976.140473502023,
           5609.505783589681,
-          7554.3175532023115
+          7554.3175532023115,
+          7179.662442525228
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12421,7 +12471,8 @@ window.BENCHMARK_DATA = {
           13032,
           13088,
           13088,
-          13056
+          13056,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12671,7 +12722,8 @@ window.BENCHMARK_DATA = {
           11031.863207135882,
           4964.781103867751,
           5822.2329107012065,
-          7524.673771158854
+          7524.673771158854,
+          7120.953296407064
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12916,6 +12968,7 @@ window.BENCHMARK_DATA = {
           13706,
           13586,
           13583,
+          13593,
           13593,
           13593,
           13593
@@ -13168,7 +13221,8 @@ window.BENCHMARK_DATA = {
           347.22580137252805,
           183.91442438761393,
           196.89193960825602,
-          249.39546526395358
+          249.39546526395358,
+          244.5446574006762
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13415,6 +13469,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1096,
           1096
         ],
         "borderColor": "#E84393",
@@ -13461,7 +13516,8 @@ window.BENCHMARK_DATA = {
           888.8540704727172,
           451.2734809943608,
           483.5380130154746,
-          627.6099301746914
+          627.6099301746914,
+          587.5830085754394
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -13473,6 +13529,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          2784,
           2784,
           2784,
           2784,
@@ -14934,6 +14991,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -15172,7 +15235,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -15414,7 +15478,8 @@ window.BENCHMARK_DATA = {
           1424.400514984131,
           825.2397598902385,
           855.6009679158528,
-          950.4568408330282
+          950.4568408330282,
+          893.1527343896719
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15645,6 +15710,7 @@ window.BENCHMARK_DATA = {
           2888,
           2672,
           2592,
+          2584,
           2584,
           2584,
           2584,
@@ -15911,7 +15977,8 @@ window.BENCHMARK_DATA = {
           184518.99609375,
           70453.02136230469,
           69847.86373465402,
-          150023.47394670759
+          150023.47394670759,
+          147210.7279924665
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16158,7 +16225,8 @@ window.BENCHMARK_DATA = {
           29276,
           30402,
           29284,
-          30602
+          30602,
+          30403
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16408,7 +16476,8 @@ window.BENCHMARK_DATA = {
           24671.11359049479,
           12772.32879333496,
           12437.924508231026,
-          17944.352954101563
+          17944.352954101563,
+          17788.373408390926
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16655,7 +16724,8 @@ window.BENCHMARK_DATA = {
           26137,
           26697,
           26193,
-          26161
+          26161,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16905,7 +16975,8 @@ window.BENCHMARK_DATA = {
           22988.23481241862,
           11247.393569946289,
           11763.315704345703,
-          15879.626534016927
+          15879.626534016927,
+          16119.647386823382
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17152,6 +17223,7 @@ window.BENCHMARK_DATA = {
           33252,
           33249,
           33249,
+          33247,
           33247
         ],
         "borderColor": "#4A6FA5",
@@ -17402,7 +17474,8 @@ window.BENCHMARK_DATA = {
           803.2117700576782,
           445.3647822652544,
           463.27228723253523,
-          616.8803267161052
+          616.8803267161052,
+          592.0261144638062
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17649,6 +17722,7 @@ window.BENCHMARK_DATA = {
           2176,
           2176,
           2176,
+          2176,
           2176
         ],
         "borderColor": "#E84393",
@@ -17695,7 +17769,8 @@ window.BENCHMARK_DATA = {
           2753.8130811055503,
           1735.952496601985,
           1775.500458908081,
-          1932.5842931111654
+          1932.5842931111654,
+          1849.509328024728
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17707,6 +17782,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          5496,
           5496,
           5496,
           5496,
@@ -19168,6 +19244,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -19406,7 +19488,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -19648,7 +19731,8 @@ window.BENCHMARK_DATA = {
           136.9580947081248,
           139.02504977158137,
           93.33623918692271,
-          127.41150414148966
+          127.41150414148966,
+          129.60017706553143
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19879,6 +19963,7 @@ window.BENCHMARK_DATA = {
           664,
           664,
           608,
+          600,
           600,
           600,
           600,
@@ -20145,7 +20230,8 @@ window.BENCHMARK_DATA = {
           70163.97177734374,
           197088.9942157452,
           61380.752912248885,
-          77257.44910481772
+          77257.44910481772,
+          113788.19461495536
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20392,7 +20478,8 @@ window.BENCHMARK_DATA = {
           14906,
           14902,
           14920,
-          14906
+          14906,
+          14914
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20642,7 +20729,8 @@ window.BENCHMARK_DATA = {
           4363.151421229045,
           5778.1479985555015,
           3403.1751561482747,
-          4338.939843314035
+          4338.939843314035,
+          4575.218464987619
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20889,6 +20977,7 @@ window.BENCHMARK_DATA = {
           9320,
           9264,
           9264,
+          9320,
           9320
         ],
         "borderColor": "#5E2750",
@@ -21139,7 +21228,8 @@ window.BENCHMARK_DATA = {
           3604.19300869533,
           5786.510307856968,
           3240.058328481821,
-          4055.682386125837
+          4055.682386125837,
+          4294.84600016276
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21386,7 +21476,8 @@ window.BENCHMARK_DATA = {
           8151,
           8160,
           8160,
-          8153
+          8153,
+          8160
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21636,7 +21727,8 @@ window.BENCHMARK_DATA = {
           152.02188131014506,
           171.2674338499705,
           118.14027306011745,
-          145.75760315014765
+          145.75760315014765,
+          141.6576418195452
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21802,6 +21894,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -22133,7 +22226,8 @@ window.BENCHMARK_DATA = {
           402.0716312115009,
           461.5152332941691,
           316.51866381963094,
-          390.86316900253297
+          390.86316900253297,
+          371.4962087313334
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22267,6 +22361,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -23810,6 +23905,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -24048,7 +24149,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -24290,7 +24392,8 @@ window.BENCHMARK_DATA = {
           321.563055451711,
           392.57427879969276,
           268.99919758524214,
-          324.19654578429004
+          324.19654578429004,
+          296.1904812225929
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24521,6 +24624,7 @@ window.BENCHMARK_DATA = {
           1168,
           1168,
           1112,
+          1104,
           1104,
           1104,
           1104,
@@ -24787,7 +24891,8 @@ window.BENCHMARK_DATA = {
           71443.11774088541,
           201231.3834698017,
           61359.763907296314,
-          79067.09875488281
+          79067.09875488281,
+          118402.00196940104
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25034,7 +25139,8 @@ window.BENCHMARK_DATA = {
           18883,
           18901,
           18906,
-          18883
+          18883,
+          18906
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25284,7 +25390,8 @@ window.BENCHMARK_DATA = {
           6221.510165405273,
           8603.53508453369,
           5004.138154836802,
-          6601.651960754394
+          6601.651960754394,
+          6781.116542271206
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25531,6 +25638,7 @@ window.BENCHMARK_DATA = {
           12344,
           11785,
           11784,
+          12344,
           12344
         ],
         "borderColor": "#5E2750",
@@ -25781,7 +25889,8 @@ window.BENCHMARK_DATA = {
           6325.950376383464,
           9347.49644939716,
           5340.264547075544,
-          6848.029665120443
+          6848.029665120443,
+          6986.704336983817
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26028,7 +26137,8 @@ window.BENCHMARK_DATA = {
           16391,
           16393,
           16394,
-          16391
+          16391,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26278,7 +26388,8 @@ window.BENCHMARK_DATA = {
           303.23249638875325,
           359.8979167257036,
           267.08929341634115,
-          309.0626633350666
+          309.0626633350666,
+          283.67574345270793
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26444,6 +26555,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -26775,7 +26887,8 @@ window.BENCHMARK_DATA = {
           1237.1155988057455,
           1353.3129749298096,
           1064.6155831263616,
-          1320.4374145507813
+          1320.4374145507813,
+          1151.2720480600992
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26909,6 +27022,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -28452,6 +28566,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -28690,7 +28810,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -28932,7 +29053,8 @@ window.BENCHMARK_DATA = {
           249.58797801335652,
           188.15417076991156,
           239.1867203394572,
-          187.49131764684404
+          187.49131764684404,
+          257.0552298227946
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -29163,6 +29285,7 @@ window.BENCHMARK_DATA = {
           984,
           984,
           920,
+          904,
           904,
           904,
           904,
@@ -29429,7 +29552,8 @@ window.BENCHMARK_DATA = {
           6946.590205265926,
           7625.9624959309895,
           10836.294854971078,
-          7648.996329171317
+          7648.996329171317,
+          10661.593148367745
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -29676,7 +29800,8 @@ window.BENCHMARK_DATA = {
           10568,
           10569,
           10568,
-          10568
+          10568,
+          10569
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -29926,7 +30051,8 @@ window.BENCHMARK_DATA = {
           5203.858914511545,
           5143.035875760592,
           7435.016990661621,
-          5324.356314522879
+          5324.356314522879,
+          7424.536880493164
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -30173,6 +30299,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664
         ],
         "borderColor": "#5E2750",
@@ -30423,7 +30550,8 @@ window.BENCHMARK_DATA = {
           4875.475756072998,
           5150.965689086914,
           7660.504149216872,
-          5425.647395833334
+          5425.647395833334,
+          7972.005631510417
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30668,6 +30796,7 @@ window.BENCHMARK_DATA = {
           11191,
           11276,
           11191,
+          11196,
           11196,
           11196,
           11196
@@ -30920,7 +31049,8 @@ window.BENCHMARK_DATA = {
           171.81722559247697,
           130.30517314161574,
           156.86594950358074,
-          131.83495389498196
+          131.83495389498196,
+          171.18671076638358
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -31086,6 +31216,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -31417,7 +31548,8 @@ window.BENCHMARK_DATA = {
           426.78242359842574,
           341.3285950978597,
           412.73520299366544,
-          333.8536482879094
+          333.8536482879094,
+          438.0306733335768
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -31613,6 +31745,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -33094,6 +33227,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -33332,7 +33471,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -33574,7 +33714,8 @@ window.BENCHMARK_DATA = {
           562.2537924448649,
           466.47545607884723,
           581.224356730779,
-          492.57160676320393
+          492.57160676320393,
+          612.4335220336914
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33805,6 +33946,7 @@ window.BENCHMARK_DATA = {
           1848,
           1848,
           1784,
+          1768,
           1768,
           1768,
           1768,
@@ -34071,7 +34213,8 @@ window.BENCHMARK_DATA = {
           11494.243967328754,
           12183.61016191755,
           17760.347024770883,
-          12532.011330159505
+          12532.011330159505,
+          17119.67782156808
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34316,6 +34459,7 @@ window.BENCHMARK_DATA = {
           18504,
           18505,
           18504,
+          18505,
           18505,
           18505,
           18505
@@ -34568,7 +34712,8 @@ window.BENCHMARK_DATA = {
           11586.477077229818,
           11975.233151245116,
           17252.745439801896,
-          12432.033752441406
+          12432.033752441406,
+          17743.716459147134
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34815,6 +34960,7 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21553,
+          21529,
           21529
         ],
         "borderColor": "#5E2750",
@@ -35065,7 +35211,8 @@ window.BENCHMARK_DATA = {
           11678.504026285807,
           13006.23372701009,
           19012.28560180664,
-          12480.027339390346
+          12480.027339390346,
+          20553.268471272786
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35310,6 +35457,7 @@ window.BENCHMARK_DATA = {
           30780,
           30866,
           30780,
+          30785,
           30785,
           30785,
           30785
@@ -35562,7 +35710,8 @@ window.BENCHMARK_DATA = {
           330.49850346247354,
           250.93490662941565,
           329.5759818394979,
-          248.822560106005
+          248.822560106005,
+          352.27229700088503
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -35728,6 +35877,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -36059,7 +36209,8 @@ window.BENCHMARK_DATA = {
           1618.8052379608155,
           1190.2324586595807,
           1526.115812174479,
-          1186.4361998694283
+          1186.4361998694283,
+          1523.219981765747
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -36255,6 +36406,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -37736,6 +37888,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -37974,7 +38132,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -38216,7 +38375,8 @@ window.BENCHMARK_DATA = {
           13.113715215524037,
           12.838169187307358,
           9.105511372288069,
-          11.65672917664051
+          11.65672917664051,
+          12.729933780431747
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -38446,6 +38606,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -38713,7 +38874,8 @@ window.BENCHMARK_DATA = {
           77.95449261154447,
           78.70701725993838,
           55.566789414201466,
-          74.40400652090709
+          74.40400652090709,
+          75.61592439810435
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -38879,6 +39041,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -39210,7 +39373,8 @@ window.BENCHMARK_DATA = {
           22.350322994589806,
           21.69266247323581,
           16.549879048551833,
-          23.099174280961353
+          23.099174280961353,
+          22.35035473746913
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -39344,6 +39508,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -39707,7 +39872,8 @@ window.BENCHMARK_DATA = {
           1000.6872233072917,
           1038.988533814748,
           788.0780457814534,
-          815.6755203882853
+          815.6755203882853,
+          952.1216910226004
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -39868,6 +40034,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -40204,7 +40371,8 @@ window.BENCHMARK_DATA = {
           1376.6611586252848,
           1518.9619548797607,
           1082.170068195888,
-          1118.8601969310216
+          1118.8601969310216,
+          1326.8951696668353
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -40365,6 +40533,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -40701,7 +40870,8 @@ window.BENCHMARK_DATA = {
           1197.4617874962944,
           1361.2115750630696,
           939.9788581303188,
-          948.3948334966387
+          948.3948334966387,
+          1132.2596035639444
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -40948,7 +41118,8 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2755,
-          2750
+          2750,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -41280,6 +41451,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -41335,7 +41512,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -41394,7 +41572,8 @@ window.BENCHMARK_DATA = {
           675.5173467953999,
           1124.0577767690022,
           1102.2337165832519,
-          1169.0815786997478
+          1169.0815786997478,
+          638.9358324050903
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -41442,6 +41621,7 @@ window.BENCHMARK_DATA = {
           3168,
           3168,
           2904,
+          2872,
           2872,
           2872,
           2872,
@@ -41525,7 +41705,8 @@ window.BENCHMARK_DATA = {
           702.185636656625,
           1151.7603735242571,
           1137.0954573949177,
-          1107.1271736962456
+          1107.1271736962456,
+          624.684638150533
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -41555,6 +41736,7 @@ window.BENCHMARK_DATA = {
           2968,
           2968,
           2968,
+          3248,
           3248,
           3248,
           3248,
@@ -41656,7 +41838,8 @@ window.BENCHMARK_DATA = {
           1948.3690929412842,
           3337.2552585601807,
           3257.8189242045087,
-          3325.576717376709
+          3325.576717376709,
+          1937.0776854197184
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -41686,6 +41869,7 @@ window.BENCHMARK_DATA = {
           9528,
           9528,
           9528,
+          10544,
           10544,
           10544,
           10544,
@@ -41787,7 +41971,8 @@ window.BENCHMARK_DATA = {
           164189.96450570913,
           439543.9145132211,
           441208.5109375,
-          541898.619140625
+          541898.619140625,
+          155310.63224283853
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -41851,7 +42036,8 @@ window.BENCHMARK_DATA = {
           47420,
           47391,
           47502,
-          47343
+          47343,
+          47661
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -41918,7 +42104,8 @@ window.BENCHMARK_DATA = {
           13511.21942952474,
           23425.263728841146,
           23015.158416748047,
-          24884.905989426832
+          24884.905989426832,
+          12660.947151184082
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -41982,7 +42169,8 @@ window.BENCHMARK_DATA = {
           38019,
           38020,
           38020,
-          38020
+          38020,
+          38019
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42049,7 +42237,8 @@ window.BENCHMARK_DATA = {
           12387.204479510967,
           21669.60271344866,
           22023.00644938151,
-          23931.03545328776
+          23931.03545328776,
+          11872.35459798177
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -42107,6 +42296,7 @@ window.BENCHMARK_DATA = {
           35047,
           35288,
           35288,
+          35047,
           35047,
           35047,
           35047,
@@ -42331,6 +42521,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -42367,7 +42563,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -42407,7 +42604,8 @@ window.BENCHMARK_DATA = {
           22768.39030965169,
           26241.691135660807,
           17881.39059346517,
-          23216.61875406901
+          23216.61875406901,
+          21207.946816580636
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -42436,6 +42634,7 @@ window.BENCHMARK_DATA = {
           56608,
           56608,
           56552,
+          56544,
           56544,
           56544,
           56544,
@@ -42500,7 +42699,8 @@ window.BENCHMARK_DATA = {
           18358.24888712565,
           20107.202181302586,
           14158.764726911273,
-          18561.92459716797
+          18561.92459716797,
+          17343.177799479166
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -42512,6 +42712,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          40688,
           40688,
           40688,
           40688,
@@ -42593,7 +42794,8 @@ window.BENCHMARK_DATA = {
           97956.16564941406,
           95390.8386579241,
           82609.21013532366,
-          107144.02355143228
+          107144.02355143228,
+          80176.0314453125
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -42623,6 +42825,7 @@ window.BENCHMARK_DATA = {
           203585,
           203585,
           203584,
+          203585,
           203585,
           203585,
           203585,
@@ -42686,7 +42889,8 @@ window.BENCHMARK_DATA = {
           230019.4476888021,
           394284.5289713542,
           194721.75659179688,
-          244769.36293945313
+          244769.36293945313,
+          297420.5970377604
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42731,7 +42935,8 @@ window.BENCHMARK_DATA = {
           431908,
           431938,
           431938,
-          431908
+          431908,
+          431938
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42779,7 +42984,8 @@ window.BENCHMARK_DATA = {
           188030.82153320312,
           283344.04117838544,
           158383.96285574776,
-          219074.96111653646
+          219074.96111653646,
+          238962.32364327568
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42824,7 +43030,8 @@ window.BENCHMARK_DATA = {
           378018,
           322037,
           322036,
-          378018
+          378018,
+          378037
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42872,7 +43079,8 @@ window.BENCHMARK_DATA = {
           296405.3328776042,
           358402.71123046876,
           226523.29220145088,
-          281713.0645833333
+          281713.0645833333,
+          293826.31865234376
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -42917,7 +43125,8 @@ window.BENCHMARK_DATA = {
           944522,
           944362,
           944380,
-          944522
+          944522,
+          944402
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43135,6 +43344,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -43171,7 +43386,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -43211,7 +43427,8 @@ window.BENCHMARK_DATA = {
           38823.16881103515,
           31964.9310546875,
           37978.167682354266,
-          31817.50521615835
+          31817.50521615835,
+          42566.188728841145
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -43240,6 +43457,7 @@ window.BENCHMARK_DATA = {
           96888,
           96888,
           96824,
+          96808,
           96808,
           96808,
           96808,
@@ -43304,7 +43522,8 @@ window.BENCHMARK_DATA = {
           19103.82925415039,
           12888.508722577777,
           17038.607668558758,
-          13173.2197465163
+          13173.2197465163,
+          17800.33337198893
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -43347,6 +43566,7 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641
@@ -43397,7 +43617,8 @@ window.BENCHMARK_DATA = {
           119370.1974609375,
           89856.53775227864,
           116228.2307035006,
-          89544.48693847656
+          89544.48693847656,
+          121419.76513671875
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -43439,6 +43660,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -43490,7 +43712,8 @@ window.BENCHMARK_DATA = {
           430067.46207682294,
           518746.18984375,
           677389.9204477164,
-          514141.79440104164
+          514141.79440104164,
+          692652.3222005208
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -43534,6 +43757,7 @@ window.BENCHMARK_DATA = {
           836538,
           836449,
           836540,
+          836541,
           836541,
           836541
         ],
@@ -43583,7 +43807,8 @@ window.BENCHMARK_DATA = {
           702630.6908528645,
           759591.452734375,
           1067699.4272135417,
-          765194.2871844952
+          765194.2871844952,
+          1122731.8393229167
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -43628,7 +43853,8 @@ window.BENCHMARK_DATA = {
           1139620,
           1139701,
           1139727,
-          1139701
+          1139701,
+          1139703
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -43676,7 +43902,8 @@ window.BENCHMARK_DATA = {
           826925.9026066706,
           930896.6133789063,
           1297490.27421875,
-          915178.7649739584
+          915178.7649739584,
+          1368137.547154018
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43721,7 +43948,8 @@ window.BENCHMARK_DATA = {
           2194285,
           2194325,
           2194290,
-          2194325
+          2194325,
+          2194290
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43939,6 +44167,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -43975,7 +44209,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -44015,7 +44250,8 @@ window.BENCHMARK_DATA = {
           103470.54514160156,
           63025.874049595426,
           60267.39432232197,
-          68326.07088797433
+          68326.07088797433,
+          64929.77171107701
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44060,7 +44296,8 @@ window.BENCHMARK_DATA = {
           105545,
           105545,
           105544,
-          105544
+          105544,
+          105545
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44108,7 +44345,8 @@ window.BENCHMARK_DATA = {
           53502.14598795573,
           28215.477130596453,
           27535.125717163086,
-          39611.7506266276
+          39611.7506266276,
+          39171.71926175631
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44151,6 +44389,7 @@ window.BENCHMARK_DATA = {
           120981,
           120977,
           120980,
+          120981,
           120981,
           120981,
           120981
@@ -44201,7 +44440,8 @@ window.BENCHMARK_DATA = {
           1015505.4118489583,
           549857.5985351562,
           503306.1809895833,
-          790174.9079427083
+          790174.9079427083,
+          756490.5286458334
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44246,7 +44486,8 @@ window.BENCHMARK_DATA = {
           918557,
           1030603,
           918596,
-          1030807
+          1030807,
+          1030606
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44294,7 +44535,8 @@ window.BENCHMARK_DATA = {
           1608018.123046875,
           871799.812890625,
           879137.7398856027,
-          1220505.7094401042
+          1220505.7094401042,
+          1232672.6700613839
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -44339,7 +44581,8 @@ window.BENCHMARK_DATA = {
           1500713,
           1556768,
           1500814,
-          1500791
+          1500791,
+          1500823
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -44387,7 +44630,8 @@ window.BENCHMARK_DATA = {
           1453279.1600260416,
           757937.5083333333,
           807460.2102614183,
-          1077007.7005208333
+          1077007.7005208333,
+          1057588.8137555805
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -44432,6 +44676,7 @@ window.BENCHMARK_DATA = {
           2204673,
           2204669,
           2204668,
+          2204674,
           2204674
         ],
         "borderColor": "#4A6FA5",
@@ -44478,7 +44723,8 @@ window.BENCHMARK_DATA = {
           213025.63797433037,
           139316.45708356585,
           136688.36258370537,
-          142587.92972005208
+          142587.92972005208,
+          140656.90938313803
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -44490,6 +44736,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          300713,
           300713,
           300713,
           300713,
@@ -44691,6 +44938,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -44719,7 +44972,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -44751,7 +45005,8 @@ window.BENCHMARK_DATA = {
           417.5646880694798,
           333.7561613400777,
           371.9851001103719,
-          332.7524409634726
+          332.7524409634726,
+          431.5449076652527
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44772,6 +45027,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1520,
+          1512,
           1512,
           1512,
           1512,
@@ -44828,7 +45084,8 @@ window.BENCHMARK_DATA = {
           230.54835720062255,
           220.4612432161967,
           219.96234699657984,
-          221.57354380403245
+          221.57354380403245,
+          254.43999134699504
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44840,6 +45097,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -44905,7 +45163,8 @@ window.BENCHMARK_DATA = {
           512.003850528172,
           412.81359577178955,
           487.0426378885905,
-          424.3395765849522
+          424.3395765849522,
+          515.6212952295939
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -44917,6 +45176,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -44982,7 +45242,8 @@ window.BENCHMARK_DATA = {
           36371.96292114258,
           70961.89890834263,
           36528.80677897135,
-          70400.54711914062
+          70400.54711914062,
+          37304.96266392299
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45019,7 +45280,8 @@ window.BENCHMARK_DATA = {
           10009,
           10030,
           10009,
-          10030
+          10030,
+          10009
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45059,7 +45321,8 @@ window.BENCHMARK_DATA = {
           5590.628446960449,
           5635.380136343149,
           5364.323428344726,
-          5261.456020355225
+          5261.456020355225,
+          5678.57158610026
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45090,6 +45353,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -45136,7 +45400,8 @@ window.BENCHMARK_DATA = {
           5014.808221944173,
           5409.8282214573455,
           4740.878958638509,
-          5126.7362589518225
+          5126.7362589518225,
+          4894.565518697103
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45173,7 +45438,8 @@ window.BENCHMARK_DATA = {
           11848,
           11853,
           11848,
-          11853
+          11853,
+          11848
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45343,6 +45609,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -45371,7 +45643,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -45403,7 +45676,8 @@ window.BENCHMARK_DATA = {
           1587.7572773524694,
           1353.4594022115073,
           1494.5664157867432,
-          1284.5805812248816
+          1284.5805812248816,
+          1557.930336380005
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -45424,6 +45698,7 @@ window.BENCHMARK_DATA = {
           4296,
           4296,
           3992,
+          3984,
           3984,
           3984,
           3984,
@@ -45480,7 +45755,8 @@ window.BENCHMARK_DATA = {
           932.8018050511678,
           826.4786796569824,
           872.3348545710246,
-          797.6313769022623
+          797.6313769022623,
+          901.7374247233073
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -45492,6 +45768,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -45557,7 +45834,8 @@ window.BENCHMARK_DATA = {
           3208.9850949605307,
           2676.595711517334,
           3030.303127034505,
-          2683.930714416504
+          2683.930714416504,
+          3147.995972442627
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -45569,6 +45847,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -45634,7 +45913,8 @@ window.BENCHMARK_DATA = {
           53022.43264770508,
           83296.64158412388,
           52615.958858235674,
-          81871.32944161551
+          81871.32944161551,
+          52907.873888288224
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45671,7 +45951,8 @@ window.BENCHMARK_DATA = {
           25108,
           25114,
           25108,
-          25114
+          25114,
+          25108
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45711,7 +45992,8 @@ window.BENCHMARK_DATA = {
           15618.413759358724,
           16422.60099205604,
           15334.111509050641,
-          16616.090706961495
+          16616.090706961495,
+          15679.107427978515
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45748,7 +46030,8 @@ window.BENCHMARK_DATA = {
           23480,
           23481,
           23480,
-          23481
+          23481,
+          23480
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45788,7 +46071,8 @@ window.BENCHMARK_DATA = {
           21712.57799682617,
           20778.478533935548,
           18808.439586094446,
-          19882.964813232422
+          19882.964813232422,
+          20497.360441080727
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45825,7 +46109,8 @@ window.BENCHMARK_DATA = {
           55213,
           55216,
           55213,
-          55216
+          55216,
+          55213
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45995,6 +46280,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:11:03 2026 \u002B0100",
         "message": "ci: compare the benchmarks of a pull request with main from the same runner (#1050)"
+      },
+      {
+        "sha": "036c4f770ef7207b17aa37bc86e9c9fdc2173675",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 21:43:46 2026 \u002B0100",
+        "message": "fix: resolve a null literal on classic delegate setups and verifications (#1032)"
       }
     ],
     "labels": [
@@ -46023,7 +46314,8 @@ window.BENCHMARK_DATA = {
       "0806680c",
       "c1503acc",
       "315b878a",
-      "b4d17ebe"
+      "b4d17ebe",
+      "036c4f77"
     ],
     "datasets": [
       {
@@ -46055,7 +46347,8 @@ window.BENCHMARK_DATA = {
           132418.47185407366,
           106590.53150353066,
           126266.8152204241,
-          105224.26166992188
+          105224.26166992188,
+          128283.03797200522
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46076,6 +46369,7 @@ window.BENCHMARK_DATA = {
           273576,
           273577,
           273273,
+          273265,
           273265,
           273265,
           273265,
@@ -46132,7 +46426,8 @@ window.BENCHMARK_DATA = {
           77933.55749511719,
           68321.63750751202,
           67971.40769042968,
-          63855.01766357422
+          63855.01766357422,
+          75408.55868094308
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46169,7 +46464,8 @@ window.BENCHMARK_DATA = {
           208881,
           208883,
           208881,
-          208883
+          208883,
+          208881
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46209,7 +46505,8 @@ window.BENCHMARK_DATA = {
           294829.92496744794,
           251689.7201171875,
           255848.6407877604,
-          256664.64368489583
+          256664.64368489583,
+          300757.84453125
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -46243,6 +46540,7 @@ window.BENCHMARK_DATA = {
           707793,
           707794,
           707793,
+          707794,
           707794,
           707794,
           707794,
@@ -46286,7 +46584,8 @@ window.BENCHMARK_DATA = {
           1048300.8481069711,
           1216709.0028645834,
           1008996.853125,
-          1149044.20390625
+          1149044.20390625,
+          1079653.7009114583
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46323,7 +46622,8 @@ window.BENCHMARK_DATA = {
           1692566,
           1692679,
           1692566,
-          1692679
+          1692679,
+          1692566
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46363,7 +46663,8 @@ window.BENCHMARK_DATA = {
           1081328.2618582589,
           1210919.7381510416,
           1026490.9638020833,
-          1255227.8454026442
+          1255227.8454026442,
+          1081038.205924479
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46400,7 +46701,8 @@ window.BENCHMARK_DATA = {
           1468806,
           1468912,
           1468806,
-          1468914
+          1468914,
+          1468806
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46440,7 +46742,8 @@ window.BENCHMARK_DATA = {
           2442697.6104166666,
           2291249.614973958,
           1984222.0844029018,
-          2156013.564583333
+          2156013.564583333,
+          2245833.1684895833
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46477,7 +46780,8 @@ window.BENCHMARK_DATA = {
           4803188,
           4803385,
           4803179,
-          4803383
+          4803383,
+          4803189
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
