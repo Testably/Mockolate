@@ -107,6 +107,24 @@ public abstract class ParamsConstructorSelectionBase
 	public string CalledConstructor { get; }
 }
 
+/// <summary>
+///     <see langword="params" /> collections: of two collection types, C# prefers the one that converts to the other.
+/// </summary>
+public abstract class ParamsCollectionConstructorBase
+{
+	protected ParamsCollectionConstructorBase(params System.Collections.Generic.IEnumerable<int> numbers)
+	{
+		CalledConstructor = "IEnumerable<int>";
+	}
+
+	protected ParamsCollectionConstructorBase(params System.Collections.Generic.List<int> numbers)
+	{
+		CalledConstructor = $"List<int>({numbers.Count})";
+	}
+
+	public string CalledConstructor { get; }
+}
+
 public abstract class OptionalOverParamsConstructorBase
 {
 	protected OptionalOverParamsConstructorBase(params int[] numbers)

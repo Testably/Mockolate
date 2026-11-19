@@ -326,6 +326,9 @@ public sealed partial class MockTests
 			ParamsConstructorSelectionBase sut7 = ParamsConstructorSelectionBase.CreateMock();
 			OptionalOverParamsConstructorBase sut8 = OptionalOverParamsConstructorBase.CreateMock();
 			OptionalAndParamsConstructorBase sut9 = OptionalAndParamsConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+			ParamsCollectionConstructorBase sut10 = ParamsCollectionConstructorBase.CreateMock();
+			ParamsSpanConstructorBase sut11 = ParamsSpanConstructorBase.CreateMock();
+			OnlyParamsSpanConstructorBase sut12 = OnlyParamsSpanConstructorBase.CreateMock().Implementing<ICombinationMockA>();
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
 			await That(sut3).IsNotNull();
@@ -335,6 +338,9 @@ public sealed partial class MockTests
 			await That(sut7).IsNotNull();
 			await That(sut8).IsNotNull();
 			await That(sut9).IsNotNull();
+			await That(sut10).IsNotNull();
+			await That(sut11).IsNotNull();
+			await That(sut12).IsNotNull();
 		}
 
 		[Test]

@@ -977,6 +977,12 @@ internal static partial class Sources
 			foreach (EquatableArray<MethodParameter> constructorParameters in constructors.Value.Select(constructor => constructor.Parameters))
 			{
 				constructorIndex++;
+				// A ref struct cannot be passed in the object array of constructor parameters.
+				if (constructorParameters.Any(parameter => parameter.Type.IsRefStruct))
+				{
+					continue;
+				}
+
 				int requiredParameters = constructorParameters.Count(c => !c.HasExplicitDefaultValue);
 				if (requiredParameters < constructorParameters.Count)
 				{

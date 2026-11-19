@@ -285,6 +285,42 @@ public sealed partial class MockTests
 	}
 
 	[Test]
+	public async Task Create_WithParamsCollectionConstructors_ShouldPreferTheCollectionThatConvertsToTheOther()
+	{
+		ParamsCollectionConstructorBase sut = ParamsCollectionConstructorBase.CreateMock();
+		ParamsCollectionConstructorBase combined = ParamsCollectionConstructorBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.CalledConstructor).IsEqualTo("List<int>(0)")
+			.Because("C# passes an empty List<int>, which converts to IEnumerable<int>, for new T()");
+		await That(combined.CalledConstructor).IsEqualTo("List<int>(0)");
+	}
+
+#if NET10_0_OR_GREATER
+	[Test]
+	public async Task Create_WithParamsSpanAndArrayConstructors_ShouldPreferTheSpan()
+	{
+		ParamsSpanConstructorBase sut = ParamsSpanConstructorBase.CreateMock();
+		ParamsSpanConstructorBase combined = ParamsSpanConstructorBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.CalledConstructor).IsEqualTo("ReadOnlySpan<int>(0)")
+			.Because("C# prefers a params span over a params array of the same element type for new T()");
+		await That(combined.CalledConstructor).IsEqualTo("ReadOnlySpan<int>(0)");
+	}
+
+	[Test]
+	public async Task Create_WithOnlyParamsSpanConstructor_ShouldUseDeclaredDefaultsAndAnEmptySpan()
+	{
+		OnlyParamsSpanConstructorBase sut = OnlyParamsSpanConstructorBase.CreateMock();
+		OnlyParamsSpanConstructorBase combined = OnlyParamsSpanConstructorBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.Number).IsEqualTo(1);
+		await That(sut.TextCount).IsEqualTo(0);
+		await That(combined.Number).IsEqualTo(1);
+		await That(combined.TextCount).IsEqualTo(0);
+	}
+#endif
+
+	[Test]
 	public async Task Create_WithRequiredParameters_WithEmptyParameters_ShouldThrowMockException()
 	{
 		void Act()

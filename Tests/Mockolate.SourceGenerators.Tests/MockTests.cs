@@ -292,12 +292,64 @@ public sealed partial class MockTests
 	}
 
 	[Test]
+	public async Task ForTypesWithParamsSpanConstructor_ShouldCallItWithAnEmptySpan()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using System;
+			     using Mockolate;
+
+			     namespace MyCode;
+
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = MyBaseClass.CreateMock().Implementing<IMyInterface>();
+			         }
+			     }
+
+			     public class MyBaseClass
+			     {
+			         protected MyBaseClass(params ReadOnlySpan<int> values) { }
+			     }
+
+			     public interface IMyInterface
+			     {
+			         void DoWork();
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains("""
+			          				global::System.ReadOnlySpan<int> c1p1 = [];
+			          				return new global::Mockolate.Mock.MyBaseClass(mockRegistry, c1p1);
+			          """).IgnoringNewlineStyle().And
+			.DoesNotContain("TryCast(").Because("a span cannot be passed in the object array of constructor parameters");
+		await That(result.Sources["Mock.MyBaseClass__IMyInterface.g.cs"])
+			.Contains("""
+			          			global::System.ReadOnlySpan<int> c1p1 = [];
+			          			value = new global::Mockolate.Mock.MyBaseClass__IMyInterface(mock.MockRegistry, c1p1);
+			          """).IgnoringNewlineStyle().And
+			.DoesNotContain("TryCast(");
+	}
+
+	[Test]
 	[Arguments("protected MyBaseClass(params object[] values) { }", "protected MyBaseClass(params string[] values) { }", 2)]
 	[Arguments("protected MyBaseClass(params int[] values) { }", "protected MyBaseClass(int value = 1) { }", 2)]
 	[Arguments("protected MyBaseClass(params string[] values) { }", "protected MyBaseClass(int value = 1, params string[] values) { }", 1)]
 	[Arguments("protected MyBaseClass(int value = 1, params object[] values) { }", "protected MyBaseClass(int value = 1, params string[] values) { }", 2)]
 	[Arguments("protected MyBaseClass(params int[] values) { }", "protected MyBaseClass(params long[] values) { }", 1)]
 	[Arguments("protected MyBaseClass(int value = 1, params string[] values) { }", "protected MyBaseClass(int value = 1, int other = 2, params object[] values) { }", 1)]
+	[Arguments("protected MyBaseClass(params int[] values) { }", "protected MyBaseClass(params System.ReadOnlySpan<int> values) { }", 2)]
+	[Arguments("protected MyBaseClass(params System.Span<int> values) { }", "protected MyBaseClass(params System.ReadOnlySpan<int> values) { }", 2)]
+	[Arguments("protected MyBaseClass(params System.Collections.Generic.IEnumerable<int> values) { }", "protected MyBaseClass(params System.Span<int> values) { }", 2)]
+	[Arguments("protected MyBaseClass(params System.Collections.Generic.IEnumerable<int> values) { }", "protected MyBaseClass(params System.Collections.Generic.List<int> values) { }", 2)]
+	[Arguments("protected MyBaseClass(params System.Collections.Generic.List<int> values) { }", "protected MyBaseClass(params int[] values) { }", 1)]
+	[Arguments("protected MyBaseClass(params object[] values) { }", "protected MyBaseClass(params System.ReadOnlySpan<string> values) { }", 1)]
+	[Arguments("protected MyBaseClass(params System.Collections.Generic.List<int> values) { }", "protected MyBaseClass(params System.ReadOnlySpan<int> values) { }", 1)]
+	[Arguments("protected MyBaseClass(params System.ReadOnlySpan<object> values) { }", "protected MyBaseClass(params System.ReadOnlySpan<string> values) { }", 1)]
 	public async Task ForTypesWithSeveralConstructorsWithoutArguments_ShouldFollowCSharpOverloadResolution(
 		string first, string second, int expectedConstructor)
 	{

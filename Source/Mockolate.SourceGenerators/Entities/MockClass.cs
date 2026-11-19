@@ -259,14 +259,15 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		return null;
 
 		static bool IsCallableWithoutArguments(IMethodSymbol constructor)
-			=> constructor.Parameters.All(p => p.HasExplicitDefaultValue || (p.IsParams && p.Type is IArrayTypeSymbol));
+			=> constructor.Parameters.All(p => p.HasExplicitDefaultValue || p.IsParams);
 	}
 
 	/// <remarks>
 	///     The better function member rules for a call without arguments: a constructor applicable in its normal form
-	///     beats one with a <see langword="params" /> array, which is only applicable in its expanded form. Then one
+	///     beats one with a <see langword="params" /> parameter, which is only applicable in its expanded form. Then one
 	///     that needs no default values beats one that does. Two expanded forms with the same number of parameters
-	///     are decided by the better conversion target between their <see langword="params" /> array types.
+	///     are decided by the better collection conversion from the empty collection to their
+	///     <see langword="params" /> types.
 	/// </remarks>
 	private static bool IsBetterWithoutArguments(IMethodSymbol constructor, IMethodSymbol other, Compilation compilation)
 	{
@@ -291,8 +292,50 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 
 		ITypeSymbol paramsType = constructor.Parameters[constructor.Parameters.Length - 1].Type;
 		ITypeSymbol otherParamsType = other.Parameters[other.Parameters.Length - 1].Type;
-		return compilation.ClassifyCommonConversion(paramsType, otherParamsType).IsImplicit &&
-		       !compilation.ClassifyCommonConversion(otherParamsType, paramsType).IsImplicit;
+		return IsBetterCollectionConversion(paramsType, otherParamsType, compilation) &&
+		       !IsBetterCollectionConversion(otherParamsType, paramsType, compilation);
+	}
+
+	/// <remarks>
+	///     A <c>ReadOnlySpan&lt;E&gt;</c> beats a <c>Span&lt;E&gt;</c>, a span beats an array or array interface of the
+	///     identical element type, and of two other types the one that implicitly converts to the other wins.
+	/// </remarks>
+	private static bool IsBetterCollectionConversion(ITypeSymbol type, ITypeSymbol other, Compilation compilation)
+	{
+		INamedTypeSymbol? span = compilation.GetTypeByMetadataName("System.Span`1");
+		INamedTypeSymbol? readOnlySpan = compilation.GetTypeByMetadataName("System.ReadOnlySpan`1");
+		ITypeSymbol? readOnlySpanElement = GetElementType(type, readOnlySpan);
+		ITypeSymbol? element = readOnlySpanElement ?? GetElementType(type, span);
+		if (element is null)
+		{
+			return GetElementType(other, span) is null && GetElementType(other, readOnlySpan) is null &&
+			       compilation.ClassifyCommonConversion(type, other).IsImplicit;
+		}
+
+		ITypeSymbol? otherElement = GetArrayOrArrayInterfaceElementType(other) ??
+		                            (readOnlySpanElement is not null ? GetElementType(other, span) : null);
+		return otherElement is not null && compilation.ClassifyCommonConversion(element, otherElement).IsIdentity;
+
+		static ITypeSymbol? GetElementType(ITypeSymbol type, INamedTypeSymbol? genericType)
+			=> genericType is not null && type is INamedTypeSymbol named &&
+			   SymbolEqualityComparer.Default.Equals(named.OriginalDefinition, genericType)
+				? named.TypeArguments[0]
+				: null;
+
+		static ITypeSymbol? GetArrayOrArrayInterfaceElementType(ITypeSymbol type)
+			=> type switch
+			{
+				IArrayTypeSymbol { Rank: 1, } array => array.ElementType,
+				INamedTypeSymbol
+				{
+					OriginalDefinition.SpecialType: SpecialType.System_Collections_Generic_IEnumerable_T
+					or SpecialType.System_Collections_Generic_IReadOnlyCollection_T
+					or SpecialType.System_Collections_Generic_IReadOnlyList_T
+					or SpecialType.System_Collections_Generic_ICollection_T
+					or SpecialType.System_Collections_Generic_IList_T,
+				} named => named.TypeArguments[0],
+				_ => null,
+			};
 	}
 
 	private static IEnumerable<INamedTypeSymbol> EnumerateInterfaces(ITypeSymbol type)

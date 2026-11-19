@@ -10,6 +10,52 @@
 #nullable enable annotations
 namespace Mockolate;
 
+internal static partial class MockExtensionsForOnlyParamsSpanConstructorBase
+{
+	extension(global::Mockolate.Mock.IMockForICombinationMockA mock)
+	{
+		/// <summary>
+		///     Reinterprets this mock as a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.OnlyParamsSpanConstructorBase">OnlyParamsSpanConstructorBase</see> to reach its Setup/Verify/Raise surface.
+		/// </summary>
+		/// <remarks>
+		///     The returned accessor shares the same mock registry as this one - setups and verifications act on the same mocked instance. Use this when the mock implements multiple interfaces via <c>Implementing&lt;T&gt;()</c> and you need to configure or verify members of a different interface than the one the instance is currently typed as.
+		/// </remarks>
+		/// <returns>An <c>IMockFor...</c> accessor targeting <see cref="global::Mockolate.Tests.GeneratorCoverage.OnlyParamsSpanConstructorBase">OnlyParamsSpanConstructorBase</see>.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The subject does not implement <see cref="global::Mockolate.Tests.GeneratorCoverage.OnlyParamsSpanConstructorBase">OnlyParamsSpanConstructorBase</see>.</exception>
+		public global::Mockolate.Mock.IMockForOnlyParamsSpanConstructorBase As<T>() where T : global::Mockolate.Tests.GeneratorCoverage.OnlyParamsSpanConstructorBase
+		{
+			if (mock is global::Mockolate.Mock.IMockForOnlyParamsSpanConstructorBase typed)
+			{
+				return typed;
+			}
+			throw new global::Mockolate.Exceptions.MockException($"The subject does not support type {typeof(T)}.");
+		}
+	}
+}
+
+internal static partial class MockExtensionsForICombinationMockA
+{
+	extension(global::Mockolate.Mock.IMockForOnlyParamsSpanConstructorBase mock)
+	{
+		/// <summary>
+		///     Reinterprets this mock as a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA">ICombinationMockA</see> to reach its Setup/Verify/Raise surface.
+		/// </summary>
+		/// <remarks>
+		///     The returned accessor shares the same mock registry as this one - setups and verifications act on the same mocked instance. Use this when the mock implements multiple interfaces via <c>Implementing&lt;T&gt;()</c> and you need to configure or verify members of a different interface than the one the instance is currently typed as.
+		/// </remarks>
+		/// <returns>An <c>IMockFor...</c> accessor targeting <see cref="global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA">ICombinationMockA</see>.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The subject does not implement <see cref="global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA">ICombinationMockA</see>.</exception>
+		public global::Mockolate.Mock.IMockForICombinationMockA As<T>() where T : global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA
+		{
+			if (mock is global::Mockolate.Mock.IMockForICombinationMockA typed)
+			{
+				return typed;
+			}
+			throw new global::Mockolate.Exceptions.MockException($"The subject does not support type {typeof(T)}.");
+		}
+	}
+}
+
 internal static partial class MockExtensionsForOptionalAndParamsConstructorBase
 {
 	extension(global::Mockolate.Mock.IMockForICombinationMockA mock)
