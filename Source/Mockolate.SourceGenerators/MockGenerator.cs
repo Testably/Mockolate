@@ -681,7 +681,7 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		context.AddSource($"Mock.{fileName}.g.cs",
-			ToSource(Sources.Sources.MockCombinationClass(fileName, named.ParentName, @class, additionalArr,
+			ToSource(Sources.Sources.MockCombinationClass(fileName, named.ParentName, @class, additionalArr, hasOverloadResolutionPriority,
 				useUnionOverloads), externAliases));
 	}
 

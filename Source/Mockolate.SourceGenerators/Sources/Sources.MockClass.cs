@@ -227,7 +227,7 @@ internal static partial class Sources
 
 		sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 		sb.AppendLine();
-		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 		sb.Append("\t\t#endregion IMockSetupFor").Append(name).AppendLine();
 
 		if (hasProtectedMembers)
@@ -235,7 +235,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockProtectedSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 		}
 
@@ -244,7 +244,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockStaticSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockStaticSetupFor{name}", MemberType.Static, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockStaticSetupFor{name}", MemberType.Static, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockStaticSetupFor").Append(name).AppendLine();
 		}
 
@@ -253,7 +253,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockSetupFor").Append(hiddenBase.Name).AppendLine();
 			sb.AppendLine();
-			ImplementSetupInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockSetupFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+			ImplementSetupInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockSetupFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockSetupFor").Append(hiddenBase.Name).AppendLine();
 		}
 
@@ -308,7 +308,7 @@ internal static partial class Sources
 		sb.AppendLine();
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
-		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 		sb.Append("\t\t#endregion IMockVerifyFor").Append(name).AppendLine();
 
 		if (hasProtectedMembers || hasProtectedEvents)
@@ -316,7 +316,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockProtectedVerifyFor").Append(name).AppendLine();
 			sb.AppendLine();
-			ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockProtectedVerifyFor{name}", MemberType.Protected, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+			ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockProtectedVerifyFor{name}", MemberType.Protected, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockProtectedVerifyFor").Append(name).AppendLine();
 		}
 
@@ -325,7 +325,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockStaticVerifyFor").Append(name).AppendLine();
 			sb.AppendLine();
-			ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockStaticVerifyFor{name}", MemberType.Static, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+			ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockStaticVerifyFor{name}", MemberType.Static, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockStaticVerifyFor").Append(name).AppendLine();
 		}
 
@@ -334,7 +334,7 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockVerifyFor").Append(hiddenBase.Name).AppendLine();
 			sb.AppendLine();
-			ImplementVerifyInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockVerifyFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, false, useUnionOverloads);
+			ImplementVerifyInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockVerifyFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, false, useUnionOverloads);
 			sb.Append("\t\t#endregion IMockVerifyFor").Append(hiddenBase.Name).AppendLine();
 		}
 
@@ -358,7 +358,7 @@ internal static partial class Sources
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
 		
-		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 		
 		sb.Append("\t\t#endregion IMockVerifyFor").Append(name).AppendLine();
 		sb.Append("\t}").AppendLine();
@@ -404,7 +404,7 @@ internal static partial class Sources
 		sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 		sb.AppendLine();
 		
-		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, "this._scenarioName", useUnionOverloads);
+		ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, "this._scenarioName", useUnionOverloads);
 		
 		sb.Append("\t\t#endregion IMockSetupFor").Append(name).AppendLine();
 		if (hasProtectedMembers)
@@ -413,7 +413,7 @@ internal static partial class Sources
 			sb.Append("\t\t#region IMockProtectedSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
 			
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, "this._scenarioName", useUnionOverloads);
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, hasOverloadResolutionPriority, "this._scenarioName", useUnionOverloads);
 			
 			sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 		}
@@ -1174,7 +1174,7 @@ internal static partial class Sources
 			sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 			sb.AppendLine();
 			
-			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockSetupFor{name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 			
 			sb.Append("\t\t#endregion IMockSetupFor").Append(name).AppendLine();
 			if (hasProtectedMembers)
@@ -1183,7 +1183,7 @@ internal static partial class Sources
 				sb.Append("\t\t#region IMockProtectedSetupFor").Append(name).AppendLine();
 				sb.AppendLine();
 				
-				ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, useUnionOverloads: useUnionOverloads);
+				ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 				
 				sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 			}
@@ -3505,37 +3505,74 @@ internal static partial class Sources
 		=> method.Parameters.Count == 1 && RanksArrayMatcherFirst(method.Parameters) ? ">?[] " : ">[] ";
 
 	/// <summary>
-	///     Declares the empty <c>params</c> array of the overload without parameters as a local, so that the body of
-	///     the all-values overload follows unchanged. Forwarding to that overload instead would go through overload
+	///     Declares the empty <c>params</c> array of the overload that leaves it out as a local, so that the body of
+	///     the overload that takes it as values follows unchanged. Forwarding to that overload instead would go through overload
 	///     resolution, where a sibling that accepts an array could win.
 	/// </summary>
 	private static void AppendEmptyParamsLocal(StringBuilder sb, Method method)
 	{
-		MethodParameter parameter = method.Parameters.AsArray()[0];
+		MethodParameter parameter = method.Parameters.AsArray()[method.Parameters.Count - 1];
 		sb.Append("\t\t\t").Append(parameter.Type.Fullname).Append(' ').Append(parameter.Name)
 			.Append(" = global::System.Array.Empty<").Append(parameter.Type.ElementType!.Fullname).Append(">();")
 			.AppendLine();
 	}
 
-	/// <summary>
-	///     Whether <paramref name="method" /> gets an overload without parameters for an empty <c>params object[]</c>.
-	///     Its all-values overload ranks below the per-element overload, so a call without arguments would bind to the
-	///     latter and lose <c>AnyParameters()</c>. A sibling without parameters already owns that signature; a delegate
-	///     has no siblings.
-	/// </summary>
-	private static bool HasEmptyParamsOverload(Class @class, Method method)
+	private static string EmptyParamsSummary(Method method)
 	{
-		if (method.Parameters.Count != 1 || !RanksArrayMatcherFirst(method.Parameters) ||
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		return parameters.Length == 1
+			? " without arguments"
+			: " with the given " + string.Join(", ", parameters.Take(parameters.Length - 1)
+				  .Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")) +
+			  " and no <paramref name=\"" + parameters[parameters.Length - 1].Name.TrimStart('@') + "\"/>";
+	}
+
+	private static bool[] EmptyParamsValueFlags(Method method)
+		=> method.Parameters.Select(p => p.IsParams).ToArray();
+
+	/// <summary>
+	///     Whether <paramref name="method" /> gets an overload that leaves out its <c>params</c> parameter and matches an
+	///     empty array. For a lone <c>params object[]</c> the all-values overload ranks below the per-element overload, so
+	///     a call without arguments would bind to the latter and lose <c>AnyParameters()</c>. Without
+	///     <c>OverloadResolutionPriorityAttribute</c> (<paramref name="hasOverloadResolutionPriority" />) a call without
+	///     <c>params</c> arguments is ambiguous between the per-element overload and the one that takes the array as
+	///     values, so every <c>params T[]</c> gets it; an overload in normal form wins over both expanded forms.
+	///     A sibling that could already own that signature suppresses it; a delegate has no siblings.
+	/// </summary>
+	private static bool HasEmptyParamsOverload(Class @class, Method method, bool hasOverloadResolutionPriority)
+	{
+		if (!TryGetPerElementParamsParameter(method) ||
 		    method.HasUnsupportedAllowsRefStructTypeParameter || method.ReturnType.NeedsRefStructPipeline())
 		{
 			return false;
 		}
 
 		string bareName = BareMethodName(method);
+		bool loneObjectParams = method.Parameters.Count == 1 && RanksArrayMatcherFirst(method.Parameters) &&
+		                        !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
+		                                                      m.MemberType == method.MemberType &&
+		                                                      m.Parameters.Count == 0 &&
+		                                                      BareMethodName(m) == bareName);
+		if (loneObjectParams || hasOverloadResolutionPriority)
+		{
+			return loneObjectParams;
+		}
+
+		string[] leading = LeadingParameterTypes(method);
 		return !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
 		                                     m.MemberType == method.MemberType &&
-		                                     m.Parameters.Count == 0 &&
-		                                     BareMethodName(m) == bareName);
+		                                     !m.Equals(method) &&
+		                                     BareMethodName(m) == bareName &&
+		                                     (m.Parameters.Count == leading.Length ||
+		                                      (m.Parameters.Count == leading.Length + 1 &&
+		                                       m.Parameters.AsArray()[leading.Length].IsParams)) &&
+		                                     m.Parameters.Take(leading.Length)
+			                                     .Select(p => p.Type.Fullname.Replace("?", ""))
+			                                     .SequenceEqual(leading));
+
+		static string[] LeadingParameterTypes(Method method)
+			=> method.Parameters.Take(method.Parameters.Count - 1).Select(p => p.Type.Fullname.Replace("?", ""))
+				.ToArray();
 	}
 
 	/// <summary>
@@ -3791,9 +3828,9 @@ internal static partial class Sources
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
 					}
 
-					if (HasEmptyParamsOverload(@class, method))
+					if (HasEmptyParamsOverload(@class, method, hasOverloadResolutionPriority))
 					{
-						AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: [true,],
+						AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: EmptyParamsValueFlags(method),
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
 					}
 
@@ -3968,7 +4005,7 @@ internal static partial class Sources
 		}
 		else if (emptyParams)
 		{
-			sb.Append(" without arguments");
+			sb.Append(EmptyParamsSummary(method));
 		}
 		else if (method.Parameters.Any())
 		{
@@ -4075,10 +4112,6 @@ internal static partial class Sources
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters)");
 		}
-		else if (emptyParams)
-		{
-			sb.Append(")");
-		}
 		else
 		{
 			ReadOnlySpan<MethodParameter> paramSpan = method.Parameters.AsSpan();
@@ -4087,6 +4120,11 @@ internal static partial class Sources
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
 			{
+				if (emptyParams && parameter.IsParams)
+				{
+					break;
+				}
+
 				if (i > 0)
 				{
 					sb.Append(", ");
@@ -4144,7 +4182,7 @@ internal static partial class Sources
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementSetupInterface(StringBuilder sb, Class @class, string mockRegistryName,
-		string setupName, MemberType memberType, MemberIdTable memberIds, string memberIdPrefix,
+		string setupName, MemberType memberType, MemberIdTable memberIds, string memberIdPrefix, bool hasOverloadResolutionPriority,
 		string? scopeExpression = null, bool useUnionOverloads = false)
 #pragma warning restore S107
 	{
@@ -4284,10 +4322,10 @@ internal static partial class Sources
 							memberIds, memberIdPrefix, scopeExpression: scopeExpression, perElementParams: true);
 					}
 
-					if (HasEmptyParamsOverload(@class, method))
+					if (HasEmptyParamsOverload(@class, method, hasOverloadResolutionPriority))
 					{
 						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
-							memberIds, memberIdPrefix, valueFlags: [true,], scopeExpression: scopeExpression,
+							memberIds, memberIdPrefix, valueFlags: EmptyParamsValueFlags(method), scopeExpression: scopeExpression,
 							emptyParams: true);
 					}
 
@@ -4412,15 +4450,16 @@ internal static partial class Sources
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters)");
 		}
-		else if (emptyParams)
-		{
-			sb.Append(")");
-		}
 		else
 		{
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
 			{
+				if (emptyParams && parameter.IsParams)
+				{
+					break;
+				}
+
 				if (i > 0)
 				{
 					sb.Append(", ");
@@ -5723,9 +5762,9 @@ internal static partial class Sources
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
 					}
 
-					if (HasEmptyParamsOverload(@class, method))
+					if (HasEmptyParamsOverload(@class, method, hasOverloadResolutionPriority))
 					{
-						AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: [true,],
+						AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: EmptyParamsValueFlags(method),
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
 					}
 
@@ -5804,7 +5843,7 @@ internal static partial class Sources
 
 		if (emptyParams)
 		{
-			sb.Append(" without arguments");
+			sb.Append(EmptyParamsSummary(method));
 		}
 		else if (useParameters)
 		{
@@ -5857,7 +5896,7 @@ internal static partial class Sources
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters");
 		}
-		else if (!emptyParams)
+		else
 		{
 			ReadOnlySpan<MethodParameter> paramSpan = method.Parameters.AsSpan();
 			bool[] hasTrailingDefault = ComputeTrailingDefaults(paramSpan, valueFlags);
@@ -5865,6 +5904,11 @@ internal static partial class Sources
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
 			{
+				if (emptyParams && parameter.IsParams)
+				{
+					break;
+				}
+
 				if (i > 0)
 				{
 					sb.Append(", ");
@@ -5921,7 +5965,7 @@ internal static partial class Sources
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementVerifyInterface(StringBuilder sb, Class @class, string mockRegistryName,
-		string verifyName, MemberType memberType, MemberIdTable memberIds, string memberIdPrefix,
+		string verifyName, MemberType memberType, MemberIdTable memberIds, string memberIdPrefix, bool hasOverloadResolutionPriority,
 		bool useTypedRecords = true, bool useUnionOverloads = false)
 #pragma warning restore S107
 	{
@@ -6041,10 +6085,10 @@ internal static partial class Sources
 							memberIds, memberIdPrefix, useTypedRecords, perElementParams: true);
 					}
 
-					if (HasEmptyParamsOverload(@class, method))
+					if (HasEmptyParamsOverload(@class, method, hasOverloadResolutionPriority))
 					{
 						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-							memberIds, memberIdPrefix, useTypedRecords, valueFlags: [true,], emptyParams: true);
+							memberIds, memberIdPrefix, useTypedRecords, valueFlags: EmptyParamsValueFlags(method), emptyParams: true);
 					}
 
 					if (method.Parameters.Count <= MaxExplicitParameters)
@@ -6137,11 +6181,16 @@ internal static partial class Sources
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters");
 		}
-		else if (!emptyParams)
+		else
 		{
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
 			{
+				if (emptyParams && parameter.IsParams)
+				{
+					break;
+				}
+
 				if (i > 0)
 				{
 					sb.Append(", ");
@@ -6321,7 +6370,7 @@ internal static partial class Sources
 			return;
 		}
 
-		bool usesBlockBody = hasDeclaredDefaults || emptyParams;
+		bool usesBlockBody = hasDeclaredDefaults || emptyParams || perElementParams;
 		if (usesBlockBody)
 		{
 			sb.Append("\t\t{").AppendLine();
@@ -6331,6 +6380,16 @@ internal static partial class Sources
 		if (emptyParams)
 		{
 			AppendEmptyParamsLocal(sb, method);
+		}
+
+		string elementMatch = Helpers.GetUniqueLocalVariableName("__elementMatch", method.Parameters);
+		if (perElementParams)
+		{
+			MethodParameter paramsParameter = method.Parameters.AsArray()[method.Parameters.Count - 1];
+			string matchType =
+				$"global::Mockolate.Internals.ParamsArrayParameterMatch<{paramsParameter.Type.ElementType!.Fullname}>";
+			sb.Append("\t\t\t").Append(matchType).Append(' ').Append(elementMatch).Append(" = new ").Append(matchType)
+				.Append('(').Append(paramsParameter.Name).Append(");").AppendLine();
 		}
 
 		sb.Append(usesBlockBody ? "\t\t\treturn " : "\t\t\t=> ");
@@ -6386,9 +6445,8 @@ internal static partial class Sources
 				if (perElementParams && parameter.IsParams &&
 				    parameter.Type.ElementType is not null)
 				{
-					sb.Append("(new global::Mockolate.Internals.ParamsArrayParameterMatch<")
-						.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
-						.Append(").Matches(").Append(invocation).Append(".Parameter").Append(i + 1).Append("))");
+					sb.Append('(').Append(elementMatch).Append(".Matches(").Append(invocation).Append(".Parameter")
+						.Append(i + 1).Append("))");
 				}
 				else if (isValueParam)
 				{
@@ -6413,7 +6471,12 @@ internal static partial class Sources
 		}
 
 		sb.Append(", () => $\"").Append(method.Name).Append("(")
-			.Append(useParameters ? "{parameters}" : string.Join(", ", method.Parameters.Select(ExpectationPlaceholder)))
+			.Append(useParameters
+				? "{parameters}"
+				: string.Join(", ", method.Parameters.Select(p => !p.IsParams ? ExpectationPlaceholder(p)
+					: perElementParams ? $"{{{elementMatch}}}"
+					: emptyParams ? "[]"
+					: ExpectationPlaceholder(p))))
 			.Append(")\");").AppendLine();
 		if (usesBlockBody)
 		{

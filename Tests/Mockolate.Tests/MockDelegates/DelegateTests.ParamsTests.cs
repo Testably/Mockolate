@@ -1,3 +1,6 @@
+using Mockolate.Exceptions;
+using Mockolate.Verify;
+
 namespace Mockolate.Tests.MockDelegates;
 
 public partial class DelegateTests
@@ -164,6 +167,37 @@ public partial class DelegateTests
 
 			await That(calls).IsEqualTo(1);
 			await That(sut.Mock.Verify(It.IsAny<string>(), It.Is("b"))).Twice();
+		}
+
+		[Test]
+		public async Task FailedVerify_WithElementMatchers_ShouldListTheElementMatchers()
+		{
+			LogDelegate sut = LogDelegate.CreateMock();
+			_ = sut(4, "a", 3);
+
+			void Act()
+			{
+				sut.Mock.Verify(It.IsAny<int>(), It.IsAny<object>(), It.Is<object>(2)).Once();
+			}
+
+			await That(Act).Throws<MockVerificationException>()
+				.WithMessage(
+					"Expected that mock invoked method Invoke(It.IsAny<int>(), [It.IsAny<object>(), 2]) exactly once, but it never did.");
+		}
+
+		[Test]
+		public async Task FailedVerify_WithoutParamsArguments_ShouldShowAnEmptyArray()
+		{
+			OnlyObjectsDelegate sut = OnlyObjectsDelegate.CreateMock();
+			_ = sut("a");
+
+			void Act()
+			{
+				sut.Mock.Verify().Once();
+			}
+
+			await That(Act).Throws<MockVerificationException>()
+				.WithMessage("Expected that mock invoked method Invoke([]) exactly once, but it never did.");
 		}
 
 		internal delegate bool FlagsDelegate(int level, params bool[] flags);

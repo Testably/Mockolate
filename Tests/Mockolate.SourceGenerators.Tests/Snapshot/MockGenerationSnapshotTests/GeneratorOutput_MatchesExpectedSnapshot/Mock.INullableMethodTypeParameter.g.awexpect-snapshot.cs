@@ -1640,11 +1640,14 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(global::Mockolate.Parameters.IParameter<T?>? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, params global::Mockolate.Parameters.IParameter<T?>[] rest)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
+		{
+			global::Mockolate.Internals.ParamsArrayParameterMatch<T?> __elementMatch = new global::Mockolate.Internals.ParamsArrayParameterMatch<T?>(rest);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
 				(key is not null ? global::Mockolate.CovariantParameterAdapter<T?>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter1, default(T?))) && 
 				(value is global::Mockolate.Parameters.IParameterMatch<T?> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter2, default(T?))) && 
 				(other is global::Mockolate.Parameters.IParameterMatch<T?> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter3, default(T?))) && 
-				(new global::Mockolate.Internals.ParamsArrayParameterMatch<T?>(rest).Matches(__i.Parameter4)), () => $"TryGet<T>({(object?)key ?? "null"}, {(object?)value ?? "null"}, {(object?)other ?? "null"}, {(object?)rest ?? "null"})");
+				(__elementMatch.Matches(__i.Parameter4)), () => $"TryGet<T>({(object?)key ?? "null"}, {(object?)value ?? "null"}, {(object?)other ?? "null"}, {__elementMatch})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, global::Mockolate.Parameters.IParameter<T?[]>? rest)
 			where T : class
@@ -1951,11 +1954,14 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(global::Mockolate.Parameters.IParameter<T?>? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, params global::Mockolate.Parameters.IParameter<T?>[] rest)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
+		{
+			global::Mockolate.Internals.ParamsArrayParameterMatch<T?> __elementMatch = new global::Mockolate.Internals.ParamsArrayParameterMatch<T?>(rest);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
 				(key is not null ? global::Mockolate.CovariantParameterAdapter<T?>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter1, default(T?))) && 
 				(value is global::Mockolate.Parameters.IParameterMatch<T?> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter2, default(T?))) && 
 				(other is global::Mockolate.Parameters.IParameterMatch<T?> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter3, default(T?))) && 
-				(new global::Mockolate.Internals.ParamsArrayParameterMatch<T?>(rest).Matches(__i.Parameter4)), () => $"TryGet<T>({(object?)key ?? "null"}, {(object?)value ?? "null"}, {(object?)other ?? "null"}, {(object?)rest ?? "null"})");
+				(__elementMatch.Matches(__i.Parameter4)), () => $"TryGet<T>({(object?)key ?? "null"}, {(object?)value ?? "null"}, {(object?)other ?? "null"}, {__elementMatch})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, global::Mockolate.Parameters.IParameter<T?[]>? rest)
 			where T : class

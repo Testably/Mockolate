@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Mockolate.Exceptions;
 using Mockolate.Tests.GeneratorCoverage;
+using Mockolate.Verify;
 
 namespace Mockolate.Tests;
 
@@ -48,6 +50,37 @@ public sealed class ParamsObjectArrayTests
 		await That(results).IsEqualTo([1, 0, 0, 2, 0,]);
 		await That(sut.Mock.Verify.Only(It.IsAny<object>())).Once();
 		await That(sut.Mock.Verify.Log(It.IsAny<int>(), It.IsAny<object>(), It.IsAny<object>())).Twice();
+	}
+
+	[Test]
+	public async Task FailedVerify_WithElementMatchers_ShouldListTheElementMatchers()
+	{
+		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
+		_ = sut.Log(4, "a", 3);
+
+		void Act()
+		{
+			sut.Mock.Verify.Log(It.IsAny<int>(), It.IsAny<object>(), It.Is<object>(2)).Once();
+		}
+
+		await That(Act).Throws<MockVerificationException>()
+			.WithMessage(
+				"Expected that mock invoked method Log(It.IsAny<int>(), [It.IsAny<object>(), 2]) exactly once, but it never did.");
+	}
+
+	[Test]
+	public async Task FailedVerify_WithoutArguments_ShouldShowAnEmptyArray()
+	{
+		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
+		_ = sut.Only("a");
+
+		void Act()
+		{
+			sut.Mock.Verify.Only().Once();
+		}
+
+		await That(Act).Throws<MockVerificationException>()
+			.WithMessage("Expected that mock invoked method Only([]) exactly once, but it never did.");
 	}
 
 	[Test]

@@ -158,9 +158,12 @@ internal static partial class Mock
 				}, () => $"Invoke({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsObjectArrayDelegate> IMockVerifyForParamsObjectArrayDelegate.Verify(global::Mockolate.Parameters.IParameter<int>? level, params global::Mockolate.Parameters.IParameter<object>[] args)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsObjectArrayDelegate, global::Mockolate.Interactions.MethodInvocation<int, object[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsObjectArrayDelegate.Invoke", __i => 
+		{
+			global::Mockolate.Internals.ParamsArrayParameterMatch<object> __elementMatch = new global::Mockolate.Internals.ParamsArrayParameterMatch<object>(args);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParamsObjectArrayDelegate, global::Mockolate.Interactions.MethodInvocation<int, object[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsObjectArrayDelegate.Invoke", __i => 
 				(level is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(level).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(new global::Mockolate.Internals.ParamsArrayParameterMatch<object>(args).Matches(__i.Parameter2)), () => $"Invoke({(object?)level ?? "null"}, {(object?)args ?? "null"})");
+				(__elementMatch.Matches(__i.Parameter2)), () => $"Invoke({(object?)level ?? "null"}, {__elementMatch})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsObjectArrayDelegate> IMockVerifyForParamsObjectArrayDelegate.Verify(int level, global::Mockolate.Parameters.IParameter<object[]>? args)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsObjectArrayDelegate, global::Mockolate.Interactions.MethodInvocation<int, object[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsObjectArrayDelegate.Invoke", __i => 
@@ -219,9 +222,12 @@ internal static partial class Mock
 				}, () => $"Invoke({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsObjectArrayDelegate> IMockVerifyForParamsObjectArrayDelegate.Verify(global::Mockolate.Parameters.IParameter<int>? level, params global::Mockolate.Parameters.IParameter<object>[] args)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsObjectArrayDelegate, global::Mockolate.Interactions.MethodInvocation<int, object[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsObjectArrayDelegate.Invoke", __i => 
+		{
+			global::Mockolate.Internals.ParamsArrayParameterMatch<object> __elementMatch = new global::Mockolate.Internals.ParamsArrayParameterMatch<object>(args);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForParamsObjectArrayDelegate, global::Mockolate.Interactions.MethodInvocation<int, object[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsObjectArrayDelegate.Invoke", __i => 
 				(level is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(level).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(new global::Mockolate.Internals.ParamsArrayParameterMatch<object>(args).Matches(__i.Parameter2)), () => $"Invoke({(object?)level ?? "null"}, {(object?)args ?? "null"})");
+				(__elementMatch.Matches(__i.Parameter2)), () => $"Invoke({(object?)level ?? "null"}, {__elementMatch})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsObjectArrayDelegate> IMockVerifyForParamsObjectArrayDelegate.Verify(int level, global::Mockolate.Parameters.IParameter<object[]>? args)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsObjectArrayDelegate, global::Mockolate.Interactions.MethodInvocation<int, object[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsObjectArrayDelegate.Invoke", __i => 
