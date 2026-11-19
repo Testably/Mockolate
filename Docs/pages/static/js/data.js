@@ -1446,6 +1446,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -1689,7 +1695,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -1936,7 +1943,8 @@ window.BENCHMARK_DATA = {
           165.29329238619124,
           198.08771986227768,
           168.13941637674967,
-          201.96170348780495
+          201.96170348780495,
+          117.62982196467263
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2167,6 +2175,7 @@ window.BENCHMARK_DATA = {
           888,
           888,
           800,
+          792,
           792,
           792,
           792,
@@ -2443,7 +2452,8 @@ window.BENCHMARK_DATA = {
           60148.85517229353,
           103091.48153921273,
           36093.55110990084,
-          103249.02858323317
+          103249.02858323317,
+          29180.669773646765
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2695,7 +2705,8 @@ window.BENCHMARK_DATA = {
           9055,
           9056,
           9046,
-          9056
+          9056,
+          9055
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2950,7 +2961,8 @@ window.BENCHMARK_DATA = {
           3570.976369417631,
           4459.172074890137,
           3029.9197352091473,
-          4571.301918029785
+          4571.301918029785,
+          2307.3313390291655
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3111,6 +3123,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -3457,7 +3470,8 @@ window.BENCHMARK_DATA = {
           3533.962208048503,
           4574.138746643066,
           3097.2314814249676,
-          4598.210546366374
+          4598.210546366374,
+          2322.259062903268
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3709,6 +3723,7 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6924,
+          6930,
           6930
         ],
         "borderColor": "#4A6FA5",
@@ -3964,7 +3979,8 @@ window.BENCHMARK_DATA = {
           172.3870596545083,
           196.08066555169913,
           187.62309006055196,
-          193.47298808097838
+          193.47298808097838,
+          122.75417306025822
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4130,6 +4146,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -4471,7 +4488,8 @@ window.BENCHMARK_DATA = {
           389.7993886311849,
           459.6941069285075,
           408.18325437818254,
-          445.19119361730725
+          445.19119361730725,
+          324.35582666397096
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -4632,6 +4650,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -6183,6 +6202,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -6426,7 +6451,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -6673,7 +6699,8 @@ window.BENCHMARK_DATA = {
           112.38457764112033,
           84.55335237582524,
           118.27185875574747,
-          157.36768781344097
+          157.36768781344097,
+          156.17834971745808
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -6904,6 +6931,7 @@ window.BENCHMARK_DATA = {
           752,
           752,
           704,
+          696,
           696,
           696,
           696,
@@ -7180,7 +7208,8 @@ window.BENCHMARK_DATA = {
           10871.87904575893,
           7125.243147786458,
           10648.28462437221,
-          15349.708834134615
+          15349.708834134615,
+          15487.661638532367
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7431,6 +7460,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761,
           12761
         ],
@@ -7687,7 +7717,8 @@ window.BENCHMARK_DATA = {
           3989.670214139498,
           2737.3694249471027,
           4398.418204752604,
-          5963.884204610189
+          5963.884204610189,
+          6351.548053196499
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7848,6 +7879,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -8194,7 +8226,8 @@ window.BENCHMARK_DATA = {
           194215.0658830915,
           103557.68430873325,
           194702.46686662946,
-          221942.5598795573
+          221942.5598795573,
+          225120.95392717634
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8445,6 +8478,7 @@ window.BENCHMARK_DATA = {
           15579,
           15618,
           15619,
+          15618,
           15618,
           15618
         ],
@@ -8701,7 +8735,8 @@ window.BENCHMARK_DATA = {
           141.09779467582703,
           102.80708623727163,
           150.3681809425354,
-          182.92373003959656
+          182.92373003959656,
+          185.2173459847768
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8842,6 +8877,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -9208,7 +9244,8 @@ window.BENCHMARK_DATA = {
           122.90804961749485,
           92.90640606329991,
           132.74988307952881,
-          159.5834320386251
+          159.5834320386251,
+          186.1613185564677
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -9342,6 +9379,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -10920,6 +10958,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -11163,7 +11207,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -11410,7 +11455,8 @@ window.BENCHMARK_DATA = {
           348.5477596282959,
           245.61336551393782,
           414.12753534317017,
-          255.939395125707
+          255.939395125707,
+          499.1213452657064
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11641,6 +11687,7 @@ window.BENCHMARK_DATA = {
           1952,
           1736,
           1656,
+          1648,
           1648,
           1648,
           1648,
@@ -11917,7 +11964,8 @@ window.BENCHMARK_DATA = {
           141396.86125837054,
           61245.330505371094,
           227588.62265625,
-          68623.40860421317
+          68623.40860421317,
+          227534.3136393229
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12169,7 +12217,8 @@ window.BENCHMARK_DATA = {
           20804,
           21264,
           20692,
-          20891
+          20891,
+          20884
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12424,7 +12473,8 @@ window.BENCHMARK_DATA = {
           7698.946036783854,
           4810.864547729492,
           10551.614483642577,
-          4983.682653808593
+          4983.682653808593,
+          10532.1441990779
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12676,6 +12726,7 @@ window.BENCHMARK_DATA = {
           13088,
           13088,
           13032,
+          13088,
           13088
         ],
         "borderColor": "#5E2750",
@@ -12931,7 +12982,8 @@ window.BENCHMARK_DATA = {
           7584.923045567104,
           4790.433920796712,
           10716.768409220378,
-          5104.419381205241
+          5104.419381205241,
+          11585.633581542968
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13176,6 +13228,7 @@ window.BENCHMARK_DATA = {
           13706,
           13586,
           13583,
+          13593,
           13593,
           13593,
           13593,
@@ -13438,7 +13491,8 @@ window.BENCHMARK_DATA = {
           252.5704220363072,
           198.42172207832337,
           299.29546516282215,
-          182.54100187619528
+          182.54100187619528,
+          324.21950686772664
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13690,6 +13744,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1096,
           1096
         ],
         "borderColor": "#E84393",
@@ -13741,7 +13796,8 @@ window.BENCHMARK_DATA = {
           607.7959499359131,
           451.7332297007243,
           745.3098652521769,
-          444.095078309377
+          444.095078309377,
+          882.324249013265
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -13753,6 +13809,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          2784,
           2784,
           2784,
           2784,
@@ -15249,6 +15306,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -15492,7 +15555,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -15739,7 +15803,8 @@ window.BENCHMARK_DATA = {
           947.9630526224772,
           746.6309509277344,
           1310.3222642262776,
-          789.6706221898397
+          789.6706221898397,
+          1380.2101913452148
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15970,6 +16035,7 @@ window.BENCHMARK_DATA = {
           2888,
           2672,
           2592,
+          2584,
           2584,
           2584,
           2584,
@@ -16246,7 +16312,8 @@ window.BENCHMARK_DATA = {
           151551.71324869792,
           64772.914045061385,
           237045.78186035156,
-          74617.78243815104
+          74617.78243815104,
+          236549.58902413506
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16498,6 +16565,7 @@ window.BENCHMARK_DATA = {
           30403,
           30860,
           29284,
+          30482,
           30482
         ],
         "borderColor": "#A052B0",
@@ -16753,7 +16821,8 @@ window.BENCHMARK_DATA = {
           18276.011122639975,
           12274.958204142253,
           24771.590309651692,
-          12718.040334429059
+          12718.040334429059,
+          24667.080517578124
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17005,6 +17074,7 @@ window.BENCHMARK_DATA = {
           26193,
           26193,
           26137,
+          26193,
           26193
         ],
         "borderColor": "#5E2750",
@@ -17260,7 +17330,8 @@ window.BENCHMARK_DATA = {
           16316.538873291016,
           10346.755403645833,
           23498.62206217448,
-          11220.101463904748
+          11220.101463904748,
+          23572.64143066406
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17512,7 +17583,8 @@ window.BENCHMARK_DATA = {
           33249,
           33249,
           33247,
-          33249
+          33249,
+          33247
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17767,7 +17839,8 @@ window.BENCHMARK_DATA = {
           609.2242645263672,
           417.60668996175133,
           727.8650981585184,
-          448.1832692146301
+          448.1832692146301,
+          745.2582995732625
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18019,6 +18092,7 @@ window.BENCHMARK_DATA = {
           2176,
           2176,
           2176,
+          2176,
           2176
         ],
         "borderColor": "#E84393",
@@ -18070,7 +18144,8 @@ window.BENCHMARK_DATA = {
           2147.5238552093506,
           1584.9658130645753,
           2396.6085695902507,
-          1680.2861396244593
+          1680.2861396244593,
+          2779.4285753885906
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18082,6 +18157,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          5496,
           5496,
           5496,
           5496,
@@ -19578,6 +19654,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -19821,7 +19903,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -20068,7 +20151,8 @@ window.BENCHMARK_DATA = {
           108.75386547247568,
           116.567427444458,
           146.66196269989013,
-          137.33022311528524
+          137.33022311528524,
+          92.70599613019398
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20299,6 +20383,7 @@ window.BENCHMARK_DATA = {
           664,
           664,
           608,
+          600,
           600,
           600,
           600,
@@ -20575,7 +20660,8 @@ window.BENCHMARK_DATA = {
           113463.64519856771,
           114226.42895507812,
           196164.100062779,
-          69851.83026994977
+          69851.83026994977,
+          60555.85893554687
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20827,7 +20913,8 @@ window.BENCHMARK_DATA = {
           14914,
           14914,
           14902,
-          14906
+          14906,
+          15080
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21082,7 +21169,8 @@ window.BENCHMARK_DATA = {
           4503.224195861816,
           4624.281374417818,
           5994.754705301921,
-          4251.693380737304
+          4251.693380737304,
+          3367.7000207901
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21334,7 +21422,8 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
-          9320
+          9320,
+          9264
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21589,7 +21678,8 @@ window.BENCHMARK_DATA = {
           4223.764718862681,
           4257.333356730143,
           5761.408573913574,
-          3416.2466357549033
+          3416.2466357549033,
+          3183.597240447998
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21841,7 +21931,8 @@ window.BENCHMARK_DATA = {
           8160,
           8160,
           8160,
-          8151
+          8151,
+          8160
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22096,7 +22187,8 @@ window.BENCHMARK_DATA = {
           139.8265264715467,
           146.1186397756849,
           170.95067630495345,
-          153.0513976097107
+          153.0513976097107,
+          123.18579804102579
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22262,6 +22354,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -22603,7 +22696,8 @@ window.BENCHMARK_DATA = {
           375.04387048085533,
           366.23405202229816,
           442.0626078923543,
-          411.36258497238157
+          411.36258497238157,
+          315.3336356798808
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22737,6 +22831,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -24315,6 +24410,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -24558,7 +24659,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -24805,7 +24907,8 @@ window.BENCHMARK_DATA = {
           289.6795225824629,
           296.77450367382596,
           373.0126928091049,
-          311.5162380536397
+          311.5162380536397,
+          266.65191685358684
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -25036,6 +25139,7 @@ window.BENCHMARK_DATA = {
           1168,
           1168,
           1112,
+          1104,
           1104,
           1104,
           1104,
@@ -25312,7 +25416,8 @@ window.BENCHMARK_DATA = {
           116648.33283342634,
           116641.7928141276,
           200417.87657877605,
-          71609.07814941407
+          71609.07814941407,
+          62478.8460824149
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25564,7 +25669,8 @@ window.BENCHMARK_DATA = {
           18906,
           18906,
           18901,
-          18883
+          18883,
+          19065
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25819,7 +25925,8 @@ window.BENCHMARK_DATA = {
           6744.573759460449,
           6765.807899475098,
           9690.085345676967,
-          6361.176387532552
+          6361.176387532552,
+          4912.193625313895
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -26071,7 +26178,8 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12345,
-          12344
+          12344,
+          11784
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -26326,7 +26434,8 @@ window.BENCHMARK_DATA = {
           6489.361721801758,
           6932.769248453776,
           9697.605898030599,
-          6443.45141398112
+          6443.45141398112,
+          5116.648829142253
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26578,7 +26687,8 @@ window.BENCHMARK_DATA = {
           16394,
           16394,
           16393,
-          16391
+          16391,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26833,7 +26943,8 @@ window.BENCHMARK_DATA = {
           277.00092244148254,
           292.84992462793986,
           345.0091987337385,
-          304.513734404246
+          304.513734404246,
+          266.01145872702966
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26999,6 +27110,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -27340,7 +27452,8 @@ window.BENCHMARK_DATA = {
           1124.248621259417,
           1092.3268957138062,
           1345.9794314066569,
-          1226.31119778951
+          1226.31119778951,
+          1053.6975757598877
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -27474,6 +27587,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -29052,6 +29166,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -29295,7 +29415,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -29542,7 +29663,8 @@ window.BENCHMARK_DATA = {
           187.57974551405226,
           197.5632993221283,
           240.68442215238298,
-          149.0719394002642
+          149.0719394002642,
+          185.0564772899334
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -29773,6 +29895,7 @@ window.BENCHMARK_DATA = {
           984,
           984,
           920,
+          904,
           904,
           904,
           904,
@@ -30049,7 +30172,8 @@ window.BENCHMARK_DATA = {
           7530.505961100261,
           7967.924534098307,
           10691.7517351423,
-          4858.947198050363
+          4858.947198050363,
+          7318.067303466797
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -30301,6 +30425,7 @@ window.BENCHMARK_DATA = {
           10568,
           10568,
           10569,
+          10568,
           10568
         ],
         "borderColor": "#A052B0",
@@ -30556,7 +30681,8 @@ window.BENCHMARK_DATA = {
           5261.551405225481,
           5718.547282879169,
           7395.770643615722,
-          3531.4846534729004
+          3531.4846534729004,
+          5195.385252380371
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -30803,6 +30929,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -31063,7 +31190,8 @@ window.BENCHMARK_DATA = {
           5148.096755981445,
           5782.690204075405,
           8016.185917445591,
-          3426.296662902832
+          3426.296662902832,
+          5112.921759385329
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -31308,6 +31436,7 @@ window.BENCHMARK_DATA = {
           11191,
           11276,
           11191,
+          11196,
           11196,
           11196,
           11196,
@@ -31570,7 +31699,8 @@ window.BENCHMARK_DATA = {
           131.6715545654297,
           136.61778151988983,
           169.27332517078943,
-          104.06450036593846
+          104.06450036593846,
+          132.9394942522049
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -31736,6 +31866,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -32077,7 +32208,8 @@ window.BENCHMARK_DATA = {
           331.3877285810617,
           368.13145519892373,
           421.7943588036757,
-          264.744302545275
+          264.744302545275,
+          329.05308173252985
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -32273,6 +32405,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -33789,6 +33922,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -34032,7 +34171,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -34279,7 +34419,8 @@ window.BENCHMARK_DATA = {
           477.15295626322427,
           510.9215609232585,
           572.5959021704538,
-          378.34988657633465
+          378.34988657633465,
+          471.77728474934895
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -34510,6 +34651,7 @@ window.BENCHMARK_DATA = {
           1848,
           1848,
           1784,
+          1768,
           1768,
           1768,
           1768,
@@ -34786,7 +34928,8 @@ window.BENCHMARK_DATA = {
           12197.978622436523,
           12885.122357881986,
           17384.242100016276,
-          8186.7881753104075
+          8186.7881753104075,
+          12096.077659606934
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -35031,6 +35174,7 @@ window.BENCHMARK_DATA = {
           18504,
           18505,
           18504,
+          18505,
           18505,
           18505,
           18505,
@@ -35293,7 +35437,8 @@ window.BENCHMARK_DATA = {
           12110.88298361642,
           13213.425118582589,
           16765.58221130371,
-          8143.956776936849
+          8143.956776936849,
+          12204.557342529297
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -35540,6 +35685,7 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21553,
+          21529,
           21529,
           21529,
           21529,
@@ -35800,7 +35946,8 @@ window.BENCHMARK_DATA = {
           12583.746372477213,
           14032.5339617048,
           19135.433430989582,
-          8328.817899576823
+          8328.817899576823,
+          12610.525912693569
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -36045,6 +36192,7 @@ window.BENCHMARK_DATA = {
           30780,
           30866,
           30780,
+          30785,
           30785,
           30785,
           30785,
@@ -36307,7 +36455,8 @@ window.BENCHMARK_DATA = {
           257.55177710851035,
           265.2886348451887,
           306.84548002878824,
-          234.83836577733356
+          234.83836577733356,
+          248.8424571355184
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -36473,6 +36622,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -36814,7 +36964,8 @@ window.BENCHMARK_DATA = {
           1178.8055955446684,
           1409.7518099466959,
           1529.5944217954363,
-          1072.0280563354493
+          1072.0280563354493,
+          1180.3538191868709
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -37010,6 +37161,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -38526,6 +38678,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -38769,7 +38927,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -39016,7 +39175,8 @@ window.BENCHMARK_DATA = {
           11.61132563451926,
           15.49306998848915,
           16.148741350571314,
-          12.437322407960892
+          12.437322407960892,
+          14.21735922495524
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -39246,6 +39406,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -39523,7 +39684,8 @@ window.BENCHMARK_DATA = {
           65.89453542232513,
           93.63138313293457,
           87.73256045977274,
-          77.84292037146432
+          77.84292037146432,
+          80.71657466888428
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -39689,6 +39851,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -40030,7 +40193,8 @@ window.BENCHMARK_DATA = {
           19.83276999913729,
           27.687922314802805,
           27.889563447237016,
-          22.26599895954132
+          22.26599895954132,
+          24.327781438827515
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -40164,6 +40328,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -40537,7 +40702,8 @@ window.BENCHMARK_DATA = {
           805.9852016889132,
           1291.3472915649413,
           1318.1918969835554,
-          944.1443527221679
+          944.1443527221679,
+          808.3762264251709
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -40698,6 +40864,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -41044,7 +41211,8 @@ window.BENCHMARK_DATA = {
           1185.907783126831,
           1597.4641684214273,
           1919.9700525919595,
-          1435.3468691507976
+          1435.3468691507976,
+          1127.9336993877705
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -41205,6 +41373,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -41551,7 +41720,8 @@ window.BENCHMARK_DATA = {
           1077.1022365570068,
           1360.049891090393,
           1553.938652583531,
-          1251.52875029246
+          1251.52875029246,
+          942.317961883545
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -41803,7 +41973,8 @@ window.BENCHMARK_DATA = {
           2755,
           2751,
           2755,
-          2755
+          2755,
+          2751
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -42165,6 +42336,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -42225,7 +42402,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -42289,7 +42467,8 @@ window.BENCHMARK_DATA = {
           747.6146604537964,
           926.051956876119,
           1162.9000202178954,
-          1247.5951265970866
+          1247.5951265970866,
+          1212.0317087173462
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -42337,6 +42516,7 @@ window.BENCHMARK_DATA = {
           3168,
           3168,
           2904,
+          2872,
           2872,
           2872,
           2872,
@@ -42430,7 +42610,8 @@ window.BENCHMARK_DATA = {
           710.5242815653484,
           945.0700868606567,
           1091.6528867994036,
-          1226.1998313023494
+          1226.1998313023494,
+          1241.2355743135724
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -42460,6 +42641,7 @@ window.BENCHMARK_DATA = {
           2968,
           2968,
           2968,
+          3248,
           3248,
           3248,
           3248,
@@ -42571,7 +42753,8 @@ window.BENCHMARK_DATA = {
           2150.634163783147,
           2685.165884145101,
           3295.158176422119,
-          3794.6951052347817
+          3794.6951052347817,
+          3583.2716933659144
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -42601,6 +42784,7 @@ window.BENCHMARK_DATA = {
           9528,
           9528,
           9528,
+          10544,
           10544,
           10544,
           10544,
@@ -42712,7 +42896,8 @@ window.BENCHMARK_DATA = {
           164534.93052164713,
           201684.6240985577,
           536098.3423227164,
-          549295.1120442708
+          549295.1120442708,
+          264455.6006610577
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42781,7 +42966,8 @@ window.BENCHMARK_DATA = {
           47254,
           47392,
           47391,
-          47702
+          47702,
+          47511
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42853,7 +43039,8 @@ window.BENCHMARK_DATA = {
           13368.505186898368,
           19012.829653058732,
           24309.179850987024,
-          26698.530358450753
+          26698.530358450753,
+          24851.062081473214
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42922,7 +43109,8 @@ window.BENCHMARK_DATA = {
           37571,
           38017,
           38020,
-          38020
+          38020,
+          38017
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42994,7 +43182,8 @@ window.BENCHMARK_DATA = {
           12922.731773376465,
           15763.866274152484,
           24367.669583834133,
-          26145.696643066407
+          26145.696643066407,
+          20568.99367675781
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43063,7 +43252,8 @@ window.BENCHMARK_DATA = {
           35047,
           35090,
           35127,
-          35047
+          35047,
+          35090
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43311,6 +43501,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -43352,7 +43548,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -43397,7 +43594,8 @@ window.BENCHMARK_DATA = {
           20743.340138753254,
           21253.936356608072,
           26894.77000325521,
-          22350.6603515625
+          22350.6603515625,
+          17578.24037405161
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -43426,6 +43624,7 @@ window.BENCHMARK_DATA = {
           56608,
           56608,
           56552,
+          56544,
           56544,
           56544,
           56544,
@@ -43500,7 +43699,8 @@ window.BENCHMARK_DATA = {
           16904.963150024414,
           17470.278200589695,
           20776.070368448894,
-          18221.391320364815
+          18221.391320364815,
+          14298.092455037435
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -43512,6 +43712,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          40688,
           40688,
           40688,
           40688,
@@ -43603,7 +43804,8 @@ window.BENCHMARK_DATA = {
           78298.06685384114,
           81426.21794026693,
           96318.52926432292,
-          97972.81733398438
+          97972.81733398438,
+          82885.69291992187
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -43633,6 +43835,7 @@ window.BENCHMARK_DATA = {
           203585,
           203585,
           203584,
+          203585,
           203585,
           203585,
           203585,
@@ -43706,7 +43909,8 @@ window.BENCHMARK_DATA = {
           280947.39505440847,
           287301.5750976562,
           388938.59694010415,
-          234541.39212239583
+          234541.39212239583,
+          194595.65935872396
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -43756,7 +43960,8 @@ window.BENCHMARK_DATA = {
           431938,
           431938,
           431938,
-          431908
+          431908,
+          432098
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -43809,7 +44014,8 @@ window.BENCHMARK_DATA = {
           256500.69942801338,
           231617.02840750557,
           327874.936593192,
-          198486.6753092448
+          198486.6753092448,
+          152201.84700520834
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -43859,7 +44065,8 @@ window.BENCHMARK_DATA = {
           378038,
           378037,
           378038,
-          378018
+          378018,
+          322036
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -43912,7 +44119,8 @@ window.BENCHMARK_DATA = {
           275857.14013671875,
           304070.51689453126,
           373139.4827799479,
-          275826.7037434896
+          275826.7037434896,
+          218268.9260441707
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43962,7 +44170,8 @@ window.BENCHMARK_DATA = {
           944402,
           944402,
           944362,
-          944522
+          944522,
+          944402
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -44210,6 +44419,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -44251,7 +44466,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -44296,7 +44512,8 @@ window.BENCHMARK_DATA = {
           31587.02867780413,
           33073.727669852124,
           38042.92722167969,
-          26115.019219534737
+          26115.019219534737,
+          32307.570926920573
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44325,6 +44542,7 @@ window.BENCHMARK_DATA = {
           96888,
           96888,
           96824,
+          96808,
           96808,
           96808,
           96808,
@@ -44399,7 +44617,8 @@ window.BENCHMARK_DATA = {
           13322.806094360352,
           13530.741197713216,
           16600.69155069987,
-          14355.003661092122
+          14355.003661092122,
+          12777.079942975726
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44442,6 +44661,7 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641,
@@ -44502,7 +44722,8 @@ window.BENCHMARK_DATA = {
           89935.34295654297,
           106010.52130998884,
           115088.82925851004,
-          88088.3408290318
+          88088.3408290318,
+          90164.58258463541
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -44544,6 +44765,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -44605,7 +44827,8 @@ window.BENCHMARK_DATA = {
           542972.0415039062,
           534991.7539876302,
           671776.8832682292,
-          339450.2067871094
+          339450.2067871094,
+          509953.6982421875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44655,7 +44878,8 @@ window.BENCHMARK_DATA = {
           836541,
           836540,
           836541,
-          836536
+          836536,
+          836541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44708,7 +44932,8 @@ window.BENCHMARK_DATA = {
           786515.6220052083,
           844721.9764973958,
           1128055.5963541667,
-          510125.77678571426
+          510125.77678571426,
+          775682.9142578125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -44758,7 +44983,8 @@ window.BENCHMARK_DATA = {
           1139701,
           1139701,
           1139703,
-          1139699
+          1139699,
+          1139701
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -44811,7 +45037,8 @@ window.BENCHMARK_DATA = {
           966979.1083333333,
           1040603.5111177885,
           1252722.8079427083,
-          599425.435546875
+          599425.435546875,
+          928360.8821614584
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -44861,6 +45088,7 @@ window.BENCHMARK_DATA = {
           2194290,
           2194290,
           2194290,
+          2194325,
           2194325
         ],
         "borderColor": "#4A6FA5",
@@ -45109,6 +45337,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -45150,7 +45384,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -45195,7 +45430,8 @@ window.BENCHMARK_DATA = {
           67785.08856608073,
           58868.79085693359,
           95929.02585274832,
-          60946.859998430526
+          60946.859998430526,
+          96012.08154296875
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -45245,7 +45481,8 @@ window.BENCHMARK_DATA = {
           105545,
           105544,
           105545,
-          105544
+          105544,
+          105545
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -45298,7 +45535,8 @@ window.BENCHMARK_DATA = {
           39439.967545572916,
           25908.930136544364,
           47975.383768717445,
-          28137.633650716147
+          28137.633650716147,
+          45854.82218424479
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -45341,6 +45579,7 @@ window.BENCHMARK_DATA = {
           120981,
           120977,
           120980,
+          120981,
           120981,
           120981,
           120981,
@@ -45401,7 +45640,8 @@ window.BENCHMARK_DATA = {
           793480.9692708333,
           452603.9201660156,
           998791.0844401042,
-          503145.02298177086
+          503145.02298177086,
+          1090768.8443080357
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45451,7 +45691,8 @@ window.BENCHMARK_DATA = {
           1030606,
           1031060,
           918604,
-          1030687
+          1030687,
+          1030694
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45504,7 +45745,8 @@ window.BENCHMARK_DATA = {
           1276723.5895833333,
           845499.6834635417,
           1595756.0044642857,
-          851669.073828125
+          851669.073828125,
+          1603555.0944010417
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45554,7 +45796,8 @@ window.BENCHMARK_DATA = {
           1500823,
           1500815,
           1500767,
-          1500819
+          1500819,
+          1500823
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45607,7 +45850,8 @@ window.BENCHMARK_DATA = {
           1136737.2024739583,
           697008.3503605769,
           1491733.5611049107,
-          746298.2296223958
+          746298.2296223958,
+          1446085.85234375
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45657,7 +45901,8 @@ window.BENCHMARK_DATA = {
           2204674,
           2204669,
           2204674,
-          2204668
+          2204668,
+          2204674
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45708,7 +45953,8 @@ window.BENCHMARK_DATA = {
           162787.94418945312,
           120532.3913922991,
           177852.47817382813,
-          131302.34420072116
+          131302.34420072116,
+          184245.42060546874
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -45720,6 +45966,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          300713,
           300713,
           300713,
           300713,
@@ -45956,6 +46203,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -45989,7 +46242,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -46026,7 +46280,8 @@ window.BENCHMARK_DATA = {
           250.37340100606283,
           534.6398536137173,
           463.15101583187396,
-          510.7802029450734
+          510.7802029450734,
+          511.86028785705565
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46047,6 +46302,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1520,
+          1512,
           1512,
           1512,
           1512,
@@ -46113,7 +46369,8 @@ window.BENCHMARK_DATA = {
           164.13535506384713,
           312.3813384691874,
           281.46686547143116,
-          282.20086431503296
+          282.20086431503296,
+          280.70990158716836
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46125,6 +46382,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -46200,7 +46458,8 @@ window.BENCHMARK_DATA = {
           331.7283585866292,
           583.1857545035226,
           549.2332063357036,
-          521.690318552653
+          521.690318552653,
+          561.3655212108905
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -46212,6 +46471,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -46287,7 +46547,8 @@ window.BENCHMARK_DATA = {
           31012.45040690104,
           92801.93007114956,
           115272.42275766227,
-          115801.8166829427
+          115801.8166829427,
+          115046.42820521763
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46328,6 +46589,7 @@ window.BENCHMARK_DATA = {
           10009,
           10031,
           10141,
+          10030,
           10030,
           10030
         ],
@@ -46374,7 +46636,8 @@ window.BENCHMARK_DATA = {
           3803.3185982337363,
           7257.179107079139,
           7824.817535400391,
-          7589.964954630534
+          7589.964954630534,
+          7704.836075846354
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46416,6 +46679,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248
         ],
         "borderColor": "#5E2750",
@@ -46461,7 +46725,8 @@ window.BENCHMARK_DATA = {
           3664.652496631329,
           7296.43503516061,
           7765.045026652018,
-          7369.551996866862
+          7369.551996866862,
+          7934.2810134887695
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46502,6 +46767,7 @@ window.BENCHMARK_DATA = {
           11848,
           11853,
           11853,
+          11854,
           11854,
           11854
         ],
@@ -46703,6 +46969,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -46736,7 +47008,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -46773,7 +47046,8 @@ window.BENCHMARK_DATA = {
           1018.1150472005208,
           1811.2191912333171,
           2003.3180077870686,
-          1869.9047012329102
+          1869.9047012329102,
+          1905.6409160907451
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46794,6 +47068,7 @@ window.BENCHMARK_DATA = {
           4296,
           4296,
           3992,
+          3984,
           3984,
           3984,
           3984,
@@ -46860,7 +47135,8 @@ window.BENCHMARK_DATA = {
           612.2732365471976,
           1067.2552361121545,
           1003.7641347249349,
-          980.9532645543417
+          980.9532645543417,
+          1044.5836415608724
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46872,6 +47148,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -46947,7 +47224,8 @@ window.BENCHMARK_DATA = {
           2091.793346150716,
           3439.9736506144204,
           3407.4607285090856,
-          3279.572441101074
+          3279.572441101074,
+          3547.9288223266603
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -46959,6 +47237,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -47034,7 +47313,8 @@ window.BENCHMARK_DATA = {
           38189.53516060965,
           107500.4827786959,
           129918.3039876302,
-          131131.864851888
+          131131.864851888,
+          132099.9557917668
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47075,6 +47355,7 @@ window.BENCHMARK_DATA = {
           25108,
           25114,
           25226,
+          25115,
           25115,
           25115
         ],
@@ -47121,7 +47402,8 @@ window.BENCHMARK_DATA = {
           11225.61088663737,
           21264.272354125977,
           24998.085123697918,
-          23529.832845052082
+          23529.832845052082,
+          23414.079906757062
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47163,6 +47445,7 @@ window.BENCHMARK_DATA = {
           23481,
           23481,
           25665,
+          23481,
           23481
         ],
         "borderColor": "#5E2750",
@@ -47208,7 +47491,8 @@ window.BENCHMARK_DATA = {
           13771.233580525715,
           28483.240452067057,
           27200.852022443498,
-          28026.829209391275
+          28026.829209391275,
+          30438.522287222055
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47250,7 +47534,8 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55216,
-          55216
+          55216,
+          55217
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47450,6 +47735,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 22:22:05 2026 \u002B0100",
         "message": "fix: compile mocks of generic methods constrained to a type argument closed over a sealed class, struct or array (#1053)"
+      },
+      {
+        "sha": "4bf3869b7a1966be1ff504719161f202400da0ac",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:27:47 2026 \u002B0100",
+        "message": "fix: print a null argument as null in classic-mode failure messages and test classic mode again (#1054)"
       }
     ],
     "labels": [
@@ -47483,7 +47774,8 @@ window.BENCHMARK_DATA = {
       "76cd080f",
       "b62283cf",
       "d39bae36",
-      "a2e71606"
+      "a2e71606",
+      "4bf3869b"
     ],
     "datasets": [
       {
@@ -47520,7 +47812,8 @@ window.BENCHMARK_DATA = {
           86574.40999348958,
           139135.77471516927,
           152048.53891601562,
-          161440.36966145833
+          161440.36966145833,
+          152829.21935221355
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -47541,6 +47834,7 @@ window.BENCHMARK_DATA = {
           273576,
           273577,
           273273,
+          273265,
           273265,
           273265,
           273265,
@@ -47607,7 +47901,8 @@ window.BENCHMARK_DATA = {
           52121.82174479167,
           85620.45397135416,
           78322.97596842448,
-          81457.39631347657
+          81457.39631347657,
+          85960.67580566407
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -47646,6 +47941,7 @@ window.BENCHMARK_DATA = {
           208881,
           208883,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -47694,7 +47990,8 @@ window.BENCHMARK_DATA = {
           200157.38038853236,
           321781.3798502604,
           295860.6558919271,
-          303239.40520833334
+          303239.40520833334,
+          334806.26213727676
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -47734,6 +48031,7 @@ window.BENCHMARK_DATA = {
           707794,
           707794,
           707793,
+          707794,
           707794,
           707794,
           707794
@@ -47781,7 +48079,8 @@ window.BENCHMARK_DATA = {
           771590.438671875,
           1538422.8604910714,
           1488716.123798077,
-          1622549.602764423
+          1622549.602764423,
+          1665162.1934988839
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47822,6 +48121,7 @@ window.BENCHMARK_DATA = {
           1692566,
           1692670,
           1692791,
+          1692679,
           1692679,
           1692679
         ],
@@ -47868,7 +48168,8 @@ window.BENCHMARK_DATA = {
           848686.9516276042,
           1555341.2614182692,
           1798311.9619140625,
-          1718652.0592912945
+          1718652.0592912945,
+          1758839.37265625
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47910,6 +48211,7 @@ window.BENCHMARK_DATA = {
           1468907,
           1468915,
           1692894,
+          1468915,
           1468915
         ],
         "borderColor": "#5E2750",
@@ -47955,7 +48257,8 @@ window.BENCHMARK_DATA = {
           1477469.2095424107,
           3095480.9924665177,
           2758825.3307291665,
-          2974581.884207589
+          2974581.884207589,
+          3193375.54140625
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47997,7 +48300,8 @@ window.BENCHMARK_DATA = {
           4803368,
           4803385,
           4803367,
-          4803385
+          4803385,
+          4803383
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
