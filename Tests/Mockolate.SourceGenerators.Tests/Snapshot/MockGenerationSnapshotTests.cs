@@ -102,6 +102,15 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [typeof(DynamicAttribute),]),
         new(
+            "EnumDefaultValues_CanBeCreated",
+            ["IEnumDefaultValues.cs",],
+            """
+            IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
+            EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
+            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
+            """,
+            []),
+        new(
             "EqualsMembers_CanBeCreated",
             ["IEqualsMembers.cs",],
             """
@@ -243,6 +252,16 @@ public sealed partial class MockGenerationSnapshotTests
             IDynamicMembers sut9 = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<dynamic>>();
             """,
             [typeof(DynamicAttribute),],
+            UnionMode: true),
+        new(
+            "EnumDefaultValues_CanBeCreated_Unions",
+            ["IEnumDefaultValues.cs",],
+            """
+            IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
+            EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
+            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
+            """,
+            [],
             UnionMode: true),
         new(
             "EqualsMembers_CanBeCreated_Unions",

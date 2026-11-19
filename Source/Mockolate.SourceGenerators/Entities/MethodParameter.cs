@@ -18,20 +18,23 @@ internal readonly record struct MethodParameter
 		if (HasExplicitDefaultValue)
 		{
 			string? explicitDefaultValue = SymbolDisplay.FormatPrimitive(parameterSymbol.ExplicitDefaultValue, true, false);
+			ITypeSymbol effectiveType = GetEffectiveType(parameterSymbol.Type);
 			if (explicitDefaultValue == "null"
 			    && parameterSymbol.Type is { IsValueType: true, } or ITypeParameterSymbol { IsReferenceType: false, }
 			    && parameterSymbol.Type is not INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T, })
 			{
 				ExplicitDefaultValue = "default";
 			}
-			else if (parameterSymbol.Type.TypeKind == TypeKind.Enum)
+			else if (effectiveType.TypeKind == TypeKind.Enum && explicitDefaultValue is not (null or "null"))
 			{
-				string enumTypeName = parameterSymbol.Type.ToQualifiedDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
-				ExplicitDefaultValue = "(" + enumTypeName + ")" + explicitDefaultValue;
+				string enumTypeName = effectiveType.ToQualifiedDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+				ExplicitDefaultValue = explicitDefaultValue[0] == '-'
+					? "(" + enumTypeName + ")(" + explicitDefaultValue + ")"
+					: "(" + enumTypeName + ")" + explicitDefaultValue;
 			}
 			else
 			{
-				ExplicitDefaultValue = AppendLiteralSuffix(explicitDefaultValue, parameterSymbol.Type);
+				ExplicitDefaultValue = AppendLiteralSuffix(explicitDefaultValue, effectiveType);
 			}
 		}
 	}
@@ -61,16 +64,12 @@ internal readonly record struct MethodParameter
 	///     produce invalid C# (e.g. "decimal x = 19.95" is a narrowing conversion from double). Re-add
 	///     the suffix based on the effective parameter type so the generated code compiles.
 	/// </summary>
-	private static string? AppendLiteralSuffix(string? value, ITypeSymbol type)
+	private static string? AppendLiteralSuffix(string? value, ITypeSymbol effectiveType)
 	{
 		if (value is null or "null")
 		{
 			return value;
 		}
-
-		ITypeSymbol effectiveType = type is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T, } named
-			? named.TypeArguments[0]
-			: type;
 
 		return effectiveType.SpecialType switch
 		{
@@ -79,4 +78,9 @@ internal readonly record struct MethodParameter
 			_ => value,
 		};
 	}
+
+	private static ITypeSymbol GetEffectiveType(ITypeSymbol type)
+		=> type is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T, } named
+			? named.TypeArguments[0]
+			: type;
 }
