@@ -39,6 +39,10 @@ public sealed class ParamsObjectArrayTests
 	                                    public delegate int LogDelegate(int level, params object[] args);
 
 	                                    public delegate int OnlyDelegate(params object[] args);
+
+	                                    public delegate int StrDelegate(int level, params string[] args);
+
+	                                    public delegate int OnlyStrDelegate(params string[] args);
 	                                    """;
 
 	private static readonly (string, string)[] LevelAndArgs =
@@ -107,17 +111,19 @@ public sealed class ParamsObjectArrayTests
 	private static readonly OverloadMatrix.Member OnlyDyn = new("ILog", "OnlyDyn", Probes("sut.OnlyDyn", OnlyArgs));
 	private static readonly OverloadMatrix.Member Gen = new("ILog", "Gen", Probes("sut.Gen<object>", LevelAndArgs));
 
-	private static readonly OverloadMatrix.Member Str = new("ILog", "Str",
+	private static readonly (string, string)[] LevelAndStrings =
 	[
-		("0:[]", "sut.Str(0)"), ("1:[]", "sut.Str(1)"), ("0:[a]", "sut.Str(0, \"a\")"), ("1:[a]", "sut.Str(1, \"a\")"),
-		("1:[a,b]", "sut.Str(1, \"a\", \"b\")"), ("1:null", "sut.Str(1, null!)"),
-	]);
+		("0:[]", "(0)"), ("1:[]", "(1)"), ("0:[a]", "(0, \"a\")"), ("1:[a]", "(1, \"a\")"), ("1:[a,b]", "(1, \"a\", \"b\")"),
+		("1:null", "(1, null!)"),
+	];
 
-	private static readonly OverloadMatrix.Member OnlyStr = new("ILog", "OnlyStr",
+	private static readonly (string, string)[] OnlyStrings =
 	[
-		("[]", "sut.OnlyStr()"), ("[a]", "sut.OnlyStr(\"a\")"), ("[a,b]", "sut.OnlyStr(\"a\", \"b\")"),
-		("null", "sut.OnlyStr(null!)"), ("[null,null]", "sut.OnlyStr(null!, null!)"),
-	]);
+		("[]", "()"), ("[a]", "(\"a\")"), ("[a,b]", "(\"a\", \"b\")"), ("null", "(null!)"), ("[null,null]", "(null!, null!)"),
+	];
+
+	private static readonly OverloadMatrix.Member Str = new("ILog", "Str", Probes("sut.Str", LevelAndStrings));
+	private static readonly OverloadMatrix.Member OnlyStr = new("ILog", "OnlyStr", Probes("sut.OnlyStr", OnlyStrings));
 
 	private static readonly OverloadMatrix.Member LogG = new("IG<object>", "LogG", Probes("sut.LogG", LevelAndArgs));
 	private static readonly OverloadMatrix.Member OnlyG = new("IG<object>", "OnlyG", Probes("sut.OnlyG", OnlyArgs));
@@ -400,6 +406,10 @@ public sealed class ParamsObjectArrayTests
 
 	private static readonly OverloadMatrix.Member LogDelegate = new("LogDelegate", null, Probes("sut", LevelAndArgs));
 	private static readonly OverloadMatrix.Member OnlyDelegate = new("OnlyDelegate", null, Probes("sut", OnlyArgs));
+	private static readonly OverloadMatrix.Member StrDelegate = new("StrDelegate", null, Probes("sut", LevelAndStrings));
+
+	private static readonly OverloadMatrix.Member OnlyStrDelegate =
+		new("OnlyStrDelegate", null, Probes("sut", OnlyStrings));
 
 	private static readonly (OverloadMatrix.Member Method, OverloadMatrix.Member Delegate, string Calls)[] LikeMethods =
 	[
@@ -412,24 +422,37 @@ public sealed class ParamsObjectArrayTests
 			(1, null)
 			(1, default)
 			(level: 1, args: null)
+			(args: null, level: 1)
 			(default)
 			(default, "a")
 			(default, default)
 			(1, It.IsAny<object[]>())
 			(1, It.Satisfies<object[]>(a => a?.Length == 2))
+			(level: 1, args: It.IsAny<object[]>())
 			(default, It.IsAny<object[]>())
+			(1, It.IsAny<string[]>())
 			(It.IsAny<int>(), It.IsAny<object[]>())
+			(It.IsAny<int>(), It.IsAny<object>())
+			(It.IsAny<int>(), It.IsAny<object>(), It.Is<object>(2))
+			(It.Is(1), It.Is<object>("a"), It.IsAny<object>())
+			(It.IsAny<int>(), null, null)
+			(It.IsAny<int>())
 			(It.IsAny<int>(), "a")
+			(It.IsAny<int>(), "a", 2)
 			(null)
 			(null, "a")
 			(Match.AnyParameters())
 			(1).AnyParameters()
 			(default, "a").AnyParameters()
 			(1, It.IsAny<object>())
+			(1, "a", It.IsAny<object>())
 			(1, (object[])null!)
+			(It.IsAny<int>(), null)
+			(null, null)
 			(1, It.IsAny<object[]>()).AnyParameters()
 			"""),
 		(Only, OnlyDelegate, """
+			()
 			("a")
 			("a", 2)
 			(new object[] { "a", 2, })
@@ -438,33 +461,56 @@ public sealed class ParamsObjectArrayTests
 			(null)
 			(default)
 			(args: null)
+			(null, null)
+			(default, default)
 			(It.IsAny<object[]>())
 			(It.Satisfies<object[]>(a => a?.Length == 2))
+			(args: It.IsAny<object[]>())
+			(It.IsAny<string[]>())
+			(It.IsAny<object>())
+			(It.Is<object>("a"))
+			(It.IsAny<object>(), It.IsAny<object>())
+			(It.IsAny<string>())
 			(Match.AnyParameters())
 			(parameters: null)
+			().AnyParameters()
 			("a").AnyParameters()
 			("a", It.IsAny<object>())
 			((object[])null!)
 			(It.IsAny<object[]>()).AnyParameters()
 			"""),
-	];
-
-	private static readonly Group[] DelegateGroups =
-	[
-		new(OnlyDelegate, "a delegate has no per-element overload, so no arguments and null literals bind the all-values overload and mean what they mean for a method", """
-			() | (params object[]) matches []
-			().AnyParameters() | (params object[]) matches everything
-			(null, null) | (params object[]) matches [null,null]
-			(default, default) | (params object[]) matches [null,null]
+		(Str, StrDelegate, """
+			(1)
+			(1, "a")
+			(1, "a", "b")
+			(1, null)
+			(1, It.IsAny<string[]>())
+			(It.IsAny<int>(), "a")
+			(It.IsAny<int>(), It.IsAny<string>())
+			(It.IsAny<int>(), It.Is("a"), It.IsAny<string>())
+			(It.IsAny<int>())
+			(default, "a")
+			(default)
+			(default, default)
+			(null)
+			(Match.AnyParameters())
+			(1).AnyParameters()
+			(1, It.IsAny<string>())
+			(It.IsAny<int>(), null)
 			"""),
-		new(OnlyDelegate, "a delegate has no per-element overload, so matchers for the elements are captured as values", """
-			(It.IsAny<object>()) | (params object[]) matches nothing
-			(It.IsAny<object>(), It.IsAny<object>()) | (params object[]) matches nothing
-			"""),
-		new(LogDelegate, "a delegate has no per-element overload, so matchers for the elements are captured as values and a null literal next to a matcher is not ambiguous", """
-			(It.IsAny<int>(), It.IsAny<object>()) | (IParameter<int>?, params object[]) matches nothing
-			(It.IsAny<int>()) | (IParameter<int>?, params object[]) matches 0:[] 1:[]
-			(It.IsAny<int>(), null) | (IParameter<int>?, IParameter<object[]>?) matches 0:null 1:null
+		(OnlyStr, OnlyStrDelegate, """
+			()
+			("a")
+			("a", "b")
+			(null)
+			(null, null)
+			(default, default)
+			(It.IsAny<string[]>())
+			(It.IsAny<string>())
+			(It.IsAny<string>(), It.Is("b"))
+			(Match.AnyParameters())
+			(parameters: null)
+			().AnyParameters()
 			"""),
 	];
 
@@ -518,10 +564,8 @@ public sealed class ParamsObjectArrayTests
 			string[] onDelegate = callsOfPair.Select(call => $"{call} | {results[index++]}").ToArray();
 
 			await That(onDelegate).IsEqualTo(onMethod)
-				.Because($"{@delegate.Type} carries the priorities of the method {method.Name}");
+				.Because($"{@delegate.Type} carries the overloads and priorities of the method {method.Name}");
 		}
-
-		await VerifyGroups(DelegateGroups, languageVersion);
 	}
 
 	private static string[] Lines(string text)

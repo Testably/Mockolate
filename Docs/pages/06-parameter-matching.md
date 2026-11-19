@@ -32,6 +32,7 @@ public interface IChocolateKitchen
     bool Increment(ref int value);
     bool Fill(IEnumerable<int> amounts);
     bool Pack(IList<string> types);
+    bool Decorate(string recipe, params string[] toppings);
     bool SetTemperature(double celsius);
     bool Scan(Span<byte> data);
 }
@@ -229,6 +230,21 @@ await That(shelf.Mock.Verify["Dark", 2].Got()).Never();
 - When another indexer of the same type has fewer keys, setups and verifications of the indexer need every key. `Setup["Dark"]` then always means the indexer with one key, as `shelf["Dark"]` does.
 
 </details>
+
+## Params parameters
+
+A `params` parameter takes either one value or one matcher per element, so a setup or verification matches calls with exactly these elements in the same order. Next to element matchers, pass matchers for the other parameters as well, for example `It.Is("Cake")` instead of `"Cake"`. To match the whole array instead, pass a matcher for the array type, such as `It.Satisfies<string[]>(…)`. Methods and [delegates](09-special-types/02-delegates.md) with a `params` parameter work the same way.
+
+```csharp
+kitchen.Mock.Setup.Decorate(It.Is("Cake"), It.IsAny<string>(), It.Is("Sprinkles"))
+    .Returns(true);
+kitchen.Mock.Setup.Decorate("Tart", It.Satisfies<string[]>(toppings => toppings.Length > 2))
+    .Returns(true);
+
+await That(kitchen.Decorate("Cake", "Cream", "Sprinkles")).IsTrue();
+await That(kitchen.Decorate("Cake", "Sprinkles")).IsFalse();
+await That(kitchen.Decorate("Tart", "Cream", "Nuts", "Sprinkles")).IsTrue();
+```
 
 ## Ref and out parameters
 

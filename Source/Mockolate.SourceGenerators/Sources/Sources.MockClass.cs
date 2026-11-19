@@ -3520,8 +3520,8 @@ internal static partial class Sources
 	/// <summary>
 	///     Whether <paramref name="method" /> gets an overload without parameters for an empty <c>params object[]</c>.
 	///     Its all-values overload ranks below the per-element overload, so a call without arguments would bind to the
-	///     latter and lose <c>AnyParameters()</c>. A sibling without parameters already owns that signature, and a
-	///     delegate has no per-element overload.
+	///     latter and lose <c>AnyParameters()</c>. A sibling without parameters already owns that signature; a delegate
+	///     has no siblings.
 	/// </summary>
 	private static bool HasEmptyParamsOverload(Class @class, Method method)
 	{

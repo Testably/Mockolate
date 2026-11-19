@@ -370,6 +370,19 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task ParamsObjectArray_CanBeCreated()
+		{
+			IParamsObjectArray sut1 = IParamsObjectArray.CreateMock();
+			ParamsObjectArrayDelegate sut2 = ParamsObjectArrayDelegate.CreateMock();
+			ParamsObjectArrayOnlyDelegate sut3 = ParamsObjectArrayOnlyDelegate.CreateMock();
+			ParamsArrayDelegate sut4 = ParamsArrayDelegate.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+			await That(sut4).IsNotNull();
+		}
+
+		[Test]
 		public async Task RefStructConsumer_CanBeCreated()
 		{
 			IRefStructConsumer sut = IRefStructConsumer.CreateMock();

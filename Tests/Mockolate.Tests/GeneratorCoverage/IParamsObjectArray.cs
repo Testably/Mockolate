@@ -11,3 +11,9 @@ public interface IParamsObjectArray
 	void Write(object value);
 	void Write(params object[] args);
 }
+
+public delegate int ParamsObjectArrayDelegate(int level, params object[] args);
+
+public delegate int ParamsObjectArrayOnlyDelegate(params object[] args);
+
+public delegate void ParamsArrayDelegate(params string[] values);
