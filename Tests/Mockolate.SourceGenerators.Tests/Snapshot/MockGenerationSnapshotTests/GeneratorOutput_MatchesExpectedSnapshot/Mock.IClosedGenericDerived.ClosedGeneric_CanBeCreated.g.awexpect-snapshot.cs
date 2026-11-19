@@ -225,9 +225,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int>>(global::Mockolate.Mock.IClosedGenericDerived.MemberId_Other, "global::Mockolate.Tests.GeneratorCoverage.IClosedGenericDerived.Other") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int>>(global::Mockolate.Mock.IClosedGenericDerived.MemberId_Other, "global::Mockolate.Tests.GeneratorCoverage.IClosedGenericDerived.Other"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(ref_value))
 						{
@@ -302,9 +302,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<long, long, global::System.Collections.Generic.List<long>>>(global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<long, long, global::System.Collections.Generic.List<long>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<long, long, global::System.Collections.Generic.List<long>>>(global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<long, long, global::System.Collections.Generic.List<long>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value, values))
 						{
@@ -373,9 +373,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<TOther, long>>(global::Mockolate.Mock.IClosedGenericDerived.MemberId_Convert_TOther_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<TOther, long> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<TOther, long>>(global::Mockolate.Mock.IClosedGenericDerived.MemberId_Convert_TOther_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<TOther, long> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value))
 						{
@@ -443,9 +443,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<(long Item, int Count), (long, string)>>(global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<(long Item, int Count), (long, string)> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<(long Item, int Count), (long, string)>>(global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<(long Item, int Count), (long, string)> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value))
 						{

@@ -167,13 +167,16 @@ public partial class MockRegistry
 	///     snapshot bucket of <paramref name="memberId" /> for a setup of type <typeparamref name="T" /> without
 	///     a match, so the matchers of that bucket are not evaluated a second time. When no other bucket holds a
 	///     setup of type <typeparamref name="T" /> with the same name, the common case of an unmatched call
-	///     returns the string-keyed setups or <see cref="Array.Empty{T}" /> without an iterator allocation.
+	///     returns the string-keyed setups, or <see langword="null" /> when there are none, so that it enumerates
+	///     nothing.
 	/// </remarks>
 	/// <typeparam name="T">The concrete <see cref="MethodSetup" /> subtype to return.</typeparam>
 	/// <param name="memberId">The generator-emitted member id whose snapshot bucket was already searched.</param>
 	/// <param name="methodName">The simple method name.</param>
-	/// <returns>A lazy stream of the remaining default-scope setups.</returns>
-	public IEnumerable<T> GetFallbackMethodSetups<T>(int memberId, string methodName) where T : MethodSetup
+	/// <returns>
+	///     A lazy stream of the remaining default-scope setups, or <see langword="null" /> when there are none.
+	/// </returns>
+	public IEnumerable<T>? GetFallbackMethodSetups<T>(int memberId, string methodName) where T : MethodSetup
 	{
 		MethodSetup[]?[]? snapshot = Volatile.Read(ref _setupsByMemberId);
 		if (snapshot is not null && HasNamedSetupInOtherBucket<T>(methodName, memberId, snapshot))
@@ -181,7 +184,7 @@ public partial class MockRegistry
 			return EnumerateGlobalMethodSetups<T>(methodName, snapshot, memberId);
 		}
 
-		return _setups is { } setups ? setups.Methods.EnumerateByName<T>(methodName) : Array.Empty<T>();
+		return _setups is { Methods.HasStorage: true, } setups ? setups.Methods.EnumerateByName<T>(methodName) : null;
 	}
 
 	private static bool HasNamedSetupInOtherBucket<T>(string methodName, int memberId,

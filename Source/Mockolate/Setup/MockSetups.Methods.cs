@@ -19,6 +19,8 @@ internal partial class MockSetups
 	{
 		private List<MethodSetup>? _storage;
 
+		public bool HasStorage => _storage is not null;
+
 		public int Count
 		{
 			get

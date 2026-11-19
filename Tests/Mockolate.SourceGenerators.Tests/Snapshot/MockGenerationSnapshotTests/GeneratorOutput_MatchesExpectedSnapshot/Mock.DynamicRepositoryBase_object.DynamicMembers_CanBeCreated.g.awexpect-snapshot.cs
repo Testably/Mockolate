@@ -131,9 +131,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<object, object>>(global::Mockolate.Mock.DynamicRepositoryBase_object.MemberId_Echo, "global::Mockolate.Tests.GeneratorCoverage.DynamicRepositoryBase<object>.Echo") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<object, object> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<object, object>>(global::Mockolate.Mock.DynamicRepositoryBase_object.MemberId_Echo, "global::Mockolate.Tests.GeneratorCoverage.DynamicRepositoryBase<object>.Echo"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<object, object> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value))
 						{
@@ -206,9 +206,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object, global::System.Collections.Generic.IEnumerable<object>>>(global::Mockolate.Mock.DynamicRepositoryBase_object.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicRepositoryBase<object>.Consume") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<object, global::System.Collections.Generic.IEnumerable<object>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<object, global::System.Collections.Generic.IEnumerable<object>>>(global::Mockolate.Mock.DynamicRepositoryBase_object.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicRepositoryBase<object>.Consume"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<object, global::System.Collections.Generic.IEnumerable<object>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value, values))
 						{

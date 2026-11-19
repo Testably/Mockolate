@@ -56,9 +56,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<object, object, global::System.Collections.Generic.List<object>>>(global::Mockolate.Mock.DynamicFactory_object.MemberId_Invoke, "global::Mockolate.Tests.GeneratorCoverage.DynamicFactory<object>.Invoke") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<object, object, global::System.Collections.Generic.List<object>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<object, object, global::System.Collections.Generic.List<object>>>(global::Mockolate.Mock.DynamicFactory_object.MemberId_Invoke, "global::Mockolate.Tests.GeneratorCoverage.DynamicFactory<object>.Invoke"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<object, object, global::System.Collections.Generic.List<object>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value, values))
 						{

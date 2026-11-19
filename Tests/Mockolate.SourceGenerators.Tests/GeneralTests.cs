@@ -956,7 +956,7 @@ public class GeneralTests
 			          			global::Mockolate.Setup.ReturnMethodSetup<string, string>? methodSetup = null;
 			          """).IgnoringNewlineStyle().And
 			.Contains(
-				"foreach (global::Mockolate.Setup.ReturnMethodSetup<string, string> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<string, string>>(global::Mockolate.Mock.IMyService.MemberId_MyMethod, \"global::MyCode.IMyService.MyMethod\"))")
+				"if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<string, string>>(global::Mockolate.Mock.IMyService.MemberId_MyMethod, \"global::MyCode.IMyService.MyMethod\") is { } fallback_methodSetup)")
 			.IgnoringNewlineStyle().And
 			.Contains("""
 			          			bool hasWrappedResult = false;

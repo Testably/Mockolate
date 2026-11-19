@@ -20,7 +20,8 @@ internal static partial class Sources
 	///     <para>
 	///         Slow-path fallback: <c>GetMethodSetups</c> when an active scenario is set, and
 	///         <c>GetFallbackMethodSetups</c>, which skips the bucket the fast path already searched, when
-	///         the fast path finds no match. The member-id array is only populated by the
+	///         the fast path finds no match and returns <see langword="null" /> when there is nothing to fall
+	///         back to. The member-id array is only populated by the
 	///         <c>SetupMethod(int, ...)</c> overloads emitted by the generator; setups registered through the
 	///         hand-written <c>SetupMethod(MethodSetup)</c> overload (e.g. the
 	///         <c>HttpClientExtensions.SetupMethod</c> pipeline) live only in the string-keyed list, so the
@@ -76,21 +77,25 @@ internal static partial class Sources
 		sb.Append(indent).Append("\t\t\t}").AppendLine();
 		sb.Append(indent).Append("\t\t}").AppendLine();
 		sb.Append(indent).Append("\t}").AppendLine();
-		sb.Append(indent).Append("\tif (").Append(methodSetup).Append(" is null)").AppendLine();
+		string fallbackVar = Helpers.GetUniqueLocalVariableName($"fallback_{methodSetup}", parameters);
+		sb.Append(indent).Append("\tif (").Append(methodSetup).Append(" is null && ").Append(mockRegistry)
+			.Append(".GetFallbackMethodSetups<").Append(methodSetupType).Append(">(").Append(memberIdRef).Append(", ")
+			.Append(isGeneric ? nameVar : uniqueNameString).Append(") is { } ").Append(fallbackVar).Append(')')
+			.AppendLine();
 		sb.Append(indent).Append("\t{").AppendLine();
-		AppendSetupLoop(indent + "\t\t", ".GetFallbackMethodSetups<", memberIdRef + ", " + (isGeneric ? nameVar : uniqueNameString));
+		AppendSetupLoop(indent + "\t\t", fallbackVar);
 		sb.Append(indent).Append("\t}").AppendLine();
 		sb.Append(indent).Append('}').AppendLine();
 		sb.Append(indent).Append("else").AppendLine();
 		sb.Append(indent).Append('{').AppendLine();
-		AppendSetupLoop(indent + "\t", ".GetMethodSetups<", uniqueNameString);
+		AppendSetupLoop(indent + "\t",
+			$"{mockRegistry}.GetMethodSetups<{methodSetupType}>({uniqueNameString})");
 		sb.Append(indent).Append('}').AppendLine();
 
-		void AppendSetupLoop(string loopIndent, string getSetupsMethod, string arguments)
+		void AppendSetupLoop(string loopIndent, string setups)
 		{
 			sb.Append(loopIndent).Append("foreach (").Append(methodSetupType).Append(' ').Append(itemVar).Append(" in ")
-				.Append(mockRegistry).Append(getSetupsMethod).Append(methodSetupType).Append(">(").Append(arguments)
-				.Append("))").AppendLine();
+				.Append(setups).Append(')').AppendLine();
 			sb.Append(loopIndent).Append('{').AppendLine();
 			sb.Append(loopIndent).Append("\tif (").Append(itemVar).Append(".Matches(").Append(matchArgs).Append("))")
 				.AppendLine();

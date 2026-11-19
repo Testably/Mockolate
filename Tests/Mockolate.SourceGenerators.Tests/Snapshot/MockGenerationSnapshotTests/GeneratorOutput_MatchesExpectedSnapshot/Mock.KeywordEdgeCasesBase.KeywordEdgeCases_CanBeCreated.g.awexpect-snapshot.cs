@@ -130,9 +130,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int>>(global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<int>>(global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(@in))
 						{

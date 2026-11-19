@@ -89,9 +89,9 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			registry.Setup.GetOrCreateScenario("a").Methods.Add(new FakeMethodSetup());
 			registry.TransitionTo("a");
 
-			IEnumerable<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
+			IEnumerable<MethodSetup>? setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
 
-			await That(setups).IsEmpty()
+			await That(setups).IsNull()
 				.Because("generated dispatch calls GetMethodSetups instead while a scenario is active");
 		}
 
@@ -104,20 +104,20 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			registry.SetupMethod(2, snapshotSetup);
 			registry.Setup.Methods.Add(globalDictSetup);
 
-			List<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo").ToList();
+			List<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo")!.ToList();
 
 			await That(setups).HasCount(1);
 			await That(setups[0]).IsSameAs(globalDictSetup);
 		}
 
 		[Test]
-		public async Task WithoutSetups_ShouldBeEmpty()
+		public async Task WithoutSetups_ShouldBeNull()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 
-			IEnumerable<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
+			IEnumerable<MethodSetup>? setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
 
-			await That(setups).IsEmpty();
+			await That(setups).IsNull();
 		}
 
 		[Test]
@@ -132,7 +132,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			registry.SetupMethod(3, thirdBucketSetup);
 			registry.Setup.Methods.Add(globalDictSetup);
 
-			List<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo").ToList();
+			List<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo")!.ToList();
 
 			await That(setups).HasCount(3);
 			await That(setups[0]).IsSameAs(firstBucketSetup);
@@ -141,37 +141,37 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		}
 
 		[Test]
-		public async Task WithOtherNameInOtherBucket_ShouldBeEmpty()
+		public async Task WithOtherNameInOtherBucket_ShouldBeNull()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 			registry.SetupMethod(1, new FakeMethodSetup("bar"));
 			registry.SetupMethod(2, new FakeMethodSetup());
 
-			IEnumerable<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
+			IEnumerable<MethodSetup>? setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
 
-			await That(setups).IsEmpty();
+			await That(setups).IsNull();
 		}
 
 		[Test]
-		public async Task WithOtherSetupTypeInOtherBucket_ShouldBeEmpty()
+		public async Task WithOtherSetupTypeInOtherBucket_ShouldBeNull()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 			registry.SetupMethod(1, new FakeMethodSetup());
 
-			IEnumerable<VoidMethodSetup> setups = registry.GetFallbackMethodSetups<VoidMethodSetup>(2, "foo");
+			IEnumerable<VoidMethodSetup>? setups = registry.GetFallbackMethodSetups<VoidMethodSetup>(2, "foo");
 
-			await That(setups).IsEmpty();
+			await That(setups).IsNull();
 		}
 
 		[Test]
-		public async Task WithOnlyOwnBucket_ShouldBeEmpty()
+		public async Task WithOnlyOwnBucket_ShouldBeNull()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 			registry.SetupMethod(2, new FakeMethodSetup());
 
-			IEnumerable<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
+			IEnumerable<MethodSetup>? setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
 
-			await That(setups).IsEmpty();
+			await That(setups).IsNull();
 		}
 	}
 

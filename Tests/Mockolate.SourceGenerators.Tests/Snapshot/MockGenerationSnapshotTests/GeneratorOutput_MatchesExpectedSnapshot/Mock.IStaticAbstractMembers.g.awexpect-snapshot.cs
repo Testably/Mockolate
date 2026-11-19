@@ -191,9 +191,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && MockRegistryProvider.Value.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IStaticAbstractMembers.MemberId_AbstractStaticMethod, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.AbstractStaticMethod") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in MockRegistryProvider.Value.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IStaticAbstractMembers.MemberId_AbstractStaticMethod, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.AbstractStaticMethod"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{
@@ -256,9 +256,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && MockRegistryProvider.Value.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IStaticAbstractMembers.MemberId_VirtualStaticMethod, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.VirtualStaticMethod") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in MockRegistryProvider.Value.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int>>(global::Mockolate.Mock.IStaticAbstractMembers.MemberId_VirtualStaticMethod, "global::Mockolate.Tests.GeneratorCoverage.IStaticAbstractMembers.VirtualStaticMethod"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{

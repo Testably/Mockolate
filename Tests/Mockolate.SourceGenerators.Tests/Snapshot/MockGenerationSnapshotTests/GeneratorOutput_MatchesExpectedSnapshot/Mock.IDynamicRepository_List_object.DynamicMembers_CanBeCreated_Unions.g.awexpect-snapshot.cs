@@ -251,9 +251,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.List<object>, global::System.Collections.Generic.List<object>, global::System.Collections.Generic.List<global::System.Collections.Generic.List<object>>>>(global::Mockolate.Mock.IDynamicRepository_List_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<global::System.Collections.Generic.List<object>>.Get") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.List<object>, global::System.Collections.Generic.List<object>, global::System.Collections.Generic.List<global::System.Collections.Generic.List<object>>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.List<object>, global::System.Collections.Generic.List<object>, global::System.Collections.Generic.List<global::System.Collections.Generic.List<object>>>>(global::Mockolate.Mock.IDynamicRepository_List_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<global::System.Collections.Generic.List<object>>.Get"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.List<object>, global::System.Collections.Generic.List<object>, global::System.Collections.Generic.List<global::System.Collections.Generic.List<object>>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(key, values))
 						{
@@ -321,9 +321,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::System.Collections.Generic.List<object>>>(global::Mockolate.Mock.IDynamicRepository_List_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<global::System.Collections.Generic.List<object>>.Add") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<global::System.Collections.Generic.List<object>> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::System.Collections.Generic.List<object>>>(global::Mockolate.Mock.IDynamicRepository_List_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<global::System.Collections.Generic.List<object>>.Add"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<global::System.Collections.Generic.List<object>> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(item))
 						{

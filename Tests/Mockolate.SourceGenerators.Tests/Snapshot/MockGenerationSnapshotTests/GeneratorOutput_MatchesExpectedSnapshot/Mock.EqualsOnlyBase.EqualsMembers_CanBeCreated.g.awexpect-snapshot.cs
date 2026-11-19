@@ -131,9 +131,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, object?>>(global::Mockolate.Mock.EqualsOnlyBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsOnlyBase.Equals") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, object?> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<bool, object?>>(global::Mockolate.Mock.EqualsOnlyBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsOnlyBase.Equals"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<bool, object?> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(obj))
 						{

@@ -140,9 +140,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup>(global::Mockolate.Mock.ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup>(global::Mockolate.Mock.ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run"))
+					foreach (global::Mockolate.Setup.VoidMethodSetup s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches())
 						{

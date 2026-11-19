@@ -126,9 +126,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U>>(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_Accept_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<U> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U>>(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_Accept_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<U> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value))
 						{
@@ -191,9 +191,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U, int>>(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_Get_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<U, int> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U, int>>(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_Get_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<U, int> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(key))
 						{
@@ -262,9 +262,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U, U>>(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_GetNotNull_U_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<U, U> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<U, U>>(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_GetNotNull_U_, name_methodSetup))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<U, U> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(fallback))
 						{
@@ -333,9 +333,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U, V>>(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_AcceptDependent_U__V_, name_methodSetup) is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.VoidMethodSetup<U, V> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<U, V>>(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_AcceptDependent_U__V_, name_methodSetup))
+					foreach (global::Mockolate.Setup.VoidMethodSetup<U, V> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(value, other))
 						{

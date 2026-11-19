@@ -130,9 +130,9 @@ internal static partial class Mock
 						}
 					}
 				}
-				if (methodSetup is null)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<object, object>>(global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<object, object> s_methodSetup in this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<object, object>>(global::Mockolate.Mock.DynamicHidingDerived.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.DynamicHidingDerived.M"))
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<object, object> s_methodSetup in fallback_methodSetup)
 					{
 						if (s_methodSetup.Matches(x))
 						{
