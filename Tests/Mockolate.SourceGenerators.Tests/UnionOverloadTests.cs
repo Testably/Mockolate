@@ -219,6 +219,55 @@ public sealed class UnionOverloadTests
 	}
 
 	[Test]
+	public async Task Indexer_WithOptionalKeys_ShouldOfferOverloadsWithoutThemBelowTheFullOnes()
+	{
+		const string source = """
+		                      #nullable enable
+		                      using Mockolate;
+
+		                      namespace MyCode
+		                      {
+		                          public class Program
+		                          {
+		                              public static void Main(string[] args)
+		                              {
+		                                  _ = IOptionalKeys.CreateMock();
+		                                  _ = IOptionalKeysWithSibling.CreateMock();
+		                              }
+		                          }
+
+		                          public interface IOptionalKeys
+		                          {
+		                              string this[int key, string name = "x"] { get; }
+		                          }
+
+		                          public interface IOptionalKeysWithSibling
+		                          {
+		                              string this[int key] { get; }
+		                              string this[int key, string name = "x"] { get; }
+		                          }
+		                      }
+		                      """;
+
+		GeneratorResult result = Generator.Run([source,], ["NET11_0_OR_GREATER",], LanguageVersion.CSharp15, null);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Mock.IOptionalKeys.g.cs"].Replace("\r\n", "\n"))
+			.Contains(
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]\n\t\tglobal::Mockolate.Setup.IIndexerGetterOnlySetup<string, int, string> this[global::Mockolate.ParameterArg<int>? parameter1] { get; }")
+			.And
+			.Contains(
+				"[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]\n\t\tglobal::Mockolate.Setup.IIndexerGetterOnlySetup<string, int, string> this[global::System.Func<int, bool> parameter1, [global::System.Runtime.CompilerServices.CallerArgumentExpression(\"parameter1\")] string parameter1Expression = \"\"] { get; }")
+			.And
+			.Contains("new global::Mockolate.ParameterArg<string>((string)(\"x\")).ToParameterMatch()").And
+			.Contains("(object?)new global::Mockolate.ParameterArg<string>((string)(\"x\"))")
+			.Because("a predicate's argument expression must not capture a name meant for the full overloads");
+		await That(result.Sources["Mock.IOptionalKeysWithSibling.g.cs"])
+			.DoesNotContain("IIndexerGetterOnlySetup<string, int, string> this[global::Mockolate.ParameterArg<int>? parameter1] { get; }")
+			.Because("Setup[x] must keep meaning this[int], as sut[x] does");
+	}
+
+	[Test]
 	public async Task IParametersOverload_ShouldKeepItsPriorityAboveTheUnionOverloads()
 	{
 		string mock = GenerateMockInUnionMode();

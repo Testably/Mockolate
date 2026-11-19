@@ -743,6 +743,51 @@ public sealed partial class MockTests
 					          		}
 					          """).IgnoringNewlineStyle();
 			}
+
+			[Test]
+			public async Task WithOptionalKeys_ShouldOfferSetupAndVerifyOverloadsWithoutThem()
+			{
+				GeneratorResult result = Generator
+					.Run("""
+					     #nullable enable
+					     using Mockolate;
+
+					     namespace MyCode;
+					     public class Program
+					     {
+					         public static void Main(string[] args)
+					         {
+					     		_ = IMyService.CreateMock();
+					     		_ = IMyServiceWithSibling.CreateMock();
+					         }
+					     }
+
+					     public interface IMyService
+					     {
+					         string this[int key, int? count = 5, string? name = null] { get; set; }
+					     }
+
+					     public interface IMyServiceWithSibling
+					     {
+					         string this[int key] { get; set; }
+					         string this[int key, int count = 5] { get; set; }
+					     }
+					     """);
+
+				await That(result.Diagnostics).IsEmpty();
+				await That(result.Sources["Mock.IMyService.g.cs"])
+					.Contains("this[global::Mockolate.Parameters.IParameter<int>? parameter1, global::Mockolate.Parameters.IParameter<int?>? parameter2] { get; }").And
+					.Contains("this[int parameter1] { get; }").And
+					.Contains("(global::Mockolate.Parameters.IParameterMatch<int?>)global::Mockolate.Internals.Matchers.IsValue<int?>((int?)(5)), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.Internals.Matchers.IsValue<string?>((string?)(null)));").And
+					.Contains("this[global::Mockolate.Parameters.IParameter<int>? key, int? count] { get; }").And
+					.Contains("global::Mockolate.Parameters.IParameter<int?> count = new global::Mockolate.Internals.LiteralParameterMatch<int?>(5);").And
+					.DoesNotContain("= null] { get; }")
+					.Because("a left-out key gets its own overload, so that an explicit null keeps matching null");
+				await That(result.Sources["Mock.IMyServiceWithSibling.g.cs"])
+					.DoesNotContain("IndexerSetup<string, int, int> this[global::Mockolate.Parameters.IParameter<int>? parameter1] { get; }").And
+					.DoesNotContain("IndexerSetup<string, int, int> this[int parameter1] { get; }")
+					.Because("Setup[x] must keep meaning this[int], as sut[x] does");
+			}
 		}
 	}
 }

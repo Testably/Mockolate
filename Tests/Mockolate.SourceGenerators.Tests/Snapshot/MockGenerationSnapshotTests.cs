@@ -177,6 +177,17 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "OptionalIndexerKeys_CanBeCreated",
+            ["IOptionalIndexerKeys.cs",],
+            """
+            IOptionalIndexerKeys sut1 = IOptionalIndexerKeys.CreateMock();
+            IOptionalIndexerKeysGetterOnly sut2 = IOptionalIndexerKeysGetterOnly.CreateMock();
+            IOptionalIndexerKeysSetterOnly sut3 = IOptionalIndexerKeysSetterOnly.CreateMock();
+            IOptionalIndexerKeysWithSixKeys sut4 = IOptionalIndexerKeysWithSixKeys.CreateMock();
+            IOptionalIndexerKeysWithSibling sut5 = IOptionalIndexerKeysWithSibling.CreateMock();
+            """,
+            []),
+        new(
             "ParameterNameCollisions_CanBeCreated",
             ["ParameterNameCollisions.cs",],
             """
@@ -326,6 +337,18 @@ public sealed partial class MockGenerationSnapshotTests
             """
             INullableTypeParameter<int> sut1 = INullableTypeParameter<int>.CreateMock();
             INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "OptionalIndexerKeys_CanBeCreated_Unions",
+            ["IOptionalIndexerKeys.cs",],
+            """
+            IOptionalIndexerKeys sut1 = IOptionalIndexerKeys.CreateMock();
+            IOptionalIndexerKeysGetterOnly sut2 = IOptionalIndexerKeysGetterOnly.CreateMock();
+            IOptionalIndexerKeysSetterOnly sut3 = IOptionalIndexerKeysSetterOnly.CreateMock();
+            IOptionalIndexerKeysWithSixKeys sut4 = IOptionalIndexerKeysWithSixKeys.CreateMock();
+            IOptionalIndexerKeysWithSibling sut5 = IOptionalIndexerKeysWithSibling.CreateMock();
             """,
             [],
             UnionMode: true),

@@ -51,15 +51,14 @@ public sealed class EnumDefaultValuesTests
 	public async Task Indexer_WithOmittedEnumArguments_ShouldUseTheDeclaredDefaults()
 	{
 		IEnumDefaultValues sut = IEnumDefaultValues.CreateMock();
-		sut.Mock.Setup[It.IsAny<int>(), It.Is(EnumWithNegativeValue.Unknown), It.Is<EnumWithNegativeValue?>(EnumWithNegativeValue.High)]
-			.Returns(3);
+		sut.Mock.Setup[It.IsAny<int>()].Returns(3);
 
 		int forDeclaredDefaults = sut[1];
 		int forOther = sut[1, EnumWithNegativeValue.High];
 
 		await That(forDeclaredDefaults).IsEqualTo(3);
 		await That(forOther).IsEqualTo(0);
-		await That(sut.Mock.Verify[It.IsAny<int>(), It.Is(EnumWithNegativeValue.Unknown), It.Is<EnumWithNegativeValue?>(EnumWithNegativeValue.High)].Got()).Once();
+		await That(sut.Mock.Verify[It.IsAny<int>()].Got()).Once();
 	}
 
 	[Test]

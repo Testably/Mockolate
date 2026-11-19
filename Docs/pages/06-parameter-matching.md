@@ -198,6 +198,38 @@ await That(filled).IsTrue();
 await That(packed).IsTrue();
 ```
 
+## Optional parameters
+
+Optional parameters of methods, delegates and indexers stay optional in setups and verifications. A left-out argument stands for the declared default value:
+
+```csharp
+public interface IChocolateShelf
+{
+    bool Restock(string type, int amount = 10);
+    int this[string type, int row = 1] { get; set; }
+}
+
+IChocolateShelf shelf = IChocolateShelf.CreateMock();
+shelf.Mock.Setup.Restock("Dark").Returns(true);
+shelf.Mock.Setup["Dark"].Returns(5);
+
+bool restocked = shelf.Restock("Dark");
+int stock = shelf["Dark"];
+
+await That(restocked).IsTrue();
+await That(stock).IsEqualTo(5);
+await That(shelf.Mock.Verify["Dark"].Got()).Once();
+await That(shelf.Mock.Verify["Dark", 2].Got()).Never();
+```
+
+<details>
+<summary>Optional indexer keys</summary>
+
+- A left-out indexer key gets its own overload, so an explicit `null` for a key is not replaced by its declared default value.
+- When another indexer of the same type has fewer keys, setups and verifications of the indexer need every key. `Setup["Dark"]` then always means the indexer with one key, as `shelf["Dark"]` does.
+
+</details>
+
 ## Ref and out parameters
 
 | Matcher                              | In a setup                                                                       |
