@@ -1211,7 +1211,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Threading.Tasks.Task)!);
+			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<global::System.Threading.Tasks.Task>() == global::Mockolate.Internals.DefaultValueSource.CancellationToken ? global::System.Threading.Tasks.Task.CompletedTask : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Threading.Tasks.Task)!));
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf()" />
@@ -1351,7 +1351,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Threading.Tasks.ValueTask)!);
+			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<global::System.Threading.Tasks.ValueTask>() == global::Mockolate.Internals.DefaultValueSource.CancellationToken ? default(global::System.Threading.Tasks.ValueTask) : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Threading.Tasks.ValueTask)!));
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf()" />

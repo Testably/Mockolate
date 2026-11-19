@@ -573,13 +573,45 @@ internal static class Helpers
 			// only when the generator may have a value for it.
 			bool isLazy = !string.IsNullOrWhiteSpace(suffix) && type.ElementType is null &&
 			              !(type.GenericTypeParameters?.Count > 0);
+			// A task without a result only depends on a cancellation token, so the built-in one is created inline.
+			string? completedTask = null;
+			string? tokenArgument = taskSuffix ?? (string.IsNullOrWhiteSpace(suffix) ? "" : null);
+			if (tokenArgument is not null && type.ElementType is null && !(type.GenericTypeParameters?.Count > 0))
+			{
+				if (type.SpecialGenericType == SpecialGenericType.Task)
+				{
+					completedTask = tokenArgument.Length == 0
+						? "global::System.Threading.Tasks.Task.CompletedTask"
+						: $"({tokenArgument}.IsCancellationRequested ? global::System.Threading.Tasks.Task.FromCanceled({tokenArgument}) : global::System.Threading.Tasks.Task.CompletedTask)";
+				}
+				else if (type.SpecialGenericType == SpecialGenericType.ValueTask)
+				{
+					completedTask = tokenArgument.Length == 0
+						? "default(global::System.Threading.Tasks.ValueTask)"
+						: $"({tokenArgument}.IsCancellationRequested ? new global::System.Threading.Tasks.ValueTask(global::System.Threading.Tasks.Task.FromCanceled({tokenArgument})) : default(global::System.Threading.Tasks.ValueTask))";
+				}
+			}
+
 			if (isLazy)
 			{
 				sb.Append('(').Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
 					.Append(">() switch { global::Mockolate.Internals.DefaultValueSource.None => default(")
 					.Append(type.Fullname)
 					.Append(")!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => ")
-					.Append(defaultValueName).Append(".Generate(default(").Append(type.Fullname).Append(")!), _ => ");
+					.Append(defaultValueName).Append(".Generate(default(").Append(type.Fullname).Append(")!), ");
+				if (completedTask is not null)
+				{
+					sb.Append("global::Mockolate.Internals.DefaultValueSource.CancellationToken => ")
+						.Append(completedTask).Append(", ");
+				}
+
+				sb.Append("_ => ");
+			}
+			else if (completedTask is not null)
+			{
+				sb.Append('(').Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
+					.Append(">() == global::Mockolate.Internals.DefaultValueSource.CancellationToken ? ")
+					.Append(completedTask).Append(" : ");
 			}
 
 			sb.Append(defaultValueName);
@@ -622,6 +654,10 @@ internal static class Helpers
 			if (isLazy)
 			{
 				sb.Append(" })");
+			}
+			else if (completedTask is not null)
+			{
+				sb.Append(')');
 			}
 
 			return sb;
