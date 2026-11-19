@@ -235,6 +235,17 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task EnumDefaultValues_CanBeCreated()
+		{
+			IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
+			EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
+			EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+		}
+
+		[Test]
 		public async Task EqualsMembers_CanBeCreated()
 		{
 			IEqualsOnly sut1 = IEqualsOnly.CreateMock();
