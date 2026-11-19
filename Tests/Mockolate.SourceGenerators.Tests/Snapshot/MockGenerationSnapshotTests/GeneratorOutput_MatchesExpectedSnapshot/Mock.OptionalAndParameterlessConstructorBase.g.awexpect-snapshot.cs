@@ -97,6 +97,19 @@ internal static partial class Mock
 			=> "Mockolate.Tests.GeneratorCoverage.OptionalAndParameterlessConstructorBase mock";
 
 		/// <inheritdoc cref="OptionalAndParameterlessConstructorBase" />
+		public OptionalAndParameterlessConstructorBase(global::Mockolate.Internals.MockRegistry mockRegistry, params int[] numbers)
+			: base(numbers)
+		{
+			this.MockRegistry = mockRegistry;
+		}
+
+		/// <inheritdoc cref="OptionalAndParameterlessConstructorBase" />
+		public OptionalAndParameterlessConstructorBase(global::Mockolate.MockBehavior behavior, params int[] numbers)
+			: this(MockolateCreateRegistryFromBehavior(behavior), numbers)
+		{
+		}
+
+		/// <inheritdoc cref="OptionalAndParameterlessConstructorBase" />
 		public OptionalAndParameterlessConstructorBase(global::Mockolate.Internals.MockRegistry mockRegistry, int number = 1)
 			: base(number)
 		{
@@ -500,8 +513,8 @@ internal static partial class MockExtensionsForOptionalAndParameterlessConstruct
 				}
 				return new global::Mockolate.Mock.OptionalAndParameterlessConstructorBase(mockRegistry);
 			}
-			else if (constructorParameters.Length >= 0 && constructorParameters.Length <= 1
-			    && TryCastWithDefaultValue(constructorParameters, 0, 1, mockRegistry.Behavior, out int c1p1))
+			else if (constructorParameters.Length == 1
+			    && TryCast(constructorParameters, 0, mockRegistry.Behavior, out int[] c1p1))
 			{
 				global::Mockolate.Mock.OptionalAndParameterlessConstructorBase.MockRegistryProvider.Value = mockRegistry;
 				global::Mockolate.MockExtensionsForOptionalAndParameterlessConstructorBase.MockSetup? setupTarget = null;
@@ -511,6 +524,18 @@ internal static partial class MockExtensionsForOptionalAndParameterlessConstruct
 					setup.Invoke(setupTarget);
 				}
 				return new global::Mockolate.Mock.OptionalAndParameterlessConstructorBase(mockRegistry, c1p1);
+			}
+			else if (constructorParameters.Length >= 0 && constructorParameters.Length <= 1
+			    && TryCastWithDefaultValue(constructorParameters, 0, 1, mockRegistry.Behavior, out int c2p1))
+			{
+				global::Mockolate.Mock.OptionalAndParameterlessConstructorBase.MockRegistryProvider.Value = mockRegistry;
+				global::Mockolate.MockExtensionsForOptionalAndParameterlessConstructorBase.MockSetup? setupTarget = null;
+				if (setup is not null)
+				{
+					setupTarget ??= new(mockRegistry);
+					setup.Invoke(setupTarget);
+				}
+				return new global::Mockolate.Mock.OptionalAndParameterlessConstructorBase(mockRegistry, c2p1);
 			}
 			else if (constructorParameters.Length == 0)
 			{
@@ -526,6 +551,18 @@ internal static partial class MockExtensionsForOptionalAndParameterlessConstruct
 			else
 			{
 				throw new global::Mockolate.Exceptions.MockException($"Could not find any constructor for 'Mockolate.Tests.GeneratorCoverage.OptionalAndParameterlessConstructorBase' that matches the {constructorParameters.Length} given parameters ({string.Join(", ", constructorParameters)}).");
+			}
+			static bool TryCast<TValue>(object?[] values, int index, global::Mockolate.MockBehavior behavior, out TValue result)
+			{
+			    var value = values[index];
+				if (value is TValue typedValue)
+				{
+					result = typedValue;
+					return true;
+				}
+				
+				result = default!;
+				return value is null;
 			}
 			static bool TryCastWithDefaultValue<TValue>(object?[] values, int index, TValue defaultValue, global::Mockolate.MockBehavior behavior, out TValue result)
 			{

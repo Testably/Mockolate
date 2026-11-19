@@ -953,7 +953,7 @@ internal static partial class Sources
 		{
 			sb.Append("\t\t\tif (constructorParameters is null || constructorParameters.Length == 0)").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
-			if (TryGetConstructorWithoutArguments(constructors.Value, out int defaultConstructorIndex, out EquatableArray<MethodParameter> defaultParameters))
+			if (@class is MockClass { ConstructorWithoutArguments: { } constructorWithoutArguments, })
 			{
 				sb.Append("\t\t\t\tglobal::Mockolate.Mock.").Append(name).Append(".MockRegistryProvider.Value = mockRegistry;").AppendLine();
 				sb.Append("\t\t\t\tglobal::Mockolate.MockExtensionsFor").Append(name).Append(".MockSetup? setupTarget = null;").AppendLine();
@@ -962,20 +962,8 @@ internal static partial class Sources
 				sb.Append("\t\t\t\t\tsetupTarget ??= new(mockRegistry);").AppendLine();
 				sb.Append("\t\t\t\t\tsetup.Invoke(setupTarget);").AppendLine();
 				sb.Append("\t\t\t\t}").AppendLine();
-				int defaultParameterIndex = 0;
-				foreach (MethodParameter parameter in defaultParameters)
-				{
-					sb.Append("\t\t\t\t").Append(parameter.Type.Fullname).Append(" c").Append(defaultConstructorIndex).Append('p').Append(++defaultParameterIndex)
-						.Append(" = ").Append(parameter.ExplicitDefaultValue).Append(';').AppendLine();
-				}
-
-				sb.Append("\t\t\t\treturn new global::Mockolate.Mock.").Append(name).Append("(mockRegistry");
-				for (int i = 1; i <= defaultParameters.Count; i++)
-				{
-					sb.Append(", ").Append('c').Append(defaultConstructorIndex).Append('p').Append(i);
-				}
-
-				sb.Append(");").AppendLine();
+				string arguments = AppendArgumentsWithoutConstructorParameters(sb, "\t\t\t\t", constructors.Value, constructorWithoutArguments);
+				sb.Append("\t\t\t\treturn new global::Mockolate.Mock.").Append(name).Append("(mockRegistry").Append(arguments).Append(");").AppendLine();
 			}
 			else
 			{
@@ -6608,30 +6596,20 @@ internal static partial class Sources
 		sb.AppendTypeOrWrapper(method.ReturnType);
 	}
 
-	private static bool TryGetConstructorWithoutArguments(EquatableArray<Method> constructors, out int index,
-		out EquatableArray<MethodParameter> parameters)
+	private static string AppendArgumentsWithoutConstructorParameters(StringBuilder sb, string indent,
+		EquatableArray<Method> constructors, int constructorIndex)
 	{
-		index = 0;
-		parameters = default;
-		int position = 0;
-		foreach (Method constructor in constructors)
+		StringBuilder arguments = new();
+		int parameterIndex = 0;
+		foreach (MethodParameter parameter in constructors.AsArray()[constructorIndex].Parameters)
 		{
-			position++;
-			if (constructor.Parameters.Count == 0)
-			{
-				index = position;
-				parameters = constructor.Parameters;
-				return true;
-			}
-
-			if (index == 0 && constructor.Parameters.All(parameter => parameter.HasExplicitDefaultValue))
-			{
-				index = position;
-				parameters = constructor.Parameters;
-			}
+			string name = $"c{constructorIndex + 1}p{++parameterIndex}";
+			sb.Append(indent).Append(parameter.Type.Fullname).Append(' ').Append(name).Append(" = ")
+				.Append(parameter.IsParams ? "[]" : parameter.ExplicitDefaultValue).Append(';').AppendLine();
+			arguments.Append(", ").Append(name);
 		}
 
-		return index > 0;
+		return arguments.ToString();
 	}
 
 	private static void AppendTypedCreateMockOverloads(StringBuilder sb, Class @class,

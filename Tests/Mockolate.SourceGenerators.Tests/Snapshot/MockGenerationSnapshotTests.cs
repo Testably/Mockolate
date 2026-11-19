@@ -184,6 +184,11 @@ public sealed partial class MockGenerationSnapshotTests
             OptionalAndParameterlessConstructorBase sut2 = OptionalAndParameterlessConstructorBase.CreateMock();
             SeveralOptionalConstructorsBase sut3 = SeveralOptionalConstructorsBase.CreateMock();
             OptionalConstructorBase sut4 = OptionalConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+            ParamsConstructorBase sut5 = ParamsConstructorBase.CreateMock();
+            OptionalAndParamsConstructorBase sut6 = OptionalAndParamsConstructorBase.CreateMock();
+            ParamsConstructorSelectionBase sut7 = ParamsConstructorSelectionBase.CreateMock();
+            OptionalOverParamsConstructorBase sut8 = OptionalOverParamsConstructorBase.CreateMock();
+            OptionalAndParamsConstructorBase sut9 = OptionalAndParamsConstructorBase.CreateMock().Implementing<ICombinationMockA>();
             """,
             []),
         new(
@@ -358,6 +363,11 @@ public sealed partial class MockGenerationSnapshotTests
             OptionalAndParameterlessConstructorBase sut2 = OptionalAndParameterlessConstructorBase.CreateMock();
             SeveralOptionalConstructorsBase sut3 = SeveralOptionalConstructorsBase.CreateMock();
             OptionalConstructorBase sut4 = OptionalConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+            ParamsConstructorBase sut5 = ParamsConstructorBase.CreateMock();
+            OptionalAndParamsConstructorBase sut6 = OptionalAndParamsConstructorBase.CreateMock();
+            ParamsConstructorSelectionBase sut7 = ParamsConstructorSelectionBase.CreateMock();
+            OptionalOverParamsConstructorBase sut8 = OptionalOverParamsConstructorBase.CreateMock();
+            OptionalAndParamsConstructorBase sut9 = OptionalAndParamsConstructorBase.CreateMock().Implementing<ICombinationMockA>();
             """,
             [],
             UnionMode: true),

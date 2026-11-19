@@ -254,6 +254,82 @@ public sealed partial class MockTests
 	}
 
 	[Test]
+	public async Task ForTypesWithParamsConstructor_ShouldCallItWithAnEmptyArrayAndTheDeclaredDefaults()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode;
+
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = MyBaseClass.CreateMock();
+			         }
+			     }
+
+			     public class MyBaseClass
+			     {
+			         public MyBaseClass(int value) { }
+			         protected MyBaseClass(int value = 1, params string[] texts) { }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.MyBaseClass.g.cs");
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains("""
+			          					setup.Invoke(setupTarget);
+			          				}
+			          				int c2p1 = 1;
+			          				string[] c2p2 = [];
+			          				return new global::Mockolate.Mock.MyBaseClass(mockRegistry, c2p1, c2p2);
+			          			}
+			          """).IgnoringNewlineStyle().And
+			.DoesNotContain("No parameterless constructor found");
+	}
+
+	[Test]
+	[Arguments("protected MyBaseClass(params object[] values) { }", "protected MyBaseClass(params string[] values) { }", 2)]
+	[Arguments("protected MyBaseClass(params int[] values) { }", "protected MyBaseClass(int value = 1) { }", 2)]
+	[Arguments("protected MyBaseClass(params string[] values) { }", "protected MyBaseClass(int value = 1, params string[] values) { }", 1)]
+	[Arguments("protected MyBaseClass(int value = 1, params object[] values) { }", "protected MyBaseClass(int value = 1, params string[] values) { }", 2)]
+	[Arguments("protected MyBaseClass(params int[] values) { }", "protected MyBaseClass(params long[] values) { }", 1)]
+	[Arguments("protected MyBaseClass(int value = 1, params string[] values) { }", "protected MyBaseClass(int value = 1, int other = 2, params object[] values) { }", 1)]
+	public async Task ForTypesWithSeveralConstructorsWithoutArguments_ShouldFollowCSharpOverloadResolution(
+		string first, string second, int expectedConstructor)
+	{
+		GeneratorResult result = Generator
+			.Run($$"""
+			       using Mockolate;
+
+			       namespace MyCode;
+
+			       public class Program
+			       {
+			           public static void Main(string[] args)
+			           {
+			       		_ = MyBaseClass.CreateMock();
+			           }
+			       }
+
+			       public class MyBaseClass
+			       {
+			           {{first}}
+			           {{second}}
+			       }
+			       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains($" c{expectedConstructor}p1 = ")
+			.Because("new MyBaseClass() resolves to the same constructor, or the first declared one where C# reports an ambiguity").And
+			.DoesNotContain($" c{3 - expectedConstructor}p1 = ");
+	}
+
+	[Test]
 	public async Task ForTypesWithConstructorWithParameters_ShouldWorkForAllNonPrivateConstructors()
 	{
 		GeneratorResult result = Generator

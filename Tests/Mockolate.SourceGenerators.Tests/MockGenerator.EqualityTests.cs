@@ -193,7 +193,7 @@ public sealed class MockGeneratorEqualityTests
 				[tree,],
 				[MetadataReference.CreateFromFile(typeof(object).Assembly.Location),]);
 			INamedTypeSymbol symbol = compilation.GetTypeByMetadataName(typeName)!;
-			return new MockClass([symbol,], compilation.Assembly);
+			return new MockClass([symbol,], compilation);
 		}
 	}
 }

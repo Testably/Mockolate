@@ -10,8 +10,9 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	private readonly Dictionary<Method, Method> _methodImplementations;
 	private readonly Dictionary<Property, Property> _propertyImplementations;
 
-	public MockClass(ITypeSymbol[] types, IAssemblySymbol sourceAssembly) : base(types[0], sourceAssembly)
+	public MockClass(ITypeSymbol[] types, Compilation compilation) : base(types[0], compilation.Assembly)
 	{
+		IAssemblySymbol sourceAssembly = compilation.Assembly;
 		AdditionalImplementations = new EquatableArray<Class>(
 			types.Skip(1).Select(x => new Class(x, sourceAssembly)).ToArray());
 
@@ -33,16 +34,17 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 
 		if (!IsInterface && types[0] is INamedTypeSymbol namedTypeSymbol)
 		{
-			Constructors =
-				new EquatableArray<Method>(namedTypeSymbol.Constructors
-					.Where(x => x.DeclaredAccessibility == Accessibility.Protected ||
-					            x.DeclaredAccessibility == Accessibility.ProtectedOrInternal ||
-					            x.DeclaredAccessibility == Accessibility.Public)
-					// Parameter types are named verbatim in `MockExtensionsForXXX`, which does not derive
-					// from the mocked type: a type reachable only through inheritance would cause CS0122
-					// there and CS0051 on the generated `public` constructor.
-					.Where(x => x.Parameters.All(p => Helpers.IsAccessibleFrom(p.Type, sourceAssembly)))
-					.Select(x => new Method(x, null, sourceAssembly)).ToArray());
+			IMethodSymbol[] constructors = namedTypeSymbol.Constructors
+				.Where(x => x.DeclaredAccessibility == Accessibility.Protected ||
+				            x.DeclaredAccessibility == Accessibility.ProtectedOrInternal ||
+				            x.DeclaredAccessibility == Accessibility.Public)
+				// Parameter types are named verbatim in `MockExtensionsForXXX`, which does not derive
+				// from the mocked type: a type reachable only through inheritance would cause CS0122
+				// there and CS0051 on the generated `public` constructor.
+				.Where(x => x.Parameters.All(p => Helpers.IsAccessibleFrom(p.Type, sourceAssembly)))
+				.ToArray();
+			Constructors = new EquatableArray<Method>(constructors.Select(x => new Method(x, null, sourceAssembly)).ToArray());
+			ConstructorWithoutArguments = FindConstructorWithoutArguments(constructors, compilation);
 			if (namedTypeSymbol.DelegateInvokeMethod is not null)
 			{
 				Delegate = new Method(namedTypeSymbol.DelegateInvokeMethod, null, sourceAssembly);
@@ -55,6 +57,12 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	public Method? Delegate { get; }
 
 	public EquatableArray<Method>? Constructors { get; }
+
+	/// <summary>
+	///     The index in <see cref="Constructors" /> of the constructor that <c>CreateMock()</c> calls without
+	///     constructor parameters, or <see langword="null" /> when every constructor needs arguments.
+	/// </summary>
+	public int? ConstructorWithoutArguments { get; }
 
 	public EquatableArray<Class> AdditionalImplementations { get; }
 
@@ -230,6 +238,63 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 			new EquatableArray<ImplementedMember<Event>>(events.ToArray()));
 	}
 
+	/// <summary>
+	///     Resolves <c>new T()</c> like the C# compiler: the first declared constructor that can be called without
+	///     arguments and that no other such constructor is better than. Where C# reports an ambiguity, this is the
+	///     first declared of the ambiguous constructors.
+	/// </summary>
+	private static int? FindConstructorWithoutArguments(IMethodSymbol[] constructors, Compilation compilation)
+	{
+		IMethodSymbol[] candidates = constructors.Where(IsCallableWithoutArguments).ToArray();
+		for (int i = 0; i < constructors.Length; i++)
+		{
+			IMethodSymbol constructor = constructors[i];
+			if (IsCallableWithoutArguments(constructor) &&
+			    !candidates.Any(other => IsBetterWithoutArguments(other, constructor, compilation)))
+			{
+				return i;
+			}
+		}
+
+		return null;
+
+		static bool IsCallableWithoutArguments(IMethodSymbol constructor)
+			=> constructor.Parameters.All(p => p.HasExplicitDefaultValue || (p.IsParams && p.Type is IArrayTypeSymbol));
+	}
+
+	/// <remarks>
+	///     The better function member rules for a call without arguments: a constructor applicable in its normal form
+	///     beats one with a <see langword="params" /> array, which is only applicable in its expanded form. Then one
+	///     that needs no default values beats one that does. Two expanded forms with the same number of parameters
+	///     are decided by the better conversion target between their <see langword="params" /> array types.
+	/// </remarks>
+	private static bool IsBetterWithoutArguments(IMethodSymbol constructor, IMethodSymbol other, Compilation compilation)
+	{
+		bool isExpanded = constructor.Parameters.Any(p => p.IsParams);
+		bool otherIsExpanded = other.Parameters.Any(p => p.IsParams);
+		if (isExpanded != otherIsExpanded)
+		{
+			return otherIsExpanded;
+		}
+
+		bool needsDefaults = constructor.Parameters.Any(p => p.HasExplicitDefaultValue);
+		bool otherNeedsDefaults = other.Parameters.Any(p => p.HasExplicitDefaultValue);
+		if (needsDefaults != otherNeedsDefaults)
+		{
+			return otherNeedsDefaults;
+		}
+
+		if (!isExpanded || constructor.Parameters.Length != other.Parameters.Length)
+		{
+			return false;
+		}
+
+		ITypeSymbol paramsType = constructor.Parameters[constructor.Parameters.Length - 1].Type;
+		ITypeSymbol otherParamsType = other.Parameters[other.Parameters.Length - 1].Type;
+		return compilation.ClassifyCommonConversion(paramsType, otherParamsType).IsImplicit &&
+		       !compilation.ClassifyCommonConversion(otherParamsType, paramsType).IsImplicit;
+	}
+
 	private static IEnumerable<INamedTypeSymbol> EnumerateInterfaces(ITypeSymbol type)
 	{
 		if (type is INamedTypeSymbol namedType)
@@ -268,6 +333,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		if (Constructors is { } constructors)
 		{
 			hash = unchecked((hash * 17) + constructors.GetHashCode());
+			hash = unchecked((hash * 17) + (ConstructorWithoutArguments ?? -1));
 		}
 
 		if (Delegate is { } @delegate)

@@ -424,22 +424,10 @@ internal static partial class Sources
 		{
 			sb.Append("\t\tif (mock.MockRegistry.ConstructorParameters is null || mock.MockRegistry.ConstructorParameters.Length == 0)").AppendLine();
 			sb.Append("\t\t{").AppendLine();
-			if (TryGetConstructorWithoutArguments(constructors.Value, out int defaultConstructorIndex, out EquatableArray<MethodParameter> defaultParameters))
+			if (@class is MockClass { ConstructorWithoutArguments: { } constructorWithoutArguments, })
 			{
-				int defaultParameterIndex = 0;
-				foreach (MethodParameter parameter in defaultParameters)
-				{
-					sb.Append("\t\t\t").Append(parameter.Type.Fullname).Append(" c").Append(defaultConstructorIndex).Append('p').Append(++defaultParameterIndex)
-						.Append(" = ").Append(parameter.ExplicitDefaultValue).Append(';').AppendLine();
-				}
-
-				sb.Append("\t\t\tvalue = new global::Mockolate.Mock.").Append(fileName).Append("(mock.MockRegistry");
-				for (int j = 1; j <= defaultParameters.Count; j++)
-				{
-					sb.Append(", ").Append('c').Append(defaultConstructorIndex).Append('p').Append(j);
-				}
-
-				sb.Append(");").AppendLine();
+				string arguments = AppendArgumentsWithoutConstructorParameters(sb, "\t\t\t", constructors.Value, constructorWithoutArguments);
+				sb.Append("\t\t\tvalue = new global::Mockolate.Mock.").Append(fileName).Append("(mock.MockRegistry").Append(arguments).Append(");").AppendLine();
 			}
 			else
 			{

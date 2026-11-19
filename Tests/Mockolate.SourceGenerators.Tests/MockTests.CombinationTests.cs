@@ -101,6 +101,47 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task AbstractBaseWithParamsConstructor_ShouldCallItWithAnEmptyArray()
+		{
+			GeneratorResult result = Generator
+				.Run("""
+				     using Mockolate;
+
+				     namespace MyCode;
+
+				     public class Program
+				     {
+				         public static void Main(string[] args)
+				         {
+				     		_ = MyService.CreateMock().Implementing<IMyInterface>();
+				         }
+				     }
+
+				     public abstract class MyService
+				     {
+				         protected MyService(params int[] values) { }
+				     }
+
+				     public interface IMyInterface
+				     {
+				         void DoWork();
+				     }
+				     """);
+
+			await That(result.Diagnostics).IsEmpty();
+
+			await That(result.Sources).ContainsKey("Mock.MyService__IMyInterface.g.cs");
+			await That(result.Sources["Mock.MyService__IMyInterface.g.cs"])
+				.Contains("""
+				          		if (mock.MockRegistry.ConstructorParameters is null || mock.MockRegistry.ConstructorParameters.Length == 0)
+				          		{
+				          			int[] c1p1 = [];
+				          			value = new global::Mockolate.Mock.MyService__IMyInterface(mock.MockRegistry, c1p1);
+				          		}
+				          """).IgnoringNewlineStyle();
+		}
+
+		[Test]
 		public async Task AbstractBaseWithRequiredOnlyConstructor_ShouldThrowNoParameterlessConstructorMessage()
 		{
 			GeneratorResult result = Generator

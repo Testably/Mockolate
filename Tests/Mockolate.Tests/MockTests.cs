@@ -200,13 +200,13 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithParameterlessAndOptionalConstructor_ShouldUseParameterlessConstructor()
+	public async Task Create_WithParameterlessOptionalAndParamsConstructor_ShouldUseParameterlessConstructor()
 	{
 		OptionalAndParameterlessConstructorBase sut = OptionalAndParameterlessConstructorBase.CreateMock();
 		OptionalAndParameterlessConstructorBase combined = OptionalAndParameterlessConstructorBase.CreateMock().Implementing<IMyService>();
 
 		await That(sut.CalledConstructor).IsEqualTo("parameterless")
-			.Because("C# prefers the parameterless constructor for new T(), even when it is declared later");
+			.Because("C# prefers the parameterless constructor for new T() over all-optional and params constructors, even when it is declared later");
 		await That(combined.CalledConstructor).IsEqualTo("parameterless");
 	}
 
@@ -219,6 +219,69 @@ public sealed partial class MockTests
 		await That(sut.CalledConstructor).IsEqualTo("int(1)")
 			.Because("C# reports new T() as ambiguous, so Mockolate deterministically picks the first declared constructor");
 		await That(combined.CalledConstructor).IsEqualTo("int(1)");
+	}
+
+	[Test]
+	public async Task Create_WithParamsConstructor_ShouldPassAnEmptyArray()
+	{
+		ParamsConstructorBase sut = ParamsConstructorBase.CreateMock();
+		ParamsConstructorBase combined = ParamsConstructorBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.Numbers).IsEmpty();
+		await That(combined.Numbers).IsEmpty();
+	}
+
+	[Test]
+	public async Task Create_WithParamsConstructor_WithConstructorParameters_ShouldForwardTheArray()
+	{
+		ParamsConstructorBase sut = ParamsConstructorBase.CreateMock([new[] { 1, 2, },]);
+		ParamsConstructorBase combined = ParamsConstructorBase.CreateMock([new[] { 1, 2, },]).Implementing<IMyService>();
+
+		await That(sut.Numbers).IsEqualTo([1, 2,]);
+		await That(combined.Numbers).IsEqualTo([1, 2,]);
+	}
+
+	[Test]
+	public async Task Create_WithOptionalAndParamsConstructor_ShouldUseDeclaredDefaultsAndAnEmptyArray()
+	{
+		OptionalAndParamsConstructorBase sut = OptionalAndParamsConstructorBase.CreateMock();
+		OptionalAndParamsConstructorBase combined = OptionalAndParamsConstructorBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.Number).IsEqualTo(1);
+		await That(sut.Texts).IsEmpty();
+		await That(combined.Number).IsEqualTo(1);
+		await That(combined.Texts).IsEmpty();
+	}
+
+	[Test]
+	public async Task Create_WithOptionalAndParamsConstructor_WithConstructorParameters_ShouldForwardThem()
+	{
+		OptionalAndParamsConstructorBase sut = OptionalAndParamsConstructorBase.CreateMock([2, new[] { "a", },]);
+
+		await That(sut.Number).IsEqualTo(2);
+		await That(sut.Texts).IsEqualTo(["a",]);
+	}
+
+	[Test]
+	public async Task Create_WithSeveralParamsConstructors_ShouldPreferTheMoreSpecificConstructorWithoutDefaults()
+	{
+		ParamsConstructorSelectionBase sut = ParamsConstructorSelectionBase.CreateMock();
+		ParamsConstructorSelectionBase combined = ParamsConstructorSelectionBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.CalledConstructor).IsEqualTo("params string[]")
+			.Because("C# prefers a params constructor without default values, and then the more specific params array type");
+		await That(combined.CalledConstructor).IsEqualTo("params string[]");
+	}
+
+	[Test]
+	public async Task Create_WithOptionalConstructorAndParamsConstructor_ShouldPreferTheOptionalConstructor()
+	{
+		OptionalOverParamsConstructorBase sut = OptionalOverParamsConstructorBase.CreateMock();
+		OptionalOverParamsConstructorBase combined = OptionalOverParamsConstructorBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.CalledConstructor).IsEqualTo("optional(1)")
+			.Because("C# prefers a constructor that is applicable without expanding a params array");
+		await That(combined.CalledConstructor).IsEqualTo("optional(1)");
 	}
 
 	[Test]
