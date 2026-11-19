@@ -3479,6 +3479,25 @@ internal static partial class Sources
 	}
 
 	/// <summary>
+	///     Whether the value for <paramref name="parameter" /> can be a matcher: when the call closes its type parameter
+	///     over <see langword="object" />, every matcher converts to it, and the overload that takes it as a value stays
+	///     promoted, as it keeps a <see langword="null" /> or <see langword="default" /> literal for any other type
+	///     argument. The value then decides at runtime (<c>Matchers.IsValueOrMatcher</c>).
+	/// </summary>
+	private static bool MayHoldMatcher(MethodParameter parameter)
+		=> parameter.RefKind is RefKind.None or RefKind.In && !parameter.IsParams &&
+		   parameter.Type.IsTypeParameterThatCanBeObject;
+
+	/// <summary>
+	///     The matcher for a value that <see cref="MayHoldMatcher" />. A parameters match stands for the parameters as
+	///     well when the parameter is the only one, as its <c>IParameters</c> overload would.
+	/// </summary>
+	private static void AppendValueOrMatcher(StringBuilder sb, Method method, MethodParameter parameter)
+		=> sb.Append("global::Mockolate.Internals.Matchers.IsValueOrMatcher<").Append(parameter.ToTypeOrWrapper())
+			.Append(">(").Append(parameter.Name).Append(", ")
+			.Append(method.Parameters.Count == 1 ? $"\"{parameter.Name}\"" : "null").Append(')');
+
+	/// <summary>
 	///     Whether a matcher for the whole array of a trailing <c>params object[]</c> must outrank the all-values
 	///     overload, which accepts any argument list in its expanded form and would capture the matcher as one element.
 	///     Only the all-values overload moves below it: the overloads that replace other values by matchers stay
@@ -4600,6 +4619,7 @@ internal static partial class Sources
 			bool useLiteralValues = valueFlags is { Length: > 0 and <= MaxExplicitParameters, } &&
 			                        valueFlags.All(x => x) &&
 			                        !HasParamsValueParameter(method, valueFlags) &&
+			                        !method.Parameters.Any(MayHoldMatcher) &&
 			                        !method.Parameters.Any(p => p.RefKind == RefKind.Out ||
 			                                                    p.RefKind == RefKind.Ref ||
 			                                                    p.RefKind == RefKind.RefReadOnlyParameter);
@@ -4638,6 +4658,10 @@ internal static partial class Sources
 								.Append(">.Wrap(global::Mockolate.It.SequenceEquals<")
 								.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
 								.Append("))");
+						}
+						else if (MayHoldMatcher(parameter))
+						{
+							AppendValueOrMatcher(sb, method, parameter);
 						}
 						else
 						{
@@ -6382,11 +6406,26 @@ internal static partial class Sources
 			return;
 		}
 
-		bool usesBlockBody = hasDeclaredDefaults || emptyParams || perElementParams;
+		MethodParameter[] slowParameters = method.Parameters.AsArray();
+		string matchBase = Helpers.GetUniqueIndexedLocalVariableBase("__match", method.Parameters);
+		string?[] matchNames = slowParameters
+			.Select((p, i) => !useParameters && valueFlags?[i] == true && MayHoldMatcher(p) ? $"{matchBase}{i + 1}" : null)
+			.ToArray();
+		bool usesBlockBody = hasDeclaredDefaults || emptyParams || perElementParams || matchNames.Any(x => x is not null);
 		if (usesBlockBody)
 		{
 			sb.Append("\t\t{").AppendLine();
 			AppendDeclaredDefaultMatchers(sb, method, usesDeclaredDefault);
+			for (int k = 0; k < slowParameters.Length; k++)
+			{
+				if (matchNames[k] is not null)
+				{
+					sb.Append("\t\t\tglobal::Mockolate.Parameters.IParameterMatch<").Append(slowParameters[k].ToTypeOrWrapper())
+						.Append("> ").Append(matchNames[k]).Append(" = ");
+					AppendValueOrMatcher(sb, method, slowParameters[k]);
+					sb.Append(';').AppendLine();
+				}
+			}
 		}
 
 		if (emptyParams)
@@ -6458,6 +6497,11 @@ internal static partial class Sources
 				    parameter.Type.ElementType is not null)
 				{
 					sb.Append('(').Append(elementMatch).Append(".Matches(").Append(invocation).Append(".Parameter")
+						.Append(i + 1).Append("))");
+				}
+				else if (matchNames[i] is not null)
+				{
+					sb.Append('(').Append(matchNames[i]).Append(".Matches(").Append(invocation).Append(".Parameter")
 						.Append(i + 1).Append("))");
 				}
 				else if (isValueParam)

@@ -1045,7 +1045,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptClass<T>(T? value)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptClass<{typeof(T)}>", value);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptClass<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptClass_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1072,7 +1072,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptNullableClass<T>(T? value)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNullableClass<{typeof(T)}>", value);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNullableClass<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptNullableClass_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1099,7 +1099,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptNotNull<T>(T? value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNotNull<{typeof(T)}>", value);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNotNull<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptNotNull_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1180,7 +1180,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptConstructor<T>(T? value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptConstructor<{typeof(T)}>", value);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptConstructor<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptConstructor_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1234,7 +1234,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(value), global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other ?? global::Mockolate.Internals.Matchers.IsNull<TBase?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null), global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other ?? global::Mockolate.Internals.Matchers.IsNull<TBase?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptDependent_T__TBase_, methodSetup);
 			return methodSetup;
 		}
@@ -1244,7 +1244,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T?>()), (global::Mockolate.Parameters.IParameterMatch<TBase?>)global::Mockolate.Internals.Matchers.IsValue<TBase?>(other));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptDependent_T__TBase_, methodSetup);
 			return methodSetup;
 		}
@@ -1254,7 +1254,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", value, other);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptDependent_T__TBase_, methodSetup);
 			return methodSetup;
 		}
@@ -1281,7 +1281,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?, T?, T?, T?, T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptMany<T>(T? a, T? b, T? c, T? d, T? e)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, T?, T?, T?, T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptMany<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(a), (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(b), (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(c), (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(d), (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(e));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, T?, T?, T?, T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptMany<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(a, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(b, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(c, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(d, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(e, null));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptMany_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1317,7 +1317,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, T?, T?, T?, T?[]> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IOutParameter<T?> value, global::Mockolate.Parameters.IRefParameter<T?> other, global::Mockolate.Parameters.IParameter<T?[]>? rest)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, T?, T?, T?, T?[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(key), (global::Mockolate.Parameters.IParameterMatch<T?>)(value), (global::Mockolate.Parameters.IParameterMatch<T?>)(other), global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<T?[]>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, T?, T?, T?, T?[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(key, null), (global::Mockolate.Parameters.IParameterMatch<T?>)(value), (global::Mockolate.Parameters.IParameterMatch<T?>)(other), global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<T?[]>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_TryGet_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1335,7 +1335,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, T?, T?, T?, T?[]> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IOutParameter<T?> value, global::Mockolate.Parameters.IRefParameter<T?> other, params T?[] rest)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, T?, T?, T?, T?[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(key), (global::Mockolate.Parameters.IParameterMatch<T?>)(value), (global::Mockolate.Parameters.IParameterMatch<T?>)(other), global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(global::Mockolate.It.SequenceEquals<T?>(rest)));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, T?, T?, T?, T?[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(key, null), (global::Mockolate.Parameters.IParameterMatch<T?>)(value), (global::Mockolate.Parameters.IParameterMatch<T?>)(other), global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(global::Mockolate.It.SequenceEquals<T?>(rest)));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_TryGet_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1362,7 +1362,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<T, T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.GetClass<T>(T? fallback)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetClass<{typeof(T)}>", fallback);
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetClass<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(fallback, "fallback"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_GetClass_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1389,7 +1389,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<T, T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.GetNotNull<T>(T? fallback)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetNotNull<{typeof(T)}>", fallback);
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetNotNull<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(fallback, "fallback"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_GetNotNull_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1442,8 +1442,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptClass<T>(T? value)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptClass<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)), () => $"AcceptClass<T>({(object?)value ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptClass<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"AcceptClass<T>({(object?)value ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptNullableClass<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : class
@@ -1461,8 +1464,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptNullableClass<T>(T? value)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNullableClass<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)), () => $"AcceptNullableClass<T>({(object?)value ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNullableClass<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"AcceptNullableClass<T>({(object?)value ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptNotNull<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -1480,8 +1486,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptNotNull<T>(T? value)
 			where T : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNotNull<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)), () => $"AcceptNotNull<T>({(object?)value ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNotNull<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"AcceptNotNull<T>({(object?)value ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptInterface<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -1537,8 +1546,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptConstructor<T>(T? value)
 			where T : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptConstructor<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)), () => $"AcceptConstructor<T>({(object?)value ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptConstructor<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"AcceptConstructor<T>({(object?)value ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptStruct<T>(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptStruct<{typeof(T)}>", __i => parameters switch
@@ -1576,23 +1588,33 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptDependent<T, TBase>(T? value, global::Mockolate.Parameters.IParameter<TBase?>? other)
 			where T : default
 			where TBase : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)) && 
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
 				(other is not null ? global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<TBase?>.Default.Equals(__i.Parameter2, default(TBase?))), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptDependent<T, TBase>(global::Mockolate.Parameters.IParameter<T?>? value, TBase? other)
 			where T : default
 			where TBase : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
+		{
+			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter1, default(T?))) && 
-				(global::System.Collections.Generic.EqualityComparer<TBase?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(__match2.Matches(__i.Parameter2)), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptDependent<T, TBase>(T? value, TBase? other)
 			where T : default
 			where TBase : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<TBase?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
+				(__match2.Matches(__i.Parameter2)), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptMany<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -1614,12 +1636,19 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptMany<T>(T? a, T? b, T? c, T? d, T? e)
 			where T : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?, T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptMany<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(a, __i.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(b, __i.Parameter2)) && 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(c, __i.Parameter3)) && 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(d, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(e, __i.Parameter5)), () => $"AcceptMany<T>({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(a, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(b, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match3 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(c, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match4 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(d, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match5 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(e, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?, T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptMany<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
+				(__match2.Matches(__i.Parameter2)) && 
+				(__match3.Matches(__i.Parameter3)) && 
+				(__match4.Matches(__i.Parameter4)) && 
+				(__match5.Matches(__i.Parameter5)), () => $"AcceptMany<T>({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : class
@@ -1651,11 +1680,14 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, global::Mockolate.Parameters.IParameter<T?[]>? rest)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(key, __i.Parameter1)) && 
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(key, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
 				(value is global::Mockolate.Parameters.IParameterMatch<T?> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter2, default(T?))) && 
 				(other is global::Mockolate.Parameters.IParameterMatch<T?> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter3, default(T?))) && 
 				(rest is not null ? global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(rest).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<T?[]>.Default.Equals(__i.Parameter4, default(T?[]))), () => $"TryGet<T>({(object?)key ?? "null"}, {(object?)value ?? "null"}, {(object?)other ?? "null"}, {(object?)rest ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(global::Mockolate.Parameters.IParameter<T?>? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, params T?[] rest)
 			where T : class
@@ -1667,11 +1699,14 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, params T?[] rest)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(key, __i.Parameter1)) && 
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(key, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
 				(value is global::Mockolate.Parameters.IParameterMatch<T?> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter2, default(T?))) && 
 				(other is global::Mockolate.Parameters.IParameterMatch<T?> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter3, default(T?))) && 
 				(global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(global::Mockolate.It.SequenceEquals<T?>(rest)).Matches(__i.Parameter4)), () => $"TryGet<T>({(object?)key ?? "null"}, {(object?)value ?? "null"}, {(object?)other ?? "null"}, {(object?)rest ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.GetClass<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : class
@@ -1689,8 +1724,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.GetClass<T>(T? fallback)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetClass<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(fallback, __i.Parameter1)), () => $"GetClass<T>({(object?)fallback ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(fallback, "fallback");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetClass<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"GetClass<T>({(object?)fallback ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.GetNotNull<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -1708,8 +1746,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.GetNotNull<T>(T? fallback)
 			where T : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetNotNull<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(fallback, __i.Parameter1)), () => $"GetNotNull<T>({(object?)fallback ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(fallback, "fallback");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetNotNull<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"GetNotNull<T>({(object?)fallback ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.GetAsync<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : class
@@ -1756,8 +1797,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptClass<T>(T? value)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptClass<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)), () => $"AcceptClass<T>({(object?)value ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptClass<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"AcceptClass<T>({(object?)value ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptNullableClass<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : class
@@ -1775,8 +1819,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptNullableClass<T>(T? value)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNullableClass<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)), () => $"AcceptNullableClass<T>({(object?)value ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNullableClass<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"AcceptNullableClass<T>({(object?)value ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptNotNull<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -1794,8 +1841,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptNotNull<T>(T? value)
 			where T : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNotNull<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)), () => $"AcceptNotNull<T>({(object?)value ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNotNull<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"AcceptNotNull<T>({(object?)value ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptInterface<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -1851,8 +1901,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptConstructor<T>(T? value)
 			where T : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptConstructor<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)), () => $"AcceptConstructor<T>({(object?)value ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptConstructor<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"AcceptConstructor<T>({(object?)value ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptStruct<T>(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptStruct<{typeof(T)}>", __i => parameters switch
@@ -1890,23 +1943,33 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptDependent<T, TBase>(T? value, global::Mockolate.Parameters.IParameter<TBase?>? other)
 			where T : default
 			where TBase : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)) && 
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
 				(other is not null ? global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<TBase?>.Default.Equals(__i.Parameter2, default(TBase?))), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptDependent<T, TBase>(global::Mockolate.Parameters.IParameter<T?>? value, TBase? other)
 			where T : default
 			where TBase : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
+		{
+			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter1, default(T?))) && 
-				(global::System.Collections.Generic.EqualityComparer<TBase?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(__match2.Matches(__i.Parameter2)), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptDependent<T, TBase>(T? value, TBase? other)
 			where T : default
 			where TBase : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(value, __i.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<TBase?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
+				(__match2.Matches(__i.Parameter2)), () => $"AcceptDependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.AcceptMany<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -1928,12 +1991,19 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.AcceptMany<T>(T? a, T? b, T? c, T? d, T? e)
 			where T : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?, T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptMany<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(a, __i.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(b, __i.Parameter2)) && 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(c, __i.Parameter3)) && 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(d, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(e, __i.Parameter5)), () => $"AcceptMany<T>({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(a, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(b, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match3 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(c, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match4 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(d, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match5 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(e, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?, T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptMany<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
+				(__match2.Matches(__i.Parameter2)) && 
+				(__match3.Matches(__i.Parameter3)) && 
+				(__match4.Matches(__i.Parameter4)) && 
+				(__match5.Matches(__i.Parameter5)), () => $"AcceptMany<T>({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : class
@@ -1965,11 +2035,14 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, global::Mockolate.Parameters.IParameter<T?[]>? rest)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(key, __i.Parameter1)) && 
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(key, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
 				(value is global::Mockolate.Parameters.IParameterMatch<T?> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter2, default(T?))) && 
 				(other is global::Mockolate.Parameters.IParameterMatch<T?> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter3, default(T?))) && 
 				(rest is not null ? global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(rest).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<T?[]>.Default.Equals(__i.Parameter4, default(T?[]))), () => $"TryGet<T>({(object?)key ?? "null"}, {(object?)value ?? "null"}, {(object?)other ?? "null"}, {(object?)rest ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(global::Mockolate.Parameters.IParameter<T?>? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, params T?[] rest)
 			where T : class
@@ -1981,11 +2054,14 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IVerifyOutParameter<T?> value, global::Mockolate.Parameters.IVerifyRefParameter<T?> other, params T?[] rest)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(key, __i.Parameter1)) && 
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(key, null);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?, T?, T?, T?[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
 				(value is global::Mockolate.Parameters.IParameterMatch<T?> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter2, default(T?))) && 
 				(other is global::Mockolate.Parameters.IParameterMatch<T?> otherMatch ? otherMatch.Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter3, default(T?))) && 
 				(global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(global::Mockolate.It.SequenceEquals<T?>(rest)).Matches(__i.Parameter4)), () => $"TryGet<T>({(object?)key ?? "null"}, {(object?)value ?? "null"}, {(object?)other ?? "null"}, {(object?)rest ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.GetClass<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : class
@@ -2003,8 +2079,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.GetClass<T>(T? fallback)
 			where T : class
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetClass<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(fallback, __i.Parameter1)), () => $"GetClass<T>({(object?)fallback ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(fallback, "fallback");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetClass<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"GetClass<T>({(object?)fallback ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.GetNotNull<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : default
@@ -2022,8 +2101,11 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter>.IgnoreParameters IMockVerifyForINullableMethodTypeParameter.GetNotNull<T>(T? fallback)
 			where T : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetNotNull<{typeof(T)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(fallback, __i.Parameter1)), () => $"GetNotNull<T>({(object?)fallback ?? "null"})");
+		{
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(fallback, "fallback");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableMethodTypeParameter, global::Mockolate.Interactions.MethodInvocation<T?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetNotNull<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)), () => $"GetNotNull<T>({(object?)fallback ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableMethodTypeParameter> IMockVerifyForINullableMethodTypeParameter.GetAsync<T>(global::Mockolate.Parameters.IParameters parameters)
 			where T : class
@@ -2086,7 +2168,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptClass<T>(T? value)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptClass<{typeof(T)}>", value);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptClass<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptClass_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2113,7 +2195,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptNullableClass<T>(T? value)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNullableClass<{typeof(T)}>", value);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNullableClass<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptNullableClass_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2140,7 +2222,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptNotNull<T>(T? value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNotNull<{typeof(T)}>", value);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptNotNull<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptNotNull_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2221,7 +2303,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptConstructor<T>(T? value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptConstructor<{typeof(T)}>", value);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptConstructor<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, "value"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptConstructor_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2275,7 +2357,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(value), global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other ?? global::Mockolate.Internals.Matchers.IsNull<TBase?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null), global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other ?? global::Mockolate.Internals.Matchers.IsNull<TBase?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptDependent_T__TBase_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2285,7 +2367,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T?>()), (global::Mockolate.Parameters.IParameterMatch<TBase?>)global::Mockolate.Internals.Matchers.IsValue<TBase?>(other));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptDependent_T__TBase_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2295,7 +2377,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", value, other);
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptDependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptDependent_T__TBase_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2322,7 +2404,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T?, T?, T?, T?, T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.AcceptMany<T>(T? a, T? b, T? c, T? d, T? e)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, T?, T?, T?, T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptMany<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(a), (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(b), (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(c), (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(d), (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(e));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, T?, T?, T?, T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.AcceptMany<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(a, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(b, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(c, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(d, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(e, null));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_AcceptMany_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2358,7 +2440,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, T?, T?, T?, T?[]> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IOutParameter<T?> value, global::Mockolate.Parameters.IRefParameter<T?> other, global::Mockolate.Parameters.IParameter<T?[]>? rest)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, T?, T?, T?, T?[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(key), (global::Mockolate.Parameters.IParameterMatch<T?>)(value), (global::Mockolate.Parameters.IParameterMatch<T?>)(other), global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<T?[]>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, T?, T?, T?, T?[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(key, null), (global::Mockolate.Parameters.IParameterMatch<T?>)(value), (global::Mockolate.Parameters.IParameterMatch<T?>)(other), global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<T?[]>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_TryGet_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2376,7 +2458,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, T?, T?, T?, T?[]> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.TryGet<T>(T? key, global::Mockolate.Parameters.IOutParameter<T?> value, global::Mockolate.Parameters.IRefParameter<T?> other, params T?[] rest)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, T?, T?, T?, T?[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<T?>)global::Mockolate.Internals.Matchers.IsValue<T?>(key), (global::Mockolate.Parameters.IParameterMatch<T?>)(value), (global::Mockolate.Parameters.IParameterMatch<T?>)(other), global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(global::Mockolate.It.SequenceEquals<T?>(rest)));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, T?, T?, T?, T?[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.TryGet<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(key, null), (global::Mockolate.Parameters.IParameterMatch<T?>)(value), (global::Mockolate.Parameters.IParameterMatch<T?>)(other), global::Mockolate.CovariantParameterAdapter<T?[]>.Wrap(global::Mockolate.It.SequenceEquals<T?>(rest)));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_TryGet_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2403,7 +2485,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<T, T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.GetClass<T>(T? fallback)
 			where T : class
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetClass<{typeof(T)}>", fallback);
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetClass<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(fallback, "fallback"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_GetClass_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2430,7 +2512,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<T, T?> global::Mockolate.Mock.IMockSetupForINullableMethodTypeParameter.GetNotNull<T>(T? fallback)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T?>.WithLiteralValues(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetNotNull<{typeof(T)}>", fallback);
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter.GetNotNull<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(fallback, "fallback"));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.INullableMethodTypeParameter.MemberId_GetNotNull_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}

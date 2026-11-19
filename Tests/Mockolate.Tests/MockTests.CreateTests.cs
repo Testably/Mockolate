@@ -263,6 +263,13 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task GenericMethodClosedOverObject_CanBeCreated()
+		{
+			IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
+			await That(sut).IsNotNull();
+		}
+
+		[Test]
 		public async Task GenericParameterDefaultValues_CanBeCreated()
 		{
 			IGenericParameterDefaultValues sut1 = IGenericParameterDefaultValues.CreateMock();

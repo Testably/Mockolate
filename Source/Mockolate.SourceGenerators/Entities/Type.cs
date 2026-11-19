@@ -57,6 +57,8 @@ internal record Type
 			                OriginalDefinition.SpecialType: SpecialType.System_Nullable_T,
 		                };
 		IsValueType = typeSymbol.IsValueType;
+		IsTypeParameterThatCanBeObject = typeSymbol is ITypeParameterSymbol typeParameter &&
+		                                 CanBeObject(typeParameter);
 		IsFormattable = IsIFormattable(typeSymbol);
 		// IsRefLikeType is true for ref structs (e.g. Span<T>, ReadOnlySpan<T>, Utf8JsonReader,
 		// and any user-defined `ref struct`). Used by the generator to switch to the ref-struct-safe
@@ -102,6 +104,13 @@ internal record Type
 	public bool MayHoldCancellationToken { get; }
 
 	public bool IsFormattable { get; }
+
+	/// <summary>
+	///     Whether the type is a type parameter that a call can close over <see langword="object" />, so that an argument
+	///     for it accepts every matcher as a value.
+	/// </summary>
+	public bool IsTypeParameterThatCanBeObject { get; }
+
 	public bool IsValueType { get; }
 	public bool CanBeNullable { get; }
 	public bool IsRefStruct { get; }
@@ -137,6 +146,13 @@ internal record Type
 
 		return cache.GetOrAddType(typeSymbol, static s => new Type(s));
 	}
+
+	private static bool CanBeObject(ITypeParameterSymbol typeParameter)
+		=> !typeParameter.HasValueTypeConstraint && !typeParameter.HasUnmanagedTypeConstraint &&
+		   !typeParameter.AllowsRefLikeType &&
+		   typeParameter.ConstraintTypes.All(constraintType => constraintType is ITypeParameterSymbol other
+			   ? CanBeObject(other)
+			   : constraintType.SpecialType == SpecialType.System_Object);
 
 	private static bool IsIFormattable(ITypeSymbol typeSymbol)
 	{
