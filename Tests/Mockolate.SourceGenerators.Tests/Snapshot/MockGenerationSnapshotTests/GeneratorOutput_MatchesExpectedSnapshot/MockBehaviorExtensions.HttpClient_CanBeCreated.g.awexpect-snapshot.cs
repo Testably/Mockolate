@@ -281,15 +281,32 @@ internal static class DefaultValueGeneratorExtensions
 		/// </summary>
 		public global::System.Threading.Tasks.Task<T> Generate<T>(global::System.Threading.Tasks.Task<T> nullValue, T value, params object?[] parameters)
 		{
-			global::System.Threading.CancellationToken cancellationToken = global::System.Linq.Enumerable.FirstOrDefault(
-				global::System.Linq.Enumerable.OfType<global::System.Threading.CancellationToken?>(parameters)) ?? global::System.Threading.CancellationToken.None;
-			if (cancellationToken.IsCancellationRequested)
+			foreach (object? parameter in parameters)
 			{
-				return global::System.Threading.Tasks.Task.FromCanceled<T>(cancellationToken);
+				if (parameter is global::System.Threading.CancellationToken cancellationToken)
+				{
+					return generator.Generate(nullValue, value, cancellationToken);
+				}
 			}
 
 			return global::System.Threading.Tasks.Task.FromResult(value);
 		}
+
+		/// <summary>
+		///     Generates a <see cref="global::System.Threading.Tasks.Task">Task</see> of <typeparamref name="T" /> for a
+		///     method without a parameter that can be a <see cref="global::System.Threading.CancellationToken">CancellationToken</see>.
+		/// </summary>
+		public global::System.Threading.Tasks.Task<T> Generate<T>(global::System.Threading.Tasks.Task<T> nullValue, T value)
+			=> global::System.Threading.Tasks.Task.FromResult(value);
+
+		/// <summary>
+		///     Generates a <see cref="global::System.Threading.Tasks.Task">Task</see> of <typeparamref name="T" />, which
+		///     is canceled when the <paramref name="cancellationToken" /> is.
+		/// </summary>
+		public global::System.Threading.Tasks.Task<T> Generate<T>(global::System.Threading.Tasks.Task<T> nullValue, T value, global::System.Threading.CancellationToken cancellationToken)
+			=> cancellationToken.IsCancellationRequested
+				? global::System.Threading.Tasks.Task.FromCanceled<T>(cancellationToken)
+				: global::System.Threading.Tasks.Task.FromResult(value);
 
 #if NET8_0_OR_GREATER
 		/// <summary>
@@ -298,15 +315,32 @@ internal static class DefaultValueGeneratorExtensions
 		/// </summary>
 		public global::System.Threading.Tasks.ValueTask<T> Generate<T>(global::System.Threading.Tasks.ValueTask<T> nullValue, T value, params object?[] parameters)
 		{
-			global::System.Threading.CancellationToken cancellationToken = global::System.Linq.Enumerable.FirstOrDefault(
-				global::System.Linq.Enumerable.OfType<global::System.Threading.CancellationToken?>(parameters)) ?? global::System.Threading.CancellationToken.None;
-			if (cancellationToken.IsCancellationRequested)
+			foreach (object? parameter in parameters)
 			{
-				return global::System.Threading.Tasks.ValueTask.FromCanceled<T>(cancellationToken);
+				if (parameter is global::System.Threading.CancellationToken cancellationToken)
+				{
+					return generator.Generate(nullValue, value, cancellationToken);
+				}
 			}
 
 			return global::System.Threading.Tasks.ValueTask.FromResult(value);
 		}
+
+		/// <summary>
+		///     Generates a <see cref="global::System.Threading.Tasks.ValueTask">ValueTask</see> of <typeparamref name="T" /> for a
+		///     method without a parameter that can be a <see cref="global::System.Threading.CancellationToken">CancellationToken</see>.
+		/// </summary>
+		public global::System.Threading.Tasks.ValueTask<T> Generate<T>(global::System.Threading.Tasks.ValueTask<T> nullValue, T value)
+			=> global::System.Threading.Tasks.ValueTask.FromResult(value);
+
+		/// <summary>
+		///     Generates a <see cref="global::System.Threading.Tasks.ValueTask">ValueTask</see> of <typeparamref name="T" />, which
+		///     is canceled when the <paramref name="cancellationToken" /> is.
+		/// </summary>
+		public global::System.Threading.Tasks.ValueTask<T> Generate<T>(global::System.Threading.Tasks.ValueTask<T> nullValue, T value, global::System.Threading.CancellationToken cancellationToken)
+			=> cancellationToken.IsCancellationRequested
+				? global::System.Threading.Tasks.ValueTask.FromCanceled<T>(cancellationToken)
+				: global::System.Threading.Tasks.ValueTask.FromResult(value);
 #endif
 
 		/// <summary>

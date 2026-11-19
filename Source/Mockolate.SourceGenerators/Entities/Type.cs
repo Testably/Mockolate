@@ -22,6 +22,7 @@ internal record Type
 			Namespace = "System";
 			SpecialType = SpecialType.System_Object;
 			GenericTypeParameters = new EquatableArray<Type>([]);
+			MayHoldCancellationToken = true;
 			return;
 		}
 
@@ -67,7 +68,38 @@ internal record Type
 		// System.Delegate / System.MulticastDelegate have TypeKind.Class but accept the same conversions.
 		IsDelegate = typeSymbol.TypeKind == TypeKind.Delegate ||
 		             typeSymbol.SpecialType is SpecialType.System_Delegate or SpecialType.System_MulticastDelegate;
+		IsCancellationToken = IsCancellationTokenSymbol(typeSymbol);
+		// An array counts, because a single array argument can bind to a `params object?[]` parameter as the array itself.
+		MayHoldCancellationToken = IsCancellationToken ||
+		                           typeSymbol.TypeKind is TypeKind.TypeParameter or TypeKind.Array ||
+		                           typeSymbol.SpecialType is SpecialType.System_Object or SpecialType.System_ValueType ||
+		                           typeSymbol is INamedTypeSymbol
+		                           {
+			                           TypeArguments.Length: 1,
+			                           Name: "Nullable" or "IEquatable",
+		                           } wrapper && IsCancellationTokenSymbol(wrapper.TypeArguments[0]);
 	}
+
+	private static bool IsCancellationTokenSymbol(ITypeSymbol typeSymbol)
+		=> typeSymbol is
+		{
+			Name: "CancellationToken",
+			ContainingNamespace:
+			{
+				Name: "Threading", ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+			},
+		};
+
+	/// <summary>
+	///     Whether the type is <see cref="System.Threading.CancellationToken" />.
+	/// </summary>
+	public bool IsCancellationToken { get; }
+
+	/// <summary>
+	///     Whether an argument of the type can be or hold a <see cref="System.Threading.CancellationToken" /> at
+	///     runtime.
+	/// </summary>
+	public bool MayHoldCancellationToken { get; }
 
 	public bool IsFormattable { get; }
 	public bool IsValueType { get; }

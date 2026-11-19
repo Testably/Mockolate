@@ -1016,7 +1016,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(values, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Threading.Tasks.Task<T?>)!, (this.MockRegistry.Behavior.DefaultValue.Probe<T?>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(T?)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(T?)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(T?)!, values) }), values);
+			return methodSetup?.TryGetReturnValue(values, out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Threading.Tasks.Task<T?>)!, (this.MockRegistry.Behavior.DefaultValue.Probe<T?>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(T?)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(T?)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(T?)!, values) }));
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.INullableMethodTypeParameter
