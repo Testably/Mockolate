@@ -3277,6 +3277,76 @@ internal static partial class Sources
 		return result;
 	}
 
+	/// <summary>
+	///     The index of the first key that a setup or verification of <paramref name="indexer" /> can leave out, or the
+	///     key count when none can. Only trailing optional keys can be left out, never the first one (an indexer access
+	///     needs a key), and nothing when another indexer in the same scope has fewer keys: next to <c>this[int]</c>,
+	///     <c>Setup[5]</c> must keep binding to that indexer instead of to <c>this[int, int = 5]</c>, as the call on the
+	///     mock does, and in union mode the trailing argument expression of its predicate overload would capture a
+	///     string argument meant for a shorter overload of the larger indexer. Ref-struct keys have a single setup
+	///     overload without a verification, so their indexers leave out nothing either.
+	/// </summary>
+	private static int FirstOmittableIndexerKey(Class @class, Property indexer)
+	{
+		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
+		if (parameters.Any(p => p.NeedsRefStructPipeline()) ||
+		    @class.AllProperties().Any(p => p is { IsIndexer: true, ExplicitImplementation: null, } &&
+		                                    p.MemberType == indexer.MemberType &&
+		                                    p.IndexerParameters?.Count < parameters.Length))
+		{
+			return parameters.Length;
+		}
+
+		int first = parameters.Length;
+		while (first > 1 && parameters[first - 1] is { HasExplicitDefaultValue: true, } parameter &&
+		       parameter.CanUseNullableParameterOverload())
+		{
+			first--;
+		}
+
+		return first;
+	}
+
+	/// <summary>
+	///     The declared default value of <paramref name="parameter" />, typed so that it also stands alone as an argument.
+	/// </summary>
+	private static string DeclaredDefaultValue(MethodParameter parameter)
+		=> $"({parameter.ToNullableType()})({parameter.ExplicitDefaultValue})";
+
+	/// <summary>
+	///     The overloads of the classic setup and verify indexers: the matcher and value combinations of the keys, repeated
+	///     for every count of left-out trailing keys from <paramref name="firstOmittable" /> on. As in union mode, a
+	///     left-out key gets its own overload instead of a <c>= null</c> default, so that an explicit <see langword="null" />
+	///     keeps matching <see langword="null" />. The value flags cover every key; a left-out key is not a value.
+	/// </summary>
+	private static IEnumerable<(int KeptCount, bool[]? ValueFlags)> GenerateIndexerOverloads(Property indexer,
+		int firstOmittable)
+	{
+		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
+		for (int keptCount = parameters.Length; keptCount >= firstOmittable; keptCount--)
+		{
+			yield return (keptCount, null);
+			if (parameters.Length <= MaxExplicitParameters)
+			{
+				EquatableArray<MethodParameter> kept = new(parameters.Take(keptCount).ToArray());
+				foreach (bool[] valueFlags in GenerateValueFlagCombinations(kept))
+				{
+					yield return (keptCount, [..valueFlags, ..new bool[parameters.Length - keptCount],]);
+				}
+			}
+			else
+			{
+				bool[] allValueFlags = parameters
+					.Select((p, i) => i < keptCount && p.CanUseNullableParameterOverload())
+					.ToArray();
+				if (allValueFlags.Any(f => f))
+				{
+					yield return (keptCount, allValueFlags);
+				}
+			}
+		}
+	}
+
 	// Priority hierarchy among same-arity overloads emitted for one method:
 	//   all-values            : int.MaxValue       (so `Method(default, …)` binds here and exposes `.AnyParameters()`)
 	//   IParameters           : int.MaxValue - 1
@@ -3649,9 +3719,10 @@ internal static partial class Sources
 			           indexer.MemberType == memberType && !indexer.Type.NeedsRefStructPipeline();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
+			int firstOmittable = FirstOmittableIndexerKey(@class, indexer);
 			if (UseUnionIndexer(@class, indexer, useUnionOverloads))
 			{
-				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
+				foreach (UnionSlot[] slots in GenerateUnionIndexerSlotCombinations(indexer, firstOmittable))
 				{
 					AppendUnionIndexerSetupDefinition(sb, indexer, slots);
 				}
@@ -3659,22 +3730,9 @@ internal static partial class Sources
 				continue;
 			}
 
-			AppendIndexerSetupDefinition(sb, indexer, hasOverloadResolutionPriority: hasOverloadResolutionPriority);
-			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateIndexerOverloads(indexer, firstOmittable))
 			{
-				foreach (bool[] valueFlags in GenerateValueFlagCombinations(indexer.IndexerParameters.Value))
-				{
-					AppendIndexerSetupDefinition(sb, indexer, valueFlags, hasOverloadResolutionPriority);
-				}
-			}
-			else
-			{
-				bool[] allValueFlags = indexer.IndexerParameters.Value.Select(p => p.CanUseNullableParameterOverload())
-					.ToArray();
-				if (allValueFlags.Any(f => f))
-				{
-					AppendIndexerSetupDefinition(sb, indexer, allValueFlags, hasOverloadResolutionPriority);
-				}
+				AppendIndexerSetupDefinition(sb, indexer, keptCount, valueFlags, hasOverloadResolutionPriority);
 			}
 		}
 
@@ -3759,7 +3817,7 @@ internal static partial class Sources
 
 	private static void AppendOverloadDifferentiatorRemark(StringBuilder sb,
 		IReadOnlyList<string> parameterNames, bool useParameters, bool[]? valueFlags,
-		bool isVerify = false)
+		bool isVerify = false, string omission = "")
 	{
 		if (parameterNames.Count == 0)
 		{
@@ -3806,7 +3864,7 @@ internal static partial class Sources
 				$"This overload accepts a direct value for {directPart} (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref=\"global::Mockolate.It\" /> matcher for {matcherPart}.";
 		}
 
-		sb.AppendXmlRemarks(text);
+		sb.AppendXmlRemarks(text + omission);
 	}
 
 	/// <summary>
@@ -4151,9 +4209,10 @@ internal static partial class Sources
 			           indexer.MemberType == memberType && !indexer.Type.NeedsRefStructPipeline();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
+			int firstOmittable = FirstOmittableIndexerKey(@class, indexer);
 			if (UseUnionIndexer(@class, indexer, useUnionOverloads))
 			{
-				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
+				foreach (UnionSlot[] slots in GenerateUnionIndexerSlotCombinations(indexer, firstOmittable))
 				{
 					AppendUnionIndexerSetupImplementation(sb, indexer, mockRegistryName, setupName, memberIds,
 						memberIdPrefix, slots, scopeExpression);
@@ -4162,25 +4221,10 @@ internal static partial class Sources
 				continue;
 			}
 
-			AppendIndexerSetupImplementation(sb, indexer, mockRegistryName, setupName, memberIds, memberIdPrefix,
-				scopeExpression: scopeExpression);
-			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateIndexerOverloads(indexer, firstOmittable))
 			{
-				foreach (bool[] valueFlags in GenerateValueFlagCombinations(indexer.IndexerParameters.Value))
-				{
-					AppendIndexerSetupImplementation(sb, indexer, mockRegistryName, setupName, memberIds,
-						memberIdPrefix, valueFlags, scopeExpression);
-				}
-			}
-			else
-			{
-				bool[] allValueFlags = indexer.IndexerParameters.Value.Select(p => p.CanUseNullableParameterOverload())
-					.ToArray();
-				if (allValueFlags.Any(f => f))
-				{
-					AppendIndexerSetupImplementation(sb, indexer, mockRegistryName, setupName, memberIds,
-						memberIdPrefix, allValueFlags, scopeExpression);
-				}
+				AppendIndexerSetupImplementation(sb, indexer, mockRegistryName, setupName, memberIds, memberIdPrefix,
+					keptCount, valueFlags, scopeExpression);
 			}
 		}
 
@@ -4686,8 +4730,8 @@ internal static partial class Sources
 		sb.AppendLine();
 	}
 
-	private static void AppendIndexerSetupDefinition(StringBuilder sb, Property indexer, bool[]? valueFlags = null,
-		bool hasOverloadResolutionPriority = false)
+	private static void AppendIndexerSetupDefinition(StringBuilder sb, Property indexer, int keptCount,
+		bool[]? valueFlags = null, bool hasOverloadResolutionPriority = false)
 	{
 		// Ref-struct-keyed indexers go through the narrow RefStruct pipeline. Based on the
 		// getter/setter combination we expose the appropriate facade type:
@@ -4723,11 +4767,11 @@ internal static partial class Sources
 			$"Setup for the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer {indexer.XmlDocReference}");
 		string[] indexerNames = Enumerable.Range(1, indexer.IndexerParameters!.Value.Count)
 			.Select(i => $"parameter{i}").ToArray();
-		AppendOverloadDifferentiatorRemark(sb, indexerNames, false, valueFlags);
+		AppendIndexerOverloadRemark(sb, indexerNames, keptCount, valueFlags, false);
 		if (hasOverloadResolutionPriority)
 		{
 			sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-				.Append(valueFlags?.Count(x => !x).ToString() ?? "int.MaxValue").Append(")]").AppendLine();
+				.Append(IndexerOverloadPriority(keptCount, valueFlags)).Append(")]").AppendLine();
 		}
 
 		sb.Append("\t\t").Append(GetIndexerSetupType(indexer)).AppendTypeOrWrapper(indexer.Type);
@@ -4737,18 +4781,50 @@ internal static partial class Sources
 		}
 
 		sb.Append("> this[");
-		int i = 0;
-		foreach (MethodParameter parameter in indexer.IndexerParameters.Value)
+		AppendIndexerKeyParameters(sb, indexer, indexerNames, keptCount, valueFlags);
+		sb.Append("] { get; }").AppendLine();
+		sb.AppendLine();
+	}
+
+	/// <summary>
+	///     The all-matcher overload ranks first and the others by their count of matcher keys. Overloads with different
+	///     key counts never compete, so the left-out keys do not count.
+	/// </summary>
+	private static string IndexerOverloadPriority(int keptCount, bool[]? valueFlags)
+		=> valueFlags?.Take(keptCount).Count(x => !x).ToString() ?? "int.MaxValue";
+
+	/// <summary>
+	///     The overload remark of a classic indexer overload, which names the keys that the overload leaves out.
+	/// </summary>
+	private static void AppendIndexerOverloadRemark(StringBuilder sb, string[] names, int keptCount,
+		bool[]? valueFlags, bool isVerify)
+	{
+		string omission = keptCount < names.Length
+			? $" It uses the declared default value for {string.Join(", ", names.Skip(keptCount).Select(name => $"<c>{name}</c>"))}."
+			: "";
+		AppendOverloadDifferentiatorRemark(sb, names.Take(keptCount).ToArray(), false,
+			valueFlags?.Take(keptCount).ToArray(), isVerify, omission);
+	}
+
+	/// <summary>
+	///     The key parameters of a classic indexer overload: a value or a matcher for each of the first
+	///     <paramref name="keptCount" /> keys.
+	/// </summary>
+	private static void AppendIndexerKeyParameters(StringBuilder sb, Property indexer, string[] names, int keptCount,
+		bool[]? valueFlags)
+	{
+		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
+		for (int i = 0; i < keptCount; i++)
 		{
 			if (i > 0)
 			{
 				sb.Append(", ");
 			}
 
-			bool isValueParam = valueFlags?[i] == true;
-			if (isValueParam)
+			MethodParameter parameter = parameters[i];
+			if (valueFlags?[i] == true)
 			{
-				sb.Append(parameter.ToNullableType()).Append($" parameter{i + 1}");
+				sb.Append(parameter.ToNullableType());
 			}
 			else
 			{
@@ -4757,20 +4833,15 @@ internal static partial class Sources
 				{
 					sb.Append('?');
 				}
-
-				sb.Append($" parameter{i + 1}");
 			}
 
-			i++;
+			sb.Append(' ').Append(names[i]);
 		}
-
-		sb.Append("] { get; }").AppendLine();
-		sb.AppendLine();
 	}
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendIndexerSetupImplementation(StringBuilder sb, Property indexer, string mockRegistryName,
-		string setupName, MemberIdTable memberIds, string memberIdPrefix,
+		string setupName, MemberIdTable memberIds, string memberIdPrefix, int keptCount,
 		bool[]? valueFlags = null, string? scopeExpression = null)
 #pragma warning restore S107
 	{
@@ -4814,33 +4885,9 @@ internal static partial class Sources
 		}
 
 		sb.Append("> global::Mockolate.Mock.").Append(setupName).Append(".this[");
-		int i = 0;
-		foreach (MethodParameter parameter in indexer.IndexerParameters.Value)
-		{
-			if (i > 0)
-			{
-				sb.Append(", ");
-			}
-
-			bool isValueParam = valueFlags?[i] == true;
-			if (isValueParam)
-			{
-				sb.Append(parameter.ToNullableType()).Append($" parameter{i + 1}");
-			}
-			else
-			{
-				sb.Append(parameter.ToParameter());
-				if (parameter.CanUseNullableParameterOverload())
-				{
-					sb.Append('?');
-				}
-
-				sb.Append($" parameter{i + 1}");
-			}
-
-			i++;
-		}
-
+		string[] indexerNames = Enumerable.Range(1, indexer.IndexerParameters!.Value.Count)
+			.Select(i => $"parameter{i}").ToArray();
+		AppendIndexerKeyParameters(sb, indexer, indexerNames, keptCount, valueFlags);
 		sb.Append("]").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tget").AppendLine();
@@ -4859,8 +4906,12 @@ internal static partial class Sources
 			sb.Append(", ");
 
 			bool isValueParam = valueFlags?[j] == true;
-			string paramRef = $"parameter{j + 1}";
-			if (isValueParam)
+			string paramRef = indexerNames[j];
+			if (j >= keptCount)
+			{
+				AppendNamedValueParameter(sb, parameter, DeclaredDefaultValue(parameter));
+			}
+			else if (isValueParam)
 			{
 				AppendNamedValueParameter(sb, parameter, paramRef);
 			}
@@ -5164,7 +5215,7 @@ internal static partial class Sources
 	}
 
 	private static void AppendIndexerVerifyDefinition(StringBuilder sb, Property indexer, string verifyName,
-		bool[]? valueFlags = null, bool hasOverloadResolutionPriority = false)
+		int keptCount, bool[]? valueFlags = null, bool hasOverloadResolutionPriority = false)
 	{
 		// Ref-struct-keyed indexers: no Verify surface — same rationale as the setup path.
 		if (indexer.IndexerParameters!.Value.Any(p => p.NeedsRefStructPipeline()))
@@ -5174,52 +5225,25 @@ internal static partial class Sources
 
 		sb.AppendXmlSummary(
 			$"Verify interactions with the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer {indexer.XmlDocReference}.");
-		AppendOverloadDifferentiatorRemark(sb,
-			indexer.IndexerParameters!.Value.Select(p => p.Name).ToArray(),
-			false, valueFlags, true);
+		string[] names = indexer.IndexerParameters!.Value.Select(p => p.Name).ToArray();
+		AppendIndexerOverloadRemark(sb, names, keptCount, valueFlags, true);
 		if (hasOverloadResolutionPriority)
 		{
 			sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-				.Append(valueFlags?.Count(x => !x).ToString() ?? "int.MaxValue").Append(")]").AppendLine();
+				.Append(IndexerOverloadPriority(keptCount, valueFlags)).Append(")]").AppendLine();
 		}
 
 		sb.Append("\t\t");
 		AppendIndexerVerifyType(sb, indexer, verifyName);
 		sb.Append(" this[");
-		int i = 0;
-		foreach (MethodParameter parameter in indexer.IndexerParameters!.Value)
-		{
-			if (i > 0)
-			{
-				sb.Append(", ");
-			}
-
-			bool isValueParam = valueFlags?[i] == true;
-			if (isValueParam)
-			{
-				sb.Append(parameter.ToNullableType()).Append(' ').Append(parameter.Name);
-			}
-			else
-			{
-				sb.Append(parameter.ToParameter());
-				if (parameter.CanUseNullableParameterOverload())
-				{
-					sb.Append('?');
-				}
-
-				sb.Append(' ').Append(parameter.Name);
-			}
-
-			i++;
-		}
-
+		AppendIndexerKeyParameters(sb, indexer, names, keptCount, valueFlags);
 		sb.Append("] { get; }").AppendLine();
 		sb.AppendLine();
 	}
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendIndexerVerifyImplementation(StringBuilder sb, Property indexer, string mockRegistryName,
-		string verifyName, MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords,
+		string verifyName, MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords, int keptCount,
 		bool[]? valueFlags = null)
 #pragma warning restore S107
 	{
@@ -5243,37 +5267,22 @@ internal static partial class Sources
 		sb.Append("\t\t");
 		AppendIndexerVerifyType(sb, indexer, verifyName);
 		sb.Append(' ').Append(verifyName).Append(".this[");
-		int i = 0;
-		foreach (MethodParameter parameter in indexer.IndexerParameters!.Value)
-		{
-			if (i > 0)
-			{
-				sb.Append(", ");
-			}
-
-			bool isValueParam = valueFlags?[i] == true;
-			if (isValueParam)
-			{
-				sb.Append(parameter.ToNullableType()).Append(' ').Append(parameter.Name);
-			}
-			else
-			{
-				sb.Append(parameter.ToParameter());
-				if (parameter.CanUseNullableParameterOverload())
-				{
-					sb.Append('?');
-				}
-
-				sb.Append(' ').Append(parameter.Name);
-			}
-
-			i++;
-		}
-
+		MethodParameter[] keys = indexer.IndexerParameters!.Value.AsArray();
+		AppendIndexerKeyParameters(sb, indexer, keys.Select(p => p.Name).ToArray(), keptCount, valueFlags);
 		sb.Append("]").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tget").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
+		// A left-out key becomes a local matcher of its declared default value, so that the matching and the failure
+		// message treat it like a matcher argument.
+		for (int keyIndex = keptCount; keyIndex < keys.Length; keyIndex++)
+		{
+			sb.Append("\t\t\t\t").Append(keys[keyIndex].ToParameter()).Append(' ').Append(keys[keyIndex].Name)
+				.Append(" = new global::Mockolate.Internals.LiteralParameterMatch<")
+				.Append(keys[keyIndex].ToNullableType()).Append(">(").Append(keys[keyIndex].ExplicitDefaultValue)
+				.Append(");").AppendLine();
+		}
+
 		bool useTypedVerify = indexer.IndexerParameters.Value.Count is >= 1 and <= 4;
 		if (useTypedVerify)
 		{
@@ -5307,7 +5316,7 @@ internal static partial class Sources
 			sb.Append(">(this, this.").Append(mockRegistryName)
 				.Append(", ").Append(verifyMemberIds).Append(",").AppendLine();
 
-			AppendIndexerVerifyTypedMatches(sb, indexer.IndexerParameters.Value, valueFlags);
+			AppendIndexerVerifyTypedMatches(sb, indexer.IndexerParameters.Value, keptCount, valueFlags);
 		}
 		else
 		{
@@ -5360,7 +5369,7 @@ internal static partial class Sources
 				}
 
 				sb.Append("> g");
-				AppendIndexerVerifyParameterMatches(sb, indexer.IndexerParameters.Value, valueFlags, "g");
+				AppendIndexerVerifyParameterMatches(sb, indexer.IndexerParameters.Value, keptCount, valueFlags, "g");
 				sb.Append(",").AppendLine();
 			}
 
@@ -5374,7 +5383,7 @@ internal static partial class Sources
 				}
 
 				sb.AppendTypeOrWrapper(indexer.Type).Append("> s");
-				AppendIndexerVerifyParameterMatches(sb, indexer.IndexerParameters.Value, valueFlags, "s");
+				AppendIndexerVerifyParameterMatches(sb, indexer.IndexerParameters.Value, keptCount, valueFlags, "s");
 				sb.Append(" && value.Matches(s.TypedValue),").AppendLine();
 			}
 		}
@@ -5410,7 +5419,7 @@ internal static partial class Sources
 	///     value overload).
 	/// </summary>
 	private static void AppendIndexerVerifyTypedMatches(StringBuilder sb,
-		EquatableArray<MethodParameter> parameters, bool[]? valueFlags)
+		EquatableArray<MethodParameter> parameters, int keptCount, bool[]? valueFlags)
 	{
 		int j = 0;
 		foreach (MethodParameter parameter in parameters)
@@ -5427,7 +5436,7 @@ internal static partial class Sources
 			{
 				sb.Append("global::Mockolate.CovariantParameterAdapter<").AppendTypeOrWrapper(parameter.Type)
 					.Append(">.Wrap(").Append(parameter.Name);
-				if (parameter.CanUseNullableParameterOverload())
+				if (j < keptCount && parameter.CanUseNullableParameterOverload())
 				{
 					sb.Append(" ?? global::Mockolate.Internals.Matchers.IsNull<").Append(parameter.ToNullableType())
 						.Append(">()");
@@ -5442,7 +5451,7 @@ internal static partial class Sources
 	}
 
 	private static void AppendIndexerVerifyParameterMatches(StringBuilder sb,
-		EquatableArray<MethodParameter> parameters, bool[]? valueFlags, string interactionVar)
+		EquatableArray<MethodParameter> parameters, int keptCount, bool[]? valueFlags, string interactionVar)
 	{
 		int j = 0;
 		foreach (MethodParameter parameter in parameters)
@@ -5459,7 +5468,7 @@ internal static partial class Sources
 			{
 				sb.Append("global::Mockolate.CovariantParameterAdapter<").AppendTypeOrWrapper(parameter.Type)
 					.Append(">.Wrap(").Append(parameter.Name);
-				if (parameter.CanUseNullableParameterOverload())
+				if (j < keptCount && parameter.CanUseNullableParameterOverload())
 				{
 					sb.Append(" ?? global::Mockolate.Internals.Matchers.IsNull<").Append(parameter.ToNullableType())
 						.Append(">()");
@@ -5641,9 +5650,10 @@ internal static partial class Sources
 			           indexer.MemberType == memberType && !indexer.Type.NeedsRefStructPipeline();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
+			int firstOmittable = FirstOmittableIndexerKey(@class, indexer);
 			if (UseUnionIndexer(@class, indexer, useUnionOverloads))
 			{
-				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
+				foreach (UnionSlot[] slots in GenerateUnionIndexerSlotCombinations(indexer, firstOmittable))
 				{
 					AppendUnionIndexerVerifyDefinition(sb, indexer, verifyName, slots);
 				}
@@ -5651,24 +5661,10 @@ internal static partial class Sources
 				continue;
 			}
 
-			AppendIndexerVerifyDefinition(sb, indexer, verifyName,
-				hasOverloadResolutionPriority: hasOverloadResolutionPriority);
-			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateIndexerOverloads(indexer, firstOmittable))
 			{
-				foreach (bool[] valueFlags in GenerateValueFlagCombinations(indexer.IndexerParameters.Value))
-				{
-					AppendIndexerVerifyDefinition(sb, indexer, verifyName, valueFlags, hasOverloadResolutionPriority);
-				}
-			}
-			else
-			{
-				bool[] allValueFlags = indexer.IndexerParameters.Value.Select(p => p.CanUseNullableParameterOverload())
-					.ToArray();
-				if (allValueFlags.Any(f => f))
-				{
-					AppendIndexerVerifyDefinition(sb, indexer, verifyName, allValueFlags,
-						hasOverloadResolutionPriority);
-				}
+				AppendIndexerVerifyDefinition(sb, indexer, verifyName, keptCount, valueFlags,
+					hasOverloadResolutionPriority);
 			}
 		}
 
@@ -5970,9 +5966,10 @@ internal static partial class Sources
 			   indexer.MemberType == memberType && !indexer.Type.NeedsRefStructPipeline();
 		foreach (Property indexer in @class.AllProperties().Where(indexerPredicate))
 		{
+			int firstOmittable = FirstOmittableIndexerKey(@class, indexer);
 			if (UseUnionIndexer(@class, indexer, useUnionOverloads))
 			{
-				foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(indexer.IndexerParameters!.Value))
+				foreach (UnionSlot[] slots in GenerateUnionIndexerSlotCombinations(indexer, firstOmittable))
 				{
 					AppendUnionIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds,
 						memberIdPrefix, useTypedRecords, slots);
@@ -5981,25 +5978,10 @@ internal static partial class Sources
 				continue;
 			}
 
-			AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds, memberIdPrefix,
-				useTypedRecords);
-			if (indexer.IndexerParameters!.Value.Count <= MaxExplicitParameters)
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateIndexerOverloads(indexer, firstOmittable))
 			{
-				foreach (bool[] valueFlags in GenerateValueFlagCombinations(indexer.IndexerParameters.Value))
-				{
-					AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds,
-						memberIdPrefix, useTypedRecords, valueFlags);
-				}
-			}
-			else
-			{
-				bool[] allValueFlags = indexer.IndexerParameters.Value.Select(p => p.CanUseNullableParameterOverload())
-					.ToArray();
-				if (allValueFlags.Any(f => f))
-				{
-					AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds,
-						memberIdPrefix, useTypedRecords, allValueFlags);
-				}
+				AppendIndexerVerifyImplementation(sb, indexer, mockRegistryName, verifyName, memberIds, memberIdPrefix,
+					useTypedRecords, keptCount, valueFlags);
 			}
 		}
 

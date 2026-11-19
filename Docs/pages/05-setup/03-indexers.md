@@ -18,6 +18,8 @@ dispenser.Mock.Setup["Dark"]
     .OnSet.Do((type, value) => Console.WriteLine($"Stock for {type} was set to {value}"));
 ```
 
+Optional keys can be left out, and then stand for their declared default value (see [Optional parameters](../06-parameter-matching.md#optional-parameters)).
+
 ## Initialization
 
 Use `InitializeWith` to give the indexer a start value. It keeps behaving like a normal indexer, so the setter changes

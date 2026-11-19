@@ -738,6 +738,78 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? parameter2]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? parameter2, string parameter1Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (parameter2 ?? default).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> parameter2, string parameter2Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(parameter2, parameter2Expression), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::System.Func<int, bool> parameter1, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> parameter2, string parameter1Expression, string parameter2Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(parameter2, parameter2Expression), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? parameter1]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::System.Func<int, bool> parameter1, string parameter1Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.Negative(global::Mockolate.Parameters.IParameters? parameters)
 		{
 			if (parameters is null)
@@ -1442,6 +1514,90 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(a ?? default).ToParameterMatch(),
+					(level ?? default).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)(a ?? default), (object?)(level ?? default), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::System.Func<int, bool> a, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level, string aExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(a, aExpression),
+					(level ?? default).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)aExpression, (object?)(level ?? default), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? a, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> level, string levelExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(a ?? default).ToParameterMatch(),
+					(global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(level, levelExpression),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)(a ?? default), (object?)levelExpression, (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::System.Func<int, bool> a, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> level, string aExpression, string levelExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(a, aExpression),
+					(global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(level, levelExpression),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)aExpression, (object?)levelExpression, (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? a]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(a ?? default).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)(a ?? default), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::System.Func<int, bool> a, string aExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(a, aExpression),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)aExpression, (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEnumDefaultValues> IMockVerifyForIEnumDefaultValues.Negative(global::Mockolate.Parameters.IParameters? parameters)
 			=> parameters is null
 				? ((IMockVerifyForIEnumDefaultValues)this).Negative(default(int), (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1)))
@@ -1991,6 +2147,90 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(a ?? default).ToParameterMatch(),
+					(level ?? default).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)(a ?? default), (object?)(level ?? default), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::System.Func<int, bool> a, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level, string aExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(a, aExpression),
+					(level ?? default).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)aExpression, (object?)(level ?? default), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? a, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> level, string levelExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(a ?? default).ToParameterMatch(),
+					(global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(level, levelExpression),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)(a ?? default), (object?)levelExpression, (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::System.Func<int, bool> a, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> level, string aExpression, string levelExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(a, aExpression),
+					(global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(level, levelExpression),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)aExpression, (object?)levelExpression, (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? a]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(a ?? default).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)(a ?? default), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> IMockVerifyForIEnumDefaultValues.this[global::System.Func<int, bool> a, string aExpression]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(this, this.MockRegistry, global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get,
+					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(a, aExpression),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))).ToParameterMatch(),
+					new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch(),
+					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)aExpression, (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))), (object?)new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1))));
+			}
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEnumDefaultValues> IMockVerifyForIEnumDefaultValues.Negative(global::Mockolate.Parameters.IParameters? parameters)
 			=> parameters is null
 				? ((IMockVerifyForIEnumDefaultValues)this).Negative(default(int), (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1)))
@@ -2529,6 +2769,78 @@ internal static partial class Mock
 			get
 			{
 				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(parameter2, parameter2Expression), (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(parameter3, parameter3Expression));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? parameter2]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (parameter2 ?? default).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? parameter2, string parameter1Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (parameter2 ?? default).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> parameter2, string parameter2Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(parameter2, parameter2Expression), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::System.Func<int, bool> parameter1, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> parameter2, string parameter1Expression, string parameter2Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Satisfies<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(parameter2, parameter2Expression), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::Mockolate.ParameterArg<int>? parameter1]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (parameter1 ?? default).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> global::Mockolate.Mock.IMockSetupForIEnumDefaultValues.this[global::System.Func<int, bool> parameter1, string parameter1Expression]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(parameter1, parameter1Expression), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))).ToParameterMatch(), new global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1)).ToParameterMatch());
 				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IEnumDefaultValues.MemberId_Indexer_int_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue_global__Mockolate_Tests_GeneratorCoverage_EnumWithNegativeValue__Get, this._scenarioName, indexerSetup);
 				return indexerSetup;
 			}
@@ -3318,6 +3630,60 @@ internal static partial class Mock
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::System.Func<int, bool> parameter1, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> parameter2, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?, bool> parameter3, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter3")] string parameter3Expression = ""] { get; }
 
 		/// <summary>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />, <paramref name="parameter2" />. It uses the declared default value for <c>parameter3</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::Mockolate.ParameterArg<int>? parameter1, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? parameter2] { get; }
+
+		/// <summary>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter2" /> and a predicate for <paramref name="parameter1" />. It uses the declared default value for <c>parameter3</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::System.Func<int, bool> parameter1, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
+
+		/// <summary>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" /> and a predicate for <paramref name="parameter2" />. It uses the declared default value for <c>parameter3</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::Mockolate.ParameterArg<int>? parameter1, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
+
+		/// <summary>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="parameter1" />, <paramref name="parameter2" />. It uses the declared default value for <c>parameter3</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-4)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::System.Func<int, bool> parameter1, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> parameter2, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter2")] string parameter2Expression = ""] { get; }
+
+		/// <summary>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="parameter1" />. It uses the declared default value for <c>parameter2</c>, <c>parameter3</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-7)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::Mockolate.ParameterArg<int>? parameter1] { get; }
+
+		/// <summary>
+		///     Setup for the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="parameter1" />. It uses the declared default value for <c>parameter2</c>, <c>parameter3</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-8)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<int, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::System.Func<int, bool> parameter1, [global::System.Runtime.CompilerServices.CallerArgumentExpression("parameter1")] string parameter1Expression = ""] { get; }
+
+		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.Negative(int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)">Negative(int, EnumWithNegativeValue)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
@@ -3836,6 +4202,60 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::System.Func<int, bool> a, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> level, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?, bool> nullableLevel, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("level")] string levelExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("nullableLevel")] string nullableLevelExpression = ""] { get; }
+
+		/// <summary>
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" />, <paramref name="level" />. It uses the declared default value for <c>nullableLevel</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level] { get; }
+
+		/// <summary>
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="level" /> and a predicate for <paramref name="a" />. It uses the declared default value for <c>nullableLevel</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::System.Func<int, bool> a, global::Mockolate.ParameterArg<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = ""] { get; }
+
+		/// <summary>
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" /> and a predicate for <paramref name="level" />. It uses the declared default value for <c>nullableLevel</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::Mockolate.ParameterArg<int>? a, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> level, [global::System.Runtime.CompilerServices.CallerArgumentExpression("level")] string levelExpression = ""] { get; }
+
+		/// <summary>
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="a" />, <paramref name="level" />. It uses the declared default value for <c>nullableLevel</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-4)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::System.Func<int, bool> a, global::System.Func<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, bool> level, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("level")] string levelExpression = ""] { get; }
+
+		/// <summary>
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" />. It uses the declared default value for <c>level</c>, <c>nullableLevel</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-7)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::Mockolate.ParameterArg<int>? a] { get; }
+
+		/// <summary>
+		///     Verify interactions with the int indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.this[int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?]">EnumWithNegativeValue?]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="a" />. It uses the declared default value for <c>level</c>, <c>nullableLevel</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-8)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIEnumDefaultValues, int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue?> this[global::System.Func<int, bool> a, [global::System.Runtime.CompilerServices.CallerArgumentExpression("a")] string aExpression = ""] { get; }
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IEnumDefaultValues.Negative(int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)">Negative(int, EnumWithNegativeValue)</see> with the given <paramref name="parameters"/>.

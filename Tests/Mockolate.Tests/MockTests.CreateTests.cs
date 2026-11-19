@@ -315,6 +315,21 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task OptionalIndexerKeys_CanBeCreated()
+		{
+			IOptionalIndexerKeys sut1 = IOptionalIndexerKeys.CreateMock();
+			IOptionalIndexerKeysGetterOnly sut2 = IOptionalIndexerKeysGetterOnly.CreateMock();
+			IOptionalIndexerKeysSetterOnly sut3 = IOptionalIndexerKeysSetterOnly.CreateMock();
+			IOptionalIndexerKeysWithSixKeys sut4 = IOptionalIndexerKeysWithSixKeys.CreateMock();
+			IOptionalIndexerKeysWithSibling sut5 = IOptionalIndexerKeysWithSibling.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+			await That(sut4).IsNotNull();
+			await That(sut5).IsNotNull();
+		}
+
+		[Test]
 		public async Task ParameterNameCollisions_CanBeCreated()
 		{
 			IParameterNameCollisions sut1 = IParameterNameCollisions.CreateMock();

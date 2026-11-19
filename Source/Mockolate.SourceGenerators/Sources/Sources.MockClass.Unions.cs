@@ -819,11 +819,34 @@ internal static partial class Sources
 			p.IndexerParameters?.Count == keyCount) == 1;
 	}
 
+	/// <summary>
+	///     The slot assignments of the union-mode indexer overloads, repeated like the method ones for every count of
+	///     left-out trailing keys from <paramref name="firstOmittable" /> on (see <see cref="FirstOmittableIndexerKey" />).
+	/// </summary>
+	private static IEnumerable<UnionSlot[]> GenerateUnionIndexerSlotCombinations(Property indexer, int firstOmittable)
+	{
+		MethodParameter[] all = indexer.IndexerParameters!.Value.AsArray();
+		for (int keptCount = all.Length; keptCount >= firstOmittable; keptCount--)
+		{
+			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(all, keptCount))
+			{
+				yield return slots;
+			}
+		}
+	}
+
 	// Indexers have no IParameters overload, so the all-union indexer simply takes the top priority the classic
-	// all-matcher indexer has; combinations with predicates rank by their union/fixed slot count.
+	// all-matcher indexer has; combinations with predicates rank by their union/fixed slot count, and those with
+	// omitted keys rank below every full overload, as for methods.
 	private static string UnionIndexerPriority(UnionSlot[] slots)
 	{
 		int unionCount = slots.Count(s => s is UnionSlot.Union or UnionSlot.Fixed);
+		int omittedCount = slots.Count(s => s == UnionSlot.Omitted);
+		if (omittedCount > 0)
+		{
+			return (unionCount - (slots.Length + 1) * omittedCount).ToString();
+		}
+
 		return unionCount == slots.Length ? "int.MaxValue" : unionCount.ToString();
 	}
 
@@ -843,6 +866,11 @@ internal static partial class Sources
 		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
 		for (int i = 0; i < parameters.Length; i++)
 		{
+			if (slots[i] == UnionSlot.Omitted)
+			{
+				continue;
+			}
+
 			if (i > 0)
 			{
 				sb.Append(", ");
@@ -866,6 +894,9 @@ internal static partial class Sources
 			case UnionSlot.Union:
 				sb.Append('(').Append(name).Append(" ?? default).ToParameterMatch()");
 				break;
+			case UnionSlot.Omitted:
+				sb.Append(UnionOmittedIndexerKey(parameter)).Append(".ToParameterMatch()");
+				break;
 			case UnionSlot.Predicate:
 				sb.Append("(global::Mockolate.Parameters.IParameterMatch<").Append(parameter.ToTypeOrWrapper())
 					.Append(">)global::Mockolate.It.Satisfies<").Append(parameter.ToNullableType()).Append(">(")
@@ -880,6 +911,9 @@ internal static partial class Sources
 				break;
 		}
 	}
+
+	private static string UnionOmittedIndexerKey(MethodParameter parameter)
+		=> $"new global::Mockolate.ParameterArg<{parameter.ToNullableType()}>({DeclaredDefaultValue(parameter)})";
 
 	private static void AppendUnionIndexerSetupDefinition(StringBuilder sb, Property indexer, UnionSlot[] slots)
 	{
@@ -1119,6 +1153,9 @@ internal static partial class Sources
 					break;
 				case UnionSlot.Predicate:
 					sb.Append("(object?)").Append(expressionNames[i]);
+					break;
+				case UnionSlot.Omitted:
+					sb.Append("(object?)").Append(UnionOmittedIndexerKey(parameters[i]));
 					break;
 				default:
 					sb.Append("(object?)").Append(names[i]).Append(" ?? \"null\"");
