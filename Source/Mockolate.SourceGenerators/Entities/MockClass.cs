@@ -248,9 +248,9 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		IMethodSymbol[] candidates = constructors.Where(IsCallableWithoutArguments).ToArray();
 		for (int i = 0; i < constructors.Length; i++)
 		{
-			IMethodSymbol constructor = constructors[i];
-			if (IsCallableWithoutArguments(constructor) &&
-			    !candidates.Any(other => IsBetterWithoutArguments(other, constructor, compilation)))
+			IMethodSymbol current = constructors[i];
+			if (IsCallableWithoutArguments(current) &&
+			    !candidates.Any(candidate => IsBetterWithoutArguments(candidate, current, compilation)))
 			{
 				return i;
 			}
