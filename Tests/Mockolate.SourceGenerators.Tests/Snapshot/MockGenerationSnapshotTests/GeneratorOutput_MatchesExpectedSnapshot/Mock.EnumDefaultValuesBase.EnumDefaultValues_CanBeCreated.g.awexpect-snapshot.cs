@@ -693,7 +693,17 @@ internal static partial class MockExtensionsForEnumDefaultValuesBase
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				throw new global::Mockolate.Exceptions.MockException("No parameterless constructor found for 'Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase'. Please provide constructor parameters.");
+				global::Mockolate.Mock.EnumDefaultValuesBase.MockRegistryProvider.Value = mockRegistry;
+				global::Mockolate.MockExtensionsForEnumDefaultValuesBase.MockSetup? setupTarget = null;
+				if (setup is not null)
+				{
+					setupTarget ??= new(mockRegistry);
+					setup.Invoke(setupTarget);
+				}
+				global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue c1p1 = (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1);
+				global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue? c1p2 = (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1;
+				global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue? c1p3 = (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)0;
+				return new global::Mockolate.Mock.EnumDefaultValuesBase(mockRegistry, c1p1, c1p2, c1p3);
 			}
 			else if (constructorParameters.Length >= 0 && constructorParameters.Length <= 3
 			    && TryCastWithDefaultValue(constructorParameters, 0, (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1), mockRegistry.Behavior, out global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue c1p1)

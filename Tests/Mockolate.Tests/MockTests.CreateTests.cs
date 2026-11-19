@@ -239,7 +239,7 @@ public sealed partial class MockTests
 		{
 			IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
 			EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
-			EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
+			EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock();
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
 			await That(sut3).IsNotNull();
@@ -312,6 +312,19 @@ public sealed partial class MockTests
 			INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
+		}
+
+		[Test]
+		public async Task OptionalConstructorParameters_CanBeCreated()
+		{
+			OptionalConstructorBase sut1 = OptionalConstructorBase.CreateMock();
+			OptionalAndParameterlessConstructorBase sut2 = OptionalAndParameterlessConstructorBase.CreateMock();
+			SeveralOptionalConstructorsBase sut3 = SeveralOptionalConstructorsBase.CreateMock();
+			OptionalConstructorBase sut4 = OptionalConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+			await That(sut4).IsNotNull();
 		}
 
 		[Test]

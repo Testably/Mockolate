@@ -1,4 +1,5 @@
 using Mockolate.Exceptions;
+using Mockolate.Tests.GeneratorCoverage;
 using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests;
@@ -146,6 +147,78 @@ public sealed partial class MockTests
 		await That(Act).Throws<MockException>()
 			.WithMessage(
 				"This method should not be called directly. Either 'Mockolate.Tests.MockTests+MySealedClass' is not mockable or the source generator did not run correctly.");
+	}
+
+	[Test]
+	public async Task Create_WithOnlyOptionalConstructorParameters_ShouldUseDeclaredDefaults()
+	{
+		OptionalConstructorBase sut = OptionalConstructorBase.CreateMock();
+
+		await That(sut.Text).IsNull();
+		await That(sut.Number).IsEqualTo(1);
+	}
+
+	[Test]
+	public async Task Create_WithOnlyOptionalConstructorParameters_WithEmptyParameters_ShouldUseDeclaredDefaults()
+	{
+		OptionalConstructorBase sut = OptionalConstructorBase.CreateMock([]);
+
+		await That(sut.Text).IsNull();
+		await That(sut.Number).IsEqualTo(1);
+	}
+
+	[Test]
+	public async Task Create_WithOnlyOptionalConstructorParameters_WithMockBehavior_ShouldUseDeclaredDefaults()
+	{
+		MockBehavior behavior = MockBehavior.Default.ThrowingWhenNotSetup();
+
+		OptionalConstructorBase sut = OptionalConstructorBase.CreateMock(behavior);
+
+		await That(((IMock)sut).MockRegistry.Behavior).IsSameAs(behavior);
+		await That(sut.Number).IsEqualTo(1);
+	}
+
+	[Test]
+	public async Task Create_WithOnlyOptionalConstructorParameters_WithConstructorParametersFromMockBehavior_ShouldUseThem()
+	{
+		MockBehavior behavior = MockBehavior.Default.UseConstructorParametersFor<OptionalConstructorBase>("foo", 2);
+
+		OptionalConstructorBase sut = OptionalConstructorBase.CreateMock(behavior);
+
+		await That(sut.Text).IsEqualTo("foo");
+		await That(sut.Number).IsEqualTo(2);
+	}
+
+	[Test]
+	public async Task Create_WithOnlyOptionalConstructorParameters_ImplementingAdditionalInterface_ShouldUseDeclaredDefaults()
+	{
+		OptionalConstructorBase sut = OptionalConstructorBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut).Is<IMyService>();
+		await That(sut.Text).IsNull();
+		await That(sut.Number).IsEqualTo(1);
+	}
+
+	[Test]
+	public async Task Create_WithParameterlessAndOptionalConstructor_ShouldUseParameterlessConstructor()
+	{
+		OptionalAndParameterlessConstructorBase sut = OptionalAndParameterlessConstructorBase.CreateMock();
+		OptionalAndParameterlessConstructorBase combined = OptionalAndParameterlessConstructorBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.CalledConstructor).IsEqualTo("parameterless")
+			.Because("C# prefers the parameterless constructor for new T(), even when it is declared later");
+		await That(combined.CalledConstructor).IsEqualTo("parameterless");
+	}
+
+	[Test]
+	public async Task Create_WithSeveralOptionalConstructors_ShouldUseFirstDeclaredConstructor()
+	{
+		SeveralOptionalConstructorsBase sut = SeveralOptionalConstructorsBase.CreateMock();
+		SeveralOptionalConstructorsBase combined = SeveralOptionalConstructorsBase.CreateMock().Implementing<IMyService>();
+
+		await That(sut.CalledConstructor).IsEqualTo("int(1)")
+			.Because("C# reports new T() as ambiguous, so Mockolate deterministically picks the first declared constructor");
+		await That(combined.CalledConstructor).IsEqualTo("int(1)");
 	}
 
 	[Test]

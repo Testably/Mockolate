@@ -169,6 +169,91 @@ public sealed partial class MockTests
 	}
 
 	[Test]
+	public async Task ForTypesWithOnlyOptionalConstructorParameters_ShouldCallTheConstructorWithTheDeclaredDefaults()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode;
+
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = MyBaseClass.CreateMock();
+			         }
+			     }
+
+			     public enum Level { Unknown = -1, Low = 0, }
+
+			     public class MyBaseClass
+			     {
+			         public MyBaseClass(int value) { }
+			         protected MyBaseClass(int value = 1, string text = "foo", Level level = Level.Unknown) { }
+			         protected MyBaseClass(bool flag = true) { }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.MyBaseClass.g.cs");
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains("""
+			          			if (constructorParameters is null || constructorParameters.Length == 0)
+			          			{
+			          				global::Mockolate.Mock.MyBaseClass.MockRegistryProvider.Value = mockRegistry;
+			          				global::Mockolate.MockExtensionsForMyBaseClass.MockSetup? setupTarget = null;
+			          				if (setup is not null)
+			          				{
+			          					setupTarget ??= new(mockRegistry);
+			          					setup.Invoke(setupTarget);
+			          				}
+			          				int c2p1 = 1;
+			          				string c2p2 = "foo";
+			          				global::MyCode.Level c2p3 = (global::MyCode.Level)(-1);
+			          				return new global::Mockolate.Mock.MyBaseClass(mockRegistry, c2p1, c2p2, c2p3);
+			          			}
+			          """).IgnoringNewlineStyle().Because("the first constructor in declaration order that needs no arguments is used").And
+			.DoesNotContain("No parameterless constructor found");
+	}
+
+	[Test]
+	public async Task ForTypesWithParameterlessAndOptionalConstructor_ShouldPreferTheParameterlessConstructor()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode;
+
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = MyBaseClass.CreateMock();
+			         }
+			     }
+
+			     public class MyBaseClass
+			     {
+			         protected MyBaseClass(int value = 1) { }
+			         protected MyBaseClass() { }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.MyBaseClass.g.cs");
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains("""
+			          					setup.Invoke(setupTarget);
+			          				}
+			          				return new global::Mockolate.Mock.MyBaseClass(mockRegistry);
+			          			}
+			          """).IgnoringNewlineStyle().And
+			.DoesNotContain("int c1p1 = 1;");
+	}
+
+	[Test]
 	public async Task ForTypesWithConstructorWithParameters_ShouldWorkForAllNonPrivateConstructors()
 	{
 		GeneratorResult result = Generator

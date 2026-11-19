@@ -953,7 +953,7 @@ internal static partial class Sources
 		{
 			sb.Append("\t\t\tif (constructorParameters is null || constructorParameters.Length == 0)").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
-			if (constructors.Value.Any(m => m.Parameters.Count == 0))
+			if (TryGetConstructorWithoutArguments(constructors.Value, out int defaultConstructorIndex, out EquatableArray<MethodParameter> defaultParameters))
 			{
 				sb.Append("\t\t\t\tglobal::Mockolate.Mock.").Append(name).Append(".MockRegistryProvider.Value = mockRegistry;").AppendLine();
 				sb.Append("\t\t\t\tglobal::Mockolate.MockExtensionsFor").Append(name).Append(".MockSetup? setupTarget = null;").AppendLine();
@@ -962,7 +962,20 @@ internal static partial class Sources
 				sb.Append("\t\t\t\t\tsetupTarget ??= new(mockRegistry);").AppendLine();
 				sb.Append("\t\t\t\t\tsetup.Invoke(setupTarget);").AppendLine();
 				sb.Append("\t\t\t\t}").AppendLine();
-				sb.Append("\t\t\t\treturn new global::Mockolate.Mock.").Append(name).Append("(mockRegistry);").AppendLine();
+				int defaultParameterIndex = 0;
+				foreach (MethodParameter parameter in defaultParameters)
+				{
+					sb.Append("\t\t\t\t").Append(parameter.Type.Fullname).Append(" c").Append(defaultConstructorIndex).Append('p').Append(++defaultParameterIndex)
+						.Append(" = ").Append(parameter.ExplicitDefaultValue).Append(';').AppendLine();
+				}
+
+				sb.Append("\t\t\t\treturn new global::Mockolate.Mock.").Append(name).Append("(mockRegistry");
+				for (int i = 1; i <= defaultParameters.Count; i++)
+				{
+					sb.Append(", ").Append('c').Append(defaultConstructorIndex).Append('p').Append(i);
+				}
+
+				sb.Append(");").AppendLine();
 			}
 			else
 			{
@@ -6593,6 +6606,32 @@ internal static partial class Sources
 		}
 
 		sb.AppendTypeOrWrapper(method.ReturnType);
+	}
+
+	private static bool TryGetConstructorWithoutArguments(EquatableArray<Method> constructors, out int index,
+		out EquatableArray<MethodParameter> parameters)
+	{
+		index = 0;
+		parameters = default;
+		int position = 0;
+		foreach (Method constructor in constructors)
+		{
+			position++;
+			if (constructor.Parameters.Count == 0)
+			{
+				index = position;
+				parameters = constructor.Parameters;
+				return true;
+			}
+
+			if (index == 0 && constructor.Parameters.All(parameter => parameter.HasExplicitDefaultValue))
+			{
+				index = position;
+				parameters = constructor.Parameters;
+			}
+		}
+
+		return index > 0;
 	}
 
 	private static void AppendTypedCreateMockOverloads(StringBuilder sb, Class @class,

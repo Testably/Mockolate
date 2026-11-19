@@ -50,6 +50,13 @@ public abstract class ChocolateDispenserWithCtor(string defaultType, int capacit
 ChocolateDispenserWithCtor classMock = ChocolateDispenserWithCtor.CreateMock(["Dark", 42]);
 ```
 
+<details>
+<summary>Constructors with only optional parameters</summary>
+
+Without constructor arguments, `CreateMock()` uses the parameterless constructor. If the class has none, it uses the first declared constructor whose parameters are all optional and passes their declared default values. C# reports `new T()` as ambiguous when several such constructors exist; Mockolate picks the first one instead.
+
+</details>
+
 :::note
 
 A class mock overrides the `virtual` and `abstract` members of the class. Non-virtual members cannot be intercepted
