@@ -19,7 +19,7 @@ These benchmarks measure Mockolate's runtime overhead against
 
 <TabItem value="Complete" label="Complete test" default>
 
-A complete unit test: a `ChocolateShop` sells chocolate to three customers with four mocked dependencies. The mocks are set up with exact values, argument matchers and a property, and verified afterwards. Each mocked member is called two or three times, because the last sale fails at the dispenser.
+A complete unit test: a `ChocolateShop` sells chocolate to three customers with four mocked dependencies, each with five to seven members of which the shop uses only some. The mocks are set up with exact values, argument matchers, a predicate, a computed return value, two setups on the same method and a property. The last sale fails at the dispenser, which then raises an event that makes the shop close the register. Afterwards the calls, a call that must not have happened and the property write are verified.
 
 <MockolateBenchmarkResult name="Complete" />
 
@@ -29,17 +29,22 @@ ICashRegister register = ICashRegister.CreateMock();
 IClock clock = IClock.CreateMock();
 IReceiptPrinter printer = IReceiptPrinter.CreateMock();
 dispenser.Mock.Setup.Dispense("Dark", 3).Returns(true);
-register.Mock.Setup.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Returns(true);
+dispenser.Mock.Setup.Dispense("Milk", It.IsAny<int>()).Returns(false);
+register.Mock.Setup.Total(It.IsAny<string>(), It.IsAny<int>()).Returns((_, amount) => amount * PricePerBar);
+register.Mock.Setup.Charge(It.IsAny<string>(), It.Satisfies<decimal>(total => total > 0)).Returns(true);
 clock.Mock.Setup.Now.InitializeWith(Now);
 
 ChocolateShop shop = new(dispenser, register, clock, printer);
 shop.Sell("Alice", "Dark", 3);
 shop.Sell("Bob", "Dark", 3);
 shop.Sell("Carol", "Milk", 2);
+dispenser.Mock.Raise.SoldOut(null, EventArgs.Empty);
 
 register.Mock.Verify.Charge(It.IsAny<string>(), It.IsAny<decimal>()).Exactly(3);
 dispenser.Mock.Verify.Dispense("Dark", 3).Twice();
 printer.Mock.Verify.Print("Alice", It.IsAny<string>()).Once();
+printer.Mock.Verify.Print("Carol", It.IsAny<string>()).Never();
+register.Mock.Verify.IsOpen.Set(false).Once();
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteWorkflowBenchmarks.cs)
@@ -191,6 +196,64 @@ taster.Taste(2);
 
 </TabItem>
 
+<TabItem value="Async" label="Async">
+
+Set up a `Task<int>` and a `ValueTask<bool>` method, then await them and two methods without a setup `N` times each. Then verify one method ran exactly `N` times.
+
+<MockolateBenchmarkResult name="Async" />
+
+```csharp
+IChocolateOrders orders = IChocolateOrders.CreateMock();
+orders.Mock.Setup.PlaceAsync(It.IsAny<string>()).ReturnsAsync(42);
+orders.Mock.Setup.IsAvailableAsync(It.IsAny<string>()).ReturnsAsync(true);
+
+for (int i = 0; i < N; i++)
+{
+    await orders.PlaceAsync("Dark");
+    await orders.IsAvailableAsync("Dark");
+    await orders.CountAsync("Dark");
+    await orders.IsPaidAsync("Dark");
+}
+
+orders.Mock.Verify.PlaceAsync(It.IsAny<string>()).Exactly(N);
+```
+
+[View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/AsyncBenchmarks.cs)
+
+</TabItem>
+
+<TabItem value="Sequence" label="Sequence">
+
+Set up a method that returns two values and then throws, and call it three times. A second method gets another return value after its first call. No method is called more often than it has return values, because the libraries behave differently once a sequence is used up.
+
+<MockolateBenchmarkResult name="Sequence" />
+
+```csharp
+IChocolateOven oven = IChocolateOven.CreateMock();
+oven.Mock.Setup.NextBatch().Returns(1).Returns(2).Throws<InvalidOperationException>();
+IReturnMethodSetupReturnBuilder<int> temperature = oven.Mock.Setup.Temperature().Returns(180);
+
+oven.NextBatch();
+oven.NextBatch();
+try
+{
+    oven.NextBatch();
+}
+catch (InvalidOperationException)
+{
+}
+
+oven.Temperature();
+temperature.Returns(200);
+oven.Temperature();
+
+oven.Mock.Verify.NextBatch().Exactly(3);
+```
+
+[View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/SequenceBenchmarks.cs)
+
+</TabItem>
+
 </Tabs>
 
 <details>
@@ -199,7 +262,7 @@ taster.Taste(2);
 - **Suite**: [`Mockolate.Benchmarks`](https://github.com/Testably/Mockolate/tree/main/Benchmarks/Mockolate.Benchmarks) driven by [BenchmarkDotNet](https://benchmarkdotnet.org/).
 - **Job**: `MediumRun` with the in-process toolchain.
 - **Runner**: `ubuntu-latest` GitHub Actions agent, refreshed on every push to `main`.
-- **Parameters**: Without setup, Method, Property and Indexer repeat their inner body 1, 10 or 1000 times (`N=1`, `N=10`, `N=1000`) to separate the fixed cost from the cost per call and to show how the cost grows for a member that is called many times. Each value can be selected in the chart.
+- **Parameters**: Without setup, Method, Property, Indexer and Async repeat their inner body 1, 10 or 1000 times (`N=1`, `N=10`, `N=1000`) to separate the fixed cost from the cost per call and to show how the cost grows for a member that is called many times. Each value can be selected in the chart.
 - **Charts**: every multiple is relative to Mockolate, and bars longer than four times the fastest library are cut so the others stay comparable. Lower is better.
 - **Trend**: the recent runs compare each library with Mockolate in the same run, so the line does not depend on the speed of the runner. The dashed line marks equal time.
 
