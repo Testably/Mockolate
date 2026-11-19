@@ -91,6 +91,20 @@ public record MockBehavior : IMockBehaviorAccess
 	public bool SkipInteractionRecording { get; init; }
 
 	/// <summary>
+	///     Flag indicating whether un-configured members that return an interface return a mock instead of
+	///     <see langword="null" />.
+	/// </summary>
+	/// <remarks>
+	///     If set to <see langword="true" />, a method, property or indexer whose return type is an interface (also
+	///     wrapped in a <see cref="System.Threading.Tasks.Task{TResult}" /> or <c>ValueTask&lt;TResult&gt;</c>)
+	///     returns a mock of that interface with the same <see cref="MockBehavior" /> when no setup and no default value
+	///     factory provides a value. A method or property creates the mock once, an indexer once per key, so it can be
+	///     configured after the first call through its own <c>Mock</c> property. Interfaces in the <c>System</c>,
+	///     <c>Microsoft</c> and <c>Windows</c> namespaces are not mocked automatically.
+	/// </remarks>
+	public bool AutoMock { get; init; }
+
+	/// <summary>
 	///     The generator for default values when not specified by a setup.
 	/// </summary>
 	/// <remarks>
@@ -149,6 +163,19 @@ public record MockBehavior : IMockBehaviorAccess
 		=> this with
 		{
 			SkipInteractionRecording = skipInteractionRecording,
+		};
+
+	/// <summary>
+	///     Specifies whether un-configured members that return an interface return a mock instead of
+	///     <see langword="null" />.
+	/// </summary>
+	/// <remarks>
+	///     Sets the <see cref="AutoMock" /> to <paramref name="autoMock" />.
+	/// </remarks>
+	public MockBehavior AutoMocking(bool autoMock = true)
+		=> this with
+		{
+			AutoMock = autoMock,
 		};
 
 	/// <summary>
@@ -287,6 +314,11 @@ public record MockBehavior : IMockBehaviorAccess
 		if (SkipInteractionRecording)
 		{
 			(parts ??= []).Add(nameof(SkippingInteractionRecording));
+		}
+
+		if (AutoMock)
+		{
+			(parts ??= []).Add(nameof(AutoMocking));
 		}
 
 		string baseString = parts is null

@@ -646,7 +646,8 @@ internal static partial class Sources
 			}
 
 			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ")
-				.AppendDefaultValueGeneratorFor(delegateMethod.ReturnType, $"this.{mockRegistryName}.Behavior.DefaultValue")
+				.AppendDefaultValueGeneratorFor(delegateMethod.ReturnType, $"this.{mockRegistryName}.Behavior.DefaultValue",
+					autoMock: MethodAutoMock($"this.{mockRegistryName}", memberIdRef))
 				.Append(';').AppendLine();
 		}
 	}

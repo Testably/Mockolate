@@ -148,11 +148,13 @@ namespace Mockolate
     {
         protected MockBehavior(Mockolate.MockBehavior original) { }
         public MockBehavior(Mockolate.IDefaultValueGenerator defaultValue) { }
+        public bool AutoMock { get; init; }
         public Mockolate.IDefaultValueGenerator DefaultValue { get; }
         protected virtual System.Type EqualityContract { get; }
         public bool SkipBaseClass { get; init; }
         public bool SkipInteractionRecording { get; init; }
         public bool ThrowWhenNotSetup { get; init; }
+        public Mockolate.MockBehavior AutoMocking(bool autoMock = true) { }
         public override bool Equals(object? obj) { }
         public virtual bool Equals(Mockolate.MockBehavior? other) { }
         public override int GetHashCode() { }

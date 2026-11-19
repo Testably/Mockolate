@@ -51,8 +51,15 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 			}
 		}
 
+		IsAutoMockable = types.Length == 1 && MockGeneratorHelpers.IsAutoMockable(types[0]);
+
 		_mockSurfaceHash = ComputeMockSurfaceHash();
 	}
+
+	/// <summary>
+	///     Whether this mock can be returned as an auto-mock (see <see cref="Type.IsAutoMockable" />).
+	/// </summary>
+	public bool IsAutoMockable { get; }
 
 	public Method? Delegate { get; }
 

@@ -43,6 +43,14 @@ public sealed partial class MockGenerationSnapshotTests
     internal static readonly IReadOnlyList<SnapshotScenario> Scenarios =
     [
         new(
+            "AutoMock_CanBeCreated",
+            ["IAutoMockRoot.cs", "Packet.cs",],
+            """
+            IAutoMockRoot sut1 = IAutoMockRoot.CreateMock();
+            AutoMockChildFactory sut2 = AutoMockChildFactory.CreateMock();
+            """,
+            []),
+        new(
             "BaseClass_WithMultipleAdditionalInterfaces_CanBeCreated",
             ["ComprehensiveAbstractClass.cs", "MyAbstractBase.cs", "ICombinationMockA.cs", "ICombinationMockB.cs",],
             """

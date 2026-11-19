@@ -188,6 +188,15 @@ public sealed partial class MockTests
 	public sealed class CreateSnapshotTests
 	{
 		[Test]
+		public async Task AutoMock_CanBeCreated()
+		{
+			IAutoMockRoot sut1 = IAutoMockRoot.CreateMock();
+			AutoMockChildFactory sut2 = AutoMockChildFactory.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+		}
+
+		[Test]
 		public async Task BaseClass_WithMultipleAdditionalInterfaces_CanBeCreated()
 		{
 			ComprehensiveAbstractClass sut = ComprehensiveAbstractClass.CreateMock()

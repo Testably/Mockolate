@@ -1,10 +1,11 @@
 using System.Text;
+using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Sources;
 
 internal static partial class Sources
 {
-	public static string MockBehaviorExtensions(bool includeHttpClient)
+	public static string MockBehaviorExtensions(bool includeHttpClient, EquatableArray<string> autoMockableTypes)
 	{
 		StringBuilder sb = InitializeBuilder();
 
@@ -23,6 +24,13 @@ internal static partial class Sources
 		          	static Mock()
 		          	{
 		          		_default = new global::Mockolate.MockBehavior(new DefaultValueGenerator());
+		          """).AppendLine();
+		if (autoMockableTypes.Count > 0)
+		{
+			sb.Append("\t\tglobal::Mockolate.Internals.AutoMocks.Register(CreateAutoMock);").AppendLine();
+		}
+
+		sb.Append("""
 		          	}
 		          	
 		          	extension(global::Mockolate.MockBehavior)
@@ -42,7 +50,31 @@ internal static partial class Sources
 		          		/// </remarks>
 		          		public static global::Mockolate.MockBehavior Default => _default;
 		          	}
-		          	
+		          """).AppendLine();
+		sb.Append('\t').AppendLine();
+		if (autoMockableTypes.Count > 0)
+		{
+			sb.Append("\t/// <summary>").AppendLine();
+			sb.Append("\t///     Creates an auto-mock of the <paramref name=\"type\" /> with the <paramref name=\"behavior\" />, or returns").AppendLine();
+			sb.Append("\t///     <see langword=\"null\" /> when this compilation generates no mock of the <paramref name=\"type\" />.").AppendLine();
+			sb.Append("\t/// </summary>").AppendLine();
+			sb.Append("\tprivate static object? CreateAutoMock(global::System.Type type, global::Mockolate.MockBehavior behavior)").AppendLine();
+			sb.Append("\t{").AppendLine();
+			foreach (string autoMockableType in autoMockableTypes)
+			{
+				sb.Append("\t\tif (type == typeof(").Append(autoMockableType).Append("))").AppendLine();
+				sb.Append("\t\t{").AppendLine();
+				sb.Append("\t\t\treturn ").Append(autoMockableType).Append(".CreateMock(behavior);").AppendLine();
+				sb.Append("\t\t}").AppendLine();
+				sb.AppendLine();
+			}
+
+			sb.Append("\t\treturn null;").AppendLine();
+			sb.Append("\t}").AppendLine();
+			sb.Append('\t').AppendLine();
+		}
+
+		sb.Append("""
 		          	/// <summary>
 		          	///     Defines a factory for creating default values for a specified type.
 		          	/// </summary>

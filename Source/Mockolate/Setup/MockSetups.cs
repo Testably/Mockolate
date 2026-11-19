@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading;
+using Mockolate.Internals;
 
 namespace Mockolate.Setup;
 
@@ -13,7 +15,33 @@ namespace Mockolate.Setup;
 #endif
 internal partial class MockSetups : MockScenarioSetup
 {
+	private Dictionary<int, object>? _autoMocks;
+
 	internal Dictionary<string, MockScenarioSetup>? Scenarios { get; private set; }
+
+	/// <summary>
+	///     Returns the auto-mock cached for <paramref name="memberId" />, or creates and caches one of the
+	///     <paramref name="type" />, so that the member keeps returning the same configurable mock.
+	/// </summary>
+	public object? GetOrAddAutoMock(int memberId, Type type, MockBehavior behavior)
+	{
+		Dictionary<int, object> autoMocks = LazyInitializer.EnsureInitialized(ref _autoMocks)!;
+		lock (autoMocks)
+		{
+			if (autoMocks.TryGetValue(memberId, out object? existing))
+			{
+				return existing;
+			}
+
+			object? created = AutoMocks.Create(type, behavior);
+			if (created is not null)
+			{
+				autoMocks[memberId] = created;
+			}
+
+			return created;
+		}
+	}
 
 	public MockScenarioSetup GetOrCreateScenario(string setupScenario)
 	{

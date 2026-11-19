@@ -204,9 +204,15 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<bool> includeHttpClient = collectedMocks
 			.Select(static (arr, _) => arr.AsArray().Any(m => m.ClassFullName == "global::System.Net.Http.HttpClient"));
 
-		context.RegisterSourceOutput(includeHttpClient.Combine(externAliases), static (spc, source) =>
+		IncrementalValueProvider<EquatableArray<string>> autoMockableTypes = collectedMocks
+			.Select(static (arr, _) => new EquatableArray<string>(arr.AsArray()
+				.Where(m => m.IsAutoMockable && IsValidMockDeclaration(m))
+				.Select(m => m.ClassFullName)
+				.ToArray()));
+
+		context.RegisterSourceOutput(includeHttpClient.Combine(autoMockableTypes).Combine(externAliases), static (spc, source) =>
 			spc.AddSource("MockBehaviorExtensions.g.cs",
-				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left), source.Right)));
+				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left.Left, source.Left.Right), source.Right)));
 
 		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute and
 		// CallerArgumentExpressionAttribute from another generator (PolySharp); any other value is a ';'-separated
@@ -496,7 +502,8 @@ public class MockGenerator : IIncrementalGenerator
 			return new EquatableArray<NamedMock>([]);
 		}
 
-		HashSet<string> classNames = new(StringComparer.OrdinalIgnoreCase);
+		// Reserved for the auto-mock factory that MockBehaviorExtensions.g.cs declares in the same class.
+		HashSet<string> classNames = new(StringComparer.OrdinalIgnoreCase) { "CreateAutoMock", };
 		Dictionary<string, string> baseClassNames = new(StringComparer.Ordinal);
 		List<NamedMock> result = new(arr.Length);
 		HashSet<string> seenBaseClasses = new(StringComparer.Ordinal);

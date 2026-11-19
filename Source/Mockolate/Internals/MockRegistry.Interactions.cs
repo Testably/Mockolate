@@ -421,7 +421,7 @@ public partial class MockRegistry
 			throw new MockNotSetupException($"{access} was accessed without prior setup.");
 		}
 
-		TResult value = Behavior.DefaultValue.GenerateTyped<TResult>();
+		TResult value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TResult>());
 		access.StoreValue(value);
 		return value;
 	}

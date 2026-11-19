@@ -618,7 +618,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 		}
 		else
 		{
-			currentValue = TryCast(behavior.DefaultValue.GenerateTyped<TValue>(), out TValue casted, behavior)
+			currentValue = TryCast(AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>()), out TValue casted, behavior)
 				? casted
 				: default!;
 		}
@@ -691,7 +691,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 		}
 		else
 		{
-			currentValue = behavior.DefaultValue.GenerateTyped<TValue>();
+			currentValue = AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>());
 		}
 
 		currentValue = ExecuteGetterCallbacks(p1, currentValue);
@@ -1567,7 +1567,7 @@ public class IndexerSetup<TValue, T1, T2>(
 		}
 		else
 		{
-			currentValue = TryCast(behavior.DefaultValue.GenerateTyped<TValue>(), out TValue casted, behavior)
+			currentValue = TryCast(AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>()), out TValue casted, behavior)
 				? casted
 				: default!;
 		}
@@ -1640,7 +1640,7 @@ public class IndexerSetup<TValue, T1, T2>(
 		}
 		else
 		{
-			currentValue = behavior.DefaultValue.GenerateTyped<TValue>();
+			currentValue = AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>());
 		}
 
 		currentValue = ExecuteGetterCallbacks(p1, p2, currentValue);
@@ -2533,7 +2533,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 		}
 		else
 		{
-			currentValue = TryCast(behavior.DefaultValue.GenerateTyped<TValue>(), out TValue casted, behavior)
+			currentValue = TryCast(AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>()), out TValue casted, behavior)
 				? casted
 				: default!;
 		}
@@ -2606,7 +2606,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 		}
 		else
 		{
-			currentValue = behavior.DefaultValue.GenerateTyped<TValue>();
+			currentValue = AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>());
 		}
 
 		currentValue = ExecuteGetterCallbacks(p1, p2, p3, currentValue);
@@ -3509,7 +3509,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 		}
 		else
 		{
-			currentValue = TryCast(behavior.DefaultValue.GenerateTyped<TValue>(), out TValue casted, behavior)
+			currentValue = TryCast(AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>()), out TValue casted, behavior)
 				? casted
 				: default!;
 		}
@@ -3582,7 +3582,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 		}
 		else
 		{
-			currentValue = behavior.DefaultValue.GenerateTyped<TValue>();
+			currentValue = AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>());
 		}
 
 		currentValue = ExecuteGetterCallbacks(p1, p2, p3, p4, currentValue);

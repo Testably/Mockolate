@@ -27,6 +27,11 @@ public interface ILemonadeDispenser
 {
     bool DispenseLemonade(int amount);
 }
+
+public interface IShop
+{
+    IChocolateDispenser GetDispenser();
+}
 ```
 
 </details>
@@ -123,6 +128,7 @@ The flags can also be set with a `with` expression, e.g. `MockBehavior.Default w
 | `ThrowingWhenNotSetup()`              | off               | Throws a `MockNotSetupException` when no matching setup is found, instead of returning a default value.                                                                         |
 | `SkippingBaseClass()`                 | off               | Class mocks no longer call the base class implementation; without a setup they return a default value instead.                                                                  |
 | `SkippingInteractionRecording()`      | off               | Interactions are not recorded. Setups, return values, callbacks and base class calls still work, but every verification throws a `MockException`. Useful in performance-sensitive scenarios. |
+| `AutoMocking()`                       | off               | Members that return an interface return a mock instead of `null` (see [Auto-mocking](#auto-mocking)).                                                                            |
 | `WithDefaultValueFor<T>(…)`           | sensible defaults | Customizes the default value for type `T` (see below).                                                                                                                          |
 | `Initialize<T>(…)`                    | -                 | Applies the given setups to every mock of type `T` created with this behavior.                                                                                                  |
 | `UseConstructorParametersFor<T>(…)`   | -                 | Default constructor arguments for mocks of class `T`, used unless you pass explicit arguments to `CreateMock([…])`. The `Func<object?[]>` overload creates them anew for each mock. |
@@ -156,6 +162,25 @@ MockBehavior behavior = MockBehavior.Default
 ```
 
 For full control, implement `IDefaultValueGenerator` and pass it to the `MockBehavior(IDefaultValueGenerator)` constructor, or replace the generator of an existing behavior with `.WithDefaultValueGenerator(…)`. Factories registered with `WithDefaultValueFor` are kept and take precedence over the generator, in whichever order you call the methods.
+
+### Auto-mocking
+
+With `AutoMocking()`, a method, property, indexer or delegate that returns an interface, also as `Task<T>` or `ValueTask<T>`, returns a mock of that interface instead of `null` when no setup and no default value factory provides a value. This lets the code under test walk a chain like `context.Services.GetRepository().Find(id)` without a setup for every link:
+
+```csharp
+IShop shop = IShop.CreateMock(MockBehavior.Default.AutoMocking());
+
+IChocolateDispenser dispenser = shop.GetDispenser();
+dispenser.Mock.Setup.Dispense(It.IsAny<string>(), It.IsAny<int>()).Returns(true);
+
+await That(shop.GetDispenser().Dispense("Dark", 5)).IsTrue();
+```
+
+- Each method, property and delegate creates its auto-mock once and then keeps returning it, independent of the arguments, so you can configure and verify it through its own `Mock` property after the first call. An indexer stores one auto-mock per key, like any other value it returns.
+- `out` parameters keep their default value and are not auto-mocked.
+- The auto-mock uses the same `MockBehavior`, so its own interface members are auto-mocked as well.
+- Interfaces in the `System`, `Microsoft` and `Windows` namespaces are not auto-mocked and still return `null`.
+- The source generator creates mocks for all interfaces reachable through return types of a mocked type, also without `AutoMocking()`.
 
 ## Implementing additional interfaces
 

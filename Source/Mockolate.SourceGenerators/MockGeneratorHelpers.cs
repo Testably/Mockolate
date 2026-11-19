@@ -144,6 +144,10 @@ internal static class MockGeneratorHelpers
 				if (IsMockable(rootType))
 				{
 					yield return CreateMockClass(semanticModel.Compilation, [rootType!, ..collectedTypes,]);
+					foreach (MockClass additionalMockClass in DiscoverMockableTypes([rootType!, ..collectedTypes,], semanticModel.Compilation))
+					{
+						yield return additionalMockClass;
+					}
 				}
 			}
 		}
@@ -152,15 +156,90 @@ internal static class MockGeneratorHelpers
 	private static MockClass CreateMockClass(Compilation compilation, params ITypeSymbol[] types)
 		=> new(Array.ConvertAll(types, type => type.WithDynamicAsObject(compilation)), compilation);
 
+	/// <summary>
+	///     Whether an un-configured member returning <paramref name="typeSymbol" /> can return an auto-mock.
+	/// </summary>
+	/// <remarks>
+	///     Framework interfaces are excluded, because mocking them transitively would generate mocks for large parts
+	///     of the base class library.
+	/// </remarks>
+	internal static bool IsAutoMockable(ITypeSymbol typeSymbol)
+		=> typeSymbol is INamedTypeSymbol { TypeKind: TypeKind.Interface, } namedTypeSymbol &&
+		   IsMockable(namedTypeSymbol) &&
+		   !IsFrameworkNamespace(namedTypeSymbol.ContainingNamespace);
+
+	private static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
+	{
+		while (namespaceSymbol is { ContainingNamespace.IsGlobalNamespace: false, })
+		{
+			namespaceSymbol = namespaceSymbol.ContainingNamespace;
+		}
+
+		return namespaceSymbol?.Name is "System" or "Microsoft" or "Windows";
+	}
+
+	private static ITypeSymbol UnwrapTask(ITypeSymbol typeSymbol)
+		=> typeSymbol is INamedTypeSymbol
+		{
+			TypeArguments.Length: 1,
+			Name: "Task" or "ValueTask",
+			ContainingNamespace:
+			{
+				Name: "Tasks",
+				ContainingNamespace:
+				{
+					Name: "Threading", ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+				},
+			},
+		} task
+			? task.TypeArguments[0]
+			: typeSymbol;
+
+	private static IEnumerable<ITypeSymbol> GetAutoMockableReturnTypes(ITypeSymbol typeSymbol)
+	{
+		IEnumerable<ITypeSymbol> types = [typeSymbol, ..typeSymbol.AllInterfaces,];
+		for (ITypeSymbol? baseType = typeSymbol.BaseType; baseType is not null; baseType = baseType.BaseType)
+		{
+			types = types.Append(baseType);
+		}
+
+		foreach (ISymbol member in types.SelectMany(type => type.GetMembers())
+			         .Where(member => member.IsAbstract || member.IsVirtual || member.IsOverride ||
+			                          member is IMethodSymbol { MethodKind: MethodKind.DelegateInvoke, }))
+		{
+			ITypeSymbol? returnType = member switch
+			{
+				IMethodSymbol { IsStatic: false, MethodKind: MethodKind.Ordinary or MethodKind.DelegateInvoke, ReturnsVoid: false, } method => method.ReturnType,
+				IPropertySymbol { IsStatic: false, } property => property.Type,
+				_ => null,
+			};
+			if (returnType is not null && UnwrapTask(returnType) is { } candidate && IsAutoMockable(candidate))
+			{
+				yield return candidate;
+			}
+		}
+	}
+
 	private static IEnumerable<MockClass> DiscoverMockableTypes(IEnumerable<ITypeSymbol> initialTypes,
 		Compilation compilation)
 	{
+		IAssemblySymbol sourceAssembly = compilation.Assembly;
 		Queue<ITypeSymbol> typesToProcess = new(initialTypes);
 		HashSet<ITypeSymbol> processedTypes = new(typesToProcess, SymbolEqualityComparer.Default);
 
 		while (typesToProcess.Count > 0)
 		{
 			ITypeSymbol currentType = typesToProcess.Dequeue();
+
+			foreach (ITypeSymbol returnType in GetAutoMockableReturnTypes(currentType))
+			{
+				ITypeSymbol unannotated = returnType.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
+				if (processedTypes.Add(unannotated))
+				{
+					yield return CreateMockClass(compilation, unannotated);
+					typesToProcess.Enqueue(unannotated);
+				}
+			}
 
 			// When using HttpClient as a mock, we also have to create a mock of the HttpMessageHandler, that can be used as constructor parameter.
 			if (currentType.Name == "HttpClient" &&

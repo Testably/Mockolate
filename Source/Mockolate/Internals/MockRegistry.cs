@@ -191,6 +191,28 @@ public partial class MockRegistry
 	public void TransitionTo(string scenario)
 		=> GetOrCreateScenarioState().Current = scenario;
 
+	/// <summary>
+	///     Returns <paramref name="value" />, or, when it is <see langword="null" /> and
+	///     <see cref="MockBehavior.AutoMock" /> is enabled, the auto-mock of <typeparamref name="TResult" /> for the method with the given <paramref name="memberId" />.
+	/// </summary>
+	/// <remarks>
+	///     The auto-mock is created once per method, independent of the arguments, and shared with every registry
+	///     that shares the setups, so that repeated calls return the same configurable instance.
+	/// </remarks>
+	/// <typeparam name="TResult">The return type of the method.</typeparam>
+	/// <param name="memberId">The generator-emitted member id of the method.</param>
+	/// <param name="value">The default value the behavior produced for the method.</param>
+	/// <returns>The <paramref name="value" /> or the auto-mock.</returns>
+	public TResult AutoMockOr<TResult>(int memberId, TResult value)
+	{
+		if (value is not null || !Behavior.AutoMock)
+		{
+			return value;
+		}
+
+		return Setup.GetOrAddAutoMock(memberId, typeof(TResult), Behavior) is TResult mock ? mock : value;
+	}
+
 	private ScenarioState GetOrCreateScenarioState()
 	{
 		if (_scenarioState is { } existing)
