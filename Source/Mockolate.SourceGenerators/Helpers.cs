@@ -188,6 +188,13 @@ internal static class Helpers
 		=> SyntaxFacts.GetKeywordKind(name) != SyntaxKind.None ? "@" + name : name;
 
 	/// <summary>
+	///     Whether a property or event of this name on an interface mock hides the methods of the same name that the
+	///     mock inherits from <see cref="object" /> (CS0108).
+	/// </summary>
+	public static bool IsObjectMethodName(string name)
+		=> name is "Equals" or "GetHashCode" or "GetType" or "ToString" or "MemberwiseClone" or "ReferenceEquals";
+
+	/// <summary>
 	///     Generates a unique local variable name that does not conflict with any parameter names.
 	/// </summary>
 	/// <param name="baseName">The base name for the variable (e.g., "result", "methodExecution")</param>
