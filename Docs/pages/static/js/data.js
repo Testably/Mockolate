@@ -1434,6 +1434,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -1675,7 +1681,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -1920,7 +1927,8 @@ window.BENCHMARK_DATA = {
           158.71200476373946,
           201.24457687991006,
           165.29329238619124,
-          198.08771986227768
+          198.08771986227768,
+          168.13941637674967
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2151,6 +2159,7 @@ window.BENCHMARK_DATA = {
           888,
           888,
           800,
+          792,
           792,
           792,
           792,
@@ -2423,7 +2432,8 @@ window.BENCHMARK_DATA = {
           60324.798767089844,
           104759.50629882813,
           60148.85517229353,
-          103091.48153921273
+          103091.48153921273,
+          36093.55110990084
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2673,7 +2683,8 @@ window.BENCHMARK_DATA = {
           9055,
           9056,
           9055,
-          9056
+          9056,
+          9046
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2926,7 +2937,8 @@ window.BENCHMARK_DATA = {
           3506.12273641733,
           4639.848207600911,
           3570.976369417631,
-          4459.172074890137
+          4459.172074890137,
+          3029.9197352091473
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3087,6 +3099,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -3429,7 +3442,8 @@ window.BENCHMARK_DATA = {
           3461.270259094238,
           4572.272297450474,
           3533.962208048503,
-          4574.138746643066
+          4574.138746643066,
+          3097.2314814249676
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3679,7 +3693,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6930,
-          6930
+          6930,
+          6924
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3932,7 +3947,8 @@ window.BENCHMARK_DATA = {
           164.08118087904793,
           194.7907156785329,
           172.3870596545083,
-          196.08066555169913
+          196.08066555169913,
+          187.62309006055196
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4098,6 +4114,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -4435,7 +4452,8 @@ window.BENCHMARK_DATA = {
           400.0404988697597,
           446.9105981190999,
           389.7993886311849,
-          459.6941069285075
+          459.6941069285075,
+          408.18325437818254
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -4596,6 +4614,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -6133,6 +6152,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -6374,7 +6399,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -6619,7 +6645,8 @@ window.BENCHMARK_DATA = {
           116.10691326005119,
           193.10782580375673,
           112.38457764112033,
-          84.55335237582524
+          84.55335237582524,
+          118.27185875574747
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -6850,6 +6877,7 @@ window.BENCHMARK_DATA = {
           752,
           752,
           704,
+          696,
           696,
           696,
           696,
@@ -7122,7 +7150,8 @@ window.BENCHMARK_DATA = {
           10544.418664550782,
           12956.080004882813,
           10871.87904575893,
-          7125.243147786458
+          7125.243147786458,
+          10648.28462437221
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7372,7 +7401,8 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12761,
-          12760
+          12760,
+          12761
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7625,7 +7655,8 @@ window.BENCHMARK_DATA = {
           4214.280495234898,
           5283.969250605656,
           3989.670214139498,
-          2737.3694249471027
+          2737.3694249471027,
+          4398.418204752604
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7786,6 +7817,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -8128,7 +8160,8 @@ window.BENCHMARK_DATA = {
           196808.89859444756,
           156513.61111886162,
           194215.0658830915,
-          103557.68430873325
+          103557.68430873325,
+          194702.46686662946
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8378,7 +8411,8 @@ window.BENCHMARK_DATA = {
           15619,
           15579,
           15618,
-          15619
+          15619,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8631,7 +8665,8 @@ window.BENCHMARK_DATA = {
           148.0020176887512,
           221.6060644728797,
           141.09779467582703,
-          102.80708623727163
+          102.80708623727163,
+          150.3681809425354
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8772,6 +8807,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -9134,7 +9170,8 @@ window.BENCHMARK_DATA = {
           131.12897404034933,
           249.81460986818587,
           122.90804961749485,
-          92.90640606329991
+          92.90640606329991,
+          132.74988307952881
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -9268,6 +9305,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -10832,6 +10870,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -11073,7 +11117,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -11318,7 +11363,8 @@ window.BENCHMARK_DATA = {
           335.7123878683363,
           323.3639259974162,
           348.5477596282959,
-          245.61336551393782
+          245.61336551393782,
+          414.12753534317017
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11549,6 +11595,7 @@ window.BENCHMARK_DATA = {
           1952,
           1736,
           1656,
+          1648,
           1648,
           1648,
           1648,
@@ -11821,7 +11868,8 @@ window.BENCHMARK_DATA = {
           141724.57341657366,
           139557.9119140625,
           141396.86125837054,
-          61245.330505371094
+          61245.330505371094,
+          227588.62265625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12071,7 +12119,8 @@ window.BENCHMARK_DATA = {
           21003,
           20804,
           20804,
-          21264
+          21264,
+          20692
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12324,7 +12373,8 @@ window.BENCHMARK_DATA = {
           7554.3175532023115,
           7179.662442525228,
           7698.946036783854,
-          4810.864547729492
+          4810.864547729492,
+          10551.614483642577
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12574,7 +12624,8 @@ window.BENCHMARK_DATA = {
           13056,
           13088,
           13088,
-          13088
+          13088,
+          13032
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12827,7 +12878,8 @@ window.BENCHMARK_DATA = {
           7524.673771158854,
           7120.953296407064,
           7584.923045567104,
-          4790.433920796712
+          4790.433920796712,
+          10716.768409220378
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13072,6 +13124,7 @@ window.BENCHMARK_DATA = {
           13706,
           13586,
           13583,
+          13593,
           13593,
           13593,
           13593,
@@ -13330,7 +13383,8 @@ window.BENCHMARK_DATA = {
           249.39546526395358,
           244.5446574006762,
           252.5704220363072,
-          198.42172207832337
+          198.42172207832337,
+          299.29546516282215
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13580,6 +13634,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1096,
           1096
         ],
         "borderColor": "#E84393",
@@ -13629,7 +13684,8 @@ window.BENCHMARK_DATA = {
           627.6099301746914,
           587.5830085754394,
           607.7959499359131,
-          451.7332297007243
+          451.7332297007243,
+          745.3098652521769
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -13641,6 +13697,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          2784,
           2784,
           2784,
           2784,
@@ -15123,6 +15180,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -15364,7 +15427,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -15609,7 +15673,8 @@ window.BENCHMARK_DATA = {
           950.4568408330282,
           893.1527343896719,
           947.9630526224772,
-          746.6309509277344
+          746.6309509277344,
+          1310.3222642262776
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15840,6 +15905,7 @@ window.BENCHMARK_DATA = {
           2888,
           2672,
           2592,
+          2584,
           2584,
           2584,
           2584,
@@ -16112,7 +16178,8 @@ window.BENCHMARK_DATA = {
           150023.47394670759,
           147210.7279924665,
           151551.71324869792,
-          64772.914045061385
+          64772.914045061385,
+          237045.78186035156
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16362,7 +16429,8 @@ window.BENCHMARK_DATA = {
           30602,
           30403,
           30403,
-          30860
+          30860,
+          29284
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16615,7 +16683,8 @@ window.BENCHMARK_DATA = {
           17944.352954101563,
           17788.373408390926,
           18276.011122639975,
-          12274.958204142253
+          12274.958204142253,
+          24771.590309651692
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16865,7 +16934,8 @@ window.BENCHMARK_DATA = {
           26161,
           26193,
           26193,
-          26193
+          26193,
+          26137
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17118,7 +17188,8 @@ window.BENCHMARK_DATA = {
           15879.626534016927,
           16119.647386823382,
           16316.538873291016,
-          10346.755403645833
+          10346.755403645833,
+          23498.62206217448
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17368,7 +17439,8 @@ window.BENCHMARK_DATA = {
           33247,
           33247,
           33249,
-          33249
+          33249,
+          33247
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17621,7 +17693,8 @@ window.BENCHMARK_DATA = {
           616.8803267161052,
           592.0261144638062,
           609.2242645263672,
-          417.60668996175133
+          417.60668996175133,
+          727.8650981585184
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17871,6 +17944,7 @@ window.BENCHMARK_DATA = {
           2176,
           2176,
           2176,
+          2176,
           2176
         ],
         "borderColor": "#E84393",
@@ -17920,7 +17994,8 @@ window.BENCHMARK_DATA = {
           1932.5842931111654,
           1849.509328024728,
           2147.5238552093506,
-          1584.9658130645753
+          1584.9658130645753,
+          2396.6085695902507
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17932,6 +18007,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          5496,
           5496,
           5496,
           5496,
@@ -19414,6 +19490,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -19655,7 +19737,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -19900,7 +19983,8 @@ window.BENCHMARK_DATA = {
           127.41150414148966,
           129.60017706553143,
           108.75386547247568,
-          116.567427444458
+          116.567427444458,
+          146.66196269989013
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20131,6 +20215,7 @@ window.BENCHMARK_DATA = {
           664,
           664,
           608,
+          600,
           600,
           600,
           600,
@@ -20403,7 +20488,8 @@ window.BENCHMARK_DATA = {
           77257.44910481772,
           113788.19461495536,
           113463.64519856771,
-          114226.42895507812
+          114226.42895507812,
+          196164.100062779
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20653,7 +20739,8 @@ window.BENCHMARK_DATA = {
           14906,
           14914,
           14914,
-          14914
+          14914,
+          14902
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20906,7 +20993,8 @@ window.BENCHMARK_DATA = {
           4338.939843314035,
           4575.218464987619,
           4503.224195861816,
-          4624.281374417818
+          4624.281374417818,
+          5994.754705301921
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21153,6 +21241,7 @@ window.BENCHMARK_DATA = {
           9320,
           9264,
           9264,
+          9320,
           9320,
           9320,
           9320,
@@ -21409,7 +21498,8 @@ window.BENCHMARK_DATA = {
           4055.682386125837,
           4294.84600016276,
           4223.764718862681,
-          4257.333356730143
+          4257.333356730143,
+          5761.408573913574
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21657,6 +21747,7 @@ window.BENCHMARK_DATA = {
           8160,
           8160,
           8153,
+          8160,
           8160,
           8160,
           8160
@@ -21912,7 +22003,8 @@ window.BENCHMARK_DATA = {
           145.75760315014765,
           141.6576418195452,
           139.8265264715467,
-          146.1186397756849
+          146.1186397756849,
+          170.95067630495345
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22078,6 +22170,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -22415,7 +22508,8 @@ window.BENCHMARK_DATA = {
           390.86316900253297,
           371.4962087313334,
           375.04387048085533,
-          366.23405202229816
+          366.23405202229816,
+          442.0626078923543
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22549,6 +22643,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -24113,6 +24208,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -24354,7 +24455,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -24599,7 +24701,8 @@ window.BENCHMARK_DATA = {
           324.19654578429004,
           296.1904812225929,
           289.6795225824629,
-          296.77450367382596
+          296.77450367382596,
+          373.0126928091049
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24830,6 +24933,7 @@ window.BENCHMARK_DATA = {
           1168,
           1168,
           1112,
+          1104,
           1104,
           1104,
           1104,
@@ -25102,7 +25206,8 @@ window.BENCHMARK_DATA = {
           79067.09875488281,
           118402.00196940104,
           116648.33283342634,
-          116641.7928141276
+          116641.7928141276,
+          200417.87657877605
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25352,7 +25457,8 @@ window.BENCHMARK_DATA = {
           18883,
           18906,
           18906,
-          18906
+          18906,
+          18901
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25605,7 +25711,8 @@ window.BENCHMARK_DATA = {
           6601.651960754394,
           6781.116542271206,
           6744.573759460449,
-          6765.807899475098
+          6765.807899475098,
+          9690.085345676967
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25855,7 +25962,8 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12344,
-          12344
+          12344,
+          12345
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -26108,7 +26216,8 @@ window.BENCHMARK_DATA = {
           6848.029665120443,
           6986.704336983817,
           6489.361721801758,
-          6932.769248453776
+          6932.769248453776,
+          9697.605898030599
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26358,7 +26467,8 @@ window.BENCHMARK_DATA = {
           16391,
           16394,
           16394,
-          16394
+          16394,
+          16393
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26611,7 +26721,8 @@ window.BENCHMARK_DATA = {
           309.0626633350666,
           283.67574345270793,
           277.00092244148254,
-          292.84992462793986
+          292.84992462793986,
+          345.0091987337385
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26777,6 +26888,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -27114,7 +27226,8 @@ window.BENCHMARK_DATA = {
           1320.4374145507813,
           1151.2720480600992,
           1124.248621259417,
-          1092.3268957138062
+          1092.3268957138062,
+          1345.9794314066569
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -27248,6 +27361,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -28812,6 +28926,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -29053,7 +29173,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -29298,7 +29419,8 @@ window.BENCHMARK_DATA = {
           187.49131764684404,
           257.0552298227946,
           187.57974551405226,
-          197.5632993221283
+          197.5632993221283,
+          240.68442215238298
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -29529,6 +29651,7 @@ window.BENCHMARK_DATA = {
           984,
           984,
           920,
+          904,
           904,
           904,
           904,
@@ -29801,7 +29924,8 @@ window.BENCHMARK_DATA = {
           7648.996329171317,
           10661.593148367745,
           7530.505961100261,
-          7967.924534098307
+          7967.924534098307,
+          10691.7517351423
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -30051,7 +30175,8 @@ window.BENCHMARK_DATA = {
           10568,
           10569,
           10568,
-          10568
+          10568,
+          10569
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -30304,7 +30429,8 @@ window.BENCHMARK_DATA = {
           5324.356314522879,
           7424.536880493164,
           5261.551405225481,
-          5718.547282879169
+          5718.547282879169,
+          7395.770643615722
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -30551,6 +30677,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -30807,7 +30934,8 @@ window.BENCHMARK_DATA = {
           5425.647395833334,
           7972.005631510417,
           5148.096755981445,
-          5782.690204075405
+          5782.690204075405,
+          8016.185917445591
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -31052,6 +31180,7 @@ window.BENCHMARK_DATA = {
           11191,
           11276,
           11191,
+          11196,
           11196,
           11196,
           11196,
@@ -31310,7 +31439,8 @@ window.BENCHMARK_DATA = {
           131.83495389498196,
           171.18671076638358,
           131.6715545654297,
-          136.61778151988983
+          136.61778151988983,
+          169.27332517078943
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -31476,6 +31606,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -31813,7 +31944,8 @@ window.BENCHMARK_DATA = {
           333.8536482879094,
           438.0306733335768,
           331.3877285810617,
-          368.13145519892373
+          368.13145519892373,
+          421.7943588036757
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -32009,6 +32141,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -33511,6 +33644,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -33752,7 +33891,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -33997,7 +34137,8 @@ window.BENCHMARK_DATA = {
           492.57160676320393,
           612.4335220336914,
           477.15295626322427,
-          510.9215609232585
+          510.9215609232585,
+          572.5959021704538
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -34228,6 +34369,7 @@ window.BENCHMARK_DATA = {
           1848,
           1848,
           1784,
+          1768,
           1768,
           1768,
           1768,
@@ -34500,7 +34642,8 @@ window.BENCHMARK_DATA = {
           12532.011330159505,
           17119.67782156808,
           12197.978622436523,
-          12885.122357881986
+          12885.122357881986,
+          17384.242100016276
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34745,6 +34888,7 @@ window.BENCHMARK_DATA = {
           18504,
           18505,
           18504,
+          18505,
           18505,
           18505,
           18505,
@@ -35003,7 +35147,8 @@ window.BENCHMARK_DATA = {
           12432.033752441406,
           17743.716459147134,
           12110.88298361642,
-          13213.425118582589
+          13213.425118582589,
+          16765.58221130371
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -35250,6 +35395,7 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21553,
+          21529,
           21529,
           21529,
           21529,
@@ -35506,7 +35652,8 @@ window.BENCHMARK_DATA = {
           12480.027339390346,
           20553.268471272786,
           12583.746372477213,
-          14032.5339617048
+          14032.5339617048,
+          19135.433430989582
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35751,6 +35898,7 @@ window.BENCHMARK_DATA = {
           30780,
           30866,
           30780,
+          30785,
           30785,
           30785,
           30785,
@@ -36009,7 +36157,8 @@ window.BENCHMARK_DATA = {
           248.822560106005,
           352.27229700088503,
           257.55177710851035,
-          265.2886348451887
+          265.2886348451887,
+          306.84548002878824
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -36175,6 +36324,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -36512,7 +36662,8 @@ window.BENCHMARK_DATA = {
           1186.4361998694283,
           1523.219981765747,
           1178.8055955446684,
-          1409.7518099466959
+          1409.7518099466959,
+          1529.5944217954363
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -36708,6 +36859,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -38210,6 +38362,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -38451,7 +38609,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -38696,7 +38855,8 @@ window.BENCHMARK_DATA = {
           11.65672917664051,
           12.729933780431747,
           11.61132563451926,
-          15.49306998848915
+          15.49306998848915,
+          16.148741350571314
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -38926,6 +39086,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -39199,7 +39360,8 @@ window.BENCHMARK_DATA = {
           74.40400652090709,
           75.61592439810435,
           65.89453542232513,
-          93.63138313293457
+          93.63138313293457,
+          87.73256045977274
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -39365,6 +39527,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -39702,7 +39865,8 @@ window.BENCHMARK_DATA = {
           23.099174280961353,
           22.35035473746913,
           19.83276999913729,
-          27.687922314802805
+          27.687922314802805,
+          27.889563447237016
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -39836,6 +40000,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -40205,7 +40370,8 @@ window.BENCHMARK_DATA = {
           815.6755203882853,
           952.1216910226004,
           805.9852016889132,
-          1291.3472915649413
+          1291.3472915649413,
+          1318.1918969835554
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -40366,6 +40532,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -40708,7 +40875,8 @@ window.BENCHMARK_DATA = {
           1118.8601969310216,
           1326.8951696668353,
           1185.907783126831,
-          1597.4641684214273
+          1597.4641684214273,
+          1919.9700525919595
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -40869,6 +41037,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -41211,7 +41380,8 @@ window.BENCHMARK_DATA = {
           948.3948334966387,
           1132.2596035639444,
           1077.1022365570068,
-          1360.049891090393
+          1360.049891090393,
+          1553.938652583531
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -41461,7 +41631,8 @@ window.BENCHMARK_DATA = {
           2750,
           2755,
           2755,
-          2751
+          2751,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -41811,6 +41982,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -41869,7 +42046,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -41931,7 +42109,8 @@ window.BENCHMARK_DATA = {
           1169.0815786997478,
           638.9358324050903,
           747.6146604537964,
-          926.051956876119
+          926.051956876119,
+          1162.9000202178954
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -41979,6 +42158,7 @@ window.BENCHMARK_DATA = {
           3168,
           3168,
           2904,
+          2872,
           2872,
           2872,
           2872,
@@ -42068,7 +42248,8 @@ window.BENCHMARK_DATA = {
           1107.1271736962456,
           624.684638150533,
           710.5242815653484,
-          945.0700868606567
+          945.0700868606567,
+          1091.6528867994036
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -42098,6 +42279,7 @@ window.BENCHMARK_DATA = {
           2968,
           2968,
           2968,
+          3248,
           3248,
           3248,
           3248,
@@ -42205,7 +42387,8 @@ window.BENCHMARK_DATA = {
           3325.576717376709,
           1937.0776854197184,
           2150.634163783147,
-          2685.165884145101
+          2685.165884145101,
+          3295.158176422119
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -42235,6 +42418,7 @@ window.BENCHMARK_DATA = {
           9528,
           9528,
           9528,
+          10544,
           10544,
           10544,
           10544,
@@ -42342,7 +42526,8 @@ window.BENCHMARK_DATA = {
           541898.619140625,
           155310.63224283853,
           164534.93052164713,
-          201684.6240985577
+          201684.6240985577,
+          536098.3423227164
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42409,7 +42594,8 @@ window.BENCHMARK_DATA = {
           47343,
           47661,
           47254,
-          47392
+          47392,
+          47391
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42479,7 +42665,8 @@ window.BENCHMARK_DATA = {
           24884.905989426832,
           12660.947151184082,
           13368.505186898368,
-          19012.829653058732
+          19012.829653058732,
+          24309.179850987024
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42546,7 +42733,8 @@ window.BENCHMARK_DATA = {
           38020,
           38019,
           37571,
-          38017
+          38017,
+          38020
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42616,7 +42804,8 @@ window.BENCHMARK_DATA = {
           23931.03545328776,
           11872.35459798177,
           12922.731773376465,
-          15763.866274152484
+          15763.866274152484,
+          24367.669583834133
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -42683,7 +42872,8 @@ window.BENCHMARK_DATA = {
           35047,
           35047,
           35047,
-          35090
+          35090,
+          35127
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -42919,6 +43109,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -42958,7 +43154,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -43001,7 +43198,8 @@ window.BENCHMARK_DATA = {
           23216.61875406901,
           21207.946816580636,
           20743.340138753254,
-          21253.936356608072
+          21253.936356608072,
+          26894.77000325521
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -43030,6 +43228,7 @@ window.BENCHMARK_DATA = {
           56608,
           56608,
           56552,
+          56544,
           56544,
           56544,
           56544,
@@ -43100,7 +43299,8 @@ window.BENCHMARK_DATA = {
           18561.92459716797,
           17343.177799479166,
           16904.963150024414,
-          17470.278200589695
+          17470.278200589695,
+          20776.070368448894
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -43112,6 +43312,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          40688,
           40688,
           40688,
           40688,
@@ -43199,7 +43400,8 @@ window.BENCHMARK_DATA = {
           107144.02355143228,
           80176.0314453125,
           78298.06685384114,
-          81426.21794026693
+          81426.21794026693,
+          96318.52926432292
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -43229,6 +43431,7 @@ window.BENCHMARK_DATA = {
           203585,
           203585,
           203584,
+          203585,
           203585,
           203585,
           203585,
@@ -43298,7 +43501,8 @@ window.BENCHMARK_DATA = {
           244769.36293945313,
           297420.5970377604,
           280947.39505440847,
-          287301.5750976562
+          287301.5750976562,
+          388938.59694010415
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -43344,6 +43548,7 @@ window.BENCHMARK_DATA = {
           431938,
           431938,
           431908,
+          431938,
           431938,
           431938,
           431938
@@ -43397,7 +43602,8 @@ window.BENCHMARK_DATA = {
           219074.96111653646,
           238962.32364327568,
           256500.69942801338,
-          231617.02840750557
+          231617.02840750557,
+          327874.936593192
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -43445,7 +43651,8 @@ window.BENCHMARK_DATA = {
           378018,
           378037,
           378038,
-          378037
+          378037,
+          378038
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -43496,7 +43703,8 @@ window.BENCHMARK_DATA = {
           281713.0645833333,
           293826.31865234376,
           275857.14013671875,
-          304070.51689453126
+          304070.51689453126,
+          373139.4827799479
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43544,7 +43752,8 @@ window.BENCHMARK_DATA = {
           944522,
           944402,
           944402,
-          944402
+          944402,
+          944362
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43780,6 +43989,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -43819,7 +44034,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -43862,7 +44078,8 @@ window.BENCHMARK_DATA = {
           31817.50521615835,
           42566.188728841145,
           31587.02867780413,
-          33073.727669852124
+          33073.727669852124,
+          38042.92722167969
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -43891,6 +44108,7 @@ window.BENCHMARK_DATA = {
           96888,
           96888,
           96824,
+          96808,
           96808,
           96808,
           96808,
@@ -43961,7 +44179,8 @@ window.BENCHMARK_DATA = {
           13173.2197465163,
           17800.33337198893,
           13322.806094360352,
-          13530.741197713216
+          13530.741197713216,
+          16600.69155069987
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44004,6 +44223,7 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641,
@@ -44060,7 +44280,8 @@ window.BENCHMARK_DATA = {
           89544.48693847656,
           121419.76513671875,
           89935.34295654297,
-          106010.52130998884
+          106010.52130998884,
+          115088.82925851004
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -44102,6 +44323,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -44159,7 +44381,8 @@ window.BENCHMARK_DATA = {
           514141.79440104164,
           692652.3222005208,
           542972.0415039062,
-          534991.7539876302
+          534991.7539876302,
+          671776.8832682292
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44207,7 +44430,8 @@ window.BENCHMARK_DATA = {
           836541,
           836541,
           836541,
-          836540
+          836540,
+          836541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44258,7 +44482,8 @@ window.BENCHMARK_DATA = {
           765194.2871844952,
           1122731.8393229167,
           786515.6220052083,
-          844721.9764973958
+          844721.9764973958,
+          1128055.5963541667
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -44306,7 +44531,8 @@ window.BENCHMARK_DATA = {
           1139701,
           1139703,
           1139701,
-          1139701
+          1139701,
+          1139703
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -44357,7 +44583,8 @@ window.BENCHMARK_DATA = {
           915178.7649739584,
           1368137.547154018,
           966979.1083333333,
-          1040603.5111177885
+          1040603.5111177885,
+          1252722.8079427083
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -44403,6 +44630,7 @@ window.BENCHMARK_DATA = {
           2194325,
           2194290,
           2194325,
+          2194290,
           2194290,
           2194290,
           2194290
@@ -44641,6 +44869,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -44680,7 +44914,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -44723,7 +44958,8 @@ window.BENCHMARK_DATA = {
           68326.07088797433,
           64929.77171107701,
           67785.08856608073,
-          58868.79085693359
+          58868.79085693359,
+          95929.02585274832
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44771,7 +45007,8 @@ window.BENCHMARK_DATA = {
           105544,
           105545,
           105545,
-          105544
+          105544,
+          105545
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44822,7 +45059,8 @@ window.BENCHMARK_DATA = {
           39611.7506266276,
           39171.71926175631,
           39439.967545572916,
-          25908.930136544364
+          25908.930136544364,
+          47975.383768717445
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44865,6 +45103,7 @@ window.BENCHMARK_DATA = {
           120981,
           120977,
           120980,
+          120981,
           120981,
           120981,
           120981,
@@ -44921,7 +45160,8 @@ window.BENCHMARK_DATA = {
           790174.9079427083,
           756490.5286458334,
           793480.9692708333,
-          452603.9201660156
+          452603.9201660156,
+          998791.0844401042
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44969,7 +45209,8 @@ window.BENCHMARK_DATA = {
           1030807,
           1030606,
           1030606,
-          1031060
+          1031060,
+          918604
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45020,7 +45261,8 @@ window.BENCHMARK_DATA = {
           1220505.7094401042,
           1232672.6700613839,
           1276723.5895833333,
-          845499.6834635417
+          845499.6834635417,
+          1595756.0044642857
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45068,7 +45310,8 @@ window.BENCHMARK_DATA = {
           1500791,
           1500823,
           1500823,
-          1500815
+          1500815,
+          1500767
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45119,7 +45362,8 @@ window.BENCHMARK_DATA = {
           1077007.7005208333,
           1057588.8137555805,
           1136737.2024739583,
-          697008.3503605769
+          697008.3503605769,
+          1491733.5611049107
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45167,7 +45411,8 @@ window.BENCHMARK_DATA = {
           2204674,
           2204674,
           2204674,
-          2204669
+          2204669,
+          2204674
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45216,7 +45461,8 @@ window.BENCHMARK_DATA = {
           142587.92972005208,
           140656.90938313803,
           162787.94418945312,
-          120532.3913922991
+          120532.3913922991,
+          177852.47817382813
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -45228,6 +45474,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          300713,
           300713,
           300713,
           300713,
@@ -45450,6 +45697,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -45481,7 +45734,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -45516,7 +45770,8 @@ window.BENCHMARK_DATA = {
           332.7524409634726,
           431.5449076652527,
           250.37340100606283,
-          534.6398536137173
+          534.6398536137173,
+          463.15101583187396
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -45537,6 +45792,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1520,
+          1512,
           1512,
           1512,
           1512,
@@ -45599,7 +45855,8 @@ window.BENCHMARK_DATA = {
           221.57354380403245,
           254.43999134699504,
           164.13535506384713,
-          312.3813384691874
+          312.3813384691874,
+          281.46686547143116
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -45611,6 +45868,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -45682,7 +45940,8 @@ window.BENCHMARK_DATA = {
           424.3395765849522,
           515.6212952295939,
           331.7283585866292,
-          583.1857545035226
+          583.1857545035226,
+          549.2332063357036
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -45694,6 +45953,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -45765,7 +46025,8 @@ window.BENCHMARK_DATA = {
           70400.54711914062,
           37304.96266392299,
           31012.45040690104,
-          92801.93007114956
+          92801.93007114956,
+          115272.42275766227
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45805,7 +46066,8 @@ window.BENCHMARK_DATA = {
           10030,
           10009,
           10031,
-          10141
+          10141,
+          10030
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45848,7 +46110,8 @@ window.BENCHMARK_DATA = {
           5261.456020355225,
           5678.57158610026,
           3803.3185982337363,
-          7257.179107079139
+          7257.179107079139,
+          7824.817535400391
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45888,7 +46151,8 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10248,
-          10248
+          10248,
+          10416
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45931,7 +46195,8 @@ window.BENCHMARK_DATA = {
           5126.7362589518225,
           4894.565518697103,
           3664.652496631329,
-          7296.43503516061
+          7296.43503516061,
+          7765.045026652018
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45971,7 +46236,8 @@ window.BENCHMARK_DATA = {
           11853,
           11848,
           11853,
-          11853
+          11853,
+          11854
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46159,6 +46425,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -46190,7 +46462,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -46225,7 +46498,8 @@ window.BENCHMARK_DATA = {
           1284.5805812248816,
           1557.930336380005,
           1018.1150472005208,
-          1811.2191912333171
+          1811.2191912333171,
+          2003.3180077870686
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46246,6 +46520,7 @@ window.BENCHMARK_DATA = {
           4296,
           4296,
           3992,
+          3984,
           3984,
           3984,
           3984,
@@ -46308,7 +46583,8 @@ window.BENCHMARK_DATA = {
           797.6313769022623,
           901.7374247233073,
           612.2732365471976,
-          1067.2552361121545
+          1067.2552361121545,
+          1003.7641347249349
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46320,6 +46596,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -46391,7 +46668,8 @@ window.BENCHMARK_DATA = {
           2683.930714416504,
           3147.995972442627,
           2091.793346150716,
-          3439.9736506144204
+          3439.9736506144204,
+          3407.4607285090856
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -46403,6 +46681,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -46474,7 +46753,8 @@ window.BENCHMARK_DATA = {
           81871.32944161551,
           52907.873888288224,
           38189.53516060965,
-          107500.4827786959
+          107500.4827786959,
+          129918.3039876302
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46514,7 +46794,8 @@ window.BENCHMARK_DATA = {
           25114,
           25108,
           25114,
-          25226
+          25226,
+          25115
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46557,7 +46838,8 @@ window.BENCHMARK_DATA = {
           16616.090706961495,
           15679.107427978515,
           11225.61088663737,
-          21264.272354125977
+          21264.272354125977,
+          24998.085123697918
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46597,7 +46879,8 @@ window.BENCHMARK_DATA = {
           23481,
           23480,
           23481,
-          23481
+          23481,
+          25665
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46640,7 +46923,8 @@ window.BENCHMARK_DATA = {
           19882.964813232422,
           20497.360441080727,
           13771.233580525715,
-          28483.240452067057
+          28483.240452067057,
+          27200.852022443498
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46679,6 +46963,7 @@ window.BENCHMARK_DATA = {
           55213,
           55216,
           55213,
+          55216,
           55216,
           55216
         ],
@@ -46868,6 +47153,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Wed Nov 18 21:57:23 2026 \u002B0100",
         "message": "fix: emit \u0060default\u0060 for a defaulted parameter of a type parameter type (#1051)"
+      },
+      {
+        "sha": "d39bae363af39e35d6d17feb936ca34b3898681a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Wed Nov 18 22:21:44 2026 \u002B0100",
+        "message": "feat: report a type that is mocked in spellings that differ only in tuple names or nullability (#1052)"
       }
     ],
     "labels": [
@@ -46899,7 +47190,8 @@ window.BENCHMARK_DATA = {
       "b4d17ebe",
       "036c4f77",
       "76cd080f",
-      "b62283cf"
+      "b62283cf",
+      "d39bae36"
     ],
     "datasets": [
       {
@@ -46934,7 +47226,8 @@ window.BENCHMARK_DATA = {
           105224.26166992188,
           128283.03797200522,
           86574.40999348958,
-          139135.77471516927
+          139135.77471516927,
+          152048.53891601562
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46955,6 +47248,7 @@ window.BENCHMARK_DATA = {
           273576,
           273577,
           273273,
+          273265,
           273265,
           273265,
           273265,
@@ -47017,7 +47311,8 @@ window.BENCHMARK_DATA = {
           63855.01766357422,
           75408.55868094308,
           52121.82174479167,
-          85620.45397135416
+          85620.45397135416,
+          78322.97596842448
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -47056,6 +47351,7 @@ window.BENCHMARK_DATA = {
           208881,
           208883,
           208881,
+          208883,
           208883,
           208883
         ],
@@ -47100,7 +47396,8 @@ window.BENCHMARK_DATA = {
           256664.64368489583,
           300757.84453125,
           200157.38038853236,
-          321781.3798502604
+          321781.3798502604,
+          295860.6558919271
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -47140,6 +47437,7 @@ window.BENCHMARK_DATA = {
           707794,
           707794,
           707793,
+          707794,
           707794
         ],
         "borderColor": "#FF8C00",
@@ -47183,7 +47481,8 @@ window.BENCHMARK_DATA = {
           1149044.20390625,
           1079653.7009114583,
           771590.438671875,
-          1538422.8604910714
+          1538422.8604910714,
+          1488716.123798077
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47223,7 +47522,8 @@ window.BENCHMARK_DATA = {
           1692679,
           1692566,
           1692670,
-          1692791
+          1692791,
+          1692679
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47266,7 +47566,8 @@ window.BENCHMARK_DATA = {
           1255227.8454026442,
           1081038.205924479,
           848686.9516276042,
-          1555341.2614182692
+          1555341.2614182692,
+          1798311.9619140625
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47306,7 +47607,8 @@ window.BENCHMARK_DATA = {
           1468914,
           1468806,
           1468907,
-          1468915
+          1468915,
+          1692894
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47349,7 +47651,8 @@ window.BENCHMARK_DATA = {
           2156013.564583333,
           2245833.1684895833,
           1477469.2095424107,
-          3095480.9924665177
+          3095480.9924665177,
+          2758825.3307291665
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47389,7 +47692,8 @@ window.BENCHMARK_DATA = {
           4803383,
           4803189,
           4803368,
-          4803385
+          4803385,
+          4803367
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
