@@ -69,6 +69,12 @@ internal static class MockGeneratorHelpers
 				// When using HttpClient as a mock, we also have to create a mock of the HttpMessageHandler, that can be used as constructor parameter.
 				yield return new MockClass([httpMessageHandlerType,], semanticModel.Compilation);
 			}
+
+			if (types.Length == 1 && GetLoggerOfLoggerFactory(types[0]) is { } loggerType)
+			{
+				// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
+				yield return new MockClass([loggerType,], semanticModel.Compilation);
+			}
 		}
 	}
 
@@ -499,6 +505,30 @@ internal static class MockGeneratorHelpers
 				.Select(p => p.Type)
 				.First(t => t.Name == "HttpMessageHandler")
 			: null;
+
+	private static ITypeSymbol? GetLoggerOfLoggerFactory(ITypeSymbol type)
+		=> type.TypeKind == TypeKind.Interface &&
+		   new[] { type, }.Concat(type.AllInterfaces).FirstOrDefault(IsLoggerFactoryType) is { } loggerFactoryType
+			? loggerFactoryType.GetMembers("CreateLogger")
+				.OfType<IMethodSymbol>()
+				.First()
+				.ReturnType
+			: null;
+
+	private static bool IsLoggerFactoryType(ITypeSymbol type)
+		=> type is
+		   {
+			   Name: "ILoggerFactory",
+			   ContainingNamespace:
+			   {
+				   Name: "Logging",
+				   ContainingNamespace:
+				   {
+					   Name: "Extensions",
+					   ContainingNamespace: { Name: "Microsoft", ContainingNamespace.IsGlobalNamespace: true, },
+				   },
+			   },
+		   };
 
 	/// <summary>
 	///     The mocks for auto-mocking: of the interfaces that the members of the <paramref name="mockedTypes" /> return,

@@ -145,7 +145,14 @@ internal static partial class Sources
 			sb.Append(",").AppendLine();
 		}
 
-		sb.Append("\t\tglobal::Mockolate.IMock").AppendLine();
+		Class? loggingClass = allMemberClasses.FirstOrDefault(IsLogger) ?? allMemberClasses.FirstOrDefault(IsLoggerFactory);
+		sb.Append("\t\tglobal::Mockolate.IMock");
+		if (loggingClass is not null)
+		{
+			AppendLoggerAccessDeclaration(sb, loggingClass);
+		}
+
+		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 
 		memberIds.Emit(sb, "\t\t");
@@ -177,6 +184,11 @@ internal static partial class Sources
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock that also implements ").Append(string.Join(", ", additionalInterfaces.Select(x => x.Class.DisplayString))).Append("\";").AppendLine();
+		if (loggingClass is not null)
+		{
+			AppendLoggerAccessImplementation(sb, loggingClass, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
+		}
+
 		sb.AppendLine();
 
 		if (!@class.IsInterface && constructors is not null)

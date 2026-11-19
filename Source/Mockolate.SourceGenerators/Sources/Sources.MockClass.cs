@@ -17,7 +17,8 @@ internal static partial class Sources
 		AutoMockingOptions? autoMocking,
 		bool hasOverloadResolutionPriority = false,
 		(string Name, Class Class)[]? hiddenBaseInterfaces = null,
-		bool useUnionOverloads = false)
+		bool useUnionOverloads = false,
+		bool hasFakeLogger = false)
 	{
 		hiddenBaseInterfaces ??= [];
 		EquatableArray<Method>? constructors = (@class as MockClass)?.Constructors;
@@ -138,7 +139,9 @@ internal static partial class Sources
 			sb.Append(",").AppendLine();
 		}
 
-		sb.Append("\t\tglobal::Mockolate.IMock").AppendLine();
+		sb.Append("\t\tglobal::Mockolate.IMock");
+		AppendLoggerAccessDeclaration(sb, @class);
+		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 
 		memberIds.Emit(sb, "\t\t", @class is { ClassFullName: "global::System.Net.Http.HttpClient", } ? "global::Mockolate.Mock.HttpMessageHandler.MemberCount" : null);
@@ -194,6 +197,7 @@ internal static partial class Sources
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock\";").AppendLine();
+		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 		sb.AppendLine();
 
 		if (@class.IsInterface)
@@ -353,13 +357,16 @@ internal static partial class Sources
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
-		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name).AppendLine();
+		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name);
+		AppendLoggerAccessDeclaration(sb, @class);
+		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; } = mockRegistry;").AppendLine();
+		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 		sb.AppendLine();
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
-		
+
 		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 		
 		sb.Append("\t\t#endregion IMockVerifyFor").Append(name).AppendLine();
@@ -380,6 +387,7 @@ internal static partial class Sources
 			sb.Append(", global::Mockolate.Mock.IMockProtectedSetupFor").Append(name);
 		}
 
+		AppendLoggerAccessDeclaration(sb, @class);
 		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
@@ -390,6 +398,7 @@ internal static partial class Sources
 		sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(" = mockRegistry;").AppendLine();
 		sb.Append("\t\t\t_scenarioName = scenario;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
+		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "this._scenarioName", memberIds, memberIdPrefix);
 		sb.AppendLine();
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Mock.IMockSetupFor").Append(name).Append(" global::Mockolate.Mock.IMockInScenarioFor").Append(name).Append(".Setup").AppendLine();
@@ -957,6 +966,14 @@ internal static partial class Sources
 			sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
 			AppendUseAutoMockFactory(sb, "\t\t\t", "mockBehavior", autoMocking);
 			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.").Append(name).Append(".MemberCount, constructorParameters);").AppendLine();
+			if (GetDefaultFakeLogger(@class, hasFakeLogger) is { } defaultFakeLogger)
+			{
+				sb.Append("\t\t\tif (!mockBehavior.ThrowWhenNotSetup)").AppendLine();
+				sb.Append("\t\t\t{").AppendLine();
+				sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, (object)").Append(defaultFakeLogger).Append(");").AppendLine();
+				sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(mockRegistry.Behavior));").AppendLine();
+				sb.Append("\t\t\t}").AppendLine();
+			}
 		}
 
 		sb.Append("\t\t\treturn CreateMockInstance(mockRegistry, constructorParameters, setup);").AppendLine();
@@ -1141,10 +1158,11 @@ internal static partial class Sources
 		sb.Append("\t\t\tvar behaviorAccess = (global::Mockolate.IMockBehaviorAccess)behavior;").AppendLine();
 		sb.Append("\t\t\treturn behaviorAccess.Set(setup);").AppendLine();
 		sb.Append("\t\t}").AppendLine();
-		
+
 		#endregion Initialize
 
 		sb.Append("\t}").AppendLine();
+		AppendLoggerMockExtensions(sb, @class, name, hasFakeLogger);
 
 		#endregion MockBehavior extensions
 
@@ -2494,6 +2512,15 @@ internal static partial class Sources
 		sb.AppendLine();
 		sb.AppendLine("\t\t{");
 
+		if (isClassInterface && IsLoggerLog(method))
+		{
+			sb.Append("\t\t\tglobal::Mockolate.MockolateLogging.DispatchLog(").Append(mockRegistry).Append(", ")
+				.Append(memberIdPrefix).Append(memberIds.GetMethodIdentifier(method)).Append(", ")
+				.Append(string.Join(", ", method.Parameters.Select(p => p.Name))).Append(");").AppendLine();
+			sb.AppendLine("\t\t}");
+			return;
+		}
+
 		// Methods that use a generic type parameter declaring `allows ref struct` in their
 		// signature cannot route through the regular setup pipeline: ReturnMethodSetup<T> /
 		// IReturnMethodSetup<T> do not declare the same anti-constraint, so referencing them
@@ -2877,11 +2904,24 @@ internal static partial class Sources
 				}
 			}
 
-			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ")
-				.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue",
+			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ");
+			if (isClassInterface && IsLoggerIsEnabled(method))
+			{
+				sb.Append("true");
+			}
+			else if (isClassInterface && IsLoggerFactoryCreateLogger(method))
+			{
+				sb.Append("global::Mockolate.MockolateLogging.CreateLogger(").Append(mockRegistry).Append(", ")
+					.Append(method.Parameters.First().Name).Append(')');
+			}
+			else
+			{
+				sb.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue",
 					defaultValueGeneratorSuffix, taskSuffix,
-					MethodAutoMock(autoMocking, mockRegistry, memberIdRef))
-				.Append(';').AppendLine();
+					MethodAutoMock(autoMocking, mockRegistry, memberIdRef));
+			}
+
+			sb.Append(';').AppendLine();
 			if (isRefReturn)
 			{
 				sb.Append("\t\t\treturn ref this.").Append(refReturnStorageField).Append(";").AppendLine();

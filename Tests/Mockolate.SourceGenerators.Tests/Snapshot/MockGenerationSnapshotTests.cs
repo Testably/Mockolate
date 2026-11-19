@@ -8,6 +8,8 @@ using System.Text.RegularExpressions;
 using aweXpect.Core;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 
 namespace Mockolate.SourceGenerators.Tests.Snapshot;
 
@@ -168,6 +170,15 @@ public sealed partial class MockGenerationSnapshotTests
             KeywordEdgeCasesBase sut2 = KeywordEdgeCasesBase.CreateMock("class", 1);
             """,
             []),
+        new(
+            "Logging_CanBeCreated",
+            [],
+            """
+            Microsoft.Extensions.Logging.ILogger sut1 = Microsoft.Extensions.Logging.ILogger.CreateMock();
+            Microsoft.Extensions.Logging.ILogger<Program> sut2 = Microsoft.Extensions.Logging.ILogger<Program>.CreateMock();
+            Microsoft.Extensions.Logging.ILoggerFactory sut3 = Microsoft.Extensions.Logging.ILoggerFactory.CreateMock();
+            """,
+            [typeof(ILogger), typeof(FakeLogger),]),
         new(
             "MethodConstrainedToTypeArgument_CanBeCreated",
             ["IMethodConstrainedToTypeArgument.cs",],
@@ -507,9 +518,10 @@ public sealed partial class MockGenerationSnapshotTests
         }
 
         // The coverage types have no documentation comments, so missing documentation (CS1591) is only checked in
-        // the generated files.
+        // the generated files. The assembly unification of the references (CS1701) is suppressed like in an SDK build.
         return results.ToDictionary(result => result.Key, result => new GeneratedScenario(
             result.Value.Diagnostics
+                .Where(diagnostic => !diagnostic.Contains("CS1701"))
                 .Where(diagnostic => !diagnostic.Contains("CS1591") || diagnostic.Contains(".g.cs("))
                 .ToArray(),
             result.Value.Sources

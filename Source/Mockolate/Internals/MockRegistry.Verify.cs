@@ -84,6 +84,31 @@ public partial class MockRegistry
 	}
 
 	/// <summary>
+	///     Counts the recorded method interactions of type <typeparamref name="TMethod" /> that satisfy
+	///     <paramref name="predicate" />, whatever their method name is.
+	/// </summary>
+	/// <remarks>
+	///     The name of a generic method contains its type arguments, so this verifies the calls of a generic method
+	///     across all of its type arguments.
+	/// </remarks>
+	/// <typeparam name="T">The verification facade type; returned to the caller so chaining can continue.</typeparam>
+	/// <typeparam name="TMethod">The <see cref="IMethodInteraction" /> type to filter on.</typeparam>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="predicate">Argument predicate applied to each interaction of type <typeparamref name="TMethod" />.</param>
+	/// <param name="expectation">Factory producing the expectation description used in failure messages.</param>
+	public VerificationResult<T> VerifyMethodInteractions<T, TMethod>(T subject, Func<TMethod, bool> predicate,
+		Func<string> expectation) where TMethod : IMethodInteraction
+	{
+		return new VerificationResult<T>(subject, Interactions, Predicate, InvokedMethodExpectation(expectation));
+
+		[DebuggerNonUserCode]
+		bool Predicate(IInteraction interaction)
+		{
+			return interaction is TMethod method && predicate(method);
+		}
+	}
+
+	/// <summary>
 	///     Counts getter accesses of the property named <paramref name="propertyName" /> on <paramref name="subject" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
@@ -202,6 +227,11 @@ public partial class MockRegistry
 		if (methodSetup is not IVerifiableMethodSetup verifiableMethodSetup)
 		{
 			throw new MockException("The setup is not verifiable.");
+		}
+
+		if (methodSetup is IGenericMethodSetup)
+		{
+			return new VerificationResult<T>(subject, Interactions, Predicate, InvokedMethodSetupExpectation(methodSetup));
 		}
 
 		return new VerificationResult<T>.IgnoreParameters(
