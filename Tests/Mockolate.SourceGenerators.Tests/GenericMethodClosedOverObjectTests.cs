@@ -17,6 +17,17 @@ public sealed class GenericMethodClosedOverObjectTests
 	                                        int Cmp<T>(T value) where T : IComparable;
 	                                        int Obj(object? value);
 	                                        int TwoObj(int level, object? value);
+	                                        int Mix<T>(T value, params int[] rest);
+	                                        int MixObj(object? value, params int[] rest);
+	                                        int In<T>(in T value);
+	                                        int NotNull<T>(T value) where T : notnull;
+	                                        int New<T>(T value) where T : new();
+	                                        int Unmanaged<T>(T value) where T : unmanaged;
+	                                    }
+
+	                                    public interface IOuter<TC>
+	                                    {
+	                                        int G<T>(T value) where T : TC;
 	                                    }
 	                                    """;
 
@@ -73,6 +84,47 @@ public sealed class GenericMethodClosedOverObjectTests
 	private static readonly OverloadMatrix.Member TwoObj = new("IGen", "TwoObj",
 	[
 		("1,a", "sut.TwoObj(1, \"a\")"), ("1,null", "sut.TwoObj(1, null)"), ("2,a", "sut.TwoObj(2, \"a\")"),
+	]);
+
+	private static readonly OverloadMatrix.Member Mix = new("IGen", "Mix",
+	[
+		("o:a", "sut.Mix<object>(\"a\")"), ("o:a,1", "sut.Mix<object>(\"a\", 1)"), ("o:b", "sut.Mix<object>(\"b\")"),
+		("s:a", "sut.Mix<string>(\"a\")"),
+	]);
+
+	private static readonly OverloadMatrix.Member MixObj = new("IGen", "MixObj",
+	[
+		("a", "sut.MixObj(\"a\")"), ("a,1", "sut.MixObj(\"a\", 1)"), ("b", "sut.MixObj(\"b\")"),
+	]);
+
+	private static readonly OverloadMatrix.Member In = new("IGen", "In",
+	[
+		("o:a", "sut.In<object>(\"a\")"), ("o:1", "sut.In<object>(1)"), ("s:a", "sut.In<string>(\"a\")"),
+	]);
+
+	private static readonly OverloadMatrix.Member NotNull = new("IGen", "NotNull",
+	[
+		("o:a", "sut.NotNull<object>(\"a\")"), ("o:1", "sut.NotNull<object>(1)"), ("s:a", "sut.NotNull<string>(\"a\")"),
+	]);
+
+	private static readonly OverloadMatrix.Member New = new("IGen", "New",
+	[
+		("o:x", "sut.New<object>(\"x\")"), ("o:1", "sut.New<object>(1)"), ("i:1", "sut.New<int>(1)"),
+	]);
+
+	private static readonly OverloadMatrix.Member Unmanaged = new("IGen", "Unmanaged",
+	[
+		("0", "sut.Unmanaged<int>(0)"), ("1", "sut.Unmanaged<int>(1)"),
+	]);
+
+	private static readonly OverloadMatrix.Member OuterObject = new("IOuter<object>", "G",
+	[
+		("o:a", "sut.G<object>(\"a\")"), ("o:1", "sut.G<object>(1)"), ("s:a", "sut.G<string>(\"a\")"),
+	]);
+
+	private static readonly OverloadMatrix.Member OuterString = new("IOuter<string>", "G",
+	[
+		("s:a", "sut.G<string>(\"a\")"), ("s:b", "sut.G<string>(\"b\")"),
 	]);
 
 	private static readonly Group[] Groups =
@@ -178,6 +230,62 @@ public sealed class GenericMethodClosedOverObjectTests
 			<string>(null).AnyParameters() | (string) matches s:a s:null
 			<string>(It.IsAny<string>()) | (IParameter<string>?) matches s:a s:null
 			<int>(default) | (int) matches i:0
+			"""),
+		new(Mix, "a parameters match with an empty trailing params array matches like the IParameters overload", """
+			<object>(Match.AnyParameters()) | (object, params int[]) matches o:a o:a,1 o:b
+			<object>(Match.Parameters(p => p[0] is "a")) | (object, params int[]) matches o:a o:a,1
+			<object>(Match.Parameters(p => p[1] is int[] { Length: 1, })) | (object, params int[]) matches o:a,1
+			<object>(Match.AnyParameters()).AnyParameters() | (object, params int[]) matches o:a o:a,1 o:b
+			<string>(Match.AnyParameters()) | (IParameters) matches s:a
+			"""),
+		new(Mix, "a parameters match next to elements of the params array is a value, as for an object parameter", """
+			<object>(Match.AnyParameters(), 1) | (object, params int[]) matches nothing
+			"""),
+		new(Mix, "matchers and values next to a params array match as for the other methods", """
+			<object>(It.IsAny<string>()) | (object, params int[]) matches o:a o:b
+			<object>(It.Is<object>("a"), 1) | (object, params int[]) matches o:a,1
+			<object>("a") | (object, params int[]) matches o:a
+			<object>("a", 1) | (object, params int[]) matches o:a,1
+			<object>("a").AnyParameters() | (object, params int[]) matches o:a o:a,1 o:b
+			"""),
+		new(MixObj, "a declared object parameter next to a params array binds the IParameters overload", """
+			(Match.AnyParameters()) | (IParameters?) matches everything
+			(Match.AnyParameters(), 1) | (object?, params int[]) matches nothing
+			("a") | (object?, params int[]) matches a
+			"""),
+		new(In, "an in parameter takes a matcher like a value parameter", """
+			<object>(It.IsAny<string>()) | (object) matches o:a
+			<object>(Match.AnyParameters()) | (object) matches o:a o:1
+			<object>("a") | (object) matches o:a
+			<string>("a") | (string) matches s:a
+			"""),
+		new(NotNull, "a notnull constraint can be closed over object", """
+			<object>(It.IsAny<string>()) | (object) matches o:a
+			<object>(Match.AnyParameters()) | (object) matches o:a o:1
+			<object>(1) | (object) matches o:1
+			<string>(It.IsAny<string>()) | (IParameter<string>?) matches s:a
+			"""),
+		new(New, "a new() constraint can be closed over object", """
+			<object>(It.IsAny<int>()) | (object) matches nothing
+			<object>(It.Satisfies<object>(x => x is int)) | (object) matches o:1
+			<object>(Match.AnyParameters()) | (object) matches o:x o:1
+			<int>(1) | (int) matches i:1
+			"""),
+		new(Unmanaged, "an unmanaged constraint cannot be closed over object and did not change", """
+			<int>(1) | (int) matches 1
+			<int>(It.IsAny<int>()) | (IParameter<int>?) matches everything
+			<int>(Match.AnyParameters()) | (IParameters) matches everything
+			"""),
+		new(OuterObject, "a constraint to a type parameter of the mocked type that is closed over object can be object", """
+			<object>(It.IsAny<string>()) | (object) matches o:a
+			<object>(Match.AnyParameters()) | (object) matches o:a o:1
+			<object>(1) | (object) matches o:1
+			<string>(It.IsAny<string>()) | (IParameter<string>?) matches s:a
+			"""),
+		new(OuterString, "a constraint to a type parameter of the mocked type that is closed over a sealed class cannot be object", """
+			<string>("a") | (string) matches s:a
+			<string>(It.IsAny<string>()) | (IParameter<string>?) matches everything
+			<string>(Match.AnyParameters()) | (IParameters) matches everything
 			"""),
 	];
 

@@ -1156,7 +1156,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<T, T, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Generic<T>(T MockRegistry, global::Mockolate.Parameters.IParameter<int>? _scenarioName)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry, null), global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry), global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Generic_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1174,7 +1174,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<T, T, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Generic<T>(T MockRegistry, int _scenarioName)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry, null), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(_scenarioName));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(_scenarioName));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Generic_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1377,7 +1377,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<T, T, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.GenericLocals<T>(T __i, global::Mockolate.Parameters.IParameter<int>? name_methodSetup)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i, null), global::Mockolate.CovariantParameterAdapter<int>.Wrap(name_methodSetup ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i), global::Mockolate.CovariantParameterAdapter<int>.Wrap(name_methodSetup ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_GenericLocals_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1395,7 +1395,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<T, T, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.GenericLocals<T>(T __i, int name_methodSetup)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i, null), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(name_methodSetup));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(name_methodSetup));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_GenericLocals_T_, methodSetup);
 			return methodSetup;
 		}
@@ -1934,7 +1934,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Generic<T>(T MockRegistry, global::Mockolate.Parameters.IParameter<int>? _scenarioName)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(_scenarioName is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(object?)MockRegistry ?? "null"}, {(object?)_scenarioName ?? "null"})");
@@ -1949,7 +1949,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.Generic<T>(T MockRegistry, int _scenarioName)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(_scenarioName, __i.Parameter2)), () => $"Generic<T>({(object?)MockRegistry ?? "null"}, {(object?)_scenarioName ?? "null"})");
@@ -2113,7 +2113,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.GenericLocals<T>(T __i, global::Mockolate.Parameters.IParameter<int>? name_methodSetup)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", __i1 => 
 				(__match1.Matches(__i1.Parameter1)) && 
 				(name_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(name_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))), () => $"GenericLocals<T>({(object?)__i ?? "null"}, {(object?)name_methodSetup ?? "null"})");
@@ -2128,7 +2128,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.GenericLocals<T>(T __i, int name_methodSetup)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", __i1 => 
 				(__match1.Matches(__i1.Parameter1)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(name_methodSetup, __i1.Parameter2)), () => $"GenericLocals<T>({(object?)__i ?? "null"}, {(object?)name_methodSetup ?? "null"})");
@@ -2634,7 +2634,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.Generic<T>(T MockRegistry, global::Mockolate.Parameters.IParameter<int>? _scenarioName)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(_scenarioName is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(object?)MockRegistry ?? "null"}, {(object?)_scenarioName ?? "null"})");
@@ -2649,7 +2649,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.Generic<T>(T MockRegistry, int _scenarioName)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(_scenarioName, __i.Parameter2)), () => $"Generic<T>({(object?)MockRegistry ?? "null"}, {(object?)_scenarioName ?? "null"})");
@@ -2813,7 +2813,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions> IMockVerifyForIParameterNameCollisions.GenericLocals<T>(T __i, global::Mockolate.Parameters.IParameter<int>? name_methodSetup)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", __i1 => 
 				(__match1.Matches(__i1.Parameter1)) && 
 				(name_methodSetup is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(name_methodSetup).Matches(__i1.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i1.Parameter2, default(int))), () => $"GenericLocals<T>({(object?)__i ?? "null"}, {(object?)name_methodSetup ?? "null"})");
@@ -2828,7 +2828,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIParameterNameCollisions>.IgnoreParameters IMockVerifyForIParameterNameCollisions.GenericLocals<T>(T __i, int name_methodSetup)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIParameterNameCollisions, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", __i1 => 
 				(__match1.Matches(__i1.Parameter1)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(name_methodSetup, __i1.Parameter2)), () => $"GenericLocals<T>({(object?)__i ?? "null"}, {(object?)name_methodSetup ?? "null"})");
@@ -3328,7 +3328,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<T, T, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Generic<T>(T MockRegistry, global::Mockolate.Parameters.IParameter<int>? _scenarioName)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry, null), global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry), global::Mockolate.CovariantParameterAdapter<int>.Wrap(_scenarioName ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Generic_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -3346,7 +3346,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<T, T, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.Generic<T>(T MockRegistry, int _scenarioName)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry, null), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(_scenarioName));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.Generic<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(MockRegistry), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(_scenarioName));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_Generic_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -3549,7 +3549,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<T, T, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.GenericLocals<T>(T __i, global::Mockolate.Parameters.IParameter<int>? name_methodSetup)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i, null), global::Mockolate.CovariantParameterAdapter<int>.Wrap(name_methodSetup ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i), global::Mockolate.CovariantParameterAdapter<int>.Wrap(name_methodSetup ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_GenericLocals_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -3567,7 +3567,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<T, T, int> global::Mockolate.Mock.IMockSetupForIParameterNameCollisions.GenericLocals<T>(T __i, int name_methodSetup)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i, null), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(name_methodSetup));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<T, T, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IParameterNameCollisions.GenericLocals<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(__i), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(name_methodSetup));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IParameterNameCollisions.MemberId_GenericLocals_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}

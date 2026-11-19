@@ -22,11 +22,14 @@ internal static partial class Mock
 		global::Mockolate.IMock
 	{
 		internal const int MemberId_Plain_T_ = 0;
-		internal const int MemberId_Two_T_ = 1;
-		internal const int MemberId_Dependent_T__TBase_ = 2;
-		internal const int MemberId_Five_T_ = 3;
-		internal const int MemberId_Struct_T_ = 4;
-		internal const int MemberCount = 5;
+		internal const int MemberId_Get_T_ = 1;
+		internal const int MemberId_Log_T_ = 2;
+		internal const int MemberId_Count_T_ = 3;
+		internal const int MemberId_Two_T_ = 4;
+		internal const int MemberId_Dependent_T__TBase_ = 5;
+		internal const int MemberId_Five_T_ = 6;
+		internal const int MemberId_Struct_T_ = 7;
+		internal const int MemberCount = 8;
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
@@ -171,6 +174,214 @@ internal static partial class Mock
 			{
 				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<T>(T)' was invoked without prior setup.");
 			}
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get{T}(in T)" />
+		public int Get<T>(in T value)
+		{
+			var ref_value = value;
+			global::Mockolate.Setup.ReturnMethodSetup<int, T>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_);
+				string name_methodSetup = $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>";
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, T> s_methodSetup && s_methodSetup.Name == name_methodSetup && s_methodSetup.Matches(ref_value))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, T>>(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, name_methodSetup) is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, T> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches(ref_value))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, T> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, T>>($"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>"))
+				{
+					if (s_methodSetup.Matches(ref_value))
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			int wrappedResult = default!;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation<T>($"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", value));
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject wraps)
+				{
+					wrappedResult = wraps.Get<T>(in value);
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks(value);
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<T>(T)' was invoked without prior setup.");
+			}
+			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
+			{
+				return wrappedResult;
+			}
+			return methodSetup?.TryGetReturnValue(value, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value) });
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])" />
+		public void Log<T>(T value, params int[] rest)
+		{
+			global::Mockolate.Setup.VoidMethodSetup<T, int[]>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_);
+				string name_methodSetup = $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>";
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<T, int[]> s_methodSetup && s_methodSetup.Name == name_methodSetup && s_methodSetup.Matches(value, rest))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<T, int[]>>(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, name_methodSetup) is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.VoidMethodSetup<T, int[]> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches(value, rest))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.VoidMethodSetup<T, int[]> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<T, int[]>>($"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>"))
+				{
+					if (s_methodSetup.Matches(value, rest))
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation<T, int[]>($"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", value, rest));
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject wraps)
+				{
+					wraps.Log<T>(value, rest);
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks(value, rest);
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<T>(T, int[])' was invoked without prior setup.");
+			}
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])" />
+		public int Count<T>(T value, params int[] rest)
+		{
+			global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_);
+				string name_methodSetup = $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>";
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]> s_methodSetup && s_methodSetup.Name == name_methodSetup && s_methodSetup.Matches(value, rest))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>>(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, name_methodSetup) is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches(value, rest))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>>($"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>"))
+				{
+					if (s_methodSetup.Matches(value, rest))
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			int wrappedResult = default!;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				this.MockRegistry.RegisterInteraction(new global::Mockolate.Interactions.MethodInvocation<T, int[]>($"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", value, rest));
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject wraps)
+				{
+					wrappedResult = wraps.Count<T>(value, rest);
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks(value, rest);
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<T>(T, int[])' was invoked without prior setup.");
+			}
+			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
+			{
+				return wrappedResult;
+			}
+			return methodSetup?.TryGetReturnValue(value, rest, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, value, rest) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two{T}(int, T)" />
@@ -474,8 +685,171 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Plain<T>(T value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<T>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Plain_T_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Plain_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Get<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T>.WithParameters(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", parameters, "value");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Get<T>(global::Mockolate.Parameters.IParameter<T>? value)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<T>)(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Get<T>(T value)
+			where T : default
+		{
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersReturnMethodSetup<int, T>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameters(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", parameters, "value", "rest");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(rest));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(T value, params int[] rest)
+			where T : default
+		{
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch && rest is { Length: 0, })
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<T, int[]>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", parametersMatch, "value", "rest");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameters(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", parameters, "value", "rest");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(rest));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(T value, params int[] rest)
+			where T : default
+		{
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch && rest is { Length: 0, })
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersReturnMethodSetup<int, T, int[]>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", parametersMatch, "value", "rest");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, methodSetup);
 			return methodSetup;
 		}
 
@@ -510,7 +884,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Two<T>(global::Mockolate.Parameters.IParameter<int>? level, T value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(level ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(level ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Two_T_, methodSetup);
 			return methodSetup;
 		}
@@ -519,7 +893,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Two<T>(int level, T value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(level), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(level), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Two_T_, methodSetup);
 			return methodSetup;
 		}
@@ -549,7 +923,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null), global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other ?? global::Mockolate.Internals.Matchers.IsNull<TBase?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value), global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other ?? global::Mockolate.Internals.Matchers.IsNull<TBase?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Dependent_T__TBase_, methodSetup);
 			return methodSetup;
 		}
@@ -559,7 +933,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Dependent_T__TBase_, methodSetup);
 			return methodSetup;
 		}
@@ -569,7 +943,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Dependent_T__TBase_, methodSetup);
 			return methodSetup;
 		}
@@ -596,7 +970,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Five<T>(int a, int b, int c, int d, T value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Five<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(a), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(b), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(c), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(d), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Five<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(a), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(b), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(c), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(d), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Five_T_, methodSetup);
 			return methodSetup;
 		}
@@ -647,9 +1021,153 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Plain<T>(T value)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, "value");
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", __i => 
-				(__match1.Matches(__i.Parameter1)), () => $"Plain<T>({(object?)value ?? "null"})");
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"Plain<T>({parametersMatch})" : $"Plain<T>({(object?)value ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Get<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}, () => $"Get<T>({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Get<T>(global::Mockolate.Parameters.IParameter<T>? value)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))), () => $"Get<T>({(object?)value ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Get<T>(T value)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"Get<T>({parametersMatch})" : $"Get<T>({(object?)value ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1), ("rest", __i.Parameter2)]),
+					_ => true
+				}, () => $"Log<T>({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(rest is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter2, default(int[]))), () => $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(rest).Matches(__i.Parameter2)), () => $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
+				(rest is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter2, default(int[]))), () => $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)).Matches(__i.Parameter2)), () => $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Log<T>(T value, params int[] rest)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate && rest is { Length: 0, } ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1), ("rest", __i.Parameter2)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)) && 
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)).Matches(__i.Parameter2)), () => parametersMatch is not null ? $"Log<T>({parametersMatch})" : $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1), ("rest", __i.Parameter2)]),
+					_ => true
+				}, () => $"Count<T>({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(rest is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter2, default(int[]))), () => $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(rest).Matches(__i.Parameter2)), () => $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
+				(rest is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter2, default(int[]))), () => $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)).Matches(__i.Parameter2)), () => $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Count<T>(T value, params int[] rest)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate && rest is { Length: 0, } ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1), ("rest", __i.Parameter2)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)) && 
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)).Matches(__i.Parameter2)), () => parametersMatch is not null ? $"Count<T>({parametersMatch})" : $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Two<T>(global::Mockolate.Parameters.IParameters parameters)
@@ -676,7 +1194,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Two<T>(global::Mockolate.Parameters.IParameter<int>? level, T value)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<int, T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", __i => 
 				(level is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(level).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Two<T>({(object?)level ?? "null"}, {(object?)value ?? "null"})");
@@ -685,7 +1203,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Two<T>(int level, T value)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<int, T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(level, __i.Parameter1)) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Two<T>({(object?)level ?? "null"}, {(object?)value ?? "null"})");
@@ -712,7 +1230,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(other is not null ? global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<TBase?>.Default.Equals(__i.Parameter2, default(TBase?))), () => $"Dependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
@@ -722,7 +1240,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null);
+			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter1, default(T?))) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Dependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
@@ -732,8 +1250,8 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null);
-			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value);
+			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Dependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
@@ -760,7 +1278,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Five<T>(int a, int b, int c, int d, T value)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match5 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match5 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Five<{typeof(T)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, __i.Parameter1)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, __i.Parameter2)) && 
@@ -812,9 +1330,153 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Plain<T>(T value)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, "value");
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", __i => 
-				(__match1.Matches(__i.Parameter1)), () => $"Plain<T>({(object?)value ?? "null"})");
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"Plain<T>({parametersMatch})" : $"Plain<T>({(object?)value ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Get<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}, () => $"Get<T>({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Get<T>(global::Mockolate.Parameters.IParameter<T>? value)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))), () => $"Get<T>({(object?)value ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Get<T>(T value)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"Get<T>({parametersMatch})" : $"Get<T>({(object?)value ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1), ("rest", __i.Parameter2)]),
+					_ => true
+				}, () => $"Log<T>({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(rest is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter2, default(int[]))), () => $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(rest).Matches(__i.Parameter2)), () => $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
+				(rest is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter2, default(int[]))), () => $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)).Matches(__i.Parameter2)), () => $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Log<T>(T value, params int[] rest)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate && rest is { Length: 0, } ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1), ("rest", __i.Parameter2)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)) && 
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)).Matches(__i.Parameter2)), () => parametersMatch is not null ? $"Log<T>({parametersMatch})" : $"Log<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1), ("rest", __i.Parameter2)]),
+					_ => true
+				}, () => $"Count<T>({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(rest is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter2, default(int[]))), () => $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(rest).Matches(__i.Parameter2)), () => $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => 
+				(__match1.Matches(__i.Parameter1)) && 
+				(rest is not null ? global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int[]>.Default.Equals(__i.Parameter2, default(int[]))), () => $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		}
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest)
+			where T : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => 
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)).Matches(__i.Parameter2)), () => $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Count<T>(T value, params int[] rest)
+			where T : default
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate && rest is { Length: 0, } ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T, int[]>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1), ("rest", __i.Parameter2)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)) && 
+				(global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)).Matches(__i.Parameter2)), () => parametersMatch is not null ? $"Count<T>({parametersMatch})" : $"Count<T>({(object?)value ?? "null"}, {(object?)rest ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Two<T>(global::Mockolate.Parameters.IParameters parameters)
@@ -841,7 +1503,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> IMockVerifyForIGenericMethodClosedOverObject.Two<T>(global::Mockolate.Parameters.IParameter<int>? level, T value)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<int, T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", __i => 
 				(level is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(level).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Two<T>({(object?)level ?? "null"}, {(object?)value ?? "null"})");
@@ -850,7 +1512,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Two<T>(int level, T value)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<int, T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(level, __i.Parameter1)) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Two<T>({(object?)level ?? "null"}, {(object?)value ?? "null"})");
@@ -877,7 +1539,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(other is not null ? global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<TBase?>.Default.Equals(__i.Parameter2, default(TBase?))), () => $"Dependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
@@ -887,7 +1549,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null);
+			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T?>.Default.Equals(__i.Parameter1, default(T?))) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Dependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
@@ -897,8 +1559,8 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null);
-			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null);
+			global::Mockolate.Parameters.IParameterMatch<T?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value);
+			global::Mockolate.Parameters.IParameterMatch<TBase?> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<T?, TBase?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Dependent<T, TBase>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
@@ -925,7 +1587,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters IMockVerifyForIGenericMethodClosedOverObject.Five<T>(int a, int b, int c, int d, T value)
 			where T : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<T> __match5 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null);
+			global::Mockolate.Parameters.IParameterMatch<T> __match5 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIGenericMethodClosedOverObject, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, T>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Five<{typeof(T)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, __i.Parameter1)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, __i.Parameter2)) && 
@@ -992,8 +1654,171 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Plain<T>(T value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<T>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Plain_T_, this._scenarioName, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Plain<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Plain_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Get<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T>.WithParameters(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", parameters, "value");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Get<T>(global::Mockolate.Parameters.IParameter<T>? value)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<T>)(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Get<T>(T value)
+			where T : default
+		{
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersReturnMethodSetup<int, T>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, this._scenarioName, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Get_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameters(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", parameters, "value", "rest");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(rest));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Log<T>(T value, params int[] rest)
+			where T : default
+		{
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch && rest is { Length: 0, })
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<T, int[]>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", parametersMatch, "value", "rest");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, this._scenarioName, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Log_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameters parameters)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameters(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", parameters, "value", "rest");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), new global::Mockolate.Internals.ParamsArrayParameterMatch<int>(rest));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(rest ?? global::Mockolate.Internals.Matchers.IsNull<int[]>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest)
+			where T : default
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<T>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T>()), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, T, int[]> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Count<T>(T value, params int[] rest)
+			where T : default
+		{
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch && rest is { Length: 0, })
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersReturnMethodSetup<int, T, int[]>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", parametersMatch, "value", "rest");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, this._scenarioName, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, T, int[]>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count<{typeof(T)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value), global::Mockolate.CovariantParameterAdapter<int[]>.Wrap(global::Mockolate.It.SequenceEquals<int>(rest)));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Count_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -1028,7 +1853,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Two<T>(global::Mockolate.Parameters.IParameter<int>? level, T value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(level ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(level ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Two_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1037,7 +1862,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Two<T>(int level, T value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(level), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(level), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Two_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1067,7 +1892,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null), global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other ?? global::Mockolate.Internals.Matchers.IsNull<TBase?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value), global::Mockolate.CovariantParameterAdapter<TBase?>.Wrap(other ?? global::Mockolate.Internals.Matchers.IsNull<TBase?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Dependent_T__TBase_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1077,7 +1902,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.CovariantParameterAdapter<T?>.Wrap(value ?? global::Mockolate.Internals.Matchers.IsNull<T?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Dependent_T__TBase_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1087,7 +1912,7 @@ internal static partial class Mock
 			where T : default
 			where TBase : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other, null));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<T?, TBase?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Dependent<{typeof(T)}, {typeof(TBase)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<T?>(value), global::Mockolate.Internals.Matchers.IsValueOrMatcher<TBase?>(other));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Dependent_T__TBase_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1114,7 +1939,7 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, T> global::Mockolate.Mock.IMockSetupForIGenericMethodClosedOverObject.Five<T>(int a, int b, int c, int d, T value)
 			where T : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Five<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(a), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(b), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(c), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(d), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, T>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Five<{typeof(T)}>", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(a), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(b), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(c), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.Internals.Matchers.IsValue<int>(d), global::Mockolate.Internals.Matchers.IsValueOrMatcher<T>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IGenericMethodClosedOverObject.MemberId_Five_T_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1292,6 +2117,141 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T> Plain<T>(T value);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get{T}(in T)">Get&lt;T&gt;(in T)</see> with the given <paramref name="parameters" />.
+		/// </summary>
+		/// <remarks>
+		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T> Get<T>(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get{T}(in T)">Get&lt;T&gt;(in T)</see> with the given <paramref name="value"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T> Get<T>(global::Mockolate.Parameters.IParameter<T>? value);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get{T}(in T)">Get&lt;T&gt;(in T)</see> with the given <paramref name="value"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, T> Get<T>(T value);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="parameters" />.
+		/// </summary>
+		/// <remarks>
+		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> Log<T>(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> Log<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="value" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="rest" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> Log<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="rest" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<T, int[]> Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<T, int[]> Log<T>(T value, params int[] rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="parameters" />.
+		/// </summary>
+		/// <remarks>
+		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> Count<T>(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> Count<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="value" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="rest" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> Count<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="rest" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, T, int[]> Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, T, int[]> Count<T>(T value, params int[] rest);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two{T}(int, T)">Two&lt;T&gt;(int, T)</see> with the given <paramref name="parameters" />.
@@ -1483,6 +2443,141 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters Plain<T>(T value);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get{T}(in T)">Get&lt;T&gt;(in T)</see> with the given <paramref name="parameters"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Get<T>(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get{T}(in T)">Get&lt;T&gt;(in T)</see> with the given <paramref name="value"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Get<T>(global::Mockolate.Parameters.IParameter<T>? value);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Get{T}(in T)">Get&lt;T&gt;(in T)</see> with the given <paramref name="value"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters Get<T>(T value);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="parameters"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Log<T>(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Log<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="value" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="rest" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Log<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="rest" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Log<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Log{T}(T, int[])">Log&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters Log<T>(T value, params int[] rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="parameters"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Count<T>(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Count<T>(global::Mockolate.Parameters.IParameter<T>? value, global::Mockolate.Parameters.IParameter<int[]>? rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params global::Mockolate.Parameters.IParameter<int>[] rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="value" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="rest" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Count<T>(T value, global::Mockolate.Parameters.IParameter<int[]>? rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="rest" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="value" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject> Count<T>(global::Mockolate.Parameters.IParameter<T>? value, params int[] rest);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Count{T}(T, int[])">Count&lt;T&gt;(T, int[])</see> with the given <paramref name="value"/>, <paramref name="rest"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIGenericMethodClosedOverObject>.IgnoreParameters Count<T>(T value, params int[] rest);
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IGenericMethodClosedOverObject.Two{T}(int, T)">Two&lt;T&gt;(int, T)</see> with the given <paramref name="parameters"/>.

@@ -726,7 +726,14 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.AcceptClass<U>(U? value)
 			where U : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptClass_U_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptClass_U_, methodSetup);
 			return methodSetup;
 		}
@@ -789,7 +796,14 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.Accept<U>(U? value)
 			where U : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Accept_U_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Accept_U_, methodSetup);
 			return methodSetup;
 		}
@@ -825,7 +839,14 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.AcceptVirtual<U>(U? value)
 			where U : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptVirtual_U_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptVirtual_U_, methodSetup);
 			return methodSetup;
 		}
@@ -868,7 +889,7 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first, null), global::Mockolate.CovariantParameterAdapter<V>.Wrap(second ?? global::Mockolate.Internals.Matchers.IsNull<V>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first), global::Mockolate.CovariantParameterAdapter<V>.Wrap(second ?? global::Mockolate.Internals.Matchers.IsNull<V>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, methodSetup);
 			return methodSetup;
 		}
@@ -878,7 +899,7 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.CovariantParameterAdapter<U?>.Wrap(first ?? global::Mockolate.Internals.Matchers.IsNull<U?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.CovariantParameterAdapter<U?>.Wrap(first ?? global::Mockolate.Internals.Matchers.IsNull<U?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, methodSetup);
 			return methodSetup;
 		}
@@ -888,7 +909,7 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, methodSetup);
 			return methodSetup;
 		}
@@ -915,9 +936,17 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.AcceptClass<U>(U? value)
 			where U : class
 		{
-			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value");
-			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", __i => 
-				(__match1.Matches(__i.Parameter1)), () => $"AcceptClass<U>({(object?)value ?? "null"})");
+			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"AcceptClass<U>({parametersMatch})" : $"AcceptClass<U>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.GetNotNull<U>()
@@ -960,9 +989,17 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.Accept<U>(U? value)
 			where U : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value");
-			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", __i => 
-				(__match1.Matches(__i.Parameter1)), () => $"Accept<U>({(object?)value ?? "null"})");
+			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"Accept<U>({parametersMatch})" : $"Accept<U>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.Get<U>()
@@ -986,9 +1023,17 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.AcceptVirtual<U>(U? value)
 			where U : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value");
-			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", __i => 
-				(__match1.Matches(__i.Parameter1)), () => $"AcceptVirtual<U>({(object?)value ?? "null"})");
+			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"AcceptVirtual<U>({parametersMatch})" : $"AcceptVirtual<U>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.GetVirtual<U>()
@@ -1020,7 +1065,7 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first, null);
+			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first);
 			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?, V>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(second is not null ? global::Mockolate.CovariantParameterAdapter<V>.Wrap(second).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V>.Default.Equals(__i.Parameter2, default(V))), () => $"Combine<U, V>({(object?)first ?? "null"}, {(object?)second ?? "null"})");
@@ -1030,7 +1075,7 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<V> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second, null);
+			global::Mockolate.Parameters.IParameterMatch<V> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second);
 			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?, V>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", __i => 
 				(first is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(first).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Combine<U, V>({(object?)first ?? "null"}, {(object?)second ?? "null"})");
@@ -1040,8 +1085,8 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first, null);
-			global::Mockolate.Parameters.IParameterMatch<V> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second, null);
+			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first);
+			global::Mockolate.Parameters.IParameterMatch<V> __match2 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second);
 			return this.MockRegistry.VerifyMethod<IMockProtectedVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?, V>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", __i => 
 				(__match1.Matches(__i.Parameter1)) && 
 				(__match2.Matches(__i.Parameter2)), () => $"Combine<U, V>({(object?)first ?? "null"}, {(object?)second ?? "null"})");
@@ -1074,9 +1119,17 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.AcceptClass<U>(U? value)
 			where U : class
 		{
-			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value");
-			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", __i => 
-				(__match1.Matches(__i.Parameter1)), () => $"AcceptClass<U>({(object?)value ?? "null"})");
+			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"AcceptClass<U>({parametersMatch})" : $"AcceptClass<U>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.GetNotNull<U>()
@@ -1119,9 +1172,17 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.Accept<U>(U? value)
 			where U : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value");
-			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", __i => 
-				(__match1.Matches(__i.Parameter1)), () => $"Accept<U>({(object?)value ?? "null"})");
+			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"Accept<U>({parametersMatch})" : $"Accept<U>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.Get<U>()
@@ -1145,9 +1206,17 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.AcceptVirtual<U>(U? value)
 			where U : default
 		{
-			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value");
-			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", __i => 
-				(__match1.Matches(__i.Parameter1)), () => $"AcceptVirtual<U>({(object?)value ?? "null"})");
+			global::Mockolate.Parameters.IParameterMatch<U?> __match1 = global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value);
+			global::Mockolate.Parameters.IParameters? parametersMatch = value is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForGenericMethodOverrideBase, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", __i => parametersMatch is not null
+				? parametersMatch switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("value", __i.Parameter1)]),
+					_ => true
+				}
+				: 
+				(__match1.Matches(__i.Parameter1)), () => parametersMatch is not null ? $"AcceptVirtual<U>({parametersMatch})" : $"AcceptVirtual<U>({(object?)value ?? "null"})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForGenericMethodOverrideBase>.IgnoreParameters IMockVerifyForGenericMethodOverrideBase.GetVirtual<U>()
@@ -1200,7 +1269,14 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.AcceptClass<U>(U? value)
 			where U : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptClass_U_, this._scenarioName, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptClass_U_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1263,7 +1339,14 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.Accept<U>(U? value)
 			where U : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Accept_U_, this._scenarioName, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Accept_U_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1299,7 +1382,14 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.AcceptVirtual<U>(U? value)
 			where U : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptVirtual_U_, this._scenarioName, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptVirtual_U_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1342,7 +1432,7 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first, null), global::Mockolate.CovariantParameterAdapter<V>.Wrap(second ?? global::Mockolate.Internals.Matchers.IsNull<V>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first), global::Mockolate.CovariantParameterAdapter<V>.Wrap(second ?? global::Mockolate.Internals.Matchers.IsNull<V>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1352,7 +1442,7 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.CovariantParameterAdapter<U?>.Wrap(first ?? global::Mockolate.Internals.Matchers.IsNull<U?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.CovariantParameterAdapter<U?>.Wrap(first ?? global::Mockolate.Internals.Matchers.IsNull<U?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1362,7 +1452,7 @@ internal static partial class Mock
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2117,7 +2207,14 @@ internal static partial class MockExtensionsForGenericMethodOverrideBase
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.AcceptClass<U>(U? value)
 			where U : class
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptClass_U_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptClass<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptClass_U_, methodSetup);
 			return methodSetup;
 		}
@@ -2180,7 +2277,14 @@ internal static partial class MockExtensionsForGenericMethodOverrideBase
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.Accept<U>(U? value)
 			where U : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Accept_U_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Accept<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Accept_U_, methodSetup);
 			return methodSetup;
 		}
@@ -2216,7 +2320,14 @@ internal static partial class MockExtensionsForGenericMethodOverrideBase
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<U?> global::Mockolate.Mock.IMockSetupForGenericMethodOverrideBase.AcceptVirtual<U>(U? value)
 			where U : default
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value, "value"));
+			if (value is global::Mockolate.Parameters.IParameters parametersMatch)
+			{
+				var parametersSetup = new global::Mockolate.Internals.ParametersVoidMethodSetup<U?>(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", parametersMatch, "value");
+				this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptVirtual_U_, parametersSetup);
+				return parametersSetup;
+			}
+
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<U?>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.AcceptVirtual<{typeof(U)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(value));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_AcceptVirtual_U_, methodSetup);
 			return methodSetup;
 		}
@@ -2259,7 +2370,7 @@ internal static partial class MockExtensionsForGenericMethodOverrideBase
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first, null), global::Mockolate.CovariantParameterAdapter<V>.Wrap(second ?? global::Mockolate.Internals.Matchers.IsNull<V>()));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first), global::Mockolate.CovariantParameterAdapter<V>.Wrap(second ?? global::Mockolate.Internals.Matchers.IsNull<V>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, methodSetup);
 			return methodSetup;
 		}
@@ -2269,7 +2380,7 @@ internal static partial class MockExtensionsForGenericMethodOverrideBase
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.CovariantParameterAdapter<U?>.Wrap(first ?? global::Mockolate.Internals.Matchers.IsNull<U?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.CovariantParameterAdapter<U?>.Wrap(first ?? global::Mockolate.Internals.Matchers.IsNull<U?>()), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, methodSetup);
 			return methodSetup;
 		}
@@ -2279,7 +2390,7 @@ internal static partial class MockExtensionsForGenericMethodOverrideBase
 			where U : default
 			where V : default
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first, null), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second, null));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, U?, V>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.GenericMethodOverrideBase.Combine<{typeof(U)}, {typeof(V)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<U?>(first), global::Mockolate.Internals.Matchers.IsValueOrMatcher<V>(second));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.GenericMethodOverrideBase.MemberId_Combine_U__V_, methodSetup);
 			return methodSetup;
 		}

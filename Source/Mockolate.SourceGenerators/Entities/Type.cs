@@ -148,8 +148,7 @@ internal record Type
 	}
 
 	private static bool CanBeObject(ITypeParameterSymbol typeParameter)
-		=> !typeParameter.HasValueTypeConstraint && !typeParameter.HasUnmanagedTypeConstraint &&
-		   !typeParameter.AllowsRefLikeType &&
+		=> !typeParameter.HasValueTypeConstraint && !typeParameter.AllowsRefLikeType &&
 		   typeParameter.ConstraintTypes.All(constraintType => constraintType is ITypeParameterSymbol other
 			   ? CanBeObject(other)
 			   : constraintType.SpecialType == SpecialType.System_Object);

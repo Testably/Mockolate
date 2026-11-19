@@ -7,6 +7,9 @@ namespace Mockolate.Tests.GeneratorCoverage;
 public interface IGenericMethodClosedOverObject
 {
 	void Plain<T>(T value);
+	int Get<T>(in T value);
+	void Log<T>(T value, params int[] rest);
+	int Count<T>(T value, params int[] rest);
 	int Two<T>(int level, T value);
 	void Dependent<T, TBase>(T? value, TBase? other) where T : TBase where TBase : class;
 	int Five<T>(int a, int b, int c, int d, T value);

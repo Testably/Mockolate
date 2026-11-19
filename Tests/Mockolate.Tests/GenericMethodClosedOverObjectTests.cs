@@ -73,6 +73,67 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
+	public async Task ParametersMatch_ShouldSetUpTheMethod()
+	{
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
+		IGenericMethodClosedOverObject any = IGenericMethodClosedOverObject.CreateMock();
+		List<string> received = [];
+		sut.Mock.Setup.Plain<object>(Match.Parameters(p => p[0] is "a")).Do(() => received.Add("plain"));
+		sut.Mock.Setup.Get<object>(Match.Parameters(p => p[0] is "a")).Returns(1);
+		sut.Mock.Setup.Log<object>(Match.Parameters(p => p[1] is int[] { Length: 1, })).Do(() => received.Add("log"));
+		sut.Mock.Setup.Count<object>(Match.AnyParameters()).Returns(2);
+		any.Mock.Setup.Plain<object>(Match.Parameters(_ => false)).AnyParameters().Do(() => received.Add("any plain"));
+		any.Mock.Setup.Get<object>(Match.Parameters(_ => false)).AnyParameters().Returns(3);
+		any.Mock.Setup.Log<object>(Match.Parameters(_ => false)).AnyParameters().Do(() => received.Add("any log"));
+		any.Mock.Setup.Count<object>(Match.Parameters(_ => false)).AnyParameters().Returns(4);
+
+		sut.Plain<object>("a");
+		sut.Plain<object>("b");
+		sut.Log<object>("a", 1);
+		sut.Log<object>("a");
+		any.Plain<object>("a");
+		any.Log<object>("a", 1, 2);
+		int[] results =
+		[
+			sut.Get<object>("a"), sut.Get<object>("b"), sut.Count<object>("a"), sut.Count<object>("b", 1, 2),
+			any.Get<object>("a"), any.Count<object>("a", 1),
+		];
+
+		await That(received).IsEqualTo(["plain", "log", "any plain", "any log",]);
+		await That(results).IsEqualTo([1, 0, 2, 2, 3, 4,])
+			.Because("a lone parameters match stands for all parameters, also for the elements of a params array");
+	}
+
+	[Test]
+	public async Task ParametersMatch_ShouldVerifyTheMethod()
+	{
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
+
+		sut.Log<object>("a");
+		sut.Log<object>("a", 1, 2);
+		sut.Count<object>(1);
+
+		await That(sut.Mock.Verify.Log<object>(Match.AnyParameters())).Twice();
+		await That(sut.Mock.Verify.Log<object>(Match.Parameters(p => p[1] is int[] { Length: 2, }))).Once();
+		await That(sut.Mock.Verify.Log<object>(Match.AnyParameters(), 1)).Never()
+			.Because("a parameters match next to elements of the params array is a value, as for an object parameter");
+		await That(sut.Mock.Verify.Count<object>(Match.AnyParameters())).Once();
+		await That(sut.Mock.Verify.Count<string>(Match.AnyParameters())).Never();
+	}
+
+	[Test]
+	public async Task ParametersMatchWithParamsArray_WhenVerificationFails_ShouldDescribeTheParametersMatch()
+	{
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
+
+		void Act()
+			=> sut.Mock.Verify.Log<object>(Match.AnyParameters()).Once();
+
+		await That(Act).Throws<MockVerificationException>()
+			.WithMessage("Expected that mock invoked method Log<T>(Match.AnyParameters()) exactly once, but it never did.");
+	}
+
+	[Test]
 	public async Task Value_ShouldStillMatchAsValue()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
