@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mockolate.SourceGenerators.Entities;
@@ -60,6 +61,23 @@ internal static class MockGeneratorHelpers
 	internal static IEnumerable<MockClass> ExtractMockOrMockFactoryCreateSyntaxOrDefault(
 		this SyntaxNode syntaxNode, SemanticModel semanticModel)
 	{
+		foreach (ITypeSymbol[] types in syntaxNode.ExtractMockedTypes(semanticModel))
+		{
+			yield return CreateMockClass(semanticModel.Compilation, types);
+			if (types.Length == 1 && GetHttpMessageHandler(types[0]) is { } httpMessageHandlerType)
+			{
+				// When using HttpClient as a mock, we also have to create a mock of the HttpMessageHandler, that can be used as constructor parameter.
+				yield return new MockClass([httpMessageHandlerType,], semanticModel.Compilation.Assembly);
+			}
+		}
+	}
+
+	/// <summary>
+	///     The types of the mocks that a <c>CreateMock</c> call or an <c>Implementing&lt;T&gt;</c> chain creates.
+	/// </summary>
+	internal static IEnumerable<ITypeSymbol[]> ExtractMockedTypes(this SyntaxNode syntaxNode,
+		SemanticModel semanticModel)
+	{
 		// Static extension methods
 		if (syntaxNode is InvocationExpressionSyntax invocation)
 		{
@@ -70,20 +88,11 @@ internal static class MockGeneratorHelpers
 				ITypeSymbol? type = methodSymbol.ContainingType.ExtensionParameter?.Type;
 				if (type is not null && IsMockable(type))
 				{
-					yield return CreateMockClass(semanticModel.Compilation, type);
-					foreach (MockClass? additionalMockClass in DiscoverMockableTypes([type,], semanticModel.Compilation))
-					{
-						yield return additionalMockClass;
-					}
+					yield return [type,];
 				}
 				else if (IsMockable(methodSymbol.ReturnType))
 				{
-					yield return CreateMockClass(semanticModel.Compilation, methodSymbol.ReturnType);
-
-					foreach (MockClass? additionalMockClass in DiscoverMockableTypes([methodSymbol.ReturnType,], semanticModel.Compilation))
-					{
-						yield return additionalMockClass;
-					}
+					yield return [methodSymbol.ReturnType,];
 				}
 			}
 			else if (syntaxNode is InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax { Name: GenericNameSyntax, }, } invocationSyntax &&
@@ -144,11 +153,7 @@ internal static class MockGeneratorHelpers
 
 				if (IsMockable(rootType))
 				{
-					yield return CreateMockClass(semanticModel.Compilation, [rootType!, ..collectedTypes,]);
-					foreach (MockClass additionalMockClass in DiscoverMockableTypes([rootType!, ..collectedTypes,], semanticModel.Compilation))
-					{
-						yield return additionalMockClass;
-					}
+					yield return [rootType!, ..collectedTypes,];
 				}
 			}
 		}
@@ -163,15 +168,15 @@ internal static class MockGeneratorHelpers
 	/// <remarks>
 	///     Framework interfaces are excluded, because mocking them transitively would generate mocks for large parts
 	///     of the base class library. A type that still contains a type parameter cannot be named in the auto-mock
-	///     factory, and an interface with static abstract members cannot be a type argument (CS8920).
+	///     factory. Every type the generator sees runs this check, so it stays cheap; a member that returns an
+	///     interface with static abstract members does not compile anyway (CS8920).
 	/// </remarks>
 	internal static bool IsAutoMockable(ITypeSymbol typeSymbol)
 		=> typeSymbol is INamedTypeSymbol { TypeKind: TypeKind.Interface, } namedTypeSymbol &&
 		   IsMockable(namedTypeSymbol) &&
 		   !IsFrameworkNamespace(namedTypeSymbol.ContainingNamespace) &&
 		   !ContainsTypeParameter(namedTypeSymbol) &&
-		   !IsObsolete(namedTypeSymbol) &&
-		   !HasStaticAbstractMembers(namedTypeSymbol);
+		   !IsObsolete(namedTypeSymbol);
 
 	/// <summary>
 	///     Whether the generator can create a mock of <paramref name="typeSymbol" /> for auto-mocking, which unlike a
@@ -185,6 +190,7 @@ internal static class MockGeneratorHelpers
 	/// </remarks>
 	private static bool CanBeDiscovered(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
 		=> IsAutoMockable(typeSymbol) &&
+		   !HasStaticAbstractMembers(typeSymbol) &&
 		   Helpers.IsAccessibleFrom(typeSymbol, sourceAssembly) &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
 		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>
@@ -326,55 +332,50 @@ internal static class MockGeneratorHelpers
 		}
 	}
 
+	private static ITypeSymbol? GetHttpMessageHandler(ITypeSymbol type)
+		=> type.Name == "HttpClient" &&
+		   type.ContainingNamespace is { ContainingNamespace: { ContainingNamespace.ContainingNamespace.IsGlobalNamespace: true, ContainingNamespace.Name: "System", Name: "Net", }, Name: "Http", }
+			? type.GetMembers()
+				.OfType<IMethodSymbol>()
+				.Where(m => m.MethodKind == MethodKind.Constructor)
+				.SelectMany(c => c.Parameters)
+				.Select(p => p.Type)
+				.First(t => t.Name == "HttpMessageHandler")
+			: null;
+
 	/// <summary>
-	///     The mocks of <paramref name="initialTypes" /> needs besides themselves: auto-mocks of the interfaces their
-	///     members return (transitively) and the <c>HttpMessageHandler</c> of an <c>HttpClient</c>.
+	///     The mocks for auto-mocking: of the interfaces that the members of the <paramref name="mockedTypes" /> return,
+	///     transitively.
 	/// </summary>
 	/// <remarks>
-	///     The result is cached per type and compilation, because every <c>CreateMock</c> call of the type asks again.
+	///     Each interface is mocked in one spelling without nullable annotations and tuple element names, so that the
+	///     result does not depend on the order of the files, and the model of each interface is built once per
+	///     compilation.
 	/// </remarks>
-	private static IEnumerable<MockClass> DiscoverMockableTypes(IEnumerable<ITypeSymbol> initialTypes,
+	/// <remarks>
+	///     Only a type that is mocked on its own has a mock already; a type that a mock only implements in addition
+	///     (<c>Implementing&lt;T&gt;</c>) still needs an auto-mock when a member returns it.
+	/// </remarks>
+	internal static MockClass[] DiscoverAutoMocks(IReadOnlyCollection<ITypeSymbol[]> mockedTypes,
 		Compilation compilation)
-		=> initialTypes.SelectMany(type => EntityCache.Current is { } cache
-			? cache.GetOrAddDiscoveredMocks(type, t => DiscoverMockableTypes(t, compilation))
-			: DiscoverMockableTypes(type, compilation));
-
-	private static MockClass[] DiscoverMockableTypes(ITypeSymbol initialType, Compilation compilation)
 	{
 		IAssemblySymbol sourceAssembly = compilation.Assembly;
 		List<MockClass> result = [];
-		Queue<ITypeSymbol> typesToProcess = new([initialType,]);
-		HashSet<ITypeSymbol> processedTypes = new(typesToProcess, SymbolEqualityComparer.Default);
+		Queue<ITypeSymbol> typesToProcess = new(mockedTypes.SelectMany(types => types));
+		HashSet<ITypeSymbol> processedTypes = new(mockedTypes.Where(types => types.Length == 1)
+			.Select(types => Normalize(types[0], compilation)), SymbolEqualityComparer.Default);
 
 		while (typesToProcess.Count > 0)
 		{
 			ITypeSymbol currentType = typesToProcess.Dequeue();
-
 			foreach (INamedTypeSymbol returnType in GetAutoMockableReturnTypes(currentType, sourceAssembly))
 			{
-				if (processedTypes.Add(returnType))
+				if (Normalize(returnType, compilation) is INamedTypeSymbol normalized && processedTypes.Add(normalized))
 				{
 					result.Add(EntityCache.Current is { } cache
-						? cache.GetOrAddDiscoveredMock(returnType, type => CreateDiscoveredMockClass(type, compilation))
-						: CreateDiscoveredMockClass(returnType, compilation));
-					typesToProcess.Enqueue(returnType);
-				}
-			}
-
-			// When using HttpClient as a mock, we also have to create a mock of the HttpMessageHandler, that can be used as constructor parameter.
-			if (currentType.Name == "HttpClient" &&
-			    currentType.ContainingNamespace is { ContainingNamespace: { ContainingNamespace.ContainingNamespace.IsGlobalNamespace: true, ContainingNamespace.Name: "System", Name: "Net", }, Name: "Http", })
-			{
-				ITypeSymbol httpMessageHandlerType = currentType.GetMembers()
-					.OfType<IMethodSymbol>()
-					.Where(m => m.MethodKind == MethodKind.Constructor)
-					.SelectMany(c => c.Parameters)
-					.Select(p => p.Type)
-					.First(t => t.Name == "HttpMessageHandler");
-				if (processedTypes.Add(httpMessageHandlerType))
-				{
-					result.Add(new MockClass([httpMessageHandlerType,], compilation));
-					typesToProcess.Enqueue(httpMessageHandlerType);
+						? cache.GetOrAddDiscoveredMock(normalized, type => CreateDiscoveredMockClass(type, compilation))
+						: CreateDiscoveredMockClass(normalized, compilation));
+					typesToProcess.Enqueue(normalized);
 				}
 			}
 		}
@@ -384,6 +385,27 @@ internal static class MockGeneratorHelpers
 
 	private static MockClass CreateDiscoveredMockClass(INamedTypeSymbol type, Compilation compilation)
 		=> new([type.WithDynamicAsObject(compilation),], compilation, isDiscovered: true);
+
+	/// <summary>
+	///     The <paramref name="type" /> without nullable reference annotations and tuple element names, also in its
+	///     type arguments.
+	/// </summary>
+	private static ITypeSymbol Normalize(ITypeSymbol type, Compilation compilation)
+	{
+		switch (type)
+		{
+			case IArrayTypeSymbol array:
+				return compilation.CreateArrayTypeSymbol(Normalize(array.ElementType, compilation), array.Rank);
+			case INamedTypeSymbol { IsTupleType: true, TupleUnderlyingType: { } underlying, }:
+				return Normalize(underlying, compilation);
+			case INamedTypeSymbol { IsGenericType: true, } named when named.ContainingType is not { IsGenericType: true, }:
+				return named.OriginalDefinition.Construct(
+					named.TypeArguments.Select(argument => Normalize(argument, compilation)).ToImmutableArray(),
+					named.TypeArguments.Select(_ => NullableAnnotation.NotAnnotated).ToImmutableArray());
+			default:
+				return type.IsReferenceType ? type.WithNullableAnnotation(NullableAnnotation.NotAnnotated) : type;
+		}
+	}
 
 	private static bool IsMockable(ITypeSymbol? typeSymbol)
 		=> typeSymbol is

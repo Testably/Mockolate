@@ -31,8 +31,6 @@ internal sealed class EntityCache
 	// `IsNullableAnnotated` flags and produce different generated code.
 	private readonly ConcurrentDictionary<ITypeSymbol, Type> _types = new(SymbolEqualityComparer.IncludeNullability);
 
-	private readonly ConcurrentDictionary<ITypeSymbol, MockClass[]> _discoveredMocks = new(SymbolEqualityComparer.IncludeNullability);
-
 	private readonly ConcurrentDictionary<ITypeSymbol, MockClass> _discoveredMock = new(SymbolEqualityComparer.Default);
 
 	private readonly Dictionary<IAssemblySymbol, string> _externAliases;
@@ -56,9 +54,6 @@ internal sealed class EntityCache
 
 	public Type GetOrAddType(ITypeSymbol symbol, Func<ITypeSymbol, Type> factory)
 		=> _types.GetOrAdd(symbol, factory);
-
-	public MockClass[] GetOrAddDiscoveredMocks(ITypeSymbol symbol, Func<ITypeSymbol, MockClass[]> factory)
-		=> _discoveredMocks.GetOrAdd(symbol, factory);
 
 	/// <summary>
 	///     The mock discovered for auto-mocking of <paramref name="symbol" />, shared by all mocks that return it.

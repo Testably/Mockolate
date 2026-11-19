@@ -77,6 +77,21 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task ConcurrentFirstAccess_WithIndexerSetup_ShouldReturnTheSameMock()
+	{
+		const int threads = 8;
+		for (int iteration = 0; iteration < 50; iteration++)
+		{
+			IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+			sut.Mock.Setup[It.IsAny<int>()].OnGet.Do(() => { });
+			IAutoMockChild[] results = await RunConcurrently(threads, () => sut[1]);
+
+			await That(results.All(r => r is not null && ReferenceEquals(r, results[0]))).IsTrue()
+				.Because($"the first auto-mock of a set-up indexer key must win (iteration {iteration})");
+		}
+	}
+
+	[Test]
 	public async Task CustomBehaviorWithoutDefault_ShouldReturnMock()
 	{
 		MockBehavior behavior = new MockBehavior(new NullDefaultValueGenerator()).AutoMocking();

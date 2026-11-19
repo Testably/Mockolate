@@ -190,13 +190,14 @@ await That(shop.GetDispenser().Dispense("Dark", 5)).IsTrue();
 - The auto-mock uses the same `MockBehavior`, so its own interface members are auto-mocked as well, and `Initialize<T>(…)` applies to it.
 - A method or property that returns a `Task<T>` or `ValueTask<T>` of an interface returns a completed task with an auto-mock. On .NET Framework and .NET Standard, a `ValueTask<T>` keeps returning `default`, like every other un-configured `ValueTask<T>` there.
 - A setup, a `WithDefaultValueFor` factory and the base class implementation of a class mock take precedence. A factory that returns `null` counts as no value, so the member returns an auto-mock instead. `ThrowingWhenNotSetup()` still throws.
-- Without the `MockolateAutoMocking` property, `AutoMocking()` has no effect, and the [Mockolate0005](10-analyzers.md#mockolate0005) analyzer warns about it.
+- Without the `MockolateAutoMocking` property, `AutoMocking()` has no effect, and the [Mockolate0005](10-analyzers.md#mockolate0005) analyzer warns about it. The property applies to the project whose `CreateMock` creates the mock: a behavior with `AutoMocking()` that is passed to mocks created in a project without the property returns no auto-mocks.
+- An interface that members return in several spellings, e.g. `IRepository<string?>` and `IRepository<string>`, gets one auto-mock without nullable annotations and tuple element names. Its `Mock` property accepts every spelling.
 
 The generator does not create auto-mocks for:
 
-- interfaces in the global namespace or in the `System`, `Microsoft` and `Windows` namespaces (and their sub-namespaces, also of other packages), to avoid generating mocks for large parts of the framework,
+- interfaces in the global namespace or in the `System`, `Microsoft` and `Windows` namespaces and their sub-namespaces, to avoid generating mocks for large parts of the framework. This also applies to other packages in these namespaces, e.g. `IFileSystem` of `System.IO.Abstractions`; set up such members yourself or register a factory with `WithDefaultValueFor`,
 - interfaces that the project cannot access, that are obsolete, that still contain a type parameter of a generic method, that have static abstract members or whose members use such a type, a pointer or a ref struct other than `Span<T>` and `ReadOnlySpan<T>`,
-- `out` parameters, indexers with ref struct keys, indexers that return a task, and members that the mock cannot override or that have no getter.
+- `out` parameters, interfaces inside a tuple such as `(IFoo, IBar)`, indexers with ref struct keys, indexers that return a task, and members that the mock cannot override or that have no getter.
 
 A member that returns such an interface still returns `null`.
 

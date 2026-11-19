@@ -203,7 +203,9 @@ public partial class MockRegistry
 				$"{new IndexerGetterAccess<T1>(parameter1)} was accessed without prior setup.");
 		}
 
-		return Setup.Indexers.StoreDefault(leaf, AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>()));
+		TValue value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+		leaf.Store(value);
+		return value;
 	}
 
 	/// <summary>
@@ -280,7 +282,9 @@ public partial class MockRegistry
 				$"{new IndexerGetterAccess<T1, T2>(parameter1, parameter2)} was accessed without prior setup.");
 		}
 
-		return Setup.Indexers.StoreDefault(leaf, AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>()));
+		TValue value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+		leaf.Store(value);
+		return value;
 	}
 
 	/// <summary>
@@ -361,7 +365,9 @@ public partial class MockRegistry
 				$"{new IndexerGetterAccess<T1, T2, T3>(parameter1, parameter2, parameter3)} was accessed without prior setup.");
 		}
 
-		return Setup.Indexers.StoreDefault(leaf, AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>()));
+		TValue value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+		leaf.Store(value);
+		return value;
 	}
 
 	/// <summary>
@@ -446,7 +452,9 @@ public partial class MockRegistry
 				$"{new IndexerGetterAccess<T1, T2, T3, T4>(parameter1, parameter2, parameter3, parameter4)} was accessed without prior setup.");
 		}
 
-		return Setup.Indexers.StoreDefault(leaf, AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>()));
+		TValue value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+		leaf.Store(value);
+		return value;
 	}
 
 	/// <summary>

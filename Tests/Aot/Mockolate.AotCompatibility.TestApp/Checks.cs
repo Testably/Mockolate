@@ -82,6 +82,7 @@ internal static class Checks
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 			return Equal((sut.Dispense("Dark", 1), sut.Stock, await sut.CountAsync("Dark")), (false, 0, 0));
 		}),
+#if MOCKOLATE_AUTOMOCKING
 		new("AutoMocking returns a configurable mock for an interface without setup", () =>
 		{
 			IChocolateShop sut = IChocolateShop.CreateMock(MockBehavior.Default.AutoMocking());
@@ -89,6 +90,13 @@ internal static class Checks
 			sut["Main"].Mock.Setup.Stock.InitializeWith(5);
 			return Equal((sut.GetDispenser().Dispense("Dark", 1), sut["Main"].Stock), (true, 5));
 		}),
+#else
+		new("a member that returns an interface returns null without auto-mocking", () =>
+		{
+			IChocolateShop sut = IChocolateShop.CreateMock();
+			return Equal((sut.GetDispenser(), sut["Main"]), ((IChocolateDispenser)null!, (IChocolateDispenser)null!));
+		}),
+#endif
 		new("ThrowWhenNotSetup throws for a member without setup", () =>
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());

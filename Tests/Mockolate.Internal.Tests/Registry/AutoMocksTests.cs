@@ -6,7 +6,7 @@ namespace Mockolate.Internal.Tests.Registry;
 public sealed class AutoMocksTests
 {
 	[Test]
-	public async Task AutoMockOr_WhenTheFactoryHasNoMock_ShouldReturnNullOnEveryCall()
+	public async Task AutoMockOr_WhenTheFactoryHasNoMock_ShouldReturnNullAndAskOnlyOnce()
 	{
 		int calls = 0;
 		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default.AutoMocking(), (_, _) =>
@@ -21,7 +21,7 @@ public sealed class AutoMocksTests
 
 		await That(first).IsNull();
 		await That(second).IsNull();
-		await That(calls).IsEqualTo(2).Because("a missing auto-mock is not cached");
+		await That(calls).IsEqualTo(1).Because("a missing auto-mock is remembered per member");
 	}
 
 	[Test]

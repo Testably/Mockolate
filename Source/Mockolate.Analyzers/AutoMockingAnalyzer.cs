@@ -45,34 +45,44 @@ public class AutoMockingAnalyzer : DiagnosticAnalyzer
 			}
 
 			compilationContext.RegisterOperationAction(AnalyzeInvocation, OperationKind.Invocation);
+			compilationContext.RegisterOperationAction(AnalyzeAssignment, OperationKind.SimpleAssignment);
 		});
 	}
 
 	private static void AnalyzeInvocation(OperationAnalysisContext context)
 	{
-		if (context.Operation is not IInvocationOperation
-		    {
-			    TargetMethod:
-			    {
-				    Name: "AutoMocking",
-				    ContainingType:
-				    {
-					    Name: "MockBehavior",
-					    ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
-				    },
-			    },
-		    } invocation)
+		if (context.Operation is IInvocationOperation { TargetMethod: { Name: "AutoMocking", } method, } invocation &&
+		    IsMockBehavior(method.ContainingType) &&
+		    !(invocation.Arguments.Length == 1 && IsFalse(invocation.Arguments[0].Value)))
 		{
-			return;
+			context.ReportDiagnostic(Diagnostic.Create(s_autoMockingRule, invocation.Syntax.GetLocation()));
 		}
-
-		if (invocation.Arguments.Length == 1 &&
-		    invocation.Arguments[0].Value.ConstantValue is { HasValue: true, Value: false, })
-		{
-			return;
-		}
-
-		context.ReportDiagnostic(Diagnostic.Create(s_autoMockingRule,
-			invocation.Syntax.GetLocation()));
 	}
+
+	/// <summary>
+	///     Reports <c>AutoMock = true</c> in a <see langword="with" /> expression or an object initializer.
+	/// </summary>
+	private static void AnalyzeAssignment(OperationAnalysisContext context)
+	{
+		if (context.Operation is ISimpleAssignmentOperation
+		    {
+			    Target: IPropertyReferenceOperation { Property: { Name: "AutoMock", } property, },
+		    } assignment &&
+		    IsMockBehavior(property.ContainingType) &&
+		    !IsMockBehavior(context.ContainingSymbol.ContainingType) &&
+		    !IsFalse(assignment.Value))
+		{
+			context.ReportDiagnostic(Diagnostic.Create(s_autoMockingRule, assignment.Syntax.GetLocation()));
+		}
+	}
+
+	private static bool IsMockBehavior(INamedTypeSymbol? type)
+		=> type is
+		{
+			Name: "MockBehavior",
+			ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+		};
+
+	private static bool IsFalse(IOperation value)
+		=> value.ConstantValue is { HasValue: true, Value: false, };
 }

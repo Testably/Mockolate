@@ -421,8 +421,9 @@ public partial class MockRegistry
 			throw new MockNotSetupException($"{access} was accessed without prior setup.");
 		}
 
-		TResult value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TResult>());
-		return access.GetOrCreateLeaf<TResult>() is { } leaf ? Setup.Indexers.StoreDefault(leaf, value) : value;
+		TResult value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TResult>(), access);
+		access.StoreValue(value);
+		return value;
 	}
 
 	/// <summary>

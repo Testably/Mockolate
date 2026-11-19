@@ -354,7 +354,9 @@ internal static partial class Mock
 internal static partial class MockExtensionsForIAutoMockGeneric_int
 {
 	/// <inheritdoc cref="MockExtensionsForIAutoMockGeneric_int" />
+#nullable disable annotations
 	extension(global::Mockolate.Tests.GeneratorCoverage.IAutoMockGeneric<int> mock)
+#nullable enable annotations
 	{
 		/// <summary>
 		///     Gets the mock accessor for <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockGeneric{T}">IAutoMockGeneric&lt;int&gt;</see> - the entry point for configuring setups, verifying interactions and raising events.

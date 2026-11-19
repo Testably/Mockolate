@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using Mockolate.Interactions;
 
 namespace Mockolate.Internals;
 
@@ -59,6 +60,33 @@ public static class AutoMocks
 		}
 
 		return Create(typeof(TValue), behavior) is TValue mock ? mock : value;
+	}
+
+	/// <summary>
+	///     Returns the <paramref name="value" />, or the auto-mock of <typeparamref name="TValue" /> that is shared by all
+	///     reads of the indexer key of the <paramref name="access" />.
+	/// </summary>
+	/// <remarks>
+	///     The caller stores the returned value for the key; sharing the first auto-mock makes concurrent first reads of
+	///     the key return the same configurable mock.
+	/// </remarks>
+	/// <typeparam name="TValue">The value type of the indexer.</typeparam>
+	/// <param name="behavior">The behavior of the mock that needs the value; the auto-mock uses it as well.</param>
+	/// <param name="value">The default value produced for the indexer key.</param>
+	/// <param name="access">The indexer access whose key the value belongs to.</param>
+	/// <returns>The <paramref name="value" /> or the shared auto-mock.</returns>
+	public static TValue Or<TValue>(MockBehavior behavior, TValue value, IndexerAccess access)
+	{
+		TValue result = Or(behavior, value);
+		return value is null && result is not null && access.GetOrCreateLeaf<TValue>() is { } leaf
+			? leaf.ShareAutoMock(result)
+			: result;
+	}
+
+	internal static TValue Or<TValue>(MockBehavior behavior, TValue value, IndexerValueStorage<TValue> leaf)
+	{
+		TValue result = Or(behavior, value);
+		return value is null && result is not null ? leaf.ShareAutoMock(result) : result;
 	}
 
 	internal static object? Create(Type type, MockBehavior behavior)

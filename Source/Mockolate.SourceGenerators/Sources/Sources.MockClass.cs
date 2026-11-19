@@ -754,7 +754,19 @@ internal static partial class Sources
 		#region Mock Type extensions
 
 		sb.Append("\t/// <inheritdoc cref=\"MockExtensionsFor").Append(name).Append("\" />").AppendLine();
-		sb.Append("\textension(").Append(@class.ClassFullName).Append(" mock)").AppendLine();
+		if (@class is MockClass { IsDiscovered: true, })
+		{
+			// A discovered mock is generated in one spelling, so its receiver is nullable-oblivious to accept every
+			// spelling that differs only in nullable annotations without a warning.
+			sb.Append("#nullable disable annotations").AppendLine();
+			sb.Append("\textension(").Append(@class.ClassFullName).Append(" mock)").AppendLine();
+			sb.Append("#nullable enable annotations").AppendLine();
+		}
+		else
+		{
+			sb.Append("\textension(").Append(@class.ClassFullName).Append(" mock)").AppendLine();
+		}
+
 		sb.Append("\t{").AppendLine();
 
 		#region Mock Property
@@ -923,6 +935,7 @@ internal static partial class Sources
 		if (@class is { ClassFullName: "global::System.Net.Http.HttpClient", })
 		{
 			sb.Append("\t\t\tglobal::Mockolate.MockBehavior effectiveBehavior = mockBehavior ?? global::Mockolate.MockBehavior.Default;").AppendLine();
+			AppendUseAutoMockFactory(sb, "\t\t\t", "effectiveBehavior");
 			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(effectiveBehavior, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(effectiveBehavior), constructorParameters);").AppendLine();
 			sb.Append("\t\t\tif (constructorParameters is null)").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();

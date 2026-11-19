@@ -14,6 +14,7 @@ public class AutoMockingAnalyzerTests
 	                                        {
 	                                            public record MockBehavior
 	                                            {
+	                                                public bool AutoMock { get; init; }
 	                                                public MockBehavior AutoMocking(bool autoMock = true) => this;
 	                                            }
 	                                        }
@@ -42,6 +43,60 @@ public class AutoMockingAnalyzerTests
 		                                            }
 		                                        }
 		                                        """);
+
+	[Test]
+	public async Task AutoMockFalseInInitializer_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(MockBehaviorStub + """
+
+		                                        public class MyClass
+		                                        {
+		                                            public void MyTest(Mockolate.MockBehavior behavior)
+		                                            {
+		                                                _ = behavior with { AutoMock = false };
+		                                            }
+		                                        }
+		                                        """);
+
+	[Test]
+	public async Task AutoMockInObjectInitializer_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(MockBehaviorStub + """
+
+		                                        public class MyClass
+		                                        {
+		                                            public void MyTest()
+		                                            {
+		                                                _ = new Mockolate.MockBehavior { {|#0:AutoMock = true|} };
+		                                            }
+		                                        }
+		                                        """,
+			Verifier.Diagnostic("Mockolate0005").WithLocation(0));
+
+	[Test]
+	public async Task AutoMockInWithExpression_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(MockBehaviorStub + """
+
+		                                        public class MyClass
+		                                        {
+		                                            public void MyTest(Mockolate.MockBehavior behavior, bool value)
+		                                            {
+		                                                _ = behavior with { {|#0:AutoMock = value|} };
+		                                            }
+		                                        }
+		                                        """,
+			Verifier.Diagnostic("Mockolate0005").WithLocation(0));
+
+	[Test]
+	public async Task InsideMockBehavior_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync("""
+		                     namespace Mockolate
+		                     {
+		                         public record MockBehavior
+		                         {
+		                             public bool AutoMock { get; init; }
+		                             public MockBehavior AutoMocking(bool autoMock = true) => this with { AutoMock = autoMock };
+		                         }
+		                     }
+		                     """);
 
 	[Test]
 	public async Task WithBuildProperty_ShouldNotBeFlagged() => await Verifier

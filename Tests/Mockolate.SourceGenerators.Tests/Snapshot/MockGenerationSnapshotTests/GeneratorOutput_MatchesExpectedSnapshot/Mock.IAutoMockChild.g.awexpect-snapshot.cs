@@ -562,7 +562,9 @@ internal static partial class Mock
 internal static partial class MockExtensionsForIAutoMockChild
 {
 	/// <inheritdoc cref="MockExtensionsForIAutoMockChild" />
+#nullable disable annotations
 	extension(global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild mock)
+#nullable enable annotations
 	{
 		/// <summary>
 		///     Gets the mock accessor for <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild">IAutoMockChild</see> - the entry point for configuring setups, verifying interactions and raising events.

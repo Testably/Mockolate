@@ -16,6 +16,7 @@ namespace Mockolate.Setup;
 #endif
 internal partial class MockSetups : MockScenarioSetup
 {
+	private static readonly object NoAutoMock = new();
 	private ConcurrentDictionary<int, object>? _autoMocks;
 
 	internal Dictionary<string, MockScenarioSetup>? Scenarios { get; private set; }
@@ -27,17 +28,17 @@ internal partial class MockSetups : MockScenarioSetup
 	/// <remarks>
 	///     The mock is created outside of any lock, because creating it runs user callbacks (e.g. of
 	///     <c>Initialize&lt;T&gt;</c>). When two threads race, both create a mock, but both return the first one stored.
+	///     A type without a generated mock is remembered as well, so that the factory is not asked again.
 	/// </remarks>
 	public object? GetOrAddAutoMock(int memberId, Type type, MockBehavior behavior)
 	{
 		ConcurrentDictionary<int, object> autoMocks = LazyInitializer.EnsureInitialized(ref _autoMocks)!;
-		if (autoMocks.TryGetValue(memberId, out object? existing))
+		if (!autoMocks.TryGetValue(memberId, out object? stored))
 		{
-			return existing;
+			stored = autoMocks.GetOrAdd(memberId, AutoMocks.Create(type, behavior) ?? NoAutoMock);
 		}
 
-		object? created = AutoMocks.Create(type, behavior);
-		return created is null ? null : autoMocks.GetOrAdd(memberId, created);
+		return ReferenceEquals(stored, NoAutoMock) ? null : stored;
 	}
 
 	public MockScenarioSetup GetOrCreateScenario(string setupScenario)

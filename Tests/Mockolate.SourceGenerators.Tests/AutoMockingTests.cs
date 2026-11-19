@@ -354,6 +354,100 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task SpellingsOfTheSameType_ShouldBeConfigurableThroughEverySpellingIndependentOfFileOrder()
+	{
+		const string program = """
+		                       #nullable enable
+		                       using Mockolate;
+
+		                       namespace MyCode.Driver
+		                       {
+		                           public class Program
+		                           {
+		                               public static void Main(string[] args)
+		                               {
+		                                   MyCode.IRoot root = MyCode.IRoot.CreateMock(MockBehavior.Default.AutoMocking());
+		                                   root.GetNullable().Mock.Setup.Get().Returns("x");
+		                                   root.GetNotNullable().Mock.Setup.Get().Returns("y");
+		                               }
+		                           }
+		                       }
+		                       """;
+		const string nullableFile = """
+		                            #nullable enable
+		                            namespace MyCode
+		                            {
+		                                public interface IRoot
+		                                {
+		                                    IRepository<string?> GetNullable();
+		                                    IRepository<string> GetNotNullable();
+		                                }
+		                            }
+		                            """;
+		const string repositoryFile = """
+		                              #nullable enable
+		                              namespace MyCode
+		                              {
+		                                  public interface IRepository<T>
+		                                  {
+		                                      T Get();
+		                                  }
+		                              }
+		                              """;
+
+		GeneratorResult result = Generator.Run([program, nullableFile, repositoryFile,], [], LanguageVersion.CSharp14,
+			AutoMockingEnabled);
+		GeneratorResult swapped = Generator.Run([program, repositoryFile, nullableFile,], [], LanguageVersion.CSharp14,
+			AutoMockingEnabled);
+
+		await That(result.Diagnostics).IsEmpty()
+			.Because("the discovered mock accepts every nullable spelling without CS8620");
+		await That(result.Sources["MockBehaviorExtensions.g.cs"])
+			.Contains("typeof(global::MyCode.IRepository<string>)");
+		await That(swapped.Sources["MockBehaviorExtensions.g.cs"])
+			.IsEqualTo(result.Sources["MockBehaviorExtensions.g.cs"]);
+	}
+
+	[Test]
+	public async Task TypeOnlyImplementedInAddition_ShouldStillBeAutoMocked()
+	{
+		GeneratorResult result = Generator.Run([
+			"""
+			using Mockolate;
+
+			namespace MyCode
+			{
+			    public class Program
+			    {
+			        public static void Main(string[] args)
+			        {
+			            _ = IRoot.CreateMock();
+			            _ = IChild.CreateMock().Implementing<IGeneric<int>>();
+			        }
+			    }
+
+			    public interface IRoot
+			    {
+			        IGeneric<int> Get();
+			    }
+
+			    public interface IChild { }
+
+			    public interface IGeneric<out T>
+			    {
+			        T Value { get; }
+			    }
+			}
+			""",
+		], [], LanguageVersion.CSharp14, AutoMockingEnabled);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockBehaviorExtensions.g.cs"])
+			.Contains("return global::MyCode.IGeneric<int>.CreateMock(behavior);")
+			.Because("the combination mock of IChild does not make IGeneric<int> a mock on its own");
+	}
+
+	[Test]
 	public async Task TogglingTheBuildProperty_ShouldUpdateTheOutput()
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);

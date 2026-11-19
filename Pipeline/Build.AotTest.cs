@@ -19,26 +19,32 @@ partial class Build
 	/// <remarks>
 	///     Most of the code that runs in a test is generated into the consumer's assembly, which the analyzers of the
 	///     library never see, so only publishing a consumer verifies that the generated mocks work without the JIT.
+	///     The generated code differs with the <c>MockolateAutoMocking</c> build property, so both variants run.
 	/// </remarks>
 	Target AotSmokeTests => _ => _
 		.DependsOn(Compile)
 		.Executes(() =>
 		{
 			Project project = Solution.Tests.Aot.Mockolate_AotCompatibility_TestApp;
-			DotNetRun(s => s
-				.SetProjectFile(project)
-				.SetConfiguration(Configuration)
-				.EnableNoBuild());
+			foreach (bool autoMocking in new[] { false, true, })
+			{
+				DotNetRun(s => s
+					.SetProjectFile(project)
+					.SetConfiguration(Configuration)
+					.SetProperty("MockolateAutoMocking", autoMocking)
+					.SetNoBuild(!autoMocking));
 
-			AbsolutePath output = ArtifactsDirectory / "Aot" / project.Name;
-			DotNetPublish(s => s
-				.SetProject(project)
-				.SetConfiguration(Configuration)
-				.SetRuntime(RuntimeInformation.RuntimeIdentifier)
-				.SetOutput(output));
+				AbsolutePath output = ArtifactsDirectory / "Aot" / (project.Name + (autoMocking ? "-AutoMocking" : ""));
+				DotNetPublish(s => s
+					.SetProject(project)
+					.SetConfiguration(Configuration)
+					.SetRuntime(RuntimeInformation.RuntimeIdentifier)
+					.SetProperty("MockolateAutoMocking", autoMocking)
+					.SetOutput(output));
 
-			string executable = output / (project.Name + (EnvironmentInfo.IsWin ? ".exe" : ""));
-			ProcessTasks.StartProcess(executable, string.Empty, output)
-				.AssertZeroExitCode();
+				string executable = output / (project.Name + (EnvironmentInfo.IsWin ? ".exe" : ""));
+				ProcessTasks.StartProcess(executable, string.Empty, output)
+					.AssertZeroExitCode();
+			}
 		});
 }
