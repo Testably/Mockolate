@@ -31,6 +31,8 @@ internal sealed class EntityCache
 	// `IsNullableAnnotated` flags and produce different generated code.
 	private readonly ConcurrentDictionary<ITypeSymbol, Type> _types = new(SymbolEqualityComparer.IncludeNullability);
 
+	private readonly ConcurrentDictionary<ITypeSymbol, MockClass[]> _discoveredMocks = new(SymbolEqualityComparer.IncludeNullability);
+
 	private readonly Dictionary<IAssemblySymbol, string> _externAliases;
 
 	private EntityCache(Compilation compilation)
@@ -52,6 +54,9 @@ internal sealed class EntityCache
 
 	public Type GetOrAddType(ITypeSymbol symbol, Func<ITypeSymbol, Type> factory)
 		=> _types.GetOrAdd(symbol, factory);
+
+	public MockClass[] GetOrAddDiscoveredMocks(ITypeSymbol symbol, Func<ITypeSymbol, MockClass[]> factory)
+		=> _discoveredMocks.GetOrAdd(symbol, factory);
 
 	public MethodParameter GetOrAddParameter(IParameterSymbol symbol, Func<IParameterSymbol, MethodParameter> factory)
 		=> _parameters.GetOrAdd(symbol, factory);

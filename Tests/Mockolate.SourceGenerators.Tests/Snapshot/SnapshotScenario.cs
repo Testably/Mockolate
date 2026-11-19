@@ -5,4 +5,5 @@ internal sealed record SnapshotScenario(
     string[] CoverageFiles,
     string MainBody,
     Type[] AssemblyTypes,
-    bool UnionMode = false);
+    bool UnionMode = false,
+    bool AutoMocking = false);

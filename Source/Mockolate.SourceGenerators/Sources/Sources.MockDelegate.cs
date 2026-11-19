@@ -467,6 +467,7 @@ internal static partial class Sources
 			.Append(name).Append(">[] setups)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
+		AppendUseAutoMockFactory(sb, "\t\t\t", "mockBehavior");
 		sb.Append(
 				"\t\t\tvar mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));")
 			.AppendLine();

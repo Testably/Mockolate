@@ -9,6 +9,9 @@
 		     PolySharp ships); otherwise a ';'-separated list of attribute names (UnionAttribute,
 		     OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute). -->
 		<CompilerVisibleProperty Include="MockolateUnionAttributePolyfills"/>
+		<!-- Set it to true to generate mocks for the interfaces that mocked members return, so that
+		     MockBehavior.AutoMocking() can return them instead of null. -->
+		<CompilerVisibleProperty Include="MockolateAutoMocking"/>
 	</ItemGroup>
 
 </Project>

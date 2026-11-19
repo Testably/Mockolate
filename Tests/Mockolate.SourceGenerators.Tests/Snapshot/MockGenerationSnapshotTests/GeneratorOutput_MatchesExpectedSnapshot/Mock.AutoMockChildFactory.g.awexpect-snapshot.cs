@@ -329,6 +329,7 @@ internal static partial class MockExtensionsForAutoMockChildFactory
 		public static global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory CreateMock(global::Mockolate.MockBehavior? mockBehavior = null, params global::System.Action<global::Mockolate.Mock.IMockSetupForAutoMockChildFactory>[] setups)
 		{
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, global::Mockolate.Mock.CreateAutoMock);
 			var mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
 			global::Mockolate.Mock.AutoMockChildFactory mockTarget = new global::Mockolate.Mock.AutoMockChildFactory(mockRegistry);
 			if (setups.Length > 0)

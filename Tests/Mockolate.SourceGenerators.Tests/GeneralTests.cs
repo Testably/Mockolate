@@ -94,7 +94,7 @@ public class GeneralTests
 	}
 
 	[Test]
-	public async Task InterfaceReturnTypes_ShouldTransitivelyCreateMocks()
+	public async Task InterfaceProperty_ShouldNotRecursivelyCreateMocks()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -131,121 +131,8 @@ public class GeneralTests
 
 		await That(result.Sources)
 			.ContainsKey("Mock.IMyInterface1.g.cs").And
-			.ContainsKey("Mock.IMyInterface2.g.cs").And
-			.ContainsKey("Mock.IMyInterface3.g.cs")
-			.Because("interface return types are mocked transitively for auto-mocking, and the cycle back to IMyInterface1 terminates");
-		await That(result.Sources["MockBehaviorExtensions.g.cs"])
-			.Contains("return global::MyCode.IMyInterface3.CreateMock(behavior);");
-	}
-
-	[Test]
-	public async Task InterfaceReturnTypes_OfClass_ShouldOnlyFollowOverridableMembers()
-	{
-		GeneratorResult result = Generator
-			.Run("""
-			     using Mockolate;
-
-			     namespace MyCode
-			     {
-			         public class Program
-			         {
-			             public static void Main(string[] args)
-			             {
-			     			_ = MyService.CreateMock();
-			             }
-			         }
-
-			         public abstract class MyService
-			         {
-			             public abstract IAbstractResult GetAbstract();
-			             public virtual IVirtualResult GetVirtual() => null!;
-			             public INonVirtualResult GetNonVirtual() => null!;
-			         }
-
-			         public interface IAbstractResult;
-			         public interface IVirtualResult;
-			         public interface INonVirtualResult;
-			     }
-
-			     """);
-
-		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources)
-			.ContainsKey("Mock.IAbstractResult.g.cs").And
-			.ContainsKey("Mock.IVirtualResult.g.cs").And
-			.DoesNotContainKey("Mock.INonVirtualResult.g.cs")
-			.Because("the mock cannot override a non-virtual member, so it never returns an auto-mock for it");
-	}
-
-	[Test]
-	public async Task InterfaceReturnTypes_ShouldSkipFrameworkInterfaces()
-	{
-		GeneratorResult result = Generator
-			.Run("""
-			     using System;
-			     using Mockolate;
-
-			     namespace Microsoft.Extensions.Something
-			     {
-			         public interface IFrameworkService
-			         {
-			             int Value { get; }
-			         }
-			     }
-
-			     namespace MyCode
-			     {
-			         public class Program
-			         {
-			             public static void Main(string[] args)
-			             {
-			     			_ = IMyInterface.CreateMock();
-			             }
-			         }
-
-			         public interface IMyInterface
-			         {
-			             IServiceProvider GetServiceProvider();
-			             Microsoft.Extensions.Something.IFrameworkService GetFrameworkService();
-			         }
-			     }
-
-			     """);
-
-		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources)
-			.ContainsKey("Mock.IMyInterface.g.cs").And
-			.DoesNotContainKey("Mock.IServiceProvider.g.cs").And
-			.DoesNotContainKey("Mock.IFrameworkService.g.cs");
-	}
-
-	[Test]
-	public async Task MockedTypeNamedLikeTheAutoMockFactory_ShouldNotClash()
-	{
-		GeneratorResult result = Generator
-			.Run("""
-			     using Mockolate;
-
-			     namespace MyCode
-			     {
-			         public class Program
-			         {
-			             public static void Main(string[] args)
-			             {
-			     			_ = CreateAutoMock.CreateMock();
-			             }
-			         }
-
-			         public interface CreateAutoMock
-			         {
-			             CreateAutoMock GetSelf();
-			         }
-			     }
-
-			     """);
-
-		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources).ContainsKey("Mock.CreateAutoMock_1.g.cs");
+			.DoesNotContainKey("Mock.IMyInterface2.g.cs").And
+			.DoesNotContainKey("Mock.IMyInterface3.g.cs");
 	}
 
 	[Test]

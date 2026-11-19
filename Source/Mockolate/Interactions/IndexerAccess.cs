@@ -67,4 +67,13 @@ public abstract class IndexerAccess : IInteraction
 			typedLeaf.HasValue = true;
 		}
 	}
+
+	/// <summary>
+	///     Stores the default <paramref name="value" /> for this access unless a value is stored already, and returns
+	///     the stored value.
+	/// </summary>
+	internal T StoreDefaultValue<T>(T value)
+		=> TraverseStorage(Storage, true) is IndexerValueStorage<T> typedLeaf
+			? typedLeaf.StoreDefault(value)
+			: value;
 }

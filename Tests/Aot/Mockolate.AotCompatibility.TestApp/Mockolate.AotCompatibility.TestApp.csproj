@@ -7,6 +7,7 @@
 		<Nullable>enable</Nullable>
 		<PublishAot>true</PublishAot>
 		<InvariantGlobalization>true</InvariantGlobalization>
+		<MockolateAutoMocking>true</MockolateAutoMocking>
 	</PropertyGroup>
 
 	<!--
@@ -21,6 +22,9 @@
 		<IlcTreatWarningsAsErrors>true</IlcTreatWarningsAsErrors>
 		<TrimmerSingleWarn>false</TrimmerSingleWarn>
 	</PropertyGroup>
+
+	<!-- Project references do not import the package props, so make the generator see MockolateAutoMocking here too. -->
+	<Import Project="..\..\..\Source\Mockolate\build\Mockolate.props"/>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>

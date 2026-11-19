@@ -1,16 +1,17 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading;
 
 namespace Mockolate.Internals;
 
 /// <summary>
-///     The auto-mock factories that the source generator registers for the interfaces it generates a mock for.
+///     Creates the auto-mocks for <see cref="MockBehavior.AutoMock" /> with the factory that the source generator
+///     emits into each assembly that sets the <c>MockolateAutoMocking</c> build property.
 /// </summary>
 /// <remarks>
-///     Every assembly with generated mocks registers one factory that creates the mocks of its own compilation with
-///     a <see langword="typeof" /> comparison, so creating an auto-mock needs no reflection.
+///     The factory creates the mocks of its own assembly with a <see langword="typeof" /> comparison, so creating an
+///     auto-mock needs no reflection, and the <c>Mock</c> property of an auto-mock works in the assembly that created
+///     the parent mock.
 /// </remarks>
 #if !DEBUG
 [DebuggerNonUserCode]
@@ -18,26 +19,26 @@ namespace Mockolate.Internals;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class AutoMocks
 {
-	private static Func<Type, MockBehavior, object?>[] _factories = [];
-
 	/// <summary>
-	///     Registers a <paramref name="factory" /> that creates a mock of the given interface with the given
-	///     behavior, or returns <see langword="null" /> when it has no mock for the interface.
+	///     Returns the <paramref name="behavior" /> that creates its auto-mocks with the <paramref name="factory" />.
 	/// </summary>
-	/// <param name="factory">The generator-emitted factory of one assembly.</param>
-	public static void Register(Func<Type, MockBehavior, object?> factory)
-	{
-		Func<Type, MockBehavior, object?>[] current;
-		Func<Type, MockBehavior, object?>[] updated;
-		do
-		{
-			current = Volatile.Read(ref _factories);
-			updated = new Func<Type, MockBehavior, object?>[current.Length + 1];
-			Array.Copy(current, updated, current.Length);
-			updated[current.Length] = factory;
-		}
-		while (Interlocked.CompareExchange(ref _factories, updated, current) != current);
-	}
+	/// <remarks>
+	///     The generated <c>CreateMock</c> calls this, so that a mock creates the auto-mocks of its own assembly. The
+	///     <paramref name="behavior" /> is returned unchanged when it does not enable auto-mocking.
+	/// </remarks>
+	/// <param name="behavior">The behavior of the mock that is created.</param>
+	/// <param name="factory">
+	///     Creates a mock of the given interface with the given behavior, or returns <see langword="null" /> when the
+	///     assembly has no mock of the interface.
+	/// </param>
+	/// <returns>The <paramref name="behavior" /> with the <paramref name="factory" />.</returns>
+	public static MockBehavior UseFactory(MockBehavior behavior, Func<Type, MockBehavior, object?> factory)
+		=> behavior.AutoMock && behavior.AutoMockFactory != factory
+			? behavior with
+			{
+				AutoMockFactory = factory,
+			}
+			: behavior;
 
 	/// <summary>
 	///     Returns the <paramref name="value" />, or a new mock of <typeparamref name="TValue" /> when it is
@@ -61,20 +62,5 @@ public static class AutoMocks
 	}
 
 	internal static object? Create(Type type, MockBehavior behavior)
-	{
-		if (!type.IsInterface)
-		{
-			return null;
-		}
-
-		foreach (Func<Type, MockBehavior, object?> factory in Volatile.Read(ref _factories))
-		{
-			if (factory(type, behavior) is { } mock)
-			{
-				return mock;
-			}
-		}
-
-		return null;
-	}
+		=> behavior.AutoMockFactory?.Invoke(type, behavior);
 }

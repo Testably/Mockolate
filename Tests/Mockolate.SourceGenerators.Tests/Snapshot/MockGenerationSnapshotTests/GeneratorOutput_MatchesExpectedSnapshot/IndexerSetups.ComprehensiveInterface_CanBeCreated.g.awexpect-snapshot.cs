@@ -706,7 +706,7 @@ namespace Mockolate.Setup
 			}
 			else
 			{
-				currentValue = TryCast(global::Mockolate.Internals.AutoMocks.Or(behavior, behavior.DefaultValue.Generate(default(TValue)!)), out TValue casted, behavior) ? casted : default!;
+				currentValue = TryCast(behavior.DefaultValue.Generate(default(TValue)!), out TValue casted, behavior) ? casted : default!;
 			}
 
 			currentValue = ExecuteGetterCallbacks(p1, p2, p3, p4, p5, currentValue);

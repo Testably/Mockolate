@@ -1,6 +1,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mockolate.SourceGenerators.Entities;
+using Mockolate.SourceGenerators.Internals;
 
 namespace Mockolate.SourceGenerators;
 
@@ -161,12 +162,33 @@ internal static class MockGeneratorHelpers
 	/// </summary>
 	/// <remarks>
 	///     Framework interfaces are excluded, because mocking them transitively would generate mocks for large parts
-	///     of the base class library.
+	///     of the base class library. A type that still contains a type parameter cannot be named in the auto-mock
+	///     factory, and an interface with static abstract members cannot be a type argument (CS8920).
 	/// </remarks>
 	internal static bool IsAutoMockable(ITypeSymbol typeSymbol)
 		=> typeSymbol is INamedTypeSymbol { TypeKind: TypeKind.Interface, } namedTypeSymbol &&
 		   IsMockable(namedTypeSymbol) &&
-		   !IsFrameworkNamespace(namedTypeSymbol.ContainingNamespace);
+		   !IsFrameworkNamespace(namedTypeSymbol.ContainingNamespace) &&
+		   !ContainsTypeParameter(namedTypeSymbol) &&
+		   !IsObsolete(namedTypeSymbol) &&
+		   !HasStaticAbstractMembers(namedTypeSymbol);
+
+	/// <summary>
+	///     Whether the generator can create a mock of <paramref name="typeSymbol" /> for auto-mocking, which unlike a
+	///     type in a <c>CreateMock</c> call is not checked by the <c>MockabilityAnalyzer</c>.
+	/// </summary>
+	/// <remarks>
+	///     The type must be accessible from the compilation, must not expand itself (e.g. <c>INode&lt;T&gt;</c>
+	///     returning <c>INode&lt;INode&lt;T&gt;&gt;</c>, which would never end) and no member the mock implements may be
+	///     obsolete or use a type that cannot be a type argument, so that the generated mock compiles without
+	///     warnings.
+	/// </remarks>
+	private static bool CanBeDiscovered(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
+		=> IsAutoMockable(typeSymbol) &&
+		   Helpers.IsAccessibleFrom(typeSymbol, sourceAssembly) &&
+		   !RepeatsGenericDefinition(typeSymbol, []) &&
+		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>
+			   !IsObsolete(member) && GetSignatureTypes(member).All(type => !UsesUnusableType(type)));
 
 	private static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{
@@ -176,6 +198,88 @@ internal static class MockGeneratorHelpers
 		}
 
 		return namespaceSymbol?.Name is "System" or "Microsoft" or "Windows";
+	}
+
+	private static bool ContainsTypeParameter(ITypeSymbol typeSymbol)
+		=> typeSymbol switch
+		{
+			ITypeParameterSymbol => true,
+			IArrayTypeSymbol array => ContainsTypeParameter(array.ElementType),
+			IPointerTypeSymbol pointer => ContainsTypeParameter(pointer.PointedAtType),
+			INamedTypeSymbol named => named.TypeArguments.Any(ContainsTypeParameter) ||
+			                          (named.ContainingType is { } containingType && ContainsTypeParameter(containingType)),
+			_ => false,
+		};
+
+	private static bool IsObsolete(ISymbol symbol)
+		=> symbol.GetAttributes().Any(attribute => attribute.AttributeClass is
+		   {
+			   Name: "ObsoleteAttribute",
+			   ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+		   }) ||
+		   (symbol.ContainingType is { } containingType && IsObsolete(containingType));
+
+	private static bool HasStaticAbstractMembers(INamedTypeSymbol typeSymbol)
+		=> typeSymbol.GetMembers().Concat(typeSymbol.AllInterfaces.SelectMany(i => i.GetMembers()))
+			.Any(member => member is { IsStatic: true, IsAbstract: true, });
+
+	private static bool UsesUnusableType(ITypeSymbol typeSymbol)
+		=> typeSymbol switch
+		{
+			IArrayTypeSymbol array => UsesUnusableType(array.ElementType),
+			INamedTypeSymbol named => IsObsolete(named) ||
+			                          (named.TypeKind == TypeKind.Interface && HasStaticAbstractMembers(named)) ||
+			                          named.TypeArguments.Any(UsesUnusableType),
+			_ => false,
+		};
+
+	private static bool RepeatsGenericDefinition(ITypeSymbol typeSymbol, List<ISymbol> path)
+	{
+		switch (typeSymbol)
+		{
+			case IArrayTypeSymbol array:
+				return RepeatsGenericDefinition(array.ElementType, path);
+			case INamedTypeSymbol { IsGenericType: true, } named:
+				if (path.Contains(named.OriginalDefinition, SymbolEqualityComparer.Default))
+				{
+					return true;
+				}
+
+				path.Add(named.OriginalDefinition);
+				bool repeats = named.TypeArguments.Any(typeArgument => RepeatsGenericDefinition(typeArgument, path));
+				path.RemoveAt(path.Count - 1);
+				return repeats;
+			default:
+				return false;
+		}
+	}
+
+	private static IEnumerable<ITypeSymbol> GetSignatureTypes(ISymbol member)
+		=> member switch
+		{
+			IMethodSymbol method => [method.ReturnType, ..method.Parameters.Select(parameter => parameter.Type),],
+			IPropertySymbol property => [property.Type, ..property.Parameters.Select(parameter => parameter.Type),],
+			IEventSymbol @event => [@event.Type,],
+			_ => [],
+		};
+
+	/// <summary>
+	///     The members that a mock of <paramref name="typeSymbol" /> implements or overrides.
+	/// </summary>
+	private static IEnumerable<ISymbol> GetImplementedMembers(ITypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
+	{
+		IEnumerable<ITypeSymbol> types = [typeSymbol, ..typeSymbol.AllInterfaces,];
+		for (ITypeSymbol? baseType = typeSymbol.BaseType; baseType is not null; baseType = baseType.BaseType)
+		{
+			types = types.Append(baseType);
+		}
+
+		return types.SelectMany(type => type.GetMembers())
+			.Where(member => member is IMethodSymbol { MethodKind: MethodKind.DelegateInvoke, } ||
+			                 (member is { IsStatic: false, IsSealed: false, } &&
+			                  (member.IsAbstract || member.IsVirtual || member.IsOverride) &&
+			                  Helpers.IsOverridableFrom(member, sourceAssembly) &&
+			                  Helpers.HasAccessibleSignature(member, sourceAssembly)));
 	}
 
 	private static ITypeSymbol UnwrapTask(ITypeSymbol typeSymbol)
@@ -195,49 +299,56 @@ internal static class MockGeneratorHelpers
 			? task.TypeArguments[0]
 			: typeSymbol;
 
-	private static IEnumerable<ITypeSymbol> GetAutoMockableReturnTypes(ITypeSymbol typeSymbol)
+	private static IEnumerable<INamedTypeSymbol> GetAutoMockableReturnTypes(ITypeSymbol typeSymbol,
+		IAssemblySymbol sourceAssembly)
 	{
-		IEnumerable<ITypeSymbol> types = [typeSymbol, ..typeSymbol.AllInterfaces,];
-		for (ITypeSymbol? baseType = typeSymbol.BaseType; baseType is not null; baseType = baseType.BaseType)
-		{
-			types = types.Append(baseType);
-		}
-
-		foreach (ISymbol member in types.SelectMany(type => type.GetMembers())
-			         .Where(member => member.IsAbstract || member.IsVirtual || member.IsOverride ||
-			                          member is IMethodSymbol { MethodKind: MethodKind.DelegateInvoke, }))
+		foreach (ISymbol member in GetImplementedMembers(typeSymbol, sourceAssembly))
 		{
 			ITypeSymbol? returnType = member switch
 			{
-				IMethodSymbol { IsStatic: false, MethodKind: MethodKind.Ordinary or MethodKind.DelegateInvoke, ReturnsVoid: false, } method => method.ReturnType,
-				IPropertySymbol { IsStatic: false, } property => property.Type,
+				IMethodSymbol { MethodKind: MethodKind.Ordinary or MethodKind.DelegateInvoke, ReturnsVoid: false, } method => method.ReturnType,
+				IPropertySymbol { GetMethod: not null, } property => property.Type,
 				_ => null,
 			};
-			if (returnType is not null && UnwrapTask(returnType) is { } candidate && IsAutoMockable(candidate))
+			if (returnType is not null && UnwrapTask(returnType) is INamedTypeSymbol candidate &&
+			    CanBeDiscovered(candidate, sourceAssembly))
 			{
 				yield return candidate;
 			}
 		}
 	}
 
+	/// <summary>
+	///     The mocks of <paramref name="initialTypes" /> needs besides themselves: auto-mocks of the interfaces their
+	///     members return (transitively) and the <c>HttpMessageHandler</c> of an <c>HttpClient</c>.
+	/// </summary>
+	/// <remarks>
+	///     The result is cached per type and compilation, because every <c>CreateMock</c> call of the type asks again.
+	/// </remarks>
 	private static IEnumerable<MockClass> DiscoverMockableTypes(IEnumerable<ITypeSymbol> initialTypes,
 		Compilation compilation)
+		=> initialTypes.SelectMany(type => EntityCache.Current is { } cache
+			? cache.GetOrAddDiscoveredMocks(type, t => DiscoverMockableTypes(t, compilation))
+			: DiscoverMockableTypes(type, compilation));
+
+	private static MockClass[] DiscoverMockableTypes(ITypeSymbol initialType, Compilation compilation)
 	{
 		IAssemblySymbol sourceAssembly = compilation.Assembly;
-		Queue<ITypeSymbol> typesToProcess = new(initialTypes);
+		List<MockClass> result = [];
+		Queue<ITypeSymbol> typesToProcess = new([initialType,]);
 		HashSet<ITypeSymbol> processedTypes = new(typesToProcess, SymbolEqualityComparer.Default);
 
 		while (typesToProcess.Count > 0)
 		{
 			ITypeSymbol currentType = typesToProcess.Dequeue();
 
-			foreach (ITypeSymbol returnType in GetAutoMockableReturnTypes(currentType))
+			foreach (INamedTypeSymbol returnType in GetAutoMockableReturnTypes(currentType, sourceAssembly))
 			{
-				ITypeSymbol unannotated = returnType.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
-				if (processedTypes.Add(unannotated))
+				if (processedTypes.Add(returnType))
 				{
-					yield return CreateMockClass(compilation, unannotated);
-					typesToProcess.Enqueue(unannotated);
+					result.Add(new MockClass([returnType.WithDynamicAsObject(compilation),], compilation,
+						isDiscovered: true));
+					typesToProcess.Enqueue(returnType);
 				}
 			}
 
@@ -253,11 +364,13 @@ internal static class MockGeneratorHelpers
 					.First(t => t.Name == "HttpMessageHandler");
 				if (processedTypes.Add(httpMessageHandlerType))
 				{
-					yield return new MockClass([httpMessageHandlerType,], compilation);
+					result.Add(new MockClass([httpMessageHandlerType,], compilation));
 					typesToProcess.Enqueue(httpMessageHandlerType);
 				}
 			}
 		}
+
+		return result.ToArray();
 	}
 
 	private static bool IsMockable(ITypeSymbol? typeSymbol)

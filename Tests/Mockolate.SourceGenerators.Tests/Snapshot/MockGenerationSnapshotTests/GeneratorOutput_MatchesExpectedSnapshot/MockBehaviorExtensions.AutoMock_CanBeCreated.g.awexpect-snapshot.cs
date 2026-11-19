@@ -21,7 +21,6 @@ internal static partial class Mock
 	static Mock()
 	{
 		_default = new global::Mockolate.MockBehavior(new DefaultValueGenerator());
-		global::Mockolate.Internals.AutoMocks.Register(CreateAutoMock);
 	}
 	
 	extension(global::Mockolate.MockBehavior)
@@ -46,7 +45,7 @@ internal static partial class Mock
 	///     Creates an auto-mock of the <paramref name="type" /> with the <paramref name="behavior" />, or returns
 	///     <see langword="null" /> when this compilation generates no mock of the <paramref name="type" />.
 	/// </summary>
-	private static object? CreateAutoMock(global::System.Type type, global::Mockolate.MockBehavior behavior)
+	internal static object? CreateAutoMock(global::System.Type type, global::Mockolate.MockBehavior behavior)
 	{
 		if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild))
 		{

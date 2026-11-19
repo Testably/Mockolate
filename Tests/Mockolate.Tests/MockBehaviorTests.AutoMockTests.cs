@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Tests.GeneratorCoverage;
 
@@ -8,6 +10,83 @@ public sealed partial class MockBehaviorTests
 	public sealed class AutoMockTests
 	{
 		private static readonly MockBehavior AutoMocking = MockBehavior.Default.AutoMocking();
+
+		[Test]
+		public async Task ClassMock_ShouldPreferTheBaseClassImplementation()
+		{
+			AutoMockBase sut = AutoMockBase.CreateMock(AutoMocking);
+
+			IAutoMockChild fromBase = sut.GetVirtual();
+			IAutoMockChild fromAbstract = sut.GetAbstract();
+
+			await That(fromBase).IsNull().Because("the base class implementation provides the value");
+			await That(fromAbstract).IsNotNull();
+		}
+
+		[Test]
+		public async Task ClassMock_WhenSkippingBaseClass_ShouldReturnMock()
+		{
+			AutoMockBase sut = AutoMockBase.CreateMock(AutoMocking.SkippingBaseClass());
+
+			IAutoMockChild result = sut.GetVirtual();
+
+			await That(result).IsNotNull();
+		}
+
+		[Test]
+		public async Task ConcurrentFirstAccess_ShouldReturnTheSameMock()
+		{
+			const int threads = 8;
+			for (int iteration = 0; iteration < 50; iteration++)
+			{
+				IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+				using Barrier barrier = new(threads);
+				(IAutoMockChild Property, IAutoMockChild Indexer, IAutoMockChild Method)[] results =
+					await Task.WhenAll(Enumerable.Range(0, threads).Select(_ => Task.Run(() =>
+					{
+						barrier.SignalAndWait();
+						return (sut.Child, sut[1], sut.GetChild(1));
+					})));
+
+				await That(results.All(r => ReferenceEquals(r.Property, results[0].Property) &&
+				                            ReferenceEquals(r.Indexer, results[0].Indexer) &&
+				                            ReferenceEquals(r.Method, results[0].Method))).IsTrue()
+					.Because($"concurrent first reads must not create different auto-mocks (iteration {iteration})");
+			}
+		}
+
+		[Test]
+		public async Task CustomBehaviorWithoutDefault_ShouldReturnMock()
+		{
+			MockBehavior behavior = new MockBehavior(new NullDefaultValueGenerator()).AutoMocking();
+			IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
+
+			IAutoMockChild result = sut.GetChild(1);
+
+			await That(result).IsNotNull()
+				.Because("the factory comes with CreateMock and does not depend on MockBehavior.Default");
+		}
+
+		[Test]
+		public async Task Implementing_ShouldReturnMock()
+		{
+			IAutoMockChild sut = IAutoMockChild.CreateMock(AutoMocking).Implementing<IAutoMockGeneric<int>>();
+
+			IAutoMockRoot result = sut.GetRoot();
+
+			await That(result).IsNotNull();
+		}
+
+		[Test]
+		public async Task Initialize_ShouldApplyToAutoMocks()
+		{
+			MockBehavior behavior = AutoMocking.Initialize<IAutoMockChild>(setup => setup.GetValue().Returns(5));
+			IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
+
+			int result = sut.GetChild(1).GetValue();
+
+			await That(result).IsEqualTo(5);
+		}
 
 		[Test]
 		public async Task Delegate_ShouldReturnSameMock()
@@ -214,6 +293,16 @@ public sealed partial class MockBehaviorTests
 			await That(sut.GetChild(1)).IsNull();
 			await That(sut.Child).IsNull();
 			await That(sut[1]).IsNull();
+		}
+		public abstract class AutoMockBase
+		{
+			public abstract IAutoMockChild GetAbstract();
+			public virtual IAutoMockChild GetVirtual() => null!;
+		}
+
+		private sealed class NullDefaultValueGenerator : IDefaultValueGenerator
+		{
+			public object? GenerateValue(Type type, params object?[] parameters) => null;
 		}
 #if NET10_0_OR_GREATER
 

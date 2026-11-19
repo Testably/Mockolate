@@ -940,6 +940,7 @@ internal static partial class Sources
 		else
 		{
 			sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
+			AppendUseAutoMockFactory(sb, "\t\t\t", "mockBehavior");
 			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.").Append(name).Append(".MemberCount, constructorParameters);").AppendLine();
 		}
 
@@ -1415,6 +1416,7 @@ internal static partial class Sources
 		sb.Append(indent).Append("/// </summary>").AppendLine();
 		sb.Append(indent).Append("private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)").AppendLine();
 		sb.Append(indent).Append("{").AppendLine();
+		AppendUseAutoMockFactory(sb, indent + "\t", "behavior");
 		sb.Append(indent).Append("\tglobal::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);").AppendLine();
 		if (setsMockRegistryProvider)
 		{
@@ -6788,16 +6790,37 @@ internal static partial class Sources
 		=> !@event.IsStatic;
 
 	/// <summary>
+	///     Whether the compilation sets the <c>MockolateAutoMocking</c> build property, while a mock file is emitted.
+	/// </summary>
+	[ThreadStatic] internal static bool AutoMocking;
+
+	/// <summary>
 	///     A property stores its first default value, so the auto-mock needs no cache of its own.
 	/// </summary>
-	private static Func<Type, (string Prefix, string Suffix)> PropertyAutoMock(string behavior)
-		=> type => ($"global::Mockolate.Internals.AutoMocks.Or<{type.Fullname}>({behavior}, ", ")");
+	private static Func<Type, (string Prefix, string Suffix)>? PropertyAutoMock(string behavior)
+		=> AutoMocking
+			? type => ($"global::Mockolate.Internals.AutoMocks.Or<{type.Fullname}>({behavior}, ", ")")
+			: null;
 
 	/// <summary>
 	///     A method keeps its auto-mock in the registry, keyed by the member id.
 	/// </summary>
-	private static Func<Type, (string Prefix, string Suffix)> MethodAutoMock(string mockRegistry, string memberIdRef)
-		=> type => ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, ", ")");
+	private static Func<Type, (string Prefix, string Suffix)>? MethodAutoMock(string mockRegistry, string memberIdRef)
+		=> AutoMocking
+			? type => ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, ", ")")
+			: null;
+
+	/// <summary>
+	///     Lets the mock create the auto-mocks of this assembly, so that their <c>Mock</c> property works here.
+	/// </summary>
+	private static void AppendUseAutoMockFactory(StringBuilder sb, string indent, string behavior)
+	{
+		if (AutoMocking)
+		{
+			sb.Append(indent).Append(behavior).Append(" = global::Mockolate.Internals.AutoMocks.UseFactory(")
+				.Append(behavior).Append(", global::Mockolate.Mock.CreateAutoMock);").AppendLine();
+		}
+	}
 
 	/// <summary>
 	///     Methods with non-generic, non-ref-struct signatures are recorded typed; everything else (open

@@ -10,9 +10,12 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	private readonly Dictionary<Method, Method> _methodImplementations;
 	private readonly Dictionary<Property, Property> _propertyImplementations;
 
-	public MockClass(ITypeSymbol[] types, Compilation compilation) : base(types[0], compilation.Assembly)
+	public MockClass(ITypeSymbol[] types, Compilation compilation, bool isDiscovered = false)
+		: base(types[0], compilation.Assembly)
 	{
 		IAssemblySymbol sourceAssembly = compilation.Assembly;
+		IsDiscovered = isDiscovered;
+		IdentityKey = string.Join("|", types.Select(type => type.ToDisplayString(IdentityFormat)));
 		AdditionalImplementations = new EquatableArray<Class>(
 			types.Skip(1).Select(x => new Class(x, sourceAssembly)).ToArray());
 
@@ -60,6 +63,24 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	///     Whether this mock can be returned as an auto-mock (see <see cref="Type.IsAutoMockable" />).
 	/// </summary>
 	public bool IsAutoMockable { get; }
+
+	/// <summary>
+	///     Whether the generator found this mock as the return type of another mock, for auto-mocking, instead of in a
+	///     <c>CreateMock</c> call.
+	/// </summary>
+	public bool IsDiscovered { get; }
+
+	/// <summary>
+	///     The mocked types without nullable annotations and tuple element names, so that two spellings of the same
+	///     runtime type share one mock.
+	/// </summary>
+	public string IdentityKey { get; }
+
+	private static readonly SymbolDisplayFormat IdentityFormat = new(
+		SymbolDisplayGlobalNamespaceStyle.Included,
+		SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+		SymbolDisplayGenericsOptions.IncludeTypeParameters,
+		miscellaneousOptions: SymbolDisplayMiscellaneousOptions.ExpandValueTuple);
 
 	public Method? Delegate { get; }
 
@@ -120,6 +141,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		=> ReferenceEquals(this, other) ||
 		   (other is not null &&
 		    _mockSurfaceHash == other._mockSurfaceHash &&
+		    IsDiscovered == other.IsDiscovered &&
 		    ClassFullName == other.ClassFullName);
 
 	public override bool Equals(Class? other) => other is MockClass mc && Equals(mc);

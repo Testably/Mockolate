@@ -421,9 +421,7 @@ public partial class MockRegistry
 			throw new MockNotSetupException($"{access} was accessed without prior setup.");
 		}
 
-		TResult value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TResult>());
-		access.StoreValue(value);
-		return value;
+		return access.StoreDefaultValue(AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TResult>()));
 	}
 
 	/// <summary>
@@ -967,9 +965,7 @@ public partial class MockRegistry
 			}
 
 			TResult initialValue = GetInitialValue();
-			PropertySetup setup = new PropertySetup.Default<TResult>(propertyName, initialValue);
-			Setup.Properties.Add(setup);
-			return setup;
+			return Setup.Properties.Add(new PropertySetup.Default<TResult>(propertyName, initialValue));
 		}
 
 		if (forceReinitWhenFound || !existingSetup.IsValueInitialized)

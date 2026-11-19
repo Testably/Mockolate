@@ -95,14 +95,21 @@ public record MockBehavior : IMockBehaviorAccess
 	///     <see langword="null" />.
 	/// </summary>
 	/// <remarks>
-	///     If set to <see langword="true" />, a method, property or indexer whose return type is an interface (also
-	///     wrapped in a <see cref="System.Threading.Tasks.Task{TResult}" /> or <c>ValueTask&lt;TResult&gt;</c>)
-	///     returns a mock of that interface with the same <see cref="MockBehavior" /> when no setup and no default value
-	///     factory provides a value. A method or property creates the mock once, an indexer once per key, so it can be
+	///     Requires the <c>MockolateAutoMocking</c> build property, which makes the source generator create mocks for
+	///     the interfaces that mocked members return. If set to <see langword="true" />, a method, property, indexer or
+	///     delegate whose return type is such an interface (for methods and properties also wrapped in a
+	///     <see cref="System.Threading.Tasks.Task{TResult}" /> or <c>ValueTask&lt;TResult&gt;</c>) returns a mock of that
+	///     interface with the same <see cref="MockBehavior" /> when no setup and no default value factory provides a
+	///     value. A method, property or delegate creates the mock once, an indexer once per key, so it can be
 	///     configured after the first call through its own <c>Mock</c> property. Interfaces in the <c>System</c>,
 	///     <c>Microsoft</c> and <c>Windows</c> namespaces are not mocked automatically.
 	/// </remarks>
 	public bool AutoMock { get; init; }
+
+	/// <summary>
+	///     Creates the auto-mocks of the assembly whose generated <c>CreateMock</c> created the mock with this behavior.
+	/// </summary>
+	internal Func<Type, MockBehavior, object?>? AutoMockFactory { get; init; }
 
 	/// <summary>
 	///     The generator for default values when not specified by a setup.
