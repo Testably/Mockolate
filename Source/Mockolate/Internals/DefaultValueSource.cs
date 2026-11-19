@@ -19,4 +19,10 @@ public enum DefaultValueSource
 
 	/// <summary>The generator may use the arguments to produce the value.</summary>
 	WithArguments,
+
+	/// <summary>
+	///     The generator returns a completed task, or a canceled one when the first cancellation token among the
+	///     arguments is canceled.
+	/// </summary>
+	CancellationToken,
 }

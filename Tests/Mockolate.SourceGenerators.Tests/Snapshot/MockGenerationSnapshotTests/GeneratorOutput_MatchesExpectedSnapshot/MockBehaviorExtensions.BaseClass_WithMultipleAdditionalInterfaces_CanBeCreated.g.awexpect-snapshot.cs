@@ -166,12 +166,12 @@ internal static partial class Mock
 	#if NET8_0_OR_GREATER
 			if (type == typeof(global::System.Threading.Tasks.ValueTask))
 			{
-				return global::Mockolate.Internals.DefaultValueSource.WithArguments;
+				return global::Mockolate.Internals.DefaultValueSource.CancellationToken;
 			}
 
 	#endif
 			return type == typeof(global::System.Threading.Tasks.Task)
-				? global::Mockolate.Internals.DefaultValueSource.WithArguments
+				? global::Mockolate.Internals.DefaultValueSource.CancellationToken
 				: global::Mockolate.Internals.DefaultValueSource.None;
 		}
 
@@ -195,13 +195,15 @@ internal static partial class Mock
 	
 		private static bool HasCanceledCancellationToken(object?[] parameters, out global::System.Threading.CancellationToken cancellationToken)
 		{
-			global::System.Threading.CancellationToken parameter = global::System.Linq.Enumerable.FirstOrDefault(global::System.Linq.Enumerable.OfType<global::System.Threading.CancellationToken>(parameters));
-			if (parameter.IsCancellationRequested)
+			foreach (object? parameter in parameters)
 			{
-				cancellationToken = parameter;
-				return true;
+				if (parameter is global::System.Threading.CancellationToken token)
+				{
+					cancellationToken = token;
+					return token.IsCancellationRequested;
+				}
 			}
-	
+
 			cancellationToken = global::System.Threading.CancellationToken.None;
 			return false;
 		}

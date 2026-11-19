@@ -127,6 +127,34 @@ public sealed partial class InteractionsTests
 		}
 
 		[Test]
+		public async Task WithTask_WhenAnObjectParameterIsACanceledToken_ShouldReturnCanceledTask()
+		{
+			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
+			CancellationToken canceledToken = new(true);
+
+			Task canceled = sut.TaskWithObjectParameterMethod(canceledToken);
+			Task withoutToken = sut.TaskWithObjectParameterMethod("test");
+
+			await That(canceled.IsCanceled).IsTrue();
+			await That(withoutToken.IsCanceled).IsFalse();
+			await That(withoutToken.IsCompleted).IsTrue();
+		}
+
+		[Test]
+		public async Task WithTask_WithoutTokenParameter_ShouldReturnCompletedTask()
+		{
+			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
+
+			Task withParameter = sut.TaskWithoutTokenMethod("test");
+			Task withoutParameter = sut.TaskWithoutParameterMethod();
+
+			await That(withParameter.IsCompleted).IsTrue();
+			await That(withParameter.IsCanceled).IsFalse();
+			await That(withoutParameter.IsCompleted).IsTrue();
+			await That(withoutParameter.IsCanceled).IsFalse();
+		}
+
+		[Test]
 		public async Task WithTaskOfInt_ShouldReturnCanceledTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
@@ -202,5 +230,8 @@ public sealed partial class InteractionsTests
 		Task<int> NullableTokenMethod(CancellationToken? cancellationToken);
 		Task<int> ObjectParameterMethod(object value);
 		Task<int> WithoutTokenMethod(string value);
+		Task TaskWithObjectParameterMethod(object value);
+		Task TaskWithoutTokenMethod(string value);
+		Task TaskWithoutParameterMethod();
 	}
 }
