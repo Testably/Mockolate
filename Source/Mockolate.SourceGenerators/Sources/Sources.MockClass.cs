@@ -6473,14 +6473,26 @@ internal static partial class Sources
 		sb.Append(", () => $\"").Append(method.Name).Append("(")
 			.Append(useParameters
 				? "{parameters}"
-				: string.Join(", ", method.Parameters.Select(p => !p.IsParams ? ExpectationPlaceholder(p)
-					: perElementParams ? $"{{{elementMatch}}}"
-					: emptyParams ? "[]"
-					: ExpectationPlaceholder(p))))
+				: string.Join(", ", method.Parameters.Select(ParameterPlaceholder)))
 			.Append(")\");").AppendLine();
 		if (usesBlockBody)
 		{
 			sb.Append("\t\t}").AppendLine();
+		}
+
+		string ParameterPlaceholder(MethodParameter parameter)
+		{
+			if (parameter.IsParams && perElementParams)
+			{
+				return $"{{{elementMatch}}}";
+			}
+
+			if (parameter.IsParams && emptyParams)
+			{
+				return "[]";
+			}
+
+			return ExpectationPlaceholder(parameter);
 		}
 	}
 
