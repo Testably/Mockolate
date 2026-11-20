@@ -177,6 +177,42 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Match.AnyParameters().
+        /// </summary>
+        internal static string Mockolate0006CodeFixTitle {
+            get {
+                return ResourceManager.GetString("Mockolate0006CodeFixTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string describing Mockolate0006.
+        /// </summary>
+        internal static string Mockolate0006Description {
+            get {
+                return ResourceManager.GetString("Mockolate0006Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string describing Mockolate0006's message format.
+        /// </summary>
+        internal static string Mockolate0006MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0006MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string describing Mockolate0006's title.
+        /// </summary>
+        internal static string Mockolate0006Title {
+            get {
+                return ResourceManager.GetString("Mockolate0006Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {
