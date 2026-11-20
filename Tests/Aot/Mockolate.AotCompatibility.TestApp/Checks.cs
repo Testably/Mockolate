@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿#pragma warning disable CA1873 // Avoid potentially expensive logging
+using System.Net;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;

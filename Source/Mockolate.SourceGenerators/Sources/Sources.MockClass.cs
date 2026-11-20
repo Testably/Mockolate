@@ -181,7 +181,8 @@ internal static partial class Sources
 		
 		sb.AppendLine();
 		
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents);
+		bool isLoggerFactory = IsLoggerFactory(@class);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLoggerFactory);
 
 		foreach ((string Name, Class Class) hiddenBase in hiddenBaseInterfaces)
 		{
@@ -190,7 +191,8 @@ internal static partial class Sources
 				false /* interfaces have no protected members */,
 				false /* interfaces have no protected events */,
 				hiddenBase.Class.AllMethods().Any(x => x.IsStatic) || hiddenBase.Class.AllProperties().Any(x => x.IsStatic),
-				hiddenBase.Class.AllEvents().Any(x => x.IsStatic));
+				hiddenBase.Class.AllEvents().Any(x => x.IsStatic),
+				isLoggerFactory);
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -1251,7 +1253,8 @@ internal static partial class Sources
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementMockForInterface(StringBuilder sb, string mockRegistryName, string name,
-		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents)
+		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents,
+		bool isLoggerFactory)
 	{
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
@@ -1350,7 +1353,14 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tbool IMockFor").Append(name).Append(".VerifyThatAllInteractionsAreVerified()").AppendLine();
-		sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".Interactions.GetUnverifiedInteractions().Count == 0;").AppendLine();
+		if (isLoggerFactory)
+		{
+			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.AreAllFactoryInteractionsVerified(this.").Append(mockRegistryName).Append(");").AppendLine();
+		}
+		else
+		{
+			sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".Interactions.GetUnverifiedInteractions().Count == 0;").AppendLine();
+		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tbool IMockFor").Append(name).Append(".VerifyThatAllSetupsAreUsed()").AppendLine();
@@ -1358,7 +1368,14 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tvoid IMockFor").Append(name).Append(".ClearAllInteractions()").AppendLine();
-		sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".ClearAllInteractions();").AppendLine();
+		if (isLoggerFactory)
+		{
+			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.ClearFactoryInteractions(this.").Append(mockRegistryName).Append(");").AppendLine();
+		}
+		else
+		{
+			sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".ClearAllInteractions();").AppendLine();
+		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Monitor.MockMonitor<IMockVerifyFor").Append(name).Append("> IMockFor").Append(name).Append(".Monitor()").AppendLine();
@@ -2837,9 +2854,9 @@ internal static partial class Sources
 		AppendTriggerCallbacks(sb, "\t\t\t\t", methodSetup, method.Parameters);
 		sb.Append("\t\t\t}").AppendLine();
 
-		// ILogger.IsEnabled answers true without a setup even on a strict mock: logging code checks it before
-		// every Log call, and an unexpected Log call still throws.
-		if (!(isClassInterface && IsLoggerIsEnabled(method)))
+		// ILogger.IsEnabled and ILoggerFactory.CreateLogger answer without a setup even on a strict mock: logging code
+		// calls them before every Log call, and an unexpected Log call on the strict logger still throws.
+		if (!(isClassInterface && (IsLoggerIsEnabled(method) || IsLoggerFactoryCreateLogger(method))))
 		{
 			string displayMethodName =
 				$"{method.ContainingType}.{method.Name}({string.Join(", ", method.Parameters.Select(p => p.Type.DisplayName))})";

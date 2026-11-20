@@ -37,6 +37,7 @@ internal static partial class Mock
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
+			behavior = global::Mockolate.Internals.AutoMocks.UseFactory(behavior, null);
 			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
 			return registry;
 		}
@@ -77,13 +78,13 @@ internal static partial class Mock
 			=> this.MockRegistry.Method<IMockVerifyForILoggerFactory>(this, setup);
 		/// <inheritdoc />
 		bool IMockForILoggerFactory.VerifyThatAllInteractionsAreVerified()
-			=> this.MockRegistry.Interactions.GetUnverifiedInteractions().Count == 0;
+			=> global::Mockolate.MockolateLogging.AreAllFactoryInteractionsVerified(this.MockRegistry);
 		/// <inheritdoc />
 		bool IMockForILoggerFactory.VerifyThatAllSetupsAreUsed()
 			=> this.MockRegistry.GetUnusedSetups(this.MockRegistry.Interactions).Count == 0;
 		/// <inheritdoc />
 		void IMockForILoggerFactory.ClearAllInteractions()
-			=> this.MockRegistry.ClearAllInteractions();
+			=> global::Mockolate.MockolateLogging.ClearFactoryInteractions(this.MockRegistry);
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForILoggerFactory> IMockForILoggerFactory.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForILoggerFactory>(this.MockRegistry.Interactions, interactions => new VerifyMonitorILoggerFactory(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
@@ -171,10 +172,6 @@ internal static partial class Mock
 			finally
 			{
 				methodSetup?.TriggerCallbacks(categoryName);
-			}
-			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
-			{
-				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger(string)' was invoked without prior setup.");
 			}
 			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
 			{
@@ -902,6 +899,7 @@ internal static partial class MockExtensionsForILoggerFactory
 			}
 
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
 			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.ILoggerFactory.MemberCount, constructorParameters);
 			return CreateMockInstance(mockRegistry, constructorParameters, setup);
 		}

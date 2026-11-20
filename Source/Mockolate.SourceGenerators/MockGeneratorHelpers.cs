@@ -70,9 +70,9 @@ internal static class MockGeneratorHelpers
 				yield return new MockClass([httpMessageHandlerType,], semanticModel.Compilation);
 			}
 
-			if (types.Length == 1 && GetLoggerOfLoggerFactory(types[0]) is { } loggerType)
+			// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
+			if (types.Select(GetLoggerOfLoggerFactory).FirstOrDefault(loggerType => loggerType is not null) is { } loggerType)
 			{
-				// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
 				yield return new MockClass([loggerType,], semanticModel.Compilation);
 			}
 		}

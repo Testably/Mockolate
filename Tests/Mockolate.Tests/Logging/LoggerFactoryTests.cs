@@ -153,4 +153,69 @@ public sealed class LoggerFactoryTests
 
 		await That(Act).Throws<MockNotSetupException>();
 	}
+
+	[Test]
+	public async Task ThrowingWhenNotSetup_CreateLogger_ShouldReturnTheLoggerOfTheCategory()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+
+		ILogger logger = factory.CreateLogger("Orders");
+
+		await That(logger).IsSameAs(factory.Mock.GetLogger("Orders"))
+			.Because("logging code creates its loggers itself, so only an unexpected log call should throw");
+	}
+
+	[Test]
+	public async Task GetLogger_Generic_WithNullableCategoryType_ShouldShareTheLoggerOfTheCategory()
+	{
+		ILogger<string?> nullableLogger = ILogger<string?>.CreateMock();
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger<string> logger = factory.Mock.GetLogger<string>();
+
+		factory.CreateLogger<string>().LogError("from category logger");
+
+		await That(logger.Mock.Verify.LogError()).Once()
+			.Because("a mock of ILogger<string?> must not break the generated code");
+		await That(nullableLogger.Mock.Verify.LogError()).Never();
+	}
+
+	[Test]
+	public async Task VerifyThatAllInteractionsAreVerified_ShouldIgnoreTheCallsOfCreateLogger()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		factory.CreateLogger<LoggerFactoryTests>().LogWarning("warning");
+
+		bool before = factory.Mock.VerifyThatAllInteractionsAreVerified();
+		await That(factory.Mock.Verify.LogWarning()).Once();
+		bool after = factory.Mock.VerifyThatAllInteractionsAreVerified();
+
+		await That(before).IsFalse();
+		await That(after).IsTrue();
+	}
+
+	[Test]
+	public async Task VerifyThatAllInteractionsAreVerified_WithOtherUnverifiedCalls_ShouldReturnFalse()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		factory.CreateLogger("Orders");
+		factory.Dispose();
+
+		bool result = factory.Mock.VerifyThatAllInteractionsAreVerified();
+
+		await That(result).IsFalse();
+	}
+
+	[Test]
+	public async Task ClearAllInteractions_ShouldClearTheCallsOfTheLoggers()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger logger = factory.CreateLogger("Orders");
+		logger.LogError("failed");
+
+		factory.Mock.ClearAllInteractions();
+
+		await That(factory.Mock.Verify.LogError()).Never();
+		await That(logger.Mock.Verify.LogError()).Never();
+		await That(factory.Mock.Verify.CreateLogger(It.IsAny<string>())).Never();
+	}
 }

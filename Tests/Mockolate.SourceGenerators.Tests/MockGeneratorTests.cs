@@ -2,6 +2,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
+using Microsoft.Extensions.Logging;
 
 namespace Mockolate.SourceGenerators.Tests;
 
@@ -1769,6 +1770,35 @@ public partial class MockGeneratorTests
 
 		await That(result.Sources).ContainsKey("Mock.HttpMessageHandler.g.cs").And
 			.ContainsKey("Mock.HttpClient.g.cs");
+	}
+
+	[Test]
+	public async Task WithLoggerFactoryInCombination_ShouldAlsoGenerateMockForLogger()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Microsoft.Extensions.Logging;
+			     using Mockolate;
+			     namespace MyCode
+			     {
+			         public interface IMyService
+			         {
+			             void Run();
+			         }
+
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = IMyService.CreateMock().Implementing<ILoggerFactory>();
+			             }
+			         }
+			     }
+			     """, typeof(ILoggerFactory));
+
+		await That(result.Sources).ContainsKey("Mock.ILogger.g.cs").And
+			.ContainsKey("Logging.g.cs");
+		await That(result.Sources["Logging.g.cs"]).Contains("CategoryLogger<TCategoryName> : global::Mockolate.Mock.ILogger,");
 	}
 
 	[GeneratedRegex(@"CreateMock\(global::Mockolate\.MockBehavior\s+\w+\)")]

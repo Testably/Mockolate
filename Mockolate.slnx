@@ -82,8 +82,9 @@
 	</Folder>
 	<Folder Name="/_/Docs/special-types/">
 		<File Path="Docs/pages/09-special-types/00-index.md" />
-		<File Path="Docs/pages/09-special-types/01-httpclient.md" />
-		<File Path="Docs/pages/09-special-types/02-delegates.md" />
+		<File Path="Docs/pages/09-special-types/01-delegates.md" />
+		<File Path="Docs/pages/09-special-types/02-httpclient.md" />
+		<File Path="Docs/pages/09-special-types/03-logging.md" />
 		<File Path="Docs/pages/09-special-types/_category_.json" />
 	</Folder>
 	<Folder Name="/_/Source/">

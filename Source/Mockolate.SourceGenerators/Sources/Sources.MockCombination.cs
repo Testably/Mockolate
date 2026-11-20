@@ -170,7 +170,8 @@ internal static partial class Sources
 
 		sb.AppendLine();
 
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents);
+		bool isLoggerFactory = allMemberClasses.Any(IsLoggerFactory);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLoggerFactory);
 		foreach ((string additionalInterfaceName, Class additionalInterface) in additionalInterfaces)
 		{
 			ImplementMockForInterface(sb, mockRegistryName, additionalInterfaceName,
@@ -178,7 +179,8 @@ internal static partial class Sources
 				false /* Interfaces cannot have protected members */,
 				false /* Interfaces cannot have protected events */,
 				additionalInterface.AllMethods().Any(x => x.IsStatic) || additionalInterface.AllProperties().Any(x => x.IsStatic),
-				additionalInterface.AllEvents().Any(x => x.IsStatic));
+				additionalInterface.AllEvents().Any(x => x.IsStatic),
+				isLoggerFactory);
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();

@@ -104,8 +104,8 @@ namespace Mockolate.Parameters
 	{
 		private const string OriginalFormat = "{OriginalFormat}";
 		private readonly string _template;
-		private readonly global::System.Collections.Generic.List<(string Name, global::System.Func<object?, bool> Matches)> _properties = new();
 		private readonly global::System.Text.StringBuilder _description = new();
+		private (string Name, global::System.Func<object?, bool> Matches)[] _properties = [];
 
 		/// <inheritdoc cref="LogTemplateMatch" />
 		public LogTemplateMatch(string template)
@@ -118,16 +118,12 @@ namespace Mockolate.Parameters
 		///     Additionally requires the property <paramref name="name" /> to equal the <paramref name="value" />.
 		/// </summary>
 		public LogTemplateMatch WithProperty(string name, object? value)
-		{
-			_properties.Add((name, actual => Equals(actual, value)));
-			_description.Append(".WithProperty(\"").Append(name).Append("\", ").Append(value switch
+			=> Add(name, actual => Equals(actual, value), value switch
 			{
 				null => "null",
 				string text => $"\"{text}\"",
 				_ => value.ToString(),
-			}).Append(')');
-			return this;
-		}
+			});
 
 		/// <summary>
 		///     Additionally requires the property <paramref name="name" /> to match the <paramref name="value" />.
@@ -135,9 +131,7 @@ namespace Mockolate.Parameters
 		public LogTemplateMatch WithProperty<T>(string name, global::Mockolate.Parameters.IParameter<T> value)
 		{
 			global::Mockolate.Parameters.IParameterMatch<T> match = global::Mockolate.CovariantParameterAdapter<T>.Wrap(value);
-			_properties.Add((name, actual => actual is T typed ? match.Matches(typed) : actual is null && default(T) is null && match.Matches(default!)));
-			_description.Append(".WithProperty(\"").Append(name).Append("\", ").Append(value).Append(')');
-			return this;
+			return Add(name, actual => actual is T typed ? match.Matches(typed) : actual is null && default(T) is null && match.Matches(default!), value.ToString());
 		}
 
 		/// <summary>
@@ -150,7 +144,7 @@ namespace Mockolate.Parameters
 				return false;
 			}
 
-			foreach ((string name, global::System.Func<object?, bool> matches) in _properties)
+			foreach ((string name, global::System.Func<object?, bool> matches) in global::System.Threading.Volatile.Read(ref _properties))
 			{
 				if (!TryGetValue(state, name, out object? actual) || !matches(actual))
 				{
@@ -163,7 +157,23 @@ namespace Mockolate.Parameters
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> _description.ToString();
+		{
+			lock (_description)
+			{
+				return _description.ToString();
+			}
+		}
+
+		private LogTemplateMatch Add(string name, global::System.Func<object?, bool> matches, string? description)
+		{
+			lock (_description)
+			{
+				global::System.Threading.Volatile.Write(ref _properties, [.. _properties, (name, matches),]);
+				_description.Append(".WithProperty(\"").Append(name).Append("\", ").Append(description).Append(')');
+			}
+
+			return this;
+		}
 
 		private static bool TryGetValue(global::System.Collections.Generic.IReadOnlyList<global::System.Collections.Generic.KeyValuePair<string, object?>> state, string name, out object? value)
 		{
@@ -730,6 +740,7 @@ namespace Mockolate
 		private static global::Mockolate.Verify.LogVerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 			where TVerify : class
 			=> new(verify, GetAccess(verify).MockolateRegistry, new LogFilter(logLevel, entry));
+		private const string CreateLoggerName = "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger";
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, LoggerFactoryState> s_loggerFactories = new();
 
 		/// <summary>
@@ -766,13 +777,57 @@ namespace Mockolate
 		public static global::Microsoft.Extensions.Logging.ILogger<TCategoryName> GetLogger<TCategoryName>(global::Mockolate.Internals.MockRegistry factoryRegistry)
 		{
 			global::Mockolate.Internals.MockRegistry registry = ((global::Mockolate.IMock)CreateLogger(factoryRegistry, CategoryName<TCategoryName>.Value)).MockRegistry;
-			if (typeof(TCategoryName) == typeof(global::Mockolate.SourceGenerators.Tests.SnapshotDriver.Program))
+			if (IsSameType<TCategoryName, global::Mockolate.SourceGenerators.Tests.SnapshotDriver.Program>())
 			{
 				return (global::Microsoft.Extensions.Logging.ILogger<TCategoryName>)(object)new global::Mockolate.Mock.ILogger_Program(registry);
 			}
 
 			return new CategoryLogger<TCategoryName>(registry);
 		}
+
+		/// <summary>
+		///     Whether no interaction of the factory with the <paramref name="factoryRegistry" /> is unverified, except for the calls of <c>CreateLogger</c>.
+		/// </summary>
+		/// <remarks>
+		///     The logging code creates its loggers itself, so the test verifies the log calls instead.
+		/// </remarks>
+		public static bool AreAllFactoryInteractionsVerified(global::Mockolate.Internals.MockRegistry factoryRegistry)
+		{
+			foreach (global::Mockolate.Interactions.IInteraction interaction in factoryRegistry.Interactions.GetUnverifiedInteractions())
+			{
+				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: CreateLoggerName, })
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		///     Clears the interactions of the factory with the <paramref name="factoryRegistry" /> and of all loggers it created.
+		/// </summary>
+		public static void ClearFactoryInteractions(global::Mockolate.Internals.MockRegistry factoryRegistry)
+		{
+			factoryRegistry.ClearAllInteractions();
+			if (s_loggerFactories.TryGetValue(factoryRegistry, out LoggerFactoryState? state))
+			{
+				global::Microsoft.Extensions.Logging.ILogger[] loggers;
+				lock (state.Loggers)
+				{
+					loggers = new global::Microsoft.Extensions.Logging.ILogger[state.Loggers.Count];
+					state.Loggers.Values.CopyTo(loggers, 0);
+				}
+
+				foreach (global::Microsoft.Extensions.Logging.ILogger logger in loggers)
+				{
+					((global::Mockolate.IMock)logger).MockRegistry.ClearAllInteractions();
+				}
+			}
+		}
+
+		private static bool IsSameType<T1, T2>()
+			=> typeof(T1) == typeof(T2);
 
 		private sealed class CategoryLogger<TCategoryName> : global::Mockolate.Mock.ILogger, global::Microsoft.Extensions.Logging.ILogger<TCategoryName>
 		{
@@ -829,9 +884,9 @@ namespace Mockolate
 		internal sealed class LogFilter
 		{
 			private readonly global::Microsoft.Extensions.Logging.LogLevel? _logLevel;
-			private readonly global::System.Collections.Generic.List<global::System.Func<global::Mockolate.Interactions.ILogInvocation, bool>> _conditions = new();
 			private readonly global::System.Text.StringBuilder _description = new();
-			private bool _orHigher;
+			private global::System.Func<global::Mockolate.Interactions.ILogInvocation, bool>[] _conditions = [];
+			private volatile bool _orHigher;
 
 			public LogFilter(global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 			{
@@ -841,8 +896,11 @@ namespace Mockolate
 
 			public void OrHigher()
 			{
-				_orHigher = true;
-				_description.Append(".OrHigher()");
+				lock (_description)
+				{
+					_orHigher = true;
+					_description.Append(".OrHigher()");
+				}
 			}
 
 			public void WithMessage(string message)
@@ -888,7 +946,7 @@ namespace Mockolate
 					return false;
 				}
 
-				foreach (global::System.Func<global::Mockolate.Interactions.ILogInvocation, bool> condition in _conditions)
+				foreach (global::System.Func<global::Mockolate.Interactions.ILogInvocation, bool> condition in global::System.Threading.Volatile.Read(ref _conditions))
 				{
 					if (!condition(log))
 					{
@@ -900,12 +958,20 @@ namespace Mockolate
 			}
 
 			public override string ToString()
-				=> _description.ToString();
+			{
+				lock (_description)
+				{
+					return _description.ToString();
+				}
+			}
 
 			private void Add(global::System.Func<global::Mockolate.Interactions.ILogInvocation, bool> condition, string description)
 			{
-				_conditions.Add(condition);
-				_description.Append(description);
+				lock (_description)
+				{
+					global::System.Threading.Volatile.Write(ref _conditions, [.. _conditions, condition,]);
+					_description.Append(description);
+				}
 			}
 		}
 

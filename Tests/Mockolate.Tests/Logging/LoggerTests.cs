@@ -1,4 +1,6 @@
+#pragma warning disable CA1873 // Avoid potentially expensive logging
 using System.Collections.Generic;
+using System.Threading;
 using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
 using Mockolate.Monitor;
@@ -20,6 +22,30 @@ public sealed class LoggerTests
 
 		await That(calls).IsEqualTo(1);
 		await That(logger.Mock.Verify.LogError().WithMessage("failed")).Once();
+	}
+
+	[Test]
+	public async Task Setup_WhenRefinedWhileLoggingOnAnotherThread_ShouldNotThrow()
+	{
+		ILogger logger = ILogger.CreateMock();
+		ILogSetup setup = logger.Mock.Setup.LogError();
+		using CancellationTokenSource cts = new();
+		Task logging = Task.Run(() =>
+		{
+			while (!cts.IsCancellationRequested)
+			{
+				logger.LogError("failed");
+			}
+		});
+
+		for (int i = 0; i < 1000; i++)
+		{
+			setup.WithMessage(It.IsAny<string>());
+		}
+
+		cts.Cancel();
+		await That(() => logging).DoesNotThrow()
+			.Because("the code under test can log while the test still refines the setup");
 	}
 
 	[Test]
