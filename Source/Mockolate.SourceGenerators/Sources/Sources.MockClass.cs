@@ -6819,11 +6819,11 @@ internal static partial class Sources
 		return default;
 	}
 
+	private static void ExitAutoMocking() => AutoMocking = false;
+
 	private readonly struct AutoMockingScope : IDisposable
 	{
-#pragma warning disable S2696 // Instance members should not write to "static" fields: the field is [ThreadStatic]
-		public void Dispose() => AutoMocking = false;
-#pragma warning restore S2696
+		public void Dispose() => ExitAutoMocking();
 	}
 
 	/// <summary>
