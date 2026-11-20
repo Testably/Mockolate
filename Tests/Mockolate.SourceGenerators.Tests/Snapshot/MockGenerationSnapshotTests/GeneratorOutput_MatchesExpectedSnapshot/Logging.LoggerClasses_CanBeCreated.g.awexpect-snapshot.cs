@@ -385,9 +385,6 @@ namespace Mockolate
 	internal static class MockolateLogging
 	{
 		private const string LogName = "global::Microsoft.Extensions.Logging.ILogger.Log";
-		private const string IsEnabledName = "global::Microsoft.Extensions.Logging.ILogger.IsEnabled";
-		private const string BeginScopeNamePrefix = "global::Microsoft.Extensions.Logging.ILogger.BeginScope<";
-		private const string CreateLoggerName = "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger";
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, global::Mockolate.Internals.MockRegistry> s_factoryRegistries = new();
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, string> s_categories = new();
 
@@ -565,9 +562,23 @@ namespace Mockolate
 		///     Dispatches a call of <c>ILogger.Log</c>: setups of the state type <typeparamref name="TState" /> and logging
 		///     setups both apply, the latest matching one wins.
 		/// </summary>
-		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+		/// <remarks>
+		///     The <paramref name="callBase" /> calls the implementation of a mocked class, unless the setup or the behavior
+		///     skips the base class.
+		/// </remarks>
+		/// <param name="registry">The registry of the mock.</param>
+		/// <param name="memberId">The member id of <c>Log</c> in the mock.</param>
+		/// <param name="logName">The name of <c>Log</c> in the mock without its type arguments, under which the typed setups and verifications of the mock address it.</param>
+		/// <param name="category">The category of the logger, or <see langword="null" /> to use the one of a logger of a factory.</param>
+		/// <param name="logLevel">The level of the call.</param>
+		/// <param name="eventId">The event id of the call.</param>
+		/// <param name="state">The state of the call.</param>
+		/// <param name="exception">The exception of the call.</param>
+		/// <param name="formatter">The formatter of the call.</param>
+		/// <param name="callBase">Calls the base implementation, or <see langword="null" /> when there is none.</param>
+		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string logName, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter, global::System.Action? callBase = null)
 		{
-			string name = $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>";
+			string name = $"{logName}<{typeof(TState)}>";
 			if (category is null && s_categories.TryGetValue(registry, out string? registeredCategory))
 			{
 				category = registeredCategory;
@@ -613,6 +624,13 @@ namespace Mockolate
 					wraps.Log<TState>(logLevel, eventId, state, exception, formatter);
 					hasWrappedResult = true;
 				}
+
+				if (callBase is not null && !hasWrappedResult &&
+				    !(methodSetup?.SkipBaseClass(registry.Behavior) ?? logSetup?.SkipBaseClass(registry.Behavior) ?? registry.Behavior.SkipBaseClass))
+				{
+					callBase();
+					hasWrappedResult = true;
+				}
 			}
 			finally
 			{
@@ -622,7 +640,7 @@ namespace Mockolate
 
 			if (methodSetup is null && logSetup is null && !hasWrappedResult && registry.Behavior.ThrowWhenNotSetup)
 			{
-				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Microsoft.Extensions.Logging.ILogger.Log<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
+				throw new global::Mockolate.Exceptions.MockNotSetupException($"The method '{logName}<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
 			}
 
 			// Typed setups of the state type and logging setups are searched together, so the latest matching one wins.
@@ -672,100 +690,34 @@ namespace Mockolate
 		/// <remarks>
 		///     The logging code makes these calls around its log calls, so the test verifies the log calls instead.
 		/// </remarks>
-		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry)
+		/// <param name="registry">The registry of the mock.</param>
+		/// <param name="ignoredNames">The names of the ignored calls; a name that ends with <c>&lt;</c> is the prefix of the names of a generic method.</param>
+		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry, params string[] ignoredNames)
 		{
 			foreach (global::Mockolate.Interactions.IInteraction interaction in registry.Interactions.GetUnverifiedInteractions())
 			{
-				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: { } name, } ||
-				    name is not (IsEnabledName or CreateLoggerName) &&
-				    !name.StartsWith(BeginScopeNamePrefix, global::System.StringComparison.Ordinal))
+				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: { } name, } || !IsIgnored(name))
 				{
 					return false;
 				}
 			}
 
 			return true;
-		}
-		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, LoggerFactoryState> s_loggerFactories = new();
 
-		/// <summary>
-		///     Returns the logger mock of the factory with the <paramref name="factoryRegistry" /> for the <paramref name="categoryName" />.
-		/// </summary>
-		/// <remarks>
-		///     The logger records its calls of <c>ILogger.Log</c> on the factory as well, so that the factory can verify them.
-		/// </remarks>
-		public static global::Microsoft.Extensions.Logging.ILogger CreateLogger(global::Mockolate.Internals.MockRegistry factoryRegistry, string categoryName)
-		{
-			LoggerFactoryState state = s_loggerFactories.GetValue(factoryRegistry, static _ => new LoggerFactoryState());
-			lock (state.Loggers)
+			bool IsIgnored(string name)
 			{
-				if (!state.Loggers.TryGetValue(categoryName, out global::Microsoft.Extensions.Logging.ILogger? logger))
+				foreach (string ignoredName in ignoredNames)
 				{
-					logger = global::Microsoft.Extensions.Logging.ILogger.CreateMock(factoryRegistry.Behavior);
-					global::Mockolate.Internals.MockRegistry loggerRegistry = ((global::Mockolate.IMock)logger).MockRegistry;
-					s_factoryRegistries.Add(loggerRegistry, factoryRegistry);
-					s_categories.Add(loggerRegistry, categoryName);
-					factoryRegistry.ShareVerifiedInteractions(loggerRegistry);
-					state.Loggers.Add(categoryName, logger);
+					if (ignoredName.EndsWith("<", global::System.StringComparison.Ordinal)
+						    ? name.StartsWith(ignoredName, global::System.StringComparison.Ordinal)
+						    : name == ignoredName)
+					{
+						return true;
+					}
 				}
 
-				return logger;
+				return false;
 			}
-		}
-
-		/// <summary>
-		///     Returns the logger mock of the factory with the <paramref name="factoryRegistry" /> for the category of <typeparamref name="TCategoryName" />.
-		/// </summary>
-		/// <remarks>
-		///     The returned logger shares the registry of the logger that <see cref="CreateLogger">CreateLogger</see> returns for the category.
-		/// </remarks>
-		public static global::Microsoft.Extensions.Logging.ILogger<TCategoryName> GetLogger<TCategoryName>(global::Mockolate.Internals.MockRegistry factoryRegistry)
-		{
-			global::Mockolate.Internals.MockRegistry registry = ((global::Mockolate.IMock)CreateLogger(factoryRegistry, CategoryName<TCategoryName>.Value)).MockRegistry;
-			if (IsSameType<TCategoryName, global::Mockolate.SourceGenerators.Tests.SnapshotDriver.Program>())
-			{
-				return (global::Microsoft.Extensions.Logging.ILogger<TCategoryName>)(object)new global::Mockolate.Mock.ILogger_Program(registry);
-			}
-
-			return new CategoryLogger<TCategoryName>(registry);
-		}
-
-		/// <summary>
-		///     Clears the interactions of the factory with the <paramref name="factoryRegistry" /> and of all loggers it created.
-		/// </summary>
-		public static void ClearFactoryInteractions(global::Mockolate.Internals.MockRegistry factoryRegistry)
-		{
-			factoryRegistry.ClearAllInteractions();
-			if (s_loggerFactories.TryGetValue(factoryRegistry, out LoggerFactoryState? state))
-			{
-				global::Microsoft.Extensions.Logging.ILogger[] loggers;
-				lock (state.Loggers)
-				{
-					loggers = new global::Microsoft.Extensions.Logging.ILogger[state.Loggers.Count];
-					state.Loggers.Values.CopyTo(loggers, 0);
-				}
-
-				foreach (global::Microsoft.Extensions.Logging.ILogger logger in loggers)
-				{
-					((global::Mockolate.IMock)logger).MockRegistry.ClearAllInteractions();
-				}
-			}
-		}
-
-		private static bool IsSameType<T1, T2>()
-			=> typeof(T1) == typeof(T2);
-
-		private sealed class CategoryLogger<TCategoryName> : global::Mockolate.Mock.ILogger, global::Microsoft.Extensions.Logging.ILogger<TCategoryName>
-		{
-			public CategoryLogger(global::Mockolate.Internals.MockRegistry mockRegistry)
-				: base(mockRegistry)
-			{
-			}
-		}
-
-		private sealed class LoggerFactoryState
-		{
-			public global::System.Collections.Generic.Dictionary<string, global::Microsoft.Extensions.Logging.ILogger> Loggers { get; } = new();
 		}
 		/// <summary>
 		///     The category name that <c>Logger&lt;TCategoryName&gt;</c> requests from its factory.
@@ -985,93 +937,6 @@ namespace Mockolate
 			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
 				=> interaction is global::Mockolate.Interactions.ILogInvocation log && _filter.Matches(log);
 		}
-	}
-
-	/// <summary>
-	///     Verifications of <c>ILogger.Log</c> on all loggers that a logger factory mock created.
-	/// </summary>
-	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	internal static class MockolateLoggerFactoryLogging
-	{
-		/// <inheritdoc cref="MockolateLogging" />
-		extension<TVerify>(TVerify verify) where TVerify : class, global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>
-		{
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on any level.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<TVerify> Log()
-				=> global::Mockolate.MockolateLogging.VerifyLog(verify, null, "Log()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the <paramref name="logLevel" />.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			/// <param name="logLevel">The level of the calls.</param>
-			public global::Mockolate.Verify.LogVerificationResult<TVerify> Log(global::Microsoft.Extensions.Logging.LogLevel logLevel)
-				=> global::Mockolate.MockolateLogging.VerifyLog(verify, logLevel, "Log(" + logLevel + ")");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Trace</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogTrace()
-				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Trace, "LogTrace()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Debug</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogDebug()
-				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Debug, "LogDebug()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Information</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogInformation()
-				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Information, "LogInformation()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Warning</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogWarning()
-				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Warning, "LogWarning()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Error</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogError()
-				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Error, "LogError()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Critical</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogCritical()
-				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Critical, "LogCritical()");
-
-		}
-
 	}
 }
 

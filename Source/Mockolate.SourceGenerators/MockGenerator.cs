@@ -937,6 +937,11 @@ internal sealed class RefStructAggregate : IEquatable<RefStructAggregate>
 
 internal readonly record struct NamedClass(string Name, Class Class);
 
+/// <summary>
+///     The <paramref name="Method" /> of a class that implements the <c>ILogger</c> member <paramref name="Member" />.
+/// </summary>
+internal readonly record struct LoggerMember(string Member, Method Method);
+
 internal readonly record struct LoggerMockNames(
 	string? LoggerName,
 	EquatableArray<(string CategoryType, string Name)> CategoryLoggers);

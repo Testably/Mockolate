@@ -141,6 +141,28 @@ IRepository<string> notNullable = IRepository<string>.CreateMock();
 
 The same applies to `IRepository<(int Id, string Name)>` and `IRepository<(int, string)>`, also when the difference is nested, as in `IRepository<List<string?>>` and `IRepository<List<string>>`. The calls on these mocks also fail with CS0121 or CS9339, because the mock of each spelling applies to the other one too. `dynamic` and `object` do not count as different spellings: they share one mock.
 
+## Mockolate0005
+
+**Logging setups and verifications on the mock of a class that cannot intercept the log calls.**
+
+The [logging](09-special-types/03-logging.md) setups and verifications intercept the calls of `ILogger.Log`. The mock of a class that implements `ILogger` supports them when the class implements `Log` with a virtual or abstract method. When `Log` is non-virtual or sealed, or is implemented explicitly, the mock cannot intercept the calls, so the rule reports the logging members:
+
+```csharp
+public class ConsoleLogger : ILogger
+{
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+        Func<TState, Exception?, string> formatter) => Console.WriteLine(formatter(state, exception));
+
+    // IsEnabled and BeginScope
+}
+
+ConsoleLogger logger = ConsoleLogger.CreateMock();
+// Mockolate0005: The logging setups and verifications are not supported on the mock of class 'ConsoleLogger', because it cannot intercept the log calls
+logger.Mock.Setup.LogError().Throws<InvalidOperationException>();
+```
+
+Make `Log` virtual, or mock `ILogger` and wrap the class with `Wrapping(…)`. A mock that also implements `ILogger` with `Implementing<ILogger>()` intercepts the calls through that interface: use its logging members through `mock.Mock.As<ILogger>()`. The rule also reports the logging verifications on the mock of a class that implements `ILoggerFactory`, which only mocks of `ILoggerFactory` and interfaces that derive from it support.
+
 ## Mockolate0006
 
 **A `null` argument that matches any parameters.**

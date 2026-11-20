@@ -87,6 +87,27 @@ await That(logger.Mock.Verify.LogInformation()
 
 This works for the `LogInformation(…)` extension methods, `LoggerMessage.Define` and `[LoggerMessage]`, which all pass the template and the properties as state.
 
+## Classes that implement `ILogger`
+
+The mock of a class that implements `ILogger` supports the same setups and verifications when the class implements `Log` with a virtual or abstract method. A virtual `Log`, `IsEnabled` or `BeginScope` calls the base implementation as for any other member, unless the behavior or the setup skips the base class; an abstract `IsEnabled` returns `true`:
+
+```csharp
+public class ConsoleLogger : ILogger
+{
+    public virtual void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+        Func<TState, Exception?, string> formatter) => Console.WriteLine(formatter(state, exception));
+
+    // IsEnabled and BeginScope
+}
+
+ConsoleLogger logger = ConsoleLogger.CreateMock();
+logger.LogWarning("There is no Dark chocolate to order");
+
+await That(logger.Mock.Verify.LogWarning().WithMessage("There is no Dark chocolate to order")).Once();
+```
+
+When `Log` is non-virtual or sealed, or is implemented explicitly, the mock cannot intercept the calls, and the analyzer reports [Mockolate0005](../10-analyzers.md#mockolate0005). The same applies to the logging verifications on the mock of a class that implements `ILoggerFactory`: they are only supported on mocks of `ILoggerFactory` and interfaces that derive from it.
+
 ## Logger factories
 
 A mocked `ILoggerFactory` returns one logger mock per category from `CreateLogger`, unless `CreateLogger` has a setup. This also applies to mocks created with `ThrowingWhenNotSetup()` or with `WithDefaultValueFor<ILogger>(…)`, which unlike for [other members](../04-create-mocks.md#default-values) does not change what `CreateLogger` returns. The loggers use the behavior of the factory, and the factory verifies the log calls of all of them:

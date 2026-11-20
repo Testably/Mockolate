@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
 using Mockolate.Monitor;
 using Mockolate.Setup;
+using Mockolate.Tests.TestHelpers;
 using Mockolate.Verify;
 
 namespace Mockolate.Tests.Logging;
@@ -23,6 +24,40 @@ public sealed class LoggerTests
 
 		await That(calls).IsEqualTo(1);
 		await That(logger.Mock.Verify.LogError().WithMessage("failed")).Once();
+	}
+
+	[Test]
+	public async Task CombinationMock_WithAddedLogger_ShouldSupportLoggingSetupsAndVerifications()
+	{
+		int calls = 0;
+		IChocolateDispenser mock = IChocolateDispenser.CreateMock().Implementing<ILogger>();
+		mock.Mock.As<ILogger>().Setup.LogError().Do(() => calls++);
+
+		((ILogger)mock).LogError("failed");
+
+		await That(calls).IsEqualTo(1);
+		await That(mock.Mock.As<ILogger>().Verify.LogError().WithMessage("failed")).Once();
+	}
+
+	[Test]
+	public async Task CombinationMock_WithClassRootAndAddedLogger_ShouldSupportLoggingVerifications()
+	{
+		LoggerClassTests.RecordingService mock = LoggerClassTests.RecordingService.CreateMock().Implementing<ILogger>();
+
+		((ILogger)mock).LogError("failed");
+
+		await That(mock.Mock.As<ILogger>().Verify.LogError().WithMessage("failed")).Once();
+	}
+
+	[Test]
+	public async Task CombinationMock_WithAddedLogger_ThrowingWhenNotSetup_ShouldAnswerIsEnabled()
+	{
+		IChocolateDispenser mock = IChocolateDispenser.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup())
+			.Implementing<ILogger>();
+
+		bool result = ((ILogger)mock).IsEnabled(LogLevel.Error);
+
+		await That(result).IsTrue();
 	}
 
 	[Test]

@@ -54,6 +54,13 @@ internal class Class : IEquatable<Class>
 
 		IsInterface = type.TypeKind == TypeKind.Interface;
 		HasRequiredMembers = ComputeHasRequiredMembers(type);
+		LoggerCategoryType = new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>()
+			.FirstOrDefault(loggerType => IsLoggerType(loggerType) && loggerType.TypeArguments.Length == 1)?
+			.TypeArguments[0].ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
+		LoggerMembers = type is INamedTypeSymbol { TypeKind: TypeKind.Class, } namedType
+			? new EquatableArray<LoggerMember>(GetLoggerMembers(namedType, sourceAssembly).ToArray())
+			: new EquatableArray<LoggerMember>([]);
+
 		ImmutableArray<ISymbol> members = type.GetMembers();
 
 		List<Method> methodIncludes = new();
@@ -211,6 +218,8 @@ internal class Class : IEquatable<Class>
 		DisplayString = original.DisplayString;
 		XmlDocReference = original.XmlDocReference;
 		IsInterface = original.IsInterface;
+		LoggerCategoryType = original.LoggerCategoryType;
+		LoggerMembers = original.LoggerMembers;
 		HasRequiredMembers = original.HasRequiredMembers;
 		HasInaccessibleRequiredMember = original.HasInaccessibleRequiredMember;
 		ReservedNames = original.ReservedNames;
@@ -326,6 +335,18 @@ internal class Class : IEquatable<Class>
 	public EquatableArray<string> ReservedNames { get; }
 
 	public bool IsInterface { get; }
+
+	/// <summary>
+	///     The category type <c>T</c> of the <c>ILogger&lt;T&gt;</c> that the type is or implements, if any.
+	/// </summary>
+	public string? LoggerCategoryType { get; }
+
+	/// <summary>
+	///     The methods of a class that implement <c>ILogger.Log</c>, <c>ILogger.IsEnabled</c> and <c>ILogger.BeginScope</c>
+	///     for this type, as the most derived overrides; empty for an interface.
+	/// </summary>
+	public EquatableArray<LoggerMember> LoggerMembers { get; }
+
 	public bool HasRequiredMembers { get; }
 	public bool HasInaccessibleRequiredMember { get; }
 	public string ClassFullName { get; }
@@ -378,6 +399,8 @@ internal class Class : IEquatable<Class>
 		hash = unchecked((hash * 17) + InheritedTypes.GetHashCode());
 		hash = unchecked((hash * 17) + ReservedNames.GetHashCode());
 		hash = unchecked((hash * 17) + (IsInterface ? 1 : 0));
+		hash = unchecked((hash * 17) + (LoggerCategoryType?.GetHashCode() ?? 0));
+		hash = unchecked((hash * 17) + LoggerMembers.GetHashCode());
 		hash = unchecked((hash * 17) + (HasRequiredMembers ? 1 : 0));
 		hash = unchecked((hash * 17) + (HasInaccessibleRequiredMember ? 1 : 0));
 		return hash;
@@ -728,6 +751,85 @@ internal class Class : IEquatable<Class>
 
 		return false;
 	}
+
+	/// <remarks>
+	///     Decided on the mocked <paramref name="type" />, because a base class can declare the method that only the
+	///     mocked type uses to implement <c>ILogger</c>.
+	/// </remarks>
+	private static IEnumerable<LoggerMember> GetLoggerMembers(INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
+	{
+		INamedTypeSymbol? logger = type.AllInterfaces.FirstOrDefault(@interface =>
+			IsLoggerType(@interface) && @interface.TypeArguments.Length == 0);
+		if (logger is null)
+		{
+			yield break;
+		}
+
+		foreach (string name in new[] { "Log", "IsEnabled", "BeginScope", })
+		{
+			if (logger.GetMembers(name).OfType<IMethodSymbol>().FirstOrDefault() is { } interfaceMember &&
+			    type.FindImplementationForInterfaceMember(interfaceMember) is IMethodSymbol implementation &&
+			    GetMostDerivedOverride(type, implementation) is { MethodKind: MethodKind.Ordinary, IsSealed: false, } mostDerived &&
+			    GetDeclaration(mostDerived) is { } declaration)
+			{
+				yield return new LoggerMember(name, new Method(declaration, null, sourceAssembly));
+			}
+		}
+	}
+
+	/// <summary>
+	///     The declaration that represents the overridable slot of the <paramref name="method" /> in
+	///     <see cref="Methods" />: an <c>override</c> is not listed there, but the virtual or abstract method it
+	///     overrides is.
+	/// </summary>
+	private static IMethodSymbol? GetDeclaration(IMethodSymbol method)
+	{
+		for (IMethodSymbol? candidate = method; candidate is not null; candidate = candidate.OverriddenMethod)
+		{
+			if (candidate.IsVirtual || candidate.IsAbstract)
+			{
+				return candidate;
+			}
+		}
+
+		return null;
+	}
+
+	private static IMethodSymbol GetMostDerivedOverride(INamedTypeSymbol type, IMethodSymbol implementation)
+	{
+		for (INamedTypeSymbol? current = type; current is not null; current = current.BaseType)
+		{
+			foreach (IMethodSymbol candidate in current.GetMembers(implementation.Name).OfType<IMethodSymbol>())
+			{
+				for (IMethodSymbol? overridden = candidate; overridden is not null; overridden = overridden.OverriddenMethod)
+				{
+					if (SymbolEqualityComparer.Default.Equals(overridden.OriginalDefinition,
+						    implementation.OriginalDefinition))
+					{
+						return candidate;
+					}
+				}
+			}
+		}
+
+		return implementation;
+	}
+
+	private static bool IsLoggerType(INamedTypeSymbol type)
+		=> type is
+		   {
+			   Name: "ILogger",
+			   TypeKind: TypeKind.Interface,
+			   ContainingNamespace:
+			   {
+				   Name: "Logging",
+				   ContainingNamespace:
+				   {
+					   Name: "Extensions",
+					   ContainingNamespace: { Name: "Microsoft", ContainingNamespace.IsGlobalNamespace: true, },
+				   },
+			   },
+		   };
 
 	public static IEnumerable<ITypeSymbol> GetInheritedTypes(ITypeSymbol type)
 	{

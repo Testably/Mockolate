@@ -1892,6 +1892,50 @@ public partial class MockGeneratorTests
 	}
 
 	[Test]
+	public async Task WithClassesImplementingLogger_ShouldDispatchTheirLogCalls()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     #nullable enable
+			     using System;
+			     using Microsoft.Extensions.Logging;
+			     using Mockolate;
+			     namespace MyCode
+			     {
+			         public abstract class AbstractLogger : ILogger
+			         {
+			             public abstract IDisposable? BeginScope<TState>(TState state) where TState : notnull;
+			             public abstract bool IsEnabled(LogLevel logLevel);
+			             public abstract void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter);
+			         }
+
+			         public class VirtualLogger : ILogger
+			         {
+			             public virtual IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+			             public virtual bool IsEnabled(LogLevel logLevel) => true;
+			             public virtual void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) { }
+			         }
+
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = AbstractLogger.CreateMock();
+			     			_ = VirtualLogger.CreateMock();
+			             }
+			         }
+			     }
+			     """, typeof(ILogger));
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Logging.g.cs");
+		await That(result.Sources["Mock.AbstractLogger.g.cs"])
+			.Contains("global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.AbstractLogger.MemberId_Log_TState_, \"global::MyCode.AbstractLogger.Log\", null, logLevel, eventId, state, exception, formatter);");
+		await That(result.Sources["Mock.VirtualLogger.g.cs"])
+			.Contains(", () => base.Log<TState>(logLevel, eventId, state, exception, formatter));");
+	}
+
+	[Test]
 	public async Task WithLoggerFactoryInCombination_ShouldAlsoGenerateMockForLogger()
 	{
 		GeneratorResult result = Generator

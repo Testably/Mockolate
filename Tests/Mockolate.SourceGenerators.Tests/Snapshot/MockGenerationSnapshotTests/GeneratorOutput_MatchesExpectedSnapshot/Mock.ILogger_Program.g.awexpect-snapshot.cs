@@ -78,7 +78,7 @@ internal static partial class Mock
 			=> this.MockRegistry.Method<IMockVerifyForILogger_Program>(this, setup);
 		/// <inheritdoc />
 		bool IMockForILogger_Program.VerifyThatAllInteractionsAreVerified()
-			=> global::Mockolate.MockolateLogging.AreAllInteractionsVerified(this.MockRegistry);
+			=> global::Mockolate.MockolateLogging.AreAllInteractionsVerified(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", "global::Microsoft.Extensions.Logging.ILogger.BeginScope<");
 		/// <inheritdoc />
 		bool IMockForILogger_Program.VerifyThatAllSetupsAreUsed()
 			=> this.MockRegistry.GetUnusedSetups(this.MockRegistry.Interactions).Count == 0;
@@ -117,7 +117,7 @@ internal static partial class Mock
 		/// <inheritdoc cref="global::Microsoft.Extensions.Logging.ILogger.Log{TState}(global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception, global::System.Func{TState, global::System.Exception, string})" />
 		public void Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
 		{
-			global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_, global::Mockolate.MockolateLogging.CategoryName<global::Mockolate.SourceGenerators.Tests.SnapshotDriver.Program>.Value, logLevel, eventId, state, exception, formatter);
+			global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_, "global::Microsoft.Extensions.Logging.ILogger.Log", global::Mockolate.MockolateLogging.CategoryName<global::Mockolate.SourceGenerators.Tests.SnapshotDriver.Program>.Value, logLevel, eventId, state, exception, formatter);
 		}
 
 		/// <inheritdoc cref="global::Microsoft.Extensions.Logging.ILogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel)" />
