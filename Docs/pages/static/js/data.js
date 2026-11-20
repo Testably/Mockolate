@@ -1578,6 +1578,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -1843,7 +1849,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -2112,7 +2119,8 @@ window.BENCHMARK_DATA = {
           159.58322191238403,
           218.46681596551622,
           207.9698254108429,
-          211.55210768381755
+          211.55210768381755,
+          153.62173068523407
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2382,6 +2390,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800,
@@ -2663,7 +2672,8 @@ window.BENCHMARK_DATA = {
           60884.944580078125,
           104658.35009765625,
           107105.74204799107,
-          106450.42203776042
+          106450.42203776042,
+          35223.05425618489
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2937,7 +2947,8 @@ window.BENCHMARK_DATA = {
           9056,
           9056,
           9056,
-          9135
+          9135,
+          9046
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3214,7 +3225,8 @@ window.BENCHMARK_DATA = {
           3384.61421585083,
           4708.707803853353,
           4614.731369527181,
-          4749.771434020996
+          4749.771434020996,
+          2867.8341438293455
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3375,6 +3387,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -3765,7 +3778,8 @@ window.BENCHMARK_DATA = {
           3316.929464612688,
           4803.310729980469,
           4631.889686584473,
-          4642.298490905761
+          4642.298490905761,
+          2564.1104418436685
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4039,7 +4053,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6930,
-          6930
+          6930,
+          6924
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4316,7 +4331,8 @@ window.BENCHMARK_DATA = {
           161.1768227815628,
           218.86890425682068,
           203.35217111905416,
-          208.1307559967041
+          208.1307559967041,
+          184.99409818649292
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4482,6 +4498,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -4867,7 +4884,8 @@ window.BENCHMARK_DATA = {
           383.07017656735013,
           488.031591351827,
           469.4161997795105,
-          480.1969999313354
+          480.1969999313354,
+          401.6179317474365
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5028,6 +5046,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -6733,6 +6752,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -6998,7 +7023,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -7267,7 +7293,8 @@ window.BENCHMARK_DATA = {
           115.23546943494252,
           154.49496024449667,
           145.29664675394693,
-          196.58345476218634
+          196.58345476218634,
+          151.1387937227885
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7537,6 +7564,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712,
@@ -7818,7 +7846,8 @@ window.BENCHMARK_DATA = {
           10646.306862967354,
           14618.470289963941,
           14700.954777018229,
-          12806.289481026786
+          12806.289481026786,
+          15949.331290690105
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8087,6 +8116,7 @@ window.BENCHMARK_DATA = {
           12760,
           12761,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -8369,7 +8399,8 @@ window.BENCHMARK_DATA = {
           4157.74884905134,
           5615.702689579555,
           5632.7478931971955,
-          5272.010935647147
+          5272.010935647147,
+          6013.430061848959
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8530,6 +8561,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -8920,7 +8952,8 @@ window.BENCHMARK_DATA = {
           194233.86898367744,
           222787.37872721354,
           226110.89825846354,
-          154999.5481608073
+          154999.5481608073,
+          228214.91837565103
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9194,7 +9227,8 @@ window.BENCHMARK_DATA = {
           15619,
           15618,
           15618,
-          15579
+          15579,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9471,7 +9505,8 @@ window.BENCHMARK_DATA = {
           146.77206257184346,
           178.47247002919514,
           171.27753102779388,
-          221.50724442799887
+          221.50724442799887,
+          180.77603553136188
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9612,6 +9647,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -10022,7 +10058,8 @@ window.BENCHMARK_DATA = {
           129.91123156547548,
           174.40157234668732,
           160.3592237142416,
-          252.01850674947102
+          252.01850674947102,
+          172.48026381220137
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -10156,6 +10193,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -11888,6 +11926,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -12153,7 +12197,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -12422,7 +12467,8 @@ window.BENCHMARK_DATA = {
           345.0371528012412,
           444.4982435862223,
           340.3500696182251,
-          492.8530339513506
+          492.8530339513506,
+          455.6617727620261
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12692,6 +12738,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1680,
           1680,
           1680,
           1680,
@@ -12973,7 +13020,8 @@ window.BENCHMARK_DATA = {
           139106.0350516183,
           227649.72589983259,
           139358.7783203125,
-          225920.5102887835
+          225920.5102887835,
+          226586.2345377604
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13247,7 +13295,8 @@ window.BENCHMARK_DATA = {
           20804,
           20804,
           21004,
-          20804
+          20804,
+          20692
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13524,7 +13573,8 @@ window.BENCHMARK_DATA = {
           7229.801891326904,
           10113.055015055339,
           7656.559964497884,
-          9618.366227370043
+          9618.366227370043,
+          10386.25195664626
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13798,7 +13848,8 @@ window.BENCHMARK_DATA = {
           13112,
           13088,
           13088,
-          13032
+          13032,
+          13088
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14075,7 +14126,8 @@ window.BENCHMARK_DATA = {
           6990.119128545125,
           11187.63285936628,
           7733.017399597168,
-          10859.183754475911
+          10859.183754475911,
+          11177.988395690918
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14346,6 +14398,7 @@ window.BENCHMARK_DATA = {
           13586,
           13593,
           13586,
+          13593,
           13593,
           13593,
           13593,
@@ -14626,7 +14679,8 @@ window.BENCHMARK_DATA = {
           246.1712694508689,
           306.09217570622764,
           253.9097238222758,
-          302.6747377713521
+          302.6747377713521,
+          291.6687451998393
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14900,6 +14954,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1096,
           1096
         ],
         "borderColor": "#E84393",
@@ -14973,7 +15028,8 @@ window.BENCHMARK_DATA = {
           608.1380175272624,
           770.3366454442343,
           624.0356860842023,
-          742.6454963048299
+          742.6454963048299,
+          754.0786573410035
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -14985,6 +15041,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          2784,
           2784,
           2784,
           2784,
@@ -16635,6 +16692,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -16900,7 +16963,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -17169,7 +17233,8 @@ window.BENCHMARK_DATA = {
           910.8793612207685,
           1275.944956588745,
           967.3397251764933,
-          1324.6573753356934
+          1324.6573753356934,
+          1293.1968754132588
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -17439,6 +17504,7 @@ window.BENCHMARK_DATA = {
           2608,
           2608,
           2608,
+          2616,
           2616,
           2616,
           2616,
@@ -17720,7 +17786,8 @@ window.BENCHMARK_DATA = {
           148726.8070678711,
           237732.84528996394,
           148959.10661433294,
-          237236.62688802084
+          237236.62688802084,
+          238821.987898763
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17994,7 +18061,8 @@ window.BENCHMARK_DATA = {
           30403,
           30397,
           30602,
-          30403
+          30403,
+          29284
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18271,7 +18339,8 @@ window.BENCHMARK_DATA = {
           17451.975489689754,
           25076.624741617838,
           18782.84468383789,
-          25323.3248433431
+          25323.3248433431,
+          25940.244190761023
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18545,7 +18614,8 @@ window.BENCHMARK_DATA = {
           26217,
           26193,
           26193,
-          26137
+          26137,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18822,7 +18892,8 @@ window.BENCHMARK_DATA = {
           15555.553721836635,
           23774.868940080916,
           16463.999681745256,
-          23706.514397757393
+          23706.514397757393,
+          24238.621952601843
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19093,6 +19164,7 @@ window.BENCHMARK_DATA = {
           33249,
           33249,
           33249,
+          33247,
           33247,
           33247,
           33247,
@@ -19373,7 +19445,8 @@ window.BENCHMARK_DATA = {
           577.214702129364,
           722.1314800898234,
           636.6580737658909,
-          738.6939219792683
+          738.6939219792683,
+          737.9283739089966
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19647,6 +19720,7 @@ window.BENCHMARK_DATA = {
           2176,
           2176,
           2176,
+          2176,
           2176
         ],
         "borderColor": "#E84393",
@@ -19720,7 +19794,8 @@ window.BENCHMARK_DATA = {
           1858.4826029459634,
           2373.430717976888,
           2001.1277582804362,
-          2373.7982111612955
+          2373.7982111612955,
+          2443.6620091756186
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19732,6 +19807,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          5496,
           5496,
           5496,
           5496,
@@ -21382,6 +21458,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -21647,7 +21729,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -21916,7 +21999,8 @@ window.BENCHMARK_DATA = {
           111.93344130686351,
           108.13716074625651,
           134.10730518613542,
-          174.78346228599548
+          174.78346228599548,
+          82.48178436756135
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22186,6 +22270,7 @@ window.BENCHMARK_DATA = {
           600,
           600,
           600,
+          608,
           608,
           608,
           608,
@@ -22467,7 +22552,8 @@ window.BENCHMARK_DATA = {
           114510.46205357143,
           112469.97720102164,
           197310.60843331474,
-          147840.78860677083
+          147840.78860677083,
+          60418.54890659877
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22741,7 +22827,8 @@ window.BENCHMARK_DATA = {
           14914,
           14914,
           14902,
-          14916
+          14916,
+          15144
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23018,7 +23105,8 @@ window.BENCHMARK_DATA = {
           4487.334248352051,
           4397.734399414063,
           5933.600814232459,
-          6004.2475575764975
+          6004.2475575764975,
+          3130.7238867623464
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23292,7 +23380,8 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
-          9320
+          9320,
+          9296
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23569,7 +23658,8 @@ window.BENCHMARK_DATA = {
           4058.8215443537783,
           4106.825077819824,
           5643.244361877441,
-          5725.816537475586
+          5725.816537475586,
+          2967.9787363324845
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23843,7 +23933,8 @@ window.BENCHMARK_DATA = {
           8160,
           8160,
           8160,
-          8147
+          8147,
+          8160
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24120,7 +24211,8 @@ window.BENCHMARK_DATA = {
           154.00493211405617,
           137.88219577471415,
           164.46376052924566,
-          206.1068244298299
+          206.1068244298299,
+          105.20220388684955
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24286,6 +24378,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -24671,7 +24764,8 @@ window.BENCHMARK_DATA = {
           377.54184004238675,
           372.0825956662496,
           439.62497692108155,
-          583.384854390071
+          583.384854390071,
+          269.8312635421753
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24805,6 +24899,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -26537,6 +26632,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -26802,7 +26903,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -27071,7 +27173,8 @@ window.BENCHMARK_DATA = {
           298.2245521886008,
           287.1962033680507,
           378.61926380793255,
-          452.053813457489
+          452.053813457489,
+          241.9923404966082
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27341,6 +27444,7 @@ window.BENCHMARK_DATA = {
           1104,
           1104,
           1104,
+          1112,
           1112,
           1112,
           1112,
@@ -27622,7 +27726,8 @@ window.BENCHMARK_DATA = {
           117054.52276611328,
           115748.00837590144,
           201422.61447753906,
-          154422.8332707332
+          154422.8332707332,
+          61916.651763916016
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27896,7 +28001,8 @@ window.BENCHMARK_DATA = {
           18906,
           18906,
           18901,
-          18906
+          18906,
+          19128
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28173,7 +28279,8 @@ window.BENCHMARK_DATA = {
           6562.8138010660805,
           6665.1552331107005,
           9144.032975333077,
-          8950.121489461262
+          8950.121489461262,
+          4935.115791320801
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28447,7 +28554,8 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12345,
-          12344
+          12344,
+          12320
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28724,7 +28832,8 @@ window.BENCHMARK_DATA = {
           6689.314196450369,
           6332.334617614746,
           9325.191039021809,
-          9241.926546732584
+          9241.926546732584,
+          5189.927261988322
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28998,7 +29107,8 @@ window.BENCHMARK_DATA = {
           16394,
           16394,
           16393,
-          16396
+          16396,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29275,7 +29385,8 @@ window.BENCHMARK_DATA = {
           295.08776270548503,
           281.8169526032039,
           350.0255106925964,
-          415.22575724919636
+          415.22575724919636,
+          248.08377511160714
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -29441,6 +29552,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -29826,7 +29938,8 @@ window.BENCHMARK_DATA = {
           1070.7004046806921,
           1080.2156580607095,
           1301.996763910566,
-          1761.946020634969
+          1761.946020634969,
+          1012.4378110249837
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -29960,6 +30073,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -31692,6 +31806,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -31957,7 +32077,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -32226,7 +32347,8 @@ window.BENCHMARK_DATA = {
           265.3611498832703,
           199.22487646738688,
           158.11594711939495,
-          188.6638074239095
+          188.6638074239095,
+          314.7810987154643
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -32496,6 +32618,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920,
@@ -32777,7 +32900,8 @@ window.BENCHMARK_DATA = {
           10941.111376953126,
           7613.405092511858,
           5290.247646077474,
-          7826.581595865885
+          7826.581595865885,
+          11309.60195688101
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33051,6 +33175,7 @@ window.BENCHMARK_DATA = {
           10569,
           10568,
           10568,
+          10569,
           10569
         ],
         "borderColor": "#A052B0",
@@ -33328,7 +33453,8 @@ window.BENCHMARK_DATA = {
           7749.27165222168,
           5323.893238830567,
           3959.514695739746,
-          5369.4951314290365
+          5369.4951314290365,
+          7728.165803091867
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33602,6 +33728,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664
         ],
         "borderColor": "#5E2750",
@@ -33879,7 +34006,8 @@ window.BENCHMARK_DATA = {
           8105.864685058594,
           5465.536223347982,
           3862.4382405962265,
-          5607.981754557291
+          5607.981754557291,
+          8447.99955851237
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34149,6 +34277,7 @@ window.BENCHMARK_DATA = {
           11191,
           11276,
           11191,
+          11196,
           11196,
           11196,
           11196,
@@ -34430,7 +34559,8 @@ window.BENCHMARK_DATA = {
           173.4820462006789,
           142.47553350130718,
           103.64446374773979,
-          137.35499712399073
+          137.35499712399073,
+          186.33664372762044
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -34596,6 +34726,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -34981,7 +35112,8 @@ window.BENCHMARK_DATA = {
           488.72350050608316,
           344.9894874572754,
           292.0174405733744,
-          362.3561237335205
+          362.3561237335205,
+          468.646751054128
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -35177,6 +35309,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -36847,6 +36980,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -37112,7 +37251,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -37381,7 +37521,8 @@ window.BENCHMARK_DATA = {
           622.9545694351197,
           475.12858574207013,
           407.7494250627664,
-          493.7392639160156
+          493.7392639160156,
+          694.7351069132487
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -37651,6 +37792,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784,
@@ -37932,7 +38074,8 @@ window.BENCHMARK_DATA = {
           17407.021484375,
           12006.13167622884,
           9028.613218180339,
-          12381.81551513672
+          12381.81551513672,
+          18739.071768624442
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -38202,6 +38345,7 @@ window.BENCHMARK_DATA = {
           18504,
           18617,
           18616,
+          18505,
           18505,
           18505,
           18505,
@@ -38483,7 +38627,8 @@ window.BENCHMARK_DATA = {
           18776.446237417367,
           12374.084935506186,
           8713.3490234375,
-          12532.738098144531
+          12532.738098144531,
+          18345.954036458334
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -38757,6 +38902,7 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21553,
+          21529,
           21529
         ],
         "borderColor": "#5E2750",
@@ -39034,7 +39180,8 @@ window.BENCHMARK_DATA = {
           19994.247100830078,
           13021.66896711077,
           9686.543891398112,
-          13401.45055448092
+          13401.45055448092,
+          19930.03715616862
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -39303,6 +39450,7 @@ window.BENCHMARK_DATA = {
           30785,
           30780,
           30865,
+          30785,
           30785,
           30785,
           30785,
@@ -39585,7 +39733,8 @@ window.BENCHMARK_DATA = {
           341.37592023213705,
           258.84105811800276,
           249.7009858914784,
-          264.8429204736437
+          264.8429204736437,
+          355.2050949414571
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -39751,6 +39900,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -40136,7 +40286,8 @@ window.BENCHMARK_DATA = {
           1552.6813267927903,
           1211.9289666493735,
           1156.1749792734781,
-          1250.9398554288423
+          1250.9398554288423,
+          1641.926747894287
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -40332,6 +40483,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -42002,6 +42154,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -42267,7 +42425,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -42536,7 +42695,8 @@ window.BENCHMARK_DATA = {
           14.035929604371388,
           11.508497616648674,
           16.5004824757576,
-          15.530020043253899
+          15.530020043253899,
+          13.417404641707739
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -42766,6 +42926,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -43087,7 +43248,8 @@ window.BENCHMARK_DATA = {
           85.32636298338572,
           66.76960437114423,
           90.45731641451518,
-          92.04510173627308
+          92.04510173627308,
+          79.43856485400882
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -43253,6 +43415,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -43638,7 +43801,8 @@ window.BENCHMARK_DATA = {
           25.76338165005048,
           19.131288630621775,
           27.489468284447987,
-          27.252568359885895
+          27.252568359885895,
+          22.581133919102804
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -43772,6 +43936,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -44189,7 +44354,8 @@ window.BENCHMARK_DATA = {
           855.386611529759,
           819.064267539978,
           1312.855962753296,
-          1360.2487806955974
+          1360.2487806955974,
+          1027.7611906869072
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44350,6 +44516,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -44740,7 +44907,8 @@ window.BENCHMARK_DATA = {
           1171.4911184946695,
           1196.3830947875977,
           1956.973684946696,
-          1824.3061898095268
+          1824.3061898095268,
+          1533.7809777577718
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -44901,6 +45069,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -45291,7 +45460,8 @@ window.BENCHMARK_DATA = {
           1004.7237547556559,
           1010.9066769526555,
           1682.2867815653483,
-          1564.0569477081299
+          1564.0569477081299,
+          1341.9569529215494
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45563,6 +45733,7 @@ window.BENCHMARK_DATA = {
           2755,
           2751,
           2751,
+          2755,
           2755,
           2755,
           2755
@@ -46059,6 +46230,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -46141,7 +46318,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -46227,7 +46405,8 @@ window.BENCHMARK_DATA = {
           2356.525610860189,
           1454.4585007258825,
           2135.915022277832,
-          2349.66772664388
+          2349.66772664388,
+          1818.1719387054443
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46314,6 +46493,7 @@ window.BENCHMARK_DATA = {
           5216,
           5216,
           5216,
+          5248,
           5248,
           5248,
           5248,
@@ -46412,7 +46592,8 @@ window.BENCHMARK_DATA = {
           2592.6714696248373,
           1601.7140107836042,
           2444.316943828876,
-          2789.9111178080243
+          2789.9111178080243,
+          2030.1446355183919
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46503,6 +46684,7 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7384,
+          7385,
           7385
         ],
         "borderColor": "#E84393",
@@ -46597,7 +46779,8 @@ window.BENCHMARK_DATA = {
           6146.548124186198,
           3728.789269510905,
           5688.854190532978,
-          5738.6921043396
+          5738.6921043396,
+          4680.573141733806
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -46670,6 +46853,7 @@ window.BENCHMARK_DATA = {
           10544,
           10544,
           10544,
+          17360,
           17360,
           17360,
           17360,
@@ -46782,7 +46966,8 @@ window.BENCHMARK_DATA = {
           1448004.2028645833,
           686162.7266276042,
           1043350.6842447916,
-          1329626.5244791666
+          1329626.5244791666,
+          1026842.6928385417
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46873,7 +47058,8 @@ window.BENCHMARK_DATA = {
           92078,
           92876,
           91771,
-          92276
+          92276,
+          92253
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46967,7 +47153,8 @@ window.BENCHMARK_DATA = {
           318010.70830078126,
           224914.55494907923,
           337515.81982421875,
-          350562.04638671875
+          350562.04638671875,
+          275195.4418294271
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47058,7 +47245,8 @@ window.BENCHMARK_DATA = {
           54382,
           54379,
           54356,
-          54382
+          54382,
+          54998
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47152,7 +47340,8 @@ window.BENCHMARK_DATA = {
           362477.2470377604,
           277800.71630859375,
           372880.0588030134,
-          394762.72552083334
+          394762.72552083334,
+          379649.4368614784
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47243,7 +47432,8 @@ window.BENCHMARK_DATA = {
           65519,
           65397,
           65378,
-          65560
+          65560,
+          65519
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47623,6 +47813,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -47686,7 +47882,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -47753,7 +47950,8 @@ window.BENCHMARK_DATA = {
           20951.878457205636,
           20414.828863525392,
           26180.1469523112,
-          29783.118870035807
+          29783.118870035807,
+          17591.291955566405
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -47821,6 +48019,7 @@ window.BENCHMARK_DATA = {
           56544,
           56544,
           56544,
+          56552,
           56552,
           56552,
           56552,
@@ -47900,7 +48099,8 @@ window.BENCHMARK_DATA = {
           16963.86503499349,
           16702.1090637207,
           20669.81059773763,
-          23250.362880452474
+          23250.362880452474,
+          14327.660544840495
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -47912,6 +48112,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          40688,
           40688,
           40688,
           40688,
@@ -48047,7 +48248,8 @@ window.BENCHMARK_DATA = {
           77810.71648763021,
           75696.35442708334,
           95802.7014404297,
-          129891.46103140023
+          129891.46103140023,
+          79651.73018101284
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -48077,6 +48279,7 @@ window.BENCHMARK_DATA = {
           203585,
           203585,
           203584,
+          203585,
           203585,
           203585,
           203585,
@@ -48194,7 +48397,8 @@ window.BENCHMARK_DATA = {
           283367.0774113582,
           269993.2353515625,
           389056.23294270836,
-          398426.4342564174
+          398426.4342564174,
+          192947.8038330078
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -48266,7 +48470,8 @@ window.BENCHMARK_DATA = {
           431938,
           431938,
           431939,
-          431932
+          431932,
+          432162
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -48341,7 +48546,8 @@ window.BENCHMARK_DATA = {
           226413.81254882814,
           238585.74147135418,
           289023.47649739584,
-          285800.9420572917
+          285800.9420572917,
+          160895.03833007812
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -48413,7 +48619,8 @@ window.BENCHMARK_DATA = {
           378037,
           378037,
           378039,
-          378035
+          378035,
+          378014
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -48488,7 +48695,8 @@ window.BENCHMARK_DATA = {
           286367.06656901044,
           280831.3258138021,
           376778.4354166667,
-          419772.72682291665
+          419772.72682291665,
+          220839.76684570312
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48560,7 +48768,8 @@ window.BENCHMARK_DATA = {
           944403,
           944403,
           944362,
-          944403
+          944403,
+          944380
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48940,6 +49149,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -49003,7 +49218,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -49070,7 +49286,8 @@ window.BENCHMARK_DATA = {
           39162.54011317662,
           33211.891092936195,
           27023.98348781041,
-          33481.13192545573
+          33481.13192545573,
+          44541.944921875
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -49138,6 +49355,7 @@ window.BENCHMARK_DATA = {
           96816,
           96816,
           96816,
+          96824,
           96824,
           96824,
           96824,
@@ -49217,7 +49435,8 @@ window.BENCHMARK_DATA = {
           16759.56653035482,
           13116.948137410482,
           15262.697139485677,
-          13923.004431152343
+          13923.004431152343,
+          18397.68588961088
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -49285,6 +49504,7 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641,
@@ -49364,7 +49584,8 @@ window.BENCHMARK_DATA = {
           116184.40589250837,
           90336.06487630209,
           93426.90179036459,
-          94320.22198079427
+          94320.22198079427,
+          117057.28186035156
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49436,7 +49657,8 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242489,
-          242488
+          242488,
+          242489
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49511,7 +49733,8 @@ window.BENCHMARK_DATA = {
           698501.5225911458,
           523242.014453125,
           342602.3939866286,
-          553458.5772786458
+          553458.5772786458,
+          788422.990625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49583,7 +49806,8 @@ window.BENCHMARK_DATA = {
           836541,
           836541,
           836538,
-          836540
+          836540,
+          836541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49658,7 +49882,8 @@ window.BENCHMARK_DATA = {
           1207135.808984375,
           796047.0344401042,
           534945.9130859375,
-          803489.7406901042
+          803489.7406901042,
+          1166301.6075613839
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49730,7 +49955,8 @@ window.BENCHMARK_DATA = {
           1139704,
           1139702,
           1139726,
-          1139702
+          1139702,
+          1139704
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49805,7 +50031,8 @@ window.BENCHMARK_DATA = {
           1376879.319140625,
           1083777.4950520834,
           648563.5022321428,
-          976189.5171595982
+          976189.5171595982,
+          1323829.1145833333
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -49877,7 +50104,8 @@ window.BENCHMARK_DATA = {
           2194291,
           2194291,
           2194325,
-          2194290
+          2194290,
+          2194291
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50257,6 +50485,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -50320,7 +50554,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -50387,7 +50622,8 @@ window.BENCHMARK_DATA = {
           64958.17840983073,
           94966.58152669271,
           66717.59801374163,
-          95451.13778889974
+          95451.13778889974,
+          95685.69471958706
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -50459,6 +50695,7 @@ window.BENCHMARK_DATA = {
           105577,
           105577,
           105576,
+          105577,
           105577
         ],
         "borderColor": "#63A2AC",
@@ -50534,7 +50771,8 @@ window.BENCHMARK_DATA = {
           38758.70732770647,
           46802.188079833984,
           40446.03319498698,
-          47488.97059326172
+          47488.97059326172,
+          48962.79924229213
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -50603,6 +50841,7 @@ window.BENCHMARK_DATA = {
           120977,
           120981,
           120977,
+          120981,
           120981,
           120981,
           120981,
@@ -50681,7 +50920,8 @@ window.BENCHMARK_DATA = {
           745406.3590369591,
           1020378.4778645834,
           787787.0269252232,
-          1026402.425390625
+          1026402.425390625,
+          1029361.3384114583
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50753,7 +50993,8 @@ window.BENCHMARK_DATA = {
           1030606,
           1030614,
           1030807,
-          1030614
+          1030614,
+          918604
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50828,7 +51069,8 @@ window.BENCHMARK_DATA = {
           1242236.6253255208,
           1658237.8695591518,
           1251430.8137369792,
-          1657931.394140625
+          1657931.394140625,
+          1679455.4118489583
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50900,7 +51142,8 @@ window.BENCHMARK_DATA = {
           1500848,
           1500824,
           1500824,
-          1500768
+          1500768,
+          1500824
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50975,7 +51218,8 @@ window.BENCHMARK_DATA = {
           1041467.9969951923,
           1386709.5239257812,
           1119335.3052455357,
-          1514634.2401041666
+          1514634.2401041666,
+          1495572.8833383413
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -51042,6 +51286,7 @@ window.BENCHMARK_DATA = {
           2204669,
           2204675,
           2204674,
+          2204675,
           2204675,
           2204675,
           2204675,
@@ -51120,7 +51365,8 @@ window.BENCHMARK_DATA = {
           143509.23033854167,
           171221.68657226564,
           150723.6021158854,
-          175654.1955078125
+          175654.1955078125,
+          181338.49527413506
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51132,6 +51378,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          300713,
           300713,
           300713,
           300713,
@@ -51522,6 +51769,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -51577,7 +51830,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -51636,7 +51890,8 @@ window.BENCHMARK_DATA = {
           326.96695143381754,
           326.74508043130237,
           441.0878119809287,
-          334.7496508280436
+          334.7496508280436,
+          326.10588347117107
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -51696,6 +51951,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544,
@@ -51767,7 +52023,8 @@ window.BENCHMARK_DATA = {
           212.457400115331,
           227.8914737190519,
           265.17298800150553,
-          218.16043576827417
+          218.16043576827417,
+          192.3013897895813
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -51779,6 +52036,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -51898,7 +52156,8 @@ window.BENCHMARK_DATA = {
           400.8575750986735,
           423.74918347994486,
           529.6685347239177,
-          398.98442967732746
+          398.98442967732746,
+          403.7534175259726
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51910,6 +52169,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -52029,7 +52289,8 @@ window.BENCHMARK_DATA = {
           70895.06754557292,
           69567.27976771763,
           113127.24337565104,
-          70464.02349384014
+          70464.02349384014,
+          35317.54446614583
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -52093,7 +52354,8 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10030,
-          10030
+          10030,
+          10031
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -52160,7 +52422,8 @@ window.BENCHMARK_DATA = {
           5393.770631917318,
           5438.746223449707,
           7407.146045684814,
-          5222.7448521931965
+          5222.7448521931965,
+          4387.216778055827
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52224,7 +52487,8 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10248,
-          10248
+          10248,
+          10416
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52291,7 +52555,8 @@ window.BENCHMARK_DATA = {
           5082.798975118001,
           5328.725415039063,
           7376.069810594831,
-          4961.240999661959
+          4961.240999661959,
+          4185.73685760498
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52355,7 +52620,8 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11854,
-          11854
+          11854,
+          11853
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52687,6 +52953,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -52742,7 +53014,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -52801,7 +53074,8 @@ window.BENCHMARK_DATA = {
           1182.065559387207,
           1267.8358952658516,
           1595.3405115763346,
-          1218.6854298273722
+          1218.6854298273722,
+          1176.4072153727213
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52861,6 +53135,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016,
@@ -52932,7 +53207,8 @@ window.BENCHMARK_DATA = {
           804.6500397364299,
           846.7450887044271,
           999.8542165756226,
-          796.9305856704711
+          796.9305856704711,
+          692.085107421875
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -52944,6 +53220,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -53063,7 +53340,8 @@ window.BENCHMARK_DATA = {
           2586.946070451003,
           2527.3182247706823,
           3215.4934089660646,
-          2658.908756510417
+          2658.908756510417,
+          2469.1744161752554
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53075,6 +53353,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -53194,7 +53473,8 @@ window.BENCHMARK_DATA = {
           81377.92373860677,
           81081.85556466239,
           128517.24205729166,
-          82171.05165201823
+          82171.05165201823,
+          43940.55792236328
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53258,6 +53538,7 @@ window.BENCHMARK_DATA = {
           25114,
           25114,
           25115,
+          25114,
           25114
         ],
         "borderColor": "#A052B0",
@@ -53325,7 +53606,8 @@ window.BENCHMARK_DATA = {
           16048.070667811802,
           16678.181646728517,
           23120.304973057337,
-          16131.23866373698
+          16131.23866373698,
+          14527.794141642253
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53389,7 +53671,8 @@ window.BENCHMARK_DATA = {
           23481,
           23481,
           23481,
-          23481
+          23481,
+          25665
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53456,7 +53739,8 @@ window.BENCHMARK_DATA = {
           20814.198864746093,
           19840.304433186848,
           28003.826583862305,
-          19542.205337524414
+          19542.205337524414,
+          18196.21725667318
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -53513,6 +53797,7 @@ window.BENCHMARK_DATA = {
           55213,
           55216,
           55213,
+          55216,
           55216,
           55216,
           55216,
@@ -53852,6 +54137,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -53907,7 +54198,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -53966,7 +54258,8 @@ window.BENCHMARK_DATA = {
           94845.21373697916,
           96057.56136067708,
           121231.75946044922,
-          93420.42528357872
+          93420.42528357872,
+          95582.15489095052
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54027,6 +54320,7 @@ window.BENCHMARK_DATA = {
           273289,
           273289,
           273296,
+          273297,
           273297,
           273297,
           273297,
@@ -54097,7 +54391,8 @@ window.BENCHMARK_DATA = {
           67276.82920485277,
           66577.62406703403,
           79177.40901692708,
-          65439.14649309431
+          65439.14649309431,
+          61948.09513636998
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54154,6 +54449,7 @@ window.BENCHMARK_DATA = {
           208881,
           208883,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -54228,7 +54524,8 @@ window.BENCHMARK_DATA = {
           244509.064906529,
           232698.6561748798,
           296113.8015625,
-          249907.2978515625
+          249907.2978515625,
+          242186.13040364583
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -54292,7 +54589,8 @@ window.BENCHMARK_DATA = {
           707794,
           707793,
           707794,
-          707794
+          707794,
+          707793
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -54359,7 +54657,8 @@ window.BENCHMARK_DATA = {
           1146183.6670673077,
           1147533.6968470982,
           1574529.0790364584,
-          1135680.9794921875
+          1135680.9794921875,
+          886364.3343098959
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54423,7 +54722,8 @@ window.BENCHMARK_DATA = {
           1692680,
           1692679,
           1692680,
-          1692680
+          1692680,
+          1692670
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54490,7 +54790,8 @@ window.BENCHMARK_DATA = {
           1225668.3330829327,
           1279227.9087239583,
           1697399.9677083334,
-          1216063.7801339286
+          1216063.7801339286,
+          1071835.376953125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54554,7 +54855,8 @@ window.BENCHMARK_DATA = {
           1468916,
           1468916,
           1468916,
-          1468915
+          1468915,
+          1692886
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54621,7 +54923,8 @@ window.BENCHMARK_DATA = {
           2256733.5047433036,
           2295912.303292411,
           2862241.676041667,
-          2127242.8337053573
+          2127242.8337053573,
+          1820761.4631510417
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54685,7 +54988,8 @@ window.BENCHMARK_DATA = {
           4803385,
           4803387,
           4803387,
-          4803381
+          4803381,
+          4803369
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54813,6 +55117,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -54834,7 +55144,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -54859,7 +55170,8 @@ window.BENCHMARK_DATA = {
           170.95896931794974,
           248.3526553085872,
           321.17279523213705,
-          341.1615966796875
+          341.1615966796875,
+          260.27218781198775
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54885,6 +55197,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024,
@@ -54922,7 +55235,8 @@ window.BENCHMARK_DATA = {
           244.76399268422807,
           354.65330066680906,
           394.08541520436603,
-          406.5426543440138
+          406.5426543440138,
+          343.1155036517552
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54934,6 +55248,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -54985,7 +55300,8 @@ window.BENCHMARK_DATA = {
           606.7346689517682,
           868.6781498102041,
           979.9751877103533,
-          1069.8564016977946
+          1069.8564016977946,
+          863.1508244832356
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -54997,6 +55313,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          4464,
           4464,
           4464,
           4464,
@@ -55048,7 +55365,8 @@ window.BENCHMARK_DATA = {
           88469.53439127604,
           205274.76697716347,
           130141.73041643415,
-          326578.34104567306
+          326578.34104567306,
+          204266.0630580357
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55078,7 +55396,8 @@ window.BENCHMARK_DATA = {
           23313,
           23302,
           23419,
-          23282
+          23282,
+          23302
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55111,7 +55430,8 @@ window.BENCHMARK_DATA = {
           7078.314424787249,
           10713.913501194545,
           10911.018371582031,
-          15730.120054117839
+          15730.120054117839,
+          10809.717607770648
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55141,7 +55461,8 @@ window.BENCHMARK_DATA = {
           19852,
           19553,
           19515,
-          19742
+          19742,
+          19553
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55174,7 +55495,8 @@ window.BENCHMARK_DATA = {
           5027.759737650554,
           7733.70123056265,
           7445.1443262736,
-          11437.558534749349
+          11437.558534749349,
+          7505.118868509929
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55204,6 +55526,7 @@ window.BENCHMARK_DATA = {
           14332,
           14444,
           14325,
+          14332,
           14332
         ],
         "borderColor": "#4A6FA5",
@@ -55332,6 +55655,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -55353,7 +55682,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -55378,7 +55708,8 @@ window.BENCHMARK_DATA = {
           863.3474947856023,
           1176.592835744222,
           1357.7285372870308,
-          1581.8175220489502
+          1581.8175220489502,
+          1177.5258511763352
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -55404,6 +55735,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040,
@@ -55441,7 +55773,8 @@ window.BENCHMARK_DATA = {
           828.8478393554688,
           1124.9418653760638,
           1289.3584393092565,
-          1386.2187268575033
+          1386.2187268575033,
+          1151.775735446385
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55453,6 +55786,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -55504,7 +55838,8 @@ window.BENCHMARK_DATA = {
           3032.913610839844,
           3886.0789357503254,
           4319.0449785505025,
-          4685.7066276550295
+          4685.7066276550295,
+          3834.6053913661412
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55516,6 +55851,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          10536,
           10536,
           10536,
           10536,
@@ -55567,7 +55903,8 @@ window.BENCHMARK_DATA = {
           107366.99731445312,
           238397.94835486778,
           160884.36378696986,
-          369756.227469308
+          369756.227469308,
+          237851.1361653646
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55597,7 +55934,8 @@ window.BENCHMARK_DATA = {
           41152,
           41153,
           41259,
-          41155
+          41155,
+          41153
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55630,7 +55968,8 @@ window.BENCHMARK_DATA = {
           13114.55816105434,
           18646.50744863657,
           19586.280938284737,
-          29415.087365957406
+          29415.087365957406,
+          19391.214754231773
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55660,7 +55999,8 @@ window.BENCHMARK_DATA = {
           31439,
           30101,
           30082,
-          31330
+          31330,
+          30101
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55693,7 +56033,8 @@ window.BENCHMARK_DATA = {
           20737.17418416341,
           30226.936205182756,
           29722.895633951823,
-          43297.53406197684
+          43297.53406197684,
+          31114.504295935996
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55723,6 +56064,7 @@ window.BENCHMARK_DATA = {
           60496,
           60607,
           60493,
+          60496,
           60496
         ],
         "borderColor": "#4A6FA5",
@@ -55851,6 +56193,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -55872,7 +56220,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -55897,7 +56246,8 @@ window.BENCHMARK_DATA = {
           76680.2341570173,
           103882.48696463449,
           119847.33199055989,
-          142661.51787109376
+          142661.51787109376,
+          106473.97735595703
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -55927,7 +56277,8 @@ window.BENCHMARK_DATA = {
           224801,
           224801,
           224801,
-          224801
+          224801,
+          224800
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -55960,7 +56311,8 @@ window.BENCHMARK_DATA = {
           65872.92078450522,
           85714.88680594308,
           102008.77322591146,
-          111800.68212018695
+          111800.68212018695,
+          92463.95927211216
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55984,6 +56336,7 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209408,
+          209409,
           209409,
           209409,
           209409,
@@ -56023,7 +56376,8 @@ window.BENCHMARK_DATA = {
           269529.0043538411,
           352382.28557477676,
           382587.5158879207,
-          402675.3270357572
+          402675.3270357572,
+          355959.24190848216
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -56035,6 +56389,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          703994,
           703994,
           703994,
           703994,
@@ -56086,7 +56441,8 @@ window.BENCHMARK_DATA = {
           1980849.9369791667,
           3121594.278846154,
           2695825.3895833334,
-          4733166.358816965
+          4733166.358816965,
+          3304602.2299479167
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -56116,7 +56472,8 @@ window.BENCHMARK_DATA = {
           1936409,
           1936410,
           1936230,
-          1936429
+          1936429,
+          1936410
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -56149,7 +56506,8 @@ window.BENCHMARK_DATA = {
           670146.5225260417,
           879208.7686197917,
           852556.0513020833,
-          1393388.4609375
+          1393388.4609375,
+          954254.1166616586
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56179,7 +56537,8 @@ window.BENCHMARK_DATA = {
           1231592,
           1118990,
           1117063,
-          1231501
+          1231501,
+          1119150
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56212,7 +56571,8 @@ window.BENCHMARK_DATA = {
           2087769.9619791666,
           2957831.3434709823,
           2894342.7364783655,
-          4109104.7639508927
+          4109104.7639508927,
+          3235393.828125
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56242,7 +56602,8 @@ window.BENCHMARK_DATA = {
           5051807,
           5052164,
           5051646,
-          5051944
+          5051944,
+          5051810
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56370,6 +56731,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 17:40:32 2026 \u002B0100",
         "message": "fix: suppress CS0659 when the mocked class hides GetHashCode (#1082)"
+      },
+      {
+        "sha": "94b47e3afb4d2c92e7ca212df0b5e15deae0181a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 18:11:28 2026 \u002B0100",
+        "message": "feat: report a lone null that matches any parameters (Mockolate0006) (#1084)"
       }
     ],
     "labels": [
@@ -56391,7 +56758,8 @@ window.BENCHMARK_DATA = {
       "af5ef07c",
       "90cf38eb",
       "71f03870",
-      "59441225"
+      "59441225",
+      "94b47e3a"
     ],
     "datasets": [
       {
@@ -56416,7 +56784,8 @@ window.BENCHMARK_DATA = {
           2117.910158030192,
           3486.5881933848063,
           3394.515367654654,
-          2738.646010843913
+          2738.646010843913,
+          3378.4945475260415
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -56442,6 +56811,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288,
@@ -56479,7 +56849,8 @@ window.BENCHMARK_DATA = {
           1987.0996257237025,
           3131.4790262494766,
           3086.447156361171,
-          2343.918158667428
+          2343.918158667428,
+          3115.9989340645925
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -56491,6 +56862,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -56542,7 +56914,8 @@ window.BENCHMARK_DATA = {
           2525.920292173113,
           3903.875075785319,
           3878.2200271606443,
-          3002.2061261494955
+          3002.2061261494955,
+          3929.09268951416
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -56554,6 +56927,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          3344,
           3344,
           3344,
           3344,
@@ -56605,7 +56979,8 @@ window.BENCHMARK_DATA = {
           8134.521723066057,
           14710.412556239537,
           14891.562987263997,
-          9975.942118718074
+          9975.942118718074,
+          12906.091315714519
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -56618,6 +56993,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           11385,
+          11048,
           11048,
           11048,
           11048,
@@ -56668,7 +57044,8 @@ window.BENCHMARK_DATA = {
           6780.991590059721,
           13040.939557902018,
           12545.11825764974,
-          9049.685428873698
+          9049.685428873698,
+          11303.051087599535
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56698,7 +57075,8 @@ window.BENCHMARK_DATA = {
           14633,
           14633,
           14633,
-          14632
+          14632,
+          14633
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56731,7 +57109,8 @@ window.BENCHMARK_DATA = {
           7219.809712727864,
           13662.783152653621,
           13312.94538269043,
-          9305.768240792411
+          9305.768240792411,
+          11992.355991617838
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56761,7 +57140,8 @@ window.BENCHMARK_DATA = {
           14620,
           14620,
           14620,
-          14614
+          14614,
+          14620
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
