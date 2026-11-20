@@ -476,6 +476,23 @@ namespace Mockolate
 		}
 
 		/// <summary>
+		///     Returns the logger mock of the factory with the <paramref name="factoryRegistry" /> for the category of <typeparamref name="TCategoryName" />.
+		/// </summary>
+		/// <remarks>
+		///     The returned logger shares the registry of the logger that <see cref="CreateLogger">CreateLogger</see> returns for the category.
+		/// </remarks>
+		public static global::Microsoft.Extensions.Logging.ILogger<TCategoryName> GetLogger<TCategoryName>(global::Mockolate.Internals.MockRegistry factoryRegistry)
+		{
+			global::Mockolate.Internals.MockRegistry registry = ((global::Mockolate.IMock)CreateLogger(factoryRegistry, GetCategoryName<TCategoryName>())).MockRegistry;
+			if (typeof(TCategoryName) == typeof(global::Mockolate.SourceGenerators.Tests.SnapshotDriver.Program))
+			{
+				return (global::Microsoft.Extensions.Logging.ILogger<TCategoryName>)(object)new global::Mockolate.Mock.ILogger_Program(registry);
+			}
+
+			return new CategoryLogger<TCategoryName>(registry);
+		}
+
+		/// <summary>
 		///     Returns the category name that <c>Logger&lt;TCategoryName&gt;</c> requests from its factory.
 		/// </summary>
 		public static string GetCategoryName<TCategoryName>()
@@ -484,6 +501,15 @@ namespace Mockolate
 			_ = new global::Microsoft.Extensions.Logging.Logger<TCategoryName>(capture);
 			return capture.CategoryName;
 		}
+
+		private sealed class CategoryLogger<TCategoryName> : global::Mockolate.Mock.ILogger, global::Microsoft.Extensions.Logging.ILogger<TCategoryName>
+		{
+			public CategoryLogger(global::Mockolate.Internals.MockRegistry mockRegistry)
+				: base(mockRegistry)
+			{
+			}
+		}
+
 		/// <summary>
 		///     Returns the collector of all loggers of the factory with the <paramref name="factoryRegistry" />.
 		/// </summary>
@@ -513,6 +539,7 @@ namespace Mockolate
 			{
 			}
 		}
+
 		/// <summary>
 		///     Returns the collector of the <c>FakeLogger</c> that the logger mock with the <paramref name="registry" /> forwards to.
 		/// </summary>

@@ -77,11 +77,11 @@ sut.Order("Dark", 0);
 loggerFactory.Mock.Verify.LogWarning(It.IsAny<string>()).Once();
 ```
 
-To set up or verify a single logger, also before the code under test creates it, use `GetLogger<TCategoryName>()` or `GetLogger(categoryName)`:
+To set up or verify a single logger, also before the code under test creates it, use `GetLogger<TCategoryName>()` or `GetLogger(categoryName)`. `GetLogger<TCategoryName>()` returns an `ILogger<TCategoryName>` that shares the setups and calls of the logger of the category, so you can also pass it to code that expects an `ILogger<TCategoryName>`:
 
 ```csharp
-loggerFactory.Mock.GetLogger<ChocolateShop>().Mock.Setup
-    .LogWarning(It.IsAny<string>())
+ILogger<ChocolateShop> logger = loggerFactory.Mock.GetLogger<ChocolateShop>();
+logger.Mock.Setup.LogWarning(It.IsAny<string>())
     .Throws<InvalidOperationException>();
 ```
 

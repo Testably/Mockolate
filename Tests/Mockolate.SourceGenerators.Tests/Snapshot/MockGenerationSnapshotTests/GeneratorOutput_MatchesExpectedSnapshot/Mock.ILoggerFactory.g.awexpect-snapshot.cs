@@ -976,8 +976,8 @@ internal static partial class MockExtensionsForILoggerFactory
 		///     The category name is the one that <c>ILogger&lt;TCategoryName&gt;</c> uses, so this is the logger that a <c>Logger&lt;TCategoryName&gt;</c> created by the factory writes to.
 		/// </remarks>
 		/// <typeparam name="TCategoryName">The type whose name is the category name of the logger.</typeparam>
-		public global::Microsoft.Extensions.Logging.ILogger GetLogger<TCategoryName>()
-			=> global::Mockolate.MockolateLogging.CreateLogger(((global::Mockolate.IMock)mock).MockRegistry, global::Mockolate.MockolateLogging.GetCategoryName<TCategoryName>());
+		public global::Microsoft.Extensions.Logging.ILogger<TCategoryName> GetLogger<TCategoryName>()
+			=> global::Mockolate.MockolateLogging.GetLogger<TCategoryName>(((global::Mockolate.IMock)mock).MockRegistry);
 
 		/// <summary>
 		///     Gets the <c>FakeLogCollector</c> that collects the log records of all loggers the factory created.

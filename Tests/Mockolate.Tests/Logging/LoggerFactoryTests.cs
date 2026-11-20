@@ -45,6 +45,34 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
+	public async Task GetLogger_Generic_ShouldShareTheLoggerOfTheCategory()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger<LoggerFactoryTests> logger = factory.Mock.GetLogger<LoggerFactoryTests>();
+
+		logger.LogError("from typed logger");
+		factory.CreateLogger(typeof(LoggerFactoryTests).FullName!).LogError("from category logger");
+
+		await That(logger.Mock.Verify.LogError(It.IsAny<string>())).Twice();
+		await That(factory.Mock.Verify.LogError(It.IsAny<string>())).Twice();
+	}
+
+	[Test]
+	public async Task GetLogger_Generic_WhenTheTypedLoggerIsMocked_ShouldShareTheLoggerOfTheCategory()
+	{
+		int calls = 0;
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger<LoggerTests> logger = factory.Mock.GetLogger<LoggerTests>();
+		logger.Mock.Setup.LogError(It.IsAny<string>()).Do(() => calls++);
+
+		factory.CreateLogger<LoggerTests>().LogError("from category logger");
+
+		await That(calls).IsEqualTo(1)
+			.Because("ILogger<LoggerTests> has its own mock, whose Mock property must also work on the returned logger");
+		await That(logger.Mock.Verify.LogError(It.IsAny<string>())).Once();
+	}
+
+	[Test]
 	public async Task Verify_ShouldCountTheCallsOfAllLoggers()
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock();

@@ -158,14 +158,20 @@ public class MockGenerator : IIncrementalGenerator
 				arr.AsArray().Any(m => m.AllImplementations().Any(Sources.Sources.IsLogger)),
 				arr.AsArray().Any(m => m.AllImplementations().Any(Sources.Sources.IsLoggerFactory))));
 
-		context.RegisterSourceOutput(loggingMocks.Combine(hasFakeLogger).Combine(externAliases), static (spc, source) =>
-		{
-			if (source.Left.Left.HasLogger || source.Left.Left.HasLoggerFactory)
+		IncrementalValueProvider<LoggerMockNames> loggerMockNames = namedMocksAggregate
+			.Select(static (arr, _) => CollectLoggerMockNames(arr));
+
+		context.RegisterSourceOutput(loggingMocks.Combine(hasFakeLogger).Combine(loggerMockNames).Combine(externAliases),
+			static (spc, source) =>
 			{
-				spc.AddSource("Logging.g.cs",
-					ToSource(Sources.Sources.Logging(source.Left.Left.HasLoggerFactory, source.Left.Right), source.Right));
-			}
-		});
+				(bool hasLogger, bool hasLoggerFactory) = source.Left.Left.Left;
+				if (hasLogger || hasLoggerFactory)
+				{
+					spc.AddSource("Logging.g.cs",
+						ToSource(Sources.Sources.Logging(hasLoggerFactory, source.Left.Left.Right, source.Left.Right),
+							source.Right));
+				}
+			});
 
 		// As<T> bridge extensions across (a, b) pairs. Cross-mock dedup; one file.
 		IncrementalValueProvider<EquatableArray<MockAsExtensionPair>> asPairs = namedMocksAggregate
@@ -754,6 +760,35 @@ public class MockGenerator : IIncrementalGenerator
 		return new EquatableArray<NamedMock>(result.ToArray());
 	}
 
+	private static LoggerMockNames CollectLoggerMockNames(EquatableArray<NamedMock> mocks)
+	{
+		const string loggerFullName = "global::Microsoft.Extensions.Logging.ILogger";
+		string? loggerName = null;
+		List<(string CategoryType, string Name)> categoryLoggers = new();
+		foreach (NamedMock named in mocks)
+		{
+			if (named.AdditionalClasses is not null)
+			{
+				continue;
+			}
+
+			string fullName = named.Mock.ClassFullName;
+			if (fullName == loggerFullName)
+			{
+				loggerName = named.ParentName;
+			}
+			else if (fullName.StartsWith(loggerFullName + "<", StringComparison.Ordinal) &&
+			         fullName.EndsWith(">", StringComparison.Ordinal))
+			{
+				categoryLoggers.Add((fullName.Substring(loggerFullName.Length + 1, fullName.Length - loggerFullName.Length - 2),
+					named.ParentName));
+			}
+		}
+
+		return new LoggerMockNames(loggerName,
+			new EquatableArray<(string CategoryType, string Name)>(categoryLoggers.ToArray()));
+	}
+
 	private static EquatableArray<MockAsExtensionPair> CollectAsExtensionPairs(EquatableArray<NamedMock> mocks)
 	{
 		NamedMock[] arr = mocks.AsArray();
@@ -908,6 +943,10 @@ internal sealed class RefStructAggregate : IEquatable<RefStructAggregate>
 }
 
 internal readonly record struct NamedClass(string Name, Class Class);
+
+internal readonly record struct LoggerMockNames(
+	string? LoggerName,
+	EquatableArray<(string CategoryType, string Name)> CategoryLoggers);
 
 internal sealed class NamedMock : IEquatable<NamedMock>
 {
