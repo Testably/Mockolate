@@ -32,21 +32,11 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task WithStringExpectation_ShouldKeepExpectation()
+		public async Task ShouldExposeInteractions()
 		{
 			IMockInteractions interactions = new FastMockInteractions(0);
-			VerificationResult<int> sut = new(1, interactions, _ => false, "foo");
-
-			string result = ((IVerificationResult)sut).Expectation;
-
-			await That(result).IsEqualTo("foo");
-		}
-
-		[Test]
-		public async Task WithStringExpectation_ShouldExposeInteractions()
-		{
-			IMockInteractions interactions = new FastMockInteractions(0);
-			VerificationResult<int> sut = new(1, interactions, _ => false, "foo");
+			VerificationResult<int> sut = new(1, interactions, _ => false,
+				new VerificationExpectation("foo", null, static (state, _) => (string)state!));
 
 			IMockInteractions exposed = ((IVerificationResult)sut).Interactions;
 
@@ -64,7 +54,7 @@ public class VerificationResultTests
 				new object(),
 				store,
 				_ => true,
-				"expected");
+				new VerificationExpectation("expected", null, static (state, _) => (string)state!));
 
 			VerificationResult<object> awaitable = result.Within(50.Milliseconds());
 
@@ -290,7 +280,8 @@ public class VerificationResultTests
 			// constructor (and crash on the null buffer) is killed.
 			FastMockInteractions store = new(0);
 			VerificationResult<object> source = new(
-				new object(), store, _ => true, "expected");
+				new object(), store, _ => true,
+				new VerificationExpectation("expected", null, static (state, _) => (string)state!));
 
 			VerificationResult<int> mapped = source.Map(42);
 
@@ -503,7 +494,7 @@ public class VerificationResultTests
 				new object(),
 				store,
 				_ => true,
-				"expected");
+				new VerificationExpectation("expected", null, static (state, _) => (string)state!));
 
 			VerificationResult<int> mapped = source.Map(42);
 
@@ -681,7 +672,8 @@ public class VerificationResultTests
 			// VR (not a typed CountSource) so we exercise the slow CollectMatching branch.
 			FastMockInteractions store = new(0, true);
 			VerificationResult<object> result = new(
-				new object(), store, _ => true, "expected");
+				new object(), store, _ => true,
+				new VerificationExpectation("expected", null, static (state, _) => (string)state!));
 
 			VerificationResult<object> awaitable = result.Within(50.Milliseconds());
 

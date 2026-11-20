@@ -49,18 +49,6 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	internal VerificationResult(TVerify verify,
 		IMockInteractions interactions,
 		Func<IInteraction, bool> predicate,
-		string expectation)
-	{
-		_verify = verify;
-		_interactions = interactions;
-		_predicate = predicate;
-		_expectation = new VerificationExpectation(expectation, null, static (state, _) => (string)state!);
-	}
-
-	/// <inheritdoc cref="VerificationResult{TVerify}" />
-	internal VerificationResult(TVerify verify,
-		IMockInteractions interactions,
-		Func<IInteraction, bool> predicate,
 		VerificationExpectation expectation)
 	{
 		_verify = verify;

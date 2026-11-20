@@ -28,8 +28,6 @@ internal static class StringExtensionMethods
 		=> comparisonType switch
 		{
 			StringComparison.OrdinalIgnoreCase => @this.ToLowerInvariant().Contains(value.ToLowerInvariant()),
-			StringComparison.InvariantCultureIgnoreCase => @this.ToLowerInvariant().Contains(value.ToLowerInvariant()),
-			StringComparison.CurrentCultureIgnoreCase => @this.ToLower().Contains(value.ToLower()),
 			_ => @this.Contains(value),
 		};
 
