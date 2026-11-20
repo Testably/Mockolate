@@ -1,3 +1,4 @@
+using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Mockolate.Exceptions;
@@ -103,6 +104,37 @@ public sealed class LoggerFactoryTests
 
 		await That(logger.Mock.Verify.LogError()).Twice();
 		await That(factory.Mock.Verify.LogError()).Twice();
+	}
+
+	[Test]
+	public async Task GetLogger_Generic_ShouldShareTheSetupsOfAllMembers()
+	{
+		using CancellationTokenSource scope = new();
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger<LoggerFactoryTests> typedLogger = factory.Mock.GetLogger<LoggerFactoryTests>();
+		typedLogger.Mock.Setup.IsEnabled(It.Is(LogLevel.Debug)).Returns(false);
+		typedLogger.Mock.Setup.BeginScope<int>(It.IsAny<int>()).Returns(scope);
+
+		ILogger<LoggerFactoryTests> logger = factory.CreateLogger<LoggerFactoryTests>();
+
+		await That(logger.IsEnabled(LogLevel.Debug)).IsFalse();
+		await That(logger.BeginScope(42)).IsSameAs(scope);
+	}
+
+	[Test]
+	public async Task GetLogger_Generic_WhenTheTypedLoggerIsMocked_ShouldShareTheSetupsOfAllMembers()
+	{
+		using CancellationTokenSource scope = new();
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger<LoggerTests> typedLogger = factory.Mock.GetLogger<LoggerTests>();
+		typedLogger.Mock.Setup.IsEnabled(It.Is(LogLevel.Debug)).Returns(false);
+		typedLogger.Mock.Setup.BeginScope<int>(It.IsAny<int>()).Returns(scope);
+
+		ILogger<LoggerTests> logger = factory.CreateLogger<LoggerTests>();
+
+		await That(logger.IsEnabled(LogLevel.Debug)).IsFalse()
+			.Because("the generated ILogger<LoggerTests> mock and the logger of the factory must number their members alike");
+		await That(logger.BeginScope(42)).IsSameAs(scope);
 	}
 
 	[Test]

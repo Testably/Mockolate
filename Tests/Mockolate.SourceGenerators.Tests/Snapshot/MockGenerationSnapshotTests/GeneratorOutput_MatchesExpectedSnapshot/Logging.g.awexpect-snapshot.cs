@@ -386,6 +386,7 @@ namespace Mockolate
 	{
 		private const string LogName = "global::Microsoft.Extensions.Logging.ILogger.Log";
 		private const string IsEnabledName = "global::Microsoft.Extensions.Logging.ILogger.IsEnabled";
+		private const string BeginScopeNamePrefix = "global::Microsoft.Extensions.Logging.ILogger.BeginScope<";
 		private const string CreateLoggerName = "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger";
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, global::Mockolate.Internals.MockRegistry> s_factoryRegistries = new();
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, string> s_categories = new();
@@ -666,16 +667,18 @@ namespace Mockolate
 			=> new(verify, GetAccess(verify).MockolateRegistry, new LogFilter(logLevel, entry));
 
 		/// <summary>
-		///     Whether no interaction of the logger or logger factory with the <paramref name="registry" /> is unverified, except for the calls of <c>IsEnabled</c> and <c>CreateLogger</c>.
+		///     Whether no interaction of the logger or logger factory with the <paramref name="registry" /> is unverified, except for the calls of <c>IsEnabled</c>, <c>BeginScope</c> and <c>CreateLogger</c>.
 		/// </summary>
 		/// <remarks>
-		///     The logging code calls them before it logs, so the test verifies the log calls instead.
+		///     The logging code makes these calls around its log calls, so the test verifies the log calls instead.
 		/// </remarks>
 		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry)
 		{
 			foreach (global::Mockolate.Interactions.IInteraction interaction in registry.Interactions.GetUnverifiedInteractions())
 			{
-				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: IsEnabledName or CreateLoggerName, })
+				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: { } name, } ||
+				    name is not (IsEnabledName or CreateLoggerName) &&
+				    !name.StartsWith(BeginScopeNamePrefix, global::System.StringComparison.Ordinal))
 				{
 					return false;
 				}
