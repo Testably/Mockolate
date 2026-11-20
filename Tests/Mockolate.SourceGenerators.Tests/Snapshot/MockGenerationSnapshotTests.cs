@@ -131,6 +131,7 @@ public sealed partial class MockGenerationSnapshotTests
             EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
             IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
             HiddenGetHashCodeBase sut7 = HiddenGetHashCodeBase.CreateMock();
+            HiddenGetHashCodeBase sut8 = HiddenGetHashCodeBase.CreateMock().Implementing<IEqualsAndGetHashCode>();
             """,
             []),
         new(
@@ -346,6 +347,7 @@ public sealed partial class MockGenerationSnapshotTests
             EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
             IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
             HiddenGetHashCodeBase sut7 = HiddenGetHashCodeBase.CreateMock();
+            HiddenGetHashCodeBase sut8 = HiddenGetHashCodeBase.CreateMock().Implementing<IEqualsAndGetHashCode>();
             """,
             [],
             UnionMode: true),

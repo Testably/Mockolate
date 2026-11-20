@@ -39,10 +39,6 @@ public abstract class EqualsAndGetHashCodeBase
 	public override int GetHashCode() => 42;
 }
 
-/// <summary>
-///     The mock overrides the hiding <c>GetHashCode</c>, not <see cref="object.GetHashCode()" />, so the compiler
-///     still reports CS0659 for its <c>Equals</c> override.
-/// </summary>
 public abstract class HiddenGetHashCodeBase : EqualsAndGetHashCodeBase
 {
 	public new virtual int GetHashCode() => 43;

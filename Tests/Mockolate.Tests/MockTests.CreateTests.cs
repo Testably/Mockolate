@@ -264,6 +264,7 @@ public sealed partial class MockTests
 			EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
 			IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
 			HiddenGetHashCodeBase sut7 = HiddenGetHashCodeBase.CreateMock();
+			HiddenGetHashCodeBase sut8 = HiddenGetHashCodeBase.CreateMock().Implementing<IEqualsAndGetHashCode>();
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
 			await That(sut3).IsNotNull();
@@ -271,6 +272,7 @@ public sealed partial class MockTests
 			await That(sut5).IsNotNull();
 			await That(sut6).IsNotNull();
 			await That(sut7).IsNotNull();
+			await That(sut8).IsNotNull();
 		}
 
 		[Test]
