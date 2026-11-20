@@ -57,6 +57,12 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<bool> autoMocking = autoMockingOptions
 			.Select(static (options, _) => options is not null);
 
+		// The excluded namespaces only affect the discovery, so changing them does not generate the mocks again.
+		IncrementalValueProvider<AutoMockingOptions?> emissionOptions = autoMockingOptions
+			.Select(static (options, _) => options is null
+				? null
+				: options with { ExcludedNamespaces = new EquatableArray<string>([]), });
+
 		// Mocks for auto-mocking are only discovered with the MockolateAutoMocking build property, from the
 		// CreateMock calls bound again in the current compilation, so that every other compilation does no work
 		// for them and its output stays unchanged.
@@ -139,7 +145,7 @@ public class MockGenerator : IIncrementalGenerator
 		// Per-mock source output: cache hit when the NamedMock is identity-equal to last run.
 		context.RegisterSourceOutput(
 			perMock.Combine(canUseOverloadResolutionPriority).Combine(hasUnionSupport).Combine(externAliases)
-				.Combine(autoMockingOptions),
+				.Combine(emissionOptions),
 			static (spc, source) => EmitMockFile(spc, source.Left.Left.Left.Left, source.Left.Left.Left.Right,
 				source.Left.Left.Right, source.Left.Right, source.Right));
 
@@ -235,7 +241,7 @@ public class MockGenerator : IIncrementalGenerator
 			.Select(static (arr, _) => arr.AsArray().Any(m => m.ClassFullName == "global::System.Net.Http.HttpClient"));
 
 		IncrementalValueProvider<EquatableArray<string>?> autoMockableTypes = collectedMocks
-			.Combine(autoMockingOptions)
+			.Combine(emissionOptions)
 			.Select(static (source, _) => source.Right is { } options
 				? new EquatableArray<string>(source.Left.AsArray()
 					.Where(m => options.CanReturnAutoMock(m) && IsValidMockDeclaration(m))
@@ -351,8 +357,9 @@ public class MockGenerator : IIncrementalGenerator
 	private static EquatableArray<string> ReadNamespaces(AnalyzerConfigOptionsProvider options, string property)
 		=> new(options.GlobalOptions.TryGetValue(property, out string? value)
 			? value.Split([';',], StringSplitOptions.RemoveEmptyEntries)
-				.Select(@namespace => @namespace.Trim())
+				.Select(@namespace => @namespace.Trim().TrimEnd('.'))
 				.Where(@namespace => @namespace.Length > 0)
+				.Distinct(StringComparer.Ordinal)
 				.ToArray()
 			: []);
 

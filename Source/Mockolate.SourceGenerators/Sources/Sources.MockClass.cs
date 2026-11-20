@@ -6834,7 +6834,7 @@ internal static partial class Sources
 		AutoMockingOptions? autoMocking)
 	{
 		sb.Append(indent).Append(behavior).Append(" = global::Mockolate.Internals.AutoMocks.UseFactory(")
-			.Append(behavior).Append(autoMocking is not null ?", global::Mockolate.Mock.CreateAutoMock);" : ", null);").AppendLine();
+			.Append(behavior).Append(autoMocking is not null ? ", global::Mockolate.Mock.CreateAutoMock);" : ", null);").AppendLine();
 	}
 
 	/// <summary>

@@ -67,7 +67,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	public bool IsAutoMockable { get; }
 
 	/// <summary>
-	///     The namespace of an auto-mockable mock in a framework namespace (see <see cref="Type.FrameworkNamespace" />).
+	///     The namespace of an auto-mockable mock in a framework namespace, which is only auto-mocked when it is included.
 	/// </summary>
 	public string? FrameworkNamespace { get; }
 
@@ -159,7 +159,6 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		    _mockSurfaceHash == other._mockSurfaceHash &&
 		    IsDiscovered == other.IsDiscovered &&
 		    IsAutoMockable == other.IsAutoMockable &&
-		    FrameworkNamespace == other.FrameworkNamespace &&
 		    ClassFullName == other.ClassFullName);
 
 	public override bool Equals(Class? other) => other is MockClass mc && Equals(mc);

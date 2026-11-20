@@ -20,7 +20,7 @@ internal sealed record AutoMockingOptions(
 	///     Whether an un-configured member returning the <paramref name="type" /> can return an auto-mock.
 	/// </summary>
 	public bool CanReturnAutoMock(Type type)
-		=> type.IsAutoMockable && IsAllowed(type.FrameworkNamespace);
+		=> type.IsAutoMockable && IsAllowed(type.IsInFrameworkNamespace ? type.Namespace : null);
 
 	/// <summary>
 	///     Whether the <paramref name="mock" /> can be returned as an auto-mock.

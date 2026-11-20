@@ -8,8 +8,8 @@ namespace Mockolate.SourceGenerators.Sources;
 
 internal static partial class Sources
 {
-	public static string MockDelegate(string name, MockClass @class, Method delegateMethod, AutoMockingOptions? autoMocking,
-		bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
+	public static string MockDelegate(string name, MockClass @class, Method delegateMethod,
+		AutoMockingOptions? autoMocking, bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
 	{
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
 		string classReference = @class.XmlDocReference;

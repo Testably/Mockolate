@@ -178,9 +178,8 @@ internal static class MockGeneratorHelpers
 		   !HasUsageDiagnostic(namedTypeSymbol);
 
 	/// <summary>
-	///     The namespace of <paramref name="typeSymbol" /> when it lies in a framework namespace, whose interfaces are
-	///     only auto-mocked when it is included, because mocking them transitively would generate mocks for large parts
-	///     of the base class library; otherwise <see langword="null" />.
+	///     The namespace of <paramref name="typeSymbol" /> when it lies in a framework namespace (see
+	///     <see cref="IsFrameworkNamespace" />); otherwise <see langword="null" />.
 	/// </summary>
 	internal static string? GetFrameworkNamespace(ITypeSymbol typeSymbol)
 		=> IsFrameworkNamespace(typeSymbol.ContainingNamespace)
@@ -203,11 +202,11 @@ internal static class MockGeneratorHelpers
 		AutoMockingOptions options)
 		=> IsAutoMockable(typeSymbol) &&
 		   !UsesTypeNestedInGenericType(typeSymbol) &&
-		   CanDiscoverNamespace(typeSymbol, options) &&
 		   !HasStaticAbstractMembers(typeSymbol) &&
 		   !HasNonPublicAbstractMembers(typeSymbol) &&
 		   !HasMemberNamedCreateMock(typeSymbol) &&
 		   Helpers.IsAccessibleFrom(typeSymbol, sourceAssembly) &&
+		   CanDiscoverNamespace(typeSymbol, options) &&
 		   GetTypeArgumentDepth(typeSymbol) <= MaxTypeArgumentDepth &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
 		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>
@@ -228,7 +227,12 @@ internal static class MockGeneratorHelpers
 		=> !typeSymbol.GetMembers("CreateMock").IsEmpty ||
 		   typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
 
-	private static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
+	/// <summary>
+	///     Whether the <paramref name="namespaceSymbol" /> lies in <c>System</c>, <c>Microsoft</c> or <c>Windows</c>, whose
+	///     interfaces are only auto-mocked when their namespace is included, because mocking them transitively would
+	///     generate mocks for large parts of the base class library.
+	/// </summary>
+	internal static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{
 		while (namespaceSymbol is { ContainingNamespace.IsGlobalNamespace: false, })
 		{
