@@ -123,6 +123,13 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "GenericMethodClosedOverObject_CanBeCreated",
+            ["IGenericMethodClosedOverObject.cs",],
+            """
+            IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
+            """,
+            []),
+        new(
             "GenericMethodOverride_CanBeCreated",
             ["GenericMethodOverrideBase.cs",],
             """
@@ -318,6 +325,14 @@ public sealed partial class MockGenerationSnapshotTests
             IEqualsAndGetHashCode sut4 = IEqualsAndGetHashCode.CreateMock();
             EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
             IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "GenericMethodClosedOverObject_CanBeCreated_Unions",
+            ["IGenericMethodClosedOverObject.cs",],
+            """
+            IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
             """,
             [],
             UnionMode: true),

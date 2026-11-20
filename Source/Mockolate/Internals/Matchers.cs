@@ -24,6 +24,26 @@ public static class Matchers
 		=> new It.ParameterEqualsMatch<T>(value, null);
 
 	/// <summary>
+	///     Matches like <see cref="IsValue{T}" />, unless <paramref name="value" /> is a matcher: a parameter typed with a
+	///     type parameter that the call closes over <see langword="object" /> takes every matcher as a value, so the
+	///     matcher decides instead.
+	/// </summary>
+	/// <typeparam name="T">The declared type of the parameter.</typeparam>
+	/// <param name="value">The expected value or a matcher.</param>
+	/// <returns>A parameter matcher for <paramref name="value" />.</returns>
+	public static IParameterMatch<T> IsValueOrMatcher<T>(T value)
+		=> AsMatcher(value) ?? new It.ParameterEqualsMatch<T>(value, null);
+
+	/// <summary>
+	///     The matcher that <paramref name="value" /> is, or <see langword="null" /> when it is a plain value.
+	/// </summary>
+	/// <typeparam name="T">The declared type of the parameter.</typeparam>
+	/// <param name="value">The expected value or a matcher.</param>
+	/// <returns>The matcher for <paramref name="value" />, or <see langword="null" /> when it is no matcher.</returns>
+	public static IParameterMatch<T>? AsMatcher<T>(T value)
+		=> value is IParameter<T> parameter ? parameter.AsParameterMatch() : null;
+
+	/// <summary>
 	///     Matches <see langword="null" /> arguments and renders as <c>null</c> in failure messages.
 	/// </summary>
 	/// <typeparam name="T">The declared type of the parameter.</typeparam>
