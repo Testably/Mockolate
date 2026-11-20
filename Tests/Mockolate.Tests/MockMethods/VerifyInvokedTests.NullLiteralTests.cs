@@ -249,6 +249,29 @@ public sealed partial class VerifyInvokedTests
 		}
 #endif
 
+		[Test]
+		public async Task NullForValueTypeNextToMatcher_SetupAndVerify_ShouldMatchTheDefaultValue()
+		{
+			IValueTypeService sut = IValueTypeService.CreateMock();
+			sut.Mock.Setup.Add(null, It.IsAny<int>()).Returns(7);
+			sut.Mock.Setup.Five(null, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Returns(7);
+			sut.Mock.Setup[null, It.IsAny<int>()].Returns(7);
+
+			int[] forDefault = [sut.Add(0, 1), sut.Five(0, 1, 2, 3, 4), sut[0, 1],];
+			int[] forOther = [sut.Add(1, 1), sut.Five(1, 1, 2, 3, 4), sut[1, 1],];
+			sut[0, 2] = 3;
+			sut[1, 2] = 3;
+
+			await That(forDefault).All().AreEqualTo(7)
+				.Because("a null literal for a non-nullable value type stands for its default value");
+			await That(forOther).All().AreEqualTo(0);
+			await That(sut.Mock.Verify.Add(null, It.IsAny<int>())).Once();
+			await That(sut.Mock.Verify.Five(null, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+				.Once();
+			await That(sut.Mock.Verify[null, It.IsAny<int>()].Got()).Once();
+			await That(sut.Mock.Verify[null, It.IsAny<int>()].Set(It.IsAny<int>())).Once();
+		}
+
 		private static string Capture(Action act)
 		{
 			try
@@ -277,6 +300,13 @@ public sealed partial class VerifyInvokedTests
 			int OptionalString(string? value, int number = 5);
 			int OptionalWithNonNullDefault(string? value = "x", int number = 5);
 			int WithParams(object? value, params int[] rest);
+		}
+
+		public interface IValueTypeService
+		{
+			int this[int a, int b] { get; set; }
+			int Add(int a, int b);
+			int Five(int a, int b, int c, int d, int e);
 		}
 
 		public interface IGenericSiblingService

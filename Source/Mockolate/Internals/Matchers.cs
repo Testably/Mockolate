@@ -44,10 +44,15 @@ public static class Matchers
 		=> value is IParameter<T> parameter ? parameter.AsParameterMatch() : null;
 
 	/// <summary>
-	///     Matches <see langword="null" /> arguments and renders as <c>null</c> in failure messages.
+	///     Matches the argument that a <see langword="null" /> literal stands for and renders as <c>null</c> in failure
+	///     messages: <see langword="null" />, or the default value of a non-nullable value type.
 	/// </summary>
+	/// <remarks>
+	///     A <see langword="null" /> literal for a non-nullable value type binds to the matcher overload in classic mode.
+	///     Verifications already compare it with the default value, and union mode converts it to the default value.
+	/// </remarks>
 	/// <typeparam name="T">The declared type of the parameter.</typeparam>
-	/// <returns>A parameter matcher that only accepts <see langword="null" />.</returns>
+	/// <returns>A parameter matcher that only accepts <see langword="default" />(<typeparamref name="T" />).</returns>
 	public static IParameterWithCallback<T> IsNull<T>()
-		=> new It.NullParameterMatch<T>("null");
+		=> new It.ParameterEqualsMatch<T>(default!, "null");
 }
