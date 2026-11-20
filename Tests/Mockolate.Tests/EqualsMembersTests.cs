@@ -76,6 +76,25 @@ public sealed class EqualsMembersTests
 	}
 
 	[Test]
+	public async Task EqualsAndHiddenGetHashCode_OfClass_ShouldBeSetupAndVerifiable()
+	{
+		HiddenGetHashCodeBase sut = HiddenGetHashCodeBase.CreateMock();
+		sut.Mock.Setup.Equals(It.IsAny<object?>()).Returns(true);
+		sut.Mock.Setup.GetHashCode().Returns(7);
+
+		bool equals = sut.Equals(new object());
+		int hashCode = sut.GetHashCode();
+		int objectHashCode = ((object)sut).GetHashCode();
+
+		await That(equals).IsTrue();
+		await That(hashCode).IsEqualTo(7);
+		await That(objectHashCode).IsEqualTo(42)
+			.Because("the hiding GetHashCode does not override object.GetHashCode");
+		await That(sut.Mock.Verify.Equals(It.IsAny<object?>())).Once();
+		await That(sut.Mock.Verify.GetHashCode()).Once();
+	}
+
+	[Test]
 	public async Task GetHashCode_WhenOnlyEqualsIsDeclared_ShouldBeStable()
 	{
 		IEqualsOnly sut = IEqualsOnly.CreateMock();

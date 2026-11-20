@@ -50,11 +50,11 @@ internal static partial class Sources
 
 		MemberIdTable memberIds = ComputeMemberIds(aliases, allMemberClasses);
 		string memberIdPrefix = $"global::Mockolate.Mock.{fileName}.";
-		bool overridesEqualsWithoutGetHashCode = OverridesEqualsWithoutGetHashCode(@class);
+		bool overridesEquals = OverridesEquals(@class);
 		StringBuilder sb = InitializeBuilder();
 
 		sb.Append("#nullable enable annotations").AppendLine();
-		if (overridesEqualsWithoutGetHashCode)
+		if (overridesEquals)
 		{
 			sb.Append(DisableEqualsWithoutGetHashCodeWarning).AppendLine();
 		}
@@ -584,7 +584,7 @@ internal static partial class Sources
 
 		#endregion Extensions
 
-		if (overridesEqualsWithoutGetHashCode)
+		if (overridesEquals)
 		{
 			sb.AppendLine(RestoreEqualsWithoutGetHashCodeWarning);
 		}
