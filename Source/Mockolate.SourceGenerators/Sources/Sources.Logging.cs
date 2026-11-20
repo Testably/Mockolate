@@ -253,8 +253,7 @@ internal static partial class Sources
 		          		{
 		          			string name = $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>";
 		          			global::Mockolate.Interactions.LogInvocation<TState> invocation = new(name, logLevel, eventId, state, exception, formatter);
-		          			global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>? methodSetup = null;
-		          			LogSetup? logSetup = null;
+		          			global::Mockolate.Setup.MethodSetup? setup = null;
 		          			if (string.IsNullOrEmpty(registry.Scenario))
 		          			{
 		          				global::Mockolate.Setup.MethodSetup[]? snapshot = registry.GetMethodSetupSnapshot(memberId);
@@ -262,32 +261,23 @@ internal static partial class Sources
 		          				{
 		          					for (int i = snapshot.Length - 1; i >= 0; i--)
 		          					{
-		          						if (snapshot[i] is global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> typedSetup && typedSetup.Name == name && typedSetup.Matches(logLevel, eventId, state, exception, formatter))
+		          						if (IsMatchingSetup(snapshot[i]))
 		          						{
-		          							methodSetup = typedSetup;
-		          							break;
-		          						}
-
-		          						if (snapshot[i] is LogSetup messageSetup && messageSetup.Matches(logLevel, eventId, invocation.Message, exception))
-		          						{
-		          							logSetup = messageSetup;
+		          							setup = snapshot[i];
 		          							break;
 		          						}
 		          					}
 		          				}
 
-		          				if (methodSetup is null && logSetup is null)
-		          				{
-		          					methodSetup = FindTypedSetup(registry.GetFallbackMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>>(memberId, name));
-		          					logSetup = methodSetup is null ? FindMessageSetup(registry.GetFallbackMethodSetups<LogSetup>(memberId, LogName)) : null;
-		          				}
+		          				setup ??= FindSetup(registry.GetFallbackMethodSetups<global::Mockolate.Setup.MethodSetup>(memberId, name, LogName));
 		          			}
 		          			else
 		          			{
-		          				methodSetup = FindTypedSetup(registry.GetMethodSetups<global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>>(name));
-		          				logSetup = methodSetup is null ? FindMessageSetup(registry.GetMethodSetups<LogSetup>(LogName)) : null;
+		          				setup = FindSetup(registry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name, LogName));
 		          			}
 
+		          			global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>? methodSetup = setup as global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>;
+		          			LogSetup? logSetup = setup as LogSetup;
 		          			registry.RegisterInteraction(invocation);
 		          			if (s_factoryRegistries.TryGetValue(registry, out global::Mockolate.Internals.MockRegistry? factoryRegistry))
 		          			{
@@ -314,31 +304,24 @@ internal static partial class Sources
 		          				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Microsoft.Extensions.Logging.ILogger.Log<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
 		          			}
 
-		          			global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>? FindTypedSetup(global::System.Collections.Generic.IEnumerable<global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>>? setups)
+		          			// Typed setups of the state type and setups of the formatted message are searched together, so the latest matching one wins.
+		          			bool IsMatchingSetup(global::Mockolate.Setup.MethodSetup candidate)
+		          				=> candidate switch
+		          				{
+		          					global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> typedSetup => typedSetup.Name == name && typedSetup.Matches(logLevel, eventId, state, exception, formatter),
+		          					LogSetup messageSetup => messageSetup.Matches(logLevel, eventId, invocation.Message, exception),
+		          					_ => false,
+		          				};
+
+		          			global::Mockolate.Setup.MethodSetup? FindSetup(global::System.Collections.Generic.IEnumerable<global::Mockolate.Setup.MethodSetup>? setups)
 		          			{
 		          				if (setups is not null)
 		          				{
-		          					foreach (global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> setup in setups)
+		          					foreach (global::Mockolate.Setup.MethodSetup candidate in setups)
 		          					{
-		          						if (setup.Matches(logLevel, eventId, state, exception, formatter))
+		          						if (IsMatchingSetup(candidate))
 		          						{
-		          							return setup;
-		          						}
-		          					}
-		          				}
-
-		          				return null;
-		          			}
-
-		          			LogSetup? FindMessageSetup(global::System.Collections.Generic.IEnumerable<LogSetup>? setups)
-		          			{
-		          				if (setups is not null)
-		          				{
-		          					foreach (LogSetup setup in setups)
-		          					{
-		          						if (setup.Matches(logLevel, eventId, invocation.Message, exception))
-		          						{
-		          							return setup;
+		          							return candidate;
 		          						}
 		          					}
 		          				}
@@ -407,7 +390,9 @@ internal static partial class Sources
 			}
 
 			sb.Append("""
-			          					s_factoryRegistries.Add(((global::Mockolate.IMock)logger).MockRegistry, factoryRegistry);
+			          					global::Mockolate.Internals.MockRegistry loggerRegistry = ((global::Mockolate.IMock)logger).MockRegistry;
+			          					s_factoryRegistries.Add(loggerRegistry, factoryRegistry);
+			          					factoryRegistry.ShareVerifiedInteractions(loggerRegistry);
 			          					state.Loggers.Add(categoryName, logger);
 			          				}
 

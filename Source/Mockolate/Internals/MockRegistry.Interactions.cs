@@ -33,6 +33,21 @@ public partial class MockRegistry
 		=> Interactions.Clear();
 
 	/// <summary>
+	///     Shares the verifications of this registry and <paramref name="other" />, so that an interaction recorded
+	///     on both counts as verified on both when a verification on either of them matched it.
+	/// </summary>
+	/// <param name="other">The registry that records some of the interactions of this registry as well.</param>
+	public void ShareVerifiedInteractions(MockRegistry other)
+	{
+		if (Interactions is FastMockInteractions interactions &&
+		    other.Interactions is FastMockInteractions otherInteractions)
+		{
+			interactions.ShareVerificationsWith(otherInteractions);
+			otherInteractions.ShareVerificationsWith(interactions);
+		}
+	}
+
+	/// <summary>
 	///     Returns the current snapshot of default-scope method setups registered under the generator-emitted
 	///     <paramref name="memberId" />, or <see langword="null" /> when no setup has been registered.
 	/// </summary>
@@ -140,21 +155,37 @@ public partial class MockRegistry
 	/// <param name="methodName">The simple method name.</param>
 	/// <returns>A lazy stream of matching setups, scenario-scoped first.</returns>
 	public IEnumerable<T> GetMethodSetups<T>(string methodName) where T : MethodSetup
+		=> GetMethodSetups<T>(methodName, null);
+
+	/// <summary>
+	///     Enumerates method setups of type <typeparamref name="T" /> named <paramref name="methodName" /> or
+	///     <paramref name="alternativeMethodName" />, in the order of <see cref="GetMethodSetups{T}(string)" />.
+	/// </summary>
+	/// <remarks>
+	///     Lets a dispatch that accepts setups of two names pick the latest matching one across both names.
+	/// </remarks>
+	/// <typeparam name="T">The concrete <see cref="MethodSetup" /> subtype to return.</typeparam>
+	/// <param name="methodName">The simple method name.</param>
+	/// <param name="alternativeMethodName">The other accepted method name.</param>
+	/// <returns>A lazy stream of matching setups, scenario-scoped first.</returns>
+	public IEnumerable<T> GetMethodSetups<T>(string methodName, string? alternativeMethodName) where T : MethodSetup
 	{
 		MockSetups? setups = _setups;
 		if (!string.IsNullOrEmpty(Scenario) && setups is not null &&
 		    setups.TryGetScenario(Scenario, out MockScenarioSetup? scopedBucket))
 		{
-			return EnumerateScopedAndGlobalMethodSetups<T>(methodName, scopedBucket);
+			return EnumerateScopedAndGlobalMethodSetups<T>(methodName, alternativeMethodName, scopedBucket);
 		}
 
 		MethodSetup[]?[]? snapshot = Volatile.Read(ref _setupsByMemberId);
 		if (snapshot is null)
 		{
-			return setups is null ? Array.Empty<T>() : setups.Methods.EnumerateByName<T>(methodName);
+			return setups is null
+				? Array.Empty<T>()
+				: setups.Methods.EnumerateByName<T>(methodName, alternativeMethodName);
 		}
 
-		return EnumerateGlobalMethodSetups<T>(methodName, snapshot, -1);
+		return EnumerateGlobalMethodSetups<T>(methodName, alternativeMethodName, snapshot, -1);
 	}
 
 	/// <summary>
@@ -177,17 +208,36 @@ public partial class MockRegistry
 	///     A lazy stream of the remaining default-scope setups, or <see langword="null" /> when there are none.
 	/// </returns>
 	public IEnumerable<T>? GetFallbackMethodSetups<T>(int memberId, string methodName) where T : MethodSetup
+		=> GetFallbackMethodSetups<T>(memberId, methodName, null);
+
+	/// <summary>
+	///     Enumerates the default-scope method setups of type <typeparamref name="T" /> named
+	///     <paramref name="methodName" /> or <paramref name="alternativeMethodName" />, in the order of
+	///     <see cref="GetFallbackMethodSetups{T}(int, string)" />.
+	/// </summary>
+	/// <typeparam name="T">The concrete <see cref="MethodSetup" /> subtype to return.</typeparam>
+	/// <param name="memberId">The generator-emitted member id whose snapshot bucket was already searched.</param>
+	/// <param name="methodName">The simple method name.</param>
+	/// <param name="alternativeMethodName">The other accepted method name.</param>
+	/// <returns>
+	///     A lazy stream of the remaining default-scope setups, or <see langword="null" /> when there are none.
+	/// </returns>
+	public IEnumerable<T>? GetFallbackMethodSetups<T>(int memberId, string methodName, string? alternativeMethodName)
+		where T : MethodSetup
 	{
 		MethodSetup[]?[]? snapshot = Volatile.Read(ref _setupsByMemberId);
-		if (snapshot is not null && HasNamedSetupInOtherBucket<T>(methodName, memberId, snapshot))
+		if (snapshot is not null &&
+		    HasNamedSetupInOtherBucket<T>(methodName, alternativeMethodName, memberId, snapshot))
 		{
-			return EnumerateGlobalMethodSetups<T>(methodName, snapshot, memberId);
+			return EnumerateGlobalMethodSetups<T>(methodName, alternativeMethodName, snapshot, memberId);
 		}
 
-		return _setups is { Methods.HasStorage: true, } setups ? setups.Methods.EnumerateByName<T>(methodName) : null;
+		return _setups is { Methods.HasStorage: true, } setups
+			? setups.Methods.EnumerateByName<T>(methodName, alternativeMethodName)
+			: null;
 	}
 
-	private static bool HasNamedSetupInOtherBucket<T>(string methodName, int memberId,
+	private static bool HasNamedSetupInOtherBucket<T>(string methodName, string? alternativeMethodName, int memberId,
 		MethodSetup[]?[] snapshot) where T : MethodSetup
 	{
 		for (int b = 0; b < snapshot.Length; b++)
@@ -200,7 +250,7 @@ public partial class MockRegistry
 
 			foreach (MethodSetup setup in bucket)
 			{
-				if (setup is T && setup.Name.Equals(methodName))
+				if (setup is T && setup.HasName(methodName, alternativeMethodName))
 				{
 					return true;
 				}
@@ -210,10 +260,10 @@ public partial class MockRegistry
 		return false;
 	}
 
-	private IEnumerable<T> EnumerateScopedAndGlobalMethodSetups<T>(string methodName,
+	private IEnumerable<T> EnumerateScopedAndGlobalMethodSetups<T>(string methodName, string? alternativeMethodName,
 		MockScenarioSetup scopedBucket) where T : MethodSetup
 	{
-		foreach (T setup in scopedBucket.Methods.EnumerateByName<T>(methodName))
+		foreach (T setup in scopedBucket.Methods.EnumerateByName<T>(methodName, alternativeMethodName))
 		{
 			yield return setup;
 		}
@@ -221,22 +271,22 @@ public partial class MockRegistry
 		MethodSetup[]?[]? snapshot = Volatile.Read(ref _setupsByMemberId);
 		if (snapshot is not null)
 		{
-			foreach (T setup in EnumerateSnapshotByName<T>(methodName, snapshot, -1))
+			foreach (T setup in EnumerateSnapshotByName<T>(methodName, alternativeMethodName, snapshot, -1))
 			{
 				yield return setup;
 			}
 		}
 
-		foreach (T setup in Setup.Methods.EnumerateByName<T>(methodName))
+		foreach (T setup in Setup.Methods.EnumerateByName<T>(methodName, alternativeMethodName))
 		{
 			yield return setup;
 		}
 	}
 
-	private IEnumerable<T> EnumerateGlobalMethodSetups<T>(string methodName,
+	private IEnumerable<T> EnumerateGlobalMethodSetups<T>(string methodName, string? alternativeMethodName,
 		MethodSetup[]?[] snapshot, int excludedMemberId) where T : MethodSetup
 	{
-		foreach (T setup in EnumerateSnapshotByName<T>(methodName, snapshot, excludedMemberId))
+		foreach (T setup in EnumerateSnapshotByName<T>(methodName, alternativeMethodName, snapshot, excludedMemberId))
 		{
 			yield return setup;
 		}
@@ -246,14 +296,14 @@ public partial class MockRegistry
 		// is skipped entirely and never forces the lazy allocation.
 		if (_setups is { } setups)
 		{
-			foreach (T setup in setups.Methods.EnumerateByName<T>(methodName))
+			foreach (T setup in setups.Methods.EnumerateByName<T>(methodName, alternativeMethodName))
 			{
 				yield return setup;
 			}
 		}
 	}
 
-	private static IEnumerable<T> EnumerateSnapshotByName<T>(string methodName,
+	private static IEnumerable<T> EnumerateSnapshotByName<T>(string methodName, string? alternativeMethodName,
 		MethodSetup[]?[] snapshot, int excludedMemberId) where T : MethodSetup
 	{
 		// Walk every memberId bucket: the snapshot is keyed by member id, but a name-based caller
@@ -270,7 +320,7 @@ public partial class MockRegistry
 
 			for (int i = bucket.Length - 1; i >= 0; i--)
 			{
-				if (bucket[i] is T typed && typed.Name.Equals(methodName))
+				if (bucket[i] is T typed && typed.HasName(methodName, alternativeMethodName))
 				{
 					yield return typed;
 				}

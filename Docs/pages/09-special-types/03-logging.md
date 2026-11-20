@@ -17,7 +17,7 @@ sut.Order("Dark", 0);
 logger.Mock.Verify.LogWarning(It.Matches("*no Dark chocolate*")).Once();
 ```
 
-Unlike other members without a setup, `IsEnabled` returns `true`, so logging code that checks `IsEnabled` first (like the code generated for `[LoggerMessage]`) still reaches `Log`.
+Unlike other members without a setup, `IsEnabled` returns `true`, so logging code that checks `IsEnabled` first (like the code generated for `[LoggerMessage]`) still reaches `Log`. This also applies to mocks created with `ThrowingWhenNotSetup()`, where a `Log` call without a matching setup still throws.
 
 <details>
 <summary>Example types used on this page</summary>
@@ -76,6 +76,8 @@ sut.Order("Dark", 0);
 
 loggerFactory.Mock.Verify.LogWarning(It.IsAny<string>()).Once();
 ```
+
+A log call that you verify on the factory also counts as verified on its logger for `VerifyThatAllInteractionsAreVerified()`, and the other way round.
 
 To set up or verify a single logger, also before the code under test creates it, use `GetLogger<TCategoryName>()` or `GetLogger(categoryName)`. `GetLogger<TCategoryName>()` returns an `ILogger<TCategoryName>` that shares the setups and calls of the logger of the category, so you can also pass it to code that expects an `ILogger<TCategoryName>`:
 

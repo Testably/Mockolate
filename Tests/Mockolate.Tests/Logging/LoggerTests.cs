@@ -111,6 +111,72 @@ public sealed class LoggerTests
 	}
 
 	[Test]
+	public async Task Setup_InScenario_WithTypedAndMessageSetups_ShouldUseLatest()
+	{
+		List<string> calls = [];
+		ILogger logger = ILogger.CreateMock();
+		logger.Mock.InScenario("broken").Setup.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<int>(),
+			It.IsAny<Exception?>(), It.IsAny<Func<int, Exception?, string>>()).Do(() => calls.Add("typed"));
+		logger.Mock.InScenario("broken").Setup.LogError(It.IsAny<string>()).Do(() => calls.Add("message"));
+		logger.Mock.TransitionTo("broken");
+
+		logger.Log(LogLevel.Error, new EventId(1), 42, null, (_, _) => "failed");
+
+		await That(calls).IsEqualTo(["message",]);
+	}
+
+	[Test]
+	public async Task Setup_InScenario_WithMessageAndTypedSetups_ShouldUseLatest()
+	{
+		List<string> calls = [];
+		ILogger logger = ILogger.CreateMock();
+		logger.Mock.InScenario("broken").Setup.LogError(It.IsAny<string>()).Do(() => calls.Add("message"));
+		logger.Mock.InScenario("broken").Setup.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<int>(),
+			It.IsAny<Exception?>(), It.IsAny<Func<int, Exception?, string>>()).Do(() => calls.Add("typed"));
+		logger.Mock.TransitionTo("broken");
+
+		logger.Log(LogLevel.Error, new EventId(1), 42, null, (_, _) => "failed");
+
+		await That(calls).IsEqualTo(["typed",]);
+	}
+
+	[Test]
+	public async Task ThrowingWhenNotSetup_IsEnabledWithoutSetup_ShouldReturnTrue()
+	{
+		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+
+		bool result = logger.IsEnabled(LogLevel.Debug);
+
+		await That(result).IsTrue();
+	}
+
+	[Test]
+	public async Task ThrowingWhenNotSetup_LoggerMessage_WithMessageSetup_ShouldNotThrow()
+	{
+		Action<ILogger, int, Exception?> logOrderFailed =
+			LoggerMessage.Define<int>(LogLevel.Error, new EventId(1), "Order {OrderId} failed");
+		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+		logger.Mock.Setup.LogError(It.IsAny<string>());
+
+		void Act() => logOrderFailed(logger, 42, null);
+
+		await That(Act).DoesNotThrow().Because("the generated logging code checks IsEnabled before it calls Log");
+	}
+
+	[Test]
+	public async Task ThrowingWhenNotSetup_LoggerMessage_WithoutSetup_ShouldThrow()
+	{
+		Action<ILogger, int, Exception?> logOrderFailed =
+			LoggerMessage.Define<int>(LogLevel.Error, new EventId(1), "Order {OrderId} failed");
+		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+
+		void Act() => logOrderFailed(logger, 42, null);
+
+		await That(Act).Throws<MockNotSetupException>()
+			.WithMessage("The method 'global::Microsoft.Extensions.Logging.ILogger.Log<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
+	}
+
+	[Test]
 	public async Task ThrowingWhenNotSetup_WithoutSetup_ShouldThrow()
 	{
 		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());

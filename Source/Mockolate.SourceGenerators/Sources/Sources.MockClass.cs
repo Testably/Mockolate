@@ -2848,14 +2848,19 @@ internal static partial class Sources
 		AppendTriggerCallbacks(sb, "\t\t\t\t", methodSetup, method.Parameters);
 		sb.Append("\t\t\t}").AppendLine();
 
-		string displayMethodName =
-			$"{method.ContainingType}.{method.Name}({string.Join(", ", method.Parameters.Select(p => p.Type.DisplayName))})";
-		sb.Append("\t\t\tif (").Append(methodSetup).Append(" is null && !").Append(hasWrappedResult).Append(" && ")
-			.Append(mockRegistry).Append(".Behavior.ThrowWhenNotSetup)").AppendLine();
-		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tthrow new global::Mockolate.Exceptions.MockNotSetupException(\"The method '")
-			.Append(displayMethodName).Append("' was invoked without prior setup.\");").AppendLine();
-		sb.Append("\t\t\t}").AppendLine();
+		// ILogger.IsEnabled answers true without a setup even on a strict mock: logging code checks it before
+		// every Log call, and an unexpected Log call still throws.
+		if (!(isClassInterface && IsLoggerIsEnabled(method)))
+		{
+			string displayMethodName =
+				$"{method.ContainingType}.{method.Name}({string.Join(", ", method.Parameters.Select(p => p.Type.DisplayName))})";
+			sb.Append("\t\t\tif (").Append(methodSetup).Append(" is null && !").Append(hasWrappedResult).Append(" && ")
+				.Append(mockRegistry).Append(".Behavior.ThrowWhenNotSetup)").AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\tthrow new global::Mockolate.Exceptions.MockNotSetupException(\"The method '")
+				.Append(displayMethodName).Append("' was invoked without prior setup.\");").AppendLine();
+			sb.Append("\t\t\t}").AppendLine();
+		}
 
 		if (method.ReturnType != Type.Void)
 		{

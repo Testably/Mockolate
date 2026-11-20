@@ -88,6 +88,48 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
+	public async Task VerifyThatAllInteractionsAreVerified_WhenVerifiedOnTheFactory_ShouldIncludeTheLoggers()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger logger = factory.CreateLogger("Orders");
+		logger.LogError("failed");
+
+		bool loggerBefore = logger.Mock.VerifyThatAllInteractionsAreVerified();
+		await That(factory.Mock.Verify.LogError(It.IsAny<string>())).Once();
+		bool loggerAfter = logger.Mock.VerifyThatAllInteractionsAreVerified();
+
+		await That(loggerBefore).IsFalse();
+		await That(loggerAfter).IsTrue();
+	}
+
+	[Test]
+	public async Task VerifyThatAllInteractionsAreVerified_WhenVerifiedOnTheLogger_ShouldIncludeTheFactory()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		factory.CreateLogger("Orders").LogError("failed");
+		await That(factory.Mock.Verify.CreateLogger(It.Is("Orders"))).Once();
+
+		bool factoryBefore = factory.Mock.VerifyThatAllInteractionsAreVerified();
+		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogError(It.IsAny<string>())).Once();
+		bool factoryAfter = factory.Mock.VerifyThatAllInteractionsAreVerified();
+
+		await That(factoryBefore).IsFalse();
+		await That(factoryAfter).IsTrue();
+	}
+
+	[Test]
+	public async Task VerifyThatAllInteractionsAreVerified_WhenVerifiedOnOneLogger_ShouldNotIncludeOtherLoggers()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		factory.CreateLogger("Orders").LogError("failed");
+		factory.CreateLogger("Payments").LogError("failed");
+
+		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogError(It.IsAny<string>())).Once();
+
+		await That(factory.Mock.GetLogger("Payments").Mock.VerifyThatAllInteractionsAreVerified()).IsFalse();
+	}
+
+	[Test]
 	public async Task ThrowingWhenNotSetup_ShouldApplyToTheLoggers()
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
