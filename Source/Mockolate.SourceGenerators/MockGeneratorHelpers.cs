@@ -193,6 +193,7 @@ internal static class MockGeneratorHelpers
 	private static bool CanBeDiscovered(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly,
 		EquatableArray<string> excludedNamespaces)
 		=> IsAutoMockable(typeSymbol) &&
+		   !UsesTypeNestedInGenericType(typeSymbol) &&
 		   !IsInNamespace(typeSymbol, excludedNamespaces) &&
 		   !HasStaticAbstractMembers(typeSymbol) &&
 		   !HasNonPublicAbstractMembers(typeSymbol) &&
@@ -225,6 +226,34 @@ internal static class MockGeneratorHelpers
 		string containingNamespace = typeSymbol.ContainingNamespace.ToDisplayString();
 		return namespaces.Any(@namespace => containingNamespace == @namespace ||
 		                                    containingNamespace.StartsWith(@namespace + ".", StringComparison.Ordinal));
+	}
+
+	/// <summary>
+	///     Whether <paramref name="typeSymbol" /> or one of its type arguments is nested in a generic type, e.g.
+	///     <c>Outer&lt;T&gt;.IInner</c>, whose type arguments the checks for self-expanding generics and the
+	///     normalization of nullable spellings do not see.
+	/// </summary>
+	private static bool UsesTypeNestedInGenericType(ITypeSymbol typeSymbol)
+	{
+		switch (typeSymbol)
+		{
+			case IArrayTypeSymbol array:
+				return UsesTypeNestedInGenericType(array.ElementType);
+			case INamedTypeSymbol named:
+				for (INamedTypeSymbol? containingType = named.ContainingType;
+				     containingType is not null;
+				     containingType = containingType.ContainingType)
+				{
+					if (containingType.IsGenericType)
+					{
+						return true;
+					}
+				}
+
+				return named.TypeArguments.Any(UsesTypeNestedInGenericType);
+			default:
+				return false;
+		}
 	}
 
 	private static int GetTypeArgumentDepth(ITypeSymbol typeSymbol)

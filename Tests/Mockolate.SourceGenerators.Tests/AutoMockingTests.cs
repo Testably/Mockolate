@@ -477,6 +477,111 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task SelfExpandingInterfaceNestedInGenericType_ShouldNotBeMockedEndlessly()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode
+		                             {
+		                                 public class Box<T>
+		                                 {
+		                                     public interface INode
+		                                     {
+		                                         Box<Box<T>>.INode Next();
+		                                     }
+		                                 }
+
+		                                 public interface IRoot
+		                                 {
+		                                     Box<int>.INode Get();
+		                                 }
+		                             }
+		                             """, "IRoot", "Box<int>.INode");
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources.Keys.Where(key => key.Contains("INode"))).HasCount(1)
+			.Because("only the mock that CreateMock names is generated, so the walk cannot expand the containing type");
+	}
+
+	[Test]
+	public async Task InterfacesNestedInGenericTypes_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode
+		                             {
+		                                 public class Outer<T>
+		                                 {
+		                                     public interface IInner
+		                                     {
+		                                         T Value { get; }
+		                                     }
+		                                 }
+
+		                                 public interface IGeneric<T> { }
+
+		                                 public interface IRoot
+		                                 {
+		                                     Outer<string?>.IInner GetNullable();
+		                                     Outer<string>.IInner GetNotNullable();
+		                                     IGeneric<Outer<string?>.IInner> GetWrapped();
+		                                 }
+		                             }
+		                             """, "IRoot");
+
+		await That(result.Diagnostics).IsEmpty()
+			.Because("the nullable spelling in the containing type would reach the oblivious receiver (CS8669)");
+		await That(result.Sources.Keys).None().Satisfy(key => key.Contains("IInner"));
+	}
+
+	[Test]
+	public async Task UnrelatedEdit_ShouldKeepTheGeneratedOutputCached()
+	{
+		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
+		SyntaxTree unrelated = CSharpSyntaxTree.ParseText("namespace MyCode { public class Unrelated { } }",
+			parseOptions);
+		CSharpCompilation compilation = CSharpCompilation.Create("TestAssembly",
+			[
+				CSharpSyntaxTree.ParseText("""
+				                           using Mockolate;
+
+				                           namespace MyCode
+				                           {
+				                               public class Program
+				                               {
+				                                   public static void Main(string[] args) => _ = IRoot.CreateMock();
+				                               }
+
+				                               public interface IRoot
+				                               {
+				                                   IChild Get();
+				                               }
+
+				                               public interface IChild { }
+				                           }
+				                           """, parseOptions),
+				unrelated,
+			],
+			Generator.GetReferences([]),
+			new CSharpCompilationOptions(OutputKind.ConsoleApplication));
+		GeneratorDriver driver = CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [],
+			parseOptions, new TestAnalyzerConfigOptionsProvider(AutoMockingEnabled),
+			new GeneratorDriverOptions(IncrementalGeneratorOutputKind.None, trackIncrementalGeneratorSteps: true));
+
+		driver = driver.RunGenerators(compilation);
+		driver = driver.RunGenerators(compilation.ReplaceSyntaxTree(unrelated,
+			CSharpSyntaxTree.ParseText("namespace MyCode { public class Unrelated { public int Value; } }",
+				parseOptions)));
+
+		IncrementalStepRunReason[] reasons = driver.GetRunResult().Results.Single().TrackedOutputSteps
+			.SelectMany(step => step.Value)
+			.SelectMany(run => run.Outputs)
+			.Select(output => output.Reason)
+			.ToArray();
+		await That(reasons).IsNotEmpty().And
+			.All().Satisfy(reason => reason is IncrementalStepRunReason.Cached or IncrementalStepRunReason.Unchanged)
+			.Because("an edit that changes no mocked type must not regenerate any file");
+	}
+
+	[Test]
 	public async Task SpellingsOfTheSameType_ShouldShareOneMock()
 	{
 		GeneratorResult result = Run("""
