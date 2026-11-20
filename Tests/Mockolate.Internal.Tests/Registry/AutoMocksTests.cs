@@ -68,6 +68,27 @@ public sealed class AutoMocksTests
 	}
 
 	[Test]
+	public async Task UseFactory_WithoutFactory_ShouldRemoveTheFactoryOfAnotherAssembly()
+	{
+		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (_, _) => new ServiceWithoutMock());
+
+		MockBehavior result = AutoMocks.UseFactory(behavior, null);
+
+		await That(AutoMocks.Or<IServiceWithoutMock?>(result, null)).IsNull()
+			.Because("a project without the MockolateAutoMocking build property creates no auto-mocks");
+	}
+
+	[Test]
+	public async Task UseFactory_WithoutFactory_WhenTheBehaviorHasNone_ShouldReturnTheSameBehavior()
+	{
+		MockBehavior behavior = MockBehavior.Default;
+
+		MockBehavior result = AutoMocks.UseFactory(behavior, null);
+
+		await That(result).IsSameAs(behavior);
+	}
+
+	[Test]
 	public async Task UseFactory_WithTheSameFactory_ShouldReturnTheSameBehavior()
 	{
 		Func<Type, MockBehavior, object?> factory = (_, _) => null;

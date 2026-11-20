@@ -12,12 +12,25 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Behavior_ShouldStillEqualTheBehaviorPassedToCreateMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default);
+		MockBehavior expected = new(new NullDefaultValueGenerator());
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock(expected);
 
 		MockBehavior behavior = ((IMock)sut).MockRegistry.Behavior;
 
-		await That(behavior).IsEqualTo(MockBehavior.Default)
+		await That(behavior).IsEqualTo(expected)
 			.Because("the auto-mock factory that CreateMock adds is not part of the equality");
+	}
+
+	[Test]
+	public async Task Behavior_DerivedFromTheDefault_ShouldBeTheSameInstance()
+	{
+		MockBehavior expected = MockBehavior.Default.ThrowingWhenNotSetup(false);
+		IAutoMockRoot defaultMock = IAutoMockRoot.CreateMock();
+		IAutoMockRoot derivedMock = IAutoMockRoot.CreateMock(expected);
+
+		await That(((IMock)defaultMock).MockRegistry.Behavior).IsSameAs(MockBehavior.Default)
+			.Because("the default behavior already carries the auto-mock factory");
+		await That(((IMock)derivedMock).MockRegistry.Behavior).IsSameAs(expected);
 	}
 
 	[Test]

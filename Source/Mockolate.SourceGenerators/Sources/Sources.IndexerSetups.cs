@@ -1116,7 +1116,7 @@ internal static partial class Sources
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t\telse").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append(AutoMocking
+		sb.Append(_autoMocking
 			? "\t\t\t\tcurrentValue = TryCast(global::Mockolate.Internals.AutoMocks.Or(behavior, behavior.DefaultValue.Generate(default(TValue)!), access), out TValue casted, behavior) ? casted : default!;"
 			: "\t\t\t\tcurrentValue = TryCast(behavior.DefaultValue.Generate(default(TValue)!), out TValue casted, behavior) ? casted : default!;").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();

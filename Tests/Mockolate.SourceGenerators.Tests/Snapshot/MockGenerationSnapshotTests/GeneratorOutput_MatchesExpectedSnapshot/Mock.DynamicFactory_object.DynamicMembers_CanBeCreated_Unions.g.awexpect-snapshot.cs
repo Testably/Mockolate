@@ -475,6 +475,7 @@ internal static partial class MockExtensionsForDynamicFactory_object
 		public static global::Mockolate.Tests.GeneratorCoverage.DynamicFactory<object> CreateMock(global::Mockolate.MockBehavior? mockBehavior = null, params global::System.Action<global::Mockolate.Mock.IMockSetupForDynamicFactory_object>[] setups)
 		{
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
 			var mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
 			global::Mockolate.Mock.DynamicFactory_object mockTarget = new global::Mockolate.Mock.DynamicFactory_object(mockRegistry);
 			if (setups.Length > 0)

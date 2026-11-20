@@ -546,6 +546,39 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task InterfacesWithAMemberNamedCreateMock_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode
+		                             {
+		                                 public interface IRoot
+		                                 {
+		                                     IWithMethod GetWithMethod();
+		                                     IWithNestedType GetWithNestedType();
+		                                     IInherited GetInherited();
+		                                 }
+
+		                                 public interface IWithMethod
+		                                 {
+		                                     static IWithMethod CreateMock(int value) => null!;
+		                                 }
+
+		                                 public interface IWithNestedType
+		                                 {
+		                                     public class CreateMock { }
+		                                 }
+
+		                                 public interface IInherited : IWithMethod { }
+		                             }
+		                             """, "IRoot");
+
+		await That(result.Diagnostics).IsEmpty()
+			.Because("the member would hide the CreateMock extension that the auto-mock factory calls");
+		await That(result.Sources.Keys).None().Satisfy(key =>
+			key.Contains("IWithMethod") || key.Contains("IWithNestedType") || key.Contains("IInherited"));
+	}
+
+	[Test]
 	public async Task ObsoleteInterfaces_ShouldNotBeMocked()
 	{
 		GeneratorResult result = Run("""
@@ -962,7 +995,9 @@ public sealed class AutoMockingTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).DoesNotContainKey("Mock.IMyInterface2.g.cs");
-		await That(result.Sources["Mock.IMyInterface1.g.cs"]).DoesNotContain("AutoMock");
+		await That(result.Sources["Mock.IMyInterface1.g.cs"]).DoesNotContain("CreateAutoMock").And.DoesNotContain("AutoMockOr")
+			.And.Contains("global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);")
+			.Because("a behavior of another project may carry its auto-mock factory");
 		await That(result.Sources["MockBehaviorExtensions.g.cs"]).DoesNotContain("AutoMock");
 	}
 

@@ -449,6 +449,7 @@ internal static partial class MockExtensionsForParamsObjectArrayDelegate
 		public static global::Mockolate.Tests.GeneratorCoverage.ParamsObjectArrayDelegate CreateMock(global::Mockolate.MockBehavior? mockBehavior = null, params global::System.Action<global::Mockolate.Mock.IMockSetupForParamsObjectArrayDelegate>[] setups)
 		{
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
 			var mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
 			global::Mockolate.Mock.ParamsObjectArrayDelegate mockTarget = new global::Mockolate.Mock.ParamsObjectArrayDelegate(mockRegistry);
 			if (setups.Length > 0)

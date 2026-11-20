@@ -488,6 +488,7 @@ internal static partial class MockExtensionsForComprehensiveDelegate
 		public static global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate CreateMock(global::Mockolate.MockBehavior? mockBehavior = null, params global::System.Action<global::Mockolate.Mock.IMockSetupForComprehensiveDelegate>[] setups)
 		{
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
 			var mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
 			global::Mockolate.Mock.ComprehensiveDelegate mockTarget = new global::Mockolate.Mock.ComprehensiveDelegate(mockRegistry);
 			if (setups.Length > 0)

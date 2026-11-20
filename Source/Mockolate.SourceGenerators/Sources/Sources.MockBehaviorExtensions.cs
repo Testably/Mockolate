@@ -27,7 +27,12 @@ internal static partial class Sources
 		          	
 		          	static Mock()
 		          	{
-		          		_default = new global::Mockolate.MockBehavior(new DefaultValueGenerator());
+		          """).AppendLine();
+		// With auto-mocking, the default behavior carries the factory, so that CreateMock does not copy it for every mock.
+		sb.Append(autoMockableTypes is not null
+			? "\t\t_default = global::Mockolate.Internals.AutoMocks.UseFactory(new global::Mockolate.MockBehavior(new DefaultValueGenerator()), CreateAutoMock);"
+			: "\t\t_default = new global::Mockolate.MockBehavior(new DefaultValueGenerator());").AppendLine();
+		sb.Append("""
 		          	}
 		          	
 		          	extension(global::Mockolate.MockBehavior)

@@ -197,6 +197,7 @@ internal static class MockGeneratorHelpers
 		   !IsInNamespace(typeSymbol, excludedNamespaces) &&
 		   !HasStaticAbstractMembers(typeSymbol) &&
 		   !HasNonPublicAbstractMembers(typeSymbol) &&
+		   !HasMemberNamedCreateMock(typeSymbol) &&
 		   Helpers.IsAccessibleFrom(typeSymbol, sourceAssembly) &&
 		   GetTypeArgumentDepth(typeSymbol) <= MaxTypeArgumentDepth &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
@@ -205,6 +206,14 @@ internal static class MockGeneratorHelpers
 			   GetSignatureTypes(member).All(type => !UsesUnusableType(type)));
 
 	private const int MaxTypeArgumentDepth = 5;
+
+	/// <summary>
+	///     The auto-mock factory calls <c>CreateMock</c> on the type, where a member of the interface with that name
+	///     would hide the generated extension.
+	/// </summary>
+	private static bool HasMemberNamedCreateMock(INamedTypeSymbol typeSymbol)
+		=> !typeSymbol.GetMembers("CreateMock").IsEmpty ||
+		   typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
 
 	private static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{

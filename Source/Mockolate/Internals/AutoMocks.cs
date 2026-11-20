@@ -24,22 +24,24 @@ public static class AutoMocks
 	///     Returns the <paramref name="behavior" /> that creates its auto-mocks with the <paramref name="factory" />.
 	/// </summary>
 	/// <remarks>
-	///     The generated <c>CreateMock</c> calls this, so that a mock creates the auto-mocks of its own assembly. The
-	///     <paramref name="behavior" /> is returned unchanged when it skips auto-mocking.
+	///     The generated <c>CreateMock</c> calls this, so that a mock creates the auto-mocks of its own assembly. An
+	///     assembly without the build property passes <see langword="null" />, so that a behavior that carries the
+	///     factory of another assembly returns no auto-mocks there. The <paramref name="behavior" /> is returned
+	///     unchanged when it already has the <paramref name="factory" /> or skips auto-mocking.
 	/// </remarks>
 	/// <param name="behavior">The behavior of the mock that is created.</param>
 	/// <param name="factory">
 	///     Creates a mock of the given interface with the given behavior, or returns <see langword="null" /> when the
-	///     assembly has no mock of the interface.
+	///     assembly has no mock of the interface; <see langword="null" /> disables auto-mocking.
 	/// </param>
 	/// <returns>The <paramref name="behavior" /> with the <paramref name="factory" />.</returns>
-	public static MockBehavior UseFactory(MockBehavior behavior, Func<Type, MockBehavior, object?> factory)
-		=> !behavior.SkipAutoMocking && behavior.AutoMockFactory != factory
-			? behavior with
+	public static MockBehavior UseFactory(MockBehavior behavior, Func<Type, MockBehavior, object?>? factory)
+		=> behavior.AutoMockFactory == factory || (factory is not null && behavior.SkipAutoMocking)
+			? behavior
+			: behavior with
 			{
 				AutoMockFactory = factory,
-			}
-			: behavior;
+			};
 
 	/// <summary>
 	///     Returns the <paramref name="value" />, or a new mock of <typeparamref name="TValue" /> when it is

@@ -966,8 +966,12 @@ public partial class MockRegistry
 					$"The property '{propertyName}' was accessed without prior setup.");
 			}
 
-			TResult initialValue = GetInitialValue();
-			return Setup.Properties.Add(new PropertySetup.Default<TResult>(propertyName, initialValue));
+			existingSetup = Setup.Properties.Add(new PropertySetup.Default<TResult>(propertyName, GetInitialValue()));
+			// A user setup that was added concurrently still needs its initial value.
+			if (existingSetup is PropertySetup.Default)
+			{
+				return existingSetup;
+			}
 		}
 
 		if (forceReinitWhenFound || !existingSetup.IsValueInitialized)

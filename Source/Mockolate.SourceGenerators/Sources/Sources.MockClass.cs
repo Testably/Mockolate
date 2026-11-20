@@ -6811,26 +6811,27 @@ internal static partial class Sources
 	///     Only the entry points that take the setting as a parameter set it, through <see cref="EnterAutoMocking" />,
 	///     so that the many emitters below them need no extra parameter.
 	/// </remarks>
-	[ThreadStatic] private static bool AutoMocking;
+	[ThreadStatic] private static bool _autoMocking;
 
 	private static AutoMockingScope EnterAutoMocking(bool autoMocking)
 	{
-		AutoMocking = autoMocking;
-		return default;
+		AutoMockingScope scope = new(_autoMocking);
+		SetAutoMocking(autoMocking);
+		return scope;
 	}
 
-	private static void ExitAutoMocking() => AutoMocking = false;
+	private static void SetAutoMocking(bool autoMocking) => _autoMocking = autoMocking;
 
-	private readonly struct AutoMockingScope : IDisposable
+	private readonly struct AutoMockingScope(bool previous) : IDisposable
 	{
-		public void Dispose() => ExitAutoMocking();
+		public void Dispose() => SetAutoMocking(previous);
 	}
 
 	/// <summary>
 	///     A property stores its first default value, so the auto-mock needs no cache of its own.
 	/// </summary>
 	private static Func<Type, (string Prefix, string Suffix)>? PropertyAutoMock(string behavior)
-		=> AutoMocking
+		=> _autoMocking
 			? type => ($"global::Mockolate.Internals.AutoMocks.Or<{type.Fullname}>({behavior}, ", ")")
 			: null;
 
@@ -6838,20 +6839,18 @@ internal static partial class Sources
 	///     A method keeps its auto-mock in the registry, keyed by the member id.
 	/// </summary>
 	private static Func<Type, (string Prefix, string Suffix)>? MethodAutoMock(string mockRegistry, string memberIdRef)
-		=> AutoMocking
+		=> _autoMocking
 			? type => ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, ", ")")
 			: null;
 
 	/// <summary>
-	///     Lets the mock create the auto-mocks of this assembly, so that their <c>Mock</c> property works here.
+	///     Lets the mock create the auto-mocks of this assembly, so that their <c>Mock</c> property works here, and
+	///     without the build property removes the factory that a behavior of another assembly may carry.
 	/// </summary>
 	private static void AppendUseAutoMockFactory(StringBuilder sb, string indent, string behavior)
 	{
-		if (AutoMocking)
-		{
-			sb.Append(indent).Append(behavior).Append(" = global::Mockolate.Internals.AutoMocks.UseFactory(")
-				.Append(behavior).Append(", global::Mockolate.Mock.CreateAutoMock);").AppendLine();
-		}
+		sb.Append(indent).Append(behavior).Append(" = global::Mockolate.Internals.AutoMocks.UseFactory(")
+			.Append(behavior).Append(_autoMocking ? ", global::Mockolate.Mock.CreateAutoMock);" : ", null);").AppendLine();
 	}
 
 	/// <summary>

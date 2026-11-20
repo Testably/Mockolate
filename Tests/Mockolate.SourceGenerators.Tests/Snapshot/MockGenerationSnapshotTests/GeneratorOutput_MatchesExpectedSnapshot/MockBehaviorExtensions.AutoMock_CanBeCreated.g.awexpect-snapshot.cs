@@ -20,7 +20,7 @@ internal static partial class Mock
 	
 	static Mock()
 	{
-		_default = new global::Mockolate.MockBehavior(new DefaultValueGenerator());
+		_default = global::Mockolate.Internals.AutoMocks.UseFactory(new global::Mockolate.MockBehavior(new DefaultValueGenerator()), CreateAutoMock);
 	}
 	
 	extension(global::Mockolate.MockBehavior)

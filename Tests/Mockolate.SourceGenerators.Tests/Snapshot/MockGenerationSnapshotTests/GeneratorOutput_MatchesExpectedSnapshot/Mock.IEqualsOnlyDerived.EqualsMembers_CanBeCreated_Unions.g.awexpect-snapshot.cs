@@ -36,6 +36,7 @@ internal static partial class Mock
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
+			behavior = global::Mockolate.Internals.AutoMocks.UseFactory(behavior, null);
 			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
 			return registry;
 		}
@@ -643,6 +644,7 @@ internal static partial class MockExtensionsForIEqualsOnlyDerived
 			}
 
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
 			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.IEqualsOnlyDerived.MemberCount, constructorParameters);
 			return CreateMockInstance(mockRegistry, constructorParameters, setup);
 		}

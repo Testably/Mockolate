@@ -403,6 +403,7 @@ internal static partial class MockExtensionsForClosedGenericDelegate_int_string
 		public static global::Mockolate.Tests.GeneratorCoverage.ClosedGenericDelegate<int, string> CreateMock(global::Mockolate.MockBehavior? mockBehavior = null, params global::System.Action<global::Mockolate.Mock.IMockSetupForClosedGenericDelegate_int_string>[] setups)
 		{
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
 			var mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
 			global::Mockolate.Mock.ClosedGenericDelegate_int_string mockTarget = new global::Mockolate.Mock.ClosedGenericDelegate_int_string(mockRegistry);
 			if (setups.Length > 0)
