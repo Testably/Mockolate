@@ -15,7 +15,7 @@ sut.Order("Dark", 0);
 await That(logger.Mock.Verify.LogWarning().WithMessage("There is no Dark chocolate to order")).Once();
 ```
 
-Unlike other members without a setup, `IsEnabled` returns `true`, so logging code that checks `IsEnabled` first (like the code generated for `[LoggerMessage]`) still reaches `Log`. This also applies to mocks created with `ThrowingWhenNotSetup()`, where a `Log` call without a matching setup still throws. As the logging code makes these calls itself, `VerifyThatAllInteractionsAreVerified()` ignores the calls of `IsEnabled`, and on a logger factory the calls of `CreateLogger`.
+Unlike other members without a setup, `IsEnabled` returns `true`, so logging code that checks `IsEnabled` first (like the code generated for `[LoggerMessage]`) still reaches `Log`. `IsEnabled` and `BeginScope` also answer without a setup on mocks created with `ThrowingWhenNotSetup()`, where a `Log` call without a matching setup still throws. As the logging code makes these calls itself, `VerifyThatAllInteractionsAreVerified()` ignores the calls of `IsEnabled` and `BeginScope`, and on a logger factory the calls of `CreateLogger`.
 
 <details>
 <summary>Example types used on this page</summary>
@@ -50,7 +50,7 @@ Setups and verifications share the same members. `Log()` covers every level, `Lo
 | `WithMessage(It.MatchesTemplate("…"))`          | with the message template, and optionally properties.                     |
 | `WithException<TException>()`                   | with an exception of the type or a derived type.                          |
 | `WithException(It.Is<Exception?>(…))`           | whose exception matches the matcher.                                      |
-| `WithEventId(3)` or `WithEventId(It.Is<EventId>(…))` | with the event id.                                                   |
+| `WithEventId(3)` or `WithEventId(It.Is<EventId>(…))` | with the event id; `WithEventId(3)` compares only the `Id`, not the name. |
 | `WithCategory("…")` or `WithCategory<T>()`      | of a logger with the category, see [logger factories](#logger-factories). |
 
 The callbacks of a setup receive the level, the event id, the formatted message and the exception:
@@ -89,7 +89,7 @@ This works for the `LogInformation(…)` extension methods, `LoggerMessage.Defin
 
 ## Logger factories
 
-A mocked `ILoggerFactory` returns one logger mock per category from `CreateLogger`, unless `CreateLogger` has a setup. This also applies to mocks created with `ThrowingWhenNotSetup()` or with `WithDefaultValueFor<ILogger>(…)`. The loggers use the behavior of the factory, and the factory verifies the log calls of all of them:
+A mocked `ILoggerFactory` returns one logger mock per category from `CreateLogger`, unless `CreateLogger` has a setup. This also applies to mocks created with `ThrowingWhenNotSetup()` or with `WithDefaultValueFor<ILogger>(…)`, which unlike for [other members](../04-create-mocks.md#default-values) does not change what `CreateLogger` returns. The loggers use the behavior of the factory, and the factory verifies the log calls of all of them:
 
 ```csharp
 ILoggerFactory loggerFactory = ILoggerFactory.CreateMock();

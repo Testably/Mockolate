@@ -247,10 +247,6 @@ internal static partial class Mock
 			{
 				methodSetup?.TriggerCallbacks(state);
 			}
-			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
-			{
-				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>(TState)' was invoked without prior setup.");
-			}
 			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
 			{
 				return wrappedResult;

@@ -45,16 +45,18 @@ public sealed class LoggerTests
 			Thread.Yield();
 		}
 
-		for (int i = 0; i < 1000; i++)
+		int logCallsBeforeRefining = Volatile.Read(ref logCalls);
+		int refinements = 0;
+		while ((refinements < 1000 || Volatile.Read(ref logCalls) < logCallsBeforeRefining + 100) &&
+		       !logging.IsCompleted)
 		{
 			setup.WithMessage(It.IsAny<string>());
+			refinements++;
 		}
 
-		int logCallsWhileRefining = Volatile.Read(ref logCalls);
 		cts.Cancel();
 		await That(() => logging).DoesNotThrow()
 			.Because("the code under test can log while the test still refines the setup");
-		await That(logCallsWhileRefining).IsGreaterThan(0);
 	}
 
 	[Test]
@@ -235,6 +237,40 @@ public sealed class LoggerTests
 		void Act() => logger.LogError("failed");
 
 		await That(Act).Throws<MockNotSetupException>();
+	}
+
+	[Test]
+	public async Task ThrowingWhenNotSetup_BeginScope_ShouldNotThrow()
+	{
+		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+		logger.Mock.Setup.LogError();
+
+		void Act()
+		{
+			using (logger.BeginScope("Order {OrderId}", 42))
+			{
+				logger.LogError("failed");
+			}
+		}
+
+		await That(Act).DoesNotThrow()
+			.Because("logging code opens scopes around its log calls");
+	}
+
+	[Test]
+	public async Task Wrapping_ShouldForwardTheLogCallsAndApplyTheSetups()
+	{
+		RecordingLogger wrapped = new();
+		int calls = 0;
+		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup()).Wrapping(wrapped);
+		logger.Mock.Setup.LogError().Do(() => calls++);
+
+		logger.LogError("failed");
+		logger.LogWarning("ignored");
+
+		await That(wrapped.Messages).IsEqualTo(["failed", "ignored",]);
+		await That(calls).IsEqualTo(1);
+		await That(logger.Mock.Verify.Log()).Twice();
 	}
 
 	[Test]
@@ -485,6 +521,21 @@ public sealed class LoggerTests
 	}
 
 	[Test]
+	public async Task VerifyThatAllInteractionsAreVerified_ShouldIgnoreTheCallsOfBeginScope()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		using (logger.BeginScope("Order {OrderId}", 42))
+		{
+			logger.LogError("failed");
+		}
+
+		await That(logger.Mock.Verify.LogError()).Once();
+		await That(logger.Mock.VerifyThatAllInteractionsAreVerified()).IsTrue()
+			.Because("logging code opens scopes around its log calls, so only the log calls need a verification");
+	}
+
+	[Test]
 	public async Task Verify_WithCategory_OnInterfaceDerivedFromGenericLogger_ShouldUseTheCategoryOfTheTypeArgument()
 	{
 		ITypedLogger logger = ITypedLogger.CreateMock();
@@ -568,5 +619,20 @@ public sealed class LoggerTests
 
 	public interface ITypedLogger : ILogger<LoggerTests>
 	{
+	}
+
+	private sealed class RecordingLogger : ILogger
+	{
+		public List<string> Messages { get; } = [];
+
+		public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+			=> null;
+
+		public bool IsEnabled(LogLevel logLevel)
+			=> true;
+
+		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+			Func<TState, Exception?, string> formatter)
+			=> Messages.Add(formatter(state, exception));
 	}
 }

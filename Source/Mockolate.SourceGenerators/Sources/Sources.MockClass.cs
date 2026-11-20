@@ -2861,9 +2861,10 @@ internal static partial class Sources
 		AppendTriggerCallbacks(sb, "\t\t\t\t", methodSetup, method.Parameters);
 		sb.Append("\t\t\t}").AppendLine();
 
-		// ILogger.IsEnabled and ILoggerFactory.CreateLogger answer without a setup even on a strict mock: logging code
-		// calls them before every Log call, and an unexpected Log call on the strict logger still throws.
-		if (!(isClassInterface && (IsLoggerIsEnabled(method) || IsLoggerFactoryCreateLogger(method))))
+		// ILogger.IsEnabled, ILogger.BeginScope and ILoggerFactory.CreateLogger answer without a setup even on a strict
+		// mock: logging code calls them around its Log calls, and an unexpected Log call on the strict logger still throws.
+		if (!(isClassInterface &&
+		      (IsLoggerIsEnabled(method) || IsLoggerBeginScope(method) || IsLoggerFactoryCreateLogger(method))))
 		{
 			string displayMethodName =
 				$"{method.ContainingType}.{method.Name}({string.Join(", ", method.Parameters.Select(p => p.Type.DisplayName))})";
