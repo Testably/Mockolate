@@ -11,7 +11,8 @@ namespace Mockolate.SourceGenerators.Internals;
 /// </summary>
 /// <remarks>
 ///     The discovery binds symbols of the current compilation, so the incremental pipeline cannot cache it. The result
-///     is reused only when the settings, the mocked types, the compilation options and the references are the same,
+///     is reused only when the settings, the mocked types, the compilation options apart from their file resolvers and
+///     signing services, and the references are the same,
 ///     no edited, added or removed file declares a type whose name is one of the <see cref="AutoMockDependencies" />
 ///     or changes a global using or an assembly or module attribute, and no namespace whose last name is one of them
 ///     starts or stops to exist. The files and
@@ -102,7 +103,7 @@ internal static class AutoMockDiscoveryCache
 				Count(namespaceCounts, null, file.Namespaces, 1);
 			}
 
-			return new State(settings, compilation.Options,
+			return new State(settings, WithoutServices(compilation.Options),
 				compilation.References.Select(reference => new WeakReference<MetadataReference>(reference)).ToArray(),
 				files, namespaceCounts, dependencies, result);
 		}
@@ -113,7 +114,8 @@ internal static class AutoMockDiscoveryCache
 		/// </summary>
 		public State? TryReuse(Compilation compilation, string currentSettings, CancellationToken cancellationToken)
 		{
-			if (currentSettings != settings || !compilation.Options.Equals(options) || !HasSameReferences(compilation))
+			if (currentSettings != settings || !WithoutServices(compilation.Options).Equals(options) ||
+			    !HasSameReferences(compilation))
 			{
 				return null;
 			}
@@ -175,6 +177,18 @@ internal static class AutoMockDiscoveryCache
 			return new State(settings, options, references, currentFiles, currentNamespaceCounts, dependencies,
 				Result);
 		}
+
+		/// <summary>
+		///     The <paramref name="options" /> without the services that cannot change the discovery: the command-line
+		///     compiler creates new file resolvers for every compilation, whose <see cref="object.Equals(object)" /> throws.
+		/// </summary>
+		private static CompilationOptions WithoutServices(CompilationOptions options)
+			=> options
+				.WithMetadataReferenceResolver(null)
+				.WithSourceReferenceResolver(null)
+				.WithXmlReferenceResolver(null)
+				.WithStrongNameProvider(null)
+				.WithSyntaxTreeOptionsProvider(null);
 
 		private static void Count(Dictionary<string, int> counts, HashSet<string>? changed,
 			string[]? namespaces, int delta)
