@@ -72,6 +72,8 @@ internal record Type
 		             typeSymbol.SpecialType is SpecialType.System_Delegate or SpecialType.System_MulticastDelegate;
 		IsCancellationToken = IsCancellationTokenSymbol(typeSymbol);
 		IsAutoMockable = MockGeneratorHelpers.IsAutoMockable(typeSymbol);
+		IsInFrameworkNamespace = IsAutoMockable &&
+		                         MockGeneratorHelpers.IsFrameworkNamespace(typeSymbol.ContainingNamespace);
 		// An array counts, because a single array argument can bind to a `params object?[]` parameter as the array itself.
 		MayHoldCancellationToken = IsCancellationToken ||
 		                           typeSymbol.TypeKind is TypeKind.TypeParameter or TypeKind.Array ||
@@ -99,9 +101,15 @@ internal record Type
 	public bool IsCancellationToken { get; }
 
 	/// <summary>
-	///     Whether an un-configured member returning this type can return an auto-mock.
+	///     Whether an un-configured member returning this type can return an auto-mock, apart from its namespace.
 	/// </summary>
 	public bool IsAutoMockable { get; }
+
+	/// <summary>
+	///     Whether the type is auto-mockable and lies in a framework namespace, so that it is only auto-mocked when its
+	///     <see cref="Namespace" /> is included.
+	/// </summary>
+	public bool IsInFrameworkNamespace { get; }
 
 	/// <summary>
 	///     Whether an argument of the type can be or hold a <see cref="System.Threading.CancellationToken" /> at

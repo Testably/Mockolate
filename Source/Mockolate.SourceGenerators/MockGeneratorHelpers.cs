@@ -163,20 +163,28 @@ internal static class MockGeneratorHelpers
 		=> new(Array.ConvertAll(types, type => type.WithDynamicAsObject(compilation)), compilation);
 
 	/// <summary>
-	///     Whether an un-configured member returning <paramref name="typeSymbol" /> can return an auto-mock.
+	///     Whether an un-configured member returning <paramref name="typeSymbol" /> can return an auto-mock, apart from
+	///     its namespace (see <see cref="AutoMockingOptions" />).
 	/// </summary>
 	/// <remarks>
-	///     Framework interfaces are excluded, because mocking them transitively would generate mocks for large parts
-	///     of the base class library. A type that still contains a type parameter cannot be named in the auto-mock
-	///     factory. Every type the generator sees runs this check, so it stays cheap; a member that returns an
-	///     interface with static abstract members does not compile anyway (CS8920).
+	///     A type that still contains a type parameter cannot be named in the auto-mock factory. Every type the
+	///     generator sees runs this check, so it stays cheap; a member that returns an interface with static abstract
+	///     members does not compile anyway (CS8920).
 	/// </remarks>
 	internal static bool IsAutoMockable(ITypeSymbol typeSymbol)
 		=> typeSymbol is INamedTypeSymbol { TypeKind: TypeKind.Interface, } namedTypeSymbol &&
 		   IsMockable(namedTypeSymbol) &&
-		   !IsFrameworkNamespace(namedTypeSymbol.ContainingNamespace) &&
 		   !ContainsTypeParameter(namedTypeSymbol) &&
 		   !HasUsageDiagnostic(namedTypeSymbol);
+
+	/// <summary>
+	///     The namespace of <paramref name="typeSymbol" /> when it lies in a framework namespace (see
+	///     <see cref="IsFrameworkNamespace" />); otherwise <see langword="null" />.
+	/// </summary>
+	internal static string? GetFrameworkNamespace(ITypeSymbol typeSymbol)
+		=> IsFrameworkNamespace(typeSymbol.ContainingNamespace)
+			? typeSymbol.ContainingNamespace.ToDisplayString()
+			: null;
 
 	/// <summary>
 	///     Whether the generator can create a mock of <paramref name="typeSymbol" /> for auto-mocking, which unlike a
@@ -186,19 +194,19 @@ internal static class MockGeneratorHelpers
 	///     The type must be accessible from the compilation, must not expand itself (e.g. <c>INode&lt;T&gt;</c>
 	///     returning <c>INode&lt;INode&lt;T&gt;&gt;</c>, which would never end) or nest more than
 	///     <see cref="MaxTypeArgumentDepth" /> type arguments, which bounds how many generic combinations the walk
-	///     creates, and must not lie in one of the <paramref name="excludedNamespaces" />. The mock must be able to
+	///     creates, and its namespace must not be excluded by the <paramref name="options" />. The mock must be able to
 	///     implement every abstract member, and no member the mock implements may be obsolete or use a type that cannot
 	///     be a type argument, so that the generated mock compiles without warnings.
 	/// </remarks>
 	private static bool CanBeDiscovered(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly,
-		EquatableArray<string> excludedNamespaces)
+		AutoMockingOptions options)
 		=> IsAutoMockable(typeSymbol) &&
 		   !UsesTypeNestedInGenericType(typeSymbol) &&
-		   !IsInNamespace(typeSymbol, excludedNamespaces) &&
 		   !HasStaticAbstractMembers(typeSymbol) &&
 		   !HasNonPublicAbstractMembers(typeSymbol) &&
 		   !HasMemberNamedCreateMock(typeSymbol) &&
 		   Helpers.IsAccessibleFrom(typeSymbol, sourceAssembly) &&
+		   CanDiscoverNamespace(typeSymbol, options) &&
 		   GetTypeArgumentDepth(typeSymbol) <= MaxTypeArgumentDepth &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
 		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>
@@ -206,6 +214,10 @@ internal static class MockGeneratorHelpers
 			   GetSignatureTypes(member).All(type => !UsesUnusableType(type)));
 
 	private const int MaxTypeArgumentDepth = 5;
+
+	private static bool CanDiscoverNamespace(INamedTypeSymbol typeSymbol, AutoMockingOptions options)
+		=> options.CanDiscover(typeSymbol.ContainingNamespace.ToDisplayString(),
+			IsFrameworkNamespace(typeSymbol.ContainingNamespace));
 
 	/// <summary>
 	///     The auto-mock factory calls <c>CreateMock</c> on the type, where a member of the interface with that name
@@ -215,7 +227,12 @@ internal static class MockGeneratorHelpers
 		=> !typeSymbol.GetMembers("CreateMock").IsEmpty ||
 		   typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
 
-	private static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
+	/// <summary>
+	///     Whether the <paramref name="namespaceSymbol" /> lies in <c>System</c>, <c>Microsoft</c> or <c>Windows</c>, whose
+	///     interfaces are only auto-mocked when their namespace is included, because mocking them transitively would
+	///     generate mocks for large parts of the base class library.
+	/// </summary>
+	internal static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{
 		while (namespaceSymbol is { ContainingNamespace.IsGlobalNamespace: false, })
 		{
@@ -223,18 +240,6 @@ internal static class MockGeneratorHelpers
 		}
 
 		return namespaceSymbol?.Name is "System" or "Microsoft" or "Windows";
-	}
-
-	private static bool IsInNamespace(INamedTypeSymbol typeSymbol, EquatableArray<string> namespaces)
-	{
-		if (namespaces.Count == 0)
-		{
-			return false;
-		}
-
-		string containingNamespace = typeSymbol.ContainingNamespace.ToDisplayString();
-		return namespaces.Any(@namespace => containingNamespace == @namespace ||
-		                                    containingNamespace.StartsWith(@namespace + ".", StringComparison.Ordinal));
 	}
 
 	/// <summary>
@@ -455,7 +460,7 @@ internal static class MockGeneratorHelpers
 			: typeSymbol;
 
 	private static IEnumerable<INamedTypeSymbol> GetAutoMockableReturnTypes(ITypeSymbol typeSymbol,
-		IAssemblySymbol sourceAssembly, EquatableArray<string> excludedNamespaces, AutoMockDependencies? dependencies,
+		IAssemblySymbol sourceAssembly, AutoMockingOptions options, AutoMockDependencies? dependencies,
 		CancellationToken cancellationToken)
 	{
 		foreach (ISymbol member in GetImplementedMembers(typeSymbol, sourceAssembly))
@@ -472,12 +477,12 @@ internal static class MockGeneratorHelpers
 			}
 
 			// Whether a candidate is discovered depends on its members, unless its own declaration rejects it.
-			if (IsAutoMockable(candidate) && !IsInNamespace(candidate, excludedNamespaces))
+			if (IsAutoMockable(candidate) && CanDiscoverNamespace(candidate, options))
 			{
 				dependencies?.Add(candidate, true, cancellationToken);
 			}
 
-			if (CanBeDiscovered(candidate, sourceAssembly, excludedNamespaces))
+			if (CanBeDiscovered(candidate, sourceAssembly, options))
 			{
 				yield return candidate;
 			}
@@ -507,11 +512,11 @@ internal static class MockGeneratorHelpers
 	/// </remarks>
 	/// <param name="mockedTypes">The types of the mocks that the <c>CreateMock</c> calls create.</param>
 	/// <param name="compilation">The current compilation.</param>
-	/// <param name="excludedNamespaces">The namespaces whose interfaces get no mock.</param>
+	/// <param name="options">The namespaces whose interfaces get a mock.</param>
 	/// <param name="dependencies">Collects the names that the result depends on, if not <see langword="null" />.</param>
 	/// <param name="cancellationToken">The cancellation token.</param>
 	internal static MockClass[] DiscoverAutoMocks(IReadOnlyCollection<ITypeSymbol[]> mockedTypes,
-		Compilation compilation, EquatableArray<string> excludedNamespaces, AutoMockDependencies? dependencies,
+		Compilation compilation, AutoMockingOptions options, AutoMockDependencies? dependencies,
 		CancellationToken cancellationToken)
 	{
 		IAssemblySymbol sourceAssembly = compilation.Assembly;
@@ -526,7 +531,7 @@ internal static class MockGeneratorHelpers
 			ITypeSymbol currentType = typesToProcess.Dequeue();
 			dependencies?.Add(currentType, true, cancellationToken);
 			foreach (INamedTypeSymbol returnType in GetAutoMockableReturnTypes(currentType, sourceAssembly,
-				         excludedNamespaces, dependencies, cancellationToken))
+				         options, dependencies, cancellationToken))
 			{
 				if (Normalize(returnType, compilation) is INamedTypeSymbol normalized && processedTypes.Add(normalized))
 				{

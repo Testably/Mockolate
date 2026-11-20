@@ -1,14 +1,15 @@
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Entities;
+using Mockolate.SourceGenerators.Internals;
 using Type = Mockolate.SourceGenerators.Entities.Type;
 
 namespace Mockolate.SourceGenerators.Sources;
 
 internal static partial class Sources
 {
-	public static string MockDelegate(string name, MockClass @class, Method delegateMethod, bool autoMocking,
-		bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
+	public static string MockDelegate(string name, MockClass @class, Method delegateMethod,
+		AutoMockingOptions? autoMocking, bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
 	{
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
 		string classReference = @class.XmlDocReference;
@@ -498,7 +499,7 @@ internal static partial class Sources
 	///     Emits the body of the delegate mock's <c>Invoke</c> method.
 	/// </summary>
 	private static void AppendMockDelegateInvokeBody(StringBuilder sb, Method delegateMethod,
-		string mockRegistryName, MemberIdTable memberIds, string memberIdPrefix, bool autoMocking)
+		string mockRegistryName, MemberIdTable memberIds, string memberIdPrefix, AutoMockingOptions? autoMocking)
 	{
 		// A non-span ref-struct return cannot parameterize ReturnMethodSetup<TReturn>, and a ref-struct
 		// parameter cannot parameterize VoidMethodSetup<T>. Either way the delegate gets no setup or

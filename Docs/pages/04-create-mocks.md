@@ -200,6 +200,19 @@ Interfaces in the `System`, `Microsoft` and `Windows` namespaces are not auto-mo
 </PropertyGroup>
 ```
 
+To auto-mock the interfaces of some namespaces anyway, list them as exceptions in `MockolateAutoMockingIncludedNamespaces`. An included namespace wins over the excluded namespaces and over `System`, `Microsoft` and `Windows`. By default, the list contains `System.IO.Abstractions`, so that the file system interfaces of Testably.Abstractions and TestableIO.System.IO.Abstractions are auto-mocked. To keep this default, add your namespaces to `$(MockolateAutoMockingIncludedNamespaces)` in the project file:
+
+```xml
+<PropertyGroup>
+    <MockolateAutoMocking>true</MockolateAutoMocking>
+    <MockolateAutoMockingIncludedNamespaces>$(MockolateAutoMockingIncludedNamespaces);Microsoft.Extensions.Logging</MockolateAutoMockingIncludedNamespaces>
+</PropertyGroup>
+```
+
+To turn the default off, set `MockolateAutoMockingIncludedNamespaces` to an empty value in the project file. Adding `System.IO.Abstractions` to the excluded namespaces has no effect, because the included namespace wins.
+
+Both lists also apply to the nested namespaces, e.g. listing `Sdk` also covers `Sdk.Storage`.
+
 <details>
 <summary>Details and limitations</summary>
 
@@ -207,6 +220,7 @@ Interfaces in the `System`, `Microsoft` and `Windows` namespaces are not auto-mo
 - The base class implementation of a class mock also takes precedence, and `ThrowingWhenNotSetup()` still throws. A `WithDefaultValueFor` factory that returns `null` counts as no value, so the member returns an auto-mock instead.
 - The auto-mock is created when the member computes its default value, so `Initialize<T>(…)` can run for an auto-mock that the member never returns, e.g. when a setup provides the value of a property.
 - The property applies to the project whose `CreateMock` creates the mock: mocks created in a project without the property return no auto-mocks.
+- `Directory.Build.props` is read before the Mockolate package sets the default included namespaces, so `$(MockolateAutoMockingIncludedNamespaces)` is still empty there: a list set there replaces the default, and an empty value there does not turn the default off. Set the list in the project file or in `Directory.Build.targets` instead.
 - An interface that members return in several spellings, e.g. `IRepository<string?>` and `IRepository<string>`, gets one auto-mock whose `Mock` property accepts every spelling, unless the project creates a mock of one spelling with `CreateMock`.
 - The generator skips interfaces whose mock would not compile cleanly, e.g. interfaces that are inaccessible, obsolete or experimental, nested in a generic type, have static abstract members or a member named `CreateMock`, or use pointers or unsupported ref structs. It also skips interfaces in the global namespace, `out` parameters, interfaces inside tuples and indexers that return a task. Such members still return `null`; set them up yourself or register a factory with `WithDefaultValueFor`.
 - With the property, the generator discovers the auto-mocks again when you edit a file that declares one of the mocked or returned types, so with many mocked interfaces the IDE may take longer to update the generated code after such an edit. Edits in other files, e.g. in your tests, reuse the auto-mocks.

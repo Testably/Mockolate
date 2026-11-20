@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Entities;
+using Mockolate.SourceGenerators.Internals;
 using GenericParameter = Mockolate.SourceGenerators.Entities.GenericParameter;
 using Type = Mockolate.SourceGenerators.Entities.Type;
 
@@ -13,7 +14,7 @@ internal static partial class Sources
 	public static string MockClass(
 		string name,
 		Class @class,
-		bool autoMocking,
+		AutoMockingOptions? autoMocking,
 		bool hasOverloadResolutionPriority = false,
 		(string Name, Class Class)[]? hiddenBaseInterfaces = null,
 		bool useUnionOverloads = false)
@@ -1423,7 +1424,7 @@ internal static partial class Sources
 	///     the registry before the chained constructor body has run.
 	/// </summary>
 	private static void AppendCreateRegistryFromBehavior(StringBuilder sb, string indent,
-		bool setsMockRegistryProvider, bool autoMocking)
+		bool setsMockRegistryProvider, AutoMockingOptions? autoMocking)
 	{
 		sb.Append(indent).Append("/// <summary>").AppendLine();
 		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.Internals.MockRegistry\" /> backed by a ").Append("<see cref=\"global::Mockolate.Internals.FastMockInteractions\" /> for the members of the mock, from <paramref name=\"behavior\" />.").AppendLine();
@@ -1504,7 +1505,7 @@ internal static partial class Sources
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMockSubject_ImplementClass(StringBuilder sb, Class @class, string mockRegistryName,
-		MockClass? mockClass, MemberIdTable memberIds, string memberIdPrefix, bool autoMocking,
+		MockClass? mockClass, MemberIdTable memberIds, string memberIdPrefix, AutoMockingOptions? autoMocking,
 		Dictionary<string, int>? signatureIndicesOverride = null,
 		int[]? nextSignatureIndexRef = null,
 		bool useTypedRecords = true)
@@ -1726,7 +1727,7 @@ internal static partial class Sources
 	private static void AppendMockSubject_ImplementClass_AddProperty(StringBuilder sb, Property property,
 		string mockRegistryName,
 		string className, bool explicitInterfaceImplementation, bool isClassInterface, int signatureIndex,
-		MemberIdTable memberIds, string memberIdPrefix, bool autoMocking, bool useTypedRecords)
+		MemberIdTable memberIds, string memberIdPrefix, AutoMockingOptions? autoMocking, bool useTypedRecords)
 #pragma warning restore S107
 	{
 		string mockRegistry = property.IsStatic ? "MockRegistryProvider.Value" : $"this.{mockRegistryName}";
@@ -2371,7 +2372,7 @@ internal static partial class Sources
 	private static void AppendMockSubject_ImplementClass_AddMethod(StringBuilder sb, Method method,
 		string mockRegistryName, string className,
 		bool explicitInterfaceImplementation, bool isClassInterface, Class @class,
-		MemberIdTable memberIds, string memberIdPrefix, bool autoMocking, bool useTypedRecords = true)
+		MemberIdTable memberIds, string memberIdPrefix, AutoMockingOptions? autoMocking, bool useTypedRecords = true)
 #pragma warning restore S107
 	{
 		string mockRegistry = method.IsStatic ? "MockRegistryProvider.Value" : $"this.{mockRegistryName}";
@@ -2922,7 +2923,7 @@ internal static partial class Sources
 	///     </para>
 	/// </remarks>
 	private static void AppendMockSubject_ImplementClass_AddRefStructMethodBody(
-		StringBuilder sb, Method method, string mockRegistry, string memberIdRef, bool autoMocking)
+		StringBuilder sb, Method method, string mockRegistry, string memberIdRef, AutoMockingOptions? autoMocking)
 	{
 		sb.Append("#if NET9_0_OR_GREATER").AppendLine();
 
@@ -6806,28 +6807,34 @@ internal static partial class Sources
 	/// <summary>
 	///     A property stores its first default value, so the auto-mock needs no cache of its own.
 	/// </summary>
-	private static Func<Type, (string Prefix, string Suffix)>? PropertyAutoMock(bool autoMocking, string behavior)
-		=> autoMocking
-			? type => ($"global::Mockolate.Internals.AutoMocks.Or<{type.Fullname}>({behavior}, ", ")")
-			: null;
+	private static Func<Type, (string Prefix, string Suffix)?>? PropertyAutoMock(AutoMockingOptions? autoMocking,
+		string behavior)
+		=> autoMocking is null
+			? null
+			: type => autoMocking.CanReturnAutoMock(type)
+				? ($"global::Mockolate.Internals.AutoMocks.Or<{type.Fullname}>({behavior}, ", ")")
+				: null;
 
 	/// <summary>
 	///     A method keeps its auto-mock in the registry, keyed by the member id.
 	/// </summary>
-	private static Func<Type, (string Prefix, string Suffix)>? MethodAutoMock(bool autoMocking, string mockRegistry,
-		string memberIdRef)
-		=> autoMocking
-			? type => ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, ", ")")
-			: null;
+	private static Func<Type, (string Prefix, string Suffix)?>? MethodAutoMock(AutoMockingOptions? autoMocking,
+		string mockRegistry, string memberIdRef)
+		=> autoMocking is null
+			? null
+			: type => autoMocking.CanReturnAutoMock(type)
+				? ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, ", ")")
+				: null;
 
 	/// <summary>
 	///     Lets the mock create the auto-mocks of this assembly, so that their <c>Mock</c> property works here, and
 	///     without the build property removes the factory that a behavior of another assembly may carry.
 	/// </summary>
-	private static void AppendUseAutoMockFactory(StringBuilder sb, string indent, string behavior, bool autoMocking)
+	private static void AppendUseAutoMockFactory(StringBuilder sb, string indent, string behavior,
+		AutoMockingOptions? autoMocking)
 	{
 		sb.Append(indent).Append(behavior).Append(" = global::Mockolate.Internals.AutoMocks.UseFactory(")
-			.Append(behavior).Append(autoMocking ? ", global::Mockolate.Mock.CreateAutoMock);" : ", null);").AppendLine();
+			.Append(behavior).Append(autoMocking is not null ? ", global::Mockolate.Mock.CreateAutoMock);" : ", null);").AppendLine();
 	}
 
 	/// <summary>
