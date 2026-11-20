@@ -41,10 +41,10 @@ internal static partial class Sources
 		MemberIdTable memberIds = ComputeMemberIds(memberIdClasses);
 		string memberIdPrefix = $"global::Mockolate.Mock.{name}.";
 		
-		bool overridesEqualsWithoutGetHashCode = OverridesEqualsWithoutGetHashCode(@class);
+		bool overridesEquals = OverridesEquals(@class);
 		StringBuilder sb = InitializeBuilder();
 		sb.Append("#nullable enable annotations").AppendLine();
-		if (overridesEqualsWithoutGetHashCode)
+		if (overridesEquals)
 		{
 			sb.Append(DisableEqualsWithoutGetHashCodeWarning).AppendLine();
 		}
@@ -1227,7 +1227,7 @@ internal static partial class Sources
 		#endregion MockForXXXExtensions
 		
 		sb.AppendLine();
-		if (overridesEqualsWithoutGetHashCode)
+		if (overridesEquals)
 		{
 			sb.AppendLine(RestoreEqualsWithoutGetHashCodeWarning);
 		}
@@ -1242,15 +1242,13 @@ internal static partial class Sources
 	private const string RestoreEqualsWithoutGetHashCodeWarning = "#pragma warning restore CS0659";
 
 	/// <summary>
-	///     True when the mock overrides <c>Equals(object)</c> for a mocked member, but not <c>GetHashCode()</c>, for
-	///     which the compiler reports CS0659 on the mock. The warning is suppressed instead of adding an override of
-	///     <c>GetHashCode()</c>, because the mocked class can seal it.
+	///     True when the mock overrides <c>Equals(object)</c> for a mocked member, for which the compiler can report
+	///     CS0659 on the mock. The warning is suppressed instead of adding an override of <c>GetHashCode()</c>, because
+	///     the mocked class can seal it, and even an emitted <c>GetHashCode()</c> override can target a member that hides
+	///     <see cref="object.GetHashCode()" />.
 	/// </summary>
-	private static bool OverridesEqualsWithoutGetHashCode(Class @class)
-	{
-		List<Method> overrides = @class.AllMethods().Where(method => method.ExplicitImplementation is null).ToList();
-		return overrides.Any(method => method.IsEquals()) && !overrides.Any(method => method.IsGetHashCode());
-	}
+	private static bool OverridesEquals(Class @class)
+		=> @class.AllMethods().Any(method => method.ExplicitImplementation is null && method.IsEquals());
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementMockForInterface(StringBuilder sb, string mockRegistryName, string name,

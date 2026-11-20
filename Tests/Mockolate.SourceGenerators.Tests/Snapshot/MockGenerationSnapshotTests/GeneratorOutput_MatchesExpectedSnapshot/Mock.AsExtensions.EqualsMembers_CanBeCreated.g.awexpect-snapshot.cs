@@ -10,6 +10,52 @@
 #nullable enable annotations
 namespace Mockolate;
 
+internal static partial class MockExtensionsForIEqualsAndGetHashCode
+{
+	extension(global::Mockolate.Mock.IMockForHiddenGetHashCodeBase mock)
+	{
+		/// <summary>
+		///     Reinterprets this mock as a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode">IEqualsAndGetHashCode</see> to reach its Setup/Verify/Raise surface.
+		/// </summary>
+		/// <remarks>
+		///     The returned accessor shares the same mock registry as this one - setups and verifications act on the same mocked instance. Use this when the mock implements multiple interfaces via <c>Implementing&lt;T&gt;()</c> and you need to configure or verify members of a different interface than the one the instance is currently typed as.
+		/// </remarks>
+		/// <returns>An <c>IMockFor...</c> accessor targeting <see cref="global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode">IEqualsAndGetHashCode</see>.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The subject does not implement <see cref="global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode">IEqualsAndGetHashCode</see>.</exception>
+		public global::Mockolate.Mock.IMockForIEqualsAndGetHashCode As<T>() where T : global::Mockolate.Tests.GeneratorCoverage.IEqualsAndGetHashCode
+		{
+			if (mock is global::Mockolate.Mock.IMockForIEqualsAndGetHashCode typed)
+			{
+				return typed;
+			}
+			throw new global::Mockolate.Exceptions.MockException($"The subject does not support type {typeof(T)}.");
+		}
+	}
+}
+
+internal static partial class MockExtensionsForHiddenGetHashCodeBase
+{
+	extension(global::Mockolate.Mock.IMockForIEqualsAndGetHashCode mock)
+	{
+		/// <summary>
+		///     Reinterprets this mock as a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.HiddenGetHashCodeBase">HiddenGetHashCodeBase</see> to reach its Setup/Verify/Raise surface.
+		/// </summary>
+		/// <remarks>
+		///     The returned accessor shares the same mock registry as this one - setups and verifications act on the same mocked instance. Use this when the mock implements multiple interfaces via <c>Implementing&lt;T&gt;()</c> and you need to configure or verify members of a different interface than the one the instance is currently typed as.
+		/// </remarks>
+		/// <returns>An <c>IMockFor...</c> accessor targeting <see cref="global::Mockolate.Tests.GeneratorCoverage.HiddenGetHashCodeBase">HiddenGetHashCodeBase</see>.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The subject does not implement <see cref="global::Mockolate.Tests.GeneratorCoverage.HiddenGetHashCodeBase">HiddenGetHashCodeBase</see>.</exception>
+		public global::Mockolate.Mock.IMockForHiddenGetHashCodeBase As<T>() where T : global::Mockolate.Tests.GeneratorCoverage.HiddenGetHashCodeBase
+		{
+			if (mock is global::Mockolate.Mock.IMockForHiddenGetHashCodeBase typed)
+			{
+				return typed;
+			}
+			throw new global::Mockolate.Exceptions.MockException($"The subject does not support type {typeof(T)}.");
+		}
+	}
+}
+
 internal static partial class MockExtensionsForIEqualsOnly
 {
 	extension(global::Mockolate.Mock.IMockForIEqualsAndGetHashCode mock)

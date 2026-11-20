@@ -8,6 +8,7 @@
 //----------------------
 
 #nullable enable annotations
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 namespace Mockolate;
 
 internal static partial class Mock
@@ -761,5 +762,6 @@ internal static partial class MockExtensionsForIEqualsAndGetHashCode
 	}
 }
 
+#pragma warning restore CS0659
 #nullable disable annotations
 

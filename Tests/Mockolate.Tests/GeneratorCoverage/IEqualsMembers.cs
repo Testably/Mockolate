@@ -32,3 +32,14 @@ public abstract class EqualsOnlyBase
 	public abstract override bool Equals(object? obj);
 	public sealed override int GetHashCode() => 42;
 }
+
+public abstract class EqualsAndGetHashCodeBase
+{
+	public abstract override bool Equals(object? obj);
+	public override int GetHashCode() => 42;
+}
+
+public abstract class HiddenGetHashCodeBase : EqualsAndGetHashCodeBase
+{
+	public new virtual int GetHashCode() => 43;
+}
