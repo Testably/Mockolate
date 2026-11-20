@@ -48,11 +48,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- Keeps the System.IO.Hashing dependency out of the compilation: on net8.0 its netstandard2.0 build adds a second CallerArgumentExpressionAttribute (CS0419). -->
-		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all" ExcludeAssets="compile;runtime"/>
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="$([MSBuild]::GetPathOfFileAbove('Mockolate_256x256.png', '$(MSBuildThisFileDirectory)../Docs/'))"
 			  Pack="true"
 			  PackagePath="/Docs/"
