@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -42,10 +41,10 @@ namespace Mockolate;
 public record MockBehavior : IMockBehaviorAccess
 {
 	private readonly AutoMockFactoryHolder _autoMockFactory;
-	private ConcurrentStack<IConstructorParameters>? _constructorParameters;
+	private IConstructorParameters[]? _constructorParameters;
 	private DefaultValueFactory[]? _defaultValueFactories;
 	private IDefaultValueGenerator _defaultValueGenerator;
-	private ConcurrentStack<object?>? _values;
+	private object?[]? _values;
 
 	/// <summary>
 	///     Initializes a new <see cref="MockBehavior" /> with the given <paramref name="defaultValue" /> generator and
@@ -221,14 +220,10 @@ public record MockBehavior : IMockBehaviorAccess
 		};
 
 	MockBehavior IMockBehaviorAccess.Set<T>(T value)
-	{
-		MockBehavior behavior = this with
+		=> this with
 		{
-			_values = new ConcurrentStack<object?>(_values ?? []),
+			_values = [value, ..(_values ?? []),],
 		};
-		behavior._values.Push(value);
-		return behavior;
-	}
 
 	bool IMockBehaviorAccess.TryGet<T>([NotNullWhen(true)] out T value)
 	{
@@ -267,14 +262,10 @@ public record MockBehavior : IMockBehaviorAccess
 	/// <param name="parameters">A factory that produces a fresh parameter array on each mock creation.</param>
 	/// <returns>A new <see cref="MockBehavior" /> with the pre-registered parameters.</returns>
 	public MockBehavior UseConstructorParametersFor<T>(Func<object?[]> parameters)
-	{
-		MockBehavior behavior = this with
+		=> this with
 		{
-			_constructorParameters = new ConcurrentStack<IConstructorParameters>(_constructorParameters ?? []),
+			_constructorParameters = [new ConstructorParameters<T>(parameters), ..(_constructorParameters ?? []),],
 		};
-		behavior._constructorParameters.Push(new ConstructorParameters<T>(parameters));
-		return behavior;
-	}
 
 	/// <summary>
 	///     Initializes all mocks of type <typeparamref name="T" /> to use the given constructor <paramref name="parameters" />.
@@ -286,14 +277,7 @@ public record MockBehavior : IMockBehaviorAccess
 	/// <param name="parameters">The parameter array shared across every mock creation.</param>
 	/// <returns>A new <see cref="MockBehavior" /> with the pre-registered parameters.</returns>
 	public MockBehavior UseConstructorParametersFor<T>(params object?[] parameters)
-	{
-		MockBehavior behavior = this with
-		{
-			_constructorParameters = new ConcurrentStack<IConstructorParameters>(_constructorParameters ?? []),
-		};
-		behavior._constructorParameters.Push(new ConstructorParameters<T>(() => parameters));
-		return behavior;
-	}
+		=> UseConstructorParametersFor<T>(() => parameters);
 
 	/// <summary>
 	///     Uses the given <paramref name="defaultValueFactories" /> to create default values for supported types.
@@ -340,12 +324,12 @@ public record MockBehavior : IMockBehaviorAccess
 
 		if (_constructorParameters is not null)
 		{
-			baseString += $" with {_constructorParameters.Count} constructor parameter registrations";
+			baseString += $" with {_constructorParameters.Length} constructor parameter registrations";
 		}
 
 		if (_values is not null)
 		{
-			baseString += $" with {_values.Count} setup registrations";
+			baseString += $" with {_values.Length} setup registrations";
 		}
 
 		return baseString;

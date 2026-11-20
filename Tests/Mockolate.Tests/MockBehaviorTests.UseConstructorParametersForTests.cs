@@ -112,6 +112,20 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
+		public async Task TryGetConstructorParameters_WithMultipleRegistrationsForSameTypeFollowedByOtherType_ShouldReturnLatest()
+		{
+			MockBehavior behavior = MockBehavior.Default
+				.UseConstructorParametersFor<MyServiceWithMultipleConstructors>(1)
+				.UseConstructorParametersFor<MyServiceWithMultipleConstructors>(2)
+				.UseConstructorParametersFor<MyOtherService>();
+
+			MyServiceWithMultipleConstructors mock = MyServiceWithMultipleConstructors.CreateMock(behavior);
+
+			await That(mock.Value).IsEqualTo(2)
+				.Because("a later registration for another type must not change which registration for the same type wins");
+		}
+
+		[Test]
 		public async Task TryGetConstructorParameters_WithRegistrationsForDifferentTypes_ShouldReturnEachCorrectly()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
