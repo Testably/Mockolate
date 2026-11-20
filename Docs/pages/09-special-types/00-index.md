@@ -23,7 +23,7 @@ httpClient.Mock.Setup.GetAsync(It.IsUri("*testably.org/api/chocolate*"))
     .ReturnsAsync(HttpStatusCode.OK, "{\"type\":\"Dark\"}", "application/json");
 
 // Logging
-ILogger<ChocolateShop> logger = ILogger<ChocolateShop>.CreateMock();
-new ChocolateShop(logger).Order("Dark", 0);
+ILogger logger = ILogger.CreateMock();
+logger.LogWarning("There is no {Type} chocolate", "Dark");
 await That(logger.Mock.Verify.LogWarning().WithMessage(It.Matches("*no Dark chocolate*"))).Once();
 ```

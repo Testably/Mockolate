@@ -78,7 +78,7 @@ internal static partial class Mock
 			=> this.MockRegistry.Method<IMockVerifyForILogger_Program>(this, setup);
 		/// <inheritdoc />
 		bool IMockForILogger_Program.VerifyThatAllInteractionsAreVerified()
-			=> this.MockRegistry.Interactions.GetUnverifiedInteractions().Count == 0;
+			=> global::Mockolate.MockolateLogging.AreAllInteractionsVerified(this.MockRegistry);
 		/// <inheritdoc />
 		bool IMockForILogger_Program.VerifyThatAllSetupsAreUsed()
 			=> this.MockRegistry.GetUnusedSetups(this.MockRegistry.Interactions).Count == 0;

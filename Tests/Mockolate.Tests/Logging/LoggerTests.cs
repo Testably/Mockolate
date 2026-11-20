@@ -1,6 +1,7 @@
 #pragma warning disable CA1873 // Avoid potentially expensive logging
 using System.Collections.Generic;
 using System.Threading;
+using aweXpect.Chronology;
 using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
 using Mockolate.Monitor;
@@ -436,6 +437,51 @@ public sealed class LoggerTests
 
 		await That(Act).Throws<MockVerificationException>()
 			.WithMessage("*then invoked method LogWarning() in order*").AsWildcard();
+	}
+
+	[Test]
+	public async Task Verify_Then_ShouldOrderLogCallsAndOtherCalls()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		_ = logger.IsEnabled(LogLevel.Error);
+		logger.LogError("failed");
+		_ = logger.IsEnabled(LogLevel.Warning);
+
+		await That(logger.Mock.Verify.IsEnabled(It.Is(LogLevel.Error))).Then(m => m.LogError());
+		await That(logger.Mock.Verify.LogError()).Then(m => m.IsEnabled(It.Is(LogLevel.Warning)));
+	}
+
+	[Test]
+	public async Task Verify_Within_ShouldWaitForLogCallsOnAnotherThread()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		_ = Task.Run(async () =>
+		{
+			await Task.Delay(50.Milliseconds());
+			logger.LogError("failed");
+		});
+
+		logger.Mock.Verify.LogError().WithMessage("failed").Within(30.Seconds()).Once();
+		await That(logger.Mock.Verify.LogError()).Once();
+	}
+
+	[Test]
+	public async Task VerifyThatAllInteractionsAreVerified_ShouldIgnoreTheCallsOfIsEnabled()
+	{
+		ILogger logger = ILogger.CreateMock();
+		Action<ILogger, int, Exception?> logOrderFailed =
+			LoggerMessage.Define<int>(LogLevel.Error, new EventId(1), "Order {OrderId} failed");
+
+		logOrderFailed(logger, 42, null);
+		bool before = logger.Mock.VerifyThatAllInteractionsAreVerified();
+		await That(logger.Mock.Verify.LogError()).Once();
+		bool after = logger.Mock.VerifyThatAllInteractionsAreVerified();
+
+		await That(before).IsFalse();
+		await That(after).IsTrue()
+			.Because("logging code checks IsEnabled before it logs, so only the log calls need a verification");
 	}
 
 	[Test]

@@ -182,7 +182,8 @@ internal static partial class Sources
 		sb.AppendLine();
 		
 		bool isLoggerFactory = IsLoggerFactory(@class);
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLoggerFactory);
+		bool isLogging = isLoggerFactory || IsLogger(@class);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLogging, isLoggerFactory);
 
 		foreach ((string Name, Class Class) hiddenBase in hiddenBaseInterfaces)
 		{
@@ -192,7 +193,7 @@ internal static partial class Sources
 				false /* interfaces have no protected events */,
 				hiddenBase.Class.AllMethods().Any(x => x.IsStatic) || hiddenBase.Class.AllProperties().Any(x => x.IsStatic),
 				hiddenBase.Class.AllEvents().Any(x => x.IsStatic),
-				isLoggerFactory);
+				isLogging, isLoggerFactory);
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -1254,7 +1255,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementMockForInterface(StringBuilder sb, string mockRegistryName, string name,
 		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents,
-		bool isLoggerFactory)
+		bool isLogging, bool isLoggerFactory)
 	{
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
@@ -1353,9 +1354,9 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tbool IMockFor").Append(name).Append(".VerifyThatAllInteractionsAreVerified()").AppendLine();
-		if (isLoggerFactory)
+		if (isLogging)
 		{
-			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.AreAllFactoryInteractionsVerified(this.").Append(mockRegistryName).Append(");").AppendLine();
+			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.AreAllInteractionsVerified(this.").Append(mockRegistryName).Append(");").AppendLine();
 		}
 		else
 		{
@@ -1534,7 +1535,8 @@ internal static partial class Sources
 		MockClass? mockClass, MemberIdTable memberIds, string memberIdPrefix, AutoMockingOptions? autoMocking,
 		Dictionary<string, int>? signatureIndicesOverride = null,
 		int[]? nextSignatureIndexRef = null,
-		bool useTypedRecords = true)
+		bool useTypedRecords = true,
+		IReadOnlyCollection<Class>? implementedInterfaces = null)
 #pragma warning restore S107
 	{
 		string className = @class.ClassFullName;
@@ -1542,8 +1544,11 @@ internal static partial class Sources
 		sb.AppendLine();
 
 		// An aliased member is served by the mocked class' own override: re-implementing it here would
-		// re-map the interface slot away from that override and fork the member in two.
-		List<Event>? mockEvents = mockClass?.AllEvents().ToList();
+		// re-map the interface slot away from that override and fork the member in two. A member that an
+		// interface implemented before already inherits has its explicit implementation already.
+		implementedInterfaces ??= [];
+		List<Event>? mockEvents = mockClass?.AllEvents()
+			.Concat(implementedInterfaces.SelectMany(implemented => implemented.AllEvents())).ToList();
 		foreach (Event @event in @class.AllEvents())
 		{
 			if (!memberIds.IsAlias(@event) &&
@@ -1556,7 +1561,8 @@ internal static partial class Sources
 			}
 		}
 
-		List<Property>? mockProperties = mockClass?.AllProperties().ToList();
+		List<Property>? mockProperties = mockClass?.AllProperties()
+			.Concat(implementedInterfaces.SelectMany(implemented => implemented.AllProperties())).ToList();
 		Dictionary<string, int> signatureIndices = signatureIndicesOverride ?? new Dictionary<string, int>();
 		int[] nextSignatureIndex = nextSignatureIndexRef ?? [0,];
 		foreach (Property property in @class.AllProperties())
@@ -1587,7 +1593,8 @@ internal static partial class Sources
 			}
 		}
 
-		List<Method>? mockMethods = mockClass?.AllMethods().ToList();
+		List<Method>? mockMethods = mockClass?.AllMethods()
+			.Concat(implementedInterfaces.SelectMany(implemented => implemented.AllMethods())).ToList();
 		foreach (Method method in @class.AllMethods())
 		{
 			if (!memberIds.IsAlias(method) &&

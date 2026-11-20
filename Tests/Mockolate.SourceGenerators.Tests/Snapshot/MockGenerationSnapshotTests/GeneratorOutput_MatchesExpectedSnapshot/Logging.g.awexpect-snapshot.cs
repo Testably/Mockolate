@@ -385,6 +385,8 @@ namespace Mockolate
 	internal static class MockolateLogging
 	{
 		private const string LogName = "global::Microsoft.Extensions.Logging.ILogger.Log";
+		private const string IsEnabledName = "global::Microsoft.Extensions.Logging.ILogger.IsEnabled";
+		private const string CreateLoggerName = "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger";
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, global::Mockolate.Internals.MockRegistry> s_factoryRegistries = new();
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, string> s_categories = new();
 
@@ -481,7 +483,7 @@ namespace Mockolate
 		}
 
 		/// <inheritdoc cref="MockolateLogging" />
-		extension(global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger> verify)
+		extension<TVerify>(TVerify verify) where TVerify : class, global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>
 		{
 			/// <summary>
 			///     Verifies the calls of <c>ILogger.Log</c> on any level.
@@ -489,7 +491,7 @@ namespace Mockolate
 			/// <remarks>
 			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
 			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> Log()
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> Log()
 				=> VerifyLog(verify, null, "Log()");
 
 			/// <summary>
@@ -499,7 +501,7 @@ namespace Mockolate
 			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
 			/// </remarks>
 			/// <param name="logLevel">The level of the calls.</param>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> Log(global::Microsoft.Extensions.Logging.LogLevel logLevel)
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> Log(global::Microsoft.Extensions.Logging.LogLevel logLevel)
 				=> VerifyLog(verify, logLevel, "Log(" + logLevel + ")");
 
 			/// <summary>
@@ -508,7 +510,7 @@ namespace Mockolate
 			/// <remarks>
 			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
 			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogTrace()
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogTrace()
 				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Trace, "LogTrace()");
 
 			/// <summary>
@@ -517,7 +519,7 @@ namespace Mockolate
 			/// <remarks>
 			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
 			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogDebug()
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogDebug()
 				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Debug, "LogDebug()");
 
 			/// <summary>
@@ -526,7 +528,7 @@ namespace Mockolate
 			/// <remarks>
 			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
 			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogInformation()
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogInformation()
 				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Information, "LogInformation()");
 
 			/// <summary>
@@ -535,7 +537,7 @@ namespace Mockolate
 			/// <remarks>
 			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
 			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogWarning()
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogWarning()
 				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Warning, "LogWarning()");
 
 			/// <summary>
@@ -544,7 +546,7 @@ namespace Mockolate
 			/// <remarks>
 			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
 			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogError()
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogError()
 				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Error, "LogError()");
 
 			/// <summary>
@@ -553,85 +555,7 @@ namespace Mockolate
 			/// <remarks>
 			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
 			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogCritical()
-				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Critical, "LogCritical()");
-
-		}
-
-		/// <inheritdoc cref="MockolateLogging" />
-		extension(global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory> verify)
-		{
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on any level.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> Log()
-				=> VerifyLog(verify, null, "Log()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the <paramref name="logLevel" />.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			/// <param name="logLevel">The level of the calls.</param>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> Log(global::Microsoft.Extensions.Logging.LogLevel logLevel)
-				=> VerifyLog(verify, logLevel, "Log(" + logLevel + ")");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Trace</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogTrace()
-				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Trace, "LogTrace()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Debug</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogDebug()
-				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Debug, "LogDebug()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Information</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogInformation()
-				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Information, "LogInformation()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Warning</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogWarning()
-				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Warning, "LogWarning()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Error</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogError()
-				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Error, "LogError()");
-
-			/// <summary>
-			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Critical</c>.
-			/// </summary>
-			/// <remarks>
-			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
-			/// </remarks>
-			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogCritical()
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogCritical()
 				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Critical, "LogCritical()");
 
 		}
@@ -737,10 +661,28 @@ namespace Mockolate
 			return methodSetup;
 		}
 
-		private static global::Mockolate.Verify.LogVerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
+		internal static global::Mockolate.Verify.LogVerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 			where TVerify : class
 			=> new(verify, GetAccess(verify).MockolateRegistry, new LogFilter(logLevel, entry));
-		private const string CreateLoggerName = "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger";
+
+		/// <summary>
+		///     Whether no interaction of the logger or logger factory with the <paramref name="registry" /> is unverified, except for the calls of <c>IsEnabled</c> and <c>CreateLogger</c>.
+		/// </summary>
+		/// <remarks>
+		///     The logging code calls them before it logs, so the test verifies the log calls instead.
+		/// </remarks>
+		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry)
+		{
+			foreach (global::Mockolate.Interactions.IInteraction interaction in registry.Interactions.GetUnverifiedInteractions())
+			{
+				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: IsEnabledName or CreateLoggerName, })
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, LoggerFactoryState> s_loggerFactories = new();
 
 		/// <summary>
@@ -783,25 +725,6 @@ namespace Mockolate
 			}
 
 			return new CategoryLogger<TCategoryName>(registry);
-		}
-
-		/// <summary>
-		///     Whether no interaction of the factory with the <paramref name="factoryRegistry" /> is unverified, except for the calls of <c>CreateLogger</c>.
-		/// </summary>
-		/// <remarks>
-		///     The logging code creates its loggers itself, so the test verifies the log calls instead.
-		/// </remarks>
-		public static bool AreAllFactoryInteractionsVerified(global::Mockolate.Internals.MockRegistry factoryRegistry)
-		{
-			foreach (global::Mockolate.Interactions.IInteraction interaction in factoryRegistry.Interactions.GetUnverifiedInteractions())
-			{
-				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: CreateLoggerName, })
-				{
-					return false;
-				}
-			}
-
-			return true;
 		}
 
 		/// <summary>
@@ -1059,6 +982,93 @@ namespace Mockolate
 			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
 				=> interaction is global::Mockolate.Interactions.ILogInvocation log && _filter.Matches(log);
 		}
+	}
+
+	/// <summary>
+	///     Verifications of <c>ILogger.Log</c> on all loggers that a logger factory mock created.
+	/// </summary>
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal static class MockolateLoggerFactoryLogging
+	{
+		/// <inheritdoc cref="MockolateLogging" />
+		extension<TVerify>(TVerify verify) where TVerify : class, global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>
+		{
+			/// <summary>
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on any level.
+			/// </summary>
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> Log()
+				=> global::Mockolate.MockolateLogging.VerifyLog(verify, null, "Log()");
+
+			/// <summary>
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the <paramref name="logLevel" />.
+			/// </summary>
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			/// <param name="logLevel">The level of the calls.</param>
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> Log(global::Microsoft.Extensions.Logging.LogLevel logLevel)
+				=> global::Mockolate.MockolateLogging.VerifyLog(verify, logLevel, "Log(" + logLevel + ")");
+
+			/// <summary>
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Trace</c>.
+			/// </summary>
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogTrace()
+				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Trace, "LogTrace()");
+
+			/// <summary>
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Debug</c>.
+			/// </summary>
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogDebug()
+				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Debug, "LogDebug()");
+
+			/// <summary>
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Information</c>.
+			/// </summary>
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogInformation()
+				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Information, "LogInformation()");
+
+			/// <summary>
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Warning</c>.
+			/// </summary>
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogWarning()
+				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Warning, "LogWarning()");
+
+			/// <summary>
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Error</c>.
+			/// </summary>
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogError()
+				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Error, "LogError()");
+
+			/// <summary>
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Critical</c>.
+			/// </summary>
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<TVerify> LogCritical()
+				=> global::Mockolate.MockolateLogging.VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Critical, "LogCritical()");
+
+		}
+
 	}
 }
 

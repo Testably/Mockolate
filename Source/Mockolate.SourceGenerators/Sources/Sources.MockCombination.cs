@@ -171,7 +171,8 @@ internal static partial class Sources
 		sb.AppendLine();
 
 		bool isLoggerFactory = allMemberClasses.Any(IsLoggerFactory);
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLoggerFactory);
+		bool isLogging = loggingClass is not null;
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLogging, isLoggerFactory);
 		foreach ((string additionalInterfaceName, Class additionalInterface) in additionalInterfaces)
 		{
 			ImplementMockForInterface(sb, mockRegistryName, additionalInterfaceName,
@@ -180,7 +181,7 @@ internal static partial class Sources
 				false /* Interfaces cannot have protected events */,
 				additionalInterface.AllMethods().Any(x => x.IsStatic) || additionalInterface.AllProperties().Any(x => x.IsStatic),
 				additionalInterface.AllEvents().Any(x => x.IsStatic),
-				isLoggerFactory);
+				isLogging, isLoggerFactory);
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -221,10 +222,12 @@ internal static partial class Sources
 		
 		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex);
 		
+		List<Class> implementedInterfaces = [];
 		foreach ((string Name, Class Class) item in additionalInterfaces)
 		{
 			sb.AppendLine();
-			AppendMockSubject_ImplementClass(sb, item.Class, mockRegistryName, @class as MockClass, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex);
+			AppendMockSubject_ImplementClass(sb, item.Class, mockRegistryName, @class as MockClass, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex, implementedInterfaces: implementedInterfaces);
+			implementedInterfaces.Add(item.Class);
 		}
 
 		sb.AppendLine();

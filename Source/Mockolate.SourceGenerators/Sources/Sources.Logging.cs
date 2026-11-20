@@ -490,6 +490,8 @@ internal static partial class Sources
 		          	internal static class MockolateLogging
 		          	{
 		          		private const string LogName = "global::Microsoft.Extensions.Logging.ILogger.Log";
+		          		private const string IsEnabledName = "global::Microsoft.Extensions.Logging.ILogger.IsEnabled";
+		          		private const string CreateLoggerName = "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger";
 		          		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, global::Mockolate.Internals.MockRegistry> s_factoryRegistries = new();
 		          		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, string> s_categories = new();
 
@@ -509,18 +511,12 @@ internal static partial class Sources
 
 
 		          """);
-		AppendLogEntryExtensions(sb, "global::Mockolate.Setup.IMockSetup<global::Microsoft.Extensions.Logging.ILogger> setup",
+		AppendLogEntryExtensions(sb, "(global::Mockolate.Setup.IMockSetup<global::Microsoft.Extensions.Logging.ILogger> setup)",
 			"global::Mockolate.Setup.ILogSetup", "SetupLog(setup, ", "Sets up the calls of <c>ILogger.Log</c>");
-		AppendLogEntryExtensions(sb, "global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger> verify",
-			"global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>>",
+		AppendLogEntryExtensions(sb,
+			"<TVerify>(TVerify verify) where TVerify : class, global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>",
+			"global::Mockolate.Verify.LogVerificationResult<TVerify>",
 			"VerifyLog(verify, ", "Verifies the calls of <c>ILogger.Log</c>");
-		if (hasLoggerFactory)
-		{
-			AppendLogEntryExtensions(sb, "global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory> verify",
-				"global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>>",
-				"VerifyLog(verify, ", "Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created");
-		}
-
 		sb.Append("""
 		          		/// <summary>
 		          		///     Dispatches a call of <c>ILogger.Log</c>: setups of the state type <typeparamref name="TState" /> and logging
@@ -623,15 +619,33 @@ internal static partial class Sources
 		          			return methodSetup;
 		          		}
 
-		          		private static global::Mockolate.Verify.LogVerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
+		          		internal static global::Mockolate.Verify.LogVerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 		          			where TVerify : class
 		          			=> new(verify, GetAccess(verify).MockolateRegistry, new LogFilter(logLevel, entry));
+
+		          		/// <summary>
+		          		///     Whether no interaction of the logger or logger factory with the <paramref name="registry" /> is unverified, except for the calls of <c>IsEnabled</c> and <c>CreateLogger</c>.
+		          		/// </summary>
+		          		/// <remarks>
+		          		///     The logging code calls them before it logs, so the test verifies the log calls instead.
+		          		/// </remarks>
+		          		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry)
+		          		{
+		          			foreach (global::Mockolate.Interactions.IInteraction interaction in registry.Interactions.GetUnverifiedInteractions())
+		          			{
+		          				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: IsEnabledName or CreateLoggerName, })
+		          				{
+		          					return false;
+		          				}
+		          			}
+
+		          			return true;
+		          		}
 
 		          """);
 		if (hasLoggerFactory)
 		{
 			sb.Append("""
-			          		private const string CreateLoggerName = "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger";
 			          		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, LoggerFactoryState> s_loggerFactories = new();
 
 			          		/// <summary>
@@ -682,25 +696,6 @@ internal static partial class Sources
 
 			sb.Append("""
 			          			return new CategoryLogger<TCategoryName>(registry);
-			          		}
-
-			          		/// <summary>
-			          		///     Whether no interaction of the factory with the <paramref name="factoryRegistry" /> is unverified, except for the calls of <c>CreateLogger</c>.
-			          		/// </summary>
-			          		/// <remarks>
-			          		///     The logging code creates its loggers itself, so the test verifies the log calls instead.
-			          		/// </remarks>
-			          		public static bool AreAllFactoryInteractionsVerified(global::Mockolate.Internals.MockRegistry factoryRegistry)
-			          		{
-			          			foreach (global::Mockolate.Interactions.IInteraction interaction in factoryRegistry.Interactions.GetUnverifiedInteractions())
-			          			{
-			          				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: CreateLoggerName, })
-			          				{
-			          					return false;
-			          				}
-			          			}
-
-			          			return true;
 			          		}
 
 			          		/// <summary>
@@ -966,6 +961,32 @@ internal static partial class Sources
 		          				=> interaction is global::Mockolate.Interactions.ILogInvocation log && _filter.Matches(log);
 		          		}
 		          	}
+
+		          """);
+		if (hasLoggerFactory)
+		{
+			// The verify extensions of loggers and logger factories differ only in the constraint of their receiver,
+			// so they need separate classes.
+			sb.Append("""
+
+			          	/// <summary>
+			          	///     Verifications of <c>ILogger.Log</c> on all loggers that a logger factory mock created.
+			          	/// </summary>
+			          	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+			          	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+			          	internal static class MockolateLoggerFactoryLogging
+			          	{
+
+			          """);
+			AppendLogEntryExtensions(sb,
+				"<TVerify>(TVerify verify) where TVerify : class, global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>",
+				"global::Mockolate.Verify.LogVerificationResult<TVerify>",
+				"global::Mockolate.MockolateLogging.VerifyLog(verify, ",
+				"Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created");
+			sb.Append("\t}").AppendLine();
+		}
+
+		sb.Append("""
 		          }
 
 		          #nullable disable annotations
@@ -978,7 +999,7 @@ internal static partial class Sources
 		string summary)
 	{
 		sb.Append("\t\t/// <inheritdoc cref=\"MockolateLogging\" />").AppendLine();
-		sb.Append("\t\textension(").Append(receiver).Append(')').AppendLine();
+		sb.Append("\t\textension").Append(receiver).AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		AppendLogEntry(sb, returnType, "Log", "", $"{call}null, \"Log()\")", $"{summary} on any level.", false);
 		AppendLogEntry(sb, returnType, "Log", "global::Microsoft.Extensions.Logging.LogLevel logLevel",

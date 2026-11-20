@@ -1805,6 +1805,93 @@ public partial class MockGeneratorTests
 	}
 
 	[Test]
+	public async Task Combination_WithInterfacesSharingInheritedMembers_ShouldCompileWithoutDiagnostics()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using System;
+			     using Mockolate;
+			     namespace MyCode
+			     {
+			         public interface IMyService
+			         {
+			             void Run();
+			         }
+
+			         public interface IBase<T>
+			         {
+			             event EventHandler Changed;
+			             T Value { get; set; }
+			             T this[int index] { get; }
+			             T Get(T value);
+			         }
+
+			         public interface IFirst : IBase<int>, IDisposable
+			         {
+			         }
+
+			         public interface ISecond : IBase<int>, IDisposable
+			         {
+			         }
+
+			         public interface IThird : IBase<string>
+			         {
+			         }
+
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = IMyService.CreateMock().Implementing<IFirst>().Implementing<ISecond>().Implementing<IThird>();
+			             }
+			         }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task WithClashingLoggerNames_ShouldCompileWithoutDiagnostics()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Microsoft.Extensions.Logging;
+			     using Mockolate;
+			     namespace MyCode
+			     {
+			         public interface ILogger
+			         {
+			             void Write(string message);
+			         }
+
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = MyCode.ILogger.CreateMock();
+			     			_ = ILoggerFactory.CreateMock();
+			     			_ = ILogger<Program>.CreateMock();
+			     			_ = ILogger<Other.Program>.CreateMock();
+			             }
+			         }
+			     }
+
+			     namespace Other
+			     {
+			         public class Program
+			         {
+			         }
+			     }
+			     """, typeof(ILoggerFactory));
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Logging.g.cs"])
+			.Contains("IsSameType<TCategoryName, global::MyCode.Program>()").And
+			.Contains("IsSameType<TCategoryName, global::Other.Program>()");
+	}
+
+	[Test]
 	public async Task WithLoggerFactoryInCombination_ShouldAlsoGenerateMockForLogger()
 	{
 		GeneratorResult result = Generator

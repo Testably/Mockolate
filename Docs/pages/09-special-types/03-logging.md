@@ -15,7 +15,7 @@ sut.Order("Dark", 0);
 await That(logger.Mock.Verify.LogWarning().WithMessage("There is no Dark chocolate to order")).Once();
 ```
 
-Unlike other members without a setup, `IsEnabled` returns `true`, so logging code that checks `IsEnabled` first (like the code generated for `[LoggerMessage]`) still reaches `Log`. This also applies to mocks created with `ThrowingWhenNotSetup()`, where a `Log` call without a matching setup still throws.
+Unlike other members without a setup, `IsEnabled` returns `true`, so logging code that checks `IsEnabled` first (like the code generated for `[LoggerMessage]`) still reaches `Log`. This also applies to mocks created with `ThrowingWhenNotSetup()`, where a `Log` call without a matching setup still throws. As the logging code makes these calls itself, `VerifyThatAllInteractionsAreVerified()` ignores the calls of `IsEnabled`, and on a logger factory the calls of `CreateLogger`.
 
 <details>
 <summary>Example types used on this page</summary>
@@ -44,11 +44,11 @@ Setups and verifications share the same members. `Log()` covers every level, `Lo
 
 | Member                                          | Matches the calls                                                         |
 |-------------------------------------------------|---------------------------------------------------------------------------|
-| `OrHigher()`                                    | on the level or a higher one.                                             |
+| `OrHigher()`                                    | on the level or a higher one, including `None`.                           |
 | `WithMessage("…")`                              | whose formatted message is exactly the text.                              |
 | `WithMessage(It.Matches("*Dark*"))`             | whose formatted message matches the [matcher](../06-parameter-matching.md). |
 | `WithMessage(It.MatchesTemplate("…"))`          | with the message template, and optionally properties.                     |
-| `WithException<TException>()`                   | with an exception of the type.                                            |
+| `WithException<TException>()`                   | with an exception of the type or a derived type.                          |
 | `WithException(It.Is<Exception?>(…))`           | whose exception matches the matcher.                                      |
 | `WithEventId(3)` or `WithEventId(It.Is<EventId>(…))` | with the event id.                                                   |
 | `WithCategory("…")` or `WithCategory<T>()`      | of a logger with the category, see [logger factories](#logger-factories). |
@@ -100,7 +100,7 @@ sut.Order("Dark", 0);
 await That(loggerFactory.Mock.Verify.LogWarning().WithCategory<ChocolateShop>()).Once();
 ```
 
-Each logger of the factory has its category name, which `WithCategory(…)` matches; an `ILogger<T>` mock has the category of `T`. A log call that you verify on the factory also counts as verified on its logger for `VerifyThatAllInteractionsAreVerified()`, and the other way round. The calls of `CreateLogger` count as verified on the factory, and `ClearAllInteractions()` on the factory also clears the calls of its loggers.
+Each logger of the factory has its category name, which `WithCategory(…)` matches; an `ILogger<T>` mock has the category of `T`. A log call that you verify on the factory also counts as verified on its logger for `VerifyThatAllInteractionsAreVerified()`, and the other way round. `ClearAllInteractions()` on the factory also clears the calls of its loggers, but `ClearAllInteractions()` on a logger keeps its calls on the factory.
 
 To set up or verify a single logger, also before the code under test creates it, use `GetLogger<TCategoryName>()` or `GetLogger(categoryName)`. `GetLogger<TCategoryName>()` returns an `ILogger<TCategoryName>` that shares the setups and calls of the logger of the category, so you can also pass it to code that expects an `ILogger<TCategoryName>`:
 

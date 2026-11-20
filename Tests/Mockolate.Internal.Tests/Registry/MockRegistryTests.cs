@@ -1052,18 +1052,21 @@ public sealed class MockRegistryTests
 		}
 
 		[Test]
-		public async Task WithNonFastInteractions_ShouldNotShareVerifications()
+		public async Task WithNonFastInteractions_ShouldBeIgnored()
 		{
 			MockRegistry first = new(MockBehavior.Default, new FastMockInteractions(0));
 			MockRegistry second = new(MockBehavior.Default, new TryGetRecordsTests.NonFastInteractions());
 			MethodInvocation interaction = new("foo");
 			first.RegisterInteraction(interaction);
-			second.RegisterInteraction(interaction);
 
-			first.ShareVerifiedInteractions(second);
-			second.Interactions.Verified([interaction,]);
+			void Act()
+			{
+				first.ShareVerifiedInteractions(second);
+				first.Interactions.Verified([interaction,]);
+			}
 
-			await That(first.Interactions.GetUnverifiedInteractions()).IsEqualTo([interaction,]);
+			await That(Act).DoesNotThrow();
+			await That(first.Interactions.GetUnverifiedInteractions()).IsEmpty();
 		}
 	}
 

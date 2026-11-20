@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Mockolate.Exceptions;
+using Mockolate.Monitor;
 using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests.Logging;
@@ -168,7 +169,6 @@ public sealed class LoggerFactoryTests
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
 		factory.CreateLogger("Orders").LogError("failed");
-		await That(factory.Mock.Verify.CreateLogger(It.Is("Orders"))).Once();
 
 		bool factoryBefore = factory.Mock.VerifyThatAllInteractionsAreVerified();
 		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogError()).Once();
@@ -188,6 +188,47 @@ public sealed class LoggerFactoryTests
 		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogError()).Once();
 
 		await That(factory.Mock.GetLogger("Payments").Mock.VerifyThatAllInteractionsAreVerified()).IsFalse();
+	}
+
+	[Test]
+	public async Task ClearAllInteractions_OnOneLogger_ShouldKeepTheCallsOnTheFactory()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger logger = factory.CreateLogger("Orders");
+		logger.LogError("failed");
+
+		logger.Mock.ClearAllInteractions();
+
+		await That(logger.Mock.Verify.LogError()).Never();
+		await That(factory.Mock.Verify.LogError()).Once();
+	}
+
+	[Test]
+	public async Task Monitor_ShouldOnlyVerifyTheCallsOfTheLoggersWhileRunning()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger logger = factory.CreateLogger("Orders");
+		MockMonitor<Mock.IMockVerifyForILoggerFactory> monitor = factory.Mock.Monitor();
+
+		logger.LogError("before");
+		using (monitor.Run())
+		{
+			logger.LogError("while running");
+		}
+
+		logger.LogError("after");
+
+		await That(monitor.Verify.LogError()).Once();
+	}
+
+	[Test]
+	public async Task Verify_Then_ShouldOrderLogCallsAndOtherCalls()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+
+		factory.CreateLogger("Orders").LogError("failed");
+
+		await That(factory.Mock.Verify.CreateLogger(It.IsAny<string>())).Then(m => m.LogError());
 	}
 
 	[Test]

@@ -27,6 +27,15 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
+		public async Task Equals_WithDifferingLoggerName_IsFalse()
+		{
+			LoggerMockNames a = new("ILogger", new EquatableArray<(string CategoryType, string Name)>([]));
+			LoggerMockNames b = new("ILogger_1", new EquatableArray<(string CategoryType, string Name)>([]));
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
 		public async Task Equals_WithDifferingCategoryLoggers_IsFalse()
 		{
 			LoggerMockNames a = new("ILogger",
