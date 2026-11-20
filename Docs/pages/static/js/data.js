@@ -1566,6 +1566,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -1829,7 +1835,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -2096,7 +2103,8 @@ window.BENCHMARK_DATA = {
           179.94472498893737,
           197.98991467158,
           159.58322191238403,
-          218.46681596551622
+          218.46681596551622,
+          207.9698254108429
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2366,6 +2374,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800
@@ -2643,7 +2652,8 @@ window.BENCHMARK_DATA = {
           36568.65529785156,
           102316.00495256696,
           60884.944580078125,
-          104658.35009765625
+          104658.35009765625,
+          107105.74204799107
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2913,6 +2923,7 @@ window.BENCHMARK_DATA = {
           9055,
           9056,
           9046,
+          9056,
           9056,
           9056,
           9056
@@ -3190,7 +3201,8 @@ window.BENCHMARK_DATA = {
           3330.796519960676,
           4492.626933288574,
           3384.61421585083,
-          4708.707803853353
+          4708.707803853353,
+          4614.731369527181
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3351,6 +3363,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -3737,7 +3750,8 @@ window.BENCHMARK_DATA = {
           3023.0709566752116,
           4386.301792399088,
           3316.929464612688,
-          4803.310729980469
+          4803.310729980469,
+          4631.889686584473
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4007,6 +4021,7 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6924,
+          6930,
           6930,
           6930,
           6930
@@ -4284,7 +4299,8 @@ window.BENCHMARK_DATA = {
           189.94814483324686,
           192.46342186927797,
           161.1768227815628,
-          218.86890425682068
+          218.86890425682068,
+          203.35217111905416
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4450,6 +4466,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -4831,7 +4848,8 @@ window.BENCHMARK_DATA = {
           476.2015206019084,
           434.9849648475647,
           383.07017656735013,
-          488.031591351827
+          488.031591351827,
+          469.4161997795105
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -4992,6 +5010,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -6683,6 +6702,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -6946,7 +6971,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -7213,7 +7239,8 @@ window.BENCHMARK_DATA = {
           181.33390446809622,
           113.8865549325943,
           115.23546943494252,
-          154.49496024449667
+          154.49496024449667,
+          145.29664675394693
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7483,6 +7510,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712
@@ -7760,7 +7788,8 @@ window.BENCHMARK_DATA = {
           12361.43245286208,
           10430.360800606864,
           10646.306862967354,
-          14618.470289963941
+          14618.470289963941,
+          14700.954777018229
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8029,6 +8058,7 @@ window.BENCHMARK_DATA = {
           12760,
           12761,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -8307,7 +8337,8 @@ window.BENCHMARK_DATA = {
           5079.19793349046,
           4181.575229899088,
           4157.74884905134,
-          5615.702689579555
+          5615.702689579555,
+          5632.7478931971955
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8468,6 +8499,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -8854,7 +8886,8 @@ window.BENCHMARK_DATA = {
           146838.39188058037,
           195330.57081821986,
           194233.86898367744,
-          222787.37872721354
+          222787.37872721354,
+          226110.89825846354
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9126,6 +9159,7 @@ window.BENCHMARK_DATA = {
           15579,
           15618,
           15619,
+          15618,
           15618
         ],
         "borderColor": "#4A6FA5",
@@ -9401,7 +9435,8 @@ window.BENCHMARK_DATA = {
           210.36410430499487,
           142.8731687704722,
           146.77206257184346,
-          178.47247002919514
+          178.47247002919514,
+          171.27753102779388
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9542,6 +9577,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -9948,7 +9984,8 @@ window.BENCHMARK_DATA = {
           236.37331733703613,
           121.35112929344177,
           129.91123156547548,
-          174.40157234668732
+          174.40157234668732,
+          160.3592237142416
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -10082,6 +10119,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -11800,6 +11838,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -12063,7 +12107,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -12330,7 +12375,8 @@ window.BENCHMARK_DATA = {
           308.77495018641156,
           407.9509250958761,
           345.0371528012412,
-          444.4982435862223
+          444.4982435862223,
+          340.3500696182251
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12600,6 +12646,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1680,
           1680,
           1680,
           1680
@@ -12877,7 +12924,8 @@ window.BENCHMARK_DATA = {
           139537.85111177884,
           83056.89796549479,
           139106.0350516183,
-          227649.72589983259
+          227649.72589983259,
+          139358.7783203125
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13149,7 +13197,8 @@ window.BENCHMARK_DATA = {
           20804,
           21153,
           20804,
-          20804
+          20804,
+          21004
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13424,7 +13473,8 @@ window.BENCHMARK_DATA = {
           6966.357213338216,
           7701.599182128906,
           7229.801891326904,
-          10113.055015055339
+          10113.055015055339,
+          7656.559964497884
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13696,6 +13746,7 @@ window.BENCHMARK_DATA = {
           13056,
           13088,
           13112,
+          13088,
           13088
         ],
         "borderColor": "#5E2750",
@@ -13971,7 +14022,8 @@ window.BENCHMARK_DATA = {
           6924.78532816569,
           6394.212258475168,
           6990.119128545125,
-          11187.63285936628
+          11187.63285936628,
+          7733.017399597168
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14242,6 +14294,7 @@ window.BENCHMARK_DATA = {
           13586,
           13593,
           13586,
+          13593,
           13593,
           13593
         ],
@@ -14518,7 +14571,8 @@ window.BENCHMARK_DATA = {
           240.55311947602493,
           281.1782680511475,
           246.1712694508689,
-          306.09217570622764
+          306.09217570622764,
+          253.9097238222758
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -14790,6 +14844,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1096,
           1096
         ],
         "borderColor": "#E84393",
@@ -14861,7 +14916,8 @@ window.BENCHMARK_DATA = {
           570.0127836227417,
           638.3800072987874,
           608.1380175272624,
-          770.3366454442343
+          770.3366454442343,
+          624.0356860842023
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -14873,6 +14929,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          2784,
           2784,
           2784,
           2784,
@@ -16509,6 +16566,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -16772,7 +16835,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -17039,7 +17103,8 @@ window.BENCHMARK_DATA = {
           899.5519974390666,
           1214.0328465779623,
           910.8793612207685,
-          1275.944956588745
+          1275.944956588745,
+          967.3397251764933
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -17309,6 +17374,7 @@ window.BENCHMARK_DATA = {
           2608,
           2608,
           2608,
+          2616,
           2616,
           2616,
           2616
@@ -17586,7 +17652,8 @@ window.BENCHMARK_DATA = {
           148786.38956124443,
           94079.56783854167,
           148726.8070678711,
-          237732.84528996394
+          237732.84528996394,
+          148959.10661433294
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17858,7 +17925,8 @@ window.BENCHMARK_DATA = {
           30403,
           30743,
           30403,
-          30397
+          30397,
+          30602
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18133,7 +18201,8 @@ window.BENCHMARK_DATA = {
           17298.59100850423,
           18348.82971801758,
           17451.975489689754,
-          25076.624741617838
+          25076.624741617838,
+          18782.84468383789
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18405,6 +18474,7 @@ window.BENCHMARK_DATA = {
           26161,
           26192,
           26217,
+          26193,
           26193
         ],
         "borderColor": "#5E2750",
@@ -18680,7 +18750,8 @@ window.BENCHMARK_DATA = {
           15307.809916904995,
           15392.172170785758,
           15555.553721836635,
-          23774.868940080916
+          23774.868940080916,
+          16463.999681745256
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18951,6 +19022,7 @@ window.BENCHMARK_DATA = {
           33249,
           33249,
           33249,
+          33247,
           33247,
           33247
         ],
@@ -19227,7 +19299,8 @@ window.BENCHMARK_DATA = {
           573.9258401234945,
           632.1698291778564,
           577.214702129364,
-          722.1314800898234
+          722.1314800898234,
+          636.6580737658909
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19499,6 +19572,7 @@ window.BENCHMARK_DATA = {
           2176,
           2176,
           2176,
+          2176,
           2176
         ],
         "borderColor": "#E84393",
@@ -19570,7 +19644,8 @@ window.BENCHMARK_DATA = {
           1972.757715098063,
           2278.9195594787598,
           1858.4826029459634,
-          2373.430717976888
+          2373.430717976888,
+          2001.1277582804362
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19582,6 +19657,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          5496,
           5496,
           5496,
           5496,
@@ -21218,6 +21294,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -21481,7 +21563,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -21748,7 +21831,8 @@ window.BENCHMARK_DATA = {
           148.164838997523,
           111.71735471884409,
           111.93344130686351,
-          108.13716074625651
+          108.13716074625651,
+          134.10730518613542
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22018,6 +22102,7 @@ window.BENCHMARK_DATA = {
           600,
           600,
           600,
+          608,
           608,
           608,
           608
@@ -22295,7 +22380,8 @@ window.BENCHMARK_DATA = {
           197940.33473307293,
           111503.32765299479,
           114510.46205357143,
-          112469.97720102164
+          112469.97720102164,
+          197310.60843331474
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22567,7 +22653,8 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14914,
-          14914
+          14914,
+          14902
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22842,7 +22929,8 @@ window.BENCHMARK_DATA = {
           6314.46093343099,
           4486.898073323568,
           4487.334248352051,
-          4397.734399414063
+          4397.734399414063,
+          5933.600814232459
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23113,6 +23201,7 @@ window.BENCHMARK_DATA = {
           9320,
           9264,
           9264,
+          9320,
           9320,
           9320
         ],
@@ -23389,7 +23478,8 @@ window.BENCHMARK_DATA = {
           5792.610454813639,
           4176.259150187175,
           4058.8215443537783,
-          4106.825077819824
+          4106.825077819824,
+          5643.244361877441
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23656,6 +23746,7 @@ window.BENCHMARK_DATA = {
           8151,
           8160,
           8151,
+          8160,
           8160,
           8160,
           8160,
@@ -23936,7 +24027,8 @@ window.BENCHMARK_DATA = {
           171.6105500119073,
           142.15471161206563,
           154.00493211405617,
-          137.88219577471415
+          137.88219577471415,
+          164.46376052924566
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24102,6 +24194,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -24483,7 +24576,8 @@ window.BENCHMARK_DATA = {
           448.5091203689575,
           368.12656377156577,
           377.54184004238675,
-          372.0825956662496
+          372.0825956662496,
+          439.62497692108155
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24617,6 +24711,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -26335,6 +26430,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -26598,7 +26699,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -26865,7 +26967,8 @@ window.BENCHMARK_DATA = {
           408.5077925046285,
           288.085850016276,
           298.2245521886008,
-          287.1962033680507
+          287.1962033680507,
+          378.61926380793255
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27135,6 +27238,7 @@ window.BENCHMARK_DATA = {
           1104,
           1104,
           1104,
+          1112,
           1112,
           1112,
           1112
@@ -27412,7 +27516,8 @@ window.BENCHMARK_DATA = {
           204742.9780110677,
           115837.51146589007,
           117054.52276611328,
-          115748.00837590144
+          115748.00837590144,
+          201422.61447753906
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27684,7 +27789,8 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18906,
-          18906
+          18906,
+          18901
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27959,7 +28065,8 @@ window.BENCHMARK_DATA = {
           9245.298667907715,
           6838.708408355713,
           6562.8138010660805,
-          6665.1552331107005
+          6665.1552331107005,
+          9144.032975333077
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28231,7 +28338,8 @@ window.BENCHMARK_DATA = {
           11785,
           11784,
           12344,
-          12344
+          12344,
+          12345
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28506,7 +28614,8 @@ window.BENCHMARK_DATA = {
           9238.555001395089,
           6293.549862997873,
           6689.314196450369,
-          6332.334617614746
+          6332.334617614746,
+          9325.191039021809
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28778,7 +28887,8 @@ window.BENCHMARK_DATA = {
           16393,
           16394,
           16394,
-          16394
+          16394,
+          16393
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29053,7 +29163,8 @@ window.BENCHMARK_DATA = {
           361.8306975364685,
           277.10685722033185,
           295.08776270548503,
-          281.8169526032039
+          281.8169526032039,
+          350.0255106925964
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -29219,6 +29330,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -29600,7 +29712,8 @@ window.BENCHMARK_DATA = {
           1372.2918409983317,
           1058.183308821458,
           1070.7004046806921,
-          1080.2156580607095
+          1080.2156580607095,
+          1301.996763910566
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -29734,6 +29847,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -31452,6 +31566,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -31715,7 +31835,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -31982,7 +32103,8 @@ window.BENCHMARK_DATA = {
           312.32219338417053,
           197.6757721390043,
           265.3611498832703,
-          199.22487646738688
+          199.22487646738688,
+          158.11594711939495
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -32252,6 +32374,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920
@@ -32529,7 +32652,8 @@ window.BENCHMARK_DATA = {
           8940.448272705078,
           7928.3424726213725,
           10941.111376953126,
-          7613.405092511858
+          7613.405092511858,
+          5290.247646077474
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -32801,6 +32925,7 @@ window.BENCHMARK_DATA = {
           10681,
           10568,
           10569,
+          10568,
           10568
         ],
         "borderColor": "#A052B0",
@@ -33076,7 +33201,8 @@ window.BENCHMARK_DATA = {
           6595.610585348947,
           5498.1926264081685,
           7749.27165222168,
-          5323.893238830567
+          5323.893238830567,
+          3959.514695739746
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33348,7 +33474,8 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11664,
-          11664
+          11664,
+          11688
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33623,7 +33750,8 @@ window.BENCHMARK_DATA = {
           5980.619525655111,
           5706.727221679687,
           8105.864685058594,
-          5465.536223347982
+          5465.536223347982,
+          3862.4382405962265
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -33893,6 +34021,7 @@ window.BENCHMARK_DATA = {
           11191,
           11276,
           11191,
+          11196,
           11196,
           11196,
           11196
@@ -34170,7 +34299,8 @@ window.BENCHMARK_DATA = {
           214.2777052606855,
           136.35269397099813,
           173.4820462006789,
-          142.47553350130718
+          142.47553350130718,
+          103.64446374773979
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -34336,6 +34466,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -34717,7 +34848,8 @@ window.BENCHMARK_DATA = {
           538.2094913210187,
           354.6433908598764,
           488.72350050608316,
-          344.9894874572754
+          344.9894874572754,
+          292.0174405733744
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -34913,6 +35045,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -36569,6 +36702,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -36832,7 +36971,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -37099,7 +37239,8 @@ window.BENCHMARK_DATA = {
           742.9384369850159,
           513.0529912948608,
           622.9545694351197,
-          475.12858574207013
+          475.12858574207013,
+          407.7494250627664
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -37369,6 +37510,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784
@@ -37646,7 +37788,8 @@ window.BENCHMARK_DATA = {
           14881.430318559918,
           12922.931844075521,
           17407.021484375,
-          12006.13167622884
+          12006.13167622884,
+          9028.613218180339
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -37916,6 +38059,7 @@ window.BENCHMARK_DATA = {
           18504,
           18617,
           18616,
+          18505,
           18505,
           18505,
           18505
@@ -38193,7 +38337,8 @@ window.BENCHMARK_DATA = {
           14853.497526315543,
           13412.411573282878,
           18776.446237417367,
-          12374.084935506186
+          12374.084935506186,
+          8713.3490234375
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -38465,7 +38610,8 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21529,
-          21529
+          21529,
+          21553
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -38740,7 +38886,8 @@ window.BENCHMARK_DATA = {
           15921.691654750279,
           13698.608443123954,
           19994.247100830078,
-          13021.66896711077
+          13021.66896711077,
+          9686.543891398112
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -39009,6 +39156,7 @@ window.BENCHMARK_DATA = {
           30785,
           30780,
           30865,
+          30785,
           30785,
           30785,
           30785,
@@ -39287,7 +39435,8 @@ window.BENCHMARK_DATA = {
           446.2134915760585,
           262.0879304409027,
           341.37592023213705,
-          258.84105811800276
+          258.84105811800276,
+          249.7009858914784
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -39453,6 +39602,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -39834,7 +39984,8 @@ window.BENCHMARK_DATA = {
           2006.4574831449067,
           1271.966427230835,
           1552.6813267927903,
-          1211.9289666493735
+          1211.9289666493735,
+          1156.1749792734781
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -40030,6 +40181,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -41686,6 +41838,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -41949,7 +42107,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -42216,7 +42375,8 @@ window.BENCHMARK_DATA = {
           9.075749122103055,
           23.17100783265554,
           14.035929604371388,
-          11.508497616648674
+          11.508497616648674,
+          16.5004824757576
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -42446,6 +42606,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -42763,7 +42924,8 @@ window.BENCHMARK_DATA = {
           53.91148577928543,
           120.60411308606466,
           85.32636298338572,
-          66.76960437114423
+          66.76960437114423,
+          90.45731641451518
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -42929,6 +43091,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -43310,7 +43473,8 @@ window.BENCHMARK_DATA = {
           15.859000943601131,
           38.97599405050278,
           25.76338165005048,
-          19.131288630621775
+          19.131288630621775,
+          27.489468284447987
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -43444,6 +43608,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -43857,7 +44022,8 @@ window.BENCHMARK_DATA = {
           689.6566331863403,
           1142.898841711191,
           855.386611529759,
-          819.064267539978
+          819.064267539978,
+          1312.855962753296
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44018,6 +44184,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -44404,7 +44571,8 @@ window.BENCHMARK_DATA = {
           1001.3569739205496,
           1629.0394448500413,
           1171.4911184946695,
-          1196.3830947875977
+          1196.3830947875977,
+          1956.973684946696
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -44565,6 +44733,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -44951,7 +45120,8 @@ window.BENCHMARK_DATA = {
           848.8557580947876,
           1399.6250336964924,
           1004.7237547556559,
-          1010.9066769526555
+          1010.9066769526555,
+          1682.2867815653483
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -45223,6 +45393,7 @@ window.BENCHMARK_DATA = {
           2755,
           2751,
           2751,
+          2755,
           2755
         ],
         "borderColor": "#4A6FA5",
@@ -45705,6 +45876,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -45785,7 +45962,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -45869,7 +46047,8 @@ window.BENCHMARK_DATA = {
           1595.1664873269888,
           2284.9852327982585,
           2356.525610860189,
-          1454.4585007258825
+          1454.4585007258825,
+          2135.915022277832
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -45956,6 +46135,7 @@ window.BENCHMARK_DATA = {
           5216,
           5216,
           5216,
+          5248,
           5248,
           5248,
           5248
@@ -46050,7 +46230,8 @@ window.BENCHMARK_DATA = {
           1841.0724018641881,
           2641.662769862584,
           2592.6714696248373,
-          1601.7140107836042
+          1601.7140107836042,
+          2444.316943828876
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46139,7 +46320,8 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7385,
-          7385
+          7385,
+          7384
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46231,7 +46413,8 @@ window.BENCHMARK_DATA = {
           4268.654206848145,
           5878.101264953613,
           6146.548124186198,
-          3728.789269510905
+          3728.789269510905,
+          5688.854190532978
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -46304,6 +46487,7 @@ window.BENCHMARK_DATA = {
           10544,
           10544,
           10544,
+          17360,
           17360,
           17360,
           17360,
@@ -46412,7 +46596,8 @@ window.BENCHMARK_DATA = {
           1019345.1127604167,
           1329624.15234375,
           1448004.2028645833,
-          686162.7266276042
+          686162.7266276042,
+          1043350.6842447916
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46501,7 +46686,8 @@ window.BENCHMARK_DATA = {
           92611,
           92389,
           92078,
-          92876
+          92876,
+          91771
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46593,7 +46779,8 @@ window.BENCHMARK_DATA = {
           271837.9250488281,
           349692.60585239955,
           318010.70830078126,
-          224914.55494907923
+          224914.55494907923,
+          337515.81982421875
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46682,7 +46869,8 @@ window.BENCHMARK_DATA = {
           54382,
           54382,
           54382,
-          54379
+          54379,
+          54356
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46774,7 +46962,8 @@ window.BENCHMARK_DATA = {
           303812.27532552084,
           391879.32493489585,
           362477.2470377604,
-          277800.71630859375
+          277800.71630859375,
+          372880.0588030134
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46863,7 +47052,8 @@ window.BENCHMARK_DATA = {
           65397,
           65519,
           65519,
-          65397
+          65397,
+          65378
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47231,6 +47421,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -47292,7 +47488,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -47357,7 +47554,8 @@ window.BENCHMARK_DATA = {
           27096.861897786457,
           21023.48478916713,
           20951.878457205636,
-          20414.828863525392
+          20414.828863525392,
+          26180.1469523112
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -47425,6 +47623,7 @@ window.BENCHMARK_DATA = {
           56544,
           56544,
           56544,
+          56552,
           56552,
           56552,
           56552
@@ -47500,7 +47699,8 @@ window.BENCHMARK_DATA = {
           21467.510235595702,
           17098.506459554035,
           16963.86503499349,
-          16702.1090637207
+          16702.1090637207,
+          20669.81059773763
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -47512,6 +47712,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          40688,
           40688,
           40688,
           40688,
@@ -47643,7 +47844,8 @@ window.BENCHMARK_DATA = {
           99998.27285330636,
           78913.74497070312,
           77810.71648763021,
-          75696.35442708334
+          75696.35442708334,
+          95802.7014404297
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -47673,6 +47875,7 @@ window.BENCHMARK_DATA = {
           203585,
           203585,
           203584,
+          203585,
           203585,
           203585,
           203585,
@@ -47786,7 +47989,8 @@ window.BENCHMARK_DATA = {
           403997.5915876116,
           285502.11073521205,
           283367.0774113582,
-          269993.2353515625
+          269993.2353515625,
+          389056.23294270836
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47856,7 +48060,8 @@ window.BENCHMARK_DATA = {
           431939,
           431939,
           431938,
-          431938
+          431938,
+          431939
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47929,7 +48134,8 @@ window.BENCHMARK_DATA = {
           287571.2384905134,
           222025.72739955358,
           226413.81254882814,
-          238585.74147135418
+          238585.74147135418,
+          289023.47649739584
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47999,7 +48205,8 @@ window.BENCHMARK_DATA = {
           322038,
           322036,
           378037,
-          378037
+          378037,
+          378039
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -48072,7 +48279,8 @@ window.BENCHMARK_DATA = {
           394288.6712565104,
           296420.9812950721,
           286367.06656901044,
-          280831.3258138021
+          280831.3258138021,
+          376778.4354166667
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48142,7 +48350,8 @@ window.BENCHMARK_DATA = {
           944362,
           944403,
           944403,
-          944403
+          944403,
+          944362
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48510,6 +48719,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -48571,7 +48786,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -48636,7 +48852,8 @@ window.BENCHMARK_DATA = {
           50453.420766977164,
           34438.13507080078,
           39162.54011317662,
-          33211.891092936195
+          33211.891092936195,
+          27023.98348781041
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -48704,6 +48921,7 @@ window.BENCHMARK_DATA = {
           96816,
           96816,
           96816,
+          96824,
           96824,
           96824,
           96824
@@ -48779,7 +48997,8 @@ window.BENCHMARK_DATA = {
           26050.38571871244,
           13645.3825978597,
           16759.56653035482,
-          13116.948137410482
+          13116.948137410482,
+          15262.697139485677
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -48847,6 +49066,7 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641
@@ -48922,7 +49142,8 @@ window.BENCHMARK_DATA = {
           162252.0941685268,
           94321.5437093099,
           116184.40589250837,
-          90336.06487630209
+          90336.06487630209,
+          93426.90179036459
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -48964,6 +49185,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -49065,7 +49287,8 @@ window.BENCHMARK_DATA = {
           602435.324609375,
           532781.1228515625,
           698501.5225911458,
-          523242.014453125
+          523242.014453125,
+          342602.3939866286
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49135,7 +49358,8 @@ window.BENCHMARK_DATA = {
           836564,
           836541,
           836541,
-          836541
+          836541,
+          836538
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49208,7 +49432,8 @@ window.BENCHMARK_DATA = {
           893260.7825753348,
           816906.5079427083,
           1207135.808984375,
-          796047.0344401042
+          796047.0344401042,
+          534945.9130859375
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49278,7 +49503,8 @@ window.BENCHMARK_DATA = {
           1139621,
           1139697,
           1139704,
-          1139702
+          1139702,
+          1139726
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49351,7 +49577,8 @@ window.BENCHMARK_DATA = {
           1090002.7229166667,
           1054060.1053385416,
           1376879.319140625,
-          1083777.4950520834
+          1083777.4950520834,
+          648563.5022321428
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -49421,7 +49648,8 @@ window.BENCHMARK_DATA = {
           2194291,
           2194289,
           2194291,
-          2194291
+          2194291,
+          2194325
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -49789,6 +50017,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -49850,7 +50084,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -49915,7 +50150,8 @@ window.BENCHMARK_DATA = {
           64544.92580942007,
           80478.21135602679,
           64958.17840983073,
-          94966.58152669271
+          94966.58152669271,
+          66717.59801374163
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -49985,7 +50221,8 @@ window.BENCHMARK_DATA = {
           105569,
           105577,
           105577,
-          105577
+          105577,
+          105576
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -50058,7 +50295,8 @@ window.BENCHMARK_DATA = {
           39474.15590122768,
           39533.759765625,
           38758.70732770647,
-          46802.188079833984
+          46802.188079833984,
+          40446.03319498698
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -50127,6 +50365,7 @@ window.BENCHMARK_DATA = {
           120977,
           120981,
           120977,
+          120981,
           120981,
           120981
         ],
@@ -50201,7 +50440,8 @@ window.BENCHMARK_DATA = {
           737853.3701869419,
           659659.2525390625,
           745406.3590369591,
-          1020378.4778645834
+          1020378.4778645834,
+          787787.0269252232
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50271,7 +50511,8 @@ window.BENCHMARK_DATA = {
           1030606,
           1030854,
           1030606,
-          1030614
+          1030614,
+          1030807
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50344,7 +50585,8 @@ window.BENCHMARK_DATA = {
           1208183.4793526786,
           1170157.2248697917,
           1242236.6253255208,
-          1658237.8695591518
+          1658237.8695591518,
+          1251430.8137369792
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50414,6 +50656,7 @@ window.BENCHMARK_DATA = {
           1500792,
           1500704,
           1500848,
+          1500824,
           1500824
         ],
         "borderColor": "#5E2750",
@@ -50487,7 +50730,8 @@ window.BENCHMARK_DATA = {
           1039916.1355794271,
           1008865.4976283482,
           1041467.9969951923,
-          1386709.5239257812
+          1386709.5239257812,
+          1119335.3052455357
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50554,6 +50798,7 @@ window.BENCHMARK_DATA = {
           2204669,
           2204675,
           2204674,
+          2204675,
           2204675,
           2204675,
           2204675,
@@ -50628,7 +50873,8 @@ window.BENCHMARK_DATA = {
           150080.76288713727,
           167389.864453125,
           143509.23033854167,
-          171221.68657226564
+          171221.68657226564,
+          150723.6021158854
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -50640,6 +50886,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          300713,
           300713,
           300713,
           300713,
@@ -51016,6 +51263,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -51069,7 +51322,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -51126,7 +51380,8 @@ window.BENCHMARK_DATA = {
           433.0937933555016,
           257.0113292694092,
           326.96695143381754,
-          326.74508043130237
+          326.74508043130237,
+          441.0878119809287
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -51186,6 +51441,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544
@@ -51253,7 +51509,8 @@ window.BENCHMARK_DATA = {
           255.72142299016318,
           148.78138262884957,
           212.457400115331,
-          227.8914737190519
+          227.8914737190519,
+          265.17298800150553
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -51265,6 +51522,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -51380,7 +51638,8 @@ window.BENCHMARK_DATA = {
           512.016017987178,
           323.16397509208093,
           400.8575750986735,
-          423.74918347994486
+          423.74918347994486,
+          529.6685347239177
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51392,6 +51651,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -51507,7 +51767,8 @@ window.BENCHMARK_DATA = {
           114273.47131347656,
           30119.371361365684,
           70895.06754557292,
-          69567.27976771763
+          69567.27976771763,
+          113127.24337565104
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -51568,6 +51829,7 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10031,
+          10030,
           10030,
           10030
         ],
@@ -51634,7 +51896,8 @@ window.BENCHMARK_DATA = {
           7543.762842305501,
           3575.4116060892743,
           5393.770631917318,
-          5438.746223449707
+          5438.746223449707,
+          7407.146045684814
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -51694,6 +51957,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248
@@ -51761,7 +52025,8 @@ window.BENCHMARK_DATA = {
           7422.571156093052,
           3465.806067911784,
           5082.798975118001,
-          5328.725415039063
+          5328.725415039063,
+          7376.069810594831
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -51822,6 +52087,7 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11853,
+          11854,
           11854,
           11854
         ],
@@ -52143,6 +52409,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -52196,7 +52468,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -52253,7 +52526,8 @@ window.BENCHMARK_DATA = {
           1513.8147847311836,
           978.7167457853045,
           1182.065559387207,
-          1267.8358952658516
+          1267.8358952658516,
+          1595.3405115763346
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52313,6 +52587,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016
@@ -52380,7 +52655,8 @@ window.BENCHMARK_DATA = {
           943.5233055261465,
           613.079319190979,
           804.6500397364299,
-          846.7450887044271
+          846.7450887044271,
+          999.8542165756226
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -52392,6 +52668,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -52507,7 +52784,8 @@ window.BENCHMARK_DATA = {
           3267.6481195177353,
           2308.1198399861655,
           2586.946070451003,
-          2527.3182247706823
+          2527.3182247706823,
+          3215.4934089660646
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -52519,6 +52797,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -52634,7 +52913,8 @@ window.BENCHMARK_DATA = {
           127660.44280133929,
           40199.3015625,
           81377.92373860677,
-          81081.85556466239
+          81081.85556466239,
+          128517.24205729166
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -52696,7 +52976,8 @@ window.BENCHMARK_DATA = {
           25115,
           25114,
           25114,
-          25114
+          25114,
+          25115
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -52761,7 +53042,8 @@ window.BENCHMARK_DATA = {
           24975.24605102539,
           11226.180654907226,
           16048.070667811802,
-          16678.181646728517
+          16678.181646728517,
+          23120.304973057337
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52821,6 +53103,7 @@ window.BENCHMARK_DATA = {
           23481,
           23481,
           25665,
+          23481,
           23481,
           23481,
           23481
@@ -52888,7 +53171,8 @@ window.BENCHMARK_DATA = {
           28596.66876118978,
           13893.97796521868,
           20814.198864746093,
-          19840.304433186848
+          19840.304433186848,
+          28003.826583862305
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52945,6 +53229,7 @@ window.BENCHMARK_DATA = {
           55213,
           55216,
           55213,
+          55216,
           55216,
           55216,
           55216,
@@ -53270,6 +53555,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -53323,7 +53614,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -53380,7 +53672,8 @@ window.BENCHMARK_DATA = {
           118241.89397786459,
           83034.99568394253,
           94845.21373697916,
-          96057.56136067708
+          96057.56136067708,
+          121231.75946044922
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -53441,6 +53734,7 @@ window.BENCHMARK_DATA = {
           273289,
           273289,
           273296,
+          273297,
           273297,
           273297
         ],
@@ -53507,7 +53801,8 @@ window.BENCHMARK_DATA = {
           78602.95985764723,
           51639.66518729074,
           67276.82920485277,
-          66577.62406703403
+          66577.62406703403,
+          79177.40901692708
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -53564,6 +53859,7 @@ window.BENCHMARK_DATA = {
           208881,
           208883,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -53634,7 +53930,8 @@ window.BENCHMARK_DATA = {
           289243.9208635603,
           216039.7134765625,
           244509.064906529,
-          232698.6561748798
+          232698.6561748798,
+          296113.8015625
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53696,7 +53993,8 @@ window.BENCHMARK_DATA = {
           707794,
           707793,
           707794,
-          707793
+          707793,
+          707794
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53761,7 +54059,8 @@ window.BENCHMARK_DATA = {
           1491745.4536132812,
           807783.2819661458,
           1146183.6670673077,
-          1147533.6968470982
+          1147533.6968470982,
+          1574529.0790364584
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53823,7 +54122,8 @@ window.BENCHMARK_DATA = {
           1692680,
           1692670,
           1692680,
-          1692679
+          1692679,
+          1692680
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53888,7 +54188,8 @@ window.BENCHMARK_DATA = {
           1864754.8147135417,
           902076.9854266827,
           1225668.3330829327,
-          1279227.9087239583
+          1279227.9087239583,
+          1697399.9677083334
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53949,6 +54250,7 @@ window.BENCHMARK_DATA = {
           1468916,
           1692885,
           1468911,
+          1468916,
           1468916,
           1468916
         ],
@@ -54015,7 +54317,8 @@ window.BENCHMARK_DATA = {
           2956413.9174479167,
           1598320.2932291667,
           2256733.5047433036,
-          2295912.303292411
+          2295912.303292411,
+          2862241.676041667
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54077,6 +54380,7 @@ window.BENCHMARK_DATA = {
           4803387,
           4803374,
           4803385,
+          4803387,
           4803387
         ],
         "borderColor": "#4A6FA5",
@@ -54193,6 +54497,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -54212,7 +54522,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -54235,7 +54546,8 @@ window.BENCHMARK_DATA = {
           250.4015020688375,
           341.38930117289226,
           170.95896931794974,
-          248.3526553085872
+          248.3526553085872,
+          321.17279523213705
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54261,6 +54573,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024
@@ -54294,7 +54607,8 @@ window.BENCHMARK_DATA = {
           335.6551957130432,
           419.9074317046574,
           244.76399268422807,
-          354.65330066680906
+          354.65330066680906,
+          394.08541520436603
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54306,6 +54620,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -54353,7 +54668,8 @@ window.BENCHMARK_DATA = {
           852.5578468322753,
           1103.34170627594,
           606.7346689517682,
-          868.6781498102041
+          868.6781498102041,
+          979.9751877103533
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -54365,6 +54681,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          4464,
           4464,
           4464,
           4464,
@@ -54412,7 +54729,8 @@ window.BENCHMARK_DATA = {
           203613.2505580357,
           336880.7491629464,
           88469.53439127604,
-          205274.76697716347
+          205274.76697716347,
+          130141.73041643415
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54440,7 +54758,8 @@ window.BENCHMARK_DATA = {
           23302,
           23282,
           23313,
-          23302
+          23302,
+          23419
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54471,7 +54790,8 @@ window.BENCHMARK_DATA = {
           11097.539715576171,
           16316.226196289062,
           7078.314424787249,
-          10713.913501194545
+          10713.913501194545,
+          10911.018371582031
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54499,7 +54819,8 @@ window.BENCHMARK_DATA = {
           19553,
           19554,
           19852,
-          19553
+          19553,
+          19515
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54530,7 +54851,8 @@ window.BENCHMARK_DATA = {
           7878.505449567522,
           11672.82475382487,
           5027.759737650554,
-          7733.70123056265
+          7733.70123056265,
+          7445.1443262736
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54558,7 +54880,8 @@ window.BENCHMARK_DATA = {
           14332,
           14332,
           14332,
-          14444
+          14444,
+          14325
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54674,6 +54997,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -54693,7 +55022,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -54716,7 +55046,8 @@ window.BENCHMARK_DATA = {
           1168.2060971941266,
           1551.633898417155,
           863.3474947856023,
-          1176.592835744222
+          1176.592835744222,
+          1357.7285372870308
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54742,6 +55073,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040
@@ -54775,7 +55107,8 @@ window.BENCHMARK_DATA = {
           1130.5172899881998,
           1437.7864382607597,
           828.8478393554688,
-          1124.9418653760638
+          1124.9418653760638,
+          1289.3584393092565
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54787,6 +55120,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -54834,7 +55168,8 @@ window.BENCHMARK_DATA = {
           3924.0326189313614,
           5076.916842142741,
           3032.913610839844,
-          3886.0789357503254
+          3886.0789357503254,
+          4319.0449785505025
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -54846,6 +55181,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          10536,
           10536,
           10536,
           10536,
@@ -54893,7 +55229,8 @@ window.BENCHMARK_DATA = {
           236885.7083170573,
           374718.72281901044,
           107366.99731445312,
-          238397.94835486778
+          238397.94835486778,
+          160884.36378696986
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54921,7 +55258,8 @@ window.BENCHMARK_DATA = {
           41153,
           41155,
           41152,
-          41153
+          41153,
+          41259
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54952,7 +55290,8 @@ window.BENCHMARK_DATA = {
           19813.397475179037,
           30112.315368652344,
           13114.55816105434,
-          18646.50744863657
+          18646.50744863657,
+          19586.280938284737
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54980,7 +55319,8 @@ window.BENCHMARK_DATA = {
           30101,
           30101,
           31439,
-          30101
+          30101,
+          30082
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55011,7 +55351,8 @@ window.BENCHMARK_DATA = {
           31199.650769042968,
           45735.56221110026,
           20737.17418416341,
-          30226.936205182756
+          30226.936205182756,
+          29722.895633951823
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55039,7 +55380,8 @@ window.BENCHMARK_DATA = {
           60496,
           60496,
           60496,
-          60607
+          60607,
+          60493
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55155,6 +55497,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -55174,7 +55522,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -55197,7 +55546,8 @@ window.BENCHMARK_DATA = {
           103131.4997233073,
           137343.47360026042,
           76680.2341570173,
-          103882.48696463449
+          103882.48696463449,
+          119847.33199055989
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -55223,6 +55573,7 @@ window.BENCHMARK_DATA = {
           224793,
           224793,
           224792,
+          224801,
           224801,
           224801,
           224801
@@ -55256,7 +55607,8 @@ window.BENCHMARK_DATA = {
           88485.22001429966,
           115238.09512765067,
           65872.92078450522,
-          85714.88680594308
+          85714.88680594308,
+          102008.77322591146
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55280,6 +55632,7 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209408,
+          209409,
           209409,
           209409,
           209409,
@@ -55315,7 +55668,8 @@ window.BENCHMARK_DATA = {
           352145.2380533854,
           442547.8721679688,
           269529.0043538411,
-          352382.28557477676
+          352382.28557477676,
+          382587.5158879207
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55327,6 +55681,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          703994,
           703994,
           703994,
           703994,
@@ -55374,7 +55729,8 @@ window.BENCHMARK_DATA = {
           3322129.613839286,
           4340241.369977678,
           1980849.9369791667,
-          3121594.278846154
+          3121594.278846154,
+          2695825.3895833334
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55402,7 +55758,8 @@ window.BENCHMARK_DATA = {
           1936410,
           1936429,
           1936409,
-          1936410
+          1936410,
+          1936230
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55433,7 +55790,8 @@ window.BENCHMARK_DATA = {
           995301.9637920673,
           1198280.5305524555,
           670146.5225260417,
-          879208.7686197917
+          879208.7686197917,
+          852556.0513020833
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55461,7 +55819,8 @@ window.BENCHMARK_DATA = {
           1119153,
           1119153,
           1231592,
-          1118990
+          1118990,
+          1117063
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55492,7 +55851,8 @@ window.BENCHMARK_DATA = {
           3194519.5890625,
           4254163.623697917,
           2087769.9619791666,
-          2957831.3434709823
+          2957831.3434709823,
+          2894342.7364783655
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55520,7 +55880,8 @@ window.BENCHMARK_DATA = {
           5051809,
           5051944,
           5051807,
-          5052164
+          5052164,
+          5051646
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55636,6 +55997,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 20 16:42:50 2026 \u002B0100",
         "message": "fix: reuse the auto-mock discovery cache without comparing compilation services (#1079)"
+      },
+      {
+        "sha": "71f03870cffb283f6cd545fb646b6b71e397dc01",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 20 16:43:10 2026 \u002B0100",
+        "message": "fix: let strict logger mocks open scopes without a setup (#1080)"
       }
     ],
     "labels": [
@@ -55655,7 +56022,8 @@ window.BENCHMARK_DATA = {
       "c6a02717",
       "40db8a0b",
       "af5ef07c",
-      "90cf38eb"
+      "90cf38eb",
+      "71f03870"
     ],
     "datasets": [
       {
@@ -55678,7 +56046,8 @@ window.BENCHMARK_DATA = {
           2630.9040588378907,
           2725.341417948405,
           2117.910158030192,
-          3486.5881933848063
+          3486.5881933848063,
+          3394.515367654654
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -55704,6 +56073,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288
@@ -55737,7 +56107,8 @@ window.BENCHMARK_DATA = {
           2409.2119121551514,
           2501.4204780033656,
           1987.0996257237025,
-          3131.4790262494766
+          3131.4790262494766,
+          3086.447156361171
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55749,6 +56120,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -55796,7 +56168,8 @@ window.BENCHMARK_DATA = {
           2965.3325773874917,
           3112.496882847377,
           2525.920292173113,
-          3903.875075785319
+          3903.875075785319,
+          3878.2200271606443
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55808,6 +56181,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          3344,
           3344,
           3344,
           3344,
@@ -55855,7 +56229,8 @@ window.BENCHMARK_DATA = {
           9661.619265042818,
           10447.58809007917,
           8134.521723066057,
-          14710.412556239537
+          14710.412556239537,
+          14891.562987263997
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55868,6 +56243,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           11385,
+          11048,
           11048,
           11048,
           11048,
@@ -55914,7 +56290,8 @@ window.BENCHMARK_DATA = {
           8407.4932814378,
           9213.06178870568,
           6780.991590059721,
-          13040.939557902018
+          13040.939557902018,
+          12545.11825764974
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55939,6 +56316,7 @@ window.BENCHMARK_DATA = {
           14633,
           15025,
           14632,
+          14633,
           14633,
           14633,
           14633,
@@ -55973,7 +56351,8 @@ window.BENCHMARK_DATA = {
           8794.596864553598,
           9640.232242838541,
           7219.809712727864,
-          13662.783152653621
+          13662.783152653621,
+          13312.94538269043
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55998,6 +56377,7 @@ window.BENCHMARK_DATA = {
           14620,
           14620,
           14614,
+          14620,
           14620,
           14620,
           14620,
