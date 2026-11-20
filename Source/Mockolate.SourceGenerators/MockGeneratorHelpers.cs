@@ -511,7 +511,7 @@ internal static class MockGeneratorHelpers
 		   new[] { type, }.Concat(type.AllInterfaces).FirstOrDefault(IsLoggerFactoryType) is { } loggerFactoryType
 			? loggerFactoryType.GetMembers("CreateLogger")
 				.OfType<IMethodSymbol>()
-				.First()
+				.FirstOrDefault()?
 				.ReturnType
 			: null;
 
@@ -569,6 +569,11 @@ internal static class MockGeneratorHelpers
 						? cache.GetOrAddDiscoveredMock(normalized, type => CreateDiscoveredMockClass(type, compilation))
 						: CreateDiscoveredMockClass(normalized, compilation));
 					typesToProcess.Enqueue(normalized);
+					// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
+					if (GetLoggerOfLoggerFactory(normalized) is INamedTypeSymbol loggerType && processedTypes.Add(loggerType))
+					{
+						result.Add(CreateDiscoveredMockClass(loggerType, compilation));
+					}
 				}
 			}
 		}

@@ -1773,6 +1773,38 @@ public partial class MockGeneratorTests
 	}
 
 	[Test]
+	public async Task Combination_WithInterfaceInheritingMembers_ShouldCompileWithoutDiagnostics()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using System;
+			     using Mockolate;
+			     namespace MyCode
+			     {
+			         public interface IMyService
+			         {
+			             void Run();
+			         }
+
+			         public interface IMyResource : IDisposable
+			         {
+			             void Open();
+			         }
+
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = IMyService.CreateMock().Implementing<IMyResource>();
+			             }
+			         }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+	}
+
+	[Test]
 	public async Task WithLoggerFactoryInCombination_ShouldAlsoGenerateMockForLogger()
 	{
 		GeneratorResult result = Generator
@@ -1796,6 +1828,7 @@ public partial class MockGeneratorTests
 			     }
 			     """, typeof(ILoggerFactory));
 
+		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("Mock.ILogger.g.cs").And
 			.ContainsKey("Logging.g.cs");
 		await That(result.Sources["Logging.g.cs"]).Contains("CategoryLogger<TCategoryName> : global::Mockolate.Mock.ILogger,");

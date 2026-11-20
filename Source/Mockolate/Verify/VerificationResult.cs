@@ -127,16 +127,13 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	/// </summary>
 	private protected VerificationResult(TVerify verify, IMockInteractions interactions)
 	{
+		FilteredVerificationResult<TVerify> filtered = (FilteredVerificationResult<TVerify>)this;
 		_verify = verify;
 		_interactions = interactions;
-		_predicate = IsFilteredMatch;
+		_predicate = filtered.IsFilteredMatch;
 		_expectation = new VerificationExpectation(this, null,
-			static (state, _) => ((VerificationResult<TVerify>)state!).GetFilteredExpectation());
+			static (state, _) => ((FilteredVerificationResult<TVerify>)state!).GetFilteredExpectation());
 	}
-
-	private protected virtual bool IsFilteredMatch(IInteraction interaction) => false;
-
-	private protected virtual string GetFilteredExpectation() => "";
 
 	#region IVerificationResult<TVerify>
 

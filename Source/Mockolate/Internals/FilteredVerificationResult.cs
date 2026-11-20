@@ -34,9 +34,9 @@ public abstract class FilteredVerificationResult<TVerify> : VerificationResult<T
 	/// </summary>
 	protected abstract string Describe();
 
-	private protected sealed override bool IsFilteredMatch(IInteraction interaction)
+	internal bool IsFilteredMatch(IInteraction interaction)
 		=> Matches(interaction);
 
-	private protected sealed override string GetFilteredExpectation()
+	internal string GetFilteredExpectation()
 		=> $"invoked method {Describe()}";
 }

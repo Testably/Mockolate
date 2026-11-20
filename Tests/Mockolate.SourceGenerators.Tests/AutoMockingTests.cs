@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.Extensions.Logging;
 
 namespace Mockolate.SourceGenerators.Tests;
 
@@ -41,6 +42,50 @@ public sealed class AutoMockingTests
 			.ContainsKey("Mock.IMyInterface.g.cs").And
 			.DoesNotContainKey("Mock.IServiceProvider.g.cs").And
 			.DoesNotContainKey("Mock.IFrameworkService.g.cs");
+	}
+
+	[Test]
+	public async Task DerivedLoggerFactory_ShouldAlsoMockTheLogger()
+	{
+		GeneratorResult result = Generator.Run([
+			"""
+			#nullable enable
+			using Mockolate;
+
+			namespace MyCode
+			{
+			    public class Program
+			    {
+			        public static void Main(string[] args)
+			        {
+			            _ = IServices.CreateMock();
+			        }
+			    }
+			}
+			""",
+			"""
+			#nullable enable
+			using Microsoft.Extensions.Logging;
+
+			namespace MyCode
+			{
+			    public interface IMyLoggerFactory : ILoggerFactory
+			    {
+			    }
+
+			    public interface IServices
+			    {
+			        IMyLoggerFactory LoggerFactory { get; }
+			    }
+			}
+			""",
+		], [], LanguageVersion.CSharp14, AutoMockingEnabled, typeof(ILoggerFactory));
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources)
+			.ContainsKey("Mock.IMyLoggerFactory.g.cs").And
+			.ContainsKey("Mock.ILogger.g.cs").And
+			.ContainsKey("Logging.g.cs");
 	}
 
 	[Test]

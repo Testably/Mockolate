@@ -1642,7 +1642,7 @@ internal static partial class Sources
 		if (explicitInterfaceImplementation)
 		{
 			sb.Append(@event.IsStatic ? "\t\tstatic event " : "\t\tevent ").Append(@event.Type.Fullname).Append(' ')
-				.Append(className).Append('.').Append(@event.Name).AppendLine();
+				.Append(@event.ContainingType).Append('.').Append(@event.Name).AppendLine();
 		}
 		else
 		{
@@ -1845,7 +1845,7 @@ internal static partial class Sources
 		if (explicitInterfaceImplementation)
 		{
 			sb.Append(property.IsStatic ? "\t\tstatic " : "\t\t").Append(property.Type.Fullname)
-				.Append(" ").Append(className).Append('.').Append(property.IndexerParameters is not null
+				.Append(" ").Append(property.ContainingType).Append('.').Append(property.IndexerParameters is not null
 					? property.Name.Replace("[]",
 						$"[{string.Join(", ", property.IndexerParameters.Value.Select(p => $"{p.Type.Fullname} {p.Name}"))}]")
 					: property.Name).AppendLine();
@@ -2441,7 +2441,7 @@ internal static partial class Sources
 			}
 
 			sb.Append(returnRefPrefix).Append(method.ReturnType.Fullname).Append(' ')
-				.Append(explicitInterfaceImplementation ? className : method.ContainingType).Append('.').Append(method.Name)
+				.Append(method.ContainingType).Append('.').Append(method.Name)
 				.Append('(');
 		}
 		else

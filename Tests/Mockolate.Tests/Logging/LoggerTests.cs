@@ -30,22 +30,30 @@ public sealed class LoggerTests
 		ILogger logger = ILogger.CreateMock();
 		ILogSetup setup = logger.Mock.Setup.LogError();
 		using CancellationTokenSource cts = new();
+		int logCalls = 0;
 		Task logging = Task.Run(() =>
 		{
 			while (!cts.IsCancellationRequested)
 			{
 				logger.LogError("failed");
+				Interlocked.Increment(ref logCalls);
 			}
 		});
+		while (Volatile.Read(ref logCalls) == 0 && !logging.IsCompleted)
+		{
+			Thread.Yield();
+		}
 
 		for (int i = 0; i < 1000; i++)
 		{
 			setup.WithMessage(It.IsAny<string>());
 		}
 
+		int logCallsWhileRefining = Volatile.Read(ref logCalls);
 		cts.Cancel();
 		await That(() => logging).DoesNotThrow()
 			.Because("the code under test can log while the test still refines the setup");
+		await That(logCallsWhileRefining).IsGreaterThan(0);
 	}
 
 	[Test]
@@ -417,6 +425,30 @@ public sealed class LoggerTests
 	}
 
 	[Test]
+	public async Task Verify_Then_WhenInWrongOrder_ShouldFail()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogWarning("first");
+		logger.LogInformation("second");
+
+		void Act() => logger.Mock.Verify.LogInformation().Then(m => m.LogWarning());
+
+		await That(Act).Throws<MockVerificationException>()
+			.WithMessage("*then invoked method LogWarning() in order*").AsWildcard();
+	}
+
+	[Test]
+	public async Task Verify_WithCategory_OnInterfaceDerivedFromGenericLogger_ShouldUseTheCategoryOfTheTypeArgument()
+	{
+		ITypedLogger logger = ITypedLogger.CreateMock();
+
+		logger.LogError("failed");
+
+		await That(logger.Mock.Verify.LogError().WithCategory<LoggerTests>()).Once();
+	}
+
+	[Test]
 	public async Task Verify_WhenNotMatching_ShouldDescribeTheFilters()
 	{
 		ILogger logger = ILogger.CreateMock();
@@ -486,5 +518,9 @@ public sealed class LoggerTests
 		logger.LogError("after");
 
 		await That(monitor.Verify.LogError()).Once();
+	}
+
+	public interface ITypedLogger : ILogger<LoggerTests>
+	{
 	}
 }

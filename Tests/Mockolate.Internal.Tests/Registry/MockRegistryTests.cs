@@ -1027,6 +1027,46 @@ public sealed class MockRegistryTests
 		}
 	}
 
+	public sealed class ShareVerifiedInteractionsTests
+	{
+		[Test]
+		public async Task WithFastInteractions_ShouldShareVerificationsInBothDirections()
+		{
+			MockRegistry first = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry second = new(MockBehavior.Default, new FastMockInteractions(0));
+			MethodInvocation sharedFromFirst = new("foo");
+			MethodInvocation sharedFromSecond = new("bar");
+			MethodInvocation secondOnly = new("baz");
+			first.RegisterInteraction(sharedFromFirst);
+			first.RegisterInteraction(sharedFromSecond);
+			second.RegisterInteraction(sharedFromFirst);
+			second.RegisterInteraction(sharedFromSecond);
+			second.RegisterInteraction(secondOnly);
+
+			first.ShareVerifiedInteractions(second);
+			first.Interactions.Verified([sharedFromFirst,]);
+			second.Interactions.Verified([sharedFromSecond,]);
+
+			await That(first.Interactions.GetUnverifiedInteractions()).IsEmpty();
+			await That(second.Interactions.GetUnverifiedInteractions()).IsEqualTo([secondOnly,]);
+		}
+
+		[Test]
+		public async Task WithNonFastInteractions_ShouldNotShareVerifications()
+		{
+			MockRegistry first = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry second = new(MockBehavior.Default, new TryGetRecordsTests.NonFastInteractions());
+			MethodInvocation interaction = new("foo");
+			first.RegisterInteraction(interaction);
+			second.RegisterInteraction(interaction);
+
+			first.ShareVerifiedInteractions(second);
+			second.Interactions.Verified([interaction,]);
+
+			await That(first.Interactions.GetUnverifiedInteractions()).IsEqualTo([interaction,]);
+		}
+	}
+
 	public sealed class TryGetRecordsTests
 	{
 		[Test]
@@ -1048,7 +1088,7 @@ public sealed class MockRegistryTests
 			await That(Act).DoesNotThrow();
 		}
 
-		private sealed class NonFastInteractions : IMockInteractions
+		internal sealed class NonFastInteractions : IMockInteractions
 		{
 			private readonly List<IInteraction> _items = new();
 

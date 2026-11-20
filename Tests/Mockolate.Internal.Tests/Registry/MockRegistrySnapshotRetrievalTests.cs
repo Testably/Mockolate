@@ -66,6 +66,52 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		}
 
 		[Test]
+		public async Task WithAlternativeName_ShouldYieldSetupsOfBothNames()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup fooSetup = new("foo");
+			FakeMethodSetup barSetup = new("bar");
+			registry.SetupMethod(1, fooSetup);
+			registry.SetupMethod(2, barSetup);
+			registry.SetupMethod(3, new FakeMethodSetup("baz"));
+
+			List<MethodSetup> setups = registry.GetMethodSetups<MethodSetup>("foo", "bar").ToList();
+
+			await That(setups).IsEqualTo([fooSetup, barSetup,]).InAnyOrder();
+		}
+
+		[Test]
+		public async Task WithAlternativeNameAndOnlyGlobalDictSetups_ShouldYieldSetupsOfBothNames()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup fooSetup = new("foo");
+			FakeMethodSetup barSetup = new("bar");
+			registry.Setup.Methods.Add(fooSetup);
+			registry.Setup.Methods.Add(barSetup);
+			registry.Setup.Methods.Add(new FakeMethodSetup("baz"));
+
+			List<MethodSetup> setups = registry.GetMethodSetups<MethodSetup>("foo", "bar").ToList();
+
+			await That(setups).IsEqualTo([fooSetup, barSetup,]).InAnyOrder();
+		}
+
+		[Test]
+		public async Task WithAlternativeNameAndActiveScenario_ShouldYieldScopedSetupsOfBothNamesFirst()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup globalSetup = new("foo");
+			FakeMethodSetup scopedSetup = new("bar");
+			registry.SetupMethod(1, globalSetup);
+			registry.Setup.GetOrCreateScenario("a").Methods.Add(scopedSetup);
+			registry.Setup.GetOrCreateScenario("a").Methods.Add(new FakeMethodSetup("baz"));
+			registry.TransitionTo("a");
+
+			List<MethodSetup> setups = registry.GetMethodSetups<MethodSetup>("foo", "bar").ToList();
+
+			await That(setups).IsEqualTo([scopedSetup, globalSetup,]);
+		}
+
+		[Test]
 		public async Task WithSnapshotSetupOnly_YieldsSnapshotSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
@@ -138,6 +184,19 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			await That(setups[0]).IsSameAs(firstBucketSetup);
 			await That(setups[1]).IsSameAs(thirdBucketSetup);
 			await That(setups[2]).IsSameAs(globalDictSetup);
+		}
+
+		[Test]
+		public async Task WithAlternativeNameInOtherBucket_ShouldYieldIt()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup alternativeSetup = new("bar");
+			registry.SetupMethod(1, alternativeSetup);
+			registry.SetupMethod(2, new FakeMethodSetup());
+
+			List<MethodSetup> setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo", "bar")!.ToList();
+
+			await That(setups).IsEqualTo([alternativeSetup,]);
 		}
 
 		[Test]

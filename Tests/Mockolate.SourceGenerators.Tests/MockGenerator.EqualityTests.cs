@@ -12,6 +12,32 @@ namespace Mockolate.SourceGenerators.Tests;
 /// </summary>
 public sealed class MockGeneratorEqualityTests
 {
+	public sealed class LoggerMockNamesTests
+	{
+		[Test]
+		public async Task Equals_WithEqualContent_IsTrue()
+		{
+			LoggerMockNames a = new("ILogger",
+				new EquatableArray<(string CategoryType, string Name)>([("global::MyCode.A", "ILogger_A"),]));
+			LoggerMockNames b = new("ILogger",
+				new EquatableArray<(string CategoryType, string Name)>([("global::MyCode.A", "ILogger_A"),]));
+
+			await That(a.Equals(b)).IsTrue();
+			await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingCategoryLoggers_IsFalse()
+		{
+			LoggerMockNames a = new("ILogger",
+				new EquatableArray<(string CategoryType, string Name)>([("global::MyCode.A", "ILogger_A"),]));
+			LoggerMockNames b = new("ILogger",
+				new EquatableArray<(string CategoryType, string Name)>([("global::MyCode.B", "ILogger_B"),]));
+
+			await That(a.Equals(b)).IsFalse();
+		}
+	}
+
 	public sealed class RefStructAggregateTests
 	{
 		[Test]

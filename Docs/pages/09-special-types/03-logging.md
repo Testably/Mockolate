@@ -89,7 +89,7 @@ This works for the `LogInformation(…)` extension methods, `LoggerMessage.Defin
 
 ## Logger factories
 
-A mocked `ILoggerFactory` returns one logger mock per category from `CreateLogger`, unless `CreateLogger` has a setup. This also applies to mocks created with `ThrowingWhenNotSetup()`. The loggers use the behavior of the factory, and the factory verifies the log calls of all of them:
+A mocked `ILoggerFactory` returns one logger mock per category from `CreateLogger`, unless `CreateLogger` has a setup. This also applies to mocks created with `ThrowingWhenNotSetup()` or with `WithDefaultValueFor<ILogger>(…)`. The loggers use the behavior of the factory, and the factory verifies the log calls of all of them:
 
 ```csharp
 ILoggerFactory loggerFactory = ILoggerFactory.CreateMock();
@@ -102,13 +102,19 @@ await That(loggerFactory.Mock.Verify.LogWarning().WithCategory<ChocolateShop>())
 
 Each logger of the factory has its category name, which `WithCategory(…)` matches; an `ILogger<T>` mock has the category of `T`. A log call that you verify on the factory also counts as verified on its logger for `VerifyThatAllInteractionsAreVerified()`, and the other way round. The calls of `CreateLogger` count as verified on the factory, and `ClearAllInteractions()` on the factory also clears the calls of its loggers.
 
-To set up or verify a single logger, also before the code under test creates it, use `GetLogger<TCategoryName>()` or `GetLogger(categoryName)`. `GetLogger<TCategoryName>()` returns an `ILogger<TCategoryName>` that shares the setups and calls of the logger of the category, so you can also pass it to code that expects an `ILogger<TCategoryName>`. Use it instead of `loggerFactory.CreateLogger<TCategoryName>()`, which returns a `Logger<TCategoryName>` from `Microsoft.Extensions.Logging` that wraps the logger mock and has no `Mock` property:
+To set up or verify a single logger, also before the code under test creates it, use `GetLogger<TCategoryName>()` or `GetLogger(categoryName)`. `GetLogger<TCategoryName>()` returns an `ILogger<TCategoryName>` that shares the setups and calls of the logger of the category, so you can also pass it to code that expects an `ILogger<TCategoryName>`:
 
 ```csharp
 ILogger<ChocolateShop> logger = loggerFactory.Mock.GetLogger<ChocolateShop>();
 logger.Mock.Setup.LogWarning()
     .Throws<InvalidOperationException>();
 ```
+
+:::warning[Get the logger mock through `Mock`]
+
+Only `loggerFactory.Mock.GetLogger(…)` returns the logger mock itself. `loggerFactory.CreateLogger<TCategoryName>()` is an extension method from `Microsoft.Extensions.Logging` that returns a new `Logger<TCategoryName>`, which only forwards to the logger mock, so its `Mock` property throws a `MockException`. A factory mock that wraps a real factory with `Wrapping(…)` returns the loggers of the real factory instead of logger mocks.
+
+:::
 
 <details>
 <summary>Setups of a specific state type</summary>

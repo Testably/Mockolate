@@ -40,7 +40,9 @@ internal static partial class Sources
 	private static void AppendDispatchLog(StringBuilder sb, Method method, Class @class, string mockRegistry,
 		string memberId)
 	{
-		string? categoryType = GetLoggerCategoryType(@class.ClassFullName);
+		string? categoryType = new[] { @class, }.Concat(@class.InheritedTypes)
+			.Select(type => GetLoggerCategoryType(type.ClassFullName))
+			.FirstOrDefault(type => type is not null);
 		sb.Append("\t\t\tglobal::Mockolate.MockolateLogging.DispatchLog(").Append(mockRegistry).Append(", ")
 			.Append(memberId).Append(", ")
 			.Append(categoryType is null

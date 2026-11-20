@@ -24,5 +24,6 @@ httpClient.Mock.Setup.GetAsync(It.IsUri("*testably.org/api/chocolate*"))
 
 // Logging
 ILogger<ChocolateShop> logger = ILogger<ChocolateShop>.CreateMock();
+new ChocolateShop(logger).Order("Dark", 0);
 await That(logger.Mock.Verify.LogWarning().WithMessage(It.Matches("*no Dark chocolate*"))).Once();
 ```

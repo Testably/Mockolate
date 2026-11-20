@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Mockolate.Exceptions;
+using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests.Logging;
 
@@ -17,6 +19,51 @@ public sealed class LoggerFactoryTests
 		await That(orders1).IsSameAs(orders2);
 		await That(orders1).IsNotSameAs(payments);
 		await That(factory.Mock.GetLogger("Orders")).IsSameAs(orders1);
+	}
+
+	[Test]
+	public async Task CombinationMock_ShouldCreateLoggersAndVerifyTheirCalls()
+	{
+		ILoggerFactory factory = (ILoggerFactory)IChocolateDispenser.CreateMock().Implementing<ILoggerFactory>();
+
+		factory.CreateLogger("Orders").LogError("failed");
+		factory.Dispose();
+
+		await That(factory.Mock.Verify.LogError().WithCategory("Orders")).Once();
+		await That(factory.Mock.Verify.Dispose()).Once();
+	}
+
+	[Test]
+	public async Task CreateLogger_WithDefaultValueForLogger_ShouldStillReturnTheLoggerMock()
+	{
+		ILogger custom = ILogger.CreateMock();
+		ILoggerFactory factory = ILoggerFactory.CreateMock(MockBehavior.Default.WithDefaultValueFor(() => custom));
+
+		ILogger result = factory.CreateLogger("Orders");
+
+		await That(result).IsNotSameAs(custom).And.IsSameAs(factory.Mock.GetLogger("Orders"));
+	}
+
+	[Test]
+	public async Task CreateLogger_WhenWrappingAFactory_ShouldReturnTheLoggerOfTheWrappedFactory()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock().Wrapping(NullLoggerFactory.Instance);
+
+		ILogger result = factory.CreateLogger("Orders");
+
+		await That(result).IsSameAs(NullLogger.Instance);
+	}
+
+	[Test]
+	public async Task CreateLogger_Generic_ShouldNotReturnTheLoggerMock()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		ILogger<LoggerFactoryTests> logger = factory.CreateLogger<LoggerFactoryTests>();
+
+		void Act() => _ = logger.Mock;
+
+		await That(Act).Throws<MockException>()
+			.Because("the extension method of Microsoft.Extensions.Logging wraps the logger mock in a new Logger<T>");
 	}
 
 	[Test]
