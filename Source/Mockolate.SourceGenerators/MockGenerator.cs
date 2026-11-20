@@ -357,24 +357,44 @@ public class MockGenerator : IIncrementalGenerator
 	/// </summary>
 	/// <remarks>
 	///     Calls that mock the same types add the same types to the walk, so only the first of them is bound again.
+	///     The <see cref="AutoMockDiscoveryCache" /> reuses the result of the previous compilation when the edits
+	///     cannot change it.
 	/// </remarks>
 	private static EquatableArray<MockClass> DiscoverAutoMocks(ImmutableArray<MockCreation> creations,
 		Compilation compilation, EquatableArray<string> excludedNamespaces, CancellationToken cancellationToken)
+	{
+		HashSet<string> identities = new(StringComparer.Ordinal);
+		List<string> orderedIdentities = [];
+		List<MockCreation> distinctCreations = [];
+		foreach (MockCreation creation in creations)
+		{
+			string identity = string.Join("\n", creation.Mocks.AsArray().Select(mock => mock.IdentityKey));
+			if (creation.Mocks.Count > 0 && identities.Add(identity))
+			{
+				orderedIdentities.Add(identity);
+				distinctCreations.Add(creation);
+			}
+		}
+
+		// The empty entry separates the namespaces from the identities, as neither of them is empty.
+		string settings = string.Join("\n", [..excludedNamespaces, "", ..orderedIdentities,]);
+		return AutoMockDiscoveryCache.GetOrDiscover(compilation, settings,
+			dependencies => DiscoverAutoMocks(distinctCreations, compilation, excludedNamespaces, dependencies,
+				cancellationToken),
+			cancellationToken);
+	}
+
+	private static EquatableArray<MockClass> DiscoverAutoMocks(List<MockCreation> creations, Compilation compilation,
+		EquatableArray<string> excludedNamespaces, AutoMockDependencies dependencies,
+		CancellationToken cancellationToken)
 	{
 		EntityCache cache = EntityCache.GetOrCreate(compilation);
 		using EntityCache.Scope scope = EntityCache.EnterScope(cache);
 		ILookup<string, SyntaxTree> trees = compilation.SyntaxTrees.ToLookup(tree => tree.FilePath, StringComparer.Ordinal);
 		Dictionary<SyntaxTree, SemanticModel> semanticModels = new();
-		HashSet<string> boundIdentities = new(StringComparer.Ordinal);
 		List<ITypeSymbol[]> mockedTypes = [];
 		foreach (MockCreation creation in creations)
 		{
-			if (creation.Mocks.Count == 0 ||
-			    !boundIdentities.Add(string.Join("\n", creation.Mocks.AsArray().Select(mock => mock.IdentityKey))))
-			{
-				continue;
-			}
-
 			CreateMockLocation location = creation.Location;
 			TextSpan span = new(location.Start, location.Length);
 			// Trees without a file path share the empty one, so every tree with the path is a candidate.
@@ -400,7 +420,7 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		return new EquatableArray<MockClass>(MockGeneratorHelpers.DiscoverAutoMocks(mockedTypes, compilation,
-			excludedNamespaces, cancellationToken));
+			excludedNamespaces, dependencies, cancellationToken));
 	}
 
 	/// <remarks>

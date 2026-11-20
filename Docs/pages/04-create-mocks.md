@@ -209,7 +209,7 @@ Interfaces in the `System`, `Microsoft` and `Windows` namespaces are not auto-mo
 - The property applies to the project whose `CreateMock` creates the mock: mocks created in a project without the property return no auto-mocks.
 - An interface that members return in several spellings, e.g. `IRepository<string?>` and `IRepository<string>`, gets one auto-mock whose `Mock` property accepts every spelling, unless the project creates a mock of one spelling with `CreateMock`.
 - The generator skips interfaces whose mock would not compile cleanly, e.g. interfaces that are inaccessible, obsolete or experimental, nested in a generic type, have static abstract members or a member named `CreateMock`, or use pointers or unsupported ref structs. It also skips interfaces in the global namespace, `out` parameters, interfaces inside tuples and indexers that return a task. Such members still return `null`; set them up yourself or register a factory with `WithDefaultValueFor`.
-- With the property, the generator binds the `CreateMock` calls of the project again on every change, so with many mocked interfaces the IDE may take longer to update the generated code while you type.
+- With the property, the generator discovers the auto-mocks again when you edit a file that declares one of the mocked or returned types, so with many mocked interfaces the IDE may take longer to update the generated code after such an edit. Edits in other files, e.g. in your tests, reuse the auto-mocks.
 
 </details>
 
