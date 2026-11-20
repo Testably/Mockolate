@@ -177,16 +177,16 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
-            "ObjectMemberLookAlikes_CanBeCreated",
-            ["IObjectMemberLookAlikes.cs",],
+            "ObjectLookAlikes_CanBeCreated",
+            ["IObjectLookAlikes.cs",],
             """
-            IObjectMemberLookAlikes sut1 = IObjectMemberLookAlikes.CreateMock();
-            IObjectMemberLookAlikesDerived sut2 = IObjectMemberLookAlikesDerived.CreateMock();
-            IVoidObjectMemberLookAlikes sut3 = IVoidObjectMemberLookAlikes.CreateMock();
-            IRefObjectMemberLookAlikes sut4 = IRefObjectMemberLookAlikes.CreateMock();
-            IObjectMemberLookAlikeProperties sut5 = IObjectMemberLookAlikeProperties.CreateMock();
-            IStaticObjectMemberLookAlikes sut6 = IStaticObjectMemberLookAlikes.CreateMock();
-            IVoidObjectMemberLookAlikes sut7 = IVoidObjectMemberLookAlikes.CreateMock().Implementing<IObjectMemberLookAlikes>();
+            IObjectLookAlikes sut1 = IObjectLookAlikes.CreateMock();
+            IObjectLookAlikesDerived sut2 = IObjectLookAlikesDerived.CreateMock();
+            IVoidObjectLookAlikes sut3 = IVoidObjectLookAlikes.CreateMock();
+            IRefObjectLookAlikes sut4 = IRefObjectLookAlikes.CreateMock();
+            IObjectLookAlikeProperties sut5 = IObjectLookAlikeProperties.CreateMock();
+            IStaticObjectLookAlikes sut6 = IStaticObjectLookAlikes.CreateMock();
+            IVoidObjectLookAlikes sut7 = IVoidObjectLookAlikes.CreateMock().Implementing<IObjectLookAlikes>();
             """,
             []),
         new(
@@ -372,16 +372,16 @@ public sealed partial class MockGenerationSnapshotTests
             [],
             UnionMode: true),
         new(
-            "ObjectMemberLookAlikes_CanBeCreated_Unions",
-            ["IObjectMemberLookAlikes.cs",],
+            "ObjectLookAlikes_CanBeCreated_Unions",
+            ["IObjectLookAlikes.cs",],
             """
-            IObjectMemberLookAlikes sut1 = IObjectMemberLookAlikes.CreateMock();
-            IObjectMemberLookAlikesDerived sut2 = IObjectMemberLookAlikesDerived.CreateMock();
-            IVoidObjectMemberLookAlikes sut3 = IVoidObjectMemberLookAlikes.CreateMock();
-            IRefObjectMemberLookAlikes sut4 = IRefObjectMemberLookAlikes.CreateMock();
-            IObjectMemberLookAlikeProperties sut5 = IObjectMemberLookAlikeProperties.CreateMock();
-            IStaticObjectMemberLookAlikes sut6 = IStaticObjectMemberLookAlikes.CreateMock();
-            IVoidObjectMemberLookAlikes sut7 = IVoidObjectMemberLookAlikes.CreateMock().Implementing<IObjectMemberLookAlikes>();
+            IObjectLookAlikes sut1 = IObjectLookAlikes.CreateMock();
+            IObjectLookAlikesDerived sut2 = IObjectLookAlikesDerived.CreateMock();
+            IVoidObjectLookAlikes sut3 = IVoidObjectLookAlikes.CreateMock();
+            IRefObjectLookAlikes sut4 = IRefObjectLookAlikes.CreateMock();
+            IObjectLookAlikeProperties sut5 = IObjectLookAlikeProperties.CreateMock();
+            IStaticObjectLookAlikes sut6 = IStaticObjectLookAlikes.CreateMock();
+            IVoidObjectLookAlikes sut7 = IVoidObjectLookAlikes.CreateMock().Implementing<IObjectLookAlikes>();
             """,
             [],
             UnionMode: true),

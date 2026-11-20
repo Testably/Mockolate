@@ -315,15 +315,15 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task ObjectMemberLookAlikes_CanBeCreated()
+		public async Task ObjectLookAlikes_CanBeCreated()
 		{
-			IObjectMemberLookAlikes sut1 = IObjectMemberLookAlikes.CreateMock();
-			IObjectMemberLookAlikesDerived sut2 = IObjectMemberLookAlikesDerived.CreateMock();
-			IVoidObjectMemberLookAlikes sut3 = IVoidObjectMemberLookAlikes.CreateMock();
-			IRefObjectMemberLookAlikes sut4 = IRefObjectMemberLookAlikes.CreateMock();
-			IObjectMemberLookAlikeProperties sut5 = IObjectMemberLookAlikeProperties.CreateMock();
-			IStaticObjectMemberLookAlikes sut6 = IStaticObjectMemberLookAlikes.CreateMock();
-			IVoidObjectMemberLookAlikes sut7 = IVoidObjectMemberLookAlikes.CreateMock().Implementing<IObjectMemberLookAlikes>();
+			IObjectLookAlikes sut1 = IObjectLookAlikes.CreateMock();
+			IObjectLookAlikesDerived sut2 = IObjectLookAlikesDerived.CreateMock();
+			IVoidObjectLookAlikes sut3 = IVoidObjectLookAlikes.CreateMock();
+			IRefObjectLookAlikes sut4 = IRefObjectLookAlikes.CreateMock();
+			IObjectLookAlikeProperties sut5 = IObjectLookAlikeProperties.CreateMock();
+			IStaticObjectLookAlikes sut6 = IStaticObjectLookAlikes.CreateMock();
+			IVoidObjectLookAlikes sut7 = IVoidObjectLookAlikes.CreateMock().Implementing<IObjectLookAlikes>();
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
 			await That(sut3).IsNotNull();

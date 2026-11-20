@@ -6,7 +6,7 @@ namespace Mockolate.Tests.GeneratorCoverage;
 ///     Declares members that only look like the members of <see cref="object" />: the mock hides them with <c>new</c>
 ///     instead of overriding them.
 /// </summary>
-public interface IObjectMemberLookAlikes
+public interface IObjectLookAlikes
 {
 	int Equals(object? other);
 	bool Equals(object? left, object? right);
@@ -17,30 +17,30 @@ public interface IObjectMemberLookAlikes
 	object MemberwiseClone();
 }
 
-public interface IObjectMemberLookAlikesDerived : IObjectMemberLookAlikes
+public interface IObjectLookAlikesDerived : IObjectLookAlikes
 {
 }
 
-public interface IVoidObjectMemberLookAlikes
+public interface IVoidObjectLookAlikes
 {
 	void Equals(object? other);
 	void GetHashCode();
 }
 
-public interface IRefObjectMemberLookAlikes
+public interface IRefObjectLookAlikes
 {
 	bool Equals(in object? other);
 	ref int GetHashCode();
 }
 
-public interface IObjectMemberLookAlikeProperties
+public interface IObjectLookAlikeProperties
 {
 	int ToString { get; set; }
 	event Action? GetHashCode;
 }
 
 #if NET10_0_OR_GREATER
-public interface IStaticObjectMemberLookAlikes
+public interface IStaticObjectLookAlikes
 {
 	static abstract bool Equals(object? other);
 	static abstract int GetHashCode();

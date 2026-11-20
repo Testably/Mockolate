@@ -3,13 +3,13 @@ using Mockolate.Tests.GeneratorCoverage;
 
 namespace Mockolate.Tests;
 
-public sealed class ObjectMemberLookAlikeTests
+public sealed class ObjectLookAlikeTests
 {
 	[Test]
 	public async Task EqualsWithOtherReturnType_ShouldBeSetupAndVerifiable()
 	{
 		object other = new();
-		IObjectMemberLookAlikes sut = IObjectMemberLookAlikes.CreateMock();
+		IObjectLookAlikes sut = IObjectLookAlikes.CreateMock();
 		sut.Mock.Setup.Equals(It.Is(other)).Returns(3);
 
 		int result = sut.Equals(other);
@@ -21,7 +21,7 @@ public sealed class ObjectMemberLookAlikeTests
 	[Test]
 	public async Task EqualsAndReferenceEqualsWithTwoParameters_ShouldBeSetupAndVerifiable()
 	{
-		IObjectMemberLookAlikes sut = IObjectMemberLookAlikes.CreateMock();
+		IObjectLookAlikes sut = IObjectLookAlikes.CreateMock();
 		sut.Mock.Setup.Equals(It.IsAny<object?>(), It.IsAny<object?>()).Returns(true);
 		sut.Mock.Setup.ReferenceEquals(It.IsAny<object?>(), It.IsAny<object?>()).Returns(true);
 
@@ -38,7 +38,7 @@ public sealed class ObjectMemberLookAlikeTests
 	public async Task ParameterlessLookAlikes_ShouldBeSetupAndVerifiable()
 	{
 		object clone = new();
-		IObjectMemberLookAlikes sut = IObjectMemberLookAlikes.CreateMock();
+		IObjectLookAlikes sut = IObjectLookAlikes.CreateMock();
 		sut.Mock.Setup.GetHashCode().Returns("hash");
 		sut.Mock.Setup.ToString().Returns(42);
 		sut.Mock.Setup.GetType().Returns(typeof(string));
@@ -62,7 +62,7 @@ public sealed class ObjectMemberLookAlikeTests
 	[Test]
 	public async Task ObjectMembers_ShouldKeepTheirBehavior()
 	{
-		IObjectMemberLookAlikes sut = IObjectMemberLookAlikes.CreateMock();
+		IObjectLookAlikes sut = IObjectLookAlikes.CreateMock();
 		sut.Mock.Setup.Equals(It.IsAny<object?>()).Returns(1);
 		sut.Mock.Setup.GetHashCode().Returns("hash");
 		sut.Mock.Setup.ToString().Returns(42);
@@ -78,7 +78,7 @@ public sealed class ObjectMemberLookAlikeTests
 			.Because("object.Equals is not overridden by the look-alike and still compares references");
 		await That(hashCode).IsEqualTo(RuntimeHelpers.GetHashCode(sut));
 		await That(text).IsNotEqualTo("42");
-		await That(typeof(IObjectMemberLookAlikes).IsAssignableFrom(type)).IsTrue();
+		await That(typeof(IObjectLookAlikes).IsAssignableFrom(type)).IsTrue();
 		await That(sut.Mock.Verify.Equals(It.IsAny<object?>())).Never()
 			.Because("calls of the object members do not reach the hiding look-alikes");
 		await That(sut.Mock.Verify.GetHashCode()).Never();
@@ -89,7 +89,7 @@ public sealed class ObjectMemberLookAlikeTests
 	[Test]
 	public async Task LookAlikes_WhenInherited_ShouldBeSetupAndVerifiable()
 	{
-		IObjectMemberLookAlikesDerived sut = IObjectMemberLookAlikesDerived.CreateMock();
+		IObjectLookAlikesDerived sut = IObjectLookAlikesDerived.CreateMock();
 		sut.Mock.Setup.GetHashCode().Returns("hash");
 
 		string result = sut.GetHashCode();
@@ -101,14 +101,14 @@ public sealed class ObjectMemberLookAlikeTests
 	[Test]
 	public async Task LookAlikes_OnAdditionalInterface_ShouldBeSetupAndVerifiable()
 	{
-		IVoidObjectMemberLookAlikes sut = IVoidObjectMemberLookAlikes.CreateMock()
-			.Implementing<IObjectMemberLookAlikes>();
-		sut.Mock.As<IObjectMemberLookAlikes>().Setup.GetHashCode().Returns("hash");
+		IVoidObjectLookAlikes sut = IVoidObjectLookAlikes.CreateMock()
+			.Implementing<IObjectLookAlikes>();
+		sut.Mock.As<IObjectLookAlikes>().Setup.GetHashCode().Returns("hash");
 
-		string result = ((IObjectMemberLookAlikes)sut).GetHashCode();
+		string result = ((IObjectLookAlikes)sut).GetHashCode();
 
 		await That(result).IsEqualTo("hash");
-		await That(sut.Mock.As<IObjectMemberLookAlikes>().Verify.GetHashCode()).Once();
+		await That(sut.Mock.As<IObjectLookAlikes>().Verify.GetHashCode()).Once();
 	}
 
 	[Test]
@@ -116,7 +116,7 @@ public sealed class ObjectMemberLookAlikeTests
 	{
 		int equalsCalls = 0;
 		int getHashCodeCalls = 0;
-		IVoidObjectMemberLookAlikes sut = IVoidObjectMemberLookAlikes.CreateMock();
+		IVoidObjectLookAlikes sut = IVoidObjectLookAlikes.CreateMock();
 		sut.Mock.Setup.Equals(It.IsAny<object?>()).Do(() => equalsCalls++);
 		sut.Mock.Setup.GetHashCode().Do(() => getHashCodeCalls++);
 
@@ -133,7 +133,7 @@ public sealed class ObjectMemberLookAlikeTests
 	public async Task RefLookAlikes_ShouldBeSetupAndVerifiable()
 	{
 		object? other = new();
-		IRefObjectMemberLookAlikes sut = IRefObjectMemberLookAlikes.CreateMock();
+		IRefObjectLookAlikes sut = IRefObjectLookAlikes.CreateMock();
 		sut.Mock.Setup.Equals(It.Is(other)).Returns(true);
 		sut.Mock.Setup.GetHashCode().Returns(7);
 
@@ -150,7 +150,7 @@ public sealed class ObjectMemberLookAlikeTests
 	public async Task PropertyAndEventNamedLikeObjectMethods_ShouldBeSetupAndVerifiable()
 	{
 		int raised = 0;
-		IObjectMemberLookAlikeProperties sut = IObjectMemberLookAlikeProperties.CreateMock();
+		IObjectLookAlikeProperties sut = IObjectLookAlikeProperties.CreateMock();
 		sut.Mock.Setup.ToString.InitializeWith(5);
 		sut.GetHashCode += () => raised++;
 
@@ -167,13 +167,13 @@ public sealed class ObjectMemberLookAlikeTests
 	[Test]
 	public async Task StaticLookAlikes_ShouldBeSetupAndVerifiable()
 	{
-		IStaticObjectMemberLookAlikes sut = IStaticObjectMemberLookAlikes.CreateMock();
+		IStaticObjectLookAlikes sut = IStaticObjectLookAlikes.CreateMock();
 		sut.Mock.SetupStatic.Equals(It.IsAny<object?>()).Returns(true);
 		sut.Mock.SetupStatic.GetHashCode().Returns(7);
 		sut.Mock.SetupStatic.ToString().Returns("static");
 		sut.Mock.SetupStatic.ReferenceEquals(It.IsAny<object?>(), It.IsAny<object?>()).Returns(true);
 
-		string result = Call<Mock.IStaticObjectMemberLookAlikes>();
+		string result = Call<Mock.IStaticObjectLookAlikes>();
 
 		await That(result).IsEqualTo("True, 7, static, True");
 		await That(sut.Mock.VerifyStatic.Equals(It.IsAny<object?>())).Once();
@@ -181,7 +181,7 @@ public sealed class ObjectMemberLookAlikeTests
 		await That(sut.Mock.VerifyStatic.ToString()).Once();
 		await That(sut.Mock.VerifyStatic.ReferenceEquals(It.IsAny<object?>(), It.IsAny<object?>())).Once();
 
-		static string Call<T>() where T : IStaticObjectMemberLookAlikes
+		static string Call<T>() where T : IStaticObjectLookAlikes
 			=> $"{T.Equals(null)}, {T.GetHashCode()}, {T.ToString()}, {T.ReferenceEquals(null, null)}";
 	}
 #endif

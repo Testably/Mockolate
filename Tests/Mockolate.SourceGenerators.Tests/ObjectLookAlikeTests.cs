@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Mockolate.SourceGenerators.Tests;
 
-public sealed class ObjectMemberLookAlikeTests
+public sealed class ObjectLookAlikeTests
 {
 	private static readonly LanguageVersion[] LanguageVersions =
 	[
