@@ -4,7 +4,7 @@ description: Create mocks of interfaces and classes, customize their default beh
 
 # Create mocks
 
-You can create mocks of interfaces, classes and [delegates](09-special-types/02-delegates.md). The source generator adds
+You can create mocks of interfaces, classes and [delegates](09-special-types/01-delegates.md). The source generator adds
 a static `CreateMock()` method to every type you mock.
 
 <details>

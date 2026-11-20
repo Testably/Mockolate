@@ -55,6 +55,9 @@ public class FastMockInteractions : IMockInteractions
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private HashSet<IInteraction>? _verified;
 
+	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	private FastMockInteractions[]? _sharedVerifications;
+
 	/// <summary>
 	///     Creates a new <see cref="FastMockInteractions" /> for a mock with <paramref name="memberCount" /> members.
 	/// </summary>
@@ -197,6 +200,33 @@ public class FastMockInteractions : IMockInteractions
 	}
 
 	void IMockInteractions.Verified(IEnumerable<IInteraction> interactions)
+	{
+		MarkVerified(interactions);
+		if (Volatile.Read(ref _sharedVerifications) is { } sharedVerifications)
+		{
+			foreach (FastMockInteractions shared in sharedVerifications)
+			{
+				shared.MarkVerified(interactions);
+			}
+		}
+	}
+
+	/// <summary>
+	///     Marks the interactions that a verification on this store matched as verified on <paramref name="other" />
+	///     as well.
+	/// </summary>
+	internal void ShareVerificationsWith(FastMockInteractions other)
+	{
+		FastMockInteractions[]? current;
+		FastMockInteractions[] updated;
+		do
+		{
+			current = Volatile.Read(ref _sharedVerifications);
+			updated = current is null ? [other,] : [..current, other,];
+		} while (Interlocked.CompareExchange(ref _sharedVerifications, updated, current) != current);
+	}
+
+	private void MarkVerified(IEnumerable<IInteraction> interactions)
 	{
 		lock (VerifiedLock)
 		{

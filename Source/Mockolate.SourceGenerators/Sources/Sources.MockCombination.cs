@@ -145,7 +145,14 @@ internal static partial class Sources
 			sb.Append(",").AppendLine();
 		}
 
-		sb.Append("\t\tglobal::Mockolate.IMock").AppendLine();
+		Class? loggingClass = allMemberClasses.FirstOrDefault(IsLogger) ?? allMemberClasses.FirstOrDefault(IsLoggerFactory);
+		sb.Append("\t\tglobal::Mockolate.IMock");
+		if (loggingClass is not null)
+		{
+			AppendLoggerAccessDeclaration(sb, loggingClass);
+		}
+
+		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 
 		memberIds.Emit(sb, "\t\t");
@@ -163,7 +170,9 @@ internal static partial class Sources
 
 		sb.AppendLine();
 
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents);
+		bool isLoggerFactory = allMemberClasses.Any(IsLoggerFactory);
+		bool isLogging = loggingClass is not null;
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLogging, isLoggerFactory);
 		foreach ((string additionalInterfaceName, Class additionalInterface) in additionalInterfaces)
 		{
 			ImplementMockForInterface(sb, mockRegistryName, additionalInterfaceName,
@@ -171,12 +180,18 @@ internal static partial class Sources
 				false /* Interfaces cannot have protected members */,
 				false /* Interfaces cannot have protected events */,
 				additionalInterface.AllMethods().Any(x => x.IsStatic) || additionalInterface.AllProperties().Any(x => x.IsStatic),
-				additionalInterface.AllEvents().Any(x => x.IsStatic));
+				additionalInterface.AllEvents().Any(x => x.IsStatic),
+				isLogging, isLoggerFactory);
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock that also implements ").Append(string.Join(", ", additionalInterfaces.Select(x => x.Class.DisplayString))).Append("\";").AppendLine();
+		if (loggingClass is not null)
+		{
+			AppendLoggerAccessImplementation(sb, loggingClass, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
+		}
+
 		sb.AppendLine();
 
 		if (!@class.IsInterface && constructors is not null)
@@ -207,10 +222,12 @@ internal static partial class Sources
 		
 		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex);
 		
+		List<Class> implementedInterfaces = [];
 		foreach ((string Name, Class Class) item in additionalInterfaces)
 		{
 			sb.AppendLine();
-			AppendMockSubject_ImplementClass(sb, item.Class, mockRegistryName, @class as MockClass, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex);
+			AppendMockSubject_ImplementClass(sb, item.Class, mockRegistryName, @class as MockClass, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex, implementedInterfaces: implementedInterfaces);
+			implementedInterfaces.Add(item.Class);
 		}
 
 		sb.AppendLine();

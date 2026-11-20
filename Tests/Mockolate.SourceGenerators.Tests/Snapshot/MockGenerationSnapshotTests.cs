@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using aweXpect.Core;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.Extensions.Logging;
 
 namespace Mockolate.SourceGenerators.Tests.Snapshot;
 
@@ -168,6 +169,15 @@ public sealed partial class MockGenerationSnapshotTests
             KeywordEdgeCasesBase sut2 = KeywordEdgeCasesBase.CreateMock("class", 1);
             """,
             []),
+        new(
+            "Logging_CanBeCreated",
+            [],
+            """
+            Microsoft.Extensions.Logging.ILogger sut1 = Microsoft.Extensions.Logging.ILogger.CreateMock();
+            Microsoft.Extensions.Logging.ILogger<Program> sut2 = Microsoft.Extensions.Logging.ILogger<Program>.CreateMock();
+            Microsoft.Extensions.Logging.ILoggerFactory sut3 = Microsoft.Extensions.Logging.ILoggerFactory.CreateMock();
+            """,
+            [typeof(ILogger),]),
         new(
             "MethodConstrainedToTypeArgument_CanBeCreated",
             ["IMethodConstrainedToTypeArgument.cs",],

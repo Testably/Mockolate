@@ -149,6 +149,25 @@ public class MockGenerator : IIncrementalGenerator
 			static (spc, source) => EmitMockFile(spc, source.Left.Left.Left.Left, source.Left.Left.Left.Right,
 				source.Left.Left.Right, source.Left.Right, source.Right));
 
+		IncrementalValueProvider<(bool HasLogger, bool HasLoggerFactory)> loggingMocks = collectedMocks
+			.Select(static (arr, _) => (
+				arr.AsArray().Any(m => m.AllImplementations().Any(Sources.Sources.IsLogger)),
+				arr.AsArray().Any(m => m.AllImplementations().Any(Sources.Sources.IsLoggerFactory))));
+
+		IncrementalValueProvider<LoggerMockNames> loggerMockNames = namedMocksAggregate
+			.Select(static (arr, _) => CollectLoggerMockNames(arr));
+
+		context.RegisterSourceOutput(loggingMocks.Combine(loggerMockNames).Combine(externAliases),
+			static (spc, source) =>
+			{
+				(bool hasLogger, bool hasLoggerFactory) = source.Left.Left;
+				if (hasLogger || hasLoggerFactory)
+				{
+					spc.AddSource("Logging.g.cs",
+						ToSource(Sources.Sources.Logging(hasLoggerFactory, source.Left.Right), source.Right));
+				}
+			});
+
 		// As<T> bridge extensions across (a, b) pairs. Cross-mock dedup; one file.
 		IncrementalValueProvider<EquatableArray<MockAsExtensionPair>> asPairs = namedMocksAggregate
 			.Select(static (arr, _) => CollectAsExtensionPairs(arr));
@@ -736,6 +755,33 @@ public class MockGenerator : IIncrementalGenerator
 		return new EquatableArray<NamedMock>(result.ToArray());
 	}
 
+	private static LoggerMockNames CollectLoggerMockNames(EquatableArray<NamedMock> mocks)
+	{
+		const string loggerFullName = "global::Microsoft.Extensions.Logging.ILogger";
+		string? loggerName = null;
+		List<(string CategoryType, string Name)> categoryLoggers = new();
+		foreach (NamedMock named in mocks)
+		{
+			if (named.AdditionalClasses is not null)
+			{
+				continue;
+			}
+
+			string fullName = named.Mock.ClassFullName;
+			if (fullName == loggerFullName)
+			{
+				loggerName = named.ParentName;
+			}
+			else if (Sources.Sources.GetLoggerCategoryType(fullName) is { } categoryType)
+			{
+				categoryLoggers.Add((categoryType, named.ParentName));
+			}
+		}
+
+		return new LoggerMockNames(loggerName,
+			new EquatableArray<(string CategoryType, string Name)>(categoryLoggers.ToArray()));
+	}
+
 	private static EquatableArray<MockAsExtensionPair> CollectAsExtensionPairs(EquatableArray<NamedMock> mocks)
 	{
 		NamedMock[] arr = mocks.AsArray();
@@ -890,6 +936,10 @@ internal sealed class RefStructAggregate : IEquatable<RefStructAggregate>
 }
 
 internal readonly record struct NamedClass(string Name, Class Class);
+
+internal readonly record struct LoggerMockNames(
+	string? LoggerName,
+	EquatableArray<(string CategoryType, string Name)> CategoryLoggers);
 
 internal sealed class NamedMock : IEquatable<NamedMock>
 {

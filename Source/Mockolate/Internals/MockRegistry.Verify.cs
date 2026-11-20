@@ -204,6 +204,11 @@ public partial class MockRegistry
 			throw new MockException("The setup is not verifiable.");
 		}
 
+		if (methodSetup is IGenericMethodSetup)
+		{
+			return new VerificationResult<T>(subject, Interactions, Predicate, InvokedMethodSetupExpectation(methodSetup));
+		}
+
 		return new VerificationResult<T>.IgnoreParameters(
 			subject,
 			Interactions,

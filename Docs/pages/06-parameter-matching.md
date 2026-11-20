@@ -16,7 +16,7 @@ dispenser.Mock.Verify.Dispense(It.IsOneOf("Dark", "Milk"), It.IsInRange(1, 5)).A
 ```
 
 The same matchers work everywhere: in method and indexer setups, in verifications, and for
-[delegates](09-special-types/02-delegates.md).
+[delegates](09-special-types/01-delegates.md).
 
 <details>
 <summary>Example types used on this page</summary>
@@ -233,7 +233,7 @@ await That(shelf.Mock.Verify["Dark", 2].Got()).Never();
 
 ## Params parameters
 
-A `params` parameter takes either one value or one matcher per element, so a setup or verification matches calls with exactly these elements in the same order. Next to element matchers, pass matchers for the other parameters as well, for example `It.Is("Cake")` instead of `"Cake"`. To match the whole array instead, pass a matcher for the array type, such as `It.Satisfies<string[]>(…)`. Methods and [delegates](09-special-types/02-delegates.md) with a `params` parameter work the same way.
+A `params` parameter takes either one value or one matcher per element, so a setup or verification matches calls with exactly these elements in the same order. Next to element matchers, pass matchers for the other parameters as well, for example `It.Is("Cake")` instead of `"Cake"`. To match the whole array instead, pass a matcher for the array type, such as `It.Satisfies<string[]>(…)`. Methods and [delegates](09-special-types/01-delegates.md) with a `params` parameter work the same way.
 
 ```csharp
 kitchen.Mock.Setup.Decorate(It.Is("Cake"), It.IsAny<string>(), It.Is("Sprinkles"))

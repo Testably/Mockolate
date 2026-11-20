@@ -69,6 +69,12 @@ internal static class MockGeneratorHelpers
 				// When using HttpClient as a mock, we also have to create a mock of the HttpMessageHandler, that can be used as constructor parameter.
 				yield return new MockClass([httpMessageHandlerType,], semanticModel.Compilation);
 			}
+
+			// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
+			if (types.Select(GetLoggerOfLoggerFactory).FirstOrDefault(loggerType => loggerType is not null) is { } loggerType)
+			{
+				yield return new MockClass([loggerType,], semanticModel.Compilation);
+			}
 		}
 	}
 
@@ -500,6 +506,30 @@ internal static class MockGeneratorHelpers
 				.First(t => t.Name == "HttpMessageHandler")
 			: null;
 
+	private static ITypeSymbol? GetLoggerOfLoggerFactory(ITypeSymbol type)
+		=> type.TypeKind == TypeKind.Interface &&
+		   new[] { type, }.Concat(type.AllInterfaces).FirstOrDefault(IsLoggerFactoryType) is { } loggerFactoryType
+			? loggerFactoryType.GetMembers("CreateLogger")
+				.OfType<IMethodSymbol>()
+				.FirstOrDefault()?
+				.ReturnType
+			: null;
+
+	private static bool IsLoggerFactoryType(ITypeSymbol type)
+		=> type is
+		   {
+			   Name: "ILoggerFactory",
+			   ContainingNamespace:
+			   {
+				   Name: "Logging",
+				   ContainingNamespace:
+				   {
+					   Name: "Extensions",
+					   ContainingNamespace: { Name: "Microsoft", ContainingNamespace.IsGlobalNamespace: true, },
+				   },
+			   },
+		   };
+
 	/// <summary>
 	///     The mocks for auto-mocking: of the interfaces that the members of the <paramref name="mockedTypes" /> return,
 	///     transitively.
@@ -539,6 +569,11 @@ internal static class MockGeneratorHelpers
 						? cache.GetOrAddDiscoveredMock(normalized, type => CreateDiscoveredMockClass(type, compilation))
 						: CreateDiscoveredMockClass(normalized, compilation));
 					typesToProcess.Enqueue(normalized);
+					// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
+					if (GetLoggerOfLoggerFactory(normalized) is INamedTypeSymbol loggerType && processedTypes.Add(loggerType))
+					{
+						result.Add(CreateDiscoveredMockClass(loggerType, compilation));
+					}
 				}
 			}
 		}

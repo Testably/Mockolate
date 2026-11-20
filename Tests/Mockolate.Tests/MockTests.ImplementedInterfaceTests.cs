@@ -267,5 +267,34 @@ public sealed partial class MockTests
 			public abstract string Describe();
 		}
 #nullable restore
+
+		[Test]
+		public async Task MemberInheritedBySeveralInterfaces_ShouldBeOneMember()
+		{
+			int calls = 0;
+			IFirstResource mock = IFirstResource.CreateMock().Implementing<ISecondResource>().Implementing<IThirdResource>();
+			mock.Mock.Setup.Dispose().Do(() => calls++);
+
+			((ISecondResource)mock).Dispose();
+			((IThirdResource)mock).Dispose();
+
+			await That(calls).IsEqualTo(2);
+			await That(mock.Mock.As<IThirdResource>().Verify.Dispose()).Twice();
+		}
+
+		public interface IFirstResource : IDisposable
+		{
+			void Open();
+		}
+
+		public interface ISecondResource : IDisposable
+		{
+			void Close();
+		}
+
+		public interface IThirdResource : IDisposable
+		{
+			void Reset();
+		}
 	}
 }

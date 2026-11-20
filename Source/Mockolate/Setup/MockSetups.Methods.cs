@@ -92,7 +92,8 @@ internal partial class MockSetups
 		///     no string-keyed setups have been registered (the common case after generator-emitted
 		///     <c>SetupMethod(int, ...)</c> bypasses this list).
 		/// </remarks>
-		public IEnumerable<T> EnumerateByName<T>(string methodName) where T : MethodSetup
+		public IEnumerable<T> EnumerateByName<T>(string methodName, string? alternativeMethodName = null)
+			where T : MethodSetup
 		{
 			List<MethodSetup>? storage = _storage;
 			if (storage is null)
@@ -100,10 +101,11 @@ internal partial class MockSetups
 				return Array.Empty<T>();
 			}
 
-			return EnumerateByNameCore<T>(methodName, storage);
+			return EnumerateByNameCore<T>(methodName, alternativeMethodName, storage);
 		}
 
-		private static IEnumerable<T> EnumerateByNameCore<T>(string methodName, List<MethodSetup> storage)
+		private static IEnumerable<T> EnumerateByNameCore<T>(string methodName, string? alternativeMethodName,
+			List<MethodSetup> storage)
 			where T : MethodSetup
 		{
 			// Snapshot the matching entries under lock; yield them without holding the lock so the
@@ -115,7 +117,7 @@ internal partial class MockSetups
 				snapshot = new List<T>(storage.Count);
 				for (int i = storage.Count - 1; i >= 0; i--)
 				{
-					if (storage[i].Name.Equals(methodName) && storage[i] is T typed)
+					if (storage[i].HasName(methodName, alternativeMethodName) && storage[i] is T typed)
 					{
 						snapshot.Add(typed);
 					}

@@ -138,7 +138,9 @@ internal static partial class Sources
 			sb.Append(",").AppendLine();
 		}
 
-		sb.Append("\t\tglobal::Mockolate.IMock").AppendLine();
+		sb.Append("\t\tglobal::Mockolate.IMock");
+		AppendLoggerAccessDeclaration(sb, @class);
+		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 
 		memberIds.Emit(sb, "\t\t", @class is { ClassFullName: "global::System.Net.Http.HttpClient", } ? "global::Mockolate.Mock.HttpMessageHandler.MemberCount" : null);
@@ -179,7 +181,9 @@ internal static partial class Sources
 		
 		sb.AppendLine();
 		
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents);
+		bool isLoggerFactory = IsLoggerFactory(@class);
+		bool isLogging = isLoggerFactory || IsLogger(@class);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLogging, isLoggerFactory);
 
 		foreach ((string Name, Class Class) hiddenBase in hiddenBaseInterfaces)
 		{
@@ -188,12 +192,14 @@ internal static partial class Sources
 				false /* interfaces have no protected members */,
 				false /* interfaces have no protected events */,
 				hiddenBase.Class.AllMethods().Any(x => x.IsStatic) || hiddenBase.Class.AllProperties().Any(x => x.IsStatic),
-				hiddenBase.Class.AllEvents().Any(x => x.IsStatic));
+				hiddenBase.Class.AllEvents().Any(x => x.IsStatic),
+				isLogging, isLoggerFactory);
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock\";").AppendLine();
+		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 		sb.AppendLine();
 
 		if (@class.IsInterface)
@@ -353,13 +359,16 @@ internal static partial class Sources
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
-		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name).AppendLine();
+		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name);
+		AppendLoggerAccessDeclaration(sb, @class);
+		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; } = mockRegistry;").AppendLine();
+		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 		sb.AppendLine();
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
-		
+
 		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 		
 		sb.Append("\t\t#endregion IMockVerifyFor").Append(name).AppendLine();
@@ -380,6 +389,7 @@ internal static partial class Sources
 			sb.Append(", global::Mockolate.Mock.IMockProtectedSetupFor").Append(name);
 		}
 
+		AppendLoggerAccessDeclaration(sb, @class);
 		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
@@ -390,6 +400,7 @@ internal static partial class Sources
 		sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(" = mockRegistry;").AppendLine();
 		sb.Append("\t\t\t_scenarioName = scenario;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
+		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "this._scenarioName", memberIds, memberIdPrefix);
 		sb.AppendLine();
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Mock.IMockSetupFor").Append(name).Append(" global::Mockolate.Mock.IMockInScenarioFor").Append(name).Append(".Setup").AppendLine();
@@ -1141,10 +1152,11 @@ internal static partial class Sources
 		sb.Append("\t\t\tvar behaviorAccess = (global::Mockolate.IMockBehaviorAccess)behavior;").AppendLine();
 		sb.Append("\t\t\treturn behaviorAccess.Set(setup);").AppendLine();
 		sb.Append("\t\t}").AppendLine();
-		
+
 		#endregion Initialize
 
 		sb.Append("\t}").AppendLine();
+		AppendLoggerMockExtensions(sb, @class, name);
 
 		#endregion MockBehavior extensions
 
@@ -1242,7 +1254,8 @@ internal static partial class Sources
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementMockForInterface(StringBuilder sb, string mockRegistryName, string name,
-		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents)
+		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents,
+		bool isLogging, bool isLoggerFactory)
 	{
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
@@ -1341,7 +1354,14 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tbool IMockFor").Append(name).Append(".VerifyThatAllInteractionsAreVerified()").AppendLine();
-		sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".Interactions.GetUnverifiedInteractions().Count == 0;").AppendLine();
+		if (isLogging)
+		{
+			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.AreAllInteractionsVerified(this.").Append(mockRegistryName).Append(");").AppendLine();
+		}
+		else
+		{
+			sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".Interactions.GetUnverifiedInteractions().Count == 0;").AppendLine();
+		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tbool IMockFor").Append(name).Append(".VerifyThatAllSetupsAreUsed()").AppendLine();
@@ -1349,7 +1369,14 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tvoid IMockFor").Append(name).Append(".ClearAllInteractions()").AppendLine();
-		sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".ClearAllInteractions();").AppendLine();
+		if (isLoggerFactory)
+		{
+			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.ClearFactoryInteractions(this.").Append(mockRegistryName).Append(");").AppendLine();
+		}
+		else
+		{
+			sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".ClearAllInteractions();").AppendLine();
+		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Monitor.MockMonitor<IMockVerifyFor").Append(name).Append("> IMockFor").Append(name).Append(".Monitor()").AppendLine();
@@ -1508,7 +1535,8 @@ internal static partial class Sources
 		MockClass? mockClass, MemberIdTable memberIds, string memberIdPrefix, AutoMockingOptions? autoMocking,
 		Dictionary<string, int>? signatureIndicesOverride = null,
 		int[]? nextSignatureIndexRef = null,
-		bool useTypedRecords = true)
+		bool useTypedRecords = true,
+		IReadOnlyCollection<Class>? implementedInterfaces = null)
 #pragma warning restore S107
 	{
 		string className = @class.ClassFullName;
@@ -1516,8 +1544,11 @@ internal static partial class Sources
 		sb.AppendLine();
 
 		// An aliased member is served by the mocked class' own override: re-implementing it here would
-		// re-map the interface slot away from that override and fork the member in two.
-		List<Event>? mockEvents = mockClass?.AllEvents().ToList();
+		// re-map the interface slot away from that override and fork the member in two. A member that an
+		// interface implemented before already inherits has its explicit implementation already.
+		implementedInterfaces ??= [];
+		List<Event>? mockEvents = mockClass?.AllEvents()
+			.Concat(implementedInterfaces.SelectMany(implemented => implemented.AllEvents())).ToList();
 		foreach (Event @event in @class.AllEvents())
 		{
 			if (!memberIds.IsAlias(@event) &&
@@ -1530,7 +1561,8 @@ internal static partial class Sources
 			}
 		}
 
-		List<Property>? mockProperties = mockClass?.AllProperties().ToList();
+		List<Property>? mockProperties = mockClass?.AllProperties()
+			.Concat(implementedInterfaces.SelectMany(implemented => implemented.AllProperties())).ToList();
 		Dictionary<string, int> signatureIndices = signatureIndicesOverride ?? new Dictionary<string, int>();
 		int[] nextSignatureIndex = nextSignatureIndexRef ?? [0,];
 		foreach (Property property in @class.AllProperties())
@@ -1561,7 +1593,8 @@ internal static partial class Sources
 			}
 		}
 
-		List<Method>? mockMethods = mockClass?.AllMethods().ToList();
+		List<Method>? mockMethods = mockClass?.AllMethods()
+			.Concat(implementedInterfaces.SelectMany(implemented => implemented.AllMethods())).ToList();
 		foreach (Method method in @class.AllMethods())
 		{
 			if (!memberIds.IsAlias(method) &&
@@ -1616,7 +1649,7 @@ internal static partial class Sources
 		if (explicitInterfaceImplementation)
 		{
 			sb.Append(@event.IsStatic ? "\t\tstatic event " : "\t\tevent ").Append(@event.Type.Fullname).Append(' ')
-				.Append(className).Append('.').Append(@event.Name).AppendLine();
+				.Append(@event.ContainingType).Append('.').Append(@event.Name).AppendLine();
 		}
 		else
 		{
@@ -1819,7 +1852,7 @@ internal static partial class Sources
 		if (explicitInterfaceImplementation)
 		{
 			sb.Append(property.IsStatic ? "\t\tstatic " : "\t\t").Append(property.Type.Fullname)
-				.Append(" ").Append(className).Append('.').Append(property.IndexerParameters is not null
+				.Append(" ").Append(property.ContainingType).Append('.').Append(property.IndexerParameters is not null
 					? property.Name.Replace("[]",
 						$"[{string.Join(", ", property.IndexerParameters.Value.Select(p => $"{p.Type.Fullname} {p.Name}"))}]")
 					: property.Name).AppendLine();
@@ -2415,7 +2448,7 @@ internal static partial class Sources
 			}
 
 			sb.Append(returnRefPrefix).Append(method.ReturnType.Fullname).Append(' ')
-				.Append(explicitInterfaceImplementation ? className : method.ContainingType).Append('.').Append(method.Name)
+				.Append(method.ContainingType).Append('.').Append(method.Name)
 				.Append('(');
 		}
 		else
@@ -2493,6 +2526,13 @@ internal static partial class Sources
 
 		sb.AppendLine();
 		sb.AppendLine("\t\t{");
+
+		if (isClassInterface && IsLoggerLog(method))
+		{
+			AppendDispatchLog(sb, method, @class, mockRegistry, memberIdPrefix + memberIds.GetMethodIdentifier(method));
+			sb.AppendLine("\t\t}");
+			return;
+		}
 
 		// Methods that use a generic type parameter declaring `allows ref struct` in their
 		// signature cannot route through the regular setup pipeline: ReturnMethodSetup<T> /
@@ -2821,14 +2861,19 @@ internal static partial class Sources
 		AppendTriggerCallbacks(sb, "\t\t\t\t", methodSetup, method.Parameters);
 		sb.Append("\t\t\t}").AppendLine();
 
-		string displayMethodName =
-			$"{method.ContainingType}.{method.Name}({string.Join(", ", method.Parameters.Select(p => p.Type.DisplayName))})";
-		sb.Append("\t\t\tif (").Append(methodSetup).Append(" is null && !").Append(hasWrappedResult).Append(" && ")
-			.Append(mockRegistry).Append(".Behavior.ThrowWhenNotSetup)").AppendLine();
-		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tthrow new global::Mockolate.Exceptions.MockNotSetupException(\"The method '")
-			.Append(displayMethodName).Append("' was invoked without prior setup.\");").AppendLine();
-		sb.Append("\t\t\t}").AppendLine();
+		// ILogger.IsEnabled and ILoggerFactory.CreateLogger answer without a setup even on a strict mock: logging code
+		// calls them before every Log call, and an unexpected Log call on the strict logger still throws.
+		if (!(isClassInterface && (IsLoggerIsEnabled(method) || IsLoggerFactoryCreateLogger(method))))
+		{
+			string displayMethodName =
+				$"{method.ContainingType}.{method.Name}({string.Join(", ", method.Parameters.Select(p => p.Type.DisplayName))})";
+			sb.Append("\t\t\tif (").Append(methodSetup).Append(" is null && !").Append(hasWrappedResult).Append(" && ")
+				.Append(mockRegistry).Append(".Behavior.ThrowWhenNotSetup)").AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\tthrow new global::Mockolate.Exceptions.MockNotSetupException(\"The method '")
+				.Append(displayMethodName).Append("' was invoked without prior setup.\");").AppendLine();
+			sb.Append("\t\t\t}").AppendLine();
+		}
 
 		if (method.ReturnType != Type.Void)
 		{
@@ -2877,11 +2922,24 @@ internal static partial class Sources
 				}
 			}
 
-			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ")
-				.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue",
+			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ");
+			if (isClassInterface && IsLoggerIsEnabled(method))
+			{
+				sb.Append("true");
+			}
+			else if (isClassInterface && IsLoggerFactoryCreateLogger(method))
+			{
+				sb.Append("global::Mockolate.MockolateLogging.CreateLogger(").Append(mockRegistry).Append(", ")
+					.Append(method.Parameters.First().Name).Append(')');
+			}
+			else
+			{
+				sb.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue",
 					defaultValueGeneratorSuffix, taskSuffix,
-					MethodAutoMock(autoMocking, mockRegistry, memberIdRef))
-				.Append(';').AppendLine();
+					MethodAutoMock(autoMocking, mockRegistry, memberIdRef));
+			}
+
+			sb.Append(';').AppendLine();
 			if (isRefReturn)
 			{
 				sb.Append("\t\t\treturn ref this.").Append(refReturnStorageField).Append(";").AppendLine();

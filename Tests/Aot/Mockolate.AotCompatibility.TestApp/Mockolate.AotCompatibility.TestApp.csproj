@@ -34,6 +34,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" GlobalPropertiesToRemove="MockolateAutoMocking"/>
 		<ProjectReference Include="..\..\..\Source\Mockolate\Mockolate.csproj" GlobalPropertiesToRemove="MockolateAutoMocking"/>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
 	</ItemGroup>
 
 </Project>
