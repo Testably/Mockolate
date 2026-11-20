@@ -140,7 +140,7 @@ public sealed class GenericMethodClosedOverObjectTests
 		object value = new List<int>();
 		List<string> received = [];
 		sut.Mock.Setup.Plain<object>(value).Do(() => received.Add("value"));
-		sut.Mock.Setup.Two<object>(default, default).Returns(1);
+		sut.Mock.Setup.Two<object>(default, default!).Returns(1);
 
 		sut.Plain<object>(value);
 		sut.Plain<object>(new List<int>());
@@ -150,7 +150,7 @@ public sealed class GenericMethodClosedOverObjectTests
 			.Because("a value that is no matcher is compared by equality");
 		await That(results).IsEqualTo([1, 0,]);
 		await That(sut.Mock.Verify.Plain<object>(value)).Once();
-		await That(sut.Mock.Verify.Two<object>(default, default)).Once();
+		await That(sut.Mock.Verify.Two<object>(default, default!)).Once();
 		await That(sut.Mock.Verify.Two<object>(1, "b")).Once();
 		await That(sut.Mock.Verify.Two<object>(1, "a").AnyParameters()).Twice();
 	}
@@ -166,7 +166,7 @@ public sealed class GenericMethodClosedOverObjectTests
 		sut.Struct(1);
 
 		await That(results).IsEqualTo([1, 2, 0,]);
-		await That(sut.Mock.Verify.Two<string>(1, null)).Never();
+		await That(sut.Mock.Verify.Two<string>(1, null!)).Never();
 		await That(sut.Mock.Verify.Two<int>(It.IsAny<int>(), 0)).Once();
 		await That(sut.Mock.Verify.Struct<int>(1)).Once();
 		await That(sut.Mock.Verify.Struct<int>(It.IsAny<int>())).Once();
