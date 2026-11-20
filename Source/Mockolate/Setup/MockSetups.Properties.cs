@@ -48,21 +48,17 @@ internal partial class MockSetups
 
 				if (existingIndex >= 0)
 				{
-					bool wasDefault = old[existingIndex] is PropertySetup.Default;
-					bool isDefault = setup is PropertySetup.Default;
-					// Never overwrite a user-configured setup with a default placeholder:
-					// a first property access can race with Setup...InitializeWith(...) and
-					// otherwise lose the user's setup.
-					if (isDefault)
+					if (setup is PropertySetup.Default)
 					{
 						return old[existingIndex];
 					}
 
+					bool wasDefault = old[existingIndex] is PropertySetup.Default;
 					PropertySetup[] next = new PropertySetup[old.Length];
 					Array.Copy(old, next, old.Length);
 					next[existingIndex] = setup;
 					Volatile.Write(ref _storage, next);
-					if (wasDefault && !isDefault)
+					if (wasDefault)
 					{
 						Volatile.Write(ref _count, _count + 1);
 					}

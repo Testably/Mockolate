@@ -176,7 +176,7 @@ internal static class MockGeneratorHelpers
 		   IsMockable(namedTypeSymbol) &&
 		   !IsFrameworkNamespace(namedTypeSymbol.ContainingNamespace) &&
 		   !ContainsTypeParameter(namedTypeSymbol) &&
-		   !IsObsolete(namedTypeSymbol);
+		   !HasUsageDiagnostic(namedTypeSymbol);
 
 	/// <summary>
 	///     Whether the generator can create a mock of <paramref name="typeSymbol" /> for auto-mocking, which unlike a
@@ -201,7 +201,7 @@ internal static class MockGeneratorHelpers
 		   GetTypeArgumentDepth(typeSymbol) <= MaxTypeArgumentDepth &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
 		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>
-			   !IsObsolete(member) && !HasRefReadOnlyRefStructParameter(member) && !HasUnsupportedShape(member) &&
+			   !HasUsageDiagnostic(member) && !HasRefReadOnlyRefStructParameter(member) && !HasUnsupportedShape(member) &&
 			   GetSignatureTypes(member).All(type => !UsesUnusableType(type)));
 
 	private const int MaxTypeArgumentDepth = 5;
@@ -275,13 +275,39 @@ internal static class MockGeneratorHelpers
 			_ => false,
 		};
 
-	private static bool IsObsolete(ISymbol symbol)
+	/// <summary>
+	///     Whether using <paramref name="symbol" /> reports a diagnostic in the consuming project: it is obsolete,
+	///     experimental or a preview feature.
+	/// </summary>
+	private static bool HasUsageDiagnostic(ISymbol symbol)
 		=> symbol.GetAttributes().Any(attribute => attribute.AttributeClass is
 		   {
 			   Name: "ObsoleteAttribute",
 			   ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+		   } or
+		   {
+			   Name: "ExperimentalAttribute",
+			   ContainingNamespace:
+			   {
+				   Name: "CodeAnalysis",
+				   ContainingNamespace:
+				   {
+					   Name: "Diagnostics", ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+				   },
+			   },
+		   } or
+		   {
+			   Name: "RequiresPreviewFeaturesAttribute",
+			   ContainingNamespace:
+			   {
+				   Name: "Versioning",
+				   ContainingNamespace:
+				   {
+					   Name: "Runtime", ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+				   },
+			   },
 		   }) ||
-		   (symbol.ContainingType is { } containingType && IsObsolete(containingType));
+		   (symbol.ContainingType is { } containingType && HasUsageDiagnostic(containingType));
 
 	private static bool HasStaticAbstractMembers(INamedTypeSymbol typeSymbol)
 		=> typeSymbol.GetMembers().Concat(typeSymbol.AllInterfaces.SelectMany(i => i.GetMembers()))
@@ -333,7 +359,7 @@ internal static class MockGeneratorHelpers
 		{
 			IPointerTypeSymbol or IFunctionPointerTypeSymbol => true,
 			IArrayTypeSymbol array => UsesUnusableType(array.ElementType),
-			INamedTypeSymbol named => IsObsolete(named) ||
+			INamedTypeSymbol named => HasUsageDiagnostic(named) ||
 			                          (named.IsRefLikeType && named.GetSpecialType() is not
 				                          (SpecialGenericType.Span or SpecialGenericType.ReadOnlySpan)) ||
 			                          (named.TypeKind == TypeKind.Interface && HasStaticAbstractMembers(named)) ||
@@ -365,7 +391,12 @@ internal static class MockGeneratorHelpers
 	private static IEnumerable<ITypeSymbol> GetSignatureTypes(ISymbol member)
 		=> member switch
 		{
-			IMethodSymbol method => [method.ReturnType, ..method.Parameters.Select(parameter => parameter.Type),],
+			IMethodSymbol method =>
+			[
+				method.ReturnType,
+				..method.Parameters.Select(parameter => parameter.Type),
+				..method.TypeParameters.SelectMany(typeParameter => typeParameter.ConstraintTypes),
+			],
 			IPropertySymbol property => [property.Type, ..property.Parameters.Select(parameter => parameter.Type),],
 			IEventSymbol @event => [@event.Type,],
 			_ => [],
@@ -374,8 +405,13 @@ internal static class MockGeneratorHelpers
 	/// <summary>
 	///     The members that a mock of <paramref name="typeSymbol" /> implements or overrides.
 	/// </summary>
+	/// <remarks>
+	///     A class mock only implements the interface members that the class leaves unimplemented; the others it
+	///     overrides through the class members, if at all.
+	/// </remarks>
 	private static IEnumerable<ISymbol> GetImplementedMembers(ITypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
 	{
+		bool isClass = typeSymbol.TypeKind != TypeKind.Interface;
 		IEnumerable<ITypeSymbol> types = [typeSymbol, ..typeSymbol.AllInterfaces,];
 		for (ITypeSymbol? baseType = typeSymbol.BaseType; baseType is not null; baseType = baseType.BaseType)
 		{
@@ -386,6 +422,8 @@ internal static class MockGeneratorHelpers
 			.Where(member => member is IMethodSymbol { MethodKind: MethodKind.DelegateInvoke, } ||
 			                 (member is { IsStatic: false, IsSealed: false, } &&
 			                  (member.IsAbstract || member.IsVirtual || member.IsOverride) &&
+			                  !(isClass && member.ContainingType.TypeKind == TypeKind.Interface &&
+			                    typeSymbol.FindImplementationForInterfaceMember(member) is not null) &&
 			                  Helpers.IsOverridableFrom(member, sourceAssembly) &&
 			                  Helpers.HasAccessibleSignature(member, sourceAssembly)));
 	}
@@ -444,10 +482,7 @@ internal static class MockGeneratorHelpers
 	/// <remarks>
 	///     Each interface is mocked in one spelling without nullable annotations and tuple element names, so that the
 	///     result does not depend on the order of the files, and the model of each interface is built once per
-	///     compilation.
-	/// </remarks>
-	/// <remarks>
-	///     Only a type that is mocked on its own has a mock already; a type that a mock only implements in addition
+	///     compilation. Only a type that is mocked on its own has a mock already; a type that a mock only implements in addition
 	///     (<c>Implementing&lt;T&gt;</c>) still needs an auto-mock when a member returns it.
 	/// </remarks>
 	internal static MockClass[] DiscoverAutoMocks(IReadOnlyCollection<ITypeSymbol[]> mockedTypes,

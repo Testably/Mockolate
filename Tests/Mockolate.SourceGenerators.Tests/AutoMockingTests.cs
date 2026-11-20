@@ -193,6 +193,99 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task ExperimentalTypesInSignatures_ShouldNotBeMocked()
+	{
+		MetadataReference external = ExternalAssembly.Compile("""
+		                                                      #pragma warning disable EXP0001
+		                                                      namespace Ext;
+
+		                                                      [System.Diagnostics.CodeAnalysis.Experimental("EXP0001")]
+		                                                      public class Gadget { }
+
+		                                                      public interface IChild
+		                                                      {
+		                                                          Gadget Get();
+		                                                      }
+
+		                                                      public interface IRoot
+		                                                      {
+		                                                          IChild Child { get; }
+		                                                      }
+		                                                      """);
+
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     using Mockolate;
+
+		                                                     namespace MyCode;
+
+		                                                     public class Program
+		                                                     {
+		                                                         public static void Main(string[] args) => _ = Ext.IRoot.CreateMock();
+		                                                     }
+		                                                     """, [external,], AutoMockingEnabled);
+
+		await That(result.Diagnostics).IsEmpty().Because("a mock of IChild would report EXP0001 as an error");
+		await That(result.Sources).DoesNotContainKey("Mock.IChild.g.cs");
+	}
+
+	[Test]
+	public async Task ObsoleteTypesInGenericConstraints_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Run("""
+		                             #pragma warning disable CS0618
+		                             using System;
+
+		                             namespace MyCode
+		                             {
+		                                 public interface IRoot
+		                                 {
+		                                     IFactory GetFactory();
+		                                 }
+
+		                                 public interface IFactory
+		                                 {
+		                                     T Make<T>() where T : IOld;
+		                                 }
+
+		                                 [Obsolete("old")]
+		                                 public interface IOld { }
+		                             }
+		                             """, "IRoot");
+
+		await That(result.Diagnostics).IsEmpty().Because("a mock of IFactory would repeat the constraint (CS0618)");
+		await That(result.Sources).DoesNotContainKey("Mock.IFactory.g.cs");
+	}
+
+	[Test]
+	public async Task InterfaceMembersImplementedByAClass_ShouldNotBeFollowed()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode
+		                             {
+		                                 public interface IHasChildren
+		                                 {
+		                                     IUnused Unused { get; }
+		                                     IUsed Used { get; }
+		                                 }
+
+		                                 public class MyService : IHasChildren
+		                                 {
+		                                     public IUnused Unused => null!;
+		                                     public virtual IUsed Used => null!;
+		                                 }
+
+		                                 public interface IUnused { }
+		                                 public interface IUsed { }
+		                             }
+		                             """, "MyService");
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.IUsed.g.cs").And
+			.DoesNotContainKey("Mock.IUnused.g.cs")
+			.Because("the mock cannot override the non-virtual implementation, so it never returns an auto-mock there");
+	}
+
+	[Test]
 	public async Task InterfacesWithUnsupportedMemberShapes_ShouldNotBeMocked()
 	{
 		GeneratorResult result = Run("""

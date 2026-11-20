@@ -19,7 +19,7 @@ namespace Mockolate.Analyzers;
 ///     shared test helper) hands it to mocks of other projects, which may have the build property.
 /// </remarks>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
-public class AutoMockingAnalyzer : DiagnosticAnalyzer
+public sealed class AutoMockingAnalyzer : DiagnosticAnalyzer
 {
 	private static readonly DiagnosticDescriptor s_autoMockingRule = new(
 		"Mockolate0005",
