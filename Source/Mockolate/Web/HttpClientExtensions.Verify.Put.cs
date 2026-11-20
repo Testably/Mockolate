@@ -13,7 +13,7 @@ namespace Mockolate;
 public static partial class HttpClientExtensions
 {
 	/// <inheritdoc cref="HttpClientExtensions" />
-	extension(IMockVerify<HttpClient> verify)
+	extension<TVerify>(TVerify verify) where TVerify : class, IMockVerify<HttpClient>
 	{
 		/// <summary>
 		///     Verifies invocations of <see cref="System.Net.Http.HttpClient.PutAsync(string?, HttpContent?)" /> on the
@@ -26,9 +26,9 @@ public static partial class HttpClientExtensions
 		/// </remarks>
 		/// <param name="requestUri">A <see langword="string" /> URI matcher - typically <c>It.Is(uri)</c> or a raw string.</param>
 		/// <param name="content">An optional <see cref="HttpContent" /> matcher; <see langword="null" /> accepts any body.</param>
-		/// <returns>An intermediate <see cref="VerificationResult{HttpClient}" /> - terminate with a count assertion.</returns>
+		/// <returns>An intermediate <see cref="VerificationResult{TVerify}" /> - terminate with a count assertion.</returns>
 		/// <exception cref="MockException">The mock was not created with a mockable <see cref="System.Net.Http.HttpMessageHandler" /> constructor parameter.</exception>
-		public VerificationResult<HttpClient> PutAsync(
+		public VerificationResult<TVerify>PutAsync(
 			IParameter<string?> requestUri,
 			IParameter<HttpContent?>? content = null)
 			=> verify.PutAsync(
@@ -42,9 +42,9 @@ public static partial class HttpClientExtensions
 		/// </summary>
 		/// <param name="requestUri">A <see cref="Uri" /> matcher - typically <c>It.IsUri(...)</c>, <c>It.Is(uri)</c> or a raw <see cref="Uri" />.</param>
 		/// <param name="content">An optional <see cref="HttpContent" /> matcher; <see langword="null" /> accepts any body.</param>
-		/// <returns>An intermediate <see cref="VerificationResult{HttpClient}" /> - terminate with a count assertion.</returns>
+		/// <returns>An intermediate <see cref="VerificationResult{TVerify}" /> - terminate with a count assertion.</returns>
 		/// <exception cref="MockException">The mock was not created with a mockable <see cref="System.Net.Http.HttpMessageHandler" /> constructor parameter.</exception>
-		public VerificationResult<HttpClient> PutAsync(
+		public VerificationResult<TVerify>PutAsync(
 			IParameter<Uri?> requestUri,
 			IParameter<HttpContent?>? content = null)
 			=> verify.PutAsync(
@@ -60,14 +60,14 @@ public static partial class HttpClientExtensions
 		/// <param name="requestUri">A <see langword="string" /> URI matcher.</param>
 		/// <param name="content">An <see cref="HttpContent" /> matcher for the request body.</param>
 		/// <param name="cancellationToken">A <see cref="CancellationToken" /> matcher - pass <c>It.IsAny&lt;CancellationToken&gt;()</c> to accept any token.</param>
-		/// <returns>An intermediate <see cref="VerificationResult{HttpClient}" /> - terminate with a count assertion.</returns>
+		/// <returns>An intermediate <see cref="VerificationResult{TVerify}" /> - terminate with a count assertion.</returns>
 		/// <exception cref="MockException">The mock was not created with a mockable <see cref="System.Net.Http.HttpMessageHandler" /> constructor parameter.</exception>
-		public VerificationResult<HttpClient> PutAsync(
+		public VerificationResult<TVerify>PutAsync(
 			IParameter<string?> requestUri,
 			IParameter<HttpContent?> content,
 			IParameter<CancellationToken> cancellationToken)
 		{
-			if (verify is HttpClient httpClient and IMock { MockRegistry.ConstructorParameters.Length: > 0, } httpClientMock &&
+			if (verify is HttpClient and IMock { MockRegistry.ConstructorParameters.Length: > 0, } httpClientMock &&
 			    httpClientMock.MockRegistry.ConstructorParameters[0] is IMock httpMessageHandlerMock)
 			{
 				HttpRequestMessageParameters requestMatcher = new(HttpMethod.Put,
@@ -79,7 +79,7 @@ public static partial class HttpClientExtensions
 						"global::System.Net.Http.HttpMessageHandler.SendAsync",
 						method => requestMatcher.Matches(method.Parameter1) && cancellationTokenMatcher.Matches(method.Parameter2),
 						() => $"SendAsync({requestMatcher}, {cancellationTokenMatcher})")
-					.Map(httpClient);
+					.Map(verify);
 			}
 
 			throw new MockException(
@@ -94,14 +94,14 @@ public static partial class HttpClientExtensions
 		/// <param name="requestUri">A <see cref="Uri" /> matcher.</param>
 		/// <param name="content">An <see cref="HttpContent" /> matcher for the request body.</param>
 		/// <param name="cancellationToken">A <see cref="CancellationToken" /> matcher - pass <c>It.IsAny&lt;CancellationToken&gt;()</c> to accept any token.</param>
-		/// <returns>An intermediate <see cref="VerificationResult{HttpClient}" /> - terminate with a count assertion.</returns>
+		/// <returns>An intermediate <see cref="VerificationResult{TVerify}" /> - terminate with a count assertion.</returns>
 		/// <exception cref="MockException">The mock was not created with a mockable <see cref="System.Net.Http.HttpMessageHandler" /> constructor parameter.</exception>
-		public VerificationResult<HttpClient> PutAsync(
+		public VerificationResult<TVerify>PutAsync(
 			IParameter<Uri?> requestUri,
 			IParameter<HttpContent?> content,
 			IParameter<CancellationToken> cancellationToken)
 		{
-			if (verify is HttpClient httpClient and IMock { MockRegistry.ConstructorParameters.Length: > 0, } httpClientMock &&
+			if (verify is HttpClient and IMock { MockRegistry.ConstructorParameters.Length: > 0, } httpClientMock &&
 			    httpClientMock.MockRegistry.ConstructorParameters[0] is IMock httpMessageHandlerMock)
 			{
 				HttpRequestMessageParameters requestMatcher = new(HttpMethod.Put,
@@ -113,7 +113,7 @@ public static partial class HttpClientExtensions
 						"global::System.Net.Http.HttpMessageHandler.SendAsync",
 						method => requestMatcher.Matches(method.Parameter1) && cancellationTokenMatcher.Matches(method.Parameter2),
 						() => $"SendAsync({requestMatcher}, {cancellationTokenMatcher})")
-					.Map(httpClient);
+					.Map(verify);
 			}
 
 			throw new MockException(

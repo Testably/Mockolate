@@ -31,6 +31,34 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
+			public async Task Then_ShouldVerifyTheOrderOfRequests()
+			{
+				HttpClient httpClient = HttpClient.CreateMock();
+
+				await httpClient.GetAsync("https://www.testably.org/first", CancellationToken.None);
+				await httpClient.PostAsync("https://www.testably.org/second", new StringContent("content"),
+					CancellationToken.None);
+
+				await That(httpClient.Mock.Verify.GetAsync(It.Matches("*first")))
+					.Then(m => m.PostAsync(It.Matches("*second")));
+			}
+
+			[Test]
+			public async Task Then_WhenInWrongOrder_ShouldFail()
+			{
+				HttpClient httpClient = HttpClient.CreateMock();
+
+				await httpClient.PostAsync("https://www.testably.org/first", new StringContent("content"),
+					CancellationToken.None);
+				await httpClient.GetAsync("https://www.testably.org/second", CancellationToken.None);
+
+				void Act() => httpClient.Mock.Verify.GetAsync(It.Matches("*second"))
+					.Then(m => m.PostAsync(It.Matches("*first")));
+
+				await That(Act).Throws<MockVerificationException>();
+			}
+
+			[Test]
 			[Arguments("*testably.org*", 1)]
 			[Arguments("*testably.org", 1)]
 			[Arguments("testably.org*", 0)]
