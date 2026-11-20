@@ -1,10 +1,10 @@
 ---
-description: Mock ILogger and ILoggerFactory with Mockolate and set up and verify the log calls by level and formatted message.
+description: Mock ILogger and ILoggerFactory with Mockolate and set up and verify the log calls by level, message, message template, exception, event id and category.
 ---
 
 # Logging
 
-Mockolate supports mocking `ILogger`, `ILogger<T>` and `ILoggerFactory` from `Microsoft.Extensions.Logging` without any configuration. The logging setups and verifications match the formatted message, so they work with the `LogInformation(…)` extension methods, whose state type you cannot name in a test.
+Mockolate supports mocking `ILogger`, `ILogger<T>` and `ILoggerFactory` from `Microsoft.Extensions.Logging` without any configuration. The logging setups and verifications match every state type, so they work with the `LogInformation(…)` extension methods, whose state type you cannot name in a test.
 
 ```csharp
 ILogger<ChocolateShop> logger = ILogger<ChocolateShop>.CreateMock();
@@ -12,7 +12,7 @@ ChocolateShop sut = new ChocolateShop(logger);
 
 sut.Order("Dark", 0);
 
-logger.Mock.Verify.LogWarning(It.Matches("*no Dark chocolate*")).Once();
+await That(logger.Mock.Verify.LogWarning().WithMessage("There is no Dark chocolate to order")).Once();
 ```
 
 Unlike other members without a setup, `IsEnabled` returns `true`, so logging code that checks `IsEnabled` first (like the code generated for `[LoggerMessage]`) still reaches `Log`. This also applies to mocks created with `ThrowingWhenNotSetup()`, where a `Log` call without a matching setup still throws.
@@ -38,29 +38,52 @@ public class ChocolateShop(ILogger<ChocolateShop> logger)
 
 </details>
 
-## Setup
+## Setup and verification
 
-`LogTrace`, `LogDebug`, `LogInformation`, `LogWarning`, `LogError` and `LogCritical` set up the calls on one level with a matching formatted message. `Log` takes a matcher for the level and optionally one for the exception. The callbacks receive the level, the event id, the formatted message and the exception:
+Setups and verifications share the same members. `Log()` covers every level, `Log(LogLevel)` and `LogTrace()`, `LogDebug()`, `LogInformation()`, `LogWarning()`, `LogError()` and `LogCritical()` one level. Narrow them down with:
+
+| Member                                          | Matches the calls                                                         |
+|-------------------------------------------------|---------------------------------------------------------------------------|
+| `OrHigher()`                                    | on the level or a higher one.                                             |
+| `WithMessage("…")`                              | whose formatted message is exactly the text.                              |
+| `WithMessage(It.Matches("*Dark*"))`             | whose formatted message matches the [matcher](../06-parameter-matching.md). |
+| `WithMessage(It.MatchesTemplate("…"))`          | with the message template, and optionally properties.                     |
+| `WithException<TException>()`                   | with an exception of the type.                                            |
+| `WithException(It.Is<Exception?>(…))`           | whose exception matches the matcher.                                      |
+| `WithEventId(3)` or `WithEventId(It.Is<EventId>(…))` | with the event id.                                                   |
+| `WithCategory("…")` or `WithCategory<T>()`      | of a logger with the category, see [logger factories](#logger-factories). |
+
+The callbacks of a setup receive the level, the event id, the formatted message and the exception:
 
 ```csharp
 List<string> warnings = [];
-logger.Mock.Setup.LogWarning(It.IsAny<string>())
+logger.Mock.Setup.LogWarning()
     .Do((level, eventId, message, exception) => warnings.Add(message));
 
-logger.Mock.Setup.Log(It.IsAny<LogLevel>(), It.Matches("*Dark*"), It.IsAny<Exception?>())
+logger.Mock.Setup.LogError().WithMessage(It.Matches("*Dark*"))
     .Throws<InvalidOperationException>();
 ```
 
 When several setups match, the most recently defined one wins, as for any other member.
 
-## Verification
+```csharp
+await That(logger.Mock.Verify.LogInformation().WithMessage("Ordered 3 Dark chocolates")).Once();
+await That(logger.Mock.Verify.Log(LogLevel.Warning).OrHigher()).Never();
+await That(logger.Mock.Verify.LogError().WithException<TimeoutException>()).AtLeastOnce();
+```
+
+### Message templates
+
+`It.MatchesTemplate(…)` matches the message template of the call instead of the formatted message, and `WithProperty(…)` checks a property of the template with a value or a matcher. Properties that you do not check can have any value:
 
 ```csharp
-logger.Mock.Verify.LogInformation(It.Matches("Ordered * chocolates")).Once();
-logger.Mock.Verify.Log(It.Is(LogLevel.Error), It.IsAny<string>()).Never();
-logger.Mock.Verify.Log(It.IsAny<LogLevel>(), It.IsAny<string>(),
-    It.Satisfies<Exception?>(exception => exception is TimeoutException)).AtLeastOnce();
+await That(logger.Mock.Verify.LogInformation()
+    .WithMessage(It.MatchesTemplate("Ordered {Amount} {Type} chocolates")
+        .WithProperty("Type", "Dark")
+        .WithProperty("Amount", It.Satisfies<int>(amount => amount > 0)))).Once();
 ```
+
+This works for the `LogInformation(…)` extension methods, `LoggerMessage.Define` and `[LoggerMessage]`, which all pass the template and the properties as state.
 
 ## Logger factories
 
@@ -72,16 +95,16 @@ ChocolateShop sut = new ChocolateShop(loggerFactory.CreateLogger<ChocolateShop>(
 
 sut.Order("Dark", 0);
 
-loggerFactory.Mock.Verify.LogWarning(It.IsAny<string>()).Once();
+await That(loggerFactory.Mock.Verify.LogWarning().WithCategory<ChocolateShop>()).Once();
 ```
 
-A log call that you verify on the factory also counts as verified on its logger for `VerifyThatAllInteractionsAreVerified()`, and the other way round.
+Each logger of the factory has its category name, which `WithCategory(…)` matches; an `ILogger<T>` mock has the category of `T`. A log call that you verify on the factory also counts as verified on its logger for `VerifyThatAllInteractionsAreVerified()`, and the other way round.
 
 To set up or verify a single logger, also before the code under test creates it, use `GetLogger<TCategoryName>()` or `GetLogger(categoryName)`. `GetLogger<TCategoryName>()` returns an `ILogger<TCategoryName>` that shares the setups and calls of the logger of the category, so you can also pass it to code that expects an `ILogger<TCategoryName>`:
 
 ```csharp
 ILogger<ChocolateShop> logger = loggerFactory.Mock.GetLogger<ChocolateShop>();
-logger.Mock.Setup.LogWarning(It.IsAny<string>())
+logger.Mock.Setup.LogWarning()
     .Throws<InvalidOperationException>();
 ```
 

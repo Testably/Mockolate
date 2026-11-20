@@ -772,11 +772,9 @@ public class MockGenerator : IIncrementalGenerator
 			{
 				loggerName = named.ParentName;
 			}
-			else if (fullName.StartsWith(loggerFullName + "<", StringComparison.Ordinal) &&
-			         fullName.EndsWith(">", StringComparison.Ordinal))
+			else if (Sources.Sources.GetLoggerCategoryType(fullName) is { } categoryType)
 			{
-				categoryLoggers.Add((fullName.Substring(loggerFullName.Length + 1, fullName.Length - loggerFullName.Length - 2),
-					named.ParentName));
+				categoryLoggers.Add((categoryType, named.ParentName));
 			}
 		}
 

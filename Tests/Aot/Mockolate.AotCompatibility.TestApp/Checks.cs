@@ -222,16 +222,16 @@ internal static class Checks
 			       ?? Passes(() => sut.Mock.Verify.PostAsync(It.IsUri("*testably.org/order").ForHttps(),
 				       It.IsHttpContent("application/json").WithStringMatching("*Dark*")).Once());
 		}),
-		new("a mocked logger factory matches the formatted log messages of its loggers", () =>
+		new("a mocked logger factory matches the messages and templates of its loggers", () =>
 		{
 			ILoggerFactory sut = ILoggerFactory.CreateMock();
 			int errors = 0;
-			sut.Mock.GetLogger<ChocolateMachine>().Mock.Setup.LogError(It.Matches("*failed*")).Do(() => errors++);
+			sut.Mock.GetLogger<ChocolateMachine>().Mock.Setup.LogError().WithMessage(It.Matches("*failed*")).Do(() => errors++);
 			ILogger<ChocolateMachine> logger = sut.CreateLogger<ChocolateMachine>();
 			logger.LogError("Order {Id} failed", 42);
 			logger.LogInformation("Order {Id} created", 43);
 			return Equal((errors, logger.IsEnabled(LogLevel.Debug)), (1, true))
-			       ?? Passes(() => sut.Mock.Verify.LogInformation(It.Is("Order 43 created")).Once());
+			       ?? Passes(() => sut.Mock.Verify.LogInformation().WithMessage(It.MatchesTemplate("Order {Id} created").WithProperty("Id", 43)).Once());
 		}),
 		new("a mocked delegate is set up and verified", () =>
 		{

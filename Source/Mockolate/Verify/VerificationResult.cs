@@ -120,6 +120,24 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		_expectation = new VerificationExpectation(this, expectationArgument, expectationFactory);
 	}
 
+	/// <summary>
+	///     For a subclass that refines its filter after it was created (see
+	///     <see cref="Internals.FilteredVerificationResult{TVerify}" />): the predicate and the expectation are read from the
+	///     subclass when the result is evaluated.
+	/// </summary>
+	private protected VerificationResult(TVerify verify, IMockInteractions interactions)
+	{
+		_verify = verify;
+		_interactions = interactions;
+		_predicate = IsFilteredMatch;
+		_expectation = new VerificationExpectation(this, null,
+			static (state, _) => ((VerificationResult<TVerify>)state!).GetFilteredExpectation());
+	}
+
+	private protected virtual bool IsFilteredMatch(IInteraction interaction) => false;
+
+	private protected virtual string GetFilteredExpectation() => "";
+
 	#region IVerificationResult<TVerify>
 
 	/// <inheritdoc cref="IVerificationResult{TVerify}.Object" />

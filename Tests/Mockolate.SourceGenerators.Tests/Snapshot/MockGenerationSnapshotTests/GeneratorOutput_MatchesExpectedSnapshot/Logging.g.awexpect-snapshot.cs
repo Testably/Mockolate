@@ -35,6 +35,17 @@ namespace Mockolate.Interactions
 		///     The exception of the log entry.
 		/// </summary>
 		global::System.Exception? Exception { get; }
+
+		/// <summary>
+		///     The category of the logger, or <see langword="null" /> when the logger has none.
+		/// </summary>
+		string? Category { get; }
+
+		/// <summary>
+		///     The structured state of the log entry with the message template and its properties, or
+		///     <see langword="null" /> when the state is not structured.
+		/// </summary>
+		global::System.Collections.Generic.IReadOnlyList<global::System.Collections.Generic.KeyValuePair<string, object?>>? State { get; }
 	}
 
 	/// <summary>
@@ -49,9 +60,10 @@ namespace Mockolate.Interactions
 		private string? _message;
 
 		/// <inheritdoc cref="LogInvocation{TState}" />
-		public LogInvocation(string name, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+		public LogInvocation(string name, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
 			: base(name, logLevel, eventId, state, exception, formatter)
 		{
+			Category = category;
 		}
 
 		/// <inheritdoc />
@@ -66,9 +78,269 @@ namespace Mockolate.Interactions
 		/// <inheritdoc />
 		global::System.Exception? ILogInvocation.Exception => Parameter4;
 
+		/// <inheritdoc />
+		public string? Category { get; }
+
+		/// <inheritdoc />
+		global::System.Collections.Generic.IReadOnlyList<global::System.Collections.Generic.KeyValuePair<string, object?>>? ILogInvocation.State
+			=> (object?)Parameter3 as global::System.Collections.Generic.IReadOnlyList<global::System.Collections.Generic.KeyValuePair<string, object?>>;
+
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 			=> $"invoke method Log({Parameter1}, {Parameter2}, {Message}, {Parameter4?.ToString() ?? "null"})";
+	}
+}
+
+namespace Mockolate.Parameters
+{
+	/// <summary>
+	///     Matches the message template and the properties of a call of <c>ILogger.Log</c>.
+	/// </summary>
+	/// <remarks>
+	///     Created by <c>It.MatchesTemplate(…)</c> and passed to <c>WithMessage(…)</c> of a logging setup or verification.
+	/// </remarks>
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal sealed class LogTemplateMatch
+	{
+		private const string OriginalFormat = "{OriginalFormat}";
+		private readonly string _template;
+		private readonly global::System.Collections.Generic.List<(string Name, global::System.Func<object?, bool> Matches)> _properties = new();
+		private readonly global::System.Text.StringBuilder _description = new();
+
+		/// <inheritdoc cref="LogTemplateMatch" />
+		public LogTemplateMatch(string template)
+		{
+			_template = template;
+			_description.Append("It.MatchesTemplate(\"").Append(template).Append("\")");
+		}
+
+		/// <summary>
+		///     Additionally requires the property <paramref name="name" /> to equal the <paramref name="value" />.
+		/// </summary>
+		public LogTemplateMatch WithProperty(string name, object? value)
+		{
+			_properties.Add((name, actual => Equals(actual, value)));
+			_description.Append(".WithProperty(\"").Append(name).Append("\", ").Append(value switch
+			{
+				null => "null",
+				string text => $"\"{text}\"",
+				_ => value.ToString(),
+			}).Append(')');
+			return this;
+		}
+
+		/// <summary>
+		///     Additionally requires the property <paramref name="name" /> to match the <paramref name="value" />.
+		/// </summary>
+		public LogTemplateMatch WithProperty<T>(string name, global::Mockolate.Parameters.IParameter<T> value)
+		{
+			global::Mockolate.Parameters.IParameterMatch<T> match = global::Mockolate.CovariantParameterAdapter<T>.Wrap(value);
+			_properties.Add((name, actual => actual is T typed ? match.Matches(typed) : actual is null && default(T) is null && match.Matches(default!)));
+			_description.Append(".WithProperty(\"").Append(name).Append("\", ").Append(value).Append(')');
+			return this;
+		}
+
+		/// <summary>
+		///     Whether the structured <paramref name="state" /> of a log call has the template and the properties.
+		/// </summary>
+		public bool Matches(global::System.Collections.Generic.IReadOnlyList<global::System.Collections.Generic.KeyValuePair<string, object?>>? state)
+		{
+			if (state is null || !TryGetValue(state, OriginalFormat, out object? template) || !string.Equals(template as string, _template, global::System.StringComparison.Ordinal))
+			{
+				return false;
+			}
+
+			foreach ((string name, global::System.Func<object?, bool> matches) in _properties)
+			{
+				if (!TryGetValue(state, name, out object? actual) || !matches(actual))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> _description.ToString();
+
+		private static bool TryGetValue(global::System.Collections.Generic.IReadOnlyList<global::System.Collections.Generic.KeyValuePair<string, object?>> state, string name, out object? value)
+		{
+			for (int i = 0; i < state.Count; i++)
+			{
+				if (state[i].Key == name)
+				{
+					value = state[i].Value;
+					return true;
+				}
+			}
+
+			value = null;
+			return false;
+		}
+	}
+}
+
+namespace Mockolate.Setup
+{
+	/// <summary>
+	///     A setup of the calls of <c>ILogger.Log</c>, whatever the state type of the call is.
+	/// </summary>
+	/// <remarks>
+	///     The callbacks receive the level, the event id, the formatted message and the exception.
+	/// </remarks>
+	internal interface ILogSetup : global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?>
+	{
+		/// <summary>
+		///     Also matches the calls on a higher level.
+		/// </summary>
+		ILogSetup OrHigher();
+
+		/// <summary>
+		///     Only matches the calls whose formatted message is exactly the <paramref name="message" />.
+		/// </summary>
+		ILogSetup WithMessage(string message);
+
+		/// <summary>
+		///     Only matches the calls whose formatted message matches the <paramref name="message" />, e.g. <c>It.Matches("*failed*")</c>.
+		/// </summary>
+		ILogSetup WithMessage(global::Mockolate.Parameters.IParameter<string> message);
+
+		/// <summary>
+		///     Only matches the calls with the message template and properties of <paramref name="template" />, created by <c>It.MatchesTemplate(…)</c>.
+		/// </summary>
+		ILogSetup WithMessage(global::Mockolate.Parameters.LogTemplateMatch template);
+
+		/// <summary>
+		///     Only matches the calls whose exception matches the <paramref name="exception" />.
+		/// </summary>
+		ILogSetup WithException(global::Mockolate.Parameters.IParameter<global::System.Exception?> exception);
+
+		/// <summary>
+		///     Only matches the calls with an exception of type <typeparamref name="TException" />.
+		/// </summary>
+		ILogSetup WithException<TException>() where TException : global::System.Exception;
+
+		/// <summary>
+		///     Only matches the calls with the <paramref name="eventId" />.
+		/// </summary>
+		ILogSetup WithEventId(global::Microsoft.Extensions.Logging.EventId eventId);
+
+		/// <summary>
+		///     Only matches the calls whose event id matches the <paramref name="eventId" />.
+		/// </summary>
+		ILogSetup WithEventId(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.EventId> eventId);
+
+		/// <summary>
+		///     Only matches the calls of a logger with the <paramref name="categoryName" />.
+		/// </summary>
+		ILogSetup WithCategory(string categoryName);
+
+		/// <summary>
+		///     Only matches the calls of a logger with the category of <typeparamref name="TCategoryName" />.
+		/// </summary>
+		ILogSetup WithCategory<TCategoryName>();
+	}
+}
+
+namespace Mockolate.Verify
+{
+	/// <summary>
+	///     A verification of the calls of <c>ILogger.Log</c>, whatever the state type of the call is.
+	/// </summary>
+	/// <remarks>
+	///     Narrow it down with the <c>With…</c> members and terminate it with a count assertion.
+	/// </remarks>
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal sealed class LogVerificationResult<TVerify> : global::Mockolate.Internals.FilteredVerificationResult<TVerify>
+	{
+		private readonly global::Mockolate.MockolateLogging.LogFilter _filter;
+
+		/// <inheritdoc cref="LogVerificationResult{TVerify}" />
+		public LogVerificationResult(TVerify verify, global::Mockolate.Internals.MockRegistry mockRegistry, global::Mockolate.MockolateLogging.LogFilter filter)
+			: base(verify, mockRegistry)
+		{
+			_filter = filter;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.OrHigher()" />
+		public LogVerificationResult<TVerify> OrHigher()
+		{
+			_filter.OrHigher();
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithMessage(string)" />
+		public LogVerificationResult<TVerify> WithMessage(string message)
+		{
+			_filter.WithMessage(message);
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithMessage(global::Mockolate.Parameters.IParameter{string})" />
+		public LogVerificationResult<TVerify> WithMessage(global::Mockolate.Parameters.IParameter<string> message)
+		{
+			_filter.WithMessage(message);
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithMessage(global::Mockolate.Parameters.LogTemplateMatch)" />
+		public LogVerificationResult<TVerify> WithMessage(global::Mockolate.Parameters.LogTemplateMatch template)
+		{
+			_filter.WithMessage(template);
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithException(global::Mockolate.Parameters.IParameter{global::System.Exception})" />
+		public LogVerificationResult<TVerify> WithException(global::Mockolate.Parameters.IParameter<global::System.Exception?> exception)
+		{
+			_filter.WithException(exception);
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithException{TException}()" />
+		public LogVerificationResult<TVerify> WithException<TException>() where TException : global::System.Exception
+		{
+			_filter.WithException<TException>();
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithEventId(global::Microsoft.Extensions.Logging.EventId)" />
+		public LogVerificationResult<TVerify> WithEventId(global::Microsoft.Extensions.Logging.EventId eventId)
+		{
+			_filter.WithEventId(eventId);
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithEventId(global::Mockolate.Parameters.IParameter{global::Microsoft.Extensions.Logging.EventId})" />
+		public LogVerificationResult<TVerify> WithEventId(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.EventId> eventId)
+		{
+			_filter.WithEventId(eventId);
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithCategory(string)" />
+		public LogVerificationResult<TVerify> WithCategory(string categoryName)
+		{
+			_filter.WithCategory(categoryName);
+			return this;
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Setup.ILogSetup.WithCategory{TCategoryName}()" />
+		public LogVerificationResult<TVerify> WithCategory<TCategoryName>()
+		{
+			_filter.WithCategory<TCategoryName>();
+			return this;
+		}
+
+		/// <inheritdoc />
+		protected override bool Matches(global::Mockolate.Interactions.IInteraction interaction)
+			=> interaction is global::Mockolate.Interactions.ILogInvocation log && _filter.Matches(log);
+
+		/// <inheritdoc />
+		protected override string Describe()
+			=> _filter.ToString();
 	}
 }
 
@@ -96,7 +368,7 @@ namespace Mockolate
 	}
 
 	/// <summary>
-	///     Setups and verifications of <c>ILogger.Log</c> by the formatted message, whatever the state type of the call is.
+	///     Setups and verifications of <c>ILogger.Log</c>, whatever the state type of the call is.
 	/// </summary>
 	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -104,75 +376,97 @@ namespace Mockolate
 	{
 		private const string LogName = "global::Microsoft.Extensions.Logging.ILogger.Log";
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, global::Mockolate.Internals.MockRegistry> s_factoryRegistries = new();
+		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, string> s_categories = new();
+
+		/// <inheritdoc cref="MockolateLogging" />
+		extension(global::Mockolate.It _)
+		{
+			/// <summary>
+			///     Matches a call of <c>ILogger.Log</c> with the message <paramref name="template" />, e.g. <c>"Order {OrderId} failed"</c>.
+			/// </summary>
+			/// <remarks>
+			///     Pass it to <c>WithMessage(…)</c> of a logging setup or verification and check the properties with <c>.WithProperty(…)</c>.
+			/// </remarks>
+			/// <param name="template">The message template, compared exactly.</param>
+			public static global::Mockolate.Parameters.LogTemplateMatch MatchesTemplate(string template)
+				=> new(template);
+		}
+
 		/// <inheritdoc cref="MockolateLogging" />
 		extension(global::Mockolate.Setup.IMockSetup<global::Microsoft.Extensions.Logging.ILogger> setup)
 		{
 			/// <summary>
-			///     Sets up calls of <c>ILogger.Log</c> with a matching level and formatted message.
+			///     Sets up the calls of <c>ILogger.Log</c> on any level.
 			/// </summary>
-			/// <param name="logLevel">A matcher for the level.</param>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A setup handle; the callbacks receive the level, the event id, the formatted message and the exception.</returns>
-			public global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> Log(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel> logLevel, global::Mockolate.Parameters.IParameter<string> message)
-				=> SetupLog(setup, logLevel, message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Setup.ILogSetup Log()
+				=> SetupLog(setup, null, "Log()");
 
 			/// <summary>
-			///     Sets up calls of <c>ILogger.Log</c> with a matching level, formatted message and exception.
+			///     Sets up the calls of <c>ILogger.Log</c> on the <paramref name="logLevel" />.
 			/// </summary>
-			/// <param name="logLevel">A matcher for the level.</param>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <param name="exception">A matcher for the exception.</param>
-			/// <returns>A setup handle; the callbacks receive the level, the event id, the formatted message and the exception.</returns>
-			public global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> Log(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel> logLevel, global::Mockolate.Parameters.IParameter<string> message, global::Mockolate.Parameters.IParameter<global::System.Exception?> exception)
-				=> SetupLog(setup, logLevel, message, exception);
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			/// <param name="logLevel">The level of the calls.</param>
+			public global::Mockolate.Setup.ILogSetup Log(global::Microsoft.Extensions.Logging.LogLevel logLevel)
+				=> SetupLog(setup, logLevel, "Log(" + logLevel + ")");
 
 			/// <summary>
-			///     Sets up calls of <c>ILogger.Log</c> on the level <c>Trace</c> with a matching formatted message.
+			///     Sets up the calls of <c>ILogger.Log</c> on the level <c>Trace</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A setup handle; the callbacks receive the level, the event id, the formatted message and the exception.</returns>
-			public global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> LogTrace(global::Mockolate.Parameters.IParameter<string> message)
-				=> SetupLog(setup, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Trace), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Setup.ILogSetup LogTrace()
+				=> SetupLog(setup, global::Microsoft.Extensions.Logging.LogLevel.Trace, "LogTrace()");
 
 			/// <summary>
-			///     Sets up calls of <c>ILogger.Log</c> on the level <c>Debug</c> with a matching formatted message.
+			///     Sets up the calls of <c>ILogger.Log</c> on the level <c>Debug</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A setup handle; the callbacks receive the level, the event id, the formatted message and the exception.</returns>
-			public global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> LogDebug(global::Mockolate.Parameters.IParameter<string> message)
-				=> SetupLog(setup, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Debug), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Setup.ILogSetup LogDebug()
+				=> SetupLog(setup, global::Microsoft.Extensions.Logging.LogLevel.Debug, "LogDebug()");
 
 			/// <summary>
-			///     Sets up calls of <c>ILogger.Log</c> on the level <c>Information</c> with a matching formatted message.
+			///     Sets up the calls of <c>ILogger.Log</c> on the level <c>Information</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A setup handle; the callbacks receive the level, the event id, the formatted message and the exception.</returns>
-			public global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> LogInformation(global::Mockolate.Parameters.IParameter<string> message)
-				=> SetupLog(setup, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Information), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Setup.ILogSetup LogInformation()
+				=> SetupLog(setup, global::Microsoft.Extensions.Logging.LogLevel.Information, "LogInformation()");
 
 			/// <summary>
-			///     Sets up calls of <c>ILogger.Log</c> on the level <c>Warning</c> with a matching formatted message.
+			///     Sets up the calls of <c>ILogger.Log</c> on the level <c>Warning</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A setup handle; the callbacks receive the level, the event id, the formatted message and the exception.</returns>
-			public global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> LogWarning(global::Mockolate.Parameters.IParameter<string> message)
-				=> SetupLog(setup, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Warning), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Setup.ILogSetup LogWarning()
+				=> SetupLog(setup, global::Microsoft.Extensions.Logging.LogLevel.Warning, "LogWarning()");
 
 			/// <summary>
-			///     Sets up calls of <c>ILogger.Log</c> on the level <c>Error</c> with a matching formatted message.
+			///     Sets up the calls of <c>ILogger.Log</c> on the level <c>Error</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A setup handle; the callbacks receive the level, the event id, the formatted message and the exception.</returns>
-			public global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> LogError(global::Mockolate.Parameters.IParameter<string> message)
-				=> SetupLog(setup, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Error), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Setup.ILogSetup LogError()
+				=> SetupLog(setup, global::Microsoft.Extensions.Logging.LogLevel.Error, "LogError()");
 
 			/// <summary>
-			///     Sets up calls of <c>ILogger.Log</c> on the level <c>Critical</c> with a matching formatted message.
+			///     Sets up the calls of <c>ILogger.Log</c> on the level <c>Critical</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A setup handle; the callbacks receive the level, the event id, the formatted message and the exception.</returns>
-			public global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> LogCritical(global::Mockolate.Parameters.IParameter<string> message)
-				=> SetupLog(setup, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Critical), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Setup.ILogSetup LogCritical()
+				=> SetupLog(setup, global::Microsoft.Extensions.Logging.LogLevel.Critical, "LogCritical()");
 
 		}
 
@@ -180,71 +474,77 @@ namespace Mockolate
 		extension(global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger> verify)
 		{
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> with a matching level and formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on any level.
 			/// </summary>
-			/// <param name="logLevel">A matcher for the level.</param>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> Log(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel> logLevel, global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, logLevel, message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> Log()
+				=> VerifyLog(verify, null, "Log()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> with a matching level, formatted message and exception.
+			///     Verifies the calls of <c>ILogger.Log</c> on the <paramref name="logLevel" />.
 			/// </summary>
-			/// <param name="logLevel">A matcher for the level.</param>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <param name="exception">A matcher for the exception.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> Log(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel> logLevel, global::Mockolate.Parameters.IParameter<string> message, global::Mockolate.Parameters.IParameter<global::System.Exception?> exception)
-				=> VerifyLog(verify, logLevel, message, exception);
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			/// <param name="logLevel">The level of the calls.</param>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> Log(global::Microsoft.Extensions.Logging.LogLevel logLevel)
+				=> VerifyLog(verify, logLevel, "Log(" + logLevel + ")");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on the level <c>Trace</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on the level <c>Trace</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogTrace(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Trace), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogTrace()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Trace, "LogTrace()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on the level <c>Debug</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on the level <c>Debug</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogDebug(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Debug), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogDebug()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Debug, "LogDebug()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on the level <c>Information</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on the level <c>Information</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogInformation(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Information), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogInformation()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Information, "LogInformation()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on the level <c>Warning</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on the level <c>Warning</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogWarning(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Warning), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogWarning()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Warning, "LogWarning()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on the level <c>Error</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on the level <c>Error</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogError(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Error), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogError()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Error, "LogError()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on the level <c>Critical</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on the level <c>Critical</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogCritical(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Critical), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILogger>> LogCritical()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Critical, "LogCritical()");
 
 		}
 
@@ -252,82 +552,93 @@ namespace Mockolate
 		extension(global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory> verify)
 		{
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on all loggers that the factory created with a matching level and formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on any level.
 			/// </summary>
-			/// <param name="logLevel">A matcher for the level.</param>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> Log(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel> logLevel, global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, logLevel, message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> Log()
+				=> VerifyLog(verify, null, "Log()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on all loggers that the factory created with a matching level, formatted message and exception.
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the <paramref name="logLevel" />.
 			/// </summary>
-			/// <param name="logLevel">A matcher for the level.</param>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <param name="exception">A matcher for the exception.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> Log(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel> logLevel, global::Mockolate.Parameters.IParameter<string> message, global::Mockolate.Parameters.IParameter<global::System.Exception?> exception)
-				=> VerifyLog(verify, logLevel, message, exception);
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			/// <param name="logLevel">The level of the calls.</param>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> Log(global::Microsoft.Extensions.Logging.LogLevel logLevel)
+				=> VerifyLog(verify, logLevel, "Log(" + logLevel + ")");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Trace</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Trace</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogTrace(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Trace), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogTrace()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Trace, "LogTrace()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Debug</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Debug</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogDebug(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Debug), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogDebug()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Debug, "LogDebug()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Information</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Information</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogInformation(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Information), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogInformation()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Information, "LogInformation()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Warning</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Warning</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogWarning(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Warning), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogWarning()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Warning, "LogWarning()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Error</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Error</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogError(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Error), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogError()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Error, "LogError()");
 
 			/// <summary>
-			///     Verifies calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Critical</c> with a matching formatted message.
+			///     Verifies the calls of <c>ILogger.Log</c> on all loggers that the factory created on the level <c>Critical</c>.
 			/// </summary>
-			/// <param name="message">A matcher for the formatted message, e.g. <c>It.Matches("*failed*")</c>.</param>
-			/// <returns>A verification result; terminate it with a count assertion.</returns>
-			public global::Mockolate.Verify.VerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogCritical(global::Mockolate.Parameters.IParameter<string> message)
-				=> VerifyLog(verify, global::Mockolate.It.Is(global::Microsoft.Extensions.Logging.LogLevel.Critical), message, global::Mockolate.It.IsAny<global::System.Exception?>());
+			/// <remarks>
+			///     Narrow it down with <c>OrHigher()</c>, <c>WithMessage(…)</c>, <c>WithException(…)</c>, <c>WithEventId(…)</c> and <c>WithCategory(…)</c>.
+			/// </remarks>
+			public global::Mockolate.Verify.LogVerificationResult<global::Mockolate.Verify.IMockVerify<global::Microsoft.Extensions.Logging.ILoggerFactory>> LogCritical()
+				=> VerifyLog(verify, global::Microsoft.Extensions.Logging.LogLevel.Critical, "LogCritical()");
 
 		}
 
 		/// <summary>
-		///     Dispatches a call of <c>ILogger.Log</c>: setups of the state type <typeparamref name="TState" /> and setups of the
-		///     formatted message both apply, the latest matching one wins.
+		///     Dispatches a call of <c>ILogger.Log</c>: setups of the state type <typeparamref name="TState" /> and logging
+		///     setups both apply, the latest matching one wins.
 		/// </summary>
-		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
 		{
 			string name = $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>";
-			global::Mockolate.Interactions.LogInvocation<TState> invocation = new(name, logLevel, eventId, state, exception, formatter);
+			if (category is null && s_categories.TryGetValue(registry, out string? registeredCategory))
+			{
+				category = registeredCategory;
+			}
+
+			global::Mockolate.Interactions.LogInvocation<TState> invocation = new(name, category, logLevel, eventId, state, exception, formatter);
 			global::Mockolate.Setup.MethodSetup? setup = null;
 			if (string.IsNullOrEmpty(registry.Scenario))
 			{
@@ -379,12 +690,12 @@ namespace Mockolate
 				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Microsoft.Extensions.Logging.ILogger.Log<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
 			}
 
-			// Typed setups of the state type and setups of the formatted message are searched together, so the latest matching one wins.
+			// Typed setups of the state type and logging setups are searched together, so the latest matching one wins.
 			bool IsMatchingSetup(global::Mockolate.Setup.MethodSetup candidate)
 				=> candidate switch
 				{
 					global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> typedSetup => typedSetup.Name == name && typedSetup.Matches(logLevel, eventId, state, exception, formatter),
-					LogSetup messageSetup => messageSetup.Matches(logLevel, eventId, invocation.Message, exception),
+					LogSetup messageSetup => messageSetup.MatchesLog(invocation),
 					_ => false,
 				};
 
@@ -408,28 +719,17 @@ namespace Mockolate
 		private static global::Mockolate.IMockolateLoggerAccess GetAccess(object mock)
 			=> mock as global::Mockolate.IMockolateLoggerAccess ?? throw new global::Mockolate.Exceptions.MockException($"The logging setups and verifications do not support '{mock}'.");
 
-		private static global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?> SetupLog(object setup, global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel> logLevel, global::Mockolate.Parameters.IParameter<string> message, global::Mockolate.Parameters.IParameter<global::System.Exception?> exception)
+		private static global::Mockolate.Setup.ILogSetup SetupLog(object setup, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 		{
 			global::Mockolate.IMockolateLoggerAccess access = GetAccess(setup);
-			LogSetup methodSetup = new(access.MockolateRegistry,
-				global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.LogLevel>.Wrap(logLevel),
-				global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.EventId>.Wrap(global::Mockolate.It.IsAny<global::Microsoft.Extensions.Logging.EventId>()),
-				global::Mockolate.CovariantParameterAdapter<string>.Wrap(message),
-				global::Mockolate.CovariantParameterAdapter<global::System.Exception?>.Wrap(exception));
+			LogSetup methodSetup = new(access.MockolateRegistry, new LogFilter(logLevel, entry));
 			access.MockolateRegistry.SetupMethod(access.MockolateLogMemberId, access.MockolateScenario, methodSetup);
 			return methodSetup;
 		}
 
-		private static global::Mockolate.Verify.VerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel> logLevel, global::Mockolate.Parameters.IParameter<string> message, global::Mockolate.Parameters.IParameter<global::System.Exception?> exception)
+		private static global::Mockolate.Verify.LogVerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 			where TVerify : class
-		{
-			global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel> logLevelMatch = global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.LogLevel>.Wrap(logLevel);
-			global::Mockolate.Parameters.IParameterMatch<string> messageMatch = global::Mockolate.CovariantParameterAdapter<string>.Wrap(message);
-			global::Mockolate.Parameters.IParameterMatch<global::System.Exception?> exceptionMatch = global::Mockolate.CovariantParameterAdapter<global::System.Exception?>.Wrap(exception);
-			return GetAccess(verify).MockolateRegistry.VerifyMethodInteractions<TVerify, global::Mockolate.Interactions.ILogInvocation>(verify,
-				invocation => logLevelMatch.Matches(invocation.LogLevel) && messageMatch.Matches(invocation.Message) && exceptionMatch.Matches(invocation.Exception),
-				() => $"Log({logLevel}, {message}, {exception})");
-		}
+			=> new(verify, GetAccess(verify).MockolateRegistry, new LogFilter(logLevel, entry));
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, LoggerFactoryState> s_loggerFactories = new();
 
 		/// <summary>
@@ -446,9 +746,9 @@ namespace Mockolate
 				if (!state.Loggers.TryGetValue(categoryName, out global::Microsoft.Extensions.Logging.ILogger? logger))
 				{
 					logger = global::Microsoft.Extensions.Logging.ILogger.CreateMock(factoryRegistry.Behavior);
-
 					global::Mockolate.Internals.MockRegistry loggerRegistry = ((global::Mockolate.IMock)logger).MockRegistry;
 					s_factoryRegistries.Add(loggerRegistry, factoryRegistry);
+					s_categories.Add(loggerRegistry, categoryName);
 					factoryRegistry.ShareVerifiedInteractions(loggerRegistry);
 					state.Loggers.Add(categoryName, logger);
 				}
@@ -465,23 +765,13 @@ namespace Mockolate
 		/// </remarks>
 		public static global::Microsoft.Extensions.Logging.ILogger<TCategoryName> GetLogger<TCategoryName>(global::Mockolate.Internals.MockRegistry factoryRegistry)
 		{
-			global::Mockolate.Internals.MockRegistry registry = ((global::Mockolate.IMock)CreateLogger(factoryRegistry, GetCategoryName<TCategoryName>())).MockRegistry;
+			global::Mockolate.Internals.MockRegistry registry = ((global::Mockolate.IMock)CreateLogger(factoryRegistry, CategoryName<TCategoryName>.Value)).MockRegistry;
 			if (typeof(TCategoryName) == typeof(global::Mockolate.SourceGenerators.Tests.SnapshotDriver.Program))
 			{
 				return (global::Microsoft.Extensions.Logging.ILogger<TCategoryName>)(object)new global::Mockolate.Mock.ILogger_Program(registry);
 			}
 
 			return new CategoryLogger<TCategoryName>(registry);
-		}
-
-		/// <summary>
-		///     Returns the category name that <c>Logger&lt;TCategoryName&gt;</c> requests from its factory.
-		/// </summary>
-		public static string GetCategoryName<TCategoryName>()
-		{
-			CategoryNameCapture capture = new();
-			_ = new global::Microsoft.Extensions.Logging.Logger<TCategoryName>(capture);
-			return capture.CategoryName;
 		}
 
 		private sealed class CategoryLogger<TCategoryName> : global::Mockolate.Mock.ILogger, global::Microsoft.Extensions.Logging.ILogger<TCategoryName>
@@ -495,6 +785,23 @@ namespace Mockolate
 		private sealed class LoggerFactoryState
 		{
 			public global::System.Collections.Generic.Dictionary<string, global::Microsoft.Extensions.Logging.ILogger> Loggers { get; } = new();
+		}
+		/// <summary>
+		///     The category name that <c>Logger&lt;TCategoryName&gt;</c> requests from its factory.
+		/// </summary>
+		internal static class CategoryName<TCategoryName>
+		{
+			/// <summary>
+			///     The category name of <typeparamref name="TCategoryName" />.
+			/// </summary>
+			public static readonly string Value = GetValue();
+
+			private static string GetValue()
+			{
+				CategoryNameCapture capture = new();
+				_ = new global::Microsoft.Extensions.Logging.Logger<TCategoryName>(capture);
+				return capture.CategoryName;
+			}
 		}
 
 		private sealed class CategoryNameCapture : global::Microsoft.Extensions.Logging.ILoggerFactory
@@ -515,19 +822,176 @@ namespace Mockolate
 			{
 			}
 		}
-		private sealed class LogSetup : global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?>.WithParameterCollection, global::Mockolate.Internals.IGenericMethodSetup
+
+		/// <summary>
+		///     The conditions of a logging setup or verification, shared by both.
+		/// </summary>
+		internal sealed class LogFilter
 		{
-			public LogSetup(global::Mockolate.Internals.MockRegistry mockRegistry,
-				global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel> logLevel,
-				global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.EventId> eventId,
-				global::Mockolate.Parameters.IParameterMatch<string> message,
-				global::Mockolate.Parameters.IParameterMatch<global::System.Exception?> exception)
-				: base(mockRegistry, LogName, logLevel, eventId, message, exception)
+			private readonly global::Microsoft.Extensions.Logging.LogLevel? _logLevel;
+			private readonly global::System.Collections.Generic.List<global::System.Func<global::Mockolate.Interactions.ILogInvocation, bool>> _conditions = new();
+			private readonly global::System.Text.StringBuilder _description = new();
+			private bool _orHigher;
+
+			public LogFilter(global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 			{
+				_logLevel = logLevel;
+				_description.Append(entry);
 			}
 
+			public void OrHigher()
+			{
+				_orHigher = true;
+				_description.Append(".OrHigher()");
+			}
+
+			public void WithMessage(string message)
+				=> Add(log => string.Equals(log.Message, message, global::System.StringComparison.Ordinal), $".WithMessage(\"{message}\")");
+
+			public void WithMessage(global::Mockolate.Parameters.IParameter<string> message)
+			{
+				global::Mockolate.Parameters.IParameterMatch<string> match = global::Mockolate.CovariantParameterAdapter<string>.Wrap(message);
+				Add(log => match.Matches(log.Message), $".WithMessage({message})");
+			}
+
+			public void WithMessage(global::Mockolate.Parameters.LogTemplateMatch template)
+				=> Add(log => template.Matches(log.State), $".WithMessage({template})");
+
+			public void WithException(global::Mockolate.Parameters.IParameter<global::System.Exception?> exception)
+			{
+				global::Mockolate.Parameters.IParameterMatch<global::System.Exception?> match = global::Mockolate.CovariantParameterAdapter<global::System.Exception?>.Wrap(exception);
+				Add(log => match.Matches(log.Exception), $".WithException({exception})");
+			}
+
+			public void WithException<TException>() where TException : global::System.Exception
+				=> Add(log => log.Exception is TException, $".WithException<{typeof(TException).Name}>()");
+
+			public void WithEventId(global::Microsoft.Extensions.Logging.EventId eventId)
+				=> Add(log => log.EventId.Id == eventId.Id, $".WithEventId({eventId.Id})");
+
+			public void WithEventId(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.EventId> eventId)
+			{
+				global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.EventId> match = global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.EventId>.Wrap(eventId);
+				Add(log => match.Matches(log.EventId), $".WithEventId({eventId})");
+			}
+
+			public void WithCategory(string categoryName)
+				=> Add(log => string.Equals(log.Category, categoryName, global::System.StringComparison.Ordinal), $".WithCategory(\"{categoryName}\")");
+
+			public void WithCategory<TCategoryName>()
+				=> Add(log => string.Equals(log.Category, CategoryName<TCategoryName>.Value, global::System.StringComparison.Ordinal), $".WithCategory<{typeof(TCategoryName).Name}>()");
+
+			public bool Matches(global::Mockolate.Interactions.ILogInvocation log)
+			{
+				if (_logLevel is { } logLevel && (_orHigher ? log.LogLevel < logLevel : log.LogLevel != logLevel))
+				{
+					return false;
+				}
+
+				foreach (global::System.Func<global::Mockolate.Interactions.ILogInvocation, bool> condition in _conditions)
+				{
+					if (!condition(log))
+					{
+						return false;
+					}
+				}
+
+				return true;
+			}
+
+			public override string ToString()
+				=> _description.ToString();
+
+			private void Add(global::System.Func<global::Mockolate.Interactions.ILogInvocation, bool> condition, string description)
+			{
+				_conditions.Add(condition);
+				_description.Append(description);
+			}
+		}
+
+		private sealed class LogSetup : global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?>.WithParameterCollection, global::Mockolate.Internals.IGenericMethodSetup, global::Mockolate.Setup.ILogSetup
+		{
+			private readonly LogFilter _filter;
+
+			public LogSetup(global::Mockolate.Internals.MockRegistry mockRegistry, LogFilter filter)
+				: base(mockRegistry, LogName,
+					global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.LogLevel>.Wrap(global::Mockolate.It.IsAny<global::Microsoft.Extensions.Logging.LogLevel>()),
+					global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.EventId>.Wrap(global::Mockolate.It.IsAny<global::Microsoft.Extensions.Logging.EventId>()),
+					global::Mockolate.CovariantParameterAdapter<string>.Wrap(global::Mockolate.It.IsAny<string>()),
+					global::Mockolate.CovariantParameterAdapter<global::System.Exception?>.Wrap(global::Mockolate.It.IsAny<global::System.Exception?>()))
+			{
+				_filter = filter;
+			}
+
+			public bool MatchesLog(global::Mockolate.Interactions.ILogInvocation log)
+				=> _filter.Matches(log);
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.OrHigher()
+			{
+				_filter.OrHigher();
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithMessage(string message)
+			{
+				_filter.WithMessage(message);
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithMessage(global::Mockolate.Parameters.IParameter<string> message)
+			{
+				_filter.WithMessage(message);
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithMessage(global::Mockolate.Parameters.LogTemplateMatch template)
+			{
+				_filter.WithMessage(template);
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithException(global::Mockolate.Parameters.IParameter<global::System.Exception?> exception)
+			{
+				_filter.WithException(exception);
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithException<TException>()
+			{
+				_filter.WithException<TException>();
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithEventId(global::Microsoft.Extensions.Logging.EventId eventId)
+			{
+				_filter.WithEventId(eventId);
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithEventId(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.EventId> eventId)
+			{
+				_filter.WithEventId(eventId);
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithCategory(string categoryName)
+			{
+				_filter.WithCategory(categoryName);
+				return this;
+			}
+
+			global::Mockolate.Setup.ILogSetup global::Mockolate.Setup.ILogSetup.WithCategory<TCategoryName>()
+			{
+				_filter.WithCategory<TCategoryName>();
+				return this;
+			}
+
+			/// <inheritdoc cref="object.ToString()" />
+			public override string ToString()
+				=> _filter.ToString();
+
 			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
-				=> interaction is global::Mockolate.Interactions.ILogInvocation log && Matches(log.LogLevel, log.EventId, log.Message, log.Exception);
+				=> interaction is global::Mockolate.Interactions.ILogInvocation log && _filter.Matches(log);
 		}
 	}
 }

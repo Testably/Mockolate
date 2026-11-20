@@ -36,7 +36,7 @@ public sealed class LoggerFactoryTests
 	{
 		int calls = 0;
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
-		factory.Mock.GetLogger<LoggerFactoryTests>().Mock.Setup.LogError(It.IsAny<string>()).Do(() => calls++);
+		factory.Mock.GetLogger<LoggerFactoryTests>().Mock.Setup.LogError().Do(() => calls++);
 		ILogger<LoggerFactoryTests> logger = new Logger<LoggerFactoryTests>(factory);
 
 		logger.LogError("failed");
@@ -53,8 +53,8 @@ public sealed class LoggerFactoryTests
 		logger.LogError("from typed logger");
 		factory.CreateLogger(typeof(LoggerFactoryTests).FullName!).LogError("from category logger");
 
-		await That(logger.Mock.Verify.LogError(It.IsAny<string>())).Twice();
-		await That(factory.Mock.Verify.LogError(It.IsAny<string>())).Twice();
+		await That(logger.Mock.Verify.LogError()).Twice();
+		await That(factory.Mock.Verify.LogError()).Twice();
 	}
 
 	[Test]
@@ -63,13 +63,13 @@ public sealed class LoggerFactoryTests
 		int calls = 0;
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
 		ILogger<LoggerTests> logger = factory.Mock.GetLogger<LoggerTests>();
-		logger.Mock.Setup.LogError(It.IsAny<string>()).Do(() => calls++);
+		logger.Mock.Setup.LogError().Do(() => calls++);
 
 		factory.CreateLogger<LoggerTests>().LogError("from category logger");
 
 		await That(calls).IsEqualTo(1)
 			.Because("ILogger<LoggerTests> has its own mock, whose Mock property must also work on the returned logger");
-		await That(logger.Mock.Verify.LogError(It.IsAny<string>())).Once();
+		await That(logger.Mock.Verify.LogError()).Once();
 	}
 
 	[Test]
@@ -81,10 +81,24 @@ public sealed class LoggerFactoryTests
 		factory.CreateLogger("Payments").LogInformation("two");
 		factory.CreateLogger<LoggerFactoryTests>().LogWarning("three");
 
-		await That(factory.Mock.Verify.LogInformation(It.IsAny<string>())).Twice();
-		await That(factory.Mock.Verify.Log(It.IsAny<LogLevel>(), It.IsAny<string>())).Exactly(3);
-		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogInformation(It.IsAny<string>())).Once()
+		await That(factory.Mock.Verify.LogInformation()).Twice();
+		await That(factory.Mock.Verify.Log()).Exactly(3);
+		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogInformation()).Once()
 			.Because("each logger still counts only its own calls");
+	}
+
+	[Test]
+	public async Task Verify_WithCategory_ShouldMatchTheCategoryOfTheLogger()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+
+		factory.CreateLogger("Orders").LogInformation("one");
+		factory.CreateLogger<LoggerFactoryTests>().LogInformation("two");
+		factory.Mock.GetLogger<LoggerFactoryTests>().LogInformation("three");
+
+		await That(factory.Mock.Verify.LogInformation().WithCategory("Orders")).Once();
+		await That(factory.Mock.Verify.LogInformation().WithCategory<LoggerFactoryTests>()).Twice();
+		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogInformation().WithCategory("Orders")).Once();
 	}
 
 	[Test]
@@ -95,7 +109,7 @@ public sealed class LoggerFactoryTests
 		logger.LogError("failed");
 
 		bool loggerBefore = logger.Mock.VerifyThatAllInteractionsAreVerified();
-		await That(factory.Mock.Verify.LogError(It.IsAny<string>())).Once();
+		await That(factory.Mock.Verify.LogError()).Once();
 		bool loggerAfter = logger.Mock.VerifyThatAllInteractionsAreVerified();
 
 		await That(loggerBefore).IsFalse();
@@ -110,7 +124,7 @@ public sealed class LoggerFactoryTests
 		await That(factory.Mock.Verify.CreateLogger(It.Is("Orders"))).Once();
 
 		bool factoryBefore = factory.Mock.VerifyThatAllInteractionsAreVerified();
-		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogError(It.IsAny<string>())).Once();
+		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogError()).Once();
 		bool factoryAfter = factory.Mock.VerifyThatAllInteractionsAreVerified();
 
 		await That(factoryBefore).IsFalse();
@@ -124,7 +138,7 @@ public sealed class LoggerFactoryTests
 		factory.CreateLogger("Orders").LogError("failed");
 		factory.CreateLogger("Payments").LogError("failed");
 
-		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogError(It.IsAny<string>())).Once();
+		await That(factory.Mock.GetLogger("Orders").Mock.Verify.LogError()).Once();
 
 		await That(factory.Mock.GetLogger("Payments").Mock.VerifyThatAllInteractionsAreVerified()).IsFalse();
 	}

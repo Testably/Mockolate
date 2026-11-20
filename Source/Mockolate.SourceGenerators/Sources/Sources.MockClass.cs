@@ -2505,9 +2505,7 @@ internal static partial class Sources
 
 		if (isClassInterface && IsLoggerLog(method))
 		{
-			sb.Append("\t\t\tglobal::Mockolate.MockolateLogging.DispatchLog(").Append(mockRegistry).Append(", ")
-				.Append(memberIdPrefix).Append(memberIds.GetMethodIdentifier(method)).Append(", ")
-				.Append(string.Join(", ", method.Parameters.Select(p => p.Name))).Append(");").AppendLine();
+			AppendDispatchLog(sb, method, @class, mockRegistry, memberIdPrefix + memberIds.GetMethodIdentifier(method));
 			sb.AppendLine("\t\t}");
 			return;
 		}

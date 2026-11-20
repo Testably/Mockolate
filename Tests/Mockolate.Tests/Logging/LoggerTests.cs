@@ -14,12 +14,12 @@ public sealed class LoggerTests
 	{
 		int calls = 0;
 		ILogger logger = ILogger.CreateMock().Implementing<IDisposable>();
-		logger.Mock.Setup.LogError(It.IsAny<string>()).Do(() => calls++);
+		logger.Mock.Setup.LogError().Do(() => calls++);
 
 		logger.LogError("failed");
 
 		await That(calls).IsEqualTo(1);
-		await That(logger.Mock.Verify.LogError(It.Is("failed"))).Once();
+		await That(logger.Mock.Verify.LogError().WithMessage("failed")).Once();
 	}
 
 	[Test]
@@ -43,11 +43,12 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Setup_LogError_ShouldMatchFormattedMessageAndLevel()
+	public async Task Setup_LogError_WithMessageMatcher_ShouldMatchFormattedMessageAndLevel()
 	{
 		List<string> messages = [];
 		ILogger<LoggerTests> logger = ILogger<LoggerTests>.CreateMock();
-		logger.Mock.Setup.LogError(It.Matches("*failed*")).Do((_, _, message, _) => messages.Add(message));
+		logger.Mock.Setup.LogError().WithMessage(It.Matches("*failed*"))
+			.Do((_, _, message, _) => messages.Add(message));
 
 		logger.LogError("Order {OrderId} failed", 42);
 		logger.LogWarning("Order {OrderId} failed", 43);
@@ -61,7 +62,7 @@ public sealed class LoggerTests
 	{
 		int calls = 0;
 		ILogger logger = ILogger.CreateMock();
-		logger.Mock.Setup.LogInformation(It.Is("custom state")).Do(() => calls++);
+		logger.Mock.Setup.LogInformation().WithMessage("custom state").Do(() => calls++);
 
 		logger.Log(LogLevel.Information, new EventId(1), 42, null, (_, _) => "custom state");
 
@@ -69,12 +70,11 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Setup_Log_WithException_ShouldOnlyMatchMatchingException()
+	public async Task Setup_WithException_ShouldOnlyMatchMatchingException()
 	{
 		InvalidOperationException exception = new();
 		ILogger logger = ILogger.CreateMock();
-		logger.Mock.Setup.Log(It.IsAny<LogLevel>(), It.IsAny<string>(), It.Is<Exception?>(exception))
-			.Throws<TimeoutException>();
+		logger.Mock.Setup.Log().WithException(It.Is<Exception?>(exception)).Throws<TimeoutException>();
 
 		void ActWithSameException() => logger.LogError(exception, "with exception");
 		void ActWithOtherException() => logger.LogError(new ArgumentException(), "with other exception");
@@ -88,8 +88,8 @@ public sealed class LoggerTests
 	{
 		List<string> calls = [];
 		ILogger logger = ILogger.CreateMock();
-		logger.Mock.Setup.LogError(It.IsAny<string>()).Do(() => calls.Add("first"));
-		logger.Mock.Setup.LogError(It.IsAny<string>()).Do(() => calls.Add("second"));
+		logger.Mock.Setup.LogError().Do(() => calls.Add("first"));
+		logger.Mock.Setup.LogError().Do(() => calls.Add("second"));
 
 		logger.LogError("failed");
 
@@ -101,7 +101,7 @@ public sealed class LoggerTests
 	{
 		int calls = 0;
 		ILogger logger = ILogger.CreateMock();
-		logger.Mock.InScenario("broken").Setup.LogError(It.IsAny<string>()).Do(() => calls++);
+		logger.Mock.InScenario("broken").Setup.LogError().Do(() => calls++);
 
 		logger.LogError("before transition");
 		logger.Mock.TransitionTo("broken");
@@ -111,26 +111,26 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Setup_InScenario_WithTypedAndMessageSetups_ShouldUseLatest()
+	public async Task Setup_InScenario_WithTypedAndLoggingSetups_ShouldUseLatest()
 	{
 		List<string> calls = [];
 		ILogger logger = ILogger.CreateMock();
 		logger.Mock.InScenario("broken").Setup.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<int>(),
 			It.IsAny<Exception?>(), It.IsAny<Func<int, Exception?, string>>()).Do(() => calls.Add("typed"));
-		logger.Mock.InScenario("broken").Setup.LogError(It.IsAny<string>()).Do(() => calls.Add("message"));
+		logger.Mock.InScenario("broken").Setup.LogError().Do(() => calls.Add("logging"));
 		logger.Mock.TransitionTo("broken");
 
 		logger.Log(LogLevel.Error, new EventId(1), 42, null, (_, _) => "failed");
 
-		await That(calls).IsEqualTo(["message",]);
+		await That(calls).IsEqualTo(["logging",]);
 	}
 
 	[Test]
-	public async Task Setup_InScenario_WithMessageAndTypedSetups_ShouldUseLatest()
+	public async Task Setup_InScenario_WithLoggingAndTypedSetups_ShouldUseLatest()
 	{
 		List<string> calls = [];
 		ILogger logger = ILogger.CreateMock();
-		logger.Mock.InScenario("broken").Setup.LogError(It.IsAny<string>()).Do(() => calls.Add("message"));
+		logger.Mock.InScenario("broken").Setup.LogError().Do(() => calls.Add("logging"));
 		logger.Mock.InScenario("broken").Setup.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<int>(),
 			It.IsAny<Exception?>(), It.IsAny<Func<int, Exception?, string>>()).Do(() => calls.Add("typed"));
 		logger.Mock.TransitionTo("broken");
@@ -138,6 +138,22 @@ public sealed class LoggerTests
 		logger.Log(LogLevel.Error, new EventId(1), 42, null, (_, _) => "failed");
 
 		await That(calls).IsEqualTo(["typed",]);
+	}
+
+	[Test]
+	public async Task Setup_WithMessageTemplate_ShouldMatchTemplateAndProperties()
+	{
+		List<string> messages = [];
+		ILogger logger = ILogger.CreateMock();
+		logger.Mock.Setup.LogWarning()
+			.WithMessage(It.MatchesTemplate("Retry {Count} of {Name}").WithProperty("Count", 2))
+			.Do((_, _, message, _) => messages.Add(message));
+
+		logger.LogWarning("Retry {Count} of {Name}", 1, "order");
+		logger.LogWarning("Retry {Count} of {Name}", 2, "order");
+		logger.LogWarning("Retry {Count} for {Name}", 2, "order");
+
+		await That(messages).IsEqualTo(["Retry 2 of order",]);
 	}
 
 	[Test]
@@ -151,12 +167,12 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_LoggerMessage_WithMessageSetup_ShouldNotThrow()
+	public async Task ThrowingWhenNotSetup_LoggerMessage_WithLoggingSetup_ShouldNotThrow()
 	{
 		Action<ILogger, int, Exception?> logOrderFailed =
 			LoggerMessage.Define<int>(LogLevel.Error, new EventId(1), "Order {OrderId} failed");
 		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
-		logger.Mock.Setup.LogError(It.IsAny<string>());
+		logger.Mock.Setup.LogError();
 
 		void Act() => logOrderFailed(logger, 42, null);
 
@@ -187,10 +203,10 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_WithMessageSetup_ShouldNotThrow()
+	public async Task ThrowingWhenNotSetup_WithLoggingSetup_ShouldNotThrow()
 	{
 		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
-		logger.Mock.Setup.LogError(It.IsAny<string>());
+		logger.Mock.Setup.LogError();
 
 		void Act() => logger.LogError("failed");
 
@@ -198,7 +214,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_ShouldCountMatchingFormattedMessages()
+	public async Task Verify_Level_ShouldCountTheCallsOnTheLevel()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -206,41 +222,204 @@ public sealed class LoggerTests
 		logger.LogWarning("Retry {Count}", 2);
 		logger.LogError("Retry {Count}", 3);
 
-		await That(logger.Mock.Verify.LogWarning(It.Matches("Retry *"))).Twice();
-		await That(logger.Mock.Verify.LogWarning(It.Is("Retry 2"))).Once();
-		await That(logger.Mock.Verify.LogCritical(It.IsAny<string>())).Never();
-		await That(logger.Mock.Verify.Log(It.IsAny<LogLevel>(), It.Matches("Retry *"))).Exactly(3);
+		await That(logger.Mock.Verify.LogWarning()).Twice();
+		await That(logger.Mock.Verify.Log(LogLevel.Error)).Once();
+		await That(logger.Mock.Verify.LogCritical()).Never();
+		await That(logger.Mock.Verify.Log()).Exactly(3);
 	}
 
 	[Test]
-	public async Task Verify_Log_WithException_ShouldMatchException()
+	public async Task Verify_OrHigher_ShouldIncludeHigherLevels()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogInformation("one");
+		logger.LogWarning("two");
+		logger.LogCritical("three");
+
+		await That(logger.Mock.Verify.LogWarning().OrHigher()).Twice();
+		await That(logger.Mock.Verify.Log(LogLevel.Information).OrHigher()).Exactly(3);
+	}
+
+	[Test]
+	public async Task Verify_WithMessage_ShouldOnlyMatchTheExactMessage()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogWarning("Retry {Count}", 1);
+		logger.LogWarning("Retry {Count} again", 1);
+
+		await That(logger.Mock.Verify.LogWarning().WithMessage("Retry 1")).Once();
+		await That(logger.Mock.Verify.LogWarning().WithMessage("retry 1")).Never();
+		await That(logger.Mock.Verify.LogWarning().WithMessage(It.Matches("Retry 1*"))).Twice();
+	}
+
+	[Test]
+	public async Task Verify_WithMessageTemplate_ShouldMatchTheTemplate()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogInformation("Ordered {Amount} {Type} chocolates", 3, "Dark");
+		logger.LogInformation("Ordered 3 Dark chocolates");
+
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Amount} {Type} chocolates"))).Once();
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Amount} chocolates"))).Never();
+	}
+
+	[Test]
+	public async Task Verify_WithMessageTemplate_WithProperty_ShouldMatchTheValue()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogInformation("Ordered {Amount} {Type} chocolates", 3, "Dark");
+		logger.LogInformation("Ordered {Amount} {Type} chocolates", 5, "White");
+
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Amount} {Type} chocolates").WithProperty("Type", "Dark"))).Once();
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Amount} {Type} chocolates")
+				.WithProperty("Amount", It.Satisfies<int>(amount => amount > 2))
+				.WithProperty("Type", It.IsAny<string>()))).Twice();
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Amount} {Type} chocolates").WithProperty("Amount", "3"))).Never()
+			.Because("the property is an int, not a string");
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Amount} {Type} chocolates").WithProperty("Size", It.IsAny<int>()))).Never()
+			.Because("the template has no property Size");
+	}
+
+	[Test]
+	public async Task Verify_WithMessageTemplate_WithNullProperty_ShouldMatchNull()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogInformation("Ordered {Type} chocolates", (string?)null);
+
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Type} chocolates").WithProperty("Type", null))).Once();
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Type} chocolates").WithProperty("Type", It.IsNull<string>()))).Once();
+	}
+
+	[Test]
+	public async Task Verify_WithMessageTemplate_WhenStateIsNotStructured_ShouldNotMatch()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.Log(LogLevel.Information, new EventId(1), 42, null, (_, _) => "Ordered 42 chocolates");
+
+		await That(logger.Mock.Verify.LogInformation()
+			.WithMessage(It.MatchesTemplate("Ordered {Amount} chocolates"))).Never();
+	}
+
+	[Test]
+	public async Task Verify_WithException_ShouldMatchException()
 	{
 		ILogger logger = ILogger.CreateMock();
 
 		logger.LogError(new InvalidOperationException("boom"), "Failed");
 
-		await That(logger.Mock.Verify.Log(It.Is(LogLevel.Error), It.Is("Failed"),
-			It.Satisfies<Exception?>(e => e is InvalidOperationException))).Once();
-		await That(logger.Mock.Verify.Log(It.Is(LogLevel.Error), It.Is("Failed"),
-			It.Satisfies<Exception?>(e => e is ArgumentException))).Never();
+		await That(logger.Mock.Verify.LogError().WithException<InvalidOperationException>()).Once();
+		await That(logger.Mock.Verify.LogError().WithException<Exception>()).Once();
+		await That(logger.Mock.Verify.LogError().WithException<ArgumentException>()).Never();
+		await That(logger.Mock.Verify.LogError()
+			.WithException(It.Satisfies<Exception?>(e => e?.Message == "boom"))).Once();
+		await That(logger.Mock.Verify.LogError().WithException(It.IsNull<Exception?>())).Never();
 	}
 
 	[Test]
-	public async Task Verify_WhenNotMatching_ShouldDescribeExpectation()
+	public async Task Verify_WithEventId_ShouldMatchTheId()
 	{
 		ILogger logger = ILogger.CreateMock();
 
-		void Act() => logger.Mock.Verify.LogError(It.Is("failed")).Once();
+		logger.LogWarning(new EventId(7, "Retry"), "Retry");
+		logger.LogWarning(new EventId(8), "Retry");
+
+		await That(logger.Mock.Verify.LogWarning().WithEventId(7)).Once();
+		await That(logger.Mock.Verify.LogWarning().WithEventId(new EventId(8))).Once();
+		await That(logger.Mock.Verify.LogWarning()
+			.WithEventId(It.Satisfies<EventId>(eventId => eventId.Name == "Retry"))).Once();
+	}
+
+	[Test]
+	public async Task Verify_WithCategory_OnGenericLogger_ShouldMatchTheCategoryOfTheType()
+	{
+		ILogger<LoggerTests> logger = ILogger<LoggerTests>.CreateMock();
+
+		logger.LogWarning("Retry");
+
+		await That(logger.Mock.Verify.LogWarning().WithCategory<LoggerTests>()).Once();
+		await That(logger.Mock.Verify.LogWarning().WithCategory("Mockolate.Tests.Logging.LoggerTests")).Once();
+		await That(logger.Mock.Verify.LogWarning().WithCategory<LoggerFactoryTests>()).Never();
+	}
+
+	[Test]
+	public async Task Verify_WithCategory_OnLoggerWithoutCategory_ShouldNotMatch()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogWarning("Retry");
+
+		await That(logger.Mock.Verify.LogWarning().WithCategory<LoggerTests>()).Never();
+	}
+
+	[Test]
+	public async Task Verify_WithSeveralFilters_ShouldRequireAll()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogError(new EventId(1), new TimeoutException(), "Order {OrderId} failed", 42);
+		logger.LogError(new EventId(2), new TimeoutException(), "Order {OrderId} failed", 43);
+
+		await That(logger.Mock.Verify.LogError()
+			.WithEventId(1)
+			.WithException<TimeoutException>()
+			.WithMessage(It.MatchesTemplate("Order {OrderId} failed").WithProperty("OrderId", 42))).Once();
+	}
+
+	[Test]
+	public async Task Verify_Then_ShouldCheckTheOrder()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		logger.LogInformation("first");
+		logger.LogWarning("second");
+
+		await That(logger.Mock.Verify.LogInformation()).Then(m => m.LogWarning());
+	}
+
+	[Test]
+	public async Task Verify_WhenNotMatching_ShouldDescribeTheFilters()
+	{
+		ILogger logger = ILogger.CreateMock();
+
+		void Act() => logger.Mock.Verify.LogError().OrHigher().WithMessage("failed")
+			.WithException<TimeoutException>().WithEventId(3).WithCategory("Orders").Once();
 
 		await That(Act).Throws<MockVerificationException>()
-			.WithMessage("*Log(*Error*failed*)*").AsWildcard();
+			.WithMessage("Expected that mock invoked method LogError().OrHigher().WithMessage(\"failed\").WithException<TimeoutException>().WithEventId(3).WithCategory(\"Orders\") exactly once, but it never did.");
 	}
 
 	[Test]
-	public async Task VerifySetup_ShouldCountCallsMatchingTheMessageSetup()
+	public async Task Verify_WhenNotMatchingTemplate_ShouldDescribeTheTemplate()
 	{
 		ILogger logger = ILogger.CreateMock();
-		IMethodSetup setup = logger.Mock.Setup.LogError(It.IsAny<string>());
+
+		void Act() => logger.Mock.Verify.Log(LogLevel.Warning)
+			.WithMessage(It.MatchesTemplate("Retry {Count}").WithProperty("Count", 2).WithProperty("Name", "order"))
+			.Once();
+
+		await That(Act).Throws<MockVerificationException>()
+			.WithMessage("Expected that mock invoked method Log(Warning).WithMessage(It.MatchesTemplate(\"Retry {Count}\").WithProperty(\"Count\", 2).WithProperty(\"Name\", \"order\")) exactly once, but it never did.");
+	}
+
+	[Test]
+	public async Task VerifySetup_ShouldCountCallsMatchingTheLoggingSetup()
+	{
+		ILogger logger = ILogger.CreateMock();
+		IMethodSetup setup = logger.Mock.Setup.LogError();
 
 		logger.LogError("one");
 		logger.LogWarning("two");
@@ -251,11 +430,11 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task VerifyThatAllSetupsAreUsed_ShouldConsiderCallsMatchingTheMessageSetup()
+	public async Task VerifyThatAllSetupsAreUsed_ShouldConsiderCallsMatchingTheLoggingSetup()
 	{
 		ILogger logger = ILogger.CreateMock();
-		logger.Mock.Setup.LogError(It.Is("used"));
-		logger.Mock.Setup.LogError(It.Is("unused"));
+		logger.Mock.Setup.LogError().WithMessage("used");
+		logger.Mock.Setup.LogError().WithMessage("unused");
 
 		logger.LogError("used");
 		bool allUsedBefore = logger.Mock.VerifyThatAllSetupsAreUsed();
@@ -280,6 +459,6 @@ public sealed class LoggerTests
 
 		logger.LogError("after");
 
-		await That(monitor.Verify.LogError(It.IsAny<string>())).Once();
+		await That(monitor.Verify.LogError()).Once();
 	}
 }
