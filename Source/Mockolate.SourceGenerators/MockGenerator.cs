@@ -64,7 +64,6 @@ public class MockGenerator : IIncrementalGenerator
 		// CreateMock calls bound again in the current compilation, so that every other compilation does no work
 		// for them and its output stays unchanged.
 		IncrementalValueProvider<EquatableArray<MockClass>> discoveredMocks = creations
-			.Select(static (creation, _) => creation.Location)
 			.Collect()
 			.Combine(autoMocking.Combine(excludedNamespaces))
 			.Combine(context.CompilationProvider)
@@ -353,19 +352,50 @@ public class MockGenerator : IIncrementalGenerator
 	}
 
 	/// <summary>
-	///     Binds the <paramref name="locations" /> of the <c>CreateMock</c> calls again and discovers the mocks for
+	///     Binds the <c>CreateMock</c> calls of the <paramref name="creations" /> again and discovers the mocks for
 	///     auto-mocking of the types they mock.
 	/// </summary>
-	private static EquatableArray<MockClass> DiscoverAutoMocks(ImmutableArray<CreateMockLocation> locations,
+	/// <remarks>
+	///     Calls that mock the same types add the same types to the walk, so only the first of them is bound again.
+	///     The <see cref="AutoMockDiscoveryCache" /> reuses the result of the previous compilation when the edits
+	///     cannot change it.
+	/// </remarks>
+	private static EquatableArray<MockClass> DiscoverAutoMocks(ImmutableArray<MockCreation> creations,
 		Compilation compilation, EquatableArray<string> excludedNamespaces, CancellationToken cancellationToken)
+	{
+		HashSet<string> identities = new(StringComparer.Ordinal);
+		List<string> orderedIdentities = [];
+		List<MockCreation> distinctCreations = [];
+		foreach (MockCreation creation in creations)
+		{
+			string identity = string.Join("\n", creation.Mocks.AsArray().Select(mock => mock.IdentityKey));
+			if (creation.Mocks.Count > 0 && identities.Add(identity))
+			{
+				orderedIdentities.Add(identity);
+				distinctCreations.Add(creation);
+			}
+		}
+
+		// The empty entry separates the namespaces from the identities, as neither of them is empty.
+		string settings = string.Join("\n", [..excludedNamespaces, "", ..orderedIdentities,]);
+		return AutoMockDiscoveryCache.GetOrDiscover(compilation, settings,
+			dependencies => DiscoverAutoMocks(distinctCreations, compilation, excludedNamespaces, dependencies,
+				cancellationToken),
+			cancellationToken);
+	}
+
+	private static EquatableArray<MockClass> DiscoverAutoMocks(List<MockCreation> creations, Compilation compilation,
+		EquatableArray<string> excludedNamespaces, AutoMockDependencies dependencies,
+		CancellationToken cancellationToken)
 	{
 		EntityCache cache = EntityCache.GetOrCreate(compilation);
 		using EntityCache.Scope scope = EntityCache.EnterScope(cache);
 		ILookup<string, SyntaxTree> trees = compilation.SyntaxTrees.ToLookup(tree => tree.FilePath, StringComparer.Ordinal);
 		Dictionary<SyntaxTree, SemanticModel> semanticModels = new();
 		List<ITypeSymbol[]> mockedTypes = [];
-		foreach (CreateMockLocation location in locations)
+		foreach (MockCreation creation in creations)
 		{
+			CreateMockLocation location = creation.Location;
 			TextSpan span = new(location.Start, location.Length);
 			// Trees without a file path share the empty one, so every tree with the path is a candidate.
 			foreach (SyntaxTree tree in trees[location.FilePath])
@@ -390,7 +420,7 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		return new EquatableArray<MockClass>(MockGeneratorHelpers.DiscoverAutoMocks(mockedTypes, compilation,
-			excludedNamespaces, cancellationToken));
+			excludedNamespaces, dependencies, cancellationToken));
 	}
 
 	/// <remarks>

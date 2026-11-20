@@ -455,7 +455,8 @@ internal static class MockGeneratorHelpers
 			: typeSymbol;
 
 	private static IEnumerable<INamedTypeSymbol> GetAutoMockableReturnTypes(ITypeSymbol typeSymbol,
-		IAssemblySymbol sourceAssembly, EquatableArray<string> excludedNamespaces)
+		IAssemblySymbol sourceAssembly, EquatableArray<string> excludedNamespaces, AutoMockDependencies? dependencies,
+		CancellationToken cancellationToken)
 	{
 		foreach (ISymbol member in GetImplementedMembers(typeSymbol, sourceAssembly))
 		{
@@ -465,8 +466,18 @@ internal static class MockGeneratorHelpers
 				IPropertySymbol { GetMethod: not null, } property => property.Type,
 				_ => null,
 			};
-			if (returnType is not null && UnwrapTask(returnType) is INamedTypeSymbol candidate &&
-			    CanBeDiscovered(candidate, sourceAssembly, excludedNamespaces))
+			if (returnType is null || UnwrapTask(returnType) is not INamedTypeSymbol candidate)
+			{
+				continue;
+			}
+
+			// Whether a candidate is discovered depends on its members, unless its own declaration rejects it.
+			if (IsAutoMockable(candidate) && !IsInNamespace(candidate, excludedNamespaces))
+			{
+				dependencies?.Add(candidate, true, cancellationToken);
+			}
+
+			if (CanBeDiscovered(candidate, sourceAssembly, excludedNamespaces))
 			{
 				yield return candidate;
 			}
@@ -494,8 +505,14 @@ internal static class MockGeneratorHelpers
 	///     compilation. Only a type that is mocked on its own has a mock already; a type that a mock only implements in addition
 	///     (<c>Implementing&lt;T&gt;</c>) still needs an auto-mock when a member returns it.
 	/// </remarks>
+	/// <param name="mockedTypes">The types of the mocks that the <c>CreateMock</c> calls create.</param>
+	/// <param name="compilation">The current compilation.</param>
+	/// <param name="excludedNamespaces">The namespaces whose interfaces get no mock.</param>
+	/// <param name="dependencies">Collects the names that the result depends on, if not <see langword="null" />.</param>
+	/// <param name="cancellationToken">The cancellation token.</param>
 	internal static MockClass[] DiscoverAutoMocks(IReadOnlyCollection<ITypeSymbol[]> mockedTypes,
-		Compilation compilation, EquatableArray<string> excludedNamespaces, CancellationToken cancellationToken)
+		Compilation compilation, EquatableArray<string> excludedNamespaces, AutoMockDependencies? dependencies,
+		CancellationToken cancellationToken)
 	{
 		IAssemblySymbol sourceAssembly = compilation.Assembly;
 		List<MockClass> result = [];
@@ -507,8 +524,9 @@ internal static class MockGeneratorHelpers
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ITypeSymbol currentType = typesToProcess.Dequeue();
+			dependencies?.Add(currentType, true, cancellationToken);
 			foreach (INamedTypeSymbol returnType in GetAutoMockableReturnTypes(currentType, sourceAssembly,
-				         excludedNamespaces))
+				         excludedNamespaces, dependencies, cancellationToken))
 			{
 				if (Normalize(returnType, compilation) is INamedTypeSymbol normalized && processedTypes.Add(normalized))
 				{

@@ -8,7 +8,6 @@ namespace Mockolate.SourceGenerators.Entities;
 [DebuggerDisplay("{DisplayString}")]
 internal class Class : IEquatable<Class>
 {
-	private readonly IAssemblySymbol _sourceAssembly;
 	private readonly int _surfaceHash;
 	private List<Event>? _allEvents;
 	private List<Method>? _allMethods;
@@ -27,7 +26,6 @@ internal class Class : IEquatable<Class>
 		List<Property>? filledProperties = null)
 #pragma warning restore S107
 	{
-		_sourceAssembly = sourceAssembly;
 		ClassFullName = type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 		ClassName = GetTypeName(type);
 		DisplayString = GetTypeFullName(type);
@@ -188,7 +186,7 @@ internal class Class : IEquatable<Class>
 
 		bool ShouldIncludeMember(ISymbol member)
 		{
-			if (FillsInaccessibleBaseSlot(member, _sourceAssembly))
+			if (FillsInaccessibleBaseSlot(member, sourceAssembly))
 			{
 				return false;
 			}
@@ -200,15 +198,14 @@ internal class Class : IEquatable<Class>
 				return true;
 			}
 
-			return Helpers.IsOverridableFrom(member, _sourceAssembly) &&
-			       Helpers.HasAccessibleSignature(member, _sourceAssembly);
+			return Helpers.IsOverridableFrom(member, sourceAssembly) &&
+			       Helpers.HasAccessibleSignature(member, sourceAssembly);
 		}
 	}
 
 	private Class(Class original, EquatableArray<Method> methods, EquatableArray<Property> properties,
 		EquatableArray<Event> events, EquatableArray<Class> inheritedTypes)
 	{
-		_sourceAssembly = original._sourceAssembly;
 		ClassFullName = original.ClassFullName;
 		ClassName = original.ClassName;
 		DisplayString = original.DisplayString;
