@@ -769,11 +769,30 @@ internal class Class : IEquatable<Class>
 		{
 			if (logger.GetMembers(name).OfType<IMethodSymbol>().FirstOrDefault() is { } interfaceMember &&
 			    type.FindImplementationForInterfaceMember(interfaceMember) is IMethodSymbol implementation &&
-			    GetMostDerivedOverride(type, implementation) is { MethodKind: MethodKind.Ordinary, } mostDerived)
+			    GetMostDerivedOverride(type, implementation) is { MethodKind: MethodKind.Ordinary, IsSealed: false, } mostDerived &&
+			    GetDeclaration(mostDerived) is { } declaration)
 			{
-				yield return new LoggerMember(name, new Method(mostDerived, null, sourceAssembly));
+				yield return new LoggerMember(name, new Method(declaration, null, sourceAssembly));
 			}
 		}
+	}
+
+	/// <summary>
+	///     The declaration that represents the overridable slot of the <paramref name="method" /> in
+	///     <see cref="Methods" />: an <c>override</c> is not listed there, but the virtual or abstract method it
+	///     overrides is.
+	/// </summary>
+	private static IMethodSymbol? GetDeclaration(IMethodSymbol method)
+	{
+		for (IMethodSymbol? candidate = method; candidate is not null; candidate = candidate.OverriddenMethod)
+		{
+			if (candidate.IsVirtual || candidate.IsAbstract)
+			{
+				return candidate;
+			}
+		}
+
+		return null;
 	}
 
 	private static IMethodSymbol GetMostDerivedOverride(INamedTypeSymbol type, IMethodSymbol implementation)

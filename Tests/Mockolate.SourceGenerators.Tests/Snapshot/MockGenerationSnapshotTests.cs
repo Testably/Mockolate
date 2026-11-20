@@ -181,6 +181,14 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [typeof(ILogger),]),
         new(
+            "LoggerClasses_CanBeCreated",
+            ["LoggerClasses.cs",],
+            """
+            ConcreteLogger sut1 = ConcreteLogger.CreateMock();
+            LeafLogger sut2 = LeafLogger.CreateMock();
+            """,
+            [typeof(ILogger),]),
+        new(
             "MethodConstrainedToTypeArgument_CanBeCreated",
             ["IMethodConstrainedToTypeArgument.cs",],
             """

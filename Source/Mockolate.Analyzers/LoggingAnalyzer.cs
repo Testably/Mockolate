@@ -128,6 +128,10 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 	///     The override of <paramref name="implementation" /> in the most derived type of <paramref name="mockedClass" />,
 	///     which the mock would have to override in turn.
 	/// </summary>
+	/// <remarks>
+	///     Mirrors <c>Class.GetLoggerMembers</c> in the generator, which decides on the same override and then dispatches
+	///     the declaration that it overrides.
+	/// </remarks>
 	private static IMethodSymbol GetMostDerivedOverride(INamedTypeSymbol mockedClass, IMethodSymbol implementation)
 	{
 		for (INamedTypeSymbol? type = mockedClass; type is not null; type = type.BaseType)

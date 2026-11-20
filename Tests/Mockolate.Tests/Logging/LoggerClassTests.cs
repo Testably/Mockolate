@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
+using Mockolate.Tests.GeneratorCoverage;
 
 namespace Mockolate.Tests.Logging;
 
@@ -159,6 +160,62 @@ public sealed class LoggerClassTests
 		await That(isEnabled).IsTrue()
 			.Because("the abstract IsEnabled of the base class implements ILogger.IsEnabled for the mocked class");
 		await That(logger.Mock.Verify.LogError().WithMessage("failed")).Once();
+	}
+
+	[Test]
+	public async Task OverridingLogger_ShouldSupportLoggingSetupsAndVerifications()
+	{
+		int calls = 0;
+		ConcreteLogger logger = ConcreteLogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+		logger.Mock.Setup.LogError().Do(() => calls++);
+
+		using (logger.BeginScope("scope"))
+		{
+			_ = logger.IsEnabled(LogLevel.Error);
+			logger.LogError("failed");
+		}
+
+		bool before = logger.Mock.VerifyThatAllInteractionsAreVerified();
+		await That(logger.Mock.Verify.LogError().WithMessage("failed")).Once();
+		bool after = logger.Mock.VerifyThatAllInteractionsAreVerified();
+
+		await That(calls).IsEqualTo(1);
+		await That(before).IsFalse();
+		await That(after).IsTrue();
+	}
+
+	[Test]
+	public async Task OverridingLogger_WithSkippedBaseClass_ShouldUseTheLoggingDefaults()
+	{
+		int calls = 0;
+		ConcreteLogger logger = ConcreteLogger.CreateMock(MockBehavior.Default.SkippingBaseClass());
+		logger.Mock.Setup.LogError().Do(() => calls++);
+
+		if (logger.IsEnabled(LogLevel.Error))
+		{
+			logger.LogError("failed");
+		}
+
+		await That(calls).IsEqualTo(1);
+		await That(logger.Mock.Verify.LogError().WithMessage("failed")).Once();
+	}
+
+	[Test]
+	public async Task LoggerWithOverrideChain_ShouldSupportLoggingSetupsAndVerifications()
+	{
+		int calls = 0;
+		LeafLogger logger = LeafLogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+		logger.Mock.Setup.LogError().Do(() => calls++);
+
+		using (logger.BeginScope("scope"))
+		{
+			_ = logger.IsEnabled(LogLevel.Error);
+			logger.LogError("failed");
+		}
+
+		await That(calls).IsEqualTo(1);
+		await That(logger.Mock.Verify.LogError().WithMessage("failed").WithCategory<VirtualLoggerBase>()).Once();
+		await That(logger.Mock.VerifyThatAllInteractionsAreVerified()).IsTrue();
 	}
 
 	[Test]
