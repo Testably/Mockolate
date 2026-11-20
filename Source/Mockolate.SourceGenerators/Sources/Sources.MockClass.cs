@@ -4615,10 +4615,140 @@ internal static partial class Sources
 				memberIdPrefix + memberIds.GetMethodIdentifier(method), scopePrefix);
 		}
 
+		// Fused literal path: when the call site is the bare-value overload (every parameter is a
+		// literal value) we can store the values directly on the setup via WithLiteralValues and
+		// skip the per-parameter IParameterMatch<T> allocations that WithParameterCollection
+		// would otherwise force via Matchers.IsValue<T>(...). Gated to 1..4 parameters because that is
+		// the arity range covered by the WithLiteralValues nested types.
+		// A params value parameter matches element-wise by value (It.SequenceEquals), which the
+		// reference-equality WithLiteralValues fast path cannot express — force the collection path.
+		bool useLiteralValues = !useParameters &&
+		                        valueFlags is { Length: > 0 and <= MaxExplicitParameters, } &&
+		                        valueFlags.All(x => x) &&
+		                        !HasParamsValueParameter(method, valueFlags) &&
+		                        !method.Parameters.Any(p => p.RefKind == RefKind.Out ||
+		                                                    p.RefKind == RefKind.Ref ||
+		                                                    p.RefKind == RefKind.RefReadOnlyParameter);
+		string setupType = GetMethodSetupType(method);
+		// Look up the method's memberId from the table; all other fluent overloads for the same
+		// method share the same id since they register setups for the same target method overload.
+		string memberIdRef = memberIdPrefix + memberIds.GetMethodIdentifier(method);
+		MethodParameter[] matcherCandidates = useLiteralValues
+			? method.Parameters.Where(MayHoldMatcher).ToArray()
+			: [];
+		if (matcherCandidates.Length > 0)
+		{
+			// Only a value that is a matcher needs the collection path; plain values keep the literal fast path.
+			string matcherSetupVar = Helpers.GetUniqueLocalVariableName("matcherSetup", method.Parameters);
+			sb.Append("\t\t\tif (")
+				.Append(string.Join(" || ",
+					matcherCandidates.Select(p => $"{p.Name} is global::Mockolate.Parameters.IParameter<{p.ToTypeOrWrapper()}>")))
+				.Append(')').AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\tvar ").Append(matcherSetupVar).Append(" = new ").Append(setupType);
+			AppendParameterCollection();
+			sb.Append(");").AppendLine();
+			sb.Append("\t\t\t\tthis.").Append(mockRegistryName).Append(".SetupMethod(")
+				.Append(memberIdRef).Append(", ").Append(scopePrefix).Append(matcherSetupVar).Append(");").AppendLine();
+			sb.Append("\t\t\t\treturn ").Append(matcherSetupVar).Append(';').AppendLine();
+			sb.Append("\t\t\t}").AppendLine();
+			sb.AppendLine();
+		}
+
 		string methodSetupVar = Helpers.GetUniqueLocalVariableName("methodSetup", method.Parameters);
+		sb.Append("\t\t\tvar ").Append(methodSetupVar).Append(" = new ").Append(setupType);
+		if (useParameters)
+		{
+			sb.Append(".WithParameters(this.").Append(mockRegistryName).Append(", ").Append(method.GetUniqueNameString())
+				.Append(", parameters");
+			foreach (MethodParameter parameter in method.Parameters)
+			{
+				sb.Append(", \"").Append(parameter.Name).Append('"');
+			}
+
+			sb.Append(");").AppendLine();
+			sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(".SetupMethod(")
+				.Append(memberIdRef).Append(", ").Append(scopePrefix).Append(methodSetupVar).Append(");").AppendLine();
+			sb.Append("\t\t\treturn ").Append(methodSetupVar).Append(';').AppendLine();
+		}
+		else
+		{
+			if (useLiteralValues)
+			{
+				sb.Append(".WithLiteralValues(this.").Append(mockRegistryName).Append(", ")
+					.Append(method.GetUniqueNameString());
+				foreach (MethodParameter parameter in method.Parameters)
+				{
+					sb.Append(", ").Append(parameter.Name);
+				}
+
+				sb.Append(");").AppendLine();
+			}
+			else
+			{
+				AppendParameterCollection();
+				sb.Append(");").AppendLine();
+			}
+
+			sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(".SetupMethod(")
+				.Append(memberIdRef).Append(", ").Append(scopePrefix).Append(methodSetupVar).Append(");").AppendLine();
+			sb.Append("\t\t\treturn ").Append(methodSetupVar).Append(';').AppendLine();
+		}
+
+		sb.AppendLine("\t\t}");
+		sb.AppendLine();
+
+		void AppendParameterCollection()
+		{
+			sb.Append(".WithParameterCollection(this.").Append(mockRegistryName).Append(", ")
+				.Append(method.GetUniqueNameString());
+			int j = 0;
+			foreach (MethodParameter parameter in method.Parameters)
+			{
+				sb.Append(", ");
+				if (perElementParams && parameter.IsParams &&
+				    parameter.Type.ElementType is not null)
+				{
+					sb.Append("new global::Mockolate.Internals.ParamsArrayParameterMatch<")
+						.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
+						.Append(")");
+				}
+				else if (valueFlags?[j] == true)
+				{
+					if (parameter.IsParams && parameter.Type.ElementType is not null)
+					{
+						// params value parameter: match element-wise by value via It.SequenceEquals.
+						sb.Append("global::Mockolate.CovariantParameterAdapter<").Append(parameter.Type.Fullname)
+							.Append(">.Wrap(global::Mockolate.It.SequenceEquals<")
+							.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
+							.Append("))");
+					}
+					else if (MayHoldMatcher(parameter))
+					{
+						AppendValueOrMatcher(sb, parameter);
+					}
+					else
+					{
+						AppendNamedValueParameter(sb, parameter);
+					}
+				}
+				else
+				{
+					AppendNamedParameter(sb, parameter);
+				}
+
+				j++;
+			}
+		}
+	}
+#pragma warning restore S107 // Methods should not have too many parameters
+
+	private static string GetMethodSetupType(Method method)
+	{
+		StringBuilder sb = new();
 		if (method.ReturnType != Type.Void)
 		{
-			sb.Append("\t\t\tvar ").Append(methodSetupVar).Append(" = new global::Mockolate.Setup.ReturnMethodSetup<");
+			sb.Append("global::Mockolate.Setup.ReturnMethodSetup<");
 			AppendSetupReturnType(sb, method);
 
 			foreach (MethodParameter parameter in method.Parameters)
@@ -4630,7 +4760,7 @@ internal static partial class Sources
 		}
 		else
 		{
-			sb.Append("\t\t\tvar ").Append(methodSetupVar).Append(" = new global::Mockolate.Setup.VoidMethodSetup");
+			sb.Append("global::Mockolate.Setup.VoidMethodSetup");
 
 			if (method.Parameters.Count > 0)
 			{
@@ -4650,102 +4780,7 @@ internal static partial class Sources
 			}
 		}
 
-		// Look up the method's memberId from the table; all other fluent overloads for the same
-		// method share the same id since they register setups for the same target method overload.
-		string memberIdRef = memberIdPrefix + memberIds.GetMethodIdentifier(method);
-		if (useParameters)
-		{
-			sb.Append(".WithParameters(this.").Append(mockRegistryName).Append(", ").Append(method.GetUniqueNameString())
-				.Append(", parameters");
-			foreach (MethodParameter parameter in method.Parameters)
-			{
-				sb.Append(", \"").Append(parameter.Name).Append('"');
-			}
-
-			sb.Append(");").AppendLine();
-			sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(".SetupMethod(")
-				.Append(memberIdRef).Append(", ").Append(scopePrefix).Append(methodSetupVar).Append(");").AppendLine();
-			sb.Append("\t\t\treturn ").Append(methodSetupVar).Append(';').AppendLine();
-		}
-		else
-		{
-			// Fused literal path: when the call site is the bare-value overload (every parameter is a
-			// literal value) we can store the values directly on the setup via WithLiteralValues and
-			// skip the per-parameter IParameterMatch<T> allocations that WithParameterCollection
-			// would otherwise force via Matchers.IsValue<T>(...). Gated to 1..4 parameters because that is
-			// the arity range covered by the WithLiteralValues nested types.
-			// A params value parameter matches element-wise by value (It.SequenceEquals), which the
-			// reference-equality WithLiteralValues fast path cannot express — force the collection path.
-			bool useLiteralValues = valueFlags is { Length: > 0 and <= MaxExplicitParameters, } &&
-			                        valueFlags.All(x => x) &&
-			                        !HasParamsValueParameter(method, valueFlags) &&
-			                        !method.Parameters.Any(MayHoldMatcher) &&
-			                        !method.Parameters.Any(p => p.RefKind == RefKind.Out ||
-			                                                    p.RefKind == RefKind.Ref ||
-			                                                    p.RefKind == RefKind.RefReadOnlyParameter);
-			if (useLiteralValues)
-			{
-				sb.Append(".WithLiteralValues(this.").Append(mockRegistryName).Append(", ")
-					.Append(method.GetUniqueNameString());
-				foreach (MethodParameter parameter in method.Parameters)
-				{
-					sb.Append(", ").Append(parameter.Name);
-				}
-
-				sb.Append(");").AppendLine();
-			}
-			else
-			{
-				sb.Append(".WithParameterCollection(this.").Append(mockRegistryName).Append(", ")
-					.Append(method.GetUniqueNameString());
-				int j = 0;
-				foreach (MethodParameter parameter in method.Parameters)
-				{
-					sb.Append(", ");
-					if (perElementParams && parameter.IsParams &&
-					    parameter.Type.ElementType is not null)
-					{
-						sb.Append("new global::Mockolate.Internals.ParamsArrayParameterMatch<")
-							.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
-							.Append(")");
-					}
-					else if (valueFlags?[j] == true)
-					{
-						if (parameter.IsParams && parameter.Type.ElementType is not null)
-						{
-							// params value parameter: match element-wise by value via It.SequenceEquals.
-							sb.Append("global::Mockolate.CovariantParameterAdapter<").Append(parameter.Type.Fullname)
-								.Append(">.Wrap(global::Mockolate.It.SequenceEquals<")
-								.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
-								.Append("))");
-						}
-						else if (MayHoldMatcher(parameter))
-						{
-							AppendValueOrMatcher(sb, parameter);
-						}
-						else
-						{
-							AppendNamedValueParameter(sb, parameter);
-						}
-					}
-					else
-					{
-						AppendNamedParameter(sb, parameter);
-					}
-
-					j++;
-				}
-
-				sb.Append(");").AppendLine();
-			}
-
-			sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(".SetupMethod(")
-				.Append(memberIdRef).Append(", ").Append(scopePrefix).Append(methodSetupVar).Append(");").AppendLine();
-			sb.Append("\t\t\treturn ").Append(methodSetupVar).Append(';').AppendLine();
-		}
-
-		sb.AppendLine("\t\t}");
-		sb.AppendLine();
+		return sb.ToString();
 	}
 #pragma warning restore S107 // Methods should not have too many parameters
 
@@ -6485,9 +6520,9 @@ internal static partial class Sources
 				if (matchNames[k] is not null)
 				{
 					sb.Append("\t\t\tglobal::Mockolate.Parameters.IParameterMatch<").Append(slowParameters[k].ToTypeOrWrapper())
-						.Append("> ").Append(matchNames[k]).Append(" = ");
-					AppendValueOrMatcher(sb, slowParameters[k]);
-					sb.Append(';').AppendLine();
+						.Append(">? ").Append(matchNames[k]).Append(" = global::Mockolate.Internals.Matchers.AsMatcher<")
+						.Append(slowParameters[k].ToTypeOrWrapper()).Append(">(").Append(slowParameters[k].Name).Append(");")
+						.AppendLine();
 				}
 			}
 
@@ -6572,8 +6607,11 @@ internal static partial class Sources
 				}
 				else if (matchNames[i] is not null)
 				{
-					sb.Append('(').Append(matchNames[i]).Append(".Matches(").Append(invocation).Append(".Parameter")
-						.Append(i + 1).Append("))");
+					// A plain value keeps the allocation-free equality comparison.
+					sb.Append('(').Append(matchNames[i]).Append("?.Matches(").Append(invocation).Append(".Parameter")
+						.Append(i + 1).Append(") ?? global::System.Collections.Generic.EqualityComparer<")
+						.Append(parameter.ToTypeOrWrapper()).Append(">.Default.Equals(").Append(parameter.Name).Append(", ")
+						.Append(invocation).Append(".Parameter").Append(i + 1).Append("))");
 				}
 				else if (isValueParam)
 				{

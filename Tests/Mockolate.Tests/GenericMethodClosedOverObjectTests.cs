@@ -76,32 +76,39 @@ public sealed class GenericMethodClosedOverObjectTests
 	public async Task ParametersMatch_ShouldSetUpTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
-		IGenericMethodClosedOverObject any = IGenericMethodClosedOverObject.CreateMock();
 		List<string> received = [];
 		sut.Mock.Setup.Plain<object>(Match.Parameters(p => p[0] is "a")).Do(() => received.Add("plain"));
 		sut.Mock.Setup.Get<object>(Match.Parameters(p => p[0] is "a")).Returns(1);
 		sut.Mock.Setup.Log<object>(Match.Parameters(p => p[1] is int[] { Length: 1, })).Do(() => received.Add("log"));
 		sut.Mock.Setup.Count<object>(Match.AnyParameters()).Returns(2);
-		any.Mock.Setup.Plain<object>(Match.Parameters(_ => false)).AnyParameters().Do(() => received.Add("any plain"));
-		any.Mock.Setup.Get<object>(Match.Parameters(_ => false)).AnyParameters().Returns(3);
-		any.Mock.Setup.Log<object>(Match.Parameters(_ => false)).AnyParameters().Do(() => received.Add("any log"));
-		any.Mock.Setup.Count<object>(Match.Parameters(_ => false)).AnyParameters().Returns(4);
 
 		sut.Plain<object>("a");
 		sut.Plain<object>("b");
 		sut.Log<object>("a", 1);
 		sut.Log<object>("a");
-		any.Plain<object>("a");
-		any.Log<object>("a", 1, 2);
-		int[] results =
-		[
-			sut.Get<object>("a"), sut.Get<object>("b"), sut.Count<object>("a"), sut.Count<object>("b", 1, 2),
-			any.Get<object>("a"), any.Count<object>("a", 1),
-		];
+		int[] results = [sut.Get<object>("a"), sut.Get<object>("b"), sut.Count<object>("a"), sut.Count<object>("b", 1, 2),];
 
-		await That(received).IsEqualTo(["plain", "log", "any plain", "any log",]);
-		await That(results).IsEqualTo([1, 0, 2, 2, 3, 4,])
+		await That(received).IsEqualTo(["plain", "log",]);
+		await That(results).IsEqualTo([1, 0, 2, 2,])
 			.Because("a lone parameters match stands for all parameters, also for the elements of a params array");
+	}
+
+	[Test]
+	public async Task ParametersMatch_WithAnyParameters_ShouldSetUpTheMethod()
+	{
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
+		List<string> received = [];
+		sut.Mock.Setup.Plain<object>(Match.Parameters(_ => false)).AnyParameters().Do(() => received.Add("plain"));
+		sut.Mock.Setup.Get<object>(Match.Parameters(_ => false)).AnyParameters().Returns(3);
+		sut.Mock.Setup.Log<object>(Match.Parameters(_ => false)).AnyParameters().Do(() => received.Add("log"));
+		sut.Mock.Setup.Count<object>(Match.Parameters(_ => false)).AnyParameters().Returns(4);
+
+		sut.Plain<object>("a");
+		sut.Log<object>("a", 1, 2);
+		int[] results = [sut.Get<object>("a"), sut.Count<object>("a", 1),];
+
+		await That(received).IsEqualTo(["plain", "log",]);
+		await That(results).IsEqualTo([3, 4,]);
 	}
 
 	[Test]
