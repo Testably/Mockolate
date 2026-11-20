@@ -1,8 +1,6 @@
 ---
-description: Mock ILogger and ILoggerFactory with Mockolate, match the formatted log messages and check the log records with aweXpect.Logging.
+description: Mock ILogger and ILoggerFactory with Mockolate and set up and verify the log calls by level and formatted message.
 ---
-
-import PackageInstall from '@site/src/components/PackageInstall';
 
 # Logging
 
@@ -86,23 +84,6 @@ ILogger<ChocolateShop> logger = loggerFactory.Mock.GetLogger<ChocolateShop>();
 logger.Mock.Setup.LogWarning(It.IsAny<string>())
     .Throws<InvalidOperationException>();
 ```
-
-## Log records with FakeLogger
-
-When the test project references `Microsoft.Extensions.Diagnostics.Testing`, logger mocks forward every call to a `FakeLogger`, and `logger.Mock.LogCollector` returns its `FakeLogCollector`. The `LogCollector` of a factory collects the records of all its loggers. Check the records with [aweXpect.Logging](/aweXpect/extensions/aweXpect.Logging):
-
-<PackageInstall package="Microsoft.Extensions.Diagnostics.Testing" />
-
-```csharp
-ILogger<ChocolateShop> logger = ILogger<ChocolateShop>.CreateMock();
-ChocolateShop sut = new ChocolateShop(logger);
-
-sut.Order("Dark", 0);
-
-await That(logger.Mock.LogCollector).LoggedWarning().WithMessage("*no Dark chocolate*").AsWildcard();
-```
-
-Setups still apply: a call is forwarded to the `FakeLogger` first and then runs the callbacks of the matching setup, so a call whose setup throws is in the collector as well. Mocks created with `ThrowingWhenNotSetup()` do not forward, and their `LogCollector` throws a `MockException`.
 
 <details>
 <summary>Setups of a specific state type</summary>

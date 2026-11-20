@@ -17,8 +17,7 @@ internal static partial class Sources
 		AutoMockingOptions? autoMocking,
 		bool hasOverloadResolutionPriority = false,
 		(string Name, Class Class)[]? hiddenBaseInterfaces = null,
-		bool useUnionOverloads = false,
-		bool hasFakeLogger = false)
+		bool useUnionOverloads = false)
 	{
 		hiddenBaseInterfaces ??= [];
 		EquatableArray<Method>? constructors = (@class as MockClass)?.Constructors;
@@ -966,14 +965,6 @@ internal static partial class Sources
 			sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
 			AppendUseAutoMockFactory(sb, "\t\t\t", "mockBehavior", autoMocking);
 			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.").Append(name).Append(".MemberCount, constructorParameters);").AppendLine();
-			if (GetDefaultFakeLogger(@class, hasFakeLogger) is { } defaultFakeLogger)
-			{
-				sb.Append("\t\t\tif (!mockBehavior.ThrowWhenNotSetup)").AppendLine();
-				sb.Append("\t\t\t{").AppendLine();
-				sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, (object)").Append(defaultFakeLogger).Append(");").AppendLine();
-				sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(mockRegistry.Behavior));").AppendLine();
-				sb.Append("\t\t\t}").AppendLine();
-			}
 		}
 
 		sb.Append("\t\t\treturn CreateMockInstance(mockRegistry, constructorParameters, setup);").AppendLine();
@@ -1162,7 +1153,7 @@ internal static partial class Sources
 		#endregion Initialize
 
 		sb.Append("\t}").AppendLine();
-		AppendLoggerMockExtensions(sb, @class, name, hasFakeLogger);
+		AppendLoggerMockExtensions(sb, @class, name);
 
 		#endregion MockBehavior extensions
 

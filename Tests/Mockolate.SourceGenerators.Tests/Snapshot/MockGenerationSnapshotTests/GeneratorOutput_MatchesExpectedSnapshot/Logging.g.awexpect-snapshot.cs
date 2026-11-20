@@ -446,10 +446,7 @@ namespace Mockolate
 				if (!state.Loggers.TryGetValue(categoryName, out global::Microsoft.Extensions.Logging.ILogger? logger))
 				{
 					logger = global::Microsoft.Extensions.Logging.ILogger.CreateMock(factoryRegistry.Behavior);
-					if (!factoryRegistry.Behavior.ThrowWhenNotSetup)
-					{
-						logger = logger.Wrapping(new global::Microsoft.Extensions.Logging.Testing.FakeLogger(state.Collector, categoryName));
-					}
+
 					global::Mockolate.Internals.MockRegistry loggerRegistry = ((global::Mockolate.IMock)logger).MockRegistry;
 					s_factoryRegistries.Add(loggerRegistry, factoryRegistry);
 					factoryRegistry.ShareVerifiedInteractions(loggerRegistry);
@@ -495,15 +492,9 @@ namespace Mockolate
 			}
 		}
 
-		/// <summary>
-		///     Returns the collector of all loggers of the factory with the <paramref name="factoryRegistry" />.
-		/// </summary>
-		public static global::Microsoft.Extensions.Logging.Testing.FakeLogCollector GetFactoryLogCollector(global::Mockolate.Internals.MockRegistry factoryRegistry)
-			=> s_loggerFactories.GetValue(factoryRegistry, static _ => new LoggerFactoryState()).Collector;
 		private sealed class LoggerFactoryState
 		{
 			public global::System.Collections.Generic.Dictionary<string, global::Microsoft.Extensions.Logging.ILogger> Loggers { get; } = new();
-			public global::Microsoft.Extensions.Logging.Testing.FakeLogCollector Collector { get; } = new();
 		}
 
 		private sealed class CategoryNameCapture : global::Microsoft.Extensions.Logging.ILoggerFactory
@@ -524,14 +515,6 @@ namespace Mockolate
 			{
 			}
 		}
-
-		/// <summary>
-		///     Returns the collector of the <c>FakeLogger</c> that the logger mock with the <paramref name="registry" /> forwards to.
-		/// </summary>
-		public static global::Microsoft.Extensions.Logging.Testing.FakeLogCollector GetLogCollector(global::Mockolate.Internals.MockRegistry registry)
-			=> registry.Wraps is global::Microsoft.Extensions.Logging.Testing.FakeLogger fakeLogger
-				? fakeLogger.Collector
-				: throw new global::Mockolate.Exceptions.MockException("The logger mock does not forward to a FakeLogger, because it was created with ThrowingWhenNotSetup() or wraps another logger.");
 		private sealed class LogSetup : global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, string, global::System.Exception?>.WithParameterCollection, global::Mockolate.Internals.IGenericMethodSetup
 		{
 			public LogSetup(global::Mockolate.Internals.MockRegistry mockRegistry,

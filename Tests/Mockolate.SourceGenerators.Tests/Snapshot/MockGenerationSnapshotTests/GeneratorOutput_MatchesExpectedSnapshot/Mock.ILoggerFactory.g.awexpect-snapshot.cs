@@ -880,7 +880,7 @@ internal static partial class MockExtensionsForILoggerFactory
 		/// </remarks>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup, or <see langword="null" /> for <c>MockBehavior.Default</c>.</param>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword="null" /> to skip.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use the parameterless constructor.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use a constructor that can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Microsoft.Extensions.Logging.ILoggerFactory">ILoggerFactory</see>.</returns>
 		private static global::Microsoft.Extensions.Logging.ILoggerFactory CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForILoggerFactory>? setup, object?[]? constructorParameters)
 		{
@@ -978,15 +978,6 @@ internal static partial class MockExtensionsForILoggerFactory
 		/// <typeparam name="TCategoryName">The type whose name is the category name of the logger.</typeparam>
 		public global::Microsoft.Extensions.Logging.ILogger<TCategoryName> GetLogger<TCategoryName>()
 			=> global::Mockolate.MockolateLogging.GetLogger<TCategoryName>(((global::Mockolate.IMock)mock).MockRegistry);
-
-		/// <summary>
-		///     Gets the <c>FakeLogCollector</c> that collects the log records of all loggers the factory created.
-		/// </summary>
-		/// <remarks>
-		///     The loggers do not forward to the collector when the mock was created with <c>ThrowingWhenNotSetup()</c>.
-		/// </remarks>
-		public global::Microsoft.Extensions.Logging.Testing.FakeLogCollector LogCollector
-			=> global::Mockolate.MockolateLogging.GetFactoryLogCollector(((global::Mockolate.IMock)mock).MockRegistry);
 	}
 }
 

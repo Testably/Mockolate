@@ -23,29 +23,6 @@ internal static partial class Sources
 	internal static bool IsLoggerFactory(Class @class)
 		=> @class.IsInterface && @class.AllMethods().Any(IsLoggerFactoryCreateLogger);
 
-	/// <summary>
-	///     The <c>FakeLogger</c> that a logger mock forwards to by default, or <see langword="null" /> when the compilation
-	///     has no <c>FakeLogger</c> or the mock is no logger.
-	/// </summary>
-	private static string? GetDefaultFakeLogger(Class @class, bool hasFakeLogger)
-	{
-		if (!hasFakeLogger || !IsLogger(@class))
-		{
-			return null;
-		}
-
-		const string genericLoggerPrefix = LoggerFullName + "<";
-		if (@class.ClassFullName.StartsWith(genericLoggerPrefix, StringComparison.Ordinal) &&
-		    @class.ClassFullName.EndsWith(">", StringComparison.Ordinal))
-		{
-			string categoryType = @class.ClassFullName.Substring(genericLoggerPrefix.Length,
-				@class.ClassFullName.Length - genericLoggerPrefix.Length - 1);
-			return $"new global::Microsoft.Extensions.Logging.Testing.FakeLogger<{categoryType}>()";
-		}
-
-		return "new global::Microsoft.Extensions.Logging.Testing.FakeLogger()";
-	}
-
 	private static void AppendLoggerAccessDeclaration(StringBuilder sb, Class @class)
 	{
 		if (IsLogger(@class) || IsLoggerFactory(@class))
@@ -78,11 +55,9 @@ internal static partial class Sources
 			.Append(';').AppendLine();
 	}
 
-	private static void AppendLoggerMockExtensions(StringBuilder sb, Class @class, string name, bool hasFakeLogger)
+	private static void AppendLoggerMockExtensions(StringBuilder sb, Class @class, string name)
 	{
-		bool isLogger = IsLogger(@class);
-		bool isLoggerFactory = IsLoggerFactory(@class);
-		if (!isLoggerFactory && !(isLogger && hasFakeLogger))
+		if (!IsLoggerFactory(@class))
 		{
 			return;
 		}
@@ -91,44 +66,21 @@ internal static partial class Sources
 		sb.Append("\t/// <inheritdoc cref=\"MockExtensionsFor").Append(name).Append("\" />").AppendLine();
 		sb.Append("\textension(global::Mockolate.Mock.IMockFor").Append(name).Append(" mock)").AppendLine();
 		sb.Append("\t{").AppendLine();
-		if (isLoggerFactory)
-		{
-			sb.AppendXmlSummary("Gets the logger mock that <c>CreateLogger</c> returns for the <paramref name=\"categoryName\" /> when it has no setup.");
-			sb.AppendXmlRemarks("Use it to set up or verify the logger before the code under test creates it.");
-			sb.AppendXmlParam("categoryName", "The category name of the logger.");
-			sb.Append("\t\tpublic global::Microsoft.Extensions.Logging.ILogger GetLogger(string categoryName)").AppendLine();
-			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.CreateLogger(((global::Mockolate.IMock)mock).MockRegistry, categoryName);").AppendLine();
-			sb.AppendLine();
-			sb.AppendXmlSummary("Gets the logger mock that <c>CreateLogger</c> returns for the category of <typeparamref name=\"TCategoryName\" /> when it has no setup.");
-			sb.AppendXmlRemarks("The category name is the one that <c>ILogger&lt;TCategoryName&gt;</c> uses, so this is the logger that a <c>Logger&lt;TCategoryName&gt;</c> created by the factory writes to.");
-			sb.AppendXmlTypeParam("TCategoryName", "The type whose name is the category name of the logger.");
-			sb.Append("\t\tpublic global::Microsoft.Extensions.Logging.ILogger<TCategoryName> GetLogger<TCategoryName>()").AppendLine();
-			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.GetLogger<TCategoryName>(((global::Mockolate.IMock)mock).MockRegistry);").AppendLine();
-		}
-
-		if (hasFakeLogger)
-		{
-			if (isLoggerFactory)
-			{
-				sb.AppendLine();
-			}
-
-			sb.AppendXmlSummary(isLoggerFactory
-				? "Gets the <c>FakeLogCollector</c> that collects the log records of all loggers the factory created."
-				: "Gets the <c>FakeLogCollector</c> of the <c>FakeLogger</c> that the logger mock forwards to.");
-			sb.AppendXmlRemarks(isLoggerFactory
-				? "The loggers do not forward to the collector when the mock was created with <c>ThrowingWhenNotSetup()</c>."
-				: "Throws a <see cref=\"global::Mockolate.Exceptions.MockException\" /> when the mock does not forward to a <c>FakeLogger</c>, because it was created with <c>ThrowingWhenNotSetup()</c> or wraps another logger.");
-			sb.Append("\t\tpublic global::Microsoft.Extensions.Logging.Testing.FakeLogCollector LogCollector").AppendLine();
-			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.")
-				.Append(isLoggerFactory ? "GetFactoryLogCollector" : "GetLogCollector")
-				.Append("(((global::Mockolate.IMock)mock).MockRegistry);").AppendLine();
-		}
-
+		sb.AppendXmlSummary("Gets the logger mock that <c>CreateLogger</c> returns for the <paramref name=\"categoryName\" /> when it has no setup.");
+		sb.AppendXmlRemarks("Use it to set up or verify the logger before the code under test creates it.");
+		sb.AppendXmlParam("categoryName", "The category name of the logger.");
+		sb.Append("\t\tpublic global::Microsoft.Extensions.Logging.ILogger GetLogger(string categoryName)").AppendLine();
+		sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.CreateLogger(((global::Mockolate.IMock)mock).MockRegistry, categoryName);").AppendLine();
+		sb.AppendLine();
+		sb.AppendXmlSummary("Gets the logger mock that <c>CreateLogger</c> returns for the category of <typeparamref name=\"TCategoryName\" /> when it has no setup.");
+		sb.AppendXmlRemarks("The category name is the one that <c>ILogger&lt;TCategoryName&gt;</c> uses, so this is the logger that a <c>Logger&lt;TCategoryName&gt;</c> created by the factory writes to.");
+		sb.AppendXmlTypeParam("TCategoryName", "The type whose name is the category name of the logger.");
+		sb.Append("\t\tpublic global::Microsoft.Extensions.Logging.ILogger<TCategoryName> GetLogger<TCategoryName>()").AppendLine();
+		sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.GetLogger<TCategoryName>(((global::Mockolate.IMock)mock).MockRegistry);").AppendLine();
 		sb.Append("\t}").AppendLine();
 	}
 
-	public static string Logging(bool hasLoggerFactory, bool hasFakeLogger, LoggerMockNames loggerMockNames)
+	public static string Logging(bool hasLoggerFactory, LoggerMockNames loggerMockNames)
 	{
 		StringBuilder sb = InitializeBuilder();
 		sb.Append("""
@@ -377,19 +329,6 @@ internal static partial class Sources
 			          				{
 			          					logger = global::Microsoft.Extensions.Logging.ILogger.CreateMock(factoryRegistry.Behavior);
 
-			          """);
-			if (hasFakeLogger)
-			{
-				sb.Append("""
-				          					if (!factoryRegistry.Behavior.ThrowWhenNotSetup)
-				          					{
-				          						logger = logger.Wrapping(new global::Microsoft.Extensions.Logging.Testing.FakeLogger(state.Collector, categoryName));
-				          					}
-
-				          """);
-			}
-
-			sb.Append("""
 			          					global::Mockolate.Internals.MockRegistry loggerRegistry = ((global::Mockolate.IMock)logger).MockRegistry;
 			          					s_factoryRegistries.Add(loggerRegistry, factoryRegistry);
 			          					factoryRegistry.ShareVerifiedInteractions(loggerRegistry);
@@ -445,35 +384,9 @@ internal static partial class Sources
 			          			}
 			          		}
 
-
-			          """);
-			if (hasFakeLogger)
-			{
-				sb.Append("""
-				          		/// <summary>
-				          		///     Returns the collector of all loggers of the factory with the <paramref name="factoryRegistry" />.
-				          		/// </summary>
-				          		public static global::Microsoft.Extensions.Logging.Testing.FakeLogCollector GetFactoryLogCollector(global::Mockolate.Internals.MockRegistry factoryRegistry)
-				          			=> s_loggerFactories.GetValue(factoryRegistry, static _ => new LoggerFactoryState()).Collector;
-
-				          """);
-			}
-
-			sb.Append("""
 			          		private sealed class LoggerFactoryState
 			          		{
 			          			public global::System.Collections.Generic.Dictionary<string, global::Microsoft.Extensions.Logging.ILogger> Loggers { get; } = new();
-
-			          """);
-			if (hasFakeLogger)
-			{
-				sb.Append("""
-				          			public global::Microsoft.Extensions.Logging.Testing.FakeLogCollector Collector { get; } = new();
-
-				          """);
-			}
-
-			sb.Append("""
 			          		}
 
 			          		private sealed class CategoryNameCapture : global::Microsoft.Extensions.Logging.ILoggerFactory
@@ -494,21 +407,6 @@ internal static partial class Sources
 			          			{
 			          			}
 			          		}
-
-
-			          """);
-		}
-
-		if (hasFakeLogger)
-		{
-			sb.Append("""
-			          		/// <summary>
-			          		///     Returns the collector of the <c>FakeLogger</c> that the logger mock with the <paramref name="registry" /> forwards to.
-			          		/// </summary>
-			          		public static global::Microsoft.Extensions.Logging.Testing.FakeLogCollector GetLogCollector(global::Mockolate.Internals.MockRegistry registry)
-			          			=> registry.Wraps is global::Microsoft.Extensions.Logging.Testing.FakeLogger fakeLogger
-			          				? fakeLogger.Collector
-			          				: throw new global::Mockolate.Exceptions.MockException("The logger mock does not forward to a FakeLogger, because it was created with ThrowingWhenNotSetup() or wraps another logger.");
 
 			          """);
 		}

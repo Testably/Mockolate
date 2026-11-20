@@ -47,8 +47,6 @@
 		<PackageVersion Include="Azure.Data.Tables" Version="12.13.0"/>
 		<PackageVersion Include="Azure.Storage.Blobs" Version="12.30.1"/>
 		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.15"/>
-		<PackageVersion Include="Microsoft.Extensions.Diagnostics.Testing" Version="10.11.0"/>
-		<PackageVersion Include="aweXpect.Logging" Version="0.3.0"/>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageVersion Include="Moq" Version="4.21.0"/>

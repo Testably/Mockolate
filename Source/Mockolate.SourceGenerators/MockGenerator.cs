@@ -142,16 +142,12 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValuesProvider<NamedMock> perMock = namedMocksAggregate
 			.SelectMany(static (arr, _) => arr);
 
-		// Logger mocks forward to a FakeLogger by default when the compilation references Microsoft.Extensions.Diagnostics.Testing.
-		IncrementalValueProvider<bool> hasFakeLogger = context.CompilationProvider
-			.Select(static (compilation, _) => HasAttribute(compilation, "Microsoft.Extensions.Logging.Testing.FakeLogger"));
-
 		// Per-mock source output: cache hit when the NamedMock is identity-equal to last run.
 		context.RegisterSourceOutput(
 			perMock.Combine(canUseOverloadResolutionPriority).Combine(hasUnionSupport).Combine(externAliases)
-				.Combine(emissionOptions).Combine(hasFakeLogger),
-			static (spc, source) => EmitMockFile(spc, source.Left.Left.Left.Left.Left, source.Left.Left.Left.Left.Right,
-				source.Left.Left.Left.Right, source.Left.Left.Right, source.Left.Right, source.Right));
+				.Combine(emissionOptions),
+			static (spc, source) => EmitMockFile(spc, source.Left.Left.Left.Left, source.Left.Left.Left.Right,
+				source.Left.Left.Right, source.Left.Right, source.Right));
 
 		IncrementalValueProvider<(bool HasLogger, bool HasLoggerFactory)> loggingMocks = collectedMocks
 			.Select(static (arr, _) => (
@@ -161,15 +157,14 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<LoggerMockNames> loggerMockNames = namedMocksAggregate
 			.Select(static (arr, _) => CollectLoggerMockNames(arr));
 
-		context.RegisterSourceOutput(loggingMocks.Combine(hasFakeLogger).Combine(loggerMockNames).Combine(externAliases),
+		context.RegisterSourceOutput(loggingMocks.Combine(loggerMockNames).Combine(externAliases),
 			static (spc, source) =>
 			{
-				(bool hasLogger, bool hasLoggerFactory) = source.Left.Left.Left;
+				(bool hasLogger, bool hasLoggerFactory) = source.Left.Left;
 				if (hasLogger || hasLoggerFactory)
 				{
 					spc.AddSource("Logging.g.cs",
-						ToSource(Sources.Sources.Logging(hasLoggerFactory, source.Left.Left.Right, source.Left.Right),
-							source.Right));
+						ToSource(Sources.Sources.Logging(hasLoggerFactory, source.Left.Right), source.Right));
 				}
 			});
 
@@ -843,7 +838,7 @@ public class MockGenerator : IIncrementalGenerator
 	}
 
 	private static void EmitMockFile(SourceProductionContext context, NamedMock named, bool hasOverloadResolutionPriority,
-		bool hasUnionSupport, EquatableArray<string> externAliases, AutoMockingOptions? autoMocking, bool hasFakeLogger)
+		bool hasUnionSupport, EquatableArray<string> externAliases, AutoMockingOptions? autoMocking)
 	{
 		string fileName = named.FileName;
 		Class @class = named.Mock;
@@ -873,7 +868,7 @@ public class MockGenerator : IIncrementalGenerator
 
 			context.AddSource($"Mock.{fileName}.g.cs",
 				ToSource(Sources.Sources.MockClass(named.ParentName, @class, autoMocking, hasOverloadResolutionPriority, hiddenBaseArr,
-					useUnionOverloads, hasFakeLogger), externAliases));
+					useUnionOverloads), externAliases));
 			return;
 		}
 

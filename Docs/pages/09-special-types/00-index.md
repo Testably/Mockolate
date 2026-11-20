@@ -10,7 +10,7 @@ Some types need more than the generic setup and verification members. Mockolate 
 |----------------------------------|----------------------------------------------------------------------------------------------------|
 | [Delegates](01-delegates.md)     | Mock `Action`, `Func<T>` and custom delegates; `Mock.Setup(…)` and `Mock.Verify(…)` take the delegate parameters directly. |
 | [`HttpClient`](02-httpclient.md) | Set up and verify HTTP calls by verb, URI, content and headers, and mock `IHttpClientFactory`.     |
-| [Logging](03-logging.mdx)        | Set up and verify `ILogger` calls by level and formatted message, mock `ILoggerFactory` and check the records of a `FakeLogger`. |
+| [Logging](03-logging.md)         | Set up and verify `ILogger` calls by level and formatted message, and mock `ILoggerFactory`.      |
 
 ```csharp
 // Delegates
