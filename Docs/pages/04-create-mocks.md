@@ -128,7 +128,7 @@ The flags can also be set with a `with` expression, e.g. `MockBehavior.Default w
 | `ThrowingWhenNotSetup()`              | off               | Throws a `MockNotSetupException` when no matching setup is found, instead of returning a default value.                                                                         |
 | `SkippingBaseClass()`                 | off               | Class mocks no longer call the base class implementation; without a setup they return a default value instead.                                                                  |
 | `SkippingInteractionRecording()`      | off               | Interactions are not recorded. Setups, return values, callbacks and base class calls still work, but every verification throws a `MockException`. Useful in performance-sensitive scenarios. |
-| `AutoMocking()`                       | off               | Members that return an interface return a mock instead of `null`; needs the `MockolateAutoMocking` build property (see [Auto-mocking](#auto-mocking)).                         |
+| `SkippingAutoMocking()`               | off               | Members that return an interface return `null` instead of an auto-mock in projects with the `MockolateAutoMocking` build property (see [Auto-mocking](#auto-mocking)).        |
 | `WithDefaultValueFor<T>(…)`           | sensible defaults | Customizes the default value for type `T` (see below).                                                                                                                          |
 | `Initialize<T>(…)`                    | -                 | Applies the given setups to every mock of type `T` created with this behavior.                                                                                                  |
 | `UseConstructorParametersFor<T>(…)`   | -                 | Default constructor arguments for mocks of class `T`, used unless you pass explicit arguments to `CreateMock([…])`. The `Func<object?[]>` overload creates them anew for each mock. |
@@ -165,9 +165,9 @@ For full control, implement `IDefaultValueGenerator` and pass it to the `MockBeh
 
 ### Auto-mocking
 
-With `AutoMocking()`, a method, property, indexer or delegate that returns an interface returns a mock of that interface instead of `null` when no setup and no default value factory provides a value. This lets the code under test walk a chain like `context.Services.GetRepository().Find(id)` without a setup for every link.
+With auto-mocking, a method, property, indexer or delegate that returns an interface returns a mock of that interface instead of `null` when no setup and no default value factory provides a value. This lets the code under test walk a chain like `context.Services.GetRepository().Find(id)` without a setup for every link.
 
-Auto-mocking needs mocks of the returned interfaces, so enable it in the project file first. The source generator then also creates mocks for the interfaces that the members of your mocks return, transitively:
+Enable it in the project file. The source generator then also creates mocks for the interfaces that the members of your mocks return, transitively:
 
 ```xml
 <PropertyGroup>
@@ -175,10 +175,10 @@ Auto-mocking needs mocks of the returned interfaces, so enable it in the project
 </PropertyGroup>
 ```
 
-Then opt in per mock with the behavior:
+Every mock that the project creates then returns them:
 
 ```csharp
-IShop shop = IShop.CreateMock(MockBehavior.Default.AutoMocking());
+IShop shop = IShop.CreateMock();
 
 IChocolateDispenser dispenser = shop.GetDispenser();
 dispenser.Mock.Setup.Dispense(It.IsAny<string>(), It.IsAny<int>()).Returns(true);
@@ -191,7 +191,8 @@ await That(shop.GetDispenser().Dispense("Dark", 5)).IsTrue();
 - A method or property that returns a `Task<T>` or `ValueTask<T>` of an interface returns a completed task with an auto-mock. On .NET Framework and .NET Standard, a `ValueTask<T>` keeps returning `default`, like every other un-configured `ValueTask<T>` there.
 - A setup, a `WithDefaultValueFor` factory for the interface type and the base class implementation of a class mock take precedence. A factory that returns `null` counts as no value, so the member returns an auto-mock instead. `ThrowingWhenNotSetup()` still throws.
 - The auto-mock is created when the member computes its default value, like any other default value. A property computes it on its first read even when a setup then provides the value, and a task-returning method also when it returns a cancelled task, so `Initialize<T>(…)` can run for an auto-mock that the member never returns.
-- Without the `MockolateAutoMocking` property, `AutoMocking()` has no effect, and the [Mockolate0005](10-analyzers.md#mockolate0005) analyzer warns about it. The property applies to the project whose `CreateMock` creates the mock: a behavior with `AutoMocking()` that is passed to mocks created in a project without the property returns no auto-mocks.
+- Opt out per mock with `MockBehavior.Default.SkippingAutoMocking()`: its members that return an interface return `null`.
+- The property applies to the project whose `CreateMock` creates the mock: mocks created in a project without the property return no auto-mocks.
 - An interface that members return in several spellings, e.g. `IRepository<string?>` and `IRepository<string>`, gets one auto-mock without nullable annotations and tuple element names. Its `Mock` property accepts every spelling, unless the project creates a mock of one spelling with `CreateMock`: that mock is then used, and its `Mock` property only accepts its own spelling.
 
 The generator does not create auto-mocks for:

@@ -193,7 +193,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Returns <paramref name="value" />, or, when it is <see langword="null" /> and
-	///     <see cref="MockBehavior.AutoMock" /> is enabled, the auto-mock of <typeparamref name="TResult" /> for the method with the given <paramref name="memberId" />.
+	///     <see cref="MockBehavior.SkipAutoMocking" /> is not set, the auto-mock of <typeparamref name="TResult" /> for the method with the given <paramref name="memberId" />.
 	/// </summary>
 	/// <remarks>
 	///     The auto-mock is created once per method, independent of the arguments, and shared with every registry
@@ -205,7 +205,7 @@ public partial class MockRegistry
 	/// <returns>The <paramref name="value" /> or the auto-mock.</returns>
 	public TResult AutoMockOr<TResult>(int memberId, TResult value)
 	{
-		if (value is not null || !Behavior.AutoMock)
+		if (value is not null || Behavior.SkipAutoMocking)
 		{
 			return value;
 		}

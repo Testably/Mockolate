@@ -163,15 +163,6 @@
 	<data name="Mockolate0004Title" xml:space="preserve">
 		<value>Mocked types must use a single spelling</value>
 	</data>
-	<data name="Mockolate0005Description" xml:space="preserve">
-		<value>Auto-mocking returns mocks that the source generator only creates when the project sets the MockolateAutoMocking build property. Without it, members that return an interface keep returning null.</value>
-	</data>
-	<data name="Mockolate0005MessageFormat" xml:space="preserve">
-		<value>AutoMocking() has no effect, because the project does not set the MockolateAutoMocking build property to true</value>
-	</data>
-	<data name="Mockolate0005Title" xml:space="preserve">
-		<value>Auto-mocking needs the MockolateAutoMocking build property</value>
-	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>
 		<comment>The title of the code fix for an argument that cannot convert to a union-typed setup or verify parameter.</comment>

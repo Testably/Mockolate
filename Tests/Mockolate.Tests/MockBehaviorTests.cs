@@ -159,13 +159,15 @@ public sealed partial class MockBehaviorTests
 		MockBehavior behavior = MockBehavior.Default
 			.ThrowingWhenNotSetup()
 			.SkippingBaseClass()
-			.SkippingInteractionRecording();
+			.SkippingInteractionRecording()
+			.SkippingAutoMocking();
 
 		string result = behavior.ToString();
 
 		await That(result).Contains("ThrowingWhenNotSetup");
 		await That(result).Contains("SkippingBaseClass");
 		await That(result).Contains("SkippingInteractionRecording");
+		await That(result).Contains("SkippingAutoMocking");
 	}
 
 	private sealed class MyDefaultValueGenerator : IDefaultValueGenerator

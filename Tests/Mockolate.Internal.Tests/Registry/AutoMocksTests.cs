@@ -1,6 +1,3 @@
-// These tests hand the factory to the behavior themselves, so they need no MockolateAutoMocking build property.
-#pragma warning disable Mockolate0005
-
 namespace Mockolate.Internal.Tests.Registry;
 
 public sealed class AutoMocksTests
@@ -9,7 +6,7 @@ public sealed class AutoMocksTests
 	public async Task AutoMockOr_WhenTheFactoryHasNoMock_ShouldReturnNullAndAskOnlyOnce()
 	{
 		int calls = 0;
-		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default.AutoMocking(), (_, _) =>
+		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (_, _) =>
 		{
 			calls++;
 			return null;
@@ -27,7 +24,7 @@ public sealed class AutoMocksTests
 	[Test]
 	public async Task AutoMockOr_WithTheSameMemberIdForAnotherType_ShouldReturnAMockOfThatType()
 	{
-		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default.AutoMocking(), (type, _) =>
+		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (type, _) =>
 			type == typeof(IServiceWithoutMock) ? new ServiceWithoutMock() : new OtherService());
 		MockRegistry registry = new(behavior, new FastMockInteractions(0));
 
@@ -42,7 +39,7 @@ public sealed class AutoMocksTests
 	[Test]
 	public async Task AutoMockOr_WithoutFactory_ShouldReturnNull()
 	{
-		MockRegistry registry = new(MockBehavior.Default.AutoMocking(), new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 
 		IServiceWithoutMock? result = registry.AutoMockOr<IServiceWithoutMock?>(0, null);
 
@@ -53,7 +50,7 @@ public sealed class AutoMocksTests
 	[Test]
 	public async Task Or_WhenTheFactoryReturnsAnotherType_ShouldReturnTheValue()
 	{
-		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default.AutoMocking(), (_, _) => new object());
+		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (_, _) => new object());
 
 		IServiceWithoutMock? result = AutoMocks.Or<IServiceWithoutMock?>(behavior, null);
 
@@ -61,9 +58,9 @@ public sealed class AutoMocksTests
 	}
 
 	[Test]
-	public async Task UseFactory_WhenAutoMockingIsDisabled_ShouldReturnTheSameBehavior()
+	public async Task UseFactory_WhenSkippingAutoMocking_ShouldReturnTheSameBehavior()
 	{
-		MockBehavior behavior = MockBehavior.Default;
+		MockBehavior behavior = MockBehavior.Default.SkippingAutoMocking();
 
 		MockBehavior result = AutoMocks.UseFactory(behavior, (_, _) => null);
 
@@ -74,7 +71,7 @@ public sealed class AutoMocksTests
 	public async Task UseFactory_WithTheSameFactory_ShouldReturnTheSameBehavior()
 	{
 		Func<Type, MockBehavior, object?> factory = (_, _) => null;
-		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default.AutoMocking(), factory);
+		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, factory);
 
 		MockBehavior result = AutoMocks.UseFactory(behavior, factory);
 

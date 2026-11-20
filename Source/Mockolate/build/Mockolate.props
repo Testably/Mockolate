@@ -10,7 +10,7 @@
 		     OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute). -->
 		<CompilerVisibleProperty Include="MockolateUnionAttributePolyfills"/>
 		<!-- Set it to true to generate mocks for the interfaces that mocked members return, so that
-		     MockBehavior.AutoMocking() can return them instead of null. -->
+		     mocks return them instead of null, unless their MockBehavior skips auto-mocking. -->
 		<CompilerVisibleProperty Include="MockolateAutoMocking"/>
 		<!-- A ';'-separated list of namespaces whose interfaces (also in nested namespaces) get no mock for
 		     auto-mocking unless the project creates one with CreateMock. -->

@@ -6,7 +6,7 @@ using Mockolate.Interactions;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Creates the auto-mocks for <see cref="MockBehavior.AutoMock" /> with the factory that the source generator
+///     Creates the auto-mocks with the factory that the source generator
 ///     emits into each assembly that sets the <c>MockolateAutoMocking</c> build property.
 /// </summary>
 /// <remarks>
@@ -25,7 +25,7 @@ public static class AutoMocks
 	/// </summary>
 	/// <remarks>
 	///     The generated <c>CreateMock</c> calls this, so that a mock creates the auto-mocks of its own assembly. The
-	///     <paramref name="behavior" /> is returned unchanged when it does not enable auto-mocking.
+	///     <paramref name="behavior" /> is returned unchanged when it skips auto-mocking.
 	/// </remarks>
 	/// <param name="behavior">The behavior of the mock that is created.</param>
 	/// <param name="factory">
@@ -34,7 +34,7 @@ public static class AutoMocks
 	/// </param>
 	/// <returns>The <paramref name="behavior" /> with the <paramref name="factory" />.</returns>
 	public static MockBehavior UseFactory(MockBehavior behavior, Func<Type, MockBehavior, object?> factory)
-		=> behavior.AutoMock && behavior.AutoMockFactory != factory
+		=> !behavior.SkipAutoMocking && behavior.AutoMockFactory != factory
 			? behavior with
 			{
 				AutoMockFactory = factory,
@@ -43,7 +43,7 @@ public static class AutoMocks
 
 	/// <summary>
 	///     Returns the <paramref name="value" />, or a new mock of <typeparamref name="TValue" /> when it is
-	///     <see langword="null" /> and <see cref="MockBehavior.AutoMock" /> is enabled on the <paramref name="behavior" />.
+	///     <see langword="null" /> and auto-mocking is not skipped on the <paramref name="behavior" />.
 	/// </summary>
 	/// <remarks>
 	///     The caller is responsible for keeping the created mock, so that the member keeps returning it.
@@ -54,7 +54,7 @@ public static class AutoMocks
 	/// <returns>The <paramref name="value" /> or the auto-mock.</returns>
 	public static TValue Or<TValue>(MockBehavior behavior, TValue value)
 	{
-		if (value is not null || !behavior.AutoMock)
+		if (value is not null || behavior.SkipAutoMocking)
 		{
 			return value;
 		}

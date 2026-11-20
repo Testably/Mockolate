@@ -92,20 +92,21 @@ public record MockBehavior : IMockBehaviorAccess
 	public bool SkipInteractionRecording { get; init; }
 
 	/// <summary>
-	///     Flag indicating whether un-configured members that return an interface return a mock instead of
-	///     <see langword="null" />.
+	///     Flag indicating whether auto-mocking is skipped, so that un-configured members that return an interface
+	///     return <see langword="null" /> instead of a mock.
 	/// </summary>
 	/// <remarks>
-	///     Requires the <c>MockolateAutoMocking</c> build property, which makes the source generator create mocks for
-	///     the interfaces that mocked members return. If set to <see langword="true" />, a method, property, indexer or
-	///     delegate whose return type is such an interface (for methods and properties also wrapped in a
-	///     <see cref="System.Threading.Tasks.Task{TResult}" /> or <c>ValueTask&lt;TResult&gt;</c>) returns a mock of that
-	///     interface with the same <see cref="MockBehavior" /> when no setup and no default value factory provides a
-	///     value. A method, property or delegate creates the mock once, an indexer once per key, so it can be
-	///     configured after the first call through its own <c>Mock</c> property. Interfaces in the <c>System</c>,
-	///     <c>Microsoft</c> and <c>Windows</c> namespaces are not mocked automatically.
+	///     Auto-mocking is enabled in projects that set the <c>MockolateAutoMocking</c> build property, which makes the
+	///     source generator create mocks for the interfaces that mocked members return. If set to
+	///     <see langword="false" /> (default value), a method, property, indexer or delegate whose return type is such an
+	///     interface (for methods and properties also wrapped in a <see cref="System.Threading.Tasks.Task{TResult}" /> or
+	///     <c>ValueTask&lt;TResult&gt;</c>) returns a mock of that interface with the same <see cref="MockBehavior" />
+	///     when no setup and no default value factory provides a value. A method, property or delegate creates the mock
+	///     once, an indexer once per key, so it can be configured after the first call through its own <c>Mock</c>
+	///     property. Interfaces in the <c>System</c>, <c>Microsoft</c> and <c>Windows</c> namespaces are not mocked
+	///     automatically.
 	/// </remarks>
-	public bool AutoMock { get; init; }
+	public bool SkipAutoMocking { get; init; }
 
 	/// <summary>
 	///     Creates the auto-mocks of the assembly whose generated <c>CreateMock</c> created the mock with this behavior.
@@ -178,16 +179,16 @@ public record MockBehavior : IMockBehaviorAccess
 		};
 
 	/// <summary>
-	///     Specifies whether un-configured members that return an interface return a mock instead of
-	///     <see langword="null" />.
+	///     Specifies whether auto-mocking is skipped, so that un-configured members that return an interface return
+	///     <see langword="null" /> instead of a mock.
 	/// </summary>
 	/// <remarks>
-	///     Sets the <see cref="AutoMock" /> to <paramref name="autoMock" />.
+	///     Sets the <see cref="SkipAutoMocking" /> to <paramref name="skipAutoMocking" />.
 	/// </remarks>
-	public MockBehavior AutoMocking(bool autoMock = true)
+	public MockBehavior SkippingAutoMocking(bool skipAutoMocking = true)
 		=> this with
 		{
-			AutoMock = autoMock,
+			SkipAutoMocking = skipAutoMocking,
 		};
 
 	/// <summary>
@@ -328,9 +329,9 @@ public record MockBehavior : IMockBehaviorAccess
 			(parts ??= []).Add(nameof(SkippingInteractionRecording));
 		}
 
-		if (AutoMock)
+		if (SkipAutoMocking)
 		{
-			(parts ??= []).Add(nameof(AutoMocking));
+			(parts ??= []).Add(nameof(SkippingAutoMocking));
 		}
 
 		string baseString = parts is null

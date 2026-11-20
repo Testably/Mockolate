@@ -46,30 +46,6 @@ public static partial class CSharpAnalyzerVerifier<TAnalyzer>
 		await test.RunAsync(CancellationToken.None);
 	}
 
-	public static async Task VerifyAnalyzerWithBuildPropertiesAsync([StringSyntax("c#-test")] string source,
-		string buildProperties, params DiagnosticResult[] expected)
-	{
-		Test test = new()
-		{
-			TestCode = source,
-			TestState =
-			{
-				AdditionalReferences =
-				{
-					typeof(MockBehavior).Assembly.Location,
-				},
-				AnalyzerConfigFiles =
-				{
-					("/.globalconfig", "is_global = true\n" + buildProperties),
-				},
-			},
-		};
-
-		test.CompilerDiagnostics = CompilerDiagnostics.None;
-		test.ExpectedDiagnostics.AddRange(expected);
-		await test.RunAsync(CancellationToken.None);
-	}
-
 	public static async Task VerifyAnalyzerWithReferencedProjectAsync([StringSyntax("c#-test")] string source,
 		[StringSyntax("c#-test")] string externalSource,
 		params DiagnosticResult[] expected)

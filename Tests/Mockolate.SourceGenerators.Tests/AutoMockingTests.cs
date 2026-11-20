@@ -786,7 +786,7 @@ public sealed class AutoMockingTests
 		                           {
 		                               public static void Main(string[] args)
 		                               {
-		                                   MyCode.IRoot root = MyCode.IRoot.CreateMock(MockBehavior.Default.AutoMocking());
+		                                   MyCode.IRoot root = MyCode.IRoot.CreateMock();
 		                                   root.GetNullable().Mock.Setup.Get().Returns("x");
 		                                   root.GetNotNullable().Mock.Setup.Get().Returns("y");
 		                               }

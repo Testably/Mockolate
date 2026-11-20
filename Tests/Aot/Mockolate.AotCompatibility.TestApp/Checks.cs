@@ -83,9 +83,9 @@ internal static class Checks
 			return Equal((sut.Dispense("Dark", 1), sut.Stock, await sut.CountAsync("Dark")), (false, 0, 0));
 		}),
 #if MOCKOLATE_AUTOMOCKING
-		new("AutoMocking returns a configurable mock for an interface without setup", () =>
+		new("auto-mocking returns a configurable mock for an interface without setup", () =>
 		{
-			IChocolateShop sut = IChocolateShop.CreateMock(MockBehavior.Default.AutoMocking());
+			IChocolateShop sut = IChocolateShop.CreateMock();
 			sut.GetDispenser().Mock.Setup.Dispense(It.IsAny<string>(), It.IsAny<int>()).Returns(true);
 			sut["Main"].Mock.Setup.Stock.InitializeWith(5);
 			return Equal((sut.GetDispenser().Dispense("Dark", 1), sut["Main"].Stock), (true, 5));

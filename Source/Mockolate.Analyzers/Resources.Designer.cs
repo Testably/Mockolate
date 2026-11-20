@@ -177,33 +177,6 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string describing Mockolate0005.
-        /// </summary>
-        internal static string Mockolate0005Description {
-            get {
-                return ResourceManager.GetString("Mockolate0005Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string describing Mockolate0005's message format.
-        /// </summary>
-        internal static string Mockolate0005MessageFormat {
-            get {
-                return ResourceManager.GetString("Mockolate0005MessageFormat", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string describing Mockolate0005's title.
-        /// </summary>
-        internal static string Mockolate0005Title {
-            get {
-                return ResourceManager.GetString("Mockolate0005Title", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {

@@ -9,23 +9,21 @@ namespace Mockolate.AutoMocking.Tests;
 
 public sealed class AutoMockingTests
 {
-	private static readonly MockBehavior AutoMocking = MockBehavior.Default.AutoMocking();
-
 	[Test]
 	public async Task Behavior_ShouldStillEqualTheBehaviorPassedToCreateMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default);
 
 		MockBehavior behavior = ((IMock)sut).MockRegistry.Behavior;
 
-		await That(behavior).IsEqualTo(AutoMocking)
+		await That(behavior).IsEqualTo(MockBehavior.Default)
 			.Because("the auto-mock factory that CreateMock adds is not part of the equality");
 	}
 
 	[Test]
 	public async Task ClassMock_ShouldPreferTheBaseClassImplementation()
 	{
-		AutoMockBase sut = AutoMockBase.CreateMock(AutoMocking);
+		AutoMockBase sut = AutoMockBase.CreateMock();
 
 		IAutoMockChild fromBase = sut.GetVirtual();
 		IAutoMockChild fromAbstract = sut.GetAbstract();
@@ -37,7 +35,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task ClassMock_WhenSkippingBaseClass_ShouldReturnMock()
 	{
-		AutoMockBase sut = AutoMockBase.CreateMock(AutoMocking.SkippingBaseClass());
+		AutoMockBase sut = AutoMockBase.CreateMock(MockBehavior.Default.SkippingBaseClass());
 
 		IAutoMockChild result = sut.GetVirtual();
 
@@ -50,7 +48,7 @@ public sealed class AutoMockingTests
 		const int threads = 8;
 		for (int iteration = 0; iteration < 50; iteration++)
 		{
-			IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+			IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 			(IAutoMockChild Property, IAutoMockChild Indexer, IAutoMockChild Method)[] results =
 				await RunConcurrently(threads, () => (sut.Child, sut[1], sut.GetChild(1)));
 
@@ -67,7 +65,7 @@ public sealed class AutoMockingTests
 		const int threads = 8;
 		for (int iteration = 0; iteration < 50; iteration++)
 		{
-			IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+			IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 			sut.Mock.Setup.Child.OnGet.Do(() => { });
 			IAutoMockChild[] results = await RunConcurrently(threads, () => sut.Child);
 
@@ -82,7 +80,7 @@ public sealed class AutoMockingTests
 		const int threads = 8;
 		for (int iteration = 0; iteration < 50; iteration++)
 		{
-			IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+			IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()].OnGet.Do(() => { });
 			IAutoMockChild[] results = await RunConcurrently(threads, () => sut[1]);
 
@@ -94,7 +92,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task CustomBehaviorWithoutDefault_ShouldReturnMock()
 	{
-		MockBehavior behavior = new MockBehavior(new NullDefaultValueGenerator()).AutoMocking();
+		MockBehavior behavior = new MockBehavior(new NullDefaultValueGenerator());
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
 
 		IAutoMockChild result = sut.GetChild(1);
@@ -106,7 +104,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Delegate_ShouldReturnSameMock()
 	{
-		AutoMockChildFactory sut = AutoMockChildFactory.CreateMock(AutoMocking);
+		AutoMockChildFactory sut = AutoMockChildFactory.CreateMock();
 
 		IAutoMockChild first = sut(1);
 		IAutoMockChild second = sut(2);
@@ -118,7 +116,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task ExplicitSetupReturningNull_ShouldReturnNull()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 		sut.Mock.Setup.GetChild(It.IsAny<int>()).Returns((IAutoMockChild)null!);
 
 		IAutoMockChild result = sut.GetChild(1);
@@ -129,7 +127,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task FrameworkInterface_ShouldNotBeAutoMocked()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IServiceProvider result = sut.GetServiceProvider();
 
@@ -139,7 +137,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task GenericInterface_ShouldReturnMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockGeneric<int> result = sut.GetGeneric();
 		result.Mock.Setup.Value.InitializeWith(42);
@@ -150,9 +148,9 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task HttpClient_WithHandlerOfTheSameBehavior_ShouldBeCreated()
 	{
-		HttpMessageHandler handler = HttpMessageHandler.CreateMock(AutoMocking);
+		HttpMessageHandler handler = HttpMessageHandler.CreateMock();
 
-		HttpClient sut = HttpClient.CreateMock(AutoMocking, [handler,]);
+		HttpClient sut = HttpClient.CreateMock(MockBehavior.Default, [handler,]);
 
 		await That(sut).IsNotNull();
 	}
@@ -160,7 +158,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Implementing_ShouldReturnMock()
 	{
-		IAutoMockChild sut = IAutoMockChild.CreateMock(AutoMocking).Implementing<IAutoMockGeneric<int>>();
+		IAutoMockChild sut = IAutoMockChild.CreateMock().Implementing<IAutoMockGeneric<int>>();
 
 		IAutoMockRoot result = sut.GetRoot();
 
@@ -170,7 +168,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Indexer_ShouldReturnSameMockPerKey()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockChild first = sut[1];
 		IAutoMockChild second = sut[1];
@@ -184,7 +182,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Indexer_WhenSet_ShouldReturnTheValue()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 		IAutoMockChild value = IAutoMockChild.CreateMock();
 
 		sut[1] = value;
@@ -195,7 +193,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task IndexerWithFiveKeys_ShouldReturnSameMockPerKey()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockChild first = sut[1, 2, 3, 4, 5];
 		IAutoMockChild second = sut[1, 2, 3, 4, 5];
@@ -207,7 +205,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Initialize_ShouldApplyToAutoMocks()
 	{
-		MockBehavior behavior = AutoMocking.Initialize<IAutoMockChild>(setup => setup.GetValue().Returns(5));
+		MockBehavior behavior = MockBehavior.Default.Initialize<IAutoMockChild>(setup => setup.GetValue().Returns(5));
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
 
 		int result = sut.GetChild(1).GetValue();
@@ -218,7 +216,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Method_ShouldBeCachedPerMemberAndNotPerArgument()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockChild first = sut.GetChild(1);
 		IAutoMockChild second = sut.GetChild(2);
@@ -231,7 +229,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Method_ShouldRecordInteractionsOnTheAutoMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		sut.GetChild(1).GetValue();
 
@@ -241,7 +239,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Method_ShouldReturnSameConfigurableMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		sut.GetChild(1).Mock.Setup.GetValue().Returns(42);
 
@@ -251,7 +249,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Monitor_ShouldReturnTheSameMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 		IAutoMockChild outside = sut.GetChild(1);
 		MockMonitor<Mock.IMockVerifyForIAutoMockRoot> monitor = sut.Mock.Monitor();
 
@@ -268,7 +266,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task NullableProperty_ShouldReturnMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockChild? result = sut.NullableChild;
 
@@ -278,7 +276,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Property_ShouldReturnSameMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockChild first = sut.Child;
 		IAutoMockChild second = sut.Child;
@@ -290,7 +288,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Scenario_ShouldReturnTheSameMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 		IAutoMockChild before = sut.GetChild(1);
 
 		sut.Mock.TransitionTo("other");
@@ -302,7 +300,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task ShouldBeTransitiveAndUseTheSameBehavior()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockRoot root = sut.Child.GetRoot();
 
@@ -314,7 +312,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Task_ShouldReturnSameMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockChild first = await sut.GetChildAsync();
 		IAutoMockChild second = await sut.GetChildAsync();
@@ -326,7 +324,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task ThrowingWhenNotSetup_ShouldStillThrow()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking.ThrowingWhenNotSetup());
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
 		void Act()
 			=> sut.GetChild(1);
@@ -338,7 +336,7 @@ public sealed class AutoMockingTests
 	public async Task WithDefaultValueFor_ShouldPreferTheFactory()
 	{
 		IAutoMockChild expected = IAutoMockChild.CreateMock();
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking.WithDefaultValueFor(() => expected));
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default.WithDefaultValueFor(() => expected));
 
 		IAutoMockChild result = sut.GetChild(1);
 
@@ -346,9 +344,9 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task WithoutAutoMocking_ShouldReturnNull()
+	public async Task SkippingAutoMocking_ShouldReturnNull()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default.SkippingAutoMocking());
 
 		await That(sut.GetChild(1)).IsNull();
 		await That(sut.Child).IsNull();
@@ -358,7 +356,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Wrapping_ShouldPreferTheWrappedInstance()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking).Wrapping(new RootWithoutChild());
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock().Wrapping(new RootWithoutChild());
 
 		IAutoMockChild result = sut.GetChild(1);
 
@@ -369,7 +367,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task ValueTask_ShouldReturnSameMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockChild first = await sut.GetChildValueTaskAsync();
 		IAutoMockChild second = await sut.GetChildValueTaskAsync();
@@ -384,7 +382,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task RefStructParameter_ShouldReturnSameMock()
 	{
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(AutoMocking);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
 		IAutoMockChild first = sut.Consume(new Packet(1));
 		IAutoMockChild second = sut.Consume(new Packet(2));
