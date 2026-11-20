@@ -163,6 +163,19 @@
 	<data name="Mockolate0004Title" xml:space="preserve">
 		<value>Mocked types must use a single spelling</value>
 	</data>
+	<data name="Mockolate0006Description" xml:space="preserve">
+		<value>A lone null or default literal that binds to an IParameters overload is not a null argument. No parameter of the member can be null there, so the literal means any parameters and the setup or verification matches every call.</value>
+	</data>
+	<data name="Mockolate0006MessageFormat" xml:space="preserve">
+		<value>'{0}' matches any parameters, not a null argument; use Match.AnyParameters() if that is intended</value>
+	</data>
+	<data name="Mockolate0006Title" xml:space="preserve">
+		<value>A null argument for IParameters matches any parameters</value>
+	</data>
+	<data name="Mockolate0006CodeFixTitle" xml:space="preserve">
+		<value>Use Match.AnyParameters()</value>
+		<comment>The title of the code fix.</comment>
+	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>
 		<comment>The title of the code fix for an argument that cannot convert to a union-typed setup or verify parameter.</comment>

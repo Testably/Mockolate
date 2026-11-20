@@ -3753,6 +3753,8 @@ internal static partial class Sources
 	///     (<see cref="LoneNullArguments" />). A same-named sibling could capture that call (<paramref name="class" /> is
 	///     <see langword="null" /> for a delegate, which has none), and a classic <see langword="null" /> for a
 	///     non-nullable value type is a matcher rather than a value, so both keep the plain <c>IParameters</c> overload.
+	///     Only a forwarding overload declares its parameter as <c>IParameters?</c>: the analyzer Mockolate0006 reports a
+	///     lone <see langword="null" /> for a non-nullable <c>IParameters</c> parameter and relies on this annotation.
 	/// </summary>
 	private static bool ForwardsLoneNull(Class? @class, Method method, bool useUnionOverloads)
 	{

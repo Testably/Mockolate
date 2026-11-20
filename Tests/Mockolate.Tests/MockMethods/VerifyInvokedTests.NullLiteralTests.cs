@@ -207,6 +207,8 @@ public sealed partial class VerifyInvokedTests
 			await That(sut.Mock.Verify.OptionalObject(Match.AnyParameters())).Once();
 		}
 
+		// With a generic sibling the lone null binds the IParameters overload, which matches any parameters (Mockolate0006).
+#pragma warning disable Mockolate0006
 		[Test]
 		public async Task WithGenericSibling_SetupAndVerifyNull_ShouldMatchTheNullCall()
 		{
@@ -219,6 +221,7 @@ public sealed partial class VerifyInvokedTests
 				.Because("a lone null must not bind to the generic sibling M<T>");
 			await That(sut.Mock.Verify.M(null!)).Once();
 		}
+#pragma warning restore Mockolate0006
 
 #if NET11_0_OR_GREATER
 		// In classic mode a null literal is ambiguous here: unlike for methods, the delegate overloads carry no OverloadResolutionPriority.

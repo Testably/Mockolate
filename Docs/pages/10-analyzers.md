@@ -131,6 +131,27 @@ IRepository<string> notNullable = IRepository<string>.CreateMock();
 
 The same applies to `IRepository<(int Id, string Name)>` and `IRepository<(int, string)>`, also when the difference is nested, as in `IRepository<List<string?>>` and `IRepository<List<string>>`. The calls on these mocks also fail with CS0121 or CS9339, because the mock of each spelling applies to the other one too. `dynamic` and `object` do not count as different spellings: they share one mock.
 
+## Mockolate0006
+
+**A `null` argument that matches any parameters.**
+
+`Setup` and `Verify` methods have an overload that takes the parameters as a whole, such as `Match.AnyParameters()`. Where no parameter of the member can be `null`, for example a single `int` parameter, a lone `null` or `default` literal binds to this overload. It then means any parameters, so the setup applies to every call and the verification counts every call, although it reads like a call with `null`:
+
+```csharp
+public interface IChocolateDispenser
+{
+    void Refill(int amount);
+}
+
+dispenser.Refill(5);
+// Mockolate0006: 'null' matches any parameters, not a null argument; use Match.AnyParameters() if that is intended
+dispenser.Mock.Verify.Refill(null).Once();
+```
+
+The included code fix replaces the literal with `Match.AnyParameters()`. If you meant a specific argument, pass the value or a matcher instead, for example `Refill(5)` or `Refill(It.IsAny<int>())`.
+
+Where the first parameter can be `null` and every further parameter is optional or `params`, a lone `null` stands for the `null` argument instead, and the rule does not fire.
+
 ## Explicit types for union parameters
 
 With [union parameters](06-parameter-matching.md#union-parameters-c-15), a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion does not compile as a `Setup` or `Verify` argument (CS1503, CS1729 or CS9174). The included code fix adds the parameter type:
