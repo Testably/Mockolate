@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using Microsoft.CodeAnalysis;
@@ -304,6 +305,23 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
+	public async Task NewResolverWhoseEqualsThrows_ShouldReuseTheResult()
+	{
+		Compilation compilation = CreateCompilation(Files);
+		Counter counter = new();
+		Discover(WithNewResolver(compilation), counter);
+
+		Discover(WithNewResolver(compilation), counter);
+
+		await That(counter.Calls).IsEqualTo(1)
+			.Because("the command-line compiler creates a new resolver for every compilation, whose Equals throws");
+
+		static Compilation WithNewResolver(Compilation compilation)
+			=> CSharpCompilation.Create(compilation.AssemblyName, compilation.SyntaxTrees, compilation.References,
+				(CSharpCompilationOptions)compilation.Options.WithMetadataReferenceResolver(new ThrowingResolver()));
+	}
+
+	[Test]
 	public async Task OtherReferences_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
@@ -411,5 +429,16 @@ public sealed class AutoMockDiscoveryCacheTests
 	private sealed class Counter
 	{
 		public int Calls { get; set; }
+	}
+
+	private sealed class ThrowingResolver : MetadataReferenceResolver
+	{
+		public override bool Equals(object? other) => throw new NotImplementedException();
+
+		public override int GetHashCode() => throw new NotImplementedException();
+
+		public override ImmutableArray<PortableExecutableReference> ResolveReference(string reference,
+			string? baseFilePath, MetadataReferenceProperties properties)
+			=> throw new NotImplementedException();
 	}
 }
