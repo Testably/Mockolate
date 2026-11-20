@@ -163,6 +163,15 @@
 	<data name="Mockolate0004Title" xml:space="preserve">
 		<value>Mocked types must use a single spelling</value>
 	</data>
+	<data name="Mockolate0005Description" xml:space="preserve">
+		<value>The logging setups and verifications intercept the calls of ILogger.Log, so the mock of a class that implements ILogger only supports them when the class implements Log with a virtual or abstract method.</value>
+	</data>
+	<data name="Mockolate0005MessageFormat" xml:space="preserve">
+		<value>The logging setups and verifications are not supported on '{0}', because its Log method cannot be overridden</value>
+	</data>
+	<data name="Mockolate0005Title" xml:space="preserve">
+		<value>Logging setups and verifications need an overridable Log method</value>
+	</data>
 	<data name="Mockolate0006Description" xml:space="preserve">
 		<value>A lone null or default literal that binds to an IParameters overload is not a null argument. No parameter of the member can be null there, so the literal means any parameters and the setup or verification matches every call.</value>
 	</data>

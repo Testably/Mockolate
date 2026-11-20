@@ -54,6 +54,16 @@ internal class Class : IEquatable<Class>
 
 		IsInterface = type.TypeKind == TypeKind.Interface;
 		HasRequiredMembers = ComputeHasRequiredMembers(type);
+		foreach (INamedTypeSymbol loggerType in new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>()
+			         .Where(IsLoggerType))
+		{
+			ImplementsLogger = true;
+			if (loggerType.TypeArguments.Length == 1)
+			{
+				LoggerCategoryType ??= loggerType.TypeArguments[0].ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
+			}
+		}
+
 		ImmutableArray<ISymbol> members = type.GetMembers();
 
 		List<Method> methodIncludes = new();
@@ -211,6 +221,8 @@ internal class Class : IEquatable<Class>
 		DisplayString = original.DisplayString;
 		XmlDocReference = original.XmlDocReference;
 		IsInterface = original.IsInterface;
+		ImplementsLogger = original.ImplementsLogger;
+		LoggerCategoryType = original.LoggerCategoryType;
 		HasRequiredMembers = original.HasRequiredMembers;
 		HasInaccessibleRequiredMember = original.HasInaccessibleRequiredMember;
 		ReservedNames = original.ReservedNames;
@@ -326,6 +338,17 @@ internal class Class : IEquatable<Class>
 	public EquatableArray<string> ReservedNames { get; }
 
 	public bool IsInterface { get; }
+
+	/// <summary>
+	///     Whether the type is or implements <c>Microsoft.Extensions.Logging.ILogger</c>.
+	/// </summary>
+	public bool ImplementsLogger { get; }
+
+	/// <summary>
+	///     The category type <c>T</c> of the <c>ILogger&lt;T&gt;</c> that the type is or implements, if any.
+	/// </summary>
+	public string? LoggerCategoryType { get; }
+
 	public bool HasRequiredMembers { get; }
 	public bool HasInaccessibleRequiredMember { get; }
 	public string ClassFullName { get; }
@@ -378,6 +401,8 @@ internal class Class : IEquatable<Class>
 		hash = unchecked((hash * 17) + InheritedTypes.GetHashCode());
 		hash = unchecked((hash * 17) + ReservedNames.GetHashCode());
 		hash = unchecked((hash * 17) + (IsInterface ? 1 : 0));
+		hash = unchecked((hash * 17) + (ImplementsLogger ? 1 : 0));
+		hash = unchecked((hash * 17) + (LoggerCategoryType?.GetHashCode() ?? 0));
 		hash = unchecked((hash * 17) + (HasRequiredMembers ? 1 : 0));
 		hash = unchecked((hash * 17) + (HasInaccessibleRequiredMember ? 1 : 0));
 		return hash;
@@ -728,6 +753,22 @@ internal class Class : IEquatable<Class>
 
 		return false;
 	}
+
+	private static bool IsLoggerType(INamedTypeSymbol type)
+		=> type is
+		   {
+			   Name: "ILogger",
+			   TypeKind: TypeKind.Interface,
+			   ContainingNamespace:
+			   {
+				   Name: "Logging",
+				   ContainingNamespace:
+				   {
+					   Name: "Extensions",
+					   ContainingNamespace: { Name: "Microsoft", ContainingNamespace.IsGlobalNamespace: true, },
+				   },
+			   },
+		   };
 
 	public static IEnumerable<ITypeSymbol> GetInheritedTypes(ITypeSymbol type)
 	{

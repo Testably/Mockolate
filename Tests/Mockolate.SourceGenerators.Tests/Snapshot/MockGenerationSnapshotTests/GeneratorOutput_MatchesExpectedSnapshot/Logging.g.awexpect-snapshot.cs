@@ -385,9 +385,6 @@ namespace Mockolate
 	internal static class MockolateLogging
 	{
 		private const string LogName = "global::Microsoft.Extensions.Logging.ILogger.Log";
-		private const string IsEnabledName = "global::Microsoft.Extensions.Logging.ILogger.IsEnabled";
-		private const string BeginScopeNamePrefix = "global::Microsoft.Extensions.Logging.ILogger.BeginScope<";
-		private const string CreateLoggerName = "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger";
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, global::Mockolate.Internals.MockRegistry> s_factoryRegistries = new();
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, string> s_categories = new();
 
@@ -565,7 +562,11 @@ namespace Mockolate
 		///     Dispatches a call of <c>ILogger.Log</c>: setups of the state type <typeparamref name="TState" /> and logging
 		///     setups both apply, the latest matching one wins.
 		/// </summary>
-		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+		/// <remarks>
+		///     The <paramref name="callBase" /> calls the implementation of a mocked class, unless the setup or the behavior
+		///     skips the base class.
+		/// </remarks>
+		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter, global::System.Action? callBase = null)
 		{
 			string name = $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>";
 			if (category is null && s_categories.TryGetValue(registry, out string? registeredCategory))
@@ -611,6 +612,13 @@ namespace Mockolate
 				if (registry.Wraps is global::Microsoft.Extensions.Logging.ILogger wraps)
 				{
 					wraps.Log<TState>(logLevel, eventId, state, exception, formatter);
+					hasWrappedResult = true;
+				}
+
+				if (callBase is not null && !hasWrappedResult &&
+				    !(methodSetup?.SkipBaseClass(registry.Behavior) ?? logSetup?.SkipBaseClass(registry.Behavior) ?? registry.Behavior.SkipBaseClass))
+				{
+					callBase();
 					hasWrappedResult = true;
 				}
 			}
@@ -672,19 +680,34 @@ namespace Mockolate
 		/// <remarks>
 		///     The logging code makes these calls around its log calls, so the test verifies the log calls instead.
 		/// </remarks>
-		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry)
+		/// <param name="registry">The registry of the mock.</param>
+		/// <param name="ignoredNames">The names of the ignored calls; a name that ends with <c>&lt;</c> is the prefix of the names of a generic method.</param>
+		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry, params string[] ignoredNames)
 		{
 			foreach (global::Mockolate.Interactions.IInteraction interaction in registry.Interactions.GetUnverifiedInteractions())
 			{
-				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: { } name, } ||
-				    name is not (IsEnabledName or CreateLoggerName) &&
-				    !name.StartsWith(BeginScopeNamePrefix, global::System.StringComparison.Ordinal))
+				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: { } name, } || !IsIgnored(name))
 				{
 					return false;
 				}
 			}
 
 			return true;
+
+			bool IsIgnored(string name)
+			{
+				foreach (string ignoredName in ignoredNames)
+				{
+					if (ignoredName.EndsWith("<", global::System.StringComparison.Ordinal)
+						    ? name.StartsWith(ignoredName, global::System.StringComparison.Ordinal)
+						    : name == ignoredName)
+					{
+						return true;
+					}
+				}
+
+				return false;
+			}
 		}
 		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<global::Mockolate.Internals.MockRegistry, LoggerFactoryState> s_loggerFactories = new();
 

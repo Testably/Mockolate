@@ -141,6 +141,28 @@ IRepository<string> notNullable = IRepository<string>.CreateMock();
 
 The same applies to `IRepository<(int Id, string Name)>` and `IRepository<(int, string)>`, also when the difference is nested, as in `IRepository<List<string?>>` and `IRepository<List<string>>`. The calls on these mocks also fail with CS0121 or CS9339, because the mock of each spelling applies to the other one too. `dynamic` and `object` do not count as different spellings: they share one mock.
 
+## Mockolate0005
+
+**Logging setups and verifications on a class whose `Log` method cannot be overridden.**
+
+The [logging](09-special-types/03-logging.md) setups and verifications intercept the calls of `ILogger.Log`. The mock of a class that implements `ILogger` supports them when the class implements `Log` with a virtual or abstract method. When `Log` is not virtual, sealed or implemented explicitly, the mock cannot intercept the calls, so the rule reports the logging members:
+
+```csharp
+public class ConsoleLogger : ILogger
+{
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+        Func<TState, Exception?, string> formatter) => Console.WriteLine(formatter(state, exception));
+
+    // IsEnabled and BeginScope
+}
+
+ConsoleLogger logger = ConsoleLogger.CreateMock();
+// Mockolate0005: The logging setups and verifications are not supported on 'ConsoleLogger', because its Log method cannot be overridden
+logger.Mock.Setup.LogError().Throws<InvalidOperationException>();
+```
+
+Make `Log` virtual, or mock `ILogger` and wrap the class with `Wrapping(…)`.
+
 ## Mockolate0006
 
 **A `null` argument that matches any parameters.**

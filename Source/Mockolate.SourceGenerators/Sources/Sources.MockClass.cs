@@ -182,8 +182,8 @@ internal static partial class Sources
 		sb.AppendLine();
 		
 		bool isLoggerFactory = IsLoggerFactory(@class);
-		bool isLogging = isLoggerFactory || IsLogger(@class);
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, isLogging, isLoggerFactory);
+		string[]? loggingIgnoredNames = isLoggerFactory || IsLogger(@class) ? GetLoggingIgnoredNames([@class,]) : null;
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, loggingIgnoredNames, isLoggerFactory);
 
 		foreach ((string Name, Class Class) hiddenBase in hiddenBaseInterfaces)
 		{
@@ -193,7 +193,7 @@ internal static partial class Sources
 				false /* interfaces have no protected events */,
 				hiddenBase.Class.AllMethods().Any(x => x.IsStatic) || hiddenBase.Class.AllProperties().Any(x => x.IsStatic),
 				hiddenBase.Class.AllEvents().Any(x => x.IsStatic),
-				isLogging, isLoggerFactory);
+				loggingIgnoredNames, isLoggerFactory);
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -1253,7 +1253,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementMockForInterface(StringBuilder sb, string mockRegistryName, string name,
 		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents,
-		bool isLogging, bool isLoggerFactory)
+		string[]? loggingIgnoredNames, bool isLoggerFactory)
 	{
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
@@ -1352,9 +1352,15 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tbool IMockFor").Append(name).Append(".VerifyThatAllInteractionsAreVerified()").AppendLine();
-		if (isLogging)
+		if (loggingIgnoredNames is not null)
 		{
-			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.AreAllInteractionsVerified(this.").Append(mockRegistryName).Append(");").AppendLine();
+			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.AreAllInteractionsVerified(this.").Append(mockRegistryName);
+			foreach (string ignoredName in loggingIgnoredNames)
+			{
+				sb.Append(", \"").Append(ignoredName).Append('"');
+			}
+
+			sb.Append(");").AppendLine();
 		}
 		else
 		{
@@ -2525,9 +2531,10 @@ internal static partial class Sources
 		sb.AppendLine();
 		sb.AppendLine("\t\t{");
 
-		if (isClassInterface && IsLoggerLog(method))
+		if (!explicitInterfaceImplementation && IsLoggerLog(method, @class))
 		{
-			AppendDispatchLog(sb, method, @class, mockRegistry, memberIdPrefix + memberIds.GetMethodIdentifier(method));
+			AppendDispatchLog(sb, method, @class, mockRegistry, memberIdPrefix + memberIds.GetMethodIdentifier(method),
+				!isClassInterface && !method.IsAbstract);
 			sb.AppendLine("\t\t}");
 			return;
 		}
@@ -2861,8 +2868,10 @@ internal static partial class Sources
 
 		// ILogger.IsEnabled, ILogger.BeginScope and ILoggerFactory.CreateLogger answer without a setup even on a strict
 		// mock: logging code calls them around its Log calls, and an unexpected Log call on the strict logger still throws.
-		if (!(isClassInterface &&
-		      (IsLoggerIsEnabled(method) || IsLoggerBeginScope(method) || IsLoggerFactoryCreateLogger(method))))
+		bool isLoggingDefault = !explicitInterfaceImplementation &&
+		                        ((IsLoggerIsEnabled(method, @class) || IsLoggerBeginScope(method, @class)) && IsLogger(@class) ||
+		                         isClassInterface && IsLoggerFactoryCreateLogger(method));
+		if (!isLoggingDefault)
 		{
 			string displayMethodName =
 				$"{method.ContainingType}.{method.Name}({string.Join(", ", method.Parameters.Select(p => p.Type.DisplayName))})";
@@ -2922,7 +2931,7 @@ internal static partial class Sources
 			}
 
 			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ");
-			if (isClassInterface && IsLoggerIsEnabled(method))
+			if (isLoggingDefault && IsLoggerIsEnabled(method, @class))
 			{
 				sb.Append("true");
 			}
