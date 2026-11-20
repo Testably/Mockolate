@@ -177,6 +177,19 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "ObjectLookAlikes_CanBeCreated",
+            ["IObjectLookAlikes.cs",],
+            """
+            IObjectLookAlikes sut1 = IObjectLookAlikes.CreateMock();
+            IObjectLookAlikesDerived sut2 = IObjectLookAlikesDerived.CreateMock();
+            IVoidObjectLookAlikes sut3 = IVoidObjectLookAlikes.CreateMock();
+            IRefObjectLookAlikes sut4 = IRefObjectLookAlikes.CreateMock();
+            IObjectLookAlikeProperties sut5 = IObjectLookAlikeProperties.CreateMock();
+            IStaticObjectLookAlikes sut6 = IStaticObjectLookAlikes.CreateMock();
+            IVoidObjectLookAlikes sut7 = IVoidObjectLookAlikes.CreateMock().Implementing<IObjectLookAlikes>();
+            """,
+            []),
+        new(
             "OptionalConstructorParameters_CanBeCreated",
             ["OptionalConstructorParameters.cs", "ParamsSpanConstructors.cs", "ICombinationMockA.cs",],
             """
@@ -355,6 +368,20 @@ public sealed partial class MockGenerationSnapshotTests
             """
             INullableTypeParameter<int> sut1 = INullableTypeParameter<int>.CreateMock();
             INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "ObjectLookAlikes_CanBeCreated_Unions",
+            ["IObjectLookAlikes.cs",],
+            """
+            IObjectLookAlikes sut1 = IObjectLookAlikes.CreateMock();
+            IObjectLookAlikesDerived sut2 = IObjectLookAlikesDerived.CreateMock();
+            IVoidObjectLookAlikes sut3 = IVoidObjectLookAlikes.CreateMock();
+            IRefObjectLookAlikes sut4 = IRefObjectLookAlikes.CreateMock();
+            IObjectLookAlikeProperties sut5 = IObjectLookAlikeProperties.CreateMock();
+            IStaticObjectLookAlikes sut6 = IStaticObjectLookAlikes.CreateMock();
+            IVoidObjectLookAlikes sut7 = IVoidObjectLookAlikes.CreateMock().Implementing<IObjectLookAlikes>();
             """,
             [],
             UnionMode: true),

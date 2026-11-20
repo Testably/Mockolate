@@ -210,21 +210,31 @@ internal record Method
 	private static bool IsIdentifierChar(char c) => char.IsLetterOrDigit(c) || c == '_';
 
 	public bool IsToString()
-		=> Name == "ToString" && Parameters.Count == 0;
+		=> Name == "ToString" && Parameters.Count == 0 && CanOverrideObjectMember(SpecialType.System_String);
 
 	public bool IsGetHashCode()
-		=> Name == "GetHashCode" && Parameters.Count == 0;
+		=> Name == "GetHashCode" && Parameters.Count == 0 && CanOverrideObjectMember(SpecialType.System_Int32);
 
 	public bool IsEquals()
-	{
-		return Name == "Equals" && Parameters.Count == 1 && IsObjectOrNullableObject(Parameters.Single());
+		=> Name == "Equals" && Parameters.Count == 1 && IsObjectParameter(Parameters.Single()) &&
+		   CanOverrideObjectMember(SpecialType.System_Boolean);
 
-		static bool IsObjectOrNullableObject(MethodParameter parameter)
-		{
-			return parameter.Type.Namespace == "System" &&
-			       (parameter.Type.Fullname == "object" || parameter.Type.Fullname == "object?");
-		}
-	}
+	/// <summary>
+	///     Whether the method has the signature of a member the mock inherits from <see cref="object" />, but cannot
+	///     override it, so an implicit implementation on an interface mock hides it (CS0108, CS0114).
+	/// </summary>
+	public bool HidesObjectMember()
+		=> Parameters.All(IsObjectParameter) &&
+		   (Name, Parameters.Count) is ("Equals", 1 or 2) or ("ReferenceEquals", 2)
+			   or ("GetHashCode" or "GetType" or "ToString" or "MemberwiseClone", 0) &&
+		   !IsEquals() && !IsGetHashCode() && !IsToString();
+
+	private bool CanOverrideObjectMember(SpecialType returnType)
+		=> !IsStatic && !IsRefReturn && !IsRefReadonlyReturn && ReturnType.SpecialType == returnType;
+
+	private static bool IsObjectParameter(MethodParameter parameter)
+		=> parameter.RefKind == RefKind.None && parameter.Type.Namespace == "System" &&
+		   (parameter.Type.Fullname == "object" || parameter.Type.Fullname == "object?");
 
 	private sealed class MethodEqualityComparer : IEqualityComparer<Method>
 	{

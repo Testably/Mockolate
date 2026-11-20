@@ -1615,6 +1615,10 @@ internal static partial class Sources
 				{
 					sb.Append("override ");
 				}
+				else if (isClassInterface && Helpers.IsObjectMethodName(@event.Name))
+				{
+					sb.Append("new ");
+				}
 
 				sb.Append("event ").Append(@event.Type.Fullname).Append(' ');
 			}
@@ -1816,6 +1820,10 @@ internal static partial class Sources
 				if (!isClassInterface && property.UseOverride)
 				{
 					sb.Append("override ");
+				}
+				else if (isClassInterface && Helpers.IsObjectMethodName(property.Name))
+				{
+					sb.Append("new ");
 				}
 
 				sb.Append(property.Type.Fullname).Append(" ");
@@ -2402,6 +2410,10 @@ internal static partial class Sources
 				    method.IsToString())
 				{
 					sb.Append("override ");
+				}
+				else if (isClassInterface && method.HidesObjectMember())
+				{
+					sb.Append("new ");
 				}
 
 				sb.Append(returnRefPrefix).Append(method.ReturnType.Fullname).Append(' ')

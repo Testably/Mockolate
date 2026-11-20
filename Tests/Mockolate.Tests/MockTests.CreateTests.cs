@@ -315,6 +315,27 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task ObjectLookAlikes_CanBeCreated()
+		{
+			IObjectLookAlikes sut1 = IObjectLookAlikes.CreateMock();
+			IObjectLookAlikesDerived sut2 = IObjectLookAlikesDerived.CreateMock();
+			IVoidObjectLookAlikes sut3 = IVoidObjectLookAlikes.CreateMock();
+			IRefObjectLookAlikes sut4 = IRefObjectLookAlikes.CreateMock();
+			IObjectLookAlikeProperties sut5 = IObjectLookAlikeProperties.CreateMock();
+			IStaticObjectLookAlikes sut6 = IStaticObjectLookAlikes.CreateMock();
+			IVoidObjectLookAlikes sut7 = IVoidObjectLookAlikes.CreateMock().Implementing<IObjectLookAlikes>();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+			await That(sut4).IsNotNull();
+			await That(sut5).IsNotNull();
+			// Casts to object instead of `await That(sut6)` because CS8920 forbids interfaces
+			// with unimplemented static abstract members as generic type arguments.
+			await That((object)sut6).IsNotNull();
+			await That(sut7).IsNotNull();
+		}
+
+		[Test]
 		public async Task OptionalConstructorParameters_CanBeCreated()
 		{
 			OptionalConstructorBase sut1 = OptionalConstructorBase.CreateMock();
