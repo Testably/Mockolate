@@ -14,7 +14,6 @@ internal static partial class Sources
 		bool hasOverloadResolutionPriority,
 		bool useUnionOverloads = false)
 	{
-		using AutoMockingScope _ = EnterAutoMocking(autoMocking);
 		EquatableArray<Method>? constructors = (@class as MockClass)?.Constructors;
 		MemberAliases aliases = new();
 		if (@class is MockClass { HasImplementedMembers: true, } implementor)
@@ -205,12 +204,12 @@ internal static partial class Sources
 		Dictionary<string, int> signatureIndices = new();
 		int[] nextSignatureIndex = [0,];
 		
-		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix, signatureIndices, nextSignatureIndex);
+		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex);
 		
 		foreach ((string Name, Class Class) item in additionalInterfaces)
 		{
 			sb.AppendLine();
-			AppendMockSubject_ImplementClass(sb, item.Class, mockRegistryName, @class as MockClass, memberIds, memberIdPrefix, signatureIndices, nextSignatureIndex);
+			AppendMockSubject_ImplementClass(sb, item.Class, mockRegistryName, @class as MockClass, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex);
 		}
 
 		sb.AppendLine();

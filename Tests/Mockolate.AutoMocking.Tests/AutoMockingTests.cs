@@ -367,6 +367,23 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task Wrapping_WhenSkippingBaseClass_ShouldCreateThePropertyAutoMockOnce()
+	{
+		int created = 0;
+		MockBehavior behavior = MockBehavior.Default.SkippingBaseClass()
+			.Initialize<IAutoMockChild>(_ => created++);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior).Wrapping(new RootWithoutChild());
+
+		IAutoMockChild first = sut.Child;
+		_ = sut.Child;
+		IAutoMockChild last = sut.Child;
+
+		await That(last).IsSameAs(first);
+		await That(created).IsEqualTo(1)
+			.Because("every read of a property with a base value must not create a new auto-mock");
+	}
+
+	[Test]
 	public async Task Wrapping_ShouldPreferTheWrappedInstance()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock().Wrapping(new RootWithoutChild());

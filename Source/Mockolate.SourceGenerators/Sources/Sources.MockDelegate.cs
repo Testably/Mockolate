@@ -10,7 +10,6 @@ internal static partial class Sources
 	public static string MockDelegate(string name, MockClass @class, Method delegateMethod, bool autoMocking,
 		bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
 	{
-		using AutoMockingScope _ = EnterAutoMocking(autoMocking);
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
 		string classReference = @class.XmlDocReference;
 		MemberIdTable memberIds = new(new MemberAliases());
@@ -60,7 +59,7 @@ internal static partial class Sources
 		sb.Append("\t\tprivate ").Append(delegateMethod.ReturnType == Type.Void ? "void" : delegateMethod.ReturnType.Fullname).Append(" Invoke(")
 			.Append(string.Join(", ", delegateMethod.Parameters.Select(p => $"{p.RefKind.GetString()}{p.Type.Fullname} {p.Name}"))).Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		AppendMockDelegateInvokeBody(sb, delegateMethod, mockRegistryName, memberIds, memberIdPrefix);
+		AppendMockDelegateInvokeBody(sb, delegateMethod, mockRegistryName, memberIds, memberIdPrefix, autoMocking);
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
@@ -468,7 +467,7 @@ internal static partial class Sources
 			.Append(name).Append(">[] setups)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
-		AppendUseAutoMockFactory(sb, "\t\t\t", "mockBehavior");
+		AppendUseAutoMockFactory(sb, "\t\t\t", "mockBehavior", autoMocking);
 		sb.Append(
 				"\t\t\tvar mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));")
 			.AppendLine();
@@ -499,7 +498,7 @@ internal static partial class Sources
 	///     Emits the body of the delegate mock's <c>Invoke</c> method.
 	/// </summary>
 	private static void AppendMockDelegateInvokeBody(StringBuilder sb, Method delegateMethod,
-		string mockRegistryName, MemberIdTable memberIds, string memberIdPrefix)
+		string mockRegistryName, MemberIdTable memberIds, string memberIdPrefix, bool autoMocking)
 	{
 		// A non-span ref-struct return cannot parameterize ReturnMethodSetup<TReturn>, and a ref-struct
 		// parameter cannot parameterize VoidMethodSetup<T>. Either way the delegate gets no setup or
@@ -649,7 +648,7 @@ internal static partial class Sources
 
 			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ")
 				.AppendDefaultValueGeneratorFor(delegateMethod.ReturnType, $"this.{mockRegistryName}.Behavior.DefaultValue",
-					autoMock: MethodAutoMock($"this.{mockRegistryName}", memberIdRef))
+					autoMock: MethodAutoMock(autoMocking, $"this.{mockRegistryName}", memberIdRef))
 				.Append(';').AppendLine();
 		}
 	}

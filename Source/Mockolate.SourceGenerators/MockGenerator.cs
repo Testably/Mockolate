@@ -54,7 +54,7 @@ public class MockGenerator : IIncrementalGenerator
 			.Select(static (options, _) => new EquatableArray<string>(
 				options.GlobalOptions.TryGetValue("build_property.MockolateAutoMockingExcludedNamespaces",
 					out string? value)
-					? value.Split([';', ',',], StringSplitOptions.RemoveEmptyEntries)
+					? value.Split([';',], StringSplitOptions.RemoveEmptyEntries)
 						.Select(@namespace => @namespace.Trim())
 						.Where(@namespace => @namespace.Length > 0)
 						.ToArray()

@@ -191,7 +191,7 @@ await That(shop.GetDispenser().Dispense("Dark", 5)).IsTrue();
 - Setups and `WithDefaultValueFor` factories take precedence over auto-mocks.
 - Opt out per mock with `MockBehavior.Default.SkippingAutoMocking()`.
 
-Interfaces in the `System`, `Microsoft` and `Windows` namespaces are not auto-mocked. A mocked type from a large SDK can pull in mocks for much of the SDK, so exclude such namespaces with a `;`-separated list. An interface in these namespaces is still auto-mocked when the project creates a mock of it with `CreateMock`:
+Interfaces in the `System`, `Microsoft` and `Windows` namespaces are not auto-mocked. A mocked type from a large SDK can pull in mocks for much of the SDK, so exclude such namespaces with a `;`-separated list. An interface in a namespace of this list is still auto-mocked when the project creates a mock of it with `CreateMock`:
 
 ```xml
 <PropertyGroup>

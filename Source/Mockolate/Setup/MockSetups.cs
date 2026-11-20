@@ -34,8 +34,13 @@ internal partial class MockSetups : MockScenarioSetup
 	/// </remarks>
 	public object? GetOrAddAutoMock(int memberId, Type type, MockBehavior behavior)
 	{
-		ConcurrentDictionary<(int MemberId, Type Type), object> autoMocks =
-			LazyInitializer.EnsureInitialized(ref _autoMocks)!;
+		ConcurrentDictionary<(int MemberId, Type Type), object>? autoMocks = Volatile.Read(ref _autoMocks);
+		if (autoMocks is null)
+		{
+			ConcurrentDictionary<(int MemberId, Type Type), object> created = new();
+			autoMocks = Interlocked.CompareExchange(ref _autoMocks, created, null) ?? created;
+		}
+
 		if (!autoMocks.TryGetValue((memberId, type), out object? stored))
 		{
 			stored = autoMocks.GetOrAdd((memberId, type), AutoMocks.Create(type, behavior) ?? NoAutoMock);
