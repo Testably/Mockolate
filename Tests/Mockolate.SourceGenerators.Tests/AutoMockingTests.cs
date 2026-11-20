@@ -104,6 +104,154 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task IncludedNamespaces_ShouldWinOverExcludedNamespaces()
+	{
+		GeneratorResult result = Generator.Run([
+			"""
+			using Mockolate;
+
+			namespace MyCode
+			{
+			    public class Program
+			    {
+			        public static void Main(string[] args) => _ = IRoot.CreateMock();
+			    }
+
+			    public interface IRoot
+			    {
+			        Sdk.IClient GetClient();
+			        Sdk.Storage.IBlob GetBlob();
+			        Sdk.Storage.Blobs.IContainer GetContainer();
+			    }
+			}
+
+			namespace Sdk
+			{
+			    public interface IClient { }
+			}
+
+			namespace Sdk.Storage
+			{
+			    public interface IBlob { }
+			}
+
+			namespace Sdk.Storage.Blobs
+			{
+			    public interface IContainer { }
+			}
+			""",
+		], [], LanguageVersion.CSharp14, new Dictionary<string, string>
+		{
+			["build_property.MockolateAutoMocking"] = "true",
+			["build_property.MockolateAutoMockingExcludedNamespaces"] = "Sdk",
+			["build_property.MockolateAutoMockingIncludedNamespaces"] = " Other ; Sdk.Storage",
+		});
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources)
+			.DoesNotContainKey("Mock.IClient.g.cs").And
+			.ContainsKey("Mock.IBlob.g.cs").And
+			.ContainsKey("Mock.IContainer.g.cs")
+			.Because("an included namespace and its sub-namespaces win over the excluded namespace");
+	}
+
+	[Test]
+	public async Task IncludedFrameworkNamespaces_ShouldBeMocked()
+	{
+		MetadataReference external = ExternalAssembly.Compile("""
+		                                                      namespace System.IO.Abstractions;
+
+		                                                      public interface IFile
+		                                                      {
+		                                                          bool Exists(string path);
+		                                                      }
+
+		                                                      public interface IFileSystem
+		                                                      {
+		                                                          IFile File { get; }
+		                                                      }
+		                                                      """);
+
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     using System;
+		                                                     using Mockolate;
+
+		                                                     namespace MyCode;
+
+		                                                     public interface IMyInterface
+		                                                     {
+		                                                         System.IO.Abstractions.IFileSystem GetFileSystem();
+		                                                         IServiceProvider GetServiceProvider();
+		                                                     }
+
+		                                                     public class Program
+		                                                     {
+		                                                         public static void Main(string[] args) => _ = IMyInterface.CreateMock();
+		                                                     }
+		                                                     """, [external,], new Dictionary<string, string>
+		{
+			["build_property.MockolateAutoMocking"] = "true",
+			["build_property.MockolateAutoMockingIncludedNamespaces"] = "System.IO.Abstractions",
+		});
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources)
+			.ContainsKey("Mock.IFileSystem.g.cs").And
+			.ContainsKey("Mock.IFile.g.cs").And
+			.DoesNotContainKey("Mock.IServiceProvider.g.cs");
+		await That(result.Sources["Mock.IMyInterface.g.cs"])
+			.Contains("AutoMockOr<global::System.IO.Abstractions.IFileSystem>").And
+			.DoesNotContain("AutoMockOr<global::System.IServiceProvider>");
+		await That(result.Sources["MockBehaviorExtensions.g.cs"])
+			.Contains("return global::System.IO.Abstractions.IFile.CreateMock(behavior);");
+	}
+
+	[Test]
+	public async Task IncludedRootNamespace_ShouldIncludeAllNestedNamespaces()
+	{
+		GeneratorResult result = Generator.Run([
+			"""
+			using System;
+			using Mockolate;
+
+			namespace MyCode
+			{
+			    public class Program
+			    {
+			        public static void Main(string[] args)
+			        {
+			            _ = IRoot.CreateMock();
+			            _ = IServiceProvider.CreateMock();
+			        }
+			    }
+
+			    public interface IRoot
+			    {
+			        IServiceProvider GetServiceProvider();
+			        Microsoft.Extensions.Something.IService GetService();
+			    }
+			}
+
+			namespace Microsoft.Extensions.Something
+			{
+			    public interface IService { }
+			}
+			""",
+		], [], LanguageVersion.CSharp14, new Dictionary<string, string>
+		{
+			["build_property.MockolateAutoMocking"] = "true",
+			["build_property.MockolateAutoMockingIncludedNamespaces"] = "Microsoft",
+		});
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.IService.g.cs");
+		await That(result.Sources["MockBehaviorExtensions.g.cs"])
+			.Contains("return global::Microsoft.Extensions.Something.IService.CreateMock(behavior);").And
+			.DoesNotContain("global::System.IServiceProvider.CreateMock(behavior)")
+			.Because("a mock that the project creates of a framework interface is only used when its namespace is included");
+	}
+
+	[Test]
 	public async Task ExternAliasedInterfacesWithTheSameName_ShouldBothBeMocked()
 	{
 		const string source = """

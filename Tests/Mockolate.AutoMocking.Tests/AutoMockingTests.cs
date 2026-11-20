@@ -1,3 +1,4 @@
+using System.IO.Abstractions;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -145,6 +146,18 @@ public sealed class AutoMockingTests
 		IServiceProvider result = sut.GetServiceProvider();
 
 		await That(result).IsNull();
+	}
+
+	[Test]
+	public async Task FileSystemInterface_ShouldBeAutoMocked()
+	{
+		IFileSystem sut = IFileSystem.CreateMock();
+
+		IFile result = sut.File;
+		result.Mock.Setup.Exists(It.IsAny<string?>()).Returns(true);
+
+		await That(sut.File.Exists("foo.txt")).IsTrue()
+			.Because("System.IO.Abstractions is included in the auto-mocked namespaces by default");
 	}
 
 	[Test]

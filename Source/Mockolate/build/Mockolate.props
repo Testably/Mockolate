@@ -15,6 +15,13 @@
 		<!-- A ';'-separated list of namespaces whose interfaces (also in nested namespaces) get no mock for
 		     auto-mocking unless the project creates one with CreateMock. -->
 		<CompilerVisibleProperty Include="MockolateAutoMockingExcludedNamespaces"/>
+		<!-- A ';'-separated list of namespaces whose interfaces (also in nested namespaces) are auto-mocked although
+		     they lie in an excluded namespace or in the System, Microsoft or Windows namespaces. -->
+		<CompilerVisibleProperty Include="MockolateAutoMockingIncludedNamespaces"/>
 	</ItemGroup>
+
+	<PropertyGroup>
+		<MockolateAutoMockingIncludedNamespaces Condition="'$(MockolateAutoMockingIncludedNamespaces)' == ''">System.IO.Abstractions</MockolateAutoMockingIncludedNamespaces>
+	</PropertyGroup>
 
 </Project>

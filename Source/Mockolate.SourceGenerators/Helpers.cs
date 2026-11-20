@@ -555,15 +555,15 @@ internal static class Helpers
 		///     looks for a cancellation token, or is <see langword="null" /> to use the <paramref name="suffix" />.
 		///     <para />
 		///     The <paramref name="autoMock" /> returns the code before and after the default value of an auto-mockable
-		///     type (also the result type of a task), that replaces a <see langword="null" /> with an auto-mock.
+		///     type (also the result type of a task), that replaces a <see langword="null" /> with an auto-mock, or
+		///     <see langword="null" /> when the type gets no auto-mock.
 		/// </remarks>
 		public StringBuilder AppendDefaultValueGeneratorFor(Type type,
 			string defaultValueName, string suffix = "", string? taskSuffix = null,
-			Func<Type, (string Prefix, string Suffix)>? autoMock = null)
+			Func<Type, (string Prefix, string Suffix)?>? autoMock = null)
 		{
-			if (autoMock is not null && type.IsAutoMockable)
+			if (autoMock?.Invoke(type) is (string prefix, string autoMockSuffix))
 			{
-				(string prefix, string autoMockSuffix) = autoMock(type);
 				return sb.Append(prefix)
 					.AppendDefaultValueGeneratorFor(type, defaultValueName, suffix, taskSuffix)
 					.Append(autoMockSuffix);

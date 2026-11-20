@@ -56,6 +56,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		}
 
 		IsAutoMockable = types.Length == 1 && MockGeneratorHelpers.IsAutoMockable(types[0]);
+		FrameworkNamespace = IsAutoMockable ? MockGeneratorHelpers.GetFrameworkNamespace(types[0]) : null;
 
 		_mockSurfaceHash = ComputeMockSurfaceHash();
 	}
@@ -64,6 +65,11 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	///     Whether this mock can be returned as an auto-mock (see <see cref="Type.IsAutoMockable" />).
 	/// </summary>
 	public bool IsAutoMockable { get; }
+
+	/// <summary>
+	///     The namespace of an auto-mockable mock in a framework namespace (see <see cref="Type.FrameworkNamespace" />).
+	/// </summary>
+	public string? FrameworkNamespace { get; }
 
 	/// <summary>
 	///     Whether the generator found this mock as the return type of another mock, for auto-mocking, instead of in a
@@ -153,6 +159,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		    _mockSurfaceHash == other._mockSurfaceHash &&
 		    IsDiscovered == other.IsDiscovered &&
 		    IsAutoMockable == other.IsAutoMockable &&
+		    FrameworkNamespace == other.FrameworkNamespace &&
 		    ClassFullName == other.ClassFullName);
 
 	public override bool Equals(Class? other) => other is MockClass mc && Equals(mc);

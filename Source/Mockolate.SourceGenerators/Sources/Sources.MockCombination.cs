@@ -1,5 +1,6 @@
 using System.Text;
 using Mockolate.SourceGenerators.Entities;
+using Mockolate.SourceGenerators.Internals;
 
 namespace Mockolate.SourceGenerators.Sources;
 
@@ -10,7 +11,7 @@ internal static partial class Sources
 		string name,
 		Class @class,
 		(string Name, Class Class)[] additionalInterfaces,
-		bool autoMocking,
+		AutoMockingOptions? autoMocking,
 		bool hasOverloadResolutionPriority,
 		bool useUnionOverloads = false)
 	{
