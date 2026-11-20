@@ -12,6 +12,7 @@ internal static partial class Sources
 		AutoMockingOptions? autoMocking, bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
 	{
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
+		int omittable = OmittableMethodParameterCount(null, delegateMethod, hasOverloadResolutionPriority);
 		string classReference = @class.XmlDocReference;
 		MemberIdTable memberIds = new(new MemberAliases());
 		memberIds.AddMethod(delegateMethod);
@@ -79,7 +80,7 @@ internal static partial class Sources
 		}
 		else
 		{
-			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup");
+			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", omittable: omittable);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
@@ -100,7 +101,7 @@ internal static partial class Sources
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags);
+					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags, omittable: omittable);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -108,8 +109,13 @@ internal static partial class Sources
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", allValueFlags);
+					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", allValueFlags, omittable: omittable);
 				}
+			}
+
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
+			{
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags, omittable: omittable, keptCount: keptCount);
 			}
 		}
 
@@ -124,7 +130,7 @@ internal static partial class Sources
 		}
 		else
 		{
-			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify");
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", omittable: omittable);
 			if (delegateMethod.Parameters.Count > 0)
 			{
 				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
@@ -144,7 +150,7 @@ internal static partial class Sources
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags);
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags, omittable: omittable);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -153,8 +159,14 @@ internal static partial class Sources
 				if (allValueFlags.Any(f => f))
 				{
 					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false,
-						memberIds, memberIdPrefix, false, "Verify", allValueFlags);
+						memberIds, memberIdPrefix, false, "Verify", allValueFlags, omittable: omittable);
 				}
+			}
+
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
+			{
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false,
+					memberIds, memberIdPrefix, false, "Verify", valueFlags, omittable: omittable, keptCount: keptCount);
 			}
 		}
 
@@ -209,7 +221,7 @@ internal static partial class Sources
 		}
 		else
 		{
-			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify");
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", omittable: omittable);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
@@ -230,7 +242,7 @@ internal static partial class Sources
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags);
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags, omittable: omittable);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -238,8 +250,14 @@ internal static partial class Sources
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", allValueFlags);
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", allValueFlags, omittable: omittable);
 				}
+			}
+
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
+			{
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false,
+					memberIds, memberIdPrefix, false, "Verify", valueFlags, omittable: omittable, keptCount: keptCount);
 			}
 		}
 
@@ -295,7 +313,7 @@ internal static partial class Sources
 		else
 		{
 			AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup",
-				hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+				hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
@@ -320,7 +338,7 @@ internal static partial class Sources
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
 					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags,
-						hasOverloadResolutionPriority);
+						hasOverloadResolutionPriority, omittable: omittable);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -329,8 +347,14 @@ internal static partial class Sources
 				if (allValueFlags.Any(f => f))
 				{
 					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", allValueFlags,
-						hasOverloadResolutionPriority);
+						hasOverloadResolutionPriority, omittable: omittable);
 				}
+			}
+
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
+			{
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags,
+					hasOverloadResolutionPriority, omittable: omittable, keptCount: keptCount);
 			}
 		}
 
@@ -358,7 +382,7 @@ internal static partial class Sources
 		else
 		{
 			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
-				hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+				hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
@@ -383,7 +407,7 @@ internal static partial class Sources
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
 					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify", valueFlags,
-						hasOverloadResolutionPriority);
+						hasOverloadResolutionPriority, omittable: omittable);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -392,8 +416,14 @@ internal static partial class Sources
 				if (allValueFlags.Any(f => f))
 				{
 					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
-						allValueFlags, hasOverloadResolutionPriority);
+						allValueFlags, hasOverloadResolutionPriority, omittable: omittable);
 				}
+			}
+
+			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
+			{
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+					valueFlags, hasOverloadResolutionPriority, omittable: omittable, keptCount: keptCount);
 			}
 		}
 

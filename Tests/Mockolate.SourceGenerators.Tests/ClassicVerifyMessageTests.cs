@@ -161,7 +161,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task OptionalParameter_InClassicMode_WhenOmittedOrNullMatcher_ShouldVerifyDeclaredDefaultLikeSetup()
+	public async Task OptionalParameter_InClassicMode_WhenOmittedOrNullMatcher_ShouldVerifyLikeSetup()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -302,12 +302,12 @@ public sealed class ClassicVerifyMessageTests
 			"Expected that mock never invoked method Opt(a, 5), but it did once.",
 			"Expected that mock never invoked method Many(It.IsAny<int>(), x, Milk, 2), but it did once.",
 			"Expected that mock never invoked method Many(1, It.IsAny<string>(), Milk, 2), but it did once.",
-			"Expected that mock never invoked method Defaults(It.IsAny<int>(), null, 00:00:00, null, It.IsAny<DateTime>()), but it did once.",
+			"Expected that mock never invoked method Defaults(It.IsAny<int>(), null, null, null, It.IsAny<DateTime>()), but it did once.",
 			"Expected that mock never invoked method Nullable(It.IsAny<int>(), 7), but it did once.",
 			"Expected that mock never invoked method Generic<T>(It.IsAny<string>(), 5), but it did once.",
 			"Expected that mock never invoked method Five(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), 5), but it did once.",
 			"Expected that mock never invoked method Invoke(It.IsAny<string>(), 5), but it did once.",
-		]).Because("an omitted optional parameter and a null matcher for it stand for the declared default value in setup and verify");
+		]).Because("an omitted optional parameter stands for the declared default value and a null matcher for default(T), in setup and verify");
 	}
 
 	[Test]

@@ -48,11 +48,11 @@ public static class Matchers
 	///     messages: <see langword="null" />, or the default value of a non-nullable value type.
 	/// </summary>
 	/// <remarks>
-	///     A <see langword="null" /> literal for a non-nullable value type binds to the matcher overload in classic mode.
-	///     Verifications already compare it with the default value, and union mode converts it to the default value.
+	///     A <see langword="null" /> literal for a non-nullable value type binds to the matcher overload in classic mode,
+	///     where it stands for <c>default(T)</c>, as in union mode.
 	/// </remarks>
 	/// <typeparam name="T">The declared type of the parameter.</typeparam>
-	/// <returns>A parameter matcher that only accepts <see langword="default" />(<typeparamref name="T" />).</returns>
+	/// <returns>A parameter matcher that only accepts <c>default(T)</c>.</returns>
 	public static IParameterWithCallback<T> IsNull<T>()
 		=> new It.ParameterEqualsMatch<T>(default!, "null");
 }

@@ -3457,6 +3457,120 @@ internal static partial class Sources
 		}
 	}
 
+	/// <summary>
+	///     The count of trailing optional parameters that the classic setup and verify overloads of
+	///     <paramref name="method" /> leave out through overloads of their own instead of <c>= null</c> defaults, as in union
+	///     mode and for indexers, so that an explicit <see langword="null" /> keeps standing for <c>default(T)</c>. Without
+	///     overload priorities the shorter overloads would make a lone <see langword="null" /> ambiguous with the
+	///     <c>IParameters</c> overload, and a same-named sibling (<paramref name="class" /> is <see langword="null" /> for a
+	///     delegate, which has none) could repeat their signatures, so both keep the <c>= null</c> defaults that stand for
+	///     the declared default value.
+	/// </summary>
+	private static int OmittableMethodParameterCount(Class? @class, Method method, bool hasOverloadResolutionPriority)
+	{
+		if (!hasOverloadResolutionPriority || method.Parameters.Any(p => p.NeedsRefStructPipeline()) ||
+		    (@class is not null && !HasUniqueMethodName(@class, method)))
+		{
+			return 0;
+		}
+
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		int omittable = 0;
+		while (omittable < parameters.Length &&
+		       parameters[parameters.Length - 1 - omittable] is { HasExplicitDefaultValue: true, } parameter &&
+		       parameter.CanUseNullableParameterOverload())
+		{
+			omittable++;
+		}
+
+		return omittable;
+	}
+
+	/// <summary>
+	///     The classic setup and verify overloads that leave out trailing optional parameters: the matcher and value
+	///     combinations of the kept parameters, for every count of left-out parameters up to <paramref name="omittable" />.
+	///     The value flags cover every parameter and mark a left-out one as a value unless the overload takes only
+	///     matchers, so that they name the full overload that the shorter one forwards to with the declared default values.
+	/// </summary>
+	private static IEnumerable<(int KeptCount, bool[]? ValueFlags)> GenerateOmittedMethodOverloads(Method method,
+		int omittable)
+	{
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		for (int keptCount = parameters.Length - 1; keptCount >= parameters.Length - omittable; keptCount--)
+		{
+			yield return (keptCount, null);
+			bool[] omitted = Enumerable.Repeat(true, parameters.Length - keptCount).ToArray();
+			if (parameters.Length <= MaxExplicitParameters)
+			{
+				EquatableArray<MethodParameter> kept = new(parameters.Take(keptCount).ToArray());
+				foreach (bool[] valueFlags in GenerateValueFlagCombinations(kept))
+				{
+					yield return (keptCount, [..valueFlags, ..omitted,]);
+				}
+			}
+			else if (parameters.Take(keptCount).Any(p => p.CanUseNullableParameterOverload()))
+			{
+				yield return (keptCount,
+					[..parameters.Take(keptCount).Select(p => p.CanUseNullableParameterOverload()), ..omitted,]);
+			}
+		}
+	}
+
+	/// <summary>
+	///     The <c>= null</c> defaults of a classic method overload. With left-out parameters only a slot that cannot leave
+	///     out its parameter keeps one, as in union mode, so that an explicit <see langword="null" /> never stands for the
+	///     declared default value.
+	/// </summary>
+	private static bool[] ComputeMethodTrailingDefaults(Method method, bool[]? valueFlags, int omittable, int keptCount)
+	{
+		if (omittable == 0)
+		{
+			return ComputeTrailingDefaults(method.Parameters.AsSpan(), valueFlags);
+		}
+
+		bool[] breaksDefaults = method.Parameters
+			.Select((p, i) => i < keptCount && (valueFlags?[i] == true || p.CanUseNullableParameterOverload()))
+			.ToArray();
+		return ComputeTrailingDefaults(method.Parameters.AsSpan(), breaksDefaults);
+	}
+
+	// The overloads that leave out parameters rank like the full ones among themselves and below every full one, as in
+	// union mode; fewer left-out parameters rank higher.
+	private static string OmittedMethodOverloadPriority(Method method, int keptCount, bool[]? valueFlags)
+	{
+		int priority;
+		if (valueFlags is null)
+		{
+			priority = keptCount;
+		}
+		else if (valueFlags.All(x => x))
+		{
+			bool[] keptValueFlags = valueFlags.Select((flag, i) => flag && i < keptCount).ToArray();
+			priority = ParametersBlockAllValuesPromotion(method.Parameters, keptValueFlags) ? 0 : keptCount + 1;
+		}
+		else
+		{
+			priority = valueFlags.Take(keptCount).Count(x => !x);
+		}
+
+		int parameterCount = method.Parameters.Count;
+		return (priority - (parameterCount + 1) * (parameterCount - keptCount)).ToString();
+	}
+
+	/// <summary>
+	///     The arguments with which an overload that leaves out parameters forwards to the full overload: the kept
+	///     parameters and the declared default values, as matchers when the overload takes only matchers.
+	/// </summary>
+	private static string OmittedMethodForwardingArguments(Method method, int keptCount, bool[]? valueFlags)
+		=> string.Join(", ", method.Parameters.Select((p, i) => i < keptCount
+			? p.Name
+			: valueFlags is null
+				? $"new global::Mockolate.Internals.LiteralParameterMatch<{p.ToNullableType()}>({DeclaredDefaultValue(p)})"
+				: DeclaredDefaultValue(p)));
+
+	private static string OmittedParametersRemark(Method method, int keptCount)
+		=> $" It uses the declared default value for {string.Join(", ", method.Parameters.Skip(keptCount).Select(p => $"<c>{p.Name}</c>"))}.";
+
 	// Priority hierarchy among same-arity overloads emitted for one method:
 	//   all-values            : int.MaxValue       (so `Method(default, …)` binds here and exposes `.AnyParameters()`)
 	//   IParameters           : int.MaxValue - 1
@@ -3998,8 +4112,9 @@ internal static partial class Sources
 				}
 				else
 				{
+					int omittable = OmittableMethodParameterCount(@class, method, hasOverloadResolutionPriority);
 					AppendMethodSetupDefinition(sb, @class, method, false,
-						hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+						hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 					if (TryGetPerElementParamsParameter(method))
 					{
 						AppendMethodSetupDefinition(sb, @class, method, false,
@@ -4017,7 +4132,7 @@ internal static partial class Sources
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
 							AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: valueFlags,
-								hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+								hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 						}
 					}
 					else
@@ -4027,14 +4142,42 @@ internal static partial class Sources
 						if (allValueFlags.Any(f => f))
 						{
 							AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: allValueFlags,
-								hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+								hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 						}
+					}
+
+					foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(method, omittable))
+					{
+						AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: valueFlags,
+							hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable,
+							keptCount: keptCount);
 					}
 				}
 			}
 		}
 
 		#endregion
+	}
+
+	private static void AppendMethodOverloadRemark(StringBuilder sb, Method method, bool useParameters,
+		bool[]? valueFlags, bool isVerify, int keptCount)
+	{
+		if (keptCount == method.Parameters.Count)
+		{
+			AppendOverloadDifferentiatorRemark(sb, method.Parameters.Select(p => p.Name).ToArray(), useParameters,
+				valueFlags, isVerify);
+			return;
+		}
+
+		string omission = OmittedParametersRemark(method, keptCount);
+		if (keptCount == 0)
+		{
+			sb.AppendXmlRemarks(omission.TrimStart());
+			return;
+		}
+
+		AppendOverloadDifferentiatorRemark(sb, method.Parameters.Take(keptCount).Select(p => p.Name).ToArray(),
+			useParameters, valueFlags?.Take(keptCount).ToArray(), isVerify, omission);
 	}
 
 	private static void AppendOverloadDifferentiatorRemark(StringBuilder sb,
@@ -4133,7 +4276,7 @@ internal static partial class Sources
 	private static void AppendMethodSetupDefinition(StringBuilder sb, Class @class, Method method,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
 		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false,
-		bool emptyParams = false)
+		bool emptyParams = false, int omittable = 0, int? keptCount = null)
 #pragma warning restore S107
 	{
 		// Three shapes cannot expose a setup surface, all for the same reason: IReturnMethodSetup<T> /
@@ -4167,6 +4310,7 @@ internal static partial class Sources
 		}
 
 		string methodName = methodNameOverride ?? method.Name;
+		int kept = keptCount ?? method.Parameters.Count;
 		sb.Append("\t\t/// <summary>").AppendLine();
 		if (methodNameOverride is null)
 		{
@@ -4185,22 +4329,22 @@ internal static partial class Sources
 		{
 			sb.Append(EmptyParamsSummary(method));
 		}
-		else if (method.Parameters.Any())
+		else if (kept > 0)
 		{
 			sb.Append(" with the given ")
-				.Append(string.Join(", ", method.Parameters.Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")));
+				.Append(string.Join(", ", method.Parameters.Take(kept).Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")));
 		}
 
 		sb.Append(".").AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 		if (!emptyParams)
 		{
-			AppendOverloadDifferentiatorRemark(sb, method.Parameters.Select(p => p.Name).ToArray(), useParameters,
-				valueFlags);
+			AppendMethodOverloadRemark(sb, method, useParameters, valueFlags, false, kept);
 		}
 
+		string? omittedPriority = keptCount is not null ? OmittedMethodOverloadPriority(method, kept, valueFlags) : null;
 		string? allValuesPriority = valueFlags?.All(x => x) == true && hasOverloadResolutionPriority
-			? ComputeAllValuesOverloadPriority(@class, method, valueFlags, emptyParams)
+			? omittedPriority ?? ComputeAllValuesOverloadPriority(@class, method, valueFlags, emptyParams)
 			: null;
 		if (method.ReturnType != Type.Void)
 		{
@@ -4219,7 +4363,7 @@ internal static partial class Sources
 				if (hasOverloadResolutionPriority)
 				{
 					sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-						.Append(ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
+						.Append(omittedPriority ?? ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
 							perElementParams))
 						.Append(")]").AppendLine();
 				}
@@ -4256,7 +4400,7 @@ internal static partial class Sources
 				if (hasOverloadResolutionPriority)
 				{
 					sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-						.Append(ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
+						.Append(omittedPriority ?? ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
 							perElementParams))
 						.Append(")]").AppendLine();
 				}
@@ -4292,13 +4436,12 @@ internal static partial class Sources
 		}
 		else
 		{
-			ReadOnlySpan<MethodParameter> paramSpan = method.Parameters.AsSpan();
-			bool[] hasTrailingDefault = ComputeTrailingDefaults(paramSpan, valueFlags);
+			bool[] hasTrailingDefault = ComputeMethodTrailingDefaults(method, valueFlags, omittable, kept);
 
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
 			{
-				if (emptyParams && parameter.IsParams)
+				if ((emptyParams && parameter.IsParams) || i >= kept)
 				{
 					break;
 				}
@@ -4492,8 +4635,9 @@ internal static partial class Sources
 				}
 				else
 				{
+					int omittable = OmittableMethodParameterCount(@class, method, hasOverloadResolutionPriority);
 					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
-						memberIds, memberIdPrefix, scopeExpression: scopeExpression);
+						memberIds, memberIdPrefix, scopeExpression: scopeExpression, omittable: omittable);
 					if (TryGetPerElementParamsParameter(method))
 					{
 						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
@@ -4512,7 +4656,8 @@ internal static partial class Sources
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
 							AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
-								memberIds, memberIdPrefix, valueFlags: valueFlags, scopeExpression: scopeExpression);
+								memberIds, memberIdPrefix, valueFlags: valueFlags, scopeExpression: scopeExpression,
+								omittable: omittable);
 						}
 					}
 					else
@@ -4522,8 +4667,16 @@ internal static partial class Sources
 						if (allValueFlags.Any(f => f))
 						{
 							AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
-								memberIds, memberIdPrefix, valueFlags: allValueFlags, scopeExpression: scopeExpression);
+								memberIds, memberIdPrefix, valueFlags: allValueFlags, scopeExpression: scopeExpression,
+								omittable: omittable);
 						}
+					}
+
+					foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(method, omittable))
+					{
+						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+							memberIds, memberIdPrefix, valueFlags: valueFlags, scopeExpression: scopeExpression,
+							omittable: omittable, keptCount: keptCount);
 					}
 				}
 			}
@@ -4537,7 +4690,7 @@ internal static partial class Sources
 		bool useParameters, MemberIdTable memberIds, string memberIdPrefix,
 		string? methodNameOverride = null, bool[]? valueFlags = null,
 		string? scopeExpression = null, bool perElementParams = false, bool forwardsLoneNull = false,
-		bool emptyParams = false)
+		bool emptyParams = false, int omittable = 0, int? keptCount = null)
 	{
 		// Setup-side carve-out: methods using a generic type parameter that declares
 		// `allows ref struct`, methods returning a non-span ref struct, and delegates with a ref-struct
@@ -4633,7 +4786,7 @@ internal static partial class Sources
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
 			{
-				if (emptyParams && parameter.IsParams)
+				if ((emptyParams && parameter.IsParams) || i >= (keptCount ?? method.Parameters.Count))
 				{
 					break;
 				}
@@ -4686,6 +4839,15 @@ internal static partial class Sources
 		}
 
 		sb.AppendLine();
+		if (keptCount is not null)
+		{
+			sb.Append("\t\t\t=> ((global::Mockolate.Mock.").Append(setupName).Append(")this).").Append(methodName)
+				.Append('(').Append(OmittedMethodForwardingArguments(method, keptCount.Value, valueFlags)).Append(");")
+				.AppendLine();
+			sb.AppendLine();
+			return;
+		}
+
 		sb.AppendLine("\t\t{");
 		if (emptyParams)
 		{
@@ -4827,7 +4989,7 @@ internal static partial class Sources
 				}
 				else
 				{
-					AppendNamedParameter(sb, parameter);
+					AppendNamedParameter(sb, parameter, nullIsDeclaredDefault: omittable == 0);
 				}
 
 				j++;
@@ -5978,8 +6140,9 @@ internal static partial class Sources
 				}
 				else
 				{
+					int omittable = OmittableMethodParameterCount(@class, method, hasOverloadResolutionPriority);
 					AppendMethodVerifyDefinition(sb, @class, method, verifyName, false,
-						hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+						hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 					if (TryGetPerElementParamsParameter(method))
 					{
 						AppendMethodVerifyDefinition(sb, @class, method, verifyName, false,
@@ -5997,7 +6160,7 @@ internal static partial class Sources
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
 							AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: valueFlags,
-								hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+								hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 						}
 					}
 					else
@@ -6007,8 +6170,15 @@ internal static partial class Sources
 						if (allValueFlags.Any(f => f))
 						{
 							AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: allValueFlags,
-								hasOverloadResolutionPriority: hasOverloadResolutionPriority);
+								hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 						}
+					}
+
+					foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(method, omittable))
+					{
+						AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: valueFlags,
+							hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable,
+							keptCount: keptCount);
 					}
 				}
 			}
@@ -6036,7 +6206,7 @@ internal static partial class Sources
 	private static void AppendMethodVerifyDefinition(StringBuilder sb, Class @class, Method method, string verifyName,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
 		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false,
-		bool emptyParams = false)
+		bool emptyParams = false, int omittable = 0, int? keptCount = null)
 #pragma warning restore S107
 	{
 		// For methods with ref-struct parameters, skip Verify emission entirely. The
@@ -6055,6 +6225,7 @@ internal static partial class Sources
 		}
 
 		string methodName = methodNameOverride ?? method.Name;
+		int kept = keptCount ?? method.Parameters.Count;
 		sb.Append("\t\t/// <summary>").AppendLine();
 		if (methodNameOverride is null)
 		{
@@ -6073,25 +6244,25 @@ internal static partial class Sources
 		{
 			sb.Append(" with the given <paramref name=\"parameters\"/>");
 		}
-		else if (method.Parameters.Count > 0)
+		else if (kept > 0)
 		{
 			sb.Append(" with the given ")
-				.Append(string.Join(", ", method.Parameters.Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")));
+				.Append(string.Join(", ", method.Parameters.Take(kept).Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")));
 		}
 
 		sb.Append(".").AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 		if (!emptyParams)
 		{
-			AppendOverloadDifferentiatorRemark(sb, method.Parameters.Select(p => p.Name).ToArray(), useParameters,
-				valueFlags, true);
+			AppendMethodOverloadRemark(sb, method, useParameters, valueFlags, true, kept);
 		}
 
+		string? omittedPriority = keptCount is not null ? OmittedMethodOverloadPriority(method, kept, valueFlags) : null;
 		if (valueFlags?.All(x => x) == true || (method.Parameters.Count == 0 && !useParameters))
 		{
 			string? allValuesPriority = hasOverloadResolutionPriority && method.Parameters.Count > 0 &&
 			                            valueFlags is not null
-				? ComputeAllValuesOverloadPriority(@class, method, valueFlags, emptyParams)
+				? omittedPriority ?? ComputeAllValuesOverloadPriority(@class, method, valueFlags, emptyParams)
 				: null;
 			if (allValuesPriority is not null)
 			{
@@ -6107,7 +6278,7 @@ internal static partial class Sources
 			if (hasOverloadResolutionPriority)
 			{
 				sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-					.Append(ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
+					.Append(omittedPriority ?? ComputeMethodOverloadPriority(@class, method, useParameters, valueFlags,
 						perElementParams))
 					.Append(")]").AppendLine();
 			}
@@ -6122,13 +6293,12 @@ internal static partial class Sources
 		}
 		else
 		{
-			ReadOnlySpan<MethodParameter> paramSpan = method.Parameters.AsSpan();
-			bool[] hasTrailingDefault = ComputeTrailingDefaults(paramSpan, valueFlags);
+			bool[] hasTrailingDefault = ComputeMethodTrailingDefaults(method, valueFlags, omittable, kept);
 
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
 			{
-				if (emptyParams && parameter.IsParams)
+				if ((emptyParams && parameter.IsParams) || i >= kept)
 				{
 					break;
 				}
@@ -6301,8 +6471,9 @@ internal static partial class Sources
 				}
 				else
 				{
+					int omittable = OmittableMethodParameterCount(@class, method, hasOverloadResolutionPriority);
 					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-						memberIds, memberIdPrefix, useTypedRecords);
+						memberIds, memberIdPrefix, useTypedRecords, omittable: omittable);
 					if (TryGetPerElementParamsParameter(method))
 					{
 						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
@@ -6320,7 +6491,7 @@ internal static partial class Sources
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
 							AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-								memberIds, memberIdPrefix, useTypedRecords, valueFlags: valueFlags);
+								memberIds, memberIdPrefix, useTypedRecords, valueFlags: valueFlags, omittable: omittable);
 						}
 					}
 					else
@@ -6330,8 +6501,15 @@ internal static partial class Sources
 						if (allValueFlags.Any(f => f))
 						{
 							AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
-								memberIds, memberIdPrefix, useTypedRecords, valueFlags: allValueFlags);
+								memberIds, memberIdPrefix, useTypedRecords, valueFlags: allValueFlags, omittable: omittable);
 						}
+					}
+
+					foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(method, omittable))
+					{
+						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+							memberIds, memberIdPrefix, useTypedRecords, valueFlags: valueFlags, omittable: omittable,
+							keptCount: keptCount);
 					}
 				}
 			}
@@ -6378,7 +6556,7 @@ internal static partial class Sources
 		string verifyName,
 		bool useParameters, MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords,
 		string? methodNameOverride = null, bool[]? valueFlags = null, bool perElementParams = false,
-		bool forwardsLoneNull = false, bool emptyParams = false)
+		bool forwardsLoneNull = false, bool emptyParams = false, int omittable = 0, int? keptCount = null)
 #pragma warning restore S107
 	{
 		// Mirror the AppendMethodVerifyDefinition short-circuit for ref-struct signatures.
@@ -6410,7 +6588,7 @@ internal static partial class Sources
 			int i = 0;
 			foreach (MethodParameter parameter in method.Parameters)
 			{
-				if (emptyParams && parameter.IsParams)
+				if ((emptyParams && parameter.IsParams) || i >= (keptCount ?? method.Parameters.Count))
 				{
 					break;
 				}
@@ -6462,6 +6640,12 @@ internal static partial class Sources
 		}
 
 		sb.AppendLine();
+		if (keptCount is not null)
+		{
+			sb.Append("\t\t\t=> ((").Append(verifyName).Append(")this).").Append(methodName).Append('(')
+				.Append(OmittedMethodForwardingArguments(method, keptCount.Value, valueFlags)).Append(");").AppendLine();
+			return;
+		}
 
 		bool noRefStruct = !method.Parameters.Any(p
 			=> p.RefKind == RefKind.Out || p.RefKind == RefKind.Ref ||
@@ -6509,10 +6693,11 @@ internal static partial class Sources
 			return;
 		}
 
-		// Like in the setup, an omitted optional parameter and a null matcher for it stand for the declared default
-		// value, so the matcher is replaced up front and every verify path and the failure message see the value.
+		// Without overloads that leave out optional parameters, an omitted one and a null matcher for it stand for the
+		// declared default value, like in the setup, so the matcher is replaced up front and every verify path and the
+		// failure message see the value.
 		bool[] usesDeclaredDefault = method.Parameters
-			.Select((p, i) => !useParameters && valueFlags?[i] != true &&
+			.Select((p, i) => !useParameters && omittable == 0 && valueFlags?[i] != true &&
 			                  p.HasExplicitDefaultValue && p.CanUseNullableParameterOverload())
 			.ToArray();
 		bool hasDeclaredDefaults = usesDeclaredDefault.Any(x => x);

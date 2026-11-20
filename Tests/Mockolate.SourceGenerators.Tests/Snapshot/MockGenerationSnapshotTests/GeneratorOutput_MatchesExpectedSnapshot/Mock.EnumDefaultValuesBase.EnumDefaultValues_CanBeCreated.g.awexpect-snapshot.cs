@@ -198,7 +198,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase.Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level ?? global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level ?? global::Mockolate.Internals.Matchers.IsNull<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, methodSetup);
 			return methodSetup;
 		}
@@ -210,6 +210,10 @@ internal static partial class Mock
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, methodSetup);
 			return methodSetup;
 		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase.Method()
+			=> ((global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase)this).Method(new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))));
 
 		#endregion IMockSetupForEnumDefaultValuesBase
 
@@ -225,13 +229,13 @@ internal static partial class Mock
 				}, () => $"Method({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase> IMockVerifyForEnumDefaultValuesBase.Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level)
-		{
-			level ??= new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForEnumDefaultValuesBase, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(this, global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level), level, static (level) => $"Method({(object?)level ?? "null"})");
-		}
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForEnumDefaultValuesBase, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(this, global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", level is null ? (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(default!) : global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level), level, static (level) => $"Method({(object?)level ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase>.IgnoreParameters IMockVerifyForEnumDefaultValuesBase.Method(global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue level)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForEnumDefaultValuesBase, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(this, global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", level, static (level) => $"Method({(object?)level ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase> IMockVerifyForEnumDefaultValuesBase.Method()
+			=> ((IMockVerifyForEnumDefaultValuesBase)this).Method(new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))));
 		#endregion IMockVerifyForEnumDefaultValuesBase
 	}
 
@@ -252,13 +256,13 @@ internal static partial class Mock
 				}, () => $"Method({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase> IMockVerifyForEnumDefaultValuesBase.Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level)
-		{
-			level ??= new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForEnumDefaultValuesBase, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(this, global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level), level, static (level) => $"Method({(object?)level ?? "null"})");
-		}
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForEnumDefaultValuesBase, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(this, global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", level is null ? (global::Mockolate.Parameters.IParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>)global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(default!) : global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level), level, static (level) => $"Method({(object?)level ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase>.IgnoreParameters IMockVerifyForEnumDefaultValuesBase.Method(global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue level)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForEnumDefaultValuesBase, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>(this, global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", level, static (level) => $"Method({(object?)level ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase> IMockVerifyForEnumDefaultValuesBase.Method()
+			=> ((IMockVerifyForEnumDefaultValuesBase)this).Method(new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))));
 		#endregion IMockVerifyForEnumDefaultValuesBase
 	}
 
@@ -291,7 +295,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase.Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level ?? global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level ?? global::Mockolate.Internals.Matchers.IsNull<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -303,6 +307,10 @@ internal static partial class Mock
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase.Method()
+			=> ((global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase)this).Method(new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))));
 
 		#endregion IMockSetupForEnumDefaultValuesBase
 	}
@@ -443,7 +451,7 @@ internal static partial class Mock
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level = null);
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method(global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)">Method(EnumWithNegativeValue)</see> with the given <paramref name="level"/>.
@@ -453,6 +461,15 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> Method(global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue level);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method(global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)">Method(EnumWithNegativeValue)</see>.
+		/// </summary>
+		/// <remarks>
+		///     It uses the declared default value for <c>level</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> Method();
 
 	}
 
@@ -477,7 +494,7 @@ internal static partial class Mock
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase> Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level = null);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase> Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level);
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method(global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)">Method(EnumWithNegativeValue)</see> with the given <paramref name="level"/>.
@@ -487,6 +504,15 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase>.IgnoreParameters Method(global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue level);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method(global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)">Method(EnumWithNegativeValue)</see>.
+		/// </summary>
+		/// <remarks>
+		///     It uses the declared default value for <c>level</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForEnumDefaultValuesBase> Method();
 
 	}
 }
@@ -796,7 +822,7 @@ internal static partial class MockExtensionsForEnumDefaultValuesBase
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase.Method(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>? level)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level ?? global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase.Method", global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>.Wrap(level ?? global::Mockolate.Internals.Matchers.IsNull<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, methodSetup);
 			return methodSetup;
 		}
@@ -808,6 +834,10 @@ internal static partial class MockExtensionsForEnumDefaultValuesBase
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.EnumDefaultValuesBase.MemberId_Method, methodSetup);
 			return methodSetup;
 		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue> global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase.Method()
+			=> ((global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase)this).Method(new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue>((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)((global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1))));
 
 		#endregion IMockSetupForEnumDefaultValuesBase
 	}

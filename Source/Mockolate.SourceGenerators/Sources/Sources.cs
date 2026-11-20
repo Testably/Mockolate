@@ -450,9 +450,12 @@ internal static partial class Sources
 	};
 
 	/// <summary>
-	///     Appends a NamedParameter with nullable handling.
+	///     Appends a NamedParameter with nullable handling. With <paramref name="nullIsDeclaredDefault" /> a
+	///     <see langword="null" /> matcher stands for the declared default value, as the <c>= null</c> default of an
+	///     optional parameter does.
 	/// </summary>
-	private static void AppendNamedParameter(StringBuilder sb, MethodParameter parameter)
+	private static void AppendNamedParameter(StringBuilder sb, MethodParameter parameter,
+		bool nullIsDeclaredDefault = true)
 	{
 		bool useCovarianceAdapter = parameter.RefKind == RefKind.None;
 		if (useCovarianceAdapter)
@@ -475,7 +478,7 @@ internal static partial class Sources
 		sb.Append(parameter.Name);
 		if (parameter.CanUseNullableParameterOverload())
 		{
-			if (parameter.HasExplicitDefaultValue)
+			if (parameter.HasExplicitDefaultValue && nullIsDeclaredDefault)
 			{
 				sb.Append(" ?? global::Mockolate.It.Is<").Append(parameter.ToNullableType()).Append(">(")
 					.Append(parameter.ExplicitDefaultValue).Append(")");
