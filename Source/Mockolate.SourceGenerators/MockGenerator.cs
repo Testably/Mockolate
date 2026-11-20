@@ -50,16 +50,26 @@ public class MockGenerator : IIncrementalGenerator
 				options.GlobalOptions.TryGetValue("build_property.MockolateAutoMocking", out string? value) &&
 				string.Equals(value.Trim(), "true", StringComparison.OrdinalIgnoreCase));
 
+		IncrementalValueProvider<EquatableArray<string>> excludedNamespaces = context.AnalyzerConfigOptionsProvider
+			.Select(static (options, _) => new EquatableArray<string>(
+				options.GlobalOptions.TryGetValue("build_property.MockolateAutoMockingExcludedNamespaces",
+					out string? value)
+					? value.Split([';', ',',], StringSplitOptions.RemoveEmptyEntries)
+						.Select(@namespace => @namespace.Trim())
+						.Where(@namespace => @namespace.Length > 0)
+						.ToArray()
+					: []));
+
 		// Mocks for auto-mocking are only discovered with the MockolateAutoMocking build property, from the
 		// CreateMock calls bound again in the current compilation, so that every other compilation does no work
 		// for them and its output stays unchanged.
 		IncrementalValueProvider<EquatableArray<MockClass>> discoveredMocks = creations
 			.Select(static (creation, _) => creation.Location)
 			.Collect()
-			.Combine(autoMocking)
+			.Combine(autoMocking.Combine(excludedNamespaces))
 			.Combine(context.CompilationProvider)
-			.Select(static (source, cancellationToken) => source.Left.Right
-				? DiscoverAutoMocks(source.Left.Left, source.Right, cancellationToken)
+			.Select(static (source, cancellationToken) => source.Left.Right.Left
+				? DiscoverAutoMocks(source.Left.Left, source.Right, source.Left.Right.Right, cancellationToken)
 				: new EquatableArray<MockClass>([]));
 
 		// Stable, deduplicated, sorted view across all mocks. Used by every cross-mock stage
@@ -347,7 +357,7 @@ public class MockGenerator : IIncrementalGenerator
 	///     auto-mocking of the types they mock.
 	/// </summary>
 	private static EquatableArray<MockClass> DiscoverAutoMocks(ImmutableArray<CreateMockLocation> locations,
-		Compilation compilation, CancellationToken cancellationToken)
+		Compilation compilation, EquatableArray<string> excludedNamespaces, CancellationToken cancellationToken)
 	{
 		EntityCache cache = EntityCache.GetOrCreate(compilation);
 		using EntityCache.Scope scope = EntityCache.EnterScope(cache);
@@ -379,7 +389,8 @@ public class MockGenerator : IIncrementalGenerator
 			}
 		}
 
-		return new EquatableArray<MockClass>(MockGeneratorHelpers.DiscoverAutoMocks(mockedTypes, compilation));
+		return new EquatableArray<MockClass>(MockGeneratorHelpers.DiscoverAutoMocks(mockedTypes, compilation,
+			excludedNamespaces, cancellationToken));
 	}
 
 	/// <remarks>

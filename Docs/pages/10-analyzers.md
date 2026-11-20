@@ -142,6 +142,8 @@ The same applies to `IRepository<(int Id, string Name)>` and `IRepository<(int, 
 IChocolateDispenser dispenser = IChocolateDispenser.CreateMock(MockBehavior.Default.AutoMocking());
 ```
 
+The analyzer only reports projects that create mocks with `CreateMock`. A project that only creates the behavior, e.g. a shared test helper, may pass it to mocks of a project that sets the property. The warning appears in the build and, in the IDE, only with full solution analysis.
+
 Set the property in the project file:
 
 ```xml

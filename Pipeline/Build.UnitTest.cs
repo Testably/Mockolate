@@ -61,6 +61,7 @@ partial class Build
 	Project[] UnionTestProjects =>
 	[
 		Solution.Tests.Mockolate_Tests,
+		Solution.Tests.Mockolate_AutoMocking_Tests,
 		Solution.Tests.Mockolate_Internal_Tests,
 		Solution.Tests.Mockolate_SourceGenerators_Tests,
 		Solution.Tests.Mockolate_ExampleTests,

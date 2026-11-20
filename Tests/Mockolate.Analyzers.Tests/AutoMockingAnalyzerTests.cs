@@ -20,7 +20,20 @@ public class AutoMockingAnalyzerTests
 	                                        }
 	                                        """;
 
-	private const string Source = MockBehaviorStub + """
+	private const string CreateMockCall = """
+
+	                                      public static class MockFactory
+	                                      {
+	                                          public static T CreateMock<T>() => default(T);
+	                                      }
+
+	                                      public class MockUsage
+	                                      {
+	                                          public object Create() => MockFactory.CreateMock<object>();
+	                                      }
+	                                      """;
+
+	private const string Source = MockBehaviorStub + CreateMockCall + """
 
 	                                                 public class MyClass
 	                                                 {
@@ -33,7 +46,7 @@ public class AutoMockingAnalyzerTests
 
 	[Test]
 	public async Task WhenDisablingAutoMocking_ShouldNotBeFlagged() => await Verifier
-		.VerifyAnalyzerAsync(MockBehaviorStub + """
+		.VerifyAnalyzerAsync(MockBehaviorStub + CreateMockCall + """
 
 		                                        public class MyClass
 		                                        {
@@ -46,7 +59,7 @@ public class AutoMockingAnalyzerTests
 
 	[Test]
 	public async Task AutoMockFalseInInitializer_ShouldNotBeFlagged() => await Verifier
-		.VerifyAnalyzerAsync(MockBehaviorStub + """
+		.VerifyAnalyzerAsync(MockBehaviorStub + CreateMockCall + """
 
 		                                        public class MyClass
 		                                        {
@@ -59,7 +72,7 @@ public class AutoMockingAnalyzerTests
 
 	[Test]
 	public async Task AutoMockInObjectInitializer_ShouldBeFlagged() => await Verifier
-		.VerifyAnalyzerAsync(MockBehaviorStub + """
+		.VerifyAnalyzerAsync(MockBehaviorStub + CreateMockCall + """
 
 		                                        public class MyClass
 		                                        {
@@ -73,7 +86,7 @@ public class AutoMockingAnalyzerTests
 
 	[Test]
 	public async Task AutoMockInWithExpression_ShouldBeFlagged() => await Verifier
-		.VerifyAnalyzerAsync(MockBehaviorStub + """
+		.VerifyAnalyzerAsync(MockBehaviorStub + CreateMockCall + """
 
 		                                        public class MyClass
 		                                        {
@@ -122,6 +135,17 @@ public class AutoMockingAnalyzerTests
 			}
 			"""
 		);
+
+	[Test]
+	public async Task WithoutCreateMockCall_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(MockBehaviorStub + """
+
+		                                        public class SharedTestHelper
+		                                        {
+		                                            public Mockolate.MockBehavior Create(Mockolate.MockBehavior behavior)
+		                                                => behavior.AutoMocking();
+		                                        }
+		                                        """);
 
 	[Test]
 	public async Task WithoutBuildProperty_ShouldBeFlagged() => await Verifier

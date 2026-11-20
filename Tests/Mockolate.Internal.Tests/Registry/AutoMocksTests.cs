@@ -25,6 +25,21 @@ public sealed class AutoMocksTests
 	}
 
 	[Test]
+	public async Task AutoMockOr_WithTheSameMemberIdForAnotherType_ShouldReturnAMockOfThatType()
+	{
+		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default.AutoMocking(), (type, _) =>
+			type == typeof(IServiceWithoutMock) ? new ServiceWithoutMock() : new OtherService());
+		MockRegistry registry = new(behavior, new FastMockInteractions(0));
+
+		IServiceWithoutMock? first = registry.AutoMockOr<IServiceWithoutMock?>(0, null);
+		IOtherService? second = registry.AutoMockOr<IOtherService?>(0, null);
+
+		await That(first).IsExactly<ServiceWithoutMock>();
+		await That(second).IsExactly<OtherService>()
+			.Because("mocks that share their setups number their members independently");
+	}
+
+	[Test]
 	public async Task AutoMockOr_WithoutFactory_ShouldReturnNull()
 	{
 		MockRegistry registry = new(MockBehavior.Default.AutoMocking(), new FastMockInteractions(0));
@@ -67,4 +82,10 @@ public sealed class AutoMocksTests
 	}
 
 	public interface IServiceWithoutMock;
+
+	public interface IOtherService;
+
+	private sealed class ServiceWithoutMock : IServiceWithoutMock;
+
+	private sealed class OtherService : IOtherService;
 }

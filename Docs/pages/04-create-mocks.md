@@ -196,10 +196,22 @@ await That(shop.GetDispenser().Dispense("Dark", 5)).IsTrue();
 The generator does not create auto-mocks for:
 
 - interfaces in the global namespace or in the `System`, `Microsoft` and `Windows` namespaces and their sub-namespaces, to avoid generating mocks for large parts of the framework. This also applies to other packages in these namespaces, e.g. `IFileSystem` of `System.IO.Abstractions`; set up such members yourself or register a factory with `WithDefaultValueFor`,
-- interfaces that the project cannot access, that are obsolete, that still contain a type parameter of a generic method, that have static abstract members or whose members use such a type, a pointer or a ref struct other than `Span<T>` and `ReadOnlySpan<T>`,
+- interfaces in the namespaces of the `MockolateAutoMockingExcludedNamespaces` build property and their sub-namespaces, see below,
+- interfaces that the project cannot access, that are obsolete, that still contain a type parameter of a generic method, that nest type arguments more than five levels deep, that have static abstract or non-public abstract members, or whose members use such a type, a pointer, a ref struct other than `Span<T>` and `ReadOnlySpan<T>` or a `ref readonly` span parameter,
 - `out` parameters, interfaces inside a tuple such as `(IFoo, IBar)`, indexers with ref struct keys, indexers that return a task, and members that the mock cannot override or that have no getter.
 
 A member that returns such an interface still returns `null`.
+
+The generator follows the members of every interface it mocks, so a mocked type from a large SDK can pull in mocks for much of the SDK. Exclude such namespaces with a `;`-separated list. An interface in these namespaces is still auto-mocked when the project creates a mock of it with `CreateMock`:
+
+```xml
+<PropertyGroup>
+    <MockolateAutoMocking>true</MockolateAutoMocking>
+    <MockolateAutoMockingExcludedNamespaces>Azure;Amazon.S3</MockolateAutoMockingExcludedNamespaces>
+</PropertyGroup>
+```
+
+With the property, the generator also binds the `CreateMock` calls of the project again on every change, so with many mocked interfaces the IDE may take noticeably longer to update the generated code while you type. Projects without the property are not affected.
 
 ## Implementing additional interfaces
 

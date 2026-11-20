@@ -17,25 +17,28 @@ namespace Mockolate.Setup;
 internal partial class MockSetups : MockScenarioSetup
 {
 	private static readonly object NoAutoMock = new();
-	private ConcurrentDictionary<int, object>? _autoMocks;
+	private ConcurrentDictionary<(int MemberId, Type Type), object>? _autoMocks;
 
 	internal Dictionary<string, MockScenarioSetup>? Scenarios { get; private set; }
 
 	/// <summary>
-	///     Returns the auto-mock cached for <paramref name="memberId" />, or creates and caches one of the
-	///     <paramref name="type" />, so that the member keeps returning the same configurable mock.
+	///     Returns the auto-mock of the <paramref name="type" /> cached for <paramref name="memberId" />, or creates and
+	///     caches one, so that the member keeps returning the same configurable mock.
 	/// </summary>
 	/// <remarks>
 	///     The mock is created outside of any lock, because creating it runs user callbacks (e.g. of
 	///     <c>Initialize&lt;T&gt;</c>). When two threads race, both create a mock, but both return the first one stored.
-	///     A type without a generated mock is remembered as well, so that the factory is not asked again.
+	///     A type without a generated mock is remembered as well, so that the factory is not asked again. The type is
+	///     part of the key, because mocks that share their setups (e.g. an <c>HttpClient</c> and its handler) number
+	///     their members independently.
 	/// </remarks>
 	public object? GetOrAddAutoMock(int memberId, Type type, MockBehavior behavior)
 	{
-		ConcurrentDictionary<int, object> autoMocks = LazyInitializer.EnsureInitialized(ref _autoMocks)!;
-		if (!autoMocks.TryGetValue(memberId, out object? stored))
+		ConcurrentDictionary<(int MemberId, Type Type), object> autoMocks =
+			LazyInitializer.EnsureInitialized(ref _autoMocks)!;
+		if (!autoMocks.TryGetValue((memberId, type), out object? stored))
 		{
-			stored = autoMocks.GetOrAdd(memberId, AutoMocks.Create(type, behavior) ?? NoAutoMock);
+			stored = autoMocks.GetOrAdd((memberId, type), AutoMocks.Create(type, behavior) ?? NoAutoMock);
 		}
 
 		return ReferenceEquals(stored, NoAutoMock) ? null : stored;

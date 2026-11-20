@@ -67,7 +67,7 @@ internal static class MockGeneratorHelpers
 			if (types.Length == 1 && GetHttpMessageHandler(types[0]) is { } httpMessageHandlerType)
 			{
 				// When using HttpClient as a mock, we also have to create a mock of the HttpMessageHandler, that can be used as constructor parameter.
-				yield return new MockClass([httpMessageHandlerType,], semanticModel.Compilation.Assembly);
+				yield return new MockClass([httpMessageHandlerType,], semanticModel.Compilation);
 			}
 		}
 	}
@@ -184,17 +184,26 @@ internal static class MockGeneratorHelpers
 	/// </summary>
 	/// <remarks>
 	///     The type must be accessible from the compilation, must not expand itself (e.g. <c>INode&lt;T&gt;</c>
-	///     returning <c>INode&lt;INode&lt;T&gt;&gt;</c>, which would never end) and no member the mock implements may be
-	///     obsolete or use a type that cannot be a type argument, so that the generated mock compiles without
-	///     warnings.
+	///     returning <c>INode&lt;INode&lt;T&gt;&gt;</c>, which would never end) or nest more than
+	///     <see cref="MaxTypeArgumentDepth" /> type arguments, which bounds how many generic combinations the walk
+	///     creates, and must not lie in one of the <paramref name="excludedNamespaces" />. The mock must be able to
+	///     implement every abstract member, and no member the mock implements may be obsolete or use a type that cannot
+	///     be a type argument, so that the generated mock compiles without warnings.
 	/// </remarks>
-	private static bool CanBeDiscovered(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
+	private static bool CanBeDiscovered(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly,
+		EquatableArray<string> excludedNamespaces)
 		=> IsAutoMockable(typeSymbol) &&
+		   !IsInNamespace(typeSymbol, excludedNamespaces) &&
 		   !HasStaticAbstractMembers(typeSymbol) &&
+		   !HasNonPublicAbstractMembers(typeSymbol) &&
 		   Helpers.IsAccessibleFrom(typeSymbol, sourceAssembly) &&
+		   GetTypeArgumentDepth(typeSymbol) <= MaxTypeArgumentDepth &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
 		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>
-			   !IsObsolete(member) && GetSignatureTypes(member).All(type => !UsesUnusableType(type)));
+			   !IsObsolete(member) && !HasRefReadOnlyRefStructParameter(member) &&
+			   GetSignatureTypes(member).All(type => !UsesUnusableType(type)));
+
+	private const int MaxTypeArgumentDepth = 5;
 
 	private static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{
@@ -205,6 +214,26 @@ internal static class MockGeneratorHelpers
 
 		return namespaceSymbol?.Name is "System" or "Microsoft" or "Windows";
 	}
+
+	private static bool IsInNamespace(INamedTypeSymbol typeSymbol, EquatableArray<string> namespaces)
+	{
+		if (namespaces.Count == 0)
+		{
+			return false;
+		}
+
+		string containingNamespace = typeSymbol.ContainingNamespace.ToDisplayString();
+		return namespaces.Any(@namespace => containingNamespace == @namespace ||
+		                                    containingNamespace.StartsWith(@namespace + ".", StringComparison.Ordinal));
+	}
+
+	private static int GetTypeArgumentDepth(ITypeSymbol typeSymbol)
+		=> typeSymbol switch
+		{
+			IArrayTypeSymbol array => GetTypeArgumentDepth(array.ElementType),
+			INamedTypeSymbol { TypeArguments.Length: > 0, } named => 1 + named.TypeArguments.Max(GetTypeArgumentDepth),
+			_ => 0,
+		};
 
 	private static bool ContainsTypeParameter(ITypeSymbol typeSymbol)
 		=> typeSymbol switch
@@ -228,6 +257,30 @@ internal static class MockGeneratorHelpers
 	private static bool HasStaticAbstractMembers(INamedTypeSymbol typeSymbol)
 		=> typeSymbol.GetMembers().Concat(typeSymbol.AllInterfaces.SelectMany(i => i.GetMembers()))
 			.Any(member => member is { IsStatic: true, IsAbstract: true, });
+
+	/// <summary>
+	///     Whether the interface <paramref name="typeSymbol" /> has an abstract member that is not public, which the
+	///     generated mock cannot implement (CS0737).
+	/// </summary>
+	private static bool HasNonPublicAbstractMembers(INamedTypeSymbol typeSymbol)
+		=> typeSymbol.GetMembers().Concat(typeSymbol.AllInterfaces.SelectMany(i => i.GetMembers()))
+			.Any(member => member is { IsStatic: false, IsAbstract: true, } &&
+			               member.DeclaredAccessibility != Accessibility.Public);
+
+	/// <summary>
+	///     Whether a member has a <see langword="ref readonly" /> parameter of a ref struct type, which needs the
+	///     ref-struct pipeline even for spans and so does not compile on every target framework.
+	/// </summary>
+	private static bool HasRefReadOnlyRefStructParameter(ISymbol member)
+	{
+		ImmutableArray<IParameterSymbol> parameters = member switch
+		{
+			IMethodSymbol method => method.Parameters,
+			IPropertySymbol property => property.Parameters,
+			_ => ImmutableArray<IParameterSymbol>.Empty,
+		};
+		return parameters.Any(parameter => parameter is { RefKind: RefKind.RefReadOnlyParameter, Type.IsRefLikeType: true, });
+	}
 
 	/// <summary>
 	///     Whether a member signature uses a type for which the generator emits no compilable mock without the
@@ -314,7 +367,7 @@ internal static class MockGeneratorHelpers
 			: typeSymbol;
 
 	private static IEnumerable<INamedTypeSymbol> GetAutoMockableReturnTypes(ITypeSymbol typeSymbol,
-		IAssemblySymbol sourceAssembly)
+		IAssemblySymbol sourceAssembly, EquatableArray<string> excludedNamespaces)
 	{
 		foreach (ISymbol member in GetImplementedMembers(typeSymbol, sourceAssembly))
 		{
@@ -325,7 +378,7 @@ internal static class MockGeneratorHelpers
 				_ => null,
 			};
 			if (returnType is not null && UnwrapTask(returnType) is INamedTypeSymbol candidate &&
-			    CanBeDiscovered(candidate, sourceAssembly))
+			    CanBeDiscovered(candidate, sourceAssembly, excludedNamespaces))
 			{
 				yield return candidate;
 			}
@@ -357,7 +410,7 @@ internal static class MockGeneratorHelpers
 	///     (<c>Implementing&lt;T&gt;</c>) still needs an auto-mock when a member returns it.
 	/// </remarks>
 	internal static MockClass[] DiscoverAutoMocks(IReadOnlyCollection<ITypeSymbol[]> mockedTypes,
-		Compilation compilation)
+		Compilation compilation, EquatableArray<string> excludedNamespaces, CancellationToken cancellationToken)
 	{
 		IAssemblySymbol sourceAssembly = compilation.Assembly;
 		List<MockClass> result = [];
@@ -367,8 +420,10 @@ internal static class MockGeneratorHelpers
 
 		while (typesToProcess.Count > 0)
 		{
+			cancellationToken.ThrowIfCancellationRequested();
 			ITypeSymbol currentType = typesToProcess.Dequeue();
-			foreach (INamedTypeSymbol returnType in GetAutoMockableReturnTypes(currentType, sourceAssembly))
+			foreach (INamedTypeSymbol returnType in GetAutoMockableReturnTypes(currentType, sourceAssembly,
+				         excludedNamespaces))
 			{
 				if (Normalize(returnType, compilation) is INamedTypeSymbol normalized && processedTypes.Add(normalized))
 				{

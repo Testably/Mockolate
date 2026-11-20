@@ -44,6 +44,185 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task ExcludedNamespaces_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Generator.Run([
+			"""
+			using Mockolate;
+
+			namespace MyCode
+			{
+			    public class Program
+			    {
+			        public static void Main(string[] args)
+			        {
+			            _ = IRoot.CreateMock();
+			            _ = Sdk.Storage.IExplicit.CreateMock();
+			        }
+			    }
+
+			    public interface IRoot
+			    {
+			        Sdk.IClient GetClient();
+			        Sdk.Storage.IBlob GetBlob();
+			        Sdk.Storage.IExplicit GetExplicit();
+			        SdkExtensions.IExtension GetExtension();
+			    }
+			}
+
+			namespace Sdk
+			{
+			    public interface IClient { }
+			}
+
+			namespace Sdk.Storage
+			{
+			    public interface IBlob { }
+			    public interface IExplicit { }
+			}
+
+			namespace SdkExtensions
+			{
+			    public interface IExtension { }
+			}
+			""",
+		], [], LanguageVersion.CSharp14, new Dictionary<string, string>
+		{
+			["build_property.MockolateAutoMocking"] = "true",
+			["build_property.MockolateAutoMockingExcludedNamespaces"] = " Other ; Sdk",
+		});
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources)
+			.DoesNotContainKey("Mock.IClient.g.cs").And
+			.DoesNotContainKey("Mock.IBlob.g.cs").And
+			.ContainsKey("Mock.IExtension.g.cs")
+			.Because("only the namespace and its sub-namespaces are excluded, not every namespace with the same prefix");
+		await That(result.Sources["MockBehaviorExtensions.g.cs"])
+			.Contains("return global::Sdk.Storage.IExplicit.CreateMock(behavior);")
+			.Because("a mock that the project creates is still used for auto-mocking");
+	}
+
+	[Test]
+	public async Task ExternAliasedInterfacesWithTheSameName_ShouldBothBeMocked()
+	{
+		const string source = """
+		                      namespace Ns;
+
+		                      public interface IFoo { }
+		                      """;
+		MetadataReference first = ExternalAssembly.Compile(source, "First").WithAliases(["First",]);
+		MetadataReference second = ExternalAssembly.Compile(source, "Second").WithAliases(["Second",]);
+
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     extern alias First;
+		                                                     extern alias Second;
+		                                                     using Mockolate;
+
+		                                                     namespace MyCode;
+
+		                                                     public interface IRoot
+		                                                     {
+		                                                         First::Ns.IFoo GetFirst();
+		                                                         Second::Ns.IFoo GetSecond();
+		                                                     }
+
+		                                                     public class Program
+		                                                     {
+		                                                         public static void Main(string[] args) => _ = IRoot.CreateMock();
+		                                                     }
+		                                                     """, [first, second,], AutoMockingEnabled);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockBehaviorExtensions.g.cs"])
+			.Contains("typeof(First::Ns.IFoo)").And
+			.Contains("typeof(Second::Ns.IFoo)");
+	}
+
+	[Test]
+	public async Task DeeplyNestedTypeArguments_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode
+		                             {
+		                                 public interface IRoot
+		                                 {
+		                                     IA<IB<int>> GetShallow();
+		                                     IA<IB<IC<ID<IE<IF<int>>>>>> GetDeep();
+		                                 }
+
+		                                 public interface IA<T> { }
+		                                 public interface IB<T> { }
+		                                 public interface IC<T> { }
+		                                 public interface ID<T> { }
+		                                 public interface IE<T> { }
+		                                 public interface IF<T> { }
+		                             }
+		                             """, "IRoot");
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockBehaviorExtensions.g.cs"])
+			.Contains("typeof(global::MyCode.IA<global::MyCode.IB<int>>)").And
+			.DoesNotContain("global::MyCode.IF<int>")
+			.Because("a cap on the nesting bounds how many generic combinations the transitive walk creates");
+	}
+
+	[Test]
+	public async Task InterfacesWithNonPublicAbstractMembers_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode
+		                             {
+		                                 public interface IRoot
+		                                 {
+		                                     IProtected GetProtected();
+		                                     IDerived GetDerived();
+		                                 }
+
+		                                 public interface IProtected
+		                                 {
+		                                     protected int Get();
+		                                 }
+
+		                                 public interface IDerived : IProtected { }
+		                             }
+		                             """, "IRoot");
+
+		await That(result.Diagnostics).IsEmpty().Because("the mock cannot implement a protected member (CS0737)");
+		await That(result.Sources.Keys).None().Satisfy(key => key.Contains("IProtected") || key.Contains("IDerived"));
+	}
+
+	[Test]
+	public async Task InterfacesWithRefReadOnlySpanParameters_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode
+		                             {
+		                                 public interface IRoot
+		                                 {
+		                                     IReader GetReader();
+		                                     ISpan GetSpan();
+		                                 }
+
+		                                 public interface IReader
+		                                 {
+		                                     int Read(ref readonly System.Span<byte> buffer);
+		                                 }
+
+		                                 public interface ISpan
+		                                 {
+		                                     int Read(System.Span<byte> buffer);
+		                                 }
+		                             }
+		                             """, "IRoot");
+
+		await That(result.Diagnostics).IsEmpty()
+			.Because("a ref readonly span needs the ref-struct pipeline, which does not compile below .NET 9");
+		await That(result.Sources).DoesNotContainKey("Mock.IReader.g.cs").And
+			.ContainsKey("Mock.ISpan.g.cs");
+	}
+
+	[Test]
 	public async Task InaccessibleInterfaces_ShouldNotBeMocked()
 	{
 		GeneratorResult result = Run("""

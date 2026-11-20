@@ -15,7 +15,8 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	{
 		IAssemblySymbol sourceAssembly = compilation.Assembly;
 		IsDiscovered = isDiscovered;
-		IdentityKey = string.Join("|", types.Select(type => type.ToDisplayString(IdentityFormat)));
+		IdentityKey = string.Join("|", types.Select(type =>
+			type.ToDisplayString(IdentityFormat) + "@" + string.Join(",", GetAssemblyNames(type))));
 		AdditionalImplementations = new EquatableArray<Class>(
 			types.Skip(1).Select(x => new Class(x, sourceAssembly)).ToArray());
 
@@ -72,7 +73,8 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 
 	/// <summary>
 	///     The mocked types without nullable annotations and tuple element names, so that two spellings of the same
-	///     runtime type share one mock.
+	///     runtime type share one mock, together with their assemblies, so that types with the same name from
+	///     extern-aliased assemblies do not.
 	/// </summary>
 	public string IdentityKey { get; }
 
@@ -81,6 +83,14 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
 		SymbolDisplayGenericsOptions.IncludeTypeParameters,
 		miscellaneousOptions: SymbolDisplayMiscellaneousOptions.ExpandValueTuple);
+
+	private static IEnumerable<string?> GetAssemblyNames(ITypeSymbol type)
+		=> type switch
+		{
+			IArrayTypeSymbol array => GetAssemblyNames(array.ElementType),
+			INamedTypeSymbol named => [named.ContainingAssembly?.Identity.Name, ..named.TypeArguments.SelectMany(GetAssemblyNames),],
+			_ => [],
+		};
 
 	public Method? Delegate { get; }
 
