@@ -106,7 +106,7 @@ logger.LogWarning("There is no Dark chocolate to order");
 await That(logger.Mock.Verify.LogWarning().WithMessage("There is no Dark chocolate to order")).Once();
 ```
 
-When `Log` is not virtual, sealed or implemented explicitly, the mock cannot intercept the calls, and the analyzer reports [Mockolate0005](../10-analyzers.md#mockolate0005).
+When `Log` is non-virtual or sealed, or is implemented explicitly, the mock cannot intercept the calls, and the analyzer reports [Mockolate0005](../10-analyzers.md#mockolate0005). The same applies to the logging verifications on the mock of a class that implements `ILoggerFactory`: they are only supported on mocks of `ILoggerFactory` and interfaces that derive from it.
 
 ## Logger factories
 

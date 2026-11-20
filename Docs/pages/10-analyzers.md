@@ -143,9 +143,9 @@ The same applies to `IRepository<(int Id, string Name)>` and `IRepository<(int, 
 
 ## Mockolate0005
 
-**Logging setups and verifications on a class whose `Log` method cannot be overridden.**
+**Logging setups and verifications on the mock of a class that cannot intercept the log calls.**
 
-The [logging](09-special-types/03-logging.md) setups and verifications intercept the calls of `ILogger.Log`. The mock of a class that implements `ILogger` supports them when the class implements `Log` with a virtual or abstract method. When `Log` is not virtual, sealed or implemented explicitly, the mock cannot intercept the calls, so the rule reports the logging members:
+The [logging](09-special-types/03-logging.md) setups and verifications intercept the calls of `ILogger.Log`. The mock of a class that implements `ILogger` supports them when the class implements `Log` with a virtual or abstract method. When `Log` is non-virtual or sealed, or is implemented explicitly, the mock cannot intercept the calls, so the rule reports the logging members:
 
 ```csharp
 public class ConsoleLogger : ILogger
@@ -157,11 +157,11 @@ public class ConsoleLogger : ILogger
 }
 
 ConsoleLogger logger = ConsoleLogger.CreateMock();
-// Mockolate0005: The logging setups and verifications are not supported on 'ConsoleLogger', because its Log method cannot be overridden
+// Mockolate0005: The logging setups and verifications are not supported on the mock of class 'ConsoleLogger', because it cannot intercept the log calls
 logger.Mock.Setup.LogError().Throws<InvalidOperationException>();
 ```
 
-Make `Log` virtual, or mock `ILogger` and wrap the class with `Wrapping(…)`.
+Make `Log` virtual, or mock `ILogger` and wrap the class with `Wrapping(…)`. The rule also reports the logging verifications on the mock of a class that implements `ILoggerFactory`, which only mocks of `ILoggerFactory` and interfaces that derive from it support.
 
 ## Mockolate0006
 

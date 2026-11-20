@@ -566,9 +566,19 @@ namespace Mockolate
 		///     The <paramref name="callBase" /> calls the implementation of a mocked class, unless the setup or the behavior
 		///     skips the base class.
 		/// </remarks>
-		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter, global::System.Action? callBase = null)
+		/// <param name="registry">The registry of the mock.</param>
+		/// <param name="memberId">The member id of <c>Log</c> in the mock.</param>
+		/// <param name="logName">The name of <c>Log</c> in the mock without its type arguments, under which the typed setups and verifications of the mock address it.</param>
+		/// <param name="category">The category of the logger, or <see langword="null" /> to use the one of a logger of a factory.</param>
+		/// <param name="logLevel">The level of the call.</param>
+		/// <param name="eventId">The event id of the call.</param>
+		/// <param name="state">The state of the call.</param>
+		/// <param name="exception">The exception of the call.</param>
+		/// <param name="formatter">The formatter of the call.</param>
+		/// <param name="callBase">Calls the base implementation, or <see langword="null" /> when there is none.</param>
+		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string logName, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter, global::System.Action? callBase = null)
 		{
-			string name = $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>";
+			string name = $"{logName}<{typeof(TState)}>";
 			if (category is null && s_categories.TryGetValue(registry, out string? registeredCategory))
 			{
 				category = registeredCategory;

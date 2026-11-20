@@ -54,15 +54,9 @@ internal class Class : IEquatable<Class>
 
 		IsInterface = type.TypeKind == TypeKind.Interface;
 		HasRequiredMembers = ComputeHasRequiredMembers(type);
-		foreach (INamedTypeSymbol loggerType in new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>()
-			         .Where(IsLoggerType))
-		{
-			ImplementsLogger = true;
-			if (loggerType.TypeArguments.Length == 1)
-			{
-				LoggerCategoryType ??= loggerType.TypeArguments[0].ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
-			}
-		}
+		LoggerCategoryType = new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>()
+			.FirstOrDefault(loggerType => IsLoggerType(loggerType) && loggerType.TypeArguments.Length == 1)?
+			.TypeArguments[0].ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 
 		ImmutableArray<ISymbol> members = type.GetMembers();
 
@@ -221,7 +215,6 @@ internal class Class : IEquatable<Class>
 		DisplayString = original.DisplayString;
 		XmlDocReference = original.XmlDocReference;
 		IsInterface = original.IsInterface;
-		ImplementsLogger = original.ImplementsLogger;
 		LoggerCategoryType = original.LoggerCategoryType;
 		HasRequiredMembers = original.HasRequiredMembers;
 		HasInaccessibleRequiredMember = original.HasInaccessibleRequiredMember;
@@ -340,11 +333,6 @@ internal class Class : IEquatable<Class>
 	public bool IsInterface { get; }
 
 	/// <summary>
-	///     Whether the type is or implements <c>Microsoft.Extensions.Logging.ILogger</c>.
-	/// </summary>
-	public bool ImplementsLogger { get; }
-
-	/// <summary>
 	///     The category type <c>T</c> of the <c>ILogger&lt;T&gt;</c> that the type is or implements, if any.
 	/// </summary>
 	public string? LoggerCategoryType { get; }
@@ -401,7 +389,6 @@ internal class Class : IEquatable<Class>
 		hash = unchecked((hash * 17) + InheritedTypes.GetHashCode());
 		hash = unchecked((hash * 17) + ReservedNames.GetHashCode());
 		hash = unchecked((hash * 17) + (IsInterface ? 1 : 0));
-		hash = unchecked((hash * 17) + (ImplementsLogger ? 1 : 0));
 		hash = unchecked((hash * 17) + (LoggerCategoryType?.GetHashCode() ?? 0));
 		hash = unchecked((hash * 17) + (HasRequiredMembers ? 1 : 0));
 		hash = unchecked((hash * 17) + (HasInaccessibleRequiredMember ? 1 : 0));

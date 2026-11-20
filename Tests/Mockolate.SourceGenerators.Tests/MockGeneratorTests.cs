@@ -1930,7 +1930,7 @@ public partial class MockGeneratorTests
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("Logging.g.cs");
 		await That(result.Sources["Mock.AbstractLogger.g.cs"])
-			.Contains("global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.AbstractLogger.MemberId_Log_TState_, null, logLevel, eventId, state, exception, formatter);");
+			.Contains("global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.AbstractLogger.MemberId_Log_TState_, \"global::MyCode.AbstractLogger.Log\", null, logLevel, eventId, state, exception, formatter);");
 		await That(result.Sources["Mock.VirtualLogger.g.cs"])
 			.Contains(", () => base.Log<TState>(logLevel, eventId, state, exception, formatter));");
 	}

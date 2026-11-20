@@ -131,6 +131,22 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
+	public async Task VirtualLogger_TypedSetupAndVerification_ShouldMatchTheLogCalls()
+	{
+		int calls = 0;
+		RecordingLogger logger = RecordingLogger.CreateMock();
+		logger.Mock.Setup.Log<string>(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.Is("state"),
+				It.IsAny<Exception?>(), It.IsAny<Func<string, Exception?, string>>())
+			.Do(() => calls++);
+
+		logger.Log(LogLevel.Error, new EventId(1), "state", null, (state, _) => state);
+
+		await That(calls).IsEqualTo(1);
+		await That(logger.Mock.Verify.Log<string>(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.Is("state"),
+			It.IsAny<Exception?>(), It.IsAny<Func<string, Exception?, string>>())).Once();
+	}
+
+	[Test]
 	public async Task VirtualLogger_IsEnabled_ShouldReturnTheBaseValue()
 	{
 		RecordingLogger logger = RecordingLogger.CreateMock();
@@ -158,6 +174,13 @@ public sealed class LoggerClassTests
 
 		public abstract void Log<T>(LogLevel logLevel, EventId eventId, T state, Exception? exception,
 			Func<T, Exception?, string> formatter);
+	}
+
+	public class RecordingService
+	{
+		public virtual void Run()
+		{
+		}
 	}
 
 	public class RecordingLogger : ILogger

@@ -11,9 +11,10 @@ namespace Mockolate.Analyzers;
 ///     An analyzer that checks that the logging setups and verifications are only used on mocks that support them.
 /// </summary>
 /// <remarks>
-///     The logging members extend <c>IMockSetup&lt;ILogger&gt;</c> and <c>IMockVerify&lt;ILogger&gt;</c>, which are
-///     covariant, so they also apply to the mock of a class that implements <c>ILogger</c>. Such a mock only supports
-///     them when it can override <c>ILogger.Log</c>.
+///     The logging members extend <c>IMockSetup&lt;ILogger&gt;</c>, <c>IMockVerify&lt;ILogger&gt;</c> and
+///     <c>IMockVerify&lt;ILoggerFactory&gt;</c>, which are covariant, so they also apply to the mock of a class that
+///     implements one of these interfaces. A logger class only supports them when it can override <c>ILogger.Log</c>,
+///     and a logger factory class does not support them.
 /// </remarks>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class LoggingAnalyzer : DiagnosticAnalyzer
@@ -47,50 +48,68 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 	{
 		if (context.Node is not InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccess, } invocation ||
 		    context.SemanticModel.GetSymbolInfo(invocation, context.CancellationToken).Symbol is not IMethodSymbol method ||
-		    !IsLoggingMember(method) ||
+		    GetLoggingClass(method) is not { } loggingClass ||
 		    context.SemanticModel.GetTypeInfo(memberAccess.Expression, context.CancellationToken).Type is not { } receiverType ||
-		    GetUnsupportedLoggerClass(receiverType) is not { } loggerClass)
+		    GetUnsupportedClass(receiverType, loggingClass == "MockolateLoggerFactoryLogging") is not { } unsupportedClass)
 		{
 			return;
 		}
 
 		context.ReportDiagnostic(Diagnostic.Create(s_loggingRule, memberAccess.Name.GetLocation(),
-			loggerClass.ToDisplayString()));
+			unsupportedClass.ToDisplayString()));
 	}
 
-	private static bool IsLoggingMember(IMethodSymbol method)
+	/// <summary>
+	///     The name of the generated class that declares the logging <paramref name="method" />, or
+	///     <see langword="null" /> for any other method.
+	/// </summary>
+	private static string? GetLoggingClass(IMethodSymbol method)
 	{
 		for (INamedTypeSymbol? type = method.ContainingType; type is not null; type = type.ContainingType)
 		{
 			if (type.Name is "MockolateLogging" or "MockolateLoggerFactoryLogging" &&
 			    type.ContainingNamespace is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, })
 			{
-				return true;
+				return type.Name;
 			}
 		}
 
-		return false;
+		return null;
 	}
 
 	/// <summary>
-	///     The mocked class behind the setup or verify facade <paramref name="receiverType" /> that implements
-	///     <c>ILogger</c> without an overridable <c>Log</c>, or <see langword="null" /> when the logging members are
-	///     supported.
+	///     The mocked class behind the setup or verify facade <paramref name="receiverType" /> that does not support the
+	///     logging members, or <see langword="null" /> when they are supported.
 	/// </summary>
-	private static INamedTypeSymbol? GetUnsupportedLoggerClass(ITypeSymbol receiverType)
+	/// <remarks>
+	///     A logger factory is only supported as an interface. A logger class is supported when it can override
+	///     <c>ILogger.Log</c>.
+	/// </remarks>
+	private static INamedTypeSymbol? GetUnsupportedClass(ITypeSymbol receiverType, bool isFactoryMember)
 	{
 		foreach (INamedTypeSymbol facade in new[] { receiverType, }.Concat(receiverType.AllInterfaces)
 			         .OfType<INamedTypeSymbol>())
 		{
 			if (facade is not { Name: "IMockSetup" or "IMockVerify", TypeArguments.Length: 1, } ||
 			    facade.ContainingNamespace is not { Name: "Setup" or "Verify", ContainingNamespace.Name: "Mockolate", } ||
-			    facade.TypeArguments[0] is not INamedTypeSymbol { TypeKind: TypeKind.Class, } mockedClass ||
-			    mockedClass.AllInterfaces.FirstOrDefault(IsLoggerInterface) is not { } logger)
+			    facade.TypeArguments[0] is not INamedTypeSymbol { TypeKind: TypeKind.Class, } mockedClass)
 			{
 				continue;
 			}
 
-			if (logger.GetMembers("Log").OfType<IMethodSymbol>().FirstOrDefault() is not { } log)
+			if (isFactoryMember)
+			{
+				if (mockedClass.AllInterfaces.Any(@interface => IsLoggingInterface(@interface, "ILoggerFactory")))
+				{
+					return mockedClass;
+				}
+
+				continue;
+			}
+
+			if (mockedClass.AllInterfaces.FirstOrDefault(@interface => IsLoggingInterface(@interface, "ILogger")) is not
+			    { } logger ||
+			    logger.GetMembers("Log").OfType<IMethodSymbol>().FirstOrDefault() is not { } log)
 			{
 				continue;
 			}
@@ -133,10 +152,10 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 		return implementation;
 	}
 
-	private static bool IsLoggerInterface(INamedTypeSymbol type)
-		=> type is
+	private static bool IsLoggingInterface(INamedTypeSymbol type, string name)
+		=> type.Name == name &&
+		   type is
 		   {
-			   Name: "ILogger",
 			   TypeArguments.Length: 0,
 			   ContainingNamespace:
 			   {

@@ -69,6 +69,17 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
+	public async Task CombinationMock_ThrowingWhenNotSetup_CreateLogger_ShouldReturnTheLoggerOfTheCategory()
+	{
+		IChocolateDispenser mock = IChocolateDispenser.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup())
+			.Implementing<ILoggerFactory>();
+
+		void Act() => _ = ((ILoggerFactory)mock).CreateLogger("Orders");
+
+		await That(Act).DoesNotThrow();
+	}
+
+	[Test]
 	public async Task CreateLogger_WithSetup_ShouldReturnSetupValue()
 	{
 		ILogger custom = ILogger.CreateMock();

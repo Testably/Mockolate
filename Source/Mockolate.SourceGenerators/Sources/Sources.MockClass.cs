@@ -2531,7 +2531,7 @@ internal static partial class Sources
 		sb.AppendLine();
 		sb.AppendLine("\t\t{");
 
-		if (!explicitInterfaceImplementation && IsLoggerLog(method, @class))
+		if (IsLoggerLog(method, @class))
 		{
 			AppendDispatchLog(sb, method, @class, mockRegistry, memberIdPrefix + memberIds.GetMethodIdentifier(method),
 				!isClassInterface && !method.IsAbstract);
@@ -2868,9 +2868,8 @@ internal static partial class Sources
 
 		// ILogger.IsEnabled, ILogger.BeginScope and ILoggerFactory.CreateLogger answer without a setup even on a strict
 		// mock: logging code calls them around its Log calls, and an unexpected Log call on the strict logger still throws.
-		bool isLoggingDefault = !explicitInterfaceImplementation &&
-		                        ((IsLoggerIsEnabled(method, @class) || IsLoggerBeginScope(method, @class)) && IsLogger(@class) ||
-		                         isClassInterface && IsLoggerFactoryCreateLogger(method));
+		bool isLoggingDefault = (IsLoggerIsEnabled(method, @class) || IsLoggerBeginScope(method, @class)) && IsLogger(@class) ||
+		                        isClassInterface && IsLoggerFactoryCreateLogger(method);
 		if (!isLoggingDefault)
 		{
 			string displayMethodName =

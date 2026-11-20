@@ -10,8 +10,6 @@ internal static partial class Sources
 
 	private static readonly string[] LogLevelNames = ["Trace", "Debug", "Information", "Warning", "Error", "Critical",];
 
-	private const string LogLevelFullName = "global::Microsoft.Extensions.Logging.LogLevel";
-	private const string EventIdFullName = "global::Microsoft.Extensions.Logging.EventId";
 
 	internal static bool IsLoggerLog(Method method)
 		=> method is { ContainingType: LoggerFullName, Name: "Log<TState>", Parameters.Count: 5, };
@@ -27,39 +25,24 @@ internal static partial class Sources
 	///     class implements it.
 	/// </summary>
 	internal static bool IsLoggerLog(Method method, Class @class)
-		=> IsLoggerLog(method) ||
-		   IsClassLoggerMember(method, @class, "Log<", 5) &&
-		   method.ReturnType == Entities.Type.Void &&
-		   method.Parameters.ElementAt(0).Type.Fullname == LogLevelFullName &&
-		   method.Parameters.ElementAt(1).Type.Fullname == EventIdFullName;
+		=> IsLoggerLog(method) || IsClassLoggerMember(method, @class, "Log");
 
 	/// <summary>
 	///     Whether the <paramref name="method" /> of the mocked <paramref name="class" /> is <c>ILogger.IsEnabled</c>, also
 	///     when a class implements it.
 	/// </summary>
 	internal static bool IsLoggerIsEnabled(Method method, Class @class)
-		=> IsLoggerIsEnabled(method) ||
-		   IsClassLoggerMember(method, @class, "IsEnabled", 1) &&
-		   method.ReturnType.Fullname == "bool" &&
-		   method.Parameters.ElementAt(0).Type.Fullname == LogLevelFullName;
+		=> IsLoggerIsEnabled(method) || IsClassLoggerMember(method, @class, "IsEnabled");
 
 	/// <summary>
 	///     Whether the <paramref name="method" /> of the mocked <paramref name="class" /> is <c>ILogger.BeginScope</c>, also
 	///     when a class implements it.
 	/// </summary>
 	internal static bool IsLoggerBeginScope(Method method, Class @class)
-		=> IsLoggerBeginScope(method) ||
-		   IsClassLoggerMember(method, @class, "BeginScope<", 1) &&
-		   method.ReturnType.Fullname.StartsWith("global::System.IDisposable", StringComparison.Ordinal);
+		=> IsLoggerBeginScope(method) || IsClassLoggerMember(method, @class, "BeginScope");
 
-	private static bool IsClassLoggerMember(Method method, Class @class, string name, int parameterCount)
-		=> !@class.IsInterface &&
-		   method is { IsStatic: false, IsProtected: false, ExplicitImplementation: null, } &&
-		   method.Parameters.Count == parameterCount &&
-		   (name.EndsWith("<", StringComparison.Ordinal)
-			   ? method.Name.StartsWith(name, StringComparison.Ordinal) && method.GenericParameters?.Count == 1
-			   : method.Name == name && method.GenericParameters is null) &&
-		   @class.ImplementsLogger;
+	private static bool IsClassLoggerMember(Method method, Class @class, string member)
+		=> !@class.IsInterface && method.ImplementedLoggerMember == member;
 
 	internal static bool IsLoggerFactoryCreateLogger(Method method)
 		=> method is { ContainingType: LoggerFactoryFullName, Name: "CreateLogger", Parameters.Count: 1, };
@@ -120,7 +103,7 @@ internal static partial class Sources
 		string? categoryType = @class.LoggerCategoryType;
 		string arguments = string.Join(", ", method.Parameters.Select(p => p.Name));
 		sb.Append("\t\t\tglobal::Mockolate.MockolateLogging.DispatchLog(").Append(mockRegistry).Append(", ")
-			.Append(memberId).Append(", ")
+			.Append(memberId).Append(", \"").Append(method.ContainingType).Append(".Log\", ")
 			.Append(categoryType is null
 				? "null"
 				: $"global::Mockolate.MockolateLogging.CategoryName<{categoryType}>.Value").Append(", ")
@@ -606,9 +589,19 @@ internal static partial class Sources
 		          		///     The <paramref name="callBase" /> calls the implementation of a mocked class, unless the setup or the behavior
 		          		///     skips the base class.
 		          		/// </remarks>
-		          		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter, global::System.Action? callBase = null)
+		          		/// <param name="registry">The registry of the mock.</param>
+		          		/// <param name="memberId">The member id of <c>Log</c> in the mock.</param>
+		          		/// <param name="logName">The name of <c>Log</c> in the mock without its type arguments, under which the typed setups and verifications of the mock address it.</param>
+		          		/// <param name="category">The category of the logger, or <see langword="null" /> to use the one of a logger of a factory.</param>
+		          		/// <param name="logLevel">The level of the call.</param>
+		          		/// <param name="eventId">The event id of the call.</param>
+		          		/// <param name="state">The state of the call.</param>
+		          		/// <param name="exception">The exception of the call.</param>
+		          		/// <param name="formatter">The formatter of the call.</param>
+		          		/// <param name="callBase">Calls the base implementation, or <see langword="null" /> when there is none.</param>
+		          		public static void DispatchLog<TState>(global::Mockolate.Internals.MockRegistry registry, int memberId, string logName, string? category, global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter, global::System.Action? callBase = null)
 		          		{
-		          			string name = $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>";
+		          			string name = $"{logName}<{typeof(TState)}>";
 		          			if (category is null && s_categories.TryGetValue(registry, out string? registeredCategory))
 		          			{
 		          				category = registeredCategory;

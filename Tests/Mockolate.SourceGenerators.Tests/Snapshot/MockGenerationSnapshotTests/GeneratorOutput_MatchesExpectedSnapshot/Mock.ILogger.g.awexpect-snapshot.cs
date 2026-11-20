@@ -117,7 +117,7 @@ internal static partial class Mock
 		/// <inheritdoc cref="global::Microsoft.Extensions.Logging.ILogger.Log{TState}(global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception, global::System.Func{TState, global::System.Exception, string})" />
 		public void Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
 		{
-			global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.ILogger.MemberId_Log_TState_, null, logLevel, eventId, state, exception, formatter);
+			global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.ILogger.MemberId_Log_TState_, "global::Microsoft.Extensions.Logging.ILogger.Log", null, logLevel, eventId, state, exception, formatter);
 		}
 
 		/// <inheritdoc cref="global::Microsoft.Extensions.Logging.ILogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel)" />

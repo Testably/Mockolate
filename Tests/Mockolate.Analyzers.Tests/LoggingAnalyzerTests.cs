@@ -21,6 +21,11 @@ public class LoggingAnalyzerTests
 	                              	{
 	                              		void Log<TState>(int logLevel, TState state);
 	                              	}
+
+	                              	public interface ILoggerFactory
+	                              	{
+	                              		ILogger CreateLogger(string categoryName);
+	                              	}
 	                              }
 
 	                              namespace Mockolate
@@ -29,6 +34,19 @@ public class LoggingAnalyzerTests
 	                              	{
 	                              		public static object? LogError(this IMockSetup<ILogger> setup) => null;
 	                              		public static object? LogError(this IMockVerify<ILogger> verify) => null;
+
+	                              		extension<TVerify>(TVerify verify) where TVerify : class, IMockVerify<ILogger>
+	                              		{
+	                              			public object? LogWarning() => null;
+	                              		}
+	                              	}
+
+	                              	internal static class MockolateLoggerFactoryLogging
+	                              	{
+	                              		extension<TVerify>(TVerify verify) where TVerify : class, IMockVerify<ILoggerFactory>
+	                              		{
+	                              			public object? LogCritical() => null;
+	                              		}
 	                              	}
 	                              }
 
@@ -65,6 +83,78 @@ public class LoggingAnalyzerTests
 				.WithLocation(0).WithArguments("MyCode.MyLogger"),
 			new DiagnosticResult("Mockolate0005", DiagnosticSeverity.Error)
 				.WithLocation(1).WithArguments("MyCode.MyLogger"));
+
+	[Test]
+	public async Task WhenExtensionBlockMemberIsUsedOnClassWithNonVirtualLog_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			Prefix + """
+			         namespace MyCode
+			         {
+			         	public class MyLogger : ILogger
+			         	{
+			         		public void Log<TState>(int logLevel, TState state) { }
+			         	}
+
+			         	public class MyClass
+			         	{
+			         		public void MyTest(IVerify<MyLogger> verify, IVerify<ILogger> interfaceVerify)
+			         		{
+			         			_ = verify.{|#0:LogWarning|}();
+			         			_ = interfaceVerify.LogWarning();
+			         		}
+			         	}
+			         }
+			         """,
+			new DiagnosticResult("Mockolate0005", DiagnosticSeverity.Error)
+				.WithLocation(0).WithArguments("MyCode.MyLogger"));
+
+	[Test]
+	public async Task WhenLoggerFactoryIsAClass_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			Prefix + """
+			         namespace MyCode
+			         {
+			         	public class MyLoggerFactory : ILoggerFactory
+			         	{
+			         		public virtual ILogger CreateLogger(string categoryName) => null!;
+			         	}
+
+			         	public class MyClass
+			         	{
+			         		public void MyTest(IVerify<MyLoggerFactory> verify, IVerify<ILoggerFactory> interfaceVerify)
+			         		{
+			         			_ = verify.{|#0:LogCritical|}();
+			         			_ = interfaceVerify.LogCritical();
+			         		}
+			         	}
+			         }
+			         """,
+			new DiagnosticResult("Mockolate0005", DiagnosticSeverity.Error)
+				.WithLocation(0).WithArguments("MyCode.MyLoggerFactory"));
+
+	[Test]
+	public async Task WhenClassImplementsLogExplicitlyAndForwardsToVirtualMethod_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			Prefix + """
+			         namespace MyCode
+			         {
+			         	public class MyLogger : ILogger
+			         	{
+			         		void ILogger.Log<TState>(int logLevel, TState state) => Log(logLevel, state);
+			         		public virtual void Log<TState>(int logLevel, TState state) { }
+			         	}
+
+			         	public class MyClass
+			         	{
+			         		public void MyTest(ISetup<MyLogger> setup)
+			         		{
+			         			_ = setup.{|#0:LogError|}();
+			         		}
+			         	}
+			         }
+			         """,
+			new DiagnosticResult("Mockolate0005", DiagnosticSeverity.Error)
+				.WithLocation(0).WithArguments("MyCode.MyLogger"));
 
 	[Test]
 	public async Task WhenClassImplementsLogExplicitly_ShouldBeFlagged() => await Verifier
