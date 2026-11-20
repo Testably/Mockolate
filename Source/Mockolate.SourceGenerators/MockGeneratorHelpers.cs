@@ -201,7 +201,7 @@ internal static class MockGeneratorHelpers
 		   GetTypeArgumentDepth(typeSymbol) <= MaxTypeArgumentDepth &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
 		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>
-			   !IsObsolete(member) && !HasRefReadOnlyRefStructParameter(member) &&
+			   !IsObsolete(member) && !HasRefReadOnlyRefStructParameter(member) && !HasUnsupportedShape(member) &&
 			   GetSignatureTypes(member).All(type => !UsesUnusableType(type)));
 
 	private const int MaxTypeArgumentDepth = 5;
@@ -295,6 +295,18 @@ internal static class MockGeneratorHelpers
 		=> typeSymbol.GetMembers().Concat(typeSymbol.AllInterfaces.SelectMany(i => i.GetMembers()))
 			.Any(member => member is { IsStatic: false, IsAbstract: true, } &&
 			               member.DeclaredAccessibility != Accessibility.Public);
+
+	/// <summary>
+	///     Whether the generator emits no compilable mock for <paramref name="member" />: a property or indexer that
+	///     returns by reference (CS8152) or a method with a type parameter that allows ref structs (CS9244).
+	/// </summary>
+	private static bool HasUnsupportedShape(ISymbol member)
+		=> member switch
+		{
+			IPropertySymbol property => property.ReturnsByRef || property.ReturnsByRefReadonly,
+			IMethodSymbol method => method.TypeParameters.Any(typeParameter => typeParameter.AllowsRefLikeType),
+			_ => false,
+		};
 
 	/// <summary>
 	///     Whether a member has a <see langword="ref readonly" /> parameter of a ref struct type, which needs the

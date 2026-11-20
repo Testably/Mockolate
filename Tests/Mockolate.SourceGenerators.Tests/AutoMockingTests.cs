@@ -193,6 +193,49 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task InterfacesWithUnsupportedMemberShapes_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Run("""
+		                             namespace MyCode
+		                             {
+		                                 public interface IRoot
+		                                 {
+		                                     IRefProperty GetRefProperty();
+		                                     IRefIndexer GetRefIndexer();
+		                                     IAllowsRefStruct GetAllowsRefStruct();
+		                                     IRefMethod GetRefMethod();
+		                                 }
+
+		                                 public interface IRefProperty
+		                                 {
+		                                     ref int Value { get; }
+		                                 }
+
+		                                 public interface IRefIndexer
+		                                 {
+		                                     ref readonly int this[int index] { get; }
+		                                 }
+
+		                                 public interface IAllowsRefStruct
+		                                 {
+		                                     void Use<T>(T value) where T : allows ref struct;
+		                                 }
+
+		                                 public interface IRefMethod
+		                                 {
+		                                     ref int Get();
+		                                 }
+		                             }
+		                             """, "IRoot");
+
+		await That(result.Diagnostics).IsEmpty()
+			.Because("the generator emits no compilable mock for these members (CS8152, CS9244)");
+		await That(result.Sources.Keys).None().Satisfy(key =>
+			key.Contains("IRefProperty") || key.Contains("IRefIndexer") || key.Contains("IAllowsRefStruct"));
+		await That(result.Sources).ContainsKey("Mock.IRefMethod.g.cs");
+	}
+
+	[Test]
 	public async Task InterfacesWithRefReadOnlySpanParameters_ShouldNotBeMocked()
 	{
 		GeneratorResult result = Run("""
