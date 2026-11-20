@@ -424,9 +424,10 @@ internal static partial class Sources
 		{
 			sb.Append("\t\tif (mock.MockRegistry.ConstructorParameters is null || mock.MockRegistry.ConstructorParameters.Length == 0)").AppendLine();
 			sb.Append("\t\t{").AppendLine();
-			if (constructors.Value.Any(m => m.Parameters.Count == 0))
+			if (@class is MockClass { ConstructorWithoutArguments: { } constructorWithoutArguments, })
 			{
-				sb.Append("\t\t\tvalue = new global::Mockolate.Mock.").Append(fileName).Append("(mock.MockRegistry);").AppendLine();
+				string arguments = AppendArgumentsWithoutConstructorParameters(sb, "\t\t\t", constructors.Value, constructorWithoutArguments);
+				sb.Append("\t\t\tvalue = new global::Mockolate.Mock.").Append(fileName).Append("(mock.MockRegistry").Append(arguments).Append(");").AppendLine();
 			}
 			else
 			{
@@ -439,6 +440,12 @@ internal static partial class Sources
 				         .Select(constructor => constructor.Parameters))
 			{
 				constructorIndex++;
+				// A ref struct cannot be passed in the object array of constructor parameters.
+				if (constructorParameters.Any(parameter => parameter.Type.IsRefStruct))
+				{
+					continue;
+				}
+
 				int requiredParameters = constructorParameters.Count(c => !c.HasExplicitDefaultValue);
 				if (requiredParameters < constructorParameters.Count)
 				{

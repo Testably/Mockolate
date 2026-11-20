@@ -13,7 +13,7 @@ public class MockClassEqualityTests
 	{
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source, "IBase");
 
-		MockClass a = new([symbols[0],], compilation.Assembly);
+		MockClass a = new([symbols[0],], compilation);
 
 		await That(a.Equals(a)).IsTrue();
 		await That(a.Equals(null)).IsFalse();
@@ -25,9 +25,27 @@ public class MockClassEqualityTests
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source,
 			"BaseWithCtor", "BaseWithIntCtor");
 
-		MockClass a = new([symbols[0],], compilation.Assembly);
-		MockClass b = new([symbols[1],], compilation.Assembly);
+		MockClass a = new([symbols[0],], compilation);
+		MockClass b = new([symbols[1],], compilation);
 
+		await That(a.Equals(b)).IsFalse();
+	}
+
+	[Test]
+	public async Task TwoMockClassesWithDifferentConstructorsWithoutArguments_ShouldNotBeEqual()
+	{
+		(Compilation unrelatedCompilation, INamedTypeSymbol[] unrelated) = ParseSymbols(
+			"public class A { } public class B { }" + ParamsConstructorsSource, "ParamsBase");
+		(Compilation derivedCompilation, INamedTypeSymbol[] derived) = ParseSymbols(
+			"public class A : B { } public class B { }" + ParamsConstructorsSource, "ParamsBase");
+
+		MockClass a = new([unrelated[0],], unrelatedCompilation);
+		MockClass b = new([derived[0],], derivedCompilation);
+
+		await That(a.ConstructorWithoutArguments).IsEqualTo(0)
+			.Because("C# reports new ParamsBase() as ambiguous, so the first declared constructor is used");
+		await That(b.ConstructorWithoutArguments).IsEqualTo(1)
+			.Because("the implicit conversion from A[] to B[] makes the params A[] constructor better");
 		await That(a.Equals(b)).IsFalse();
 	}
 
@@ -37,8 +55,8 @@ public class MockClassEqualityTests
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source,
 			"IBase", "IExtraA");
 
-		MockClass a = new([symbols[0], symbols[1],], compilation.Assembly);
-		MockClass b = new([symbols[0], symbols[1],], compilation.Assembly);
+		MockClass a = new([symbols[0], symbols[1],], compilation);
+		MockClass b = new([symbols[0], symbols[1],], compilation);
 
 		await That(a.Equals(b)).IsTrue();
 		await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
@@ -50,8 +68,8 @@ public class MockClassEqualityTests
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source,
 			"IBase", "IExtraA", "IExtraB");
 
-		MockClass a = new([symbols[0], symbols[1],], compilation.Assembly);
-		MockClass b = new([symbols[0], symbols[2],], compilation.Assembly);
+		MockClass a = new([symbols[0], symbols[1],], compilation);
+		MockClass b = new([symbols[0], symbols[2],], compilation);
 
 		await That(a.Equals(b)).IsFalse();
 		await That(a.Equals((object?)b)).IsFalse();
@@ -70,6 +88,14 @@ public class MockClassEqualityTests
 	                                  public BaseWithIntCtor(int v) { }
 	                              }
 	                              """;
+
+	private const string ParamsConstructorsSource = """
+	                                                public abstract class ParamsBase
+	                                                {
+	                                                    protected ParamsBase(params B[] values) { }
+	                                                    protected ParamsBase(params A[] values) { }
+	                                                }
+	                                                """;
 
 	private static (Compilation Compilation, INamedTypeSymbol[] Symbols) ParseSymbols(string source,
 		params string[] names)

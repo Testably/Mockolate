@@ -239,7 +239,7 @@ public sealed partial class MockTests
 		{
 			IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
 			EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
-			EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
+			EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock();
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
 			await That(sut3).IsNotNull();
@@ -312,6 +312,35 @@ public sealed partial class MockTests
 			INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
+		}
+
+		[Test]
+		public async Task OptionalConstructorParameters_CanBeCreated()
+		{
+			OptionalConstructorBase sut1 = OptionalConstructorBase.CreateMock();
+			OptionalAndParameterlessConstructorBase sut2 = OptionalAndParameterlessConstructorBase.CreateMock();
+			SeveralOptionalConstructorsBase sut3 = SeveralOptionalConstructorsBase.CreateMock();
+			OptionalConstructorBase sut4 = OptionalConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+			ParamsConstructorBase sut5 = ParamsConstructorBase.CreateMock();
+			OptionalAndParamsConstructorBase sut6 = OptionalAndParamsConstructorBase.CreateMock();
+			ParamsConstructorSelectionBase sut7 = ParamsConstructorSelectionBase.CreateMock();
+			OptionalOverParamsConstructorBase sut8 = OptionalOverParamsConstructorBase.CreateMock();
+			OptionalAndParamsConstructorBase sut9 = OptionalAndParamsConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+			ParamsCollectionConstructorBase sut10 = ParamsCollectionConstructorBase.CreateMock();
+			ParamsSpanConstructorBase sut11 = ParamsSpanConstructorBase.CreateMock();
+			OnlyParamsSpanConstructorBase sut12 = OnlyParamsSpanConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+			await That(sut4).IsNotNull();
+			await That(sut5).IsNotNull();
+			await That(sut6).IsNotNull();
+			await That(sut7).IsNotNull();
+			await That(sut8).IsNotNull();
+			await That(sut9).IsNotNull();
+			await That(sut10).IsNotNull();
+			await That(sut11).IsNotNull();
+			await That(sut12).IsNotNull();
 		}
 
 		[Test]

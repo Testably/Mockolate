@@ -39,7 +39,7 @@ IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
 ChocolateDispenser classMock = ChocolateDispenser.CreateMock();
 ```
 
-For classes without a parameterless constructor, pass the constructor arguments as an array:
+For classes whose constructors need arguments, pass the constructor arguments as an array:
 
 ```csharp
 public abstract class ChocolateDispenserWithCtor(string defaultType, int capacity)
@@ -49,6 +49,24 @@ public abstract class ChocolateDispenserWithCtor(string defaultType, int capacit
 
 ChocolateDispenserWithCtor classMock = ChocolateDispenserWithCtor.CreateMock(["Dark", 42]);
 ```
+
+<details>
+<summary>Constructors with optional or params parameters</summary>
+
+Without constructor arguments, `CreateMock()` calls the constructor that `new T()` would call. Besides a parameterless constructor, this can be one whose parameters are all optional, or one that ends with a `params` array or collection, such as `params ReadOnlySpan<T>` or `params List<T>`. Mockolate passes the declared default values and an empty collection:
+
+```csharp
+public abstract class ChocolateBox(int capacity = 12, params string[] types)
+{
+    public abstract bool Contains(string type);
+}
+
+ChocolateBox box = ChocolateBox.CreateMock(); // calls ChocolateBox(12, [])
+```
+
+When several constructors qualify, Mockolate follows the C# rules: a parameterless constructor wins, then one whose parameters are all optional, then a `params` constructor. Among `params` constructors, one that needs no default values wins, and then the one with the more specific `params` type, for example a `ReadOnlySpan<T>` over a `T[]`, or a `string[]` over an `object[]`. Where C# reports `new T()` as ambiguous, Mockolate picks the first declared of the ambiguous constructors instead.
+
+</details>
 
 :::note
 

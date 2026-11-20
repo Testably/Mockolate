@@ -77,7 +77,7 @@ public sealed class EnumDefaultValuesTests
 	[Test]
 	public async Task Constructor_WithOmittedEnumConstructorParameters_ShouldCreateTheMock()
 	{
-		EnumDefaultValuesBase sut = EnumDefaultValuesBase.CreateMock([EnumWithNegativeValue.Low,]);
+		EnumDefaultValuesBase sut = EnumDefaultValuesBase.CreateMock();
 		sut.Mock.Setup.Method().Returns(3);
 
 		int forDeclaredDefault = sut.Method();

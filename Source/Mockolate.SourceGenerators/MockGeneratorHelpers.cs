@@ -59,7 +59,6 @@ internal static class MockGeneratorHelpers
 	internal static IEnumerable<MockClass> ExtractMockOrMockFactoryCreateSyntaxOrDefault(
 		this SyntaxNode syntaxNode, SemanticModel semanticModel)
 	{
-		IAssemblySymbol sourceAssembly = semanticModel.Compilation.Assembly;
 		// Static extension methods
 		if (syntaxNode is InvocationExpressionSyntax invocation)
 		{
@@ -71,7 +70,7 @@ internal static class MockGeneratorHelpers
 				if (type is not null && IsMockable(type))
 				{
 					yield return CreateMockClass(semanticModel.Compilation, type);
-					foreach (MockClass? additionalMockClass in DiscoverMockableTypes([type,], sourceAssembly))
+					foreach (MockClass? additionalMockClass in DiscoverMockableTypes([type,], semanticModel.Compilation))
 					{
 						yield return additionalMockClass;
 					}
@@ -80,7 +79,7 @@ internal static class MockGeneratorHelpers
 				{
 					yield return CreateMockClass(semanticModel.Compilation, methodSymbol.ReturnType);
 
-					foreach (MockClass? additionalMockClass in DiscoverMockableTypes([methodSymbol.ReturnType,], sourceAssembly))
+					foreach (MockClass? additionalMockClass in DiscoverMockableTypes([methodSymbol.ReturnType,], semanticModel.Compilation))
 					{
 						yield return additionalMockClass;
 					}
@@ -151,10 +150,10 @@ internal static class MockGeneratorHelpers
 	}
 
 	private static MockClass CreateMockClass(Compilation compilation, params ITypeSymbol[] types)
-		=> new(Array.ConvertAll(types, type => type.WithDynamicAsObject(compilation)), compilation.Assembly);
+		=> new(Array.ConvertAll(types, type => type.WithDynamicAsObject(compilation)), compilation);
 
 	private static IEnumerable<MockClass> DiscoverMockableTypes(IEnumerable<ITypeSymbol> initialTypes,
-		IAssemblySymbol sourceAssembly)
+		Compilation compilation)
 	{
 		Queue<ITypeSymbol> typesToProcess = new(initialTypes);
 		HashSet<ITypeSymbol> processedTypes = new(typesToProcess, SymbolEqualityComparer.Default);
@@ -175,7 +174,7 @@ internal static class MockGeneratorHelpers
 					.First(t => t.Name == "HttpMessageHandler");
 				if (processedTypes.Add(httpMessageHandlerType))
 				{
-					yield return new MockClass([httpMessageHandlerType,], sourceAssembly);
+					yield return new MockClass([httpMessageHandlerType,], compilation);
 					typesToProcess.Enqueue(httpMessageHandlerType);
 				}
 			}

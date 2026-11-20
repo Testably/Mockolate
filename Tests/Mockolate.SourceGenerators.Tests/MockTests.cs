@@ -169,6 +169,219 @@ public sealed partial class MockTests
 	}
 
 	[Test]
+	public async Task ForTypesWithOnlyOptionalConstructorParameters_ShouldCallTheConstructorWithTheDeclaredDefaults()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode;
+
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = MyBaseClass.CreateMock();
+			         }
+			     }
+
+			     public enum Level { Unknown = -1, Low = 0, }
+
+			     public class MyBaseClass
+			     {
+			         public MyBaseClass(int value) { }
+			         protected MyBaseClass(int value = 1, string text = "foo", Level level = Level.Unknown) { }
+			         protected MyBaseClass(bool flag = true) { }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.MyBaseClass.g.cs");
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains("""
+			          			if (constructorParameters is null || constructorParameters.Length == 0)
+			          			{
+			          				global::Mockolate.Mock.MyBaseClass.MockRegistryProvider.Value = mockRegistry;
+			          				global::Mockolate.MockExtensionsForMyBaseClass.MockSetup? setupTarget = null;
+			          				if (setup is not null)
+			          				{
+			          					setupTarget ??= new(mockRegistry);
+			          					setup.Invoke(setupTarget);
+			          				}
+			          				int c2p1 = 1;
+			          				string c2p2 = "foo";
+			          				global::MyCode.Level c2p3 = (global::MyCode.Level)(-1);
+			          				return new global::Mockolate.Mock.MyBaseClass(mockRegistry, c2p1, c2p2, c2p3);
+			          			}
+			          """).IgnoringNewlineStyle().Because("the first constructor in declaration order that needs no arguments is used").And
+			.DoesNotContain("No parameterless constructor found");
+	}
+
+	[Test]
+	public async Task ForTypesWithParameterlessAndOptionalConstructor_ShouldPreferTheParameterlessConstructor()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode;
+
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = MyBaseClass.CreateMock();
+			         }
+			     }
+
+			     public class MyBaseClass
+			     {
+			         protected MyBaseClass(int value = 1) { }
+			         protected MyBaseClass() { }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.MyBaseClass.g.cs");
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains("""
+			          					setup.Invoke(setupTarget);
+			          				}
+			          				return new global::Mockolate.Mock.MyBaseClass(mockRegistry);
+			          			}
+			          """).IgnoringNewlineStyle().And
+			.DoesNotContain("int c1p1 = 1;");
+	}
+
+	[Test]
+	public async Task ForTypesWithParamsConstructor_ShouldCallItWithAnEmptyArrayAndTheDeclaredDefaults()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode;
+
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = MyBaseClass.CreateMock();
+			         }
+			     }
+
+			     public class MyBaseClass
+			     {
+			         public MyBaseClass(int value) { }
+			         protected MyBaseClass(int value = 1, params string[] texts) { }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.MyBaseClass.g.cs");
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains("""
+			          					setup.Invoke(setupTarget);
+			          				}
+			          				int c2p1 = 1;
+			          				string[] c2p2 = [];
+			          				return new global::Mockolate.Mock.MyBaseClass(mockRegistry, c2p1, c2p2);
+			          			}
+			          """).IgnoringNewlineStyle().And
+			.DoesNotContain("No parameterless constructor found");
+	}
+
+	[Test]
+	public async Task ForTypesWithParamsSpanConstructor_ShouldCallItWithAnEmptySpan()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using System;
+			     using Mockolate;
+
+			     namespace MyCode;
+
+			     public class Program
+			     {
+			         public static void Main(string[] args)
+			         {
+			     		_ = MyBaseClass.CreateMock().Implementing<IMyInterface>();
+			         }
+			     }
+
+			     public class MyBaseClass
+			     {
+			         protected MyBaseClass(params ReadOnlySpan<int> values) { }
+			     }
+
+			     public interface IMyInterface
+			     {
+			         void DoWork();
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains("""
+			          				global::System.ReadOnlySpan<int> c1p1 = [];
+			          				return new global::Mockolate.Mock.MyBaseClass(mockRegistry, c1p1);
+			          """).IgnoringNewlineStyle().And
+			.DoesNotContain("TryCast(").Because("a span cannot be passed in the object array of constructor parameters");
+		await That(result.Sources["Mock.MyBaseClass__IMyInterface.g.cs"])
+			.Contains("""
+			          			global::System.ReadOnlySpan<int> c1p1 = [];
+			          			value = new global::Mockolate.Mock.MyBaseClass__IMyInterface(mock.MockRegistry, c1p1);
+			          """).IgnoringNewlineStyle().And
+			.DoesNotContain("TryCast(");
+	}
+
+	[Test]
+	[Arguments("protected MyBaseClass(params object[] values) { }", "protected MyBaseClass(params string[] values) { }", 2)]
+	[Arguments("protected MyBaseClass(params int[] values) { }", "protected MyBaseClass(int value = 1) { }", 2)]
+	[Arguments("protected MyBaseClass(params string[] values) { }", "protected MyBaseClass(int value = 1, params string[] values) { }", 1)]
+	[Arguments("protected MyBaseClass(int value = 1, params object[] values) { }", "protected MyBaseClass(int value = 1, params string[] values) { }", 2)]
+	[Arguments("protected MyBaseClass(params int[] values) { }", "protected MyBaseClass(params long[] values) { }", 1)]
+	[Arguments("protected MyBaseClass(int value = 1, params string[] values) { }", "protected MyBaseClass(int value = 1, int other = 2, params object[] values) { }", 1)]
+	[Arguments("protected MyBaseClass(params int[] values) { }", "protected MyBaseClass(params System.ReadOnlySpan<int> values) { }", 2)]
+	[Arguments("protected MyBaseClass(params System.Span<int> values) { }", "protected MyBaseClass(params System.ReadOnlySpan<int> values) { }", 2)]
+	[Arguments("protected MyBaseClass(params System.Collections.Generic.IEnumerable<int> values) { }", "protected MyBaseClass(params System.Span<int> values) { }", 2)]
+	[Arguments("protected MyBaseClass(params System.Collections.Generic.IEnumerable<int> values) { }", "protected MyBaseClass(params System.Collections.Generic.List<int> values) { }", 2)]
+	[Arguments("protected MyBaseClass(params System.Collections.Generic.List<int> values) { }", "protected MyBaseClass(params int[] values) { }", 1)]
+	[Arguments("protected MyBaseClass(params object[] values) { }", "protected MyBaseClass(params System.ReadOnlySpan<string> values) { }", 1)]
+	[Arguments("protected MyBaseClass(params System.Collections.Generic.List<int> values) { }", "protected MyBaseClass(params System.ReadOnlySpan<int> values) { }", 1)]
+	[Arguments("protected MyBaseClass(params System.ReadOnlySpan<object> values) { }", "protected MyBaseClass(params System.ReadOnlySpan<string> values) { }", 1)]
+	public async Task ForTypesWithSeveralConstructorsWithoutArguments_ShouldFollowCSharpOverloadResolution(
+		string first, string second, int expectedConstructor)
+	{
+		GeneratorResult result = Generator
+			.Run($$"""
+			       using Mockolate;
+
+			       namespace MyCode;
+
+			       public class Program
+			       {
+			           public static void Main(string[] args)
+			           {
+			       		_ = MyBaseClass.CreateMock();
+			           }
+			       }
+
+			       public class MyBaseClass
+			       {
+			           {{first}}
+			           {{second}}
+			       }
+			       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Mock.MyBaseClass.g.cs"])
+			.Contains($" c{expectedConstructor}p1 = ")
+			.Because("new MyBaseClass() resolves to the same constructor, or the first declared one where C# reports an ambiguity").And
+			.DoesNotContain($" c{3 - expectedConstructor}p1 = ");
+	}
+
+	[Test]
 	public async Task ForTypesWithConstructorWithParameters_ShouldWorkForAllNonPrivateConstructors()
 	{
 		GeneratorResult result = Generator

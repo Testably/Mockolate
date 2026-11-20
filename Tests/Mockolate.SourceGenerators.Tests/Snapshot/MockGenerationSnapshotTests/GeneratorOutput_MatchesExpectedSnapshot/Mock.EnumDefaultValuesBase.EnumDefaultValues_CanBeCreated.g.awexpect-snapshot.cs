@@ -575,7 +575,7 @@ internal static partial class MockExtensionsForEnumDefaultValuesBase
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase">EnumDefaultValuesBase</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase">EnumDefaultValuesBase</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -584,7 +584,7 @@ internal static partial class MockExtensionsForEnumDefaultValuesBase
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase">EnumDefaultValuesBase</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase">EnumDefaultValuesBase</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -596,7 +596,7 @@ internal static partial class MockExtensionsForEnumDefaultValuesBase
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required when no parameterless constructor exists.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase">EnumDefaultValuesBase</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -659,7 +659,7 @@ internal static partial class MockExtensionsForEnumDefaultValuesBase
 		/// </remarks>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup, or <see langword="null" /> for <c>MockBehavior.Default</c>.</param>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword="null" /> to skip.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use the parameterless constructor.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use a constructor that can be called without arguments.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase">EnumDefaultValuesBase</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForEnumDefaultValuesBase>? setup, object?[]? constructorParameters)
 		{
@@ -693,7 +693,17 @@ internal static partial class MockExtensionsForEnumDefaultValuesBase
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				throw new global::Mockolate.Exceptions.MockException("No parameterless constructor found for 'Mockolate.Tests.GeneratorCoverage.EnumDefaultValuesBase'. Please provide constructor parameters.");
+				global::Mockolate.Mock.EnumDefaultValuesBase.MockRegistryProvider.Value = mockRegistry;
+				global::Mockolate.MockExtensionsForEnumDefaultValuesBase.MockSetup? setupTarget = null;
+				if (setup is not null)
+				{
+					setupTarget ??= new(mockRegistry);
+					setup.Invoke(setupTarget);
+				}
+				global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue c1p1 = (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1);
+				global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue? c1p2 = (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)1;
+				global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue? c1p3 = (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)0;
+				return new global::Mockolate.Mock.EnumDefaultValuesBase(mockRegistry, c1p1, c1p2, c1p3);
 			}
 			else if (constructorParameters.Length >= 0 && constructorParameters.Length <= 3
 			    && TryCastWithDefaultValue(constructorParameters, 0, (global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue)(-1), mockRegistry.Behavior, out global::Mockolate.Tests.GeneratorCoverage.EnumWithNegativeValue c1p1)

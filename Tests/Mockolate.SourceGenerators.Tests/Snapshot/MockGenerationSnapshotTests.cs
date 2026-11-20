@@ -107,7 +107,7 @@ public sealed partial class MockGenerationSnapshotTests
             """
             IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
             EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
-            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
+            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock();
             """,
             []),
         new(
@@ -174,6 +174,24 @@ public sealed partial class MockGenerationSnapshotTests
             """
             INullableTypeParameter<int> sut1 = INullableTypeParameter<int>.CreateMock();
             INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
+            """,
+            []),
+        new(
+            "OptionalConstructorParameters_CanBeCreated",
+            ["OptionalConstructorParameters.cs", "ParamsSpanConstructors.cs", "ICombinationMockA.cs",],
+            """
+            OptionalConstructorBase sut1 = OptionalConstructorBase.CreateMock();
+            OptionalAndParameterlessConstructorBase sut2 = OptionalAndParameterlessConstructorBase.CreateMock();
+            SeveralOptionalConstructorsBase sut3 = SeveralOptionalConstructorsBase.CreateMock();
+            OptionalConstructorBase sut4 = OptionalConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+            ParamsConstructorBase sut5 = ParamsConstructorBase.CreateMock();
+            OptionalAndParamsConstructorBase sut6 = OptionalAndParamsConstructorBase.CreateMock();
+            ParamsConstructorSelectionBase sut7 = ParamsConstructorSelectionBase.CreateMock();
+            OptionalOverParamsConstructorBase sut8 = OptionalOverParamsConstructorBase.CreateMock();
+            OptionalAndParamsConstructorBase sut9 = OptionalAndParamsConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+            ParamsCollectionConstructorBase sut10 = ParamsCollectionConstructorBase.CreateMock();
+            ParamsSpanConstructorBase sut11 = ParamsSpanConstructorBase.CreateMock();
+            OnlyParamsSpanConstructorBase sut12 = OnlyParamsSpanConstructorBase.CreateMock().Implementing<ICombinationMockA>();
             """,
             []),
         new(
@@ -270,7 +288,7 @@ public sealed partial class MockGenerationSnapshotTests
             """
             IEnumDefaultValues sut1 = IEnumDefaultValues.CreateMock();
             EnumDefaultValuesDelegate sut2 = EnumDefaultValuesDelegate.CreateMock();
-            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock(EnumWithNegativeValue.Low);
+            EnumDefaultValuesBase sut3 = EnumDefaultValuesBase.CreateMock();
             """,
             [],
             UnionMode: true),
@@ -337,6 +355,25 @@ public sealed partial class MockGenerationSnapshotTests
             """
             INullableTypeParameter<int> sut1 = INullableTypeParameter<int>.CreateMock();
             INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "OptionalConstructorParameters_CanBeCreated_Unions",
+            ["OptionalConstructorParameters.cs", "ParamsSpanConstructors.cs", "ICombinationMockA.cs",],
+            """
+            OptionalConstructorBase sut1 = OptionalConstructorBase.CreateMock();
+            OptionalAndParameterlessConstructorBase sut2 = OptionalAndParameterlessConstructorBase.CreateMock();
+            SeveralOptionalConstructorsBase sut3 = SeveralOptionalConstructorsBase.CreateMock();
+            OptionalConstructorBase sut4 = OptionalConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+            ParamsConstructorBase sut5 = ParamsConstructorBase.CreateMock();
+            OptionalAndParamsConstructorBase sut6 = OptionalAndParamsConstructorBase.CreateMock();
+            ParamsConstructorSelectionBase sut7 = ParamsConstructorSelectionBase.CreateMock();
+            OptionalOverParamsConstructorBase sut8 = OptionalOverParamsConstructorBase.CreateMock();
+            OptionalAndParamsConstructorBase sut9 = OptionalAndParamsConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+            ParamsCollectionConstructorBase sut10 = ParamsCollectionConstructorBase.CreateMock();
+            ParamsSpanConstructorBase sut11 = ParamsSpanConstructorBase.CreateMock();
+            OnlyParamsSpanConstructorBase sut12 = OnlyParamsSpanConstructorBase.CreateMock().Implementing<ICombinationMockA>();
             """,
             [],
             UnionMode: true),
