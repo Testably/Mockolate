@@ -85,6 +85,16 @@ internal static partial class Sources
 				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
+			if (TryGetPerElementParamsParameter(delegateMethod))
+			{
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", perElementParams: true);
+			}
+
+			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
+			{
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
+			}
+
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
@@ -117,6 +127,16 @@ internal static partial class Sources
 			if (delegateMethod.Parameters.Count > 0)
 			{
 				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+			}
+
+			if (TryGetPerElementParamsParameter(delegateMethod))
+			{
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", perElementParams: true);
+			}
+
+			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
+			{
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
@@ -193,6 +213,16 @@ internal static partial class Sources
 			if (delegateMethod.Parameters.Count > 0)
 			{
 				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+			}
+
+			if (TryGetPerElementParamsParameter(delegateMethod))
+			{
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", perElementParams: true);
+			}
+
+			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
+			{
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
@@ -272,6 +302,18 @@ internal static partial class Sources
 					hasOverloadResolutionPriority: hasOverloadResolutionPriority, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
 			}
 
+			if (TryGetPerElementParamsParameter(delegateMethod))
+			{
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup",
+					hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
+			}
+
+			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
+			{
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags: EmptyParamsValueFlags(delegateMethod),
+					hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
+			}
+
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
@@ -321,6 +363,18 @@ internal static partial class Sources
 			{
 				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
 					hasOverloadResolutionPriority: hasOverloadResolutionPriority, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+			}
+
+			if (TryGetPerElementParamsParameter(delegateMethod))
+			{
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+					hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
+			}
+
+			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
+			{
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+					valueFlags: EmptyParamsValueFlags(delegateMethod), hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)

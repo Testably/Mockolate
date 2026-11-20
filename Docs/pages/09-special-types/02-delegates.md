@@ -34,6 +34,8 @@ ProcessData processor = ProcessData.CreateMock();
 processor.Mock.Setup(It.IsAny<int>(), It.IsRef<int>(v => v + 1), It.IsOut(() => 100));
 ```
 
+A `params` parameter takes either one value or one matcher per element, as for a method; see [params parameters](../06-parameter-matching.md#params-parameters).
+
 The setup supports the same options as a [method setup](../05-setup/01-methods.md): `.Returns(…)`, `.Throws(…)`,
 `.Do(…)`, sequences and the [advanced callback features](../08-advanced-features/03-advanced-callback-features.md).
 

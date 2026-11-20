@@ -231,7 +231,10 @@ public sealed partial class MockGenerationSnapshotTests
             "ParamsObjectArray_CanBeCreated",
             ["IParamsObjectArray.cs",],
             """
-            IParamsObjectArray sut = IParamsObjectArray.CreateMock();
+            IParamsObjectArray sut1 = IParamsObjectArray.CreateMock();
+            ParamsObjectArrayDelegate sut2 = ParamsObjectArrayDelegate.CreateMock();
+            ParamsObjectArrayOnlyDelegate sut3 = ParamsObjectArrayOnlyDelegate.CreateMock();
+            ParamsArrayDelegate sut4 = ParamsArrayDelegate.CreateMock();
             """,
             []),
         new(
@@ -430,7 +433,10 @@ public sealed partial class MockGenerationSnapshotTests
             "ParamsObjectArray_CanBeCreated_Unions",
             ["IParamsObjectArray.cs",],
             """
-            IParamsObjectArray sut = IParamsObjectArray.CreateMock();
+            IParamsObjectArray sut1 = IParamsObjectArray.CreateMock();
+            ParamsObjectArrayDelegate sut2 = ParamsObjectArrayDelegate.CreateMock();
+            ParamsObjectArrayOnlyDelegate sut3 = ParamsObjectArrayOnlyDelegate.CreateMock();
+            ParamsArrayDelegate sut4 = ParamsArrayDelegate.CreateMock();
             """,
             [],
             UnionMode: true),

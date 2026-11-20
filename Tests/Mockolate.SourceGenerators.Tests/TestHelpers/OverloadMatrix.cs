@@ -62,12 +62,12 @@ public static class OverloadMatrix
 	                              """;
 
 	public static string[] Run(string declarations, IReadOnlyList<(Member Member, string Call)> calls,
-		LanguageVersion languageVersion)
+		LanguageVersion languageVersion, MetadataReference[]? references = null)
 	{
 		CSharpParseOptions parseOptions = new(languageVersion);
-		Dictionary<string, string> bindings = Bind(declarations, calls, parseOptions, [], out Compilation _);
+		Dictionary<string, string> bindings = Bind(declarations, calls, parseOptions, [], references ?? [], out Compilation _);
 		HashSet<string> failed = [..bindings.Where(x => x.Value.StartsWith("CS")).Select(x => x.Key),];
-		Bind(declarations, calls, parseOptions, failed, out Compilation compilation);
+		Bind(declarations, calls, parseOptions, failed, references ?? [], out Compilation compilation);
 
 		using MemoryStream stream = new();
 		EmitResult emitResult = compilation.Emit(stream);
@@ -96,7 +96,7 @@ public static class OverloadMatrix
 			: $"{bindings[method]} {cases.GetMethod(method)!.Invoke(null, null)}";
 
 	private static Dictionary<string, string> Bind(string declarations, IReadOnlyList<(Member Member, string Call)> calls,
-		CSharpParseOptions parseOptions, HashSet<string> skipped, out Compilation outputCompilation)
+		CSharpParseOptions parseOptions, HashSet<string> skipped, MetadataReference[] references, out Compilation outputCompilation)
 	{
 		StringBuilder sb = new();
 		sb.AppendLine("using System;").AppendLine("using System.Collections.Generic;").AppendLine("using System.Linq;")
@@ -138,7 +138,7 @@ public static class OverloadMatrix
 		CSharpCompilation compilation = CSharpCompilation.Create(
 			$"TestAssembly{Guid.NewGuid():N}",
 			[tree,],
-			Generator.GetReferences([]),
+			[..Generator.GetReferences([]), ..references,],
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary,
 				nullableContextOptions: NullableContextOptions.Enable));
 		CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [], parseOptions)
