@@ -354,7 +354,7 @@ public sealed class AutoMockDiscoveryCacheTests
 		await That(counter.Calls).IsEqualTo(2);
 	}
 
-	private static Compilation CreateCompilation(Dictionary<string, string> files, string? assemblyName = null)
+	private static CSharpCompilation CreateCompilation(Dictionary<string, string> files, string? assemblyName = null)
 		=> CSharpCompilation.Create(assemblyName ?? $"Cache{Guid.NewGuid():N}",
 			files.Select(file => CSharpSyntaxTree.ParseText(file.Value, ParseOptions, file.Key)),
 			Generator.GetReferences([]),
@@ -394,7 +394,7 @@ public sealed class AutoMockDiscoveryCacheTests
 		return (before, incremental, fresh);
 	}
 
-	private static GeneratorDriver CreateDriver()
+	private static CSharpGeneratorDriver CreateDriver()
 		=> CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [], ParseOptions,
 			new TestAnalyzerConfigOptionsProvider(new Dictionary<string, string>
 			{

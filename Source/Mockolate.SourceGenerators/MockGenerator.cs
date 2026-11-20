@@ -389,8 +389,9 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		// The empty entries separate the excluded and included namespaces and the identities, as none of them is empty.
-		string settings = string.Join("\n",
-			[..options.ExcludedNamespaces, "", ..options.IncludedNamespaces, "", ..orderedIdentities,]);
+		string[] settingParts =
+			[..options.ExcludedNamespaces, "", ..options.IncludedNamespaces, "", ..orderedIdentities,];
+		string settings = string.Join("\n", settingParts);
 		return AutoMockDiscoveryCache.GetOrDiscover(compilation, settings,
 			dependencies => DiscoverAutoMocks(distinctCreations, compilation, options, dependencies,
 				cancellationToken),
