@@ -62,6 +62,7 @@ public abstract class IndexerValueStorage
 [DebuggerNonUserCode]
 internal sealed class IndexerValueStorage<TValue> : IndexerValueStorage
 {
+	private object? _autoMock;
 	private IIndexerChildIndex? _childIndex;
 	private IndexerValueStorage<TValue>? _nullChild;
 
@@ -81,6 +82,13 @@ internal sealed class IndexerValueStorage<TValue> : IndexerValueStorage
 		Value = value;
 		HasValue = true;
 	}
+
+	/// <summary>
+	///     Returns the auto-mock that was first created for this key, so that concurrent first reads of the key all
+	///     return the same configurable mock.
+	/// </summary>
+	internal TValue ShareAutoMock(TValue autoMock)
+		=> (TValue)(Interlocked.CompareExchange(ref _autoMock, autoMock, null) ?? autoMock)!;
 
 	/// <inheritdoc cref="IndexerValueStorage.GetChildDispatch{TKey}(TKey)" />
 	public override IndexerValueStorage? GetChildDispatch<TKey>(TKey key) => GetChild(key);

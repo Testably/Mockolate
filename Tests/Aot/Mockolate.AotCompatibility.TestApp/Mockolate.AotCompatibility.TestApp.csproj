@@ -9,6 +9,11 @@
 		<InvariantGlobalization>true</InvariantGlobalization>
 	</PropertyGroup>
 
+	<!-- The smoke tests run once with the default generated code and once with -p:MockolateAutoMocking=true. -->
+	<PropertyGroup Condition="'$(MockolateAutoMocking)' == 'true'">
+		<DefineConstants>$(DefineConstants);MOCKOLATE_AUTOMOCKING</DefineConstants>
+	</PropertyGroup>
+
 	<!--
 	    A warning from the compiler, the trimmer or the AOT compiler in the generated code fails the build and the
 	    publish, and each trim warning names its site instead of being rolled up per assembly.
@@ -22,9 +27,13 @@
 		<TrimmerSingleWarn>false</TrimmerSingleWarn>
 	</PropertyGroup>
 
+	<!-- Project references do not import the package props, so make the generator see MockolateAutoMocking here too. -->
+	<Import Project="..\..\..\Source\Mockolate\build\Mockolate.props"/>
+
+	<!-- The referenced projects do not depend on MockolateAutoMocking, so the second variant does not build them again. -->
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
-		<ProjectReference Include="..\..\..\Source\Mockolate\Mockolate.csproj"/>
+		<ProjectReference Include="..\..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" GlobalPropertiesToRemove="MockolateAutoMocking"/>
+		<ProjectReference Include="..\..\..\Source\Mockolate\Mockolate.csproj" GlobalPropertiesToRemove="MockolateAutoMocking"/>
 	</ItemGroup>
 
 </Project>

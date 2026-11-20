@@ -190,6 +190,7 @@ namespace Mockolate
         public MockBehavior(Mockolate.IDefaultValueGenerator defaultValue) { }
         public Mockolate.IDefaultValueGenerator DefaultValue { get; }
         protected virtual System.Type EqualityContract { get; }
+        public bool SkipAutoMocking { get; init; }
         public bool SkipBaseClass { get; init; }
         public bool SkipInteractionRecording { get; init; }
         public bool ThrowWhenNotSetup { get; init; }
@@ -197,6 +198,7 @@ namespace Mockolate
         public virtual bool Equals(Mockolate.MockBehavior? other) { }
         public override int GetHashCode() { }
         protected virtual bool PrintMembers(System.Text.StringBuilder builder) { }
+        public Mockolate.MockBehavior SkippingAutoMocking(bool skipAutoMocking = true) { }
         public Mockolate.MockBehavior SkippingBaseClass(bool skipBaseClass = true) { }
         public Mockolate.MockBehavior SkippingInteractionRecording(bool skipInteractionRecording = true) { }
         public Mockolate.MockBehavior ThrowingWhenNotSetup(bool throwWhenNotSetup = true) { }

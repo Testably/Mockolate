@@ -13,6 +13,7 @@ internal static partial class Sources
 	public static string MockClass(
 		string name,
 		Class @class,
+		bool autoMocking,
 		bool hasOverloadResolutionPriority = false,
 		(string Name, Class Class)[]? hiddenBaseInterfaces = null,
 		bool useUnionOverloads = false)
@@ -146,7 +147,7 @@ internal static partial class Sources
 		sb.AppendLine();
 
 		bool hasMockRegistryProvider = constructors?.Count > 0 || (@class.IsInterface && (hasStaticMembers || hasStaticEvents));
-		AppendCreateRegistryFromBehavior(sb, "\t\t", hasMockRegistryProvider);
+		AppendCreateRegistryFromBehavior(sb, "\t\t", hasMockRegistryProvider, autoMocking);
 		sb.AppendLine();
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -219,7 +220,7 @@ internal static partial class Sources
 			}
 		}
 
-		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix);
+		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix, autoMocking);
 		
 		sb.AppendLine();
 
@@ -752,7 +753,19 @@ internal static partial class Sources
 		#region Mock Type extensions
 
 		sb.Append("\t/// <inheritdoc cref=\"MockExtensionsFor").Append(name).Append("\" />").AppendLine();
-		sb.Append("\textension(").Append(@class.ClassFullName).Append(" mock)").AppendLine();
+		if (@class is MockClass { IsDiscovered: true, })
+		{
+			// A discovered mock is generated in one spelling, so its receiver is nullable-oblivious to accept every
+			// spelling that differs only in nullable annotations without a warning.
+			sb.Append("#nullable disable annotations").AppendLine();
+			sb.Append("\textension(").Append(@class.ClassFullName).Append(" mock)").AppendLine();
+			sb.Append("#nullable enable annotations").AppendLine();
+		}
+		else
+		{
+			sb.Append("\textension(").Append(@class.ClassFullName).Append(" mock)").AppendLine();
+		}
+
 		sb.Append("\t{").AppendLine();
 
 		#region Mock Property
@@ -921,6 +934,7 @@ internal static partial class Sources
 		if (@class is { ClassFullName: "global::System.Net.Http.HttpClient", })
 		{
 			sb.Append("\t\t\tglobal::Mockolate.MockBehavior effectiveBehavior = mockBehavior ?? global::Mockolate.MockBehavior.Default;").AppendLine();
+			AppendUseAutoMockFactory(sb, "\t\t\t", "effectiveBehavior", autoMocking);
 			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(effectiveBehavior, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(effectiveBehavior), constructorParameters);").AppendLine();
 			sb.Append("\t\t\tif (constructorParameters is null)").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
@@ -940,6 +954,7 @@ internal static partial class Sources
 		else
 		{
 			sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
+			AppendUseAutoMockFactory(sb, "\t\t\t", "mockBehavior", autoMocking);
 			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.").Append(name).Append(".MemberCount, constructorParameters);").AppendLine();
 		}
 
@@ -1408,13 +1423,14 @@ internal static partial class Sources
 	///     the registry before the chained constructor body has run.
 	/// </summary>
 	private static void AppendCreateRegistryFromBehavior(StringBuilder sb, string indent,
-		bool setsMockRegistryProvider)
+		bool setsMockRegistryProvider, bool autoMocking)
 	{
 		sb.Append(indent).Append("/// <summary>").AppendLine();
 		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.Internals.MockRegistry\" /> backed by a ").Append("<see cref=\"global::Mockolate.Internals.FastMockInteractions\" /> for the members of the mock, from <paramref name=\"behavior\" />.").AppendLine();
 		sb.Append(indent).Append("/// </summary>").AppendLine();
 		sb.Append(indent).Append("private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)").AppendLine();
 		sb.Append(indent).Append("{").AppendLine();
+		AppendUseAutoMockFactory(sb, indent + "\t", "behavior", autoMocking);
 		sb.Append(indent).Append("\tglobal::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);").AppendLine();
 		if (setsMockRegistryProvider)
 		{
@@ -1488,7 +1504,7 @@ internal static partial class Sources
 
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void AppendMockSubject_ImplementClass(StringBuilder sb, Class @class, string mockRegistryName,
-		MockClass? mockClass, MemberIdTable memberIds, string memberIdPrefix,
+		MockClass? mockClass, MemberIdTable memberIds, string memberIdPrefix, bool autoMocking,
 		Dictionary<string, int>? signatureIndicesOverride = null,
 		int[]? nextSignatureIndexRef = null,
 		bool useTypedRecords = true)
@@ -1539,7 +1555,7 @@ internal static partial class Sources
 
 				AppendMockSubject_ImplementClass_AddProperty(sb, property, mockRegistryName, className,
 					mockClass is not null,
-					@class.IsInterface, signatureIndex, memberIds, memberIdPrefix, useTypedRecords);
+					@class.IsInterface, signatureIndex, memberIds, memberIdPrefix, autoMocking, useTypedRecords);
 				sb.AppendLine();
 			}
 		}
@@ -1552,7 +1568,7 @@ internal static partial class Sources
 			{
 				AppendMockSubject_ImplementClass_AddMethod(sb, method, mockRegistryName, className,
 					mockClass is not null,
-					@class.IsInterface, @class, memberIds, memberIdPrefix, useTypedRecords);
+					@class.IsInterface, @class, memberIds, memberIdPrefix, autoMocking, useTypedRecords);
 				sb.AppendLine();
 			}
 		}
@@ -1710,7 +1726,7 @@ internal static partial class Sources
 	private static void AppendMockSubject_ImplementClass_AddProperty(StringBuilder sb, Property property,
 		string mockRegistryName,
 		string className, bool explicitInterfaceImplementation, bool isClassInterface, int signatureIndex,
-		MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords)
+		MemberIdTable memberIds, string memberIdPrefix, bool autoMocking, bool useTypedRecords)
 #pragma warning restore S107
 	{
 		string mockRegistry = property.IsStatic ? "MockRegistryProvider.Value" : $"this.{mockRegistryName}";
@@ -1984,7 +2000,8 @@ internal static partial class Sources
 								.AppendTypeOrWrapper(property.Type).Append(">(")
 								.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property))
 								.Append(", ").Append(accessFieldRef).Append(", static b => ")
-								.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue");
+								.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue",
+									autoMock: PropertyAutoMock(autoMocking, "b"));
 							if (baseValueAccessor is not null)
 							{
 								sb.Append(", ").Append(baseValueAccessor);
@@ -2013,7 +2030,8 @@ internal static partial class Sources
 						sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".GetProperty<")
 							.AppendTypeOrWrapper(property.Type).Append(">(")
 							.Append(propertyGetMemberArg).Append(accessFieldRef).Append(", () => ")
-							.AppendDefaultValueGeneratorFor(property.Type, $"{mockRegistry}.Behavior.DefaultValue");
+							.AppendDefaultValueGeneratorFor(property.Type, $"{mockRegistry}.Behavior.DefaultValue",
+								autoMock: PropertyAutoMock(autoMocking, $"{mockRegistry}.Behavior"));
 						if (!property.IsStatic)
 						{
 							sb.Append(", ").Append(mockRegistry).Append(".Wraps is not ").Append(wrapsType)
@@ -2080,7 +2098,8 @@ internal static partial class Sources
 							.AppendTypeOrWrapper(property.Type).Append(">(")
 							.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property))
 							.Append(", ").Append(accessFieldRef).Append(", static b => ")
-							.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue");
+							.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue",
+								autoMock: PropertyAutoMock(autoMocking, "b"));
 						if (property is { IsStatic: false, } && property.Getter?.IsProtected != true)
 						{
 							sb.Append(", ").Append(mockRegistry).Append(".Wraps is ").Append(wrapsType)
@@ -2099,7 +2118,8 @@ internal static partial class Sources
 						sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".GetProperty<")
 							.AppendTypeOrWrapper(property.Type).Append(">(")
 							.Append(propertyGetMemberArg).Append(accessFieldRef).Append(", () => ")
-							.AppendDefaultValueGeneratorFor(property.Type, $"{mockRegistry}.Behavior.DefaultValue");
+							.AppendDefaultValueGeneratorFor(property.Type, $"{mockRegistry}.Behavior.DefaultValue",
+								autoMock: PropertyAutoMock(autoMocking, $"{mockRegistry}.Behavior"));
 						if (property is { IsStatic: false, } && property.Getter?.IsProtected != true)
 						{
 							sb.Append(", ").Append(mockRegistry).Append(".Wraps is ").Append(wrapsType)
@@ -2137,7 +2157,8 @@ internal static partial class Sources
 						.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property))
 						.Append(", ").Append(accessFieldRef)
 						.Append(", static b => ")
-						.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue")
+						.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue",
+							autoMock: PropertyAutoMock(autoMocking, "b"))
 						.Append(");").AppendLine();
 				}
 				else
@@ -2146,7 +2167,8 @@ internal static partial class Sources
 						.AppendTypeOrWrapper(property.Type).Append(">(")
 						.Append(propertyGetMemberArg).Append(accessFieldRef)
 						.Append(", () => ")
-						.AppendDefaultValueGeneratorFor(property.Type, $"{mockRegistry}.Behavior.DefaultValue")
+						.AppendDefaultValueGeneratorFor(property.Type, $"{mockRegistry}.Behavior.DefaultValue",
+							autoMock: PropertyAutoMock(autoMocking, $"{mockRegistry}.Behavior"))
 						.Append(", null);").AppendLine();
 				}
 			}
@@ -2349,7 +2371,7 @@ internal static partial class Sources
 	private static void AppendMockSubject_ImplementClass_AddMethod(StringBuilder sb, Method method,
 		string mockRegistryName, string className,
 		bool explicitInterfaceImplementation, bool isClassInterface, Class @class,
-		MemberIdTable memberIds, string memberIdPrefix, bool useTypedRecords = true)
+		MemberIdTable memberIds, string memberIdPrefix, bool autoMocking, bool useTypedRecords = true)
 #pragma warning restore S107
 	{
 		string mockRegistry = method.IsStatic ? "MockRegistryProvider.Value" : $"this.{mockRegistryName}";
@@ -2501,7 +2523,8 @@ internal static partial class Sources
 		// be captured in a closure, so we emit a synchronous, stack-bound match/invoke loop.
 		if (method.Parameters.Any(p => p.NeedsRefStructPipeline()))
 		{
-			AppendMockSubject_ImplementClass_AddRefStructMethodBody(sb, method, mockRegistry);
+			AppendMockSubject_ImplementClass_AddRefStructMethodBody(sb, method, mockRegistry,
+				memberIdPrefix + memberIds.GetMethodIdentifier(method), autoMocking);
 			sb.AppendLine("\t\t}");
 			return;
 		}
@@ -2855,7 +2878,8 @@ internal static partial class Sources
 
 			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ")
 				.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue",
-					defaultValueGeneratorSuffix, taskSuffix)
+					defaultValueGeneratorSuffix, taskSuffix,
+					MethodAutoMock(autoMocking, mockRegistry, memberIdRef))
 				.Append(';').AppendLine();
 			if (isRefReturn)
 			{
@@ -2898,7 +2922,7 @@ internal static partial class Sources
 	///     </para>
 	/// </remarks>
 	private static void AppendMockSubject_ImplementClass_AddRefStructMethodBody(
-		StringBuilder sb, Method method, string mockRegistry)
+		StringBuilder sb, Method method, string mockRegistry, string memberIdRef, bool autoMocking)
 	{
 		sb.Append("#if NET9_0_OR_GREATER").AppendLine();
 
@@ -3022,7 +3046,8 @@ internal static partial class Sources
 			// type — matches the non-ref-struct pipeline's behavior when there is no wrapped base
 			// and no configured return.
 			sb.Append("\t\t\treturn ")
-				.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue")
+				.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue",
+					autoMock: MethodAutoMock(autoMocking, mockRegistry, memberIdRef))
 				.Append(';').AppendLine();
 		}
 
@@ -6777,6 +6802,33 @@ internal static partial class Sources
 	/// </summary>
 	private static bool IsTypedRecordingEligibleEvent(Event @event)
 		=> !@event.IsStatic;
+
+	/// <summary>
+	///     A property stores its first default value, so the auto-mock needs no cache of its own.
+	/// </summary>
+	private static Func<Type, (string Prefix, string Suffix)>? PropertyAutoMock(bool autoMocking, string behavior)
+		=> autoMocking
+			? type => ($"global::Mockolate.Internals.AutoMocks.Or<{type.Fullname}>({behavior}, ", ")")
+			: null;
+
+	/// <summary>
+	///     A method keeps its auto-mock in the registry, keyed by the member id.
+	/// </summary>
+	private static Func<Type, (string Prefix, string Suffix)>? MethodAutoMock(bool autoMocking, string mockRegistry,
+		string memberIdRef)
+		=> autoMocking
+			? type => ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, ", ")")
+			: null;
+
+	/// <summary>
+	///     Lets the mock create the auto-mocks of this assembly, so that their <c>Mock</c> property works here, and
+	///     without the build property removes the factory that a behavior of another assembly may carry.
+	/// </summary>
+	private static void AppendUseAutoMockFactory(StringBuilder sb, string indent, string behavior, bool autoMocking)
+	{
+		sb.Append(indent).Append(behavior).Append(" = global::Mockolate.Internals.AutoMocks.UseFactory(")
+			.Append(behavior).Append(autoMocking ? ", global::Mockolate.Mock.CreateAutoMock);" : ", null);").AppendLine();
+	}
 
 	/// <summary>
 	///     Methods with non-generic, non-ref-struct signatures are recorded typed; everything else (open

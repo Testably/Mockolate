@@ -67,4 +67,10 @@ public abstract class IndexerAccess : IInteraction
 			typedLeaf.HasValue = true;
 		}
 	}
+
+	/// <summary>
+	///     The storage node of this access, created if necessary, or <see langword="null" /> when no storage is attached.
+	/// </summary>
+	internal IndexerValueStorage<T>? GetOrCreateLeaf<T>()
+		=> TraverseStorage(Storage, true) as IndexerValueStorage<T>;
 }

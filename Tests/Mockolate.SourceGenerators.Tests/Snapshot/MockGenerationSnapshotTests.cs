@@ -43,6 +43,15 @@ public sealed partial class MockGenerationSnapshotTests
     internal static readonly IReadOnlyList<SnapshotScenario> Scenarios =
     [
         new(
+            "AutoMock_CanBeCreated",
+            ["IAutoMockRoot.cs", "Packet.cs",],
+            """
+            IAutoMockRoot sut1 = IAutoMockRoot.CreateMock();
+            AutoMockChildFactory sut2 = AutoMockChildFactory.CreateMock();
+            """,
+            [],
+            AutoMocking: true),
+        new(
             "BaseClass_WithMultipleAdditionalInterfaces_CanBeCreated",
             ["ComprehensiveAbstractClass.cs", "MyAbstractBase.cs", "ICombinationMockA.cs", "ICombinationMockB.cs",],
             """
@@ -543,6 +552,9 @@ public sealed partial class MockGenerationSnapshotTests
 
         // Classic scenarios are pinned to C# 14 so that they keep describing the classic overload set.
         // Documentation comments are diagnosed so that an invalid cref in the generated code fails the scenario.
+        Dictionary<string, string>? globalOptions = scenario.AutoMocking
+            ? new Dictionary<string, string> { ["build_property.MockolateAutoMocking"] = "true", }
+            : null;
         if (scenario.UnionMode)
         {
             return Generator.Run(
@@ -550,6 +562,7 @@ public sealed partial class MockGenerationSnapshotTests
                 ["NET9_0_OR_GREATER", "NET10_0_OR_GREATER", "NET11_0_OR_GREATER",],
                 LanguageVersion.CSharp15,
                 DocumentationMode.Diagnose,
+                globalOptions,
                 scenario.AssemblyTypes);
         }
 
@@ -558,6 +571,7 @@ public sealed partial class MockGenerationSnapshotTests
             ["NET9_0_OR_GREATER", "NET10_0_OR_GREATER",],
             LanguageVersion.CSharp14,
             DocumentationMode.Diagnose,
+            globalOptions,
             scenario.AssemblyTypes);
     }
 

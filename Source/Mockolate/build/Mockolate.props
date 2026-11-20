@@ -9,6 +9,12 @@
 		     PolySharp ships); otherwise a ';'-separated list of attribute names (UnionAttribute,
 		     OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute). -->
 		<CompilerVisibleProperty Include="MockolateUnionAttributePolyfills"/>
+		<!-- Set it to true to generate mocks for the interfaces that mocked members return, so that
+		     mocks return them instead of null, unless their MockBehavior skips auto-mocking. -->
+		<CompilerVisibleProperty Include="MockolateAutoMocking"/>
+		<!-- A ';'-separated list of namespaces whose interfaces (also in nested namespaces) get no mock for
+		     auto-mocking unless the project creates one with CreateMock. -->
+		<CompilerVisibleProperty Include="MockolateAutoMockingExcludedNamespaces"/>
 	</ItemGroup>
 
 </Project>

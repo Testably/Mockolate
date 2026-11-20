@@ -23,7 +23,14 @@ internal partial class MockSetups
 
 		public int Count => Volatile.Read(ref _count);
 
-		public void Add(PropertySetup setup)
+		/// <summary>
+		///     Adds the <paramref name="setup" /> and returns the setup that is now registered for its name.
+		/// </summary>
+		/// <remarks>
+		///     A default placeholder never replaces an existing setup, so that concurrent first reads of a property
+		///     return the same default value, e.g. the same auto-mock.
+		/// </remarks>
+		public PropertySetup Add(PropertySetup setup)
 		{
 			lock (_writeLock)
 			{
@@ -41,21 +48,17 @@ internal partial class MockSetups
 
 				if (existingIndex >= 0)
 				{
-					bool wasDefault = old[existingIndex] is PropertySetup.Default;
-					bool isDefault = setup is PropertySetup.Default;
-					// Never overwrite a user-configured setup with a default placeholder:
-					// a first property access can race with Setup...InitializeWith(...) and
-					// otherwise lose the user's setup.
-					if (isDefault && !wasDefault)
+					if (setup is PropertySetup.Default)
 					{
-						return;
+						return old[existingIndex];
 					}
 
+					bool wasDefault = old[existingIndex] is PropertySetup.Default;
 					PropertySetup[] next = new PropertySetup[old.Length];
 					Array.Copy(old, next, old.Length);
 					next[existingIndex] = setup;
 					Volatile.Write(ref _storage, next);
-					if (wasDefault && !isDefault)
+					if (wasDefault)
 					{
 						Volatile.Write(ref _count, _count + 1);
 					}
@@ -71,6 +74,8 @@ internal partial class MockSetups
 						Volatile.Write(ref _count, _count + 1);
 					}
 				}
+
+				return setup;
 			}
 		}
 

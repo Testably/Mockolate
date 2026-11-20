@@ -1,3 +1,5 @@
+using Mockolate.Internals;
+using Mockolate.Tests.GeneratorCoverage;
 using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests;
@@ -13,6 +15,17 @@ public sealed partial class MockBehaviorTests
 		await That(behavior.SkipBaseClass).IsFalse();
 		await That(behavior.ThrowWhenNotSetup).IsFalse();
 		await That(behavior.DefaultValue).IsNotNull();
+	}
+
+	[Test]
+	public async Task AutoMockFactoryOfAnotherAssembly_ShouldNotCreateAutoMocksWithoutTheBuildProperty()
+	{
+		IAutoMockChild child = IAutoMockChild.CreateMock();
+		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (_, _) => child);
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
+
+		await That(sut[1]).IsNull()
+			.Because("this project does not set the MockolateAutoMocking build property");
 	}
 
 	[Test]
@@ -159,13 +172,15 @@ public sealed partial class MockBehaviorTests
 		MockBehavior behavior = MockBehavior.Default
 			.ThrowingWhenNotSetup()
 			.SkippingBaseClass()
-			.SkippingInteractionRecording();
+			.SkippingInteractionRecording()
+			.SkippingAutoMocking();
 
 		string result = behavior.ToString();
 
 		await That(result).Contains("ThrowingWhenNotSetup");
 		await That(result).Contains("SkippingBaseClass");
 		await That(result).Contains("SkippingInteractionRecording");
+		await That(result).Contains("SkippingAutoMocking");
 	}
 
 	private sealed class MyDefaultValueGenerator : IDefaultValueGenerator

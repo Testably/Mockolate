@@ -32,6 +32,12 @@ public static class Generator
 		MetadataReference[] externalReferences, params Type[] assemblyTypes)
 		=> RunCore([source,], DocumentationMode.Parse, [], externalReferences, assemblyTypes);
 
+	public static GeneratorResult RunWithReferences([StringSyntax("c#-test")] string source,
+		MetadataReference[] externalReferences, IReadOnlyDictionary<string, string>? globalOptions,
+		params Type[] assemblyTypes)
+		=> RunCore([source,], DocumentationMode.Parse, [], externalReferences, assemblyTypes,
+			globalOptions: globalOptions);
+
 	public static GeneratorResult Run([StringSyntax("c#-test")] string source, LanguageVersion languageVersion,
 		IReadOnlyDictionary<string, string>? globalOptions)
 		=> RunCore([source,], DocumentationMode.Parse, [], [], [], languageVersion, globalOptions);
@@ -44,6 +50,11 @@ public static class Generator
 	public static GeneratorResult Run(string[] sources, string[] preprocessorSymbols, LanguageVersion languageVersion,
 		DocumentationMode documentationMode, params Type[] assemblyTypes)
 		=> RunCore(sources, documentationMode, preprocessorSymbols, [], assemblyTypes, languageVersion);
+
+	public static GeneratorResult Run(string[] sources, string[] preprocessorSymbols, LanguageVersion languageVersion,
+		DocumentationMode documentationMode, IReadOnlyDictionary<string, string>? globalOptions,
+		params Type[] assemblyTypes)
+		=> RunCore(sources, documentationMode, preprocessorSymbols, [], assemblyTypes, languageVersion, globalOptions);
 
 	private static GeneratorResult RunCore(string[] sources, DocumentationMode documentationMode,
 		string[] preprocessorSymbols, MetadataReference[] externalReferences, Type[] assemblyTypes,

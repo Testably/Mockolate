@@ -23,17 +23,19 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task Add_DefaultPlaceholderOverDefault_ShouldKeepDefaultEntry()
+		public async Task Add_DefaultPlaceholderOverDefault_ShouldKeepFirstDefaultEntry()
 		{
 			MockSetups.PropertySetups setups = new();
 			PropertySetup firstDefault = new PropertySetup.Default<int>("p", 0);
 			PropertySetup secondDefault = new PropertySetup.Default<int>("p", 0);
 
 			setups.Add(firstDefault);
-			setups.Add(secondDefault);
+			PropertySetup registered = setups.Add(secondDefault);
 
 			setups.TryGetValue("p", out PropertySetup? found);
-			await That(found).IsSameAs(secondDefault);
+			await That(found).IsSameAs(firstDefault)
+				.Because("concurrent first reads of a property must all return the first default value");
+			await That(registered).IsSameAs(firstDefault);
 			await That(setups.Count).IsEqualTo(0);
 		}
 

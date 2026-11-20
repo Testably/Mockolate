@@ -25,7 +25,7 @@ public class MockGenerator : IIncrementalGenerator
 		// Per-mock stream. Equality on MockClass is now keyed only on its canonical identity
 		// (ClassFullName + AdditionalImplementations.ClassFullName), so Roslyn can correctly skip
 		// per-mock outputs when the same mock identity is rediscovered across edits.
-		IncrementalValuesProvider<MockClass> mocksProvider = context.SyntaxProvider
+		IncrementalValuesProvider<MockCreation> creations = context.SyntaxProvider
 			.CreateSyntaxProvider(
 				static (s, _) => s.IsCreateMethodInvocation(),
 				static (ctx, _) =>
@@ -36,18 +36,49 @@ public class MockGenerator : IIncrementalGenerator
 					// IEnumerable inside the using scope; the cache scope unwinds on return.
 					EntityCache cache = EntityCache.GetOrCreate(ctx.SemanticModel.Compilation);
 					using EntityCache.Scope scope = EntityCache.EnterScope(cache);
-					return ctx.Node
-						.ExtractMockOrMockFactoryCreateSyntaxOrDefault(ctx.SemanticModel)
-						.ToArray();
-				})
-			.SelectMany(static (mocks, _) => mocks);
+					return new MockCreation(
+						new EquatableArray<MockClass>(ctx.Node
+							.ExtractMockOrMockFactoryCreateSyntaxOrDefault(ctx.SemanticModel)
+							.ToArray()),
+						new CreateMockLocation(ctx.Node.SyntaxTree.FilePath, ctx.Node.Span.Start, ctx.Node.Span.Length));
+				});
+		IncrementalValuesProvider<MockClass> mocksProvider = creations
+			.SelectMany(static (creation, _) => creation.Mocks);
+
+		IncrementalValueProvider<bool> autoMocking = context.AnalyzerConfigOptionsProvider
+			.Select(static (options, _) =>
+				options.GlobalOptions.TryGetValue("build_property.MockolateAutoMocking", out string? value) &&
+				string.Equals(value.Trim(), "true", StringComparison.OrdinalIgnoreCase));
+
+		IncrementalValueProvider<EquatableArray<string>> excludedNamespaces = context.AnalyzerConfigOptionsProvider
+			.Select(static (options, _) => new EquatableArray<string>(
+				options.GlobalOptions.TryGetValue("build_property.MockolateAutoMockingExcludedNamespaces",
+					out string? value)
+					? value.Split([';',], StringSplitOptions.RemoveEmptyEntries)
+						.Select(@namespace => @namespace.Trim())
+						.Where(@namespace => @namespace.Length > 0)
+						.ToArray()
+					: []));
+
+		// Mocks for auto-mocking are only discovered with the MockolateAutoMocking build property, from the
+		// CreateMock calls bound again in the current compilation, so that every other compilation does no work
+		// for them and its output stays unchanged.
+		IncrementalValueProvider<EquatableArray<MockClass>> discoveredMocks = creations
+			.Select(static (creation, _) => creation.Location)
+			.Collect()
+			.Combine(autoMocking.Combine(excludedNamespaces))
+			.Combine(context.CompilationProvider)
+			.Select(static (source, cancellationToken) => source.Left.Right.Left
+				? DiscoverAutoMocks(source.Left.Left, source.Right, source.Left.Right.Right, cancellationToken)
+				: new EquatableArray<MockClass>([]));
 
 		// Stable, deduplicated, sorted view across all mocks. Used by every cross-mock stage
 		// (naming, aggregate setup files). Sorting by ClassFullName makes the array's content
 		// deterministic so downstream Select stages cache cleanly.
 		IncrementalValueProvider<EquatableArray<MockClass>> collectedMocks = mocksProvider
 			.Collect()
-			.Select(static (mocks, _) => Distinct(mocks));
+			.Combine(discoveredMocks)
+			.Select(static (source, _) => Distinct(source.Left, source.Right));
 
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
 			.Select(static (compilation, _) => HasAttribute(compilation,
@@ -103,16 +134,18 @@ public class MockGenerator : IIncrementalGenerator
 
 		// Naming step: cross-mock disambiguation. Cached as a unit; one NamedMock per emission.
 		IncrementalValueProvider<EquatableArray<NamedMock>> namedMocksAggregate = collectedMocks
-			.Select(static (arr, _) => CreateNamedMocks(arr));
+			.Combine(autoMocking)
+			.Select(static (source, _) => CreateNamedMocks(source.Left, source.Right));
 
 		IncrementalValuesProvider<NamedMock> perMock = namedMocksAggregate
 			.SelectMany(static (arr, _) => arr);
 
 		// Per-mock source output: cache hit when the NamedMock is identity-equal to last run.
 		context.RegisterSourceOutput(
-			perMock.Combine(canUseOverloadResolutionPriority).Combine(hasUnionSupport).Combine(externAliases),
-			static (spc, source) => EmitMockFile(spc, source.Left.Left.Left, source.Left.Left.Right, source.Left.Right,
-				source.Right));
+			perMock.Combine(canUseOverloadResolutionPriority).Combine(hasUnionSupport).Combine(externAliases)
+				.Combine(autoMocking),
+			static (spc, source) => EmitMockFile(spc, source.Left.Left.Left.Left, source.Left.Left.Left.Right,
+				source.Left.Left.Right, source.Left.Right, source.Right));
 
 		// As<T> bridge extensions across (a, b) pairs. Cross-mock dedup; one file.
 		IncrementalValueProvider<EquatableArray<MockAsExtensionPair>> asPairs = namedMocksAggregate
@@ -132,16 +165,17 @@ public class MockGenerator : IIncrementalGenerator
 			.Select(static (arr, _) => CollectIndexerSetupKeys(arr));
 
 		context.RegisterSourceOutput(
-			indexerSetupKeys.Combine(canUseOverloadResolutionPriority).Combine(externAliases),
+			indexerSetupKeys.Combine(canUseOverloadResolutionPriority).Combine(externAliases).Combine(autoMocking),
 			static (spc, source) =>
 			{
-				if (source.Left.Left.Count == 0)
+				((EquatableArray<IndexerSetupKey> keys, bool priority), EquatableArray<string> aliases) = source.Left;
+				if (keys.Count == 0)
 				{
 					return;
 				}
 
 				spc.AddSource("IndexerSetups.g.cs",
-					ToSource(Sources.Sources.IndexerSetups(source.Left.Left, source.Left.Right), source.Right));
+					ToSource(Sources.Sources.IndexerSetups(keys, priority, source.Right), aliases));
 			});
 
 		IncrementalValueProvider<EquatableArray<MethodSetupKey>> methodSetupKeys = collectedMocks
@@ -204,9 +238,18 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<bool> includeHttpClient = collectedMocks
 			.Select(static (arr, _) => arr.AsArray().Any(m => m.ClassFullName == "global::System.Net.Http.HttpClient"));
 
-		context.RegisterSourceOutput(includeHttpClient.Combine(externAliases), static (spc, source) =>
+		IncrementalValueProvider<EquatableArray<string>?> autoMockableTypes = collectedMocks
+			.Combine(autoMocking)
+			.Select(static (source, _) => source.Right
+				? new EquatableArray<string>(source.Left.AsArray()
+					.Where(m => m.IsAutoMockable && IsValidMockDeclaration(m))
+					.Select(m => m.ClassFullName)
+					.ToArray())
+				: (EquatableArray<string>?)null);
+
+		context.RegisterSourceOutput(includeHttpClient.Combine(autoMockableTypes).Combine(externAliases), static (spc, source) =>
 			spc.AddSource("MockBehaviorExtensions.g.cs",
-				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left), source.Right)));
+				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left.Left, source.Left.Right), source.Right)));
 
 		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute and
 		// CallerArgumentExpressionAttribute from another generator (PolySharp); any other value is a ';'-separated
@@ -309,7 +352,54 @@ public class MockGenerator : IIncrementalGenerator
 			: source.Insert(Sources.Sources.AutoGeneratedHeader.Length, directives.ToString());
 	}
 
-	private static EquatableArray<MockClass> Distinct(ImmutableArray<MockClass> mocks)
+	/// <summary>
+	///     Binds the <paramref name="locations" /> of the <c>CreateMock</c> calls again and discovers the mocks for
+	///     auto-mocking of the types they mock.
+	/// </summary>
+	private static EquatableArray<MockClass> DiscoverAutoMocks(ImmutableArray<CreateMockLocation> locations,
+		Compilation compilation, EquatableArray<string> excludedNamespaces, CancellationToken cancellationToken)
+	{
+		EntityCache cache = EntityCache.GetOrCreate(compilation);
+		using EntityCache.Scope scope = EntityCache.EnterScope(cache);
+		ILookup<string, SyntaxTree> trees = compilation.SyntaxTrees.ToLookup(tree => tree.FilePath, StringComparer.Ordinal);
+		Dictionary<SyntaxTree, SemanticModel> semanticModels = new();
+		List<ITypeSymbol[]> mockedTypes = [];
+		foreach (CreateMockLocation location in locations)
+		{
+			TextSpan span = new(location.Start, location.Length);
+			// Trees without a file path share the empty one, so every tree with the path is a candidate.
+			foreach (SyntaxTree tree in trees[location.FilePath])
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+				SyntaxNode root = tree.GetRoot(cancellationToken);
+				if (!root.FullSpan.Contains(span) ||
+				    root.FindNode(span, getInnermostNodeForTie: true) is not { } node ||
+				    node.Span != span || !node.IsCreateMethodInvocation())
+				{
+					continue;
+				}
+
+				if (!semanticModels.TryGetValue(tree, out SemanticModel? semanticModel))
+				{
+					semanticModel = compilation.GetSemanticModel(tree);
+					semanticModels[tree] = semanticModel;
+				}
+
+				mockedTypes.AddRange(node.ExtractMockedTypes(semanticModel));
+			}
+		}
+
+		return new EquatableArray<MockClass>(MockGeneratorHelpers.DiscoverAutoMocks(mockedTypes, compilation,
+			excludedNamespaces, cancellationToken));
+	}
+
+	/// <remarks>
+	///     A mock that a <c>CreateMock</c> call names wins over one discovered for auto-mocking, and two spellings of the
+	///     same runtime type (nullable annotations, tuple element names) share one mock, because a second one would make
+	///     <c>CreateMock</c> ambiguous.
+	/// </remarks>
+	private static EquatableArray<MockClass> Distinct(ImmutableArray<MockClass> mocks,
+		EquatableArray<MockClass> discoveredMocks)
 	{
 		if (mocks.IsDefaultOrEmpty)
 		{
@@ -317,10 +407,20 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		HashSet<MockClass> seen = new();
-		List<MockClass> distinct = new(mocks.Length);
+		HashSet<string> seenIdentities = new(StringComparer.Ordinal);
+		List<MockClass> distinct = new(mocks.Length + discoveredMocks.Count);
 		foreach (MockClass mc in mocks)
 		{
 			if (seen.Add(mc))
+			{
+				distinct.Add(mc);
+				seenIdentities.Add(mc.IdentityKey);
+			}
+		}
+
+		foreach (MockClass mc in discoveredMocks)
+		{
+			if (seenIdentities.Add(mc.IdentityKey))
 			{
 				distinct.Add(mc);
 			}
@@ -488,7 +588,7 @@ public class MockGenerator : IIncrementalGenerator
 			new EquatableArray<RefStructIndexerSetup>(indexerArr));
 	}
 
-	private static EquatableArray<NamedMock> CreateNamedMocks(EquatableArray<MockClass> mocks)
+	private static EquatableArray<NamedMock> CreateNamedMocks(EquatableArray<MockClass> mocks, bool autoMocking)
 	{
 		MockClass[] arr = mocks.AsArray();
 		if (arr.Length == 0)
@@ -497,6 +597,12 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		HashSet<string> classNames = new(StringComparer.OrdinalIgnoreCase);
+		if (autoMocking)
+		{
+			// Reserved for the auto-mock factory that MockBehaviorExtensions.g.cs declares in the same class.
+			classNames.Add("CreateAutoMock");
+		}
+
 		Dictionary<string, string> baseClassNames = new(StringComparer.Ordinal);
 		List<NamedMock> result = new(arr.Length);
 		HashSet<string> seenBaseClasses = new(StringComparer.Ordinal);
@@ -511,9 +617,10 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		// Pass 1a: assign disambiguated names to every distinct base/additional/hidden-base class. The
-		// order here must be deterministic so the same input set always yields the same names.
+		// order here must be deterministic so the same input set always yields the same names. Mocks named in a
+		// CreateMock call come first, so that a mock discovered for auto-mocking never renames them.
 		List<Class> orderedClasses = new();
-		foreach (MockClass mc in arr)
+		foreach (MockClass mc in arr.OrderBy(mc => mc.IsDiscovered))
 		{
 			if (!IsValidMockDeclaration(mc))
 			{
@@ -639,7 +746,7 @@ public class MockGenerator : IIncrementalGenerator
 	}
 
 	private static void EmitMockFile(SourceProductionContext context, NamedMock named, bool hasOverloadResolutionPriority,
-		bool hasUnionSupport, EquatableArray<string> externAliases)
+		bool hasUnionSupport, EquatableArray<string> externAliases, bool autoMocking)
 	{
 		string fileName = named.FileName;
 		Class @class = named.Mock;
@@ -649,7 +756,7 @@ public class MockGenerator : IIncrementalGenerator
 		if (@class is MockClass { Delegate: not null, } mockClass)
 		{
 			context.AddSource($"Mock.{fileName}.g.cs",
-				ToSource(Sources.Sources.MockDelegate(named.ParentName, mockClass, mockClass.Delegate,
+				ToSource(Sources.Sources.MockDelegate(named.ParentName, mockClass, mockClass.Delegate, autoMocking,
 					hasOverloadResolutionPriority, useUnionOverloads), externAliases));
 			return;
 		}
@@ -668,7 +775,7 @@ public class MockGenerator : IIncrementalGenerator
 			}
 
 			context.AddSource($"Mock.{fileName}.g.cs",
-				ToSource(Sources.Sources.MockClass(named.ParentName, @class, hasOverloadResolutionPriority, hiddenBaseArr,
+				ToSource(Sources.Sources.MockClass(named.ParentName, @class, autoMocking, hasOverloadResolutionPriority, hiddenBaseArr,
 					useUnionOverloads), externAliases));
 			return;
 		}
@@ -681,7 +788,7 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		context.AddSource($"Mock.{fileName}.g.cs",
-			ToSource(Sources.Sources.MockCombinationClass(fileName, named.ParentName, @class, additionalArr, hasOverloadResolutionPriority,
+			ToSource(Sources.Sources.MockCombinationClass(fileName, named.ParentName, @class, additionalArr, autoMocking, hasOverloadResolutionPriority,
 				useUnionOverloads), externAliases));
 	}
 
@@ -692,6 +799,10 @@ public class MockGenerator : IIncrementalGenerator
 }
 
 internal readonly record struct MethodSetupKey(int Arity, bool IsVoid);
+
+internal readonly record struct CreateMockLocation(string FilePath, int Start, int Length);
+
+internal readonly record struct MockCreation(EquatableArray<MockClass> Mocks, CreateMockLocation Location);
 
 internal readonly record struct RefStructIndexerSetup(int Arity, bool HasGetter, bool HasSetter);
 

@@ -6,7 +6,8 @@ internal static partial class Sources
 {
 	public static string IndexerSetups(
 		IEnumerable<IndexerSetupKey> indexerSetups,
-		bool hasOverloadResolutionPriority)
+		bool hasOverloadResolutionPriority,
+		bool autoMocking)
 	{
 		StringBuilder sb = InitializeBuilder();
 
@@ -19,7 +20,7 @@ internal static partial class Sources
 		foreach (IndexerSetupKey item in indexerSetups)
 		{
 			sb.AppendLine();
-			AppendIndexerSetup(sb, item.Arity, item.NeedsGetterOnly, item.NeedsSetterOnly);
+			AppendIndexerSetup(sb, item.Arity, item.NeedsGetterOnly, item.NeedsSetterOnly, autoMocking);
 			if (item.NeedsGetterOnly)
 			{
 				AppendGetterOnlyIndexerInterfaces(sb, item.Arity);
@@ -299,7 +300,7 @@ internal static partial class Sources
 	}
 
 	private static void AppendIndexerSetup(StringBuilder sb, int numberOfParameters,
-		bool needsGetterOnly, bool needsSetterOnly)
+		bool needsGetterOnly, bool needsSetterOnly, bool autoMocking)
 	{
 		string typeParams = GetGenericTypeParameters(numberOfParameters);
 		string outTypeParams = GetOutGenericTypeParameters(numberOfParameters);
@@ -1114,7 +1115,9 @@ internal static partial class Sources
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t\telse").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tcurrentValue = TryCast(behavior.DefaultValue.Generate(default(TValue)!), out TValue casted, behavior) ? casted : default!;").AppendLine();
+		sb.Append(autoMocking
+			? "\t\t\t\tcurrentValue = TryCast(global::Mockolate.Internals.AutoMocks.Or(behavior, behavior.DefaultValue.Generate(default(TValue)!), access), out TValue casted, behavior) ? casted : default!;"
+			: "\t\t\t\tcurrentValue = TryCast(behavior.DefaultValue.Generate(default(TValue)!), out TValue casted, behavior) ? casted : default!;").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\tcurrentValue = ExecuteGetterCallbacks(").Append(parameters).Append(", currentValue);").AppendLine();

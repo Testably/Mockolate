@@ -1,9 +1,12 @@
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading;
+using Mockolate.Internals;
 
 namespace Mockolate.Setup;
 
@@ -13,7 +16,38 @@ namespace Mockolate.Setup;
 #endif
 internal partial class MockSetups : MockScenarioSetup
 {
+	private static readonly object NoAutoMock = new();
+	private ConcurrentDictionary<(int MemberId, Type Type), object>? _autoMocks;
+
 	internal Dictionary<string, MockScenarioSetup>? Scenarios { get; private set; }
+
+	/// <summary>
+	///     Returns the auto-mock of the <paramref name="type" /> cached for <paramref name="memberId" />, or creates and
+	///     caches one, so that the member keeps returning the same configurable mock.
+	/// </summary>
+	/// <remarks>
+	///     The mock is created outside of any lock, because creating it runs user callbacks (e.g. of
+	///     <c>Initialize&lt;T&gt;</c>). When two threads race, both create a mock, but both return the first one stored.
+	///     A type without a generated mock is remembered as well, so that the factory is not asked again. The type is
+	///     part of the key, because mocks that share their setups (e.g. an <c>HttpClient</c> and its handler) number
+	///     their members independently.
+	/// </remarks>
+	public object? GetOrAddAutoMock(int memberId, Type type, MockBehavior behavior)
+	{
+		ConcurrentDictionary<(int MemberId, Type Type), object>? autoMocks = Volatile.Read(ref _autoMocks);
+		if (autoMocks is null)
+		{
+			ConcurrentDictionary<(int MemberId, Type Type), object> created = new();
+			autoMocks = Interlocked.CompareExchange(ref _autoMocks, created, null) ?? created;
+		}
+
+		if (!autoMocks.TryGetValue((memberId, type), out object? stored))
+		{
+			stored = autoMocks.GetOrAdd((memberId, type), AutoMocks.Create(type, behavior) ?? NoAutoMock);
+		}
+
+		return ReferenceEquals(stored, NoAutoMock) ? null : stored;
+	}
 
 	public MockScenarioSetup GetOrCreateScenario(string setupScenario)
 	{

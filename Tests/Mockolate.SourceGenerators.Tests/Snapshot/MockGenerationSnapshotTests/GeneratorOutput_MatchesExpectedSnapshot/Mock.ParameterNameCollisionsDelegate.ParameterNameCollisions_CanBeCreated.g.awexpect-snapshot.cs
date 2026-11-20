@@ -895,6 +895,7 @@ internal static partial class MockExtensionsForParameterNameCollisionsDelegate
 		public static global::Mockolate.Tests.GeneratorCoverage.ParameterNameCollisionsDelegate CreateMock(global::Mockolate.MockBehavior? mockBehavior = null, params global::System.Action<global::Mockolate.Mock.IMockSetupForParameterNameCollisionsDelegate>[] setups)
 		{
 			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
 			var mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));
 			global::Mockolate.Mock.ParameterNameCollisionsDelegate mockTarget = new global::Mockolate.Mock.ParameterNameCollisionsDelegate(mockRegistry);
 			if (setups.Length > 0)

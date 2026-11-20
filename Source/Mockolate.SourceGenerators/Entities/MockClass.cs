@@ -10,9 +10,13 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	private readonly Dictionary<Method, Method> _methodImplementations;
 	private readonly Dictionary<Property, Property> _propertyImplementations;
 
-	public MockClass(ITypeSymbol[] types, Compilation compilation) : base(types[0], compilation.Assembly)
+	public MockClass(ITypeSymbol[] types, Compilation compilation, bool isDiscovered = false)
+		: base(types[0], compilation.Assembly)
 	{
 		IAssemblySymbol sourceAssembly = compilation.Assembly;
+		IsDiscovered = isDiscovered;
+		IdentityKey = string.Join("|", types.Select(type =>
+			type.ToDisplayString(IdentityFormat) + "@" + string.Join(",", GetAssemblyNames(type))));
 		AdditionalImplementations = new EquatableArray<Class>(
 			types.Skip(1).Select(x => new Class(x, sourceAssembly)).ToArray());
 
@@ -51,8 +55,42 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 			}
 		}
 
+		IsAutoMockable = types.Length == 1 && MockGeneratorHelpers.IsAutoMockable(types[0]);
+
 		_mockSurfaceHash = ComputeMockSurfaceHash();
 	}
+
+	/// <summary>
+	///     Whether this mock can be returned as an auto-mock (see <see cref="Type.IsAutoMockable" />).
+	/// </summary>
+	public bool IsAutoMockable { get; }
+
+	/// <summary>
+	///     Whether the generator found this mock as the return type of another mock, for auto-mocking, instead of in a
+	///     <c>CreateMock</c> call.
+	/// </summary>
+	public bool IsDiscovered { get; }
+
+	/// <summary>
+	///     The mocked types without nullable annotations and tuple element names, so that two spellings of the same
+	///     runtime type share one mock, together with their assemblies, so that types with the same name from
+	///     extern-aliased assemblies do not.
+	/// </summary>
+	public string IdentityKey { get; }
+
+	private static readonly SymbolDisplayFormat IdentityFormat = new(
+		SymbolDisplayGlobalNamespaceStyle.Included,
+		SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+		SymbolDisplayGenericsOptions.IncludeTypeParameters,
+		miscellaneousOptions: SymbolDisplayMiscellaneousOptions.ExpandValueTuple);
+
+	private static IEnumerable<string?> GetAssemblyNames(ITypeSymbol type)
+		=> type switch
+		{
+			IArrayTypeSymbol array => GetAssemblyNames(array.ElementType),
+			INamedTypeSymbol named => [named.ContainingAssembly?.Identity.Name, ..named.TypeArguments.SelectMany(GetAssemblyNames),],
+			_ => [],
+		};
 
 	public Method? Delegate { get; }
 
@@ -113,6 +151,8 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		=> ReferenceEquals(this, other) ||
 		   (other is not null &&
 		    _mockSurfaceHash == other._mockSurfaceHash &&
+		    IsDiscovered == other.IsDiscovered &&
+		    IsAutoMockable == other.IsAutoMockable &&
 		    ClassFullName == other.ClassFullName);
 
 	public override bool Equals(Class? other) => other is MockClass mc && Equals(mc);

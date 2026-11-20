@@ -20,6 +20,31 @@ public class MockClassEqualityTests
 	}
 
 	[Test]
+	public async Task DiscoveredAndExplicitMockClassOfTheSameType_ShouldNotBeEqual()
+	{
+		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source, "IBase");
+
+		MockClass explicitMock = new([symbols[0],], compilation);
+		MockClass discovered = new([symbols[0],], compilation, isDiscovered: true);
+
+		await That(explicitMock.Equals(discovered)).IsFalse()
+			.Because("the incremental cache must notice when a mock is no longer only discovered for auto-mocking");
+		await That(explicitMock.IdentityKey).IsEqualTo(discovered.IdentityKey);
+	}
+
+	[Test]
+	public async Task TwoDiscoveredMockClassesOfTheSameType_ShouldBeEqual()
+	{
+		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source, "IBase");
+
+		MockClass a = new([symbols[0],], compilation, isDiscovered: true);
+		MockClass b = new([symbols[0],], compilation, isDiscovered: true);
+
+		await That(a.Equals(b)).IsTrue();
+		await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
+	}
+
+	[Test]
 	public async Task TwoMockClassesWithDifferentConstructors_ShouldNotBeEqual()
 	{
 		(Compilation compilation, INamedTypeSymbol[] symbols) = ParseSymbols(Source,

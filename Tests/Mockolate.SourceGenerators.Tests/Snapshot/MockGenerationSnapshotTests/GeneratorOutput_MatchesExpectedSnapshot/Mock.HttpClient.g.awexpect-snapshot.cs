@@ -37,6 +37,7 @@ internal static partial class Mock
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
+			behavior = global::Mockolate.Internals.AutoMocks.UseFactory(behavior, null);
 			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
 			MockRegistryProvider.Value = registry;
 			return registry;
@@ -1411,6 +1412,7 @@ internal static partial class MockExtensionsForHttpClient
 			}
 
 			global::Mockolate.MockBehavior effectiveBehavior = mockBehavior ?? global::Mockolate.MockBehavior.Default;
+			effectiveBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(effectiveBehavior, null);
 			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(effectiveBehavior, global::Mockolate.Mock.HttpClient.CreateFastInteractions(effectiveBehavior), constructorParameters);
 			if (constructorParameters is null)
 			{

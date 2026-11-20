@@ -421,7 +421,7 @@ public partial class MockRegistry
 			throw new MockNotSetupException($"{access} was accessed without prior setup.");
 		}
 
-		TResult value = Behavior.DefaultValue.GenerateTyped<TResult>();
+		TResult value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TResult>(), access);
 		access.StoreValue(value);
 		return value;
 	}
@@ -950,6 +950,8 @@ public partial class MockRegistry
 		Func<TResult>? baseValueAccessor,
 		bool forceReinitWhenFound)
 	{
+		bool hasGeneratedValue = false;
+		TResult generatedValue = default!;
 		PropertySetup? existingSetup = null;
 		if (!string.IsNullOrEmpty(Scenario) &&
 		    Setup.TryGetScenario(Scenario, out MockScenarioSetup? scopedBucket) &&
@@ -966,10 +968,12 @@ public partial class MockRegistry
 					$"The property '{propertyName}' was accessed without prior setup.");
 			}
 
-			TResult initialValue = GetInitialValue();
-			PropertySetup setup = new PropertySetup.Default<TResult>(propertyName, initialValue);
-			Setup.Properties.Add(setup);
-			return setup;
+			existingSetup = Setup.Properties.Add(new PropertySetup.Default<TResult>(propertyName, GetInitialValue()));
+			// A user setup that was added concurrently still needs its initial value.
+			if (existingSetup is PropertySetup.Default)
+			{
+				return existingSetup;
+			}
 		}
 
 		if (forceReinitWhenFound || !existingSetup.IsValueInitialized)
@@ -982,9 +986,19 @@ public partial class MockRegistry
 			else
 			{
 				bool skipBase = ((IInteractivePropertySetup)existingSetup).SkipBaseClass() ?? Behavior.SkipBaseClass;
-				initialValue = skipBase || baseValueAccessor is null
-					? defaultValueGenerator()
-					: baseValueAccessor.Invoke();
+				if (!skipBase && baseValueAccessor is not null)
+				{
+					initialValue = baseValueAccessor.Invoke();
+				}
+				else if (existingSetup.IsValueInitialized)
+				{
+					// The setup ignores a new initial value, so none is generated, e.g. a new auto-mock on every read.
+					return existingSetup;
+				}
+				else
+				{
+					initialValue = hasGeneratedValue ? generatedValue : defaultValueGenerator();
+				}
 			}
 
 			((IInteractivePropertySetup)existingSetup).InitializeWith(initialValue);
@@ -999,9 +1013,14 @@ public partial class MockRegistry
 				return default!;
 			}
 
-			return Behavior.SkipBaseClass || baseValueAccessor is null
-				? defaultValueGenerator()
-				: baseValueAccessor.Invoke();
+			if (!Behavior.SkipBaseClass && baseValueAccessor is not null)
+			{
+				return baseValueAccessor.Invoke();
+			}
+
+			generatedValue = defaultValueGenerator();
+			hasGeneratedValue = true;
+			return generatedValue;
 		}
 	}
 #pragma warning restore S3776 // Cognitive Complexity of methods should not be too high

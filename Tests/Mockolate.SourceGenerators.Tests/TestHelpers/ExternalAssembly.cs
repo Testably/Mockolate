@@ -14,14 +14,14 @@ public static class ExternalAssembly
 	///     <paramref name="assemblyName" /> and returns a reference to it.
 	/// </summary>
 	public static MetadataReference Compile([StringSyntax("c#-test")] string source,
-		string assemblyName = "ExternalAssembly")
+		string assemblyName = "ExternalAssembly", bool allowUnsafe = false)
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.Latest);
 		CSharpCompilation compilation = CSharpCompilation.Create(
 			assemblyName,
 			[CSharpSyntaxTree.ParseText(source, parseOptions),],
 			Generator.GetReferences([]),
-			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, allowUnsafe: allowUnsafe));
 
 		using MemoryStream stream = new();
 		EmitResult emitResult = compilation.Emit(stream);

@@ -1,10 +1,15 @@
 using System.Text;
+using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Sources;
 
 internal static partial class Sources
 {
-	public static string MockBehaviorExtensions(bool includeHttpClient)
+	/// <remarks>
+	///     The <paramref name="autoMockableTypes" /> are <see langword="null" /> unless the compilation sets the
+	///     <c>MockolateAutoMocking</c> build property.
+	/// </remarks>
+	public static string MockBehaviorExtensions(bool includeHttpClient, EquatableArray<string>? autoMockableTypes)
 	{
 		StringBuilder sb = InitializeBuilder();
 
@@ -22,7 +27,12 @@ internal static partial class Sources
 		          	
 		          	static Mock()
 		          	{
-		          		_default = new global::Mockolate.MockBehavior(new DefaultValueGenerator());
+		          """).AppendLine();
+		// With auto-mocking, the default behavior carries the factory, so that CreateMock does not copy it for every mock.
+		sb.Append(autoMockableTypes is not null
+			? "\t\t_default = global::Mockolate.Internals.AutoMocks.UseFactory(new global::Mockolate.MockBehavior(new DefaultValueGenerator()), CreateAutoMock);"
+			: "\t\t_default = new global::Mockolate.MockBehavior(new DefaultValueGenerator());").AppendLine();
+		sb.Append("""
 		          	}
 		          	
 		          	extension(global::Mockolate.MockBehavior)
@@ -42,7 +52,31 @@ internal static partial class Sources
 		          		/// </remarks>
 		          		public static global::Mockolate.MockBehavior Default => _default;
 		          	}
-		          	
+		          """).AppendLine();
+		sb.Append('\t').AppendLine();
+		if (autoMockableTypes is not null)
+		{
+			sb.Append("\t/// <summary>").AppendLine();
+			sb.Append("\t///     Creates an auto-mock of the <paramref name=\"type\" /> with the <paramref name=\"behavior\" />, or returns").AppendLine();
+			sb.Append("\t///     <see langword=\"null\" /> when this compilation generates no mock of the <paramref name=\"type\" />.").AppendLine();
+			sb.Append("\t/// </summary>").AppendLine();
+			sb.Append("\tinternal static object? CreateAutoMock(global::System.Type type, global::Mockolate.MockBehavior behavior)").AppendLine();
+			sb.Append("\t{").AppendLine();
+			foreach (string autoMockableType in autoMockableTypes.Value)
+			{
+				sb.Append("\t\tif (type == typeof(").Append(autoMockableType).Append("))").AppendLine();
+				sb.Append("\t\t{").AppendLine();
+				sb.Append("\t\t\treturn ").Append(autoMockableType).Append(".CreateMock(behavior);").AppendLine();
+				sb.Append("\t\t}").AppendLine();
+				sb.AppendLine();
+			}
+
+			sb.Append("\t\treturn null;").AppendLine();
+			sb.Append("\t}").AppendLine();
+			sb.Append('\t').AppendLine();
+		}
+
+		sb.Append("""
 		          	/// <summary>
 		          	///     Defines a factory for creating default values for a specified type.
 		          	/// </summary>

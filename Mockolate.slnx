@@ -12,6 +12,7 @@
 		<File Path="Tests/Directory.Build.props" />
 		<Project Path="Tests/Mockolate.Analyzers.Tests/Mockolate.Analyzers.Tests.csproj" />
 		<Project Path="Tests/Mockolate.Api.Tests/Mockolate.Api.Tests.csproj" />
+		<Project Path="Tests/Mockolate.AutoMocking.Tests/Mockolate.AutoMocking.Tests.csproj" />
 		<Project Path="Tests/Mockolate.ExampleTests/Mockolate.ExampleTests.csproj" />
 		<Project Path="Tests/Mockolate.Internal.Tests/Mockolate.Internal.Tests.csproj" />
 		<Project Path="Tests/Mockolate.SourceGenerators.Tests/Mockolate.SourceGenerators.Tests.csproj" />
