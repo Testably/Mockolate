@@ -37,7 +37,6 @@ internal record Method
 		XmlDocReference = Helpers.ToXmlDocReference(Cref, Helpers.ToMemberCref(methodSymbol, Name));
 
 		Attributes = methodSymbol.GetAttributes().ToAttributeArray(sourceAssembly);
-		ImplementedLoggerMember = GetImplementedLoggerMember(methodSymbol);
 
 		if (alreadyDefinedMethods is not null)
 		{
@@ -118,65 +117,6 @@ internal record Method
 	public EquatableArray<MethodParameter> Parameters { get; }
 	public string? ExplicitImplementation { get; }
 	public EquatableArray<Attribute>? Attributes { get; }
-
-	/// <summary>
-	///     The name of the <c>ILogger</c> member (<c>Log</c>, <c>IsEnabled</c> or <c>BeginScope</c>) that this method of a
-	///     class implements, or overrides the implementation of, or <see langword="null" /> for any other method.
-	/// </summary>
-	public string? ImplementedLoggerMember { get; }
-
-	private static string? GetImplementedLoggerMember(IMethodSymbol method)
-	{
-		if (method is not { IsStatic: false, MethodKind: MethodKind.Ordinary, Name: "Log" or "IsEnabled" or "BeginScope", } ||
-		    method.ContainingType is not { TypeKind: TypeKind.Class, } containingType)
-		{
-			return null;
-		}
-
-		foreach (INamedTypeSymbol @interface in containingType.AllInterfaces)
-		{
-			if (@interface is not
-			    {
-				    Name: "ILogger", TypeArguments.Length: 0,
-				    ContainingNamespace:
-				    {
-					    Name: "Logging",
-					    ContainingNamespace:
-					    {
-						    Name: "Extensions",
-						    ContainingNamespace: { Name: "Microsoft", ContainingNamespace.IsGlobalNamespace: true, },
-					    },
-				    },
-			    })
-			{
-				continue;
-			}
-
-			foreach (IMethodSymbol interfaceMember in @interface.GetMembers(method.Name).OfType<IMethodSymbol>())
-			{
-				if (containingType.FindImplementationForInterfaceMember(interfaceMember) is IMethodSymbol implementation &&
-				    Overrides(method, implementation))
-				{
-					return method.Name;
-				}
-			}
-		}
-
-		return null;
-
-		static bool Overrides(IMethodSymbol method, IMethodSymbol implementation)
-		{
-			for (IMethodSymbol? candidate = method; candidate is not null; candidate = candidate.OverriddenMethod)
-			{
-				if (SymbolEqualityComparer.Default.Equals(candidate.OriginalDefinition, implementation.OriginalDefinition))
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-	}
 
 	public bool HasInheritedOnlyConstraint
 		=> GenericParameters?.Any(genericParameter => genericParameter.HasInheritedOnlyConstraint) == true;

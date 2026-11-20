@@ -228,11 +228,22 @@ public class LoggingAnalyzerTests
 			         		public override void Log<TState>(int logLevel, TState state) { }
 			         	}
 
+			         	public class NonLoggerBase
+			         	{
+			         		public virtual void Log<TState>(int logLevel, TState state) { }
+			         	}
+
+			         	public class LoggerWithLogFromNonLoggerBase : NonLoggerBase, ILogger
+			         	{
+			         	}
+
 			         	public class MyClass
 			         	{
 			         		public void MyTest(ISetup<AbstractLogger> abstractSetup, ISetup<VirtualLogger> virtualSetup,
-			         			IVerify<OverridingLogger> overridingVerify, ISetup<ILogger> interfaceSetup)
+			         			IVerify<OverridingLogger> overridingVerify, ISetup<ILogger> interfaceSetup,
+			         			ISetup<LoggerWithLogFromNonLoggerBase> inheritedSetup)
 			         		{
+			         			_ = inheritedSetup.LogError();
 			         			_ = abstractSetup.LogError();
 			         			_ = virtualSetup.LogError();
 			         			_ = overridingVerify.LogError();

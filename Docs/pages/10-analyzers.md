@@ -161,7 +161,7 @@ ConsoleLogger logger = ConsoleLogger.CreateMock();
 logger.Mock.Setup.LogError().Throws<InvalidOperationException>();
 ```
 
-Make `Log` virtual, or mock `ILogger` and wrap the class with `Wrapping(…)`. The rule also reports the logging verifications on the mock of a class that implements `ILoggerFactory`, which only mocks of `ILoggerFactory` and interfaces that derive from it support.
+Make `Log` virtual, or mock `ILogger` and wrap the class with `Wrapping(…)`. A mock that also implements `ILogger` with `Implementing<ILogger>()` intercepts the calls through that interface: use its logging members through `mock.Mock.As<ILogger>()`. The rule also reports the logging verifications on the mock of a class that implements `ILoggerFactory`, which only mocks of `ILoggerFactory` and interfaces that derive from it support.
 
 ## Mockolate0006
 

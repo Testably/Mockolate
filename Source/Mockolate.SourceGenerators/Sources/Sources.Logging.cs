@@ -10,15 +10,8 @@ internal static partial class Sources
 
 	private static readonly string[] LogLevelNames = ["Trace", "Debug", "Information", "Warning", "Error", "Critical",];
 
-
 	internal static bool IsLoggerLog(Method method)
 		=> method is { ContainingType: LoggerFullName, Name: "Log<TState>", Parameters.Count: 5, };
-
-	internal static bool IsLoggerIsEnabled(Method method)
-		=> method is { ContainingType: LoggerFullName, Name: "IsEnabled", Parameters.Count: 1, };
-
-	internal static bool IsLoggerBeginScope(Method method)
-		=> method is { ContainingType: LoggerFullName, Name: "BeginScope<TState>", Parameters.Count: 1, };
 
 	/// <summary>
 	///     Whether the <paramref name="method" /> of the mocked <paramref name="class" /> is <c>ILogger.Log</c>, also when a
@@ -27,12 +20,18 @@ internal static partial class Sources
 	internal static bool IsLoggerLog(Method method, Class @class)
 		=> IsLoggerLog(method) || IsClassLoggerMember(method, @class, "Log");
 
+	internal static bool IsLoggerIsEnabled(Method method)
+		=> method is { ContainingType: LoggerFullName, Name: "IsEnabled", Parameters.Count: 1, };
+
 	/// <summary>
 	///     Whether the <paramref name="method" /> of the mocked <paramref name="class" /> is <c>ILogger.IsEnabled</c>, also
 	///     when a class implements it.
 	/// </summary>
 	internal static bool IsLoggerIsEnabled(Method method, Class @class)
 		=> IsLoggerIsEnabled(method) || IsClassLoggerMember(method, @class, "IsEnabled");
+
+	internal static bool IsLoggerBeginScope(Method method)
+		=> method is { ContainingType: LoggerFullName, Name: "BeginScope<TState>", Parameters.Count: 1, };
 
 	/// <summary>
 	///     Whether the <paramref name="method" /> of the mocked <paramref name="class" /> is <c>ILogger.BeginScope</c>, also
@@ -42,7 +41,8 @@ internal static partial class Sources
 		=> IsLoggerBeginScope(method) || IsClassLoggerMember(method, @class, "BeginScope");
 
 	private static bool IsClassLoggerMember(Method method, Class @class, string member)
-		=> !@class.IsInterface && method.ImplementedLoggerMember == member;
+		=> @class.LoggerMembers.Any(loggerMember =>
+			loggerMember.Member == member && Method.EqualityComparer.Equals(loggerMember.Method, method));
 
 	internal static bool IsLoggerFactoryCreateLogger(Method method)
 		=> method is { ContainingType: LoggerFactoryFullName, Name: "CreateLogger", Parameters.Count: 1, };
@@ -663,7 +663,7 @@ internal static partial class Sources
 
 		          			if (methodSetup is null && logSetup is null && !hasWrappedResult && registry.Behavior.ThrowWhenNotSetup)
 		          			{
-		          				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Microsoft.Extensions.Logging.ILogger.Log<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
+		          				throw new global::Mockolate.Exceptions.MockNotSetupException($"The method '{logName}<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
 		          			}
 
 		          			// Typed setups of the state type and logging setups are searched together, so the latest matching one wins.

@@ -57,6 +57,9 @@ internal class Class : IEquatable<Class>
 		LoggerCategoryType = new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>()
 			.FirstOrDefault(loggerType => IsLoggerType(loggerType) && loggerType.TypeArguments.Length == 1)?
 			.TypeArguments[0].ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
+		LoggerMembers = type is INamedTypeSymbol { TypeKind: TypeKind.Class, } namedType
+			? new EquatableArray<LoggerMember>(GetLoggerMembers(namedType, sourceAssembly).ToArray())
+			: new EquatableArray<LoggerMember>([]);
 
 		ImmutableArray<ISymbol> members = type.GetMembers();
 
@@ -216,6 +219,7 @@ internal class Class : IEquatable<Class>
 		XmlDocReference = original.XmlDocReference;
 		IsInterface = original.IsInterface;
 		LoggerCategoryType = original.LoggerCategoryType;
+		LoggerMembers = original.LoggerMembers;
 		HasRequiredMembers = original.HasRequiredMembers;
 		HasInaccessibleRequiredMember = original.HasInaccessibleRequiredMember;
 		ReservedNames = original.ReservedNames;
@@ -337,6 +341,12 @@ internal class Class : IEquatable<Class>
 	/// </summary>
 	public string? LoggerCategoryType { get; }
 
+	/// <summary>
+	///     The methods of a class that implement <c>ILogger.Log</c>, <c>ILogger.IsEnabled</c> and <c>ILogger.BeginScope</c>
+	///     for this type, as the most derived overrides; empty for an interface.
+	/// </summary>
+	public EquatableArray<LoggerMember> LoggerMembers { get; }
+
 	public bool HasRequiredMembers { get; }
 	public bool HasInaccessibleRequiredMember { get; }
 	public string ClassFullName { get; }
@@ -390,6 +400,7 @@ internal class Class : IEquatable<Class>
 		hash = unchecked((hash * 17) + ReservedNames.GetHashCode());
 		hash = unchecked((hash * 17) + (IsInterface ? 1 : 0));
 		hash = unchecked((hash * 17) + (LoggerCategoryType?.GetHashCode() ?? 0));
+		hash = unchecked((hash * 17) + LoggerMembers.GetHashCode());
 		hash = unchecked((hash * 17) + (HasRequiredMembers ? 1 : 0));
 		hash = unchecked((hash * 17) + (HasInaccessibleRequiredMember ? 1 : 0));
 		return hash;
@@ -739,6 +750,50 @@ internal class Class : IEquatable<Class>
 		}
 
 		return false;
+	}
+
+	/// <remarks>
+	///     Decided on the mocked <paramref name="type" />, because a base class can declare the method that only the
+	///     mocked type uses to implement <c>ILogger</c>.
+	/// </remarks>
+	private static IEnumerable<LoggerMember> GetLoggerMembers(INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
+	{
+		INamedTypeSymbol? logger = type.AllInterfaces.FirstOrDefault(@interface =>
+			IsLoggerType(@interface) && @interface.TypeArguments.Length == 0);
+		if (logger is null)
+		{
+			yield break;
+		}
+
+		foreach (string name in new[] { "Log", "IsEnabled", "BeginScope", })
+		{
+			if (logger.GetMembers(name).OfType<IMethodSymbol>().FirstOrDefault() is { } interfaceMember &&
+			    type.FindImplementationForInterfaceMember(interfaceMember) is IMethodSymbol implementation &&
+			    GetMostDerivedOverride(type, implementation) is { MethodKind: MethodKind.Ordinary, } mostDerived)
+			{
+				yield return new LoggerMember(name, new Method(mostDerived, null, sourceAssembly));
+			}
+		}
+	}
+
+	private static IMethodSymbol GetMostDerivedOverride(INamedTypeSymbol type, IMethodSymbol implementation)
+	{
+		for (INamedTypeSymbol? current = type; current is not null; current = current.BaseType)
+		{
+			foreach (IMethodSymbol candidate in current.GetMembers(implementation.Name).OfType<IMethodSymbol>())
+			{
+				for (IMethodSymbol? overridden = candidate; overridden is not null; overridden = overridden.OverriddenMethod)
+				{
+					if (SymbolEqualityComparer.Default.Equals(overridden.OriginalDefinition,
+						    implementation.OriginalDefinition))
+					{
+						return candidate;
+					}
+				}
+			}
+		}
+
+		return implementation;
 	}
 
 	private static bool IsLoggerType(INamedTypeSymbol type)

@@ -147,6 +147,21 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
+	public async Task LoggerWithMembersFromNonLoggerBase_ShouldSupportLoggingSetupsAndVerifications()
+	{
+		LoggerWithMembersFromNonLoggerBase logger =
+			LoggerWithMembersFromNonLoggerBase.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+		logger.Mock.Setup.LogError();
+
+		bool isEnabled = logger.IsEnabled(LogLevel.Error);
+		logger.LogError("failed");
+
+		await That(isEnabled).IsTrue()
+			.Because("the abstract IsEnabled of the base class implements ILogger.IsEnabled for the mocked class");
+		await That(logger.Mock.Verify.LogError().WithMessage("failed")).Once();
+	}
+
+	[Test]
 	public async Task VirtualLogger_IsEnabled_ShouldReturnTheBaseValue()
 	{
 		RecordingLogger logger = RecordingLogger.CreateMock();
@@ -174,6 +189,21 @@ public sealed class LoggerClassTests
 
 		public abstract void Log<T>(LogLevel logLevel, EventId eventId, T state, Exception? exception,
 			Func<T, Exception?, string> formatter);
+	}
+
+	public abstract class NonLoggerBase
+	{
+		public abstract bool IsEnabled(LogLevel logLevel);
+
+		public virtual void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+			Func<TState, Exception?, string> formatter)
+		{
+		}
+	}
+
+	public abstract class LoggerWithMembersFromNonLoggerBase : NonLoggerBase, ILogger
+	{
+		public abstract IDisposable? BeginScope<TState>(TState state) where TState : notnull;
 	}
 
 	public class RecordingService

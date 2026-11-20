@@ -90,42 +90,38 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 		foreach (INamedTypeSymbol facade in new[] { receiverType, }.Concat(receiverType.AllInterfaces)
 			         .OfType<INamedTypeSymbol>())
 		{
-			if (facade is not { Name: "IMockSetup" or "IMockVerify", TypeArguments.Length: 1, } ||
-			    facade.ContainingNamespace is not { Name: "Setup" or "Verify", ContainingNamespace.Name: "Mockolate", } ||
-			    facade.TypeArguments[0] is not INamedTypeSymbol { TypeKind: TypeKind.Class, } mockedClass)
-			{
-				continue;
-			}
-
-			if (isFactoryMember)
-			{
-				if (mockedClass.AllInterfaces.Any(@interface => IsLoggingInterface(@interface, "ILoggerFactory")))
-				{
-					return mockedClass;
-				}
-
-				continue;
-			}
-
-			if (mockedClass.AllInterfaces.FirstOrDefault(@interface => IsLoggingInterface(@interface, "ILogger")) is not
-			    { } logger ||
-			    logger.GetMembers("Log").OfType<IMethodSymbol>().FirstOrDefault() is not { } log)
-			{
-				continue;
-			}
-
-			if (mockedClass.FindImplementationForInterfaceMember(log) is not IMethodSymbol implementation ||
-			    GetMostDerivedOverride(mockedClass, implementation) is not
-			    {
-				    MethodKind: MethodKind.Ordinary, IsSealed: false,
-			    } mostDerived ||
-			    !(mostDerived.IsVirtual || mostDerived.IsAbstract || mostDerived.IsOverride))
+			if (facade is { Name: "IMockSetup" or "IMockVerify", TypeArguments.Length: 1, } &&
+			    facade.ContainingNamespace is { Name: "Setup" or "Verify", ContainingNamespace.Name: "Mockolate", } &&
+			    facade.TypeArguments[0] is INamedTypeSymbol { TypeKind: TypeKind.Class, } mockedClass &&
+			    IsUnsupported(mockedClass, isFactoryMember))
 			{
 				return mockedClass;
 			}
 		}
 
 		return null;
+	}
+
+	private static bool IsUnsupported(INamedTypeSymbol mockedClass, bool isFactoryMember)
+	{
+		if (isFactoryMember)
+		{
+			return mockedClass.AllInterfaces.Any(@interface => IsLoggingInterface(@interface, "ILoggerFactory"));
+		}
+
+		if (mockedClass.AllInterfaces.FirstOrDefault(@interface => IsLoggingInterface(@interface, "ILogger")) is not
+		    { } logger ||
+		    logger.GetMembers("Log").OfType<IMethodSymbol>().FirstOrDefault() is not { } log)
+		{
+			return false;
+		}
+
+		return mockedClass.FindImplementationForInterfaceMember(log) is not IMethodSymbol implementation ||
+		       GetMostDerivedOverride(mockedClass, implementation) is not
+		       {
+			       MethodKind: MethodKind.Ordinary, IsSealed: false,
+		       } mostDerived ||
+		       !(mostDerived.IsVirtual || mostDerived.IsAbstract || mostDerived.IsOverride);
 	}
 
 	/// <summary>

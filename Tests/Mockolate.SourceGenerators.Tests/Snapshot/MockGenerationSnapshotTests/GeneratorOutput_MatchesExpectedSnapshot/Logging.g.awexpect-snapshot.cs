@@ -640,7 +640,7 @@ namespace Mockolate
 
 			if (methodSetup is null && logSetup is null && !hasWrappedResult && registry.Behavior.ThrowWhenNotSetup)
 			{
-				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Microsoft.Extensions.Logging.ILogger.Log<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
+				throw new global::Mockolate.Exceptions.MockNotSetupException($"The method '{logName}<TState>(LogLevel, EventId, TState, Exception?, Func<TState, Exception?, string>)' was invoked without prior setup.");
 			}
 
 			// Typed setups of the state type and logging setups are searched together, so the latest matching one wins.
