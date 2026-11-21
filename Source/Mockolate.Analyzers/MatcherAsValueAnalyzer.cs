@@ -285,8 +285,7 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 			return true;
 		}
 
-		if (member.ContainingType is not { } containingType ||
-		    !SetupOrVerifyInterfacePrefixes.Any(prefix => containingType.Name.StartsWith(prefix, StringComparison.Ordinal)))
+		if (member.ContainingType is not { } containingType || !HasSetupOrVerifyInterfacePrefix(containingType.Name))
 		{
 			return false;
 		}
@@ -294,6 +293,20 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		for (INamedTypeSymbol? type = containingType.ContainingType; type is not null; type = type.ContainingType)
 		{
 			if (type is { Name: "Mock", ContainingType: null, } && IsMockolateNamespace(type.ContainingNamespace))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// A loop instead of Any, which would allocate a closure for every argument in the compilation.
+	private static bool HasSetupOrVerifyInterfacePrefix(string name)
+	{
+		foreach (string prefix in SetupOrVerifyInterfacePrefixes)
+		{
+			if (name.StartsWith(prefix, StringComparison.Ordinal))
 			{
 				return true;
 			}
