@@ -61,7 +61,7 @@ internal record Method
 
 	public bool UseOverride { get; }
 	public bool IsOverridableFromMock { get; }
-	public bool IsAbstract { get; }
+	public bool IsAbstract { get; init; }
 	public bool IsStatic { get; }
 	public bool IsInitOnly { get; }
 	public bool IsRefReturn { get; }

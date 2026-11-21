@@ -55,7 +55,7 @@ internal record Event
 
 	public bool UseOverride { get; }
 	public bool IsOverridableFromMock { get; }
-	public bool IsAbstract { get; }
+	public bool IsAbstract { get; init; }
 	public bool IsStatic { get; }
 	public bool IsProtected => Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal
 		or Accessibility.ProtectedAndInternal;

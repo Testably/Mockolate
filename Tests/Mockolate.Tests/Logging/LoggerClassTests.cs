@@ -185,6 +185,17 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
+	public async Task OverridingLogger_IsEnabled_WithoutSetup_ShouldCallTheOverride()
+	{
+		ConcreteLogger logger = ConcreteLogger.CreateMock();
+
+		bool result = logger.IsEnabled(LogLevel.Error);
+
+		await That(result).IsFalse()
+			.Because("the mocked class overrides the abstract IsEnabled of its base class");
+	}
+
+	[Test]
 	public async Task OverridingLogger_WithSkippedBaseClass_ShouldUseTheLoggingDefaults()
 	{
 		int calls = 0;

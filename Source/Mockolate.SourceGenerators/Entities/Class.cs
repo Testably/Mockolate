@@ -23,9 +23,11 @@ internal class Class : IEquatable<Class>
 		List<Method>? exceptMethods = null,
 		List<Property>? exceptProperties = null,
 		List<Event>? exceptEvents = null,
-		List<Property>? filledProperties = null)
+		List<Property>? filledProperties = null,
+		ITypeSymbol? mockedType = null)
 #pragma warning restore S107
 	{
+		mockedType ??= type;
 		ClassFullName = type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 		ClassName = GetTypeName(type);
 		DisplayString = GetTypeFullName(type);
@@ -106,7 +108,10 @@ internal class Class : IEquatable<Class>
 						if (!methodSymbol.IsSealed && (IsInterface || methodSymbol.IsVirtual || methodSymbol.IsAbstract) &&
 						    ShouldIncludeMember(methodSymbol))
 						{
-							methodIncludes.Add(new Method(methodSymbol, alreadyDefinedMethods, sourceAssembly));
+							methodIncludes.Add(new Method(methodSymbol, alreadyDefinedMethods, sourceAssembly)
+							{
+								IsAbstract = IsAbstractIn(methodSymbol, mockedType),
+							});
 						}
 
 						if (methodSymbol.IsSealed || HidesBaseOverridable(methodSymbol, type))
@@ -122,7 +127,10 @@ internal class Class : IEquatable<Class>
 						if (!propertySymbol.IsSealed && (IsInterface || propertySymbol.IsVirtual || propertySymbol.IsAbstract) &&
 						    ShouldIncludeMember(propertySymbol))
 						{
-							propertyIncludes.Add(new Property(propertySymbol, alreadyDefinedProperties, sourceAssembly));
+							propertyIncludes.Add(new Property(propertySymbol, alreadyDefinedProperties, sourceAssembly)
+							{
+								IsAbstract = IsAbstractIn(propertySymbol, mockedType),
+							});
 						}
 
 						if (propertySymbol.IsSealed || HidesBaseOverridable(propertySymbol, type))
@@ -144,7 +152,10 @@ internal class Class : IEquatable<Class>
 						if (!eventSymbol.IsSealed && (IsInterface || eventSymbol.IsVirtual || eventSymbol.IsAbstract) &&
 						    ShouldIncludeMember(eventSymbol))
 						{
-							eventIncludes.Add(new Event(eventSymbol, invoke, alreadyDefinedEvents, sourceAssembly));
+							eventIncludes.Add(new Event(eventSymbol, invoke, alreadyDefinedEvents, sourceAssembly)
+							{
+								IsAbstract = IsAbstractIn(eventSymbol, mockedType),
+							});
 						}
 
 						if (eventSymbol.IsSealed || HidesBaseOverridable(eventSymbol, type))
@@ -181,7 +192,7 @@ internal class Class : IEquatable<Class>
 		InheritedTypes = new EquatableArray<Class>(
 			GetInheritedTypes(type).Select(t
 					=> new Class(t, sourceAssembly, methods, properties, events, exceptMethods, exceptProperties,
-						exceptEvents, filledProperties))
+						exceptEvents, filledProperties, mockedType))
 				.ToArray());
 
 		ReservedNames = ComputeReservedNames(type);
@@ -193,12 +204,12 @@ internal class Class : IEquatable<Class>
 
 		bool ShouldIncludeMember(ISymbol member)
 		{
-			if (FillsInaccessibleBaseSlot(member, sourceAssembly))
+			if (FillsInaccessibleBaseSlot(member, sourceAssembly) || IsReabstractedIn(member, mockedType))
 			{
 				return false;
 			}
 
-			if (IsInterface || member.IsAbstract)
+			if (IsInterface || IsAbstractIn(member, mockedType))
 			{
 				// An abstract member is kept even when it cannot be restated;
 				// `ComputeHasInaccessibleRequiredMember` then rejects the whole type.
@@ -462,6 +473,70 @@ internal class Class : IEquatable<Class>
 		   HasUnreachableAccessor(slot, sourceAssembly)
 			? slot
 			: null;
+
+	/// <summary>
+	///     Whether the slot of <paramref name="member" /> is still abstract in the <paramref name="mockedType" />, which is
+	///     decided by its most derived override rather than by the declaration that represents the slot. A property is
+	///     abstract as long as one of its accessors is, because an override may implement only one of them.
+	/// </summary>
+	private static bool IsAbstractIn(ISymbol member, ITypeSymbol mockedType)
+	{
+		if (!member.IsAbstract)
+		{
+			return false;
+		}
+
+		if (member is IPropertySymbol property)
+		{
+			return (property.GetMethod is { } getter && IsAbstractIn(getter, mockedType)) ||
+			       (property.SetMethod is { } setter && IsAbstractIn(setter, mockedType));
+		}
+
+		List<ISymbol>? overrides = FindOverridesIn(member, mockedType);
+		return overrides is null || overrides.Count == 0 || overrides[0].IsAbstract;
+	}
+
+	/// <summary>
+	///     Whether a more derived <c>abstract override</c> declares the slot of <paramref name="member" /> again, so that
+	///     the slot is listed under that declaration instead.
+	/// </summary>
+	private static bool IsReabstractedIn(ISymbol member, ITypeSymbol mockedType)
+		=> FindOverridesIn(member, mockedType)?.Any(@override => @override.IsAbstract) == true;
+
+	/// <summary>
+	///     The overrides of <paramref name="member" /> in the <paramref name="mockedType" />, from the most derived one
+	///     down to, but excluding, <paramref name="member" />, or <see langword="null" /> when the slot is not found.
+	/// </summary>
+	private static List<ISymbol>? FindOverridesIn(ISymbol member, ITypeSymbol mockedType)
+	{
+		for (ITypeSymbol? current = mockedType; current is not null; current = current.BaseType)
+		{
+			foreach (ISymbol candidate in current.GetMembers(member.Name))
+			{
+				List<ISymbol> overrides = new();
+				for (ISymbol? overridden = candidate; overridden is not null; overridden = GetOverridden(overridden))
+				{
+					if (SymbolEqualityComparer.Default.Equals(overridden.OriginalDefinition, member.OriginalDefinition))
+					{
+						return overrides;
+					}
+
+					overrides.Add(overridden);
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private static ISymbol? GetOverridden(ISymbol member)
+		=> member switch
+		{
+			IMethodSymbol method => method.OverriddenMethod,
+			IPropertySymbol property => property.OverriddenProperty,
+			IEventSymbol @event => @event.OverriddenEvent,
+			_ => null,
+		};
 
 	private static IEnumerable<ISymbol> EnumerateFilledSlots(ISymbol member)
 	{
