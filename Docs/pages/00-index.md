@@ -4,9 +4,18 @@ description: Mockolate is a source-generated, strongly-typed and AOT-compatible 
 
 # Mockolate
 
-<img align="right" width="200" src="https://raw.githubusercontent.com/Testably/Mockolate/main/Docs/Mockolate_256x256.png" alt="Mockolate logo" />
+<div style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+<div>
 
 [**Mockolate**](https://github.com/Testably/Mockolate) is a modern, strongly-typed, AOT-compatible mocking library for .NET, powered by source generators. It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, .NET 10, .NET 11 and .NET Framework 4.8.
+
+</div>
+<img width="200" src="https://raw.githubusercontent.com/Testably/Mockolate/main/Docs/Mockolate_256x256.png" alt="Mockolate logo" style={{flexShrink: 0, marginBottom: '-200px', position: 'relative', zIndex: 1}} />
+</div>
+
+<style>{`.mockolate-intro-code pre code { padding-right: calc(200px + var(--ifm-pre-padding)); }`}</style>
+
+<div className="mockolate-intro-code">
 
 ```csharp
 IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -16,6 +25,8 @@ bool success = dispenser.Dispense("Dark", 4);
 
 dispenser.Mock.Verify.Dispense("Dark", It.IsAny<int>()).Once();
 ```
+
+</div>
 
 When the dispenser was not called, the verification throws a `MockVerificationException`:
 
