@@ -59,7 +59,15 @@ public partial class It
 		protected override bool Matches(T value)
 		{
 			IEqualityComparer<T> comparer = _comparer ?? EqualityComparer<T>.Default;
-			return values.All(v => !comparer.Equals(value, v));
+			foreach (T v in values)
+			{
+				if (comparer.Equals(value, v))
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		/// <inheritdoc cref="TypedMatch{T}.MatchesOfDifferentType(object?)" />
