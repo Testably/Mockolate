@@ -169,13 +169,6 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
-            "GenericMethodInferredFromMatcher_CanBeCreated",
-            ["IGenericMethodInferredFromMatcher.cs",],
-            """
-            IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
-            """,
-            []),
-        new(
             "GenericMethodOverride_CanBeCreated",
             ["GenericMethodOverrideBase.cs",],
             """

@@ -283,13 +283,6 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task GenericMethodInferredFromMatcher_CanBeCreated()
-		{
-			IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
-			await That(sut).IsNotNull();
-		}
-
-		[Test]
 		public async Task GenericParameterDefaultValues_CanBeCreated()
 		{
 			IGenericParameterDefaultValues sut1 = IGenericParameterDefaultValues.CreateMock();

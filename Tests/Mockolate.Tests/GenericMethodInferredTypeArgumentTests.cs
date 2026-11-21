@@ -57,7 +57,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	[Test]
 	public async Task Matcher_WithLeftOutOptionalParameter_ShouldSetUpAndVerifyTheMethodForTheTypeArgumentOfTheMatcher()
 	{
-		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Trailing(It.IsAny<string>()).Returns(1);
 		sut.Mock.Setup.KeptAboveFour(It.IsAny<string>(), 1, 2, 3).Returns(2);
 
@@ -75,7 +75,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	[Test]
 	public async Task Matcher_NextToValueForOtherTypeParameterAboveFourParameters_ShouldSetUpAndVerifyTheMethod()
 	{
-		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.TwoAboveFour(It.IsAny<int>(), "x", 1, 2, "y").Returns(1);
 		sut.Mock.Setup.TwoAboveFour("a", It.IsAny<string>(), 1, 2).Returns(2);
 
@@ -94,7 +94,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	[Test]
 	public async Task LeftOutTypeParameterArgumentAboveFourParameters_ShouldSetUpAndVerifyTheMethod()
 	{
-		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.LeftOutAboveFour(1, 2, 3, 4, It.IsAny<string>()).Returns(1);
 		sut.Mock.Setup.LeftOutAboveFour<int>(1, 2, 3, 4).Returns(2);
 
@@ -113,7 +113,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	[Test]
 	public async Task FiveTypeParameterSlotsWithLeftOutArgument_ShouldSetUpAndVerifyTheMethod()
 	{
-		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.FiveAboveFour(1, 2, 3, 4).Returns(1);
 		sut.Mock.Setup.FiveAboveFour(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.Is(9))
 			.Returns(2);
@@ -127,7 +127,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	[Test]
 	public async Task Matcher_NextToMatcherForParamsArray_ShouldSetUpAndVerifyTheMethod()
 	{
-		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.WithRest(It.IsAny<string>(), It.IsAny<object[]>()).Returns(1);
 
 		int[] results = [sut.WithRest("a", 1, 2), sut.WithRest(1, 2),];
@@ -140,7 +140,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	[Test]
 	public async Task Value_NextToNonGenericSibling_ShouldSetUpAndVerifyTheMethodThatTheCallBinds()
 	{
-		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Sibling("a").Returns(1);
 		sut.Mock.Setup.Sibling((IComparable)"b").Returns(2);
 
@@ -170,19 +170,18 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		IOptionalMethodParameters optional = IOptionalMethodParameters.CreateMock();
-		IGenericMethodInferredFromMatcher trailing = IGenericMethodInferredFromMatcher.CreateMock();
 		sut.Mock.Setup.Get<string>(null!).Returns(1);
 		sut.Mock.Setup.Get<int>(default).Returns(2);
 		sut.Mock.Setup.Count<string>(null!).Returns(3);
 		sut.Mock.Setup.Two<string>(1, null!).Returns(4);
 		optional.Mock.Setup.Generic<string>(null!).Returns(5);
-		trailing.Mock.Setup.Trailing<string>(null!).Returns(6);
+		sut.Mock.Setup.Trailing<string>(null!).Returns(6);
 
 		int[] results =
 		[
 			sut.Get<string>(null!), sut.Get("a"), sut.Get(0), sut.Get(1), sut.Count<string>(null!), sut.Count("a"),
 			sut.Two<string>(1, null!), sut.Two(1, "a"), optional.Generic<string>(null!), optional.Generic("a"),
-			trailing.Trailing<string>(null!), trailing.Trailing("a"), trailing.Trailing<string>(null!, "b"),
+			sut.Trailing<string>(null!), sut.Trailing("a"), sut.Trailing<string>(null!, "b"),
 		];
 
 		await That(results).IsEqualTo([1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 0,])
@@ -192,6 +191,6 @@ public sealed class GenericMethodInferredTypeArgumentTests
 		await That(sut.Mock.Verify.Count<string>(null!)).Once();
 		await That(sut.Mock.Verify.Two<string>(1, null!)).Once();
 		await That(optional.Mock.Verify.Generic<string>(null!)).Once();
-		await That(trailing.Mock.Verify.Trailing<string>(null!)).Once();
+		await That(sut.Mock.Verify.Trailing<string>(null!)).Once();
 	}
 }
