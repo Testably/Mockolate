@@ -4,16 +4,24 @@ description: Mockolate is a source-generated, strongly-typed and AOT-compatible 
 
 # Mockolate
 
-<div style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+<style>{`
+.mockolate-intro { display: flex; align-items: flex-start; gap: 1rem; }
+.mockolate-intro img { flex-shrink: 0; margin-bottom: -200px; position: relative; z-index: 1; }
+.mockolate-intro-code pre code { padding-right: calc(200px + var(--ifm-pre-padding)); }
+@media (max-width: 576px) {
+  .mockolate-intro img { display: none; }
+  .mockolate-intro-code pre code { padding-right: var(--ifm-pre-padding); }
+}
+`}</style>
+
+<div className="mockolate-intro">
 <div>
 
 [**Mockolate**](https://github.com/Testably/Mockolate) is a modern, strongly-typed, AOT-compatible mocking library for .NET, powered by source generators. It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, .NET 10, .NET 11 and .NET Framework 4.8.
 
 </div>
-<img width="200" src="https://raw.githubusercontent.com/Testably/Mockolate/main/Docs/Mockolate_256x256.png" alt="Mockolate logo" style={{flexShrink: 0, marginBottom: '-200px', position: 'relative', zIndex: 1}} />
+<img width="200" src="https://raw.githubusercontent.com/Testably/Mockolate/main/Docs/Mockolate_256x256.png" alt="Mockolate logo" />
 </div>
-
-<style>{`.mockolate-intro-code pre code { padding-right: calc(200px + var(--ifm-pre-padding)); }`}</style>
 
 <div className="mockolate-intro-code">
 
