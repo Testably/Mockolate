@@ -30,9 +30,9 @@ public sealed partial class MockBehaviorTests
 		public async Task Initialize_MultipleForSameTypeFollowedByOtherType_ShouldUseLatest()
 		{
 			MockBehavior behavior = MockBehavior.Default
-				.Initialize<IChocolateDispenser>(setup => setup[It.Is("Dark")].InitializeWith(1))
-				.Initialize<IChocolateDispenser>(setup => setup[It.Is("Dark")].InitializeWith(2))
-				.Initialize<IMyService>(_ => { });
+				.Initialize<IChocolateDispenser>((Mock.IMockSetupForIChocolateDispenser setup) => setup[It.Is("Dark")].InitializeWith(1))
+				.Initialize<IChocolateDispenser>((Mock.IMockSetupForIChocolateDispenser setup) => setup[It.Is("Dark")].InitializeWith(2))
+				.Initialize<IMyService>((Mock.IMockSetupForIMyService _) => { });
 
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock(behavior);
 
