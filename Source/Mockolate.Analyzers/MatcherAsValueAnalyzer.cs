@@ -103,7 +103,6 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		ITypeSymbol declaredSlotType)
 	{
 		IOperation operand = Unwrap(value);
-		bool isElement = value != argument.Value;
 
 		// The declared type tells a value parameter from a matcher parameter: a type argument inferred from the
 		// matcher turns a value parameter into one of a matcher type.
@@ -124,13 +123,20 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 			return;
 		}
 
-		// The generated code and the library recognize a matcher for the value type at runtime, when the value is typed
-		// with a type parameter that can be `object`: on a generic method closed over `object` and on `Set` of a
-		// property or indexer of a reference type.
-		if (!isElement && declaredSlotType is ITypeParameterSymbol typeParameter && CanBeObject(typeParameter) &&
+		// The generated code and the library recognize a matcher for the value type at runtime, when the value or the
+		// element of a `params` array is typed with a type parameter that can be `object`: on a generic method closed
+		// over `object` and on `Set` of a property or indexer of a reference type. A matcher for the whole array only
+		// matches the array as the only element; next to other elements it matches one element.
+		if (declaredSlotType is ITypeParameterSymbol typeParameter && CanBeObject(typeParameter) &&
 		    !(slotType.IsValueType && IsVerificationSet(parameter.ContainingSymbol)) &&
 		    matcherTypes.IsMatcherFor(matcherType, slotType))
 		{
+			if (value != argument.Value && GetParamsElements(argument) is { Length: > 1, } &&
+			    matcherTypes.IsMatcherFor(matcherType, parameter.Type))
+			{
+				Report(context, matcherTypes, argument, value, matcherType, slotType, isWholeArrayElement: true);
+			}
+
 			return;
 		}
 
@@ -138,7 +144,8 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 	}
 
 	private static void Report(OperationAnalysisContext context, MatcherTypes matcherTypes,
-		IArgumentOperation argument, IOperation value, ITypeSymbol matcherType, ITypeSymbol valueType)
+		IArgumentOperation argument, IOperation value, ITypeSymbol matcherType, ITypeSymbol valueType,
+		bool isWholeArrayElement = false)
 	{
 		IOperation operand = Unwrap(value);
 		string typeName = valueType.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
@@ -147,7 +154,11 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		bool isInferred = matcherTypes.IsMatcher(valueType) && HasInferredTypeArguments(argument);
 		bool isInExplicitArray = argument.ArgumentKind != ArgumentKind.ParamArray && value != argument.Value;
 		string hint;
-		if (!matcherTypes.IsMatcher(matcherType))
+		if (isWholeArrayElement)
+		{
+			hint = Resources.Mockolate0007WholeArrayHint;
+		}
+		else if (!matcherTypes.IsMatcher(matcherType))
 		{
 			hint = string.Format(Resources.Mockolate0007ParametersHint, typeName);
 		}
