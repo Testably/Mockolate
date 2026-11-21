@@ -91,18 +91,18 @@ warehouse.Mock.Verify.CountBars(It.IsAny<string>()).Exactly(N);
 
 <TabItem value="Method" label="Method">
 
-Set up a method, call it `N` times with `It.IsAny<int>()`, then verify it ran exactly `N` times.
+Set up a method for an exact argument value, call it `N` times with that value, then verify it ran exactly `N` times.
 
 <MockolateBenchmarkResult name="Method" />
 
 ```csharp
 IChocolateMachine machine = IChocolateMachine.CreateMock();
-machine.Mock.Setup.Dispense(It.IsAny<int>()).Returns(true);
+machine.Mock.Setup.Dispense(42).Returns(true);
 
 for (int i = 0; i < N; i++)
     machine.Dispense(42);
 
-machine.Mock.Verify.Dispense(It.IsAny<int>()).Exactly(N);
+machine.Mock.Verify.Dispense(42).Exactly(N);
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteMethodBenchmarks.cs)
@@ -135,13 +135,13 @@ shelf.Mock.Verify.Stock.Set(It.IsAny<int>()).Exactly(N);
 
 <TabItem value="Indexer" label="Indexer">
 
-Set up a `string this[int]` indexer, read+write it `N` times, then verify the getter and setter each ran exactly `N` times.
+Set up a `string this[int]` indexer for keys matching a predicate, read+write it `N` times, then verify the getter and setter each ran exactly `N` times.
 
 <MockolateBenchmarkResult name="Indexer" />
 
 ```csharp
 IChocolateCatalog catalog = IChocolateCatalog.CreateMock();
-catalog.Mock.Setup[It.IsAny<int>()].Returns("Dark");
+catalog.Mock.Setup[It.Satisfies<int>(number => number > 0)].Returns("Dark");
 
 for (int i = 0; i < N; i++)
 {
@@ -149,8 +149,8 @@ for (int i = 0; i < N; i++)
     catalog[42] = "Milk";
 }
 
-catalog.Mock.Verify[It.IsAny<int>()].Got().Exactly(N);
-catalog.Mock.Verify[It.IsAny<int>()].Set(It.IsAny<string>()).Exactly(N);
+catalog.Mock.Verify[It.Satisfies<int>(number => number > 0)].Got().Exactly(N);
+catalog.Mock.Verify[It.Satisfies<int>(number => number > 0)].Set(It.IsAny<string>()).Exactly(N);
 ```
 
 [View source on GitHub →](https://github.com/Testably/Mockolate/blob/main/Benchmarks/Mockolate.Benchmarks/CompleteIndexerBenchmarks.cs)

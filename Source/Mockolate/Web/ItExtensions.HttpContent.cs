@@ -306,7 +306,15 @@ public static partial class ItExtensions
 					}
 				}
 #endif
-				return _predicates.All(predicate => predicate.Predicate.Invoke(stringContent));
+				foreach ((Func<string, bool> Predicate, string Description) predicate in _predicates)
+				{
+					if (!predicate.Predicate.Invoke(stringContent))
+					{
+						return false;
+					}
+				}
+
+				return true;
 			}
 
 			public void AddPredicate(Func<string, bool> predicate, string predicateExpression)

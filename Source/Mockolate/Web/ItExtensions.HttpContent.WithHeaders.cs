@@ -81,10 +81,19 @@ public static partial class ItExtensions
 			=> _requiredHeaders.AddRange(headers);
 
 		public bool Matches(HttpHeaders messageHeaders, HttpHeaders? alternativeHeaders = null)
-			=> alternativeHeaders is null
-				? _requiredHeaders.All(header => MatchesHeader(header.Name, header.Value, messageHeaders))
-				: _requiredHeaders.All(header => MatchesHeader(header.Name, header.Value, messageHeaders) ||
-				                                 MatchesHeader(header.Name, header.Value, alternativeHeaders));
+		{
+			foreach ((string Name, HttpHeaderValue Value) header in _requiredHeaders)
+			{
+				if (!MatchesHeader(header.Name, header.Value, messageHeaders) &&
+				    (alternativeHeaders is null ||
+				     !MatchesHeader(header.Name, header.Value, alternativeHeaders)))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
 
 		private static bool MatchesHeader(string name, HttpHeaderValue value, HttpHeaders messageHeaders)
 		{
@@ -93,7 +102,15 @@ public static partial class ItExtensions
 				return false;
 			}
 
-			return values.Any(value.Matches);
+			foreach (string headerValue in values)
+			{
+				if (value.Matches(headerValue))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		public void IncludingRequestHeaders()

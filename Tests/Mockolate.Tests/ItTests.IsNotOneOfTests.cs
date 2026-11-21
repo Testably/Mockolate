@@ -115,6 +115,52 @@ public sealed partial class ItTests
 			await That(result).IsFalse();
 		}
 
+		[Test]
+		public async Task WithEmptyValues_ShouldMatch()
+		{
+			IParameter<int> sut = It.IsNotOneOf<int>();
+
+			bool result = ((IParameterMatch<int>)sut).Matches(5);
+
+			await That(result).IsTrue();
+		}
+
+		[Test]
+		[Arguments(3, false)]
+		[Arguments(4, true)]
+		[Arguments(null, false)]
+		public async Task WithNullableValues_ShouldMatchWhenNotEqualToAny(int? value, bool expectMatch)
+		{
+			IParameter<int?> sut = It.IsNotOneOf<int?>(3, null, 5);
+
+			bool result = ((IParameterMatch<int?>)sut).Matches(value);
+
+			await That(result).IsEqualTo(expectMatch);
+		}
+
+		[Test]
+		[Arguments("foo", false)]
+		[Arguments("baz", true)]
+		[Arguments(null, false)]
+		public async Task WithNullAsObject_ShouldNotMatchWhenNullIsOneOfTheValues(string? value, bool expectMatch)
+		{
+			IParameter<string?> sut = It.IsNotOneOf<string?>("foo", null);
+
+			bool result = sut.Matches(value);
+
+			await That(result).IsEqualTo(expectMatch);
+		}
+
+		[Test]
+		public async Task WithNullAsObject_WhenNullIsNotOneOfTheValues_ShouldMatch()
+		{
+			IParameter<string?> sut = It.IsNotOneOf<string?>("foo", "bar");
+
+			bool result = sut.Matches(null);
+
+			await That(result).IsTrue();
+		}
+
 		public abstract class MyBaseIsNotOneOf;
 
 		public class MyImplementationIsNotOneOf : MyBaseIsNotOneOf;

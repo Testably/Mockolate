@@ -1,4 +1,5 @@
 using Mockolate.Parameters;
+using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests;
 
@@ -95,6 +96,17 @@ public sealed partial class ItTests
 		}
 
 		[Test]
+		public async Task WhenTypeDoesNotMatch_ShouldReturnFalse()
+		{
+			MyFlavor flavor = MyFlavor.Dark;
+			IParameter<int> sut = It.IsOneOf(4, 5, 6);
+
+			bool result = sut.Matches(flavor);
+
+			await That(result).IsFalse();
+		}
+
+		[Test]
 		[Arguments(1)]
 		[Arguments(5)]
 		[Arguments(-42)]
@@ -105,6 +117,52 @@ public sealed partial class ItTests
 			bool result = ((IParameterMatch<int>)sut).Matches(value);
 
 			await That(result).IsTrue();
+		}
+
+		[Test]
+		public async Task WithEmptyValues_ShouldNotMatch()
+		{
+			IParameter<int> sut = It.IsOneOf<int>();
+
+			bool result = ((IParameterMatch<int>)sut).Matches(5);
+
+			await That(result).IsFalse();
+		}
+
+		[Test]
+		[Arguments(3, true)]
+		[Arguments(4, false)]
+		[Arguments(null, true)]
+		public async Task WithNullableValues_ShouldMatchWhenEqualToAny(int? value, bool expectMatch)
+		{
+			IParameter<int?> sut = It.IsOneOf<int?>(3, null, 5);
+
+			bool result = ((IParameterMatch<int?>)sut).Matches(value);
+
+			await That(result).IsEqualTo(expectMatch);
+		}
+
+		[Test]
+		[Arguments("foo", true)]
+		[Arguments("baz", false)]
+		[Arguments(null, true)]
+		public async Task WithNullAsObject_ShouldMatchWhenNullIsOneOfTheValues(string? value, bool expectMatch)
+		{
+			IParameter<string?> sut = It.IsOneOf<string?>("foo", null);
+
+			bool result = sut.Matches(value);
+
+			await That(result).IsEqualTo(expectMatch);
+		}
+
+		[Test]
+		public async Task WithNullAsObject_WhenNullIsNotOneOfTheValues_ShouldNotMatch()
+		{
+			IParameter<string?> sut = It.IsOneOf<string?>("foo", "bar");
+
+			bool result = sut.Matches(null);
+
+			await That(result).IsFalse();
 		}
 
 		public interface IMyBase

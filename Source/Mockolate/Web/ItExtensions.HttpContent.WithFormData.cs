@@ -82,18 +82,53 @@ public static partial class ItExtensions
 		public bool Matches(string content)
 		{
 			List<(string Key, string Value)> formDataParameters = GetFormData(content).ToList();
-			return _isExactly
-				? _requiredFormDataParameters.All(requiredParameter
-					  => formDataParameters.Any(parameter
-						  => parameter.Key == requiredParameter.Name &&
-						     requiredParameter.Value.Matches(parameter.Value))) &&
-				  formDataParameters.All(parameter => _requiredFormDataParameters
-					  .Any(requiredParameter => parameter.Key == requiredParameter.Name &&
-					                            requiredParameter.Value.Matches(parameter.Value)))
-				: _requiredFormDataParameters.All(requiredParameter
-					=> formDataParameters.Any(parameter
-						=> parameter.Key == requiredParameter.Name &&
-						   requiredParameter.Value.Matches(parameter.Value)));
+			foreach ((string Name, HttpFormDataValue Value) requiredParameter in _requiredFormDataParameters)
+			{
+				if (!ContainsMatch(formDataParameters, requiredParameter.Name, requiredParameter.Value))
+				{
+					return false;
+				}
+			}
+
+			if (_isExactly)
+			{
+				foreach ((string Key, string Value) parameter in formDataParameters)
+				{
+					if (!IsRequired(parameter.Key, parameter.Value))
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		private static bool ContainsMatch(List<(string Key, string Value)> formDataParameters, string name,
+			HttpFormDataValue value)
+		{
+			foreach ((string Key, string Value) parameter in formDataParameters)
+			{
+				if (parameter.Key == name && value.Matches(parameter.Value))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private bool IsRequired(string key, string value)
+		{
+			foreach ((string Name, HttpFormDataValue Value) requiredParameter in _requiredFormDataParameters)
+			{
+				if (key == requiredParameter.Name && requiredParameter.Value.Matches(value))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		public void Exactly()

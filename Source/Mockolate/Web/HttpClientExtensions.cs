@@ -89,7 +89,15 @@ public static partial class HttpClientExtensions
 		{
 			if (value.Method == method)
 			{
-				return parameters.All(parameter => parameter.Matches(value));
+				foreach (IHttpRequestMessageParameter parameter in parameters)
+				{
+					if (!parameter.Matches(value))
+					{
+						return false;
+					}
+				}
+
+				return true;
 			}
 
 			return false;
