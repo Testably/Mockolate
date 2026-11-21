@@ -127,7 +127,7 @@ public sealed class OverrideOfAbstractMemberTests
 
 		await That(indexerValue).IsEqualTo(5);
 		await That(echoed).IsEqualTo(7);
-		await That(echoedString).IsNotEqualTo("a").Because("the re-abstracted method does not call the virtual method of the base class");
+		await That(echoedString).IsEmpty().Because("the re-abstracted method does not call the virtual method of the base class, but returns the default value of a string");
 		await That(sut.Mock.Verify.Echo(1)).Once();
 	}
 
