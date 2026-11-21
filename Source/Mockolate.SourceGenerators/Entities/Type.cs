@@ -59,7 +59,6 @@ internal record Type
 		IsValueType = typeSymbol.IsValueType;
 		IsTypeParameterThatCanBeObject = typeSymbol is ITypeParameterSymbol typeParameter &&
 		                                 CanBeObject(typeParameter);
-		IsFormattable = IsIFormattable(typeSymbol);
 		// IsRefLikeType is true for ref structs (e.g. Span<T>, ReadOnlySpan<T>, Utf8JsonReader,
 		// and any user-defined `ref struct`). Used by the generator to switch to the ref-struct-safe
 		// setup pipeline for parameters that cannot flow through the regular IParameter<T> path
@@ -117,8 +116,6 @@ internal record Type
 	/// </summary>
 	public bool MayHoldCancellationToken { get; }
 
-	public bool IsFormattable { get; }
-
 	/// <summary>
 	///     Whether the type is a type parameter that a call can close over <see langword="object" />, so that an argument
 	///     for it accepts every matcher as a value.
@@ -166,28 +163,6 @@ internal record Type
 		   typeParameter.ConstraintTypes.All(constraintType => constraintType is ITypeParameterSymbol other
 			   ? CanBeObject(other)
 			   : constraintType.SpecialType == SpecialType.System_Object);
-
-	private static bool IsIFormattable(ITypeSymbol typeSymbol)
-	{
-		// Unwrap Nullable<T>: check if the underlying type implements IFormattable
-		if (typeSymbol is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T, } nullable)
-		{
-			typeSymbol = nullable.TypeArguments[0];
-		}
-
-		// The type itself may be System.IFormattable (AllInterfaces excludes self)
-		if (typeSymbol is INamedTypeSymbol named &&
-		    named.ContainingNamespace?.ContainingNamespace?.IsGlobalNamespace == true &&
-		    named.ContainingNamespace.Name == "System" &&
-		    named.Name == "IFormattable")
-		{
-			return true;
-		}
-
-		return typeSymbol.AllInterfaces.Any(i => i.ContainingNamespace?.ContainingNamespace?.IsGlobalNamespace == true &&
-		                                         i.ContainingNamespace.Name == "System" &&
-		                                         i.Name == "IFormattable");
-	}
 
 	public override string ToString() => Fullname;
 }

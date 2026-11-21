@@ -5869,7 +5869,7 @@ internal static partial class Sources
 					string local = $"__arg{idx}";
 					sb.Append("\t\t\t").Append(p.Type.Fullname).Append(' ').Append(local).Append(" = ")
 						.Append(defaultExpr).Append(";").AppendLine();
-					argNames.Add($"{RefKindKeyword(p.RefKind)}{local}");
+					argNames.Add($"{p.RefKind.GetString()}{local}");
 				}
 				else
 				{
