@@ -34,7 +34,7 @@ Recording, setup matching and counting must not allocate. Measure changes with t
 
 - Throw `MockException` for misuse, `MockNotSetupException` when a strict mock is called without setup and `MockVerificationException` (or `MockVerificationTimeoutException`) for failed verifications.
 - Messages are full sentences. Verifications read `Expected that mock <expectation> <count>, but it <found>.`, for example `Expected that mock invoked method Dispense(It.IsAny<string>(), It.IsAny<int>()) at least 3 times, but it did twice.` Build the expectation lazily with a `static` formatter over state the verification already holds (`VerificationExpectation`), so the success path neither formats strings nor allocates closures.
-- Argument values in messages and interaction descriptions go through `Mockolate.Internals.ValueFormatter.Format`, so they read the same under every culture.
+- Argument values in messages and interaction descriptions go through `Mockolate.Internals.ValueFormatter.Format`: strings are quoted, `IFormattable` values use the invariant culture and other values use `ToString()`.
 
 ### Async
 

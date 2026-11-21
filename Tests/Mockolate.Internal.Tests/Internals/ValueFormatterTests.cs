@@ -60,8 +60,21 @@ public class ValueFormatterTests
 		await That(result).IsEqualTo("null");
 	}
 
+	[Test]
+	public async Task Format_WhenFormattableReturnsNull_ShouldReturnNull()
+	{
+		string result = ValueFormatter.Format(new NullFormattable());
+
+		await That(result).IsEqualTo("null");
+	}
+
 	private sealed class FixedToString(string? value)
 	{
 		public override string? ToString() => value;
+	}
+
+	private sealed class NullFormattable : IFormattable
+	{
+		public string ToString(string? format, IFormatProvider? formatProvider) => null!;
 	}
 }

@@ -11,6 +11,9 @@ namespace Mockolate.Internals;
 ///     Public only because generated code in the user's assembly calls it; not intended for direct use from user
 ///     code.
 /// </remarks>
+#if !DEBUG
+[System.Diagnostics.DebuggerNonUserCode]
+#endif
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class ValueFormatter
 {
@@ -27,7 +30,7 @@ public static class ValueFormatter
 		{
 			null => "null",
 			string s => $"\"{s}\"",
-			IFormattable formattable => formattable.ToString(null, CultureInfo.InvariantCulture),
+			IFormattable formattable => formattable.ToString(null, CultureInfo.InvariantCulture) ?? "null",
 			_ => value.ToString() ?? "null",
 		};
 }
