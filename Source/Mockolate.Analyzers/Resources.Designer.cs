@@ -294,6 +294,24 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to pass the elements as separate arguments instead of an array, and matchers of the parameter types for the other arguments as well, for example It.Is(…).
+        /// </summary>
+        internal static string Mockolate0007ParamsArrayAndOtherArgumentsHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007ParamsArrayAndOtherArgumentsHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to use a matcher for '{0}', such as It.IsAny&lt;{0}&gt;(); Match.AnyParameters() only matches any parameters as the only argument of a method.
+        /// </summary>
+        internal static string Mockolate0007ParametersHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007ParametersHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to A matcher is compared as a value.
         /// </summary>
         internal static string Mockolate0007Title {

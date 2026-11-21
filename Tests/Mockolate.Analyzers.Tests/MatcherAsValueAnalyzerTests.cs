@@ -4,10 +4,7 @@ using Verifier = Mockolate.Analyzers.Tests.Verifiers.CSharpAnalyzerVerifier<Mock
 
 namespace Mockolate.Analyzers.Tests;
 
-// The pinned test compiler predates C# unions, so the stand-in ParameterArg<T> below takes values through a plain
-// implicit operator, which cannot convert from object or from an interface. A matcher that is also a value of the
-// value type picks the value case there; with the real union that call is ambiguous (CS0457) when it is a matcher for
-// the value type, and binds the value case otherwise.
+// The pinned test compiler predates C# unions, so the stand-in ParameterArg<T> converts values with an implicit operator.
 public class MatcherAsValueAnalyzerTests
 {
 	private const string ValueHint =
@@ -15,6 +12,14 @@ public class MatcherAsValueAnalyzerTests
 
 	private const string OtherArgumentsHint =
 		"pass matchers of the parameter types for the other arguments as well, for example It.Is(…)";
+
+	private const string ParamsArrayAndOtherArgumentsHint =
+		"pass the elements as separate arguments instead of an array, and matchers of the parameter types for the other arguments as well, for example It.Is(…)";
+
+	private const string ParametersHint =
+		"use a matcher for 'object', such as It.IsAny<object>(); Match.AnyParameters() only matches any parameters as the only argument of a method";
+
+	private const string NoMatcherOverloadHint = "no overload of this member takes it as a matcher";
 
 	private const string Declarations = """
 	                                    #nullable enable
@@ -36,6 +41,9 @@ public class MatcherAsValueAnalyzerTests
 	                                            {
 	                                                int Take(object value);
 	                                                int Take(IParameter<object> value);
+	                                                int Take(IParameters parameters);
+	                                                int Pair(object value, int count);
+	                                                int Pair(IParameters parameters);
 	                                                int Dyn(dynamic value);
 	                                                int Dyn(IParameter<object> value);
 	                                                int Typed(IParameter<int> value);
@@ -44,9 +52,11 @@ public class MatcherAsValueAnalyzerTests
 	                                                int Log(int level, params object[] args);
 	                                                int Log(IParameter<int> level, params IParameter<object>[] args);
 	                                                int Gen<T>(int level, params T[] args);
+	                                                int Gen<T>(IParameter<int> level, params IParameter<T>[] args);
 	                                                int Plain<T>(T value);
 	                                                [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 	                                                int Plain<T>(IParameter<T>? value);
+	                                                int Plain<T>(IParameters parameters);
 	                                                int GenOnly<T>(params T[] args);
 	                                                int Only(params object[] args);
 	                                                int Optional(IComparable value, int count = 3);
@@ -87,8 +97,11 @@ public class MatcherAsValueAnalyzerTests
 	                                    {
 	                                        public class PropertyResult<T>
 	                                        {
-	                                            public int Set(T value) => 0;
 	                                            public int Set(IParameter<T> value) => 0;
+	                                            [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+	                                            public int Set(T value,
+	                                                [System.Runtime.CompilerServices.CallerArgumentExpression(nameof(value))]
+	                                                string doNotPopulateThisValue = "") => 0;
 	                                        }
 	                                    }
 
@@ -154,14 +167,57 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Log(1, \"a\", {|#0:It.IsAny<object>()|});", "It.IsAny<object>()")]
 	[Arguments("verify.Log(1, {|#0:It.IsAny<object[]>()|});", "It.IsAny<object[]>()")]
 	[Arguments("verify.Gen<object>(1, {|#0:It.IsAny<object>()|});", "It.IsAny<object>()")]
-	[Arguments("verify.Log(1, new object[] { {|#0:It.IsAny<object>()|} });", "It.IsAny<object>()")]
-	[Arguments("verify.Only(new object[] { \"a\", {|#0:It.IsAny<object>()|} });", "It.IsAny<object>()")]
 	public async Task WhenMatcherForObjectIsMixedWithValues_ShouldSuggestMatchersForTheOtherArguments(string call,
 		string matcher)
 		=> await VerifyAsync(call,
 			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
 				.WithLocation(0)
 				.WithArguments(matcher, "object", OtherArgumentsHint));
+
+	[Test]
+	[Arguments("verify.Log(1, new object[] { {|#0:It.IsAny<object>()|} });")]
+	[Arguments("verify.Only(new object[] { \"a\", {|#0:It.IsAny<object>()|} });")]
+	public async Task WhenMatcherInAnExplicitParamsArrayIsMixedWithValues_ShouldSuggestBothFixes(string call)
+		=> await VerifyAsync(call,
+			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
+				.WithLocation(0)
+				.WithArguments("It.IsAny<object>()", "object", ParamsArrayAndOtherArgumentsHint));
+
+	[Test]
+	[Arguments("verify.Gen(1, {|#0:It.IsAny<object>()|});")]
+	[Arguments("verify?.Gen(1, {|#0:It.IsAny<object>()|});")]
+	public async Task WhenTheTypeArgumentIsInferredFromAMatcherNextToValues_ShouldSuggestMatchersForTheOtherArguments(
+		string call)
+		=> await VerifyAsync(call,
+			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
+				.WithLocation(0)
+				.WithArguments("It.IsAny<object>()", "IParameterWithCallback<object>", OtherArgumentsHint));
+
+	[Test]
+	public async Task WhenTheTypeArgumentIsInferredFromAMatcherWithoutValues_ShouldSayThatNoOverloadTakesIt()
+		=> await VerifyAsync("verify.GenOnly({|#0:It.IsAny<object>()|});",
+			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
+				.WithLocation(0)
+				.WithArguments("It.IsAny<object>()", "IParameterWithCallback<object>", NoMatcherOverloadHint));
+
+	[Test]
+	public async Task WhenTheTypeArgumentIsAnExplicitMatcherType_ShouldSuggestAMatcherForIt()
+		=> await VerifyAsync("verify.Plain<IParameter<int>>({|#0:It.IsAny<int>()|});",
+			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
+				.WithLocation(0)
+				.WithArguments("It.IsAny<int>()", "IParameter<int>",
+					"use a matcher for 'IParameter<int>', or It.Is<IParameter<int>>(…) if the matcher itself is the expected value"));
+
+	[Test]
+	[Arguments("verify.Pair({|#0:Match.AnyParameters()|}, 1);")]
+	[Arguments("verify.Log(1, {|#0:Match.AnyParameters()|});")]
+	[Arguments("_ = verify[{|#0:Match.AnyParameters()|}];")]
+	[Arguments("property.Set({|#0:Match.AnyParameters()|});")]
+	public async Task WhenAParametersMatchIsComparedAsAValue_ShouldBeFlagged(string call)
+		=> await VerifyAsync(call,
+			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
+				.WithLocation(0)
+				.WithArguments("Match.AnyParameters()", "object", ParametersHint));
 
 	[Test]
 	public async Task WhenMatcherForObjectIsInAnExplicitParamsArray_ShouldSuggestSeparateArguments()
@@ -253,6 +309,14 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Take((object)It.IsAny<int>());")]
 	[Arguments("verify.Take(5);")]
 	[Arguments("verify.Take(It.IsAny<Undefined>());")]
+	[Arguments("verify.Take(It.IsAny<Undefined[]>());")]
+	[Arguments("verify.Take(It.IsAny<System.Collections.Generic.List<Undefined>>());")]
+	[Arguments("verify.Take(Match.AnyParameters());")]
+	[Arguments("verify.Pair(Match.AnyParameters());")]
+	[Arguments("verify.Plain<object>(Match.AnyParameters());")]
+	[Arguments("verify.Gen(It.IsAny<int>(), It.IsAny<object>());")]
+	[Arguments("property.Set(It.IsAny<string>());")]
+	[Arguments("structProperty.Set((IParameter<StructMatcher>)new StructMatcher());")]
 	[Arguments("setup.Take(It.IsAny<object>());")]
 	[Arguments("verify.Typed(It.IsAny<int>());")]
 	[Arguments("verify.Log(It.IsAny<int>(), It.IsAny<object>(), It.Is<object>(\"a\"));")]

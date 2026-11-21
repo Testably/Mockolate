@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Operations;
 
@@ -49,12 +50,13 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 			Compilation compilation = compilationContext.Compilation;
 			INamedTypeSymbol? parameter = compilation.GetTypeByMetadataName("Mockolate.Parameters.IParameter");
 			INamedTypeSymbol? typedParameter = compilation.GetTypeByMetadataName("Mockolate.Parameters.IParameter`1");
-			if (parameter is null || typedParameter is null)
+			INamedTypeSymbol? parameters = compilation.GetTypeByMetadataName("Mockolate.Parameters.IParameters");
+			if (parameter is null || typedParameter is null || parameters is null)
 			{
 				return;
 			}
 
-			MatcherTypes matcherTypes = new(compilation, parameter, typedParameter);
+			MatcherTypes matcherTypes = new(compilation, parameter, typedParameter, parameters);
 			compilationContext.RegisterOperationAction(c => AnalyzeArgument(c, matcherTypes), OperationKind.Argument);
 		});
 	}
@@ -94,8 +96,8 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 
 		// The declared type tells a value parameter from a matcher parameter: a type argument inferred from the
 		// matcher turns a value parameter into one of a matcher type.
-		if (operand.Type is not { } matcherType || !matcherTypes.IsMatcher(matcherType) ||
-		    HasErrorTypeArgument(matcherType) || matcherTypes.IsMatcher(declaredSlotType))
+		if (operand.Type is not { } matcherType || !matcherTypes.IsMatcherOrParameters(matcherType) ||
+		    ContainsErrorType(matcherType) || matcherTypes.IsMatcherOrParameters(declaredSlotType))
 		{
 			return;
 		}
@@ -129,8 +131,16 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 	{
 		IOperation operand = Unwrap(value);
 		string typeName = valueType.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
+		// A type argument inferred from the matcher is the matcher type, so the matcher is one for the intended value
+		// type, which the other arguments decide.
+		bool isInferred = matcherTypes.IsMatcher(valueType) && HasInferredTypeArguments(argument);
+		bool isInExplicitArray = argument.ArgumentKind != ArgumentKind.ParamArray && value != argument.Value;
 		string hint;
-		if (!matcherTypes.IsMatcherFor(matcherType, valueType))
+		if (!matcherTypes.IsMatcher(matcherType))
+		{
+			hint = string.Format(Resources.Mockolate0007ParametersHint, typeName);
+		}
+		else if (!isInferred && !matcherTypes.IsMatcherFor(matcherType, valueType))
 		{
 			hint = string.Format(Resources.Mockolate0007ValueHint, typeName);
 		}
@@ -139,15 +149,17 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		// overload has the higher priority.
 		else if (HasBlockingNeighbor(matcherTypes, argument, value))
 		{
-			hint = Resources.Mockolate0007OtherArgumentsHint;
+			hint = isInExplicitArray
+				? Resources.Mockolate0007ParamsArrayAndOtherArgumentsHint
+				: Resources.Mockolate0007OtherArgumentsHint;
 		}
-		else if (argument.ArgumentKind != ArgumentKind.ParamArray && value != argument.Value)
+		else if (isInExplicitArray)
 		{
 			hint = Resources.Mockolate0007ParamsArrayHint;
 		}
 		else
 		{
-			hint = matcherTypes.IsValueOfItsMatcher(valueType)
+			hint = isInferred || matcherTypes.IsValueOfItsMatcher(valueType)
 				? Resources.Mockolate0007NoMatcherOverloadHint
 				: string.Format(Resources.Mockolate0007CastHint, typeName);
 		}
@@ -218,9 +230,27 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 			? initializer
 			: null;
 
+	private static bool HasInferredTypeArguments(IArgumentOperation argument)
+		=> argument.Parent is IInvocationOperation
+		   {
+			   TargetMethod.IsGenericMethod: true,
+			   Syntax: InvocationExpressionSyntax
+			   {
+				   Expression: not (GenericNameSyntax
+				   or MemberAccessExpressionSyntax { Name: GenericNameSyntax, }
+				   or MemberBindingExpressionSyntax { Name: GenericNameSyntax, }),
+			   },
+		   };
+
 	// A matcher for a type that does not resolve already fails to compile.
-	private static bool HasErrorTypeArgument(ITypeSymbol type)
-		=> type is INamedTypeSymbol named && named.TypeArguments.Any(t => t.TypeKind == TypeKind.Error);
+	private static bool ContainsErrorType(ITypeSymbol type)
+		=> type switch
+		{
+			{ TypeKind: TypeKind.Error, } => true,
+			IArrayTypeSymbol array => ContainsErrorType(array.ElementType),
+			INamedTypeSymbol named => named.TypeArguments.Any(ContainsErrorType),
+			_ => false,
+		};
 
 	private static IOperation Unwrap(IOperation value)
 	{
@@ -303,11 +333,22 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 	private sealed class MatcherTypes(
 		Compilation compilation,
 		INamedTypeSymbol parameter,
-		INamedTypeSymbol typedParameter)
+		INamedTypeSymbol typedParameter,
+		INamedTypeSymbol parameters)
 	{
 		public bool IsMatcher(ITypeSymbol type)
-			=> SymbolEqualityComparer.Default.Equals(type, parameter) ||
-			   type.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, parameter));
+			=> Implements(type, parameter);
+
+		/// <summary>
+		///     Whether <paramref name="type" /> is a matcher or a parameters match such as <c>Match.AnyParameters()</c>,
+		///     which only matches any parameters as the only argument.
+		/// </summary>
+		public bool IsMatcherOrParameters(ITypeSymbol type)
+			=> Implements(type, parameter) || Implements(type, parameters);
+
+		private static bool Implements(ITypeSymbol type, INamedTypeSymbol @interface)
+			=> SymbolEqualityComparer.Default.Equals(type, @interface) ||
+			   type.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, @interface));
 
 		/// <summary>
 		///     Whether <paramref name="matcherType" /> converts to <c>IParameter&lt;T&gt;</c> of

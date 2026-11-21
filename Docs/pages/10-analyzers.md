@@ -225,13 +225,15 @@ The rule fires when no overload takes the matcher as a matcher, for example when
 
 - an `object` or `dynamic` parameter, property or indexer value, or indexer key, with a matcher that is no matcher for `object`, such as `It.IsAny<int>()`;
 - an element of a `params object[]` array next to plain values, or with a matcher that is no matcher for `object`, and a matcher for the whole array, such as `It.IsAny<object[]>()`, next to other elements of the array or next to four or more other arguments;
-- an element of a `params T[]` array of a generic method closed over `object`, even without plain values;
+- an element of a `params T[]` array of a generic method closed over `object`, when the array is the only parameter or next to plain values;
+- an element of a `params T[]` array whose type argument is inferred from the matcher next to plain values, such as `Gen(1, It.IsAny<object>())` on `void Gen<T>(int level, params T[] args)`, which infers `T` as the matcher type;
 - an element of a `params` array passed as an explicit array, such as `Log(It.IsAny<int>(), new object[] { It.IsAny<object>() })`;
-- an `object` parameter of a method with more than four parameters next to plain values, where no overload mixes values and matchers (without [union parameters](06-parameter-matching.md#union-parameters-c-15)).
+- an `object` parameter of a method with more than four parameters next to plain values, where no overload mixes values and matchers (without [union parameters](06-parameter-matching.md#union-parameters-c-15));
+- `Match.AnyParameters()` in any of these places or next to other arguments, such as `Pair(Match.AnyParameters(), 1)`, because it only matches any parameters as the only argument of a method.
 
 Use a matcher for the parameter type instead, for example `It.IsAny<object>()` or `It.Satisfies<object>(f => f is int)`, or pass matchers for the other arguments as well, as in `Log(It.Is(1), It.Is<object>("Dark"), It.IsAny<object>())`. If the matcher object itself is the expected value, wrap it in `It.Is<object>(…)` or cast it to `object`; the rule does not report either.
 
-The message says which of these fixes applies. For an explicit `params` array, it suggests passing the elements as separate arguments. For a custom matcher that is also a value of the parameter type, it suggests a cast to `IParameter<T>`, and it says so when no spelling passes the matcher as a matcher.
+The message says which of these fixes applies. For an explicit `params` array, it suggests passing the elements as separate arguments, together with matchers for the other arguments where they are plain values. For a custom matcher that is also a value of the parameter type, it suggests a cast to `IParameter<T>`, and it says so when no spelling passes the matcher as a matcher.
 
 ## Explicit types for union parameters
 
