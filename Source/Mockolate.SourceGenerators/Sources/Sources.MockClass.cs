@@ -3528,6 +3528,8 @@ internal static partial class Sources
 	///     combinations of the kept parameters, for every count of left-out parameters up to <paramref name="omittable" />.
 	///     The value flags cover every parameter and mark a left-out one as a value unless the overload takes only
 	///     matchers, so that they name the full overload that the shorter one forwards to with the declared default values.
+	///     Above <see cref="MaxExplicitParameters" /> they are the combinations of the full overloads with values for the
+	///     left-out parameters, so that each one has its full overload.
 	/// </summary>
 	private static IEnumerable<(int KeptCount, bool[]? ValueFlags)> GenerateOmittedMethodOverloads(Method method,
 		int omittable)
@@ -3547,9 +3549,12 @@ internal static partial class Sources
 			}
 			else
 			{
-				foreach (bool[] valueFlags in GenerateValueFlagsAboveMaxExplicitParameters(parameters.Take(keptCount)))
+				foreach (bool[] valueFlags in GenerateValueFlagsAboveMaxExplicitParameters(parameters))
 				{
-					yield return (keptCount, [..valueFlags, ..omitted,]);
+					if (valueFlags.Skip(keptCount).All(f => f) && valueFlags.Take(keptCount).Any(f => f))
+					{
+						yield return (keptCount, valueFlags);
+					}
 				}
 			}
 		}
@@ -3625,7 +3630,7 @@ internal static partial class Sources
 	//   mixed                 : count of non-value (matcher) params, in [1, parameterCount - 1]
 	// parameterCount == 0 returns int.MaxValue so the lone zero-arg overload keeps its historical priority.
 	// The all-values overload is not promoted for an `object` parameter or one typed with a method type parameter
-	// (ParametersBlockAllValuesPromotion).
+	// (ParametersBlockAllValuesPromotion), nor next to a sibling with such a parameter (HasSiblingThatMayHoldMatcher).
 	// A trailing `params object[]` (RanksArrayMatcherFirst) moves the overloads that differ from all-values only by
 	// matchers for that parameter above it:
 	//   values + IParameter<object[]>?           : int.MaxValue
@@ -3678,7 +3683,8 @@ internal static partial class Sources
 			return "int.MaxValue";
 		}
 
-		if (ParametersBlockAllValuesPromotion(method.Parameters, valueFlags))
+		if (ParametersBlockAllValuesPromotion(method.Parameters, valueFlags) ||
+		    HasSiblingThatMayHoldMatcher(@class, method))
 		{
 			return null;
 		}
@@ -3711,6 +3717,23 @@ internal static partial class Sources
 		                                    BareMethodName(m) == bareName &&
 		                                    m.Parameters.Any(p => (p.Type.SpecialType == SpecialType.System_Object ||
 		                                                           MayHoldMatcher(p)) &&
+		                                                          p.CanUseNullableParameterOverload()));
+	}
+
+	/// <summary>
+	///     Whether an overload of <paramref name="method" /> with as many parameters has one typed with a method type
+	///     parameter (<see cref="MayHoldMatcher" />), whose all-values overload is not promoted. The all-values overload
+	///     of <paramref name="method" /> then stays unpromoted as well: at equal priority <c>Setup.M("a")</c> binds
+	///     <c>M&lt;string&gt;(string)</c> over <c>M(IComparable)</c>, as the call on the mock does.
+	/// </summary>
+	private static bool HasSiblingThatMayHoldMatcher(Class @class, Method method)
+	{
+		string bareName = BareMethodName(method);
+		return @class.AllMethods().Any(m => m.ExplicitImplementation is null &&
+		                                    m.MemberType == method.MemberType &&
+		                                    BareMethodName(m) == bareName &&
+		                                    m.Parameters.Count == method.Parameters.Count &&
+		                                    m.Parameters.Any(p => MayHoldMatcher(p) &&
 		                                                          p.CanUseNullableParameterOverload()));
 	}
 
@@ -3756,7 +3779,8 @@ internal static partial class Sources
 	///     overload, which accepts any argument list in its expanded form and would capture the matcher as one element.
 	///     Only the all-values overload moves below it: the overloads that replace other values by matchers stay
 	///     below all-values, so a <see langword="default" /> literal for such a parameter keeps meaning the value.
-	///     An <see langword="object" /> parameter already keeps all-values from being promoted, and above
+	///     An <see langword="object" /> parameter or one typed with a method type parameter already keeps all-values from
+	///     being promoted, and a matcher for it must not bind as its value next to the array matcher. Above
 	///     <see cref="MaxExplicitParameters" /> no overload combines values with a matcher for the array.
 	/// </summary>
 	private static bool RanksArrayMatcherFirst(EquatableArray<MethodParameter> parameters)
@@ -3769,7 +3793,8 @@ internal static partial class Sources
 
 		for (int i = 0; i < span.Length; i++)
 		{
-			if (!span[i].CanUseNullableParameterOverload() || span[i].Type.SpecialType == SpecialType.System_Object)
+			if (!span[i].CanUseNullableParameterOverload() || span[i].Type.SpecialType == SpecialType.System_Object ||
+			    MayHoldMatcher(span[i]))
 			{
 				return false;
 			}

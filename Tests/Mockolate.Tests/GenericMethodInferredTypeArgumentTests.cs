@@ -92,6 +92,67 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
+	public async Task LeftOutTypeParameterArgumentAboveFourParameters_ShouldSetUpAndVerifyTheMethod()
+	{
+		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		sut.Mock.Setup.LeftOutAboveFour(1, 2, 3, 4, It.IsAny<string>()).Returns(1);
+		sut.Mock.Setup.LeftOutAboveFour<int>(1, 2, 3, 4).Returns(2);
+
+		int[] results =
+		[
+			sut.LeftOutAboveFour(1, 2, 3, 4, "a"), sut.LeftOutAboveFour(1, 2, 3, 4, 5),
+			sut.LeftOutAboveFour<int>(1, 2, 3, 4),
+		];
+
+		await That(results).IsEqualTo([1, 0, 2,])
+			.Because("the left-out argument stands for the declared default value of the type argument");
+		await That(sut.Mock.Verify.LeftOutAboveFour(1, 2, 3, 4, It.IsAny<string>())).Once();
+		await That(sut.Mock.Verify.LeftOutAboveFour<int>(1, 2, 3, 4)).Once();
+	}
+
+	[Test]
+	public async Task FiveTypeParameterSlotsWithLeftOutArgument_ShouldSetUpAndVerifyTheMethod()
+	{
+		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		sut.Mock.Setup.FiveAboveFour(1, 2, 3, 4).Returns(1);
+		sut.Mock.Setup.FiveAboveFour(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.Is(9))
+			.Returns(2);
+
+		int[] results = [sut.FiveAboveFour(1, 2, 3, 4), sut.FiveAboveFour(5, 6, 7, 8, 9), sut.FiveAboveFour(1, 2, 3, 4, 5),];
+
+		await That(results).IsEqualTo([1, 2, 0,]);
+		await That(sut.Mock.Verify.FiveAboveFour(1, 2, 3, 4)).Once();
+	}
+
+	[Test]
+	public async Task Matcher_NextToMatcherForParamsArray_ShouldSetUpAndVerifyTheMethod()
+	{
+		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		sut.Mock.Setup.WithRest(It.IsAny<string>(), It.IsAny<object[]>()).Returns(1);
+
+		int[] results = [sut.WithRest("a", 1, 2), sut.WithRest(1, 2),];
+
+		await That(results).IsEqualTo([1, 0,])
+			.Because("the type argument is inferred from the matcher, not as the matcher type");
+		await That(sut.Mock.Verify.WithRest(It.IsAny<string>(), It.IsAny<object[]>())).Once();
+	}
+
+	[Test]
+	public async Task Value_NextToNonGenericSibling_ShouldSetUpAndVerifyTheMethodThatTheCallBinds()
+	{
+		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		sut.Mock.Setup.Sibling("a").Returns(1);
+		sut.Mock.Setup.Sibling((IComparable)"b").Returns(2);
+
+		int[] results = [sut.Sibling("a"), sut.Sibling((IComparable)"a"), sut.Sibling((IComparable)"b"), sut.Sibling("b"),];
+
+		await That(results).IsEqualTo([1, 0, 2, 0,])
+			.Because("a value binds the same overload in the setup as in the call on the mock");
+		await That(sut.Mock.Verify.Sibling("a")).Once();
+		await That(sut.Mock.Verify.Sibling((IComparable)"b")).Once();
+	}
+
+	[Test]
 	public async Task Matcher_ForLoggerScope_ShouldSetUpAndVerifyTheScope()
 	{
 		ILogger logger = ILogger.CreateMock();

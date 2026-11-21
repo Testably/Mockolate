@@ -198,11 +198,12 @@ internal static partial class Sources
 	// Priority hierarchy of the union-mode overloads, mirroring the classic set:
 	//   all-union             : int.MaxValue (takes the classic all-values role: binds `Method(null, …)` / `Method(default, …)`)
 	//   IParameters           : int.MaxValue - 1 (unchanged)
-	//   all-union, object slot: parameterCount (an IParameters argument converts to object, so it must not outrank IParameters)
+	//   all-union, object slot: parameterCount (an IParameters argument converts to object, so it must not outrank IParameters;
+	//                           also next to a sibling with a type-parameter slot, see HasSiblingThatMayHoldMatcher)
 	//   with predicates       : count of union/fixed slots, so a null argument binds to the union-heavier overload
 	//   with omitted slots    : negative, below every full overload (an argument for an omitted parameter would otherwise
 	//                           bind to a trailing caller-argument-expression string), fewer omitted slots rank higher
-	private static string UnionOverloadPriority(EquatableArray<MethodParameter> parameters, UnionSlot[] slots)
+	private static string UnionOverloadPriority(Class @class, Method method, UnionSlot[] slots)
 	{
 		int unionCount = slots.Count(s => s is UnionSlot.Union or UnionSlot.Fixed);
 		int omittedCount = slots.Count(s => s == UnionSlot.Omitted);
@@ -217,7 +218,10 @@ internal static partial class Sources
 		}
 
 		bool[] unionFlags = slots.Select(s => s == UnionSlot.Union).ToArray();
-		return ParametersBlockAllValuesPromotion(parameters, unionFlags) ? unionCount.ToString() : "int.MaxValue";
+		return ParametersBlockAllValuesPromotion(method.Parameters, unionFlags) ||
+		       HasSiblingThatMayHoldMatcher(@class, method)
+			? unionCount.ToString()
+			: "int.MaxValue";
 	}
 
 	private static string UnionArgumentLocalName(Method method, MethodParameter parameter)
@@ -292,9 +296,9 @@ internal static partial class Sources
 		}
 	}
 
-	private static void AppendUnionPriority(StringBuilder sb, Method method, UnionSlot[] slots)
+	private static void AppendUnionPriority(StringBuilder sb, Class @class, Method method, UnionSlot[] slots)
 		=> sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
-			.Append(UnionOverloadPriority(method.Parameters, slots))
+			.Append(UnionOverloadPriority(@class, method, slots))
 			.Append(")]").AppendLine();
 
 	/// <summary>
@@ -546,7 +550,7 @@ internal static partial class Sources
 	{
 		AppendUnionSummary(sb, @class, method, slots, methodNameOverride, isVerify: false);
 		AppendUnionOverloadRemark(sb, method, slots);
-		AppendUnionPriority(sb, method, slots);
+		AppendUnionPriority(sb, @class, method, slots);
 		sb.Append(method.ReturnType != Type.Void
 			? "\t\tglobal::Mockolate.Setup.IReturnMethodSetupParameterIgnorer"
 			: "\t\tglobal::Mockolate.Setup.IVoidMethodSetupParameterIgnorer");
@@ -654,7 +658,7 @@ internal static partial class Sources
 	{
 		AppendUnionSummary(sb, @class, method, slots, methodNameOverride, isVerify: true);
 		AppendUnionOverloadRemark(sb, method, slots);
-		AppendUnionPriority(sb, method, slots);
+		AppendUnionPriority(sb, @class, method, slots);
 		sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(verifyName)
 			.Append(">.IgnoreParameters ").Append(methodNameOverride ?? method.Name).Append('(');
 		AppendUnionParameters(sb, method, slots, isDefinition: true, isVerify: true);
