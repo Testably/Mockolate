@@ -59,23 +59,30 @@ public partial class It
 	internal abstract class TypedMatch<T> : IParameterWithCallback<T>, IParameterMatch<T>
 	{
 		private List<Action<T>>? _callbacks;
+		private bool _isShared;
+
+		/// <param name="isShared">
+		///     Whether the instance is a cached singleton that callbacks are never added to; <c>Do</c> adds them to a copy
+		///     instead.
+		/// </param>
+		protected TypedMatch(bool isShared = false)
+		{
+			_isShared = isShared;
+		}
 
 		/// <inheritdoc cref="IParameterWithCallback{T}.Do(Action{T})" />
 		IParameterWithCallback<T> IParameterWithCallback<T>.Do(Action<T> callback)
-			=> AddCallback(callback);
-
-		/// <summary>
-		///     Attaches a <paramref name="callback" /> to this matcher and returns the matcher to continue the fluent chain.
-		/// </summary>
-		/// <remarks>
-		///     Default: mutates this instance's callback list. Override in cached/shared matcher instances to allocate a fresh
-		///     mutable copy so the singleton never accumulates per-call callbacks.
-		/// </remarks>
-		protected virtual IParameterWithCallback<T> AddCallback(Action<T> callback)
 		{
-			_callbacks ??= [];
-			_callbacks.Add(callback);
-			return this;
+			TypedMatch<T> target = this;
+			if (_isShared)
+			{
+				target = (TypedMatch<T>)MemberwiseClone();
+				target._isShared = false;
+			}
+
+			target._callbacks ??= [];
+			target._callbacks.Add(callback);
+			return target;
 		}
 
 		/// <inheritdoc cref="IParameterMatch{T}.InvokeCallbacks(T)" />
