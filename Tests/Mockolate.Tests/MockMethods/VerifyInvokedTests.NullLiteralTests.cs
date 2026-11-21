@@ -224,6 +224,19 @@ public sealed partial class VerifyInvokedTests
 		}
 #pragma warning restore Mockolate0006
 
+		[Test]
+		public async Task WithNonGenericSibling_SetupAndVerifyNullWithTypeArgument_ShouldMatchTheNullCall()
+		{
+			IGenericSiblingService sut = IGenericSiblingService.CreateMock();
+			sut.Mock.Setup.M<string>(null!).Returns(1);
+
+			int[] results = [sut.M<string>(null!), sut.M("a"),];
+
+			await That(results).IsEqualTo([1, 0,])
+				.Because("with type arguments the non-generic sibling M(object?) cannot capture the lone null");
+			await That(sut.Mock.Verify.M<string>(null!)).Once();
+		}
+
 #if NET11_0_OR_GREATER
 		// In classic mode a null literal is ambiguous here: unlike for methods, the delegate overloads carry no OverloadResolutionPriority.
 		[Test]

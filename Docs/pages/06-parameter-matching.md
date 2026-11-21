@@ -143,6 +143,32 @@ await That(milk).IsFalse().Because("no setup matches a MilkChocolate");
 box.Mock.Verify.Add(It.IsAny<DarkChocolate>()).Once();
 ```
 
+### Generic methods
+
+On a generic method, the type argument follows from the matcher, so `Setup.Store(It.IsAny<int>())` sets up `Store<int>`, just like `Setup.Store<int>(It.IsAny<int>())`:
+
+```csharp
+public interface IChocolateArchive
+{
+    bool Store<T>(T item);
+}
+
+IChocolateArchive archive = IChocolateArchive.CreateMock();
+archive.Mock.Setup.Store(It.IsAny<int>()).Returns(true);
+
+bool stored = archive.Store(42);
+
+await That(stored).IsTrue();
+await That(archive.Mock.Verify.Store(It.IsAny<int>())).Once();
+```
+
+<details>
+<summary>Null and default literals for a type parameter</summary>
+
+A `null` or `default` literal has no type, so it needs the type argument (`Setup.Store<string>(null)`), and it stands for that argument. As for an `object` parameter, `.AnyParameters()` is only available after values there; use `Match.AnyParameters()` to match any arguments.
+
+</details>
+
 ## String matching
 
 `It.Matches(pattern)` matches strings with the wildcards `*` (any number of characters) and `?` (a single character).
