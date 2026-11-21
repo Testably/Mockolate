@@ -178,6 +178,11 @@ internal static partial class Mock
 					wrappedResult = wraps.BeginScope<TState>(state);
 					hasWrappedResult = true;
 				}
+				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass) && !hasWrappedResult)
+				{
+					wrappedResult = base.BeginScope<TState>(state);
+					hasWrappedResult = true;
+				}
 			}
 			finally
 			{
@@ -244,6 +249,11 @@ internal static partial class Mock
 					wrappedResult = wraps.IsEnabled(logLevel);
 					hasWrappedResult = true;
 				}
+				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass) && !hasWrappedResult)
+				{
+					wrappedResult = base.IsEnabled(logLevel);
+					hasWrappedResult = true;
+				}
 			}
 			finally
 			{
@@ -260,7 +270,7 @@ internal static partial class Mock
 		public override void Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
 			where TState : default
 		{
-			global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.ConcreteLogger.MemberId_Log_TState_, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log", null, logLevel, eventId, state, exception, formatter);
+			global::Mockolate.MockolateLogging.DispatchLog(this.MockRegistry, global::Mockolate.Mock.ConcreteLogger.MemberId_Log_TState_, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log", null, logLevel, eventId, state, exception, formatter, () => base.Log<TState>(logLevel, eventId, state, exception, formatter));
 		}
 
 		#endregion Mockolate.Tests.GeneratorCoverage.ConcreteLogger
