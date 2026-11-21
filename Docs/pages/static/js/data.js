@@ -1608,6 +1608,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -1878,7 +1884,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -2152,7 +2159,8 @@ window.BENCHMARK_DATA = {
           159.62982552846273,
           205.93672423362733,
           107.86328795126506,
-          169.10784448896135
+          169.10784448896135,
+          111.37928849856058
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2422,6 +2430,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800,
@@ -2713,7 +2722,8 @@ window.BENCHMARK_DATA = {
           61210.549536132814,
           79438.7914515904,
           27768.942028808593,
-          61632.51766531808
+          61632.51766531808,
+          27936.328582763672
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2992,7 +3002,8 @@ window.BENCHMARK_DATA = {
           9056,
           9056,
           9055,
-          9056
+          9056,
+          9055
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3274,7 +3285,8 @@ window.BENCHMARK_DATA = {
           3641.0691307067873,
           4577.201792907715,
           2090.570755004883,
-          3519.6646041870117
+          3519.6646041870117,
+          2188.05610539363
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3435,6 +3447,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -3835,7 +3848,8 @@ window.BENCHMARK_DATA = {
           3541.256367492676,
           4437.342045084635,
           2065.2224260057724,
-          3546.5674949645995
+          3546.5674949645995,
+          2181.440779622396
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4111,6 +4125,7 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6924,
+          6930,
           6930,
           6930,
           6930,
@@ -4396,7 +4411,8 @@ window.BENCHMARK_DATA = {
           165.27246974309284,
           208.82912472089131,
           115.62433993021646,
-          164.45992272240775
+          164.45992272240775,
+          121.08844549655915
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4562,6 +4578,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -4957,7 +4974,8 @@ window.BENCHMARK_DATA = {
           424.09979553222655,
           524.7843677656991,
           286.35244474411013,
-          416.5706073760986
+          416.5706073760986,
+          302.86361285618375
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5118,6 +5136,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -6858,6 +6877,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -7128,7 +7153,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -7402,7 +7428,8 @@ window.BENCHMARK_DATA = {
           117.01075304349264,
           136.0578075726827,
           152.83539463678997,
-          139.38483799298604
+          139.38483799298604,
+          183.9362466653188
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7672,6 +7699,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712,
@@ -7963,7 +7991,8 @@ window.BENCHMARK_DATA = {
           10380.327006022135,
           10766.659741210937,
           15068.645446777344,
-          9902.146231515067
+          9902.146231515067,
+          12391.94883219401
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8242,6 +8271,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12986,
+          12761,
           12761
         ],
         "borderColor": "#A052B0",
@@ -8524,7 +8554,8 @@ window.BENCHMARK_DATA = {
           4151.05440012614,
           4321.550858088902,
           5636.641191101075,
-          4142.198008219401
+          4142.198008219401,
+          5126.163651602609
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8685,6 +8716,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -9085,7 +9117,8 @@ window.BENCHMARK_DATA = {
           194665.59350585938,
           128978.53745117187,
           222777.59096679688,
-          110957.3100398137
+          110957.3100398137,
+          154645.48012695313
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9364,7 +9397,8 @@ window.BENCHMARK_DATA = {
           15619,
           15578,
           15620,
-          15578
+          15578,
+          15659
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9646,7 +9680,8 @@ window.BENCHMARK_DATA = {
           141.72933468451868,
           171.4611276467641,
           178.64214154879252,
-          165.3539776631764
+          165.3539776631764,
+          211.226296884673
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9787,6 +9822,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -10207,7 +10243,8 @@ window.BENCHMARK_DATA = {
           121.62248320579529,
           154.01006565093994,
           166.33870822588602,
-          191.27182946886336
+          191.27182946886336,
+          227.76653474171957
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -10341,6 +10378,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -12108,6 +12146,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -12378,7 +12422,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -12652,7 +12697,8 @@ window.BENCHMARK_DATA = {
           424.6413702329,
           313.1864052185646,
           389.49232247670494,
-          430.35751781463625
+          430.35751781463625,
+          418.42293186187743
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12922,6 +12968,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1680,
           1680,
           1680,
           1680,
@@ -13213,7 +13260,8 @@ window.BENCHMARK_DATA = {
           225428.3146484375,
           139932.4658203125,
           82560.25875651042,
-          225958.63567708334
+          225958.63567708334,
+          181389.08627554087
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13492,7 +13540,8 @@ window.BENCHMARK_DATA = {
           20692,
           20804,
           20809,
-          20804
+          20804,
+          21004
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13774,7 +13823,8 @@ window.BENCHMARK_DATA = {
           10209.51438358852,
           7281.318643697103,
           7540.974626668294,
-          10556.034428914389
+          10556.034428914389,
+          9306.86282818134
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14053,7 +14103,8 @@ window.BENCHMARK_DATA = {
           13088,
           13088,
           13088,
-          13088
+          13088,
+          13113
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14335,7 +14386,8 @@ window.BENCHMARK_DATA = {
           10994.187190129207,
           7138.530854797364,
           5970.604891459147,
-          11013.16546513484
+          11013.16546513484,
+          8940.41414896647
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14614,6 +14666,7 @@ window.BENCHMARK_DATA = {
           13593,
           13593,
           13586,
+          13593,
           13593
         ],
         "borderColor": "#4A6FA5",
@@ -14896,7 +14949,8 @@ window.BENCHMARK_DATA = {
           297.4599110285441,
           246.61615766797746,
           261.9429581960042,
-          291.7056611606053
+          291.7056611606053,
+          309.4580937113081
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15175,6 +15229,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1096,
           1096
         ],
         "borderColor": "#E84393",
@@ -15253,7 +15308,8 @@ window.BENCHMARK_DATA = {
           732.095249244145,
           593.6470214403593,
           598.2305947817289,
-          711.7894996643066
+          711.7894996643066,
+          739.0657795497349
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15265,6 +15321,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          2784,
           2784,
           2784,
           2784,
@@ -16950,6 +17007,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -17220,7 +17283,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -17494,7 +17558,8 @@ window.BENCHMARK_DATA = {
           1326.3321285247803,
           911.5438282648722,
           1063.5214747111002,
-          1290.3887643178305
+          1290.3887643178305,
+          1137.4277126605693
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -17764,6 +17829,7 @@ window.BENCHMARK_DATA = {
           2608,
           2608,
           2608,
+          2616,
           2616,
           2616,
           2616,
@@ -18055,7 +18121,8 @@ window.BENCHMARK_DATA = {
           239346.64358723958,
           146998.34166541466,
           88599.36543782552,
-          236640.4306559245
+          236640.4306559245,
+          195433.8032714844
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18334,7 +18401,8 @@ window.BENCHMARK_DATA = {
           29284,
           30403,
           30386,
-          30403
+          30403,
+          30602
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18616,7 +18684,8 @@ window.BENCHMARK_DATA = {
           25529.031803385416,
           16921.17610880534,
           18523.465405273437,
-          26748.66758219401
+          26748.66758219401,
+          22728.722898043117
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18895,7 +18964,8 @@ window.BENCHMARK_DATA = {
           26193,
           26193,
           26192,
-          26193
+          26193,
+          26217
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19177,7 +19247,8 @@ window.BENCHMARK_DATA = {
           24050.239098685128,
           15017.204358782086,
           14845.478767903645,
-          24234.25028889974
+          24234.25028889974,
+          19563.801352945964
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19448,6 +19519,7 @@ window.BENCHMARK_DATA = {
           33249,
           33249,
           33249,
+          33247,
           33247,
           33247,
           33247,
@@ -19738,7 +19810,8 @@ window.BENCHMARK_DATA = {
           719.9816694259644,
           576.351548414964,
           600.5549290339152,
-          727.1193650563558
+          727.1193650563558,
+          762.9156864166259
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20017,6 +20090,7 @@ window.BENCHMARK_DATA = {
           2176,
           2176,
           2176,
+          2176,
           2176
         ],
         "borderColor": "#E84393",
@@ -20095,7 +20169,8 @@ window.BENCHMARK_DATA = {
           2447.204720815023,
           1866.1191121510096,
           2048.3055201939173,
-          2529.340536934989
+          2529.340536934989,
+          2553.1683886601377
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -20107,6 +20182,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          5496,
           5496,
           5496,
           5496,
@@ -21792,6 +21868,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -22062,7 +22144,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -22336,7 +22419,8 @@ window.BENCHMARK_DATA = {
           99.30246837650027,
           145.41594707171123,
           150.23219321568806,
-          134.89615993499757
+          134.89615993499757,
+          113.17479966367993
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22606,6 +22690,7 @@ window.BENCHMARK_DATA = {
           600,
           600,
           600,
+          608,
           608,
           608,
           608,
@@ -22897,7 +22982,8 @@ window.BENCHMARK_DATA = {
           72830.59274727957,
           71628.77358398438,
           192138.93470052083,
-          192002.70382254463
+          192002.70382254463,
+          115561.93552652995
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23176,7 +23262,8 @@ window.BENCHMARK_DATA = {
           14921,
           15129,
           14902,
-          14902
+          14902,
+          15074
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23458,7 +23545,8 @@ window.BENCHMARK_DATA = {
           3457.4792687098184,
           4453.664912414551,
           5751.24305674235,
-          5931.5535725184845
+          5931.5535725184845,
+          4711.136407034738
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23737,7 +23825,8 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
-          9296
+          9296,
+          9320
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -24019,7 +24108,8 @@ window.BENCHMARK_DATA = {
           3387.0494097391766,
           3659.951543367826,
           5648.966819763184,
-          5628.3305423443135
+          5628.3305423443135,
+          4190.959087117513
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24298,7 +24388,8 @@ window.BENCHMARK_DATA = {
           8160,
           8151,
           8160,
-          8159
+          8159,
+          8160
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24580,7 +24671,8 @@ window.BENCHMARK_DATA = {
           127.45242454455449,
           168.4754993915558,
           161.8319127048765,
-          162.1058986553779
+          162.1058986553779,
+          159.82795941034954
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24746,6 +24838,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -25141,7 +25234,8 @@ window.BENCHMARK_DATA = {
           319.8040443147932,
           444.2880274227687,
           417.59130875269574,
-          444.240691502889
+          444.240691502889,
+          374.40143200556435
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25275,6 +25369,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -27042,6 +27137,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -27312,7 +27413,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -27586,7 +27688,8 @@ window.BENCHMARK_DATA = {
           285.93944529124667,
           322.61945962905884,
           384.9175275484721,
-          384.41985651424955
+          384.41985651424955,
+          285.63315629959106
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27856,6 +27959,7 @@ window.BENCHMARK_DATA = {
           1104,
           1104,
           1104,
+          1112,
           1112,
           1112,
           1112,
@@ -28147,7 +28251,8 @@ window.BENCHMARK_DATA = {
           77895.89991455078,
           72608.49974568684,
           197462.24376627605,
-          195573.56870814733
+          195573.56870814733,
+          117558.94249616351
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28426,7 +28531,8 @@ window.BENCHMARK_DATA = {
           18906,
           19107,
           18901,
-          18901
+          18901,
+          19065
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28708,7 +28814,8 @@ window.BENCHMARK_DATA = {
           4982.527842301589,
           6349.135762532552,
           8670.051041666668,
-          8964.123384602864
+          8964.123384602864,
+          6773.787155696324
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28987,7 +29094,8 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12345,
-          12321
+          12321,
+          12344
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29269,7 +29377,8 @@ window.BENCHMARK_DATA = {
           5210.957101088304,
           6397.328056335449,
           8904.49172269381,
-          9056.249555460612
+          9056.249555460612,
+          6557.964665730794
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29548,7 +29657,8 @@ window.BENCHMARK_DATA = {
           16394,
           16391,
           16393,
-          16393
+          16393,
+          16394
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29830,7 +29940,8 @@ window.BENCHMARK_DATA = {
           283.88053380648296,
           305.4262029329936,
           338.17200521060397,
-          348.07307081222535
+          348.07307081222535,
+          317.4826347351074
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -29996,6 +30107,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -30391,7 +30503,8 @@ window.BENCHMARK_DATA = {
           1074.2292590508093,
           1269.043884150187,
           1273.266089303153,
-          1277.4729094872107
+          1277.4729094872107,
+          1044.82743031638
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30525,6 +30638,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -32292,6 +32406,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -32562,7 +32682,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -32836,7 +32957,8 @@ window.BENCHMARK_DATA = {
           179.12746710777282,
           193.2078642674855,
           155.80066695213318,
-          187.29298773833685
+          187.29298773833685,
+          257.7043228516212
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33106,6 +33228,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920,
@@ -33397,7 +33520,8 @@ window.BENCHMARK_DATA = {
           5805.806445782001,
           7855.337012657752,
           5258.681171962193,
-          7560.469735952524
+          7560.469735952524,
+          11260.894731794086
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33676,7 +33800,8 @@ window.BENCHMARK_DATA = {
           10568,
           10569,
           10568,
-          10568
+          10568,
+          10713
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33958,7 +34083,8 @@ window.BENCHMARK_DATA = {
           4004.376304626465,
           5868.03802217756,
           3622.196628277118,
-          5312.932945251465
+          5312.932945251465,
+          7581.592022705078
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34237,6 +34363,7 @@ window.BENCHMARK_DATA = {
           11664,
           11688,
           11688,
+          11664,
           11664
         ],
         "borderColor": "#5E2750",
@@ -34519,7 +34646,8 @@ window.BENCHMARK_DATA = {
           4174.322586568197,
           6073.726413472494,
           3725.8934936523438,
-          5180.466988881429
+          5180.466988881429,
+          8097.553702799479
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34789,6 +34917,7 @@ window.BENCHMARK_DATA = {
           11191,
           11276,
           11191,
+          11196,
           11196,
           11196,
           11196,
@@ -35080,7 +35209,8 @@ window.BENCHMARK_DATA = {
           123.95713084084647,
           139.3874630610148,
           111.28539789574486,
-          135.14081267210153
+          135.14081267210153,
+          169.79456465584892
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -35246,6 +35376,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -35641,7 +35772,8 @@ window.BENCHMARK_DATA = {
           316.31086339269365,
           342.47791083653766,
           276.94450734211847,
-          337.0240683555603
+          337.0240683555603,
+          432.7092370669047
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -35837,6 +35969,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -37542,6 +37675,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -37812,7 +37951,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -38086,7 +38226,8 @@ window.BENCHMARK_DATA = {
           435.9771805150168,
           506.7672819137573,
           401.38732926050824,
-          477.8160910924276
+          477.8160910924276,
+          614.4572913830096
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -38356,6 +38497,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784,
@@ -38647,7 +38789,8 @@ window.BENCHMARK_DATA = {
           9550.565567016602,
           13074.693666585286,
           8967.093442644391,
-          12415.22821371896
+          12415.22821371896,
+          18247.96095784505
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -38926,7 +39069,8 @@ window.BENCHMARK_DATA = {
           18505,
           18505,
           18505,
-          18505
+          18505,
+          18649
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -39208,7 +39352,8 @@ window.BENCHMARK_DATA = {
           8790.667642211914,
           12840.209545898437,
           8527.798642839703,
-          12317.54912516276
+          12317.54912516276,
+          17721.765360514324
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -39487,6 +39632,7 @@ window.BENCHMARK_DATA = {
           21529,
           21553,
           21553,
+          21529,
           21529
         ],
         "borderColor": "#5E2750",
@@ -39769,7 +39915,8 @@ window.BENCHMARK_DATA = {
           10271.34382832845,
           13668.227892194476,
           9668.788458251953,
-          12752.593039376396
+          12752.593039376396,
+          19763.995190429687
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -40038,6 +40185,7 @@ window.BENCHMARK_DATA = {
           30785,
           30780,
           30865,
+          30785,
           30785,
           30785,
           30785,
@@ -40330,7 +40478,8 @@ window.BENCHMARK_DATA = {
           273.18492674827576,
           273.40812124524797,
           243.49404576846533,
-          248.19430700937906
+          248.19430700937906,
+          331.6589507738749
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -40496,6 +40645,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -40891,7 +41041,8 @@ window.BENCHMARK_DATA = {
           1212.5995403017316,
           1343.6816598574321,
           1142.153330230713,
-          1218.7903279622396
+          1218.7903279622396,
+          1606.6932319641114
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -41087,6 +41238,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -42792,6 +42944,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -43062,7 +43220,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -43336,7 +43495,8 @@ window.BENCHMARK_DATA = {
           8.867705631256104,
           16.117822968959807,
           16.76395966227238,
-          16.94845175055357
+          16.94845175055357,
+          16.358316873128597
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -43566,6 +43726,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -43897,7 +44058,8 @@ window.BENCHMARK_DATA = {
           53.28905384357159,
           90.29371716181437,
           101.801096534729,
-          102.70424582163493
+          102.70424582163493,
+          96.8849778345653
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44063,6 +44225,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -44458,7 +44621,8 @@ window.BENCHMARK_DATA = {
           16.448204507430393,
           27.814251367251078,
           31.489719065030418,
-          31.578788961683
+          31.578788961683,
+          28.30445693731308
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -44592,6 +44756,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -45019,7 +45184,8 @@ window.BENCHMARK_DATA = {
           722.4702704293387,
           1301.1266667292668,
           1108.0009174346924,
-          1486.7146453857422
+          1486.7146453857422,
+          1284.4458038330079
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45180,6 +45346,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -45580,7 +45747,8 @@ window.BENCHMARK_DATA = {
           968.552222933088,
           1913.2742188771565,
           1511.34190764794,
-          2096.319982655843
+          2096.319982655843,
+          1826.5394256591796
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45741,6 +45909,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -46141,7 +46310,8 @@ window.BENCHMARK_DATA = {
           849.9753230412801,
           1616.049141184489,
           1260.138358815511,
-          1704.769676208496
+          1704.769676208496,
+          1637.7786167689733
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46420,6 +46590,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2751,
+          2755,
           2755
         ],
         "borderColor": "#4A6FA5",
@@ -46944,6 +47115,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -47031,7 +47208,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -47122,7 +47300,8 @@ window.BENCHMARK_DATA = {
           1236.3754634857178,
           1616.0101048787435,
           1449.3897658128005,
-          1557.6726720174154
+          1557.6726720174154,
+          1466.357868058341
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -47209,6 +47388,7 @@ window.BENCHMARK_DATA = {
           5216,
           5216,
           5216,
+          5248,
           5248,
           5248,
           5248,
@@ -47317,7 +47497,8 @@ window.BENCHMARK_DATA = {
           1463.9801190694172,
           1816.315130742391,
           1741.2694228245662,
-          1768.7538841792516
+          1768.7538841792516,
+          1728.9621367136638
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -47412,6 +47593,7 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7385,
+          7384,
           7384,
           7384
         ],
@@ -47512,7 +47694,8 @@ window.BENCHMARK_DATA = {
           3252.8914786747523,
           4143.489929786096,
           3927.3568481445313,
-          3754.2595971425376
+          3754.2595971425376,
+          4161.849483235677
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -47585,6 +47768,7 @@ window.BENCHMARK_DATA = {
           10544,
           10544,
           10544,
+          17360,
           17360,
           17360,
           17360,
@@ -47707,7 +47891,8 @@ window.BENCHMARK_DATA = {
           682521.72890625,
           1011700.4588341346,
           798264.1070033482,
-          798417.0831473215
+          798417.0831473215,
+          790605.3841145834
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47803,7 +47988,8 @@ window.BENCHMARK_DATA = {
           92447,
           91742,
           93005,
-          92067
+          92067,
+          91987
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47902,7 +48088,8 @@ window.BENCHMARK_DATA = {
           224107.9024576823,
           270741.70852864586,
           246763.20930989584,
-          250766.02410016741
+          250766.02410016741,
+          247586.47828776043
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47998,6 +48185,7 @@ window.BENCHMARK_DATA = {
           54379,
           54998,
           54971,
+          54356,
           54356
         ],
         "borderColor": "#5E2750",
@@ -48097,7 +48285,8 @@ window.BENCHMARK_DATA = {
           259168.48251953124,
           305564.39283854165,
           280669.3101888021,
-          287043.8369140625
+          287043.8369140625,
+          280575.8445963542
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48193,7 +48382,8 @@ window.BENCHMARK_DATA = {
           65721,
           65631,
           65389,
-          65389
+          65389,
+          65589
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48603,6 +48793,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -48671,7 +48867,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -48743,7 +48940,8 @@ window.BENCHMARK_DATA = {
           17773.747213510367,
           22148.30098470052,
           25803.75584411621,
-          27054.38724161784
+          27054.38724161784,
+          20941.93070111956
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -48811,6 +49009,7 @@ window.BENCHMARK_DATA = {
           56544,
           56544,
           56544,
+          56552,
           56552,
           56552,
           56552,
@@ -48900,7 +49099,8 @@ window.BENCHMARK_DATA = {
           14147.140576680502,
           18263.135235595702,
           20187.064697265625,
-          20235.66765485491
+          20235.66765485491,
+          17021.927677408854
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -48912,6 +49112,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          40688,
           40688,
           40688,
           40688,
@@ -49057,7 +49258,8 @@ window.BENCHMARK_DATA = {
           81690.23133951823,
           97195.50799153646,
           93745.5827392578,
-          95646.37394496372
+          95646.37394496372,
+          79036.21068464007
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49087,6 +49289,7 @@ window.BENCHMARK_DATA = {
           203585,
           203585,
           203584,
+          203585,
           203585,
           203585,
           203585,
@@ -49214,7 +49417,8 @@ window.BENCHMARK_DATA = {
           234774.1486735026,
           234153.5354654948,
           375894.2735421317,
-          379408.09922572545
+          379408.09922572545,
+          285436.7553898738
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49291,7 +49495,8 @@ window.BENCHMARK_DATA = {
           431938,
           432132,
           431939,
-          431939
+          431939,
+          432098
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49371,7 +49576,8 @@ window.BENCHMARK_DATA = {
           161674.81612723213,
           194457.9937174479,
           268852.0770357572,
-          306599.91469029017
+          306599.91469029017,
+          244730.40294471153
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49448,7 +49654,8 @@ window.BENCHMARK_DATA = {
           378037,
           378018,
           378039,
-          378016
+          378016,
+          378039
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49528,7 +49735,8 @@ window.BENCHMARK_DATA = {
           208456.18048967634,
           288142.3203125,
           354435.0810872396,
-          357041.9712402344
+          357041.9712402344,
+          296067.91653878347
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -49605,7 +49813,8 @@ window.BENCHMARK_DATA = {
           944380,
           944523,
           944362,
-          944362
+          944362,
+          944402
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50015,6 +50224,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -50083,7 +50298,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -50155,7 +50371,8 @@ window.BENCHMARK_DATA = {
           30684.497811453683,
           32950.45336478097,
           28809.94225056966,
-          32874.81167399089
+          32874.81167399089,
+          41220.35901692708
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -50223,6 +50440,7 @@ window.BENCHMARK_DATA = {
           96816,
           96816,
           96816,
+          96824,
           96824,
           96824,
           96824,
@@ -50312,7 +50530,8 @@ window.BENCHMARK_DATA = {
           16265.952012282152,
           13741.487917386568,
           15118.893135579427,
-          12929.191872151692
+          12929.191872151692,
+          17612.881259155274
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -50380,6 +50599,7 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641,
@@ -50469,7 +50689,8 @@ window.BENCHMARK_DATA = {
           94558.58095139723,
           102367.24339192708,
           95334.63802897136,
-          93018.912890625
+          93018.912890625,
+          125380.92202148438
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -50542,6 +50763,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -50626,7 +50848,8 @@ window.BENCHMARK_DATA = {
           371068.3282296317,
           540598.2376953125,
           392287.7307826451,
-          531366.7853515625
+          531366.7853515625,
+          703408.9187360491
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50703,7 +50926,8 @@ window.BENCHMARK_DATA = {
           836536,
           836541,
           836536,
-          836540
+          836540,
+          836685
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50783,7 +51007,8 @@ window.BENCHMARK_DATA = {
           546830.5672325721,
           834760.5924246652,
           536813.2359375,
-          794142.0806039664
+          794142.0806039664,
+          1097892.8619791667
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50860,7 +51085,8 @@ window.BENCHMARK_DATA = {
           1139698,
           1139725,
           1139725,
-          1139702
+          1139702,
+          1139704
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50940,7 +51166,8 @@ window.BENCHMARK_DATA = {
           759797.5954427083,
           1068351.8423177083,
           696697.2225864956,
-          949903.9397786459
+          949903.9397786459,
+          1317781.206640625
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -51017,7 +51244,8 @@ window.BENCHMARK_DATA = {
           2194322,
           2194291,
           2194325,
-          2194325
+          2194325,
+          2194291
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -51427,6 +51655,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -51495,7 +51729,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -51567,7 +51802,8 @@ window.BENCHMARK_DATA = {
           94105.50941685268,
           65015.23621544471,
           79329.6212890625,
-          95600.97252604166
+          95600.97252604166,
+          83543.21579214242
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -51639,6 +51875,7 @@ window.BENCHMARK_DATA = {
           105577,
           105577,
           105576,
+          105577,
           105577,
           105577,
           105577,
@@ -51724,7 +51961,8 @@ window.BENCHMARK_DATA = {
           46451.73363850911,
           38081.24402669271,
           39779.02215576172,
-          46372.89248422476
+          46372.89248422476,
+          50068.95031738281
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -51801,6 +52039,7 @@ window.BENCHMARK_DATA = {
           120981,
           120981,
           120977,
+          120981,
           120981
         ],
         "borderColor": "#E84393",
@@ -51881,7 +52120,8 @@ window.BENCHMARK_DATA = {
           996159.653125,
           759529.3380998884,
           639863.961328125,
-          1000743.7229166667
+          1000743.7229166667,
+          962206.0791015625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -51958,7 +52198,8 @@ window.BENCHMARK_DATA = {
           918604,
           1030604,
           1030510,
-          1030614
+          1030614,
+          1030807
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -52038,7 +52279,8 @@ window.BENCHMARK_DATA = {
           1732247.9290364583,
           1171176.7693917411,
           1214994.5489583334,
-          1808403.9428385417
+          1808403.9428385417,
+          1550196.3162760416
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52115,7 +52357,8 @@ window.BENCHMARK_DATA = {
           1500824,
           1500824,
           1500704,
-          1500824
+          1500824,
+          1500848
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52195,7 +52438,8 @@ window.BENCHMARK_DATA = {
           1538951.1134207589,
           1076288.3294771635,
           966820.5395182292,
-          1512776.8198939732
+          1512776.8198939732,
+          1336027.297981771
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52272,6 +52516,7 @@ window.BENCHMARK_DATA = {
           2204675,
           2204675,
           2204669,
+          2204675,
           2204675
         ],
         "borderColor": "#4A6FA5",
@@ -52350,7 +52595,8 @@ window.BENCHMARK_DATA = {
           176625.5953938802,
           138276.56166294642,
           156973.8420735677,
-          191341.28470052083
+          191341.28470052083,
+          198011.5718336839
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -52362,6 +52608,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          300713,
           300713,
           300713,
           300713,
@@ -52787,6 +53034,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -52847,7 +53100,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -52911,7 +53165,8 @@ window.BENCHMARK_DATA = {
           337.3504161467919,
           413.2565984725952,
           273.59104888779774,
-          470.6633362452189
+          470.6633362452189,
+          438.5279988606771
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52971,6 +53226,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544,
@@ -53052,7 +53308,8 @@ window.BENCHMARK_DATA = {
           224.49459716478984,
           272.1492421810444,
           157.17615365982056,
-          265.00144584362323
+          265.00144584362323,
+          270.213639831543
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -53064,6 +53321,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -53193,7 +53451,8 @@ window.BENCHMARK_DATA = {
           410.190088113149,
           499.4634120647724,
           355.46805283228554,
-          541.28621896108
+          541.28621896108,
+          522.7313334147135
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53205,6 +53464,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -53334,7 +53594,8 @@ window.BENCHMARK_DATA = {
           70048.49906412761,
           90701.12329101562,
           31877.814562988282,
-          114864.18583984375
+          114864.18583984375,
+          113497.87778320312
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53403,6 +53664,7 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10031,
+          10030,
           10030
         ],
         "borderColor": "#A052B0",
@@ -53475,7 +53737,8 @@ window.BENCHMARK_DATA = {
           5585.949751172747,
           6887.003794352214,
           3663.3162808736165,
-          7712.632076808384
+          7712.632076808384,
+          7516.801286824544
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53544,6 +53807,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10248,
+          10416,
           10416
         ],
         "borderColor": "#5E2750",
@@ -53616,7 +53880,8 @@ window.BENCHMARK_DATA = {
           5314.789374287923,
           6642.540472848074,
           3690.9794339497885,
-          7331.1647476196285
+          7331.1647476196285,
+          7281.664316813151
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -53685,6 +53950,7 @@ window.BENCHMARK_DATA = {
           11934,
           11854,
           11853,
+          11854,
           11854
         ],
         "borderColor": "#4A6FA5",
@@ -54047,6 +54313,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -54107,7 +54379,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -54171,7 +54444,8 @@ window.BENCHMARK_DATA = {
           1234.2055788675943,
           1542.24295602526,
           1029.9050667626518,
-          1545.3325780721811
+          1545.3325780721811,
+          1495.6928741455079
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54231,6 +54505,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016,
@@ -54312,7 +54587,8 @@ window.BENCHMARK_DATA = {
           800.4008516584124,
           1019.0061019897461,
           628.5467662811279,
-          971.5635602951049
+          971.5635602951049,
+          932.5881574630737
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54324,6 +54600,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -54453,7 +54730,8 @@ window.BENCHMARK_DATA = {
           2556.408235677083,
           3208.9514095599834,
           2224.1498202006023,
-          3269.4332433428085
+          3269.4332433428085,
+          3223.601269785563
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -54465,6 +54743,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -54594,7 +54873,8 @@ window.BENCHMARK_DATA = {
           82104.06524658203,
           106169.64959716797,
           40589.1008992513,
-          130557.11676897321
+          130557.11676897321,
+          127759.8427734375
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54663,6 +54943,7 @@ window.BENCHMARK_DATA = {
           25114,
           25114,
           25114,
+          25115,
           25115
         ],
         "borderColor": "#A052B0",
@@ -54735,7 +55016,8 @@ window.BENCHMARK_DATA = {
           17958.066759381974,
           20935.25606863839,
           12724.090636189778,
-          25223.119215901694
+          25223.119215901694,
+          25683.516009521485
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54804,6 +55086,7 @@ window.BENCHMARK_DATA = {
           25497,
           23481,
           23481,
+          25665,
           25665
         ],
         "borderColor": "#5E2750",
@@ -54876,7 +55159,8 @@ window.BENCHMARK_DATA = {
           21353.851778302873,
           25633.34082685198,
           17148.13591003418,
-          28890.488043212892
+          28890.488043212892,
+          26661.306830772988
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54943,6 +55227,7 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55296,
+          55216,
           55216,
           55216,
           55216
@@ -55307,6 +55592,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -55367,7 +55658,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -55431,7 +55723,8 @@ window.BENCHMARK_DATA = {
           98932.27794471153,
           121560.82149251302,
           91005.10784505209,
-          123921.12923758371
+          123921.12923758371,
+          118892.0139078776
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -55492,6 +55785,7 @@ window.BENCHMARK_DATA = {
           273289,
           273289,
           273296,
+          273297,
           273297,
           273297,
           273297,
@@ -55572,7 +55866,8 @@ window.BENCHMARK_DATA = {
           66267.11770193918,
           84328.3043375651,
           58538.15130179269,
-          81862.91830240886
+          81862.91830240886,
+          77934.92950846354
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55629,6 +55924,7 @@ window.BENCHMARK_DATA = {
           208881,
           208883,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -55713,7 +56009,8 @@ window.BENCHMARK_DATA = {
           250834.24583333332,
           301766.7368815104,
           234009.5595703125,
-          320122.3888671875
+          320122.3888671875,
+          302850.0985281808
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55782,6 +56079,7 @@ window.BENCHMARK_DATA = {
           707794,
           707794,
           707793,
+          707794,
           707794
         ],
         "borderColor": "#FF8C00",
@@ -55854,7 +56152,8 @@ window.BENCHMARK_DATA = {
           1221448.2174944195,
           1495228.7309895833,
           846013.9328776042,
-          1543877.3623697916
+          1543877.3623697916,
+          1549392.4964192708
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55923,6 +56222,7 @@ window.BENCHMARK_DATA = {
           1692680,
           1692680,
           1692673,
+          1692680,
           1692680
         ],
         "borderColor": "#A052B0",
@@ -55995,7 +56295,8 @@ window.BENCHMARK_DATA = {
           1418767.2276785714,
           1564940.5404947917,
           1004511.5571614583,
-          1865202.4365885416
+          1865202.4365885416,
+          1966968.9717447916
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56064,7 +56365,8 @@ window.BENCHMARK_DATA = {
           1692727,
           1468916,
           1468914,
-          1692895
+          1692895,
+          1692903
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56136,7 +56438,8 @@ window.BENCHMARK_DATA = {
           2332449.242745536,
           2760329.16640625,
           1855216.8260416666,
-          2857189.8252604166
+          2857189.8252604166,
+          2679806.03671875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56205,6 +56508,7 @@ window.BENCHMARK_DATA = {
           4803481,
           4803380,
           4803369,
+          4803387,
           4803387
         ],
         "borderColor": "#4A6FA5",
@@ -56363,6 +56667,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -56389,7 +56699,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -56419,7 +56730,8 @@ window.BENCHMARK_DATA = {
           268.94498984018963,
           341.6735082626343,
           335.6527953783671,
-          243.43229355130876
+          243.43229355130876,
+          247.11002298990886
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -56445,6 +56757,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024,
@@ -56492,7 +56805,8 @@ window.BENCHMARK_DATA = {
           357.1077355702718,
           432.9213477452596,
           412.79523273876737,
-          332.88700158255443
+          332.88700158255443,
+          334.7583144732884
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -56504,6 +56818,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -56565,7 +56880,8 @@ window.BENCHMARK_DATA = {
           918.3943993886312,
           1130.5417203903198,
           1136.8764009475708,
-          844.0906785964966
+          844.0906785964966,
+          858.009648513794
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -56577,6 +56893,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          4464,
           4464,
           4464,
           4464,
@@ -56638,7 +56955,8 @@ window.BENCHMARK_DATA = {
           207883.71744791666,
           338026.59807477676,
           331805.64446614584,
-          204915.63743489582
+          204915.63743489582,
+          203843.06574358259
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -56673,7 +56991,8 @@ window.BENCHMARK_DATA = {
           23526,
           23302,
           23505,
-          23302
+          23302,
+          23541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -56711,7 +57030,8 @@ window.BENCHMARK_DATA = {
           11676.698678152901,
           16919.186602783204,
           16033.016241891044,
-          10807.711705525717
+          10807.711705525717,
+          10747.791252723107
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56746,7 +57066,8 @@ window.BENCHMARK_DATA = {
           19553,
           19742,
           19854,
-          19742
+          19742,
+          19853
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56784,7 +57105,8 @@ window.BENCHMARK_DATA = {
           8475.621612548828,
           11536.483295440674,
           11646.381532796224,
-          7716.488945515951
+          7716.488945515951,
+          7830.371010335287
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56814,6 +57136,7 @@ window.BENCHMARK_DATA = {
           14332,
           14444,
           14325,
+          14332,
           14332,
           14332,
           14332,
@@ -56977,6 +57300,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -57003,7 +57332,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -57033,7 +57363,8 @@ window.BENCHMARK_DATA = {
           1245.8521794637045,
           1642.1812545776368,
           1757.581167629787,
-          1158.6769567636343
+          1158.6769567636343,
+          1195.8540269215903
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -57059,6 +57390,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040,
@@ -57106,7 +57438,8 @@ window.BENCHMARK_DATA = {
           1128.020610555013,
           1424.2576456705729,
           1413.701156616211,
-          1118.7450786590575
+          1118.7450786590575,
+          1158.7637645176478
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -57118,6 +57451,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -57179,7 +57513,8 @@ window.BENCHMARK_DATA = {
           3914.4142771402994,
           5033.993904658726,
           5141.198191422683,
-          3693.9019561180703
+          3693.9019561180703,
+          3637.2751951951245
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57191,6 +57526,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          10536,
           10536,
           10536,
           10536,
@@ -57252,7 +57588,8 @@ window.BENCHMARK_DATA = {
           235073.25704251803,
           375258.298828125,
           372315.59228515625,
-          237071.6109049479
+          237071.6109049479,
+          238748.72456054686
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57287,7 +57624,8 @@ window.BENCHMARK_DATA = {
           41376,
           41155,
           41378,
-          41153
+          41153,
+          41392
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57325,7 +57663,8 @@ window.BENCHMARK_DATA = {
           19686.71565551758,
           29789.185708182198,
           29698.958429972332,
-          20072.442576090496
+          20072.442576090496,
+          22151.704970296225
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57360,7 +57699,8 @@ window.BENCHMARK_DATA = {
           30101,
           31330,
           31439,
-          31330
+          31330,
+          31439
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57398,7 +57738,8 @@ window.BENCHMARK_DATA = {
           30041.616503034318,
           43452.15028076172,
           42983.640267508374,
-          29470.48099975586
+          29470.48099975586,
+          30921.00087076823
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -57428,6 +57769,7 @@ window.BENCHMARK_DATA = {
           60496,
           60607,
           60493,
+          60496,
           60496,
           60496,
           60496,
@@ -57591,6 +57933,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -57617,7 +57965,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -57647,7 +57996,8 @@ window.BENCHMARK_DATA = {
           102962.90381731305,
           146598.08071664663,
           162328.16074916295,
-          102710.70069231305
+          102710.70069231305,
+          105908.4919921875
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -57679,6 +58029,7 @@ window.BENCHMARK_DATA = {
           224801,
           224801,
           224800,
+          224801,
           224801,
           224801,
           224801,
@@ -57720,7 +58071,8 @@ window.BENCHMARK_DATA = {
           86448.17179048978,
           111578.119921875,
           114556.70371907552,
-          87340.00142415364
+          87340.00142415364,
+          89710.4487915039
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -57744,6 +58096,7 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209408,
+          209409,
           209409,
           209409,
           209409,
@@ -57793,7 +58146,8 @@ window.BENCHMARK_DATA = {
           301198.47921048675,
           438774.15188802086,
           453011.91475736175,
-          323100.81009114586
+          323100.81009114586,
+          321351.6104492188
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57805,6 +58159,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          703994,
           703994,
           703994,
           703994,
@@ -57866,7 +58221,8 @@ window.BENCHMARK_DATA = {
           3217746.7259114585,
           4243481.685416667,
           4268169.9921875,
-          3281197.1083233175
+          3281197.1083233175,
+          3186705.513671875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57901,7 +58257,8 @@ window.BENCHMARK_DATA = {
           1936634,
           1936429,
           1936653,
-          1936409
+          1936409,
+          1936650
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57939,7 +58296,8 @@ window.BENCHMARK_DATA = {
           885544.385546875,
           1320132.8807091345,
           1407356.8313337055,
-          1052235.9495192308
+          1052235.9495192308,
+          1033949.4989583333
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57974,7 +58332,8 @@ window.BENCHMARK_DATA = {
           1119051,
           1231501,
           1231613,
-          1231501
+          1231501,
+          1231612
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58012,7 +58371,8 @@ window.BENCHMARK_DATA = {
           2929282.05703125,
           3988492.382254464,
           3871203.361886161,
-          2973585.310546875
+          2973585.310546875,
+          3058501.34375
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58047,7 +58407,8 @@ window.BENCHMARK_DATA = {
           5051851,
           5051944,
           5051810,
-          5051804
+          5051804,
+          5051809
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58205,6 +58566,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 01:43:56 2026 \u002B0100",
         "message": "refactor: remove unused IMethodMatch and ConcurrentQueueExtensions (#1091)"
+      },
+      {
+        "sha": "26fcbe526d65bad884d2ef39360c48bf28f8b78d",
+        "author": "groxv",
+        "date": "Sat Nov 21 01:44:26 2026 \u002B0100",
+        "message": "fix: build unique parameter suffixes from the base name (#1092)"
       }
     ],
     "labels": [
@@ -58231,7 +58598,8 @@ window.BENCHMARK_DATA = {
       "7247772d",
       "117b7fbd",
       "eecf7447",
-      "70fe7121"
+      "70fe7121",
+      "26fcbe52"
     ],
     "datasets": [
       {
@@ -58261,7 +58629,8 @@ window.BENCHMARK_DATA = {
           2067.5364968436106,
           2596.2609481811523,
           2749.9440067836217,
-          1985.914463043213
+          1985.914463043213,
+          3380.8269560677663
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -58287,6 +58656,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288,
@@ -58334,7 +58704,8 @@ window.BENCHMARK_DATA = {
           1911.902873311724,
           2404.199659075056,
           2460.8828931535995,
-          1814.5476046244303
+          1814.5476046244303,
+          3020.2647762298584
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -58346,6 +58717,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -58407,7 +58779,8 @@ window.BENCHMARK_DATA = {
           2388.580201222346,
           2999.1615203857423,
           3109.179955346244,
-          2261.362392425537
+          2261.362392425537,
+          3792.351945368449
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -58419,6 +58792,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          3344,
           3344,
           3344,
           3344,
@@ -58480,7 +58854,8 @@ window.BENCHMARK_DATA = {
           7619.608270263672,
           9948.070404052734,
           10195.965252216045,
-          7480.035084025065
+          7480.035084025065,
+          14458.044345310756
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58493,6 +58868,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           11385,
+          11048,
           11048,
           11048,
           11048,
@@ -58553,7 +58929,8 @@ window.BENCHMARK_DATA = {
           6595.776792086088,
           9059.984158325195,
           9035.931041172573,
-          6318.585315958659
+          6318.585315958659,
+          12783.66611735026
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58587,6 +58964,7 @@ window.BENCHMARK_DATA = {
           14633,
           14633,
           15025,
+          14633,
           14633,
           14633
         ],
@@ -58626,7 +59004,8 @@ window.BENCHMARK_DATA = {
           6922.848977225168,
           9284.116993495396,
           9071.68523457845,
-          6778.579199654715
+          6778.579199654715,
+          13511.712191772462
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58657,6 +59036,7 @@ window.BENCHMARK_DATA = {
           14620,
           14620,
           14614,
+          14620,
           14620,
           14620,
           14620,
