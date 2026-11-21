@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Mockolate.Exceptions;
 using Mockolate.Parameters;
 using Mockolate.Verify;
@@ -249,6 +250,91 @@ public sealed partial class VerifyInvokedTests
 		}
 #endif
 
+		[Test]
+		public async Task NullForValueTypeNextToMatcher_SetupAndVerify_ShouldMatchTheDefaultValue()
+		{
+			IValueTypeService sut = IValueTypeService.CreateMock();
+			sut.Mock.Setup.Add(null, It.IsAny<int>()).Returns(7);
+			sut.Mock.Setup.Five(null, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Returns(7);
+			sut.Mock.Setup[null, It.IsAny<int>()].Returns(7);
+
+			int[] forDefault = [sut.Add(0, 1), sut.Five(0, 1, 2, 3, 4), sut[0, 1],];
+			int[] forOther = [sut.Add(1, 1), sut.Five(1, 1, 2, 3, 4), sut[1, 1],];
+			sut[0, 2] = 3;
+			sut[1, 2] = 3;
+
+			await That(forDefault).All().AreEqualTo(7)
+				.Because("a null literal for a non-nullable value type stands for its default value");
+			await That(forOther).All().AreEqualTo(0);
+			await That(sut.Mock.Verify.Add(null, It.IsAny<int>())).Once();
+			await That(sut.Mock.Verify.Five(null, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+				.Once();
+			await That(sut.Mock.Verify[null, It.IsAny<int>()].Got()).Once();
+			await That(sut.Mock.Verify[null, It.IsAny<int>()].Set(It.IsAny<int>())).Once();
+		}
+
+		[Test]
+		public async Task NullForValueTypeNextToMatcher_IndexerSetterSetup_ShouldMatchTheDefaultValue()
+		{
+			IValueTypeService sut = IValueTypeService.CreateMock();
+			List<int> written = [];
+			sut.Mock.Setup[null, It.IsAny<int>()].OnSet.Do(value => written.Add(value));
+
+			sut[0, 1] = 2;
+			sut[1, 1] = 3;
+
+			await That(written).IsEqualTo([2,]);
+		}
+
+		[Test]
+		public async Task NullForGenericValueTypeNextToMatcher_SetupAndVerify_ShouldMatchTheDefaultValue()
+		{
+			IValueTypeService sut = IValueTypeService.CreateMock();
+			sut.Mock.Setup.Generic<int>(null, It.IsAny<int>()).Returns(7);
+
+			int[] results = [sut.Generic(0, 1), sut.Generic(1, 1),];
+
+			await That(results).IsEqualTo([7, 0,]);
+			await That(sut.Mock.Verify.Generic<int>(null, It.IsAny<int>())).Once();
+		}
+
+		[Test]
+		public async Task NullMatcherVariableForValueType_SetupAndVerify_ShouldMatchTheDefaultValue()
+		{
+			IValueTypeService sut = IValueTypeService.CreateMock();
+			IParameter<int> matcher = null!;
+			sut.Mock.Setup.Add(matcher, It.IsAny<int>()).Returns(7);
+
+			int[] results = [sut.Add(0, 1), sut.Add(1, 1),];
+
+			await That(results).IsEqualTo([7, 0,])
+				.Because("a null matcher stands for the null literal, which means default(T) for a value type");
+			await That(sut.Mock.Verify.Add(matcher, It.IsAny<int>())).Once();
+		}
+
+		[Test]
+		public async Task NullForValueTypeNextToMatcher_WhenVerificationFails_ShouldShowNull()
+		{
+			IValueTypeService sut = IValueTypeService.CreateMock();
+			sut.Add(0, 1);
+
+			string[] messages =
+			[
+				Capture(() => sut.Mock.Verify.Add(null, It.IsAny<int>()).Never()),
+				Capture(() => sut.Mock.Verify[null, It.IsAny<int>()].Got().Once()),
+			];
+
+#if NET11_0_OR_GREATER
+			const string expectedKey = "0";
+#else
+			const string expectedKey = "null";
+#endif
+			await That(messages).IsEqualTo([
+				$"Expected that mock never invoked method Add({expectedKey}, It.IsAny<int>()), but it did once.",
+				$"Expected that mock got indexer [{expectedKey}, It.IsAny<int>()] exactly once, but it never did.",
+			]).Because("union mode converts the null literal to the default value before it renders the argument");
+		}
+
 		private static string Capture(Action act)
 		{
 			try
@@ -277,6 +363,14 @@ public sealed partial class VerifyInvokedTests
 			int OptionalString(string? value, int number = 5);
 			int OptionalWithNonNullDefault(string? value = "x", int number = 5);
 			int WithParams(object? value, params int[] rest);
+		}
+
+		public interface IValueTypeService
+		{
+			int this[int a, int b] { get; set; }
+			int Add(int a, int b);
+			int Five(int a, int b, int c, int d, int e);
+			int Generic<T>(T a, int b);
 		}
 
 		public interface IGenericSiblingService

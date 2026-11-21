@@ -224,9 +224,10 @@ await That(shelf.Mock.Verify["Dark", 2].Got()).Never();
 ```
 
 <details>
-<summary>Optional indexer keys</summary>
+<summary>Left-out parameters and keys</summary>
 
-- A left-out indexer key gets its own overload, so an explicit `null` for a key is not replaced by its declared default value.
+- A left-out parameter or indexer key gets its own overload, so an explicit `null` stands for `default(T)` of the parameter type, not for the declared default value: `Restock(It.IsAny<string>(), null)` matches an `amount` of `0`.
+- Without union mode, a method keeps the declared default value for an explicit `null` when it has more than one optional parameter, so that a call can still skip one by name, when another method of the same type has the same name, or when the project has no `OverloadResolutionPriorityAttribute` (it ships with .NET 9).
 - When another indexer of the same type has fewer keys, setups and verifications of the indexer need every key. `Setup["Dark"]` then always means the indexer with one key, as `shelf["Dark"]` does.
 
 </details>
@@ -393,7 +394,7 @@ Union mode is enabled automatically when the project compiles with C# 15 or late
 <details>
 <summary>Union parameter semantics</summary>
 
-- `null` and `default` stand for `default(T)` of the parameter type. Leaving out an optional parameter stands for its declared default value. Unlike the classic overloads, `null` for a non-nullable value type parameter with a declared default value matches `default(T)`, not the declared default.
+- `null` and `default` stand for `default(T)` of the parameter type. Leaving out an optional parameter stands for its declared default value.
 - A union-typed parameter does not pass its type on to the argument: a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion needs an explicit type, for example `new TimeSpan(0, 0, 5)` or `(ReadOnlyMemory<byte>)bytes`. Alternatively, name the type in a matcher, as in `It.Is<TimeSpan>(new(0, 0, 5))`. A [code fix](10-analyzers.md#explicit-types-for-union-parameters) adds the explicit type.
 - A parameter whose type is a delegate offers the raw delegate instead of a predicate, so a lambda is still matched as a value.
 - For an `object` parameter, a lambda literal is a predicate, while a delegate stored in a variable is a value.

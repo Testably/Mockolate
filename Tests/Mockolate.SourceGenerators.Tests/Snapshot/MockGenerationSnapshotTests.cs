@@ -244,6 +244,15 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "OptionalMethodParameters_CanBeCreated",
+            ["IOptionalMethodParameters.cs",],
+            """
+            IOptionalMethodParameters sut1 = IOptionalMethodParameters.CreateMock();
+            IOptionalMethodParametersWithSibling sut2 = IOptionalMethodParametersWithSibling.CreateMock();
+            OptionalParametersDelegate sut3 = OptionalParametersDelegate.CreateMock();
+            """,
+            []),
+        new(
             "OptionalIndexerKeys_CanBeCreated",
             ["IOptionalIndexerKeys.cs",],
             """
@@ -450,6 +459,16 @@ public sealed partial class MockGenerationSnapshotTests
             ParamsCollectionConstructorBase sut10 = ParamsCollectionConstructorBase.CreateMock();
             ParamsSpanConstructorBase sut11 = ParamsSpanConstructorBase.CreateMock();
             OnlyParamsSpanConstructorBase sut12 = OnlyParamsSpanConstructorBase.CreateMock().Implementing<ICombinationMockA>();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "OptionalMethodParameters_CanBeCreated_Unions",
+            ["IOptionalMethodParameters.cs",],
+            """
+            IOptionalMethodParameters sut1 = IOptionalMethodParameters.CreateMock();
+            IOptionalMethodParametersWithSibling sut2 = IOptionalMethodParametersWithSibling.CreateMock();
+            OptionalParametersDelegate sut3 = OptionalParametersDelegate.CreateMock();
             """,
             [],
             UnionMode: true),

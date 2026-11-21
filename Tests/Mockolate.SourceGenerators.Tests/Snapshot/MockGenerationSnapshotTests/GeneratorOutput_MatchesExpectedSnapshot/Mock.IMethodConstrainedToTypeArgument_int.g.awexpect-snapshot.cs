@@ -419,7 +419,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, int> global::Mockolate.Mock.IMockSetupForIMethodConstrainedToTypeArgument_int.Get<U>(global::Mockolate.Parameters.IParameter<int>? key)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.It.Is<int>(1)));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_Get_U_, methodSetup);
 			return methodSetup;
 		}
@@ -431,6 +431,10 @@ internal static partial class Mock
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_Get_U_, methodSetup);
 			return methodSetup;
 		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, int> global::Mockolate.Mock.IMockSetupForIMethodConstrainedToTypeArgument_int.Get<U>()
+			=> ((global::Mockolate.Mock.IMockSetupForIMethodConstrainedToTypeArgument_int)this).Get<U>(new global::Mockolate.Internals.LiteralParameterMatch<int>((int)(1)));
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, U> global::Mockolate.Mock.IMockSetupForIMethodConstrainedToTypeArgument_int.GetNotNull<U>(global::Mockolate.Parameters.IParameters parameters)
@@ -526,15 +530,15 @@ internal static partial class Mock
 				}, () => $"Get<U>({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> IMockVerifyForIMethodConstrainedToTypeArgument_int.Get<U>(global::Mockolate.Parameters.IParameter<int>? key)
-		{
-			key ??= new global::Mockolate.Internals.LiteralParameterMatch<int>(1);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", __i => 
-				(global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1)), () => $"Get<U>({(object?)key ?? "null"})");
-		}
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", __i => 
+				(key is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Get<U>({(object?)key ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_int.Get<U>(int key)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(key, __i.Parameter1)), () => $"Get<U>({(object?)key ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> IMockVerifyForIMethodConstrainedToTypeArgument_int.Get<U>()
+			=> ((IMockVerifyForIMethodConstrainedToTypeArgument_int)this).Get<U>(new global::Mockolate.Internals.LiteralParameterMatch<int>((int)(1)));
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> IMockVerifyForIMethodConstrainedToTypeArgument_int.GetNotNull<U>(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_int, global::Mockolate.Interactions.MethodInvocation<U>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.GetNotNull<{typeof(U)}>", __i => parameters switch
@@ -615,15 +619,15 @@ internal static partial class Mock
 				}, () => $"Get<U>({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> IMockVerifyForIMethodConstrainedToTypeArgument_int.Get<U>(global::Mockolate.Parameters.IParameter<int>? key)
-		{
-			key ??= new global::Mockolate.Internals.LiteralParameterMatch<int>(1);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", __i => 
-				(global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1)), () => $"Get<U>({(object?)key ?? "null"})");
-		}
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", __i => 
+				(key is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Get<U>({(object?)key ?? "null"})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_int.Get<U>(int key)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(key, __i.Parameter1)), () => $"Get<U>({(object?)key ?? "null"})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> IMockVerifyForIMethodConstrainedToTypeArgument_int.Get<U>()
+			=> ((IMockVerifyForIMethodConstrainedToTypeArgument_int)this).Get<U>(new global::Mockolate.Internals.LiteralParameterMatch<int>((int)(1)));
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> IMockVerifyForIMethodConstrainedToTypeArgument_int.GetNotNull<U>(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_int, global::Mockolate.Interactions.MethodInvocation<U>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.GetNotNull<{typeof(U)}>", __i => parameters switch
@@ -724,7 +728,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, int> global::Mockolate.Mock.IMockSetupForIMethodConstrainedToTypeArgument_int.Get<U>(global::Mockolate.Parameters.IParameter<int>? key)
 		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.It.Is<int>(1)));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<U, int>.WithParameterCollection(this.MockRegistry, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<int>.Get<{typeof(U)}>", global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_Get_U_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -736,6 +740,10 @@ internal static partial class Mock
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IMethodConstrainedToTypeArgument_int.MemberId_Get_U_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, int> global::Mockolate.Mock.IMockSetupForIMethodConstrainedToTypeArgument_int.Get<U>()
+			=> ((global::Mockolate.Mock.IMockSetupForIMethodConstrainedToTypeArgument_int)this).Get<U>(new global::Mockolate.Internals.LiteralParameterMatch<int>((int)(1)));
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, U> global::Mockolate.Mock.IMockSetupForIMethodConstrainedToTypeArgument_int.GetNotNull<U>(global::Mockolate.Parameters.IParameters parameters)
@@ -967,7 +975,7 @@ internal static partial class Mock
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, int> Get<U>(global::Mockolate.Parameters.IParameter<int>? key = null);
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, int> Get<U>(global::Mockolate.Parameters.IParameter<int>? key);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument{T}.Get{U}(int)">IMethodConstrainedToTypeArgument&lt;int&gt;.Get&lt;U&gt;(int)</see> with the given <paramref name="key"/>.
@@ -977,6 +985,15 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<U, int> Get<U>(int key);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument{T}.Get{U}(int)">IMethodConstrainedToTypeArgument&lt;int&gt;.Get&lt;U&gt;(int)</see>.
+		/// </summary>
+		/// <remarks>
+		///     It uses the declared default value for <c>key</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<U, int> Get<U>();
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument{T}.GetNotNull{U}(U)">IMethodConstrainedToTypeArgument&lt;int&gt;.GetNotNull&lt;U&gt;(U)</see> with the given <paramref name="parameters" />.
@@ -1108,7 +1125,7 @@ internal static partial class Mock
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> Get<U>(global::Mockolate.Parameters.IParameter<int>? key = null);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> Get<U>(global::Mockolate.Parameters.IParameter<int>? key);
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument{T}.Get{U}(int)">IMethodConstrainedToTypeArgument&lt;int&gt;.Get&lt;U&gt;(int)</see> with the given <paramref name="key"/>.
@@ -1118,6 +1135,15 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int>.IgnoreParameters Get<U>(int key);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument{T}.Get{U}(int)">IMethodConstrainedToTypeArgument&lt;int&gt;.Get&lt;U&gt;(int)</see>.
+		/// </summary>
+		/// <remarks>
+		///     It uses the declared default value for <c>key</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_int> Get<U>();
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument{T}.GetNotNull{U}(U)">IMethodConstrainedToTypeArgument&lt;int&gt;.GetNotNull&lt;U&gt;(U)</see> with the given <paramref name="parameters"/>.

@@ -169,7 +169,7 @@ public sealed class ParamsObjectArrayTests
 			(It.IsAny<int>(), "a", 2) | (IParameter<int>?, params object[]) matches 1:[a,2]
 			(It.IsAny<int>()) | (IParameter<int>?, params IParameter<object>[]) matches 0:[] 1:[]
 			(null) | (IParameters) matches everything
-			(null, "a") | Setup: (IParameter<int>?, params object[]) matches nothing; Verify: (IParameter<int>?, params object[]) matches 0:[a]
+			(null, "a") | (IParameter<int>?, params object[]) matches 0:[a]
 			(Match.AnyParameters()) | (IParameters) matches everything
 			"""),
 		new(Log, "an element matcher next to values and a null array typed as such are known gaps that did not change", """
