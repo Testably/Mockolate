@@ -98,13 +98,13 @@ public sealed partial class VerifyInvokedTests
 		[Test]
 		public async Task WithSibling_WithExplicitNull_ShouldStillCountTheDeclaredDefault()
 		{
-			IOptionalMethodParametersWithSibling sut = IOptionalMethodParametersWithSibling.CreateMock();
-			sut.Method(1, 5);
-			sut.Method(1, 0);
+			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
+			sut.WithSibling(1, 5);
+			sut.WithSibling(1, 0);
 
-			await That(sut.Mock.Verify.Method(It.IsAny<int>(), null)).Once()
+			await That(sut.Mock.Verify.WithSibling(It.IsAny<int>(), null)).Once()
 				.Because("next to a same-named method with fewer parameters the optional parameter keeps its = null default");
-			await That(sut.Mock.Verify.Method(It.IsAny<int>(), 0)).Once();
+			await That(sut.Mock.Verify.WithSibling(It.IsAny<int>(), 0)).Once();
 		}
 	}
 }
