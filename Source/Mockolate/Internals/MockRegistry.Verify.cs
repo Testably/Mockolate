@@ -106,29 +106,6 @@ public partial class MockRegistry
 	}
 
 	/// <summary>
-	///     Member-id-keyed fast-path overload of <see cref="VerifyProperty{T}(T, string)" />. Walks only the typed
-	///     getter records when the mock is wired to a <see cref="FastMockInteractions" />.
-	/// </summary>
-	/// <typeparam name="T">The verification facade type.</typeparam>
-	/// <param name="subject">The verification facade the result is bound to.</param>
-	/// <param name="memberId">The generator-emitted member id for the property getter.</param>
-	/// <param name="propertyName">The simple property name.</param>
-	internal VerificationResult<T> VerifyProperty<T>(T subject, int memberId, string propertyName)
-	{
-		MemberRecords? records = TryGetRecords(memberId);
-		if (records is null)
-		{
-			return VerifyProperty(subject, propertyName);
-		}
-
-		return new VerificationResult<T>(subject,
-			Interactions,
-			records,
-			static _ => true,
-			GotPropertyExpectation(propertyName));
-	}
-
-	/// <summary>
 	///     Counts setter accesses of the property named <paramref name="propertyName" /> on <paramref name="subject" />
 	///     where the assigned value matches <paramref name="value" />.
 	/// </summary>
@@ -151,40 +128,6 @@ public partial class MockRegistry
 		{
 			return interaction is PropertySetterAccess<TValue> property &&
 			       property.Name.Equals(propertyName) &&
-			       value.Matches(property.Value);
-		}
-	}
-
-	/// <summary>
-	///     Member-id-keyed fast-path overload of
-	///     <see cref="VerifyProperty{TSubject, TValue}(TSubject, string, IParameterMatch{TValue})" />. Walks only the
-	///     typed setter records when the mock is wired to a <see cref="FastMockInteractions" />.
-	/// </summary>
-	/// <typeparam name="TSubject">The verification facade type.</typeparam>
-	/// <typeparam name="TValue">The property's type.</typeparam>
-	/// <param name="subject">The verification facade the result is bound to.</param>
-	/// <param name="memberId">The generator-emitted member id for the property setter.</param>
-	/// <param name="propertyName">The simple property name.</param>
-	/// <param name="value">Parameter matcher evaluated against the assigned value.</param>
-	internal VerificationResult<TSubject> VerifyProperty<TSubject, TValue>(TSubject subject, int memberId,
-		string propertyName, IParameterMatch<TValue> value)
-	{
-		MemberRecords? records = TryGetRecords(memberId);
-		if (records is null)
-		{
-			return VerifyProperty(subject, propertyName, value);
-		}
-
-		return new VerificationResult<TSubject>(subject,
-			Interactions,
-			records,
-			Predicate,
-			SetPropertyExpectation(propertyName, value));
-
-		[DebuggerNonUserCode]
-		bool Predicate(IInteraction interaction)
-		{
-			return interaction is PropertySetterAccess<TValue> property &&
 			       value.Matches(property.Value);
 		}
 	}
@@ -340,28 +283,6 @@ public partial class MockRegistry
 	}
 
 	/// <summary>
-	///     Member-id-keyed fast-path overload of <see cref="SubscribedTo{T}(T, string)" />. Walks only the typed
-	///     event-subscribe records when the mock is wired to a <see cref="FastMockInteractions" />.
-	/// </summary>
-	/// <typeparam name="T">The verification facade type.</typeparam>
-	/// <param name="subject">The verification facade the result is bound to.</param>
-	/// <param name="memberId">The generator-emitted member id for the event subscribe.</param>
-	/// <param name="eventName">The simple event name.</param>
-	internal VerificationResult<T> SubscribedTo<T>(T subject, int memberId, string eventName)
-	{
-		MemberRecords? records = TryGetRecords(memberId);
-		if (records is null)
-		{
-			return SubscribedTo(subject, eventName);
-		}
-
-		return new VerificationResult<T>(subject, Interactions,
-			records,
-			static _ => true,
-			SubscribedToEventExpectation(eventName));
-	}
-
-	/// <summary>
 	///     Counts unsubscriptions (<c>-=</c>) from the event named <paramref name="eventName" /> on <paramref name="subject" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
@@ -380,28 +301,6 @@ public partial class MockRegistry
 			return interaction is EventUnsubscription @event &&
 			       @event.Name.Equals(eventName);
 		}
-	}
-
-	/// <summary>
-	///     Member-id-keyed fast-path overload of <see cref="UnsubscribedFrom{T}(T, string)" />. Walks only the typed
-	///     event-unsubscribe records when the mock is wired to a <see cref="FastMockInteractions" />.
-	/// </summary>
-	/// <typeparam name="T">The verification facade type.</typeparam>
-	/// <param name="subject">The verification facade the result is bound to.</param>
-	/// <param name="memberId">The generator-emitted member id for the event unsubscribe.</param>
-	/// <param name="eventName">The simple event name.</param>
-	internal VerificationResult<T> UnsubscribedFrom<T>(T subject, int memberId, string eventName)
-	{
-		MemberRecords? records = TryGetRecords(memberId);
-		if (records is null)
-		{
-			return UnsubscribedFrom(subject, eventName);
-		}
-
-		return new VerificationResult<T>(subject, Interactions,
-			records,
-			static _ => true,
-			UnsubscribedFromEventExpectation(eventName));
 	}
 
 	/// <summary>

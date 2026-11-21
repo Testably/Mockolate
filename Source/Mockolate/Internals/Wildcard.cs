@@ -36,7 +36,7 @@ internal readonly struct Wildcard
 	public static string ToRegularExpression(string pattern, bool fullMatch)
 	{
 		string regex = Regex.Escape(pattern)
-#if NETFRAMEWORK || NETSTANDARD2_0
+#if NETSTANDARD2_0
 			.Replace("\\?", ".")
 			.Replace("\\*", "(?:.|\\n)*");
 #else

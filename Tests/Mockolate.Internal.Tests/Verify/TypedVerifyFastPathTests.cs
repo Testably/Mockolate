@@ -255,41 +255,6 @@ public class TypedVerifyFastPathTests
 	}
 
 	[Test]
-	public async Task SubscribedTo_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
-	{
-		FastMockInteractions store = new(1);
-		EventRecords buffer = new(store, 0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		MethodInfo method = typeof(TypedVerifyFastPathTests).GetMethod(
-			nameof(SubscribedTo_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation))!;
-		buffer.AppendSubscription("E", null, method);
-		buffer.AppendSubscription("E", null, method);
-
-		VerificationResult<object> result = registry.SubscribedTo(new object(), 0, "E");
-
-		await That(((IVerificationResult)result).Expectation).IsEqualTo("subscribed to event E");
-		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
-	}
-
-	[Test]
-	public async Task SubscribedTo_WithMemberIdButNoBuffer_FallsBackAndFiltersByName()
-	{
-		FastMockInteractions store = new(0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		IMockInteractions interactions = store;
-		MethodInfo method = typeof(TypedVerifyFastPathTests).GetMethod(
-			nameof(SubscribedTo_WithMemberIdButNoBuffer_FallsBackAndFiltersByName))!;
-		interactions.RegisterInteraction(new EventSubscription("E", null, method));
-		interactions.RegisterInteraction(new EventSubscription("E", null, method));
-		interactions.RegisterInteraction(new EventSubscription("F", null, method));
-
-		VerificationResult<object> result = registry.SubscribedTo(new object(), 5, "E");
-
-		await That(((IVerificationResult)result).Expectation).IsEqualTo("subscribed to event E");
-		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
-	}
-
-	[Test]
 	public async Task SubscribedToTyped_WithBuffer_ProducesEventNameInExpectation()
 	{
 		FastMockInteractions store = new(1);
@@ -327,41 +292,6 @@ public class TypedVerifyFastPathTests
 		registry.VerifyMethod(new object(), 0, "Foo", () => "Foo()").Once();
 
 		await That(true).IsTrue();
-	}
-
-	[Test]
-	public async Task UnsubscribedFrom_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
-	{
-		FastMockInteractions store = new(1);
-		EventRecords buffer = new(store, 0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		MethodInfo method = typeof(TypedVerifyFastPathTests).GetMethod(
-			nameof(UnsubscribedFrom_WithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation))!;
-		buffer.AppendUnsubscription("E", null, method);
-		buffer.AppendUnsubscription("E", null, method);
-
-		VerificationResult<object> result = registry.UnsubscribedFrom(new object(), 0, "E");
-
-		await That(((IVerificationResult)result).Expectation).IsEqualTo("unsubscribed from event E");
-		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
-	}
-
-	[Test]
-	public async Task UnsubscribedFrom_WithMemberIdButNoBuffer_FallsBackAndFiltersByName()
-	{
-		FastMockInteractions store = new(0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		IMockInteractions interactions = store;
-		MethodInfo method = typeof(TypedVerifyFastPathTests).GetMethod(
-			nameof(UnsubscribedFrom_WithMemberIdButNoBuffer_FallsBackAndFiltersByName))!;
-		interactions.RegisterInteraction(new EventUnsubscription("E", null, method));
-		interactions.RegisterInteraction(new EventUnsubscription("E", null, method));
-		interactions.RegisterInteraction(new EventUnsubscription("F", null, method));
-
-		VerificationResult<object> result = registry.UnsubscribedFrom(new object(), 5, "E");
-
-		await That(((IVerificationResult)result).Expectation).IsEqualTo("unsubscribed from event E");
-		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
 	}
 
 	[Test]
@@ -785,105 +715,6 @@ public class TypedVerifyFastPathTests
 		await That(((IVerificationResult)result).Expectation)
 			.IsEqualTo($"invoked method M({parameter1}, {parameter2}, , {parameter4})");
 		await That(((IVerificationResult)result).Verify(arr => arr.Length == 1)).IsTrue();
-	}
-
-	[Test]
-	public async Task VerifyProperty_GetterWithMemberIdAndBuffer_CountsBufferEntriesAndProducesExpectation()
-	{
-		FastMockInteractions store = new(1);
-		PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		buffer.Append();
-		buffer.Append();
-
-		VerificationResult<object> result = registry.VerifyProperty(new object(), 0, "P");
-
-		await That(((IVerificationResult)result).Expectation).IsEqualTo("got property P");
-		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
-	}
-
-	[Test]
-	public async Task VerifyProperty_SetterWithMemberIdAndBuffer_CountsMatchingValuesAndProducesExpectation()
-	{
-		FastMockInteractions store = new(1);
-		PropertySetterRecords<int> buffer = new(store, 0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		buffer.Append("P", 1);
-		buffer.Append("P", 2);
-		buffer.Append("P", 1);
-
-		IParameterMatch<int> value = (IParameterMatch<int>)It.Is(1);
-		VerificationResult<object> result = registry.VerifyProperty(new object(), 0, "P", value);
-
-		await That(((IVerificationResult)result).Expectation).Contains("set property P");
-		await That(((IVerificationResult)result).Expectation).Contains(value.ToString()!);
-		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
-	}
-
-	[Test]
-	public async Task VerifyProperty_WithMemberIdButNoBuffer_FallbackPredicateFiltersByName()
-	{
-		FastMockInteractions store = new(0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		IMockInteractions interactions = store;
-
-		interactions.RegisterInteraction(new PropertyGetterAccess("P"));
-		interactions.RegisterInteraction(new PropertyGetterAccess("P"));
-		interactions.RegisterInteraction(new PropertyGetterAccess("Q"));
-
-		VerificationResult<object> result = registry.VerifyProperty(new object(), 5, "P");
-
-		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
-	}
-
-	[Test]
-	public async Task VerifyProperty_WithMemberIdButNoBuffer_FallsBackToStringKeyedPath()
-	{
-		FastMockInteractions store = new(0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		IMockInteractions interactions = store;
-
-		interactions.RegisterInteraction(new PropertyGetterAccess("P"));
-		interactions.RegisterInteraction(new PropertyGetterAccess("P"));
-
-		VerificationResult<object> result = registry.VerifyProperty(new object(), 5, "P");
-
-		await That(((IVerificationResult)result).Expectation).IsEqualTo("got property P");
-		((IVerificationResult)result).Verify(arr => arr.Length == 2);
-	}
-
-	[Test]
-	public async Task VerifyPropertySetter_WithMemberIdButNoBuffer_FallbackPredicateFiltersByName()
-	{
-		FastMockInteractions store = new(0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		IMockInteractions interactions = store;
-
-		interactions.RegisterInteraction(new PropertySetterAccess<int>("P", 1));
-		interactions.RegisterInteraction(new PropertySetterAccess<int>("P", 2));
-		interactions.RegisterInteraction(new PropertySetterAccess<int>("Q", 3));
-
-		VerificationResult<object> result = registry.VerifyProperty(
-			new object(), 5, "P", (IParameterMatch<int>)It.IsAny<int>());
-
-		await That(((IVerificationResult)result).Verify(arr => arr.Length == 2)).IsTrue();
-	}
-
-	[Test]
-	public async Task VerifyPropertySetter_WithMemberIdButNoBuffer_FallsBackToStringKeyedPath()
-	{
-		FastMockInteractions store = new(0);
-		MockRegistry registry = new(MockBehavior.Default, store);
-		IMockInteractions interactions = store;
-
-		interactions.RegisterInteraction(new PropertySetterAccess<int>("P", 1));
-		interactions.RegisterInteraction(new PropertySetterAccess<int>("P", 2));
-
-		VerificationResult<object> result = registry.VerifyProperty(
-			new object(), 5, "P", (IParameterMatch<int>)It.IsAny<int>());
-
-		await That(((IVerificationResult)result).Expectation).Contains("set property P");
-		((IVerificationResult)result).Verify(arr => arr.Length == 2);
 	}
 
 	[Test]

@@ -4,8 +4,6 @@ using System.Net;
 using System.Text;
 using Mockolate.Internals;
 using Mockolate.Parameters;
-#if NETSTANDARD2_0
-#endif
 
 namespace Mockolate.Web;
 

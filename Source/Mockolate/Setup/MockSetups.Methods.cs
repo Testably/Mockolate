@@ -57,28 +57,6 @@ internal partial class MockSetups
 			}
 		}
 
-		public MethodSetup? GetLatestOrDefault(Func<MethodSetup, bool> predicate)
-		{
-			List<MethodSetup>? storage = _storage;
-			if (storage is null)
-			{
-				return null;
-			}
-
-			lock (storage)
-			{
-				for (int i = storage.Count - 1; i >= 0; i--)
-				{
-					if (predicate(storage[i]))
-					{
-						return storage[i];
-					}
-				}
-			}
-
-			return null;
-		}
-
 		/// <summary>
 		///     Enumerates all method setups of type <typeparamref name="T" /> matching <paramref name="methodName" />
 		///     in latest-registered-first order.
