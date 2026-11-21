@@ -1632,6 +1632,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -1906,7 +1912,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -2184,7 +2191,8 @@ window.BENCHMARK_DATA = {
           111.37928849856058,
           202.23581155141196,
           211.85496557553608,
-          149.8066383089338
+          149.8066383089338,
+          161.22904674212137
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2454,6 +2462,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800,
@@ -2753,7 +2762,8 @@ window.BENCHMARK_DATA = {
           27936.328582763672,
           102677.87880859376,
           102801.92741511419,
-          60220.2466008113
+          60220.2466008113,
+          61487.05128580729
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3036,7 +3046,8 @@ window.BENCHMARK_DATA = {
           9055,
           9056,
           9056,
-          9167
+          9167,
+          9056
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3322,7 +3333,8 @@ window.BENCHMARK_DATA = {
           2188.05610539363,
           4660.8882288614905,
           4550.061059679304,
-          3216.8404541015625
+          3216.8404541015625,
+          3394.1545547485352
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3483,6 +3495,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -3891,7 +3904,8 @@ window.BENCHMARK_DATA = {
           2181.440779622396,
           4637.011163838704,
           4758.891913859049,
-          3232.403770153339
+          3232.403770153339,
+          3122.3763745625815
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4174,7 +4188,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6930,
-          7042
+          7042,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4460,7 +4475,8 @@ window.BENCHMARK_DATA = {
           121.08844549655915,
           199.36181055704753,
           198.21712183952332,
-          151.8176381404583
+          151.8176381404583,
+          156.63979845046998
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4626,6 +4642,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5029,7 +5046,8 @@ window.BENCHMARK_DATA = {
           302.86361285618375,
           479.9737799848829,
           482.6379467646281,
-          360.9730539719264
+          360.9730539719264,
+          388.0876492500305
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5190,6 +5208,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -6958,6 +6977,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -7232,7 +7257,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -7510,7 +7536,8 @@ window.BENCHMARK_DATA = {
           183.9362466653188,
           81.7401914993922,
           110.64030378659567,
-          124.36835859219234
+          124.36835859219234,
+          152.1482459227244
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7780,6 +7807,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712,
@@ -8079,7 +8107,8 @@ window.BENCHMARK_DATA = {
           12391.94883219401,
           6889.504619891827,
           9921.664672851562,
-          9410.736511230469
+          9410.736511230469,
+          9788.31024639423
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8361,6 +8390,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761,
           12761
         ],
@@ -8648,7 +8678,8 @@ window.BENCHMARK_DATA = {
           5126.163651602609,
           2685.1604924883163,
           3541.0051075862,
-          3813.0686904907225
+          3813.0686904907225,
+          4139.933178202311
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8809,6 +8840,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -9217,7 +9249,8 @@ window.BENCHMARK_DATA = {
           154645.48012695313,
           109854.3654296875,
           108003.36305338542,
-          106733.70908203124
+          106733.70908203124,
+          107857.01810128348
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9499,6 +9532,7 @@ window.BENCHMARK_DATA = {
           15578,
           15659,
           15620,
+          15579,
           15579,
           15579
         ],
@@ -9786,7 +9820,8 @@ window.BENCHMARK_DATA = {
           211.226296884673,
           103.27223485708237,
           142.42930544217427,
-          156.62221938769022
+          156.62221938769022,
+          172.63465857505798
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9927,6 +9962,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -10355,7 +10391,8 @@ window.BENCHMARK_DATA = {
           227.76653474171957,
           97.24357142448426,
           146.45834620793661,
-          146.06323097546894
+          146.06323097546894,
+          183.90053197542827
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -10489,6 +10526,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -12284,6 +12322,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -12558,7 +12602,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -12836,7 +12881,8 @@ window.BENCHMARK_DATA = {
           418.42293186187743,
           496.68142655690514,
           439.3385807355245,
-          405.62462615966797
+          405.62462615966797,
+          429.40843769709267
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13106,6 +13152,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1680,
           1680,
           1680,
           1680,
@@ -13405,7 +13452,8 @@ window.BENCHMARK_DATA = {
           181389.08627554087,
           225577.60862630207,
           231804.21080729167,
-          83763.95901925223
+          83763.95901925223,
+          227331.62939453125
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13688,7 +13736,8 @@ window.BENCHMARK_DATA = {
           21004,
           20804,
           20804,
-          20897
+          20897,
+          20804
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13974,7 +14023,8 @@ window.BENCHMARK_DATA = {
           9306.86282818134,
           9988.671813964844,
           10101.854087320964,
-          7768.413486735026
+          7768.413486735026,
+          11113.530240740094
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14256,6 +14306,7 @@ window.BENCHMARK_DATA = {
           13088,
           13113,
           13032,
+          13088,
           13088,
           13088
         ],
@@ -14543,7 +14594,8 @@ window.BENCHMARK_DATA = {
           8940.41414896647,
           10962.362665812174,
           10707.00029695951,
-          6394.873185221354
+          6394.873185221354,
+          10678.864241463798
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14826,7 +14878,8 @@ window.BENCHMARK_DATA = {
           13593,
           13593,
           13593,
-          13586
+          13586,
+          13593
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15112,7 +15165,8 @@ window.BENCHMARK_DATA = {
           309.4580937113081,
           314.04391135488237,
           292.8962113380432,
-          276.8540248552958
+          276.8540248552958,
+          295.8182281176249
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15395,6 +15449,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1096,
           1096
         ],
         "borderColor": "#E84393",
@@ -15477,7 +15532,8 @@ window.BENCHMARK_DATA = {
           739.0657795497349,
           743.0015659968059,
           720.9757605393728,
-          671.6729141871134
+          671.6729141871134,
+          726.3995587031046
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15489,6 +15545,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          2784,
           2784,
           2784,
           2784,
@@ -17202,6 +17259,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -17476,7 +17539,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -17754,7 +17818,8 @@ window.BENCHMARK_DATA = {
           1137.4277126605693,
           1284.0614584409273,
           1303.2045283684363,
-          1173.9587127685547
+          1173.9587127685547,
+          1268.4242788950603
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18024,6 +18089,7 @@ window.BENCHMARK_DATA = {
           2608,
           2608,
           2608,
+          2616,
           2616,
           2616,
           2616,
@@ -18323,7 +18389,8 @@ window.BENCHMARK_DATA = {
           195433.8032714844,
           233991.90842848556,
           242219.73133951824,
-          88552.25025285993
+          88552.25025285993,
+          240701.40826416016
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18606,7 +18673,8 @@ window.BENCHMARK_DATA = {
           30602,
           30403,
           30403,
-          29467
+          29467,
+          30403
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18892,7 +18960,8 @@ window.BENCHMARK_DATA = {
           22728.722898043117,
           24108.84989420573,
           26872.82395348182,
-          18145.345617675783
+          18145.345617675783,
+          25997.9637498122
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19175,7 +19244,8 @@ window.BENCHMARK_DATA = {
           26217,
           26137,
           26193,
-          26192
+          26192,
+          26193
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19461,7 +19531,8 @@ window.BENCHMARK_DATA = {
           19563.801352945964,
           23344.111108398436,
           24091.943817138672,
-          14791.281151326497
+          14791.281151326497,
+          23032.55369567871
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19732,6 +19803,7 @@ window.BENCHMARK_DATA = {
           33249,
           33249,
           33249,
+          33247,
           33247,
           33247,
           33247,
@@ -20030,7 +20102,8 @@ window.BENCHMARK_DATA = {
           762.9156864166259,
           736.0620946884155,
           708.1417457580567,
-          607.8249333699545
+          607.8249333699545,
+          741.4586334228516
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20313,6 +20386,7 @@ window.BENCHMARK_DATA = {
           2176,
           2176,
           2176,
+          2176,
           2176
         ],
         "borderColor": "#E84393",
@@ -20395,7 +20469,8 @@ window.BENCHMARK_DATA = {
           2553.1683886601377,
           2550.4175526936847,
           2405.5076731363934,
-          2171.032223256429
+          2171.032223256429,
+          2376.6917340596515
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -20407,6 +20482,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          5496,
           5496,
           5496,
           5496,
@@ -22120,6 +22196,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -22394,7 +22476,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -22672,7 +22755,8 @@ window.BENCHMARK_DATA = {
           113.17479966367993,
           702.4562709172567,
           180.43529362678527,
-          79.30987761418025
+          79.30987761418025,
+          162.47306752204895
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22942,6 +23026,7 @@ window.BENCHMARK_DATA = {
           600,
           600,
           600,
+          608,
           608,
           608,
           608,
@@ -23241,7 +23326,8 @@ window.BENCHMARK_DATA = {
           115561.93552652995,
           490086.65973772324,
           86255.65755789621,
-          56697.26317487444
+          56697.26317487444,
+          147151.60039813703
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23524,7 +23610,8 @@ window.BENCHMARK_DATA = {
           15074,
           14871,
           14874,
-          14921
+          14921,
+          14916
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23810,7 +23897,8 @@ window.BENCHMARK_DATA = {
           4711.136407034738,
           23739.451979417066,
           5499.0466886247905,
-          2857.964027132307
+          2857.964027132307,
+          5863.643193381174
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -24093,6 +24181,7 @@ window.BENCHMARK_DATA = {
           9320,
           9321,
           9264,
+          9320,
           9320
         ],
         "borderColor": "#5E2750",
@@ -24379,7 +24468,8 @@ window.BENCHMARK_DATA = {
           4190.959087117513,
           20934.020085261418,
           4513.841227017916,
-          2712.648013305664
+          2712.648013305664,
+          5658.255140177409
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24662,7 +24752,8 @@ window.BENCHMARK_DATA = {
           8160,
           8151,
           8153,
-          8160
+          8160,
+          8147
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24948,7 +25039,8 @@ window.BENCHMARK_DATA = {
           159.82795941034954,
           1071.8218358357747,
           208.40116236760065,
-          98.49806771278381
+          98.49806771278381,
+          183.12536934443884
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -25114,6 +25206,7 @@ window.BENCHMARK_DATA = {
           832,
           832,
           832,
+          728,
           728,
           728,
           728,
@@ -25517,7 +25610,8 @@ window.BENCHMARK_DATA = {
           374.40143200556435,
           2380.147785441081,
           555.102553876241,
-          246.6102068607624
+          246.6102068607624,
+          543.9262291590372
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25651,6 +25745,7 @@ window.BENCHMARK_DATA = {
           2072,
           2072,
           2072,
+          2088,
           2088,
           2088,
           2088,
@@ -27446,6 +27541,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -27720,7 +27821,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -27998,7 +28100,8 @@ window.BENCHMARK_DATA = {
           285.63315629959106,
           1937.7394777933757,
           429.5663500626882,
-          237.17857502301533
+          237.17857502301533,
+          431.19323205947876
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28268,6 +28371,7 @@ window.BENCHMARK_DATA = {
           1104,
           1104,
           1104,
+          1112,
           1112,
           1112,
           1112,
@@ -28567,7 +28671,8 @@ window.BENCHMARK_DATA = {
           117558.94249616351,
           458248.18279157364,
           92505.42689732143,
-          58765.522192382814
+          58765.522192382814,
+          153804.13849283854
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28850,6 +28955,7 @@ window.BENCHMARK_DATA = {
           19065,
           18903,
           18883,
+          18906,
           18906
         ],
         "borderColor": "#A052B0",
@@ -29136,7 +29242,8 @@ window.BENCHMARK_DATA = {
           6773.787155696324,
           32916.718098958336,
           7819.5469553629555,
-          4542.767344665527
+          4542.767344665527,
+          8599.862000528972
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29419,6 +29526,7 @@ window.BENCHMARK_DATA = {
           12344,
           12345,
           11784,
+          12344,
           12344
         ],
         "borderColor": "#5E2750",
@@ -29705,7 +29813,8 @@ window.BENCHMARK_DATA = {
           6557.964665730794,
           33931.34732927595,
           8023.231843058268,
-          4543.97955087515
+          4543.97955087515,
+          8990.078033447266
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29988,7 +30097,8 @@ window.BENCHMARK_DATA = {
           16394,
           16388,
           16393,
-          16394
+          16394,
+          16396
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30274,7 +30384,8 @@ window.BENCHMARK_DATA = {
           317.4826347351074,
           1807.4162128993444,
           407.8956679564256,
-          243.61077480316163
+          243.61077480316163,
+          386.98902994791666
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -30440,6 +30551,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1088,
           1088,
           1088,
           1088,
@@ -30843,7 +30955,8 @@ window.BENCHMARK_DATA = {
           1044.82743031638,
           7232.236777714321,
           1689.0809940925012,
-          951.3783051808675
+          951.3783051808675,
+          1692.151744333903
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30977,6 +31090,7 @@ window.BENCHMARK_DATA = {
           3824,
           3824,
           3824,
+          3840,
           3840,
           3840,
           3840,
@@ -32772,6 +32886,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -33046,7 +33166,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -33324,7 +33445,8 @@ window.BENCHMARK_DATA = {
           257.7043228516212,
           254.05317668914796,
           314.73577744166056,
-          330.92849016189575
+          330.92849016189575,
+          198.1329915682475
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33594,6 +33716,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920,
@@ -33893,7 +34016,8 @@ window.BENCHMARK_DATA = {
           11260.894731794086,
           11478.145662434896,
           8749.864725748697,
-          11281.949753981371
+          11281.949753981371,
+          8017.7981363932295
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34174,6 +34298,7 @@ window.BENCHMARK_DATA = {
           10568,
           10568,
           10713,
+          10569,
           10569,
           10569,
           10569
@@ -34462,7 +34587,8 @@ window.BENCHMARK_DATA = {
           7581.592022705078,
           7512.958402780386,
           6525.160390726725,
-          7667.288852945963
+          7667.288852945963,
+          5645.179935709635
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34745,7 +34871,8 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
-          11664
+          11664,
+          11688
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -35031,7 +35158,8 @@ window.BENCHMARK_DATA = {
           8097.553702799479,
           7954.257318115235,
           5957.721335274832,
-          7967.881981404623
+          7967.881981404623,
+          5799.969370524089
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35314,7 +35442,8 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11191,
-          11196
+          11196,
+          11276
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35600,7 +35729,8 @@ window.BENCHMARK_DATA = {
           169.79456465584892,
           168.91656812599726,
           204.78487386022294,
-          170.6333279132843
+          170.6333279132843,
+          146.98240512212118
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -35766,6 +35896,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -36169,7 +36300,8 @@ window.BENCHMARK_DATA = {
           432.7092370669047,
           428.25298782984413,
           520.3449307759603,
-          455.51917546136036
+          455.51917546136036,
+          362.2741667883737
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -36365,6 +36497,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -38098,6 +38231,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -38372,7 +38511,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -38650,7 +38790,8 @@ window.BENCHMARK_DATA = {
           614.4572913830096,
           592.9051789601643,
           736.9094067891439,
-          631.9004830678304
+          631.9004830678304,
+          527.058473332723
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -38920,6 +39061,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784,
@@ -39219,7 +39361,8 @@ window.BENCHMARK_DATA = {
           18247.96095784505,
           17772.07760823568,
           14899.478977457682,
-          18319.746103922527
+          18319.746103922527,
+          12869.597196451823
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -39502,6 +39645,7 @@ window.BENCHMARK_DATA = {
           18649,
           18505,
           18504,
+          18505,
           18505
         ],
         "borderColor": "#A052B0",
@@ -39788,7 +39932,8 @@ window.BENCHMARK_DATA = {
           17721.765360514324,
           17811.53438720703,
           15224.946515764508,
-          17247.428456624348
+          17247.428456624348,
+          13539.400078406701
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -40071,7 +40216,8 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21552,
-          21529
+          21529,
+          21553
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -40357,7 +40503,8 @@ window.BENCHMARK_DATA = {
           19763.995190429687,
           19203.94416300456,
           15624.669302133414,
-          19413.24840698242
+          19413.24840698242,
+          13762.893564860025
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -40640,7 +40787,8 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30785,
-          30785
+          30785,
+          30866
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -40926,7 +41074,8 @@ window.BENCHMARK_DATA = {
           331.6589507738749,
           328.79339764912925,
           437.08897535617535,
-          337.9106415748596
+          337.9106415748596,
+          266.2528597513835
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -41092,6 +41241,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -41495,7 +41645,8 @@ window.BENCHMARK_DATA = {
           1606.6932319641114,
           1510.928397838886,
           1991.994756825765,
-          1582.3443033854167
+          1582.3443033854167,
+          1260.0932046254477
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -41691,6 +41842,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -43424,6 +43576,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -43698,7 +43856,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -43976,7 +44135,8 @@ window.BENCHMARK_DATA = {
           16.358316873128597,
           15.733298224210738,
           16.8903000553449,
-          10.321778419613839
+          10.321778419613839,
+          13.672904417912166
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44206,6 +44366,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -44545,7 +44706,8 @@ window.BENCHMARK_DATA = {
           96.8849778345653,
           90.87279918364116,
           90.68106728394827,
-          63.106012729498055
+          63.106012729498055,
+          85.11162305672964
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44711,6 +44873,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -45114,7 +45277,8 @@ window.BENCHMARK_DATA = {
           28.30445693731308,
           26.902658444184524,
           30.114279639720916,
-          18.462279138962426
+          18.462279138962426,
+          22.477882796100207
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -45248,6 +45412,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -45683,7 +45848,8 @@ window.BENCHMARK_DATA = {
           1284.4458038330079,
           1317.9322976430258,
           1332.5213952382405,
-          808.1360079447428
+          808.1360079447428,
+          978.5601300557454
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45844,6 +46010,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -46252,7 +46419,8 @@ window.BENCHMARK_DATA = {
           1826.5394256591796,
           1875.8498167673747,
           2049.0996409098307,
-          1165.9922749655586
+          1165.9922749655586,
+          1422.1033126195273
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46413,6 +46581,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -46821,7 +46990,8 @@ window.BENCHMARK_DATA = {
           1637.7786167689733,
           1601.3258805592855,
           1733.7126068115235,
-          975.7592180569967
+          975.7592180569967,
+          1301.373892375401
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47100,6 +47270,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2751,
+          2755,
           2755,
           2755,
           2755,
@@ -47652,6 +47823,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -47743,7 +47920,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -47838,7 +48016,8 @@ window.BENCHMARK_DATA = {
           1466.357868058341,
           1676.9268198649088,
           2290.5717646280923,
-          2191.575975418091
+          2191.575975418091,
+          1639.086780420939
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -47925,6 +48104,7 @@ window.BENCHMARK_DATA = {
           5216,
           5216,
           5216,
+          5248,
           5248,
           5248,
           5248,
@@ -48041,7 +48221,8 @@ window.BENCHMARK_DATA = {
           1728.9621367136638,
           2008.2734800066266,
           2420.806957244873,
-          2557.1401262283325
+          2557.1401262283325,
+          1927.709660938808
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -48141,7 +48322,8 @@ window.BENCHMARK_DATA = {
           7384,
           7384,
           7385,
-          7384
+          7384,
+          7385
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -48244,7 +48426,8 @@ window.BENCHMARK_DATA = {
           4161.849483235677,
           4657.738924843924,
           5684.10119511531,
-          6009.711925506592
+          6009.711925506592,
+          4158.868120066325
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -48317,6 +48500,7 @@ window.BENCHMARK_DATA = {
           10544,
           10544,
           10544,
+          17360,
           17360,
           17360,
           17360,
@@ -48447,7 +48631,8 @@ window.BENCHMARK_DATA = {
           790605.3841145834,
           801326.402734375,
           1431450.416015625,
-          1081478.143329327
+          1081478.143329327,
+          1008165.8927283654
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -48547,7 +48732,8 @@ window.BENCHMARK_DATA = {
           91987,
           92017,
           92714,
-          91987
+          91987,
+          92605
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -48650,7 +48836,8 @@ window.BENCHMARK_DATA = {
           247586.47828776043,
           251448.66396484376,
           316242.5654622396,
-          342444.7958007812
+          342444.7958007812,
+          269689.8636393229
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -48750,7 +48937,8 @@ window.BENCHMARK_DATA = {
           54356,
           54356,
           54382,
-          54356
+          54356,
+          54382
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -48853,7 +49041,8 @@ window.BENCHMARK_DATA = {
           280575.8445963542,
           285087.7778971354,
           360903.2315848214,
-          384806.8817057292
+          384806.8817057292,
+          303642.28693498886
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48953,7 +49142,8 @@ window.BENCHMARK_DATA = {
           65589,
           65870,
           65552,
-          65710
+          65710,
+          65398
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -49387,6 +49577,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -49459,7 +49655,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -49535,7 +49732,8 @@ window.BENCHMARK_DATA = {
           20941.93070111956,
           121559.48399135044,
           29025.25766645159,
-          16215.116577148438
+          16215.116577148438,
+          28861.05750165667
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -49615,6 +49813,7 @@ window.BENCHMARK_DATA = {
           56552,
           56552,
           56553,
+          56552,
           56552,
           56552
         ],
@@ -49700,7 +49899,8 @@ window.BENCHMARK_DATA = {
           17021.927677408854,
           99672.52285330636,
           22639.156140645344,
-          13162.717596435547
+          13162.717596435547,
+          22355.932899983723
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -49780,6 +49980,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40689,
+          40688,
           40688,
           40688
         ],
@@ -49865,7 +50066,8 @@ window.BENCHMARK_DATA = {
           79036.21068464007,
           569800.0427594866,
           128644.1812838041,
-          75262.52415114183
+          75262.52415114183,
+          128412.82055664062
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49945,6 +50147,7 @@ window.BENCHMARK_DATA = {
           203585,
           203585,
           203589,
+          203585,
           203585,
           203585
         ],
@@ -50030,7 +50233,8 @@ window.BENCHMARK_DATA = {
           285436.7553898738,
           1359633.824609375,
           287072.8269042969,
-          170350.78673502605
+          170350.78673502605,
+          398158.11549479165
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50111,7 +50315,8 @@ window.BENCHMARK_DATA = {
           432098,
           431949,
           431907,
-          431937
+          431937,
+          431932
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50195,7 +50400,8 @@ window.BENCHMARK_DATA = {
           244730.40294471153,
           1099895.106282552,
           235447.07219587054,
-          145297.33642578125
+          145297.33642578125,
+          271949.6112304687
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50276,7 +50482,8 @@ window.BENCHMARK_DATA = {
           378039,
           378051,
           322016,
-          378037
+          378037,
+          378035
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50360,7 +50567,8 @@ window.BENCHMARK_DATA = {
           296067.91653878347,
           1543439.2634114583,
           371393.6493164062,
-          192778.85147298177
+          192778.85147298177,
+          395289.3439778646
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50441,7 +50649,8 @@ window.BENCHMARK_DATA = {
           944402,
           944370,
           944362,
-          944381
+          944381,
+          944402
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50875,6 +51084,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -50947,7 +51162,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -51023,7 +51239,8 @@ window.BENCHMARK_DATA = {
           41220.35901692708,
           38142.637650553384,
           49740.46677246094,
-          39430.92113037109
+          39430.92113037109,
+          35064.04930826823
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -51091,6 +51308,7 @@ window.BENCHMARK_DATA = {
           96816,
           96816,
           96816,
+          96824,
           96824,
           96824,
           96824,
@@ -51188,7 +51406,8 @@ window.BENCHMARK_DATA = {
           17612.881259155274,
           17217.79384358724,
           25704.021260579426,
-          16894.783349609374
+          16894.783349609374,
+          13123.738209315708
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -51269,6 +51488,7 @@ window.BENCHMARK_DATA = {
           32641,
           32641,
           32640,
+          32641,
           32641
         ],
         "borderColor": "#E84393",
@@ -51353,7 +51573,8 @@ window.BENCHMARK_DATA = {
           125380.92202148438,
           115122.53747558594,
           157737.54164341517,
-          116640.25122477213
+          116640.25122477213,
+          93725.74373081753
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51426,6 +51647,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -51518,7 +51740,8 @@ window.BENCHMARK_DATA = {
           703408.9187360491,
           718267.1434244792,
           570086.5242638221,
-          738796.2899693081
+          738796.2899693081,
+          501235.49830729165
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -51599,6 +51822,7 @@ window.BENCHMARK_DATA = {
           836685,
           836541,
           836452,
+          836541,
           836541
         ],
         "borderColor": "#A052B0",
@@ -51683,7 +51907,8 @@ window.BENCHMARK_DATA = {
           1097892.8619791667,
           1105630.691015625,
           911381.7652762277,
-          1046791.2231770833
+          1046791.2231770833,
+          814737.3596540178
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -51764,7 +51989,8 @@ window.BENCHMARK_DATA = {
           1139704,
           1139704,
           1139645,
-          1139704
+          1139704,
+          1139726
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -51848,7 +52074,8 @@ window.BENCHMARK_DATA = {
           1317781.206640625,
           1257403.4734375,
           1057340.070703125,
-          1307689.8567708333
+          1307689.8567708333,
+          924783.1062360491
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -51929,7 +52156,8 @@ window.BENCHMARK_DATA = {
           2194291,
           2194291,
           2194291,
-          2194291
+          2194291,
+          2194405
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52363,6 +52591,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -52435,7 +52669,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -52511,7 +52746,8 @@ window.BENCHMARK_DATA = {
           83543.21579214242,
           95252.14543805804,
           96896.6027750651,
-          80015.43244280134
+          80015.43244280134,
+          94915.87200927734
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52583,6 +52819,7 @@ window.BENCHMARK_DATA = {
           105577,
           105577,
           105576,
+          105577,
           105577,
           105577,
           105577,
@@ -52676,7 +52913,8 @@ window.BENCHMARK_DATA = {
           50068.95031738281,
           45891.38418782552,
           48727.09315185547,
-          38461.78603922526
+          38461.78603922526,
+          46765.490927559986
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -52757,7 +52995,8 @@ window.BENCHMARK_DATA = {
           120981,
           120981,
           120981,
-          120977
+          120977,
+          120981
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -52841,7 +53080,8 @@ window.BENCHMARK_DATA = {
           962206.0791015625,
           1016290.0421875,
           1050706.8560267857,
-          646891.1749348958
+          646891.1749348958,
+          1027333.0082632211
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -52922,7 +53162,8 @@ window.BENCHMARK_DATA = {
           1030807,
           1030613,
           1030614,
-          918710
+          918710,
+          1030614
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53006,7 +53247,8 @@ window.BENCHMARK_DATA = {
           1550196.3162760416,
           1562553.7895833333,
           1744664.9970703125,
-          1182875.3207310268
+          1182875.3207310268,
+          1664361.6897135417
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53087,7 +53329,8 @@ window.BENCHMARK_DATA = {
           1500848,
           1500768,
           1500824,
-          1500704
+          1500704,
+          1500824
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53171,7 +53414,8 @@ window.BENCHMARK_DATA = {
           1336027.297981771,
           1479292.7109375,
           1484665.6527622768,
-          969627.05859375
+          969627.05859375,
+          1375906.7028645833
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -53248,6 +53492,7 @@ window.BENCHMARK_DATA = {
           2204675,
           2204675,
           2204669,
+          2204675,
           2204675,
           2204675,
           2204675,
@@ -53334,7 +53579,8 @@ window.BENCHMARK_DATA = {
           198011.5718336839,
           197634.92307826452,
           181402.57055664062,
-          166179.82576497397
+          166179.82576497397,
+          177754.34172712054
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53346,6 +53592,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          300713,
           300713,
           300713,
           300713,
@@ -53799,6 +54046,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -53863,7 +54116,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -53931,7 +54185,8 @@ window.BENCHMARK_DATA = {
           438.5279988606771,
           518.3367085774739,
           318.32632123629253,
-          482.91566212972003
+          482.91566212972003,
+          489.25140018463134
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -53991,6 +54246,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544,
@@ -54080,7 +54336,8 @@ window.BENCHMARK_DATA = {
           270.213639831543,
           284.354679775238,
           214.7624293225152,
-          248.6595161982945
+          248.6595161982945,
+          264.2844856466566
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54092,6 +54349,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -54229,7 +54487,8 @@ window.BENCHMARK_DATA = {
           522.7313334147135,
           647.6332596370152,
           389.7025320370992,
-          503.7050350734166
+          503.7050350734166,
+          521.9965273539225
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -54241,6 +54500,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -54378,7 +54638,8 @@ window.BENCHMARK_DATA = {
           113497.87778320312,
           85104.46432291667,
           70276.37037876675,
-          113810.01708984375
+          113810.01708984375,
+          114321.57700892857
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54450,6 +54711,7 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10104,
+          10030,
           10030,
           10030
         ],
@@ -54527,7 +54789,8 @@ window.BENCHMARK_DATA = {
           7516.801286824544,
           7703.994293212891,
           5473.8590438842775,
-          7282.862354572003
+          7282.862354572003,
+          7712.407623291016
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54599,6 +54862,7 @@ window.BENCHMARK_DATA = {
           10416,
           10416,
           10416,
+          10248,
           10248,
           10248
         ],
@@ -54676,7 +54940,8 @@ window.BENCHMARK_DATA = {
           7281.664316813151,
           7619.728049723307,
           5230.913996887207,
-          7533.846398489816
+          7533.846398489816,
+          7812.800016276042
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54748,6 +55013,7 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11863,
+          11854,
           11854,
           11854
         ],
@@ -55135,6 +55401,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -55199,7 +55471,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -55267,7 +55540,8 @@ window.BENCHMARK_DATA = {
           1495.6928741455079,
           1890.9468274434407,
           1276.5303864796956,
-          1553.2107271466937
+          1553.2107271466937,
+          1631.1133941650392
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -55327,6 +55601,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016,
@@ -55416,7 +55691,8 @@ window.BENCHMARK_DATA = {
           932.5881574630737,
           1099.888354573931,
           796.3946909586589,
-          944.2008452782264
+          944.2008452782264,
+          1010.3450715201242
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55428,6 +55704,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -55565,7 +55842,8 @@ window.BENCHMARK_DATA = {
           3223.601269785563,
           3893.131924947103,
           2433.721411568778,
-          3381.360895792643
+          3381.360895792643,
+          3385.686691538493
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55577,6 +55855,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -55714,7 +55993,8 @@ window.BENCHMARK_DATA = {
           127759.8427734375,
           100292.4166695731,
           81916.98622349331,
-          129519.94075520833
+          129519.94075520833,
+          131253.18089076452
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55787,6 +56067,7 @@ window.BENCHMARK_DATA = {
           25115,
           25193,
           25114,
+          25115,
           25115
         ],
         "borderColor": "#A052B0",
@@ -55863,7 +56144,8 @@ window.BENCHMARK_DATA = {
           25683.516009521485,
           23385.617958577473,
           16575.012298583984,
-          23775.782661946614
+          23775.782661946614,
+          23143.612345377605
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55935,6 +56217,7 @@ window.BENCHMARK_DATA = {
           25665,
           25665,
           25665,
+          23481,
           23481,
           23481
         ],
@@ -56012,7 +56295,8 @@ window.BENCHMARK_DATA = {
           26661.306830772988,
           30366.743903023857,
           20036.737084960936,
-          29994.61078491211
+          29994.61078491211,
+          28780.72708536784
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56079,6 +56363,7 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55296,
+          55216,
           55216,
           55216,
           55216,
@@ -56471,6 +56756,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -56535,7 +56826,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -56603,7 +56895,8 @@ window.BENCHMARK_DATA = {
           118892.0139078776,
           157669.92972005208,
           94332.70990804037,
-          120786.63319498698
+          120786.63319498698,
+          125157.88776041666
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -56664,6 +56957,7 @@ window.BENCHMARK_DATA = {
           273289,
           273289,
           273296,
+          273297,
           273297,
           273297,
           273297,
@@ -56752,7 +57046,8 @@ window.BENCHMARK_DATA = {
           77934.92950846354,
           92026.70015462239,
           65853.94317626953,
-          80327.97707519532
+          80327.97707519532,
+          82191.95981445312
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -56824,6 +57119,7 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208882,
+          208883,
           208883,
           208883
         ],
@@ -56901,7 +57197,8 @@ window.BENCHMARK_DATA = {
           302850.0985281808,
           373969.3671311599,
           233604.79169573102,
-          313405.3350585938
+          313405.3350585938,
+          316568.4361328125
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -56974,6 +57271,7 @@ window.BENCHMARK_DATA = {
           707794,
           707794,
           707793,
+          707794,
           707794
         ],
         "borderColor": "#FF8C00",
@@ -57050,7 +57348,8 @@ window.BENCHMARK_DATA = {
           1549392.4964192708,
           1595166.7184895833,
           1183805.8999720982,
-          1584397.6352163462
+          1584397.6352163462,
+          1537236.1827566964
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57122,6 +57421,7 @@ window.BENCHMARK_DATA = {
           1692680,
           1692680,
           1692713,
+          1692680,
           1692680,
           1692680
         ],
@@ -57199,7 +57499,8 @@ window.BENCHMARK_DATA = {
           1966968.9717447916,
           1827392.8227914663,
           1204249.0977864584,
-          1738959.39609375
+          1738959.39609375,
+          1693496.5384114583
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57271,6 +57572,7 @@ window.BENCHMARK_DATA = {
           1692895,
           1692903,
           1692845,
+          1468916,
           1468916,
           1468916
         ],
@@ -57348,7 +57650,8 @@ window.BENCHMARK_DATA = {
           2679806.03671875,
           3265400.3959635417,
           2129201.6221354166,
-          2831359.6983072916
+          2831359.6983072916,
+          3036299.0044270833
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -57421,6 +57724,7 @@ window.BENCHMARK_DATA = {
           4803387,
           4803306,
           4803384,
+          4803387,
           4803387
         ],
         "borderColor": "#4A6FA5",
@@ -57603,6 +57907,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -57633,7 +57943,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -57667,7 +57978,8 @@ window.BENCHMARK_DATA = {
           247.11002298990886,
           380.89669580459594,
           256.15362623759677,
-          172.17025100390117
+          172.17025100390117,
+          193.7712491353353
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -57693,6 +58005,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024,
@@ -57748,7 +58061,8 @@ window.BENCHMARK_DATA = {
           334.7583144732884,
           489.54089940388997,
           327.6603935786656,
-          241.90728737757757
+          241.90728737757757,
+          287.3704267342885
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -57760,6 +58074,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -57829,7 +58144,8 @@ window.BENCHMARK_DATA = {
           858.009648513794,
           1285.380839029948,
           813.321433766683,
-          590.1485028948102
+          590.1485028948102,
+          675.5790872573853
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57841,6 +58157,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          4464,
           4464,
           4464,
           4464,
@@ -57910,7 +58227,8 @@ window.BENCHMARK_DATA = {
           203843.06574358259,
           146179.00948660713,
           115666.50720214844,
-          88962.01370442708
+          88962.01370442708,
+          93332.52093975361
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57949,6 +58267,7 @@ window.BENCHMARK_DATA = {
           23541,
           23246,
           23307,
+          23313,
           23313
         ],
         "borderColor": "#A052B0",
@@ -57991,7 +58310,8 @@ window.BENCHMARK_DATA = {
           10747.791252723107,
           13392.023305257162,
           9510.576333182198,
-          7051.782402038574
+          7051.782402038574,
+          7842.689537556967
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58030,7 +58350,8 @@ window.BENCHMARK_DATA = {
           19853,
           19738,
           19515,
-          19551
+          19551,
+          19742
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58072,7 +58393,8 @@ window.BENCHMARK_DATA = {
           7830.371010335287,
           8753.691744995118,
           6023.338055419922,
-          5045.53324672154
+          5045.53324672154,
+          5782.211611429851
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58111,6 +58433,7 @@ window.BENCHMARK_DATA = {
           14332,
           14324,
           14325,
+          14332,
           14332
         ],
         "borderColor": "#4A6FA5",
@@ -58293,6 +58616,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -58323,7 +58652,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -58357,7 +58687,8 @@ window.BENCHMARK_DATA = {
           1195.8540269215903,
           1591.562502347506,
           1135.8873648325603,
-          852.8140362330845
+          852.8140362330845,
+          932.4160223642986
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -58383,6 +58714,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040,
@@ -58438,7 +58770,8 @@ window.BENCHMARK_DATA = {
           1158.7637645176478,
           1543.607125554766,
           1073.630575052897,
-          824.8444182713827
+          824.8444182713827,
+          900.9952399180486
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -58450,6 +58783,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -58519,7 +58853,8 @@ window.BENCHMARK_DATA = {
           3637.2751951951245,
           5315.835159301758,
           3931.330307006836,
-          2868.200410207113
+          2868.200410207113,
+          3263.89385005406
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -58531,6 +58866,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          10536,
           10536,
           10536,
           10536,
@@ -58600,7 +58936,8 @@ window.BENCHMARK_DATA = {
           238748.72456054686,
           192505.961390904,
           145463.56386021205,
-          106511.06364222935
+          106511.06364222935,
+          111642.83512369792
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58639,7 +58976,8 @@ window.BENCHMARK_DATA = {
           41392,
           41147,
           41142,
-          41151
+          41151,
+          41152
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58681,7 +59019,8 @@ window.BENCHMARK_DATA = {
           22151.704970296225,
           23856.936073303223,
           16699.340532575334,
-          12841.626987711588
+          12841.626987711588,
+          14095.33196912493
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58720,7 +59059,8 @@ window.BENCHMARK_DATA = {
           31439,
           32322,
           30082,
-          30095
+          30095,
+          31331
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58762,7 +59102,8 @@ window.BENCHMARK_DATA = {
           30921.00087076823,
           35011.61420985631,
           24502.409576416016,
-          20545.351268223352
+          20545.351268223352,
+          23537.176381429035
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58801,6 +59142,7 @@ window.BENCHMARK_DATA = {
           60496,
           60493,
           60493,
+          60496,
           60496
         ],
         "borderColor": "#4A6FA5",
@@ -58983,6 +59325,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -59013,7 +59361,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -59047,7 +59396,8 @@ window.BENCHMARK_DATA = {
           105908.4919921875,
           137931.03588867188,
           109238.40321451823,
-          76451.95840018136
+          76451.95840018136,
+          80956.6482195173
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59086,7 +59436,8 @@ window.BENCHMARK_DATA = {
           224801,
           224801,
           224801,
-          224800
+          224800,
+          224801
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59128,7 +59479,8 @@ window.BENCHMARK_DATA = {
           89710.4487915039,
           118827.02887834821,
           89726.73330078126,
-          65462.21570841471
+          65462.21570841471,
+          70139.09771728516
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59167,6 +59519,7 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209409,
+          209408,
           209408
         ],
         "borderColor": "#E84393",
@@ -59209,7 +59562,8 @@ window.BENCHMARK_DATA = {
           321351.6104492188,
           449576.4805063101,
           342578.22783203126,
-          256130.44318033854
+          256130.44318033854,
+          287069.880078125
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -59221,6 +59575,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          703994,
           703994,
           703994,
           703994,
@@ -59290,7 +59645,8 @@ window.BENCHMARK_DATA = {
           3186705.513671875,
           3160505.1936383927,
           2441380.581473214,
-          2000128.1580729166
+          2000128.1580729166,
+          2104254.0203125
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59329,7 +59685,8 @@ window.BENCHMARK_DATA = {
           1936650,
           1936120,
           1936120,
-          1936410
+          1936410,
+          1936396
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59371,7 +59728,8 @@ window.BENCHMARK_DATA = {
           1033949.4989583333,
           1065759.7886439732,
           800169.2305989583,
-          580227.1515625
+          580227.1515625,
+          705952.5978515625
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -59410,7 +59768,8 @@ window.BENCHMARK_DATA = {
           1231612,
           1341212,
           1117064,
-          1119114
+          1119114,
+          1231479
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -59452,7 +59811,8 @@ window.BENCHMARK_DATA = {
           3058501.34375,
           3271794.1783854165,
           2584972.052994792,
-          2042474.7895833333
+          2042474.7895833333,
+          2335001.502213542
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59491,7 +59851,8 @@ window.BENCHMARK_DATA = {
           5051809,
           5051646,
           5051646,
-          5051794
+          5051794,
+          5051810
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59673,6 +60034,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 02:18:30 2026 \u002B0100",
         "message": "refactor: simplify small parts of the runtime library (#1095)"
+      },
+      {
+        "sha": "c04586283b11644d24931122afe25efeba5196c1",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 02:42:36 2026 \u002B0100",
+        "message": "fix: call the override of an abstract base member in class mocks (#1094)"
       }
     ],
     "labels": [
@@ -59703,7 +60070,8 @@ window.BENCHMARK_DATA = {
       "26fcbe52",
       "ded339a1",
       "e7fa7d24",
-      "612755fc"
+      "612755fc",
+      "c0458628"
     ],
     "datasets": [
       {
@@ -59737,7 +60105,8 @@ window.BENCHMARK_DATA = {
           3380.8269560677663,
           3693.576718648275,
           1890.3192495981853,
-          3311.952125295003
+          3311.952125295003,
+          3347.9951115926106
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59763,6 +60132,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288,
@@ -59818,7 +60188,8 @@ window.BENCHMARK_DATA = {
           3020.2647762298584,
           3179.4545722961425,
           1757.2608154003437,
-          2998.6116166796005
+          2998.6116166796005,
+          2998.0217608133953
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59830,6 +60201,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -59899,7 +60271,8 @@ window.BENCHMARK_DATA = {
           3792.351945368449,
           4059.4850346883136,
           2229.1348382314045,
-          3679.595086924235
+          3679.595086924235,
+          3821.2654383341473
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -59911,6 +60284,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          3344,
           3344,
           3344,
           3344,
@@ -59980,7 +60354,8 @@ window.BENCHMARK_DATA = {
           14458.044345310756,
           13070.828480311802,
           7030.684235206018,
-          14370.677280680338
+          14370.677280680338,
+          14227.881775992257
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59993,6 +60368,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           11385,
+          11048,
           11048,
           11048,
           11048,
@@ -60061,7 +60437,8 @@ window.BENCHMARK_DATA = {
           12783.66611735026,
           11723.23340657552,
           6364.055924479167,
-          12277.448602294922
+          12277.448602294922,
+          12586.273121425083
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60099,6 +60476,7 @@ window.BENCHMARK_DATA = {
           14633,
           14633,
           14632,
+          14633,
           14633,
           14633
         ],
@@ -60142,7 +60520,8 @@ window.BENCHMARK_DATA = {
           13511.712191772462,
           12158.645672607421,
           6885.786555950458,
-          13115.188053385416
+          13115.188053385416,
+          12916.678094717172
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60180,6 +60559,7 @@ window.BENCHMARK_DATA = {
           14620,
           14620,
           14614,
+          14620,
           14620,
           14620
         ],
