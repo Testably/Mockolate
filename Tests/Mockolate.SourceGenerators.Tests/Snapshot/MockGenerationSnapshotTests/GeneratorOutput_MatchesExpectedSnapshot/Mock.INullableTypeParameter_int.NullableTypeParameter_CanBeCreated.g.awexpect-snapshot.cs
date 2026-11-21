@@ -855,7 +855,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForINullableTypeParameter_int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Get, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Set,
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -867,7 +867,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForINullableTypeParameter_int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Get, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -879,7 +879,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForINullableTypeParameter_int, int, int, int, int, int>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::Mockolate.CovariantParameterAdapter<int>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter1) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter2) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter3) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(d ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter4) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(e ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c), global::Mockolate.Internals.ValueFormatter.Format((object?)d), global::Mockolate.Internals.ValueFormatter.Format((object?)e)));
 			}
 		}
 
@@ -891,7 +891,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForINullableTypeParameter_int, int, int, int, int, int>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, g.Parameter1) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, g.Parameter2) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, g.Parameter3) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, g.Parameter4) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c), global::Mockolate.Internals.ValueFormatter.Format((object?)d), global::Mockolate.Internals.ValueFormatter.Format((object?)e)));
 			}
 		}
 
@@ -908,22 +908,22 @@ internal static partial class Mock
 				}, () => $"Accept({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Accept(global::Mockolate.Parameters.IParameter<int>? value, global::Mockolate.Parameters.IParameter<int>? count)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(value), count is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(count), value, count, static (value, count) => $"Accept({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(value), count is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(count), value, count, static (value, count) => $"Accept({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Accept(int value, global::Mockolate.Parameters.IParameter<int>? count)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(value);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", __literal1, count is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(count), __literal1, count, static (value, count) => $"Accept({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", __literal1, count is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(count), __literal1, count, static (value, count) => $"Accept({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Accept(global::Mockolate.Parameters.IParameter<int>? value, int count)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(count);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(value), __literal2, value, __literal2, static (value, count) => $"Accept({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(value), __literal2, value, __literal2, static (value, count) => $"Accept({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters IMockVerifyForINullableTypeParameter_int.Accept(int value, int count)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value, count, static (value, count) => $"Accept({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value, count, static (value, count) => $"Accept({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Combine(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Combine", __i => parameters switch
@@ -939,7 +939,7 @@ internal static partial class Mock
 				(b is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(b).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
 				(d is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(d).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))) && 
-				(e is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(e).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
+				(e is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(e).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)c))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)d))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)e))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters IMockVerifyForINullableTypeParameter_int.Combine(int a, int b, int c, int d, int e)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Combine", __i => 
@@ -947,7 +947,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, __i.Parameter2)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, __i.Parameter3)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, __i.Parameter5)), () => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, __i.Parameter5)), () => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)c))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)d))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)e))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.TryGet(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_TryGet, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.TryGet", __i => parameters switch
@@ -960,12 +960,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.TryGet(global::Mockolate.Parameters.IParameter<int>? key, global::Mockolate.Parameters.IVerifyOutParameter<int> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_TryGet, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.TryGet", __i => 
 				(key is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"TryGet({(object?)key ?? "null"}, {(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"TryGet({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.TryGet(int key, global::Mockolate.Parameters.IVerifyOutParameter<int> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_TryGet, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.TryGet", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(key, __i.Parameter1)) && 
-				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"TryGet({(object?)key ?? "null"}, {(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"TryGet({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Update(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Update", __i => parameters switch
@@ -977,7 +977,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Update(global::Mockolate.Parameters.IVerifyRefParameter<int> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Update", __i => 
-				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Update({(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Update({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <summary>
 		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
 		/// </summary>
@@ -1018,7 +1018,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForINullableTypeParameter_int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Get, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Set,
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -1030,7 +1030,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForINullableTypeParameter_int, int, int>(this, this.MockRegistry, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Get, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Indexer_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -1042,7 +1042,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForINullableTypeParameter_int, int, int, int, int, int>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::Mockolate.CovariantParameterAdapter<int>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter1) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter2) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter3) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(d ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter4) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(e ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c), global::Mockolate.Internals.ValueFormatter.Format((object?)d), global::Mockolate.Internals.ValueFormatter.Format((object?)e)));
 			}
 		}
 
@@ -1054,7 +1054,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForINullableTypeParameter_int, int, int, int, int, int>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, g.Parameter1) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, g.Parameter2) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, g.Parameter3) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, g.Parameter4) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c), global::Mockolate.Internals.ValueFormatter.Format((object?)d), global::Mockolate.Internals.ValueFormatter.Format((object?)e)));
 			}
 		}
 
@@ -1071,22 +1071,22 @@ internal static partial class Mock
 				}, () => $"Accept({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Accept(global::Mockolate.Parameters.IParameter<int>? value, global::Mockolate.Parameters.IParameter<int>? count)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(value), count is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(count), value, count, static (value, count) => $"Accept({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(value), count is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(count), value, count, static (value, count) => $"Accept({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Accept(int value, global::Mockolate.Parameters.IParameter<int>? count)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(value);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", __literal1, count is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(count), __literal1, count, static (value, count) => $"Accept({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", __literal1, count is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(count), __literal1, count, static (value, count) => $"Accept({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Accept(global::Mockolate.Parameters.IParameter<int>? value, int count)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(count);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(value), __literal2, value, __literal2, static (value, count) => $"Accept({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(value), __literal2, value, __literal2, static (value, count) => $"Accept({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters IMockVerifyForINullableTypeParameter_int.Accept(int value, int count)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value, count, static (value, count) => $"Accept({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, int, int>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Accept, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Accept", value, count, static (value, count) => $"Accept({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Combine(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Combine", __i => parameters switch
@@ -1102,7 +1102,7 @@ internal static partial class Mock
 				(b is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(b).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))) && 
 				(c is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(c).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter3, default(int))) && 
 				(d is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(d).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter4, default(int))) && 
-				(e is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(e).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
+				(e is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(e).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter5, default(int))), () => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)c))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)d))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)e))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int>.IgnoreParameters IMockVerifyForINullableTypeParameter_int.Combine(int a, int b, int c, int d, int e)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Combine", __i => 
@@ -1110,7 +1110,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, __i.Parameter2)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, __i.Parameter3)) && 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, __i.Parameter5)), () => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"}, {(object?)c ?? "null"}, {(object?)d ?? "null"}, {(object?)e ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, __i.Parameter5)), () => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)c))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)d))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)e))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.TryGet(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_TryGet, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.TryGet", __i => parameters switch
@@ -1123,12 +1123,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.TryGet(global::Mockolate.Parameters.IParameter<int>? key, global::Mockolate.Parameters.IVerifyOutParameter<int> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_TryGet, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.TryGet", __i => 
 				(key is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"TryGet({(object?)key ?? "null"}, {(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"TryGet({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.TryGet(int key, global::Mockolate.Parameters.IVerifyOutParameter<int> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_TryGet, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.TryGet", __i => 
 				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(key, __i.Parameter1)) && 
-				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"TryGet({(object?)key ?? "null"}, {(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"TryGet({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Update(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Update", __i => parameters switch
@@ -1140,7 +1140,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_int> IMockVerifyForINullableTypeParameter_int.Update(global::Mockolate.Parameters.IVerifyRefParameter<int> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_int, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.INullableTypeParameter_int.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<int>.Update", __i => 
-				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Update({(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Update({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <summary>
 		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;int&gt;.Changed</see>.
 		/// </summary>

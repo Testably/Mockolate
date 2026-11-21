@@ -372,7 +372,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIOptionalIndexerKeysWithSibling, int, string>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysWithSibling.MemberId_Indexer_int_Get, global::Mockolate.Mock.IOptionalIndexerKeysWithSibling.MemberId_Indexer_int_Set,
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -384,7 +384,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIOptionalIndexerKeysWithSibling, int, string>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysWithSibling.MemberId_Indexer_int_Get, global::Mockolate.Mock.IOptionalIndexerKeysWithSibling.MemberId_Indexer_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -398,7 +398,7 @@ internal static partial class Mock
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -412,7 +412,7 @@ internal static partial class Mock
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -426,7 +426,7 @@ internal static partial class Mock
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(b, "b"),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -440,7 +440,7 @@ internal static partial class Mock
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(b, "b"),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -454,7 +454,7 @@ internal static partial class Mock
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(c, "c"),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -468,7 +468,7 @@ internal static partial class Mock
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(c, "c"),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -482,7 +482,7 @@ internal static partial class Mock
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(b, "b"),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(c, "c"),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -496,7 +496,7 @@ internal static partial class Mock
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(b, "b"),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(c, "c"),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -518,7 +518,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIOptionalIndexerKeysWithSibling, int, string>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysWithSibling.MemberId_Indexer_int_Get, global::Mockolate.Mock.IOptionalIndexerKeysWithSibling.MemberId_Indexer_int_Set,
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -530,7 +530,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIOptionalIndexerKeysWithSibling, int, string>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysWithSibling.MemberId_Indexer_int_Get, global::Mockolate.Mock.IOptionalIndexerKeysWithSibling.MemberId_Indexer_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -544,7 +544,7 @@ internal static partial class Mock
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -558,7 +558,7 @@ internal static partial class Mock
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -572,7 +572,7 @@ internal static partial class Mock
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(b, "b"),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -586,7 +586,7 @@ internal static partial class Mock
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(b, "b"),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -600,7 +600,7 @@ internal static partial class Mock
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(c, "c"),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -614,7 +614,7 @@ internal static partial class Mock
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(c, "c"),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -628,7 +628,7 @@ internal static partial class Mock
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(b, "b"),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(c, "c"),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 
@@ -642,7 +642,7 @@ internal static partial class Mock
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(b, "b"),
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(c, "c"),
-					() => global::System.String.Format("[{0}, {1}, {2}]", (object?)key ?? "null", (object?)b ?? "null", (object?)c ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c)));
 			}
 		}
 

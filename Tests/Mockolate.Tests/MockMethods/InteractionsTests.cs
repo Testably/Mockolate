@@ -50,7 +50,7 @@ public sealed partial class InteractionsTests
 				"global::Mockolate.InteractionsTests.SomeMethod",
 				5,
 				"foo"));
-		string expectedValue = "invoke method SomeMethod(5, foo)";
+		string expectedValue = "invoke method SomeMethod(5, \"foo\")";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -110,7 +110,7 @@ public sealed partial class InteractionsTests
 				4,
 				7L,
 				150.Seconds()));
-		string expectedValue = "invoke method SomeMethod(foo, 4, 7, 00:02:30)";
+		string expectedValue = "invoke method SomeMethod(\"foo\", 4, 7, 00:02:30)";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -143,7 +143,7 @@ public sealed partial class InteractionsTests
 				7L,
 				150.Seconds(),
 				true));
-		string expectedValue = "invoke method SomeMethod(foo, 4, 7, 00:02:30, True)";
+		string expectedValue = "invoke method SomeMethod(\"foo\", 4, 7, 00:02:30, True)";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}

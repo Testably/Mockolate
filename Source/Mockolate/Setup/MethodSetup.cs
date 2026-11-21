@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using Mockolate.Interactions;
 using Mockolate.Internals;
 
@@ -36,31 +35,12 @@ public abstract class MethodSetup : IMethodSetup, IVerifiableMethodSetup
 		=> type.FormatType();
 
 	/// <summary>
-	///     Renders <paramref name="value" /> for inclusion in a setup's <see cref="object.ToString" />,
-	///     mirroring the formatting that the <c>Matchers.IsValue&lt;T&gt;</c> matcher uses for diagnostics:
-	///     strings are quoted, <see cref="IFormattable" /> values are rendered with
-	///     <see cref="CultureInfo.InvariantCulture" /> (so failure messages don't drift with the host
-	///     locale), and everything else falls through to <see cref="object.ToString" />.
+	///     Renders <paramref name="value" /> for inclusion in a setup's <see cref="object.ToString" />, like every
+	///     argument value in failure messages: <see cref="ValueFormatter.Format{T}(T)" /> quotes strings and formats
+	///     independent of the current culture.
 	/// </summary>
 	protected static string FormatLiteralValue<T>(T value)
-	{
-		if (value is null)
-		{
-			return "null";
-		}
-
-		if (value is string s)
-		{
-			return $"\"{s}\"";
-		}
-
-		if (value is IFormattable formattable)
-		{
-			return formattable.ToString(null, CultureInfo.InvariantCulture);
-		}
-
-		return value.ToString() ?? "null";
-	}
+		=> ValueFormatter.Format(value);
 
 	/// <inheritdoc cref="IVerifiableMethodSetup.Matches(IMethodInteraction)" />
 	bool IVerifiableMethodSetup.Matches(IMethodInteraction interaction)

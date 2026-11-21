@@ -694,7 +694,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIClosedGenericDerived, long>(this, this.MockRegistry, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Indexer_long_Get,
 					global::Mockolate.CovariantParameterAdapter<long>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<long>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -706,7 +706,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIClosedGenericDerived, long>(this, this.MockRegistry, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Indexer_long_Get,
 					(global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -721,7 +721,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Other(global::Mockolate.Parameters.IVerifyRefParameter<int> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Other, "global::Mockolate.Tests.GeneratorCoverage.IClosedGenericDerived.Other", __i => 
-				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Other({(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Other({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Get(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<long, global::System.Collections.Generic.List<long>>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", __i => parameters switch
@@ -732,22 +732,22 @@ internal static partial class Mock
 				}, () => $"Get({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Get(global::Mockolate.Parameters.IParameter<long>? value, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<long>>? values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value is null ? (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(default!) : global::Mockolate.CovariantParameterAdapter<long>.Wrap(value), values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<long>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<long>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<long>>.Wrap(values), value, values, static (value, values) => $"Get({(object?)value ?? "null"}, {(object?)values ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value is null ? (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(default!) : global::Mockolate.CovariantParameterAdapter<long>.Wrap(value), values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<long>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<long>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<long>>.Wrap(values), value, values, static (value, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Get(long value, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<long>>? values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<long> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<long>(value);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<long>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<long>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<long>>.Wrap(values), __literal1, values, static (value, values) => $"Get({(object?)value ?? "null"}, {(object?)values ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<long>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<long>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<long>>.Wrap(values), __literal1, values, static (value, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Get(global::Mockolate.Parameters.IParameter<long>? value, global::System.Collections.Generic.List<long> values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<global::System.Collections.Generic.List<long>> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<global::System.Collections.Generic.List<long>>(values);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value is null ? (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(default!) : global::Mockolate.CovariantParameterAdapter<long>.Wrap(value), __literal2, value, __literal2, static (value, values) => $"Get({(object?)value ?? "null"}, {(object?)values ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value is null ? (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(default!) : global::Mockolate.CovariantParameterAdapter<long>.Wrap(value), __literal2, value, __literal2, static (value, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived>.IgnoreParameters IMockVerifyForIClosedGenericDerived.Get(long value, global::System.Collections.Generic.List<long> values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value, values, static (value, values) => $"Get({(object?)value ?? "null"}, {(object?)values ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value, values, static (value, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Convert<TOther>(global::Mockolate.Parameters.IParameters parameters)
 			where TOther : default
@@ -761,12 +761,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Convert<TOther>(global::Mockolate.Parameters.IParameter<long>? value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<long>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Convert<{typeof(TOther)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter1, default(long))), () => $"Convert<TOther>({(object?)value ?? "null"})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter1, default(long))), () => $"Convert<TOther>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived>.IgnoreParameters IMockVerifyForIClosedGenericDerived.Convert<TOther>(long value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<long>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Convert<{typeof(TOther)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(object?)value ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Pair(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<(long, string)>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", __i => parameters switch
@@ -777,10 +777,10 @@ internal static partial class Mock
 				}, () => $"Pair({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Pair(global::Mockolate.Parameters.IParameter<(long, string)>? value)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, (long, string)>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", value is null ? (global::Mockolate.Parameters.IParameterMatch<(long, string)>)global::Mockolate.It.Is<(long, string)>(default!) : global::Mockolate.CovariantParameterAdapter<(long, string)>.Wrap(value), value, static (value) => $"Pair({(object?)value ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, (long, string)>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", value is null ? (global::Mockolate.Parameters.IParameterMatch<(long, string)>)global::Mockolate.It.Is<(long, string)>(default!) : global::Mockolate.CovariantParameterAdapter<(long, string)>.Wrap(value), value, static (value) => $"Pair({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived>.IgnoreParameters IMockVerifyForIClosedGenericDerived.Pair((long, string) value)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, (long, string)>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", value, static (value) => $"Pair({(object?)value ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, (long, string)>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", value, static (value) => $"Pair({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <summary>
 		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric{T}.Changed">IClosedGeneric&lt;long&gt;.Changed</see>.
 		/// </summary>
@@ -821,7 +821,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIClosedGenericDerived, long>(this, this.MockRegistry, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Indexer_long_Get,
 					global::Mockolate.CovariantParameterAdapter<long>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<long>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -833,7 +833,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIClosedGenericDerived, long>(this, this.MockRegistry, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Indexer_long_Get,
 					(global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -848,7 +848,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Other(global::Mockolate.Parameters.IVerifyRefParameter<int> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<int>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Other, "global::Mockolate.Tests.GeneratorCoverage.IClosedGenericDerived.Other", __i => 
-				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Other({(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<int> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Other({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Get(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<long, global::System.Collections.Generic.List<long>>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", __i => parameters switch
@@ -859,22 +859,22 @@ internal static partial class Mock
 				}, () => $"Get({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Get(global::Mockolate.Parameters.IParameter<long>? value, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<long>>? values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value is null ? (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(default!) : global::Mockolate.CovariantParameterAdapter<long>.Wrap(value), values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<long>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<long>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<long>>.Wrap(values), value, values, static (value, values) => $"Get({(object?)value ?? "null"}, {(object?)values ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value is null ? (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(default!) : global::Mockolate.CovariantParameterAdapter<long>.Wrap(value), values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<long>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<long>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<long>>.Wrap(values), value, values, static (value, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Get(long value, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<long>>? values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<long> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<long>(value);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<long>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<long>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<long>>.Wrap(values), __literal1, values, static (value, values) => $"Get({(object?)value ?? "null"}, {(object?)values ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<long>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<long>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<long>>.Wrap(values), __literal1, values, static (value, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Get(global::Mockolate.Parameters.IParameter<long>? value, global::System.Collections.Generic.List<long> values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<global::System.Collections.Generic.List<long>> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<global::System.Collections.Generic.List<long>>(values);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value is null ? (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(default!) : global::Mockolate.CovariantParameterAdapter<long>.Wrap(value), __literal2, value, __literal2, static (value, values) => $"Get({(object?)value ?? "null"}, {(object?)values ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value is null ? (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(default!) : global::Mockolate.CovariantParameterAdapter<long>.Wrap(value), __literal2, value, __literal2, static (value, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived>.IgnoreParameters IMockVerifyForIClosedGenericDerived.Get(long value, global::System.Collections.Generic.List<long> values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value, values, static (value, values) => $"Get({(object?)value ?? "null"}, {(object?)values ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, long, global::System.Collections.Generic.List<long>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Get", value, values, static (value, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Convert<TOther>(global::Mockolate.Parameters.IParameters parameters)
 			where TOther : default
@@ -888,12 +888,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Convert<TOther>(global::Mockolate.Parameters.IParameter<long>? value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<long>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Convert<{typeof(TOther)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter1, default(long))), () => $"Convert<TOther>({(object?)value ?? "null"})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<long>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(__i.Parameter1, default(long))), () => $"Convert<TOther>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived>.IgnoreParameters IMockVerifyForIClosedGenericDerived.Convert<TOther>(long value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<long>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Convert<{typeof(TOther)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(object?)value ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<long>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Pair(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, global::Mockolate.Interactions.MethodInvocation<(long, string)>>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", __i => parameters switch
@@ -904,10 +904,10 @@ internal static partial class Mock
 				}, () => $"Pair({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived> IMockVerifyForIClosedGenericDerived.Pair(global::Mockolate.Parameters.IParameter<(long, string)>? value)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, (long, string)>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", value is null ? (global::Mockolate.Parameters.IParameterMatch<(long, string)>)global::Mockolate.It.Is<(long, string)>(default!) : global::Mockolate.CovariantParameterAdapter<(long, string)>.Wrap(value), value, static (value) => $"Pair({(object?)value ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, (long, string)>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", value is null ? (global::Mockolate.Parameters.IParameterMatch<(long, string)>)global::Mockolate.It.Is<(long, string)>(default!) : global::Mockolate.CovariantParameterAdapter<(long, string)>.Wrap(value), value, static (value) => $"Pair({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGenericDerived>.IgnoreParameters IMockVerifyForIClosedGenericDerived.Pair((long, string) value)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, (long, string)>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", value, static (value) => $"Pair({(object?)value ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGenericDerived, (long, string)>(this, global::Mockolate.Mock.IClosedGenericDerived.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<long>.Pair", value, static (value) => $"Pair({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <summary>
 		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric{T}.Changed">IClosedGeneric&lt;long&gt;.Changed</see>.
 		/// </summary>

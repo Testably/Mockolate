@@ -43,7 +43,7 @@ public class MethodInvocation<T1>(string name, T1 parameter1) : IMethodInteracti
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}({Parameter1?.ToString() ?? "null"})";
+		=> $"invoke method {Name.SubstringAfterLast('.')}({ValueFormatter.Format(Parameter1)})";
 }
 
 /// <summary>
@@ -72,7 +72,7 @@ public class MethodInvocation<T1, T2>(string name, T1 parameter1, T2 parameter2)
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}({Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"})";
+		=> $"invoke method {Name.SubstringAfterLast('.')}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)})";
 }
 
 /// <summary>
@@ -108,7 +108,7 @@ public class MethodInvocation<T1, T2, T3>(string name, T1 parameter1, T2 paramet
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}({Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"})";
+		=> $"invoke method {Name.SubstringAfterLast('.')}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}, {ValueFormatter.Format(Parameter3)})";
 }
 
 /// <summary>
@@ -149,5 +149,5 @@ public class MethodInvocation<T1, T2, T3, T4>(string name, T1 parameter1, T2 par
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}({Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}, {Parameter4?.ToString() ?? "null"})";
+		=> $"invoke method {Name.SubstringAfterLast('.')}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}, {ValueFormatter.Format(Parameter3)}, {ValueFormatter.Format(Parameter4)})";
 }

@@ -700,12 +700,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases> IMockVerifyForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", __i => 
-				(@ref is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({(object?)@ref ?? "null"})");
+				(@ref is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({(global::Mockolate.Internals.ValueFormatter.Format((object?)@ref))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@void<@class>(int @ref)
 			where @class : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(@ref, __i.Parameter1)), () => $"@void<@class>({(object?)@ref ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(@ref, __i.Parameter1)), () => $"@void<@class>({(global::Mockolate.Internals.ValueFormatter.Format((object?)@ref))})");
 		/// <summary>
 		///     Verify subscriptions on the @event event <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@event">@event</see>.
 		/// </summary>
@@ -831,12 +831,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases> IMockVerifyForIKeywordEdgeCases.@void<@class>(global::Mockolate.Parameters.IParameter<int>? @ref)
 			where @class : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", __i => 
-				(@ref is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({(object?)@ref ?? "null"})");
+				(@ref is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(@ref).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"@void<@class>({(global::Mockolate.Internals.ValueFormatter.Format((object?)@ref))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIKeywordEdgeCases>.IgnoreParameters IMockVerifyForIKeywordEdgeCases.@void<@class>(int @ref)
 			where @class : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIKeywordEdgeCases, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@void<{typeof(@class)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(@ref, __i.Parameter1)), () => $"@void<@class>({(object?)@ref ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(@ref, __i.Parameter1)), () => $"@void<@class>({(global::Mockolate.Internals.ValueFormatter.Format((object?)@ref))})");
 		/// <summary>
 		///     Verify subscriptions on the @event event <see cref="global::Mockolate.Tests.GeneratorCoverage.IKeywordEdgeCases.@event">@event</see>.
 		/// </summary>

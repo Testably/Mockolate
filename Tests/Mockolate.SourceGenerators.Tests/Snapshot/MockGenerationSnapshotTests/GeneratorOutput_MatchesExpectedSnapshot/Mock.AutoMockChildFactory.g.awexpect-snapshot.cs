@@ -122,7 +122,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForAutoMockChildFactory> IMockVerifyForAutoMockChildFactory.Verify(global::Mockolate.Parameters.IParameter<int>? id)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForAutoMockChildFactory, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory.Invoke", __i => 
-				(id is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(id).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Invoke({(object?)id ?? "null"})");
+				(id is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(id).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Invoke({(global::Mockolate.Internals.ValueFormatter.Format((object?)id))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForAutoMockChildFactory> IMockVerifyForAutoMockChildFactory.Verify(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForAutoMockChildFactory, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory.Invoke", __i => parameters switch
@@ -133,7 +133,7 @@ internal static partial class Mock
 				}, () => $"Invoke({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForAutoMockChildFactory>.IgnoreParameters IMockVerifyForAutoMockChildFactory.Verify(int id)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForAutoMockChildFactory, int>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory.Invoke", id, static (id) => $"Invoke({(object?)id ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForAutoMockChildFactory, int>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory.Invoke", id, static (id) => $"Invoke({(global::Mockolate.Internals.ValueFormatter.Format((object?)id))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForAutoMockChildFactory> IMockForAutoMockChildFactory.VerifySetup(global::Mockolate.Setup.IMethodSetup setup)
 			=> this.MockRegistry.Method<IMockVerifyForAutoMockChildFactory>(this, setup);
@@ -165,7 +165,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForAutoMockChildFactory> IMockVerifyForAutoMockChildFactory.Verify(global::Mockolate.Parameters.IParameter<int>? id)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForAutoMockChildFactory, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory.Invoke", __i => 
-				(id is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(id).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Invoke({(object?)id ?? "null"})");
+				(id is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(id).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Invoke({(global::Mockolate.Internals.ValueFormatter.Format((object?)id))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForAutoMockChildFactory> IMockVerifyForAutoMockChildFactory.Verify(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForAutoMockChildFactory, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory.Invoke", __i => parameters switch
@@ -176,7 +176,7 @@ internal static partial class Mock
 				}, () => $"Invoke({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForAutoMockChildFactory>.IgnoreParameters IMockVerifyForAutoMockChildFactory.Verify(int id)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForAutoMockChildFactory, int>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory.Invoke", id, static (id) => $"Invoke({(object?)id ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForAutoMockChildFactory, int>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory.Invoke", id, static (id) => $"Invoke({(global::Mockolate.Internals.ValueFormatter.Format((object?)id))})");
 		#endregion IMockVerifyForAutoMockChildFactory
 	}
 

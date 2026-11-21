@@ -43,7 +43,7 @@ public class IndexerGetterAccess<T1>(T1 parameter1) : IndexerAccess
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"get indexer [{Parameter1?.ToString() ?? "null"}]";
+		=> $"get indexer [{ValueFormatter.Format(Parameter1)}]";
 }
 
 /// <summary>
@@ -97,7 +97,7 @@ public class IndexerGetterAccess<T1, T2>(T1 parameter1, T2 parameter2) : Indexer
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"get indexer [{Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}]";
+		=> $"get indexer [{ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}]";
 }
 
 /// <summary>
@@ -163,7 +163,7 @@ public class IndexerGetterAccess<T1, T2, T3>(T1 parameter1, T2 parameter2, T3 pa
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"get indexer [{Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}]";
+		=> $"get indexer [{ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}, {ValueFormatter.Format(Parameter3)}]";
 }
 
 /// <summary>
@@ -241,5 +241,5 @@ public class IndexerGetterAccess<T1, T2, T3, T4>(T1 parameter1, T2 parameter2, T
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"get indexer [{Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}, {Parameter4?.ToString() ?? "null"}]";
+		=> $"get indexer [{ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}, {ValueFormatter.Format(Parameter3)}, {ValueFormatter.Format(Parameter4)}]";
 }

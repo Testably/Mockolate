@@ -219,10 +219,10 @@ internal static partial class Mock
 				}, () => $"@if({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForKeywordEdgeCasesBase> IMockVerifyForKeywordEdgeCasesBase.@if(global::Mockolate.Parameters.IParameter<int>? @in)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForKeywordEdgeCasesBase, int>(this, global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if", @in is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@in), @in, static (@in) => $"@if({(object?)@in ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForKeywordEdgeCasesBase, int>(this, global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if", @in is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@in), @in, static (@in) => $"@if({(global::Mockolate.Internals.ValueFormatter.Format((object?)@in))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForKeywordEdgeCasesBase>.IgnoreParameters IMockVerifyForKeywordEdgeCasesBase.@if(int @in)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForKeywordEdgeCasesBase, int>(this, global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if", @in, static (@in) => $"@if({(object?)@in ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForKeywordEdgeCasesBase, int>(this, global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if", @in, static (@in) => $"@if({(global::Mockolate.Internals.ValueFormatter.Format((object?)@in))})");
 		#endregion IMockVerifyForKeywordEdgeCasesBase
 	}
 
@@ -243,10 +243,10 @@ internal static partial class Mock
 				}, () => $"@if({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForKeywordEdgeCasesBase> IMockVerifyForKeywordEdgeCasesBase.@if(global::Mockolate.Parameters.IParameter<int>? @in)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForKeywordEdgeCasesBase, int>(this, global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if", @in is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@in), @in, static (@in) => $"@if({(object?)@in ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForKeywordEdgeCasesBase, int>(this, global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if", @in is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(@in), @in, static (@in) => $"@if({(global::Mockolate.Internals.ValueFormatter.Format((object?)@in))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForKeywordEdgeCasesBase>.IgnoreParameters IMockVerifyForKeywordEdgeCasesBase.@if(int @in)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForKeywordEdgeCasesBase, int>(this, global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if", @in, static (@in) => $"@if({(object?)@in ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForKeywordEdgeCasesBase, int>(this, global::Mockolate.Mock.KeywordEdgeCasesBase.MemberId__if, "global::Mockolate.Tests.GeneratorCoverage.KeywordEdgeCasesBase.@if", @in, static (@in) => $"@if({(global::Mockolate.Internals.ValueFormatter.Format((object?)@in))})");
 		#endregion IMockVerifyForKeywordEdgeCasesBase
 	}
 

@@ -3042,7 +3042,7 @@ namespace Mockolate.Interactions
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
-			return $"invoke method {SubstringAfterLast(Name, '.')}({Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}, {Parameter4?.ToString() ?? "null"}, {Parameter5?.ToString() ?? "null"})";
+			return $"invoke method {SubstringAfterLast(Name, '.')}({(global::Mockolate.Internals.ValueFormatter.Format(Parameter1))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter2))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter3))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter4))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter5))})";
 			static string SubstringAfterLast(string name, char c)
 			{
 				int index = name.LastIndexOf(c);
@@ -3091,7 +3091,7 @@ namespace Mockolate.Interactions
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
-			return $"invoke method {SubstringAfterLast(Name, '.')}({Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}, {Parameter4?.ToString() ?? "null"}, {Parameter5?.ToString() ?? "null"}, {Parameter6?.ToString() ?? "null"}, {Parameter7?.ToString() ?? "null"})";
+			return $"invoke method {SubstringAfterLast(Name, '.')}({(global::Mockolate.Internals.ValueFormatter.Format(Parameter1))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter2))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter3))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter4))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter5))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter6))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter7))})";
 			static string SubstringAfterLast(string name, char c)
 			{
 				int index = name.LastIndexOf(c);
@@ -3180,7 +3180,7 @@ namespace Mockolate.Interactions
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
-			return $"invoke method {SubstringAfterLast(Name, '.')}({Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}, {Parameter4?.ToString() ?? "null"}, {Parameter5?.ToString() ?? "null"}, {Parameter6?.ToString() ?? "null"}, {Parameter7?.ToString() ?? "null"}, {Parameter8?.ToString() ?? "null"}, {Parameter9?.ToString() ?? "null"}, {Parameter10?.ToString() ?? "null"}, {Parameter11?.ToString() ?? "null"}, {Parameter12?.ToString() ?? "null"}, {Parameter13?.ToString() ?? "null"}, {Parameter14?.ToString() ?? "null"}, {Parameter15?.ToString() ?? "null"}, {Parameter16?.ToString() ?? "null"}, {Parameter17?.ToString() ?? "null"})";
+			return $"invoke method {SubstringAfterLast(Name, '.')}({(global::Mockolate.Internals.ValueFormatter.Format(Parameter1))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter2))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter3))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter4))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter5))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter6))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter7))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter8))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter9))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter10))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter11))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter12))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter13))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter14))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter15))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter16))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter17))})";
 			static string SubstringAfterLast(string name, char c)
 			{
 				int index = name.LastIndexOf(c);

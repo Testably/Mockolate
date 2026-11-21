@@ -299,8 +299,8 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 			"no exception",
 			"Expected that mock never invoked method Opt(It.IsAny<string>(), 5), but it did once.",
-			"Expected that mock never invoked method Opt(a, 5), but it did once.",
-			"Expected that mock never invoked method Many(It.IsAny<int>(), x, Milk, 2), but it did once.",
+			"Expected that mock never invoked method Opt(\"a\", 5), but it did once.",
+			"Expected that mock never invoked method Many(It.IsAny<int>(), \"x\", Milk, 2), but it did once.",
 			"Expected that mock never invoked method Many(1, It.IsAny<string>(), Milk, 2), but it did once.",
 			"Expected that mock never invoked method Defaults(It.IsAny<int>(), null, 00:00:00, null, It.IsAny<DateTime>()), but it did once.",
 			"Expected that mock never invoked method Nullable(It.IsAny<int>(), 7), but it did once.",
@@ -544,15 +544,15 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 			"no exception",
 			"no exception",
-			"Expected that mock invoked method P2(b, It.IsAny<int>()) exactly once, but it never did.",
+			"Expected that mock invoked method P2(\"b\", It.IsAny<int>()) exactly once, but it never did.",
 			"Expected that mock invoked method P2(It.IsAny<string>(), 3) exactly once, but it never did.",
 			"Expected that mock invoked method P2(null, 1) exactly once, but it never did.",
 			"Expected that mock invoked method P2(null, 1) exactly once, but it never did.",
-			"Expected that mock invoked method P3(It.IsAny<int>(), y, 3) exactly once, but it never did.",
+			"Expected that mock invoked method P3(It.IsAny<int>(), \"y\", 3) exactly once, but it never did.",
 			"Expected that mock invoked method P4(It.IsAny<int>(), 5, It.IsAny<int>(), 4) exactly once, but it never did.",
 			"no exception",
-			"Expected that mock invoked method P3(It.IsAny<int>(), x, 3), then invoked method P2(a, It.IsAny<int>()) in order, but it invoked method P2(a, It.IsAny<int>()) too early.",
-			"Expected that mock invoked method P2(b, It.IsAny<int>()) exactly once, but it timed out after 00:00:00.0100000.",
+			"Expected that mock invoked method P3(It.IsAny<int>(), \"x\", 3), then invoked method P2(\"a\", It.IsAny<int>()) in order, but it invoked method P2(\"a\", It.IsAny<int>()) too early.",
+			"Expected that mock invoked method P2(\"b\", It.IsAny<int>()) exactly once, but it timed out after 00:00:00.0100000.",
 		]).Because("the mixed overloads must count and describe their arguments exactly like the classic predicate path did");
 	}
 
@@ -650,18 +650,18 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 			"no exception",
 			"no exception",
-			"Expected that mock invoked method Q3(null, It.IsAny<int>(), zz) exactly once, but it never did.",
+			"Expected that mock invoked method Q3(null, It.IsAny<int>(), \"zz\") exactly once, but it never did.",
 			"Expected that mock invoked method Q4(It.IsAny<int>(), null, 9, It.IsAny<string>()) exactly once, but it never did.",
 			"no exception",
-			"Expected that mock invoked method Money(4,75, It.IsAny<double>(), n) exactly once, but it never did.",
-			"Expected that mock invoked method Money(It.IsAny<decimal>(), 0,5, It.IsAny<string>()) exactly once, but it never did.",
+			"Expected that mock invoked method Money(4.75, It.IsAny<double>(), \"n\") exactly once, but it never did.",
+			"Expected that mock invoked method Money(It.IsAny<decimal>(), 0.5, It.IsAny<string>()) exactly once, but it never did.",
 			"no exception",
-			"Expected that mock invoked method Q3(never, It.IsAny<int>(), It.IsAny<string>()) exactly once, but it timed out.",
+			"Expected that mock invoked method Q3(\"never\", It.IsAny<int>(), It.IsAny<string>()) exactly once, but it timed out.",
 			"no exception",
 			"False",
 			"no exception",
 			"True",
-		]).Because("the mixed overloads must keep the predicate path's matching, culture-dependent formatting, cancellation and unverified-interaction tracking");
+		]).Because("the mixed overloads must keep the predicate path's matching, cancellation and unverified-interaction tracking, and format the arguments independent of the current culture");
 	}
 
 	[Test]
@@ -750,9 +750,9 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 			"no exception",
 			"Expected that mock invoked method Dyn1(43) exactly once, but it never did.",
-			"Expected that mock invoked method Dyn2(b, It.IsAny<int>()) exactly once, but it never did.",
-			"Expected that mock invoked method Dyn5(a, 2, 3, 4, 6) exactly once, but it never did.",
-			"Expected that mock got indexer [x] exactly once, but it never did.",
+			"Expected that mock invoked method Dyn2(\"b\", It.IsAny<int>()) exactly once, but it never did.",
+			"Expected that mock invoked method Dyn5(\"a\", 2, 3, 4, 6) exactly once, but it never did.",
+			"Expected that mock got indexer [\"x\"] exactly once, but it never did.",
 		]).Because("classic mode must compile dynamic members without dynamic binding and treat them like object");
 	}
 
@@ -1141,7 +1141,7 @@ public sealed class ClassicVerifyMessageTests
 			"no exception",
 			"no exception",
 			"Expected that mock invoked method Add(43) exactly once, but it never did.",
-			"Expected that mock invoked method Get(other, It.IsAny<List<object>>()) exactly once, but it never did.",
+			"Expected that mock invoked method Get(\"other\", It.IsAny<List<object>>()) exactly once, but it never did.",
 		]).Because("a type that is constructed with dynamic cannot be implemented, so the mock names the identical type that is constructed with object");
 	}
 }

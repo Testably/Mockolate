@@ -996,7 +996,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_string> IMockVerifyForINullableTypeParameter_string.Update(global::Mockolate.Parameters.IVerifyRefParameter<string?> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_string, global::Mockolate.Interactions.MethodInvocation<string?>>(this, global::Mockolate.Mock.INullableTypeParameter_string.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<string>.Update", __i => 
-				(value is global::Mockolate.Parameters.IParameterMatch<string?> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(__i.Parameter1, default(string?))), () => $"Update({(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<string?> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(__i.Parameter1, default(string?))), () => $"Update({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <summary>
 		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;string&gt;.Changed</see>.
 		/// </summary>
@@ -1180,7 +1180,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForINullableTypeParameter_string> IMockVerifyForINullableTypeParameter_string.Update(global::Mockolate.Parameters.IVerifyRefParameter<string?> value)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForINullableTypeParameter_string, global::Mockolate.Interactions.MethodInvocation<string?>>(this, global::Mockolate.Mock.INullableTypeParameter_string.MemberId_Update, "global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter<string>.Update", __i => 
-				(value is global::Mockolate.Parameters.IParameterMatch<string?> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(__i.Parameter1, default(string?))), () => $"Update({(object?)value ?? "null"})");
+				(value is global::Mockolate.Parameters.IParameterMatch<string?> valueMatch ? valueMatch.Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(__i.Parameter1, default(string?))), () => $"Update({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <summary>
 		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.INullableTypeParameter{T}.Changed">INullableTypeParameter&lt;string&gt;.Changed</see>.
 		/// </summary>

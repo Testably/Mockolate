@@ -5838,7 +5838,7 @@ internal static partial class Sources
 		sb.Append("]\"");
 		foreach (string? parameterName in indexer.IndexerParameters.Value.Select(p => p.Name))
 		{
-			sb.Append(", (object?)").Append(parameterName).Append(" ?? \"null\"");
+			sb.Append(", global::Mockolate.Internals.ValueFormatter.Format((object?)").Append(parameterName).Append(')');
 		}
 
 		sb.Append("));").AppendLine();
@@ -6987,7 +6987,7 @@ internal static partial class Sources
 	}
 
 	private static string ExpectationPlaceholder(MethodParameter parameter)
-		=> $"{{(object?){parameter.Name} ?? \"null\"}}";
+		=> $"{{(global::Mockolate.Internals.ValueFormatter.Format((object?){parameter.Name}))}}";
 
 	/// <summary>
 	///     The slow verify path's condition for one classic matcher argument, shared between the classic and the

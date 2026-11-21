@@ -1615,7 +1615,7 @@ internal static partial class Mock
 			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Generic<{typeof(T)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
-				(count is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(count).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+				(count is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(count).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Generic<T>(T value, global::Mockolate.Parameters.IParameter<int>? count)
 			where T : default
@@ -1623,14 +1623,14 @@ internal static partial class Mock
 			global::Mockolate.Parameters.IParameterMatch<T>? __match1 = global::Mockolate.Internals.Matchers.AsMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Generic<{typeof(T)}>", __i => 
 				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)) && 
-				(count is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(count).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+				(count is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(count).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Generic<T>(global::Mockolate.Parameters.IParameter<T>? value, int count)
 			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Generic<{typeof(T)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(count, __i.Parameter2)), () => $"Generic<T>({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(count, __i.Parameter2)), () => $"Generic<T>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Generic<T>(T value, int count)
 			where T : default
@@ -1638,7 +1638,7 @@ internal static partial class Mock
 			global::Mockolate.Parameters.IParameterMatch<T>? __match1 = global::Mockolate.Internals.Matchers.AsMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Generic<{typeof(T)}>", __i => 
 				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(count, __i.Parameter2)), () => $"Generic<T>({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(count, __i.Parameter2)), () => $"Generic<T>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Generic<T>(global::Mockolate.Parameters.IParameter<T>? value)
@@ -2135,7 +2135,7 @@ internal static partial class Mock
 			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Generic<{typeof(T)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
-				(count is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(count).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+				(count is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(count).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Generic<T>(T value, global::Mockolate.Parameters.IParameter<int>? count)
 			where T : default
@@ -2143,14 +2143,14 @@ internal static partial class Mock
 			global::Mockolate.Parameters.IParameterMatch<T>? __match1 = global::Mockolate.Internals.Matchers.AsMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Generic<{typeof(T)}>", __i => 
 				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)) && 
-				(count is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(count).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+				(count is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(count).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter2, default(int))), () => $"Generic<T>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Generic<T>(global::Mockolate.Parameters.IParameter<T>? value, int count)
 			where T : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Generic<{typeof(T)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<T>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(__i.Parameter1, default(T))) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(count, __i.Parameter2)), () => $"Generic<T>({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(count, __i.Parameter2)), () => $"Generic<T>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Generic<T>(T value, int count)
 			where T : default
@@ -2158,7 +2158,7 @@ internal static partial class Mock
 			global::Mockolate.Parameters.IParameterMatch<T>? __match1 = global::Mockolate.Internals.Matchers.AsMatcher<T>(value);
 			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<T, int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Generic<{typeof(T)}>", __i => 
 				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, __i.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(count, __i.Parameter2)), () => $"Generic<T>({(object?)value ?? "null"}, {(object?)count ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(count, __i.Parameter2)), () => $"Generic<T>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)count))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Generic<T>(global::Mockolate.Parameters.IParameter<T>? value)

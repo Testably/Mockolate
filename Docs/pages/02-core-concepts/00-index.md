@@ -140,6 +140,8 @@ The exception message describes the expectation and what actually happened:
 Expected that mock invoked method Dispense("Milk", It.IsAny<int>()) exactly once, but it never did.
 ```
 
+Argument values in the message are formatted with the invariant culture and strings are quoted, so the message reads the same on every machine (`4.5` instead of `4,5`).
+
 Setups and verifications are independent: you can verify calls that have no setup, and a setup does not expect to
 be called. To check that every setup was used or every interaction was verified, see
 [Check for unexpected interactions](../08-advanced-features/05-check-for-unexpected-interactions.md).

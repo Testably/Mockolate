@@ -984,7 +984,7 @@ namespace Mockolate.Interactions
 		}
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"get indexer [{Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}, {Parameter4?.ToString() ?? "null"}, {Parameter5?.ToString() ?? "null"}, {Parameter6?.ToString() ?? "null"}]";
+			=> $"get indexer [{(global::Mockolate.Internals.ValueFormatter.Format(Parameter1))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter2))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter3))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter4))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter5))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter6))}]";
 	}
 	/// <summary>
 	///     An access of an indexer setter with 6 typed parameters.
@@ -1072,7 +1072,7 @@ namespace Mockolate.Interactions
 		}
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"set indexer [{Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}, {Parameter4?.ToString() ?? "null"}, {Parameter5?.ToString() ?? "null"}, {Parameter6?.ToString() ?? "null"}] to {TypedValue?.ToString() ?? "null"}";
+			=> $"set indexer [{(global::Mockolate.Internals.ValueFormatter.Format(Parameter1))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter2))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter3))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter4))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter5))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter6))}] to {(global::Mockolate.Internals.ValueFormatter.Format(TypedValue))}";
 	}
 }
 

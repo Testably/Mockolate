@@ -528,7 +528,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIDynamicRepository_object, object, object>(this, this.MockRegistry, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Indexer_object_Get, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Indexer_object_Set,
 					global::Mockolate.CovariantParameterAdapter<object>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<object>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -540,7 +540,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIDynamicRepository_object, object, object>(this, this.MockRegistry, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Indexer_object_Get, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Indexer_object_Set,
 					(global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -554,22 +554,22 @@ internal static partial class Mock
 				}, () => $"Get({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Get(global::Mockolate.Parameters.IParameter<object>? key, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<object>>? values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(key), values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<object>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<object>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<object>>.Wrap(values), key, values, static (key, values) => $"Get({(object?)key ?? "null"}, {(object?)values ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(key), values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<object>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<object>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<object>>.Wrap(values), key, values, static (key, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Get(object key, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<object>>? values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<object>(key);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<object>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<object>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<object>>.Wrap(values), __literal1, values, static (key, values) => $"Get({(object?)key ?? "null"}, {(object?)values ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<object>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<object>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<object>>.Wrap(values), __literal1, values, static (key, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Get(global::Mockolate.Parameters.IParameter<object>? key, global::System.Collections.Generic.List<object> values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<global::System.Collections.Generic.List<object>> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<global::System.Collections.Generic.List<object>>(values);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(key), __literal2, key, __literal2, static (key, values) => $"Get({(object?)key ?? "null"}, {(object?)values ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(key), __literal2, key, __literal2, static (key, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object>.IgnoreParameters IMockVerifyForIDynamicRepository_object.Get(object key, global::System.Collections.Generic.List<object> values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key, values, static (key, values) => $"Get({(object?)key ?? "null"}, {(object?)values ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key, values, static (key, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Add(global::Mockolate.Parameters.IParameters? parameters)
 			=> parameters is null
@@ -582,10 +582,10 @@ internal static partial class Mock
 				}, () => $"Add({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Add(global::Mockolate.Parameters.IParameter<object>? item)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Add", item is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(item), item, static (item) => $"Add({(object?)item ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Add", item is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(item), item, static (item) => $"Add({(global::Mockolate.Internals.ValueFormatter.Format((object?)item))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object>.IgnoreParameters IMockVerifyForIDynamicRepository_object.Add(object item)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Add", item, static (item) => $"Add({(object?)item ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Add", item, static (item) => $"Add({(global::Mockolate.Internals.ValueFormatter.Format((object?)item))})");
 		/// <summary>
 		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository{T}.Changed">IDynamicRepository&lt;object&gt;.Changed</see>.
 		/// </summary>
@@ -626,7 +626,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIDynamicRepository_object, object, object>(this, this.MockRegistry, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Indexer_object_Get, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Indexer_object_Set,
 					global::Mockolate.CovariantParameterAdapter<object>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<object>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -638,7 +638,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIDynamicRepository_object, object, object>(this, this.MockRegistry, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Indexer_object_Get, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Indexer_object_Set,
 					(global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -652,22 +652,22 @@ internal static partial class Mock
 				}, () => $"Get({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Get(global::Mockolate.Parameters.IParameter<object>? key, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<object>>? values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(key), values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<object>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<object>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<object>>.Wrap(values), key, values, static (key, values) => $"Get({(object?)key ?? "null"}, {(object?)values ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(key), values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<object>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<object>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<object>>.Wrap(values), key, values, static (key, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Get(object key, global::Mockolate.Parameters.IParameter<global::System.Collections.Generic.List<object>>? values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<object>(key);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<object>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<object>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<object>>.Wrap(values), __literal1, values, static (key, values) => $"Get({(object?)key ?? "null"}, {(object?)values ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", __literal1, values is null ? (global::Mockolate.Parameters.IParameterMatch<global::System.Collections.Generic.List<object>>)global::Mockolate.It.Is<global::System.Collections.Generic.List<object>>(default!) : global::Mockolate.CovariantParameterAdapter<global::System.Collections.Generic.List<object>>.Wrap(values), __literal1, values, static (key, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Get(global::Mockolate.Parameters.IParameter<object>? key, global::System.Collections.Generic.List<object> values)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<global::System.Collections.Generic.List<object>> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<global::System.Collections.Generic.List<object>>(values);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(key), __literal2, key, __literal2, static (key, values) => $"Get({(object?)key ?? "null"}, {(object?)values ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(key), __literal2, key, __literal2, static (key, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object>.IgnoreParameters IMockVerifyForIDynamicRepository_object.Get(object key, global::System.Collections.Generic.List<object> values)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key, values, static (key, values) => $"Get({(object?)key ?? "null"}, {(object?)values ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object, global::System.Collections.Generic.List<object>>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Get, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Get", key, values, static (key, values) => $"Get({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Add(global::Mockolate.Parameters.IParameters? parameters)
 			=> parameters is null
@@ -680,10 +680,10 @@ internal static partial class Mock
 				}, () => $"Add({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object> IMockVerifyForIDynamicRepository_object.Add(global::Mockolate.Parameters.IParameter<object>? item)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Add", item is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(item), item, static (item) => $"Add({(object?)item ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Add", item is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(item), item, static (item) => $"Add({(global::Mockolate.Internals.ValueFormatter.Format((object?)item))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicRepository_object>.IgnoreParameters IMockVerifyForIDynamicRepository_object.Add(object item)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Add", item, static (item) => $"Add({(object?)item ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicRepository_object, object>(this, global::Mockolate.Mock.IDynamicRepository_object.MemberId_Add, "global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository<object>.Add", item, static (item) => $"Add({(global::Mockolate.Internals.ValueFormatter.Format((object?)item))})");
 		/// <summary>
 		///     Verify subscriptions on the Changed event <see cref="global::Mockolate.Tests.GeneratorCoverage.IDynamicRepository{T}.Changed">IDynamicRepository&lt;object&gt;.Changed</see>.
 		/// </summary>

@@ -542,12 +542,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.Accept<U>(global::Mockolate.Parameters.IParameter<U?>? value)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.Accept<{typeof(U)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"Accept<U>({(object?)value ?? "null"})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"Accept<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_string.Accept<U>(U? value)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.Accept<{typeof(U)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)), () => $"Accept<U>({(object?)value ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)), () => $"Accept<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.Get<U>(global::Mockolate.Parameters.IParameters parameters)
 			where U : class
@@ -561,12 +561,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.Get<U>(global::Mockolate.Parameters.IParameter<int>? key)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.Get<{typeof(U)}>", __i => 
-				(key is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Get<U>({(object?)key ?? "null"})");
+				(key is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Get<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_string.Get<U>(int key)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.Get<{typeof(U)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(key, __i.Parameter1)), () => $"Get<U>({(object?)key ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(key, __i.Parameter1)), () => $"Get<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.Get<U>()
 			where U : class
@@ -584,12 +584,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.GetNotNull<U>(global::Mockolate.Parameters.IParameter<U?>? fallback)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.GetNotNull<{typeof(U)}>", __i => 
-				(fallback is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(fallback).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"GetNotNull<U>({(object?)fallback ?? "null"})");
+				(fallback is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(fallback).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"GetNotNull<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)fallback))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_string.GetNotNull<U>(U? fallback)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.GetNotNull<{typeof(U)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(fallback, __i.Parameter1)), () => $"GetNotNull<U>({(object?)fallback ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(fallback, __i.Parameter1)), () => $"GetNotNull<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)fallback))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.AcceptDependent<U, V>(global::Mockolate.Parameters.IParameters parameters)
 			where U : class
@@ -606,28 +606,28 @@ internal static partial class Mock
 			where V : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?, V?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.AcceptDependent<{typeof(U)}, {typeof(V)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))) && 
-				(other is not null ? global::Mockolate.CovariantParameterAdapter<V?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(__i.Parameter2, default(V?))), () => $"AcceptDependent<U, V>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(other is not null ? global::Mockolate.CovariantParameterAdapter<V?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(__i.Parameter2, default(V?))), () => $"AcceptDependent<U, V>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.AcceptDependent<U, V>(U? value, global::Mockolate.Parameters.IParameter<V?>? other)
 			where U : class
 			where V : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?, V?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.AcceptDependent<{typeof(U)}, {typeof(V)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)) && 
-				(other is not null ? global::Mockolate.CovariantParameterAdapter<V?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(__i.Parameter2, default(V?))), () => $"AcceptDependent<U, V>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(other is not null ? global::Mockolate.CovariantParameterAdapter<V?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(__i.Parameter2, default(V?))), () => $"AcceptDependent<U, V>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.AcceptDependent<U, V>(global::Mockolate.Parameters.IParameter<U?>? value, V? other)
 			where U : class
 			where V : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?, V?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.AcceptDependent<{typeof(U)}, {typeof(V)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))) && 
-				(global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<U, V>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<U, V>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_string.AcceptDependent<U, V>(U? value, V? other)
 			where U : class
 			where V : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?, V?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.AcceptDependent<{typeof(U)}, {typeof(V)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<U, V>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<U, V>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		#endregion IMockVerifyForIMethodConstrainedToTypeArgument_string
 	}
 
@@ -651,12 +651,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.Accept<U>(global::Mockolate.Parameters.IParameter<U?>? value)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.Accept<{typeof(U)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"Accept<U>({(object?)value ?? "null"})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"Accept<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_string.Accept<U>(U? value)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.Accept<{typeof(U)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)), () => $"Accept<U>({(object?)value ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)), () => $"Accept<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.Get<U>(global::Mockolate.Parameters.IParameters parameters)
 			where U : class
@@ -670,12 +670,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.Get<U>(global::Mockolate.Parameters.IParameter<int>? key)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.Get<{typeof(U)}>", __i => 
-				(key is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Get<U>({(object?)key ?? "null"})");
+				(key is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(key).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))), () => $"Get<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_string.Get<U>(int key)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<int>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.Get<{typeof(U)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(key, __i.Parameter1)), () => $"Get<U>({(object?)key ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(key, __i.Parameter1)), () => $"Get<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)key))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.Get<U>()
 			where U : class
@@ -693,12 +693,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.GetNotNull<U>(global::Mockolate.Parameters.IParameter<U?>? fallback)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.GetNotNull<{typeof(U)}>", __i => 
-				(fallback is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(fallback).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"GetNotNull<U>({(object?)fallback ?? "null"})");
+				(fallback is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(fallback).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))), () => $"GetNotNull<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)fallback))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_string.GetNotNull<U>(U? fallback)
 			where U : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.GetNotNull<{typeof(U)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(fallback, __i.Parameter1)), () => $"GetNotNull<U>({(object?)fallback ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(fallback, __i.Parameter1)), () => $"GetNotNull<U>({(global::Mockolate.Internals.ValueFormatter.Format((object?)fallback))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.AcceptDependent<U, V>(global::Mockolate.Parameters.IParameters parameters)
 			where U : class
@@ -715,28 +715,28 @@ internal static partial class Mock
 			where V : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?, V?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.AcceptDependent<{typeof(U)}, {typeof(V)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))) && 
-				(other is not null ? global::Mockolate.CovariantParameterAdapter<V?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(__i.Parameter2, default(V?))), () => $"AcceptDependent<U, V>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(other is not null ? global::Mockolate.CovariantParameterAdapter<V?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(__i.Parameter2, default(V?))), () => $"AcceptDependent<U, V>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.AcceptDependent<U, V>(U? value, global::Mockolate.Parameters.IParameter<V?>? other)
 			where U : class
 			where V : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?, V?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.AcceptDependent<{typeof(U)}, {typeof(V)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)) && 
-				(other is not null ? global::Mockolate.CovariantParameterAdapter<V?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(__i.Parameter2, default(V?))), () => $"AcceptDependent<U, V>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(other is not null ? global::Mockolate.CovariantParameterAdapter<V?>.Wrap(other).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(__i.Parameter2, default(V?))), () => $"AcceptDependent<U, V>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string> IMockVerifyForIMethodConstrainedToTypeArgument_string.AcceptDependent<U, V>(global::Mockolate.Parameters.IParameter<U?>? value, V? other)
 			where U : class
 			where V : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?, V?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.AcceptDependent<{typeof(U)}, {typeof(V)}>", __i => 
 				(value is not null ? global::Mockolate.CovariantParameterAdapter<U?>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(__i.Parameter1, default(U?))) && 
-				(global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<U, V>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<U, V>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIMethodConstrainedToTypeArgument_string>.IgnoreParameters IMockVerifyForIMethodConstrainedToTypeArgument_string.AcceptDependent<U, V>(U? value, V? other)
 			where U : class
 			where V : class
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIMethodConstrainedToTypeArgument_string, global::Mockolate.Interactions.MethodInvocation<U?, V?>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IMethodConstrainedToTypeArgument<string>.AcceptDependent<{typeof(U)}, {typeof(V)}>", __i => 
 				(global::System.Collections.Generic.EqualityComparer<U?>.Default.Equals(value, __i.Parameter1)) && 
-				(global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<U, V>({(object?)value ?? "null"}, {(object?)other ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<V?>.Default.Equals(other, __i.Parameter2)), () => $"AcceptDependent<U, V>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		#endregion IMockVerifyForIMethodConstrainedToTypeArgument_string
 	}
 

@@ -70,7 +70,7 @@ public class LiteralParameterMatchTests
 	}
 
 	[Test]
-	public async Task ToString_ShouldFormatLikeStringInterpolation()
+	public async Task ToString_ShouldFormatLikeTheLiteralValue()
 	{
 		CultureInfo previousCulture = CultureInfo.CurrentCulture;
 		try
@@ -83,9 +83,9 @@ public class LiteralParameterMatchTests
 			string stringResult = new LiteralParameterMatch<string?>("Alice").ToString();
 			string nullResult = new LiteralParameterMatch<string?>(nullValue).ToString();
 
-			await That(result).IsEqualTo($"{value}");
-			await That(result).IsEqualTo("4,5");
-			await That(stringResult).IsEqualTo("Alice");
+			await That(result).IsEqualTo("4.5")
+				.Because("failure messages must not depend on the current culture");
+			await That(stringResult).IsEqualTo("\"Alice\"");
 			await That(nullResult).IsEqualTo("null")
 				.Because("failure messages print a null argument as null instead of an empty string");
 		}

@@ -129,7 +129,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsArrayDelegate> IMockVerifyForParamsArrayDelegate.Verify(global::Mockolate.Parameters.IParameter<string[]>? values)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsArrayDelegate, global::Mockolate.Interactions.MethodInvocation<string[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsArrayDelegate.Invoke", __i => 
-				(values is not null ? global::Mockolate.CovariantParameterAdapter<string[]>.Wrap(values).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string[]>.Default.Equals(__i.Parameter1, default(string[]))), () => $"Invoke({(object?)values ?? "null"})");
+				(values is not null ? global::Mockolate.CovariantParameterAdapter<string[]>.Wrap(values).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string[]>.Default.Equals(__i.Parameter1, default(string[]))), () => $"Invoke({(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsArrayDelegate> IMockVerifyForParamsArrayDelegate.Verify(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsArrayDelegate, global::Mockolate.Interactions.MethodInvocation<string[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsArrayDelegate.Invoke", __i => parameters switch
@@ -148,7 +148,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsArrayDelegate>.IgnoreParameters IMockVerifyForParamsArrayDelegate.Verify(params string[] values)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsArrayDelegate, global::Mockolate.Interactions.MethodInvocation<string[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsArrayDelegate.Invoke", __i => 
-				(global::Mockolate.CovariantParameterAdapter<string[]>.Wrap(global::Mockolate.It.SequenceEquals<string>(values)).Matches(__i.Parameter1)), () => $"Invoke({(object?)values ?? "null"})");
+				(global::Mockolate.CovariantParameterAdapter<string[]>.Wrap(global::Mockolate.It.SequenceEquals<string>(values)).Matches(__i.Parameter1)), () => $"Invoke({(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsArrayDelegate> IMockForParamsArrayDelegate.VerifySetup(global::Mockolate.Setup.IMethodSetup setup)
 			=> this.MockRegistry.Method<IMockVerifyForParamsArrayDelegate>(this, setup);
@@ -180,7 +180,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsArrayDelegate> IMockVerifyForParamsArrayDelegate.Verify(global::Mockolate.Parameters.IParameter<string[]>? values)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsArrayDelegate, global::Mockolate.Interactions.MethodInvocation<string[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsArrayDelegate.Invoke", __i => 
-				(values is not null ? global::Mockolate.CovariantParameterAdapter<string[]>.Wrap(values).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string[]>.Default.Equals(__i.Parameter1, default(string[]))), () => $"Invoke({(object?)values ?? "null"})");
+				(values is not null ? global::Mockolate.CovariantParameterAdapter<string[]>.Wrap(values).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string[]>.Default.Equals(__i.Parameter1, default(string[]))), () => $"Invoke({(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsArrayDelegate> IMockVerifyForParamsArrayDelegate.Verify(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsArrayDelegate, global::Mockolate.Interactions.MethodInvocation<string[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsArrayDelegate.Invoke", __i => parameters switch
@@ -199,7 +199,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForParamsArrayDelegate>.IgnoreParameters IMockVerifyForParamsArrayDelegate.Verify(params string[] values)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForParamsArrayDelegate, global::Mockolate.Interactions.MethodInvocation<string[]>>(this, -1, "global::Mockolate.Tests.GeneratorCoverage.ParamsArrayDelegate.Invoke", __i => 
-				(global::Mockolate.CovariantParameterAdapter<string[]>.Wrap(global::Mockolate.It.SequenceEquals<string>(values)).Matches(__i.Parameter1)), () => $"Invoke({(object?)values ?? "null"})");
+				(global::Mockolate.CovariantParameterAdapter<string[]>.Wrap(global::Mockolate.It.SequenceEquals<string>(values)).Matches(__i.Parameter1)), () => $"Invoke({(global::Mockolate.Internals.ValueFormatter.Format((object?)values))})");
 		#endregion IMockVerifyForParamsArrayDelegate
 	}
 

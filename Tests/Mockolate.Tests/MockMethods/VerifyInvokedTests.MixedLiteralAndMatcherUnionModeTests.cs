@@ -80,11 +80,11 @@ public sealed partial class VerifyInvokedTests
 			}
 
 			await That(Act2).Throws<MockVerificationException>()
-				.WithMessage("Expected that mock invoked method Method2(b, It.IsAny<int>()) exactly once, but it never did.");
+				.WithMessage("Expected that mock invoked method Method2(\"b\", It.IsAny<int>()) exactly once, but it never did.");
 			await That(Act3).Throws<MockVerificationException>()
-				.WithMessage("Expected that mock invoked method Method3(b, It.IsAny<int>(), It.IsAny<string>()) exactly once, but it never did.");
+				.WithMessage("Expected that mock invoked method Method3(\"b\", It.IsAny<int>(), It.IsAny<string>()) exactly once, but it never did.");
 			await That(Act4).Throws<MockVerificationException>()
-				.WithMessage("Expected that mock invoked method Method4(b, It.IsAny<int>(), c, It.IsAny<int>()) exactly once, but it never did.");
+				.WithMessage("Expected that mock invoked method Method4(\"b\", It.IsAny<int>(), \"c\", It.IsAny<int>()) exactly once, but it never did.");
 		}
 
 		[Test]
@@ -111,7 +111,7 @@ public sealed partial class VerifyInvokedTests
 			await That(Act2).Throws<MockVerificationException>()
 				.WithMessage("Expected that mock invoked method Method2(It.IsAny<string>(), 2) exactly once, but it never did.");
 			await That(Act3).Throws<MockVerificationException>()
-				.WithMessage("Expected that mock invoked method Method3(It.IsAny<string>(), 2, c) exactly once, but it never did.");
+				.WithMessage("Expected that mock invoked method Method3(It.IsAny<string>(), 2, \"c\") exactly once, but it never did.");
 			await That(Act4).Throws<MockVerificationException>()
 				.WithMessage("Expected that mock invoked method Method4(It.IsAny<string>(), 2, It.IsAny<string>(), 3) exactly once, but it never did.");
 		}
@@ -178,7 +178,7 @@ public sealed partial class VerifyInvokedTests
 
 			await That(Act).Throws<MockVerificationException>()
 				.WithMessage(
-					"Expected that mock invoked method Method4(It.IsAny<string>(), 3, y, It.IsAny<int>()), then invoked method Method2(a, It.IsAny<int>()) in order, but it invoked method Method2(a, It.IsAny<int>()) too early.");
+					"Expected that mock invoked method Method4(It.IsAny<string>(), 3, \"y\", It.IsAny<int>()), then invoked method Method2(\"a\", It.IsAny<int>()) in order, but it invoked method Method2(\"a\", It.IsAny<int>()) too early.");
 		}
 
 		[Test]

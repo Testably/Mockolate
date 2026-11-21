@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Mockolate.Internals;
 using Mockolate.Parameters;
 
 namespace Mockolate;
@@ -85,7 +86,7 @@ public partial class It
 		public override string ToString()
 		{
 			string result =
-				$"It.SequenceEquals({string.Join(", ", expected.Select(v => v is string ? $"\"{v}\"" : v?.ToString() ?? "null"))})";
+				$"It.SequenceEquals({string.Join(", ", expected.Select(v => ValueFormatter.Format(v)))})";
 			if (_comparer is not null)
 			{
 				result += $".Using({_comparerExpression})";

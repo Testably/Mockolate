@@ -221,7 +221,7 @@ internal static partial class Sources
 		sb.Append("\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t=> $\"get indexer [").Append(string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"{{Parameter{i}?.ToString() ?? \"null\"}}"))).Append("]\";").AppendLine();
+			Enumerable.Range(1, numberOfParameters).Select(i => $"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{i}))}}"))).Append("]\";").AppendLine();
 		sb.Append("\t}").AppendLine();
 	}
 
@@ -255,7 +255,7 @@ internal static partial class Sources
 		sb.Append("\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t=> $\"set indexer [").Append(string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"{{Parameter{i}?.ToString() ?? \"null\"}}"))).Append("] to {TypedValue?.ToString() ?? \"null\"}\";").AppendLine();
+			Enumerable.Range(1, numberOfParameters).Select(i => $"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{i}))}}"))).Append("] to {(global::Mockolate.Internals.ValueFormatter.Format(TypedValue))}\";").AppendLine();
 		sb.Append("\t}").AppendLine();
 	}
 

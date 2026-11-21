@@ -225,10 +225,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsOnlyDerived> IMockVerifyForIEqualsOnlyDerived.Equals(global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsOnlyDerived, object?>(this, global::Mockolate.Mock.IEqualsOnlyDerived.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsOnlyDerived, object?>(this, global::Mockolate.Mock.IEqualsOnlyDerived.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)obj))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsOnlyDerived>.IgnoreParameters IMockVerifyForIEqualsOnlyDerived.Equals(object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsOnlyDerived, object?>(this, global::Mockolate.Mock.IEqualsOnlyDerived.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals", obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsOnlyDerived, object?>(this, global::Mockolate.Mock.IEqualsOnlyDerived.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals", obj, static (obj) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)obj))})");
 		#endregion IMockVerifyForIEqualsOnlyDerived
 	}
 
@@ -251,10 +251,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsOnlyDerived> IMockVerifyForIEqualsOnlyDerived.Equals(global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsOnlyDerived, object?>(this, global::Mockolate.Mock.IEqualsOnlyDerived.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsOnlyDerived, object?>(this, global::Mockolate.Mock.IEqualsOnlyDerived.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)obj))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIEqualsOnlyDerived>.IgnoreParameters IMockVerifyForIEqualsOnlyDerived.Equals(object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsOnlyDerived, object?>(this, global::Mockolate.Mock.IEqualsOnlyDerived.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals", obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIEqualsOnlyDerived, object?>(this, global::Mockolate.Mock.IEqualsOnlyDerived.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IEqualsOnly.Equals", obj, static (obj) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)obj))})");
 		#endregion IMockVerifyForIEqualsOnlyDerived
 	}
 

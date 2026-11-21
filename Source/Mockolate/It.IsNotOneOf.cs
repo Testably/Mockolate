@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Mockolate.Internals;
 using Mockolate.Parameters;
 
 namespace Mockolate;
@@ -68,7 +69,7 @@ public partial class It
 		public override string ToString()
 		{
 			string result =
-				$"It.IsNotOneOf({string.Join(", ", values.Select(v => v is string ? $"\"{v}\"" : v?.ToString() ?? "null"))})";
+				$"It.IsNotOneOf({string.Join(", ", values.Select(v => ValueFormatter.Format(v)))})";
 			if (_comparer is not null)
 			{
 				result += $".Using({_comparerExpression})";
