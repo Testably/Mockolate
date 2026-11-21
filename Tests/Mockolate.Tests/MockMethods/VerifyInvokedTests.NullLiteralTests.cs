@@ -302,7 +302,7 @@ public sealed partial class VerifyInvokedTests
 		public async Task NullMatcherVariableForValueType_SetupAndVerify_ShouldMatchTheDefaultValue()
 		{
 			IValueTypeService sut = IValueTypeService.CreateMock();
-			IParameter<int>? matcher = null;
+			IParameter<int> matcher = null!;
 			sut.Mock.Setup.Add(matcher, It.IsAny<int>()).Returns(7);
 
 			int[] results = [sut.Add(0, 1), sut.Add(1, 1),];

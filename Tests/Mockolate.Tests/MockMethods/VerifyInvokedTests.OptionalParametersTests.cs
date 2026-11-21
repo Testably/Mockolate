@@ -12,37 +12,38 @@ public sealed partial class VerifyInvokedTests
 		public async Task WithExplicitNull_ShouldCountTheTypeDefaultInsteadOfTheDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
-			sut.Method(1, 0, null);
-			sut.Method(1);
+			sut.Count(1, 0);
+			sut.Count(1);
+			sut.Name(1, null);
+			sut.Name(1);
 
-			await That(sut.Mock.Verify.Method(It.IsAny<int>(), null, null)).Once()
+			await That(sut.Mock.Verify.Count(It.IsAny<int>(), null)).Once()
 				.Because("an explicit null stands for default(T), only a left-out parameter for its declared default");
-			await That(sut.Mock.Verify.Method(It.IsAny<int>(), It.IsAny<int>(), null)).Once();
+			await That(sut.Mock.Verify.Name(It.IsAny<int>(), null)).Once();
 		}
 
 		[Test]
-		public async Task WithOmittedParameters_ShouldOnlyCountTheDeclaredDefaults()
+		public async Task WithOmittedParameter_ShouldOnlyCountTheDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
-			sut.Method(1);
-			sut.Method(1, 6);
-			sut.Method(1, 5, null);
+			sut.Count(1);
+			sut.Count(1, 6);
 
-			await That(sut.Mock.Verify.Method(It.IsAny<int>())).Once();
-			await That(sut.Mock.Verify.Method(1, 6)).Once();
-			await That(sut.Mock.Verify.Method(1).AnyParameters()).Exactly(3);
+			await That(sut.Mock.Verify.Count(It.IsAny<int>())).Once();
+			await That(sut.Mock.Verify.Count(1)).Once();
+			await That(sut.Mock.Verify.Count(1).AnyParameters()).Twice();
 		}
 
 		[Test]
-		public async Task WithOmittedParameters_WhenFailing_ShouldShowTheDeclaredDefaults()
+		public async Task WithOmittedParameter_WhenFailing_ShouldShowTheDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
 
 			void Act()
-				=> sut.Mock.Verify.Method(It.IsAny<int>()).Once();
+				=> sut.Mock.Verify.Name(It.IsAny<int>()).Once();
 
 			await That(Act).Throws<MockVerificationException>()
-				.WithMessage("Expected that mock invoked method Method(It.IsAny<int>(), 5, x) exactly once, but it never did.");
+				.WithMessage("Expected that mock invoked method Name(It.IsAny<int>(), x) exactly once, but it never did.");
 		}
 
 		[Test]
@@ -68,18 +69,18 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task Six_WithExplicitNullOrOmittedParameters_ShouldCountTheTypeOrDeclaredDefaults()
+		public async Task Six_WithExplicitNullOrOmittedParameter_ShouldCountTheTypeOrDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
-			sut.Six(1, 2, 3, 4, 0, null);
-			sut.Six(1, 2, 3, 4);
-			sut.Six(1, 2, 3, 4);
+			sut.Six(1, 2, 3, 4, 5, null);
+			sut.Six(1, 2, 3, 4, 5);
+			sut.Six(1, 2, 3, 4, 5);
 
-			await That(sut.Mock.Verify.Six(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), null,
-				null)).Once();
-			await That(sut.Mock.Verify.Six(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
-				.Twice();
-			await That(sut.Mock.Verify.Six(1, 2, 3, 4)).Twice();
+			await That(sut.Mock.Verify.Six(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
+				It.IsAny<int>(), null)).Once();
+			await That(sut.Mock.Verify.Six(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
+				It.IsAny<int>())).Twice();
+			await That(sut.Mock.Verify.Six(1, 2, 3, 4, 5)).Twice();
 		}
 
 		[Test]
@@ -102,7 +103,7 @@ public sealed partial class VerifyInvokedTests
 			sut.Method(1, 0);
 
 			await That(sut.Mock.Verify.Method(It.IsAny<int>(), null)).Once()
-				.Because("next to a same-named method with fewer parameters the optional parameters keep their = null defaults");
+				.Because("next to a same-named method with fewer parameters the optional parameter keeps its = null default");
 			await That(sut.Mock.Verify.Method(It.IsAny<int>(), 0)).Once();
 		}
 	}

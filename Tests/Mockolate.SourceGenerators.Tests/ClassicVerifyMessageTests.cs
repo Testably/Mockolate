@@ -302,12 +302,70 @@ public sealed class ClassicVerifyMessageTests
 			"Expected that mock never invoked method Opt(a, 5), but it did once.",
 			"Expected that mock never invoked method Many(It.IsAny<int>(), x, Milk, 2), but it did once.",
 			"Expected that mock never invoked method Many(1, It.IsAny<string>(), Milk, 2), but it did once.",
-			"Expected that mock never invoked method Defaults(It.IsAny<int>(), null, null, null, It.IsAny<DateTime>()), but it did once.",
+			"Expected that mock never invoked method Defaults(It.IsAny<int>(), null, 00:00:00, null, It.IsAny<DateTime>()), but it did once.",
 			"Expected that mock never invoked method Nullable(It.IsAny<int>(), 7), but it did once.",
 			"Expected that mock never invoked method Generic<T>(It.IsAny<string>(), 5), but it did once.",
 			"Expected that mock never invoked method Five(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), 5), but it did once.",
 			"Expected that mock never invoked method Invoke(It.IsAny<string>(), 5), but it did once.",
-		]).Because("an omitted optional parameter stands for the declared default value and a null matcher for default(T), in setup and verify");
+		]).Because("an omitted optional parameter stands for the declared default value in setup and verify, and so does a null matcher where several optional parameters keep their = null defaults");
+	}
+
+	[Test]
+	public async Task SeveralOptionalParameters_InClassicMode_WhenSkippedByName_ShouldUseTheDeclaredDefault()
+	{
+		Assembly assembly = Generator.CompileAndLoad("""
+		                                             using System;
+		                                             using Mockolate;
+		                                             using Mockolate.Verify;
+
+		                                             namespace MyCode;
+
+		                                             public interface IFoo
+		                                             {
+		                                                 int Several(int key, int count = 5, string? name = "x");
+		                                             }
+
+		                                             public delegate int Del(int key, int count = 5, string? name = "x");
+
+		                                             public static class Scenarios
+		                                             {
+		                                                 public static string[] Run()
+		                                                 {
+		                                                     IFoo sut = IFoo.CreateMock();
+		                                                     Del del = Del.CreateMock();
+		                                                     sut.Mock.Setup.Several(key: It.IsAny<int>(), name: It.IsAny<string?>()).Returns(1);
+		                                                     del.Mock.Setup(key: It.IsAny<int>(), name: It.IsAny<string?>()).Returns(1);
+		                                                     int[] results = [sut.Several(1, name: "y"), sut.Several(1, 0, "y"), del(1, name: "y"), del(1, 0, "y"),];
+		                                                     return
+		                                                     [
+		                                                         string.Join(", ", results),
+		                                                         Capture(() => sut.Mock.Verify.Several(key: It.IsAny<int>(), name: It.IsAny<string?>()).Once()),
+		                                                         Capture(() => del.Mock.Verify(key: It.IsAny<int>(), name: It.IsAny<string?>()).Once()),
+		                                                     ];
+		                                                 }
+
+		                                                 private static string Capture(Action act)
+		                                                 {
+		                                                     try
+		                                                     {
+		                                                         act();
+		                                                         return "no exception";
+		                                                     }
+		                                                     catch (Exception exception)
+		                                                     {
+		                                                         return exception.Message;
+		                                                     }
+		                                                 }
+		                                             }
+		                                             """, LanguageVersion.CSharp14);
+
+		string[] messages = (string[])assembly.GetType("MyCode.Scenarios")!.GetMethod("Run")!.Invoke(null, null)!;
+
+		await That(messages).IsEqualTo([
+			"1, 0, 1, 0",
+			"no exception",
+			"no exception",
+		]).Because("with several optional parameters a call can skip an earlier one by name, which keeps the = null defaults");
 	}
 
 	[Test]

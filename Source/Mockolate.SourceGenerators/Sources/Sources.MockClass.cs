@@ -3460,30 +3460,25 @@ internal static partial class Sources
 	/// <summary>
 	///     The count of trailing optional parameters that the classic setup and verify overloads of
 	///     <paramref name="method" /> leave out through overloads of their own instead of <c>= null</c> defaults, as in union
-	///     mode and for indexers, so that an explicit <see langword="null" /> keeps standing for <c>default(T)</c>. Without
-	///     overload priorities the shorter overloads would make a lone <see langword="null" /> ambiguous with the
-	///     <c>IParameters</c> overload, and a same-named sibling (<paramref name="class" /> is <see langword="null" /> for a
-	///     delegate, which has none) could repeat their signatures, so both keep the <c>= null</c> defaults that stand for
-	///     the declared default value.
+	///     mode and for indexers, so that an explicit <see langword="null" /> keeps standing for <c>default(T)</c>. Only a
+	///     single optional parameter qualifies: with more, a call can skip an earlier one by name, which needs its
+	///     <c>= null</c> default. Without overload priorities the shorter overloads would make a lone <see langword="null" />
+	///     ambiguous with the <c>IParameters</c> overload, and a same-named sibling (<paramref name="class" /> is
+	///     <see langword="null" /> for a delegate, which has none) could repeat their signatures. All of them keep the
+	///     <c>= null</c> defaults that stand for the declared default value.
 	/// </summary>
 	private static int OmittableMethodParameterCount(Class? @class, Method method, bool hasOverloadResolutionPriority)
 	{
-		if (!hasOverloadResolutionPriority || method.Parameters.Any(p => p.NeedsRefStructPipeline()) ||
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		if (!hasOverloadResolutionPriority || parameters.Count(p => p.HasExplicitDefaultValue) != 1 ||
+		    parameters[parameters.Length - 1] is not { HasExplicitDefaultValue: true, } last ||
+		    !last.CanUseNullableParameterOverload() || parameters.Any(p => p.NeedsRefStructPipeline()) ||
 		    (@class is not null && !HasUniqueMethodName(@class, method)))
 		{
 			return 0;
 		}
 
-		MethodParameter[] parameters = method.Parameters.AsArray();
-		int omittable = 0;
-		while (omittable < parameters.Length &&
-		       parameters[parameters.Length - 1 - omittable] is { HasExplicitDefaultValue: true, } parameter &&
-		       parameter.CanUseNullableParameterOverload())
-		{
-			omittable++;
-		}
-
-		return omittable;
+		return 1;
 	}
 
 	/// <summary>
@@ -3562,11 +3557,19 @@ internal static partial class Sources
 	///     parameters and the declared default values, as matchers when the overload takes only matchers.
 	/// </summary>
 	private static string OmittedMethodForwardingArguments(Method method, int keptCount, bool[]? valueFlags)
-		=> string.Join(", ", method.Parameters.Select((p, i) => i < keptCount
-			? p.Name
-			: valueFlags is null
-				? $"new global::Mockolate.Internals.LiteralParameterMatch<{p.ToNullableType()}>({DeclaredDefaultValue(p)})"
-				: DeclaredDefaultValue(p)));
+	{
+		return string.Join(", ", method.Parameters.Select((p, i) => i < keptCount ? p.Name : OmittedArgument(p)));
+
+		string OmittedArgument(MethodParameter parameter)
+		{
+			if (valueFlags is null)
+			{
+				return $"new global::Mockolate.Internals.LiteralParameterMatch<{parameter.ToNullableType()}>({DeclaredDefaultValue(parameter)})";
+			}
+
+			return DeclaredDefaultValue(parameter);
+		}
+	}
 
 	private static string OmittedParametersRemark(Method method, int keptCount)
 		=> $" It uses the declared default value for {string.Join(", ", method.Parameters.Skip(keptCount).Select(p => $"<c>{p.Name}</c>"))}.";

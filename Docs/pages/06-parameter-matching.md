@@ -227,7 +227,7 @@ await That(shelf.Mock.Verify["Dark", 2].Got()).Never();
 <summary>Left-out parameters and keys</summary>
 
 - A left-out parameter or indexer key gets its own overload, so an explicit `null` stands for `default(T)` of the parameter type, not for the declared default value: `Restock(It.IsAny<string>(), null)` matches an `amount` of `0`.
-- A method keeps the declared default value for an explicit `null` when another method of the same type has the same name, or when the project has no `OverloadResolutionPriorityAttribute` (it ships with .NET 9).
+- Without union mode, a method keeps the declared default value for an explicit `null` when it has more than one optional parameter, so that a call can still skip one by name, when another method of the same type has the same name, or when the project has no `OverloadResolutionPriorityAttribute` (it ships with .NET 9).
 - When another indexer of the same type has fewer keys, setups and verifications of the indexer need every key. `Setup["Dark"]` then always means the indexer with one key, as `shelf["Dark"]` does.
 
 </details>

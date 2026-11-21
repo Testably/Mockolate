@@ -11,38 +11,35 @@ public sealed partial class SetupMethodTests
 		public async Task WithExplicitNull_ShouldMatchTheTypeDefaultInsteadOfTheDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
-			sut.Mock.Setup.Method(It.IsAny<int>(), null, It.IsAny<string?>()).Returns(1);
-			sut.Mock.Setup.Method(It.IsAny<int>(), It.IsAny<int>(), null).Returns(2);
+			sut.Mock.Setup.Count(It.IsAny<int>(), null).Returns(1);
+			sut.Mock.Setup.Name(It.IsAny<int>(), null).Returns(2);
 
-			int[] results = [sut.Method(1, 0, "y"), sut.Method(1, 5, null), sut.Method(1, 5, "y"),];
+			int[] results = [sut.Count(1, 0), sut.Count(1), sut.Name(1, null), sut.Name(1),];
 
-			await That(results).IsEqualTo([1, 2, 0,])
+			await That(results).IsEqualTo([1, 0, 2, 0,])
 				.Because("an explicit null stands for default(T), only a left-out parameter for its declared default");
 		}
 
 		[Test]
-		public async Task WithOmittedParameters_ShouldOnlyMatchTheDeclaredDefaults()
+		public async Task WithOmittedParameter_ShouldOnlyMatchTheDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
-			sut.Mock.Setup.Method(It.IsAny<int>()).Returns(1);
-			sut.Mock.Setup.Method(It.IsAny<int>(), 6).Returns(2);
+			sut.Mock.Setup.Count(It.IsAny<int>()).Returns(1);
+			sut.Mock.Setup.Name(It.IsAny<int>()).Returns(2);
 
-			int[] results =
-			[
-				sut.Method(1), sut.Method(1, 6), sut.Method(1, 0), sut.Method(1, 5, null), sut.Method(1, 6, "y"),
-			];
+			int[] results = [sut.Count(1), sut.Count(1, 0), sut.Name(1), sut.Name(1, null),];
 
-			await That(results).IsEqualTo([1, 2, 0, 0, 0,]);
+			await That(results).IsEqualTo([1, 0, 2, 0,]);
 		}
 
 		[Test]
-		public async Task WithOmittedParametersAfterValues_ShouldKeepAnyParameters()
+		public async Task WithOmittedParameterAfterValue_ShouldKeepAnyParameters()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
-			sut.Mock.Setup.Method(2).AnyParameters().Returns(2);
-			sut.Mock.Setup.Method(1).Returns(1);
+			sut.Mock.Setup.Count(2).AnyParameters().Returns(2);
+			sut.Mock.Setup.Count(1).Returns(1);
 
-			int[] results = [sut.Method(1), sut.Method(1, 0), sut.Method(3, 0, null),];
+			int[] results = [sut.Count(1), sut.Count(1, 0), sut.Count(3, 0),];
 
 			await That(results).IsEqualTo([1, 2, 2,]);
 		}
@@ -98,20 +95,21 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task Six_WithExplicitNullOrOmittedParameters_ShouldMatchTheTypeOrDeclaredDefaults()
+		public async Task Six_WithExplicitNullOrOmittedParameter_ShouldMatchTheTypeOrDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
-			sut.Mock.Setup.Six(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), null, null)
-				.Returns(1);
-			sut.Mock.Setup.Six(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Returns(2);
-			sut.Mock.Setup.Six(1, 2, 3, 4, 6).Returns(3);
+			sut.Mock.Setup.Six(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
+				null).Returns(1);
+			sut.Mock.Setup.Six(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
+				.Returns(2);
+			sut.Mock.Setup.Six(1, 2, 3, 4, 5).Returns(3);
 
 			int[] results =
 			[
-				sut.Six(1, 2, 3, 4, 0, null), sut.Six(1, 2, 3, 4), sut.Six(1, 2, 3, 4, 6), sut.Six(1, 2, 3, 4, 6, null),
+				sut.Six(1, 2, 3, 4, 0, null), sut.Six(1, 2, 3, 4, 0), sut.Six(1, 2, 3, 4, 5), sut.Six(1, 2, 3, 4, 5, null),
 			];
 
-			await That(results).IsEqualTo([1, 2, 3, 0,]);
+			await That(results).IsEqualTo([1, 2, 3, 1,]);
 		}
 
 		[Test]
@@ -135,7 +133,7 @@ public sealed partial class SetupMethodTests
 			int[] results = [sut.Method(1, 5), sut.Method(1, 0),];
 
 			await That(results).IsEqualTo([1, 0,])
-				.Because("next to a same-named method with fewer parameters the optional parameters keep their = null defaults");
+				.Because("next to a same-named method with fewer parameters the optional parameter keeps its = null default");
 		}
 	}
 }

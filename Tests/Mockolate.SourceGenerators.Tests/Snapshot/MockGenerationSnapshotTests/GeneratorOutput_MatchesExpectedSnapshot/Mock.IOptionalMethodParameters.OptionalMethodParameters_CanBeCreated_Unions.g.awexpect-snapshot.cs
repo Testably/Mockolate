@@ -21,13 +21,15 @@ internal static partial class Mock
 		global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters, IMockForIOptionalMethodParameters, IMockSetupForIOptionalMethodParameters, IMockVerifyForIOptionalMethodParameters,
 		global::Mockolate.IMock
 	{
-		internal const int MemberId_Method = 0;
-		internal const int MemberId_AllOptional = 1;
-		internal const int MemberId_WithObject = 2;
-		internal const int MemberId_VoidMethod = 3;
-		internal const int MemberId_Generic_T_ = 4;
-		internal const int MemberId_Six = 5;
-		internal const int MemberCount = 6;
+		internal const int MemberId_Count = 0;
+		internal const int MemberId_Name = 1;
+		internal const int MemberId_AllOptional = 2;
+		internal const int MemberId_WithObject = 3;
+		internal const int MemberId_VoidMethod = 4;
+		internal const int MemberId_Generic_T_ = 5;
+		internal const int MemberId_Six = 6;
+		internal const int MemberId_SeveralOptional = 7;
+		internal const int MemberCount = 8;
 
 		/// <summary>
 		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
@@ -110,29 +112,29 @@ internal static partial class Mock
 
 		#region Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters
 
-		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)" />
-		public int Method(int key, int count = 5, string? name = "x")
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)" />
+		public int Count(int key, int count = 5)
 		{
-			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>? methodSetup = null;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int>? methodSetup = null;
 			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
 			{
-				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method);
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count);
 				if (snapshot_methodSetup is not null)
 				{
 					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
 					{
-						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> s_methodSetup && s_methodSetup.Matches(key, count, name))
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup && s_methodSetup.Matches(key, count))
 						{
 							methodSetup = s_methodSetup;
 							break;
 						}
 					}
 				}
-				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>>(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method") is { } fallback_methodSetup)
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int>>(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> s_methodSetup in fallback_methodSetup)
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup in fallback_methodSetup)
 					{
-						if (s_methodSetup.Matches(key, count, name))
+						if (s_methodSetup.Matches(key, count))
 						{
 							methodSetup = s_methodSetup;
 							break;
@@ -142,9 +144,9 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>>("global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method"))
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int>>("global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count"))
 				{
-					if (s_methodSetup.Matches(key, count, name))
+					if (s_methodSetup.Matches(key, count))
 					{
 						methodSetup = s_methodSetup;
 						break;
@@ -155,29 +157,99 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int, int, string?>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", key, count, name);
+				global::Mockolate.Internals.MethodRecords<int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", key, count);
 			}
 			try
 			{
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters wraps)
 				{
-					wrappedResult = wraps.Method(key, count, name);
+					wrappedResult = wraps.Count(key, count);
 					hasWrappedResult = true;
 				}
 			}
 			finally
 			{
-				methodSetup?.TriggerCallbacks(key, count, name);
+				methodSetup?.TriggerCallbacks(key, count);
 			}
 			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
 			{
-				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string?)' was invoked without prior setup.");
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)' was invoked without prior setup.");
 			}
 			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(key, count, name, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, key, count, name) });
+			return methodSetup?.TryGetReturnValue(key, count, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, key, count) });
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)" />
+		public int Name(int key, string? name = "x")
+		{
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name);
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, int, string?> s_methodSetup && s_methodSetup.Matches(key, name))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>>(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name") is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, string?> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches(key, name))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, string?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>>("global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name"))
+				{
+					if (s_methodSetup.Matches(key, name))
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			int wrappedResult = default!;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				global::Mockolate.Internals.MethodRecords<int, string?>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", key, name);
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters wraps)
+				{
+					wrappedResult = wraps.Name(key, name);
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks(key, name);
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string?)' was invoked without prior setup.");
+			}
+			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
+			{
+				return wrappedResult;
+			}
+			return methodSetup?.TryGetReturnValue(key, name, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, key, name) });
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.AllOptional(int)" />
@@ -456,7 +528,7 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Six(int, int, int, int, int, string)" />
-		public int Six(int a, int b, int c, int d, int e = 5, string? f = "f")
+		public int Six(int a, int b, int c, int d, int e, string? f = "f")
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, string?>? methodSetup = null;
 			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -525,182 +597,246 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(a, b, c, d, e, f, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, a, b, c, d, e, f) });
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)" />
+		public int SeveralOptional(int key, int count = 5, string? name = "x")
+		{
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional);
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> s_methodSetup && s_methodSetup.Matches(key, count, name))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>>(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional") is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches(key, count, name))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>>("global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional"))
+				{
+					if (s_methodSetup.Matches(key, count, name))
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			int wrappedResult = default!;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				global::Mockolate.Internals.MethodRecords<int, int, string?>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", key, count, name);
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters wraps)
+				{
+					wrappedResult = wraps.SeveralOptional(key, count, name);
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks(key, count, name);
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string?)' was invoked without prior setup.");
+			}
+			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
+			{
+				return wrappedResult;
+			}
+			return methodSetup?.TryGetReturnValue(key, count, name, out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, key, count, name) });
+		}
+
 		#endregion Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters
 
 		#region IMockSetupForIOptionalMethodParameters
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.Parameters.IParameters? parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::Mockolate.Parameters.IParameters? parameters)
 		{
 			if (parameters is null)
 			{
-				return ((global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters)this).Method(default(int), (int)(5), (string?)("x"));
+				return ((global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters)this).Count(default(int), (int)(5));
 			}
 
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", parameters, "key", "count", "name");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", parameters, "key", "count");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
-			if (keyArg.IsLiteral && countArg.IsLiteral && nameArg.IsLiteral)
-			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
-			}
-			else
-			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
-			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
-		{
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string countExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string keyExpression, string countExpression)
-		{
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string countExpression, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string keyExpression, string countExpression, string nameExpression)
-		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
 			if (keyArg.IsLiteral && countArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.Literal!, countArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), countArg.ToParameterMatch());
 			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
 		{
 			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
 		{
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
 			if (keyArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.Literal!, countArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), countArg.ToParameterMatch());
 			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, string keyExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, string keyExpression)
 		{
 			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::Mockolate.Parameters.IParameters? parameters)
+		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters)this).Name(default(int), (string?)("x"));
+			}
+
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", parameters, "key", "name");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string?>? name)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, string?> methodSetup;
+			if (keyArg.IsLiteral && nameArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key, global::System.Func<string?, bool> name, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, string?> methodSetup;
+			if (keyArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
 		}
 
 		/// <inheritdoc />
@@ -1012,17 +1148,177 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Six(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.Parameters.IParameters? parameters)
 		{
-			global::Mockolate.ParameterArg<int> aArg = a ?? default;
-			global::Mockolate.ParameterArg<int> bArg = b ?? default;
-			global::Mockolate.ParameterArg<int> cArg = c ?? default;
-			global::Mockolate.ParameterArg<int> dArg = d ?? default;
-			global::Mockolate.ParameterArg<int> eArg = new global::Mockolate.ParameterArg<int>((int)(5));
-			global::Mockolate.ParameterArg<string?> fArg = new global::Mockolate.ParameterArg<string?>((string?)("f"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Six", aArg.ToParameterMatch(), bArg.ToParameterMatch(), cArg.ToParameterMatch(), dArg.ToParameterMatch(), eArg.ToParameterMatch(), fArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Six, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int, string?>)methodSetup;
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters)this).SeveralOptional(default(int), (int)(5), (string?)("x"));
+			}
+
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", parameters, "key", "count", "name");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			if (keyArg.IsLiteral && countArg.IsLiteral && nameArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string countExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string keyExpression, string countExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string countExpression, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string keyExpression, string countExpression, string nameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			if (keyArg.IsLiteral && countArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			if (keyArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
 		}
 
 		#endregion IMockSetupForIOptionalMethodParameters
@@ -1030,134 +1326,125 @@ internal static partial class Mock
 		#region IMockVerifyForIOptionalMethodParameters
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.Parameters.IParameters? parameters)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Count(global::Mockolate.Parameters.IParameters? parameters)
 			=> parameters is null
-				? ((IMockVerifyForIOptionalMethodParameters)this).Method(default(int), (int)(5), (string?)("x"))
-				: this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, int, string?>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", __i => parameters switch
+				? ((IMockVerifyForIOptionalMethodParameters)this).Count(default(int), (int)(5))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", __i => parameters switch
 				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("key", __i.Parameter1), ("count", __i.Parameter2), ("name", __i.Parameter3)]),
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("key", __i.Parameter1), ("count", __i.Parameter2)]),
 					_ => true
-				}, () => $"Method({parameters})");
+				}, () => $"Count({parameters})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			if (keyArg.IsLiteral && countArg.IsLiteral && nameArg.IsLiteral)
-			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"Method({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
-			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
-		{
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string countExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyArg, countExpression, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string keyExpression, string countExpression)
-		{
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyExpression, countExpression, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, countArg, nameExpression), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, countArg, nameExpression), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string countExpression, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, countExpression, nameExpression), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string keyExpression, string countExpression, string nameExpression)
-		{
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, countExpression, nameExpression), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
 			if (keyArg.IsLiteral && countArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"Method({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.Literal!, countArg.Literal!, static (key, count) => $"Count({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (keyArg, countArg), static state => $"Count({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
 		{
 			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (string, global::Mockolate.ParameterArg<int>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (keyExpression, countArg), static state => $"Count({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyArg, countExpression, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (keyArg, countExpression), static state => $"Count({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
 		{
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyExpression, countExpression, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (keyExpression, countExpression), static state => $"Count({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			if (keyArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.Literal!, countArg.Literal!, static (key, count) => $"Count({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (keyArg, countArg), static state => $"Count({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (string, global::Mockolate.ParameterArg<int>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (keyExpression, countArg), static state => $"Count({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Name(global::Mockolate.Parameters.IParameters? parameters)
+			=> parameters is null
+				? ((IMockVerifyForIOptionalMethodParameters)this).Name(default(int), (string?)("x"))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, string?>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("key", __i.Parameter1), ("name", __i.Parameter2)]),
+					_ => true
+				}, () => $"Name({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string?>? name)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			if (keyArg.IsLiteral && nameArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.Literal!, nameArg.Literal!, static (key, name) => $"Name({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, nameArg), static state => $"Name({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), nameArg.ToParameterMatch(), (keyExpression, nameArg), static state => $"Name({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key, global::System.Func<string?, bool> name, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, nameExpression), static state => $"Name({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
+		{
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, nameExpression), static state => $"Name({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
 			if (keyArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"Method({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.Literal!, nameArg.Literal!, static (key, name) => $"Name({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, nameArg), static state => $"Name({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, string keyExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, string keyExpression)
 		{
-			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
 			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), nameArg.ToParameterMatch(), (keyExpression, nameArg), static state => $"Name({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
@@ -1418,27 +1705,134 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Six(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.Parameters.IParameters? parameters)
+			=> parameters is null
+				? ((IMockVerifyForIOptionalMethodParameters)this).SeveralOptional(default(int), (int)(5), (string?)("x"))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, int, string?>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("key", __i.Parameter1), ("count", __i.Parameter2), ("name", __i.Parameter3)]),
+					_ => true
+				}, () => $"SeveralOptional({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name)
 		{
-			global::Mockolate.ParameterArg<int> aArg = a ?? default;
-			global::Mockolate.ParameterArg<int> bArg = b ?? default;
-			global::Mockolate.ParameterArg<int> cArg = c ?? default;
-			global::Mockolate.ParameterArg<int> dArg = d ?? default;
-			global::Mockolate.ParameterArg<int> eArg = new global::Mockolate.ParameterArg<int>((int)(5));
-			global::Mockolate.ParameterArg<string?> fArg = new global::Mockolate.ParameterArg<string?>((string?)("f"));
-			global::Mockolate.Parameters.IParameterMatch<int> aMatch = aArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<int> bMatch = bArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<int> cMatch = cArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<int> dMatch = dArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<int> eMatch = eArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<string?> fMatch = fArg.ToParameterMatch();
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, string?>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Six, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Six", __i => 
-				(aMatch.Matches(__i.Parameter1)) && 
-				(bMatch.Matches(__i.Parameter2)) && 
-				(cMatch.Matches(__i.Parameter3)) && 
-				(dMatch.Matches(__i.Parameter4)) && 
-				(eMatch.Matches(__i.Parameter5)) && 
-				(fMatch.Matches(__i.Parameter6)), () => $"Six({aArg}, {bArg}, {cArg}, {dArg}, {eArg}, {fArg})");
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			if (keyArg.IsLiteral && countArg.IsLiteral && nameArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"SeveralOptional({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string countExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyArg, countExpression, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string keyExpression, string countExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyExpression, countExpression, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, countArg, nameExpression), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, countArg, nameExpression), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string countExpression, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, countExpression, nameExpression), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string keyExpression, string countExpression, string nameExpression)
+		{
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, countExpression, nameExpression), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			if (keyArg.IsLiteral && countArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"SeveralOptional({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyArg, countExpression, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyExpression, countExpression, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			if (keyArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"SeveralOptional({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
 		}
 
 		#endregion IMockVerifyForIOptionalMethodParameters
@@ -1452,134 +1846,125 @@ internal static partial class Mock
 		#region IMockVerifyForIOptionalMethodParameters
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.Parameters.IParameters? parameters)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Count(global::Mockolate.Parameters.IParameters? parameters)
 			=> parameters is null
-				? ((IMockVerifyForIOptionalMethodParameters)this).Method(default(int), (int)(5), (string?)("x"))
-				: this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, int, string?>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", __i => parameters switch
+				? ((IMockVerifyForIOptionalMethodParameters)this).Count(default(int), (int)(5))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, int>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", __i => parameters switch
 				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("key", __i.Parameter1), ("count", __i.Parameter2), ("name", __i.Parameter3)]),
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("key", __i.Parameter1), ("count", __i.Parameter2)]),
 					_ => true
-				}, () => $"Method({parameters})");
+				}, () => $"Count({parameters})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			if (keyArg.IsLiteral && countArg.IsLiteral && nameArg.IsLiteral)
-			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"Method({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
-			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
-		{
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string countExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyArg, countExpression, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string keyExpression, string countExpression)
-		{
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyExpression, countExpression, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, countArg, nameExpression), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, countArg, nameExpression), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string countExpression, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, countExpression, nameExpression), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string keyExpression, string countExpression, string nameExpression)
-		{
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, countExpression, nameExpression), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
 			if (keyArg.IsLiteral && countArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"Method({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.Literal!, countArg.Literal!, static (key, count) => $"Count({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (keyArg, countArg), static state => $"Count({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
 		{
 			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (string, global::Mockolate.ParameterArg<int>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (keyExpression, countArg), static state => $"Count({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyArg, countExpression, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (keyArg, countExpression), static state => $"Count({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
 		{
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyExpression, countExpression, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (keyExpression, countExpression), static state => $"Count({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			if (keyArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.Literal!, countArg.Literal!, static (key, count) => $"Count({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (keyArg, countArg), static state => $"Count({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, (string, global::Mockolate.ParameterArg<int>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (keyExpression, countArg), static state => $"Count({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.Name(global::Mockolate.Parameters.IParameters? parameters)
+			=> parameters is null
+				? ((IMockVerifyForIOptionalMethodParameters)this).Name(default(int), (string?)("x"))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, string?>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("key", __i.Parameter1), ("name", __i.Parameter2)]),
+					_ => true
+				}, () => $"Name({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string?>? name)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			if (keyArg.IsLiteral && nameArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.Literal!, nameArg.Literal!, static (key, name) => $"Name({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, nameArg), static state => $"Name({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), nameArg.ToParameterMatch(), (keyExpression, nameArg), static state => $"Name({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key, global::System.Func<string?, bool> name, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, nameExpression), static state => $"Name({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
+		{
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, nameExpression), static state => $"Name({state.Item1}, {state.Item2})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
 			if (keyArg.IsLiteral)
 			{
-				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"Method({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.Literal!, nameArg.Literal!, static (key, name) => $"Name({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
 			}
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, nameArg), static state => $"Name({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, string keyExpression)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, string keyExpression)
 		{
-			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
 			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"Method({state.Item1}, {state.Item2}, {state.Item3})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, string?, (string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), nameArg.ToParameterMatch(), (keyExpression, nameArg), static state => $"Name({state.Item1}, {state.Item2})");
 		}
 
 		/// <inheritdoc />
@@ -1840,27 +2225,134 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.Six(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.Parameters.IParameters? parameters)
+			=> parameters is null
+				? ((IMockVerifyForIOptionalMethodParameters)this).SeveralOptional(default(int), (int)(5), (string?)("x"))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, int, string?>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1, __i.Parameter2, __i.Parameter3]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("key", __i.Parameter1), ("count", __i.Parameter2), ("name", __i.Parameter3)]),
+					_ => true
+				}, () => $"SeveralOptional({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name)
 		{
-			global::Mockolate.ParameterArg<int> aArg = a ?? default;
-			global::Mockolate.ParameterArg<int> bArg = b ?? default;
-			global::Mockolate.ParameterArg<int> cArg = c ?? default;
-			global::Mockolate.ParameterArg<int> dArg = d ?? default;
-			global::Mockolate.ParameterArg<int> eArg = new global::Mockolate.ParameterArg<int>((int)(5));
-			global::Mockolate.ParameterArg<string?> fArg = new global::Mockolate.ParameterArg<string?>((string?)("f"));
-			global::Mockolate.Parameters.IParameterMatch<int> aMatch = aArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<int> bMatch = bArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<int> cMatch = cArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<int> dMatch = dArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<int> eMatch = eArg.ToParameterMatch();
-			global::Mockolate.Parameters.IParameterMatch<string?> fMatch = fArg.ToParameterMatch();
-			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int, string?>>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Six, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Six", __i => 
-				(aMatch.Matches(__i.Parameter1)) && 
-				(bMatch.Matches(__i.Parameter2)) && 
-				(cMatch.Matches(__i.Parameter3)) && 
-				(dMatch.Matches(__i.Parameter4)) && 
-				(eMatch.Matches(__i.Parameter5)) && 
-				(fMatch.Matches(__i.Parameter6)), () => $"Six({aArg}, {bArg}, {cArg}, {dArg}, {eArg}, {fArg})");
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			if (keyArg.IsLiteral && countArg.IsLiteral && nameArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"SeveralOptional({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string countExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyArg, countExpression, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string keyExpression, string countExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyExpression, countExpression, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, countArg, nameExpression), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, countArg, nameExpression), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string countExpression, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyArg, countExpression, nameExpression), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string keyExpression, string countExpression, string nameExpression)
+		{
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, string)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression), (keyExpression, countExpression, nameExpression), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			if (keyArg.IsLiteral && countArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"SeveralOptional({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyArg, countExpression, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, string, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch(), (keyExpression, countExpression, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			if (keyArg.IsLiteral)
+			{
+				return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!, static (key, count, name) => $"SeveralOptional({(new global::Mockolate.ParameterArg<int>(key))}, {(new global::Mockolate.ParameterArg<int>(count))}, {(new global::Mockolate.ParameterArg<string?>(name))})");
+			}
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyArg, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters IMockVerifyForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIOptionalMethodParameters, int, int, string?, (string, global::Mockolate.ParameterArg<int>, global::Mockolate.ParameterArg<string?>)>(this, global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch(), (keyExpression, countArg, nameArg), static state => $"SeveralOptional({state.Item1}, {state.Item2}, {state.Item3})");
 		}
 
 		#endregion IMockVerifyForIOptionalMethodParameters
@@ -1885,177 +2377,171 @@ internal static partial class Mock
 		#region IMockSetupForIOptionalMethodParameters
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.Parameters.IParameters? parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::Mockolate.Parameters.IParameters? parameters)
 		{
 			if (parameters is null)
 			{
-				return ((global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters)this).Method(default(int), (int)(5), (string?)("x"));
+				return ((global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters)this).Count(default(int), (int)(5));
 			}
 
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", parameters, "key", "count", "name");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", parameters, "key", "count");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
-			if (keyArg.IsLiteral && countArg.IsLiteral && nameArg.IsLiteral)
-			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
-			}
-			else
-			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
-			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
-		{
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string countExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string keyExpression, string countExpression)
-		{
-			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string countExpression, string nameExpression)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string keyExpression, string countExpression, string nameExpression)
-		{
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
-		{
-			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
 			if (keyArg.IsLiteral && countArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.Literal!, countArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), countArg.ToParameterMatch());
 			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
 		{
 			global::Mockolate.ParameterArg<int> countArg = count ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
 		{
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::Mockolate.ParameterArg<int>? key)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::Mockolate.ParameterArg<int>? key)
 		{
 			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
-			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int> methodSetup;
 			if (keyArg.IsLiteral)
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.Literal!, countArg.Literal!);
 			}
 			else
 			{
-				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", keyArg.ToParameterMatch(), countArg.ToParameterMatch());
 			}
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Method(global::System.Func<int, bool> key, string keyExpression)
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Count(global::System.Func<int, bool> key, string keyExpression)
 		{
 			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Count, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::Mockolate.Parameters.IParameters? parameters)
+		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters)this).Name(default(int), (string?)("x"));
+			}
+
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", parameters, "key", "name");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string?>? name)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, string?> methodSetup;
+			if (keyArg.IsLiteral && nameArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key, global::System.Func<string?, bool> name, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::Mockolate.ParameterArg<int>? key)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
 			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Method, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, string?> methodSetup;
+			if (keyArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", keyArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Name(global::System.Func<int, bool> key, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Name, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?>)methodSetup;
 		}
 
 		/// <inheritdoc />
@@ -2367,17 +2853,177 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.Six(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.Parameters.IParameters? parameters)
 		{
-			global::Mockolate.ParameterArg<int> aArg = a ?? default;
-			global::Mockolate.ParameterArg<int> bArg = b ?? default;
-			global::Mockolate.ParameterArg<int> cArg = c ?? default;
-			global::Mockolate.ParameterArg<int> dArg = d ?? default;
-			global::Mockolate.ParameterArg<int> eArg = new global::Mockolate.ParameterArg<int>((int)(5));
-			global::Mockolate.ParameterArg<string?> fArg = new global::Mockolate.ParameterArg<string?>((string?)("f"));
-			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Six", aArg.ToParameterMatch(), bArg.ToParameterMatch(), cArg.ToParameterMatch(), dArg.ToParameterMatch(), eArg.ToParameterMatch(), fArg.ToParameterMatch());
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_Six, this._scenarioName, methodSetup);
-			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int, string?>)methodSetup;
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters)this).SeveralOptional(default(int), (int)(5), (string?)("x"));
+			}
+
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", parameters, "key", "count", "name");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			if (keyArg.IsLiteral && countArg.IsLiteral && nameArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string countExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, string keyExpression, string countExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = name ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, string keyExpression, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string countExpression, string nameExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, string keyExpression, string countExpression, string nameExpression)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), (global::Mockolate.Parameters.IParameterMatch<string?>)global::Mockolate.It.Satisfies<string?>(name, nameExpression));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			if (keyArg.IsLiteral && countArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = count ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, string countExpression)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, string keyExpression, string countExpression)
+		{
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(count, countExpression), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::Mockolate.ParameterArg<int>? key)
+		{
+			global::Mockolate.ParameterArg<int> keyArg = key ?? default;
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?> methodSetup;
+			if (keyArg.IsLiteral)
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.Literal!, countArg.Literal!, nameArg.Literal!);
+			}
+			else
+			{
+				methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", keyArg.ToParameterMatch(), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			}
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> global::Mockolate.Mock.IMockSetupForIOptionalMethodParameters.SeveralOptional(global::System.Func<int, bool> key, string keyExpression)
+		{
+			global::Mockolate.ParameterArg<int> countArg = new global::Mockolate.ParameterArg<int>((int)(5));
+			global::Mockolate.ParameterArg<string?> nameArg = new global::Mockolate.ParameterArg<string?>((string?)("x"));
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<int, int, int, string?>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional", (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Satisfies<int>(key, keyExpression), countArg.ToParameterMatch(), nameArg.ToParameterMatch());
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IOptionalMethodParameters.MemberId_SeveralOptional, this._scenarioName, methodSetup);
+			return (global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?>)methodSetup;
 		}
 
 		#endregion IMockSetupForIOptionalMethodParameters
@@ -2504,139 +3150,130 @@ internal static partial class Mock
 	internal interface IMockSetupForIOptionalMethodParameters : global::Mockolate.Setup.IMockSetup<global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters>
 	{
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="parameters" />.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, string?> Method(global::Mockolate.Parameters.IParameters? parameters);
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int> Count(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name);
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Count(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" />, <paramref name="name" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="name" /> and a predicate for <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" /> and a predicate for <paramref name="key" />, <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Count(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="count" /> and a predicate for <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Count(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Count(global::System.Func<int, bool> key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />. It uses the declared default value for <c>count</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count);
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Count(global::Mockolate.ParameterArg<int>? key);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts a predicate for <paramref name="key" />. It uses the declared default value for <c>count</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int> Count(global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, string?> Name(global::Mockolate.Parameters.IParameters? parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> Name(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string?>? name);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> Name(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> Name(global::Mockolate.ParameterArg<int>? key, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> Name(global::System.Func<int, bool> key, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> Name(global::Mockolate.ParameterArg<int>? key);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-4)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />. It uses the declared default value for <c>count</c>, <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-7)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::Mockolate.ParameterArg<int>? key);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="key" />. It uses the declared default value for <c>count</c>, <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-8)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> Method(global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, string?> Name(global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.AllOptional(int)">AllOptional(int)</see> with the given <paramref name="parameters" />.
@@ -2891,13 +3528,139 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int, string?> Six(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d, global::Mockolate.ParameterArg<int>? e);
 
 		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Six(int, int, int, int, int, string)">Six(int, int, int, int, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="parameters" />.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" />, <paramref name="b" />, <paramref name="c" />, <paramref name="d" />. It uses the declared default value for <c>e</c>, <c>f</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-10)]
-		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, int, int, int, string?> Six(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d);
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<int, int, int, string?> SeveralOptional(global::Mockolate.Parameters.IParameters? parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" />, <paramref name="name" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="name" /> and a predicate for <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" /> and a predicate for <paramref name="key" />, <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="count" /> and a predicate for <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-4)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />. It uses the declared default value for <c>count</c>, <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-7)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::Mockolate.ParameterArg<int>? key);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />. It uses the declared default value for <c>count</c>, <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-8)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<int, int, int, string?> SeveralOptional(global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 	}
 
@@ -2907,139 +3670,130 @@ internal static partial class Mock
 	internal interface IMockVerifyForIOptionalMethodParameters : global::Mockolate.Verify.IMockVerify<global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters>
 	{
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="parameters"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> Method(global::Mockolate.Parameters.IParameters? parameters);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> Count(global::Mockolate.Parameters.IParameters? parameters);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
 		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Count(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" />, <paramref name="name" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="name" /> and a predicate for <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" /> and a predicate for <paramref name="key" />, <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Count(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="count" /> and a predicate for <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Count(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Count(global::System.Func<int, bool> key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />. It uses the declared default value for <c>count</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Count(global::Mockolate.ParameterArg<int>? key);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Count(int, int)">Count(int, int)</see> with the given <paramref name="key"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload accepts a predicate for <paramref name="key" />. It uses the declared default value for <c>count</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Count(global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> Name(global::Mockolate.Parameters.IParameters? parameters);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Name(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<string?>? name);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Name(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Name(global::Mockolate.ParameterArg<int>? key, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Name(global::System.Func<int, bool> key, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Name(global::Mockolate.ParameterArg<int>? key);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Name(int, string)">Name(int, string)</see> with the given <paramref name="key"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-4)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::System.Func<int, bool> key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />. It uses the declared default value for <c>count</c>, <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-7)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::Mockolate.ParameterArg<int>? key);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Method(int, int, string)">Method(int, int, string)</see> with the given <paramref name="key"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts a predicate for <paramref name="key" />. It uses the declared default value for <c>count</c>, <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-8)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Method(global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Name(global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.AllOptional(int)">AllOptional(int)</see> with the given <paramref name="parameters"/>.
@@ -3294,13 +4048,139 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Six(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d, global::Mockolate.ParameterArg<int>? e);
 
 		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.Six(int, int, int, int, int, string)">Six(int, int, int, int, int, string)</see> with the given <paramref name="a"/>, <paramref name="b"/>, <paramref name="c"/>, <paramref name="d"/>.
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="parameters"/>.
 		/// </summary>
 		/// <remarks>
-		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="a" />, <paramref name="b" />, <paramref name="c" />, <paramref name="d" />. It uses the declared default value for <c>e</c>, <c>f</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-10)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters Six(global::Mockolate.ParameterArg<int>? a, global::Mockolate.ParameterArg<int>? b, global::Mockolate.ParameterArg<int>? c, global::Mockolate.ParameterArg<int>? d);
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters> SeveralOptional(global::Mockolate.Parameters.IParameters? parameters);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for every parameter. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" />, <paramref name="name" /> and a predicate for <paramref name="key" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="name" /> and a predicate for <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="name" /> and a predicate for <paramref name="key" />, <paramref name="count" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::Mockolate.ParameterArg<string?>? name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="count" /> and a predicate for <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>, <paramref name="name"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />, <paramref name="name" />. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, global::System.Func<string?, bool> name, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("name")] string nameExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />, <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::Mockolate.ParameterArg<int>? count);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="count" /> and a predicate for <paramref name="key" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::System.Func<int, bool> key, global::Mockolate.ParameterArg<int>? count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" /> and a predicate for <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-3)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::Mockolate.ParameterArg<int>? key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>, <paramref name="count"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />, <paramref name="count" />. It uses the declared default value for <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-4)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::System.Func<int, bool> key, global::System.Func<int, bool> count, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "", [global::System.Runtime.CompilerServices.CallerArgumentExpression("count")] string countExpression = "");
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts an <see cref="global::Mockolate.It">It</see> matcher or a direct value for <paramref name="key" />. It uses the declared default value for <c>count</c>, <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-7)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::Mockolate.ParameterArg<int>? key);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IOptionalMethodParameters.SeveralOptional(int, int, string)">SeveralOptional(int, int, string)</see> with the given <paramref name="key"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a predicate for <paramref name="key" />. It uses the declared default value for <c>count</c>, <c>name</c>. A <see langword="null" /> or <see langword="default" /> argument stands for the default value of the parameter type.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-8)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIOptionalMethodParameters>.IgnoreParameters SeveralOptional(global::System.Func<int, bool> key, [global::System.Runtime.CompilerServices.CallerArgumentExpression("key")] string keyExpression = "");
 
 	}
 }

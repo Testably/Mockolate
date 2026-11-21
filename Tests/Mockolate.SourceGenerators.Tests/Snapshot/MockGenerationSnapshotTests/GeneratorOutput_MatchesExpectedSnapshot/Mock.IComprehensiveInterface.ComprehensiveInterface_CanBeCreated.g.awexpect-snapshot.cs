@@ -2869,7 +2869,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", global::Mockolate.CovariantParameterAdapter<int>.Wrap(i ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Wrap(e ?? global::Mockolate.Internals.Matchers.IsNull<global::Mockolate.Tests.GeneratorCoverage.MyEnum>()), global::Mockolate.CovariantParameterAdapter<decimal>.Wrap(d ?? global::Mockolate.Internals.Matchers.IsNull<decimal>()), global::Mockolate.CovariantParameterAdapter<float>.Wrap(f ?? global::Mockolate.Internals.Matchers.IsNull<float>()), global::Mockolate.CovariantParameterAdapter<char>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<char>()), global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s ?? global::Mockolate.Internals.Matchers.IsNull<string?>()), global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st ?? global::Mockolate.Internals.Matchers.IsNull<global::Mockolate.Tests.GeneratorCoverage.MyStruct>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", global::Mockolate.CovariantParameterAdapter<int>.Wrap(i ?? global::Mockolate.It.Is<int>(5)), global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Wrap(e ?? global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), global::Mockolate.CovariantParameterAdapter<decimal>.Wrap(d ?? global::Mockolate.It.Is<decimal>(1.5m)), global::Mockolate.CovariantParameterAdapter<float>.Wrap(f ?? global::Mockolate.It.Is<float>(0.25f)), global::Mockolate.CovariantParameterAdapter<char>.Wrap(c ?? global::Mockolate.It.Is<char>('x')), global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s ?? global::Mockolate.It.Is<string?>(null)), global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st ?? global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.MyStruct>(default)));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return methodSetup;
 		}
@@ -2881,58 +2881,6 @@ internal static partial class Mock
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, methodSetup);
 			return methodSetup;
 		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, s, new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, s, (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, (decimal)(1.5m), (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, (global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1), (decimal)(1.5m), (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults()
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(new global::Mockolate.Internals.LiteralParameterMatch<int>((int)(5)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithCollidingNames(global::Mockolate.Parameters.IParameters parameters)
@@ -3664,14 +3612,23 @@ internal static partial class Mock
 				}, () => $"WithDefaults({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", __i => 
-				(i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(e is not null ? global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Wrap(e).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Default.Equals(__i.Parameter2, default(global::Mockolate.Tests.GeneratorCoverage.MyEnum))) && 
-				(d is not null ? global::Mockolate.CovariantParameterAdapter<decimal>.Wrap(d).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<decimal>.Default.Equals(__i.Parameter3, default(decimal))) && 
-				(f is not null ? global::Mockolate.CovariantParameterAdapter<float>.Wrap(f).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<float>.Default.Equals(__i.Parameter4, default(float))) && 
-				(c is not null ? global::Mockolate.CovariantParameterAdapter<char>.Wrap(c).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<char>.Default.Equals(__i.Parameter5, default(char))) && 
-				(s is not null ? global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s).Matches(__i.Parameter6) : global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(__i.Parameter6, default(string?))) && 
-				(st is not null ? global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st).Matches(__i.Parameter7) : global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Default.Equals(__i.Parameter7, default(global::Mockolate.Tests.GeneratorCoverage.MyStruct))), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
+		{
+			i ??= new global::Mockolate.Internals.LiteralParameterMatch<int>(5);
+			e ??= new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1);
+			d ??= new global::Mockolate.Internals.LiteralParameterMatch<decimal>(1.5m);
+			f ??= new global::Mockolate.Internals.LiteralParameterMatch<float>(0.25f);
+			c ??= new global::Mockolate.Internals.LiteralParameterMatch<char>('x');
+			s ??= new global::Mockolate.Internals.LiteralParameterMatch<string?>(null);
+			st ??= new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>(default);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", __i => 
+				(global::Mockolate.CovariantParameterAdapter<int>.Wrap(i).Matches(__i.Parameter1)) && 
+				(global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Wrap(e).Matches(__i.Parameter2)) && 
+				(global::Mockolate.CovariantParameterAdapter<decimal>.Wrap(d).Matches(__i.Parameter3)) && 
+				(global::Mockolate.CovariantParameterAdapter<float>.Wrap(f).Matches(__i.Parameter4)) && 
+				(global::Mockolate.CovariantParameterAdapter<char>.Wrap(c).Matches(__i.Parameter5)) && 
+				(global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s).Matches(__i.Parameter6)) && 
+				(global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st).Matches(__i.Parameter7)), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s, global::Mockolate.Tests.GeneratorCoverage.MyStruct st)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", __i => 
@@ -3682,45 +3639,6 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<char>.Default.Equals(c, __i.Parameter5)) && 
 				(global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(s, __i.Parameter6)) && 
 				(global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Default.Equals(st, __i.Parameter7)), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, s, new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, s, (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, (decimal)(1.5m), (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, (global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1), (decimal)(1.5m), (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults()
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(new global::Mockolate.Internals.LiteralParameterMatch<int>((int)(5)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithCollidingNames(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", __i => parameters switch
@@ -4344,14 +4262,23 @@ internal static partial class Mock
 				}, () => $"WithDefaults({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", __i => 
-				(i is not null ? global::Mockolate.CovariantParameterAdapter<int>.Wrap(i).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(__i.Parameter1, default(int))) && 
-				(e is not null ? global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Wrap(e).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Default.Equals(__i.Parameter2, default(global::Mockolate.Tests.GeneratorCoverage.MyEnum))) && 
-				(d is not null ? global::Mockolate.CovariantParameterAdapter<decimal>.Wrap(d).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<decimal>.Default.Equals(__i.Parameter3, default(decimal))) && 
-				(f is not null ? global::Mockolate.CovariantParameterAdapter<float>.Wrap(f).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<float>.Default.Equals(__i.Parameter4, default(float))) && 
-				(c is not null ? global::Mockolate.CovariantParameterAdapter<char>.Wrap(c).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<char>.Default.Equals(__i.Parameter5, default(char))) && 
-				(s is not null ? global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s).Matches(__i.Parameter6) : global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(__i.Parameter6, default(string?))) && 
-				(st is not null ? global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st).Matches(__i.Parameter7) : global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Default.Equals(__i.Parameter7, default(global::Mockolate.Tests.GeneratorCoverage.MyStruct))), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
+		{
+			i ??= new global::Mockolate.Internals.LiteralParameterMatch<int>(5);
+			e ??= new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1);
+			d ??= new global::Mockolate.Internals.LiteralParameterMatch<decimal>(1.5m);
+			f ??= new global::Mockolate.Internals.LiteralParameterMatch<float>(0.25f);
+			c ??= new global::Mockolate.Internals.LiteralParameterMatch<char>('x');
+			s ??= new global::Mockolate.Internals.LiteralParameterMatch<string?>(null);
+			st ??= new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>(default);
+			return this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", __i => 
+				(global::Mockolate.CovariantParameterAdapter<int>.Wrap(i).Matches(__i.Parameter1)) && 
+				(global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Wrap(e).Matches(__i.Parameter2)) && 
+				(global::Mockolate.CovariantParameterAdapter<decimal>.Wrap(d).Matches(__i.Parameter3)) && 
+				(global::Mockolate.CovariantParameterAdapter<float>.Wrap(f).Matches(__i.Parameter4)) && 
+				(global::Mockolate.CovariantParameterAdapter<char>.Wrap(c).Matches(__i.Parameter5)) && 
+				(global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s).Matches(__i.Parameter6)) && 
+				(global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st).Matches(__i.Parameter7)), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
+		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s, global::Mockolate.Tests.GeneratorCoverage.MyStruct st)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", __i => 
@@ -4362,45 +4289,6 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<char>.Default.Equals(c, __i.Parameter5)) && 
 				(global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(s, __i.Parameter6)) && 
 				(global::System.Collections.Generic.EqualityComparer<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Default.Equals(st, __i.Parameter7)), () => $"WithDefaults({(object?)i ?? "null"}, {(object?)e ?? "null"}, {(object?)d ?? "null"}, {(object?)f ?? "null"}, {(object?)c ?? "null"}, {(object?)s ?? "null"}, {(object?)st ?? "null"})");
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, s, new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, s, (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, f, (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, d, (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, e, (decimal)(1.5m), (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters IMockVerifyForIComprehensiveInterface.WithDefaults(int i)
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(i, (global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1), (decimal)(1.5m), (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithDefaults()
-			=> ((IMockVerifyForIComprehensiveInterface)this).WithDefaults(new global::Mockolate.Internals.LiteralParameterMatch<int>((int)(5)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockVerifyForIComprehensiveInterface.WithCollidingNames(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIComprehensiveInterface, global::Mockolate.Interactions.MethodInvocation<int, int, int, int, int>>(this, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", __i => parameters switch
@@ -5065,7 +4953,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", global::Mockolate.CovariantParameterAdapter<int>.Wrap(i ?? global::Mockolate.Internals.Matchers.IsNull<int>()), global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Wrap(e ?? global::Mockolate.Internals.Matchers.IsNull<global::Mockolate.Tests.GeneratorCoverage.MyEnum>()), global::Mockolate.CovariantParameterAdapter<decimal>.Wrap(d ?? global::Mockolate.Internals.Matchers.IsNull<decimal>()), global::Mockolate.CovariantParameterAdapter<float>.Wrap(f ?? global::Mockolate.Internals.Matchers.IsNull<float>()), global::Mockolate.CovariantParameterAdapter<char>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<char>()), global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s ?? global::Mockolate.Internals.Matchers.IsNull<string?>()), global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st ?? global::Mockolate.Internals.Matchers.IsNull<global::Mockolate.Tests.GeneratorCoverage.MyStruct>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", global::Mockolate.CovariantParameterAdapter<int>.Wrap(i ?? global::Mockolate.It.Is<int>(5)), global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>.Wrap(e ?? global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), global::Mockolate.CovariantParameterAdapter<decimal>.Wrap(d ?? global::Mockolate.It.Is<decimal>(1.5m)), global::Mockolate.CovariantParameterAdapter<float>.Wrap(f ?? global::Mockolate.It.Is<float>(0.25f)), global::Mockolate.CovariantParameterAdapter<char>.Wrap(c ?? global::Mockolate.It.Is<char>('x')), global::Mockolate.CovariantParameterAdapter<string?>.Wrap(s ?? global::Mockolate.It.Is<string?>(null)), global::Mockolate.CovariantParameterAdapter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Wrap(st ?? global::Mockolate.It.Is<global::Mockolate.Tests.GeneratorCoverage.MyStruct>(default)));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -5077,58 +4965,6 @@ internal static partial class Mock
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, s, new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, s, (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, c, (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, f, (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, d, (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, e, (decimal)(1.5m), (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(global::Mockolate.Parameters.IParameter<int>? i)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults(int i)
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(i, (global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1), (decimal)(1.5m), (float)(0.25f), (char)('x'), (string?)(null), (global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default));
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithDefaults()
-			=> ((global::Mockolate.Mock.IMockSetupForIComprehensiveInterface)this).WithDefaults(new global::Mockolate.Internals.LiteralParameterMatch<int>((int)(5)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyEnum>((global::Mockolate.Tests.GeneratorCoverage.MyEnum)((global::Mockolate.Tests.GeneratorCoverage.MyEnum)1)), new global::Mockolate.Internals.LiteralParameterMatch<decimal>((decimal)(1.5m)), new global::Mockolate.Internals.LiteralParameterMatch<float>((float)(0.25f)), new global::Mockolate.Internals.LiteralParameterMatch<char>((char)('x')), new global::Mockolate.Internals.LiteralParameterMatch<string?>((string?)(null)), new global::Mockolate.Internals.LiteralParameterMatch<global::Mockolate.Tests.GeneratorCoverage.MyStruct>((global::Mockolate.Tests.GeneratorCoverage.MyStruct)(default)));
 
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, int, int, int, int> global::Mockolate.Mock.IMockSetupForIComprehensiveInterface.WithCollidingNames(global::Mockolate.Parameters.IParameters parameters)
@@ -5897,7 +5733,7 @@ internal static partial class Mock
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(7)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st);
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i = null, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e = null, global::Mockolate.Parameters.IParameter<decimal>? d = null, global::Mockolate.Parameters.IParameter<float>? f = null, global::Mockolate.Parameters.IParameter<char>? c = null, global::Mockolate.Parameters.IParameter<string?>? s = null, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st = null);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>, <paramref name="st"/>.
@@ -5907,123 +5743,6 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s, global::Mockolate.Tests.GeneratorCoverage.MyStruct st);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>. It uses the declared default value for <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-1)]
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-11)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>. It uses the declared default value for <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-10)]
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-20)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>. It uses the declared default value for <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-19)]
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-29)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>. It uses the declared default value for <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-28)]
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-38)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>. It uses the declared default value for <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-37)]
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-47)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>. It uses the declared default value for <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-46)]
-		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults(int i);
-
-		/// <summary>
-		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see>.
-		/// </summary>
-		/// <remarks>
-		///     It uses the declared default value for <c>i</c>, <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-56)]
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct> WithDefaults();
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames(int, int, int, int, int)">WithCollidingNames(int, int, int, int, int)</see> with the given <paramref name="parameters" />.
@@ -6690,7 +6409,7 @@ internal static partial class Mock
 		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(7)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st);
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i = null, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e = null, global::Mockolate.Parameters.IParameter<decimal>? d = null, global::Mockolate.Parameters.IParameter<float>? f = null, global::Mockolate.Parameters.IParameter<char>? c = null, global::Mockolate.Parameters.IParameter<string?>? s = null, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyStruct>? st = null);
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>, <paramref name="st"/>.
@@ -6700,123 +6419,6 @@ internal static partial class Mock
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s, global::Mockolate.Tests.GeneratorCoverage.MyStruct st);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-2)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c, global::Mockolate.Parameters.IParameter<string?>? s);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>, <paramref name="s"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely. It uses the declared default value for <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c, string? s);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-11)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f, global::Mockolate.Parameters.IParameter<char>? c);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>, <paramref name="c"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely. It uses the declared default value for <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-10)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f, char c);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-20)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d, global::Mockolate.Parameters.IParameter<float>? f);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>, <paramref name="f"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely. It uses the declared default value for <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-19)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d, float f);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-29)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e, global::Mockolate.Parameters.IParameter<decimal>? d);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>, <paramref name="d"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely. It uses the declared default value for <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-28)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e, decimal d);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-38)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i, global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.MyEnum>? e);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>, <paramref name="e"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely. It uses the declared default value for <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-37)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(int i, global::Mockolate.Tests.GeneratorCoverage.MyEnum e);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter. It uses the declared default value for <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-47)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults(global::Mockolate.Parameters.IParameter<int>? i);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see> with the given <paramref name="i"/>.
-		/// </summary>
-		/// <remarks>
-		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely. It uses the declared default value for <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-46)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface>.IgnoreParameters WithDefaults(int i);
-
-		/// <summary>
-		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults(int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string, global::Mockolate.Tests.GeneratorCoverage.MyStruct)">WithDefaults(int, MyEnum, decimal, float, char, string, MyStruct)</see>.
-		/// </summary>
-		/// <remarks>
-		///     It uses the declared default value for <c>i</c>, <c>e</c>, <c>d</c>, <c>f</c>, <c>c</c>, <c>s</c>, <c>st</c>.
-		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(-56)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> WithDefaults();
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames(int, int, int, int, int)">WithCollidingNames(int, int, int, int, int)</see> with the given <paramref name="parameters"/>.
