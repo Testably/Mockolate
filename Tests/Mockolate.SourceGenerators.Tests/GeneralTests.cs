@@ -94,6 +94,40 @@ public class GeneralTests
 	}
 
 	[Test]
+	public async Task Constructor_WithAlreadySuffixedBehaviorParameter_ShouldSuffixFromBaseName()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode
+			     {
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			var x = MyClass.CreateMock();
+			             }
+			         }
+
+			         public class MyClass
+			         {
+			             public MyClass(int behavior, int behavior_1)
+			             {
+			             }
+			         }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+
+		await That(result.Sources).ContainsKey("Mock.MyClass.g.cs")
+			.WhoseValue
+			.Contains("public MyClass(global::Mockolate.MockBehavior behavior_2, int behavior, int behavior_1)")
+			.Because("the suffix must be appended to the base name instead of the previous candidate");
+	}
+
+	[Test]
 	public async Task InterfaceProperty_ShouldNotRecursivelyCreateMocks()
 	{
 		GeneratorResult result = Generator
