@@ -25,11 +25,7 @@ internal static class StringExtensionMethods
 		this string @this,
 		string value,
 		StringComparison comparisonType)
-		=> comparisonType switch
-		{
-			StringComparison.OrdinalIgnoreCase => @this.ToLowerInvariant().Contains(value.ToLowerInvariant()),
-			_ => @this.Contains(value),
-		};
+		=> @this.IndexOf(value, comparisonType) >= 0;
 
 	/// <summary>
 	///     Determines whether the end of this string instance matches the specified character.
@@ -37,7 +33,7 @@ internal static class StringExtensionMethods
 	internal static bool EndsWith(
 		this string @this,
 		char value)
-		=> @this.EndsWith($"{value}");
+		=> @this.Length > 0 && @this[@this.Length - 1] == value;
 
 	/// <summary>
 	///     Splits a string into a maximum number of substrings based on the provided character <paramref name="separator" />,

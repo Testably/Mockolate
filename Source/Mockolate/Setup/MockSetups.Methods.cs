@@ -65,10 +65,10 @@ internal partial class MockSetups
 		///     Used by the generated code for methods with ref-struct parameters, where the usual
 		///     <c>GetMatching</c> predicate cannot capture the ref-struct value. Callers iterate this
 		///     sequence and evaluate <c>Matches</c> synchronously on the stack, then invoke the first
-		///     matching setup. The empty-storage path returns <see cref="Array.Empty{T}" /> instead of a
-		///     yielding state machine, so the dispatch hot path skips an iterator allocation per call when
-		///     no string-keyed setups have been registered (the common case after generator-emitted
-		///     <c>SetupMethod(int, ...)</c> bypasses this list).
+		///     matching setup. The empty-storage path returns <see cref="Array.Empty{T}" />, so the dispatch
+		///     hot path skips the snapshot allocation per call when no string-keyed setups have been
+		///     registered (the common case after generator-emitted <c>SetupMethod(int, ...)</c> bypasses
+		///     this list).
 		/// </remarks>
 		public IEnumerable<T> EnumerateByName<T>(string methodName, string? alternativeMethodName = null)
 			where T : MethodSetup
@@ -79,16 +79,8 @@ internal partial class MockSetups
 				return Array.Empty<T>();
 			}
 
-			return EnumerateByNameCore<T>(methodName, alternativeMethodName, storage);
-		}
-
-		private static IEnumerable<T> EnumerateByNameCore<T>(string methodName, string? alternativeMethodName,
-			List<MethodSetup> storage)
-			where T : MethodSetup
-		{
-			// Snapshot the matching entries under lock; yield them without holding the lock so the
-			// caller's Matches/Invoke can run user code (including throws) without risk of re-entering
-			// the storage lock on the same thread.
+			// Return a snapshot instead of iterating the storage so the caller's Matches/Invoke can run
+			// user code (including throws) without holding or re-entering the storage lock.
 			List<T> snapshot;
 			lock (storage)
 			{
@@ -102,10 +94,7 @@ internal partial class MockSetups
 				}
 			}
 
-			foreach (T item in snapshot)
-			{
-				yield return item;
-			}
+			return snapshot;
 		}
 
 		internal IEnumerable<MethodSetup> EnumerateUnusedSetupsBy(IMockInteractions interactions)

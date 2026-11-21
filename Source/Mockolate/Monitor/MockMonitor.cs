@@ -58,14 +58,7 @@ public abstract class MockMonitor
 
 	private void Stop()
 	{
-		if (_monitoringStart >= 0)
-		{
-			foreach (IInteraction interaction in _monitoredInteractions.Skip(_monitoringStart))
-			{
-				Interactions.RegisterInteraction(interaction);
-			}
-		}
-
+		UpdateInteractions();
 		_monitoredInteractions.OnClearing -= OnClearing;
 		_monitoringStart = -1;
 	}
