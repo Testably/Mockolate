@@ -17,7 +17,7 @@ public class MatcherAsValueAnalyzerTests
 		"pass the elements as separate arguments instead of an array, and matchers of the parameter types for the other arguments as well, for example It.Is(…)";
 
 	private const string ParametersHint =
-		"use a matcher for 'object', such as It.IsAny<object>(); Match.AnyParameters() only matches any parameters as the only argument of a method";
+		"use a matcher for 'object', such as It.IsAny<object>(); a parameters match only applies as the only argument of a method";
 
 	private const string NoMatcherOverloadHint = "no overload of this member takes it as a matcher";
 
@@ -81,6 +81,17 @@ public class MatcherAsValueAnalyzerTests
 	                                            {
 	                                                void Changed(object value);
 	                                            }
+
+	                                            public interface IMockRaiseOnIVerifyForm
+	                                            {
+	                                                void Changed(object value);
+	                                            }
+
+	                                            public interface IMockStaticVerifyForFoo
+	                                            {
+	                                                int Take(object value);
+	                                                int Take(IParameter<object> value);
+	                                            }
 	                                        }
 	                                    }
 
@@ -143,6 +154,7 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Take({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
 	[Arguments("verify.Take(value: {|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
 	[Arguments("setup.Take({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
+	[Arguments("staticVerify.Take({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
 	[Arguments("_ = verify[{|#0:It.IsAny<int>()|}];", "It.IsAny<int>()")]
 	[Arguments("verify.Plain<object>({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
 	[Arguments("verify?.Plain<object>({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
@@ -218,6 +230,13 @@ public class MatcherAsValueAnalyzerTests
 			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
 				.WithLocation(0)
 				.WithArguments("Match.AnyParameters()", "object", ParametersHint));
+
+	[Test]
+	public async Task WhenAParametersMatchWithAPredicateIsComparedAsAValue_ShouldBeFlagged() => await VerifyAsync(
+		"verify.Pair({|#0:Match.Parameters(p => true)|}, 1);",
+		Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
+			.WithLocation(0)
+			.WithArguments("Match.Parameters(p => true)", "object", ParametersHint));
 
 	[Test]
 	public async Task WhenMatcherForObjectIsInAnExplicitParamsArray_ShouldSuggestSeparateArguments()
@@ -335,6 +354,7 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("property.Set(It.IsAny<object>());")]
 	[Arguments("property.Set(5);")]
 	[Arguments("raise.Changed(It.IsAny<int>());")]
+	[Arguments("raiseOnVerifyForm.Changed(It.IsAny<int>());")]
 	[Arguments("Other.Take(It.IsAny<int>());")]
 	public async Task WhenNoMatcherIsComparedAsAValue_ShouldNotBeFlagged(string call)
 		=> await VerifyAsync(call);
@@ -346,6 +366,7 @@ public class MatcherAsValueAnalyzerTests
 			  public class MyClass
 			  {
 			      public void MyTest(Mock.IMockVerifyForFoo verify, Mock.IMockSetupForFoo setup, Mock.IMockRaiseOnFoo raise,
+			          Mock.IMockRaiseOnIVerifyForm raiseOnVerifyForm, Mock.IMockStaticVerifyForFoo staticVerify,
 			          Mockolate.Verify.PropertyResult<object> property,
 			          Mockolate.Verify.PropertyResult<StructMatcher> structProperty)
 			      {

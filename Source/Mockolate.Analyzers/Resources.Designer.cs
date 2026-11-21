@@ -303,7 +303,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to use a matcher for '{0}', such as It.IsAny&lt;{0}&gt;(); Match.AnyParameters() only matches any parameters as the only argument of a method.
+        ///   Looks up a localized string similar to use a matcher for '{0}', such as It.IsAny&lt;{0}&gt;(); a parameters match only applies as the only argument of a method.
         /// </summary>
         internal static string Mockolate0007ParametersHint {
             get {

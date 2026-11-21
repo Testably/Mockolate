@@ -186,7 +186,7 @@
 		<comment>The title of the code fix.</comment>
 	</data>
 	<data name="Mockolate0007Description" xml:space="preserve">
-		<value>A matcher or Match.AnyParameters() passed to a Setup or Verify parameter that takes a value, for example an object parameter or a params object[] element, is compared as the expected value. The setup or verification then only matches a call that passes an object equal to the matcher.</value>
+		<value>A matcher or a parameters match such as Match.AnyParameters() passed to a Setup or Verify parameter that takes a value, for example an object parameter or a params object[] element, is compared as the expected value. The setup or verification then only matches a call that passes an object equal to the matcher.</value>
 	</data>
 	<data name="Mockolate0007MessageFormat" xml:space="preserve">
 		<value>'{0}' is compared as a value of type '{1}' instead of matching; {2}</value>
@@ -219,8 +219,8 @@
 		<comment>Completes Mockolate0007MessageFormat for a matcher of the value type in an explicit params array next to plain values.</comment>
 	</data>
 	<data name="Mockolate0007ParametersHint" xml:space="preserve">
-		<value>use a matcher for '{0}', such as It.IsAny&lt;{0}&gt;(); Match.AnyParameters() only matches any parameters as the only argument of a method</value>
-		<comment>Completes Mockolate0007MessageFormat for a parameters match such as Match.AnyParameters(). {0} is the value type.</comment>
+		<value>use a matcher for '{0}', such as It.IsAny&lt;{0}&gt;(); a parameters match only applies as the only argument of a method</value>
+		<comment>Completes Mockolate0007MessageFormat for a parameters match such as Match.AnyParameters() or Match.Parameters(…). {0} is the value type.</comment>
 	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>

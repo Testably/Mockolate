@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
@@ -32,6 +33,16 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0007Description),
 			Resources.ResourceManager, typeof(Resources)));
+
+	/// <summary>
+	///     The prefixes of the generated interfaces that declare the <c>Setup</c> and <c>Verify</c> members, followed by
+	///     the name of the mocked type, which can itself contain <c>SetupFor</c> or <c>VerifyFor</c>.
+	/// </summary>
+	private static readonly string[] SetupOrVerifyInterfacePrefixes =
+	[
+		"IMockSetupFor", "IMockProtectedSetupFor", "IMockStaticSetupFor",
+		"IMockVerifyFor", "IMockProtectedVerifyFor", "IMockStaticVerifyFor",
+	];
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.SupportedDiagnostics" />
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -275,7 +286,7 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		}
 
 		if (member.ContainingType is not { } containingType ||
-		    !(containingType.Name.Contains("SetupFor") || containingType.Name.Contains("VerifyFor")))
+		    !SetupOrVerifyInterfacePrefixes.Any(prefix => containingType.Name.StartsWith(prefix, StringComparison.Ordinal)))
 		{
 			return false;
 		}
