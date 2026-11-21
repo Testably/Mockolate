@@ -26,7 +26,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	public void Indexer_Mockolate()
 	{
 		IChocolateCatalog sut = IChocolateCatalog.CreateMock();
-		sut.Mock.Setup[It.IsAny<int>()].Returns("Dark");
+		sut.Mock.Setup[It.Satisfies<int>(number => number > 0)].Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
@@ -34,8 +34,8 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 			sut[42] = "Milk";
 		}
 
-		sut.Mock.Verify[It.IsAny<int>()].Got().Exactly(N);
-		sut.Mock.Verify[It.IsAny<int>()].Set(It.IsAny<string>()).Exactly(N);
+		sut.Mock.Verify[It.Satisfies<int>(number => number > 0)].Got().Exactly(N);
+		sut.Mock.Verify[It.Satisfies<int>(number => number > 0)].Set(It.IsAny<string>()).Exactly(N);
 	}
 
 	/// <summary>
@@ -45,7 +45,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	public void Indexer_Imposter()
 	{
 		IChocolateCatalogImposter imposter = IChocolateCatalog.Imposter();
-		imposter[Imposter.Abstractions.Arg<int>.Any()].Getter().Returns("Dark");
+		imposter[Imposter.Abstractions.Arg<int>.Is(number => number > 0)].Getter().Returns("Dark");
 		IChocolateCatalog sut = imposter.Instance();
 
 		for (int i = 0; i < N; i++)
@@ -54,8 +54,8 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 			sut[42] = "Milk";
 		}
 
-		imposter[Imposter.Abstractions.Arg<int>.Any()].Getter().Called(Count.Exactly(N));
-		imposter[Imposter.Abstractions.Arg<int>.Any()].Setter().Called(Count.Exactly(N));
+		imposter[Imposter.Abstractions.Arg<int>.Is(number => number > 0)].Getter().Called(Count.Exactly(N));
+		imposter[Imposter.Abstractions.Arg<int>.Is(number => number > 0)].Setter().Called(Count.Exactly(N));
 	}
 
 	/// <summary>
@@ -65,7 +65,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	public void Indexer_TUnitMocks()
 	{
 		CompleteIndexerBenchmarks_IChocolateCatalogMock mock = IChocolateCatalog.Mock();
-		mock.Item(Any<int>()).Returns("Dark");
+		mock.Item(Is<int>(number => number > 0)).Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
@@ -73,8 +73,8 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 			mock.Object[42] = "Milk";
 		}
 
-		mock.Item(Any<int>()).WasCalled(TUnit.Mocks.Times.Exactly(N));
-		mock.SetItem(Any<int>(), Any<string>()).WasCalled(TUnit.Mocks.Times.Exactly(N));
+		mock.Item(Is<int>(number => number > 0)).WasCalled(TUnit.Mocks.Times.Exactly(N));
+		mock.SetItem(Is<int>(number => number > 0), Any<string>()).WasCalled(TUnit.Mocks.Times.Exactly(N));
 	}
 
 	/// <summary>
@@ -84,7 +84,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	public void Indexer_Moq()
 	{
 		Moq.Mock<IChocolateCatalog> mock = new();
-		mock.Setup(x => x[Moq.It.IsAny<int>()]).Returns("Dark");
+		mock.Setup(x => x[Moq.It.Is<int>(number => number > 0)]).Returns("Dark");
 		IChocolateCatalog sut = mock.Object;
 
 		for (int i = 0; i < N; i++)
@@ -93,8 +93,8 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 			sut[42] = "Milk";
 		}
 
-		mock.Verify(x => x[Moq.It.IsAny<int>()], Times.Exactly(N));
-		mock.VerifySet(x => x[Moq.It.IsAny<int>()] = Moq.It.IsAny<string>(), Times.Exactly(N));
+		mock.Verify(x => x[Moq.It.Is<int>(number => number > 0)], Times.Exactly(N));
+		mock.VerifySet(x => x[Moq.It.Is<int>(number => number > 0)] = Moq.It.IsAny<string>(), Times.Exactly(N));
 	}
 
 	/// <summary>
@@ -104,7 +104,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	public void Indexer_NSubstitute()
 	{
 		IChocolateCatalog mock = Substitute.For<IChocolateCatalog>();
-		mock[Arg.Any<int>()].Returns("Dark");
+		mock[Arg.Is<int>(number => number > 0)].Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
@@ -112,8 +112,8 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 			mock[42] = "Milk";
 		}
 
-		_ = mock.Received(N)[Arg.Any<int>()];
-		mock.Received(N)[Arg.Any<int>()] = Arg.Any<string>();
+		_ = mock.Received(N)[Arg.Is<int>(number => number > 0)];
+		mock.Received(N)[Arg.Is<int>(number => number > 0)] = Arg.Any<string>();
 	}
 
 	/// <summary>
@@ -123,7 +123,7 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 	public void Indexer_FakeItEasy()
 	{
 		IChocolateCatalog mock = A.Fake<IChocolateCatalog>();
-		A.CallTo(() => mock[A<int>.Ignored]).Returns("Dark");
+		A.CallTo(() => mock[A<int>.That.Matches(number => number > 0)]).Returns("Dark");
 
 		for (int i = 0; i < N; i++)
 		{
@@ -131,8 +131,8 @@ public class CompleteIndexerBenchmarks : BenchmarksBase
 			mock[42] = "Milk";
 		}
 
-		A.CallTo(() => mock[A<int>.Ignored]).MustHaveHappened(N, FakeItEasy.Times.Exactly);
-		A.CallToSet(() => mock[A<int>.Ignored]).MustHaveHappened(N, FakeItEasy.Times.Exactly);
+		A.CallTo(() => mock[A<int>.That.Matches(number => number > 0)]).MustHaveHappened(N, FakeItEasy.Times.Exactly);
+		A.CallToSet(() => mock[A<int>.That.Matches(number => number > 0)]).MustHaveHappened(N, FakeItEasy.Times.Exactly);
 	}
 
 	public interface IChocolateCatalog

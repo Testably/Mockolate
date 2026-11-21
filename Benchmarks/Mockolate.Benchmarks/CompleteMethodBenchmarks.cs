@@ -4,7 +4,6 @@ using Imposter.Abstractions;
 using Mockolate.Benchmarks;
 using Mockolate.Verify;
 using NSubstitute;
-using Arg = NSubstitute.Arg;
 using Times = Moq.Times;
 
 [assembly: GenerateImposter(typeof(CompleteMethodBenchmarks.IChocolateMachine))]
@@ -26,14 +25,14 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	public void Method_Mockolate()
 	{
 		IChocolateMachine sut = IChocolateMachine.CreateMock();
-		sut.Mock.Setup.Dispense(It.IsAny<int>()).Returns(true);
+		sut.Mock.Setup.Dispense(42).Returns(true);
 
 		for (int i = 0; i < N; i++)
 		{
 			sut.Dispense(42);
 		}
 
-		sut.Mock.Verify.Dispense(It.IsAny<int>()).Exactly(N);
+		sut.Mock.Verify.Dispense(42).Exactly(N);
 	}
 
 	/// <summary>
@@ -43,7 +42,7 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	public void Method_Imposter()
 	{
 		IChocolateMachineImposter imposter = IChocolateMachine.Imposter();
-		imposter.Dispense(Imposter.Abstractions.Arg<int>.Any()).Returns(true);
+		imposter.Dispense(42).Returns(true);
 		IChocolateMachine sut = imposter.Instance();
 
 		for (int i = 0; i < N; i++)
@@ -51,7 +50,7 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 			sut.Dispense(42);
 		}
 
-		imposter.Dispense(Imposter.Abstractions.Arg<int>.Any()).Called(Count.Exactly(N));
+		imposter.Dispense(42).Called(Count.Exactly(N));
 	}
 
 	/// <summary>
@@ -61,7 +60,7 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	public void Method_TUnitMocks()
 	{
 		CompleteMethodBenchmarks_IChocolateMachineMock mock = IChocolateMachine.Mock();
-		mock.Dispense(Any<int>()).Returns(true);
+		mock.Dispense(42).Returns(true);
 		IChocolateMachine sut = mock.Object;
 
 		for (int i = 0; i < N; i++)
@@ -69,7 +68,7 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 			sut.Dispense(42);
 		}
 
-		mock.Dispense(Any<int>()).WasCalled(TUnit.Mocks.Times.Exactly(N));
+		mock.Dispense(42).WasCalled(TUnit.Mocks.Times.Exactly(N));
 	}
 
 	/// <summary>
@@ -79,7 +78,7 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	public void Method_Moq()
 	{
 		Moq.Mock<IChocolateMachine> mock = new();
-		mock.Setup(x => x.Dispense(Moq.It.IsAny<int>())).Returns(true);
+		mock.Setup(x => x.Dispense(42)).Returns(true);
 		IChocolateMachine sut = mock.Object;
 
 		for (int i = 0; i < N; i++)
@@ -87,7 +86,7 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 			sut.Dispense(42);
 		}
 
-		mock.Verify(x => x.Dispense(Moq.It.IsAny<int>()), Times.Exactly(N));
+		mock.Verify(x => x.Dispense(42), Times.Exactly(N));
 	}
 
 	/// <summary>
@@ -97,14 +96,14 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	public void Method_NSubstitute()
 	{
 		IChocolateMachine mock = Substitute.For<IChocolateMachine>();
-		mock.Dispense(Arg.Any<int>()).Returns(true);
+		mock.Dispense(42).Returns(true);
 
 		for (int i = 0; i < N; i++)
 		{
 			mock.Dispense(42);
 		}
 
-		mock.Received(N).Dispense(Arg.Any<int>());
+		mock.Received(N).Dispense(42);
 	}
 
 	/// <summary>
@@ -114,14 +113,14 @@ public class CompleteMethodBenchmarks : BenchmarksBase
 	public void Method_FakeItEasy()
 	{
 		IChocolateMachine mock = A.Fake<IChocolateMachine>();
-		A.CallTo(() => mock.Dispense(A<int>.Ignored)).Returns(true);
+		A.CallTo(() => mock.Dispense(42)).Returns(true);
 
 		for (int i = 0; i < N; i++)
 		{
 			mock.Dispense(42);
 		}
 
-		A.CallTo(() => mock.Dispense(A<int>.Ignored)).MustHaveHappened(N, FakeItEasy.Times.Exactly);
+		A.CallTo(() => mock.Dispense(42)).MustHaveHappened(N, FakeItEasy.Times.Exactly);
 	}
 
 	public interface IChocolateMachine
