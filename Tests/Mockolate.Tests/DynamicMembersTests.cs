@@ -183,7 +183,11 @@ public sealed class DynamicMembersTests
 			Capture(() => sut.Mock.Verify.Dyn2("b", It.IsAny<int>()).Once()),
 			Capture(() => sut.Mock.Verify.Dyn3(1, null, "c").Once()),
 			Capture(() => sut.Mock.Verify.Dyn4(It.IsAny<object>(), "b", 3, It.IsAny<string>()).Once()),
+			// Above four parameters no overload mixes values and matchers, so the matcher is compared as a value in
+			// classic mode; the message is the same either way.
+#pragma warning disable Mockolate0007
 			Capture(() => sut.Mock.Verify.Dyn5("a", 2, 3, 4, It.IsAny<object>()).Once()),
+#pragma warning restore Mockolate0007
 			Capture(() => sut.Mock.Verify.Get().Once()),
 			Capture(() => sut.Mock.Verify.Value.Set(5).Once()),
 			Capture(() => sut.Mock.Verify["k"].Got().Once()),

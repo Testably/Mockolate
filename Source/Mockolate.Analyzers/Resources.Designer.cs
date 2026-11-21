@@ -240,6 +240,96 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string describing Mockolate0007.
+        /// </summary>
+        internal static string Mockolate0007Description {
+            get {
+                return ResourceManager.GetString("Mockolate0007Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to '{0}' is compared as a value of type '{1}' instead of matching; {2}.
+        /// </summary>
+        internal static string Mockolate0007MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0007MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to cast it to IParameter&lt;{0}&gt; to pass it as a matcher.
+        /// </summary>
+        internal static string Mockolate0007CastHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007CastHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to no overload of this member takes it as a matcher.
+        /// </summary>
+        internal static string Mockolate0007NoMatcherOverloadHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007NoMatcherOverloadHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to pass matchers of the parameter types for the other arguments as well, for example It.Is(…).
+        /// </summary>
+        internal static string Mockolate0007OtherArgumentsHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007OtherArgumentsHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to pass the elements as separate arguments instead of an array.
+        /// </summary>
+        internal static string Mockolate0007ParamsArrayHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007ParamsArrayHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to pass the elements as separate arguments instead of an array, and matchers of the parameter types for the other arguments as well, for example It.Is(…).
+        /// </summary>
+        internal static string Mockolate0007ParamsArrayAndOtherArgumentsHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007ParamsArrayAndOtherArgumentsHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to use a matcher for '{0}', such as It.IsAny&lt;{0}&gt;(); a parameters match only applies as the only argument of a method.
+        /// </summary>
+        internal static string Mockolate0007ParametersHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007ParametersHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A matcher is compared as a value.
+        /// </summary>
+        internal static string Mockolate0007Title {
+            get {
+                return ResourceManager.GetString("Mockolate0007Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to use a matcher for '{0}', or It.Is&lt;{0}&gt;(…) if the matcher itself is the expected value.
+        /// </summary>
+        internal static string Mockolate0007ValueHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007ValueHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {

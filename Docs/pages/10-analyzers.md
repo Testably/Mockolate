@@ -200,6 +200,41 @@ The included code fix replaces the literal with `Match.AnyParameters()`. If you 
 
 Where the first parameter can be `null` and every further parameter is optional or `params`, a lone `null` stands for the `null` argument instead, and the rule does not fire.
 
+## Mockolate0007
+
+**A matcher that is compared as a value.**
+
+Every matcher converts to `object`, so a matcher passed where `Setup` or `Verify` takes an `object` value can bind as the value itself. The setup or verification then expects a call with the matcher object as argument and does not match the calls you meant:
+
+```csharp
+public interface IChocolateDispenser
+{
+    void Dispense(object flavor);
+    void Log(int level, params object[] args);
+}
+
+dispenser.Dispense(5);
+dispenser.Log(1, "Dark", 2);
+// Mockolate0007: 'It.IsAny<int>()' is compared as a value of type 'object' instead of matching; use a matcher for 'object', or It.Is<object>(…) if the matcher itself is the expected value
+await That(dispenser.Mock.Verify.Dispense(It.IsAny<int>())).Once();
+// Mockolate0007: 'It.IsAny<object>()' is compared as a value of type 'object' instead of matching; pass matchers of the parameter types for the other arguments as well, for example It.Is(…)
+await That(dispenser.Mock.Verify.Log(1, "Dark", It.IsAny<object>())).Once();
+```
+
+The rule fires when no overload takes the matcher as a matcher, for example when it binds to:
+
+- an `object` or `dynamic` parameter, property or indexer value, or indexer key, with a matcher that is no matcher for `object`, such as `It.IsAny<int>()`;
+- an element of a `params object[]` array next to plain values, or with a matcher that is no matcher for `object`, and a matcher for the whole array, such as `It.IsAny<object[]>()`, next to other elements of the array or next to four or more other arguments;
+- an element of a `params T[]` array of a generic method closed over `object`, when the array is the only parameter or next to plain values;
+- an element of a `params T[]` array whose type argument is inferred from the matcher next to plain values, such as `Gen(1, It.IsAny<object>())` on `void Gen<T>(int level, params T[] args)`, which infers `T` as the matcher type;
+- an element of a `params` array passed as an explicit array or a collection expression, such as `Log(It.IsAny<int>(), new object[] { It.IsAny<object>() })` or `Log(1, ["Dark", It.IsAny<object>()])`;
+- an `object` parameter of a method with more than four parameters next to plain values, where no overload mixes values and matchers (without [union parameters](06-parameter-matching.md#union-parameters-c-15));
+- a parameters match such as `Match.AnyParameters()` next to other arguments, as a property or indexer value, or as an indexer key, such as `Pair(Match.AnyParameters(), 1)`, because it only applies as the only argument of a method.
+
+Use a matcher for the parameter type instead, for example `It.IsAny<object>()` or `It.Satisfies<object>(f => f is int)`, or pass matchers for the other arguments as well, as in `Log(It.Is(1), It.Is<object>("Dark"), It.IsAny<object>())`. If the matcher object itself is the expected value, wrap it in `It.Is<object>(…)` or cast it to `object`; the rule does not report either.
+
+The message says which of these fixes applies. For an explicit `params` array, it suggests passing the elements as separate arguments, together with matchers for the other arguments where they are plain values. For a custom matcher that is also a value of the parameter type, it suggests a cast to `IParameter<T>`, and it says so when no spelling passes the matcher as a matcher.
+
 ## Explicit types for union parameters
 
 With [union parameters](06-parameter-matching.md#union-parameters-c-15), a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion does not compile as a `Setup` or `Verify` argument (CS1503, CS1729 or CS9174). The included code fix adds the parameter type:

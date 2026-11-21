@@ -104,8 +104,10 @@ public sealed class GenericMethodClosedOverObjectTests
 
 		await That(sut.Mock.Verify.Log<object>(Match.AnyParameters())).Twice();
 		await That(sut.Mock.Verify.Log<object>(Match.Parameters(p => p[1] is int[] { Length: 2, }))).Once();
+#pragma warning disable Mockolate0007
 		await That(sut.Mock.Verify.Log<object>(Match.AnyParameters(), 1)).Never()
 			.Because("a parameters match next to elements of the params array is a value, as for an object parameter");
+#pragma warning restore Mockolate0007
 		await That(sut.Mock.Verify.Count<object>(Match.AnyParameters())).Once();
 		await That(sut.Mock.Verify.Count<string>(Match.AnyParameters())).Never();
 	}
