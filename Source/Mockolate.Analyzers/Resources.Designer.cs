@@ -249,15 +249,6 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to state the type arguments explicitly, so that the matcher binds to the parameter type.
-        /// </summary>
-        internal static string Mockolate0007InferredTypeArgumentsHint {
-            get {
-                return ResourceManager.GetString("Mockolate0007InferredTypeArgumentsHint", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to '{0}' is compared as a value of type '{1}' instead of matching; {2}.
         /// </summary>
         internal static string Mockolate0007MessageFormat {

@@ -16,9 +16,6 @@ public class MatcherAsValueAnalyzerTests
 	private const string OtherArgumentsHint =
 		"pass matchers of the parameter types for the other arguments as well, for example It.Is(…)";
 
-	private const string InferredHint =
-		"state the type arguments explicitly, so that the matcher binds to the parameter type";
-
 	private const string Declarations = """
 	                                    #nullable enable
 	                                    using System;
@@ -48,6 +45,8 @@ public class MatcherAsValueAnalyzerTests
 	                                                int Log(IParameter<int> level, params IParameter<object>[] args);
 	                                                int Gen<T>(int level, params T[] args);
 	                                                int Plain<T>(T value);
+	                                                [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+	                                                int Plain<T>(IParameter<T>? value);
 	                                                int GenOnly<T>(params T[] args);
 	                                                int Only(params object[] args);
 	                                                int Optional(IComparable value, int count = 3);
@@ -72,6 +71,15 @@ public class MatcherAsValueAnalyzerTests
 	                                            {
 	                                                void Changed(object value);
 	                                            }
+	                                        }
+	                                    }
+
+	                                    namespace System.Runtime.CompilerServices
+	                                    {
+	                                        [AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Property)]
+	                                        public sealed class OverloadResolutionPriorityAttribute(int priority) : Attribute
+	                                        {
+	                                            public int Priority => priority;
 	                                        }
 	                                    }
 
@@ -227,15 +235,6 @@ public class MatcherAsValueAnalyzerTests
 			.WithArguments("It.IsAny<object>()", "object", "no overload of this member takes it as a matcher"));
 
 	[Test]
-	[Arguments("verify.Plain({|#0:It.IsAny<int>()|});")]
-	[Arguments("verify?.Plain({|#0:It.IsAny<int>()|});")]
-	public async Task WhenTypeArgumentIsInferredFromTheMatcher_ShouldSuggestExplicitTypeArguments(string call)
-		=> await VerifyAsync(call,
-			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
-				.WithLocation(0)
-				.WithArguments("It.IsAny<int>()", "IParameterWithCallback<int>", InferredHint));
-
-	[Test]
 	[Arguments("verify.Take(It.IsAny<object>());")]
 	[Arguments("verify.Take(It.IsAny<string>());")]
 	[Arguments("verify.Take(It.Is<object>(It.IsAny<int>()));")]
@@ -246,6 +245,8 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Typed(It.IsAny<int>());")]
 	[Arguments("verify.Log(It.IsAny<int>(), It.IsAny<object>(), It.Is<object>(\"a\"));")]
 	[Arguments("verify.Log(1, \"a\", 2);")]
+	[Arguments("verify.Plain(It.IsAny<int>());")]
+	[Arguments("verify?.Plain(It.IsAny<int>());")]
 	[Arguments("verify.Plain<object>(It.IsAny<string>());")]
 	[Arguments("verify.Plain<object>(It.IsAny<object>());")]
 	[Arguments("verify.Plain<int>(5);")]

@@ -1,7 +1,6 @@
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Operations;
 
@@ -77,20 +76,19 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 			{
 				foreach (IOperation element in initializer.ElementValues)
 				{
-					AnalyzeValue(context, matcherTypes, parameter, argument, element, elementType, declaredElementType,
-						true);
+					AnalyzeValue(context, matcherTypes, argument, element, elementType, declaredElementType, true);
 				}
 			}
 
 			return;
 		}
 
-		AnalyzeValue(context, matcherTypes, parameter, argument, argument.Value, parameter.Type, declaredType, false);
+		AnalyzeValue(context, matcherTypes, argument, argument.Value, parameter.Type, declaredType, false);
 	}
 
 	private static void AnalyzeValue(OperationAnalysisContext context, MatcherTypes matcherTypes,
-		IParameterSymbol parameter, IArgumentOperation argument, IOperation value, ITypeSymbol slotType,
-		ITypeSymbol declaredSlotType, bool isElement)
+		IArgumentOperation argument, IOperation value, ITypeSymbol slotType, ITypeSymbol declaredSlotType,
+		bool isElement)
 	{
 		IOperation operand = Unwrap(value);
 
@@ -107,7 +105,7 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		{
 			if (!matcherTypes.IsMatcherFor(matcherType, valueType))
 			{
-				Report(context, matcherTypes, parameter, argument, value, operand, matcherType, valueType);
+				Report(context, matcherTypes, argument, value, operand, matcherType, valueType);
 			}
 
 			return;
@@ -122,20 +120,16 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 			return;
 		}
 
-		Report(context, matcherTypes, parameter, argument, value, operand, matcherType, slotType);
+		Report(context, matcherTypes, argument, value, operand, matcherType, slotType);
 	}
 
 	private static void Report(OperationAnalysisContext context, MatcherTypes matcherTypes,
-		IParameterSymbol parameter, IArgumentOperation argument, IOperation value, IOperation operand,
-		ITypeSymbol matcherType, ITypeSymbol valueType)
+		IArgumentOperation argument, IOperation value, IOperation operand, ITypeSymbol matcherType,
+		ITypeSymbol valueType)
 	{
 		string typeName = valueType.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
 		string hint;
-		if (HasInferredMatcherTypeArgument(matcherTypes, parameter.ContainingSymbol, operand.Syntax))
-		{
-			hint = Resources.Mockolate0007InferredTypeArgumentsHint;
-		}
-		else if (!matcherTypes.IsMatcherFor(matcherType, valueType))
+		if (!matcherTypes.IsMatcherFor(matcherType, valueType))
 		{
 			hint = string.Format(Resources.Mockolate0007ValueHint, typeName);
 		}
@@ -228,17 +222,6 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 
 		return value;
 	}
-
-	private static bool HasInferredMatcherTypeArgument(MatcherTypes matcherTypes, ISymbol member,
-		SyntaxNode argumentSyntax)
-		=> member is IMethodSymbol { IsGenericMethod: true, } method &&
-		   method.TypeArguments.Any(matcherTypes.IsMatcher) &&
-		   argumentSyntax.FirstAncestorOrSelf<ArgumentSyntax>()?.Parent?.Parent is InvocationExpressionSyntax
-		   {
-			   Expression: not (GenericNameSyntax
-			   or MemberAccessExpressionSyntax { Name: GenericNameSyntax, }
-			   or MemberBindingExpressionSyntax { Name: GenericNameSyntax, }),
-		   };
 
 	/// <summary>
 	///     The generated <c>Setup</c> and <c>Verify</c> members are declared in <c>IMock…SetupFor…</c> and
