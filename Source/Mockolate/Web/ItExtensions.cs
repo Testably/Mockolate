@@ -49,10 +49,29 @@ public static partial class ItExtensions
 		public bool Matches(Uri uri)
 		{
 			List<(string Key, string Value)> queryParameters = ParseQueryParameters(uri.Query).ToList();
-			return _requiredQueryParameters.All(requiredParameter
-				=> queryParameters.Any(p
-					=> p.Key == requiredParameter.Name &&
-					   requiredParameter.Value.Matches(p.Value)));
+			foreach ((string Name, HttpQueryParameterValue Value) requiredParameter in _requiredQueryParameters)
+			{
+				if (!ContainsMatch(queryParameters, requiredParameter.Name, requiredParameter.Value))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		private static bool ContainsMatch(List<(string Key, string Value)> queryParameters, string name,
+			HttpQueryParameterValue value)
+		{
+			foreach ((string Key, string Value) parameter in queryParameters)
+			{
+				if (parameter.Key == name && value.Matches(parameter.Value))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		private static IEnumerable<(string Key, string Value)> ParseQueryParameters(string input)
