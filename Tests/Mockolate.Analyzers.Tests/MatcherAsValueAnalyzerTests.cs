@@ -181,7 +181,7 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Five(1, 2, 3, 4, {|#0:It.IsAny<object>()|});", "It.IsAny<object>()")]
 	[Arguments("verify.Log(1, \"a\", {|#0:It.IsAny<object>()|});", "It.IsAny<object>()")]
 	[Arguments("verify.Log(1, {|#0:It.IsAny<object[]>()|});", "It.IsAny<object[]>()")]
-	[Arguments("verify.Gen<object>(1, {|#0:It.IsAny<object>()|});", "It.IsAny<object>()")]
+	[Arguments("verify.Gen<object>(1, \"a\", {|#0:It.IsAny<object[]>()|});", "It.IsAny<object[]>()")]
 	public async Task WhenMatcherForObjectIsMixedWithValues_ShouldSuggestMatchersForTheOtherArguments(string call,
 		string matcher)
 		=> await VerifyAsync(call,
@@ -227,6 +227,7 @@ public class MatcherAsValueAnalyzerTests
 	[Test]
 	[Arguments("verify.Pair({|#0:Match.AnyParameters()|}, 1);")]
 	[Arguments("verify.Log(1, {|#0:Match.AnyParameters()|});")]
+	[Arguments("verify.Gen<object>(1, {|#0:Match.AnyParameters()|});")]
 	[Arguments("_ = verify[{|#0:Match.AnyParameters()|}];")]
 	[Arguments("property.Set({|#0:Match.AnyParameters()|});")]
 	public async Task WhenAParametersMatchIsComparedAsAValue_ShouldBeFlagged(string call)
@@ -317,7 +318,6 @@ public class MatcherAsValueAnalyzerTests
 				.WithArguments(matcher, type, $"cast it to IParameter<{type}> to pass it as a matcher"));
 
 	[Test]
-	[Arguments("verify.GenOnly<object>({|#0:It.IsAny<object>()|});")]
 	[Arguments("verify.Mixed({|#0:It.IsAny<object>()|}, It.IsAny<int>());")]
 	[Arguments("verify.Mixed({|#0:It.IsAny<object>()|}, null);")]
 	public async Task WhenNoSpellingBindsTheMatcherAsAMatcher_ShouldSaySo(string call) => await VerifyAsync(call,
@@ -338,6 +338,13 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Pair(Match.AnyParameters());")]
 	[Arguments("verify.Plain<object>(Match.AnyParameters());")]
 	[Arguments("verify.Gen(It.IsAny<int>(), It.IsAny<object>());")]
+	[Arguments("verify.Gen<object>(1, It.IsAny<object>());")]
+	[Arguments("verify.Gen<object>(1, \"a\", It.IsAny<string>());")]
+	[Arguments("verify.Gen<object>(1, new object[] { It.IsAny<object[]>() });")]
+	[Arguments("verify.Gen<object>(1, new object[] { \"a\", It.IsAny<object>() });")]
+	[Arguments("verify.Gen<object>(1, [\"a\", It.IsAny<object>()]);")]
+	[Arguments("verify.GenOnly<object>(It.IsAny<object>());")]
+	[Arguments("verify.GenOnly<object>(It.IsAny<object>(), 1);")]
 	[Arguments("property.Set(It.IsAny<string>());")]
 	[Arguments("structProperty.Set((IParameter<StructMatcher>)new StructMatcher());")]
 	[Arguments("setup.Take(It.IsAny<object>());")]

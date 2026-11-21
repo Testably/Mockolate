@@ -162,10 +162,12 @@ await That(stored).IsTrue();
 await That(archive.Mock.Verify.Store(It.IsAny<int>())).Once();
 ```
 
+The same holds for a `params` array of a type parameter: for `bool StoreAll<T>(params T[] items)`, `Setup.StoreAll(It.IsAny<int>(), It.IsAny<int>())` sets up `StoreAll<int>` for two items.
+
 <details>
 <summary>Null and default literals for a type parameter</summary>
 
-A `null` or `default` literal has no type, so it needs the type argument (`Setup.Store<string>(null)`), and it stands for that argument. As for an `object` parameter, `.AnyParameters()` is not available after a matcher or a `null` or `default` literal for a type parameter; use `Match.AnyParameters()` to match any arguments.
+A `null` or `default` literal has no type, so it needs the type argument (`Setup.Store<string>(null)`), and it stands for that argument. For a `params` array of a type parameter, a lone `null` stands for a `null` array (`Setup.StoreAll<string>(null)`). As for an `object` parameter, `.AnyParameters()` is not available after a matcher or a `null` or `default` literal for a type parameter; use `Match.AnyParameters()` to match any arguments.
 
 A matcher for a nullable type with a non-nullable type argument, such as `Setup.Store<object>(It.IsAny<object?>())`, reports the nullable warning CS8620, as it does for an `object` parameter. Use `It.IsAny<object>()` or the type argument `object?` instead.
 

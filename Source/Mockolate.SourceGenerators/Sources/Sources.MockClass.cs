@@ -3629,8 +3629,12 @@ internal static partial class Sources
 	//   pure IParameter<T>?   : parameterCount     (just below all-values, above any mixed combo)
 	//   mixed                 : count of non-value (matcher) params, in [1, parameterCount - 1]
 	// parameterCount == 0 returns int.MaxValue so the lone zero-arg overload keeps its historical priority.
-	// The all-values overload is not promoted for an `object` parameter or one typed with a method type parameter
-	// (ParametersBlockAllValuesPromotion), nor next to a sibling with such a parameter (HasSiblingThatMayHoldMatcher).
+	// The all-values overload is not promoted for an `object` parameter, one typed with a method type parameter or a
+	// `params` array of one (ParametersBlockAllValuesPromotion), nor next to a sibling with such a parameter
+	// (HasSiblingThatMayHoldMatcher).
+	// A trailing `params` array of a type parameter (MayHoldParamsMatchers) moves the pure IParameter<T>? overload to
+	// parameterCount + 1, above the per-element overload at parameterCount, so that a `null` for the array binds the
+	// matcher for the whole array.
 	// A trailing `params object[]` (RanksArrayMatcherFirst) moves the overloads that differ from all-values only by
 	// matchers for that parameter above it:
 	//   values + IParameter<object[]>?           : int.MaxValue
@@ -3655,6 +3659,13 @@ internal static partial class Sources
 
 		if (valueFlags is null)
 		{
+			// A `null` for a `params` array of a type parameter converts to the array matcher and to an element matcher,
+			// neither of which converts to the other, so the array matcher must win to stand for a `null` array.
+			if (!perElementParams && MayHoldParamsMatchers(method.Parameters.AsArray()[parameterCount - 1]))
+			{
+				return (parameterCount + 1).ToString();
+			}
+
 			if (!arrayMatcherFirst || parameterCount > 1 ||
 			    (perElementParams && HasSiblingWithObjectParameter(@class, method)))
 			{
@@ -3704,10 +3715,11 @@ internal static partial class Sources
 
 	/// <summary>
 	///     Whether an overload of <paramref name="method" /> has an <see langword="object" /> parameter or one typed with a
-	///     method type parameter (<see cref="MayHoldMatcher" />), so that its all-values overload is not promoted. The
-	///     all-values overload of a lone <c>params object[]</c> then stays unpromoted as well: at equal priority
-	///     <c>Setup.M("a")</c> prefers <c>M(object)</c> or <c>M&lt;string&gt;(string)</c> over the expanded form of
-	///     <c>M(params object[])</c>, as the call on the mock does.
+	///     method type parameter or a <c>params</c> array of one (<see cref="MayHoldAnyMatcher" />), so that its
+	///     all-values overload is not promoted. The all-values overload of a lone <c>params object[]</c> then stays
+	///     unpromoted as well: at equal priority <c>Setup.M("a")</c> prefers <c>M(object)</c> or
+	///     <c>M&lt;string&gt;(string)</c> over the expanded form of <c>M(params object[])</c>, as the call on the mock
+	///     does.
 	/// </summary>
 	private static bool HasSiblingWithObjectParameter(Class @class, Method method)
 	{
@@ -3716,15 +3728,16 @@ internal static partial class Sources
 		                                    m.MemberType == method.MemberType &&
 		                                    BareMethodName(m) == bareName &&
 		                                    m.Parameters.Any(p => (p.Type.SpecialType == SpecialType.System_Object ||
-		                                                           MayHoldMatcher(p)) &&
+		                                                           MayHoldAnyMatcher(p)) &&
 		                                                          p.CanUseNullableParameterOverload()));
 	}
 
 	/// <summary>
 	///     Whether an overload of <paramref name="method" /> with as many parameters has one typed with a method type
-	///     parameter (<see cref="MayHoldMatcher" />), whose all-values overload is not promoted. The all-values overload
-	///     of <paramref name="method" /> then stays unpromoted as well: at equal priority <c>Setup.M("a")</c> binds
-	///     <c>M&lt;string&gt;(string)</c> over <c>M(IComparable)</c>, as the call on the mock does.
+	///     parameter or a <c>params</c> array of one (<see cref="MayHoldAnyMatcher" />), whose all-values overload is not
+	///     promoted. The all-values overload of <paramref name="method" /> then stays unpromoted as well: at equal
+	///     priority <c>Setup.M("a")</c> binds <c>M&lt;string&gt;(string)</c> over <c>M(IComparable)</c>, as the call on
+	///     the mock does.
 	/// </summary>
 	private static bool HasSiblingThatMayHoldMatcher(Class @class, Method method)
 	{
@@ -3733,7 +3746,7 @@ internal static partial class Sources
 		                                    m.MemberType == method.MemberType &&
 		                                    BareMethodName(m) == bareName &&
 		                                    m.Parameters.Count == method.Parameters.Count &&
-		                                    m.Parameters.Any(p => MayHoldMatcher(p) &&
+		                                    m.Parameters.Any(p => MayHoldAnyMatcher(p) &&
 		                                                          p.CanUseNullableParameterOverload()));
 	}
 
@@ -3743,14 +3756,15 @@ internal static partial class Sources
 	// here and skip the priority bump so callers keep using Match.AnyParameters() / It.IsAny<object?>().
 	// A parameter typed with a method type parameter (MayHoldMatcher) blocks it as well: without explicit type
 	// arguments, the call infers the type parameter as the matcher type, so `Method(It.IsAny<int>())` would bind
-	// `Method<IParameterWithCallback<int>>(value)` instead of `Method<int>(matcher)`.
+	// `Method<IParameterWithCallback<int>>(value)` instead of `Method<int>(matcher)`, and the same holds for a `params`
+	// array of one (MayHoldParamsMatchers).
 	private static bool ParametersBlockAllValuesPromotion(EquatableArray<MethodParameter> parameters,
 		bool[] valueFlags)
 	{
 		ReadOnlySpan<MethodParameter> span = parameters.AsSpan();
 		for (int i = 0; i < span.Length; i++)
 		{
-			if (valueFlags[i] && (span[i].Type.SpecialType == SpecialType.System_Object || MayHoldMatcher(span[i])))
+			if (valueFlags[i] && (span[i].Type.SpecialType == SpecialType.System_Object || MayHoldAnyMatcher(span[i])))
 			{
 				return true;
 			}
@@ -3772,6 +3786,27 @@ internal static partial class Sources
 
 	private static void AppendValueOrMatcher(StringBuilder sb, MethodParameter parameter)
 		=> sb.Append("global::Mockolate.Internals.Matchers.IsValueOrMatcher<").Append(parameter.ToTypeOrWrapper())
+			.Append(">(").Append(parameter.Name).Append(')');
+
+	/// <summary>
+	///     Whether the values for the <c>params</c> <paramref name="parameter" /> can be matchers, for the same reason as
+	///     in <see cref="MayHoldMatcher" />: its element type is a type parameter that the call infers from a matcher or
+	///     closes over <see langword="object" />. The overload that takes them as values is therefore not promoted either,
+	///     and matchers that still bind to it as values, e.g. next to plain values, decide at runtime
+	///     (<c>Matchers.AsParamsMatcher</c>).
+	/// </summary>
+	private static bool MayHoldParamsMatchers(MethodParameter parameter)
+		=> parameter.IsParams && parameter.Type.ElementType is { IsTypeParameterThatCanBeObject: true, };
+
+	/// <summary>
+	///     Whether the value for <paramref name="parameter" /> or, for a <c>params</c> array, its values can be matchers
+	///     (<see cref="MayHoldMatcher" />, <see cref="MayHoldParamsMatchers" />).
+	/// </summary>
+	private static bool MayHoldAnyMatcher(MethodParameter parameter)
+		=> MayHoldMatcher(parameter) || MayHoldParamsMatchers(parameter);
+
+	private static void AppendParamsMatcher(StringBuilder sb, MethodParameter parameter)
+		=> sb.Append("global::Mockolate.Internals.Matchers.AsParamsMatcher<").Append(parameter.Type.ElementType!.Fullname)
 			.Append(">(").Append(parameter.Name).Append(')');
 
 	/// <summary>
@@ -3809,10 +3844,15 @@ internal static partial class Sources
 	/// <summary>
 	///     The end of the parameter type of the per-element overload. For a lone <c>params object[]</c> that overload
 	///     outranks all-values, so a <see langword="null" /> literal binds to it as a <see langword="null" /> element
-	///     and the elements are nullable.
+	///     and the elements are nullable. The elements of a <c>params</c> array of a type parameter
+	///     (<see cref="MayHoldParamsMatchers" />) are nullable as well, because a <see langword="null" /> element next to a
+	///     matcher binds this overload when the type argument is nullable.
 	/// </summary>
 	private static string PerElementArraySuffix(Method method)
-		=> method.Parameters.Count == 1 && RanksArrayMatcherFirst(method.Parameters) ? ">?[] " : ">[] ";
+		=> (method.Parameters.Count == 1 && RanksArrayMatcherFirst(method.Parameters)) ||
+		   MayHoldParamsMatchers(method.Parameters.AsArray()[method.Parameters.Count - 1])
+			? ">?[] "
+			: ">[] ";
 
 	/// <summary>
 	///     Declares the empty <c>params</c> array of the overload that leaves it out as a local, so that the body of
@@ -3842,12 +3882,18 @@ internal static partial class Sources
 
 	/// <summary>
 	///     Whether <paramref name="method" /> gets an overload that leaves out its <c>params</c> parameter and matches an
-	///     empty array. For a lone <c>params object[]</c> the all-values overload ranks below the per-element overload, so
-	///     a call without arguments would bind to the latter and lose <c>AnyParameters()</c>. Without
-	///     <c>OverloadResolutionPriorityAttribute</c> (<paramref name="hasOverloadResolutionPriority" />) a call without
-	///     <c>params</c> arguments is ambiguous between the per-element overload and the one that takes the array as
-	///     values, so every <c>params T[]</c> gets it; an overload in normal form wins over both expanded forms.
-	///     A sibling that could already own that signature suppresses it; a delegate has no siblings.
+	///     empty array. For a lone <c>params object[]</c>, a lone <c>params</c> array whose values can be matchers
+	///     (<see cref="MayHoldParamsMatchers" />) and one beside a generic sibling that keeps its all-values overload from
+	///     being promoted (<see cref="HasSiblingThatMayHoldMatcher" />) the all-values overload ranks below the
+	///     per-element overload, so a call without arguments would bind to the latter and lose <c>AnyParameters()</c>.
+	///     Without <c>OverloadResolutionPriorityAttribute</c> (<paramref name="hasOverloadResolutionPriority" />) a call
+	///     without <c>params</c> arguments is ambiguous between the per-element overload and the one that takes the array
+	///     as values, so every <c>params T[]</c> gets it; an overload in normal form wins over both expanded forms.
+	///     A sibling that could already own that signature suppresses it: a parameterless one for a lone
+	///     <c>params object[]</c>, otherwise one with as many type parameters that a call without arguments binds (for a
+	///     lone <c>params</c> array of a type parameter also without <c>OverloadResolutionPriorityAttribute</c>), and
+	///     beside a generic sibling another lone <c>params</c> array with as many type parameters that is not of a type
+	///     parameter, which would emit the same overload; a delegate has no siblings.
 	/// </summary>
 	private static bool HasEmptyParamsOverload(Class @class, Method method, bool hasOverloadResolutionPriority)
 	{
@@ -3858,18 +3904,43 @@ internal static partial class Sources
 		}
 
 		string bareName = BareMethodName(method);
-		bool loneObjectParams = method.Parameters.Count == 1 && RanksArrayMatcherFirst(method.Parameters) &&
-		                        !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
-		                                                      m.MemberType == method.MemberType &&
-		                                                      m.Parameters.Count == 0 &&
-		                                                      BareMethodName(m) == bareName);
-		if (loneObjectParams || hasOverloadResolutionPriority)
+		bool lone = method.Parameters.Count == 1;
+		bool loneMatcherParams = lone && MayHoldParamsMatchers(method.Parameters.AsArray()[0]);
+		bool loneObjectParams = lone && RanksArrayMatcherFirst(method.Parameters);
+		// A lone `params object[]` keeps yielding to a parameterless sibling; the others yield to a sibling that the
+		// call without arguments binds, which a lone params array of a type parameter is only for another one of them.
+		bool siblingTakesTheCall = lone && @class.AllMethods().Any(m => m.ExplicitImplementation is null &&
+		                                                             m.MemberType == method.MemberType &&
+		                                                             !m.Equals(method) &&
+		                                                             BareMethodName(m) == bareName &&
+		                                                             (loneObjectParams
+			                                                             ? m.Parameters.Count == 0
+			                                                             : CanBindWithoutArguments(m, method) &&
+			                                                               (loneMatcherParams ||
+			                                                                !IsLoneParamsOfATypeParameter(m))));
+		// Another lone params array with as many type parameters would emit the same overload; one of a type parameter
+		// never does, as this method takes its call without arguments.
+		bool besideGenericSibling = lone && !loneMatcherParams && !loneObjectParams &&
+		                            HasSiblingThatMayHoldMatcher(@class, method) &&
+		                            !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
+		                                                          m.MemberType == method.MemberType &&
+		                                                          !m.Equals(method) &&
+		                                                          BareMethodName(m) == bareName &&
+		                                                          SameTypeParameterCount(m, method) &&
+		                                                          m.Parameters.Count == 1 &&
+		                                                          m.Parameters.AsArray()[0].IsParams &&
+		                                                          !IsLoneParamsOfATypeParameter(m));
+		bool loneParams = lone && !siblingTakesTheCall &&
+		                  (loneObjectParams ||
+		                   (hasOverloadResolutionPriority && (loneMatcherParams || besideGenericSibling)));
+		if (loneParams || hasOverloadResolutionPriority)
 		{
-			return loneObjectParams;
+			return loneParams;
 		}
 
 		string[] leading = LeadingParameterTypes(method);
-		return !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
+		return !(loneMatcherParams && siblingTakesTheCall) &&
+		       !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
 		                                     m.MemberType == method.MemberType &&
 		                                     !m.Equals(method) &&
 		                                     BareMethodName(m) == bareName &&
@@ -3883,19 +3954,38 @@ internal static partial class Sources
 		static string[] LeadingParameterTypes(Method method)
 			=> method.Parameters.Take(method.Parameters.Count - 1).Select(p => p.Type.Fullname.Replace("?", ""))
 				.ToArray();
+
+		// A call with explicit type arguments and no arguments binds a sibling with as many type parameters whose
+		// parameters are all optional or params, as the call on the mock does; a sibling with another count of type
+		// parameters cannot take that call.
+		static bool CanBindWithoutArguments(Method sibling, Method method)
+			=> SameTypeParameterCount(sibling, method) &&
+			   sibling.Parameters.All(p => p.HasExplicitDefaultValue || p.IsParams);
+
+		static bool SameTypeParameterCount(Method sibling, Method method)
+			=> (sibling.GenericParameters?.Count ?? 0) == (method.GenericParameters?.Count ?? 0);
+
+		static bool IsLoneParamsOfATypeParameter(Method sibling)
+			=> sibling.Parameters.Count == 1 && MayHoldParamsMatchers(sibling.Parameters.AsArray()[0]);
 	}
 
 	/// <summary>
 	///     Whether a lone <see langword="null" /> argument binds to the <c>IParameters</c> overload although it means the
 	///     literal <see langword="null" /> for the first parameter: the <c>IParameters</c> overload outranks the overload
-	///     for a single <see langword="object" /> parameter or one typed with a method type parameter
-	///     (<see cref="MayHoldMatcher" />) and the overloads that leave out optional parameters or an empty
-	///     <c>params</c> array. Its <see langword="null" /> then forwards to the call with every argument given
-	///     (<see cref="LoneNullArguments" />). A same-named sibling could capture that call (<paramref name="class" /> is
-	///     <see langword="null" /> for a delegate, which has none), and a classic <see langword="null" /> for a
-	///     non-nullable value type is a matcher rather than a value, so both keep the plain <c>IParameters</c> overload.
-	///     A lone <see langword="null" /> for a generic method needs explicit type arguments, and so does the forwarded
-	///     call, so only a sibling with as many type parameters could capture them. Next to a generic sibling that keeps
+	///     for a single <see langword="object" /> parameter, one typed with a method type parameter or a <c>params</c>
+	///     array of one (<see cref="MayHoldAnyMatcher" />), where it stands for a <see langword="null" /> array, and the
+	///     overloads that leave out optional parameters or an empty <c>params</c> array. Its <see langword="null" /> then
+	///     forwards to the call with every argument given (<see cref="LoneNullArguments" />). A same-named sibling could
+	///     capture that call (<paramref name="class" /> is <see langword="null" /> for a delegate, which has none), and a
+	///     classic <see langword="null" /> for a non-nullable value type is a matcher rather than a value, so both keep
+	///     the plain <c>IParameters</c> overload, unless the all-values overload is not promoted, beside a generic
+	///     sibling or before a <c>params</c> array of a type parameter, where the <c>IParameters</c> overload would
+	///     otherwise take a lone <see langword="null" /> or <see langword="default" /> for any parameters. A lone
+	///     <c>params</c> array of another element type keeps the plain <c>IParameters</c> overload, so that a lone
+	///     <see langword="null" /> for it still reports the nullable warning instead of throwing at runtime, unless the
+	///     array is nullable, where the call on the mock takes a lone <see langword="null" /> as well. A lone
+	///     <see langword="null" /> for a generic method needs explicit type arguments, and so does the forwarded call, so
+	///     only a sibling with as many type parameters could capture them. Next to a generic sibling that keeps
 	///     the all-values overload from being promoted (<see cref="HasSiblingThatMayHoldMatcher" />), the
 	///     <c>IParameters</c> overload of a non-generic method outranks it as well, and its forwarded call binds the
 	///     method itself, as a non-generic method wins a tie with a generic one; so only a non-generic sibling counts.
@@ -3907,8 +3997,11 @@ internal static partial class Sources
 		MethodParameter[] parameters = method.Parameters.AsArray();
 		bool isGeneric = method.GenericParameters is not null && method.GenericParameters.Value.Count > 0;
 		bool besideGenericSibling = !isGeneric && @class is not null && HasSiblingThatMayHoldMatcher(@class, method);
+		bool beforeParamsMatchers = isGeneric && parameters.Length > 1 &&
+		                            MayHoldParamsMatchers(parameters[parameters.Length - 1]);
+		bool unpromoted = besideGenericSibling || beforeParamsMatchers;
 		if (parameters.Length == 0 ||
-		    (isGeneric && !MayHoldMatcher(parameters[0])) ||
+		    (isGeneric && !MayHoldAnyMatcher(parameters[0]) && !beforeParamsMatchers) ||
 		    (@class is not null && !HasUniqueMethodName(@class, method, isGeneric || besideGenericSibling)))
 		{
 			return false;
@@ -3918,11 +4011,12 @@ internal static partial class Sources
 		int optionalCount = parameters.Length > 1 && parameters[parameters.Length - 1].IsParams
 			? parameters.Length - 2
 			: parameters.Length - 1;
-		return !first.IsParams &&
+		return (!first.IsParams || MayHoldParamsMatchers(first) ||
+		        (besideGenericSibling && first.IsNullableAnnotated)) &&
 		       first.CanUseNullableParameterOverload() &&
-		       (useUnionOverloads || !first.Type.IsValueType || first.Type.CanBeNullable) &&
+		       (useUnionOverloads || !first.Type.IsValueType || first.Type.CanBeNullable || unpromoted) &&
 		       (parameters.Length > 1 || first.Type.SpecialType == SpecialType.System_Object ||
-		        MayHoldMatcher(first) || besideGenericSibling) &&
+		        MayHoldAnyMatcher(first) || besideGenericSibling) &&
 		       parameters.Skip(1).Take(optionalCount)
 			       .All(p => p.HasExplicitDefaultValue && p.CanUseNullableParameterOverload());
 	}
@@ -4991,6 +5085,12 @@ internal static partial class Sources
 				{
 					if (parameter.IsParams && parameter.Type.ElementType is not null)
 					{
+						if (!emptyParams && MayHoldParamsMatchers(parameter))
+						{
+							AppendParamsMatcher(sb, parameter);
+							sb.Append(" ?? ");
+						}
+
 						// params value parameter: match element-wise by value via It.SequenceEquals.
 						sb.Append("global::Mockolate.CovariantParameterAdapter<").Append(parameter.Type.Fullname)
 							.Append(">.Wrap(global::Mockolate.It.SequenceEquals<")
@@ -6797,7 +6897,10 @@ internal static partial class Sources
 		MethodParameter[] slowParameters = method.Parameters.AsArray();
 		string matchBase = Helpers.GetUniqueIndexedLocalVariableBase("__match", method.Parameters);
 		string?[] matchNames = slowParameters
-			.Select((p, i) => !useParameters && valueFlags?[i] == true && MayHoldMatcher(p) ? $"{matchBase}{i + 1}" : null)
+			.Select((p, i) => !useParameters && valueFlags?[i] == true &&
+			                  (MayHoldMatcher(p) || (!emptyParams && MayHoldParamsMatchers(p)))
+				? $"{matchBase}{i + 1}"
+				: null)
 			.ToArray();
 		bool usesBlockBody = hasDeclaredDefaults || emptyParams || perElementParams || matchNames.Any(x => x is not null);
 		if (usesBlockBody)
@@ -6806,7 +6909,14 @@ internal static partial class Sources
 			AppendDeclaredDefaultMatchers(sb, method, usesDeclaredDefault);
 			for (int k = 0; k < slowParameters.Length; k++)
 			{
-				if (matchNames[k] is not null)
+				if (matchNames[k] is not null && slowParameters[k].IsParams)
+				{
+					sb.Append("\t\t\tglobal::Mockolate.Parameters.IParameterMatch<").Append(slowParameters[k].Type.Fullname)
+						.Append(">? ").Append(matchNames[k]).Append(" = ");
+					AppendParamsMatcher(sb, slowParameters[k]);
+					sb.Append(';').AppendLine();
+				}
+				else if (matchNames[k] is not null)
 				{
 					sb.Append("\t\t\tglobal::Mockolate.Parameters.IParameterMatch<").Append(slowParameters[k].ToTypeOrWrapper())
 						.Append(">? ").Append(matchNames[k]).Append(" = global::Mockolate.Internals.Matchers.AsMatcher<")
@@ -6878,6 +6988,14 @@ internal static partial class Sources
 					sb.Append('(').Append(elementMatch).Append(".Matches(").Append(invocation).Append(".Parameter")
 						.Append(i + 1).Append("))");
 				}
+				else if (matchNames[i] is not null && parameter.IsParams)
+				{
+					sb.Append('(').Append(matchNames[i]).Append("?.Matches(").Append(invocation).Append(".Parameter")
+						.Append(i + 1).Append(") ?? global::Mockolate.CovariantParameterAdapter<").Append(parameter.Type.Fullname)
+						.Append(">.Wrap(global::Mockolate.It.SequenceEquals<").Append(parameter.Type.ElementType!.Fullname)
+						.Append(">(").Append(parameter.Name).Append(")).Matches(").Append(invocation).Append(".Parameter")
+						.Append(i + 1).Append("))");
+				}
 				else if (matchNames[i] is not null)
 				{
 					// A plain value keeps the allocation-free equality comparison.
@@ -6928,6 +7046,11 @@ internal static partial class Sources
 			if (parameter.IsParams && emptyParams)
 			{
 				return "[]";
+			}
+
+			if (parameter.IsParams && matchNames[matchNames.Length - 1] is { } paramsMatch)
+			{
+				return $"{{(global::Mockolate.Internals.ValueFormatter.Format((object?){paramsMatch} ?? {parameter.Name}))}}";
 			}
 
 			return ExpectationPlaceholder(parameter);
