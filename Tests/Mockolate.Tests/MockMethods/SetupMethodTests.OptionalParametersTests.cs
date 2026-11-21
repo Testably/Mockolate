@@ -127,10 +127,10 @@ public sealed partial class SetupMethodTests
 		[Test]
 		public async Task WithSibling_WithExplicitNull_ShouldStillMatchTheDeclaredDefault()
 		{
-			IOptionalMethodParametersWithSibling sut = IOptionalMethodParametersWithSibling.CreateMock();
-			sut.Mock.Setup.Method(It.IsAny<int>(), null).Returns(1);
+			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
+			sut.Mock.Setup.WithSibling(It.IsAny<int>(), null).Returns(1);
 
-			int[] results = [sut.Method(1, 5), sut.Method(1, 0),];
+			int[] results = [sut.WithSibling(1, 5), sut.WithSibling(1, 0),];
 
 			await That(results).IsEqualTo([1, 0,])
 				.Because("next to a same-named method with fewer parameters the optional parameter keeps its = null default");

@@ -57,9 +57,13 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 
 ### Generator output
 
-`Tests/Mockolate.SourceGenerators.Tests/Snapshot/MockGenerationSnapshotTests.cs` runs the generator for each scenario and compares every emitted `.g.cs` file with an aweXpect snapshot in `Snapshot/MockGenerationSnapshotTests/GeneratorOutput_MatchesExpectedSnapshot/`. The inputs are the files in `Tests/Mockolate.Tests/GeneratorCoverage`. `[DebuggerNonUserCode]` is emitted only by a Release build of the generator and is stripped before comparing.
+`Tests/Mockolate.SourceGenerators.Tests/Snapshot/MockGenerationSnapshotTests.cs` runs the generator for each scenario and compares the emitted `.g.cs` files with aweXpect snapshots in `Snapshot/MockGenerationSnapshotTests/GeneratorOutput_MatchesExpectedSnapshot/`. The inputs are the files in `Tests/Mockolate.Tests/GeneratorCoverage`. `[DebuggerNonUserCode]` is emitted only by a Release build of the generator and is stripped before comparing.
 
-Scenarios that generate the same content of a file share its snapshot, named after the file (`Mock.g`). When the scenarios generate several contents of a file, each is named after the first scenario (in ordinal order) that generates it, e.g. `MethodSetups.ComprehensiveInterface_CanBeCreated.g`. A change can therefore rename snapshots of other scenarios.
+The files of the mocked types (`Mock.<Type>.g.cs`) of a scenario are compared as one snapshot named after the scenario, e.g. `DynamicMembers_CanBeCreated.g`, with a `// <file name>` line before each file.
+
+Files that are not specific to a mocked type (`Mock.g`, `Mock.AsExtensions.g`, `MethodSetups.g`, `IndexerSetups.g` and the other files without a `Mock.` prefix) only differ in the arities or types they cover, so only scenarios with `IncludeSharedFiles` compare them. A special case adds a scenario without it. These scenarios share the snapshot of a file with the same content, named after the file (`Mock.g`). When they generate several contents of a file, each is named after the first scenario (in ordinal order) that generates it, e.g. `MethodSetups.ComprehensiveInterface_CanBeCreated.g`. A change can therefore rename snapshots of other scenarios.
+
+A special case whose members can share a type with an existing coverage type is added to that type, with member names that name the edge case (e.g. `IOptionalMethodParameters.WithSibling`); it only gets its own type when the edge case depends on the type, such as its base class, its other members or its kind. Union mode (`_Unions`) only changes the setups and verifications of non-generic methods and indexers without `params` or ref struct parameters, so a special case only adds a `_Unions` scenario when it reaches that code.
 
 Locally, a snapshot that is missing or different opens a diff tool through `aweXpect.Snapshots.DiffEngine` (e.g. Rider, Visual Studio or VS Code) that compares the pending file with the snapshot, so a single change can be reviewed and taken over there. It never opens on a build server; set `DiffEngine_Disabled=true` to turn it off locally, e.g. when a generator change touches many snapshots.
 

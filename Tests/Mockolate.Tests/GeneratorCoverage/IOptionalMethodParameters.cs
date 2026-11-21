@@ -6,7 +6,9 @@ namespace Mockolate.Tests.GeneratorCoverage;
 ///     defaults, a method whose only parameter is optional, one whose kept <see langword="object" /> value must not
 ///     capture matchers, a void method, a generic method, which keeps the classic overloads in union mode, and a method
 ///     with six parameters. Several optional parameters keep their <c>= null</c> defaults in classic mode, so that a call
-///     can skip one by name.
+///     can skip one by name. <c>WithSibling</c> has an optional parameter next to a same-named overload with fewer
+///     parameters: setups and verifications cannot leave out its parameter, so an explicit <see langword="null" /> still
+///     stands for the declared default.
 /// </summary>
 public interface IOptionalMethodParameters
 {
@@ -18,16 +20,8 @@ public interface IOptionalMethodParameters
 	int Generic<T>(T value, int count = 5);
 	int Six(int a, int b, int c, int d, int e, string? f = "f");
 	int SeveralOptional(int key, int count = 5, string? name = "x");
-}
-
-/// <summary>
-///     A method with an optional parameter next to a same-named one with fewer parameters: setups and verifications
-///     cannot leave out its parameter, so an explicit <see langword="null" /> still stands for the declared default.
-/// </summary>
-public interface IOptionalMethodParametersWithSibling
-{
-	int Method(int key);
-	int Method(int key, int count = 5);
+	int WithSibling(int key);
+	int WithSibling(int key, int count = 5);
 }
 
 /// <summary>

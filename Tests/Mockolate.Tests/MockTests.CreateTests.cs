@@ -388,11 +388,9 @@ public sealed partial class MockTests
 		public async Task OptionalMethodParameters_CanBeCreated()
 		{
 			IOptionalMethodParameters sut1 = IOptionalMethodParameters.CreateMock();
-			IOptionalMethodParametersWithSibling sut2 = IOptionalMethodParametersWithSibling.CreateMock();
-			OptionalParametersDelegate sut3 = OptionalParametersDelegate.CreateMock();
+			OptionalParametersDelegate sut2 = OptionalParametersDelegate.CreateMock();
 			await That(sut1).IsNotNull();
 			await That(sut2).IsNotNull();
-			await That(sut3).IsNotNull();
 		}
 
 		[Test]
