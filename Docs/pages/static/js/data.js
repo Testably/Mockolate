@@ -1680,6 +1680,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -1962,7 +1968,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -2248,7 +2255,8 @@ window.BENCHMARK_DATA = {
           192.3705974260966,
           165.114692290624,
           201.99608383859908,
-          152.9057102362315
+          152.9057102362315,
+          197.63512696538652
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2518,6 +2526,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800,
@@ -2833,7 +2842,8 @@ window.BENCHMARK_DATA = {
           36479.949719238284,
           60063.02231270926,
           104676.41960797991,
-          35421.4700398763
+          35421.4700398763,
+          106308.54921875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3124,7 +3134,8 @@ window.BENCHMARK_DATA = {
           9046,
           9055,
           9056,
-          9046
+          9046,
+          9056
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3418,7 +3429,8 @@ window.BENCHMARK_DATA = {
           3341.887189718393,
           3255.492226664225,
           4669.403284513033,
-          2906.5743639809743
+          2906.5743639809743,
+          4612.844216918946
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3579,6 +3591,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4003,7 +4016,8 @@ window.BENCHMARK_DATA = {
           3024.0654114943286,
           3168.828466142927,
           4545.814776829311,
-          2454.014120919364
+          2454.014120919364,
+          4734.001208965595
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4294,7 +4308,8 @@ window.BENCHMARK_DATA = {
           6924,
           6930,
           6930,
-          6924
+          6924,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4588,7 +4603,8 @@ window.BENCHMARK_DATA = {
           189.0792170524597,
           157.54720683097838,
           199.93809064796991,
-          160.5206774075826
+          160.5206774075826,
+          195.2723728588649
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4754,6 +4770,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5173,7 +5190,8 @@ window.BENCHMARK_DATA = {
           471.7736388206482,
           408.05050468444824,
           466.6790653008681,
-          382.7962079414955
+          382.7962079414955,
+          443.33451658884684
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5334,6 +5352,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -7158,6 +7177,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -7440,7 +7465,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -7726,7 +7752,8 @@ window.BENCHMARK_DATA = {
           154.58563896814982,
           178.36004257202148,
           154.48827873865764,
-          121.54316256596492
+          121.54316256596492,
+          123.08235899607341
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7996,6 +8023,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712,
@@ -8311,7 +8339,8 @@ window.BENCHMARK_DATA = {
           15152.941446940104,
           12579.251146589007,
           15266.392925555889,
-          8968.308410644531
+          8968.308410644531,
+          11139.612570626396
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8598,6 +8627,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -8896,7 +8926,8 @@ window.BENCHMARK_DATA = {
           5623.874771118164,
           5143.4108016967775,
           5870.730771745954,
-          3569.7298344930014
+          3569.7298344930014,
+          4448.049231937954
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9057,6 +9088,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -9481,7 +9513,8 @@ window.BENCHMARK_DATA = {
           223747.2362234933,
           154055.57591145832,
           225130.6890299479,
-          103313.62268880209
+          103313.62268880209,
+          195990.62351771764
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9772,7 +9805,8 @@ window.BENCHMARK_DATA = {
           15618,
           15579,
           15618,
-          15579
+          15579,
+          15619
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10066,7 +10100,8 @@ window.BENCHMARK_DATA = {
           173.3374678770701,
           211.68523814127997,
           171.78062149456568,
-          146.25656596251898
+          146.25656596251898,
+          159.75529391424996
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10207,6 +10242,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -10651,7 +10687,8 @@ window.BENCHMARK_DATA = {
           167.20100247065227,
           218.00056115786234,
           163.58624326388042,
-          136.45036944321222
+          136.45036944321222,
+          129.04202444212777
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -10785,6 +10822,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -12636,6 +12674,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -12918,7 +12962,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -13204,7 +13249,8 @@ window.BENCHMARK_DATA = {
           505.8585173743112,
           402.63491910298666,
           432.305153020223,
-          556.5464010238647
+          556.5464010238647,
+          261.1475331233098
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13494,6 +13540,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1824,
           1824,
           1824
         ],
@@ -13789,7 +13836,8 @@ window.BENCHMARK_DATA = {
           105611.37911783854,
           83903.16224888393,
           175120.2870686849,
-          539502.066266741
+          539502.066266741,
+          148947.6939127604
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14080,7 +14128,8 @@ window.BENCHMARK_DATA = {
           20889,
           20921,
           38540,
-          38459
+          38459,
+          38487
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14374,7 +14423,8 @@ window.BENCHMARK_DATA = {
           9893.146498616536,
           7597.4008646647135,
           61446.680981445315,
-          215031.02540940506
+          215031.02540940506,
+          38182.75353190104
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14665,7 +14715,8 @@ window.BENCHMARK_DATA = {
           13088,
           13088,
           28098,
-          28156
+          28156,
+          28162
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14959,7 +15010,8 @@ window.BENCHMARK_DATA = {
           7803.667636326381,
           6503.220483398438,
           63784.60879952567,
-          248103.64090401787
+          248103.64090401787,
+          50745.26116071428
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15250,7 +15302,8 @@ window.BENCHMARK_DATA = {
           13588,
           13586,
           30247,
-          30259
+          30259,
+          30276
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15544,7 +15597,8 @@ window.BENCHMARK_DATA = {
           340.9616216591426,
           278.40821336110434,
           301.6511158943176,
-          367.17979300816853
+          367.17979300816853,
+          187.5903900464376
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15835,6 +15889,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -15925,7 +15980,8 @@ window.BENCHMARK_DATA = {
           818.0480274200439,
           661.0142610549926,
           661.375737953186,
-          871.1429091453552
+          871.1429091453552,
+          442.8023874576275
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16011,6 +16067,7 @@ window.BENCHMARK_DATA = {
           2784,
           2784,
           2784,
+          2856,
           2856,
           2856
         ],
@@ -17706,6 +17763,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -17988,7 +18051,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -18274,7 +18338,8 @@ window.BENCHMARK_DATA = {
           1402.8857026781354,
           1138.7205565134684,
           1177.8038857777913,
-          1468.9139475504558
+          1468.9139475504558,
+          871.1880409376962
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18564,6 +18629,7 @@ window.BENCHMARK_DATA = {
           2616,
           2616,
           2616,
+          2760,
           2760,
           2760
         ],
@@ -18859,7 +18925,8 @@ window.BENCHMARK_DATA = {
           112909.46300397601,
           89168.5343976702,
           205658.3913248698,
-          550458.3205729167
+          550458.3205729167,
+          158687.1850398137
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19150,7 +19217,8 @@ window.BENCHMARK_DATA = {
           30466,
           30498,
           48233,
-          47024
+          47024,
+          48088
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19444,7 +19512,8 @@ window.BENCHMARK_DATA = {
           23931.959466552733,
           18591.587827555337,
           74971.81158854166,
-          234495.12028808595
+          234495.12028808595,
+          45633.6144127479
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19735,7 +19804,8 @@ window.BENCHMARK_DATA = {
           26192,
           26696,
           41203,
-          41271
+          41271,
+          41269
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20029,7 +20099,8 @@ window.BENCHMARK_DATA = {
           19000.341635567802,
           15393.867397054037,
           79678.48875325521,
-          277720.9765625
+          277720.9765625,
+          60925.07460123698
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20320,7 +20391,8 @@ window.BENCHMARK_DATA = {
           33249,
           33249,
           49922,
-          49926
+          49926,
+          49924
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20614,7 +20686,8 @@ window.BENCHMARK_DATA = {
           773.0139267994807,
           628.8293960571289,
           678.1181432088216,
-          863.4022305170695
+          863.4022305170695,
+          460.0259777704875
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20905,6 +20978,7 @@ window.BENCHMARK_DATA = {
           2176,
           2176,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -20995,7 +21069,8 @@ window.BENCHMARK_DATA = {
           2710.718756612142,
           2109.1534655253095,
           2409.256457265218,
-          2808.943295288086
+          2808.943295288086,
+          1662.348942075457
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21081,6 +21156,7 @@ window.BENCHMARK_DATA = {
           5496,
           5496,
           5496,
+          5568,
           5568,
           5568
         ],
@@ -22776,6 +22852,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -23058,7 +23140,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -23344,7 +23427,8 @@ window.BENCHMARK_DATA = {
           109.93345332997185,
           127.79747716585796,
           170.58247292041779,
-          74.442227212588
+          74.442227212588,
+          124.30656792720158
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -23634,6 +23718,7 @@ window.BENCHMARK_DATA = {
           608,
           608,
           608,
+          592,
           592,
           592
         ],
@@ -23929,7 +24014,8 @@ window.BENCHMARK_DATA = {
           114257.3884626116,
           71214.91987304688,
           4074.473643711635,
-          2355.429641723633
+          2355.429641723633,
+          4467.1187251164365
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -24219,6 +24305,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552
         ],
@@ -24514,7 +24601,8 @@ window.BENCHMARK_DATA = {
           4719.221237182617,
           4570.27424797645,
           5462.937436421712,
-          2950.047542826335
+          2950.047542826335,
+          5828.773629869734
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -24804,6 +24892,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816
         ],
@@ -25099,7 +25188,8 @@ window.BENCHMARK_DATA = {
           4255.839296468099,
           3396.5652132670084,
           3733.4655931912935,
-          2260.4269981384277
+          2260.4269981384277,
+          4409.801061503093
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -25390,6 +25480,7 @@ window.BENCHMARK_DATA = {
           8160,
           8151,
           7509,
+          7517,
           7517
         ],
         "borderColor": "#4A6FA5",
@@ -25684,7 +25775,8 @@ window.BENCHMARK_DATA = {
           140.25718232301566,
           157.65142243703207,
           221.16071132818857,
-          106.64629484812419
+          106.64629484812419,
+          172.75486842223577
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -25974,6 +26066,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808
         ],
@@ -26269,7 +26362,8 @@ window.BENCHMARK_DATA = {
           361.08819777170817,
           446.7103389422099,
           558.0475462504795,
-          265.40695796694075
+          265.40695796694075,
+          443.2630965709686
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -26559,6 +26653,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          2136,
           2136,
           2136
         ],
@@ -28254,6 +28349,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -28536,7 +28637,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -28822,7 +28924,8 @@ window.BENCHMARK_DATA = {
           299.00368846257527,
           314.6735150019328,
           411.5509047875038,
-          217.99656052248818
+          217.99656052248818,
+          347.33454506737843
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -29112,6 +29215,7 @@ window.BENCHMARK_DATA = {
           1112,
           1112,
           1112,
+          1096,
           1096,
           1096
         ],
@@ -29407,7 +29511,8 @@ window.BENCHMARK_DATA = {
           118094.51456124442,
           72605.75525716147,
           6098.288307776818,
-          3281.668757574899
+          3281.668757574899,
+          6355.359236399333
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -29697,6 +29802,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536
         ],
@@ -29992,7 +30098,8 @@ window.BENCHMARK_DATA = {
           6898.901586405436,
           6370.8022933959965,
           7900.469301496233,
-          4246.292613220215
+          4246.292613220215,
+          8524.7108165196
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -30283,7 +30390,8 @@ window.BENCHMARK_DATA = {
           12344,
           12344,
           12840,
-          12840
+          12840,
+          12841
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -30577,7 +30685,8 @@ window.BENCHMARK_DATA = {
           6479.097662353515,
           5765.91352335612,
           7352.611748286656,
-          3907.8915628705704
+          3907.8915628705704,
+          7843.983040364584
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30868,6 +30977,7 @@ window.BENCHMARK_DATA = {
           16394,
           16391,
           15748,
+          15754,
           15754
         ],
         "borderColor": "#4A6FA5",
@@ -31162,7 +31272,8 @@ window.BENCHMARK_DATA = {
           300.15928904215497,
           310.9418125833784,
           439.2121372563498,
-          235.6805949687958
+          235.6805949687958,
+          365.326095199585
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -31452,6 +31563,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168
         ],
@@ -31747,7 +31859,8 @@ window.BENCHMARK_DATA = {
           1082.9438636779785,
           1235.7991755349296,
           1700.7890351613362,
-          909.6862408320109
+          909.6862408320109,
+          1273.50865818904
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -32037,6 +32150,7 @@ window.BENCHMARK_DATA = {
           3840,
           3840,
           3840,
+          3888,
           3888,
           3888
         ],
@@ -33732,6 +33846,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -34014,7 +34134,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -34300,7 +34421,8 @@ window.BENCHMARK_DATA = {
           249.7857948621114,
           182.24019346237182,
           327.4633766583034,
-          238.7189561208089
+          238.7189561208089,
+          242.81879557882036
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -34570,6 +34692,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920,
@@ -34885,7 +35008,8 @@ window.BENCHMARK_DATA = {
           6996.802014668782,
           5746.647862025669,
           8889.100449782152,
-          10796.82528250558
+          10796.82528250558,
+          7693.737226213728
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -35176,7 +35300,8 @@ window.BENCHMARK_DATA = {
           10568,
           10568,
           10609,
-          10458
+          10458,
+          10569
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -35470,7 +35595,8 @@ window.BENCHMARK_DATA = {
           5269.562014443533,
           4145.342169189453,
           6554.542568751744,
-          7572.435357666016
+          7572.435357666016,
+          5439.278101094564
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -35755,6 +35881,7 @@ window.BENCHMARK_DATA = {
           11688,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -36055,7 +36182,8 @@ window.BENCHMARK_DATA = {
           4934.587448628744,
           4117.234891255696,
           6126.357548849924,
-          8280.13760811942
+          8280.13760811942,
+          5051.5242062886555
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -36346,7 +36474,8 @@ window.BENCHMARK_DATA = {
           11191,
           11196,
           11191,
-          11196
+          11196,
+          11191
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -36640,7 +36769,8 @@ window.BENCHMARK_DATA = {
           172.81139734813146,
           120.89440378120968,
           216.50789156981878,
-          207.17206619467055
+          207.17206619467055,
+          164.46805718966894
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -36806,6 +36936,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -37225,7 +37356,8 @@ window.BENCHMARK_DATA = {
           428.2433227221171,
           308.8436357791607,
           543.3858012517293,
-          417.11324763298035
+          417.11324763298035,
+          423.1501030921936
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -37421,6 +37553,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -39210,6 +39343,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -39492,7 +39631,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -39778,7 +39918,8 @@ window.BENCHMARK_DATA = {
           564.0528599421183,
           468.58387565612793,
           753.3768728696383,
-          602.915409596761
+          602.915409596761,
+          613.6619281035203
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -40048,6 +40189,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784,
@@ -40363,7 +40505,8 @@ window.BENCHMARK_DATA = {
           11581.226582845053,
           10098.752931722005,
           14817.654203561637,
-          17046.945678710938
+          17046.945678710938,
+          12596.333607264927
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -40654,7 +40797,8 @@ window.BENCHMARK_DATA = {
           18504,
           18505,
           17536,
-          17385
+          17385,
+          18504
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -40948,7 +41092,8 @@ window.BENCHMARK_DATA = {
           11636.745538330078,
           9715.791325887045,
           15047.786064656575,
-          17454.79020385742
+          17454.79020385742,
+          12842.907306126186
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -41239,7 +41384,8 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21528,
-          21529
+          21529,
+          21528
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -41533,7 +41679,8 @@ window.BENCHMARK_DATA = {
           12675.620629882813,
           10302.431067911784,
           16286.284259033204,
-          19727.184971110026
+          19727.184971110026,
+          13195.050165029672
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -41824,7 +41971,8 @@ window.BENCHMARK_DATA = {
           30780,
           30785,
           30785,
-          30785
+          30785,
+          30780
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -42118,7 +42266,8 @@ window.BENCHMARK_DATA = {
           331.4192597184862,
           291.63221101760865,
           445.161864893777,
-          333.7970770835876
+          333.7970770835876,
+          361.9214086532593
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -42284,6 +42433,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -42703,7 +42853,8 @@ window.BENCHMARK_DATA = {
           1598.4176789601645,
           1335.0974235534668,
           2007.8528181222769,
-          1543.1337743123372
+          1543.1337743123372,
+          1614.463218007769
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -42899,6 +43050,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -44688,6 +44840,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -44970,7 +45128,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -45256,7 +45415,8 @@ window.BENCHMARK_DATA = {
           16.658633895715077,
           15.017195709546407,
           9.368174035847186,
-          12.643805525132588
+          12.643805525132588,
+          12.893394237527481
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -45486,6 +45646,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -45841,7 +46002,8 @@ window.BENCHMARK_DATA = {
           91.97646887103717,
           88.06906808217367,
           60.92488704522451,
-          77.53794989983241
+          77.53794989983241,
+          77.69408927758535
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46007,6 +46169,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -46426,7 +46589,8 @@ window.BENCHMARK_DATA = {
           27.964843249320985,
           29.850673701081956,
           17.29668964445591,
-          21.723901582615717
+          21.723901582615717,
+          22.26578417023023
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -46560,6 +46724,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -47011,7 +47176,8 @@ window.BENCHMARK_DATA = {
           1307.1461882273356,
           872.4377351125081,
           781.9850655283246,
-          988.2407236735027
+          988.2407236735027,
+          965.1597879954746
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47172,6 +47338,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -47596,7 +47763,8 @@ window.BENCHMARK_DATA = {
           1991.0309120178222,
           1230.2538848876952,
           1087.3472925332876,
-          1342.0049419403076
+          1342.0049419403076,
+          1389.8747179667155
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47757,6 +47925,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -48181,7 +48350,8 @@ window.BENCHMARK_DATA = {
           1714.7032842636108,
           1037.8154145558676,
           912.1170316423688,
-          1154.6832549231392
+          1154.6832549231392,
+          1220.0187978744507
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48471,6 +48641,7 @@ window.BENCHMARK_DATA = {
           2751,
           2755,
           2751,
+          2755,
           2755,
           2755
         ],
@@ -49068,6 +49239,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -49167,7 +49344,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -49270,7 +49448,8 @@ window.BENCHMARK_DATA = {
           1695.4825316837855,
           2267.902825164795,
           1391.1056915010724,
-          1658.1971122196742
+          1658.1971122196742,
+          1584.2104343686785
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -49373,6 +49552,7 @@ window.BENCHMARK_DATA = {
           5248,
           5248,
           5248,
+          5264,
           5264,
           5264,
           5264,
@@ -49489,7 +49669,8 @@ window.BENCHMARK_DATA = {
           2008.675081125895,
           2314.1057682037354,
           1527.8147309621174,
-          1954.6189575195312
+          1954.6189575195312,
+          1786.2534464518228
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -49595,6 +49776,7 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7384,
+          7385,
           7385,
           7385,
           7385
@@ -49708,7 +49890,8 @@ window.BENCHMARK_DATA = {
           4644.076211039225,
           5336.963427734375,
           3415.7971572875977,
-          4227.318267277309
+          4227.318267277309,
+          3840.0914566040037
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49781,6 +49964,7 @@ window.BENCHMARK_DATA = {
           10544,
           10544,
           10544,
+          17360,
           17360,
           17360,
           17360,
@@ -49927,7 +50111,8 @@ window.BENCHMARK_DATA = {
           804768.2106770833,
           1415944.0466145833,
           691949.0735212053,
-          791518.3739583333
+          791518.3739583333,
+          818472.907421875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50035,7 +50220,8 @@ window.BENCHMARK_DATA = {
           92461,
           92365,
           92713,
-          92213
+          92213,
+          92517
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -50146,7 +50332,8 @@ window.BENCHMARK_DATA = {
           250814.19046456474,
           311581.0333984375,
           225038.12810872396,
-          248043.90178034856
+          248043.90178034856,
+          253936.93577223556
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50254,6 +50441,7 @@ window.BENCHMARK_DATA = {
           54508,
           54382,
           54379,
+          54382,
           54382
         ],
         "borderColor": "#5E2750",
@@ -50365,7 +50553,8 @@ window.BENCHMARK_DATA = {
           283166.3294270833,
           351459.48369891825,
           263245.6133138021,
-          310228.8157877604
+          310228.8157877604,
+          313272.31181640626
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50473,7 +50662,8 @@ window.BENCHMARK_DATA = {
           65508,
           65671,
           65639,
-          65479
+          65479,
+          65398
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50955,6 +51145,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -51035,7 +51231,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -51119,7 +51316,8 @@ window.BENCHMARK_DATA = {
           20752.759041341145,
           21676.43662923177,
           27948.464133126396,
-          14934.140704345704
+          14934.140704345704,
+          24741.82977294922
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -51207,6 +51405,7 @@ window.BENCHMARK_DATA = {
           56552,
           56552,
           56552,
+          56536,
           56536,
           56536
         ],
@@ -51300,7 +51499,8 @@ window.BENCHMARK_DATA = {
           16914.35486309345,
           17598.237115478514,
           23206.170950082633,
-          12490.557670593262
+          12490.557670593262,
+          21409.29350535075
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -51388,6 +51588,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768
         ],
@@ -51481,7 +51682,8 @@ window.BENCHMARK_DATA = {
           77849.73584856305,
           96345.00973307292,
           129829.18205915179,
-          71156.33075968425
+          71156.33075968425,
+          94155.73178536551
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51569,6 +51771,7 @@ window.BENCHMARK_DATA = {
           203585,
           203585,
           203585,
+          203633,
           203633,
           203633
         ],
@@ -51662,7 +51865,8 @@ window.BENCHMARK_DATA = {
           288754.0597005208,
           226429.15209960938,
           186621.94936899038,
-          101886.05460030692
+          101886.05460030692,
+          187562.3899797712
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -51751,7 +51955,8 @@ window.BENCHMARK_DATA = {
           431938,
           431908,
           423539,
-          423562
+          423562,
+          423564
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -51843,7 +52048,8 @@ window.BENCHMARK_DATA = {
           240018.88025716145,
           189968.50984700522,
           231230.88861553484,
-          135826.80281575522
+          135826.80281575522,
+          270404.4296875
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -51932,7 +52138,8 @@ window.BENCHMARK_DATA = {
           378037,
           378018,
           378514,
-          378535
+          378535,
+          378537
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52024,7 +52231,8 @@ window.BENCHMARK_DATA = {
           278366.0704427083,
           280837.207421875,
           385741.44071138825,
-          196917.85866001673
+          196917.85866001673,
+          376379.09629603795
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52113,7 +52321,8 @@ window.BENCHMARK_DATA = {
           944402,
           944523,
           943883,
-          943741
+          943741,
+          943763
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52595,6 +52804,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -52675,7 +52890,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -52759,7 +52975,8 @@ window.BENCHMARK_DATA = {
           39102.281311035156,
           30909.20394897461,
           50322.69725623498,
-          38893.2487487793
+          38893.2487487793,
+          41918.96092936198
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52848,6 +53065,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96825,
+          96824,
           96824
         ],
         "borderColor": "#63A2AC",
@@ -52940,7 +53158,8 @@ window.BENCHMARK_DATA = {
           19080.20565359933,
           16686.295739746092,
           26206.377321515763,
-          16330.695481363933
+          16330.695481363933,
+          23340.5540095738
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -53029,7 +53248,8 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32640,
-          32641
+          32641,
+          32640
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -53121,7 +53341,8 @@ window.BENCHMARK_DATA = {
           121646.68973795573,
           107283.28833007812,
           159246.59130859375,
-          114573.90887858073
+          114573.90887858073,
+          130811.78653390067
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53194,6 +53415,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -53302,7 +53524,8 @@ window.BENCHMARK_DATA = {
           451970.4443684896,
           428039.02986653644,
           564405.1413225447,
-          660739.7963867188
+          660739.7963867188,
+          479193.0263296274
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53391,7 +53614,8 @@ window.BENCHMARK_DATA = {
           836449,
           836538,
           724599,
-          724509
+          724509,
+          836449
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53483,7 +53707,8 @@ window.BENCHMARK_DATA = {
           691508.848031851,
           629307.7656947544,
           907061.148844401,
-          1078075.3790364584
+          1078075.3790364584,
+          745260.6187825521
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53572,7 +53797,8 @@ window.BENCHMARK_DATA = {
           1139620,
           1139701,
           1139621,
-          1139704
+          1139704,
+          1139621
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53664,7 +53890,8 @@ window.BENCHMARK_DATA = {
           895841.6866536458,
           771505.4714006697,
           1078729.7122395833,
-          1338136.2240513393
+          1338136.2240513393,
+          843322.7879557292
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -53753,7 +53980,8 @@ window.BENCHMARK_DATA = {
           2194285,
           2194325,
           2194291,
-          2194291
+          2194291,
+          2194285
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54235,6 +54463,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -54315,7 +54549,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -54399,7 +54634,8 @@ window.BENCHMARK_DATA = {
           104978.3103922526,
           80537.312726702,
           88495.96826171875,
-          98643.00363595145
+          98643.00363595145,
+          68652.13264973958
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54488,7 +54724,8 @@ window.BENCHMARK_DATA = {
           105577,
           105577,
           105721,
-          105721
+          105721,
+          105720
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54580,7 +54817,8 @@ window.BENCHMARK_DATA = {
           50403.97455037435,
           40681.78926595052,
           43522.479337565106,
-          52452.19765218099
+          52452.19765218099,
+          30788.70947265625
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54669,6 +54907,7 @@ window.BENCHMARK_DATA = {
           120977,
           120977,
           121097,
+          121101,
           121101
         ],
         "borderColor": "#E84393",
@@ -54761,7 +55000,8 @@ window.BENCHMARK_DATA = {
           805419.9193960336,
           638909.0096958706,
           750482.1381510417,
-          1363620.805859375
+          1363620.805859375,
+          609843.2248535156
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54850,7 +55090,8 @@ window.BENCHMARK_DATA = {
           1030590,
           1030622,
           1048357,
-          936385
+          936385,
+          1048313
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54942,7 +55183,8 @@ window.BENCHMARK_DATA = {
           1514385.3626302083,
           1180467.0577566964,
           1199552.7314453125,
-          1912174.2985677083
+          1912174.2985677083,
+          969966.6099330357
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55031,6 +55273,7 @@ window.BENCHMARK_DATA = {
           1500704,
           1556642,
           1515722,
+          1515916,
           1515916
         ],
         "borderColor": "#5E2750",
@@ -55123,7 +55366,8 @@ window.BENCHMARK_DATA = {
           1159747.713671875,
           899668.4914713542,
           1002632.9350260417,
-          1770067.5689174107
+          1770067.5689174107,
+          834193.136858259
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55212,7 +55456,8 @@ window.BENCHMARK_DATA = {
           2204674,
           2204669,
           2221357,
-          2221384
+          2221384,
+          2221398
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55302,7 +55547,8 @@ window.BENCHMARK_DATA = {
           210372.95068359375,
           159798.70872395832,
           167629.00371442523,
-          199331.81752232142
+          199331.81752232142,
+          136012.73988560267
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55388,6 +55634,7 @@ window.BENCHMARK_DATA = {
           300713,
           300713,
           300713,
+          300785,
           300785,
           300785
         ],
@@ -55823,6 +56070,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -55895,7 +56148,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -55971,7 +56225,8 @@ window.BENCHMARK_DATA = {
           330.73680369059247,
           432.90628474099293,
           253.59844201405843,
-          440.3071951184954
+          440.3071951184954,
+          514.0178033828736
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -56031,6 +56286,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544,
@@ -56136,7 +56392,8 @@ window.BENCHMARK_DATA = {
           231.22558046976727,
           295.11030643326893,
           168.61673760414124,
-          249.0879508336385
+          249.0879508336385,
+          294.1784652982439
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -56148,6 +56405,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -56301,7 +56559,8 @@ window.BENCHMARK_DATA = {
           404.8891718047006,
           537.5204680124918,
           338.73001313209534,
-          509.1620625178019
+          509.1620625178019,
+          591.0684312184652
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -56313,6 +56572,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -56466,7 +56726,8 @@ window.BENCHMARK_DATA = {
           70332.90530831473,
           91052.21848958333,
           31754.495134626115,
-          113092.48764648437
+          113092.48764648437,
+          115195.17360276442
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -56547,6 +56808,7 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10031,
+          10030,
           10030
         ],
         "borderColor": "#A052B0",
@@ -56631,7 +56893,8 @@ window.BENCHMARK_DATA = {
           5381.264678955078,
           7155.179151407878,
           3928.679465660682,
-          7206.49714457194
+          7206.49714457194,
+          7758.64118347168
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56708,6 +56971,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -56796,7 +57060,8 @@ window.BENCHMARK_DATA = {
           5123.042464623084,
           7178.718397521972,
           3583.0040724618093,
-          7364.113813672747
+          7364.113813672747,
+          7962.51333211263
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56868,6 +57133,7 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11863,
+          11854,
           11854,
           11854,
           11854,
@@ -57311,6 +57577,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -57383,7 +57655,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -57459,7 +57732,8 @@ window.BENCHMARK_DATA = {
           1218.0513374328614,
           1639.901217397054,
           1084.4374858311244,
-          1546.7441701889038
+          1546.7441701889038,
+          1617.67674268995
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -57519,6 +57793,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016,
@@ -57624,7 +57899,8 @@ window.BENCHMARK_DATA = {
           807.0896940912519,
           1083.8063850402832,
           659.248753615788,
-          929.2966863768441
+          929.2966863768441,
+          1052.097387568156
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -57636,6 +57912,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -57789,7 +58066,8 @@ window.BENCHMARK_DATA = {
           2526.6061632792157,
           3309.7076691847583,
           2302.4426250457764,
-          3148.0849548339843
+          3148.0849548339843,
+          3320.756410598755
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57801,6 +58079,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -57954,7 +58233,8 @@ window.BENCHMARK_DATA = {
           82606.32125651042,
           105412.48028971354,
           41238.83549804687,
-          128663.61956380209
+          128663.61956380209,
+          129283.73230794272
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58035,6 +58315,7 @@ window.BENCHMARK_DATA = {
           25114,
           25114,
           25114,
+          25115,
           25115
         ],
         "borderColor": "#A052B0",
@@ -58119,7 +58400,8 @@ window.BENCHMARK_DATA = {
           16914.817145211357,
           21338.428625924247,
           12217.132005818685,
-          22085.76222229004
+          22085.76222229004,
+          23873.350742885046
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58196,6 +58478,7 @@ window.BENCHMARK_DATA = {
           23481,
           23481,
           25665,
+          23481,
           23481,
           23481,
           23481,
@@ -58284,7 +58567,8 @@ window.BENCHMARK_DATA = {
           20766.804693603517,
           26456.462993076868,
           13875.494958241781,
-          28259.807151285808
+          28259.807151285808,
+          29283.79456438337
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58351,6 +58635,7 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55296,
+          55216,
           55216,
           55216,
           55216,
@@ -58799,6 +59084,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -58871,7 +59162,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -58947,7 +59239,8 @@ window.BENCHMARK_DATA = {
           94826.89208984375,
           122283.72246844952,
           83006.22573242188,
-          119848.46569010416
+          119848.46569010416,
+          126991.3127092634
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59026,6 +59319,7 @@ window.BENCHMARK_DATA = {
           273297,
           273297,
           273296,
+          273297,
           273297,
           273297,
           273297
@@ -59112,7 +59406,8 @@ window.BENCHMARK_DATA = {
           65839.53568812778,
           85541.75030110677,
           53736.39750976562,
-          77412.80046590169
+          77412.80046590169,
+          87912.01064453126
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59184,6 +59479,7 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208882,
+          208883,
           208883,
           208883,
           208883,
@@ -59277,7 +59573,8 @@ window.BENCHMARK_DATA = {
           251241.79150390625,
           299811.18688964844,
           216718.3032714844,
-          300572.6263020833
+          300572.6263020833,
+          314494.9902692522
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -59358,6 +59655,7 @@ window.BENCHMARK_DATA = {
           707794,
           707794,
           707793,
+          707794,
           707794
         ],
         "borderColor": "#FF8C00",
@@ -59442,7 +59740,8 @@ window.BENCHMARK_DATA = {
           1178587.4253305288,
           1501551.3170572917,
           805727.1649693081,
-          1593825.731640625
+          1593825.731640625,
+          1567945.3065104166
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59523,6 +59822,7 @@ window.BENCHMARK_DATA = {
           1692680,
           1692680,
           1692675,
+          1692680,
           1692680
         ],
         "borderColor": "#A052B0",
@@ -59607,7 +59907,8 @@ window.BENCHMARK_DATA = {
           1294122.9021484375,
           1601520.9151785714,
           921768.8527994792,
-          1640272.2559988839
+          1640272.2559988839,
+          1786101.4541666666
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -59688,6 +59989,7 @@ window.BENCHMARK_DATA = {
           1468915,
           1468916,
           1468910,
+          1468916,
           1468916
         ],
         "borderColor": "#5E2750",
@@ -59772,7 +60074,8 @@ window.BENCHMARK_DATA = {
           2200506.600167411,
           2808894.420247396,
           1610876.6427176339,
-          3001341.0574776786
+          3001341.0574776786,
+          2968055.554427083
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59853,7 +60156,8 @@ window.BENCHMARK_DATA = {
           4803385,
           4803387,
           4803374,
-          4803385
+          4803385,
+          4803387
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60083,6 +60387,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -60121,7 +60431,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -60163,7 +60474,8 @@ window.BENCHMARK_DATA = {
           703.2760091145833,
           283.79604380925497,
           351.094672870636,
-          353.1692768096924
+          353.1692768096924,
+          289.6270961443583
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -60189,6 +60501,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024,
@@ -60260,7 +60573,8 @@ window.BENCHMARK_DATA = {
           401.56296287264144,
           362.7540191332499,
           439.2067777927105,
-          458.5222088268825
+          458.5222088268825,
+          395.46270459493
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -60272,6 +60586,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -60357,7 +60672,8 @@ window.BENCHMARK_DATA = {
           1059.882587560018,
           902.8509002685547,
           1141.045018450419,
-          1184.5639693578084
+          1184.5639693578084,
+          975.7372419993083
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60369,6 +60685,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          4464,
           4464,
           4464,
           4464,
@@ -60454,7 +60771,8 @@ window.BENCHMARK_DATA = {
           323882.19599609374,
           114496.70361328125,
           326260.84901646205,
-          336874.5302734375
+          336874.5302734375,
+          118523.59633789063
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60501,7 +60819,8 @@ window.BENCHMARK_DATA = {
           23302,
           23307,
           23302,
-          23282
+          23282,
+          23546
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60551,7 +60870,8 @@ window.BENCHMARK_DATA = {
           16019.433150227864,
           10218.230089314779,
           16422.40772705078,
-          16104.931577555339
+          16104.931577555339,
+          10722.972894941058
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60598,7 +60918,8 @@ window.BENCHMARK_DATA = {
           19554,
           19515,
           19629,
-          19742
+          19742,
+          19515
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60648,7 +60969,8 @@ window.BENCHMARK_DATA = {
           11520.108462524415,
           6428.594928487142,
           11690.764947509766,
-          11785.364373524984
+          11785.364373524984,
+          6937.491337458293
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60695,7 +61017,8 @@ window.BENCHMARK_DATA = {
           14332,
           14485,
           14332,
-          14332
+          14332,
+          14325
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60925,6 +61248,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -60963,7 +61292,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -61005,7 +61335,8 @@ window.BENCHMARK_DATA = {
           1633.6698155721028,
           1206.7409861428398,
           1777.3791023254394,
-          1761.159976550511
+          1761.159976550511,
+          1245.1444815317789
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -61031,6 +61362,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040,
@@ -61102,7 +61434,8 @@ window.BENCHMARK_DATA = {
           1357.0703812917075,
           1154.6398153940836,
           1477.6226338704428,
-          1556.70252532959
+          1556.70252532959,
+          1242.4896995544434
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -61114,6 +61447,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -61199,7 +61533,8 @@ window.BENCHMARK_DATA = {
           4818.264318084717,
           3854.3029123942056,
           4926.57849222819,
-          5356.307458496094
+          5356.307458496094,
+          4216.6432652791345
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -61211,6 +61546,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          10536,
           10536,
           10536,
           10536,
@@ -61296,7 +61632,8 @@ window.BENCHMARK_DATA = {
           367966.01666666666,
           143499.3324544271,
           369272.2208984375,
-          375762.6165248326
+          375762.6165248326,
+          147449.68907877605
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -61343,7 +61680,8 @@ window.BENCHMARK_DATA = {
           41155,
           41139,
           41155,
-          41155
+          41155,
+          41387
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -61393,7 +61731,8 @@ window.BENCHMARK_DATA = {
           28205.954389299666,
           17317.082029215493,
           29597.451139322915,
-          30246.6494140625
+          30246.6494140625,
+          18638.764463297524
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -61440,7 +61779,8 @@ window.BENCHMARK_DATA = {
           30101,
           30082,
           30204,
-          32329
+          32329,
+          30082
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -61490,7 +61830,8 @@ window.BENCHMARK_DATA = {
           42363.496138509116,
           27125.673899332684,
           44340.366760253906,
-          44530.85075026292
+          44530.85075026292,
+          28384.853092447916
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61537,7 +61878,8 @@ window.BENCHMARK_DATA = {
           60495,
           60658,
           60496,
-          60496
+          60496,
+          60493
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61767,6 +62109,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -61805,7 +62153,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -61847,7 +62196,8 @@ window.BENCHMARK_DATA = {
           148067.47594401042,
           108053.9338623047,
           164835.82604166667,
-          154766.30451311384
+          154766.30451311384,
+          109507.12615559896
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -61891,6 +62241,7 @@ window.BENCHMARK_DATA = {
           224800,
           224801,
           224800,
+          224801,
           224801,
           224801,
           224801,
@@ -61944,7 +62295,8 @@ window.BENCHMARK_DATA = {
           109883.61540527343,
           87238.70135904948,
           117130.56202799479,
-          123063.25864257812
+          123063.25864257812,
+          96255.39431966146
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -61988,6 +62340,7 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209408,
+          209409,
           209409,
           209409,
           209409,
@@ -62041,7 +62394,8 @@ window.BENCHMARK_DATA = {
           419095.317195012,
           322164.9356515067,
           420422.29157902644,
-          431751.48193359375
+          431751.48193359375,
+          354573.10426682694
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62053,6 +62407,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          703994,
           703994,
           703994,
           703994,
@@ -62138,7 +62493,8 @@ window.BENCHMARK_DATA = {
           4193846.3515625,
           2473197.0452008927,
           4295599.177283654,
-          4369412.6875
+          4369412.6875,
+          2441017.9559895834
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62185,7 +62541,8 @@ window.BENCHMARK_DATA = {
           1936429,
           1936111,
           1936427,
-          1936429
+          1936429,
+          1936360
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62235,7 +62592,8 @@ window.BENCHMARK_DATA = {
           1221154.4640625,
           728842.2998697917,
           1329378.1331380208,
-          1466874.5581054688
+          1466874.5581054688,
+          780413.6656901041
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62282,7 +62640,8 @@ window.BENCHMARK_DATA = {
           1119153,
           1117064,
           1119265,
-          1343692
+          1343692,
+          1117064
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62332,7 +62691,8 @@ window.BENCHMARK_DATA = {
           3854128.2109375,
           2686053.4739583335,
           4110132.0342548075,
-          4275250.141741072
+          4275250.141741072,
+          2849916.09921875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62379,7 +62739,8 @@ window.BENCHMARK_DATA = {
           5052115,
           5051835,
           5051944,
-          5052115
+          5052115,
+          5051646
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62609,6 +62970,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 21 16:43:11 2026 \u002B0100",
         "message": "test: declare explicit lambda parameter types in chained Initialize calls (#1102)"
+      },
+      {
+        "sha": "05dca38d710f650aa4d3427506b32fba4f8edb8c",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 21 18:18:50 2026 \u002B0100",
+        "message": "docs: let the logo overlap the intro code block instead of narrowing it (#1103)"
       }
     ],
     "labels": [
@@ -62647,7 +63014,8 @@ window.BENCHMARK_DATA = {
       "dacdee7c",
       "3094c0eb",
       "2262a466",
-      "edb775b3"
+      "edb775b3",
+      "05dca38d"
     ],
     "datasets": [
       {
@@ -62689,7 +63057,8 @@ window.BENCHMARK_DATA = {
           2752.62731053279,
           1883.516088358561,
           2782.5695702689036,
-          3376.334463119507
+          3376.334463119507,
+          3321.6180968651406
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -62715,6 +63084,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288,
@@ -62786,7 +63156,8 @@ window.BENCHMARK_DATA = {
           2318.4738976614817,
           1708.0697115384614,
           2324.128351756505,
-          3098.209005900792
+          3098.209005900792,
+          3033.4591802869522
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -62798,6 +63169,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -62883,7 +63255,8 @@ window.BENCHMARK_DATA = {
           2970.1871518452963,
           2153.891056605748,
           3044.1763589041575,
-          3938.971978701078
+          3938.971978701078,
+          3796.522023337228
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62895,6 +63268,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          3344,
           3344,
           3344,
           3344,
@@ -62980,7 +63354,8 @@ window.BENCHMARK_DATA = {
           9786.555535888672,
           7013.85869547526,
           9862.619449869791,
-          14555.235298665364
+          14555.235298665364,
+          14264.60752360026
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62993,6 +63368,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           11385,
+          11048,
           11048,
           11048,
           11048,
@@ -63077,7 +63453,8 @@ window.BENCHMARK_DATA = {
           8957.519177246093,
           5980.693033490862,
           9000.100133260092,
-          12750.338880098783
+          12750.338880098783,
+          12457.05296443059
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63124,6 +63501,7 @@ window.BENCHMARK_DATA = {
           14632,
           14633,
           14632,
+          14633,
           14633
         ],
         "borderColor": "#5E2750",
@@ -63174,7 +63552,8 @@ window.BENCHMARK_DATA = {
           9138.385165405274,
           6119.2047317504885,
           9278.917343139648,
-          13760.37858174642
+          13760.37858174642,
+          13094.347827148438
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -63221,6 +63600,7 @@ window.BENCHMARK_DATA = {
           14614,
           14620,
           14614,
+          14620,
           14620
         ],
         "borderColor": "#4A6FA5",
