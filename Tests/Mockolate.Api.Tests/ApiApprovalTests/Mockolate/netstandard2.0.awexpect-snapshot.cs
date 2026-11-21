@@ -1508,10 +1508,6 @@ namespace Mockolate.Setup
         bool Matches(Mockolate.Interactions.PropertyAccess propertyAccess);
         bool? SkipBaseClass();
     }
-    public interface IMethodMatch
-    {
-        bool Matches(Mockolate.Interactions.MethodInvocation methodInvocation);
-    }
     public interface IMethodSetup : Mockolate.Setup.ISetup
     {
         string Name { get; }
@@ -2771,16 +2767,6 @@ namespace Mockolate.Web
             Mockolate.Web.ItExtensions.IUriParameter WithQuery(params System.Collections.Generic.IEnumerable<(string Key, Mockolate.Web.HttpQueryParameterValue Value)> parameters);
             Mockolate.Web.ItExtensions.IUriParameter WithQuery(string key, Mockolate.Web.HttpQueryParameterValue value);
             Mockolate.Web.ItExtensions.IUriParameter WithQuery(string queryString);
-        }
-    }
-}
-namespace System.Collections.Concurrent
-{
-    public static class ConcurrentQueueExtensions
-    {
-        extension<T>(System.Collections.Concurrent.ConcurrentQueue<T> @this)
-        {
-            public void Clear() { }
         }
     }
 }

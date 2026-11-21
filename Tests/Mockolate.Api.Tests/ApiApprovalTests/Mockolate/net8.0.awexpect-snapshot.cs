@@ -1600,10 +1600,6 @@ namespace Mockolate.Setup
         bool Matches(Mockolate.Interactions.PropertyAccess propertyAccess);
         bool? SkipBaseClass();
     }
-    public interface IMethodMatch
-    {
-        bool Matches(Mockolate.Interactions.MethodInvocation methodInvocation);
-    }
     public interface IMethodSetup : Mockolate.Setup.ISetup
     {
         string Name { get; }
