@@ -28,8 +28,11 @@ public sealed class ParamsObjectArrayTests
 	                                        int Dyn(int level, params dynamic[] args);
 	                                        int OnlyDyn(params dynamic[] args);
 	                                        int Gen<T>(int level, params T[] args);
+	                                        int OnlyGen<T>(params T[] args);
 	                                        int Str(int level, params string[] args);
 	                                        int OnlyStr(params string[] args);
+	                                        int StrOv(params string[] args);
+	                                        int StrOv<T>(params T[] args);
 	                                    }
 
 	                                    public interface IG<T>
@@ -118,6 +121,7 @@ public sealed class ParamsObjectArrayTests
 	private static readonly OverloadMatrix.Member Dyn = new("ILog", "Dyn", Probes("sut.Dyn", LevelAndArgs));
 	private static readonly OverloadMatrix.Member OnlyDyn = new("ILog", "OnlyDyn", Probes("sut.OnlyDyn", OnlyArgs));
 	private static readonly OverloadMatrix.Member Gen = new("ILog", "Gen", Probes("sut.Gen<object>", LevelAndArgs));
+	private static readonly OverloadMatrix.Member OnlyGen = new("ILog", "OnlyGen", Probes("sut.OnlyGen<object>", OnlyArgs));
 
 	private static readonly (string, string)[] LevelAndStrings =
 	[
@@ -132,6 +136,7 @@ public sealed class ParamsObjectArrayTests
 
 	private static readonly OverloadMatrix.Member Str = new("ILog", "Str", Probes("sut.Str", LevelAndStrings));
 	private static readonly OverloadMatrix.Member OnlyStr = new("ILog", "OnlyStr", Probes("sut.OnlyStr", OnlyStrings));
+	private static readonly OverloadMatrix.Member StrOv = new("ILog", "StrOv", Probes("sut.StrOv", OnlyStrings));
 
 	private static readonly OverloadMatrix.Member LogG = new("IG<object>", "LogG", Probes("sut.LogG", LevelAndArgs));
 	private static readonly OverloadMatrix.Member OnlyG = new("IG<object>", "OnlyG", Probes("sut.OnlyG", OnlyArgs));
@@ -384,12 +389,30 @@ public sealed class ParamsObjectArrayTests
 			(Match.AnyParameters()) | (IParameters) matches everything
 			().AnyParameters() | () matches everything
 			"""),
-		new(Gen, "a type parameter of the method is a known gap that did not change", """
+		new(Gen, "the values of a params array whose type parameter of the method is closed over object can be matchers", """
 			<object>(1) | (int, params object[]) matches 1:[]
 			<object>(1, "a") | (int, params object[]) matches 1:[a]
-			<object>(default, "a") | (int, params object[]) matches 0:[a]
+			<object>(default, "a") | (IParameter<int>?, params object[]) matches 0:[a]
 			<object>(It.IsAny<int>(), It.IsAny<object[]>()) | (IParameter<int>?, IParameter<object[]>?) matches everything
-			<object>(1, It.IsAny<object[]>()) | (int, params object[]) matches nothing
+			<object>(1, It.IsAny<object[]>()) | (int, IParameter<object[]>?) matches 1:[] 1:[a] 1:[b] 1:[a,2] 1:[a,3] 1:null 1:[null] 1:[null,null]
+			<object>(1, It.IsAny<object>()) | (int, params object[]) matches 1:[a] 1:[b] 1:[null]
+			<object>(1, "a", It.IsAny<object>()) | (int, params object[]) matches 1:[a,2] 1:[a,3]
+			<object>(1, It.IsAny<object[]>(), 2) | (int, params object[]) matches nothing
+			<object>(1, It.IsAny<int>()) | (int, params object[]) matches nothing
+			<object>(1, null) | (int, IParameter<object[]>?) matches 1:null
+			<object>(default) | (IParameters?) matches 0:[]
+			<object>(default, null) | (IParameter<int>?, IParameter<object[]>?) matches 0:null
+			"""),
+		new(OnlyGen, "a lone params array whose type parameter of the method is closed over object behaves like object[]", """
+			<object>() | () matches []
+			<object>("a") | (params object[]) matches [a]
+			<object>(It.IsAny<object[]>()) | (IParameter<object[]>?) matches everything
+			<object>(It.IsAny<object>()) | (params IParameter<object>?[]) matches [a] [b] [null]
+			<object>(null, It.IsAny<object>()) | (params IParameter<object>?[]) matches [null,null] [null,a]
+			<object>(Match.AnyParameters()) | (IParameters?) matches everything
+			<object>("a").AnyParameters() | (params object[]) matches everything
+			<object>(It.IsAny<int>()) | (params object[]) matches nothing
+			<object>(null) | (IParameters?) matches null
 			"""),
 		new(Str, "other element types did not change", """
 			(1) | (int, params string[]) matches 1:[]
@@ -416,6 +439,13 @@ public sealed class ParamsObjectArrayTests
 			(Match.AnyParameters()) | (IParameters) matches everything
 			(parameters: null) | (IParameters) matches everything
 			().AnyParameters() | (params string[]) matches everything
+			"""),
+		new(StrOv, "a lone array of another element type beside a generic sibling keeps AnyParameters() without arguments", """
+			() | () matches []
+			().AnyParameters() | () matches everything
+			("a") | (params string[]) matches [a]
+			(It.IsAny<string>()) | (params IParameter<string>[]) matches [a]
+			(null) | (IParameters) matches everything
 			"""),
 	];
 

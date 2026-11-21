@@ -44,6 +44,53 @@ public static class Matchers
 		=> value is IParameter<T> parameter ? parameter.AsParameterMatch() : null;
 
 	/// <summary>
+	///     The matcher that the <c>params</c> <paramref name="values" /> hold, or <see langword="null" /> when they are
+	///     plain values: a lone matcher for the array matches the whole array, otherwise matchers for the elements match
+	///     element by element and the plain values next to them by equality. A <see langword="null" /> array matches a
+	///     <see langword="null" /> array.
+	/// </summary>
+	/// <typeparam name="T">The declared element type of the <c>params</c> parameter.</typeparam>
+	/// <param name="values">The expected values, which can contain matchers.</param>
+	/// <returns>
+	///     The matcher for <paramref name="values" />, or <see langword="null" /> when they are plain values in a
+	///     non-null array.
+	/// </returns>
+	public static IParameterMatch<T[]>? AsParamsMatcher<T>(T[]? values)
+	{
+		if (values is null)
+		{
+			return IsNull<T[]>().AsParameterMatch();
+		}
+
+		if (values.Length == 1 && values[0] is IParameter<T[]> array)
+		{
+			return array.AsParameterMatch();
+		}
+
+		IParameter<T>?[]? matchers = null;
+		for (int i = 0; i < values.Length; i++)
+		{
+			if (values[i] is IParameter<T> matcher)
+			{
+				matchers ??= new IParameter<T>?[values.Length];
+				matchers[i] = matcher;
+			}
+		}
+
+		if (matchers is null)
+		{
+			return null;
+		}
+
+		for (int i = 0; i < values.Length; i++)
+		{
+			matchers[i] ??= IsValue(values[i]);
+		}
+
+		return new ParamsArrayParameterMatch<T>(matchers);
+	}
+
+	/// <summary>
 	///     Matches the argument that a <see langword="null" /> literal stands for and renders as <c>null</c> in failure
 	///     messages: <see langword="null" />, or the default value of a non-nullable value type.
 	/// </summary>
