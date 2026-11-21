@@ -134,6 +134,7 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Plain<object>({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
 	[Arguments("verify?.Plain<object>({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
 	[Arguments("property.Set({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
+	[Arguments("verify.Only(new object[] { {|#0:It.IsAny<int>()|} });", "It.IsAny<int>()")]
 	public async Task WhenMatcherIsNoMatcherForObject_ShouldBeFlagged(string call, string matcher)
 		=> await VerifyAsync(call,
 			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
@@ -153,12 +154,22 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Log(1, \"a\", {|#0:It.IsAny<object>()|});", "It.IsAny<object>()")]
 	[Arguments("verify.Log(1, {|#0:It.IsAny<object[]>()|});", "It.IsAny<object[]>()")]
 	[Arguments("verify.Gen<object>(1, {|#0:It.IsAny<object>()|});", "It.IsAny<object>()")]
+	[Arguments("verify.Log(1, new object[] { {|#0:It.IsAny<object>()|} });", "It.IsAny<object>()")]
+	[Arguments("verify.Only(new object[] { \"a\", {|#0:It.IsAny<object>()|} });", "It.IsAny<object>()")]
 	public async Task WhenMatcherForObjectIsMixedWithValues_ShouldSuggestMatchersForTheOtherArguments(string call,
 		string matcher)
 		=> await VerifyAsync(call,
 			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
 				.WithLocation(0)
 				.WithArguments(matcher, "object", OtherArgumentsHint));
+
+	[Test]
+	public async Task WhenMatcherForObjectIsInAnExplicitParamsArray_ShouldSuggestSeparateArguments()
+		=> await VerifyAsync("verify.Only(new object[] { {|#0:It.IsAny<object>()|} });",
+			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
+				.WithLocation(0)
+				.WithArguments("It.IsAny<object>()", "object",
+					"pass the elements as separate arguments instead of an array"));
 
 	[Test]
 	public async Task WhenSeveralElementMatchersAreMixedWithValues_ShouldFlagEachMatcher() => await VerifyAsync(
@@ -219,6 +230,7 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.ValueType<StructMatcher>({|#0:new StructMatcher()|});", "new StructMatcher()",
 		"StructMatcher")]
 	[Arguments("verify.Comparables({|#0:new ComparableMatcher()|});", "new ComparableMatcher()", "IComparable")]
+	[Arguments("structProperty.Set({|#0:new StructMatcher()|});", "new StructMatcher()", "StructMatcher")]
 	public async Task WhenTheMatcherIsAlsoAValue_ShouldSuggestACast(string call, string matcher, string type)
 		=> await VerifyAsync(call,
 			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
@@ -245,8 +257,10 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Typed(It.IsAny<int>());")]
 	[Arguments("verify.Log(It.IsAny<int>(), It.IsAny<object>(), It.Is<object>(\"a\"));")]
 	[Arguments("verify.Log(1, \"a\", 2);")]
+	[Arguments("verify.Log(1, new object[] { \"a\", 2 });")]
 	[Arguments("verify.Plain(It.IsAny<int>());")]
 	[Arguments("verify?.Plain(It.IsAny<int>());")]
+	[Arguments("verify.Plain<StructMatcher>(new StructMatcher());")]
 	[Arguments("verify.Plain<object>(It.IsAny<string>());")]
 	[Arguments("verify.Plain<object>(It.IsAny<object>());")]
 	[Arguments("verify.Plain<int>(5);")]
@@ -268,7 +282,8 @@ public class MatcherAsValueAnalyzerTests
 			  public class MyClass
 			  {
 			      public void MyTest(Mock.IMockVerifyForFoo verify, Mock.IMockSetupForFoo setup, Mock.IMockRaiseOnFoo raise,
-			          Mockolate.Verify.PropertyResult<object> property)
+			          Mockolate.Verify.PropertyResult<object> property,
+			          Mockolate.Verify.PropertyResult<StructMatcher> structProperty)
 			      {
 			          {{call}}
 			      }

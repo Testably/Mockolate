@@ -68,29 +68,29 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		}
 
 		ITypeSymbol declaredType = parameter.OriginalDefinition.Type;
-		if (argument.ArgumentKind == ArgumentKind.ParamArray)
+		if (GetParamsInitializer(argument) is { } initializer)
 		{
-			if (argument.Value is IArrayCreationOperation { Initializer: { } initializer, } &&
-			    parameter.Type is IArrayTypeSymbol { ElementType: { } elementType, } &&
+			if (parameter.Type is IArrayTypeSymbol { ElementType: { } elementType, } &&
 			    declaredType is IArrayTypeSymbol { ElementType: { } declaredElementType, })
 			{
 				foreach (IOperation element in initializer.ElementValues)
 				{
-					AnalyzeValue(context, matcherTypes, argument, element, elementType, declaredElementType, true);
+					AnalyzeValue(context, matcherTypes, parameter, argument, element, elementType, declaredElementType);
 				}
 			}
 
 			return;
 		}
 
-		AnalyzeValue(context, matcherTypes, argument, argument.Value, parameter.Type, declaredType, false);
+		AnalyzeValue(context, matcherTypes, parameter, argument, argument.Value, parameter.Type, declaredType);
 	}
 
 	private static void AnalyzeValue(OperationAnalysisContext context, MatcherTypes matcherTypes,
-		IArgumentOperation argument, IOperation value, ITypeSymbol slotType, ITypeSymbol declaredSlotType,
-		bool isElement)
+		IParameterSymbol parameter, IArgumentOperation argument, IOperation value, ITypeSymbol slotType,
+		ITypeSymbol declaredSlotType)
 	{
 		IOperation operand = Unwrap(value);
+		bool isElement = value != argument.Value;
 
 		// The declared type tells a value parameter from a matcher parameter: a type argument inferred from the
 		// matcher turns a value parameter into one of a matcher type.
@@ -105,28 +105,29 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		{
 			if (!matcherTypes.IsMatcherFor(matcherType, valueType))
 			{
-				Report(context, matcherTypes, argument, value, operand, matcherType, valueType);
+				Report(context, matcherTypes, argument, value, matcherType, valueType);
 			}
 
 			return;
 		}
 
 		// The generated code and the library recognize a matcher for the value type at runtime, when the value is typed
-		// with a type parameter that can be `object`: on a generic method closed over `object` and on `Set` of an
-		// `object` property or indexer.
+		// with a type parameter that can be `object`: on a generic method closed over `object` and on `Set` of a
+		// property or indexer of a reference type.
 		if (!isElement && declaredSlotType is ITypeParameterSymbol typeParameter && CanBeObject(typeParameter) &&
+		    !(slotType.IsValueType && IsVerificationSet(parameter.ContainingSymbol)) &&
 		    matcherTypes.IsMatcherFor(matcherType, slotType))
 		{
 			return;
 		}
 
-		Report(context, matcherTypes, argument, value, operand, matcherType, slotType);
+		Report(context, matcherTypes, argument, value, matcherType, slotType);
 	}
 
 	private static void Report(OperationAnalysisContext context, MatcherTypes matcherTypes,
-		IArgumentOperation argument, IOperation value, IOperation operand, ITypeSymbol matcherType,
-		ITypeSymbol valueType)
+		IArgumentOperation argument, IOperation value, ITypeSymbol matcherType, ITypeSymbol valueType)
 	{
+		IOperation operand = Unwrap(value);
 		string typeName = valueType.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
 		string hint;
 		if (!matcherTypes.IsMatcherFor(matcherType, valueType))
@@ -139,6 +140,10 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		else if (HasBlockingNeighbor(matcherTypes, argument, value))
 		{
 			hint = Resources.Mockolate0007OtherArgumentsHint;
+		}
+		else if (argument.ArgumentKind != ArgumentKind.ParamArray && value != argument.Value)
+		{
+			hint = Resources.Mockolate0007ParamsArrayHint;
 		}
 		else
 		{
@@ -170,12 +175,8 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 				continue;
 			}
 
-			if (neighbor is
-			    {
-				    ArgumentKind: ArgumentKind.ParamArray,
-				    Value: IArrayCreationOperation { Initializer: { } initializer, },
-				    Parameter.Type: IArrayTypeSymbol { ElementType: { } elementType, },
-			    })
+			if (GetParamsInitializer(neighbor) is { } initializer &&
+			    neighbor.Parameter.Type is IArrayTypeSymbol { ElementType: { } elementType, })
 			{
 				if (initializer.ElementValues.Any(element =>
 					    element != value && IsBlocking(matcherTypes, element, elementType)))
@@ -209,6 +210,14 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		return !matcherTypes.IsMatcherFor(type, valueType);
 	}
 
+	/// <summary>
+	///     The elements of a <c>params</c> array, passed one by one or in an explicit array.
+	/// </summary>
+	private static IArrayInitializerOperation? GetParamsInitializer(IArgumentOperation argument)
+		=> argument is { Parameter.IsParams: true, Value: IArrayCreationOperation { Initializer: { } initializer, }, }
+			? initializer
+			: null;
+
 	// A matcher for a type that does not resolve already fails to compile.
 	private static bool HasErrorTypeArgument(ITypeSymbol type)
 		=> type is INamedTypeSymbol named && named.TypeArguments.Any(t => t.TypeKind == TypeKind.Error);
@@ -230,8 +239,7 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 	/// </summary>
 	private static bool IsSetupOrVerifyMember(ISymbol member)
 	{
-		if (member is IMethodSymbol { Name: "Set", ContainingType.ContainingNamespace: { Name: "Verify", } ns, } &&
-		    IsMockolateNamespace(ns.ContainingNamespace))
+		if (IsVerificationSet(member))
 		{
 			return true;
 		}
@@ -252,6 +260,14 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 
 		return false;
 	}
+
+	/// <summary>
+	///     <c>Set</c> of a property or indexer verification, which unlike the generated generic methods treats no value of
+	///     a value type as a matcher at runtime.
+	/// </summary>
+	private static bool IsVerificationSet(ISymbol member)
+		=> member is IMethodSymbol { Name: "Set", ContainingType.ContainingNamespace: { Name: "Verify", } ns, } &&
+		   IsMockolateNamespace(ns.ContainingNamespace);
 
 	/// <summary>
 	///     Mirrors the generator, which checks for a matcher at runtime exactly for these type parameters.

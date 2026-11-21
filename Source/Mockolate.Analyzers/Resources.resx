@@ -210,6 +210,10 @@
 		<value>pass matchers of the parameter types for the other arguments as well, for example It.Is(…)</value>
 		<comment>Completes Mockolate0007MessageFormat for a matcher of the value type next to plain values.</comment>
 	</data>
+	<data name="Mockolate0007ParamsArrayHint" xml:space="preserve">
+		<value>pass the elements as separate arguments instead of an array</value>
+		<comment>Completes Mockolate0007MessageFormat for a matcher of the value type in an explicit params array.</comment>
+	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>
 		<comment>The title of the code fix for an argument that cannot convert to a union-typed setup or verify parameter.</comment>

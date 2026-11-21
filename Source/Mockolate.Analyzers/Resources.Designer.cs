@@ -285,6 +285,15 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to pass the elements as separate arguments instead of an array.
+        /// </summary>
+        internal static string Mockolate0007ParamsArrayHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007ParamsArrayHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to A matcher is compared as a value.
         /// </summary>
         internal static string Mockolate0007Title {
