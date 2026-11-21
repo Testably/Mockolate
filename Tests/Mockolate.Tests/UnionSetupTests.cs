@@ -204,7 +204,7 @@ public sealed class UnionSetupTests
 			=> sut.Mock.Verify.Compute(x => x > 10, "a").Once();
 
 		await That(Act).Throws<MockVerificationException>()
-			.WithMessage("*Compute(x => x > 10, a)*").AsWildcard();
+			.WithMessage("*Compute(x => x > 10, \"a\")*").AsWildcard();
 	}
 
 	[Test]
@@ -403,7 +403,7 @@ public sealed class UnionSetupTests
 			=> sut.Mock.Verify[x => x > 10, "a"].Got().Once();
 
 		await That(Act).Throws<MockVerificationException>()
-			.WithMessage("*[x => x > 10, a]*").AsWildcard();
+			.WithMessage("*[x => x > 10, \"a\"]*").AsWildcard();
 	}
 
 	[Test]

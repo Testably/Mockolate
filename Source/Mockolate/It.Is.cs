@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Runtime.CompilerServices;
+using Mockolate.Internals;
 using Mockolate.Parameters;
 
 namespace Mockolate;
@@ -135,7 +135,7 @@ public partial class It
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
-			string expression = _valueExpression ??= FormatValueLazily(_value);
+			string expression = _valueExpression ??= ValueFormatter.Format(_value);
 			if (_toleranceExpression is not null)
 			{
 				return $"It.Is({expression}).Within({_toleranceExpression})";
@@ -147,26 +147,6 @@ public partial class It
 			}
 
 			return expression;
-		}
-
-		private static string FormatValueLazily(T value)
-		{
-			if (value is null)
-			{
-				return "null";
-			}
-
-			if (value is string s)
-			{
-				return $"\"{s}\"";
-			}
-
-			if (value is IFormattable formattable)
-			{
-				return formattable.ToString(null, CultureInfo.InvariantCulture);
-			}
-
-			return value.ToString() ?? "null";
 		}
 	}
 }

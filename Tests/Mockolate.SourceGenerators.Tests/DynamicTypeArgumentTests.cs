@@ -199,7 +199,7 @@ public sealed class DynamicTypeArgumentTests
 			"no exception",
 			"no exception",
 			"no exception",
-			"Expected that mock invoked method Get(other, It.IsAny<List<object>>()) exactly once, but it never did.",
+			"Expected that mock invoked method Get(\"other\", It.IsAny<List<object>>()) exactly once, but it never did.",
 		]).Because("a type that is constructed with dynamic is the type that is constructed with object, so a mock or an As<T> extension for each spelling would be a duplicate");
 	}
 

@@ -320,10 +320,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForHiddenGetHashCodeBase> IMockVerifyForHiddenGetHashCodeBase.Equals(global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForHiddenGetHashCodeBase, object?>(this, global::Mockolate.Mock.HiddenGetHashCodeBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsAndGetHashCodeBase.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForHiddenGetHashCodeBase, object?>(this, global::Mockolate.Mock.HiddenGetHashCodeBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsAndGetHashCodeBase.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)obj))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForHiddenGetHashCodeBase>.IgnoreParameters IMockVerifyForHiddenGetHashCodeBase.Equals(object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForHiddenGetHashCodeBase, object?>(this, global::Mockolate.Mock.HiddenGetHashCodeBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsAndGetHashCodeBase.Equals", obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForHiddenGetHashCodeBase, object?>(this, global::Mockolate.Mock.HiddenGetHashCodeBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsAndGetHashCodeBase.Equals", obj, static (obj) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)obj))})");
 		#endregion IMockVerifyForHiddenGetHashCodeBase
 	}
 
@@ -349,10 +349,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForHiddenGetHashCodeBase> IMockVerifyForHiddenGetHashCodeBase.Equals(global::Mockolate.Parameters.IParameter<object?>? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForHiddenGetHashCodeBase, object?>(this, global::Mockolate.Mock.HiddenGetHashCodeBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsAndGetHashCodeBase.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForHiddenGetHashCodeBase, object?>(this, global::Mockolate.Mock.HiddenGetHashCodeBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsAndGetHashCodeBase.Equals", obj is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(obj), obj, static (obj) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)obj))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForHiddenGetHashCodeBase>.IgnoreParameters IMockVerifyForHiddenGetHashCodeBase.Equals(object? obj)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForHiddenGetHashCodeBase, object?>(this, global::Mockolate.Mock.HiddenGetHashCodeBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsAndGetHashCodeBase.Equals", obj, static (obj) => $"Equals({(object?)obj ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForHiddenGetHashCodeBase, object?>(this, global::Mockolate.Mock.HiddenGetHashCodeBase.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.EqualsAndGetHashCodeBase.Equals", obj, static (obj) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)obj))})");
 		#endregion IMockVerifyForHiddenGetHashCodeBase
 	}
 

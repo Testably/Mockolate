@@ -793,7 +793,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIAutoMockRoot, int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>(this, this.MockRegistry, global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Get, global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Set,
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -805,7 +805,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIAutoMockRoot, int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>(this, this.MockRegistry, global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Get, global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -817,7 +817,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockRoot, int, int, int, int, int>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::Mockolate.CovariantParameterAdapter<int>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter1) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter2) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter3) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(d ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter4) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(e ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c), global::Mockolate.Internals.ValueFormatter.Format((object?)d), global::Mockolate.Internals.ValueFormatter.Format((object?)e)));
 			}
 		}
 
@@ -829,7 +829,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockRoot, int, int, int, int, int>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, g.Parameter1) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, g.Parameter2) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, g.Parameter3) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, g.Parameter4) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c), global::Mockolate.Internals.ValueFormatter.Format((object?)d), global::Mockolate.Internals.ValueFormatter.Format((object?)e)));
 			}
 		}
 
@@ -843,10 +843,10 @@ internal static partial class Mock
 				}, () => $"GetChild({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot> IMockVerifyForIAutoMockRoot.GetChild(global::Mockolate.Parameters.IParameter<int>? id)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot, int>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChild, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChild", id is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(id), id, static (id) => $"GetChild({(object?)id ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot, int>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChild, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChild", id is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(id), id, static (id) => $"GetChild({(global::Mockolate.Internals.ValueFormatter.Format((object?)id))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters IMockVerifyForIAutoMockRoot.GetChild(int id)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot, int>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChild, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChild", id, static (id) => $"GetChild({(object?)id ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot, int>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChild, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChild", id, static (id) => $"GetChild({(global::Mockolate.Internals.ValueFormatter.Format((object?)id))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters IMockVerifyForIAutoMockRoot.GetChildAsync()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildAsync, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildAsync", () => $"GetChildAsync()");
@@ -897,7 +897,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIAutoMockRoot, int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>(this, this.MockRegistry, global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Get, global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Set,
 					global::Mockolate.CovariantParameterAdapter<int>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<int>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -909,7 +909,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerResult<IMockVerifyForIAutoMockRoot, int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>(this, this.MockRegistry, global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Get, global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Set,
 					(global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -921,7 +921,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockRoot, int, int, int, int, int>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::Mockolate.CovariantParameterAdapter<int>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter1) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter2) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(c ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter3) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(d ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter4) && global::Mockolate.CovariantParameterAdapter<int>.Wrap(e ?? global::Mockolate.Internals.Matchers.IsNull<int>()).Matches(g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c), global::Mockolate.Internals.ValueFormatter.Format((object?)d), global::Mockolate.Internals.ValueFormatter.Format((object?)e)));
 			}
 		}
 
@@ -933,7 +933,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockRoot, int, int, int, int, int>(this, this.MockRegistry, -1,
 					interaction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<int, int, int, int, int> g && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(a, g.Parameter1) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(b, g.Parameter2) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(c, g.Parameter3) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(d, g.Parameter4) && global::System.Collections.Generic.EqualityComparer<int>.Default.Equals(e, g.Parameter5),
-					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", (object?)a ?? "null", (object?)b ?? "null", (object?)c ?? "null", (object?)d ?? "null", (object?)e ?? "null"));
+					() => global::System.String.Format("[{0}, {1}, {2}, {3}, {4}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b), global::Mockolate.Internals.ValueFormatter.Format((object?)c), global::Mockolate.Internals.ValueFormatter.Format((object?)d), global::Mockolate.Internals.ValueFormatter.Format((object?)e)));
 			}
 		}
 
@@ -947,10 +947,10 @@ internal static partial class Mock
 				}, () => $"GetChild({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot> IMockVerifyForIAutoMockRoot.GetChild(global::Mockolate.Parameters.IParameter<int>? id)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot, int>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChild, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChild", id is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(id), id, static (id) => $"GetChild({(object?)id ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot, int>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChild, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChild", id is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(id), id, static (id) => $"GetChild({(global::Mockolate.Internals.ValueFormatter.Format((object?)id))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters IMockVerifyForIAutoMockRoot.GetChild(int id)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot, int>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChild, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChild", id, static (id) => $"GetChild({(object?)id ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot, int>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChild, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChild", id, static (id) => $"GetChild({(global::Mockolate.Internals.ValueFormatter.Format((object?)id))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters IMockVerifyForIAutoMockRoot.GetChildAsync()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildAsync, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildAsync", () => $"GetChildAsync()");

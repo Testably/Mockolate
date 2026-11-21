@@ -11,8 +11,7 @@ namespace Mockolate.Internals;
 /// <remarks>
 ///     Public only because generated code in the user's assembly calls it; not intended for direct use from user
 ///     code. It compares with <see cref="EqualityComparer{T}.Default" /> (expected value first) and renders the value
-///     as string interpolation does and <see langword="null" /> as <c>null</c>, so failure messages read like the
-///     literal value itself.
+///     with <see cref="ValueFormatter.Format{T}(T)" />, so failure messages read like the literal value itself.
 /// </remarks>
 /// <typeparam name="T">The declared type of the parameter.</typeparam>
 #if !DEBUG
@@ -51,5 +50,5 @@ public sealed class LiteralParameterMatch<T> : IParameter<T>, IParameterMatch<T>
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> _value is null ? "null" : $"{_value}";
+		=> ValueFormatter.Format(_value);
 }

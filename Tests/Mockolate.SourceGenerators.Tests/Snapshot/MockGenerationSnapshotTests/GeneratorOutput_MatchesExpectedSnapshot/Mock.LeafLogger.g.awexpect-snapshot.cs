@@ -386,7 +386,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockVerifyForLeafLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 			where TState : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<{typeof(TState)}>", __i => 
-				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter1, default(TState))), () => $"BeginScope<TState>({(object?)state ?? "null"})");
+				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter1, default(TState))), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger>.IgnoreParameters IMockVerifyForLeafLogger.BeginScope<TState>(TState state)
 			where TState : default
@@ -401,7 +401,7 @@ internal static partial class Mock
 					_ => true
 				}
 				: 
-				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => parametersMatch is not null ? $"BeginScope<TState>({parametersMatch})" : $"BeginScope<TState>({(object?)state ?? "null"})");
+				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => parametersMatch is not null ? $"BeginScope<TState>({parametersMatch})" : $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockVerifyForLeafLogger.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
@@ -413,10 +413,10 @@ internal static partial class Mock
 				}, () => $"IsEnabled({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockVerifyForLeafLogger.IsEnabled(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel>? logLevel)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel is null ? (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel>)global::Mockolate.It.Is<global::Microsoft.Extensions.Logging.LogLevel>(default!) : global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.LogLevel>.Wrap(logLevel), logLevel, static (logLevel) => $"IsEnabled({(object?)logLevel ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel is null ? (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel>)global::Mockolate.It.Is<global::Microsoft.Extensions.Logging.LogLevel>(default!) : global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.LogLevel>.Wrap(logLevel), logLevel, static (logLevel) => $"IsEnabled({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger>.IgnoreParameters IMockVerifyForLeafLogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel logLevel)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel, static (logLevel) => $"IsEnabled({(object?)logLevel ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel, static (logLevel) => $"IsEnabled({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockVerifyForLeafLogger.Log<TState>(global::Mockolate.Parameters.IParameters parameters)
 			where TState : default
@@ -434,7 +434,7 @@ internal static partial class Mock
 				(eventId is not null ? global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.EventId>.Wrap(eventId).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.EventId>.Default.Equals(__i.Parameter2, default(global::Microsoft.Extensions.Logging.EventId))) && 
 				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter3, default(TState))) && 
 				(exception is not null ? global::Mockolate.CovariantParameterAdapter<global::System.Exception?>.Wrap(exception).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(__i.Parameter4, default(global::System.Exception?))) && 
-				(formatter is not null ? global::Mockolate.CovariantParameterAdapter<global::System.Func<TState, global::System.Exception?, string>>.Wrap(formatter).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(__i.Parameter5, default(global::System.Func<TState, global::System.Exception?, string>))), () => $"Log<TState>({(object?)logLevel ?? "null"}, {(object?)eventId ?? "null"}, {(object?)state ?? "null"}, {(object?)exception ?? "null"}, {(object?)formatter ?? "null"})");
+				(formatter is not null ? global::Mockolate.CovariantParameterAdapter<global::System.Func<TState, global::System.Exception?, string>>.Wrap(formatter).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(__i.Parameter5, default(global::System.Func<TState, global::System.Exception?, string>))), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger>.IgnoreParameters IMockVerifyForLeafLogger.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
 			where TState : default
@@ -445,7 +445,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.EventId>.Default.Equals(eventId, __i.Parameter2)) && 
 				(__match3?.Matches(__i.Parameter3) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter3)) && 
 				(global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(exception, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(object?)logLevel ?? "null"}, {(object?)eventId ?? "null"}, {(object?)state ?? "null"}, {(object?)exception ?? "null"}, {(object?)formatter ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		}
 		#endregion IMockVerifyForLeafLogger
 	}
@@ -477,7 +477,7 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockVerifyForLeafLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 			where TState : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<{typeof(TState)}>", __i => 
-				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter1, default(TState))), () => $"BeginScope<TState>({(object?)state ?? "null"})");
+				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter1, default(TState))), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger>.IgnoreParameters IMockVerifyForLeafLogger.BeginScope<TState>(TState state)
 			where TState : default
@@ -492,7 +492,7 @@ internal static partial class Mock
 					_ => true
 				}
 				: 
-				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => parametersMatch is not null ? $"BeginScope<TState>({parametersMatch})" : $"BeginScope<TState>({(object?)state ?? "null"})");
+				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => parametersMatch is not null ? $"BeginScope<TState>({parametersMatch})" : $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockVerifyForLeafLogger.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
@@ -504,10 +504,10 @@ internal static partial class Mock
 				}, () => $"IsEnabled({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockVerifyForLeafLogger.IsEnabled(global::Mockolate.Parameters.IParameter<global::Microsoft.Extensions.Logging.LogLevel>? logLevel)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel is null ? (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel>)global::Mockolate.It.Is<global::Microsoft.Extensions.Logging.LogLevel>(default!) : global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.LogLevel>.Wrap(logLevel), logLevel, static (logLevel) => $"IsEnabled({(object?)logLevel ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel is null ? (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel>)global::Mockolate.It.Is<global::Microsoft.Extensions.Logging.LogLevel>(default!) : global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.LogLevel>.Wrap(logLevel), logLevel, static (logLevel) => $"IsEnabled({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger>.IgnoreParameters IMockVerifyForLeafLogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel logLevel)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel, static (logLevel) => $"IsEnabled({(object?)logLevel ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForLeafLogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel, static (logLevel) => $"IsEnabled({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockVerifyForLeafLogger.Log<TState>(global::Mockolate.Parameters.IParameters parameters)
 			where TState : default
@@ -525,7 +525,7 @@ internal static partial class Mock
 				(eventId is not null ? global::Mockolate.CovariantParameterAdapter<global::Microsoft.Extensions.Logging.EventId>.Wrap(eventId).Matches(__i.Parameter2) : global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.EventId>.Default.Equals(__i.Parameter2, default(global::Microsoft.Extensions.Logging.EventId))) && 
 				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter3, default(TState))) && 
 				(exception is not null ? global::Mockolate.CovariantParameterAdapter<global::System.Exception?>.Wrap(exception).Matches(__i.Parameter4) : global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(__i.Parameter4, default(global::System.Exception?))) && 
-				(formatter is not null ? global::Mockolate.CovariantParameterAdapter<global::System.Func<TState, global::System.Exception?, string>>.Wrap(formatter).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(__i.Parameter5, default(global::System.Func<TState, global::System.Exception?, string>))), () => $"Log<TState>({(object?)logLevel ?? "null"}, {(object?)eventId ?? "null"}, {(object?)state ?? "null"}, {(object?)exception ?? "null"}, {(object?)formatter ?? "null"})");
+				(formatter is not null ? global::Mockolate.CovariantParameterAdapter<global::System.Func<TState, global::System.Exception?, string>>.Wrap(formatter).Matches(__i.Parameter5) : global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(__i.Parameter5, default(global::System.Func<TState, global::System.Exception?, string>))), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger>.IgnoreParameters IMockVerifyForLeafLogger.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
 			where TState : default
@@ -536,7 +536,7 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.EventId>.Default.Equals(eventId, __i.Parameter2)) && 
 				(__match3?.Matches(__i.Parameter3) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter3)) && 
 				(global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(exception, __i.Parameter4)) && 
-				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(object?)logLevel ?? "null"}, {(object?)eventId ?? "null"}, {(object?)state ?? "null"}, {(object?)exception ?? "null"}, {(object?)formatter ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		}
 		#endregion IMockVerifyForLeafLogger
 	}

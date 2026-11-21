@@ -283,10 +283,10 @@ internal static partial class Mock
 				}, () => $"M({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> IMockVerifyForIDynamicOverloads.M(global::Mockolate.Parameters.IParameter<object>? x)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, object>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", x is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(x), x, static (x) => $"M({(object?)x ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, object>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", x is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(x), x, static (x) => $"M({(global::Mockolate.Internals.ValueFormatter.Format((object?)x))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads>.IgnoreParameters IMockVerifyForIDynamicOverloads.M(object x)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, object>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", x, static (x) => $"M({(object?)x ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, object>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", x, static (x) => $"M({(global::Mockolate.Internals.ValueFormatter.Format((object?)x))})");
 		#endregion IMockVerifyForIDynamicOverloads
 	}
 
@@ -309,10 +309,10 @@ internal static partial class Mock
 				}, () => $"M({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads> IMockVerifyForIDynamicOverloads.M(global::Mockolate.Parameters.IParameter<object>? x)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, object>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", x is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(x), x, static (x) => $"M({(object?)x ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, object>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", x is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(x), x, static (x) => $"M({(global::Mockolate.Internals.ValueFormatter.Format((object?)x))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIDynamicOverloads>.IgnoreParameters IMockVerifyForIDynamicOverloads.M(object x)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, object>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", x, static (x) => $"M({(object?)x ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIDynamicOverloads, object>(this, global::Mockolate.Mock.IDynamicOverloads.MemberId_M, "global::Mockolate.Tests.GeneratorCoverage.IDynamicOverloadA.M", x, static (x) => $"M({(global::Mockolate.Internals.ValueFormatter.Format((object?)x))})");
 		#endregion IMockVerifyForIDynamicOverloads
 	}
 

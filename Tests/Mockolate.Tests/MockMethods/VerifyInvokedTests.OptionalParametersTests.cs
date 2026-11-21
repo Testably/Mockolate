@@ -43,7 +43,7 @@ public sealed partial class VerifyInvokedTests
 				=> sut.Mock.Verify.Name(It.IsAny<int>()).Once();
 
 			await That(Act).Throws<MockVerificationException>()
-				.WithMessage("Expected that mock invoked method Name(It.IsAny<int>(), x) exactly once, but it never did.");
+				.WithMessage("Expected that mock invoked method Name(It.IsAny<int>(), \"x\") exactly once, but it never did.");
 		}
 
 		[Test]

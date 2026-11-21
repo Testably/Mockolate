@@ -458,7 +458,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForDynamicMembersBase, object>(this, this.MockRegistry, global::Mockolate.Mock.DynamicMembersBase.MemberId_Indexer_object_Get,
 					global::Mockolate.CovariantParameterAdapter<object>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<object>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -470,7 +470,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForDynamicMembersBase, object>(this, this.MockRegistry, global::Mockolate.Mock.DynamicMembersBase.MemberId_Indexer_object_Get,
 					(global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -484,22 +484,22 @@ internal static partial class Mock
 				}, () => $"Combine({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Combine(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<int>? b)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(a), b is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(b), a, b, static (a, b) => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(a), b is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(b), a, b, static (a, b) => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Combine(object a, global::Mockolate.Parameters.IParameter<int>? b)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<object>(a);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", __literal1, b is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(b), __literal1, b, static (a, b) => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", __literal1, b is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(b), __literal1, b, static (a, b) => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Combine(global::Mockolate.Parameters.IParameter<object>? a, int b)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(b);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(a), __literal2, a, __literal2, static (a, b) => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(a), __literal2, a, __literal2, static (a, b) => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters IMockVerifyForDynamicMembersBase.Combine(object a, int b)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a, b, static (a, b) => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a, b, static (a, b) => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Consume(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, global::Mockolate.Interactions.MethodInvocation<int, object>>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", __i => parameters switch
@@ -510,22 +510,22 @@ internal static partial class Mock
 				}, () => $"Consume({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Consume(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<object>? b)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), b is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(b), a, b, static (a, b) => $"Consume({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), b is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(b), a, b, static (a, b) => $"Consume({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Consume(int a, global::Mockolate.Parameters.IParameter<object>? b)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(a);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", __literal1, b is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(b), __literal1, b, static (a, b) => $"Consume({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", __literal1, b is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(b), __literal1, b, static (a, b) => $"Consume({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Consume(global::Mockolate.Parameters.IParameter<int>? a, object b)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<object>(b);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), __literal2, a, __literal2, static (a, b) => $"Consume({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), __literal2, a, __literal2, static (a, b) => $"Consume({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters IMockVerifyForDynamicMembersBase.Consume(int a, object b)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a, b, static (a, b) => $"Consume({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a, b, static (a, b) => $"Consume({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		#endregion IMockVerifyForDynamicMembersBase
 	}
 
@@ -554,7 +554,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForDynamicMembersBase, object>(this, this.MockRegistry, global::Mockolate.Mock.DynamicMembersBase.MemberId_Indexer_object_Get,
 					global::Mockolate.CovariantParameterAdapter<object>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<object>()),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -566,7 +566,7 @@ internal static partial class Mock
 			{
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForDynamicMembersBase, object>(this, this.MockRegistry, global::Mockolate.Mock.DynamicMembersBase.MemberId_Indexer_object_Get,
 					(global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(key, "key"),
-					() => global::System.String.Format("[{0}]", (object?)key ?? "null"));
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
 			}
 		}
 
@@ -580,22 +580,22 @@ internal static partial class Mock
 				}, () => $"Combine({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Combine(global::Mockolate.Parameters.IParameter<object>? a, global::Mockolate.Parameters.IParameter<int>? b)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(a), b is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(b), a, b, static (a, b) => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(a), b is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(b), a, b, static (a, b) => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Combine(object a, global::Mockolate.Parameters.IParameter<int>? b)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<object>(a);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", __literal1, b is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(b), __literal1, b, static (a, b) => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", __literal1, b is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(b), __literal1, b, static (a, b) => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Combine(global::Mockolate.Parameters.IParameter<object>? a, int b)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<int>(b);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(a), __literal2, a, __literal2, static (a, b) => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(a), __literal2, a, __literal2, static (a, b) => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters IMockVerifyForDynamicMembersBase.Combine(object a, int b)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a, b, static (a, b) => $"Combine({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, object, int>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Combine, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Combine", a, b, static (a, b) => $"Combine({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Consume(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, global::Mockolate.Interactions.MethodInvocation<int, object>>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", __i => parameters switch
@@ -606,22 +606,22 @@ internal static partial class Mock
 				}, () => $"Consume({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Consume(global::Mockolate.Parameters.IParameter<int>? a, global::Mockolate.Parameters.IParameter<object>? b)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), b is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(b), a, b, static (a, b) => $"Consume({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), b is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(b), a, b, static (a, b) => $"Consume({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Consume(int a, global::Mockolate.Parameters.IParameter<object>? b)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<int> __literal1 = new global::Mockolate.Internals.LiteralParameterMatch<int>(a);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", __literal1, b is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(b), __literal1, b, static (a, b) => $"Consume({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", __literal1, b is null ? (global::Mockolate.Parameters.IParameterMatch<object>)global::Mockolate.It.Is<object>(default!) : global::Mockolate.CovariantParameterAdapter<object>.Wrap(b), __literal1, b, static (a, b) => $"Consume({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase> IMockVerifyForDynamicMembersBase.Consume(global::Mockolate.Parameters.IParameter<int>? a, object b)
 		{
 			global::Mockolate.Internals.LiteralParameterMatch<object> __literal2 = new global::Mockolate.Internals.LiteralParameterMatch<object>(b);
-			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), __literal2, a, __literal2, static (a, b) => $"Consume({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a is null ? (global::Mockolate.Parameters.IParameterMatch<int>)global::Mockolate.It.Is<int>(default!) : global::Mockolate.CovariantParameterAdapter<int>.Wrap(a), __literal2, a, __literal2, static (a, b) => $"Consume({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		}
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForDynamicMembersBase>.IgnoreParameters IMockVerifyForDynamicMembersBase.Consume(int a, object b)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a, b, static (a, b) => $"Consume({(object?)a ?? "null"}, {(object?)b ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForDynamicMembersBase, int, object>(this, global::Mockolate.Mock.DynamicMembersBase.MemberId_Consume, "global::Mockolate.Tests.GeneratorCoverage.DynamicMembersBase.Consume", a, b, static (a, b) => $"Consume({(global::Mockolate.Internals.ValueFormatter.Format((object?)a))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)b))})");
 		#endregion IMockVerifyForDynamicMembersBase
 	}
 

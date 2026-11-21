@@ -230,7 +230,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -243,7 +243,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(a, "a"),
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -256,7 +256,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(b, "b"),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -269,7 +269,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(a, "a"),
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(b, "b"),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -283,7 +283,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(b),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -297,7 +297,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(a, "a"),
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(b),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -320,7 +320,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -333,7 +333,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(a, "a"),
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(b ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -346,7 +346,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(b, "b"),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -359,7 +359,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(a, "a"),
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(b, "b"),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -373,7 +373,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(a ?? global::Mockolate.Internals.Matchers.IsNull<byte>()),
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(b),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 
@@ -387,7 +387,7 @@ internal static partial class Mock
 				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIOptionalIndexerKeysGetterOnly, byte, byte>(this, this.MockRegistry, global::Mockolate.Mock.IOptionalIndexerKeysGetterOnly.MemberId_Indexer_byte_byte_Get,
 					(global::Mockolate.Parameters.IParameterMatch<byte>)global::Mockolate.It.Is<byte>(a, "a"),
 					global::Mockolate.CovariantParameterAdapter<byte>.Wrap(b),
-					() => global::System.String.Format("[{0}, {1}]", (object?)a ?? "null", (object?)b ?? "null"));
+					() => global::System.String.Format("[{0}, {1}]", global::Mockolate.Internals.ValueFormatter.Format((object?)a), global::Mockolate.Internals.ValueFormatter.Format((object?)b)));
 			}
 		}
 

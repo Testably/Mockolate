@@ -197,7 +197,7 @@ internal static partial class Sources
 		          		public override string ToString() => _tag switch
 		          		{
 		          			MatcherTag => _matcher?.ToString() ?? "null",
-		          			_ => _literal?.ToString() ?? "null",
+		          			_ => global::Mockolate.Internals.ValueFormatter.Format(_literal),
 		          		};
 		          	}
 		          }

@@ -82,7 +82,7 @@ public sealed partial class VerifyGotIndexerTests
 				= sut.Mock.Verify[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Got();
 
 			await That(((IVerificationResult)result).Expectation)
-				.IsEqualTo("got indexer [It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), 5, f]");
+				.IsEqualTo("got indexer [It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), 5, \"f\"]");
 		}
 	}
 }

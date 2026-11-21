@@ -291,10 +291,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIVoidObjectLookAlikes> IMockVerifyForIVoidObjectLookAlikes.Equals(global::Mockolate.Parameters.IParameter<object?>? other)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes, object?>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.Equals", other is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(other), other, static (other) => $"Equals({(object?)other ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes, object?>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.Equals", other is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(other), other, static (other) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIVoidObjectLookAlikes>.IgnoreParameters IMockVerifyForIVoidObjectLookAlikes.Equals(object? other)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes, object?>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.Equals", other, static (other) => $"Equals({(object?)other ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes, object?>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.Equals", other, static (other) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIVoidObjectLookAlikes>.IgnoreParameters IMockVerifyForIVoidObjectLookAlikes.GetHashCode()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_GetHashCode, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.GetHashCode", () => $"GetHashCode()");
@@ -320,10 +320,10 @@ internal static partial class Mock
 				}, () => $"Equals({parameters})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIVoidObjectLookAlikes> IMockVerifyForIVoidObjectLookAlikes.Equals(global::Mockolate.Parameters.IParameter<object?>? other)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes, object?>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.Equals", other is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(other), other, static (other) => $"Equals({(object?)other ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes, object?>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.Equals", other is null ? (global::Mockolate.Parameters.IParameterMatch<object?>)global::Mockolate.It.Is<object?>(default!) : global::Mockolate.CovariantParameterAdapter<object?>.Wrap(other), other, static (other) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIVoidObjectLookAlikes>.IgnoreParameters IMockVerifyForIVoidObjectLookAlikes.Equals(object? other)
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes, object?>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.Equals", other, static (other) => $"Equals({(object?)other ?? "null"})");
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes, object?>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_Equals, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.Equals", other, static (other) => $"Equals({(global::Mockolate.Internals.ValueFormatter.Format((object?)other))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIVoidObjectLookAlikes>.IgnoreParameters IMockVerifyForIVoidObjectLookAlikes.GetHashCode()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIVoidObjectLookAlikes>(this, global::Mockolate.Mock.IVoidObjectLookAlikes.MemberId_GetHashCode, "global::Mockolate.Tests.GeneratorCoverage.IVoidObjectLookAlikes.GetHashCode", () => $"GetHashCode()");

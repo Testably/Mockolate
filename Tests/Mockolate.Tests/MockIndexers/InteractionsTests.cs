@@ -12,7 +12,7 @@ public sealed partial class InteractionsTests
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string>(
 					"SomeProperty"));
-		string expectedValue = "get indexer [SomeProperty]";
+		string expectedValue = "get indexer [\"SomeProperty\"]";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -39,7 +39,7 @@ public sealed partial class InteractionsTests
 				new IndexerGetterAccess<string, int>(
 					"SomeProperty",
 					4));
-		string expectedValue = "get indexer [SomeProperty, 4]";
+		string expectedValue = "get indexer [\"SomeProperty\", 4]";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -68,7 +68,7 @@ public sealed partial class InteractionsTests
 					"SomeProperty",
 					4,
 					7L));
-		string expectedValue = "get indexer [SomeProperty, 4, 7]";
+		string expectedValue = "get indexer [\"SomeProperty\", 4, 7]";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -99,7 +99,7 @@ public sealed partial class InteractionsTests
 					4,
 					7L,
 					150.Seconds()));
-		string expectedValue = "get indexer [SomeProperty, 4, 7, 00:02:30]";
+		string expectedValue = "get indexer [\"SomeProperty\", 4, 7, 00:02:30]";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -115,7 +115,7 @@ public sealed partial class InteractionsTests
 					4,
 					null,
 					150.Seconds()));
-		string expectedValue = "get indexer [SomeProperty, 4, null, 00:02:30]";
+		string expectedValue = "get indexer [\"SomeProperty\", 4, null, 00:02:30]";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -132,7 +132,7 @@ public sealed partial class InteractionsTests
 					7L,
 					150.Seconds(),
 					true));
-		string expectedValue = "get indexer [SomeProperty, 4, 7, 00:02:30, True]";
+		string expectedValue = "get indexer [\"SomeProperty\", 4, 7, 00:02:30, True]";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -163,7 +163,7 @@ public sealed partial class InteractionsTests
 				new IndexerSetterAccess<string, int>(
 					"SomeProperty",
 					6));
-		string expectedValue = "set indexer [SomeProperty] to 6";
+		string expectedValue = "set indexer [\"SomeProperty\"] to 6";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -192,7 +192,7 @@ public sealed partial class InteractionsTests
 					"SomeProperty",
 					4,
 					6));
-		string expectedValue = "set indexer [SomeProperty, 4] to 6";
+		string expectedValue = "set indexer [\"SomeProperty\", 4] to 6";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -223,7 +223,7 @@ public sealed partial class InteractionsTests
 					4,
 					7L,
 					6));
-		string expectedValue = "set indexer [SomeProperty, 4, 7] to 6";
+		string expectedValue = "set indexer [\"SomeProperty\", 4, 7] to 6";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -256,7 +256,7 @@ public sealed partial class InteractionsTests
 					7L,
 					150.Seconds(),
 					6));
-		string expectedValue = "set indexer [SomeProperty, 4, 7, 00:02:30] to 6";
+		string expectedValue = "set indexer [\"SomeProperty\", 4, 7, 00:02:30] to 6";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -273,7 +273,7 @@ public sealed partial class InteractionsTests
 					null,
 					150.Seconds(),
 					null));
-		string expectedValue = "set indexer [SomeProperty, 4, null, 00:02:30] to null";
+		string expectedValue = "set indexer [\"SomeProperty\", 4, null, 00:02:30] to null";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}
@@ -291,7 +291,7 @@ public sealed partial class InteractionsTests
 					150.Seconds(),
 					true,
 					6));
-		string expectedValue = "set indexer [SomeProperty, 4, 7, 00:02:30, True] to 6";
+		string expectedValue = "set indexer [\"SomeProperty\", 4, 7, 00:02:30, True] to 6";
 
 		await That(interaction.ToString()).IsEqualTo(expectedValue);
 	}

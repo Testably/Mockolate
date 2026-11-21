@@ -689,12 +689,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_string> IMockVerifyForIClosedGeneric_string.Convert<TOther>(global::Mockolate.Parameters.IParameter<string>? value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_string, global::Mockolate.Interactions.MethodInvocation<string>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Convert<{typeof(TOther)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<string>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter1, default(string))), () => $"Convert<TOther>({(object?)value ?? "null"})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<string>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter1, default(string))), () => $"Convert<TOther>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_string>.IgnoreParameters IMockVerifyForIClosedGeneric_string.Convert<TOther>(string value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_string, global::Mockolate.Interactions.MethodInvocation<string>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Convert<{typeof(TOther)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(object?)value ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_string> IMockVerifyForIClosedGeneric_string.Pair(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_string, global::Mockolate.Interactions.MethodInvocation<(string, string)>>(this, global::Mockolate.Mock.IClosedGeneric_string.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Pair", __i => parameters switch
@@ -829,12 +829,12 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_string> IMockVerifyForIClosedGeneric_string.Convert<TOther>(global::Mockolate.Parameters.IParameter<string>? value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_string, global::Mockolate.Interactions.MethodInvocation<string>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Convert<{typeof(TOther)}>", __i => 
-				(value is not null ? global::Mockolate.CovariantParameterAdapter<string>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter1, default(string))), () => $"Convert<TOther>({(object?)value ?? "null"})");
+				(value is not null ? global::Mockolate.CovariantParameterAdapter<string>.Wrap(value).Matches(__i.Parameter1) : global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(__i.Parameter1, default(string))), () => $"Convert<TOther>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_string>.IgnoreParameters IMockVerifyForIClosedGeneric_string.Convert<TOther>(string value)
 			where TOther : default
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_string, global::Mockolate.Interactions.MethodInvocation<string>>(this, -1, $"global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Convert<{typeof(TOther)}>", __i => 
-				(global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(object?)value ?? "null"})");
+				(global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(value, __i.Parameter1)), () => $"Convert<TOther>({(global::Mockolate.Internals.ValueFormatter.Format((object?)value))})");
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIClosedGeneric_string> IMockVerifyForIClosedGeneric_string.Pair(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIClosedGeneric_string, global::Mockolate.Interactions.MethodInvocation<(string, string)>>(this, global::Mockolate.Mock.IClosedGeneric_string.MemberId_Pair, "global::Mockolate.Tests.GeneratorCoverage.IClosedGeneric<string>.Pair", __i => parameters switch

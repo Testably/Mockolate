@@ -192,13 +192,13 @@ public sealed class DynamicMembersTests
 		await That(messages).IsEqualTo([
 			"Expected that mock invoked method Dyn1(42) exactly once, but it never did.",
 			"Expected that mock invoked method Dyn2(It.IsAny<object>(), 2) exactly once, but it never did.",
-			"Expected that mock invoked method Dyn2(b, It.IsAny<int>()) exactly once, but it never did.",
-			"Expected that mock invoked method Dyn3(1, null, c) exactly once, but it never did.",
-			"Expected that mock invoked method Dyn4(It.IsAny<object>(), b, 3, It.IsAny<string>()) exactly once, but it never did.",
-			"Expected that mock invoked method Dyn5(a, 2, 3, 4, It.IsAny<object>()) exactly once, but it never did.",
+			"Expected that mock invoked method Dyn2(\"b\", It.IsAny<int>()) exactly once, but it never did.",
+			"Expected that mock invoked method Dyn3(1, null, \"c\") exactly once, but it never did.",
+			"Expected that mock invoked method Dyn4(It.IsAny<object>(), \"b\", 3, It.IsAny<string>()) exactly once, but it never did.",
+			"Expected that mock invoked method Dyn5(\"a\", 2, 3, 4, It.IsAny<object>()) exactly once, but it never did.",
 			"Expected that mock invoked method Get() exactly once, but it never did.",
 			"Expected that mock set property Value to 5 exactly once, but it never did.",
-			"Expected that mock got indexer [k] exactly once, but it never did.",
+			"Expected that mock got indexer [\"k\"] exactly once, but it never did.",
 		]).Because("dynamic arguments are described like object arguments");
 	}
 

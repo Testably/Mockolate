@@ -1177,7 +1177,7 @@ namespace Mockolate.Interactions
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
-			return $"invoke method {SubstringAfterLast(Name, '.')}({Parameter1?.ToString() ?? "null"}, {Parameter2?.ToString() ?? "null"}, {Parameter3?.ToString() ?? "null"}, {Parameter4?.ToString() ?? "null"}, {Parameter5?.ToString() ?? "null"})";
+			return $"invoke method {SubstringAfterLast(Name, '.')}({(global::Mockolate.Internals.ValueFormatter.Format(Parameter1))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter2))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter3))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter4))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter5))})";
 			static string SubstringAfterLast(string name, char c)
 			{
 				int index = name.LastIndexOf(c);

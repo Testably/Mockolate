@@ -178,7 +178,7 @@ public sealed class ClassicNullableTypeParameterTests
 			"no exception",
 			"a, b",
 			"no exception",
-			"Expected that mock invoked method G2(x, It.IsAny<int>()) exactly once, but it never did.",
+			"Expected that mock invoked method G2(\"x\", It.IsAny<int>()) exactly once, but it never did.",
 		]).Because("T? closed over a value type is the plain value type, so the classic setup and verify surface must use int instead of Nullable<int>");
 	}
 }

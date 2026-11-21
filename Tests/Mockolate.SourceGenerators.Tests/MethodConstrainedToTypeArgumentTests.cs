@@ -162,7 +162,7 @@ public sealed class MethodConstrainedToTypeArgumentTests
 			"no exception",
 			"no exception",
 			"no exception",
-			"Expected that mock invoked method AcceptNotNull<U>(c) exactly once, but it never did.",
+			"Expected that mock invoked method AcceptNotNull<U>(\"c\") exactly once, but it never did.",
 		]).Because("the methods are mocked although their constraint can only be inherited");
 	}
 }
