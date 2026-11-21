@@ -17,7 +17,8 @@ namespace Mockolate.SourceGenerators.Tests.Snapshot;
 ///     <c>Mockolate.Tests.MockCreationTests</c> and reuses the same
 ///     <c>Tests/Mockolate.Tests/GeneratorCoverage</c> source files as input, so the
 ///     example types remain the single source of truth for "every special case in the
-///     source generator". The generated <c>.g.cs</c> files are compared with aweXpect snapshots in
+///     source generator". Every scenario must compile without diagnostics, and the generated <c>.g.cs</c> files of a
+///     few representative scenarios are compared with aweXpect snapshots in
 ///     <c>MockGenerationSnapshotTests/GeneratorOutput_MatchesExpectedSnapshot/</c>.
 ///     When a scenario fails because the change was intentional, take over the change in the diff tool that opens
 ///     locally or run the tests with the environment variable <c>AWEXPECT_ACCEPT_SNAPSHOTS</c> set to <c>all</c>.
@@ -35,6 +36,10 @@ public sealed partial class MockGenerationSnapshotTests
     {
         var scenario = Generated.Value[scenarioName];
         await That(scenario.Diagnostics).IsEmpty();
+        if (scenario.Files.Length == 0)
+        {
+            return;
+        }
 
         await ThatAll(scenario.Files
             .Select(file => (Expectation)That(file.Content).MatchesSnapshot().Named(file.SnapshotName).WithExtension("cs"))
@@ -52,7 +57,7 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [],
             AutoMocking: true,
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "BaseClass_WithMultipleAdditionalInterfaces_CanBeCreated",
             ["ComprehensiveAbstractClass.cs", "MyAbstractBase.cs", "ICombinationMockA.cs", "ICombinationMockB.cs",],
@@ -62,7 +67,7 @@ public sealed partial class MockGenerationSnapshotTests
             	.Implementing<ICombinationMockB>();
             """,
             [],
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "ClosedGeneric_CanBeCreated",
             ["IClosedGeneric.cs",],
@@ -88,7 +93,7 @@ public sealed partial class MockGenerationSnapshotTests
             ComprehensiveDelegate sut = ComprehensiveDelegate.CreateMock();
             """,
             [],
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "ComprehensiveInterface_CanBeCreated",
             [
@@ -99,7 +104,7 @@ public sealed partial class MockGenerationSnapshotTests
             IComprehensiveInterface sut = IComprehensiveInterface.CreateMock();
             """,
             [],
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "DynamicMembers_CanBeCreated",
             ["IDynamicMembers.cs",],
@@ -167,7 +172,7 @@ public sealed partial class MockGenerationSnapshotTests
             System.Net.Http.HttpClient sut = System.Net.Http.HttpClient.CreateMock();
             """,
             [typeof(HttpClient), typeof(HttpStatusCode),],
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "KeywordEdgeCases_CanBeCreated",
             ["IKeywordEdgeCases.cs",],
@@ -185,7 +190,7 @@ public sealed partial class MockGenerationSnapshotTests
             Microsoft.Extensions.Logging.ILoggerFactory sut3 = Microsoft.Extensions.Logging.ILoggerFactory.CreateMock();
             """,
             [typeof(ILogger),],
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "LoggerClasses_CanBeCreated",
             ["LoggerClasses.cs",],
@@ -194,7 +199,7 @@ public sealed partial class MockGenerationSnapshotTests
             LeafLogger sut2 = LeafLogger.CreateMock();
             """,
             [typeof(ILogger),],
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "MethodConstrainedToTypeArgument_CanBeCreated",
             ["IMethodConstrainedToTypeArgument.cs",],
@@ -295,7 +300,7 @@ public sealed partial class MockGenerationSnapshotTests
             IRefStructConsumer sut = IRefStructConsumer.CreateMock();
             """,
             [],
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "StaticAbstractMembers_CanBeCreated",
             ["IStaticAbstractMembers.cs",],
@@ -323,7 +328,7 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [],
             UnionMode: true,
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "ComprehensiveInterface_CanBeCreated_Unions",
             [
@@ -335,7 +340,7 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [],
             UnionMode: true,
-            IncludeSharedFiles: true),
+            Snapshot: true),
         new(
             "DynamicMembers_CanBeCreated_Unions",
             ["IDynamicMembers.cs",],
@@ -363,6 +368,21 @@ public sealed partial class MockGenerationSnapshotTests
             [],
             UnionMode: true),
         new(
+            "EqualsMembers_CanBeCreated_Unions",
+            ["IEqualsMembers.cs",],
+            """
+            IEqualsOnly sut1 = IEqualsOnly.CreateMock();
+            IEqualsOnlyDerived sut2 = IEqualsOnlyDerived.CreateMock();
+            IEqualsNotNull sut3 = IEqualsNotNull.CreateMock();
+            IEqualsAndGetHashCode sut4 = IEqualsAndGetHashCode.CreateMock();
+            EqualsOnlyBase sut5 = EqualsOnlyBase.CreateMock();
+            IEqualsOnly sut6 = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
+            HiddenGetHashCodeBase sut7 = HiddenGetHashCodeBase.CreateMock();
+            HiddenGetHashCodeBase sut8 = HiddenGetHashCodeBase.CreateMock().Implementing<IEqualsAndGetHashCode>();
+            """,
+            [],
+            UnionMode: true),
+        new(
             "KeywordEdgeCases_CanBeCreated_Unions",
             ["IKeywordEdgeCases.cs",],
             """
@@ -377,6 +397,20 @@ public sealed partial class MockGenerationSnapshotTests
             """
             INullableTypeParameter<int> sut1 = INullableTypeParameter<int>.CreateMock();
             INullableTypeParameter<string> sut2 = INullableTypeParameter<string>.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
+            "ObjectLookAlikes_CanBeCreated_Unions",
+            ["IObjectLookAlikes.cs",],
+            """
+            IObjectLookAlikes sut1 = IObjectLookAlikes.CreateMock();
+            IObjectLookAlikesDerived sut2 = IObjectLookAlikesDerived.CreateMock();
+            IVoidObjectLookAlikes sut3 = IVoidObjectLookAlikes.CreateMock();
+            IRefObjectLookAlikes sut4 = IRefObjectLookAlikes.CreateMock();
+            IObjectLookAlikeProperties sut5 = IObjectLookAlikeProperties.CreateMock();
+            IStaticObjectLookAlikes sut6 = IStaticObjectLookAlikes.CreateMock();
+            IVoidObjectLookAlikes sut7 = IVoidObjectLookAlikes.CreateMock().Implementing<IObjectLookAlikes>();
             """,
             [],
             UnionMode: true),
@@ -425,19 +459,19 @@ public sealed partial class MockGenerationSnapshotTests
         => Scenarios.Select(scenario => scenario.Name);
 
     /// <summary>
-    ///     Runs the generator for every scenario. The files of the mocked types are compared as one snapshot named after
-    ///     the scenario, e.g. <c>DynamicMembers_CanBeCreated.g</c>, with a comment line naming each file.
+    ///     Runs the generator for every scenario. Only the scenarios with <see cref="SnapshotScenario.Snapshot" /> compare
+    ///     the generated files with snapshots; the special cases are covered by targeted tests, so their scenarios only
+    ///     check that the generated code compiles without diagnostics.
     /// </summary>
     /// <remarks>
     ///     <c>[DebuggerNonUserCode]</c> is only emitted by a Release build of the generator, so it is stripped to make the
     ///     snapshots independent of the build configuration.
     ///     <para />
-    ///     The files that are not specific to a mocked type (e.g. <c>MethodSetups.g.cs</c>) only differ between scenarios
-    ///     in the arities or types they cover, so they are only compared in the scenarios with
-    ///     <see cref="SnapshotScenario.IncludeSharedFiles" />; the others still compile them. These scenarios share the
-    ///     snapshot of a file with the same content. It is named after the file, or, when they generate several contents
-    ///     of the file, after the first scenario with each content, e.g.
-    ///     <c>MethodSetups.ComprehensiveInterface_CanBeCreated.g</c>.
+    ///     The files of the mocked types are compared as one snapshot named after the scenario, e.g.
+    ///     <c>ComprehensiveInterface_CanBeCreated.g</c>, with a comment line naming each file. The files that are not
+    ///     specific to a mocked type (e.g. <c>MethodSetups.g.cs</c>) share the snapshot of a file with the same content.
+    ///     It is named after the file, or, when the scenarios generate several contents of the file, after the first
+    ///     scenario with each content, e.g. <c>MethodSetups.ComprehensiveInterface_CanBeCreated.g</c>.
     /// </remarks>
     private static Dictionary<string, GeneratedScenario> GenerateAll()
     {
@@ -454,7 +488,7 @@ public sealed partial class MockGenerationSnapshotTests
             });
         Dictionary<(string FileName, string Content), string> snapshotNames = new();
         foreach (var file in results.Values
-                     .Where(result => result.Scenario.IncludeSharedFiles)
+                     .Where(result => result.Scenario.Snapshot)
                      .SelectMany(result => result.Sources
                          .Where(source => IsSharedFile(source.FileName))
                          .Select(source => (Scenario: result.Scenario.Name, source.FileName, source.Content)))
@@ -477,13 +511,15 @@ public sealed partial class MockGenerationSnapshotTests
             result.Value.Diagnostics
                 .Where(diagnostic => !diagnostic.Contains("CS1591") || diagnostic.Contains(".g.cs("))
                 .ToArray(),
-            result.Value.Sources
-                .Where(source => result.Value.Scenario.IncludeSharedFiles && IsSharedFile(source.FileName))
-                .Select(source => new GeneratedFile(snapshotNames[source], source.Content))
-                .Append(new GeneratedFile($"{result.Key}.g", string.Join("\n", result.Value.Sources
-                    .Where(source => !IsSharedFile(source.FileName))
-                    .Select(source => $"// {source.FileName}\n{source.Content}"))))
-                .ToArray()));
+            result.Value.Scenario.Snapshot
+                ? result.Value.Sources
+                    .Where(source => IsSharedFile(source.FileName))
+                    .Select(source => new GeneratedFile(snapshotNames[source], source.Content))
+                    .Append(new GeneratedFile($"{result.Key}.g", string.Join("\n", result.Value.Sources
+                        .Where(source => !IsSharedFile(source.FileName))
+                        .Select(source => $"// {source.FileName}\n{source.Content}"))))
+                    .ToArray()
+                : []));
 
         static string Normalize(string content)
             => DebuggerNonUserCodeRegex.Replace(content.Replace("\r\n", "\n"), string.Empty);

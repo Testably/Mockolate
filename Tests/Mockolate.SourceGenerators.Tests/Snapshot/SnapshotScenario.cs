@@ -7,4 +7,4 @@ internal sealed record SnapshotScenario(
     Type[] AssemblyTypes,
     bool UnionMode = false,
     bool AutoMocking = false,
-    bool IncludeSharedFiles = false);
+    bool Snapshot = false);
