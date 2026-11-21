@@ -453,11 +453,6 @@ internal static class Helpers
 				{
 					return SpecialGenericType.ReadOnlySpan;
 				}
-
-				if (typeSymbol.Name == "ValueTuple")
-				{
-					return SpecialGenericType.Tuple;
-				}
 			}
 			else if (typeSymbol.ContainingNamespace is { Name: "Tasks", ContainingNamespace.Name: "Threading", } &&
 			         typeSymbol.ContainingNamespace.ContainingNamespace?.ContainingNamespace.Name == "System" &&
