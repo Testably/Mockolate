@@ -1,4 +1,3 @@
-using System;
 using Mockolate.Internals;
 using Mockolate.Parameters;
 
@@ -23,9 +22,9 @@ public partial class It
 #if !DEBUG
 	[System.Diagnostics.DebuggerNonUserCode]
 #endif
-	private class NotNullParameterMatch<T> : TypedMatch<T>
+	private sealed class NotNullParameterMatch<T>() : TypedMatch<T>(isShared: true)
 	{
-		internal static readonly NotNullParameterMatch<T> Shared = new SharedNotNullParameterMatch();
+		internal static readonly NotNullParameterMatch<T> Shared = new();
 
 		/// <inheritdoc cref="TypedMatch{T}.Matches(T)" />
 		protected override bool Matches(T value) => value is not null;
@@ -35,15 +34,6 @@ public partial class It
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString() => $"It.IsNotNull<{typeof(T).FormatType()}>()";
-
-#if !DEBUG
-		[System.Diagnostics.DebuggerNonUserCode]
-#endif
-		private sealed class SharedNotNullParameterMatch : NotNullParameterMatch<T>
-		{
-			protected override IParameterWithCallback<T> AddCallback(Action<T> callback)
-				=> ((IParameterWithCallback<T>)new NotNullParameterMatch<T>()).Do(callback);
-		}
 	}
 }
 #pragma warning restore S3218 // Inner class members should not shadow outer class "static" or type members
