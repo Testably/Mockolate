@@ -129,92 +129,126 @@ public sealed class GenericMethodClosedOverObjectTests
 
 	private static readonly Group[] Groups =
 	[
-		new(Plain, "a matcher still binds the overload that takes values, but matches as a matcher", """
-			<object>(It.IsAny<object?>()) | (object) matches o:a o:1 o:null
-			<object>(It.IsAny<object>()) | (object) matches o:a o:1 o:null
-			<object>(It.IsAny<string>()) | (object) matches o:a o:null
-			<object>(It.Is<object>("a")) | (object) matches o:a
-			<object>(It.Satisfies<object>(x => x is string)) | (object) matches o:a
-			<object>(value: It.IsAny<object>()) | (object) matches o:a o:1 o:null
-			<object?>(It.IsAny<object?>()) | (object?) matches o:a o:1 o:null
-			<object>(It.IsAny<object>()).AnyParameters() | (object) matches o:a o:1 o:null
+		new(Plain, "without type arguments a matcher binds the matcher overload with the type argument it infers", """
+			(It.IsAny<string>()) | (IParameter<string>?) matches s:a s:null
+			(It.IsAny<int>()) | (IParameter<int>?) matches i:0 i:1
+			(It.Is("a")) | (IParameter<string>?) matches s:a
+			("a") | (string) matches s:a
+			(1) | (int) matches i:1
 			"""),
-		new(Plain, "a parameters match for the only parameter matches like the IParameters overload", """
-			<object>(Match.AnyParameters()) | (object) matches o:a o:1 o:null
-			<object>(Match.Parameters(p => p[0] is string)) | (object) matches o:a
+		new(Two, "without type arguments a matcher next to a value binds the matcher overload with the type argument it infers", """
+			(1, It.IsAny<string>()) | (int, IParameter<string>?) matches 1,s:a 1,s:null
+			(It.IsAny<int>(), It.IsAny<string>()) | (IParameter<int>?, IParameter<string>?) matches 1,s:a 1,s:null
+			(It.IsAny<int>(), "a") | (IParameter<int>?, string) matches 1,s:a
+			(1, "a") | (int, string) matches 1,s:a
+			"""),
+		new(Five, "without type arguments a matcher next to values binds the matcher overload above four parameters as well", """
+			(1, 2, 3, 4, It.IsAny<string>()) | (int, int, int, int, IParameter<string>?) matches 1234,s:a 1234,s:null
+			(1, 2, 3, 4, "a") | (int, int, int, int, string) matches 1234,s:a
+			(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()) | (IParameter<int>?, IParameter<int>?, IParameter<int>?, IParameter<int>?, IParameter<string>?) matches 1234,s:a 1234,s:null
+			"""),
+		new(Mix, "without type arguments a matcher next to an empty params array binds the matcher overload", """
+			(It.IsAny<string>()) | (IParameter<string>?, params IParameter<int>[]) matches s:a
+			("a") | (string, params int[]) matches s:a
+			"""),
+		new(Dep, "without type arguments a matcher for a dependent type parameter binds the matcher overload", """
+			("b", It.IsAny<object>()) | (string?, IParameter<object?>?) matches b,5 b,null
+			"""),
+		new(In, "without type arguments a matcher for an in parameter binds the matcher overload", """
+			(It.IsAny<string>()) | (IParameter<string>?) matches s:a
+			"""),
+		new(Cls, "without type arguments a matcher for a class constraint binds the matcher overload", """
+			(It.IsAny<string>()) | (IParameter<string>?) matches s:a s:null
+			"""),
+		new(NotNull, "without type arguments a matcher for a notnull constraint binds the matcher overload", """
+			(It.IsAny<string>()) | (IParameter<string>?) matches s:a
+			"""),
+		new(Plain, "a matcher that converts to the type argument binds the matcher overload, as for an object parameter", """
+			<object>(It.IsAny<object?>()) | (IParameter<object>?) matches o:a o:1 o:null
+			<object>(It.IsAny<object>()) | (IParameter<object>?) matches o:a o:1 o:null
+			<object>(It.IsAny<string>()) | (IParameter<object>?) matches o:a o:null
+			<object>(It.Is<object>("a")) | (IParameter<object>?) matches o:a
+			<object>(It.Satisfies<object>(x => x is string)) | (IParameter<object>?) matches o:a
+			<object>(value: It.IsAny<object>()) | (IParameter<object>?) matches o:a o:1 o:null
+			<object?>(It.IsAny<object?>()) | (IParameter<object?>?) matches o:a o:1 o:null
+			<object>(It.IsAny<object>()).AnyParameters() | CS1061
+			"""),
+		new(Plain, "a parameters match for the only parameter binds the IParameters overload, as for an object parameter", """
+			<object>(Match.AnyParameters()) | (IParameters?) matches o:a o:1 o:null
+			<object>(Match.Parameters(p => p[0] is string)) | (IParameters?) matches o:a
 			"""),
 		new(Plain, "a matcher that does not convert to the parameter type is still a value, as for an object parameter", """
 			<object>(It.IsAny<int>()) | (object) matches nothing
 			"""),
-		new(Plain, "values and null or default literals bind and match as before", """
+		new(Plain, "values match as before, and a lone null or default literal stands for that argument, as for an object parameter", """
 			<object>("a") | (object) matches o:a
-			<object>(null) | (object) matches o:null
-			<object>(default) | (object) matches o:null
+			<object>(null) | (IParameters?) matches o:null
+			<object>(default) | (IParameters?) matches o:null
 			<object>("a").AnyParameters() | (object) matches o:a o:1 o:null
-			<object>(null).AnyParameters() | (object) matches o:a o:1 o:null
+			<object>(null).AnyParameters() | CS1061
 			<string>("a") | (string) matches s:a
-			<string>(null) | (string) matches s:null
-			<string>(default) | (string) matches s:null
+			<string>(null) | (IParameters?) matches s:null
+			<string>(default) | (IParameters?) matches s:null
 			<string>(It.IsAny<string>()) | (IParameter<string>?) matches s:a s:null
-			<string>(Match.AnyParameters()) | (IParameters) matches s:a s:null
+			<string>(Match.AnyParameters()) | (IParameters?) matches s:a s:null
 			<string>("a").AnyParameters() | (string) matches s:a s:null
-			<string>(null).AnyParameters() | (string) matches s:a s:null
+			<string>(null).AnyParameters() | CS1061
 			<int>(1) | (int) matches i:1
-			<int>(default) | (int) matches i:0
-			<int>(null) | (IParameters) matches i:0 i:1
+			<int>(default) | (IParameters?) matches i:0
+			<int>(null) | (IParameters?) matches i:0
 			<int>(It.IsAny<int>()) | (IParameter<int>?) matches i:0 i:1
-			<int>(Match.AnyParameters()) | (IParameters) matches i:0 i:1
+			<int>(Match.AnyParameters()) | (IParameters?) matches i:0 i:1
 			<int>(1).AnyParameters() | (int) matches i:0 i:1
-			<int>(default).AnyParameters() | (int) matches i:0 i:1
+			<int>(default).AnyParameters() | CS1061
 			"""),
-		new(Two, "a matcher next to a value matches as a matcher, and other calls bind and match as before", """
-			<object>(1, It.IsAny<object>()) | (int, object) matches 1,o:a 1,o:null
-			<object>(default, It.Is<object>(null)) | (int, object) matches 0,o:null
+		new(Two, "a matcher or a null or default literal for the type parameter binds the matcher overload, and values match as before", """
+			<object>(1, It.IsAny<object>()) | (int, IParameter<object>?) matches 1,o:a 1,o:null
+			<object>(default, It.Is<object>(null)) | (IParameter<int>?, IParameter<object>?) matches 0,o:null
 			<object>(1, "a") | (int, object) matches 1,o:a
-			<object>(1, null) | (int, object) matches 1,o:null
-			<object>(1, default) | (int, object) matches 1,o:null
-			<object>(default, default) | (int, object) matches 0,o:null
+			<object>(1, null) | (int, IParameter<object>?) matches 1,o:null
+			<object>(1, default) | (int, IParameter<object>?) matches 1,o:null
+			<object>(default, default) | (IParameter<int>?, IParameter<object>?) matches 0,o:null
 			<object>(It.IsAny<int>(), "a") | (IParameter<int>?, object) matches 1,o:a 2,o:a
 			<object>(It.IsAny<int>(), It.IsAny<object>()) | (IParameter<int>?, IParameter<object>?) matches 1,o:a 1,o:null 2,o:a 0,o:null
 			<object>(Match.AnyParameters()) | (IParameters) matches 1,o:a 1,o:null 2,o:a 0,o:null
 			<object>(1, "a").AnyParameters() | (int, object) matches 1,o:a 1,o:null 2,o:a 0,o:null
 			<string>(1, "a") | (int, string) matches 1,s:a
-			<string>(1, null) | (int, string) matches 1,s:null
+			<string>(1, null) | (int, IParameter<string>?) matches 1,s:null
 			<string>(1, It.IsAny<string>()) | (int, IParameter<string>?) matches 1,s:a 1,s:null
-			<string>(1, null).AnyParameters() | (int, string) matches 1,s:a 1,s:null
-			<int>(default, default) | (int, int) matches 0,i:0
-			<int>(default, default).AnyParameters() | (int, int) matches 0,i:0 1,i:2
+			<string>(1, null).AnyParameters() | CS1061
+			<int>(default, default) | (IParameter<int>?, IParameter<int>?) matches 0,i:0
+			<int>(default, default).AnyParameters() | CS1061
 			<int>(1, It.IsAny<int>()) | (int, IParameter<int>?) matches 1,i:2
 			"""),
-		new(Dep, "only the type parameter that is closed over object takes a matcher as a value", """
-			<string, object>("b", It.IsAny<object?>()) | (string?, object?) matches b,5 b,null
+		new(Dep, "a matcher or a null literal for a type parameter binds the matcher overload", """
+			<string, object>("b", It.IsAny<object?>()) | (string?, IParameter<object?>?) matches b,5 b,null
 			<string, object>("b", 5) | (string?, object?) matches b,5
-			<string, object>("b", null) | (string?, object?) matches b,null
+			<string, object>("b", null) | (string?, IParameter<object?>?) matches b,null
 			<string, object>(It.IsAny<string?>(), It.IsAny<object?>()) | (IParameter<string?>?, IParameter<object?>?) matches b,5 b,null c,5
 			<string, object>(It.IsAny<string?>(), 5) | (IParameter<string?>?, object?) matches b,5 c,5
 			<string, object>(Match.AnyParameters()) | (IParameters) matches b,5 b,null c,5
 			<string, string>("b", "c") | (string?, string?) matches s:b,s:c
-			<string, string>("b", null) | (string?, string?) matches s:b,s:null
+			<string, string>("b", null) | (string?, IParameter<string?>?) matches s:b,s:null
 			<string, string>("b", It.IsAny<string?>()) | (string?, IParameter<string?>?) matches s:b,s:c s:b,s:null
 			"""),
 		new(Cls, "a class constraint can be closed over object", """
-			<object>(It.IsAny<object>()) | (object) matches o:a o:1
-			<object>(Match.AnyParameters()) | (object) matches o:a o:1
+			<object>(It.IsAny<object>()) | (IParameter<object>?) matches o:a o:1
+			<object>(Match.AnyParameters()) | (IParameters?) matches o:a o:1
 			<object>("a") | (object) matches o:a
 			<string>("a") | (string) matches s:a
-			<string>(null) | (string) matches s:null
-			<string>(null).AnyParameters() | (string) matches s:a s:null
+			<string>(null) | (IParameters?) matches s:null
+			<string>(null).AnyParameters() | CS1061
 			<string>(It.IsAny<string>()) | (IParameter<string>?) matches s:a s:null
 			"""),
-		new(Five, "above four parameters a matcher next to values matches as a matcher, and other calls bind and match as before", """
-			<object>(1, 2, 3, 4, It.IsAny<object>()) | (int, int, int, int, object) matches 1234,o:a 1234,o:null
+		new(Five, "above four parameters a matcher or a null or default literal next to values binds the matcher overload, and values match as before", """
+			<object>(1, 2, 3, 4, It.IsAny<object>()) | (int, int, int, int, IParameter<object>?) matches 1234,o:a 1234,o:null
 			<object>(1, 2, 3, 4, "a") | (int, int, int, int, object) matches 1234,o:a
-			<object>(1, 2, 3, 4, null) | (int, int, int, int, object) matches 1234,o:null
+			<object>(1, 2, 3, 4, null) | (int, int, int, int, IParameter<object>?) matches 1234,o:null
 			<object>(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<object>()) | (IParameter<int>?, IParameter<int>?, IParameter<int>?, IParameter<int>?, IParameter<object>?) matches 1234,o:a 1234,o:null 0000,o:a 0000,o:null
 			<object>(Match.AnyParameters()) | (IParameters) matches 1234,o:a 1234,o:null 0000,o:a 0000,o:null
-			<object>(default, default, default, default, default) | (int, int, int, int, object) matches 0000,o:null
-			<object>(default, default, default, default, default).AnyParameters() | (int, int, int, int, object) matches 1234,o:a 1234,o:null 0000,o:a 0000,o:null
-			<string>(1, 2, 3, 4, null) | (int, int, int, int, string) matches 1234,s:null
+			<object>(default, default, default, default, default) | (IParameter<int>?, IParameter<int>?, IParameter<int>?, IParameter<int>?, IParameter<object>?) matches 0000,o:null
+			<object>(default, default, default, default, default).AnyParameters() | CS1061
+			<string>(1, 2, 3, 4, null) | (int, int, int, int, IParameter<string>?) matches 1234,s:null
 			<string>(1, 2, 3, 4, "a").AnyParameters() | (int, int, int, int, string) matches 1234,s:a 1234,s:null
 			"""),
 		new(Strct, "a struct constraint cannot be closed over object and did not change", """
@@ -231,19 +265,19 @@ public sealed class GenericMethodClosedOverObjectTests
 			<string>(It.IsAny<string>()) | (IParameter<string>?) matches s:a s:null
 			<int>(default) | (int) matches i:0
 			"""),
-		new(Mix, "a parameters match with an empty trailing params array matches like the IParameters overload", """
-			<object>(Match.AnyParameters()) | (object, params int[]) matches o:a o:a,1 o:b
-			<object>(Match.Parameters(p => p[0] is "a")) | (object, params int[]) matches o:a o:a,1
-			<object>(Match.Parameters(p => p[1] is int[] { Length: 1, })) | (object, params int[]) matches o:a,1
-			<object>(Match.AnyParameters()).AnyParameters() | (object, params int[]) matches o:a o:a,1 o:b
-			<string>(Match.AnyParameters()) | (IParameters) matches s:a
+		new(Mix, "a parameters match with an empty trailing params array binds the IParameters overload", """
+			<object>(Match.AnyParameters()) | (IParameters?) matches o:a o:a,1 o:b
+			<object>(Match.Parameters(p => p[0] is "a")) | (IParameters?) matches o:a o:a,1
+			<object>(Match.Parameters(p => p[1] is int[] { Length: 1, })) | (IParameters?) matches o:a,1
+			<object>(Match.AnyParameters()).AnyParameters() | CS1061
+			<string>(Match.AnyParameters()) | (IParameters?) matches s:a
 			"""),
 		new(Mix, "a parameters match next to elements of the params array is a value, as for an object parameter", """
 			<object>(Match.AnyParameters(), 1) | (object, params int[]) matches nothing
 			"""),
 		new(Mix, "matchers and values next to a params array match as for the other methods", """
-			<object>(It.IsAny<string>()) | (object, params int[]) matches o:a o:b
-			<object>(It.Is<object>("a"), 1) | (object, params int[]) matches o:a,1
+			<object>(It.IsAny<string>()) | (IParameter<object>?, params IParameter<int>[]) matches o:a o:b
+			<object>(It.Is<object>("a"), 1) | (IParameter<object>?, params int[]) matches o:a,1
 			<object>("a") | (object, params int[]) matches o:a
 			<object>("a", 1) | (object, params int[]) matches o:a,1
 			<object>("a").AnyParameters() | (object, params int[]) matches o:a o:a,1 o:b
@@ -254,21 +288,21 @@ public sealed class GenericMethodClosedOverObjectTests
 			("a") | (object?, params int[]) matches a
 			"""),
 		new(In, "an in parameter takes a matcher like a value parameter", """
-			<object>(It.IsAny<string>()) | (object) matches o:a
-			<object>(Match.AnyParameters()) | (object) matches o:a o:1
+			<object>(It.IsAny<string>()) | (IParameter<object>?) matches o:a
+			<object>(Match.AnyParameters()) | (IParameters?) matches o:a o:1
 			<object>("a") | (object) matches o:a
 			<string>("a") | (string) matches s:a
 			"""),
 		new(NotNull, "a notnull constraint can be closed over object", """
-			<object>(It.IsAny<string>()) | (object) matches o:a
-			<object>(Match.AnyParameters()) | (object) matches o:a o:1
+			<object>(It.IsAny<string>()) | (IParameter<object>?) matches o:a
+			<object>(Match.AnyParameters()) | (IParameters?) matches o:a o:1
 			<object>(1) | (object) matches o:1
 			<string>(It.IsAny<string>()) | (IParameter<string>?) matches s:a
 			"""),
 		new(New, "a new() constraint can be closed over object", """
 			<object>(It.IsAny<int>()) | (object) matches nothing
-			<object>(It.Satisfies<object>(x => x is int)) | (object) matches o:1
-			<object>(Match.AnyParameters()) | (object) matches o:x o:1
+			<object>(It.Satisfies<object>(x => x is int)) | (IParameter<object>?) matches o:1
+			<object>(Match.AnyParameters()) | (IParameters?) matches o:x o:1
 			<int>(1) | (int) matches i:1
 			"""),
 		new(Unmanaged, "an unmanaged constraint cannot be closed over object and did not change", """
@@ -277,8 +311,8 @@ public sealed class GenericMethodClosedOverObjectTests
 			<int>(Match.AnyParameters()) | (IParameters) matches everything
 			"""),
 		new(OuterObject, "a constraint to a type parameter of the mocked type that is closed over object can be object", """
-			<object>(It.IsAny<string>()) | (object) matches o:a
-			<object>(Match.AnyParameters()) | (object) matches o:a o:1
+			<object>(It.IsAny<string>()) | (IParameter<object>?) matches o:a
+			<object>(Match.AnyParameters()) | (IParameters?) matches o:a o:1
 			<object>(1) | (object) matches o:1
 			<string>(It.IsAny<string>()) | (IParameter<string>?) matches s:a
 			"""),

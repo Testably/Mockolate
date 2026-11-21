@@ -85,14 +85,21 @@ internal static partial class Sources
 	///     of <paramref name="method" />. The setup/verify interfaces are emitted per <see cref="MemberType" />, so
 	///     a same-named method in another scope never competes in overload resolution.
 	///     <see cref="Method.Name" /> carries the type parameter list of generic methods (<c>Foo&lt;T&gt;</c>), so the
-	///     comparison strips it: a generic sibling is an overload for the compiler as well.
+	///     comparison strips it: a generic sibling is an overload for the compiler as well. With
+	///     <paramref name="sameTypeParameterCount" />, only siblings with as many type parameters count, as for a call
+	///     with explicit type arguments.
 	/// </summary>
-	private static bool HasUniqueMethodName(Class @class, Method method)
+	private static bool HasUniqueMethodName(Class @class, Method method, bool sameTypeParameterCount = false)
 	{
 		string bareName = BareMethodName(method);
 		return @class.AllMethods().Count(m => m.ExplicitImplementation is null &&
 		                                      m.MemberType == method.MemberType &&
-		                                      BareMethodName(m) == bareName) == 1;
+		                                      BareMethodName(m) == bareName &&
+		                                      (!sameTypeParameterCount ||
+		                                       TypeParameterCount(m) == TypeParameterCount(method))) == 1;
+
+		static int TypeParameterCount(Method m)
+			=> m.GenericParameters?.Count ?? 0;
 	}
 
 	private static string BareMethodName(Method method)

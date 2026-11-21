@@ -14,6 +14,8 @@ public sealed class ParamsObjectArrayTests
 	                                        int Opt(int a, int b = 5, params object[] args);
 	                                        int Ov(object value);
 	                                        int Ov(params object[] args);
+	                                        int GenOv<T>(T value);
+	                                        int GenOv(params object[] args);
 	                                        int Mix(int a, int b);
 	                                        int Mix(params object[] args);
 	                                        int Pair(string text);
@@ -83,6 +85,12 @@ public sealed class ParamsObjectArrayTests
 		("array:null", "sut.Ov((object[])null!)"),
 	]);
 
+	private static readonly OverloadMatrix.Member GenOv = new("ILog", "GenOv",
+	[
+		("t:a", "sut.GenOv(\"a\")"), ("t:1", "sut.GenOv(1)"), ("array:[]", "sut.GenOv()"),
+		("array:[a,b]", "sut.GenOv(\"a\", \"b\")"),
+	]);
+
 	private static readonly OverloadMatrix.Member Mix = new("ILog", "Mix",
 	[
 		("ints:1,2", "sut.Mix(1, 2)"), ("array:[]", "sut.Mix()"), ("array:[a,1]", "sut.Mix(\"a\", 1)"),
@@ -130,6 +138,13 @@ public sealed class ParamsObjectArrayTests
 
 	private static readonly Group[] Groups =
 	[
+		new(GenOv, "an overload with a type parameter decides like the call on the mock does", """
+			("a") | (string) matches t:a
+			(1) | (int) matches t:1
+			() | () matches array:[]
+			("a", "b") | (params object[]) matches array:[a,b]
+			(It.IsAny<string>()) | (IParameter<string>?) matches t:a
+			"""),
 		new(Log, "values and arrays bind the all-values overload and match by value", """
 			(1) | (int, params object[]) matches 1:[]
 			(1, "a") | (int, params object[]) matches 1:[a]

@@ -37,7 +37,7 @@ public sealed class GenericMethodClosedOverObjectTests
 		sut.Dependent<string, object>("b", 5);
 		sut.Five<object>(1, 2, 3, 4, "x");
 
-		await That(sut.Mock.Verify.Plain<object>(It.IsAny<object?>())).Twice();
+		await That(sut.Mock.Verify.Plain<object>(It.IsAny<object>())).Twice();
 		await That(sut.Mock.Verify.Plain<object>(It.IsAny<string>())).Once();
 		await That(sut.Mock.Verify.Plain<object>(It.Is<object>(1))).Once();
 		await That(sut.Mock.Verify.Plain<object>(It.Satisfies<object>(x => x is int))).Once();
@@ -91,24 +91,6 @@ public sealed class GenericMethodClosedOverObjectTests
 		await That(received).IsEqualTo(["plain", "log",]);
 		await That(results).IsEqualTo([1, 0, 2, 2,])
 			.Because("a lone parameters match stands for all parameters, also for the elements of a params array");
-	}
-
-	[Test]
-	public async Task ParametersMatch_WithAnyParameters_ShouldSetUpTheMethod()
-	{
-		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
-		List<string> received = [];
-		sut.Mock.Setup.Plain<object>(Match.Parameters(_ => false)).AnyParameters().Do(() => received.Add("plain"));
-		sut.Mock.Setup.Get<object>(Match.Parameters(_ => false)).AnyParameters().Returns(3);
-		sut.Mock.Setup.Log<object>(Match.Parameters(_ => false)).AnyParameters().Do(() => received.Add("log"));
-		sut.Mock.Setup.Count<object>(Match.Parameters(_ => false)).AnyParameters().Returns(4);
-
-		sut.Plain<object>("a");
-		sut.Log<object>("a", 1, 2);
-		int[] results = [sut.Get<object>("a"), sut.Count<object>("a", 1),];
-
-		await That(received).IsEqualTo(["plain", "log",]);
-		await That(results).IsEqualTo([3, 4,]);
 	}
 
 	[Test]

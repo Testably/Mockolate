@@ -448,7 +448,7 @@ internal static partial class Sources
 	private static void AppendNamedParameter(StringBuilder sb, MethodParameter parameter,
 		bool nullIsDeclaredDefault = true)
 	{
-		bool useCovarianceAdapter = parameter.RefKind == RefKind.None;
+		bool useCovarianceAdapter = parameter.RefKind is RefKind.None or RefKind.In;
 		if (useCovarianceAdapter)
 		{
 			// Setup parameter is IParameter<T> (or nullable) — use CovariantParameterAdapter to support covariant

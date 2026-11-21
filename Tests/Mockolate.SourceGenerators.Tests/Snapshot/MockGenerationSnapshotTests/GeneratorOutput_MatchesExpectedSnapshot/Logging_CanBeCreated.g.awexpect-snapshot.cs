@@ -287,6 +287,15 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> global::Mockolate.Mock.IMockSetupForILogger.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+			where TState : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>.WithParameterCollection(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>", (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel>)global::Mockolate.Internals.Matchers.IsValue<global::Microsoft.Extensions.Logging.LogLevel>(logLevel), (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.EventId>)global::Mockolate.Internals.Matchers.IsValue<global::Microsoft.Extensions.Logging.EventId>(eventId), global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<TState>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Exception?>)global::Mockolate.Internals.Matchers.IsValue<global::System.Exception?>(exception), (global::Mockolate.Parameters.IParameterMatch<global::System.Func<TState, global::System.Exception?, string>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<TState, global::System.Exception?, string>>(formatter));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_Log_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, global::Microsoft.Extensions.Logging.LogLevel> global::Mockolate.Mock.IMockSetupForILogger.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, global::Microsoft.Extensions.Logging.LogLevel>.WithParameters(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", parameters, "logLevel");
@@ -311,9 +320,14 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger.BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger.BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : default
 		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForILogger)this).BeginScope<TState>(default(TState));
+			}
+
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>.WithParameters(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", parameters, "state");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, methodSetup);
 			return methodSetup;
@@ -332,13 +346,6 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger.BeginScope<TState>(TState state)
 			where TState : default
 		{
-			if (state is global::Mockolate.Parameters.IParameters parametersMatch)
-			{
-				var parametersSetup = new global::Mockolate.Internals.ParametersReturnMethodSetup<global::System.IDisposable?, TState>(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", parametersMatch, "state");
-				this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, parametersSetup);
-				return parametersSetup;
-			}
-
 			if (state is global::Mockolate.Parameters.IParameter<TState>)
 			{
 				var matcherSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>.WithParameterCollection(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<TState>(state));
@@ -386,6 +393,15 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		}
 		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockVerifyForILogger.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+			where TState : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>", __i => 
+				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.LogLevel>.Default.Equals(logLevel, __i.Parameter1)) && 
+				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.EventId>.Default.Equals(eventId, __i.Parameter2)) && 
+				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter3, default(TState))) && 
+				(global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(exception, __i.Parameter4)) && 
+				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
+		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockVerifyForILogger.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<global::Microsoft.Extensions.Logging.LogLevel>>(this, global::Mockolate.Mock.ILogger.MemberId_IsEnabled, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", __i => parameters switch
 				{
@@ -400,9 +416,11 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger>.IgnoreParameters IMockVerifyForILogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel logLevel)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.ILogger.MemberId_IsEnabled, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", logLevel, static (logLevel) => $"IsEnabled({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockVerifyForILogger.BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockVerifyForILogger.BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parameters switch
+			=> parameters is null
+				? ((IMockVerifyForILogger)this).BeginScope<TState>(default(TState))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parameters switch
 				{
 					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
 					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("state", __i.Parameter1)]),
@@ -418,16 +436,8 @@ internal static partial class Mock
 			where TState : default
 		{
 			global::Mockolate.Parameters.IParameterMatch<TState>? __match1 = global::Mockolate.Internals.Matchers.AsMatcher<TState>(state);
-			global::Mockolate.Parameters.IParameters? parametersMatch = state is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parametersMatch is not null
-				? parametersMatch switch
-				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("state", __i.Parameter1)]),
-					_ => true
-				}
-				: 
-				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => parametersMatch is not null ? $"BeginScope<TState>({parametersMatch})" : $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => 
+				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 		#endregion IMockVerifyForILogger
 	}
@@ -477,6 +487,15 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		}
 		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockVerifyForILogger.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+			where TState : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>", __i => 
+				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.LogLevel>.Default.Equals(logLevel, __i.Parameter1)) && 
+				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.EventId>.Default.Equals(eventId, __i.Parameter2)) && 
+				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter3, default(TState))) && 
+				(global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(exception, __i.Parameter4)) && 
+				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
+		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockVerifyForILogger.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<global::Microsoft.Extensions.Logging.LogLevel>>(this, global::Mockolate.Mock.ILogger.MemberId_IsEnabled, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", __i => parameters switch
 				{
@@ -491,9 +510,11 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger>.IgnoreParameters IMockVerifyForILogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel logLevel)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.ILogger.MemberId_IsEnabled, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", logLevel, static (logLevel) => $"IsEnabled({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockVerifyForILogger.BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockVerifyForILogger.BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parameters switch
+			=> parameters is null
+				? ((IMockVerifyForILogger)this).BeginScope<TState>(default(TState))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parameters switch
 				{
 					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
 					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("state", __i.Parameter1)]),
@@ -509,16 +530,8 @@ internal static partial class Mock
 			where TState : default
 		{
 			global::Mockolate.Parameters.IParameterMatch<TState>? __match1 = global::Mockolate.Internals.Matchers.AsMatcher<TState>(state);
-			global::Mockolate.Parameters.IParameters? parametersMatch = state is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parametersMatch is not null
-				? parametersMatch switch
-				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("state", __i.Parameter1)]),
-					_ => true
-				}
-				: 
-				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => parametersMatch is not null ? $"BeginScope<TState>({parametersMatch})" : $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForILogger, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => 
+				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 		#endregion IMockVerifyForILogger
 	}
@@ -576,6 +589,15 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> global::Mockolate.Mock.IMockSetupForILogger.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+			where TState : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>.WithParameterCollection(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>", (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel>)global::Mockolate.Internals.Matchers.IsValue<global::Microsoft.Extensions.Logging.LogLevel>(logLevel), (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.EventId>)global::Mockolate.Internals.Matchers.IsValue<global::Microsoft.Extensions.Logging.EventId>(eventId), global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<TState>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Exception?>)global::Mockolate.Internals.Matchers.IsValue<global::System.Exception?>(exception), (global::Mockolate.Parameters.IParameterMatch<global::System.Func<TState, global::System.Exception?, string>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<TState, global::System.Exception?, string>>(formatter));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_Log_TState_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, global::Microsoft.Extensions.Logging.LogLevel> global::Mockolate.Mock.IMockSetupForILogger.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, global::Microsoft.Extensions.Logging.LogLevel>.WithParameters(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", parameters, "logLevel");
@@ -600,9 +622,14 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger.BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger.BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : default
 		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForILogger)this).BeginScope<TState>(default(TState));
+			}
+
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>.WithParameters(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", parameters, "state");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
 			return methodSetup;
@@ -621,13 +648,6 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger.BeginScope<TState>(TState state)
 			where TState : default
 		{
-			if (state is global::Mockolate.Parameters.IParameters parametersMatch)
-			{
-				var parametersSetup = new global::Mockolate.Internals.ParametersReturnMethodSetup<global::System.IDisposable?, TState>(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", parametersMatch, "state");
-				this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, this._scenarioName, parametersSetup);
-				return parametersSetup;
-			}
-
 			if (state is global::Mockolate.Parameters.IParameter<TState>)
 			{
 				var matcherSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>.WithParameterCollection(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<TState>(state));
@@ -787,8 +807,16 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Microsoft.Extensions.Logging.ILogger.Log{TState}(global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception, global::System.Func{TState, global::System.Exception, string})">Log&lt;TState&gt;(LogLevel, EventId, TState, Exception, Func&lt;TState, Exception, string&gt;)</see> with the given <paramref name="logLevel"/>, <paramref name="eventId"/>, <paramref name="state"/>, <paramref name="exception"/>, <paramref name="formatter"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="logLevel" />, <paramref name="eventId" />, <paramref name="exception" />, <paramref name="formatter" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="state" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Microsoft.Extensions.Logging.ILogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel)">IsEnabled(LogLevel)</see> with the given <paramref name="parameters" />.
@@ -824,7 +852,7 @@ internal static partial class Mock
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : notnull;
 
 		/// <summary>
@@ -843,7 +871,6 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.IDisposable?, TState> BeginScope<TState>(TState state)
 			where TState : notnull;
 
@@ -878,8 +905,16 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger>.IgnoreParameters Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Microsoft.Extensions.Logging.ILogger.Log{TState}(global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception, global::System.Func{TState, global::System.Exception, string})">Log&lt;TState&gt;(LogLevel, EventId, TState, Exception, Func&lt;TState, Exception, string&gt;)</see> with the given <paramref name="logLevel"/>, <paramref name="eventId"/>, <paramref name="state"/>, <paramref name="exception"/>, <paramref name="formatter"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="logLevel" />, <paramref name="eventId" />, <paramref name="exception" />, <paramref name="formatter" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="state" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Microsoft.Extensions.Logging.ILogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel)">IsEnabled(LogLevel)</see> with the given <paramref name="parameters"/>.
@@ -915,7 +950,7 @@ internal static partial class Mock
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : notnull;
 
 		/// <summary>
@@ -934,7 +969,6 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger>.IgnoreParameters BeginScope<TState>(TState state)
 			where TState : notnull;
 
@@ -2384,6 +2418,15 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> global::Mockolate.Mock.IMockSetupForILogger_Program.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+			where TState : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>.WithParameterCollection(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>", (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel>)global::Mockolate.Internals.Matchers.IsValue<global::Microsoft.Extensions.Logging.LogLevel>(logLevel), (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.EventId>)global::Mockolate.Internals.Matchers.IsValue<global::Microsoft.Extensions.Logging.EventId>(eventId), global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<TState>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Exception?>)global::Mockolate.Internals.Matchers.IsValue<global::System.Exception?>(exception), (global::Mockolate.Parameters.IParameterMatch<global::System.Func<TState, global::System.Exception?, string>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<TState, global::System.Exception?, string>>(formatter));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, global::Microsoft.Extensions.Logging.LogLevel> global::Mockolate.Mock.IMockSetupForILogger_Program.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, global::Microsoft.Extensions.Logging.LogLevel>.WithParameters(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", parameters, "logLevel");
@@ -2408,9 +2451,14 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger_Program.BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger_Program.BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : default
 		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForILogger_Program)this).BeginScope<TState>(default(TState));
+			}
+
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>.WithParameters(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", parameters, "state");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, methodSetup);
 			return methodSetup;
@@ -2429,13 +2477,6 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger_Program.BeginScope<TState>(TState state)
 			where TState : default
 		{
-			if (state is global::Mockolate.Parameters.IParameters parametersMatch)
-			{
-				var parametersSetup = new global::Mockolate.Internals.ParametersReturnMethodSetup<global::System.IDisposable?, TState>(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", parametersMatch, "state");
-				this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, parametersSetup);
-				return parametersSetup;
-			}
-
 			if (state is global::Mockolate.Parameters.IParameter<TState>)
 			{
 				var matcherSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>.WithParameterCollection(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<TState>(state));
@@ -2483,6 +2524,15 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		}
 		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockVerifyForILogger_Program.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+			where TState : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>", __i => 
+				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.LogLevel>.Default.Equals(logLevel, __i.Parameter1)) && 
+				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.EventId>.Default.Equals(eventId, __i.Parameter2)) && 
+				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter3, default(TState))) && 
+				(global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(exception, __i.Parameter4)) && 
+				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
+		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockVerifyForILogger_Program.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<global::Microsoft.Extensions.Logging.LogLevel>>(this, global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", __i => parameters switch
 				{
@@ -2497,9 +2547,11 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program>.IgnoreParameters IMockVerifyForILogger_Program.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel logLevel)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", logLevel, static (logLevel) => $"IsEnabled({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockVerifyForILogger_Program.BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockVerifyForILogger_Program.BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parameters switch
+			=> parameters is null
+				? ((IMockVerifyForILogger_Program)this).BeginScope<TState>(default(TState))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parameters switch
 				{
 					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
 					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("state", __i.Parameter1)]),
@@ -2515,16 +2567,8 @@ internal static partial class Mock
 			where TState : default
 		{
 			global::Mockolate.Parameters.IParameterMatch<TState>? __match1 = global::Mockolate.Internals.Matchers.AsMatcher<TState>(state);
-			global::Mockolate.Parameters.IParameters? parametersMatch = state is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parametersMatch is not null
-				? parametersMatch switch
-				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("state", __i.Parameter1)]),
-					_ => true
-				}
-				: 
-				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => parametersMatch is not null ? $"BeginScope<TState>({parametersMatch})" : $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => 
+				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 		#endregion IMockVerifyForILogger_Program
 	}
@@ -2574,6 +2618,15 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		}
 		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockVerifyForILogger_Program.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+			where TState : default
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>", __i => 
+				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.LogLevel>.Default.Equals(logLevel, __i.Parameter1)) && 
+				(global::System.Collections.Generic.EqualityComparer<global::Microsoft.Extensions.Logging.EventId>.Default.Equals(eventId, __i.Parameter2)) && 
+				(state is not null ? global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state).Matches(__i.Parameter3) : global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(__i.Parameter3, default(TState))) && 
+				(global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(exception, __i.Parameter4)) && 
+				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
+		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockVerifyForILogger_Program.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<global::Microsoft.Extensions.Logging.LogLevel>>(this, global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", __i => parameters switch
 				{
@@ -2588,9 +2641,11 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program>.IgnoreParameters IMockVerifyForILogger_Program.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel logLevel)
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Microsoft.Extensions.Logging.LogLevel>(this, global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", logLevel, static (logLevel) => $"IsEnabled({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))})");
 		/// <inheritdoc />
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockVerifyForILogger_Program.BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockVerifyForILogger_Program.BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : default
-			=> this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parameters switch
+			=> parameters is null
+				? ((IMockVerifyForILogger_Program)this).BeginScope<TState>(default(TState))
+				: this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parameters switch
 				{
 					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
 					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("state", __i.Parameter1)]),
@@ -2606,16 +2661,8 @@ internal static partial class Mock
 			where TState : default
 		{
 			global::Mockolate.Parameters.IParameterMatch<TState>? __match1 = global::Mockolate.Internals.Matchers.AsMatcher<TState>(state);
-			global::Mockolate.Parameters.IParameters? parametersMatch = state is global::Mockolate.Parameters.IParameters parametersCandidate ? parametersCandidate : null;
-			return this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => parametersMatch is not null
-				? parametersMatch switch
-				{
-					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
-					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("state", __i.Parameter1)]),
-					_ => true
-				}
-				: 
-				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => parametersMatch is not null ? $"BeginScope<TState>({parametersMatch})" : $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyMethod<IMockVerifyForILogger_Program, global::Mockolate.Interactions.MethodInvocation<TState>>(this, -1, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", __i => 
+				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 		#endregion IMockVerifyForILogger_Program
 	}
@@ -2673,6 +2720,15 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> global::Mockolate.Mock.IMockSetupForILogger_Program.Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter)
+			where TState : default
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>>.WithParameterCollection(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.Log<{typeof(TState)}>", (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.LogLevel>)global::Mockolate.Internals.Matchers.IsValue<global::Microsoft.Extensions.Logging.LogLevel>(logLevel), (global::Mockolate.Parameters.IParameterMatch<global::Microsoft.Extensions.Logging.EventId>)global::Mockolate.Internals.Matchers.IsValue<global::Microsoft.Extensions.Logging.EventId>(eventId), global::Mockolate.CovariantParameterAdapter<TState>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<TState>()), (global::Mockolate.Parameters.IParameterMatch<global::System.Exception?>)global::Mockolate.Internals.Matchers.IsValue<global::System.Exception?>(exception), (global::Mockolate.Parameters.IParameterMatch<global::System.Func<TState, global::System.Exception?, string>>)global::Mockolate.Internals.Matchers.IsValue<global::System.Func<TState, global::System.Exception?, string>>(formatter));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<bool, global::Microsoft.Extensions.Logging.LogLevel> global::Mockolate.Mock.IMockSetupForILogger_Program.IsEnabled(global::Mockolate.Parameters.IParameters parameters)
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<bool, global::Microsoft.Extensions.Logging.LogLevel>.WithParameters(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.IsEnabled", parameters, "logLevel");
@@ -2697,9 +2753,14 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger_Program.BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger_Program.BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : default
 		{
+			if (parameters is null)
+			{
+				return ((global::Mockolate.Mock.IMockSetupForILogger_Program)this).BeginScope<TState>(default(TState));
+			}
+
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>.WithParameters(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", parameters, "state");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
 			return methodSetup;
@@ -2718,13 +2779,6 @@ internal static partial class Mock
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.IDisposable?, TState> global::Mockolate.Mock.IMockSetupForILogger_Program.BeginScope<TState>(TState state)
 			where TState : default
 		{
-			if (state is global::Mockolate.Parameters.IParameters parametersMatch)
-			{
-				var parametersSetup = new global::Mockolate.Internals.ParametersReturnMethodSetup<global::System.IDisposable?, TState>(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", parametersMatch, "state");
-				this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, this._scenarioName, parametersSetup);
-				return parametersSetup;
-			}
-
 			if (state is global::Mockolate.Parameters.IParameter<TState>)
 			{
 				var matcherSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>.WithParameterCollection(this.MockRegistry, $"global::Microsoft.Extensions.Logging.ILogger.BeginScope<{typeof(TState)}>", global::Mockolate.Internals.Matchers.IsValueOrMatcher<TState>(state));
@@ -2884,8 +2938,16 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IVoidMethodSetupParameterIgnorer<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Microsoft.Extensions.Logging.ILogger.Log{TState}(global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception, global::System.Func{TState, global::System.Exception, string})">Log&lt;TState&gt;(LogLevel, EventId, TState, Exception, Func&lt;TState, Exception, string&gt;)</see> with the given <paramref name="logLevel"/>, <paramref name="eventId"/>, <paramref name="state"/>, <paramref name="exception"/>, <paramref name="formatter"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="logLevel" />, <paramref name="eventId" />, <paramref name="exception" />, <paramref name="formatter" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="state" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception?, global::System.Func<TState, global::System.Exception?, string>> Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Microsoft.Extensions.Logging.ILogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel)">IsEnabled(LogLevel)</see> with the given <paramref name="parameters" />.
@@ -2921,7 +2983,7 @@ internal static partial class Mock
 		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.IDisposable?, TState> BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : notnull;
 
 		/// <summary>
@@ -2940,7 +3002,6 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.IDisposable?, TState> BeginScope<TState>(TState state)
 			where TState : notnull;
 
@@ -2975,8 +3036,16 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program>.IgnoreParameters Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, TState state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Microsoft.Extensions.Logging.ILogger.Log{TState}(global::Microsoft.Extensions.Logging.LogLevel, global::Microsoft.Extensions.Logging.EventId, TState, global::System.Exception, global::System.Func{TState, global::System.Exception, string})">Log&lt;TState&gt;(LogLevel, EventId, TState, Exception, Func&lt;TState, Exception, string&gt;)</see> with the given <paramref name="logLevel"/>, <paramref name="eventId"/>, <paramref name="state"/>, <paramref name="exception"/>, <paramref name="formatter"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts a direct value for <paramref name="logLevel" />, <paramref name="eventId" />, <paramref name="exception" />, <paramref name="formatter" /> (equivalent to <c>It.Is&lt;T&gt;(value)</c>) and an <see cref="global::Mockolate.It">It</see> matcher for <paramref name="state" />.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
 
 		/// <summary>
 		///     Verify invocations for the method <see cref="global::Microsoft.Extensions.Logging.ILogger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel)">IsEnabled(LogLevel)</see> with the given <paramref name="parameters"/>.
@@ -3012,7 +3081,7 @@ internal static partial class Mock
 		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
 		/// </remarks>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
-		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> BeginScope<TState>(global::Mockolate.Parameters.IParameters parameters)
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> BeginScope<TState>(global::Mockolate.Parameters.IParameters? parameters)
 			where TState : notnull;
 
 		/// <summary>
@@ -3031,7 +3100,6 @@ internal static partial class Mock
 		/// <remarks>
 		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
 		/// </remarks>
-		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program>.IgnoreParameters BeginScope<TState>(TState state)
 			where TState : notnull;
 

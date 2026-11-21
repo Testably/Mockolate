@@ -147,6 +147,21 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
+	public async Task RefLookAlikes_WithMatcherForDerivedType_ShouldBeSetupAndVerifiable()
+	{
+		object? text = "a";
+		object? other = new();
+		IRefObjectLookAlikes sut = IRefObjectLookAlikes.CreateMock();
+		sut.Mock.Setup.Equals(It.IsAny<string>()).Returns(true);
+
+		bool[] results = [sut.Equals(in text), sut.Equals(in other),];
+
+		await That(results).IsEqualTo([true, false,])
+			.Because("a matcher for a derived type is wrapped covariantly for an in parameter as well");
+		await That(sut.Mock.Verify.Equals(It.IsAny<string>())).Once();
+	}
+
+	[Test]
 	public async Task PropertyAndEventNamedLikeObjectMethods_ShouldBeSetupAndVerifiable()
 	{
 		int raised = 0;
