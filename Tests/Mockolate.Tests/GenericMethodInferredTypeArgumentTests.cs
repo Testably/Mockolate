@@ -73,6 +73,25 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
+	public async Task Matcher_NextToValueForOtherTypeParameterAboveFourParameters_ShouldSetUpAndVerifyTheMethod()
+	{
+		IGenericMethodInferredFromMatcher sut = IGenericMethodInferredFromMatcher.CreateMock();
+		sut.Mock.Setup.TwoAboveFour(It.IsAny<int>(), "x", 1, 2, "y").Returns(1);
+		sut.Mock.Setup.TwoAboveFour("a", It.IsAny<string>(), 1, 2).Returns(2);
+
+		int[] results =
+		[
+			sut.TwoAboveFour(5, "x", 1, 2, "y"), sut.TwoAboveFour(5, "z", 1, 2, "y"),
+			sut.TwoAboveFour("a", "b", 1, 2), sut.TwoAboveFour("a", "b", 1, 2, "c"),
+		];
+
+		await That(results).IsEqualTo([1, 0, 2, 0,])
+			.Because("each type argument is inferred from its own matcher or value");
+		await That(sut.Mock.Verify.TwoAboveFour(It.IsAny<int>(), "x", 1, 2, "y")).Once();
+		await That(sut.Mock.Verify.TwoAboveFour("a", It.IsAny<string>(), 1, 2)).Once();
+	}
+
+	[Test]
 	public async Task Matcher_ForLoggerScope_ShouldSetUpAndVerifyTheScope()
 	{
 		ILogger logger = ILogger.CreateMock();

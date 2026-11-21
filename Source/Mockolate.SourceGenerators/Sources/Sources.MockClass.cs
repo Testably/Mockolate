@@ -3363,9 +3363,11 @@ internal static partial class Sources
 
 	/// <summary>
 	///     The value flags of the overloads that combine values and matchers above <see cref="MaxExplicitParameters" />:
-	///     values wherever possible, and also with matchers for the parameters typed with a method type parameter
-	///     (<see cref="MayHoldMatcher" />), so that such a matcher next to values binds as a matcher with the type
-	///     argument it infers.
+	///     values wherever possible, and also with matchers for every combination of the parameters typed with a method
+	///     type parameter (<see cref="MayHoldMatcher" />), so that such a matcher next to values, also next to a value
+	///     for another type parameter, binds as a matcher with the type argument it infers. With more such parameters
+	///     than <see cref="MaxExplicitParameters" />, only the overload with matchers for all of them is emitted, so that
+	///     the count of overloads stays bounded.
 	/// </summary>
 	private static IEnumerable<bool[]> GenerateValueFlagsAboveMaxExplicitParameters(
 		IEnumerable<MethodParameter> parameters)
@@ -3378,10 +3380,26 @@ internal static partial class Sources
 		}
 
 		yield return allValueFlags;
-		bool[] typeParameterMatcherFlags = array.Select((p, i) => allValueFlags[i] && !MayHoldMatcher(p)).ToArray();
-		if (typeParameterMatcherFlags.Any(f => f) && !typeParameterMatcherFlags.SequenceEqual(allValueFlags))
+		int[] matcherSlots = Enumerable.Range(0, array.Length)
+			.Where(i => allValueFlags[i] && MayHoldMatcher(array[i]))
+			.ToArray();
+		int allSlots = (1 << matcherSlots.Length) - 1;
+		int firstCombination = matcherSlots.Length > MaxExplicitParameters ? allSlots : 1;
+		for (int combination = firstCombination; combination <= allSlots; combination++)
 		{
-			yield return typeParameterMatcherFlags;
+			bool[] valueFlags = (bool[])allValueFlags.Clone();
+			for (int j = 0; j < matcherSlots.Length; j++)
+			{
+				if ((combination & (1 << j)) != 0)
+				{
+					valueFlags[matcherSlots[j]] = false;
+				}
+			}
+
+			if (valueFlags.Any(f => f))
+			{
+				yield return valueFlags;
+			}
 		}
 	}
 
@@ -3510,9 +3528,6 @@ internal static partial class Sources
 	///     combinations of the kept parameters, for every count of left-out parameters up to <paramref name="omittable" />.
 	///     The value flags cover every parameter and mark a left-out one as a value unless the overload takes only
 	///     matchers, so that they name the full overload that the shorter one forwards to with the declared default values.
-	///     Above <see cref="MaxExplicitParameters" />, the shorter overloads take matchers for the kept parameters typed
-	///     with a method type parameter only when no left-out parameter is typed with one: no full overload takes such a
-	///     matcher next to a value for a type parameter, so there is none to forward to.
 	/// </summary>
 	private static IEnumerable<(int KeptCount, bool[]? ValueFlags)> GenerateOmittedMethodOverloads(Method method,
 		int omittable)
@@ -3530,17 +3545,12 @@ internal static partial class Sources
 					yield return (keptCount, [..valueFlags, ..omitted,]);
 				}
 			}
-			else if (!parameters.Skip(keptCount).Any(MayHoldMatcher))
+			else
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagsAboveMaxExplicitParameters(parameters.Take(keptCount)))
 				{
 					yield return (keptCount, [..valueFlags, ..omitted,]);
 				}
-			}
-			else if (parameters.Take(keptCount).Any(p => p.CanUseNullableParameterOverload()))
-			{
-				yield return (keptCount,
-					[..parameters.Take(keptCount).Select(p => p.CanUseNullableParameterOverload()), ..omitted,]);
 			}
 		}
 	}

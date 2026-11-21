@@ -167,6 +167,8 @@ await That(archive.Mock.Verify.Store(It.IsAny<int>())).Once();
 
 A `null` or `default` literal has no type, so it needs the type argument (`Setup.Store<string>(null)`), and it stands for that argument. As for an `object` parameter, `.AnyParameters()` is only available after values there; use `Match.AnyParameters()` to match any arguments.
 
+A matcher for a nullable type with a non-nullable type argument, such as `Setup.Store<object>(It.IsAny<object?>())`, reports the nullable warning CS8620, as it does for an `object` parameter. Use `It.IsAny<object>()` or the type argument `object?` instead.
+
 </details>
 
 ## String matching
