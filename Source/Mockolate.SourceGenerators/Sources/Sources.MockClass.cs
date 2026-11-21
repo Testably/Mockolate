@@ -3895,7 +3895,10 @@ internal static partial class Sources
 	///     <see langword="null" /> for a delegate, which has none), and a classic <see langword="null" /> for a
 	///     non-nullable value type is a matcher rather than a value, so both keep the plain <c>IParameters</c> overload.
 	///     A lone <see langword="null" /> for a generic method needs explicit type arguments, and so does the forwarded
-	///     call, so only a sibling with as many type parameters could capture them.
+	///     call, so only a sibling with as many type parameters could capture them. Next to a generic sibling that keeps
+	///     the all-values overload from being promoted (<see cref="HasSiblingThatMayHoldMatcher" />), the
+	///     <c>IParameters</c> overload of a non-generic method outranks it as well, and its forwarded call binds the
+	///     method itself, as a non-generic method wins a tie with a generic one; so only a non-generic sibling counts.
 	///     Only a forwarding overload declares its parameter as <c>IParameters?</c>: the analyzer Mockolate0006 reports a
 	///     lone <see langword="null" /> for a non-nullable <c>IParameters</c> parameter and relies on this annotation.
 	/// </summary>
@@ -3903,9 +3906,10 @@ internal static partial class Sources
 	{
 		MethodParameter[] parameters = method.Parameters.AsArray();
 		bool isGeneric = method.GenericParameters is not null && method.GenericParameters.Value.Count > 0;
+		bool besideGenericSibling = !isGeneric && @class is not null && HasSiblingThatMayHoldMatcher(@class, method);
 		if (parameters.Length == 0 ||
 		    (isGeneric && !MayHoldMatcher(parameters[0])) ||
-		    (@class is not null && !HasUniqueMethodName(@class, method, isGeneric)))
+		    (@class is not null && !HasUniqueMethodName(@class, method, isGeneric || besideGenericSibling)))
 		{
 			return false;
 		}
@@ -3918,7 +3922,7 @@ internal static partial class Sources
 		       first.CanUseNullableParameterOverload() &&
 		       (useUnionOverloads || !first.Type.IsValueType || first.Type.CanBeNullable) &&
 		       (parameters.Length > 1 || first.Type.SpecialType == SpecialType.System_Object ||
-		        MayHoldMatcher(first)) &&
+		        MayHoldMatcher(first) || besideGenericSibling) &&
 		       parameters.Skip(1).Take(optionalCount)
 			       .All(p => p.HasExplicitDefaultValue && p.CanUseNullableParameterOverload());
 	}

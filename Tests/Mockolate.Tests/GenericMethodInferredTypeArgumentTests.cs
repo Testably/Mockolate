@@ -153,6 +153,19 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
+	public async Task NullLiteral_NextToGenericSibling_ShouldMatchOnlyNull()
+	{
+		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
+		sut.Mock.Setup.Sibling(null!).Returns(1);
+
+		int[] results = [sut.Sibling(null!), sut.Sibling((IComparable)"a"),];
+
+		await That(results).IsEqualTo([1, 0,])
+			.Because("a null literal stands for a null argument, not for any parameters");
+		await That(sut.Mock.Verify.Sibling(null!)).Once();
+	}
+
+	[Test]
 	public async Task Matcher_ForLoggerScope_ShouldSetUpAndVerifyTheScope()
 	{
 		ILogger logger = ILogger.CreateMock();
