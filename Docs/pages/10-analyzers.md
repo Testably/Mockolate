@@ -227,7 +227,7 @@ The rule fires when no overload takes the matcher as a matcher, for example when
 - an element of a `params object[]` array next to plain values, or with a matcher that is no matcher for `object`, and a matcher for the whole array, such as `It.IsAny<object[]>()`, next to other elements of the array or next to four or more other arguments;
 - an element of a `params T[]` array of a generic method closed over `object`, when the array is the only parameter or next to plain values;
 - an element of a `params T[]` array whose type argument is inferred from the matcher next to plain values, such as `Gen(1, It.IsAny<object>())` on `void Gen<T>(int level, params T[] args)`, which infers `T` as the matcher type;
-- an element of a `params` array passed as an explicit array, such as `Log(It.IsAny<int>(), new object[] { It.IsAny<object>() })`;
+- an element of a `params` array passed as an explicit array or a collection expression, such as `Log(It.IsAny<int>(), new object[] { It.IsAny<object>() })` or `Log(1, ["Dark", It.IsAny<object>()])`;
 - an `object` parameter of a method with more than four parameters next to plain values, where no overload mixes values and matchers (without [union parameters](06-parameter-matching.md#union-parameters-c-15));
 - a parameters match such as `Match.AnyParameters()` next to other arguments, as a property or indexer value, or as an indexer key, such as `Pair(Match.AnyParameters(), 1)`, because it only applies as the only argument of a method.
 

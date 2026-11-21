@@ -59,6 +59,7 @@ public class MatcherAsValueAnalyzerTests
 	                                                int Plain<T>(IParameters parameters);
 	                                                int GenOnly<T>(params T[] args);
 	                                                int Only(params object[] args);
+	                                                int Only(params IParameter<object>?[] args);
 	                                                int Optional(IComparable value, int count = 3);
 	                                                int Comparables(params IComparable[] values);
 	                                                int Mixed(object value, IParameter<int>? count);
@@ -160,6 +161,8 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify?.Plain<object>({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
 	[Arguments("property.Set({|#0:It.IsAny<int>()|});", "It.IsAny<int>()")]
 	[Arguments("verify.Only(new object[] { {|#0:It.IsAny<int>()|} });", "It.IsAny<int>()")]
+	[Arguments("verify.Log(1, new[] { {|#0:It.IsAny<int>()|} });", "It.IsAny<int>()")]
+	[Arguments("verify.Log(1, [{|#0:It.IsAny<int>()|}]);", "It.IsAny<int>()")]
 	public async Task WhenMatcherIsNoMatcherForObject_ShouldBeFlagged(string call, string matcher)
 		=> await VerifyAsync(call,
 			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
@@ -189,6 +192,7 @@ public class MatcherAsValueAnalyzerTests
 	[Test]
 	[Arguments("verify.Log(1, new object[] { {|#0:It.IsAny<object>()|} });")]
 	[Arguments("verify.Only(new object[] { \"a\", {|#0:It.IsAny<object>()|} });")]
+	[Arguments("verify.Only([\"a\", {|#0:It.IsAny<object>()|}]);")]
 	public async Task WhenMatcherInAnExplicitParamsArrayIsMixedWithValues_ShouldSuggestBothFixes(string call)
 		=> await VerifyAsync(call,
 			Verifier.Diagnostic(MatcherAsValueAnalyzer.MatcherAsValueRule)
@@ -341,6 +345,11 @@ public class MatcherAsValueAnalyzerTests
 	[Arguments("verify.Log(It.IsAny<int>(), It.IsAny<object>(), It.Is<object>(\"a\"));")]
 	[Arguments("verify.Log(1, \"a\", 2);")]
 	[Arguments("verify.Log(1, new object[] { \"a\", 2 });")]
+	[Arguments("verify.Log(1, [\"a\", 2]);")]
+	[Arguments("verify.Log(1, new[] { \"a\" });")]
+	[Arguments("verify.Only(It.IsAny<object>());")]
+	[Arguments("verify.Only(new[] { It.IsAny<object>() });")]
+	[Arguments("verify.Only([It.IsAny<object>()]);")]
 	[Arguments("verify.Plain(It.IsAny<int>());")]
 	[Arguments("verify?.Plain(It.IsAny<int>());")]
 	[Arguments("verify.Plain<StructMatcher>(new StructMatcher());")]

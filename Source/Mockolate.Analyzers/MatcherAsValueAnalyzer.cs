@@ -81,12 +81,12 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		}
 
 		ITypeSymbol declaredType = parameter.OriginalDefinition.Type;
-		if (GetParamsInitializer(argument) is { } initializer)
+		if (GetParamsElements(argument) is { } elements)
 		{
 			if (parameter.Type is IArrayTypeSymbol { ElementType: { } elementType, } &&
 			    declaredType is IArrayTypeSymbol { ElementType: { } declaredElementType, })
 			{
-				foreach (IOperation element in initializer.ElementValues)
+				foreach (IOperation element in elements)
 				{
 					AnalyzeValue(context, matcherTypes, parameter, argument, element, elementType, declaredElementType);
 				}
@@ -198,10 +198,10 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 				continue;
 			}
 
-			if (GetParamsInitializer(neighbor) is { } initializer &&
+			if (GetParamsElements(neighbor) is { } elements &&
 			    neighbor.Parameter.Type is IArrayTypeSymbol { ElementType: { } elementType, })
 			{
-				if (initializer.ElementValues.Any(element =>
+				if (elements.Any(element =>
 					    element != value && IsBlocking(matcherTypes, element, elementType)))
 				{
 					return true;
@@ -234,11 +234,17 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 	}
 
 	/// <summary>
-	///     The elements of a <c>params</c> array, passed one by one or in an explicit array.
+	///     The elements of a <c>params</c> array, passed one by one, in an explicit array that can need a covariant
+	///     conversion, or in a collection expression.
 	/// </summary>
-	private static IArrayInitializerOperation? GetParamsInitializer(IArgumentOperation argument)
-		=> argument is { Parameter.IsParams: true, Value: IArrayCreationOperation { Initializer: { } initializer, }, }
-			? initializer
+	private static ImmutableArray<IOperation>? GetParamsElements(IArgumentOperation argument)
+		=> argument.Parameter is { IsParams: true, }
+			? Unwrap(argument.Value) switch
+			{
+				IArrayCreationOperation { Initializer: { } initializer, } => initializer.ElementValues,
+				ICollectionExpressionOperation collection => collection.Elements,
+				_ => null,
+			}
 			: null;
 
 	private static bool HasInferredTypeArguments(IArgumentOperation argument)
