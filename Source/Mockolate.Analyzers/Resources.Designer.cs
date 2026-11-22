@@ -339,6 +339,60 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to The source generator only adds CreateWithMocks to a public or internal class that is not abstract, static, generic, file-local, obsolete or declared in the System, Microsoft or Windows namespace, whose container name is not taken and that has a single accessible constructor with the most parameters..
+        /// </summary>
+        internal static string Mockolate0008Description {
+            get {
+                return ResourceManager.GetString("Mockolate0008Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; cannot be created with mocks: {1}.
+        /// </summary>
+        internal static string Mockolate0008MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0008MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Classes created with mocks must be supported by the generator.
+        /// </summary>
+        internal static string Mockolate0008Title {
+            get {
+                return ResourceManager.GetString("Mockolate0008Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to CreateWithMocks only mocks constructor parameters of an interface type outside the global, System, Microsoft and Windows namespaces that the generator can mock without a CreateMock call, plus ILogger, ILogger&lt;T&gt; and ILoggerFactory. Every other parameter without a default value needs an argument..
+        /// </summary>
+        internal static string Mockolate0009Description {
+            get {
+                return ResourceManager.GetString("Mockolate0009Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The parameter &apos;{0}&apos; of type &apos;{1}&apos; needs an argument, because it is not mocked: {2}.
+        /// </summary>
+        internal static string Mockolate0009MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0009MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Dependencies that are not mocked need an argument.
+        /// </summary>
+        internal static string Mockolate0009Title {
+            get {
+                return ResourceManager.GetString("Mockolate0009Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {

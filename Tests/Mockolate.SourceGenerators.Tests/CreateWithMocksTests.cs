@@ -317,6 +317,35 @@ public sealed class CreateWithMocksTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("CreateWithMocks.g.cs");
+		await That(result.Sources).DoesNotContainKey("Mock.CreateWithMocks.g.cs");
+	}
+
+	[Test]
+	public async Task MockedTypeNamedCreateWithMocks_WithoutCreateWithMocksCall_ShouldKeepItsName()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface CreateWithMocks
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = MyCode.CreateWithMocks.CreateMock();
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.CreateWithMocks.g.cs");
 	}
 
 	[Test]
@@ -383,5 +412,212 @@ public sealed class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Sources).DoesNotContainKey("CreateWithMocks.g.cs");
+	}
+
+	[Test]
+	public async Task NonNullableParameterWithNullForgivingDefault_ShouldKeepTheDeclaredType()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc(IDep dep, string name = null!)
+		                                           {
+		                                               public object[] All { get; } = [dep, name,];
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out SvcMocks mocks);
+		                                                   string name = mocks.Name;
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["CreateWithMocks.g.cs"]).Contains(", string? name = null)").And
+			.Contains("(dep, name!);");
+	}
+
+	[Test]
+	public async Task NonFiniteFloatingPointDefaults_ShouldCompile()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc(IDep dep, double nan = double.NaN, double positive = double.PositiveInfinity,
+		                                               double negative = double.NegativeInfinity, float single = float.NaN, double? nullable = double.NaN)
+		                                           {
+		                                               public object?[] All { get; } = [dep, nan, positive, negative, single, nullable,];
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["CreateWithMocks.g.cs"]).Contains("double nan = global::System.Double.NaN");
+	}
+
+	[Test]
+	public async Task ContainerNameUsedByAnotherType_ShouldNotGetCreateWithMocks()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc(IDep dep)
+		                                           {
+		                                               public IDep Dep { get; } = dep;
+		                                           }
+
+		                                           public class SvcMocks
+		                                           {
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Sources).DoesNotContainKey("CreateWithMocks.g.cs");
+	}
+
+	[Test]
+	[Arguments("public abstract class Svc(IDep dep);")]
+	[Arguments("public static class Svc;")]
+	[Arguments("public class Svc<T>(IDep dep);")]
+	[Arguments("public struct Svc(IDep dep);")]
+	[Arguments("public class Svc { public Svc(IDep dep, int value) { } public Svc(IDep dep, string value) { } }")]
+	public async Task UnsupportedClass_ShouldNotGetCreateWithMocks(string declaration)
+	{
+		string receiver = declaration.Contains("Svc<T>") ? "Svc<int>" : "Svc";
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         using Mockolate;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public interface IDep
+		                                             {
+		                                                 int Get();
+		                                             }
+
+		                                             {{declaration}}
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                     _ = {{receiver}}.CreateWithMocks(out _);
+		                                                 }
+		                                             }
+		                                         }
+		                                         """);
+
+		await That(result.Sources).DoesNotContainKey("CreateWithMocks.g.cs");
+	}
+
+	[Test]
+	public async Task ConstructorWithMoreParameters_ShouldWinOverATieOfShorterOnes()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc
+		                                           {
+		                                               public Svc(IDep dep, int value) { }
+		                                               public Svc(IDep dep, string value) { }
+		                                               public Svc(IDep dep, string value, int count) { }
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _, "value", 1);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task InParameter_ShouldBePassedByValue()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc(IDep dep, in int count, in IDep other)
+		                                           {
+		                                               public object[] All { get; } = [dep, count, other,];
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _, 1);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["CreateWithMocks.g.cs"]).Contains(", int count,");
 	}
 }

@@ -199,6 +199,14 @@ internal static class Checks
 			ChocolateMachine sut = ChocolateMachine.CreateMock("Testably");
 			return Equal(sut.Describe(), "A machine by Testably");
 		}),
+		new("CreateWithMocks creates a class with mocked dependencies", () =>
+		{
+			ChocolateVendor sut = ChocolateVendor.CreateWithMocks(out ChocolateVendorMocks mocks, MockBehavior.Default);
+			mocks.Dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
+			return Equal((sut.Buy("Dark", 1), sut.Buy("Milk", 1), mocks.Brand),
+				       ("Enjoy your Testably Dark", "Sold out", "Testably"))
+			       ?? Passes(() => mocks.Dispenser.Mock.Verify.Dispense(It.IsAny<string>(), It.IsAny<int>()).Twice());
+		}),
 		new("a static abstract member is set up, raised and verified", () =>
 		{
 			IChocolateFactory sut = IChocolateFactory.CreateMock();

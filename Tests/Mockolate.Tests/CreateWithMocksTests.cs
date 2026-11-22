@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mockolate.Exceptions;
 using Mockolate.Tests.GeneratorCoverage;
 
 namespace Mockolate.Tests;
@@ -66,6 +67,104 @@ public sealed class CreateWithMocksTests
 		await That(sut.Values).IsSameAs(values);
 		await That(sut.Count).IsEqualTo(2);
 	}
+
+	[Test]
+	public async Task CreateWithMocks_WithMockBehavior_ShouldForwardItToTheMocks()
+	{
+		CreateWithMocksService.CreateWithMocks(out CreateWithMocksServiceMocks mocks,
+			new UnmockableDependency(), null, MockBehavior.Default.ThrowingWhenNotSetup());
+
+		void Act()
+			=> mocks.Dependency.GetValue();
+
+		await That(Act).Throws<MockNotSetupException>();
+	}
+
+	[Test]
+	public async Task CreateWithMocks_WithOwnInstanceByName_ShouldUseIt()
+	{
+		ICreateWithMocksDependency dependency = ICreateWithMocksDependency.CreateMock();
+
+		CreateWithMocksService sut = CreateWithMocksService.CreateWithMocks(out CreateWithMocksServiceMocks mocks,
+			new UnmockableDependency(), null, dependency: dependency);
+
+		await That(sut.Dependency).IsSameAs(dependency);
+		await That(mocks.Dependency).IsSameAs(dependency);
+	}
+
+	[Test]
+	public async Task CreateWithMocks_WithExplicitNull_ShouldCreateAMock()
+	{
+		CreateWithMocksService sut = CreateWithMocksService.CreateWithMocks(out CreateWithMocksServiceMocks mocks,
+			new UnmockableDependency(), null, dependency: null);
+
+		await That(sut.Dependency).IsNotNull();
+		await That(sut.Dependency).IsSameAs(mocks.Dependency);
+	}
+
+	[Test]
+	public async Task CreateWithMocks_WithParamsValues_ShouldPassThemOn()
+	{
+		CreateWithMocksService sut = CreateWithMocksService.CreateWithMocks(out CreateWithMocksServiceMocks mocks,
+			new UnmockableDependency(), null, tags: ["dark", "milk",]);
+
+		await That(sut.Tags).IsEqualTo(["dark", "milk",]);
+		await That(mocks.Tags).IsSameAs(sut.Tags);
+	}
+
+	[Test]
+	public async Task CreateWithMocks_WithOptionalValues_ShouldPassThemOn()
+	{
+		CreateWithMocksService sut = CreateWithMocksService.CreateWithMocks(out CreateWithMocksServiceMocks mocks,
+			new UnmockableDependency(), "name", retries: 5, factor: 2.5m);
+
+		await That(sut.Name).IsEqualTo("name");
+		await That(sut.Retries).IsEqualTo(5);
+		await That(sut.Factor).IsEqualTo(2.5m);
+		await That(mocks.Retries).IsEqualTo(5);
+		await That(mocks.Factor).IsEqualTo(2.5m);
+	}
+
+#if NET9_0_OR_GREATER
+	[Test]
+	public async Task CreateWithMocks_WithRecord_ShouldUseThePrimaryConstructor()
+	{
+		CreateWithMocksRecord sut = CreateWithMocksRecord.CreateWithMocks(out CreateWithMocksRecordMocks mocks, "name");
+
+		await That(sut.Dependency).IsSameAs(mocks.Dependency);
+		await That(sut.Name).IsEqualTo("name");
+	}
+
+	[Test]
+	public async Task CreateWithMocks_WithSpanConstructor_ShouldUseTheShorterConstructor()
+	{
+		CreateWithMocksSpanConstructor sut = CreateWithMocksSpanConstructor.CreateWithMocks(
+			out CreateWithMocksSpanConstructorMocks mocks);
+
+		await That(sut.Dependency).IsSameAs(mocks.Dependency);
+		await That(sut.Text).IsNull();
+	}
+
+	[Test]
+	public async Task CreateWithMocks_WithSetsRequiredMembers_ShouldUseTheConstructor()
+	{
+		CreateWithMocksSetsRequiredMembers sut = CreateWithMocksSetsRequiredMembers.CreateWithMocks(
+			out CreateWithMocksSetsRequiredMembersMocks mocks);
+
+		await That(sut.Dependency).IsSameAs(mocks.Dependency);
+		await That(sut.Name).IsEqualTo("set");
+	}
+
+	[Test]
+	public async Task CreateWithMocks_WithParamsCollection_ShouldRequireTheArgument()
+	{
+		CreateWithMocksParamsCollection sut = CreateWithMocksParamsCollection.CreateWithMocks(
+			out CreateWithMocksParamsCollectionMocks mocks, [1, 2,]);
+
+		await That(sut.Dependency).IsSameAs(mocks.Dependency);
+		await That(sut.Values).IsEqualTo([1, 2,]);
+	}
+#endif
 
 	private sealed class UnmockableDependency : ICreateWithMocksUnmockableDependency
 	{

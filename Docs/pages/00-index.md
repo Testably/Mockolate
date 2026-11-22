@@ -49,6 +49,7 @@ Expected that mock invoked method Dispense("Dark", It.IsAny<int>()) exactly once
 - **Strongly-typed**: Compile-time safety and IntelliSense support.
 - **AOT compatible**: Works with Native AOT and trimming.
 - **Modern C#**: First-class support for ref structs, static interface members, and current language features.
+- **Class under test with mocks**: [`CreateWithMocks`](./04-create-mocks.md#create-the-class-under-test-with-mocks) creates the class under test with a mock for every interface dependency.
 
 |                | Reflection-based mocks (Moq, NSubstitute, …) | Mockolate                  |
 |----------------|----------------------------------------------|----------------------------|

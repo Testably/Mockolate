@@ -19,7 +19,7 @@ internal static partial class Sources
 		sb.AppendLine();
 		foreach (SutClass sut in suts)
 		{
-			AppendContainer(sb, sut, sut.ContainerName);
+			AppendContainer(sb, sut);
 		}
 
 		sb.Append("namespace Mockolate").AppendLine();
@@ -34,20 +34,20 @@ internal static partial class Sources
 			}
 
 			SutClass sut = suts.AsArray()[i];
-			AppendCreateWithMocks(sb, sut, ContainerFullName(sut, sut.ContainerName));
+			AppendCreateWithMocks(sb, sut, ContainerFullName(sut));
 		}
 
 		sb.Append("\t}").AppendLine();
 		sb.Append('}').AppendLine();
-		sb.Append("#nullable disable").AppendLine();
 		return sb.ToString();
 	}
 
-	private static string ContainerFullName(SutClass sut, string containerName)
-		=> sut.Namespace is null ? $"global::{containerName}" : $"global::{sut.Namespace}.{containerName}";
+	private static string ContainerFullName(SutClass sut)
+		=> sut.Namespace is null ? $"global::{sut.ContainerName}" : $"global::{sut.Namespace}.{sut.ContainerName}";
 
-	private static void AppendContainer(StringBuilder sb, SutClass sut, string containerName)
+	private static void AppendContainer(StringBuilder sb, SutClass sut)
 	{
+		string containerName = sut.ContainerName;
 		SutParameter[] parameters = sut.Parameters.AsArray();
 		string[] propertyNames = GetPropertyNames(parameters, containerName);
 		string indent = sut.Namespace is null ? "" : "\t";
@@ -120,7 +120,7 @@ internal static partial class Sources
 	private static string CreateUniqueName(SutParameter[] parameters, string name)
 	{
 		string usedName = name;
-#pragma warning disable S1994
+#pragma warning disable S1994 // "for" loop increment clauses should modify the loops' counters
 		for (int index = 1; parameters.Any(x => x.Name == usedName); index++)
 		{
 			usedName = $"{name}_{index}";
@@ -156,7 +156,7 @@ internal static partial class Sources
 		foreach (SutParameter parameter in parameters.Where(p => p.IsOptional))
 		{
 			sb.Append(", ");
-			if (parameter.IsMockable || parameter.IsParams)
+			if (parameter.IsMockable || parameter.IsParams || parameter.IsNullForgiving)
 			{
 				sb.Append(parameter.TypeFullName.TrimEnd('?')).Append("? ").Append(Helpers.EscapeIfKeyword(parameter.Name))
 					.Append(" = null");
@@ -184,7 +184,8 @@ internal static partial class Sources
 			}
 		}
 
-		string arguments = string.Join(", ", parameters.Select(p => Helpers.EscapeIfKeyword(p.Name)));
+		string arguments = string.Join(", ",
+			parameters.Select(p => Helpers.EscapeIfKeyword(p.Name) + (p.IsNullForgiving ? "!" : "")));
 		sb.Append("\t\t\t\t").Append(mocks).Append(" = new ").Append(containerFullName).Append('(').Append(arguments)
 			.Append(");").AppendLine();
 		sb.Append("\t\t\t\treturn new ").Append(sut.ClassFullName).Append('(').Append(arguments).Append(");").AppendLine();

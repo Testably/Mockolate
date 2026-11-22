@@ -174,7 +174,8 @@ public class MockGenerator : IIncrementalGenerator
 		// Naming step: cross-mock disambiguation. Cached as a unit; one NamedMock per emission.
 		IncrementalValueProvider<EquatableArray<NamedMock>> namedMocksAggregate = collectedMocks
 			.Combine(autoMocking)
-			.Select(static (source, _) => CreateNamedMocks(source.Left, source.Right));
+			.Combine(suts.Select(static (arr, _) => arr.Count > 0))
+			.Select(static (source, _) => CreateNamedMocks(source.Left.Left, source.Left.Right, source.Right));
 
 		IncrementalValuesProvider<NamedMock> perMock = namedMocksAggregate
 			.SelectMany(static (arr, _) => arr);
@@ -694,7 +695,8 @@ public class MockGenerator : IIncrementalGenerator
 			new EquatableArray<RefStructIndexerSetup>(indexerArr));
 	}
 
-	private static EquatableArray<NamedMock> CreateNamedMocks(EquatableArray<MockClass> mocks, bool autoMocking)
+	private static EquatableArray<NamedMock> CreateNamedMocks(EquatableArray<MockClass> mocks, bool autoMocking,
+		bool hasCreateWithMocks)
 	{
 		MockClass[] arr = mocks.AsArray();
 		if (arr.Length == 0)
@@ -702,8 +704,13 @@ public class MockGenerator : IIncrementalGenerator
 			return new EquatableArray<NamedMock>([]);
 		}
 
-		// Reserved for the extension method that CreateWithMocks.g.cs declares in the same class.
-		HashSet<string> classNames = new(StringComparer.OrdinalIgnoreCase) { "CreateWithMocks", };
+		HashSet<string> classNames = new(StringComparer.OrdinalIgnoreCase);
+		if (hasCreateWithMocks)
+		{
+			// Reserved for the extension methods that CreateWithMocks.g.cs declares in the same class.
+			classNames.Add("CreateWithMocks");
+		}
+
 		if (autoMocking)
 		{
 			// Reserved for the auto-mock factory that MockBehaviorExtensions.g.cs declares in the same class.

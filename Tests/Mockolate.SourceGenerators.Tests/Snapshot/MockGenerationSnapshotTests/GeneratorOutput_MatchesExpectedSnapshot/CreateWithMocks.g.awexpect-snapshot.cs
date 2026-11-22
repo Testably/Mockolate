@@ -175,6 +175,32 @@ namespace Mockolate.Tests.GeneratorCoverage
 namespace Mockolate.Tests.GeneratorCoverage
 {
 	/// <summary>
+	///     The constructor arguments of the <see cref="global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord">CreateWithMocksRecord</see> that <c>CreateWithMocks</c> created.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal sealed class CreateWithMocksRecordMocks
+	{
+		internal CreateWithMocksRecordMocks(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency arg0, string arg1)
+		{
+			Dependency = arg0;
+			Name = arg1;
+		}
+
+		/// <summary>
+		///     The argument of the constructor parameter <c>Dependency</c>.
+		/// </summary>
+		public global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency Dependency { get; }
+
+		/// <summary>
+		///     The argument of the constructor parameter <c>Name</c>.
+		/// </summary>
+		public string Name { get; }
+	}
+}
+
+namespace Mockolate.Tests.GeneratorCoverage
+{
+	/// <summary>
 	///     The constructor arguments of the <see cref="global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksService">CreateWithMocksService</see> that <c>CreateWithMocks</c> created.
 	/// </summary>
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -372,6 +398,23 @@ namespace Mockolate
 			}
 		}
 
+		extension(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord)
+		{
+			/// <summary>
+			///     Creates a <see cref="global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord">CreateWithMocksRecord</see> with a new mock for every mockable constructor parameter without an argument.
+			/// </summary>
+			/// <remarks>
+			///     A <see langword="null" /> argument for a mockable parameter also gets a new mock.
+			/// </remarks>
+			public static global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord CreateWithMocks(out global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecordMocks mocks, string Name, global::Mockolate.MockBehavior? mockBehavior = null, global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency? Dependency = null)
+			{
+				mockBehavior ??= global::Mockolate.MockBehavior.Default;
+				Dependency ??= global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(mockBehavior);
+				mocks = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecordMocks(Dependency, Name);
+				return new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord(Dependency, Name);
+			}
+		}
+
 		extension(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksService)
 		{
 			/// <summary>
@@ -425,5 +468,4 @@ namespace Mockolate
 		}
 	}
 }
-#nullable disable
 

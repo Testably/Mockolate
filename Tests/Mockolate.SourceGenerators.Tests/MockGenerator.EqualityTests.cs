@@ -99,7 +99,7 @@ public sealed class MockGeneratorEqualityTests
 			int start = 1)
 			=> new(
 				new SutClass(sutName, "A", containerName, new EquatableArray<SutParameter>([
-					new SutParameter(parameterType, "value", false, null, false),
+					new SutParameter(parameterType, "value", false, null, false, false),
 				])),
 				new EquatableArray<MockClass>([]),
 				new CreateMockLocation("File.cs", start, 2));

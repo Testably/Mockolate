@@ -95,6 +95,11 @@ public class CreateWithMocksFrameworkDependency(System.Collections.Generic.IEnum
 
 #if NET9_0_OR_GREATER
 /// <summary>
+///     A record uses its primary constructor, not the protected copy constructor.
+/// </summary>
+public record CreateWithMocksRecord(ICreateWithMocksDependency Dependency, string Name);
+
+/// <summary>
 ///     The longest constructor takes a span, which can neither be stored in the container nor be optional, so the
 ///     shorter one is used.
 /// </summary>

@@ -86,6 +86,7 @@ internal static partial class MockGeneratorHelpers
 		    !IsConstructibleSut(sut, compilation) ||
 		    HasMemberNamedCreateWithMocks(sut) ||
 		    IsFrameworkNamespace(sut.ContainingNamespace) ||
+		    GetContainerName(sut, compilation) is not { } containerName ||
 		    GetSutConstructor(sut, compilation) is not { } constructor)
 		{
 			return (null, typesToMock);
@@ -98,14 +99,12 @@ internal static partial class MockGeneratorHelpers
 				? MethodParameter.From(parameter).ExplicitDefaultValue
 				: null;
 			ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation);
-			if (parameterType.IsReferenceType &&
-			    (defaultValue == "null" || parameterType.NullableAnnotation == NullableAnnotation.None))
+			if (parameterType.IsReferenceType && parameterType.NullableAnnotation == NullableAnnotation.None)
 			{
 				// A nullable-oblivious parameter accepts null, which the generated signature in a nullable-enabled
 				// file would otherwise reject (CS8625).
 				parameterType = parameterType.WithNullableAnnotation(NullableAnnotation.Annotated);
 			}
-
 			ITypeSymbol notAnnotatedType = parameterType.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
 			bool isParamsArray = parameter.IsParams && parameterType is IArrayTypeSymbol;
 			bool isMockable = !parameter.IsParams && IsDependencyMockable(notAnnotatedType, compilation);
@@ -119,13 +118,15 @@ internal static partial class MockGeneratorHelpers
 				parameter.Name,
 				isMockable,
 				defaultValue,
-				isParamsArray));
+				isParamsArray,
+				!isMockable && defaultValue == "null" &&
+				parameterType is { IsReferenceType: true, NullableAnnotation: NullableAnnotation.NotAnnotated, }));
 		}
 
 		return (new SutClass(
 				ToFullName(sut),
 				sut.ContainingNamespace.IsGlobalNamespace ? null : sut.ContainingNamespace.ToDisplayString(),
-				GetContainerName(sut, compilation),
+				containerName,
 				new EquatableArray<SutParameter>(parameters.ToArray())),
 			typesToMock.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default).ToList());
 	}
@@ -256,11 +257,12 @@ internal static partial class MockGeneratorHelpers
 	/// </summary>
 	/// <remarks>
 	///     A nested class joins the names of its containing types with <c>_0</c>, after doubling every <c>_</c> in them;
-	///     read in pairs from the left, <c>__</c> and <c>_0</c> cannot be confused, so two classes never share a name. A
-	///     suffix avoids an accessible type or namespace, so the name never depends on the other classes under test, and
-	///     an internal container that a referenced assembly generated does not rename this one.
+	///     read in pairs from the left, <c>__</c> and <c>_0</c> cannot be confused, so two classes never share a name.
+	///     The name never gets a suffix, so that call sites do not break when a type is added; while an accessible type or
+	///     namespace has the name, the class gets no <c>CreateWithMocks</c>. An internal container that a referenced
+	///     assembly generated is not accessible and does not count.
 	/// </remarks>
-	private static string GetContainerName(INamedTypeSymbol sut, Compilation compilation)
+	private static string? GetContainerName(INamedTypeSymbol sut, Compilation compilation)
 	{
 		List<string> names = [];
 		for (INamedTypeSymbol? current = sut; current is not null; current = current.ContainingType)
@@ -268,18 +270,11 @@ internal static partial class MockGeneratorHelpers
 			names.Insert(0, current.Name.Replace("_", "__"));
 		}
 
-		string baseName = string.Join("_0", names) + "Mocks";
+		string name = string.Join("_0", names) + "Mocks";
 		INamespaceSymbol? @namespace = compilation.GetCompilationNamespace(sut.ContainingNamespace);
-		string name = baseName;
-		for (int index = 1;
-		     @namespace?.GetMembers(name).Any(member =>
-			     compilation.IsSymbolAccessibleWithin(member, compilation.Assembly)) == true;
-		     index++)
-		{
-			name = $"{baseName}_{index}";
-		}
-
-		return name;
+		return @namespace?.GetMembers(name).Any(member =>
+			compilation.IsSymbolAccessibleWithin(member, compilation.Assembly)) == true
+			? null
+			: name;
 	}
-
 }
