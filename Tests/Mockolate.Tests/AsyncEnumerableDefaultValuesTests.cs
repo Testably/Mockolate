@@ -104,6 +104,61 @@ public sealed class AsyncEnumerableDefaultValuesTests
 	}
 
 	[Test]
+	public async Task WithCancellation_WhenTokenIsCanceled_ShouldThrowWhenEnumerated()
+	{
+		using CancellationTokenSource cts = new();
+		cts.Cancel();
+		IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock();
+
+		async Task Act()
+		{
+			await foreach (int _ in sut.Numbers.WithCancellation(cts.Token))
+			{
+			}
+		}
+
+		await That(Act).Throws<OperationCanceledException>()
+			.Whose(e => e.CancellationToken, it => it.IsEqualTo(cts.Token))
+			.Because("like an async iterator, the empty sequence honors the token passed to GetAsyncEnumerator");
+	}
+
+	[Test]
+	public async Task WithCancellation_WhenMethodTokenIsCanceled_ShouldStillThrowWhenEnumerated()
+	{
+		using CancellationTokenSource methodCts = new();
+		using CancellationTokenSource enumeratorCts = new();
+		methodCts.Cancel();
+		IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock();
+
+		async Task Act()
+		{
+			await foreach (string _ in sut.Read("foo", methodCts.Token).WithCancellation(enumeratorCts.Token))
+			{
+			}
+		}
+
+		await That(Act).Throws<OperationCanceledException>()
+			.Whose(e => e.CancellationToken, it => it.IsEqualTo(methodCts.Token))
+			.Because("the token passed to the method must still be honored when another one is passed to GetAsyncEnumerator");
+	}
+
+	[Test]
+	public async Task WithCancellation_WhenNoTokenIsCanceled_ShouldReturnEmptySequence()
+	{
+		using CancellationTokenSource methodCts = new();
+		using CancellationTokenSource enumeratorCts = new();
+		IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock();
+		int count = 0;
+
+		await foreach (string _ in sut.Read("foo", methodCts.Token).WithCancellation(enumeratorCts.Token))
+		{
+			count++;
+		}
+
+		await That(count).IsEqualTo(0);
+	}
+
+	[Test]
 	public async Task WithDefaultValueFor_ShouldTakePrecedence()
 	{
 		MockBehavior behavior = MockBehavior.Default

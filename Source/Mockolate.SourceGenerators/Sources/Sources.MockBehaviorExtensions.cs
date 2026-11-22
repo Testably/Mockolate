@@ -518,7 +518,9 @@ internal static partial class Sources
 			sb.Append("""
 
 			          	[global::System.Diagnostics.DebuggerNonUserCode]
-			          	private sealed class EmptyAsyncEnumerable<T>(global::System.Threading.CancellationToken cancellationToken)
+			          	private sealed class EmptyAsyncEnumerable<T>(
+			          		global::System.Threading.CancellationToken cancellationToken,
+			          		global::System.Threading.CancellationToken enumeratorToken = default)
 			          		: global::System.Collections.Generic.IAsyncEnumerable<T>, global::System.Collections.Generic.IAsyncEnumerator<T>
 			          	{
 			          		public static readonly EmptyAsyncEnumerable<T> Instance = new(global::System.Threading.CancellationToken.None);
@@ -526,12 +528,24 @@ internal static partial class Sources
 			          		public T Current => default!;
 
 			          		public global::System.Collections.Generic.IAsyncEnumerator<T> GetAsyncEnumerator(global::System.Threading.CancellationToken enumeratorCancellationToken = default)
-			          			=> this;
+			          			=> enumeratorCancellationToken.CanBeCanceled && enumeratorCancellationToken != cancellationToken
+			          				? new EmptyAsyncEnumerable<T>(cancellationToken, enumeratorCancellationToken)
+			          				: this;
 
 			          		public global::System.Threading.Tasks.ValueTask<bool> MoveNextAsync()
-			          			=> cancellationToken.IsCancellationRequested
-			          				? new global::System.Threading.Tasks.ValueTask<bool>(global::System.Threading.Tasks.Task.FromCanceled<bool>(cancellationToken))
-			          				: default;
+			          		{
+			          			if (cancellationToken.IsCancellationRequested)
+			          			{
+			          				return new global::System.Threading.Tasks.ValueTask<bool>(global::System.Threading.Tasks.Task.FromCanceled<bool>(cancellationToken));
+			          			}
+
+			          			if (enumeratorToken.IsCancellationRequested)
+			          			{
+			          				return new global::System.Threading.Tasks.ValueTask<bool>(global::System.Threading.Tasks.Task.FromCanceled<bool>(enumeratorToken));
+			          			}
+
+			          			return default;
+			          		}
 
 			          		public global::System.Threading.Tasks.ValueTask DisposeAsync()
 			          			=> default;
