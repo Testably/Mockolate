@@ -552,6 +552,41 @@ public sealed partial class CreateWithMocksTests
 	}
 
 	[Test]
+	public async Task CallerArgumentExpressionParameter_ShouldKeepItsAttribute()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using System.Runtime.CompilerServices;
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc(IDep dep, int value, [CallerArgumentExpression("value")] string expression = "")
+		                                           {
+		                                               public object[] All { get; } = [dep, value, expression,];
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _, 1 + 2);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["CreateWithMocks.g.cs"])
+			.Contains("[global::System.Runtime.CompilerServices.CallerArgumentExpressionAttribute(\"value\")] string expression = \"\"");
+	}
+
+	[Test]
 	public async Task GenericTypeWithTheContainerName_ShouldNotClash()
 	{
 		GeneratorResult result = Generator.Run("""

@@ -1,4 +1,5 @@
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mockolate.SourceGenerators.Entities;
 using Mockolate.SourceGenerators.Internals;
@@ -167,23 +168,46 @@ internal static partial class MockGeneratorHelpers
 	///     A caller info attribute is copied to the generated parameter, so that it receives the information of the
 	///     <c>CreateWithMocks</c> call instead of its default value.
 	/// </summary>
+	/// <remarks>
+	///     The generated method keeps the names of the constructor parameters, so the parameter that a
+	///     <c>CallerArgumentExpression</c> refers to exists there as well.
+	/// </remarks>
 	private static string? GetCallerInfoAttribute(IParameterSymbol parameter)
-		=> parameter.GetAttributes()
-			.Select(attribute => attribute.AttributeClass)
-			.FirstOrDefault(attributeClass => attributeClass is
+	{
+		foreach (AttributeData attribute in parameter.GetAttributes())
+		{
+			if (attribute.AttributeClass is not
+			    {
+				    ContainingNamespace:
+				    {
+					    Name: "CompilerServices",
+					    ContainingNamespace:
+					    {
+						    Name: "Runtime",
+						    ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+					    },
+				    },
+			    } attributeClass)
 			{
-				Name: "CallerMemberNameAttribute" or "CallerFilePathAttribute" or "CallerLineNumberAttribute",
-				ContainingNamespace:
-				{
-					Name: "CompilerServices",
-					ContainingNamespace:
-					{
-						Name: "Runtime", ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
-					},
-				},
-			}) is { } callerInfo
-			? $"global::System.Runtime.CompilerServices.{callerInfo.Name}"
-			: null;
+				continue;
+			}
+
+			switch (attributeClass.Name)
+			{
+				case "CallerMemberNameAttribute" or "CallerFilePathAttribute" or "CallerLineNumberAttribute":
+					return $"global::System.Runtime.CompilerServices.{attributeClass.Name}";
+				case "CallerArgumentExpressionAttribute"
+					when attribute.ConstructorArguments.Length == 1 &&
+					     attribute.ConstructorArguments[0].Value is string parameterName &&
+					     parameter.ContainingSymbol is IMethodSymbol constructor &&
+					     constructor.Parameters.Any(other => other.Name == parameterName):
+					return
+						$"global::System.Runtime.CompilerServices.CallerArgumentExpressionAttribute({SymbolDisplay.FormatLiteral(parameterName, true)})";
+			}
+		}
+
+		return null;
+	}
 
 	private static string ToFullName(ITypeSymbol type)
 		=> type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);

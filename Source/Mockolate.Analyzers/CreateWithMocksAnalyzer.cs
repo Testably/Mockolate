@@ -245,6 +245,9 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 	///     no rule of the generator applies.
 	/// </summary>
 	private static string? GetReason(INamedTypeSymbol sut, Compilation compilation)
+		=> GetClassReason(sut, compilation) ?? GetConstructionReason(sut, compilation);
+
+	private static string? GetClassReason(INamedTypeSymbol sut, Compilation compilation)
 	{
 		if (sut.TypeKind != TypeKind.Class)
 		{
@@ -283,11 +286,13 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0008InaccessibleReason;
 		}
 
-		if (IsFrameworkNamespace(sut.ContainingNamespace))
-		{
-			return Resources.Mockolate0008FrameworkNamespaceReason;
-		}
+		return IsFrameworkNamespace(sut.ContainingNamespace)
+			? Resources.Mockolate0008FrameworkNamespaceReason
+			: null;
+	}
 
+	private static string? GetConstructionReason(INamedTypeSymbol sut, Compilation compilation)
+	{
 		// Only reached when the generator emitted no container, so a type of that name is the user's.
 		string containerName = GetContainerName(sut);
 		if (compilation.GetCompilationNamespace(sut.ContainingNamespace)?.GetMembers(containerName).Any(member =>
