@@ -118,9 +118,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope",
+				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<",
 				"IsEnabled" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.IsEnabled",
-				"Log" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log",
+				"Log" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log<",
 				_ => "",
 			};
 
@@ -499,9 +499,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope",
+				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<",
 				"IsEnabled" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.IsEnabled",
-				"Log" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log",
+				"Log" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log<",
 				_ => "",
 			};
 
@@ -616,9 +616,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope",
+				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<",
 				"IsEnabled" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.IsEnabled",
-				"Log" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log",
+				"Log" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log<",
 				_ => "",
 			};
 
@@ -1465,9 +1465,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope",
+				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<",
 				"IsEnabled" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled",
-				"Log" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.Log",
+				"Log" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.Log<",
 				_ => "",
 			};
 
@@ -1846,9 +1846,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope",
+				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<",
 				"IsEnabled" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled",
-				"Log" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.Log",
+				"Log" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.Log<",
 				_ => "",
 			};
 
@@ -1963,9 +1963,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope",
+				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<",
 				"IsEnabled" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled",
-				"Log" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.Log",
+				"Log" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.Log<",
 				_ => "",
 			};
 

@@ -92,7 +92,7 @@ internal static partial class Sources
 				    members.All(existing => existing.Name != member.Name))
 				{
 					members.Add((member.Name, memberIdPrefix + memberIds.GetMethodIdentifier(method),
-						method.ContainingType + "." + member.Name));
+						method.ContainingType + "." + member.Name + (method.GenericParameters?.Count > 0 ? "<" : "")));
 				}
 			}
 		}

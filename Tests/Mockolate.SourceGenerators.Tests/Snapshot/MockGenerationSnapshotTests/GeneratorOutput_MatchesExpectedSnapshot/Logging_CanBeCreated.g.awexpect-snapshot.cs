@@ -111,9 +111,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log<",
 				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
-				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope<",
 				_ => "",
 			};
 
@@ -480,9 +480,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log<",
 				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
-				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope<",
 				_ => "",
 			};
 
@@ -597,9 +597,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log<",
 				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
-				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope<",
 				_ => "",
 			};
 
@@ -2326,9 +2326,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log<",
 				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
-				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope<",
 				_ => "",
 			};
 
@@ -2695,9 +2695,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log<",
 				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
-				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope<",
 				_ => "",
 			};
 
@@ -2812,9 +2812,9 @@ internal static partial class Mock
 		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
 			=> memberName switch
 			{
-				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log<",
 				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
-				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope<",
 				_ => "",
 			};
 
