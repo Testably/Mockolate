@@ -1,3 +1,4 @@
+#pragma warning disable CA1822 // Mark members as static
 namespace Mockolate.Tests.GeneratorCoverage;
 
 public class GenericMethodHidingBase
