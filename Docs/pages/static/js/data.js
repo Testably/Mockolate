@@ -1734,6 +1734,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -2025,7 +2031,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -2320,7 +2327,8 @@ window.BENCHMARK_DATA = {
           154.20417048249925,
           177.2853310448783,
           196.12837794621785,
-          148.28799785100497
+          148.28799785100497,
+          157.81938339869183
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2590,6 +2598,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800,
@@ -2923,7 +2932,8 @@ window.BENCHMARK_DATA = {
           61491.125697544645,
           40805.489086914065,
           102463.91857096353,
-          31184.228548177085
+          31184.228548177085,
+          62091.51056780134
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3223,7 +3233,8 @@ window.BENCHMARK_DATA = {
           9056,
           9033,
           9056,
-          9055
+          9055,
+          9056
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3526,7 +3537,8 @@ window.BENCHMARK_DATA = {
           3499.7738085428873,
           3299.078854047335,
           4555.308678218296,
-          2645.0335297217734
+          2645.0335297217734,
+          3514.6687545776367
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3687,6 +3699,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4129,7 +4142,8 @@ window.BENCHMARK_DATA = {
           3321.2756934532754,
           2831.1901461283364,
           4515.956965310233,
-          2679.8796961648122
+          2679.8796961648122,
+          3476.311791483561
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4428,6 +4442,7 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6924,
+          6930,
           6930,
           6930
         ],
@@ -4732,7 +4747,8 @@ window.BENCHMARK_DATA = {
           155.98331151689803,
           187.98469020639146,
           200.8198790039335,
-          148.1864546262301
+          148.1864546262301,
+          157.26579540570577
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4898,6 +4914,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5335,7 +5352,8 @@ window.BENCHMARK_DATA = {
           395.58265560013905,
           449.3482324055263,
           479.8183070591518,
-          367.52393649174616
+          367.52393649174616,
+          390.5777847290039
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5496,6 +5514,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -7383,6 +7402,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -7674,7 +7699,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -7969,7 +7995,8 @@ window.BENCHMARK_DATA = {
           159.18771222432454,
           143.95400562286378,
           190.68383402090805,
-          124.34484713872274
+          124.34484713872274,
+          84.67735238869984
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8239,6 +8266,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712,
@@ -8572,7 +8600,8 @@ window.BENCHMARK_DATA = {
           15060.747624323918,
           9184.796673114482,
           12737.378662109375,
-          10976.126007080078
+          10976.126007080078,
+          7641.023325602214
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8872,7 +8901,8 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12761,
-          12761
+          12761,
+          12760
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9175,7 +9205,8 @@ window.BENCHMARK_DATA = {
           5635.953791809082,
           3950.9424978402944,
           5200.9969614664715,
-          4412.594777620756
+          4412.594777620756,
+          2982.908103942871
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9336,6 +9367,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -9778,7 +9810,8 @@ window.BENCHMARK_DATA = {
           214134.15914713542,
           103689.70697490986,
           156906.85613141741,
-          195041.51196289062
+          195041.51196289062,
+          111779.57349446615
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10078,7 +10111,8 @@ window.BENCHMARK_DATA = {
           15586,
           15579,
           15579,
-          15619
+          15619,
+          15630
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10381,7 +10415,8 @@ window.BENCHMARK_DATA = {
           176.6918057600657,
           159.52082335948944,
           217.28732357706343,
-          153.96496205329896
+          153.96496205329896,
+          105.99153355757396
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10522,6 +10557,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -10984,7 +11020,8 @@ window.BENCHMARK_DATA = {
           171.04778841336568,
           167.6974620660146,
           247.56017572539193,
-          128.6248513062795
+          128.6248513062795,
+          90.66887472357068
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -11118,6 +11155,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -13032,6 +13070,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -13323,7 +13367,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -13618,7 +13663,8 @@ window.BENCHMARK_DATA = {
           477.68812411172047,
           272.27066651980084,
           457.8901367823283,
-          525.4294693810599
+          525.4294693810599,
+          456.94406590094934
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13908,6 +13954,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1824,
           1824,
           1824,
           1824,
@@ -14221,7 +14268,8 @@ window.BENCHMARK_DATA = {
           528499.4338541667,
           148840.61305338543,
           180436.14479166668,
-          528067.70625
+          528067.70625,
+          532663.648061899
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14521,7 +14569,8 @@ window.BENCHMARK_DATA = {
           38491,
           38487,
           38380,
-          38491
+          38491,
+          38802
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14824,7 +14873,8 @@ window.BENCHMARK_DATA = {
           210348.76832682293,
           37290.54504394531,
           63185.6943359375,
-          209343.61922200522
+          209343.61922200522,
+          213451.17516276042
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15124,6 +15174,7 @@ window.BENCHMARK_DATA = {
           28156,
           28162,
           28154,
+          28100,
           28100
         ],
         "borderColor": "#5E2750",
@@ -15427,7 +15478,8 @@ window.BENCHMARK_DATA = {
           243645.12373046874,
           57947.23021153041,
           66488.92661830357,
-          245876.8575846354
+          245876.8575846354,
+          246938.66488211494
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15727,6 +15779,7 @@ window.BENCHMARK_DATA = {
           30273,
           30276,
           30247,
+          30273,
           30273
         ],
         "borderColor": "#4A6FA5",
@@ -16030,7 +16083,8 @@ window.BENCHMARK_DATA = {
           306.7509452379667,
           204.08901108228244,
           315.15514284769694,
-          328.5887717247009
+          328.5887717247009,
+          319.1172205289205
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16330,6 +16384,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -16429,7 +16484,8 @@ window.BENCHMARK_DATA = {
           753.1123234203884,
           481.40554695129396,
           682.1498648325602,
-          760.499807698386
+          760.499807698386,
+          781.2035632133484
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16515,6 +16571,7 @@ window.BENCHMARK_DATA = {
           2784,
           2784,
           2784,
+          2856,
           2856,
           2856,
           2856,
@@ -18273,6 +18330,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -18564,7 +18627,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -18859,7 +18923,8 @@ window.BENCHMARK_DATA = {
           1329.3336489750789,
           916.6792125701904,
           1256.7006666819254,
-          1426.7499801635743
+          1426.7499801635743,
+          1367.4263835906982
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19149,6 +19214,7 @@ window.BENCHMARK_DATA = {
           2616,
           2616,
           2616,
+          2760,
           2760,
           2760,
           2760,
@@ -19462,7 +19528,8 @@ window.BENCHMARK_DATA = {
           535803.5623697917,
           166065.63738141741,
           210268.37135416668,
-          544911.2331891741
+          544911.2331891741,
+          540397.9110201322
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19762,7 +19829,8 @@ window.BENCHMARK_DATA = {
           48063,
           48088,
           48073,
-          48063
+          48063,
+          48374
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20065,7 +20133,8 @@ window.BENCHMARK_DATA = {
           229391.55364583334,
           47870.178880964006,
           79451.15087890625,
-          236987.66973005023
+          236987.66973005023,
+          233054.3909442608
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20365,6 +20434,7 @@ window.BENCHMARK_DATA = {
           41774,
           41269,
           41265,
+          41215,
           41215
         ],
         "borderColor": "#5E2750",
@@ -20668,7 +20738,8 @@ window.BENCHMARK_DATA = {
           267077.99372209824,
           60469.563908168246,
           84570.16420898438,
-          275839.6668619792
+          275839.6668619792,
+          272862.9039388021
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20968,6 +21039,7 @@ window.BENCHMARK_DATA = {
           49926,
           49924,
           49922,
+          49926,
           49926
         ],
         "borderColor": "#4A6FA5",
@@ -21271,7 +21343,8 @@ window.BENCHMARK_DATA = {
           761.7933523471539,
           503.87070077260336,
           677.899940554301,
-          816.7602885564169
+          816.7602885564169,
+          798.7653414408366
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21571,6 +21644,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -21670,7 +21744,8 @@ window.BENCHMARK_DATA = {
           2544.3712702433268,
           1708.8884140014648,
           2260.7545885721843,
-          2676.5418180738175
+          2676.5418180738175,
+          2507.1189679463705
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21756,6 +21831,7 @@ window.BENCHMARK_DATA = {
           5496,
           5496,
           5496,
+          5568,
           5568,
           5568,
           5568,
@@ -23514,6 +23590,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -23805,7 +23887,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -24100,7 +24183,8 @@ window.BENCHMARK_DATA = {
           142.5215435187022,
           138.12965065638224,
           166.17888925870258,
-          134.28601473172506
+          134.28601473172506,
+          138.73143448148454
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -24390,6 +24474,7 @@ window.BENCHMARK_DATA = {
           608,
           608,
           608,
+          592,
           592,
           592,
           592,
@@ -24703,7 +24788,8 @@ window.BENCHMARK_DATA = {
           4627.908061436245,
           4685.219565836588,
           4443.844827505259,
-          4703.595279947916
+          4703.595279947916,
+          3234.9829071044924
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -24993,6 +25079,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -25306,7 +25393,8 @@ window.BENCHMARK_DATA = {
           5805.72355295817,
           5989.054429274339,
           5994.919661966959,
-          6072.056821187337
+          6072.056821187337,
+          4384.090039766752
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -25596,6 +25684,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -25909,7 +25998,8 @@ window.BENCHMARK_DATA = {
           4731.149892171224,
           4660.9815124511715,
           4332.352182006836,
-          4604.765981946673
+          4604.765981946673,
+          3071.480339050293
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26209,7 +26299,8 @@ window.BENCHMARK_DATA = {
           7517,
           7517,
           7504,
-          7517
+          7517,
+          7509
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26512,7 +26603,8 @@ window.BENCHMARK_DATA = {
           178.38873280797685,
           192.2854812781016,
           216.16729745864868,
-          183.72719043095907
+          183.72719043095907,
+          187.03488881247384
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -26802,6 +26894,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -27115,7 +27208,8 @@ window.BENCHMARK_DATA = {
           479.4353239059448,
           468.2049063046773,
           589.868048731486,
-          470.52314036687216
+          470.52314036687216,
+          476.4764691034953
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -27405,6 +27499,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          2136,
           2136,
           2136,
           2136,
@@ -29163,6 +29258,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -29454,7 +29555,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -29749,7 +29851,8 @@ window.BENCHMARK_DATA = {
           399.5666019121806,
           376.5736646016439,
           424.70302898543224,
-          372.78799975713093
+          372.78799975713093,
+          318.95026973315646
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -30039,6 +30142,7 @@ window.BENCHMARK_DATA = {
           1112,
           1112,
           1112,
+          1096,
           1096,
           1096,
           1096,
@@ -30352,7 +30456,8 @@ window.BENCHMARK_DATA = {
           6793.616753133138,
           6792.6132409232005,
           6511.277736918131,
-          6710.4227136465215
+          6710.4227136465215,
+          4920.68495123727
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -30642,6 +30747,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -30955,7 +31061,8 @@ window.BENCHMARK_DATA = {
           8859.19921061198,
           9111.767408098493,
           8716.927187238422,
-          9196.525258745465
+          9196.525258745465,
+          6390.891753133138
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -31255,7 +31362,8 @@ window.BENCHMARK_DATA = {
           12841,
           12841,
           12840,
-          12841
+          12841,
+          12840
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -31558,7 +31666,8 @@ window.BENCHMARK_DATA = {
           8544.549805704753,
           8451.861997477214,
           8033.416484578451,
-          8645.768986002604
+          8645.768986002604,
+          5998.352006094797
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -31858,7 +31967,8 @@ window.BENCHMARK_DATA = {
           15754,
           15754,
           15754,
-          15754
+          15754,
+          15748
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -32161,7 +32271,8 @@ window.BENCHMARK_DATA = {
           370.6282251993815,
           410.3038814226786,
           432.94166231155396,
-          393.3578779220581
+          393.3578779220581,
+          356.80087900161743
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -32451,6 +32562,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -32764,7 +32876,8 @@ window.BENCHMARK_DATA = {
           1718.6540207181658,
           1375.9853965759278,
           1741.1205215454102,
-          1377.8094621385846
+          1377.8094621385846,
+          1331.6083728790284
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -33054,6 +33167,7 @@ window.BENCHMARK_DATA = {
           3840,
           3840,
           3840,
+          3888,
           3888,
           3888,
           3888,
@@ -34812,6 +34926,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -35103,7 +35223,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -35398,7 +35519,8 @@ window.BENCHMARK_DATA = {
           227.35763784817286,
           265.8786811828613,
           247.53358796926645,
-          172.20774134000143
+          172.20774134000143,
+          330.010604317983
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -35668,6 +35790,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920,
@@ -36001,7 +36124,8 @@ window.BENCHMARK_DATA = {
           10924.782677283654,
           11098.920760091145,
           11355.458932059151,
-          5603.857806396484
+          5603.857806396484,
+          8769.60198538644
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -36301,7 +36425,8 @@ window.BENCHMARK_DATA = {
           10569,
           10569,
           10569,
-          10568
+          10568,
+          10569
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -36604,7 +36729,8 @@ window.BENCHMARK_DATA = {
           7289.44682820638,
           7830.3406321207685,
           7957.716089101938,
-          4085.706677363469
+          4085.706677363469,
+          6596.507048543294
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -36889,6 +37015,7 @@ window.BENCHMARK_DATA = {
           11688,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -37207,7 +37334,8 @@ window.BENCHMARK_DATA = {
           7763.044890340169,
           8100.427893502371,
           7732.882978166853,
-          4027.897383117676
+          4027.897383117676,
+          6023.655988420759
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -37507,7 +37635,8 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11196,
-          11196
+          11196,
+          11191
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -37810,7 +37939,8 @@ window.BENCHMARK_DATA = {
           157.92916880335127,
           173.95337386131285,
           177.94893102645875,
-          118.1551275069897
+          118.1551275069897,
+          216.4178681032998
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -37976,6 +38106,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -38413,7 +38544,8 @@ window.BENCHMARK_DATA = {
           425.3075068473816,
           458.0060570081075,
           491.99028337918793,
-          298.2360941001347
+          298.2360941001347,
+          539.6183357972366
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -38609,6 +38741,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -40461,6 +40594,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -40752,7 +40891,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -41047,7 +41187,8 @@ window.BENCHMARK_DATA = {
           583.1808771405902,
           622.7148193995158,
           726.212554995219,
-          439.2237223111666
+          439.2237223111666,
+          761.966302951177
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -41317,6 +41458,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784,
@@ -41650,7 +41792,8 @@ window.BENCHMARK_DATA = {
           17289.12430826823,
           17426.583439127604,
           18375.607935587566,
-          8947.138338529146
+          8947.138338529146,
+          14520.452822171725
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -41950,7 +42093,8 @@ window.BENCHMARK_DATA = {
           18505,
           18505,
           18505,
-          18505
+          18505,
+          18504
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42253,7 +42397,8 @@ window.BENCHMARK_DATA = {
           16889.853137207032,
           17999.922392781576,
           18752.623129708427,
-          9172.068744114467
+          9172.068744114467,
+          14925.34175981794
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42553,7 +42698,8 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21529,
-          21529
+          21529,
+          21528
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42856,7 +43002,8 @@ window.BENCHMARK_DATA = {
           18855.099424235024,
           19369.28836669922,
           18833.35745747884,
-          9630.290040079753
+          9630.290040079753,
+          15939.712674822125
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43152,6 +43299,7 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30780,
+          30785,
           30785,
           30785,
           30785,
@@ -43459,7 +43607,8 @@ window.BENCHMARK_DATA = {
           324.2299989553598,
           335.08959671167224,
           362.3437989675082,
-          277.5681055273329
+          277.5681055273329,
+          447.21272887502397
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -43625,6 +43774,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -44062,7 +44212,8 @@ window.BENCHMARK_DATA = {
           1521.8318723951068,
           1592.7046279907227,
           1811.2772497030405,
-          1202.23267771403
+          1202.23267771403,
+          1990.8312686284382
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -44258,6 +44409,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -46110,6 +46262,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -46401,7 +46559,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -46696,7 +46855,8 @@ window.BENCHMARK_DATA = {
           13.294516790371675,
           9.402699616338525,
           12.74447505871455,
-          12.834484030093465
+          12.834484030093465,
+          9.761959917843342
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46926,6 +47086,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -47299,7 +47460,8 @@ window.BENCHMARK_DATA = {
           82.70884438071933,
           59.10915650640215,
           76.65382101138432,
-          77.84286607901255
+          77.84286607901255,
+          63.967120202382404
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -47465,6 +47627,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -47902,7 +48065,8 @@ window.BENCHMARK_DATA = {
           21.692843404908974,
           17.4021470506986,
           22.115280278600178,
-          22.000614620172062
+          22.000614620172062,
+          17.8754997809728
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -48036,6 +48200,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -48505,7 +48670,8 @@ window.BENCHMARK_DATA = {
           1008.2909214019776,
           756.2623299871173,
           972.0456025441488,
-          987.2189137776693
+          987.2189137776693,
+          760.9849645069668
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -48666,6 +48832,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -49108,7 +49275,8 @@ window.BENCHMARK_DATA = {
           1411.3208932240805,
           1038.8624056498209,
           1462.781553141276,
-          1456.6872401604285
+          1456.6872401604285,
+          1077.1895649249736
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49269,6 +49437,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -49711,7 +49880,8 @@ window.BENCHMARK_DATA = {
           1295.313223393758,
           865.7784864561899,
           1279.2302176793416,
-          1202.8803428649903
+          1202.8803428649903,
+          966.4690272013346
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50001,6 +50171,7 @@ window.BENCHMARK_DATA = {
           2751,
           2755,
           2751,
+          2755,
           2755,
           2755,
           2755,
@@ -50661,6 +50832,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -50769,7 +50946,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -50881,7 +51059,8 @@ window.BENCHMARK_DATA = {
           2228.7746373494465,
           1450.6821815490723,
           1744.4832160949707,
-          1356.0029396692912
+          1356.0029396692912,
+          1796.1119831085205
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -50984,6 +51163,7 @@ window.BENCHMARK_DATA = {
           5248,
           5248,
           5248,
+          5264,
           5264,
           5264,
           5264,
@@ -51118,7 +51298,8 @@ window.BENCHMARK_DATA = {
           2326.0185991014755,
           1603.346441268921,
           1960.0948094685873,
-          1415.9250323431831
+          1415.9250323431831,
+          2103.234315617879
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -51235,6 +51416,7 @@ window.BENCHMARK_DATA = {
           7385,
           7384,
           7384,
+          7385,
           7385
         ],
         "borderColor": "#E84393",
@@ -51355,7 +51537,8 @@ window.BENCHMARK_DATA = {
           5642.798213195801,
           3652.436673300607,
           4515.042543538411,
-          3088.0140462239583
+          3088.0140462239583,
+          4814.449765014649
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51428,6 +51611,7 @@ window.BENCHMARK_DATA = {
           10544,
           10544,
           10544,
+          17360,
           17360,
           17360,
           17360,
@@ -51592,7 +51776,8 @@ window.BENCHMARK_DATA = {
           1421595.6838942308,
           759023.1944010417,
           816214.4404947917,
-          679041.8479166667
+          679041.8479166667,
+          1018519.2329101562
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -51709,7 +51894,8 @@ window.BENCHMARK_DATA = {
           92779,
           92403,
           92837,
-          92565
+          92565,
+          92020
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -51829,7 +52015,8 @@ window.BENCHMARK_DATA = {
           313282.74918619794,
           236909.316015625,
           249765.98245442708,
-          217371.09334891182
+          217371.09334891182,
+          271913.4599260603
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -51946,7 +52133,8 @@ window.BENCHMARK_DATA = {
           54382,
           54356,
           54356,
-          54379
+          54379,
+          54382
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52066,7 +52254,8 @@ window.BENCHMARK_DATA = {
           355507.1844482422,
           269034.1726074219,
           283590.28043619794,
-          267189.6273763021
+          267189.6273763021,
+          306533.6758138021
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52183,7 +52372,8 @@ window.BENCHMARK_DATA = {
           65631,
           65708,
           65628,
-          65396
+          65396,
+          65519
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52719,6 +52909,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -52808,7 +53004,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -52901,7 +53098,8 @@ window.BENCHMARK_DATA = {
           33181.70607346755,
           27002.27333577474,
           28358.556825910295,
-          25781.07544884315
+          25781.07544884315,
+          22354.70323079427
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52989,6 +53187,7 @@ window.BENCHMARK_DATA = {
           56552,
           56552,
           56552,
+          56536,
           56536,
           56536,
           56536,
@@ -53100,7 +53299,8 @@ window.BENCHMARK_DATA = {
           51009.54185791015,
           23018.017835344588,
           24801.192334856307,
-          22492.385487874348
+          22492.385487874348,
+          18386.08010629507
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -53188,6 +53388,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -53299,7 +53500,8 @@ window.BENCHMARK_DATA = {
           98080.12745768229,
           102898.07403157552,
           131053.09191080728,
-          98240.21395670573
+          98240.21395670573,
+          100184.0514855018
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53394,6 +53596,7 @@ window.BENCHMARK_DATA = {
           203633,
           203633,
           203632,
+          203633,
           203633,
           203633,
           203633,
@@ -53498,7 +53701,8 @@ window.BENCHMARK_DATA = {
           182106.21364182694,
           207576.85780552455,
           201844.70353190103,
-          190101.73873697917
+          190101.73873697917,
+          156731.5575125558
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53596,7 +53800,8 @@ window.BENCHMARK_DATA = {
           423564,
           423564,
           423559,
-          423564
+          423564,
+          423539
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53697,7 +53902,8 @@ window.BENCHMARK_DATA = {
           264885.1126302083,
           279541.09228515625,
           272819.1475911458,
-          281050.73179408483
+          281050.73179408483,
+          195911.82890973773
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53795,7 +54001,8 @@ window.BENCHMARK_DATA = {
           378537,
           378539,
           378534,
-          378539
+          378539,
+          378513
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53896,7 +54103,8 @@ window.BENCHMARK_DATA = {
           399968.89303385414,
           428925.28079427086,
           431891.7035481771,
-          409888.93343098956
+          409888.93343098956,
+          310844.7662760417
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -53994,7 +54202,8 @@ window.BENCHMARK_DATA = {
           943763,
           943763,
           943763,
-          943763
+          943763,
+          943883
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54530,6 +54739,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -54619,7 +54834,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -54712,7 +54928,8 @@ window.BENCHMARK_DATA = {
           38686.93241373698,
           39751.401537214006,
           49197.24281663161,
-          28420.918553278996
+          28420.918553278996,
+          50133.70075276693
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54801,6 +55018,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96825,
+          96824,
           96824,
           96824,
           96824,
@@ -54911,7 +55129,8 @@ window.BENCHMARK_DATA = {
           16325.654724121094,
           17399.646072387695,
           19527.388047438402,
-          15195.95647757394
+          15195.95647757394,
+          25882.800992329914
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55009,7 +55228,8 @@ window.BENCHMARK_DATA = {
           32641,
           32641,
           32641,
-          32641
+          32641,
+          32640
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55110,7 +55330,8 @@ window.BENCHMARK_DATA = {
           146208.67421177455,
           116342.21432291667,
           138607.8414876302,
-          93999.8703894982
+          93999.8703894982,
+          158803.40588378906
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55202,6 +55423,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -55309,7 +55531,8 @@ window.BENCHMARK_DATA = {
           672110.5389927456,
           698121.2093098959,
           761665.9911411831,
-          392268.7201772836
+          392268.7201772836,
+          572687.9618443081
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55407,7 +55630,8 @@ window.BENCHMARK_DATA = {
           836541,
           836541,
           836541,
-          836536
+          836536,
+          836452
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55508,7 +55732,8 @@ window.BENCHMARK_DATA = {
           1012015.9329427084,
           1150453.5048177084,
           1180470.9164341518,
-          590854.801204427
+          590854.801204427,
+          881033.5405598958
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55606,7 +55831,8 @@ window.BENCHMARK_DATA = {
           1139704,
           1139704,
           1139704,
-          1139702
+          1139702,
+          1139621
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55707,7 +55933,8 @@ window.BENCHMARK_DATA = {
           1244398.2724609375,
           1335991.5909598214,
           1391566.6524832589,
-          714654.2875976562
+          714654.2875976562,
+          1088567.3152901786
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55805,7 +56032,8 @@ window.BENCHMARK_DATA = {
           2194291,
           2194291,
           2194291,
-          2194325
+          2194325,
+          2194291
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56341,6 +56569,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -56430,7 +56664,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -56523,7 +56758,8 @@ window.BENCHMARK_DATA = {
           95467.92150878906,
           68972.44891764323,
           82279.5475416917,
-          102559.94293619791
+          102559.94293619791,
+          98133.78736223493
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -56620,6 +56856,7 @@ window.BENCHMARK_DATA = {
           105720,
           105721,
           105720,
+          105721,
           105721,
           105721
         ],
@@ -56722,7 +56959,8 @@ window.BENCHMARK_DATA = {
           49349.533588115984,
           28779.94779532296,
           41320.67843424479,
-          54874.73139648438
+          54874.73139648438,
+          51622.6857808431
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -56820,6 +57058,7 @@ window.BENCHMARK_DATA = {
           121101,
           121101,
           121097,
+          121101,
           121101
         ],
         "borderColor": "#E84393",
@@ -56921,7 +57160,8 @@ window.BENCHMARK_DATA = {
           1330167.865234375,
           600367.6100260416,
           859069.9871744792,
-          1351838.5375600962
+          1351838.5375600962,
+          1475506.0361979166
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57019,7 +57259,8 @@ window.BENCHMARK_DATA = {
           1048326,
           1048315,
           1048197,
-          1048326
+          1048326,
+          1048638
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57120,7 +57361,8 @@ window.BENCHMARK_DATA = {
           1899671.7484654018,
           975815.036969866,
           1336517.3635416667,
-          1887483.0951450893
+          1887483.0951450893,
+          1883306.8125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57218,6 +57460,7 @@ window.BENCHMARK_DATA = {
           1571854,
           1515916,
           1515773,
+          1515860,
           1515860
         ],
         "borderColor": "#5E2750",
@@ -57319,7 +57562,8 @@ window.BENCHMARK_DATA = {
           1648440.4840745192,
           791797.9499348958,
           1177732.3134014423,
-          1785343.1275111607
+          1785343.1275111607,
+          1739037.00234375
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -57417,6 +57661,7 @@ window.BENCHMARK_DATA = {
           2221384,
           2221397,
           2221357,
+          2221384,
           2221384
         ],
         "borderColor": "#4A6FA5",
@@ -57516,7 +57761,8 @@ window.BENCHMARK_DATA = {
           189085.7151204427,
           128623.01680501302,
           166854.20633370537,
-          183243.56227213543
+          183243.56227213543,
+          186806.41870117188
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57602,6 +57848,7 @@ window.BENCHMARK_DATA = {
           300713,
           300713,
           300713,
+          300785,
           300785,
           300785,
           300785,
@@ -58100,6 +58347,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -58181,7 +58434,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -58266,7 +58520,8 @@ window.BENCHMARK_DATA = {
           355.12120277541027,
           460.5971752166748,
           336.93653157552086,
-          609.6592479118934
+          609.6592479118934,
+          375.0808954636256
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -58326,6 +58581,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544,
@@ -58449,7 +58705,8 @@ window.BENCHMARK_DATA = {
           215.81588689486185,
           260.024829523904,
           217.51698266665142,
-          360.7476290067037
+          360.7476290067037,
+          215.71636616388957
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -58461,6 +58718,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -58632,7 +58890,8 @@ window.BENCHMARK_DATA = {
           405.4341961420499,
           504.8914162953695,
           405.15478722254437,
-          733.3481651941935
+          733.3481651941935,
+          449.747465356191
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -58644,6 +58903,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -58815,7 +59075,8 @@ window.BENCHMARK_DATA = {
           69532.67630440848,
           115807.2700718471,
           70833.71614583333,
-          87731.00646972656
+          87731.00646972656,
+          36708.96863731971
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58905,7 +59166,8 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10030,
-          10025
+          10025,
+          10009
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58998,7 +59260,8 @@ window.BENCHMARK_DATA = {
           5793.880543300083,
           7243.659609113421,
           5375.634759521485,
-          8213.030670166016
+          8213.030670166016,
+          5412.474849446615
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -59075,6 +59338,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -59181,7 +59445,8 @@ window.BENCHMARK_DATA = {
           5336.845948439378,
           7610.408040364583,
           5105.1632244403545,
-          8545.545413208009
+          8545.545413208009,
+          4510.15366254534
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59271,7 +59536,8 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11853,
-          11863
+          11863,
+          11848
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59759,6 +60025,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -59840,7 +60112,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -59925,7 +60198,8 @@ window.BENCHMARK_DATA = {
           1243.5083122253418,
           1592.4166308085123,
           1244.2219709249644,
-          2040.8763599395752
+          2040.8763599395752,
+          1428.7620821634928
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59985,6 +60259,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016,
@@ -60108,7 +60383,8 @@ window.BENCHMARK_DATA = {
           816.6676958629063,
           965.9582753499349,
           824.8017168045044,
-          1290.5730648040771
+          1290.5730648040771,
+          872.328520266215
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -60120,6 +60396,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -60291,7 +60568,8 @@ window.BENCHMARK_DATA = {
           2507.6620867592947,
           3256.8265653337753,
           2481.479869588216,
-          4420.096115112305
+          4420.096115112305,
+          2970.7755219595774
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60303,6 +60581,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -60474,7 +60753,8 @@ window.BENCHMARK_DATA = {
           81486.88095703124,
           130334.86765950521,
           81841.34126790364,
-          103870.69720458984
+          103870.69720458984,
+          52720.296712239586
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60564,7 +60844,8 @@ window.BENCHMARK_DATA = {
           25114,
           25115,
           25114,
-          25113
+          25113,
+          25108
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60657,7 +60938,8 @@ window.BENCHMARK_DATA = {
           18459.962565104168,
           22708.901947021484,
           16725.51806640625,
-          23958.155623215895
+          23958.155623215895,
+          15821.902038574219
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60747,7 +61029,8 @@ window.BENCHMARK_DATA = {
           25497,
           23481,
           23481,
-          23481
+          23481,
+          23480
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60840,7 +61123,8 @@ window.BENCHMARK_DATA = {
           20778.074135335286,
           28087.4784589495,
           19742.95417349679,
-          32209.81427001953
+          32209.81427001953,
+          18636.431850179037
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60930,7 +61214,8 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55216,
-          55219
+          55219,
+          55213
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61418,6 +61703,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -61499,7 +61790,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -61584,7 +61876,8 @@ window.BENCHMARK_DATA = {
           95990.69028145926,
           122385.61127929688,
           94683.97122628348,
-          170825.4138671875
+          170825.4138671875,
+          115486.63337402344
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -61672,6 +61965,7 @@ window.BENCHMARK_DATA = {
           273297,
           273297,
           273296,
+          273297,
           273297,
           273297,
           273297
@@ -61767,7 +62061,8 @@ window.BENCHMARK_DATA = {
           67495.5122639974,
           78235.00916341147,
           66027.27473958333,
-          106350.48755754743
+          106350.48755754743,
+          70804.79926757813
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -61857,7 +62152,8 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208883,
-          208882
+          208882,
+          208881
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -61950,7 +62246,8 @@ window.BENCHMARK_DATA = {
           235497.8188639323,
           302637.9073567708,
           230948.19555664062,
-          406633.293875558
+          406633.293875558,
+          263467.95068359375
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62040,6 +62337,7 @@ window.BENCHMARK_DATA = {
           707793,
           707794,
           707793,
+          707794,
           707794
         ],
         "borderColor": "#FF8C00",
@@ -62133,7 +62431,8 @@ window.BENCHMARK_DATA = {
           1216216.9451822916,
           1541315.714453125,
           1153070.1138392857,
-          1837115.4363839286
+          1837115.4363839286,
+          991965.9473958333
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62223,7 +62522,8 @@ window.BENCHMARK_DATA = {
           1692674,
           1692680,
           1692679,
-          1692631
+          1692631,
+          1692567
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62316,7 +62616,8 @@ window.BENCHMARK_DATA = {
           1430438.8447265625,
           1694518.1048177083,
           1253001.57421875,
-          1826378.075796274
+          1826378.075796274,
+          1097037.1111979166
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62406,7 +62707,8 @@ window.BENCHMARK_DATA = {
           1692727,
           1468916,
           1468916,
-          1468878
+          1468878,
+          1468807
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62499,7 +62801,8 @@ window.BENCHMARK_DATA = {
           2262904.5,
           2823668.228645833,
           2050454.6880580357,
-          3720281.9828125
+          3720281.9828125,
+          2006911.0499441964
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62589,7 +62892,8 @@ window.BENCHMARK_DATA = {
           4803385,
           4803387,
           4803385,
-          4803306
+          4803306,
+          4803191
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62873,6 +63177,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -62920,7 +63230,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -62971,7 +63282,8 @@ window.BENCHMARK_DATA = {
           351.8979961688702,
           257.97349939346316,
           249.30337177912395,
-          441.9344576199849
+          441.9344576199849,
+          252.04311564763387
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -62997,6 +63309,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024,
@@ -63086,7 +63399,8 @@ window.BENCHMARK_DATA = {
           438.0382944742839,
           352.08632535934447,
           359.7850297609965,
-          339.0831269900004
+          339.0831269900004,
+          337.7285693804423
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -63098,6 +63412,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -63201,7 +63516,8 @@ window.BENCHMARK_DATA = {
           1125.0114309946696,
           904.3496242931911,
           899.955658367702,
-          861.3012891133626
+          861.3012891133626,
+          868.1274440629142
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -63213,6 +63529,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          4464,
           4464,
           4464,
           4464,
@@ -63316,7 +63633,8 @@ window.BENCHMARK_DATA = {
           329078.6728515625,
           202430.0232421875,
           204013.6336263021,
-          205947.932421875
+          205947.932421875,
+          207444.3416922433
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -63370,6 +63688,7 @@ window.BENCHMARK_DATA = {
           23302,
           23313,
           23282,
+          23302,
           23302,
           23302,
           23302
@@ -63431,7 +63750,8 @@ window.BENCHMARK_DATA = {
           16614.401833089192,
           11204.439410618374,
           10760.543959481376,
-          10973.507666015625
+          10973.507666015625,
+          11154.52447611491
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63487,7 +63807,8 @@ window.BENCHMARK_DATA = {
           19742,
           19741,
           19742,
-          19553
+          19553,
+          19742
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63546,7 +63867,8 @@ window.BENCHMARK_DATA = {
           11907.655905151367,
           8046.109083048503,
           7519.394381386893,
-          7946.181735229492
+          7946.181735229492,
+          7740.276606241862
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -63596,6 +63918,7 @@ window.BENCHMARK_DATA = {
           14332,
           14325,
           14325,
+          14332,
           14332,
           14332,
           14332,
@@ -63886,6 +64209,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -63933,7 +64262,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -63984,7 +64314,8 @@ window.BENCHMARK_DATA = {
           1665.6019107273646,
           1197.6891228993734,
           1215.874079159328,
-          1220.7189220428468
+          1220.7189220428468,
+          1222.565310886928
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -64010,6 +64341,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040,
@@ -64099,7 +64431,8 @@ window.BENCHMARK_DATA = {
           1401.8949634552002,
           1152.480674870809,
           1126.918266589825,
-          1113.8375684102377
+          1113.8375684102377,
+          1119.150936762492
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -64111,6 +64444,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -64214,7 +64548,8 @@ window.BENCHMARK_DATA = {
           5317.471780395508,
           3887.0902877807616,
           3866.240801130022,
-          3551.314171155294
+          3551.314171155294,
+          3689.2932995387487
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -64226,6 +64561,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          10536,
           10536,
           10536,
           10536,
@@ -64329,7 +64665,8 @@ window.BENCHMARK_DATA = {
           365939.1455453726,
           236648.36108398438,
           235129.6498084435,
-          238120.67608235677
+          238120.67608235677,
+          243077.69827706474
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64383,6 +64720,7 @@ window.BENCHMARK_DATA = {
           41153,
           41153,
           41155,
+          41153,
           41153,
           41153,
           41153
@@ -64444,7 +64782,8 @@ window.BENCHMARK_DATA = {
           30485.666902669273,
           21381.3574785505,
           21720.518676757812,
-          20807.66389770508
+          20807.66389770508,
+          22007.3568745931
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64500,7 +64839,8 @@ window.BENCHMARK_DATA = {
           32328,
           32328,
           31330,
-          30101
+          30101,
+          31336
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64559,7 +64899,8 @@ window.BENCHMARK_DATA = {
           45504.546404157365,
           32591.84968348912,
           30480.003165108817,
-          30570.387990315754
+          30570.387990315754,
+          32713.070096842446
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -64614,6 +64955,7 @@ window.BENCHMARK_DATA = {
           60496,
           60496,
           60495,
+          60496,
           60496,
           60496
         ],
@@ -64899,6 +65241,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -64946,7 +65294,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -64997,7 +65346,8 @@ window.BENCHMARK_DATA = {
           149808.05784388952,
           105916.55269368489,
           109923.6504720052,
-          103300.39107259114
+          103300.39107259114,
+          106165.93619210379
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -65053,6 +65403,7 @@ window.BENCHMARK_DATA = {
           224801,
           224801,
           224800,
+          224801,
           224801
         ],
         "borderColor": "#63A2AC",
@@ -65112,7 +65463,8 @@ window.BENCHMARK_DATA = {
           113050.77814592634,
           88117.04033551898,
           88012.64411621094,
-          86877.26882498605
+          86877.26882498605,
+          86323.34911170372
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -65168,7 +65520,8 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209409,
-          209408
+          209408,
+          209409
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -65227,7 +65580,8 @@ window.BENCHMARK_DATA = {
           475024.2229701451,
           343588.32392578124,
           334615.1773763021,
-          309258.7025065104
+          309258.7025065104,
+          318814.3255208333
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -65239,6 +65593,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          703994,
           703994,
           703994,
           703994,
@@ -65342,7 +65697,8 @@ window.BENCHMARK_DATA = {
           4298370.548677885,
           3222017.9282552083,
           3178213.3505208334,
-          3185402.580078125
+          3185402.580078125,
+          3089677.7389322915
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65397,6 +65753,7 @@ window.BENCHMARK_DATA = {
           1936410,
           1936429,
           1936405,
+          1936410,
           1936410,
           1936410
         ],
@@ -65457,7 +65814,8 @@ window.BENCHMARK_DATA = {
           1381737.2791666666,
           1083255.6664341518,
           1001349.7092447917,
-          942233.3477213542
+          942233.3477213542,
+          999984.2404947917
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -65513,7 +65871,8 @@ window.BENCHMARK_DATA = {
           1343692,
           1343692,
           1231500,
-          1119113
+          1119113,
+          1231501
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -65572,7 +65931,8 @@ window.BENCHMARK_DATA = {
           4228830.660714285,
           3111165.747916667,
           3088516.435546875,
-          2998267.576432292
+          2998267.576432292,
+          2989912.994270833
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65628,6 +65988,7 @@ window.BENCHMARK_DATA = {
           5051944,
           5051810,
           5051810,
+          5051809,
           5051809
         ],
         "borderColor": "#4A6FA5",
@@ -65912,6 +66273,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sun Nov 22 17:40:51 2026 \u002B0100",
         "message": "refactor: extend the adapter description for adapters with shared state (#1112)"
+      },
+      {
+        "sha": "86be2b83d74a7a89da9ec91d15f6b9d304b96f7f",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sun Nov 22 19:35:01 2026 \u002B0100",
+        "message": "feat: create classes under test with mocked dependencies (#1114)"
       }
     ],
     "labels": [
@@ -65959,7 +66326,8 @@ window.BENCHMARK_DATA = {
       "a5a4ed1c",
       "d8078dbc",
       "51b638bd",
-      "eb20ad98"
+      "eb20ad98",
+      "86be2b83"
     ],
     "datasets": [
       {
@@ -66010,7 +66378,8 @@ window.BENCHMARK_DATA = {
           1931.258539581299,
           2726.539102935791,
           3428.6992258344376,
-          3219.530788930257
+          3219.530788930257,
+          3336.3949010031565
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -66036,6 +66405,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288,
@@ -66125,7 +66495,8 @@ window.BENCHMARK_DATA = {
           1805.2007274627686,
           2505.7734191894533,
           3033.8176709493,
-          2971.5198405129568
+          2971.5198405129568,
+          3023.4600557599747
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -66137,6 +66508,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -66240,7 +66612,8 @@ window.BENCHMARK_DATA = {
           2204.517933185284,
           3146.1646699269613,
           3888.5006968180337,
-          3815.665816370646
+          3815.665816370646,
+          3828.546726735433
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -66252,6 +66625,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          3344,
           3344,
           3344,
           3344,
@@ -66355,7 +66729,8 @@ window.BENCHMARK_DATA = {
           7335.168453216553,
           10843.59390970866,
           14264.94999225323,
-          11797.133248901368
+          11797.133248901368,
+          14516.624835205079
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -66368,6 +66743,7 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           11385,
+          11048,
           11048,
           11048,
           11048,
@@ -66470,7 +66846,8 @@ window.BENCHMARK_DATA = {
           6421.900536170373,
           9224.264037068684,
           12580.581117757161,
-          9187.362438495342
+          9187.362438495342,
+          12517.459252493722
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66526,7 +66903,8 @@ window.BENCHMARK_DATA = {
           15025,
           14633,
           14633,
-          15025
+          15025,
+          14633
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66585,7 +66963,8 @@ window.BENCHMARK_DATA = {
           6599.492926534017,
           9640.294574192592,
           13168.449252788838,
-          9556.129187011718
+          9556.129187011718,
+          13459.967893327985
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -66632,6 +67011,7 @@ window.BENCHMARK_DATA = {
           14614,
           14620,
           14614,
+          14620,
           14620,
           14620,
           14620,
