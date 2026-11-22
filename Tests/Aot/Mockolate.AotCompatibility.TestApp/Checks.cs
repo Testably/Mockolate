@@ -84,6 +84,17 @@ internal static class Checks
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 			return Equal((sut.Dispense("Dark", 1), sut.Stock, await sut.CountAsync("Dark")), (false, 0, 0));
 		}),
+		new("a member without setup returns an empty IAsyncEnumerable", async () =>
+		{
+			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
+			List<string> result = [];
+			await foreach (string item in sut.ListAsync(CancellationToken.None))
+			{
+				result.Add(item);
+			}
+
+			return Equal(result.Count, 0);
+		}),
 #if MOCKOLATE_AUTOMOCKING
 		new("auto-mocking returns a configurable mock for an interface without setup", () =>
 		{

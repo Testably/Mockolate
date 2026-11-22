@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Net.Http;
@@ -146,6 +147,20 @@ public sealed class AutoMockingTests
 		IServiceProvider result = sut.GetServiceProvider();
 
 		await That(result).IsNull();
+	}
+
+	[Test]
+	public async Task AsyncEnumerableOfInterface_ShouldReturnEmptySequence()
+	{
+		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
+		List<IAutoMockChild> result = [];
+
+		await foreach (IAutoMockChild child in sut.GetChildren())
+		{
+			result.Add(child);
+		}
+
+		await That(result).IsEmpty().Because("no auto-mocks are created for the elements");
 	}
 
 	[Test]
@@ -479,6 +494,7 @@ public sealed class AutoMockingTests
 		public ValueTask<IAutoMockChild> GetChildValueTaskAsync() => new((IAutoMockChild)null!);
 		public IAutoMockGeneric<int> GetGeneric() => null!;
 		public IServiceProvider GetServiceProvider() => null!;
+		public IAsyncEnumerable<IAutoMockChild> GetChildren() => null!;
 #if NET10_0_OR_GREATER
 		public IAutoMockChild Consume(Packet packet) => null!;
 #endif

@@ -1637,8 +1637,9 @@ internal static partial class Mock
 		internal const int MemberId_GetChildValueTaskAsync = 10;
 		internal const int MemberId_GetGeneric = 11;
 		internal const int MemberId_GetServiceProvider = 12;
-		internal const int MemberId_Consume = 13;
-		internal const int MemberCount = 14;
+		internal const int MemberId_GetChildren = 13;
+		internal const int MemberId_Consume = 14;
+		internal const int MemberCount = 15;
 		internal static readonly global::Mockolate.Interactions.PropertyGetterAccess PropertyAccess_Child_Get = new global::Mockolate.Interactions.PropertyGetterAccess("global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.Child");
 		internal static readonly global::Mockolate.Interactions.PropertyGetterAccess PropertyAccess_NullableChild_Get = new global::Mockolate.Interactions.PropertyGetterAccess("global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.NullableChild");
 
@@ -2189,6 +2190,76 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.IServiceProvider)!);
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren()" />
+		public global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild> GetChildren()
+		{
+			global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildren);
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>> s_methodSetup && s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>>>(global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildren, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren") is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>>>("global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren"))
+				{
+					if (s_methodSetup.Matches())
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild> wrappedResult = default!;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildren, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren");
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot wraps)
+				{
+					wrappedResult = wraps.GetChildren();
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks();
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren()' was invoked without prior setup.");
+			}
+			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
+			{
+				return wrappedResult;
+			}
+			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>)!);
+		}
+
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.Consume(global::Mockolate.Tests.GeneratorCoverage.Packet)" />
 		public global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild Consume(global::Mockolate.Tests.GeneratorCoverage.Packet packet)
 		{
@@ -2354,6 +2425,14 @@ internal static partial class Mock
 			return methodSetup;
 		}
 
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>> global::Mockolate.Mock.IMockSetupForIAutoMockRoot.GetChildren()
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildren, methodSetup);
+			return methodSetup;
+		}
+
 #if NET9_0_OR_GREATER
 		/// <inheritdoc />
 		global::Mockolate.Setup.IRefStructReturnMethodSetup<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild, global::Mockolate.Tests.GeneratorCoverage.Packet> global::Mockolate.Mock.IMockSetupForIAutoMockRoot.Consume(global::Mockolate.Parameters.IParameter<global::Mockolate.Tests.GeneratorCoverage.Packet>? packet)
@@ -2462,6 +2541,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters IMockVerifyForIAutoMockRoot.GetServiceProvider()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetServiceProvider, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetServiceProvider", () => $"GetServiceProvider()");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters IMockVerifyForIAutoMockRoot.GetChildren()
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildren, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren", () => $"GetChildren()");
 		#endregion IMockVerifyForIAutoMockRoot
 	}
 
@@ -2566,6 +2648,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters IMockVerifyForIAutoMockRoot.GetServiceProvider()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetServiceProvider, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetServiceProvider", () => $"GetServiceProvider()");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters IMockVerifyForIAutoMockRoot.GetChildren()
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockRoot>(this, global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildren, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren", () => $"GetChildren()");
 		#endregion IMockVerifyForIAutoMockRoot
 	}
 
@@ -2712,6 +2797,14 @@ internal static partial class Mock
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.IServiceProvider>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetServiceProvider");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockRoot.MemberId_GetServiceProvider, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>> global::Mockolate.Mock.IMockSetupForIAutoMockRoot.GetChildren()
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockRoot.MemberId_GetChildren, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -2945,6 +3038,12 @@ internal static partial class Mock
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.IServiceProvider> GetServiceProvider();
 
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren()">GetChildren()</see>.
+		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IReturnMethodSetup<global::System.Collections.Generic.IAsyncEnumerable<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>> GetChildren();
+
 #if NET9_0_OR_GREATER
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.Consume(global::Mockolate.Tests.GeneratorCoverage.Packet)">Consume(Packet)</see> — ref-struct parameter pipeline (narrow setup surface).
@@ -3051,6 +3150,11 @@ internal static partial class Mock
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetServiceProvider()">GetServiceProvider()</see>.
 		/// </summary>
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters GetServiceProvider();
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot.GetChildren()">GetChildren()</see>.
+		/// </summary>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockRoot>.IgnoreParameters GetChildren();
 
 	}
 }

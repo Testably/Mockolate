@@ -67,6 +67,13 @@ public sealed partial class MockGenerationSnapshotTests
     internal static readonly IReadOnlyList<SnapshotScenario> Scenarios =
     [
         new(
+            "AsyncEnumerableDefaultValues_CanBeCreated",
+            ["IAsyncEnumerableDefaultValues.cs",],
+            """
+            IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock();
+            """,
+            []),
+        new(
             "AutoMock_CanBeCreated",
             ["IAutoMockRoot.cs", "Packet.cs",],
             """

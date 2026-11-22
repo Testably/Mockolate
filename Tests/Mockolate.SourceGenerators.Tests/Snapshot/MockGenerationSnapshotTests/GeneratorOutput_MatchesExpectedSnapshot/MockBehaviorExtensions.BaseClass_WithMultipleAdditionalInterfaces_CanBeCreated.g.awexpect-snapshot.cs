@@ -371,6 +371,34 @@ internal static class DefaultValueGeneratorExtensions
 			=> new T[,,,] { };
 
 		/// <summary>
+		///     Generates an empty async enumerable of <typeparamref name="T" />, with
+		///     the <paramref name="parameters" /> for context.
+		/// </summary>
+		/// <remarks>
+		///     Its enumeration is canceled when the first <see cref="global::System.Threading.CancellationToken">CancellationToken</see>
+		///     in the <paramref name="parameters" /> is.
+		/// </remarks>
+		public global::System.Collections.Generic.IAsyncEnumerable<T> Generate<T>(global::System.Collections.Generic.IAsyncEnumerable<T> nullValue, params object?[] parameters)
+		{
+			if (generator.GenerateValue(typeof(global::System.Collections.Generic.IAsyncEnumerable<T>), parameters) is global::System.Collections.Generic.IAsyncEnumerable<T> value)
+			{
+				return value;
+			}
+
+			foreach (object? parameter in parameters)
+			{
+				if (parameter is global::System.Threading.CancellationToken cancellationToken)
+				{
+					return cancellationToken.CanBeCanceled
+						? new EmptyAsyncEnumerable<T>(cancellationToken)
+						: EmptyAsyncEnumerable<T>.Instance;
+				}
+			}
+
+			return EmptyAsyncEnumerable<T>.Instance;
+		}
+
+		/// <summary>
 		///     Generates a default value of type <typeparamref name="T" />, with
 		///     the <paramref name="parameters" /> for context.
 		/// </summary>
@@ -392,6 +420,39 @@ internal static class DefaultValueGeneratorExtensions
 			=> generator is global::Mockolate.Internals.IDefaultValueProbe probe
 				? probe.Probe(typeof(T))
 				: global::Mockolate.Internals.DefaultValueSource.WithArguments;
+	}
+
+	private sealed class EmptyAsyncEnumerable<T>(
+		global::System.Threading.CancellationToken cancellationToken,
+		global::System.Threading.CancellationToken enumeratorToken = default)
+		: global::System.Collections.Generic.IAsyncEnumerable<T>, global::System.Collections.Generic.IAsyncEnumerator<T>
+	{
+		public static readonly EmptyAsyncEnumerable<T> Instance = new(global::System.Threading.CancellationToken.None);
+
+		public T Current => default!;
+
+		public global::System.Collections.Generic.IAsyncEnumerator<T> GetAsyncEnumerator(global::System.Threading.CancellationToken enumeratorCancellationToken = default)
+			=> enumeratorCancellationToken.CanBeCanceled && enumeratorCancellationToken != cancellationToken
+				? new EmptyAsyncEnumerable<T>(cancellationToken, enumeratorCancellationToken)
+				: this;
+
+		public global::System.Threading.Tasks.ValueTask<bool> MoveNextAsync()
+		{
+			if (cancellationToken.IsCancellationRequested)
+			{
+				return new global::System.Threading.Tasks.ValueTask<bool>(global::System.Threading.Tasks.Task.FromCanceled<bool>(cancellationToken));
+			}
+
+			if (enumeratorToken.IsCancellationRequested)
+			{
+				return new global::System.Threading.Tasks.ValueTask<bool>(global::System.Threading.Tasks.Task.FromCanceled<bool>(enumeratorToken));
+			}
+
+			return default;
+		}
+
+		public global::System.Threading.Tasks.ValueTask DisposeAsync()
+			=> default;
 	}
 }
 

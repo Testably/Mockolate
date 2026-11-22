@@ -254,7 +254,7 @@ public class MockGenerator : IIncrementalGenerator
 				ToSource(Sources.Sources.RefStructMethodSetups(methodSet, indexerArities), aliases));
 		});
 
-		// MockBehaviorExtensions: only depends on whether HttpClient appears as a mock target.
+		// MockBehaviorExtensions: depends on whether HttpClient appears as a mock target.
 		// Reduce to a bool so the aggregate cache holds across mock-set churn that doesn't toggle it.
 		IncrementalValueProvider<bool> includeHttpClient = collectedMocks
 			.Select(static (arr, _) => arr.AsArray().Any(m => m.ClassFullName == "global::System.Net.Http.HttpClient"));
@@ -268,9 +268,13 @@ public class MockGenerator : IIncrementalGenerator
 					.ToArray())
 				: (EquatableArray<string>?)null);
 
-		context.RegisterSourceOutput(includeHttpClient.Combine(autoMockableTypes).Combine(externAliases), static (spc, source) =>
+		// IAsyncEnumerable<T> needs Microsoft.Bcl.AsyncInterfaces on .NET Framework and .NET Standard 2.0.
+		IncrementalValueProvider<bool> includeAsyncEnumerable = context.CompilationProvider
+			.Select(static (compilation, _) => HasAttribute(compilation, "System.Collections.Generic.IAsyncEnumerable`1"));
+
+		context.RegisterSourceOutput(includeHttpClient.Combine(includeAsyncEnumerable).Combine(autoMockableTypes).Combine(externAliases), static (spc, source) =>
 			spc.AddSource("MockBehaviorExtensions.g.cs",
-				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left.Left, source.Left.Right), source.Right)));
+				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left.Left.Left, source.Left.Left.Right, source.Left.Right), source.Right)));
 
 		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute and
 		// CallerArgumentExpressionAttribute from another generator (PolySharp); any other value is a ';'-separated

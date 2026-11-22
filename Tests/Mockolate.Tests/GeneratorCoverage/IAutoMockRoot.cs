@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Mockolate.Tests.GeneratorCoverage;
@@ -7,7 +8,7 @@ namespace Mockolate.Tests.GeneratorCoverage;
 ///     Interface return types that the generator mocks transitively for auto-mocking: on a method, a property, an
 ///     indexer with up to four and one with five keys, wrapped in tasks, as a closed generic, on a method with a
 ///     ref-struct parameter and on a delegate. <see cref="IAutoMockChild" /> returns the root again, so the walk has
-///     to stop at the cycle, and the framework interface is excluded.
+///     to stop at the cycle, and the framework interfaces are excluded, so the async sequence of children stays empty.
 /// </summary>
 public interface IAutoMockRoot
 {
@@ -20,6 +21,7 @@ public interface IAutoMockRoot
 	ValueTask<IAutoMockChild> GetChildValueTaskAsync();
 	IAutoMockGeneric<int> GetGeneric();
 	IServiceProvider GetServiceProvider();
+	IAsyncEnumerable<IAutoMockChild> GetChildren();
 #if NET10_0_OR_GREATER
 	IAutoMockChild Consume(Packet packet);
 #endif
