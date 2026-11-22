@@ -218,6 +218,7 @@ namespace Mockolate
     public static class MockDataSources
     {
         public static bool TryCreate(System.Reflection.Assembly assembly, System.Type type, Mockolate.MockBehavior? behavior, Mockolate.DependencyResolver resolve, out object? value) { }
+        public static bool TryCreateValue<T>(Mockolate.MockBehavior behavior, out T value) { }
     }
     public static class ParameterExtensions
     {

@@ -118,6 +118,79 @@ public sealed partial class CreateWithMocksTests
 	}
 
 	[Test]
+	public async Task DataSourceParameterWithNullForgivingDefault_ShouldCompileWithoutWarnings()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using System;
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public class Svc(string name, string fallback = null!)
+		                                           {
+		                                               public string Name { get; } = name;
+		                                               public string Fallback { get; } = fallback;
+		                                           }
+
+		                                           [AttributeUsage(AttributeTargets.Method)]
+		                                           public sealed class DataAttribute : Attribute, IMockDataSource;
+
+		                                           public class Program
+		                                           {
+		                                               [Data]
+		                                               public static object Test(Svc sut) => sut;
+
+		                                               public static void Main(string[] args)
+		                                               {
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"])
+			.Contains("(string)v1 : default!").And
+			.Contains("MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out string d0) ? d0 : throw");
+	}
+
+	[Test]
+	public async Task DataSourceParameterOfOtherType_ShouldGetAValueFromTheBehavior()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using System;
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           [AttributeUsage(AttributeTargets.Method)]
+		                                           public sealed class DataAttribute : Attribute, IMockDataSource;
+
+		                                           public class Program
+		                                           {
+		                                               [Data]
+		                                               private static object Test(int number, string? text, Hidden hidden, ReadOnlySpan<char> span)
+		                                                   => number;
+
+		                                               public static void Main(string[] args)
+		                                               {
+		                                               }
+
+		                                               private sealed class Hidden;
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"])
+			.Contains("out int createdValue").And
+			.Contains("out string createdValue").And
+			.DoesNotContain("Hidden").And
+			.DoesNotContain("ReadOnlySpan");
+	}
+
+	[Test]
 	public async Task NullableObliviousParameter_ShouldAcceptNullAndFallBackToDefault()
 	{
 		GeneratorResult result = Generator.Run("""

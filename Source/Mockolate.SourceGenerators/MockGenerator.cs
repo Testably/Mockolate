@@ -54,7 +54,7 @@ public class MockGenerator : IIncrementalGenerator
 					using EntityCache.Scope scope = EntityCache.EnterScope(cache);
 					return ctx.Node.ExtractDataSourceCreation(ctx.SemanticModel, cancellationToken);
 				})
-			.Where(static creation => creation.Suts.Count > 0 || creation.MockedTypes.Count > 0);
+			.Where(static creation => !creation.IsEmpty);
 
 		IncrementalValueProvider<EquatableArray<string>> dataSourceAttributeNames = context.SyntaxProvider
 			.CreateSyntaxProvider(
@@ -82,7 +82,7 @@ public class MockGenerator : IIncrementalGenerator
 				using EntityCache.Scope scope = EntityCache.EnterScope(cache);
 				return MockGeneratorHelpers.ExtractDataSourceCreations(source.Left, source.Right, cancellationToken).ToArray();
 			})
-			.Where(static creation => creation.Suts.Count > 0 || creation.MockedTypes.Count > 0);
+			.Where(static creation => !creation.IsEmpty);
 
 		IncrementalValueProvider<EquatableArray<DataSourceCreation>> dataSourceCreations = invocationDataSourceCreations
 			.Collect()
@@ -151,6 +151,13 @@ public class MockGenerator : IIncrementalGenerator
 				.OrderBy(type => type, StringComparer.Ordinal)
 				.ToArray()));
 
+		IncrementalValueProvider<EquatableArray<string>> dataSourceValueTypes = dataSourceCreations
+			.Select(static (source, _) => new EquatableArray<string>(source.AsArray()
+				.SelectMany(creation => creation.ValueTypes)
+				.Distinct()
+				.OrderBy(type => type, StringComparer.Ordinal)
+				.ToArray()));
+
 		IncrementalValueProvider<bool> hasModuleInitializer = context.CompilationProvider
 			.Select(static (compilation, _) => HasAttribute(compilation,
 				"System.Runtime.CompilerServices.ModuleInitializerAttribute"));
@@ -162,15 +169,18 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<EquatableArray<string>> externAliases = context.CompilationProvider
 			.Select(static (compilation, _) => GetExternAliases(compilation));
 
-		context.RegisterSourceOutput(suts.Combine(dataSourceMockedTypes).Combine(hasModuleInitializer).Combine(externAliases),
+		context.RegisterSourceOutput(suts.Combine(dataSourceMockedTypes).Combine(dataSourceValueTypes)
+				.Combine(hasModuleInitializer).Combine(externAliases),
 			static (spc, source) =>
 			{
-				((EquatableArray<SutClass> sutClasses, EquatableArray<string> mockedTypes), bool moduleInitializer) = source.Left;
-				if (sutClasses.Count > 0 || mockedTypes.Count > 0)
+				(((EquatableArray<SutClass> sutClasses, EquatableArray<string> mockedTypes),
+					EquatableArray<string> valueTypes), bool moduleInitializer) = source.Left;
+				if (sutClasses.Count > 0 || mockedTypes.Count > 0 || valueTypes.Count > 0)
 				{
 					// Outside the Mock.<Name>.g.cs pattern of the mock files, so that no mocked type shares the hint name.
 					spc.AddSource("MockDataSources.g.cs",
-						ToSource(Sources.Sources.CreateWithMocks(sutClasses, mockedTypes, !moduleInitializer), source.Right));
+						ToSource(Sources.Sources.CreateWithMocks(sutClasses, mockedTypes, valueTypes, !moduleInitializer),
+							source.Right));
 				}
 			});
 

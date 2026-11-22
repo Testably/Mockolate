@@ -532,9 +532,15 @@ namespace Mockolate
 				return true;
 			}
 
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksDataWithValues))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksDataWithValues(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(string), "name") is { } v1 ? (string)v1 : global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out string d1) ? d1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'name' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksDataWithValues."), resolve(typeof(int), "count") is { } v2 ? (int)v2 : global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out int d2) ? d2 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'count' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksDataWithValues."), resolve(typeof(string), "description") is { } v3 ? (string)v3 : default, resolve(typeof(string), "fallback") is { } v4 ? (string)v4 : default!);
+				return true;
+			}
+
 			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency))
 			{
-				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency(resolve(typeof(global::System.Collections.Generic.IEnumerable<int>), "values") is { } v0 ? (global::System.Collections.Generic.IEnumerable<int>)v0 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency."), resolve(typeof(int), "count") is { } v1 ? (int)v1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'count' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency."));
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency(resolve(typeof(global::System.Collections.Generic.IEnumerable<int>), "values") is { } v0 ? (global::System.Collections.Generic.IEnumerable<int>)v0 : global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out global::System.Collections.Generic.IEnumerable<int> d0) ? d0 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency."), resolve(typeof(int), "count") is { } v1 ? (int)v1 : global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out int d1) ? d1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'count' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency."));
 				return true;
 			}
 
@@ -564,19 +570,19 @@ namespace Mockolate
 
 			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksParamsCollection))
 			{
-				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksParamsCollection(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::System.Collections.Immutable.ImmutableArray<int>), "values") is { } v1 ? (global::System.Collections.Immutable.ImmutableArray<int>)v1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksParamsCollection."));
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksParamsCollection(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::System.Collections.Immutable.ImmutableArray<int>), "values") is { } v1 ? (global::System.Collections.Immutable.ImmutableArray<int>)v1 : global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out global::System.Collections.Immutable.ImmutableArray<int> d1) ? d1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksParamsCollection."));
 				return true;
 			}
 
 			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord))
 			{
-				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "Dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(string), "Name") is { } v1 ? (string)v1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'Name' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord."));
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "Dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(string), "Name") is { } v1 ? (string)v1 : global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out string d1) ? d1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'Name' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord."));
 				return true;
 			}
 
 			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksService))
 			{
-				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksService(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksUnmockableDependency), "unmockable") is { } v1 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksUnmockableDependency)v1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'unmockable' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksService."), resolve(typeof(string), "name") is { } v2 ? (string)v2 : default, resolve(typeof(int), "retries") is { } v3 ? (int)v3 : (int)(3), resolve(typeof(decimal), "factor") is { } v4 ? (decimal)v4 : (decimal)(1.5m), resolve(typeof(string[]), "tags") is { } v5 ? (string[])v5 : []);
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksService(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksUnmockableDependency), "unmockable") is { } v1 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksUnmockableDependency)v1 : global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksUnmockableDependency d1) ? d1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'unmockable' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksService."), resolve(typeof(string), "name") is { } v2 ? (string)v2 : default, resolve(typeof(int), "retries") is { } v3 ? (int)v3 : (int)(3), resolve(typeof(decimal), "factor") is { } v4 ? (decimal)v4 : (decimal)(1.5m), resolve(typeof(string[]), "tags") is { } v5 ? (string[])v5 : []);
 				return true;
 			}
 
@@ -596,6 +602,27 @@ namespace Mockolate
 			{
 				value = global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
 				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRequiredMembers))
+			{
+				bool created = global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRequiredMembers createdValue);
+				value = createdValue;
+				return created;
+			}
+
+			if (type == typeof(int))
+			{
+				bool created = global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out int createdValue);
+				value = createdValue;
+				return created;
+			}
+
+			if (type == typeof(string))
+			{
+				bool created = global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out string createdValue);
+				value = createdValue;
+				return created;
 			}
 
 			value = null;

@@ -105,6 +105,15 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
+		public async Task Equals_WithDifferingValueTypes_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", valueTypes: ["int",]);
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
 		public async Task Equals_WithDifferingMocks_IsFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string",
@@ -116,7 +125,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		private static DataSourceCreation Create(string sutName, string parameterType, bool hasCreateWithMocks = true,
-			string containerName = "SutMocks", int start = 1, MockClass[]? mocks = null)
+			string containerName = "SutMocks", int start = 1, MockClass[]? mocks = null, string[]? valueTypes = null)
 			=> new(
 				new EquatableArray<SutClass>([
 					new SutClass(sutName, "A", containerName, new EquatableArray<SutParameter>([
@@ -124,6 +133,7 @@ public sealed class MockGeneratorEqualityTests
 					]), hasCreateWithMocks),
 				]),
 				new EquatableArray<string>(["global::A.IDependency",]),
+				new EquatableArray<string>(valueTypes ?? ["string",]),
 				new EquatableArray<MockClass>(mocks ?? []),
 				new CreateMockLocation("File.cs", start, 2));
 

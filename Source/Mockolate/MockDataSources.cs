@@ -28,15 +28,17 @@ public static class MockDataSources
 	/// <param name="value">The created value.</param>
 	/// <returns>
 	///     <see langword="true" /> when the generated code of the <paramref name="assembly" /> can create a value of
-	///     <paramref name="type" />.
+	///     <paramref name="type" />: a mock, a class with mocked dependencies, or for the other types of test method
+	///     parameters a value from the default values of the <paramref name="behavior" /> (see
+	///     <see cref="TryCreateValue{T}" />).
 	/// </returns>
 	/// <exception cref="ArgumentNullException">
 	///     The <paramref name="assembly" />, the <paramref name="type" /> or the <paramref name="resolve" /> is
 	///     <see langword="null" />.
 	/// </exception>
 	/// <exception cref="InvalidOperationException">
-	///     The <paramref name="resolve" /> supplies no argument for a constructor parameter that is neither mockable,
-	///     nullable nor optional.
+	///     Neither the <paramref name="resolve" /> nor the default values of the <paramref name="behavior" /> supply an
+	///     argument for a constructor parameter that is neither mockable, nullable nor optional.
 	/// </exception>
 	public static bool TryCreate(Assembly assembly, Type type, MockBehavior? behavior, DependencyResolver resolve,
 		out object? value)
@@ -68,5 +70,34 @@ public static class MockDataSources
 		}
 
 		return factory(type, behavior, resolve, out value);
+	}
+
+	/// <summary>
+	///     Creates a value of <typeparamref name="T" /> from the default values of the <paramref name="behavior" />, for a
+	///     value that Mockolate can neither mock nor construct, such as a <see cref="string" /> or an <see cref="int" />.
+	/// </summary>
+	/// <typeparam name="T">The type to create.</typeparam>
+	/// <param name="behavior">The behavior whose <see cref="MockBehavior.DefaultValue" /> creates the value.</param>
+	/// <param name="value">The created value.</param>
+	/// <returns>
+	///     <see langword="true" /> when the default values of the <paramref name="behavior" /> provide a value of
+	///     <typeparamref name="T" />, or when <typeparamref name="T" /> is a value type, whose default value is valid.
+	/// </returns>
+	/// <exception cref="ArgumentNullException">The <paramref name="behavior" /> is <see langword="null" />.</exception>
+	public static bool TryCreateValue<T>(MockBehavior behavior, out T value)
+	{
+		if (behavior is null)
+		{
+			throw new ArgumentNullException(nameof(behavior));
+		}
+
+		if (behavior.DefaultValue.GenerateValue(typeof(T)) is T generated)
+		{
+			value = generated;
+			return true;
+		}
+
+		value = default!;
+		return typeof(T).IsValueType;
 	}
 }

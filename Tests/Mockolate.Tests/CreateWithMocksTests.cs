@@ -185,6 +185,83 @@ public sealed partial class CreateWithMocksTests
 	}
 
 	[Test]
+	public async Task TryCreate_WithUnmockableParameters_ShouldUseTheDefaultValuesOfTheBehavior()
+	{
+		MockBehavior behavior = MockBehavior.Default.WithDefaultValueFor(() => "generated");
+
+		bool result = MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly,
+			typeof(CreateWithMocksDataWithValues), behavior, (_, _) => null, out object? value);
+
+		CreateWithMocksDataWithValues sut = (CreateWithMocksDataWithValues)value!;
+		await That(result).IsTrue();
+		await That(sut.Dependency).IsNotNull();
+		await That(sut.Name).IsEqualTo("generated")
+			.Because("a non-nullable parameter without a default value gets a value from the behavior");
+		await That(sut.Count).IsEqualTo(0);
+		await That(sut.Description).IsNull().Because("a nullable parameter accepts null");
+		await That(sut.Fallback).IsNull().Because("an explicit default value wins over the behavior");
+	}
+
+	[Test]
+	public async Task TryCreateValue_ShouldUseTheDefaultValuesOfTheBehavior()
+	{
+		MockBehavior behavior = MockBehavior.Default.WithDefaultValueFor(() => 42);
+
+		bool intResult = MockDataSources.TryCreateValue(behavior, out int intValue);
+		bool stringResult = MockDataSources.TryCreateValue(MockBehavior.Default, out string stringValue);
+
+		await That(intResult).IsTrue();
+		await That(intValue).IsEqualTo(42);
+		await That(stringResult).IsTrue();
+		await That(stringValue).IsEqualTo("");
+	}
+
+	[Test]
+	public async Task TryCreateValue_WithoutValueOfTheType_ShouldReturnFalseForReferenceTypes()
+	{
+		MockBehavior behavior = MockBehavior.Default.WithDefaultValueGenerator(new WrongTypeGenerator());
+
+		bool interfaceResult = MockDataSources.TryCreateValue(MockBehavior.Default,
+			out ICreateWithMocksDependency interfaceValue);
+		bool wrongTypeResult = MockDataSources.TryCreateValue(behavior, out Uri wrongTypeValue);
+		bool valueTypeResult = MockDataSources.TryCreateValue(behavior, out int valueTypeValue);
+
+		await That(interfaceResult).IsFalse();
+		await That(interfaceValue).IsNull();
+		await That(wrongTypeResult).IsFalse();
+		await That(wrongTypeValue).IsNull();
+		await That(valueTypeResult).IsTrue().Because("the default of a value type is a valid value");
+		await That(valueTypeValue).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task TryCreateValue_WithoutBehavior_ShouldThrowArgumentNullException()
+	{
+		void Act()
+			=> MockDataSources.TryCreateValue(null!, out int _);
+
+		await That(Act).Throws<ArgumentNullException>().WithParamName("behavior");
+	}
+
+	[Test]
+	public async Task TryCreate_WithOtherTypeOfATestMethodParameter_ShouldUseTheDefaultValuesOfTheBehavior()
+	{
+		bool defaultResult = MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly, typeof(string), null,
+			(_, _) => null, out object? defaultValue);
+		bool behaviorResult = MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly, typeof(string),
+			MockBehavior.Default.WithDefaultValueFor(() => "generated"), (_, _) => null, out object? behaviorValue);
+		bool intResult = MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly, typeof(int), null,
+			(_, _) => null, out object? intValue);
+
+		await That(defaultResult).IsTrue();
+		await That(defaultValue).IsEqualTo("").Because("without a behavior, the default behavior of the assembly applies");
+		await That(behaviorResult).IsTrue();
+		await That(behaviorValue).IsEqualTo("generated");
+		await That(intResult).IsTrue();
+		await That(intValue).IsEqualTo(0);
+	}
+
+	[Test]
 	public async Task TryCreate_WithoutArgumentForRequiredParameter_ShouldThrow()
 	{
 		void Act()
@@ -231,6 +308,12 @@ public sealed partial class CreateWithMocksTests
 
 		await That(result).IsFalse();
 		await That(value).IsNull();
+	}
+
+	private sealed class WrongTypeGenerator : IDefaultValueGenerator
+	{
+		public object? GenerateValue(Type type, params object?[] parameters)
+			=> "not of the requested type";
 	}
 
 	private sealed class UnmockableDependency : ICreateWithMocksUnmockableDependency

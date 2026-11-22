@@ -160,6 +160,10 @@ internal static partial class MockGeneratorHelpers
 				.Select(type => ToFullName(Normalize(type, compilation)))
 				.Distinct()
 				.ToArray()),
+			new EquatableArray<string>(targets.ValueTypes
+				.Select(type => ToFullName(Normalize(type, compilation)))
+				.Distinct()
+				.ToArray()),
 			new EquatableArray<MockClass>(targets.TypesToMock
 				.SelectMany(type => CreateDependencyMockClasses(type, compilation))
 				.ToArray()),
@@ -208,6 +212,7 @@ internal static partial class MockGeneratorHelpers
 		Compilation compilation = semanticModel.Compilation;
 		List<INamedTypeSymbol> suts = [];
 		List<ITypeSymbol> mockedTypes = [];
+		List<ITypeSymbol> valueTypes = [];
 		bool hasCreateWithMocks = false;
 		if (node is InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccess, } invocation)
 		{
@@ -234,9 +239,14 @@ internal static partial class MockGeneratorHelpers
 					mockedTypes.Add(parameterType);
 				}
 				else if (parameterType is INamedTypeSymbol namedType && IsConstructibleSut(namedType, compilation) &&
-				         !IsFrameworkNamespace(namedType.ContainingNamespace))
+				         !IsFrameworkNamespace(namedType.ContainingNamespace) &&
+				         GetSutConstructor(namedType, compilation) is not null)
 				{
 					suts.Add(namedType);
+				}
+				else if (CanBeTypeArgument(parameterType, compilation))
+				{
+					valueTypes.Add(parameterType);
 				}
 			}
 		}
@@ -297,9 +307,22 @@ internal static partial class MockGeneratorHelpers
 				hasCreateWithMocks));
 		}
 
-		return new DataSourceTargets(sutClasses, mockedTypes,
+		return new DataSourceTargets(sutClasses, mockedTypes, valueTypes,
 			typesToMock.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default).ToList());
 	}
+
+	/// <summary>
+	///     Whether the generated factory can name the <paramref name="type" /> as a type argument, to create a value of it
+	///     from the default values of the behavior.
+	/// </summary>
+	private static bool CanBeTypeArgument(ITypeSymbol type, Compilation compilation)
+		=> type is not (IPointerTypeSymbol or IFunctionPointerTypeSymbol or IDynamicTypeSymbol or IErrorTypeSymbol) &&
+		   !type.IsRefLikeType &&
+		   type.SpecialType != SpecialType.System_Void &&
+		   !ContainsTypeParameter(type) &&
+		   !UsesTypeNestedInGenericType(type) &&
+		   !UsesUnusableType(type) &&
+		   Helpers.IsAccessibleFrom(type, compilation.Assembly);
 
 	/// <summary>
 	///     The type that the receiver <paramref name="expression" /> names, also when a member of the same name and type
@@ -536,5 +559,6 @@ internal static partial class MockGeneratorHelpers
 	private sealed record DataSourceTargets(
 		List<SutClass> Suts,
 		List<ITypeSymbol> MockedTypes,
+		List<ITypeSymbol> ValueTypes,
 		List<ITypeSymbol> TypesToMock);
 }

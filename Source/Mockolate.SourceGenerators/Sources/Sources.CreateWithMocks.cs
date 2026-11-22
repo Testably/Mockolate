@@ -8,10 +8,10 @@ internal static partial class Sources
 	/// <summary>
 	///     Creates the <c>CreateWithMocks</c> extension and the container of the constructor arguments for every class
 	///     in <paramref name="suts" />, and the <c>MockDataSourceFactory</c> that a module initializer registers for the
-	///     <paramref name="suts" /> and the <paramref name="mockedTypes" />.
+	///     <paramref name="suts" />, the <paramref name="mockedTypes" /> and the <paramref name="valueTypes" />.
 	/// </summary>
 	public static string CreateWithMocks(EquatableArray<SutClass> suts, EquatableArray<string> mockedTypes,
-		bool emitModuleInitializerPolyfill)
+		EquatableArray<string> valueTypes, bool emitModuleInitializerPolyfill)
 	{
 		StringBuilder sb = InitializeBuilder();
 		sb.Append("#nullable enable").AppendLine();
@@ -64,7 +64,7 @@ internal static partial class Sources
 			sb.AppendLine();
 		}
 
-		AppendFactory(sb, suts, mockedTypes);
+		AppendFactory(sb, suts, mockedTypes, valueTypes);
 		sb.Append('}').AppendLine();
 		return sb.ToString();
 	}
@@ -230,7 +230,7 @@ internal static partial class Sources
 	///     <c>Mock</c>.
 	/// </summary>
 	private static void AppendFactory(StringBuilder sb, EquatableArray<SutClass> suts,
-		EquatableArray<string> mockedTypes)
+		EquatableArray<string> mockedTypes, EquatableArray<string> valueTypes)
 	{
 		sb.Append("\tfile static class MockDataSourceRegistration").AppendLine();
 		sb.Append("\t{").AppendLine();
@@ -266,6 +266,18 @@ internal static partial class Sources
 			sb.AppendLine();
 		}
 
+		foreach (string valueType in valueTypes)
+		{
+			sb.Append("\t\t\tif (type == typeof(").Append(valueType).Append("))").AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\tbool created = global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out ")
+				.Append(valueType).Append(" createdValue);").AppendLine();
+			sb.Append("\t\t\t\tvalue = createdValue;").AppendLine();
+			sb.Append("\t\t\t\treturn created;").AppendLine();
+			sb.Append("\t\t\t}").AppendLine();
+			sb.AppendLine();
+		}
+
 		sb.Append("\t\t\tvalue = null;").AppendLine();
 		sb.Append("\t\t\treturn false;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
@@ -281,7 +293,7 @@ internal static partial class Sources
 				{ DefaultValue: "null", } => "default",
 				{ DefaultValue: { } defaultValue, } => $"({parameter.TypeOfName})({defaultValue})",
 				{ IsNullable: true, } => "default",
-				_ => $"throw new global::System.InvalidOperationException(\"There is no argument for the constructor parameter '{parameter.Name}' of {sut.ClassFullName.Replace("global::", "")}.\")",
+				_ => $"global::Mockolate.MockDataSources.TryCreateValue(behavior ?? global::Mockolate.MockBehavior.Default, out {parameter.TypeOfName} d{index}) ? d{index} : throw new global::System.InvalidOperationException(\"There is no argument for the constructor parameter '{parameter.Name}' of {sut.ClassFullName.Replace("global::", "")}.\")",
 			};
 			return $"resolve(typeof({parameter.TypeOfName}), \"{parameter.Name}\") is {{ }} v{index} ? ({parameter.TypeOfName})v{index} : {fallback}";
 		}
