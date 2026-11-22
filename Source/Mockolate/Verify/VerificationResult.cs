@@ -300,13 +300,17 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 				return true;
 			}
 
-			return await WaitUntilAsync(() =>
+			return await WaitUntilMatchesAsync(predicate, cancellationToken).ConfigureAwait(false);
+		}
+
+		// Kept out of VerifyAsync, so that its closure is only allocated when the first check fails.
+		private Task<bool> WaitUntilMatchesAsync(Func<IInteraction[], bool> predicate, CancellationToken cancellationToken)
+			=> WaitUntilAsync(() =>
 			{
 				IInteraction[] matching = CollectMatching();
 				_interactions.Verified(matching);
 				return predicate(matching);
-			}, cancellationToken).ConfigureAwait(false);
-		}
+			}, cancellationToken);
 
 		private async Task<bool> WaitUntilAsync(Func<bool> check, CancellationToken cancellationToken)
 		{
