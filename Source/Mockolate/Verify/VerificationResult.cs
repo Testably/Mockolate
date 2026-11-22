@@ -133,9 +133,8 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 	internal VerificationResult<T> Map<T>(T mock)
 	{
-		VerificationResult<T> mapped = _records is null && _fastCountSource is null
-			? new VerificationResult<T>(mock, _interactions, _predicate!, _expectation)
-			: new VerificationResult<T>(mock, _interactions, _records, _fastCountSource, _predicate, _expectation);
+		VerificationResult<T> mapped =
+			new(mock, _interactions, _records, _fastCountSource, _predicate, _expectation);
 		if (_useCountAll)
 		{
 			mapped.EnableCountAll();
@@ -245,13 +244,9 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		///     expected interactions to occur.
 		/// </summary>
 		public Awaitable(VerificationResult<TVerify> inner, TimeSpan timeout)
-			: base(inner._verify, inner._interactions, inner._records, inner._fastCountSource, inner._predicate, inner._expectation)
+			: this(inner)
 		{
 			_timeout = timeout;
-			if (inner._useCountAll)
-			{
-				EnableCountAll();
-			}
 		}
 
 		/// <summary>
@@ -260,9 +255,14 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		///     expected interactions to occur.
 		/// </summary>
 		public Awaitable(VerificationResult<TVerify> inner, CancellationToken cancellationToken)
-			: base(inner._verify, inner._interactions, inner._records, inner._fastCountSource, inner._predicate, inner._expectation)
+			: this(inner)
 		{
 			_cancellationToken = cancellationToken;
+		}
+
+		private Awaitable(VerificationResult<TVerify> inner)
+			: base(inner._verify, inner._interactions, inner._records, inner._fastCountSource, inner._predicate, inner._expectation)
+		{
 			if (inner._useCountAll)
 			{
 				EnableCountAll();
@@ -300,6 +300,20 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 				return true;
 			}
 
+			return await WaitUntilMatchesAsync(predicate, cancellationToken).ConfigureAwait(false);
+		}
+
+		// Kept out of VerifyAsync, so that its closure is only allocated when the first check fails.
+		private Task<bool> WaitUntilMatchesAsync(Func<IInteraction[], bool> predicate, CancellationToken cancellationToken)
+			=> WaitUntilAsync(() =>
+			{
+				IInteraction[] matching = CollectMatching();
+				_interactions.Verified(matching);
+				return predicate(matching);
+			}, cancellationToken);
+
+		private async Task<bool> WaitUntilAsync(Func<bool> check, CancellationToken cancellationToken)
+		{
 			try
 			{
 				CancellationToken token = CreateWaitToken(cancellationToken, out CancellationTokenSource? cts);
@@ -308,17 +322,12 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 				try
 				{
 					_interactions.InteractionAdded += OnInteractionAdded;
-					do
+					while (!check())
 					{
-						matchingInteractions = CollectMatching();
-						_interactions.Verified(matchingInteractions);
-						if (predicate(matchingInteractions))
-						{
-							return true;
-						}
-
 						await semaphore.WaitAsync(token).ConfigureAwait(false);
-					} while (true);
+					}
+
+					return true;
 				}
 				finally
 				{
@@ -390,7 +399,10 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 					return true;
 				}
 
-				return VerifyCountAsync(countPredicate).ConfigureAwait(false).GetAwaiter().GetResult();
+				return WaitUntilAsync(() => countPredicate(_useCountAll
+						? ((IFastMethodCountSource)_fastCountSource!).CountAll()
+						: _fastCountSource!.Count()), CancellationToken.None)
+					.ConfigureAwait(false).GetAwaiter().GetResult();
 			}
 
 			IInteraction[] matchingInteractions = CollectMatching();
@@ -414,59 +426,6 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			});
 			found = last;
 			return result;
-		}
-
-		private async Task<bool> VerifyCountAsync(Func<int, bool> countPredicate)
-		{
-			try
-			{
-				CancellationToken token = CreateWaitToken(CancellationToken.None, out CancellationTokenSource? cts);
-
-				SemaphoreSlim semaphore = new(0);
-				try
-				{
-					_interactions.InteractionAdded += OnInteractionAdded;
-					do
-					{
-						int count = _useCountAll
-							? ((IFastMethodCountSource)_fastCountSource!).CountAll()
-							: _fastCountSource!.Count();
-						if (countPredicate(count))
-						{
-							return true;
-						}
-
-						await semaphore.WaitAsync(token).ConfigureAwait(false);
-					} while (true);
-				}
-				finally
-				{
-					_interactions.InteractionAdded -= OnInteractionAdded;
-					cts?.Cancel();
-					cts?.Dispose();
-					semaphore.Dispose();
-				}
-
-				void OnInteractionAdded(object? sender, EventArgs eventArgs)
-				{
-					try
-					{
-						semaphore.Release();
-					}
-					catch (ObjectDisposedException)
-					{
-					}
-				}
-			}
-			catch (OperationCanceledException ex)
-			{
-				if (_cancellationToken?.IsCancellationRequested == true)
-				{
-					throw new MockVerificationTimeoutException(null, ex);
-				}
-
-				throw new MockVerificationTimeoutException(_timeout, ex);
-			}
 		}
 
 		/// <inheritdoc cref="VerificationResult{TVerify}.Within(TimeSpan)" />

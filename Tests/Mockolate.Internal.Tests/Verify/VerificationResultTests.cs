@@ -272,12 +272,8 @@ public class VerificationResultTests
 	public sealed class MapTests
 	{
 		[Test]
-		public async Task Map_WhenRecordsAndFastSourceBothNull_DropsToSimpleConstructor()
+		public async Task Map_WhenRecordsAndFastSourceBothNull_ShouldKeepBothNull()
 		{
-			// Mirrors the buffer-only case from the other side: with neither buffer nor source, the
-			// only valid Map output is the simple constructor. Asserts via reflection that _buffer
-			// stays null after Map so the equality-mutation that would force the buffer-carrying
-			// constructor (and crash on the null buffer) is killed.
 			FastMockInteractions store = new(0);
 			VerificationResult<object> source = new(
 				new object(), store, _ => true,
