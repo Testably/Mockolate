@@ -271,7 +271,8 @@ internal static partial class Sources
 			{
 				{ IsMockable: true, } => $"{parameter.TypeFullName}.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default)",
 				{ IsParams: true, } => "[]",
-				{ DefaultValue: { } defaultValue, } => defaultValue,
+				{ DefaultValue: "null", } => "default",
+				{ DefaultValue: { } defaultValue, } => $"({parameter.TypeOfName})({defaultValue})",
 				{ IsNullable: true, } => "default",
 				_ => $"throw new global::System.InvalidOperationException(\"There is no argument for the constructor parameter '{parameter.Name}' of {sut.ClassFullName.Replace("global::", "")}.\")",
 			};

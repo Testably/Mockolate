@@ -80,6 +80,16 @@ public sealed class AutoMockDataTests
 	}
 
 	[Test]
+	public async Task TryCreate_WithAssemblyWithoutGeneratedCode_ShouldReturnFalse()
+	{
+		bool result = MockDataSources.TryCreate(typeof(string).Assembly, typeof(Order), null,
+			(_, _) => null, out object? value);
+
+		await That(result).IsFalse();
+		await That(value).IsNull();
+	}
+
+	[Test]
 	public async Task TryCreate_WithUnknownType_ShouldReturnFalse()
 	{
 		bool result = MockDataSources.TryCreate(typeof(AutoMockDataTests).Assembly, typeof(Order), null,

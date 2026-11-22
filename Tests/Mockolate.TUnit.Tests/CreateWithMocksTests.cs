@@ -42,12 +42,17 @@ public sealed class CreateWithMocksTests
 	[Test]
 	public async Task CreateWithMocks_WithMockBehavior_ShouldApplyItToEveryMock()
 	{
-		OrderService sut = OrderService.CreateWithMocks(out _, MockBehavior.Default.ThrowingWhenNotSetup());
+		OrderService sut = OrderService.CreateWithMocks(out OrderServiceMocks mocks,
+			MockBehavior.Default.ThrowingWhenNotSetup());
 
-		void Act()
+		void ActOnRepository()
 			=> sut.Ship(1);
 
-		await That(Act).Throws<MockNotSetupException>();
+		void ActOnShippingClient()
+			=> mocks.ShippingClient.Ship(new Order(1, 1m));
+
+		await That(ActOnRepository).Throws<MockNotSetupException>();
+		await That(ActOnShippingClient).Throws<MockNotSetupException>();
 	}
 
 	[Test]
@@ -95,7 +100,7 @@ public sealed class CreateWithMocksTests
 	[Test]
 	public async Task CreateWithMocks_WithNestedClass_ShouldJoinTheContainingTypeNames()
 	{
-		Outer.NestedService sut = Outer.NestedService.CreateWithMocks(out Outer_NestedServiceMocks mocks);
+		Outer.NestedService sut = Outer.NestedService.CreateWithMocks(out Outer_0NestedServiceMocks mocks);
 
 		await That(mocks.Repository).IsSameAs(sut.Repository);
 	}

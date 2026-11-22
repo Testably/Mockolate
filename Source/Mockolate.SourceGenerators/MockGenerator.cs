@@ -134,7 +134,8 @@ public class MockGenerator : IIncrementalGenerator
 				((EquatableArray<SutClass> sutClasses, EquatableArray<string> mockedTypes), bool moduleInitializer) = source.Left;
 				if (sutClasses.Count > 0 || mockedTypes.Count > 0)
 				{
-					spc.AddSource("Mock.CreateWithMocks.g.cs",
+					// Outside the Mock.<Name>.g.cs pattern of the mock files, so that no mocked type shares the hint name.
+					spc.AddSource("MockDataSources.g.cs",
 						ToSource(Sources.Sources.CreateWithMocks(sutClasses, mockedTypes, !moduleInitializer), source.Right));
 				}
 			});
@@ -433,8 +434,8 @@ public class MockGenerator : IIncrementalGenerator
 			: []);
 
 	/// <summary>
-	///     Binds the <c>CreateMock</c> calls of the <paramref name="creations" /> again and discovers the mocks for
-	///     auto-mocking of the types they mock.
+	///     Binds the <c>CreateMock</c> calls, <c>CreateWithMocks</c> calls and <c>IMockDataSource</c> methods of the
+	///     <paramref name="creations" /> again and discovers the mocks for auto-mocking of the types they mock.
 	/// </summary>
 	/// <remarks>
 	///     Calls that mock the same types add the same types to the walk, so only the first of them is bound again.
@@ -711,7 +712,8 @@ public class MockGenerator : IIncrementalGenerator
 			return new EquatableArray<NamedMock>([]);
 		}
 
-		HashSet<string> classNames = new(StringComparer.OrdinalIgnoreCase);
+		// Reserved for the extension method that MockDataSources.g.cs declares in the same class.
+		HashSet<string> classNames = new(StringComparer.OrdinalIgnoreCase) { "CreateWithMocks", };
 		if (autoMocking)
 		{
 			// Reserved for the auto-mock factory that MockBehaviorExtensions.g.cs declares in the same class.

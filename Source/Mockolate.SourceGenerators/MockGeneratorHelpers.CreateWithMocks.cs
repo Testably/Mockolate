@@ -1,6 +1,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mockolate.SourceGenerators.Entities;
+using Mockolate.SourceGenerators.Internals;
 
 namespace Mockolate.SourceGenerators;
 
@@ -32,12 +33,39 @@ internal static partial class MockGeneratorHelpers
 		DataSourceTargets targets = GetDataSourceTargets(node, semanticModel, cancellationToken);
 		return new DataSourceCreation(
 			new EquatableArray<SutClass>(targets.Suts.ToArray()),
-			new EquatableArray<string>(targets.MockedTypes.Select(ToFullName).Distinct().ToArray()),
+			new EquatableArray<string>(targets.MockedTypes
+				.Select(type => ToFullName(Normalize(type, compilation)))
+				.Distinct()
+				.ToArray()),
 			new EquatableArray<MockClass>(targets.TypesToMock
-				.SelectMany(type => CreateMockClasses(compilation, [type,]))
+				.SelectMany(type => CreateDependencyMockClasses(type, compilation))
 				.ToArray()),
 			new CreateMockLocation(node.SyntaxTree.FilePath, node.Span.Start, node.Span.Length));
 	}
+
+	/// <summary>
+	///     Creates the mock of a dependency like a mock discovered for auto-mocking: in one spelling without nullable
+	///     annotations and with a nullable-oblivious receiver, so that every spelling of the type uses it without a
+	///     warning.
+	/// </summary>
+	private static IEnumerable<MockClass> CreateDependencyMockClasses(ITypeSymbol type, Compilation compilation)
+	{
+		if (Normalize(type, compilation) is not INamedTypeSymbol normalized)
+		{
+			yield break;
+		}
+
+		yield return GetOrCreateDiscoveredMockClass(normalized, compilation);
+		if (GetLoggerOfLoggerFactory(normalized) is INamedTypeSymbol loggerType)
+		{
+			yield return GetOrCreateDiscoveredMockClass(loggerType, compilation);
+		}
+	}
+
+	private static MockClass GetOrCreateDiscoveredMockClass(INamedTypeSymbol type, Compilation compilation)
+		=> EntityCache.Current is { } cache
+			? cache.GetOrAddDiscoveredMock(type, discovered => CreateDiscoveredMockClass(discovered, compilation))
+			: CreateDiscoveredMockClass(type, compilation);
 
 	/// <summary>
 	///     The types that the <c>CreateWithMocks</c> call or the <c>IMockDataSource</c> method <paramref name="node" />
@@ -63,7 +91,8 @@ internal static partial class MockGeneratorHelpers
 			SymbolInfo symbolInfo = semanticModel.GetSymbolInfo(invocation, cancellationToken);
 			if (symbolInfo.Symbol is null && symbolInfo.CandidateSymbols.IsEmpty &&
 			    semanticModel.GetSymbolInfo(memberAccess.Expression, cancellationToken).Symbol is INamedTypeSymbol type &&
-			    IsConstructibleSut(type, compilation))
+			    IsConstructibleSut(type, compilation) &&
+			    !IsFrameworkNamespace(type.ContainingNamespace))
 			{
 				suts.Add(type);
 				hasCreateWithMocks = true;
@@ -100,7 +129,16 @@ internal static partial class MockGeneratorHelpers
 			List<SutParameter> parameters = [];
 			foreach (IParameterSymbol parameter in constructor.Parameters)
 			{
+				string? defaultValue = parameter.HasExplicitDefaultValue
+					? MethodParameter.From(parameter).ExplicitDefaultValue
+					: null;
 				ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation);
+				if (defaultValue == "null" && parameterType.IsReferenceType)
+				{
+					// A nullable-oblivious parameter with a null default would warn (CS8625) in the generated signature.
+					parameterType = parameterType.WithNullableAnnotation(NullableAnnotation.Annotated);
+				}
+
 				ITypeSymbol notAnnotatedType = parameterType.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
 				bool isParamsArray = parameter.IsParams && parameterType is IArrayTypeSymbol;
 				bool isMockable = !parameter.IsParams && IsDependencyMockable(notAnnotatedType, compilation);
@@ -116,7 +154,7 @@ internal static partial class MockGeneratorHelpers
 					isMockable,
 					parameterType.NullableAnnotation == NullableAnnotation.Annotated ||
 					parameterType.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T,
-					parameter.HasExplicitDefaultValue ? MethodParameter.From(parameter).ExplicitDefaultValue : null,
+					defaultValue,
 					isParamsArray));
 			}
 
@@ -239,9 +277,10 @@ internal static partial class MockGeneratorHelpers
 	///     The name of the container of the constructor arguments, declared next to the class under test.
 	/// </summary>
 	/// <remarks>
-	///     A nested class joins the names of its containing types with <c>_</c>, after doubling every <c>_</c> in them, so
-	///     that two classes never share a name. A suffix avoids a type or namespace that the user declared, so the name
-	///     never depends on the other classes under test.
+	///     A nested class joins the names of its containing types with <c>_0</c>, after doubling every <c>_</c> in them;
+	///     read in pairs from the left, <c>__</c> and <c>_0</c> cannot be confused, so two classes never share a name. A
+	///     suffix avoids a type or namespace that the user declared, so the name never depends on the other classes under
+	///     test.
 	/// </remarks>
 	private static string GetContainerName(INamedTypeSymbol sut, Compilation compilation)
 	{
@@ -251,7 +290,7 @@ internal static partial class MockGeneratorHelpers
 			names.Insert(0, current.Name.Replace("_", "__"));
 		}
 
-		string baseName = string.Join("_", names) + "Mocks";
+		string baseName = string.Join("_0", names) + "Mocks";
 		INamespaceSymbol? @namespace = compilation.GetCompilationNamespace(sut.ContainingNamespace);
 		string name = baseName;
 		for (int index = 1; @namespace?.GetMembers(name).Any() == true; index++)
