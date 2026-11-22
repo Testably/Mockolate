@@ -109,8 +109,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ConcreteLogger.MemberId_IsEnabled,
 				"Log" => global::Mockolate.Mock.ConcreteLogger.MemberId_Log_TState_,
 				_ => -1,
 			};
@@ -481,8 +479,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ConcreteLogger.MemberId_IsEnabled,
 				"Log" => global::Mockolate.Mock.ConcreteLogger.MemberId_Log_TState_,
 				_ => -1,
 			};
@@ -589,8 +585,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ConcreteLogger.MemberId_IsEnabled,
 				"Log" => global::Mockolate.Mock.ConcreteLogger.MemberId_Log_TState_,
 				_ => -1,
 			};
@@ -1429,8 +1423,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_,
-				"IsEnabled" => global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled,
 				"Log" => global::Mockolate.Mock.LeafLogger.MemberId_Log_TState_,
 				_ => -1,
 			};
@@ -1801,8 +1793,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_,
-				"IsEnabled" => global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled,
 				"Log" => global::Mockolate.Mock.LeafLogger.MemberId_Log_TState_,
 				_ => -1,
 			};
@@ -1909,8 +1899,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"BeginScope" => global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_,
-				"IsEnabled" => global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled,
 				"Log" => global::Mockolate.Mock.LeafLogger.MemberId_Log_TState_,
 				_ => -1,
 			};

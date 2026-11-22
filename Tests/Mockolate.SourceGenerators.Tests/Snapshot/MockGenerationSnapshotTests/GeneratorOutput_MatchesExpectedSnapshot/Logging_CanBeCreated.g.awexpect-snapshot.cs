@@ -103,8 +103,6 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger.MemberId_Log_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ILogger.MemberId_IsEnabled,
-				"BeginScope" => global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_,
 				_ => -1,
 			};
 
@@ -463,8 +461,6 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger.MemberId_Log_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ILogger.MemberId_IsEnabled,
-				"BeginScope" => global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_,
 				_ => -1,
 			};
 
@@ -571,8 +567,6 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger.MemberId_Log_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ILogger.MemberId_IsEnabled,
-				"BeginScope" => global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_,
 				_ => -1,
 			};
 
@@ -1270,7 +1264,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"CreateLogger" => global::Mockolate.Mock.ILoggerFactory.MemberId_CreateLogger,
 				_ => -1,
 			};
 
@@ -1593,7 +1586,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"CreateLogger" => global::Mockolate.Mock.ILoggerFactory.MemberId_CreateLogger,
 				_ => -1,
 			};
 
@@ -1653,7 +1645,6 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
-				"CreateLogger" => global::Mockolate.Mock.ILoggerFactory.MemberId_CreateLogger,
 				_ => -1,
 			};
 
@@ -2270,8 +2261,6 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled,
-				"BeginScope" => global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_,
 				_ => -1,
 			};
 
@@ -2630,8 +2619,6 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled,
-				"BeginScope" => global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_,
 				_ => -1,
 			};
 
@@ -2738,8 +2725,6 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_,
-				"IsEnabled" => global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled,
-				"BeginScope" => global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_,
 				_ => -1,
 			};
 

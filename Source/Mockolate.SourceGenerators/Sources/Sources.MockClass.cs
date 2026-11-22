@@ -2872,9 +2872,8 @@ internal static partial class Sources
 		AppendTriggerCallbacks(sb, "\t\t\t\t", methodSetup, method.Parameters);
 		sb.Append("\t\t\t}").AppendLine();
 
-		MockAdapterMember? answeringMember = adapterMember is { Member.Kind: MockAdapterMemberKind.AnsweredWithoutSetup, }
-			? adapterMember.Value.Member
-			: null;
+		(MockAdapterBinding Binding, MockAdapterMember Member)? answeringMember =
+			adapterMember is { Member.Kind: MockAdapterMemberKind.AnsweredWithoutSetup, } ? adapterMember : null;
 		if (answeringMember is null)
 		{
 			string displayMethodName =
@@ -2935,10 +2934,9 @@ internal static partial class Sources
 			}
 
 			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ");
-			if (answeringMember?.Hook is not null)
+			if (answeringMember is { Member.Hook: { } hook, } answering)
 			{
-				sb.Append(adapterMember!.Value.Binding.Adapter.HookClass).Append('.').Append(answeringMember.Hook)
-					.Append('(').Append(mockRegistry);
+				sb.Append(answering.Binding.Adapter.HookClass).Append('.').Append(hook).Append('(').Append(mockRegistry);
 				foreach (MethodParameter parameter in method.Parameters)
 				{
 					sb.Append(", ").Append(parameter.Name);

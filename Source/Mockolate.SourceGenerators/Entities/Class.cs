@@ -27,6 +27,7 @@ internal class Class : IEquatable<Class>
 		ITypeSymbol? mockedType = null)
 #pragma warning restore S107
 	{
+		bool isMockedType = mockedType is null;
 		mockedType ??= type;
 		ClassFullName = type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 		ClassName = GetTypeName(type);
@@ -56,7 +57,6 @@ internal class Class : IEquatable<Class>
 
 		IsInterface = type.TypeKind == TypeKind.Interface;
 		HasRequiredMembers = ComputeHasRequiredMembers(type);
-		Adapters = new EquatableArray<MockAdapterBinding>(GetAdapterBindings(type, sourceAssembly).ToArray());
 
 		ImmutableArray<ISymbol> members = type.GetMembers();
 
@@ -194,6 +194,11 @@ internal class Class : IEquatable<Class>
 
 		HasInaccessibleRequiredMember = ComputeHasInaccessibleRequiredMember(filledProperties) ||
 		                                InheritedTypes.Any(inherited => inherited.HasInaccessibleRequiredMember);
+
+		// The emitters only read the adapters of the mocked type, not of the types it inherits from.
+		Adapters = new EquatableArray<MockAdapterBinding>(isMockedType
+			? GetAdapterBindings(type, sourceAssembly).ToArray()
+			: []);
 
 		_surfaceHash = ComputeSurfaceHash();
 
@@ -815,55 +820,56 @@ internal class Class : IEquatable<Class>
 	}
 
 	/// <remarks>
-	///     A class is only adapted when it can be mocked to call the hooks of all intercepted members. The members of a
-	///     class are decided on the mocked <paramref name="type" />, because a base class can declare the method that only
-	///     the mocked type uses to implement the adapted interface.
+	///     A class is only adapted when the mock overrides all intercepted members, so that they call the hooks.
 	/// </remarks>
-	private static IEnumerable<MockAdapterBinding> GetAdapterBindings(ITypeSymbol type, IAssemblySymbol sourceAssembly)
+	private IEnumerable<MockAdapterBinding> GetAdapterBindings(ITypeSymbol type, IAssemblySymbol sourceAssembly)
 	{
-		if (type.TypeKind is not (TypeKind.Interface or TypeKind.Class))
-		{
-			yield break;
-		}
-
-		INamedTypeSymbol[] types = new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>().ToArray();
 		foreach (MockAdapter adapter in MockAdapter.All)
 		{
-			INamedTypeSymbol? target = types.FirstOrDefault(adapter.IsTarget);
-			if (target is null || (adapter.InterfacesOnly && type.TypeKind != TypeKind.Interface))
+			if (adapter.FindTarget(type) is not { } target)
 			{
 				continue;
 			}
 
-			List<MockAdapterClassMember> classMembers = [];
-			if (type is INamedTypeSymbol { TypeKind: TypeKind.Class, } namedType)
+			MockAdapterClassMember[] classMembers = type is INamedTypeSymbol { TypeKind: TypeKind.Class, } namedType
+				? GetAdapterClassMembers(adapter, target, namedType, sourceAssembly)
+				: [];
+			if (type.TypeKind == TypeKind.Class && adapter.Members.Any(member =>
+				    member.Kind == MockAdapterMemberKind.Intercepted &&
+				    classMembers.All(classMember => classMember.Member != member.Name)))
 			{
-				foreach (MockAdapterMember member in adapter.Members)
-				{
-					if (target.GetMembers(member.Name).OfType<IMethodSymbol>().FirstOrDefault() is { } interfaceMember &&
-					    namedType.FindImplementationForInterfaceMember(interfaceMember) is IMethodSymbol implementation &&
-					    GetMostDerivedOverride(namedType, implementation) is { MethodKind: MethodKind.Ordinary, IsSealed: false, } mostDerived &&
-					    GetDeclaration(mostDerived) is { } declaration)
-					{
-						classMembers.Add(new MockAdapterClassMember(member.Name, new Method(declaration, null, sourceAssembly)));
-					}
-				}
-
-				if (adapter.Members.Any(member => member.Kind == MockAdapterMemberKind.Intercepted &&
-				                                  classMembers.All(classMember => classMember.Member != member.Name)))
-				{
-					continue;
-				}
+				continue;
 			}
 
-			string? context = adapter.ContextExpression is not null &&
-			                  types.FirstOrDefault(adapter.IsContextTarget) is { } contextTarget
-				? adapter.ContextExpression.Replace("{0}",
-					contextTarget.TypeArguments[0].ToQualifiedDisplayString(Helpers.TypeDisplayFormat))
-				: null;
-			yield return new MockAdapterBinding(adapter, context,
-				new EquatableArray<MockAdapterClassMember>(classMembers.ToArray()));
+			yield return new MockAdapterBinding(adapter, adapter.GetContext(type),
+				new EquatableArray<MockAdapterClassMember>(classMembers));
 		}
+	}
+
+	/// <remarks>
+	///     Decided on the mocked <paramref name="type" />, because a base class can declare the method that only the
+	///     mocked type uses to implement the adapted interface. Only the methods that the mock overrides are kept.
+	/// </remarks>
+	private MockAdapterClassMember[] GetAdapterClassMembers(MockAdapter adapter, INamedTypeSymbol target,
+		INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
+	{
+		List<MockAdapterClassMember> classMembers = [];
+		foreach (MockAdapterMember member in adapter.Members)
+		{
+			if (target.GetMembers(member.Name).OfType<IMethodSymbol>().FirstOrDefault() is { } interfaceMember &&
+			    type.FindImplementationForInterfaceMember(interfaceMember) is IMethodSymbol implementation &&
+			    GetMostDerivedOverride(type, implementation) is { MethodKind: MethodKind.Ordinary, IsSealed: false, } mostDerived &&
+			    GetDeclaration(mostDerived) is { } declaration)
+			{
+				Method method = new(declaration, null, sourceAssembly);
+				if (AllMethods().Any(candidate => Method.EqualityComparer.Equals(candidate, method)))
+				{
+					classMembers.Add(new MockAdapterClassMember(member.Name, method));
+				}
+			}
+		}
+
+		return classMembers.ToArray();
 	}
 
 	/// <summary>

@@ -1,6 +1,5 @@
 using System.Text;
 using Mockolate.SourceGenerators.Entities;
-using Type = Mockolate.SourceGenerators.Entities.Type;
 
 namespace Mockolate.SourceGenerators.Sources;
 
@@ -89,7 +88,7 @@ internal static partial class Sources
 		{
 			foreach (Method method in @class.AllMethods())
 			{
-				if (FindAdapterMember(@class, method) is { Member: { } member, } &&
+				if (FindAdapterMember(@class, method) is { Member: { Kind: MockAdapterMemberKind.Intercepted, } member, } &&
 				    members.All(existing => existing.Name != member.Name))
 				{
 					members.Add((member.Name, memberIdPrefix + memberIds.GetMethodIdentifier(method)));
@@ -118,33 +117,19 @@ internal static partial class Sources
 	}
 
 	/// <summary>
-	///     Emits the body of an intercepted member: it calls the hook with the registry, the member id, the recorded
-	///     name of the member, the context (for an adapter with one), the arguments and, when the member has a base
-	///     implementation, a callback of the base implementation.
+	///     Emits the body of an intercepted member, which calls the hook as <see cref="MockAdapterMember.Hook" />
+	///     describes.
 	/// </summary>
+	/// <remarks>
+	///     Only <c>void</c> members with by-value parameters are supported, as no adapter intercepts other members yet.
+	/// </remarks>
 	private static void AppendAdapterInterception(StringBuilder sb, Method method, MockAdapterBinding binding,
 		MockAdapterMember member, string mockRegistry, string memberId, bool callsBase)
 	{
 		string arguments = string.Join(", ", method.Parameters.Select(p => p.Name));
-		sb.Append("\t\t\t");
-		if (method.ReturnType != Type.Void)
-		{
-			sb.Append("return ");
-		}
-
-		sb.Append(binding.Adapter.HookClass).Append('.').Append(member.Hook).Append('(').Append(mockRegistry)
-			.Append(", ").Append(memberId).Append(", \"").Append(method.ContainingType).Append('.').Append(member.Name)
-			.Append('"');
-		if (binding.Adapter.ContextExpression is not null)
-		{
-			sb.Append(", ").Append(binding.Context ?? "null");
-		}
-
-		if (arguments.Length > 0)
-		{
-			sb.Append(", ").Append(arguments);
-		}
-
+		sb.Append("\t\t\t").Append(binding.Adapter.HookClass).Append('.').Append(member.Hook).Append('(')
+			.Append(mockRegistry).Append(", ").Append(memberId).Append(", \"").Append(method.ContainingType).Append('.')
+			.Append(member.Name).Append("\", ").Append(binding.Context ?? "null").Append(", ").Append(arguments);
 		if (callsBase)
 		{
 			sb.Append(", () => base.").Append(method.Name).Append('(').Append(arguments).Append(')');

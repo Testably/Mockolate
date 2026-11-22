@@ -3,52 +3,44 @@ using Microsoft.CodeAnalysis;
 namespace Mockolate.SourceGenerators.Entities;
 
 /// <summary>
-///     Describes how an adapter changes the mocks of a type that is or implements the interface
-///     <see cref="TargetFullName" />: the generated mock calls the static hooks of <see cref="HookClass" /> instead of
-///     the default behavior for the adapted <see cref="Members" />.
+///     Describes how an adapter changes the mocks of a type that is or implements an interface: the generated mock
+///     calls the static hooks of <see cref="HookClass" /> instead of the default behavior for the adapted
+///     <see cref="Members" />.
 /// </summary>
 /// <param name="TargetNamespace">The namespace of the adapted interface.</param>
-/// <param name="TargetMetadataName">The metadata name of the adapted interface, e.g. <c>ILogger</c>.</param>
-/// <param name="TargetFullName">The fully qualified name of the adapted interface, as members state their containing type.</param>
+/// <param name="TargetMetadataName">The metadata name of the adapted (non-generic) interface, e.g. <c>ILogger</c>.</param>
 /// <param name="InterfacesOnly">Whether only mocks of interfaces are adapted, not mocks of classes that implement the interface.</param>
 /// <param name="HookClass">The fully qualified name of the static class with the hooks.</param>
 /// <param name="Members">The adapted members of the interface.</param>
 /// <param name="ClearHook">The hook that clears the interactions of the mock instead of the registry, if any.</param>
 /// <param name="MockedReturnTypesOf">The members whose return types are mocked as well, because the hooks create mocks of them.</param>
-/// <param name="ContextMetadataName">
-///     The metadata name of a generic variant of the adapted interface (in the same namespace) whose type argument
-///     <see cref="ContextExpression" /> turns into the context of the intercepting hooks.
-/// </param>
-/// <param name="ContextExpression">
-///     The context expression with the type argument as <c>{0}</c>; the intercepting hooks receive it, or
+/// <param name="Context">
+///     The metadata name of a generic variant of the adapted interface (in the same namespace) and an expression with
+///     its type argument as <c>{0}</c>. The intercepting hooks receive the expression as context, or
 ///     <see langword="null" /> when the mocked type does not implement the generic variant.
 /// </param>
 internal sealed record MockAdapter(
 	string TargetNamespace,
 	string TargetMetadataName,
-	string TargetFullName,
 	bool InterfacesOnly,
 	string HookClass,
 	EquatableArray<MockAdapterMember> Members,
 	string? ClearHook,
 	EquatableArray<string> MockedReturnTypesOf,
-	string? ContextMetadataName = null,
-	string? ContextExpression = null)
+	(string MetadataName, string Expression)? Context = null)
 {
 	internal static MockAdapter Logger { get; } = new(
-		"Microsoft.Extensions.Logging", "ILogger", "global::Microsoft.Extensions.Logging.ILogger",
-		false, "global::Mockolate.MockolateLogging",
+		"Microsoft.Extensions.Logging", "ILogger", false, "global::Mockolate.MockolateLogging",
 		new EquatableArray<MockAdapterMember>([
 			new MockAdapterMember("Log", MockAdapterMemberKind.Intercepted, "DispatchLog", false),
 			new MockAdapterMember("IsEnabled", MockAdapterMemberKind.AnsweredWithoutSetup, "IsEnabled", true),
 			new MockAdapterMember("BeginScope", MockAdapterMemberKind.AnsweredWithoutSetup, null, true),
 		]),
 		null, new EquatableArray<string>([]),
-		"ILogger`1", "global::Mockolate.MockolateLogging.CategoryName<{0}>.Value");
+		("ILogger`1", "global::Mockolate.MockolateLogging.CategoryName<{0}>.Value"));
 
 	internal static MockAdapter LoggerFactory { get; } = new(
-		"Microsoft.Extensions.Logging", "ILoggerFactory", "global::Microsoft.Extensions.Logging.ILoggerFactory",
-		true, "global::Mockolate.MockolateLogging",
+		"Microsoft.Extensions.Logging", "ILoggerFactory", true, "global::Mockolate.MockolateLogging",
 		new EquatableArray<MockAdapterMember>([
 			new MockAdapterMember("CreateLogger", MockAdapterMemberKind.AnsweredWithoutSetup, "CreateLogger", true),
 		]),
@@ -57,21 +49,32 @@ internal sealed record MockAdapter(
 	internal static MockAdapter[] All { get; } = [Logger, LoggerFactory,];
 
 	/// <summary>
-	///     Whether the <paramref name="type" /> is the adapted interface.
+	///     The fully qualified name of the adapted interface, as members state their containing type.
 	/// </summary>
-	internal bool IsTarget(ITypeSymbol type)
-		=> IsInterface(type, TargetMetadataName);
+	internal string TargetFullName => "global::" + TargetNamespace + "." + TargetMetadataName;
 
 	/// <summary>
-	///     Whether the <paramref name="type" /> is the generic variant of the adapted interface that provides the context.
+	///     The adapted interface, when the <paramref name="type" /> is adapted by this adapter.
 	/// </summary>
-	internal bool IsContextTarget(ITypeSymbol type)
-		=> ContextMetadataName is not null && IsInterface(type, ContextMetadataName);
+	internal INamedTypeSymbol? FindTarget(ITypeSymbol type)
+		=> type.TypeKind == TypeKind.Interface || (type.TypeKind == TypeKind.Class && !InterfacesOnly)
+			? FindInterface(type, TargetMetadataName)
+			: null;
 
-	private bool IsInterface(ITypeSymbol type, string metadataName)
-		=> type is INamedTypeSymbol { TypeKind: TypeKind.Interface, } namedType &&
-		   namedType.MetadataName == metadataName &&
-		   namedType.ContainingNamespace.ToDisplayString() == TargetNamespace;
+	/// <summary>
+	///     The context of the intercepting hooks for a mock of the <paramref name="type" />, if any.
+	/// </summary>
+	internal string? GetContext(ITypeSymbol type)
+		=> Context is { } context && FindInterface(type, context.MetadataName) is { } contextTarget
+			? context.Expression.Replace("{0}",
+				contextTarget.TypeArguments[0].ToQualifiedDisplayString(Helpers.TypeDisplayFormat))
+			: null;
+
+	private INamedTypeSymbol? FindInterface(ITypeSymbol type, string metadataName)
+		=> new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>()
+			.FirstOrDefault(candidate => candidate.TypeKind == TypeKind.Interface &&
+			                             candidate.MetadataName == metadataName &&
+			                             candidate.ContainingNamespace.ToDisplayString() == TargetNamespace);
 }
 
 /// <summary>
@@ -80,8 +83,10 @@ internal sealed record MockAdapter(
 /// <param name="Name">The name of the member, without type parameters.</param>
 /// <param name="Kind">How the adapter changes the member.</param>
 /// <param name="Hook">
-///     The hook method: it replaces the body of an intercepted member, and answers an
-///     <see cref="MockAdapterMemberKind.AnsweredWithoutSetup" /> member instead of the default value when it is set.
+///     The hook method. For an intercepted member it is required and called with the registry, the member id, the
+///     recorded name, the context, the arguments and, when there is a base implementation, a callback of it. For an
+///     <see cref="MockAdapterMemberKind.AnsweredWithoutSetup" /> member it is optional and called with the registry and
+///     the arguments instead of the default value.
 /// </param>
 /// <param name="IsIgnoredByVerifyAll">Whether <c>VerifyThatAllInteractionsAreVerified</c> ignores the calls of the member.</param>
 internal sealed record MockAdapterMember(string Name, MockAdapterMemberKind Kind, string? Hook, bool IsIgnoredByVerifyAll);
@@ -99,6 +104,10 @@ internal enum MockAdapterMemberKind
 	/// <summary>
 	///     The member answers without a setup, also on a mock that throws when no setup matches.
 	/// </summary>
+	/// <remarks>
+	///     The code around the adapted calls makes these calls itself, e.g. <c>ILogger.IsEnabled</c> before
+	///     <c>ILogger.Log</c>, while an unexpected adapted call on a strict mock still throws.
+	/// </remarks>
 	AnsweredWithoutSetup,
 }
 
@@ -108,7 +117,8 @@ internal enum MockAdapterMemberKind
 /// <param name="Adapter">The adapter.</param>
 /// <param name="Context">The context of the intercepting hooks, if any.</param>
 /// <param name="ClassMembers">
-///     The methods of a class that implement the adapted members, as the most derived overrides; empty for an interface.
+///     The methods of a class mock that implement the adapted members, as the most derived overrides; empty for an
+///     interface.
 /// </param>
 internal sealed record MockAdapterBinding(
 	MockAdapter Adapter,

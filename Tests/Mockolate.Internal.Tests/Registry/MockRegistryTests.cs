@@ -18,6 +18,46 @@ public sealed class MockRegistryTests
 		=> typeof(MockRegistryTests).GetMethod(nameof(GetMethodInfo),
 			BindingFlags.Static | BindingFlags.NonPublic)!;
 
+	public sealed class AreAllInteractionsVerifiedTests
+	{
+		[Test]
+		public async Task WhenOnlyIgnoredCallsAreUnverified_ShouldReturnTrue()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			registry.RegisterInteraction(new MethodInvocation("Logger.IsEnabled"));
+			registry.RegisterInteraction(new MethodInvocation("Logger.BeginScope<string>"));
+
+			bool result = registry.AreAllInteractionsVerified("Logger.IsEnabled", "Logger.BeginScope<");
+
+			await That(result).IsTrue()
+				.Because("the name is ignored exactly, and a name ending with '<' ignores every type argument");
+		}
+
+		[Test]
+		public async Task WhenOtherCallIsUnverified_ShouldReturnFalse()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			registry.RegisterInteraction(new MethodInvocation("Logger.IsEnabledForAll"));
+
+			bool result = registry.AreAllInteractionsVerified("Logger.IsEnabled", "Logger.BeginScope<");
+
+			await That(result).IsFalse()
+				.Because("only a name ending with '<' is a prefix");
+		}
+
+		[Test]
+		public async Task WhenPropertyAccessIsUnverified_ShouldReturnFalse()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			registry.GetProperty<string>("Logger.Name", () => "", null);
+
+			bool result = registry.AreAllInteractionsVerified("Logger.Name");
+
+			await That(result).IsFalse()
+				.Because("the ignored names only apply to method calls");
+		}
+	}
+
 	public sealed class WithoutMemberIdTests
 	{
 		[Test]

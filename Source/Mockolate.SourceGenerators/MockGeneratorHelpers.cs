@@ -513,8 +513,7 @@ internal static class MockGeneratorHelpers
 	{
 		foreach (MockAdapter adapter in MockAdapter.All)
 		{
-			if ((adapter.InterfacesOnly && type.TypeKind != TypeKind.Interface) ||
-			    new[] { type, }.Concat(type.AllInterfaces).FirstOrDefault(adapter.IsTarget) is not { } target)
+			if (adapter.FindTarget(type) is not { } target)
 			{
 				continue;
 			}
