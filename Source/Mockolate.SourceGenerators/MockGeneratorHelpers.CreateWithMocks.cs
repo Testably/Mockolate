@@ -1,6 +1,8 @@
+using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
 using Mockolate.SourceGenerators.Entities;
 using Mockolate.SourceGenerators.Internals;
 
@@ -9,6 +11,11 @@ namespace Mockolate.SourceGenerators;
 internal static partial class MockGeneratorHelpers
 {
 	private const string CreateWithMocksName = "CreateWithMocks";
+
+	private static readonly ConditionalWeakTable<IAssemblySymbol, string[]> s_referencedDataSourceAttributeNames = new();
+
+	internal static bool IsDataSourceCandidate(this SyntaxNode node)
+		=> node.IsCreateWithMocksInvocation() || node.IsDataSourceMethodCandidate();
 
 	internal static bool IsCreateWithMocksInvocation(this SyntaxNode node)
 		=> node is InvocationExpressionSyntax
@@ -19,17 +26,141 @@ internal static partial class MockGeneratorHelpers
 			},
 		};
 
+	internal static bool IsDataSourceMethodCandidate(this SyntaxNode node)
+		=> node is MethodDeclarationSyntax
+		{
+			AttributeLists.Count: > 0,
+			ParameterList.Parameters.Count: > 0,
+		};
+
 	/// <summary>
-	///     The class under test of a <c>T.CreateWithMocks(...)</c> call.
+	///     The attribute names of the method <paramref name="node" />, as the syntax spells them, without binding it.
 	/// </summary>
-	internal static SutCreation ExtractSutCreation(this SyntaxNode node, SemanticModel semanticModel,
+	internal static DataSourceMethodCandidate GetDataSourceMethodCandidate(this SyntaxNode node)
+		=> new(new EquatableArray<string>(((MethodDeclarationSyntax)node).AttributeLists
+				.SelectMany(list => list.Attributes)
+				.Select(attribute => GetSimpleName(attribute.Name))
+				.Distinct(StringComparer.Ordinal)
+				.ToArray()),
+			new CreateMockLocation(node.SyntaxTree.FilePath, node.Span.Start, node.Span.Length));
+
+	private static string GetSimpleName(NameSyntax name)
+		=> name switch
+		{
+			QualifiedNameSyntax qualifiedName => qualifiedName.Right.Identifier.ValueText,
+			AliasQualifiedNameSyntax aliasQualifiedName => aliasQualifiedName.Name.Identifier.ValueText,
+			SimpleNameSyntax simpleName => simpleName.Identifier.ValueText,
+			_ => name.ToString(),
+		};
+
+	/// <summary>
+	///     A class without a base list cannot be an attribute.
+	/// </summary>
+	internal static bool IsAttributeClassCandidate(this SyntaxNode node)
+		=> node is ClassDeclarationSyntax { BaseList: not null, };
+
+	/// <summary>
+	///     The name of the class <paramref name="node" />, if it implements <c>Mockolate.IMockDataSource</c>.
+	/// </summary>
+	internal static string? GetDataSourceAttributeName(this SyntaxNode node, SemanticModel semanticModel,
+		CancellationToken cancellationToken)
+		=> semanticModel.GetDeclaredSymbol(node, cancellationToken) is INamedTypeSymbol type && IsMockDataSourceType(type)
+			? type.Name
+			: null;
+
+	/// <summary>
+	///     The names of the classes in the referenced assemblies that implement <c>Mockolate.IMockDataSource</c>.
+	/// </summary>
+	/// <remarks>
+	///     Only assemblies that reference Mockolate can declare such a class; their names are cached per assembly,
+	///     which later compilations reuse while the references stay the same.
+	/// </remarks>
+	internal static EquatableArray<string> GetReferencedDataSourceAttributeNames(Compilation compilation)
+		=> new(compilation.SourceModule.ReferencedAssemblySymbols
+			.Where(assembly => assembly.Modules.Any(module =>
+				module.ReferencedAssemblies.Any(identity => identity.Name == "Mockolate")))
+			.SelectMany(assembly => s_referencedDataSourceAttributeNames.GetValue(assembly, static referenced =>
+			{
+				List<string> names = [];
+				AddDataSourceAttributeNames(referenced.GlobalNamespace, names);
+				return names.ToArray();
+			}))
+			.Distinct(StringComparer.Ordinal)
+			.OrderBy(name => name, StringComparer.Ordinal)
+			.ToArray());
+
+	/// <summary>
+	///     The names by which the attribute classes named <paramref name="classNames" /> can be applied, with and
+	///     without the <c>Attribute</c> suffix.
+	/// </summary>
+	internal static EquatableArray<string> GetAttributeUsageNames(IEnumerable<string> classNames)
+		=> new(classNames
+			.SelectMany(name => name.EndsWith("Attribute", StringComparison.Ordinal)
+				? [name, name.Substring(0, name.Length - "Attribute".Length),]
+				: new[] { name, })
+			.Distinct(StringComparer.Ordinal)
+			.OrderBy(name => name, StringComparer.Ordinal)
+			.ToArray());
+
+	private static void AddDataSourceAttributeNames(INamespaceOrTypeSymbol container, List<string> names)
+	{
+		foreach (ISymbol member in container.GetMembers())
+		{
+			if (member is INamespaceSymbol @namespace)
+			{
+				AddDataSourceAttributeNames(@namespace, names);
+			}
+			else if (member is INamedTypeSymbol { TypeKind: TypeKind.Class, } type)
+			{
+				if (IsMockDataSourceType(type))
+				{
+					names.Add(type.Name);
+				}
+
+				AddDataSourceAttributeNames(type, names);
+			}
+		}
+	}
+
+	/// <summary>
+	///     Binds the method at the <paramref name="location" /> of a <see cref="DataSourceMethodCandidate" /> whose
+	///     attribute names match a data source attribute.
+	/// </summary>
+	/// <remarks>
+	///     Trees without a file path share the empty one, so every tree with the path is a candidate.
+	/// </remarks>
+	internal static IEnumerable<DataSourceCreation> ExtractDataSourceCreations(CreateMockLocation location,
+		Compilation compilation, CancellationToken cancellationToken)
+	{
+		TextSpan span = new(location.Start, location.Length);
+		foreach (SyntaxTree tree in compilation.SyntaxTrees.Where(tree => tree.FilePath == location.FilePath))
+		{
+			SyntaxNode root = tree.GetRoot(cancellationToken);
+			if (root.FullSpan.Contains(span) &&
+			    root.FindNode(span, getInnermostNodeForTie: true) is MethodDeclarationSyntax method &&
+			    method.Span == span)
+			{
+				yield return method.ExtractDataSourceCreation(compilation.GetSemanticModel(tree), cancellationToken);
+			}
+		}
+	}
+
+	/// <summary>
+	///     The class under test of a <c>T.CreateWithMocks(...)</c> call, or the parameter types of a method with an
+	///     attribute that implements <c>Mockolate.IMockDataSource</c>.
+	/// </summary>
+	internal static DataSourceCreation ExtractDataSourceCreation(this SyntaxNode node, SemanticModel semanticModel,
 		CancellationToken cancellationToken)
 	{
 		Compilation compilation = semanticModel.Compilation;
-		(SutClass? sut, List<ITypeSymbol> typesToMock) = GetSut(node, semanticModel, cancellationToken);
-		return new SutCreation(
-			sut,
-			new EquatableArray<MockClass>(typesToMock
+		DataSourceTargets targets = GetDataSourceTargets(node, semanticModel, cancellationToken);
+		return new DataSourceCreation(
+			new EquatableArray<SutClass>(targets.Suts.ToArray()),
+			new EquatableArray<string>(targets.MockedTypes
+				.Select(type => ToFullName(Normalize(type, compilation)))
+				.Distinct()
+				.ToArray()),
+			new EquatableArray<MockClass>(targets.TypesToMock
 				.SelectMany(type => CreateDependencyMockClasses(type, compilation))
 				.ToArray()),
 			new CreateMockLocation(node.SyntaxTree.FilePath, node.Span.Start, node.Span.Length));
@@ -60,77 +191,113 @@ internal static partial class MockGeneratorHelpers
 			: CreateDiscoveredMockClass(type, compilation);
 
 	/// <summary>
-	///     The dependencies that the <c>CreateWithMocks</c> call <paramref name="node" /> mocks, as roots for the discovery
-	///     of auto-mocks.
+	///     The types that the <c>CreateWithMocks</c> call or the <c>IMockDataSource</c> method <paramref name="node" />
+	///     mocks, as roots for the discovery of auto-mocks.
 	/// </summary>
-	internal static IEnumerable<ITypeSymbol[]> ExtractSutMockedTypes(this SyntaxNode node,
+	internal static IEnumerable<ITypeSymbol[]> ExtractDataSourceMockedTypes(this SyntaxNode node,
 		SemanticModel semanticModel, CancellationToken cancellationToken)
-		=> GetSut(node, semanticModel, cancellationToken).TypesToMock.Select(type => new[] { type, });
+		=> GetDataSourceTargets(node, semanticModel, cancellationToken).TypesToMock.Select(type => new[] { type, });
 
 	/// <remarks>
 	///     The call is only a candidate while it binds to nothing, because the generator does not see its own output;
 	///     a call that binds belongs to a member of the user.
 	/// </remarks>
-	private static (SutClass? Sut, List<ITypeSymbol> TypesToMock) GetSut(SyntaxNode node, SemanticModel semanticModel,
+	private static DataSourceTargets GetDataSourceTargets(SyntaxNode node, SemanticModel semanticModel,
 		CancellationToken cancellationToken)
 	{
 		Compilation compilation = semanticModel.Compilation;
-		List<ITypeSymbol> typesToMock = [];
-		if (node is not InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccess, } invocation)
+		List<INamedTypeSymbol> suts = [];
+		List<ITypeSymbol> mockedTypes = [];
+		bool hasCreateWithMocks = false;
+		if (node is InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccess, } invocation)
 		{
-			return (null, typesToMock);
-		}
-
-		SymbolInfo symbolInfo = semanticModel.GetSymbolInfo(invocation, cancellationToken);
-		if (symbolInfo.Symbol is not null || !symbolInfo.CandidateSymbols.IsEmpty ||
-		    GetReceiverType(memberAccess.Expression, semanticModel, cancellationToken) is not { } sut ||
-		    !IsConstructibleSut(sut, compilation) ||
-		    HasMemberNamedCreateWithMocks(sut) ||
-		    IsFrameworkNamespace(sut.ContainingNamespace) ||
-		    GetContainerName(sut, compilation) is not { } containerName ||
-		    GetSutConstructor(sut, compilation) is not { } constructor)
-		{
-			return (null, typesToMock);
-		}
-
-		List<SutParameter> parameters = [];
-		foreach (IParameterSymbol parameter in constructor.Parameters)
-		{
-			string? defaultValue = parameter.HasExplicitDefaultValue
-				? MethodParameter.From(parameter).ExplicitDefaultValue
-				: null;
-			ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation);
-			if (parameterType.IsReferenceType && parameterType.NullableAnnotation == NullableAnnotation.None)
+			SymbolInfo symbolInfo = semanticModel.GetSymbolInfo(invocation, cancellationToken);
+			if (symbolInfo.Symbol is null && symbolInfo.CandidateSymbols.IsEmpty &&
+			    GetReceiverType(memberAccess.Expression, semanticModel, cancellationToken) is { } type &&
+			    IsConstructibleSut(type, compilation) &&
+			    !HasMemberNamedCreateWithMocks(type) &&
+			    !IsFrameworkNamespace(type.ContainingNamespace))
 			{
-				// A nullable-oblivious parameter accepts null, which the generated signature in a nullable-enabled
-				// file would otherwise reject (CS8625).
-				parameterType = parameterType.WithNullableAnnotation(NullableAnnotation.Annotated);
+				suts.Add(type);
+				hasCreateWithMocks = true;
+			}
+		}
+		else if (node is MethodDeclarationSyntax method &&
+		         semanticModel.GetDeclaredSymbol(method, cancellationToken) is IMethodSymbol methodSymbol &&
+		         methodSymbol.GetAttributes().Any(IsMockDataSourceAttribute))
+		{
+			foreach (IParameterSymbol parameter in methodSymbol.Parameters)
+			{
+				ITypeSymbol parameterType = parameter.Type.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
+				if (IsDependencyMockable(parameterType, compilation))
+				{
+					mockedTypes.Add(parameterType);
+				}
+				else if (parameterType is INamedTypeSymbol namedType && IsConstructibleSut(namedType, compilation) &&
+				         !IsFrameworkNamespace(namedType.ContainingNamespace))
+				{
+					suts.Add(namedType);
+				}
+			}
+		}
+
+		List<SutClass> sutClasses = [];
+		List<ITypeSymbol> typesToMock = [..mockedTypes,];
+		foreach (INamedTypeSymbol sut in suts.Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default))
+		{
+			// A class that only a data source creates gets no container, so its name cannot clash.
+			string? containerName = hasCreateWithMocks ? GetContainerName(sut, compilation) : null;
+			if ((hasCreateWithMocks && containerName is null) ||
+			    GetSutConstructor(sut, compilation) is not { } constructor)
+			{
+				continue;
 			}
 
-			ITypeSymbol notAnnotatedType = parameterType.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
-			bool isParamsArray = parameter.IsParams && parameterType is IArrayTypeSymbol;
-			bool isMockable = !parameter.IsParams && IsDependencyMockable(notAnnotatedType, compilation);
-			if (isMockable)
+			List<SutParameter> parameters = [];
+			foreach (IParameterSymbol parameter in constructor.Parameters)
 			{
-				typesToMock.Add(notAnnotatedType);
+				string? defaultValue = parameter.HasExplicitDefaultValue
+					? MethodParameter.From(parameter).ExplicitDefaultValue
+					: null;
+				ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation);
+				if (parameterType.IsReferenceType && parameterType.NullableAnnotation == NullableAnnotation.None)
+				{
+					// A nullable-oblivious parameter accepts null, which the generated signature in a nullable-enabled
+					// file would otherwise reject (CS8625).
+					parameterType = parameterType.WithNullableAnnotation(NullableAnnotation.Annotated);
+				}
+
+				ITypeSymbol notAnnotatedType = parameterType.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
+				bool isParamsArray = parameter.IsParams && parameterType is IArrayTypeSymbol;
+				bool isMockable = !parameter.IsParams && IsDependencyMockable(notAnnotatedType, compilation);
+				if (isMockable)
+				{
+					typesToMock.Add(notAnnotatedType);
+				}
+
+				parameters.Add(new SutParameter(
+					ToFullName(isMockable ? notAnnotatedType : parameterType),
+					ToFullName(notAnnotatedType),
+					parameter.Name,
+					isMockable,
+					parameterType.NullableAnnotation == NullableAnnotation.Annotated ||
+					parameterType.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T,
+					defaultValue,
+					isParamsArray,
+					!isMockable && defaultValue == "null" &&
+					parameterType is { IsReferenceType: true, NullableAnnotation: NullableAnnotation.NotAnnotated, },
+					GetCallerInfoAttribute(parameter)));
 			}
 
-			parameters.Add(new SutParameter(
-				ToFullName(isMockable ? notAnnotatedType : parameterType),
-				parameter.Name,
-				isMockable,
-				defaultValue,
-				isParamsArray,
-				!isMockable && defaultValue == "null" &&
-				parameterType is { IsReferenceType: true, NullableAnnotation: NullableAnnotation.NotAnnotated, },
-				GetCallerInfoAttribute(parameter)));
-		}
-
-		return (new SutClass(
+			sutClasses.Add(new SutClass(
 				ToFullName(sut),
 				sut.ContainingNamespace.IsGlobalNamespace ? null : sut.ContainingNamespace.ToDisplayString(),
 				containerName,
-				new EquatableArray<SutParameter>(parameters.ToArray())),
+				new EquatableArray<SutParameter>(parameters.ToArray()),
+				hasCreateWithMocks));
+		}
+
+		return new DataSourceTargets(sutClasses, mockedTypes,
 			typesToMock.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default).ToList());
 	}
 
@@ -212,6 +379,13 @@ internal static partial class MockGeneratorHelpers
 	private static string ToFullName(ITypeSymbol type)
 		=> type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 
+	private static bool IsMockDataSourceAttribute(AttributeData attribute)
+		=> attribute.AttributeClass is { } attributeClass && IsMockDataSourceType(attributeClass);
+
+	private static bool IsMockDataSourceType(INamedTypeSymbol type)
+		=> type.AllInterfaces.Any(@interface =>
+			@interface.Name == "IMockDataSource" && IsInGlobalMockolateNamespace(@interface));
+
 	/// <summary>
 	///     Whether the generated code can call a constructor of <paramref name="type" />.
 	/// </summary>
@@ -240,7 +414,8 @@ internal static partial class MockGeneratorHelpers
 	}
 
 	/// <summary>
-	///     A member of that name would hide the generated <c>CreateWithMocks</c> extension.
+	///     A member of that name would hide the generated <c>CreateWithMocks</c> extension; the factory of a class that
+	///     only a test method parameter needs does not use the extension.
 	/// </summary>
 	private static bool HasMemberNamedCreateWithMocks(INamedTypeSymbol type)
 	{
@@ -357,4 +532,9 @@ internal static partial class MockGeneratorHelpers
 			? null
 			: name;
 	}
+
+	private sealed record DataSourceTargets(
+		List<SutClass> Suts,
+		List<ITypeSymbol> MockedTypes,
+		List<ITypeSymbol> TypesToMock);
 }

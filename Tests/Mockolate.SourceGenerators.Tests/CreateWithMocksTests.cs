@@ -10,6 +10,7 @@ public sealed partial class CreateWithMocksTests
 	{
 		GeneratorResult result = Generator.Run("""
 		                                       #nullable enable
+		                                       using System;
 		                                       using Mockolate;
 
 		                                       namespace MyCode
@@ -29,14 +30,18 @@ public sealed partial class CreateWithMocksTests
 		                                               public IGen<string> Gen { get; } = gen;
 		                                           }
 
+		                                           [AttributeUsage(AttributeTargets.Method)]
+		                                           public sealed class DataAttribute : Attribute, IMockDataSource;
+
 		                                           public class Program
 		                                           {
+		                                               [Data]
+		                                               public static object Test(Svc2 sut, IGen<string> gen) => sut;
+
 		                                               public static void Main(string[] args)
 		                                               {
 		                                                   Svc.CreateWithMocks(out SvcMocks mocks);
 		                                                   mocks.Gen.Mock.Setup.Get();
-		                                                   Svc2.CreateWithMocks(out Svc2Mocks mocks2);
-		                                                   mocks2.Gen.Mock.Setup.Get();
 		                                               }
 		                                           }
 		                                       }
@@ -113,9 +118,10 @@ public sealed partial class CreateWithMocksTests
 	}
 
 	[Test]
-	public async Task NullableObliviousParameter_ShouldAcceptNull()
+	public async Task NullableObliviousParameter_ShouldAcceptNullAndFallBackToDefault()
 	{
 		GeneratorResult result = Generator.Run("""
+		                                       using System;
 		                                       using Mockolate;
 
 		                                       namespace MyCode
@@ -127,8 +133,14 @@ public sealed partial class CreateWithMocksTests
 		                                           }
 		                                       #nullable enable
 
+		                                           [AttributeUsage(AttributeTargets.Method)]
+		                                           public sealed class DataAttribute : Attribute, IMockDataSource;
+
 		                                           public class Program
 		                                           {
+		                                               [Data]
+		                                               public static object Test(Svc sut) => sut;
+
 		                                               public static void Main(string[] args)
 		                                               {
 		                                                   _ = Svc.CreateWithMocks(out _, null);
@@ -138,7 +150,7 @@ public sealed partial class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources["CreateWithMocks.g.cs"]).Contains(", string? name,");
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("(string)v0 : default");
 	}
 
 	[Test]
@@ -170,7 +182,7 @@ public sealed partial class CreateWithMocksTests
 		                                       }
 		                                       """);
 
-		await That(result.Sources).DoesNotContainKey("CreateWithMocks.g.cs");
+		await That(result.Sources).DoesNotContainKey("MockDataSources.g.cs");
 	}
 
 	[Test]
@@ -316,7 +328,7 @@ public sealed partial class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources).ContainsKey("CreateWithMocks.g.cs");
+		await That(result.Sources).ContainsKey("MockDataSources.g.cs");
 		await That(result.Sources).DoesNotContainKey("Mock.CreateWithMocks.g.cs");
 	}
 
@@ -411,7 +423,93 @@ public sealed partial class CreateWithMocksTests
 		                                       }
 		                                       """);
 
-		await That(result.Sources).DoesNotContainKey("CreateWithMocks.g.cs");
+		await That(result.Sources).DoesNotContainKey("MockDataSources.g.cs");
+	}
+
+	[Test]
+	public async Task DataSourceAttributeOfReferencedAssembly_ShouldBeFoundInEverySpelling()
+	{
+		MetadataReference reference = ExternalAssembly.Compile("""
+		                                                       using System;
+
+		                                                       namespace External
+		                                                       {
+		                                                           [AttributeUsage(AttributeTargets.Method)]
+		                                                           public sealed class AutoDataAttribute : Attribute, Mockolate.IMockDataSource;
+		                                                       }
+		                                                       """);
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     #nullable enable
+		                                                     using External;
+
+		                                                     namespace MyCode
+		                                                     {
+		                                                         public class Qualified;
+		                                                         public class WithSuffix;
+		                                                         public class AliasQualified;
+
+		                                                         public class Program
+		                                                         {
+		                                                             [External.AutoData]
+		                                                             public static object A(Qualified sut) => sut;
+
+		                                                             [AutoDataAttribute]
+		                                                             public static object B(WithSuffix sut) => sut;
+
+		                                                             [global::External.AutoData]
+		                                                             public static object C(AliasQualified sut) => sut;
+
+		                                                             public static void Main(string[] args)
+		                                                             {
+		                                                             }
+		                                                         }
+		                                                     }
+		                                                     """, [reference,]);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"])
+			.Contains("typeof(global::MyCode.Qualified)").And
+			.Contains("typeof(global::MyCode.WithSuffix)").And
+			.Contains("typeof(global::MyCode.AliasQualified)");
+	}
+
+	[Test]
+	public async Task AttributeWithTheNameOfADataSourceAttribute_ShouldNotBeADataSource()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using System;
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public class Svc;
+
+		                                           public class Program
+		                                           {
+		                                               [Other.Data]
+		                                               public static object Test(Svc sut) => sut;
+
+		                                               public static void Main(string[] args)
+		                                               {
+		                                               }
+		                                           }
+		                                       }
+
+		                                       namespace DataSources
+		                                       {
+		                                           [AttributeUsage(AttributeTargets.Method)]
+		                                           public sealed class DataAttribute : Attribute, IMockDataSource;
+		                                       }
+
+		                                       namespace Other
+		                                       {
+		                                           [AttributeUsage(AttributeTargets.Method)]
+		                                           public sealed class DataAttribute : Attribute;
+		                                       }
+		                                       """);
+
+		await That(result.Sources).DoesNotContainKey("MockDataSources.g.cs");
 	}
 
 	[Test]
@@ -445,7 +543,7 @@ public sealed partial class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources["CreateWithMocks.g.cs"]).Contains(", string? name = null)").And
+		await That(result.Sources["MockDataSources.g.cs"]).Contains(", string? name = null)").And
 			.Contains("(dep, name!);");
 	}
 
@@ -481,7 +579,7 @@ public sealed partial class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources["CreateWithMocks.g.cs"]).Contains("double nan = global::System.Double.NaN").And
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("double nan = global::System.Double.NaN").And
 			.Contains("float singlePositive = global::System.Single.PositiveInfinity").And
 			.Contains("float singleNegative = global::System.Single.NegativeInfinity");
 	}
@@ -545,7 +643,7 @@ public sealed partial class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources["CreateWithMocks.g.cs"])
+		await That(result.Sources["MockDataSources.g.cs"])
 			.Contains("[global::System.Runtime.CompilerServices.CallerMemberNameAttribute] string caller = \"\"").And
 			.Contains("[global::System.Runtime.CompilerServices.CallerLineNumberAttribute] int line = 0").And
 			.Contains("[global::System.Runtime.CompilerServices.CallerFilePathAttribute] string? path = null");
@@ -655,7 +753,7 @@ public sealed partial class CreateWithMocksTests
 		                                       }
 		                                       """);
 
-		await That(result.Sources).DoesNotContainKey("CreateWithMocks.g.cs");
+		await That(result.Sources).DoesNotContainKey("MockDataSources.g.cs");
 	}
 
 	[Test]
@@ -690,7 +788,7 @@ public sealed partial class CreateWithMocksTests
 		                                         }
 		                                         """);
 
-		await That(result.Sources).DoesNotContainKey("CreateWithMocks.g.cs");
+		await That(result.Sources).DoesNotContainKey("MockDataSources.g.cs");
 	}
 
 	[Test]
@@ -757,6 +855,6 @@ public sealed partial class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources["CreateWithMocks.g.cs"]).Contains(", int count,");
+		await That(result.Sources["MockDataSources.g.cs"]).Contains(", int count,");
 	}
 }

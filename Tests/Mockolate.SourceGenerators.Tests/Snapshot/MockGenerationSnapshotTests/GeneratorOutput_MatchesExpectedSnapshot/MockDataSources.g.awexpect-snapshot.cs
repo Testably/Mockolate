@@ -8,6 +8,7 @@
 //----------------------
 
 #nullable enable
+#pragma warning disable CA2255 // The ModuleInitializer attribute should not be used in libraries
 #pragma warning disable CS8619, CS8620
 
 namespace Mockolate.Tests.GeneratorCoverage
@@ -508,6 +509,97 @@ namespace Mockolate
 				mocks = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksSpanConstructorMocks(dependency);
 				return new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksSpanConstructor(dependency);
 			}
+		}
+	}
+
+	file static class MockDataSourceRegistration
+	{
+		[global::System.Runtime.CompilerServices.ModuleInitializer]
+		internal static void Register()
+			=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create);
+
+		private static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.DependencyResolver resolve, out object? value)
+		{
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfo))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfo(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(string), "caller") is { } v1 ? (string)v1 : (string)(""));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksDataOnly))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksDataOnly(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency(resolve(typeof(global::System.Collections.Generic.IEnumerable<int>), "values") is { } v0 ? (global::System.Collections.Generic.IEnumerable<int>)v0 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency."), resolve(typeof(int), "count") is { } v1 ? (int)v1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'count' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency."));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksNameCollisions))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksNameCollisions(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "mocks") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "mockBehavior") is { } v1 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v1 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "equals") is { } v2 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v2 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "createWithMocksNameCollisionsMocks") is { } v3 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v3 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "value") is { } v4 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v4 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "Value") is { } v5 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v5 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksNullableGeneric))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksNullableGeneric(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksGenericDependency<string?>), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksGenericDependency<string?>)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksGenericDependency<string?>.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksOuter.Nested))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksOuter.Nested(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksOuter_Nested))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksOuter_Nested(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksParamsCollection))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksParamsCollection(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::System.Collections.Immutable.ImmutableArray<int>), "values") is { } v1 ? (global::System.Collections.Immutable.ImmutableArray<int>)v1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksParamsCollection."));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "Dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(string), "Name") is { } v1 ? (string)v1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'Name' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksRecord."));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksService))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksService(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default), resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksUnmockableDependency), "unmockable") is { } v1 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksUnmockableDependency)v1 : throw new global::System.InvalidOperationException("There is no argument for the constructor parameter 'unmockable' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksService."), resolve(typeof(string), "name") is { } v2 ? (string)v2 : default, resolve(typeof(int), "retries") is { } v3 ? (int)v3 : (int)(3), resolve(typeof(decimal), "factor") is { } v4 ? (decimal)v4 : (decimal)(1.5m), resolve(typeof(string[]), "tags") is { } v5 ? (string[])v5 : []);
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksSetsRequiredMembers))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksSetsRequiredMembers(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksSpanConstructor))
+			{
+				value = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksSpanConstructor(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency), "dependency") is { } v0 ? (global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency)v0 : global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default));
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency))
+			{
+				value = global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
+				return true;
+			}
+
+			value = null;
+			return false;
 		}
 	}
 }
