@@ -60,6 +60,105 @@ public static class CreateWithMocksOuter
 	}
 }
 
+/// <summary>
+///     Would share the container name of <see cref="CreateWithMocksOuter.Nested" /> if the nested names were joined
+///     without doubling the <c>_</c>.
+/// </summary>
+public class CreateWithMocksOuter_Nested(ICreateWithMocksDependency dependency)
+{
+	public ICreateWithMocksDependency Dependency { get; } = dependency;
+}
+
+public interface ICreateWithMocksGenericDependency<T>
+{
+	T GetValue();
+}
+
+/// <summary>
+///     The dependency spells the type argument differently than the <c>CreateMock</c> call, which must not add a second,
+///     ambiguous mock.
+/// </summary>
+public class CreateWithMocksNullableGeneric(ICreateWithMocksGenericDependency<string?> dependency)
+{
+	public ICreateWithMocksGenericDependency<string?> Dependency { get; } = dependency;
+}
+
+/// <summary>
+///     A framework interface is a required argument, because its mock would return <see langword="null" /> from
+///     <c>GetEnumerator</c>; an <see langword="in" /> parameter is passed by value.
+/// </summary>
+public class CreateWithMocksFrameworkDependency(System.Collections.Generic.IEnumerable<int> values, in int count)
+{
+	public System.Collections.Generic.IEnumerable<int> Values { get; } = values;
+	public int Count { get; } = count;
+}
+
+#if NET9_0_OR_GREATER
+/// <summary>
+///     The longest constructor takes a span, which can neither be stored in the container nor be optional, so the
+///     shorter one is used.
+/// </summary>
+public class CreateWithMocksSpanConstructor
+{
+	public CreateWithMocksSpanConstructor(ICreateWithMocksDependency dependency, ReadOnlySpan<char> text)
+	{
+		Dependency = dependency;
+		Text = text.ToString();
+	}
+
+	public CreateWithMocksSpanConstructor(ICreateWithMocksDependency dependency)
+	{
+		Dependency = dependency;
+	}
+
+	public ICreateWithMocksDependency Dependency { get; }
+	public string? Text { get; }
+}
+
+/// <summary>
+///     A constructor that leaves required members unset cannot be called, so the class is skipped unless the
+///     constructor sets them.
+/// </summary>
+public class CreateWithMocksRequiredMembers(ICreateWithMocksDependency dependency)
+{
+	public ICreateWithMocksDependency Dependency { get; } = dependency;
+	public required string Name { get; init; }
+}
+
+public class CreateWithMocksSetsRequiredMembers
+{
+	[System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+	public CreateWithMocksSetsRequiredMembers(ICreateWithMocksDependency dependency)
+	{
+		Dependency = dependency;
+		Name = "set";
+	}
+
+	public ICreateWithMocksDependency Dependency { get; }
+	public required string Name { get; init; }
+}
+
+/// <summary>
+///     A <see langword="params" /> collection that is not an array is a required argument, because a nullable value
+///     type could not be passed on.
+/// </summary>
+public class CreateWithMocksParamsCollection(
+	ICreateWithMocksDependency dependency,
+	params System.Collections.Immutable.ImmutableArray<int> values)
+{
+	public ICreateWithMocksDependency Dependency { get; } = dependency;
+	public System.Collections.Immutable.ImmutableArray<int> Values { get; } = values;
+}
+#endif
+
+/// <summary>
+///     A class that only a test method parameter needs gets neither a <c>CreateWithMocks</c> extension nor a container.
+/// </summary>
+public class CreateWithMocksDataOnly(ICreateWithMocksDependency dependency)
+{
+	public ICreateWithMocksDependency Dependency { get; } = dependency;
+}
+
 [AttributeUsage(AttributeTargets.Method)]
 public sealed class CreateWithMocksDataAttribute : Attribute, IMockDataSource;
 
@@ -67,6 +166,14 @@ public static class CreateWithMocksDataSourceTargets
 {
 	[CreateWithMocksData]
 	public static object[] Create(CreateWithMocksService sut, ICreateWithMocksDependency dependency,
-		CreateWithMocksOuter.Nested nested)
-		=> [sut, dependency, nested,];
+		CreateWithMocksOuter.Nested nested, CreateWithMocksDataOnly dataOnly)
+		=> [sut, dependency, nested, dataOnly,];
+
+#if NET9_0_OR_GREATER
+	[CreateWithMocksData]
+	public static object[] CreateUnsupported(CreateWithMocksSpanConstructor span,
+		CreateWithMocksRequiredMembers required, CreateWithMocksSetsRequiredMembers setsRequired,
+		CreateWithMocksParamsCollection paramsCollection)
+		=> [span, required, setsRequired, paramsCollection,];
+#endif
 }

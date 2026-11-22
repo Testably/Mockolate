@@ -45,6 +45,91 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task CreateWithMocksDependency_ShouldDiscoverTheMocksItReturns()
+	{
+		GeneratorResult result = Generator.Run([
+			"""
+			#nullable enable
+			using Mockolate;
+
+			namespace MyCode
+			{
+			    public interface IChild
+			    {
+			        int Value { get; }
+			    }
+
+			    public interface IRoot
+			    {
+			        IChild Child { get; }
+			    }
+
+			    public class Service(IRoot root)
+			    {
+			        public IRoot Root { get; } = root;
+			    }
+
+			    public class Program
+			    {
+			        public static void Main(string[] args)
+			        {
+			            _ = Service.CreateWithMocks(out _);
+			        }
+			    }
+			}
+			""",
+		], [], LanguageVersion.CSharp14, AutoMockingEnabled);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources)
+			.ContainsKey("Mock.IRoot.g.cs").And
+			.ContainsKey("Mock.IChild.g.cs");
+	}
+
+	[Test]
+	public async Task MockDataSourceParameter_ShouldDiscoverTheMocksItReturns()
+	{
+		GeneratorResult result = Generator.Run([
+			"""
+			#nullable enable
+			using System;
+			using Mockolate;
+
+			namespace MyCode
+			{
+			    public interface IChild
+			    {
+			        int Value { get; }
+			    }
+
+			    public interface IRoot
+			    {
+			        IChild Child { get; }
+			    }
+
+			    [AttributeUsage(AttributeTargets.Method)]
+			    public sealed class DataAttribute : Attribute, IMockDataSource;
+
+			    public static class Tests
+			    {
+			        [Data]
+			        public static IRoot Test(IRoot root) => root;
+
+			        public static void Main(string[] args)
+			        {
+			        }
+			    }
+			}
+			""",
+		], [], LanguageVersion.CSharp14, AutoMockingEnabled);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources)
+			.ContainsKey("Mock.IRoot.g.cs").And
+			.ContainsKey("Mock.IChild.g.cs");
+	}
+
+	[Test]
 	public async Task DerivedLoggerFactory_ShouldAlsoMockTheLogger()
 	{
 		GeneratorResult result = Generator.Run([

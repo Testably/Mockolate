@@ -82,10 +82,11 @@ public sealed class MockGeneratorEqualityTests
 				new EquatableArray<SutClass>([
 					new SutClass(sutName, "A", "SutMocks", new EquatableArray<SutParameter>([
 						new SutParameter(parameterType, parameterType, "value", false, false, null, false),
-					])),
+					]), true),
 				]),
 				new EquatableArray<string>(["global::A.IDependency",]),
-				new EquatableArray<MockClass>([]));
+				new EquatableArray<MockClass>([]),
+				new CreateMockLocation("File.cs", 1, 2));
 	}
 
 	public sealed class RefStructAggregateTests

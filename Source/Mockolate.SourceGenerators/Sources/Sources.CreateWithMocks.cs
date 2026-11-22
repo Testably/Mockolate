@@ -16,6 +16,9 @@ internal static partial class Sources
 		StringBuilder sb = InitializeBuilder();
 		sb.Append("#nullable enable").AppendLine();
 		sb.Append("#pragma warning disable CA2255 // The ModuleInitializer attribute should not be used in libraries").AppendLine();
+		// A dependency that spells a type argument with other nullable annotations than the CreateMock call shares its
+		// mock, whose extension then differs only in nullability.
+		sb.Append("#pragma warning disable CS8619, CS8620").AppendLine();
 		sb.AppendLine();
 		if (emitModuleInitializerPolyfill)
 		{
@@ -35,36 +38,32 @@ internal static partial class Sources
 			          """).AppendLine();
 		}
 
-		HashSet<string> containers = new(StringComparer.Ordinal);
-		List<(SutClass Sut, string Container)> named = [];
-		foreach (SutClass sut in suts)
+		SutClass[] withExtension = suts.Where(sut => sut.HasCreateWithMocks).ToArray();
+		foreach (SutClass sut in withExtension)
 		{
-			string containerName = sut.ContainerName;
-			for (int index = 1; !containers.Add(sut.Namespace + "." + containerName); index++)
-			{
-				containerName = $"{sut.ContainerName}_{index}";
-			}
-
-			named.Add((sut, containerName));
-			AppendContainer(sb, sut, containerName);
+			AppendContainer(sb, sut, sut.ContainerName);
 		}
 
 		sb.Append("namespace Mockolate").AppendLine();
 		sb.Append('{').AppendLine();
-		sb.Append("\tinternal static partial class Mock").AppendLine();
-		sb.Append("\t{").AppendLine();
-		for (int i = 0; i < named.Count; i++)
+		if (withExtension.Length > 0)
 		{
-			if (i > 0)
+			sb.Append("\tinternal static partial class Mock").AppendLine();
+			sb.Append("\t{").AppendLine();
+			for (int i = 0; i < withExtension.Length; i++)
 			{
-				sb.AppendLine();
+				if (i > 0)
+				{
+					sb.AppendLine();
+				}
+
+				AppendCreateWithMocks(sb, withExtension[i], ContainerFullName(withExtension[i], withExtension[i].ContainerName));
 			}
 
-			AppendCreateWithMocks(sb, named[i].Sut, ContainerFullName(named[i].Sut, named[i].Container));
+			sb.Append("\t}").AppendLine();
+			sb.AppendLine();
 		}
 
-		sb.Append("\t}").AppendLine();
-		sb.AppendLine();
 		AppendFactory(sb, suts, mockedTypes);
 		sb.Append('}').AppendLine();
 		sb.Append("#nullable disable").AppendLine();
@@ -170,6 +169,9 @@ internal static partial class Sources
 		sb.Append("\t\t\t///     Creates a <see cref=\"").Append(sut.ClassFullName)
 			.Append("\" /> with a new mock for every mockable constructor parameter without an argument.").AppendLine();
 		sb.Append("\t\t\t/// </summary>").AppendLine();
+		sb.Append("\t\t\t/// <remarks>").AppendLine();
+		sb.Append("\t\t\t///     A <see langword=\"null\" /> argument for a mockable parameter also gets a new mock.").AppendLine();
+		sb.Append("\t\t\t/// </remarks>").AppendLine();
 		sb.Append("\t\t\tpublic static ").Append(sut.ClassFullName).Append(" CreateWithMocks(out ")
 			.Append(containerFullName).Append(' ').Append(mocks);
 		foreach (SutParameter parameter in parameters.Where(p => !p.IsOptional))
@@ -239,15 +241,9 @@ internal static partial class Sources
 			SutParameter[] parameters = sut.Parameters.AsArray();
 			sb.Append("\t\t\tif (type == typeof(").Append(sut.ClassFullName).Append("))").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
-			sb.Append("\t\t\t\tvalue = ").Append(sut.ClassFullName).Append(".CreateWithMocks(out _, ")
-				.Append(CreateUniqueName(parameters, "mockBehavior")).Append(": behavior");
-			for (int index = 0; index < parameters.Length; index++)
-			{
-				sb.Append(", ").Append(Helpers.EscapeIfKeyword(parameters[index].Name)).Append(": ")
-					.Append(Resolve(sut, parameters[index], index));
-			}
-
-			sb.Append(");").AppendLine();
+			sb.Append("\t\t\t\tvalue = new ").Append(sut.ClassFullName).Append('(')
+				.Append(string.Join(", ", parameters.Select((parameter, index) => Resolve(sut, parameter, index))))
+				.Append(");").AppendLine();
 			sb.Append("\t\t\t\treturn true;").AppendLine();
 			sb.Append("\t\t\t}").AppendLine();
 			sb.AppendLine();
@@ -273,7 +269,8 @@ internal static partial class Sources
 		{
 			string fallback = parameter switch
 			{
-				{ IsMockable: true, } or { IsParams: true, } => "null",
+				{ IsMockable: true, } => $"{parameter.TypeFullName}.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default)",
+				{ IsParams: true, } => "[]",
 				{ DefaultValue: { } defaultValue, } => defaultValue,
 				{ IsNullable: true, } => "default",
 				_ => $"throw new global::System.InvalidOperationException(\"There is no argument for the constructor parameter '{parameter.Name}' of {sut.ClassFullName.Replace("global::", "")}.\")",

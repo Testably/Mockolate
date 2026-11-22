@@ -30,6 +30,10 @@ public static class MockDataSources
 	///     <see langword="true" /> when the generated code of the <paramref name="assembly" /> can create a value of
 	///     <paramref name="type" />.
 	/// </returns>
+	/// <exception cref="ArgumentNullException">
+	///     The <paramref name="assembly" />, the <paramref name="type" /> or the <paramref name="resolve" /> is
+	///     <see langword="null" />.
+	/// </exception>
 	/// <exception cref="InvalidOperationException">
 	///     The <paramref name="resolve" /> supplies no argument for a constructor parameter that is neither mockable,
 	///     nullable nor optional.
@@ -37,6 +41,21 @@ public static class MockDataSources
 	public static bool TryCreate(Assembly assembly, Type type, MockBehavior? behavior, DependencyResolver resolve,
 		out object? value)
 	{
+		if (assembly is null)
+		{
+			throw new ArgumentNullException(nameof(assembly));
+		}
+
+		if (type is null)
+		{
+			throw new ArgumentNullException(nameof(type));
+		}
+
+		if (resolve is null)
+		{
+			throw new ArgumentNullException(nameof(resolve));
+		}
+
 		if (!MockDataSourceRegistry.TryGet(assembly, out MockDataSourceFactory? factory))
 		{
 			// Test frameworks read the attributes from metadata, which does not run the module initializer.

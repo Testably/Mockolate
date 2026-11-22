@@ -63,6 +63,23 @@ public sealed class AutoMockDataTests
 	}
 
 	[Test]
+	public async Task TryCreate_WithNullArguments_ShouldThrowArgumentNullException()
+	{
+		void ActWithoutAssembly()
+			=> MockDataSources.TryCreate(null!, typeof(Order), null, (_, _) => null, out _);
+
+		void ActWithoutType()
+			=> MockDataSources.TryCreate(typeof(AutoMockDataTests).Assembly, null!, null, (_, _) => null, out _);
+
+		void ActWithoutResolve()
+			=> MockDataSources.TryCreate(typeof(AutoMockDataTests).Assembly, typeof(Order), null, null!, out _);
+
+		await That(ActWithoutAssembly).Throws<ArgumentNullException>().WithParamName("assembly");
+		await That(ActWithoutType).Throws<ArgumentNullException>().WithParamName("type");
+		await That(ActWithoutResolve).Throws<ArgumentNullException>().WithParamName("resolve");
+	}
+
+	[Test]
 	public async Task TryCreate_WithUnknownType_ShouldReturnFalse()
 	{
 		bool result = MockDataSources.TryCreate(typeof(AutoMockDataTests).Assembly, typeof(Order), null,
