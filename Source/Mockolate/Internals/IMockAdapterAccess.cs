@@ -23,9 +23,17 @@ public interface IMockAdapterAccess
 	string Scenario { get; }
 
 	/// <summary>
-	///     The member id of the intercepted member <paramref name="memberName" /> in the mock, or <c>-1</c> when the
-	///     mock has no such member.
+	///     The member id of the adapted member <paramref name="memberName" /> in the mock, or <c>-1</c> when the mock
+	///     has no such member.
 	/// </summary>
-	/// <param name="memberName">The name of the intercepted member of the adapted interface, without type parameters.</param>
+	/// <param name="memberName">The name of the adapted member of the adapted interface, without type parameters.</param>
 	int GetMemberId(string memberName);
+
+	/// <summary>
+	///     The name under which the mock records the calls of the adapted member <paramref name="memberName" /> and
+	///     looks up its setups (for a generic member without its type arguments), or an empty string when the mock has no
+	///     such member.
+	/// </summary>
+	/// <param name="memberName">The name of the adapted member of the adapted interface, without type parameters.</param>
+	string GetMemberName(string memberName);
 }

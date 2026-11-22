@@ -115,6 +115,19 @@ public sealed class LoggerTests
 	}
 
 	[Test]
+	public async Task IsEnabled_WithSetupWithoutReturnValue_ShouldReturnTrue()
+	{
+		ILogger logger = ILogger.CreateMock();
+		int calls = 0;
+		logger.Mock.Setup.IsEnabled(It.IsAny<LogLevel>()).Do(() => calls++);
+
+		bool result = logger.IsEnabled(LogLevel.Debug);
+
+		await That(result).IsTrue().Because("a setup without a return value does not disable logging");
+		await That(calls).IsEqualTo(1);
+	}
+
+	[Test]
 	public async Task Setup_LogError_WithMessageMatcher_ShouldMatchFormattedMessageAndLevel()
 	{
 		List<string> messages = [];

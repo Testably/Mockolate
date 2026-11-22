@@ -103,7 +103,18 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger.MemberId_Log_TState_,
+				"IsEnabled" => global::Mockolate.Mock.ILogger.MemberId_IsEnabled,
+				"BeginScope" => global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				_ => "",
 			};
 
 		/// <inheritdoc cref="ILogger" />
@@ -461,7 +472,18 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger.MemberId_Log_TState_,
+				"IsEnabled" => global::Mockolate.Mock.ILogger.MemberId_IsEnabled,
+				"BeginScope" => global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				_ => "",
 			};
 
 		#region IMockVerifyForILogger
@@ -567,7 +589,18 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger.MemberId_Log_TState_,
+				"IsEnabled" => global::Mockolate.Mock.ILogger.MemberId_IsEnabled,
+				"BeginScope" => global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				_ => "",
 			};
 
 		/// <inheritdoc />
@@ -1264,7 +1297,15 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
+				"CreateLogger" => global::Mockolate.Mock.ILoggerFactory.MemberId_CreateLogger,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"CreateLogger" => "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger",
+				_ => "",
 			};
 
 		/// <inheritdoc cref="ILoggerFactory" />
@@ -1586,7 +1627,15 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
+				"CreateLogger" => global::Mockolate.Mock.ILoggerFactory.MemberId_CreateLogger,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"CreateLogger" => "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger",
+				_ => "",
 			};
 
 		#region IMockVerifyForILoggerFactory
@@ -1645,7 +1694,15 @@ internal static partial class Mock
 		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
 			=> memberName switch
 			{
+				"CreateLogger" => global::Mockolate.Mock.ILoggerFactory.MemberId_CreateLogger,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"CreateLogger" => "global::Microsoft.Extensions.Logging.ILoggerFactory.CreateLogger",
+				_ => "",
 			};
 
 		/// <inheritdoc />
@@ -2261,7 +2318,18 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_,
+				"IsEnabled" => global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled,
+				"BeginScope" => global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				_ => "",
 			};
 
 		/// <inheritdoc cref="ILogger_Program" />
@@ -2619,7 +2687,18 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_,
+				"IsEnabled" => global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled,
+				"BeginScope" => global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				_ => "",
 			};
 
 		#region IMockVerifyForILogger_Program
@@ -2725,7 +2804,18 @@ internal static partial class Mock
 			=> memberName switch
 			{
 				"Log" => global::Mockolate.Mock.ILogger_Program.MemberId_Log_TState_,
+				"IsEnabled" => global::Mockolate.Mock.ILogger_Program.MemberId_IsEnabled,
+				"BeginScope" => global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_,
 				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"Log" => "global::Microsoft.Extensions.Logging.ILogger.Log",
+				"IsEnabled" => "global::Microsoft.Extensions.Logging.ILogger.IsEnabled",
+				"BeginScope" => "global::Microsoft.Extensions.Logging.ILogger.BeginScope",
+				_ => "",
 			};
 
 		/// <inheritdoc />

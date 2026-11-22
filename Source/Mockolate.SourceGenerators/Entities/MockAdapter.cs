@@ -9,7 +9,7 @@ namespace Mockolate.SourceGenerators.Entities;
 /// </summary>
 /// <param name="TargetNamespace">The namespace of the adapted interface.</param>
 /// <param name="TargetMetadataName">The metadata name of the adapted (non-generic) interface, e.g. <c>ILogger</c>.</param>
-/// <param name="InterfacesOnly">Whether only mocks of interfaces are adapted, not mocks of classes that implement the interface.</param>
+/// <param name="Classes">Which mocks of classes that implement the interface are adapted.</param>
 /// <param name="HookClass">The fully qualified name of the static class with the hooks.</param>
 /// <param name="Members">The adapted members of the interface.</param>
 /// <param name="ClearHook">The hook that clears the interactions of the mock instead of the registry, if any.</param>
@@ -22,7 +22,7 @@ namespace Mockolate.SourceGenerators.Entities;
 internal sealed record MockAdapter(
 	string TargetNamespace,
 	string TargetMetadataName,
-	bool InterfacesOnly,
+	MockAdapterClasses Classes,
 	string HookClass,
 	EquatableArray<MockAdapterMember> Members,
 	string? ClearHook,
@@ -30,7 +30,7 @@ internal sealed record MockAdapter(
 	(string MetadataName, string Expression)? Context = null)
 {
 	internal static MockAdapter Logger { get; } = new(
-		"Microsoft.Extensions.Logging", "ILogger", false, "global::Mockolate.MockolateLogging",
+		"Microsoft.Extensions.Logging", "ILogger", MockAdapterClasses.WithInterceptedMembers, "global::Mockolate.MockolateLogging",
 		new EquatableArray<MockAdapterMember>([
 			new MockAdapterMember("Log", MockAdapterMemberKind.Intercepted, "DispatchLog", false),
 			new MockAdapterMember("IsEnabled", MockAdapterMemberKind.AnsweredWithoutSetup, "IsEnabled", true),
@@ -40,7 +40,7 @@ internal sealed record MockAdapter(
 		("ILogger`1", "global::Mockolate.MockolateLogging.CategoryName<{0}>.Value"));
 
 	internal static MockAdapter LoggerFactory { get; } = new(
-		"Microsoft.Extensions.Logging", "ILoggerFactory", true, "global::Mockolate.MockolateLogging",
+		"Microsoft.Extensions.Logging", "ILoggerFactory", MockAdapterClasses.None, "global::Mockolate.MockolateLogging",
 		new EquatableArray<MockAdapterMember>([
 			new MockAdapterMember("CreateLogger", MockAdapterMemberKind.AnsweredWithoutSetup, "CreateLogger", true),
 		]),
@@ -57,7 +57,7 @@ internal sealed record MockAdapter(
 	///     The adapted interface, when the <paramref name="type" /> is adapted by this adapter.
 	/// </summary>
 	internal INamedTypeSymbol? FindTarget(ITypeSymbol type)
-		=> type.TypeKind == TypeKind.Interface || (type.TypeKind == TypeKind.Class && !InterfacesOnly)
+		=> type.TypeKind == TypeKind.Interface || (type.TypeKind == TypeKind.Class && Classes != MockAdapterClasses.None)
 			? FindInterface(type, TargetMetadataName)
 			: null;
 

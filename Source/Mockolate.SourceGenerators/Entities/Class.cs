@@ -820,7 +820,8 @@ internal class Class : IEquatable<Class>
 	}
 
 	/// <remarks>
-	///     A class is only adapted when the mock overrides all intercepted members, so that they call the hooks.
+	///     A class is only adapted when the mock overrides the members that <see cref="MockAdapter.Classes" /> requires,
+	///     so that they call the hooks.
 	/// </remarks>
 	private IEnumerable<MockAdapterBinding> GetAdapterBindings(ITypeSymbol type, IAssemblySymbol sourceAssembly)
 	{
@@ -835,7 +836,7 @@ internal class Class : IEquatable<Class>
 				? GetAdapterClassMembers(adapter, target, namedType, sourceAssembly)
 				: [];
 			if (type.TypeKind == TypeKind.Class && adapter.Members.Any(member =>
-				    member.Kind == MockAdapterMemberKind.Intercepted &&
+				    (member.Kind == MockAdapterMemberKind.Intercepted || adapter.Classes == MockAdapterClasses.WithAbstractMembers) &&
 				    classMembers.All(classMember => classMember.Member != member.Name)))
 			{
 				continue;
@@ -859,6 +860,7 @@ internal class Class : IEquatable<Class>
 			if (target.GetMembers(member.Name).OfType<IMethodSymbol>().FirstOrDefault() is { } interfaceMember &&
 			    type.FindImplementationForInterfaceMember(interfaceMember) is IMethodSymbol implementation &&
 			    GetMostDerivedOverride(type, implementation) is { MethodKind: MethodKind.Ordinary, IsSealed: false, } mostDerived &&
+			    (mostDerived.IsAbstract || adapter.Classes != MockAdapterClasses.WithAbstractMembers) &&
 			    GetDeclaration(mostDerived) is { } declaration)
 			{
 				Method method = new(declaration, null, sourceAssembly);
