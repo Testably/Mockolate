@@ -395,6 +395,8 @@ The container is named after the class with a `Mocks` suffix and declared in the
 - **Other parameters** keep their declared default value or, for a `params` array, an empty array. Parameters without a default are required and come first, in the order of the constructor.
 - **A `MockBehavior`** passed as `mockBehavior` applies to every new mock, e.g. `VendingMachine.CreateWithMocks(out _, MockBehavior.Default.ThrowingWhenNotSetup())`.
 
+In TUnit tests, [`[AutoMockArguments]`](08-advanced-features/07-tunit.mdx) passes the class under test and its mocks as test method parameters instead.
+
 A parameter is mockable when its type is an interface outside the `System`, `Microsoft` and `Windows` namespaces that the generator can mock without a `CreateMock` call of its own, by the same rules as an auto-mock (see the limitations of [auto-mocking](#auto-mocking)). `ILogger`, `ILogger<T>` and `ILoggerFactory` are mockable too, because Mockolate has [dedicated mocks](09-special-types/03-logging.md) for them. Other interfaces, such as `IEnumerable<T>`, would be mocks that return `null`, so they are required arguments.
 
 <details>

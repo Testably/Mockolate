@@ -1,0 +1,107 @@
+---
+description: Let TUnit pass the class under test and its mocks as test method parameters with the AutoMockArguments attribute of Mockolate.TUnit.
+---
+
+import PackageInstall from '@site/src/components/PackageInstall';
+
+# TUnit
+
+The `Mockolate.TUnit` package adds the `[AutoMockArguments]` attribute for [TUnit](https://tunit.dev/) tests. It fills the parameters of the test method: an interface gets a new mock, and a class gets an instance whose constructor dependencies are mocks. The class under test receives the same mocks as the test, so you can set them up and verify them directly.
+
+<PackageInstall package="Mockolate.TUnit" />
+
+```csharp
+public class VendingMachine(IChocolateDispenser dispenser)
+{
+    public string Buy(string type, int amount)
+        => dispenser.Dispense(type, amount) ? "Enjoy!" : "Sold out";
+}
+
+public class VendingMachineTests
+{
+    [Test]
+    [AutoMockArguments]
+    public async Task Buy_WhenChocolateIsAvailable_ShouldDispenseIt(VendingMachine sut, IChocolateDispenser dispenser)
+    {
+        dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
+
+        string result = sut.Buy("Dark", 4);
+
+        await That(result).IsEqualTo("Enjoy!");
+        dispenser.Mock.Verify.Dispense("Dark", 4).Once();
+    }
+}
+```
+
+The order of the parameters does not matter, and a class without a matching test parameter still gets a new mock for each mockable dependency. Which classes and parameters are supported follows the rules of [`CreateWithMocks`](../04-create-mocks.md#create-the-class-under-test-with-mocks).
+
+## Pass arguments
+
+Like TUnit's `[Arguments]`, the attribute takes arguments for the first parameters of the test method. Only the remaining parameters are filled with mocks. Each attribute is one test case:
+
+```csharp
+[Test]
+[AutoMockArguments("Dark", 4)]
+[AutoMockArguments("White", 2)]
+public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount, VendingMachine sut,
+    IChocolateDispenser dispenser)
+{
+    sut.Buy(type, amount);
+
+    dispenser.Mock.Verify.Dispense(type, amount).Once();
+}
+```
+
+A class under test also receives the given arguments: a constructor parameter that Mockolate cannot mock, such as a `string`, gets the argument of the test parameter of that type.
+
+## Share or separate the mocks
+
+A constructor parameter of a class under test gets the test parameter of the same type. When several test parameters have that type, the one with the name of the constructor parameter is used, ignoring case:
+
+```csharp
+public class ChocolateTransfer(IChocolateDispenser source, IChocolateDispenser target)
+{
+    public void Move(string type, int amount)
+    {
+        if (source.Dispense(type, amount))
+        {
+            target[type] += amount;
+        }
+    }
+}
+
+[Test]
+[AutoMockArguments]
+public async Task Move_ShouldTakeFromTheSource(ChocolateTransfer sut, IChocolateDispenser source,
+    IChocolateDispenser target)
+{
+    sut.Move("Dark", 3);
+
+    source.Mock.Verify.Dispense("Dark", 3).Once();
+}
+```
+
+Without a parameter of that name, the test fails with a message that names the candidates. Mark a parameter with `[Transient]` to keep it out of the classes under test, like a transient service in dependency injection. The class under test then gets its own mock:
+
+```csharp
+[Test]
+[AutoMockArguments]
+public async Task Buy_ShouldNotUseAnotherDispenser(VendingMachine sut, [Transient] IChocolateDispenser other)
+{
+    sut.Buy("Dark", 4);
+
+    other.Mock.Verify.Dispense(It.IsAny<string>(), It.IsAny<int>()).Never();
+}
+```
+
+<details>
+<summary>Details and limitations</summary>
+
+- The test parameters are matched by their exact type. A dependency of type `IChocolateDispenser` does not receive a test parameter of a type that derives from it.
+- Classes are always constructed, never mocked. To get a mock of a class, create it with `CreateMock` in the test.
+- A parameter that is neither a mockable interface nor a supported class, and that has no argument, fails the test. So does a constructor parameter that Mockolate cannot mock and that no test parameter provides, unless it has a default value or accepts `null`.
+- The mocks use `MockBehavior.Default`.
+- The given arguments are passed as they are, without conversion, so their types must match the parameters, e.g. `4` for an `int` and `4L` for a `long`.
+- A single `null`, `[AutoMockArguments(null)]`, is the argument of the first parameter.
+
+</details>

@@ -15,6 +15,7 @@ The basics of [creating](../04-create-mocks.md), [setting up](../05-setup/01-met
 | [Monitor interactions](04-monitor-interactions.md)                         | only verify the interactions within a scope, or reset the recorded interactions |
 | [Check for unexpected interactions](05-check-for-unexpected-interactions.md) | make sure every interaction was verified, or every setup was used            |
 | [Scenarios](06-scenarios.md)                                               | switch between sets of setups, for collaborators with an internal state         |
+| [TUnit](07-tunit.mdx)                                                      | receive the class under test and its mocks as parameters of a TUnit test        |
 
 For example, [scenarios](06-scenarios.md) let a dispenser with a `Refill` method behave differently before and after a refill:
 
