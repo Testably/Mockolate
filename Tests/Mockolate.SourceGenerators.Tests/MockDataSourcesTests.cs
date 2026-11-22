@@ -20,7 +20,7 @@ public sealed class MockDataSourcesTests
 	                                     """;
 
 	[Test]
-	public async Task CreateWithMocksWithoutDataSource_ShouldNotRegisterAFactory()
+	public async Task CreateMockWithConstructorDependenciesWithoutDataSource_ShouldNotRegisterAFactory()
 	{
 		GeneratorResult result = Generator.Run("""
 		                                       #nullable enable
@@ -36,14 +36,14 @@ public sealed class MockDataSourcesTests
 		                                           {
 		                                               public static void Main(string[] args)
 		                                               {
-		                                                   _ = Svc.CreateWithMocks(out _);
+		                                                   _ = Svc.CreateMock();
 		                                               }
 		                                           }
 		                                       }
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources).ContainsKey("CreateWithMocks.g.cs").And.DoesNotContainKey("MockDataSources.g.cs");
+		await That(result.Sources).ContainsKey("Mock.IDep.g.cs").And.DoesNotContainKey("MockDataSources.g.cs");
 	}
 
 	[Test]
@@ -436,11 +436,11 @@ public sealed class MockDataSourcesTests
 		await That(result.Sources["MockDataSources.g.cs"])
 			.Contains("out global::System.IServiceProvider d0) ? d0 : global::System.IServiceProvider.CreateMock(").And
 			.Contains("out global::MyCode.AbstractDep d1) ? d1 : throw new global::Mockolate.Exceptions.MockException(").And
-			.Contains("\"values\", \"MyCode.Svc\") : [])");
+			.Contains("\"values\", \"MyCode.Svc\") : [];");
 	}
 
 	[Test]
-	public async Task AbstractClassWithoutParameterlessConstructor_ShouldNotBeMocked()
+	public async Task AbstractClass_ShouldOnlyBeMockedWhenCreateMockCanCallAConstructor()
 	{
 		GeneratorResult result = Generator.Run($$"""
 		                                         #nullable enable
@@ -472,9 +472,8 @@ public sealed class MockDataSourcesTests
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources["MockDataSources.g.cs"])
 			.Contains("value = global::MyCode.WithProtected.CreateMock(").And
-			.Contains("out global::MyCode.WithParameter createdValue").And
+			.Contains("value = global::MyCode.WithParameter.CreateMock(").And
 			.Contains("out global::MyCode.WithPrivate createdValue").And
-			.DoesNotContain("global::MyCode.WithParameter.CreateMock").And
 			.DoesNotContain("global::MyCode.WithPrivate.CreateMock");
 	}
 

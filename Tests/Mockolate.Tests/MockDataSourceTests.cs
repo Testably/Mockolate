@@ -198,13 +198,13 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
-	public async Task TryCreate_WithAbstractClassWithoutParameterlessConstructor_ShouldReturnFalse()
+	public async Task TryCreate_WithAbstractClassWithParameters_ShouldMockItWithTheDefaultValues()
 	{
 		bool result = MockDataSource.TryCreate(Assembly, typeof(MockDataAbstractWithParameter), null, NoArgument,
 			out object? value);
 
-		await That(result).IsFalse().Because("such a class gets no mock, and the default values provide none");
-		await That(value).IsNull();
+		await That(result).IsTrue();
+		await That(((MockDataAbstractWithParameter)value!).Value).IsEqualTo(0);
 	}
 
 	[Test]

@@ -321,29 +321,19 @@ public sealed partial class MockTests
 #endif
 
 	[Test]
-	public async Task Create_WithRequiredParameters_WithEmptyParameters_ShouldThrowMockException()
+	public async Task Create_WithRequiredParameters_WithEmptyParameters_ShouldUseTheDefaultValues()
 	{
-		void Act()
-		{
-			_ = MyBaseClassWithConstructor.CreateMock([]);
-		}
+		MyBaseClassWithConstructor sut = MyBaseClassWithConstructor.CreateMock([]);
 
-		await That(Act).Throws<MockException>()
-			.WithMessage(
-				"No parameterless constructor found for 'Mockolate.Tests.MockTests.MyBaseClassWithConstructor'. Please provide constructor parameters.");
+		await That(sut.Text).IsEqualTo("");
 	}
 
 	[Test]
-	public async Task Create_WithRequiredParameters_WithoutParameters_ShouldThrowMockException()
+	public async Task Create_WithRequiredParameters_WithoutParameters_ShouldUseTheDefaultValues()
 	{
-		void Act()
-		{
-			_ = MyBaseClassWithConstructor.CreateMock();
-		}
+		MyBaseClassWithConstructor sut = MyBaseClassWithConstructor.CreateMock();
 
-		await That(Act).Throws<MockException>()
-			.WithMessage(
-				"No parameterless constructor found for 'Mockolate.Tests.MockTests.MyBaseClassWithConstructor'. Please provide constructor parameters.");
+		await That(sut.Text).IsEqualTo("");
 	}
 
 	[Test]

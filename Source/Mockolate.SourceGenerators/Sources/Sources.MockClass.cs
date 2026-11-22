@@ -23,6 +23,7 @@ internal static partial class Sources
 		EquatableArray<Method>? constructors = (@class as MockClass)?.Constructors;
 		bool hasParameterizedConstructor = !@class.IsInterface &&
 		                                   constructors?.Any(m => m.Parameters.Count > 0) == true;
+		bool hasConstructorArguments = HasConstructorArguments(@class, constructors);
 		string classReference = @class.XmlDocReference;
 		bool hasEvents = @class.AllEvents().Any(x => !x.IsStatic);
 		bool hasStaticEvents = @class.IsInterface && @class.AllEvents().Any(@event => @event.IsStatic);
@@ -176,14 +177,16 @@ internal static partial class Sources
 			}
 		}
 
+		string? constructorArgumentsName = hasConstructorArguments ? AppendConstructorArgumentsField(sb, @class) : null;
+
 		sb.AppendLine();
-		
-		
+
+
 		sb.AppendLine();
-		
+
 		string[]? adapterIgnoredNames = GetAdapterIgnoredNames([@class,]);
 		string? adapterClearHook = GetAdapterClearHook([@class,]);
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook, constructorArgumentsName, @class.DisplayString);
 
 		foreach ((string Name, Class Class) hiddenBase in hiddenBaseInterfaces)
 		{
@@ -222,7 +225,8 @@ internal static partial class Sources
 		{
 			foreach (Method constructor in constructors)
 			{
-				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, name, constructor, @class.HasRequiredMembers);
+				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, name, constructor, @class.HasRequiredMembers,
+					constructorArgumentsName: constructorArgumentsName, classDisplay: @class.DisplayString);
 				AppendMockSubject_BehaviorBaseClassConstructor(sb, name, constructor, @class.HasRequiredMembers);
 			}
 		}
@@ -567,6 +571,22 @@ internal static partial class Sources
 		sb.AppendXmlRemarks(["The underlying mock keeps recording all interactions as usual - only the monitor's <c>Verify</c> view is scoped. Useful to verify only the interactions produced by a specific block of test code without resetting the mock.",]);
 		sb.AppendXmlReturns("A <see cref=\"global::Mockolate.Monitor.MockMonitor{T}\" /> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.");
 		sb.Append("\t\tglobal::Mockolate.Monitor.MockMonitor<IMockVerifyFor").Append(name).Append("> Monitor();").AppendLine();
+		if (hasConstructorArguments)
+		{
+			sb.AppendLine();
+			sb.AppendXmlSummary($"Gets the only argument of type <typeparamref name=\"T\" /> that the constructor of the mock of {classReference} received.");
+			sb.AppendXmlRemarks(["Use it to set up and verify the mocks that <c>CreateMock()</c> passed to the constructor. When the constructor received several arguments of the type, pass the name of the parameter.",]);
+			sb.AppendXmlReturns("The argument of type <typeparamref name=\"T\" />.");
+			sb.AppendXmlException("global::Mockolate.Exceptions.MockException", "The constructor received no or several arguments of type <typeparamref name=\"T\" />.");
+			sb.Append("\t\tT ConstructorArgument<T>();").AppendLine();
+			sb.AppendLine();
+			sb.AppendXmlSummary($"Gets the argument of the parameter <paramref name=\"parameterName\" /> that the constructor of the mock of {classReference} received.");
+			sb.AppendXmlParam("parameterName", "The name of the constructor parameter.");
+			sb.AppendXmlReturns("The argument of the parameter <paramref name=\"parameterName\" />.");
+			sb.AppendXmlException("global::Mockolate.Exceptions.MockException", "The constructor has no parameter <paramref name=\"parameterName\" />, or its argument is no <typeparamref name=\"T\" />.");
+			sb.Append("\t\tT ConstructorArgument<T>(string parameterName);").AppendLine();
+		}
+
 		sb.Append("\t}").AppendLine();
 		sb.AppendLine();
 
@@ -992,6 +1012,20 @@ internal static partial class Sources
 				string arguments = AppendArgumentsWithoutConstructorParameters(sb, "\t\t\t\t", constructors.Value, constructorWithoutArguments);
 				sb.Append("\t\t\t\treturn new global::Mockolate.Mock.").Append(name).Append("(mockRegistry").Append(arguments).Append(");").AppendLine();
 			}
+			else if (@class is MockClass { ConstructorWithDependencies: { } constructorWithDependencies, ConstructorDependencies: { } dependencies, })
+			{
+				string arguments = AppendConstructorDependencies(sb, "\t\t\t\t",
+					constructors.Value.AsArray()[constructorWithDependencies], dependencies, @class.DisplayString);
+				sb.Append("\t\t\t\tmockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, new object?[] { ").Append(arguments).Append(", });").AppendLine();
+				sb.Append("\t\t\t\tglobal::Mockolate.Mock.").Append(name).Append(".MockRegistryProvider.Value = mockRegistry;").AppendLine();
+				sb.Append("\t\t\t\tglobal::Mockolate.MockExtensionsFor").Append(name).Append(".MockSetup? setupTarget = null;").AppendLine();
+				sb.Append("\t\t\t\tif (setup is not null)").AppendLine();
+				sb.Append("\t\t\t\t{").AppendLine();
+				sb.Append("\t\t\t\t\tsetupTarget ??= new(mockRegistry);").AppendLine();
+				sb.Append("\t\t\t\t\tsetup.Invoke(setupTarget);").AppendLine();
+				sb.Append("\t\t\t\t}").AppendLine();
+				sb.Append("\t\t\t\treturn new global::Mockolate.Mock.").Append(name).Append("(mockRegistry, ").Append(arguments).Append(");").AppendLine();
+			}
 			else
 			{
 				sb.Append("\t\t\t\tthrow new global::Mockolate.Exceptions.MockException(\"No parameterless constructor found for '").Append(@class.DisplayString).Append("'. Please provide constructor parameters.\");").AppendLine();
@@ -1026,7 +1060,7 @@ internal static partial class Sources
 					useTryCast = useTryCast || !parameter.HasExplicitDefaultValue;
 					useTryCastWithDefaultValue = useTryCastWithDefaultValue || parameter.HasExplicitDefaultValue;
 					sb.AppendLine().Append("\t\t\t    && ")
-						.Append(parameter.HasExplicitDefaultValue ? "TryCastWithDefaultValue" : "TryCast")
+						.Append(parameter.HasExplicitDefaultValue ? $"TryCastWithDefaultValue<{parameter.Type.Fullname}>" : "TryCast")
 						.Append("(constructorParameters, ")
 						.Append(constructorParameterIndex++)
 						.Append(parameter.HasExplicitDefaultValue ? $", {parameter.ExplicitDefaultValue}" : "")
@@ -1253,7 +1287,8 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementMockForInterface(StringBuilder sb, string mockRegistryName, string name,
 		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents,
-		string[]? adapterIgnoredNames, string? adapterClearHook)
+		string[]? adapterIgnoredNames, string? adapterClearHook, string? constructorArgumentsName = null,
+		string? classDisplay = null)
 	{
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
@@ -1393,14 +1428,53 @@ internal static partial class Sources
 			.Append(mockRegistryName).Append(".Interactions, interactions => new VerifyMonitor").Append(name)
 			.Append("(new global::Mockolate.Internals.MockRegistry(this.").Append(mockRegistryName).Append(", interactions)));")
 			.AppendLine();
+		if (constructorArgumentsName is not null)
+		{
+			string recorded = $"(this.{constructorArgumentsName} ?? throw new global::Mockolate.Exceptions.MockException(\"The mock of {classDisplay} was created without constructor arguments.\"))";
+			sb.Append("\t\t/// <inheritdoc />").AppendLine();
+			sb.Append("\t\tT IMockFor").Append(name).Append(".ConstructorArgument<T>()").AppendLine();
+			sb.Append("\t\t\t=> ").Append(recorded).Append(".Get<T>();").AppendLine();
+			sb.Append("\t\t/// <inheritdoc />").AppendLine();
+			sb.Append("\t\tT IMockFor").Append(name).Append(".ConstructorArgument<T>(string parameterName)").AppendLine();
+			sb.Append("\t\t\t=> ").Append(recorded).Append(".Get<T>(parameterName);").AppendLine();
+		}
+
 		sb.AppendLine();
 	}
 #pragma warning restore S107 // Methods should not have too many parameters
 
 	#region Mock Helpers
 
+	/// <summary>
+	///     Declares the field that holds the <c>ConstructorArguments</c> of a class mock and returns its name.
+	/// </summary>
+	private static string AppendConstructorArgumentsField(StringBuilder sb, Class @class)
+	{
+		string constructorArgumentsName = @class.GetUniqueName("MockolateConstructorArguments");
+		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
+		sb.Append("\t\tprivate readonly global::Mockolate.Internals.ConstructorArguments? ").Append(constructorArgumentsName).Append(';').AppendLine();
+		return constructorArgumentsName;
+	}
+
+	/// <summary>
+	///     Whether the mock of the class records the arguments of at least one of its <paramref name="constructors" />,
+	///     which <c>ConstructorArgument</c> returns.
+	/// </summary>
+	private static bool HasConstructorArguments(Class @class, EquatableArray<Method>? constructors)
+		=> !@class.IsInterface && constructors?.Any(CanRecordConstructorArguments) == true;
+
+	/// <summary>
+	///     The arguments of a constructor whose parameters can all be boxed into an <see langword="object" />.
+	/// </summary>
+	private static bool CanRecordConstructorArguments(Method constructor)
+		=> constructor.Parameters.Count > 0 &&
+		   constructor.Parameters.All(parameter => !parameter.Type.IsRefStruct &&
+		                                           parameter.RefKind != RefKind.Out &&
+		                                           parameter.Type.Fullname.IndexOf('*') < 0);
+
 	private static void AppendMockSubject_BaseClassConstructor(StringBuilder sb, string mockRegistryName, string name,
-		Method constructor, bool hasRequiredMembers, bool setsMockRegistryProvider = false)
+		Method constructor, bool hasRequiredMembers, bool setsMockRegistryProvider = false,
+		string? constructorArgumentsName = null, string? classDisplay = null)
 	{
 		string mockRegistry = CreateUniqueParameterName(constructor.Parameters, "mockRegistry");
 		sb.Append("\t\t/// <inheritdoc cref=\"").Append(name).Append("\" />").AppendLine();
@@ -1445,6 +1519,18 @@ internal static partial class Sources
 		if (setsMockRegistryProvider)
 		{
 			sb.Append("\t\t\tMockRegistryProvider.Value = ").Append(mockRegistry).Append(';').AppendLine();
+		}
+
+		if (constructorArgumentsName is not null && CanRecordConstructorArguments(constructor))
+		{
+			sb.Append("\t\t\tthis.").Append(constructorArgumentsName).Append(" = new global::Mockolate.Internals.ConstructorArguments(\"")
+				.Append(classDisplay).Append('(')
+				.Append(string.Join(", ", constructor.Parameters.Select(parameter => parameter.Type.DisplayName)))
+				.Append(")\", new string[] { ")
+				.Append(string.Join(", ", constructor.Parameters.Select(parameter => $"\"{parameter.Name.TrimStart('@')}\"")))
+				.Append(", }, new object?[] { ")
+				.Append(string.Join(", ", constructor.Parameters.Select(parameter => parameter.Name)))
+				.Append(", });").AppendLine();
 		}
 
 		sb.Append("\t\t}").AppendLine();
@@ -7272,6 +7358,59 @@ internal static partial class Sources
 		sb.AppendTypeOrWrapper(method.ReturnType);
 	}
 
+	/// <summary>
+	///     Declares the arguments that <c>CreateMock()</c> passes to the <paramref name="constructor" /> with dependencies
+	///     and returns their names: a new mock with the same behavior, an empty collection for <see langword="params" />,
+	///     the declared default value, <see langword="null" /> for a nullable parameter, or else a value from the default
+	///     values of the behavior.
+	/// </summary>
+	private static string AppendConstructorDependencies(StringBuilder sb, string indent, Method constructor,
+		EquatableArray<ConstructorDependency> dependencies, string classDisplay)
+	{
+		List<string> names = [];
+		ConstructorDependency[] dependencyArray = dependencies.AsArray();
+		int index = 0;
+		foreach (MethodParameter parameter in constructor.Parameters)
+		{
+			ConstructorDependency dependency = dependencyArray[index++];
+			string name = $"d{index}";
+			names.Add(name);
+			sb.Append(indent).Append(parameter.Type.Fullname).Append(' ').Append(name).Append(" = ");
+			if (dependency.MockTypeFullName is { } mockType)
+			{
+				sb.Append(mockType).Append(".CreateMock(mockRegistry.Behavior);").AppendLine();
+			}
+			else if (parameter.IsParams)
+			{
+				sb.Append("[];").AppendLine();
+			}
+			else if (parameter.HasExplicitDefaultValue)
+			{
+				sb.Append(parameter.ExplicitDefaultValue).Append(';').AppendLine();
+			}
+			else if (dependency.IsNullable)
+			{
+				sb.Append("default;").AppendLine();
+			}
+			else
+			{
+				// The typed overloads of Generate return what an un-configured mock member returns, e.g. an empty collection.
+				sb.Append("mockRegistry.Behavior.DefaultValue.Generate(default(").Append(parameter.Type.Fullname).Append(")!);").AppendLine();
+				if (!parameter.Type.IsValueType)
+				{
+					sb.Append(indent).Append("if (").Append(name).Append(" is null)").AppendLine();
+					sb.Append(indent).Append('{').AppendLine();
+					sb.Append(indent).Append("\tthrow new global::Mockolate.Exceptions.MockException(\"There is no argument for the constructor parameter '")
+						.Append(parameter.Name.TrimStart('@')).Append("' of ").Append(classDisplay)
+						.Append(". Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.\");").AppendLine();
+					sb.Append(indent).Append('}').AppendLine();
+				}
+			}
+		}
+
+		return string.Join(", ", names);
+	}
+
 	private static string AppendArgumentsWithoutConstructorParameters(StringBuilder sb, string indent,
 		EquatableArray<Method> constructors, int constructorIndex)
 	{
@@ -7313,7 +7452,8 @@ internal static partial class Sources
 				continue;
 			}
 
-			if (constructor.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams))
+			// A ref struct cannot be passed in the object array of constructor parameters.
+			if (constructor.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams || p.Type.IsRefStruct))
 			{
 				continue;
 			}

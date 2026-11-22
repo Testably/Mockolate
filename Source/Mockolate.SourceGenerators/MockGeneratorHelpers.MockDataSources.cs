@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Mockolate.SourceGenerators.Entities;
@@ -252,6 +253,7 @@ internal static partial class MockGeneratorHelpers
 				case DataSourceParameterKind.Mock:
 					targets.MockedTypes.Add(parameterType);
 					targets.TypesToMock.Add(parameterType);
+					targets.TypesToMock.AddRange(GetConstructorDependencyMockTypes(parameterType, compilation));
 					break;
 				case DataSourceParameterKind.ValueOrMock:
 					targets.ValueOrMockTypes.Add(parameterType);
@@ -314,14 +316,42 @@ internal static partial class MockGeneratorHelpers
 					parameter.Type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T));
 			}
 
+			bool isMock = IsClassMockable(type, constructor, compilation);
+			if (isMock)
+			{
+				targets.TypesToMock.Add(type);
+				targets.TypesToMock.AddRange(GetConstructorDependencyMockTypes(type, compilation));
+			}
+
 			targets.Classes.Add(new DataSourceClass(ToFullName(type),
-				new EquatableArray<DataSourceParameter>(parameters.ToArray())));
+				new EquatableArray<DataSourceParameter>(parameters.ToArray()), isMock));
 		}
 
 		return targets with
 		{
 			TypesToMock = targets.TypesToMock.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default).ToList(),
 		};
+	}
+
+	/// <summary>
+	///     Whether the factory creates the <paramref name="type" /> as a class mock through the
+	///     <paramref name="constructor" />: its mock is emitted and compiles, and the object array of constructor
+	///     parameters reaches no other constructor of the mock.
+	/// </summary>
+	private static bool IsClassMockable(INamedTypeSymbol type, IMethodSymbol constructor, Compilation compilation)
+	{
+		if (GetCompilableDataSourceMock(type, compilation) is null)
+		{
+			return false;
+		}
+
+		int count = constructor.Parameters.Length;
+		IMethodSymbol[] reachable = GetMockConstructors(type, compilation.Assembly)
+			.Where(candidate => !candidate.Parameters.Any(parameter => parameter.Type.IsRefLikeType) &&
+			                    candidate.Parameters.Count(parameter => !parameter.HasExplicitDefaultValue) <= count &&
+			                    count <= candidate.Parameters.Length)
+			.ToArray();
+		return reachable.Length == 1 && SymbolEqualityComparer.Default.Equals(reachable[0], constructor);
 	}
 
 	private static bool IsCreatableDependency(INamedTypeSymbol type, Compilation compilation)
@@ -378,15 +408,36 @@ internal static partial class MockGeneratorHelpers
 	}
 
 	/// <summary>
-	///     Whether the mock of the parameter <paramref name="type" /> is emitted and compiles without warnings.
+	///     Whether the factory can create the parameter <paramref name="type" /> with <c>CreateMock()</c>.
+	/// </summary>
+	private static bool CanMockDataSourceParameter(INamedTypeSymbol type, Compilation compilation)
+		=> GetCompilableDataSourceMock(type, compilation) is { } mock &&
+		   (type.TypeKind != TypeKind.Class || HasCallableMockConstructor(type, mock, compilation));
+
+	/// <summary>
+	///     Whether <c>CreateMock()</c> calls a constructor of the class <paramref name="type" /> that is not obsolete: one
+	///     without arguments, or else the one that it fills with dependencies.
+	/// </summary>
+	private static bool HasCallableMockConstructor(INamedTypeSymbol type, MockClass mock, Compilation compilation)
+	{
+		int? constructor = mock.ConstructorWithoutArguments ?? mock.ConstructorWithDependencies;
+		return constructor is { } index &&
+		       !HasUsageDiagnostic(GetMockConstructors(type, compilation.Assembly)[index]);
+	}
+
+	/// <summary>
+	///     The mock of the <paramref name="type" />, or <see langword="null" /> when it is not emitted or does not compile
+	///     without warnings.
 	/// </summary>
 	/// <remarks>
 	///     Without an emitted mock, the factory's <c>CreateMock</c> call binds to the fallback that always throws, so this
 	///     asks the same <see cref="MockClass" /> that decides the emission.
 	/// </remarks>
-	private static bool CanMockDataSourceParameter(INamedTypeSymbol type, Compilation compilation)
+	private static MockClass? GetCompilableDataSourceMock(INamedTypeSymbol type, Compilation compilation)
 	{
+		// The mock of a type named like a keyword, such as @event, would be a class of that name.
 		if (!IsMockable(type) ||
+		    SyntaxFacts.GetKeywordKind(type.Name) != SyntaxKind.None ||
 		    HasMemberNamedCreateMock(type) ||
 		    (type.TypeKind == TypeKind.Interface && HasNonPublicAbstractMembers(type)) ||
 		    type.DelegateInvokeMethod is { ReturnsByRef: true, } or { ReturnsByRefReadonly: true, } ||
@@ -396,14 +447,11 @@ internal static partial class MockGeneratorHelpers
 			    : HasCompilableMockMembers(type, compilation.Assembly)) ||
 		    Normalize(type, compilation) is not INamedTypeSymbol normalized)
 		{
-			return false;
+			return null;
 		}
 
 		MockClass mock = GetOrCreateDiscoveredMockClass(normalized, compilation);
-		return MockGenerator.IsValidMockDeclaration(mock) &&
-		       (type.TypeKind != TypeKind.Class ||
-		        (mock.ConstructorWithoutArguments is { } constructor &&
-		         !HasUsageDiagnostic(MockClass.GetMockConstructors(type, compilation.Assembly)[constructor])));
+		return MockGenerator.IsValidMockDeclaration(mock) ? mock : null;
 	}
 
 	private static bool UsesFileLocalType(ITypeSymbol type)

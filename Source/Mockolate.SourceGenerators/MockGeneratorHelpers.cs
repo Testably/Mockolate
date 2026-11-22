@@ -74,6 +74,12 @@ internal static partial class MockGeneratorHelpers
 			{
 				yield return new MockClass([adapterReturnType,], semanticModel.Compilation);
 			}
+
+			foreach (MockClass dependencyMock in GetConstructorDependencyMockTypes(types[0], semanticModel.Compilation)
+				         .SelectMany(type => CreateDependencyMockClasses(type, semanticModel.Compilation)))
+			{
+				yield return dependencyMock;
+			}
 		}
 	}
 

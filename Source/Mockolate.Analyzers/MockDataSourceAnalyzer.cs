@@ -102,7 +102,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		    {
 			    TypeKind: TypeKind.Interface or TypeKind.Delegate or TypeKind.Class, IsStatic: false,
 		    } namedType ||
-		    CreateWithMocksAnalyzer.IsFrameworkNamespace(namedType.ContainingNamespace))
+		    ConstructorRules.IsFrameworkNamespace(namedType.ContainingNamespace))
 		{
 			return null;
 		}
@@ -112,7 +112,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0010InaccessibleReason;
 		}
 
-		if (CreateWithMocksAnalyzer.ContainsTypeParameter(namedType))
+		if (ConstructorRules.ContainsTypeParameter(namedType))
 		{
 			return Resources.Mockolate0010ContainsTypeParameterReason;
 		}
@@ -122,12 +122,12 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0010FileLocalReason;
 		}
 
-		if (CreateWithMocksAnalyzer.IsNestedInGenericType(namedType))
+		if (ConstructorRules.IsNestedInGenericType(namedType))
 		{
 			return Resources.Mockolate0010NestedInGenericTypeReason;
 		}
 
-		if (CreateWithMocksAnalyzer.HasUsageDiagnostic(namedType))
+		if (ConstructorRules.HasUsageDiagnostic(namedType))
 		{
 			return Resources.Mockolate0010ObsoleteReason;
 		}
@@ -176,14 +176,14 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 				member.ToDisplayString());
 		}
 
-		return type.TypeKind == TypeKind.Class && !HasConstructorWithoutArguments(type, compilation)
+		return type.TypeKind == TypeKind.Class && !HasCallableMockConstructor(type, compilation)
 			? Resources.Mockolate0010ParameterlessConstructorReason
 			: null;
 	}
 
 	private static string? GetArrayReason(IArrayTypeSymbol array, Compilation compilation)
 	{
-		if (CreateWithMocksAnalyzer.ContainsTypeParameter(array))
+		if (ConstructorRules.ContainsTypeParameter(array))
 		{
 			return Resources.Mockolate0010ContainsTypeParameterReason;
 		}
@@ -205,18 +205,18 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		=> type switch
 		{
 			IArrayTypeSymbol array => UsesFileLocalType(array.ElementType),
-			INamedTypeSymbol named => CreateWithMocksAnalyzer.IsFileLocal(named) || named.TypeArguments.Any(UsesFileLocalType),
+			INamedTypeSymbol named => ConstructorRules.IsFileLocal(named) || named.TypeArguments.Any(UsesFileLocalType),
 			_ => false,
 		};
 
 	private static bool UsesUnusableTypeArgument(ITypeSymbol type)
-		=> CreateWithMocksAnalyzer.UsesUnusableType(type) || UsesTypeNestedInGenericType(type);
+		=> ConstructorRules.UsesUnusableType(type) || UsesTypeNestedInGenericType(type);
 
 	private static bool UsesTypeNestedInGenericType(ITypeSymbol type)
 		=> type switch
 		{
 			IArrayTypeSymbol array => UsesTypeNestedInGenericType(array.ElementType),
-			INamedTypeSymbol named => CreateWithMocksAnalyzer.IsNestedInGenericType(named) ||
+			INamedTypeSymbol named => ConstructorRules.IsNestedInGenericType(named) ||
 			                          named.TypeArguments.Any(UsesTypeNestedInGenericType),
 			_ => false,
 		};
@@ -286,7 +286,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	private static bool IsUnsupportedMember(ISymbol member, bool isClass)
 		=> (!isClass && member is { IsAbstract: true, } && member.DeclaredAccessibility != Accessibility.Public) ||
-		   CreateWithMocksAnalyzer.HasUsageDiagnostic(member) ||
+		   ConstructorRules.HasUsageDiagnostic(member) ||
 		   member switch
 		   {
 			   IPropertySymbol property => property.ReturnsByRef || property.ReturnsByRefReadonly ||
@@ -295,7 +295,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			                           method.Parameters.Any(IsRefReadOnlyRefStruct),
 			   _ => false,
 		   } ||
-		   GetSignatureTypes(member).Any(CreateWithMocksAnalyzer.UsesUnusableType);
+		   GetSignatureTypes(member).Any(ConstructorRules.UsesUnusableType);
 
 	private static bool IsRefReadOnlyRefStruct(IParameterSymbol parameter)
 		=> parameter is { RefKind: RefKind.RefReadOnlyParameter, Type.IsRefLikeType: true, };
@@ -317,7 +317,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 	/// <summary>
 	///     Mirror of <c>MockClass.ConstructorWithoutArguments</c> of the source generator.
 	/// </summary>
-	private static bool HasConstructorWithoutArguments(INamedTypeSymbol type, Compilation compilation)
+	private static bool HasCallableMockConstructor(INamedTypeSymbol type, Compilation compilation)
 	{
 		IMethodSymbol[] constructors = type.Constructors
 			.Where(constructor =>
@@ -326,8 +326,31 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 				constructor.Parameters.All(parameter =>
 					MockabilityAnalyzer.IsTypeAccessibleFrom(parameter.Type, compilation.Assembly)))
 			.ToArray();
-		return MockConstructorSelector.FindConstructorWithoutArguments(constructors, compilation) is { } selected &&
-		       !CreateWithMocksAnalyzer.HasUsageDiagnostic(constructors[selected]);
+		return MockConstructorSelector.FindConstructorWithoutArguments(constructors, compilation) is { } selected
+			? !ConstructorRules.HasUsageDiagnostic(constructors[selected])
+			: HasConstructorWithDependencies(type, compilation.Assembly);
+	}
+
+	/// <summary>
+	///     Mirror of <c>GetDependencyConstructor</c> of the source generator: the single constructor with the most
+	///     parameters that <c>CreateMock()</c> fills, which must not be obsolete.
+	/// </summary>
+	private static bool HasConstructorWithDependencies(INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
+	{
+		IMethodSymbol[] candidates = type.InstanceConstructors
+			.Where(constructor => constructor.DeclaredAccessibility is Accessibility.Public or Accessibility.Protected
+				                      or Accessibility.ProtectedOrInternal &&
+			                      constructor.Parameters.Length > 0 &&
+			                      constructor.Parameters.All(parameter =>
+				                      MockabilityAnalyzer.IsTypeAccessibleFrom(parameter.Type, sourceAssembly) &&
+				                      parameter.RefKind is RefKind.None or RefKind.In &&
+				                      !parameter.Type.IsRefLikeType &&
+				                      parameter.Type is not (IPointerTypeSymbol or IFunctionPointerTypeSymbol)))
+			.OrderByDescending(constructor => constructor.Parameters.Length)
+			.ToArray();
+		return candidates.Length > 0 &&
+		       (candidates.Length == 1 || candidates[0].Parameters.Length != candidates[1].Parameters.Length) &&
+		       !ConstructorRules.HasUsageDiagnostic(candidates[0]);
 	}
 
 	private static bool HasStaticAbstractMembers(INamedTypeSymbol type)
@@ -339,7 +362,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 	/// </summary>
 	private static bool HasSingleLongestConstructor(INamedTypeSymbol type, Compilation compilation)
 	{
-		IMethodSymbol[] constructors = CreateWithMocksAnalyzer.GetUsableConstructors(type, compilation);
+		IMethodSymbol[] constructors = ConstructorRules.GetUsableConstructors(type, compilation);
 		return constructors.Length == 1 ||
 		       (constructors.Length > 1 && constructors[0].Parameters.Length != constructors[1].Parameters.Length);
 	}

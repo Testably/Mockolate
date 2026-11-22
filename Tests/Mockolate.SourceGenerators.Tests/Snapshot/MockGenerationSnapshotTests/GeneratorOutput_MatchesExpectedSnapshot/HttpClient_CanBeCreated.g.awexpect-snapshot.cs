@@ -54,6 +54,8 @@ internal static partial class Mock
 		}
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -108,6 +110,12 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpClient> IMockForHttpClient.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpClient>(this.MockRegistry.Interactions, interactions => new VerifyMonitorHttpClient(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		T IMockForHttpClient.ConstructorArgument<T>()
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of System.Net.Http.HttpClient was created without constructor arguments.")).Get<T>();
+		/// <inheritdoc />
+		T IMockForHttpClient.ConstructorArgument<T>(string parameterName)
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of System.Net.Http.HttpClient was created without constructor arguments.")).Get<T>(parameterName);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -131,6 +139,7 @@ internal static partial class Mock
 			: base(handler)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("System.Net.Http.HttpClient(HttpMessageHandler)", new string[] { "handler", }, new object?[] { handler, });
 		}
 
 		/// <inheritdoc cref="HttpClient" />
@@ -144,6 +153,7 @@ internal static partial class Mock
 			: base(handler, disposeHandler)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("System.Net.Http.HttpClient(HttpMessageHandler, bool)", new string[] { "handler", "disposeHandler", }, new object?[] { handler, disposeHandler, });
 		}
 
 		/// <inheritdoc cref="HttpClient" />
@@ -898,6 +908,24 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpClient> Monitor();
+
+		/// <summary>
+		///     Gets the only argument of type <typeparamref name="T" /> that the constructor of the mock of <see cref="global::System.Net.Http.HttpClient">HttpClient</see> received.
+		/// </summary>
+		/// <remarks>
+		///     Use it to set up and verify the mocks that <c>CreateMock()</c> passed to the constructor. When the constructor received several arguments of the type, pass the name of the parameter.
+		/// </remarks>
+		/// <returns>The argument of type <typeparamref name="T" />.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The constructor received no or several arguments of type <typeparamref name="T" />.</exception>
+		T ConstructorArgument<T>();
+
+		/// <summary>
+		///     Gets the argument of the parameter <paramref name="parameterName" /> that the constructor of the mock of <see cref="global::System.Net.Http.HttpClient">HttpClient</see> received.
+		/// </summary>
+		/// <param name="parameterName">The name of the constructor parameter.</param>
+		/// <returns>The argument of the parameter <paramref name="parameterName" />.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The constructor has no parameter <paramref name="parameterName" />, or its argument is no <typeparamref name="T" />.</exception>
+		T ConstructorArgument<T>(string parameterName);
 	}
 
 	/// <summary>

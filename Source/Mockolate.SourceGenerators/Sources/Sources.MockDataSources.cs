@@ -130,10 +130,33 @@ internal static partial class Sources
 				sb.Append("\t\t\tCreationPath self = new(").Append(i).Append(", path);").AppendLine();
 			}
 
-			sb.Append("\t\t\treturn new ").Append(dataSourceClass.ClassFullName).Append('(')
-				.Append(string.Join(", ", dataSourceClass.Parameters.AsArray().Select((parameter, index) =>
-					Argument(parameter, index, className, i))))
-				.Append(");").AppendLine();
+			if (!dataSourceClass.IsMock)
+			{
+				sb.Append("\t\t\treturn new ").Append(dataSourceClass.ClassFullName).Append('(')
+					.Append(string.Join(", ", dataSourceClass.Parameters.AsArray().Select((parameter, index) =>
+						Argument(parameter, index, className, i))))
+					.Append(");").AppendLine();
+			}
+			else if (dataSourceClass.Parameters.Count == 0)
+			{
+				sb.Append("\t\t\treturn ").Append(dataSourceClass.ClassFullName)
+					.Append(".CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);").AppendLine();
+			}
+			else
+			{
+				// The typed locals give a collection expression its type, and the object array reaches only the
+				// constructor whose arguments it holds.
+				DataSourceParameter[] parameters = dataSourceClass.Parameters.AsArray();
+				for (int index = 0; index < parameters.Length; index++)
+				{
+					sb.Append("\t\t\tvar a").Append(index).Append(" = ").Append(Argument(parameters[index], index, className, i))
+						.Append(';').AppendLine();
+				}
+
+				sb.Append("\t\t\treturn ").Append(dataSourceClass.ClassFullName)
+					.Append(".CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { ")
+					.Append(string.Join(", ", parameters.Select((_, index) => $"a{index}"))).Append(", });").AppendLine();
+			}
 			sb.Append("\t\t}").AppendLine();
 		}
 

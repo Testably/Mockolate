@@ -131,23 +131,24 @@ public sealed partial class MockGenerationSnapshotTests
             [],
             Snapshot: true),
         new(
-            "CreateWithMocks_CanBeCreated",
-            ["CreateWithMocksTargets.cs",],
+            "ConstructorDependencies_CanBeCreated",
+            ["ConstructorDependencyTargets.cs",],
             """
-            CreateWithMocksService sut1 = CreateWithMocksService.CreateWithMocks(out _, null!, null);
-            CreateWithMocksNameCollisions sut2 = CreateWithMocksNameCollisions.CreateWithMocks(out _);
-            CreateWithMocksOuter.Nested sut3 = CreateWithMocksOuter.Nested.CreateWithMocks(out _);
-            CreateWithMocksOuter_Nested sut4 = CreateWithMocksOuter_Nested.CreateWithMocks(out _);
-            ICreateWithMocksGenericDependency<string> dependency = ICreateWithMocksGenericDependency<string>.CreateMock();
-            CreateWithMocksNullableGeneric sut5 = CreateWithMocksNullableGeneric.CreateWithMocks(out _);
-            CreateWithMocksFrameworkDependency sut6 = CreateWithMocksFrameworkDependency.CreateWithMocks(out _, [1,], 1);
-            CreateWithMocksParamsCollection sut7 = CreateWithMocksParamsCollection.CreateWithMocks(out _, [1, 2,]);
-            CreateWithMocksSpanConstructor sut8 = CreateWithMocksSpanConstructor.CreateWithMocks(out _);
-            CreateWithMocksSetsRequiredMembers sut9 = CreateWithMocksSetsRequiredMembers.CreateWithMocks(out _);
-            CreateWithMocksRecord sut10 = CreateWithMocksRecord.CreateWithMocks(out _, "name");
-            CreateWithMocksCallerInfo sut11 = CreateWithMocksCallerInfo.CreateWithMocks(out _);
+            ConstructorDependencyService sut1 = ConstructorDependencyService.CreateMock();
+            ConstructorDependencyValues sut2 = ConstructorDependencyValues.CreateMock();
+            ConstructorDependencyUnmockable sut3 = ConstructorDependencyUnmockable.CreateMock();
+            ConstructorDependencyTwice sut4 = ConstructorDependencyTwice.CreateMock();
+            ConstructorDependencyOverloads sut5 = ConstructorDependencyOverloads.CreateMock();
+            ConstructorDependencyTie sut6 = ConstructorDependencyTie.CreateMock();
+            ConstructorDependencyOptional sut7 = ConstructorDependencyOptional.CreateMock();
+            ConstructorDependencyAbstract sut8 = ConstructorDependencyAbstract.CreateMock();
+            IConstructorGenericDependency<string> dependency = IConstructorGenericDependency<string>.CreateMock();
+            ConstructorDependencyNullableGeneric sut9 = ConstructorDependencyNullableGeneric.CreateMock();
+            ConstructorDependencyKeyword sut10 = ConstructorDependencyKeyword.CreateMock();
+            ConstructorDependencySpan sut11 = ConstructorDependencySpan.CreateMock();
+            ConstructorDependencyService sut12 = ConstructorDependencyService.CreateMock().Implementing<IConstructorOtherDependency>();
             """,
-            [typeof(System.Collections.Immutable.ImmutableArray),],
+            [],
             Snapshot: true),
         new(
             "MockDataSources_CanBeCreated",

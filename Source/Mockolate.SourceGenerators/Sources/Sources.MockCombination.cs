@@ -163,11 +163,15 @@ internal static partial class Sources
 			sb.Append("\t\tinternal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();").AppendLine();
 		}
 
+		string? constructorArgumentsName = HasConstructorArguments(@class, constructors)
+			? AppendConstructorArgumentsField(sb, @class)
+			: null;
+
 		sb.AppendLine();
 
 		string[]? adapterIgnoredNames = GetAdapterIgnoredNames(allMemberClasses);
 		string? adapterClearHook = GetAdapterClearHook(allMemberClasses);
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook, constructorArgumentsName, @class.DisplayString);
 		foreach ((string additionalInterfaceName, Class additionalInterface) in additionalInterfaces)
 		{
 			ImplementMockForInterface(sb, mockRegistryName, additionalInterfaceName,
@@ -191,7 +195,8 @@ internal static partial class Sources
 			foreach (Method constructor in constructors)
 			{
 				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, fileName, constructor,
-					@class.HasRequiredMembers, hasAnyStaticMembers || hasAnyStaticEvents);
+					@class.HasRequiredMembers, hasAnyStaticMembers || hasAnyStaticEvents, constructorArgumentsName,
+					@class.DisplayString);
 			}
 		}
 		else
@@ -477,7 +482,7 @@ internal static partial class Sources
 					useTryCast = useTryCast || !parameter.HasExplicitDefaultValue;
 					useTryCastWithDefaultValue = useTryCastWithDefaultValue || parameter.HasExplicitDefaultValue;
 					sb.AppendLine().Append("\t\t    && ")
-						.Append(parameter.HasExplicitDefaultValue ? "TryCastWithDefaultValue" : "TryCast")
+						.Append(parameter.HasExplicitDefaultValue ? $"TryCastWithDefaultValue<{parameter.Type.Fullname}>" : "TryCast")
 						.Append("(mock.MockRegistry.ConstructorParameters, ")
 						.Append(constructorParameterIndex++)
 						.Append(parameter.HasExplicitDefaultValue ? $", {parameter.ExplicitDefaultValue}" : "")

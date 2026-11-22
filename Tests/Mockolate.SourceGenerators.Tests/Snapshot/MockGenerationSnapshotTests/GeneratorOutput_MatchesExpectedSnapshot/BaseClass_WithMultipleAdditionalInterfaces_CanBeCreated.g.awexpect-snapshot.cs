@@ -56,6 +56,8 @@ internal static partial class Mock
 		}
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -110,6 +112,12 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> IMockForComprehensiveAbstractClass.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveAbstractClass(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>()
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>();
+		/// <inheritdoc />
+		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>(string parameterName)
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>(parameterName);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -136,6 +144,7 @@ internal static partial class Mock
 			: base(v, text)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new object?[] { v, text, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
@@ -151,6 +160,7 @@ internal static partial class Mock
 			: base(mockRegistry, _)
 		{
 			this.MockRegistry = mockRegistry_1;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new object?[] { mockRegistry, _, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
@@ -166,6 +176,7 @@ internal static partial class Mock
 			: base(name)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new object?[] { name, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
@@ -601,6 +612,24 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> Monitor();
+
+		/// <summary>
+		///     Gets the only argument of type <typeparamref name="T" /> that the constructor of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass">ComprehensiveAbstractClass</see> received.
+		/// </summary>
+		/// <remarks>
+		///     Use it to set up and verify the mocks that <c>CreateMock()</c> passed to the constructor. When the constructor received several arguments of the type, pass the name of the parameter.
+		/// </remarks>
+		/// <returns>The argument of type <typeparamref name="T" />.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The constructor received no or several arguments of type <typeparamref name="T" />.</exception>
+		T ConstructorArgument<T>();
+
+		/// <summary>
+		///     Gets the argument of the parameter <paramref name="parameterName" /> that the constructor of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass">ComprehensiveAbstractClass</see> received.
+		/// </summary>
+		/// <param name="parameterName">The name of the constructor parameter.</param>
+		/// <returns>The argument of the parameter <paramref name="parameterName" />.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The constructor has no parameter <paramref name="parameterName" />, or its argument is no <typeparamref name="T" />.</exception>
+		T ConstructorArgument<T>(string parameterName);
 	}
 
 	/// <summary>
@@ -991,7 +1020,7 @@ internal static partial class MockExtensionsForComprehensiveAbstractClass
 			}
 			else if (constructorParameters.Length >= 1 && constructorParameters.Length <= 2
 			    && TryCast(constructorParameters, 0, mockRegistry.Behavior, out int c2p1)
-			    && TryCastWithDefaultValue(constructorParameters, 1, "x", mockRegistry.Behavior, out string c2p2))
+			    && TryCastWithDefaultValue<string>(constructorParameters, 1, "x", mockRegistry.Behavior, out string c2p2))
 			{
 				global::Mockolate.Mock.ComprehensiveAbstractClass.MockRegistryProvider.Value = mockRegistry;
 				global::Mockolate.MockExtensionsForComprehensiveAbstractClass.MockSetup? setupTarget = null;
@@ -1191,6 +1220,8 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -1244,6 +1275,12 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> IMockForComprehensiveAbstractClass.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveAbstractClass(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>()
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>();
+		/// <inheritdoc />
+		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>(string parameterName)
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>(parameterName);
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -1304,6 +1341,7 @@ internal static partial class Mock
 			: base(v, text)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new object?[] { v, text, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
@@ -1312,6 +1350,7 @@ internal static partial class Mock
 			: base(mockRegistry, _)
 		{
 			this.MockRegistry = mockRegistry_1;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new object?[] { mockRegistry, _, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
@@ -1320,6 +1359,7 @@ internal static partial class Mock
 			: base(name)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new object?[] { name, });
 		}
 
 		#region Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass
@@ -1698,7 +1738,7 @@ internal static partial class MockExtensionsForComprehensiveAbstractClass__IComb
 		}
 		else if (mock.MockRegistry.ConstructorParameters.Length >= 1 && mock.MockRegistry.ConstructorParameters.Length <= 2
 		    && TryCast(mock.MockRegistry.ConstructorParameters, 0, mock.MockRegistry.Behavior, out int c2p1)
-		    && TryCastWithDefaultValue(mock.MockRegistry.ConstructorParameters, 1, "x", mock.MockRegistry.Behavior, out string c2p2))
+		    && TryCastWithDefaultValue<string>(mock.MockRegistry.ConstructorParameters, 1, "x", mock.MockRegistry.Behavior, out string c2p2))
 		{
 			value = new global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA(mock.MockRegistry, c2p1, c2p2);
 		}
@@ -1815,6 +1855,8 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -1868,6 +1910,12 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> IMockForComprehensiveAbstractClass.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveAbstractClass(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>()
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>();
+		/// <inheritdoc />
+		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>(string parameterName)
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>(parameterName);
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -1969,6 +2017,7 @@ internal static partial class Mock
 			: base(v, text)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new object?[] { v, text, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB" />
@@ -1977,6 +2026,7 @@ internal static partial class Mock
 			: base(mockRegistry, _)
 		{
 			this.MockRegistry = mockRegistry_1;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new object?[] { mockRegistry, _, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB" />
@@ -1985,6 +2035,7 @@ internal static partial class Mock
 			: base(name)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new object?[] { name, });
 		}
 
 		#region Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass
@@ -2477,7 +2528,7 @@ internal static partial class MockExtensionsForComprehensiveAbstractClass__IComb
 		}
 		else if (mock.MockRegistry.ConstructorParameters.Length >= 1 && mock.MockRegistry.ConstructorParameters.Length <= 2
 		    && TryCast(mock.MockRegistry.ConstructorParameters, 0, mock.MockRegistry.Behavior, out int c2p1)
-		    && TryCastWithDefaultValue(mock.MockRegistry.ConstructorParameters, 1, "x", mock.MockRegistry.Behavior, out string c2p2))
+		    && TryCastWithDefaultValue<string>(mock.MockRegistry.ConstructorParameters, 1, "x", mock.MockRegistry.Behavior, out string c2p2))
 		{
 			value = new global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB(mock.MockRegistry, c2p1, c2p2);
 		}

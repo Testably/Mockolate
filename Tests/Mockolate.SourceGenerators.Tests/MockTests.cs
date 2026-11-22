@@ -439,14 +439,16 @@ public sealed partial class MockTests
 			.Contains("""
 			          			if (constructorParameters is null || constructorParameters.Length == 0)
 			          			{
-			          				throw new global::Mockolate.Exceptions.MockException("No parameterless constructor found for 'MyCode.MyBaseClass'. Please provide constructor parameters.");
-			          			}
+			          				int d1 = mockRegistry.Behavior.DefaultValue.Generate(default(int)!);
+			          				bool d2 = mockRegistry.Behavior.DefaultValue.Generate(default(bool)!);
+			          				mockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, new object?[] { d1, d2, });
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
 			          		public MyBaseClass(global::Mockolate.Internals.MockRegistry mockRegistry, int value)
 			          			: base(value)
 			          		{
 			          			this.MockRegistry = mockRegistry;
+			          			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("MyCode.MyBaseClass(int)", new string[] { "value", }, new object?[] { value, });
 			          		}
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
@@ -454,6 +456,7 @@ public sealed partial class MockTests
 			          			: base(value, flag)
 			          		{
 			          			this.MockRegistry = mockRegistry;
+			          			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("MyCode.MyBaseClass(int, bool)", new string[] { "value", "flag", }, new object?[] { value, flag, });
 			          		}
 			          """).IgnoringNewlineStyle();
 	}

@@ -45,7 +45,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task CreateWithMocksDependency_ShouldDiscoverTheMocksItReturns()
+	public async Task ConstructorDependency_ShouldDiscoverTheMocksItReturns()
 	{
 		GeneratorResult result = Generator.Run([
 			"""
@@ -73,7 +73,7 @@ public sealed class AutoMockingTests
 			    {
 			        public static void Main(string[] args)
 			        {
-			            _ = Service.CreateWithMocks(out _);
+			            _ = Service.CreateMock();
 			        }
 			    }
 			}
