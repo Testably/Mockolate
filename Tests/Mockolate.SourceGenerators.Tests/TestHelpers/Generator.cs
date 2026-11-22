@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Emit;
 
 namespace Mockolate.SourceGenerators.Tests.TestHelpers;
@@ -118,6 +120,31 @@ public static class Generator
 		}
 
 		return Assembly.Load(stream.ToArray());
+	}
+
+	/// <summary>
+	///     Runs the generator and then <paramref name="analyzer" /> on the compilation with the generated sources, as
+	///     in a build, and returns the compiler and analyzer diagnostics as <c>Id: message</c>.
+	/// </summary>
+	public static async Task<string[]> RunWithAnalyzer([StringSyntax("c#-test")] string source,
+		DiagnosticAnalyzer analyzer)
+	{
+		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
+		CSharpCompilation compilation = CSharpCompilation.Create(
+			"TestAssembly",
+			[CSharpSyntaxTree.ParseText(source, parseOptions),],
+			GetReferences([]),
+			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary,
+				nullableContextOptions: NullableContextOptions.Enable));
+		CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [], parseOptions)
+			.RunGeneratorsAndUpdateCompilation(compilation, out Compilation outputCompilation, out _);
+		ImmutableArray<Diagnostic> diagnostics = await outputCompilation
+			.WithAnalyzers([analyzer,])
+			.GetAllDiagnosticsAsync();
+		return diagnostics
+			.Where(diagnostic => diagnostic.Severity >= DiagnosticSeverity.Warning && !NoWarn.Contains(diagnostic.Id))
+			.Select(diagnostic => $"{diagnostic.Id}: {diagnostic.GetMessage(CultureInfo.InvariantCulture)}")
+			.ToArray();
 	}
 
 	private static string ToDiagnosticString(Diagnostic d)

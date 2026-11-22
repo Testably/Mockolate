@@ -16,6 +16,7 @@ It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, 
 - **Strongly-typed**: Compile-time safety and IntelliSense support.
 - **AOT compatible**: Works with Native AOT and trimming.
 - **Modern C#**: First-class support for ref structs, static interface members, and current language features.
+- **Class under test with mocks**: `CreateWithMocks` creates the class under test with a mock for every supported interface dependency.
 
 ## Why Mockolate?
 
@@ -72,7 +73,7 @@ dispenser.Mock.Verify.Dispense("Dark", It.IsAny<int>()).Once();
 Full reference docs at **[docs.testably.org/Mockolate](https://docs.testably.org/Mockolate/)**:
 
 - [Getting started](https://docs.testably.org/Mockolate/getting-started), [core concepts](https://docs.testably.org/Mockolate/core-concepts/), [cheat sheet](https://docs.testably.org/Mockolate/core-concepts/cheat-sheet)
-- [Create mocks](https://docs.testably.org/Mockolate/create-mocks)
+- [Create mocks](https://docs.testably.org/Mockolate/create-mocks), [create the class under test with mocks](https://docs.testably.org/Mockolate/create-mocks#create-the-class-under-test-with-mocks)
 - Setup: [methods](https://docs.testably.org/Mockolate/setup/methods), [properties](https://docs.testably.org/Mockolate/setup/properties), [indexers](https://docs.testably.org/Mockolate/setup/indexers), [events](https://docs.testably.org/Mockolate/setup/events)
 - [Parameter matching](https://docs.testably.org/Mockolate/parameter-matching)
 - [Verify interactions](https://docs.testably.org/Mockolate/verify-interactions)

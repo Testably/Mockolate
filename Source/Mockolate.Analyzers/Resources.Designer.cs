@@ -339,6 +339,231 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to The source generator only adds CreateWithMocks to a public or internal class that is not abstract, static, generic, file-local, obsolete or declared in the System, Microsoft or Windows namespace, whose container name is not taken and that has a single accessible constructor with the most parameters..
+        /// </summary>
+        internal static string Mockolate0008Description {
+            get {
+                return ResourceManager.GetString("Mockolate0008Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; cannot be created with mocks: {1}.
+        /// </summary>
+        internal static string Mockolate0008MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0008MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Classes created with mocks must be supported by the generator.
+        /// </summary>
+        internal static string Mockolate0008Title {
+            get {
+                return ResourceManager.GetString("Mockolate0008Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to CreateWithMocks only mocks constructor parameters of an interface type outside the global, System, Microsoft and Windows namespaces that the generator can mock without a CreateMock call, plus ILogger, ILogger&lt;T&gt; and ILoggerFactory. Every other parameter without a default value, except a params array, needs an argument..
+        /// </summary>
+        internal static string Mockolate0009Description {
+            get {
+                return ResourceManager.GetString("Mockolate0009Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The parameter &apos;{0}&apos; of type &apos;{1}&apos; needs an argument, because it is not mocked: {2}.
+        /// </summary>
+        internal static string Mockolate0009MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0009MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Dependencies that are not mocked need an argument.
+        /// </summary>
+        internal static string Mockolate0009Title {
+            get {
+                return ResourceManager.GetString("Mockolate0009Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is a struct.
+        /// </summary>
+        internal static string Mockolate0008StructReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008StructReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is not a class.
+        /// </summary>
+        internal static string Mockolate0008NotAClassReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008NotAClassReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is static.
+        /// </summary>
+        internal static string Mockolate0008StaticReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008StaticReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is abstract.
+        /// </summary>
+        internal static string Mockolate0008AbstractReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008AbstractReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is generic or nested in a generic type.
+        /// </summary>
+        internal static string Mockolate0008GenericReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008GenericReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is file-local.
+        /// </summary>
+        internal static string Mockolate0008FileLocalReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008FileLocalReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is obsolete or experimental.
+        /// </summary>
+        internal static string Mockolate0008ObsoleteReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008ObsoleteReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is not accessible from the generated code, which needs a public or internal class.
+        /// </summary>
+        internal static string Mockolate0008InaccessibleReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008InaccessibleReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is declared in the System, Microsoft or Windows namespace.
+        /// </summary>
+        internal static string Mockolate0008FrameworkNamespaceReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008FrameworkNamespaceReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the name &apos;{0}&apos; of its arguments container is already used in its namespace.
+        /// </summary>
+        internal static string Mockolate0008ContainerNameReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008ContainerNameReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it has no accessible constructor without ref, out, pointer or ref struct parameters that is not obsolete and sets all required members.
+        /// </summary>
+        internal static string Mockolate0008NoConstructorReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008NoConstructorReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to several accessible constructors have the most parameters ({0}), so none of them is chosen.
+        /// </summary>
+        internal static string Mockolate0008TiedConstructorsReason {
+            get {
+                return ResourceManager.GetString("Mockolate0008TiedConstructorsReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to only interfaces are mocked.
+        /// </summary>
+        internal static string Mockolate0009NotAnInterfaceReason {
+            get {
+                return ResourceManager.GetString("Mockolate0009NotAnInterfaceReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to interfaces in the global namespace are not mocked.
+        /// </summary>
+        internal static string Mockolate0009GlobalNamespaceReason {
+            get {
+                return ResourceManager.GetString("Mockolate0009GlobalNamespaceReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to interfaces in the System, Microsoft and Windows namespaces are not mocked, except ILogger, ILogger&lt;T&gt; and ILoggerFactory.
+        /// </summary>
+        internal static string Mockolate0009FrameworkNamespaceReason {
+            get {
+                return ResourceManager.GetString("Mockolate0009FrameworkNamespaceReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is nested in a generic type.
+        /// </summary>
+        internal static string Mockolate0009NestedInGenericTypeReason {
+            get {
+                return ResourceManager.GetString("Mockolate0009NestedInGenericTypeReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it has static abstract members.
+        /// </summary>
+        internal static string Mockolate0009StaticAbstractMembersReason {
+            get {
+                return ResourceManager.GetString("Mockolate0009StaticAbstractMembersReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it has a member named CreateMock, which would hide the generated extension.
+        /// </summary>
+        internal static string Mockolate0009CreateMockMemberReason {
+            get {
+                return ResourceManager.GetString("Mockolate0009CreateMockMemberReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the generator cannot mock it without a CreateMock call, for example because a member is obsolete or its type arguments nest too deeply; create the mock with CreateMock and pass it.
+        /// </summary>
+        internal static string Mockolate0009OtherReason {
+            get {
+                return ResourceManager.GetString("Mockolate0009OtherReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {

@@ -47,6 +47,83 @@ public sealed class MockGeneratorEqualityTests
 		}
 	}
 
+	public sealed class SutCreationTests
+	{
+		[Test]
+		public async Task Equals_WithEqualContent_IsTrue()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::A.Sut", "string");
+
+			await That(a.Equals(b)).IsTrue();
+			await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingSut_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::B.Sut", "string");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingParameter_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::A.Sut", "int");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingContainerName_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::A.Sut", "string", containerName: "SutMocks_1");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingLocation_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::A.Sut", "string", start: 5);
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingMocks_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string",
+				mocks: [CreateMockClass("public interface IFoo { void M(); }"),]);
+			SutCreation b = Create("global::A.Sut", "string",
+				mocks: [CreateMockClass("public interface IFoo { void M(int value); }"),]);
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		private static SutCreation Create(string sutName, string parameterType, string containerName = "SutMocks",
+			int start = 1, MockClass[]? mocks = null)
+			=> new(
+				new SutClass(sutName, "A", containerName, new EquatableArray<SutParameter>([
+					new SutParameter(parameterType, "value", false, null, false, false, null),
+				])),
+				new EquatableArray<MockClass>(mocks ?? []),
+				new CreateMockLocation("File.cs", start, 2));
+
+		private static MockClass CreateMockClass(string source)
+		{
+			CSharpCompilation compilation = CSharpCompilation.Create("test",
+				[CSharpSyntaxTree.ParseText(source),],
+				[MetadataReference.CreateFromFile(typeof(object).Assembly.Location),]);
+			return new MockClass([compilation.GetTypeByMetadataName("IFoo")!,], compilation);
+		}
+	}
+
 	public sealed class RefStructAggregateTests
 	{
 		[Test]
