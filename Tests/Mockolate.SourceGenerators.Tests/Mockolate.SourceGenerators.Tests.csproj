@@ -12,6 +12,7 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all"/>
 		<PackageReference Include="aweXpect.Snapshots"/>
 		<PackageReference Include="aweXpect.Snapshots.DiffEngine"/>
+		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
 	</ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CA1873 // Avoid potentially expensive logging
 using System.Net;
 using System.Text;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
 using Mockolate.Integrations;
@@ -270,6 +271,18 @@ internal static class Checks
 			logger.LogInformation("Order {Id} created", 43);
 			return Equal((errors, logger.IsEnabled(LogLevel.Debug)), (1, true))
 			       ?? Passes(() => sut.Mock.Verify.LogInformation().WithMessage(It.MatchesTemplate("Order {Id} created").WithProperty("Id", 43)).Once());
+		}),
+		new("a mocked memory cache stores, reads and verifies entries", () =>
+		{
+			IMemoryCache sut = IMemoryCache.CreateMock();
+			sut.Mock.Setup.Get("price-White").Returns(1.5m);
+			decimal dark = sut.GetOrCreate("price-Dark", entry =>
+			{
+				entry.SlidingExpiration = TimeSpan.FromMinutes(5);
+				return 2.5m;
+			});
+			return Equal((dark, sut.Get<decimal>("price-Dark"), sut.Get<decimal>("price-White")), (2.5m, 2.5m, 1.5m))
+			       ?? Passes(() => sut.Mock.Verify.Set("price-Dark", 2.5m).WithSlidingExpiration(TimeSpan.FromMinutes(5)).Once());
 		}),
 		new("a mocked delegate is set up and verified", () =>
 		{

@@ -299,6 +299,18 @@ public class MockGenerator : IIncrementalGenerator
 				}
 			});
 
+		IncrementalValueProvider<bool> hasMemoryCacheMock = collectedMocks
+			.Select(static (arr, _) =>
+				arr.AsArray().Any(m => m.AllImplementations().Any(c => Sources.Sources.HasAdapter(c, MockAdapter.MemoryCache))));
+
+		context.RegisterSourceOutput(hasMemoryCacheMock.Combine(externAliases), static (spc, source) =>
+		{
+			if (source.Left)
+			{
+				spc.AddSource("Caching.g.cs", ToSource(Sources.Sources.Caching(), source.Right));
+			}
+		});
+
 		// As<T> bridge extensions across (a, b) pairs. Cross-mock dedup; one file.
 		IncrementalValueProvider<EquatableArray<MockAsExtensionPair>> asPairs = namedMocksAggregate
 			.Select(static (arr, _) => CollectAsExtensionPairs(arr));
