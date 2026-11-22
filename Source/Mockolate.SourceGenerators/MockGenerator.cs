@@ -45,6 +45,17 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValuesProvider<MockClass> mocksProvider = creations
 			.SelectMany(static (creation, _) => creation.Mocks);
 
+		IncrementalValuesProvider<DataSourceCreation> dataSourceCreations = context.SyntaxProvider
+			.CreateSyntaxProvider(
+				static (s, _) => s.IsDataSourceCandidate(),
+				static (ctx, cancellationToken) =>
+				{
+					EntityCache cache = EntityCache.GetOrCreate(ctx.SemanticModel.Compilation);
+					using EntityCache.Scope scope = EntityCache.EnterScope(cache);
+					return ctx.Node.ExtractDataSourceCreation(ctx.SemanticModel, cancellationToken);
+				})
+			.Where(static creation => creation.Suts.Count > 0 || creation.MockedTypes.Count > 0);
+
 		IncrementalValueProvider<AutoMockingOptions?> autoMockingOptions = context.AnalyzerConfigOptionsProvider
 			.Select(static (options, _) =>
 				options.GlobalOptions.TryGetValue("build_property.MockolateAutoMocking", out string? value) &&
@@ -79,8 +90,29 @@ public class MockGenerator : IIncrementalGenerator
 		// deterministic so downstream Select stages cache cleanly.
 		IncrementalValueProvider<EquatableArray<MockClass>> collectedMocks = mocksProvider
 			.Collect()
+			.Combine(dataSourceCreations.SelectMany(static (creation, _) => creation.Mocks).Collect())
 			.Combine(discoveredMocks)
-			.Select(static (source, _) => Distinct(source.Left, source.Right));
+			.Select(static (source, _) => Distinct(source.Left.Left.AddRange(source.Left.Right), source.Right));
+
+		IncrementalValueProvider<EquatableArray<SutClass>> suts = dataSourceCreations
+			.SelectMany(static (creation, _) => creation.Suts)
+			.Collect()
+			.Select(static (source, _) => new EquatableArray<SutClass>(source
+				.Distinct()
+				.OrderBy(sut => sut.ClassFullName, StringComparer.Ordinal)
+				.ToArray()));
+
+		IncrementalValueProvider<EquatableArray<string>> dataSourceMockedTypes = dataSourceCreations
+			.SelectMany(static (creation, _) => creation.MockedTypes)
+			.Collect()
+			.Select(static (source, _) => new EquatableArray<string>(source
+				.Distinct()
+				.OrderBy(type => type, StringComparer.Ordinal)
+				.ToArray()));
+
+		IncrementalValueProvider<bool> hasModuleInitializer = context.CompilationProvider
+			.Select(static (compilation, _) => HasAttribute(compilation,
+				"System.Runtime.CompilerServices.ModuleInitializerAttribute"));
 
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
 			.Select(static (compilation, _) => HasAttribute(compilation,
@@ -88,6 +120,17 @@ public class MockGenerator : IIncrementalGenerator
 
 		IncrementalValueProvider<EquatableArray<string>> externAliases = context.CompilationProvider
 			.Select(static (compilation, _) => GetExternAliases(compilation));
+
+		context.RegisterSourceOutput(suts.Combine(dataSourceMockedTypes).Combine(hasModuleInitializer).Combine(externAliases),
+			static (spc, source) =>
+			{
+				((EquatableArray<SutClass> sutClasses, EquatableArray<string> mockedTypes), bool moduleInitializer) = source.Left;
+				if (sutClasses.Count > 0 || mockedTypes.Count > 0)
+				{
+					spc.AddSource("Mock.CreateWithMocks.g.cs",
+						ToSource(Sources.Sources.CreateWithMocks(sutClasses, mockedTypes, !moduleInitializer), source.Right));
+				}
+			});
 
 		// Union-typed setup/verify arguments need C# 15 union conversions in the consuming compilation.
 		// Reduced to a bool so the union-dependent outputs only re-run when the answer flips.

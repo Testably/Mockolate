@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Source\Mockolate\Mockolate.csproj"/>
+		<ProjectReference Include="..\..\Source\Mockolate.TUnit\Mockolate.TUnit.csproj"/>
+		<ProjectReference Include="..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+		<ProjectReference Include="..\..\Source\Mockolate.Analyzers\Mockolate.Analyzers.csproj" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Mockolate.Tests\TestHelpers\Usings.cs" Link="TestHelpers\Usings.cs"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Nullable">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>

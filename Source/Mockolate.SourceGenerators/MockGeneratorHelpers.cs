@@ -6,7 +6,7 @@ using Mockolate.SourceGenerators.Internals;
 
 namespace Mockolate.SourceGenerators;
 
-internal static class MockGeneratorHelpers
+internal static partial class MockGeneratorHelpers
 {
 	internal static bool IsCreateMethodInvocation(this SyntaxNode node)
 	{
@@ -61,20 +61,23 @@ internal static class MockGeneratorHelpers
 	internal static IEnumerable<MockClass> ExtractMockOrMockFactoryCreateSyntaxOrDefault(
 		this SyntaxNode syntaxNode, SemanticModel semanticModel)
 	{
-		foreach (ITypeSymbol[] types in syntaxNode.ExtractMockedTypes(semanticModel))
-		{
-			yield return CreateMockClass(semanticModel.Compilation, types);
-			if (types.Length == 1 && GetHttpMessageHandler(types[0]) is { } httpMessageHandlerType)
-			{
-				// When using HttpClient as a mock, we also have to create a mock of the HttpMessageHandler, that can be used as constructor parameter.
-				yield return new MockClass([httpMessageHandlerType,], semanticModel.Compilation);
-			}
+		return syntaxNode.ExtractMockedTypes(semanticModel)
+			.SelectMany(types => CreateMockClasses(semanticModel.Compilation, types));
+	}
 
-			// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
-			if (types.Select(GetLoggerOfLoggerFactory).FirstOrDefault(loggerType => loggerType is not null) is { } loggerType)
-			{
-				yield return new MockClass([loggerType,], semanticModel.Compilation);
-			}
+	private static IEnumerable<MockClass> CreateMockClasses(Compilation compilation, ITypeSymbol[] types)
+	{
+		yield return CreateMockClass(compilation, types);
+		if (types.Length == 1 && GetHttpMessageHandler(types[0]) is { } httpMessageHandlerType)
+		{
+			// When using HttpClient as a mock, we also have to create a mock of the HttpMessageHandler, that can be used as constructor parameter.
+			yield return new MockClass([httpMessageHandlerType,], compilation);
+		}
+
+		// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
+		if (types.Select(GetLoggerOfLoggerFactory).FirstOrDefault(loggerType => loggerType is not null) is { } loggerType)
+		{
+			yield return new MockClass([loggerType,], compilation);
 		}
 	}
 

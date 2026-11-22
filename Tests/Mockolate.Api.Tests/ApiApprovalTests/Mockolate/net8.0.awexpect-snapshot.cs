@@ -11,6 +11,7 @@ namespace Mockolate
         public virtual bool CanGenerateValue(System.Type type) { }
         public virtual object? GenerateValue(System.Type type, params object?[] parameters) { }
     }
+    public delegate object? DependencyResolver(System.Type type, string parameterName);
     public static class HttpClientExtensions
     {
         extension(Mockolate.Setup.IMockSetup<System.Net.Http.HttpClient> setup)
@@ -87,6 +88,9 @@ namespace Mockolate
         Mockolate.MockBehavior Set<T>(T value);
         bool TryGet<T>([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out T value);
         bool TryGetConstructorParameters<T>([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out object?[]? parameters);
+    }
+    public interface IMockDataSource
+    {
     }
     public class It
     {
@@ -195,6 +199,12 @@ namespace Mockolate
         public Mockolate.MockBehavior WithDefaultValueGenerator(Mockolate.IDefaultValueGenerator defaultValueGenerator) { }
         public static bool operator ==(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
         public static bool operator !=(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
+    }
+    public delegate bool MockDataSourceFactory(System.Type type, Mockolate.MockBehavior? behavior, Mockolate.DependencyResolver resolve, out object? value);
+    public static class MockDataSources
+    {
+        public static void Register(System.Reflection.Assembly assembly, Mockolate.MockDataSourceFactory factory) { }
+        public static bool TryCreate(System.Reflection.Assembly assembly, System.Type type, Mockolate.MockBehavior? behavior, Mockolate.DependencyResolver resolve, out object? value) { }
     }
     public static class ParameterExtensions
     {
