@@ -156,6 +156,11 @@ internal static partial class Sources
 		foreach (SutParameter parameter in parameters.Where(p => p.IsOptional))
 		{
 			sb.Append(", ");
+			if (parameter.CallerInfoAttribute is not null)
+			{
+				sb.Append('[').Append(parameter.CallerInfoAttribute).Append("] ");
+			}
+
 			if (parameter.IsMockable || parameter.IsParams || parameter.IsNullForgiving)
 			{
 				sb.Append(parameter.TypeFullName.TrimEnd('?')).Append("? ").Append(Helpers.EscapeIfKeyword(parameter.Name))

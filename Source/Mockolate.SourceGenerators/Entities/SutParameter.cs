@@ -13,13 +13,15 @@ namespace Mockolate.SourceGenerators.Entities;
 ///     nullable and passes its value on with <c>!</c>: a non-nullable one would warn at every call site that omits it
 ///     (CS8625), and a nullable one passed on as is would warn in the generated code (CS8604).
 /// </param>
+/// <param name="CallerInfoAttribute">The fully qualified caller info attribute of the parameter, if any.</param>
 internal sealed record SutParameter(
 	string TypeFullName,
 	string Name,
 	bool IsMockable,
 	string? DefaultValue,
 	bool IsParams,
-	bool IsNullForgiving)
+	bool IsNullForgiving,
+	string? CallerInfoAttribute)
 {
 	/// <summary>
 	///     Whether the <c>CreateWithMocks</c> method lets the caller omit the argument.

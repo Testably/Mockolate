@@ -82,7 +82,7 @@ internal static partial class MockGeneratorHelpers
 
 		SymbolInfo symbolInfo = semanticModel.GetSymbolInfo(invocation, cancellationToken);
 		if (symbolInfo.Symbol is not null || !symbolInfo.CandidateSymbols.IsEmpty ||
-		    semanticModel.GetSymbolInfo(memberAccess.Expression, cancellationToken).Symbol is not INamedTypeSymbol sut ||
+		    GetReceiverType(memberAccess.Expression, semanticModel, cancellationToken) is not { } sut ||
 		    !IsConstructibleSut(sut, compilation) ||
 		    HasMemberNamedCreateWithMocks(sut) ||
 		    IsFrameworkNamespace(sut.ContainingNamespace) ||
@@ -105,6 +105,7 @@ internal static partial class MockGeneratorHelpers
 				// file would otherwise reject (CS8625).
 				parameterType = parameterType.WithNullableAnnotation(NullableAnnotation.Annotated);
 			}
+
 			ITypeSymbol notAnnotatedType = parameterType.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
 			bool isParamsArray = parameter.IsParams && parameterType is IArrayTypeSymbol;
 			bool isMockable = !parameter.IsParams && IsDependencyMockable(notAnnotatedType, compilation);
@@ -120,7 +121,8 @@ internal static partial class MockGeneratorHelpers
 				defaultValue,
 				isParamsArray,
 				!isMockable && defaultValue == "null" &&
-				parameterType is { IsReferenceType: true, NullableAnnotation: NullableAnnotation.NotAnnotated, }));
+				parameterType is { IsReferenceType: true, NullableAnnotation: NullableAnnotation.NotAnnotated, },
+				GetCallerInfoAttribute(parameter)));
 		}
 
 		return (new SutClass(
@@ -130,6 +132,58 @@ internal static partial class MockGeneratorHelpers
 				new EquatableArray<SutParameter>(parameters.ToArray())),
 			typesToMock.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default).ToList());
 	}
+
+	/// <summary>
+	///     The type that the receiver <paramref name="expression" /> names, also when a member of the same name and type
+	///     hides it (<c>Svc Svc { get; }</c>), where C# binds the static call to the type.
+	/// </summary>
+	private static INamedTypeSymbol? GetReceiverType(ExpressionSyntax expression, SemanticModel semanticModel,
+		CancellationToken cancellationToken)
+	{
+		ISymbol? symbol = semanticModel.GetSymbolInfo(expression, cancellationToken).Symbol;
+		if (symbol is INamedTypeSymbol type)
+		{
+			return type;
+		}
+
+		ITypeSymbol? memberType = symbol switch
+		{
+			IPropertySymbol property => property.Type,
+			IFieldSymbol field => field.Type,
+			ILocalSymbol local => local.Type,
+			IParameterSymbol parameter => parameter.Type,
+			_ => null,
+		};
+		return expression is IdentifierNameSyntax identifier &&
+		       memberType is INamedTypeSymbol namedType &&
+		       namedType.Name == identifier.Identifier.ValueText &&
+		       semanticModel.LookupNamespacesAndTypes(expression.SpanStart, name: namedType.Name)
+			       .Any(candidate => SymbolEqualityComparer.Default.Equals(candidate, namedType))
+			? (INamedTypeSymbol)namedType.WithNullableAnnotation(NullableAnnotation.NotAnnotated)
+			: null;
+	}
+
+	/// <summary>
+	///     A caller info attribute is copied to the generated parameter, so that it receives the information of the
+	///     <c>CreateWithMocks</c> call instead of its default value.
+	/// </summary>
+	private static string? GetCallerInfoAttribute(IParameterSymbol parameter)
+		=> parameter.GetAttributes()
+			.Select(attribute => attribute.AttributeClass)
+			.FirstOrDefault(attributeClass => attributeClass is
+			{
+				Name: "CallerMemberNameAttribute" or "CallerFilePathAttribute" or "CallerLineNumberAttribute",
+				ContainingNamespace:
+				{
+					Name: "CompilerServices",
+					ContainingNamespace:
+					{
+						Name: "Runtime", ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+					},
+				},
+			}) is { } callerInfo
+			? $"global::System.Runtime.CompilerServices.{callerInfo.Name}"
+			: null;
 
 	private static string ToFullName(ITypeSymbol type)
 		=> type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
@@ -272,7 +326,9 @@ internal static partial class MockGeneratorHelpers
 
 		string name = string.Join("_0", names) + "Mocks";
 		INamespaceSymbol? @namespace = compilation.GetCompilationNamespace(sut.ContainingNamespace);
+		// A generic type of the same name does not clash with the non-generic container.
 		return @namespace?.GetMembers(name).Any(member =>
+			member is INamespaceSymbol or INamedTypeSymbol { Arity: 0, } &&
 			compilation.IsSymbolAccessibleWithin(member, compilation.Assembly)) == true
 			? null
 			: name;

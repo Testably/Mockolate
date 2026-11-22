@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Mockolate.SourceGenerators.Tests;
 
-public sealed class CreateWithMocksTests
+public sealed partial class CreateWithMocksTests
 {
 	[Test]
 	public async Task DependencySpelledWithOtherNullableAnnotations_ShouldShareTheMockWithoutWarningsInUserCode()
@@ -464,9 +464,10 @@ public sealed class CreateWithMocksTests
 		                                           }
 
 		                                           public class Svc(IDep dep, double nan = double.NaN, double positive = double.PositiveInfinity,
-		                                               double negative = double.NegativeInfinity, float single = float.NaN, double? nullable = double.NaN)
+		                                               double negative = double.NegativeInfinity, float single = float.NaN, double? nullable = double.NaN,
+		                                               float singlePositive = float.PositiveInfinity, float singleNegative = float.NegativeInfinity)
 		                                           {
-		                                               public object?[] All { get; } = [dep, nan, positive, negative, single, nullable,];
+		                                               public object?[] All { get; } = [dep, nan, positive, negative, single, nullable, singlePositive, singleNegative,];
 		                                           }
 
 		                                           public class Program
@@ -480,7 +481,110 @@ public sealed class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources["CreateWithMocks.g.cs"]).Contains("double nan = global::System.Double.NaN");
+		await That(result.Sources["CreateWithMocks.g.cs"]).Contains("double nan = global::System.Double.NaN").And
+			.Contains("float singlePositive = global::System.Single.PositiveInfinity").And
+			.Contains("float singleNegative = global::System.Single.NegativeInfinity");
+	}
+
+	[Test]
+	public async Task NonFiniteFloatingPointDefaultsOfAMockedMethod_ShouldCompile()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IScale
+		                                           {
+		                                               void Weigh(double nan = double.NaN, float infinity = float.PositiveInfinity, double? negative = double.NegativeInfinity);
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = IScale.CreateMock();
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task CallerInfoParameters_ShouldKeepTheirAttributes()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using System.Runtime.CompilerServices;
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc(IDep dep, [CallerMemberName] string caller = "", [CallerLineNumber] int line = 0,
+		                                               [CallerFilePath] string path = null!)
+		                                           {
+		                                               public object[] All { get; } = [dep, caller, line, path,];
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["CreateWithMocks.g.cs"])
+			.Contains("[global::System.Runtime.CompilerServices.CallerMemberNameAttribute] string caller = \"\"").And
+			.Contains("[global::System.Runtime.CompilerServices.CallerLineNumberAttribute] int line = 0").And
+			.Contains("[global::System.Runtime.CompilerServices.CallerFilePathAttribute] string? path = null");
+	}
+
+	[Test]
+	public async Task GenericTypeWithTheContainerName_ShouldNotClash()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc(IDep dep)
+		                                           {
+		                                               public IDep Dep { get; } = dep;
+		                                           }
+
+		                                           public class SvcMocks<T>
+		                                           {
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out SvcMocks mocks);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
 	}
 
 	[Test]

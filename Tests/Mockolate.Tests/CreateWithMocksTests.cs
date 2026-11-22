@@ -4,7 +4,7 @@ using Mockolate.Tests.GeneratorCoverage;
 
 namespace Mockolate.Tests;
 
-public sealed class CreateWithMocksTests
+public sealed partial class CreateWithMocksTests
 {
 	[Test]
 	public async Task CreateWithMocks_WithOptionalParameters_ShouldUseTheDefaults()
@@ -123,6 +123,14 @@ public sealed class CreateWithMocksTests
 		await That(sut.Factor).IsEqualTo(2.5m);
 		await That(mocks.Retries).IsEqualTo(5);
 		await That(mocks.Factor).IsEqualTo(2.5m);
+	}
+
+	[Test]
+	public async Task CreateWithMocks_WithCallerInfoParameter_ShouldPassTheCaller()
+	{
+		CreateWithMocksCallerInfo sut = CreateWithMocksCallerInfo.CreateWithMocks(out _);
+
+		await That(sut.Caller).IsEqualTo(nameof(CreateWithMocks_WithCallerInfoParameter_ShouldPassTheCaller));
 	}
 
 #if NET9_0_OR_GREATER

@@ -6,6 +6,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj"/>
+		<!-- Runs the analyzers on the generated code, as a build does. -->
+		<ProjectReference Include="..\..\Source\Mockolate.Analyzers\Mockolate.Analyzers.csproj"/>
 		<ProjectReference Include="..\..\Source\Mockolate\Mockolate.csproj"/>
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all"/>
 		<PackageReference Include="aweXpect.Snapshots"/>

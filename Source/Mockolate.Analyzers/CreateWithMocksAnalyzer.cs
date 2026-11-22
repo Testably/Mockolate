@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,7 +16,8 @@ namespace Mockolate.Analyzers;
 /// <remarks>
 ///     The source generator skips what it cannot generate without reporting a diagnostic, so the checks mirror
 ///     <c>MockGeneratorHelpers.CreateWithMocks.cs</c> in the generator; keep both in sync. A call is only reported
-///     when it does not bind, so a drift changes the reason, never whether valid code is reported.
+///     when it does not bind, so a drift changes the reason, never whether valid code is reported. The analyzer sees
+///     the generated code, so a generated <c>CreateWithMocks</c> of the class is looked for first.
 /// </remarks>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
@@ -73,9 +75,22 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 		}
 
 		SymbolInfo symbolInfo = context.SemanticModel.GetSymbolInfo(invocation, context.CancellationToken);
-		if (symbolInfo.Symbol is not null || !symbolInfo.CandidateSymbols.IsEmpty ||
-		    context.SemanticModel.GetSymbolInfo(memberAccess.Expression, context.CancellationToken).Symbol is not
-			    INamedTypeSymbol sut)
+		if (symbolInfo.Symbol is not null ||
+		    GetReceiverType(memberAccess.Expression, context.SemanticModel, context.CancellationToken) is not { } sut)
+		{
+			return;
+		}
+
+		// The generated method only applies to the arguments when the call binds. Otherwise it is a candidate
+		// (CS7036), the generated method of another class is (CS1929), or none is in scope (CS0117).
+		if (FindGeneratedMethod(sut, context.Compilation) is { } method)
+		{
+			ReportMissingDependencies(context, invocation, memberAccess, method);
+			return;
+		}
+
+		// A member of the class named CreateWithMocks keeps the generator away, and the compiler reports the call to it.
+		if (symbolInfo.CandidateSymbols.Any(candidate => !IsInMockolateNamespace(candidate)))
 		{
 			return;
 		}
@@ -85,51 +100,84 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 			context.ReportDiagnostic(Diagnostic.Create(s_creatableRule, memberAccess.Expression.GetLocation(),
 				sut.ToDisplayString(), reason));
 		}
-		// A static extension member that does not apply to the arguments is no candidate (CS0117), so the generated
-		// method is looked up by its receiver.
-		else if (FindGeneratedMethod(sut, context.Compilation) is { } method)
-		{
-			ReportMissingDependencies(context, invocation, memberAccess, method);
-		}
 	}
 
+	/// <summary>
+	///     Mirror of <c>GetReceiverType</c> in the generator, which also accepts a member that hides the type of the same
+	///     name (<c>Svc Svc { get; }</c>).
+	/// </summary>
+	private static INamedTypeSymbol? GetReceiverType(ExpressionSyntax expression, SemanticModel semanticModel,
+		CancellationToken cancellationToken)
+	{
+		ISymbol? symbol = semanticModel.GetSymbolInfo(expression, cancellationToken).Symbol;
+		if (symbol is INamedTypeSymbol type)
+		{
+			return type;
+		}
+
+		ITypeSymbol? memberType = symbol switch
+		{
+			IPropertySymbol property => property.Type,
+			IFieldSymbol field => field.Type,
+			ILocalSymbol local => local.Type,
+			IParameterSymbol parameter => parameter.Type,
+			_ => null,
+		};
+		return expression is IdentifierNameSyntax identifier &&
+		       memberType is INamedTypeSymbol namedType &&
+		       namedType.Name == identifier.Identifier.ValueText &&
+		       semanticModel.LookupNamespacesAndTypes(expression.SpanStart, name: namedType.Name)
+			       .Any(candidate => SymbolEqualityComparer.Default.Equals(candidate, namedType))
+			? (INamedTypeSymbol)namedType.WithNullableAnnotation(NullableAnnotation.NotAnnotated)
+			: null;
+	}
+
+	/// <summary>
+	///     The <c>CreateWithMocks</c> method that the generator declared for <paramref name="sut" /> in the extension
+	///     blocks of <c>Mockolate.Mock</c>.
+	/// </summary>
 	private static IMethodSymbol? FindGeneratedMethod(INamedTypeSymbol sut, Compilation compilation)
 		=> compilation.Assembly.GlobalNamespace.GetNamespaceMembers()
 			.Where(@namespace => @namespace.Name == "Mockolate")
-			.SelectMany(@namespace => @namespace.GetTypeMembers())
-			.SelectMany(type => type.GetTypeMembers())
+			.SelectMany(@namespace => @namespace.GetTypeMembers("Mock"))
+			.SelectMany(mock => mock.GetTypeMembers())
 			.Where(extension => extension.ExtensionParameter is { } parameter &&
 			                    SymbolEqualityComparer.Default.Equals(parameter.Type, sut))
 			.SelectMany(extension => extension.GetMembers(CreateWithMocksName))
 			.OfType<IMethodSymbol>()
 			.FirstOrDefault();
 
+	private static bool IsInMockolateNamespace(ISymbol symbol)
+		=> symbol.ContainingNamespace is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, };
+
 	/// <summary>
-	///     Reports the parameters of the generated <paramref name="method" /> of class or interface type that the call
-	///     leaves without an argument, because the generator did not mock them.
+	///     Reports the required parameters of the generated <paramref name="method" /> that the call leaves without an
+	///     argument and whose type someone could expect to be mocked.
 	/// </summary>
 	private static void ReportMissingDependencies(SyntaxNodeAnalysisContext context,
 		InvocationExpressionSyntax invocation, MemberAccessExpressionSyntax memberAccess, IMethodSymbol method)
 	{
+		// A positional argument binds the parameter at its position, also after named arguments in their position.
 		HashSet<string> named = [];
-		int positional = 0;
-		foreach (ArgumentSyntax argument in invocation.ArgumentList.Arguments)
+		HashSet<int> positions = [];
+		SeparatedSyntaxList<ArgumentSyntax> arguments = invocation.ArgumentList.Arguments;
+		for (int i = 0; i < arguments.Count; i++)
 		{
-			if (argument.NameColon is { } nameColon)
+			if (arguments[i].NameColon is { } nameColon)
 			{
 				named.Add(nameColon.Name.Identifier.ValueText);
 			}
 			else
 			{
-				positional++;
+				positions.Add(i);
 			}
 		}
 
 		for (int i = 0; i < method.Parameters.Length; i++)
 		{
 			IParameterSymbol parameter = method.Parameters[i];
-			if (parameter.RefKind == RefKind.Out || parameter.HasExplicitDefaultValue || parameter.IsParams ||
-			    i < positional || named.Contains(parameter.Name) ||
+			if (parameter.RefKind == RefKind.Out || parameter.HasExplicitDefaultValue ||
+			    positions.Contains(i) || named.Contains(parameter.Name) ||
 			    GetNotMockedReason(parameter.Type) is not { } reason)
 			{
 				continue;
@@ -142,32 +190,54 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 
 	/// <summary>
 	///     Why the generator did not mock a required parameter of <paramref name="type" />, or <see langword="null" />
-	///     when nobody would expect a mock for it.
+	///     for a type that nobody would expect to be mocked, such as <see langword="string" /> or a struct.
 	/// </summary>
+	/// <remarks>
+	///     Mirrors <c>IsDependencyMockable</c> in the generator for the most common reasons; the last reason covers the
+	///     remaining checks of <c>CanBeMockedImplicitly</c>.
+	/// </remarks>
 	private static string? GetNotMockedReason(ITypeSymbol type)
 	{
-		if (type is not INamedTypeSymbol { TypeKind: TypeKind.Interface or TypeKind.Class, SpecialType: SpecialType.None, } named)
+		if (type is not INamedTypeSymbol
+		    {
+			    TypeKind: TypeKind.Interface or TypeKind.Class or TypeKind.Delegate, SpecialType: SpecialType.None,
+		    } named)
 		{
 			return null;
 		}
 
-		if (named.TypeKind == TypeKind.Class)
+		if (named.TypeKind != TypeKind.Interface)
 		{
-			return "only interfaces are mocked";
+			return Resources.Mockolate0009NotAnInterfaceReason;
 		}
 
 		if (named.ContainingNamespace.IsGlobalNamespace)
 		{
-			return "interfaces in the global namespace are not mocked";
+			return Resources.Mockolate0009GlobalNamespaceReason;
 		}
 
 		if (IsFrameworkNamespace(named.ContainingNamespace))
 		{
-			return
-				"interfaces in the System, Microsoft and Windows namespaces are not mocked, except ILogger, ILogger<T> and ILoggerFactory";
+			return Resources.Mockolate0009FrameworkNamespaceReason;
 		}
 
-		return "its mock would not compile without warnings, for example because a member is obsolete";
+		if (IsNestedInGenericType(named))
+		{
+			return Resources.Mockolate0009NestedInGenericTypeReason;
+		}
+
+		if (HasStaticAbstractMembers(named))
+		{
+			return Resources.Mockolate0009StaticAbstractMembersReason;
+		}
+
+		if (!named.GetMembers("CreateMock").IsEmpty ||
+		    named.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty))
+		{
+			return Resources.Mockolate0009CreateMockMemberReason;
+		}
+
+		return Resources.Mockolate0009OtherReason;
 	}
 
 	/// <summary>
@@ -178,62 +248,64 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 	{
 		if (sut.TypeKind != TypeKind.Class)
 		{
-			return sut.TypeKind == TypeKind.Struct ? "it is a struct" : "it is not a class";
+			return sut.TypeKind == TypeKind.Struct
+				? Resources.Mockolate0008StructReason
+				: Resources.Mockolate0008NotAClassReason;
 		}
 
 		if (sut.IsStatic)
 		{
-			return "it is static";
+			return Resources.Mockolate0008StaticReason;
 		}
 
 		if (sut.IsAbstract)
 		{
-			return "it is abstract";
+			return Resources.Mockolate0008AbstractReason;
 		}
 
 		if (sut.IsGenericType || ContainsTypeParameter(sut) || IsNestedInGenericType(sut))
 		{
-			return "it is generic or nested in a generic type";
+			return Resources.Mockolate0008GenericReason;
 		}
 
 		if (IsFileLocal(sut))
 		{
-			return "it is file-local";
+			return Resources.Mockolate0008FileLocalReason;
 		}
 
 		if (HasUsageDiagnostic(sut))
 		{
-			return "it is obsolete or experimental";
+			return Resources.Mockolate0008ObsoleteReason;
 		}
 
 		if (!IsAccessible(sut, compilation.Assembly))
 		{
-			return "it is not accessible from the generated code, which needs a public or internal class";
+			return Resources.Mockolate0008InaccessibleReason;
 		}
 
 		if (IsFrameworkNamespace(sut.ContainingNamespace))
 		{
-			return "it is declared in the System, Microsoft or Windows namespace";
+			return Resources.Mockolate0008FrameworkNamespaceReason;
 		}
 
+		// Only reached when the generator emitted no container, so a type of that name is the user's.
 		string containerName = GetContainerName(sut);
 		if (compilation.GetCompilationNamespace(sut.ContainingNamespace)?.GetMembers(containerName).Any(member =>
+			    member is INamespaceSymbol or INamedTypeSymbol { Arity: 0, } &&
 			    compilation.IsSymbolAccessibleWithin(member, compilation.Assembly)) == true)
 		{
-			return $"the name '{containerName}' of its arguments container is already used in its namespace";
+			return string.Format(Resources.Mockolate0008ContainerNameReason, containerName);
 		}
 
 		IMethodSymbol[] constructors = GetUsableConstructors(sut, compilation);
 		if (constructors.Length == 0)
 		{
-			return
-				"it has no accessible constructor without ref, out, pointer or ref struct parameters that is not obsolete and sets all required members";
+			return Resources.Mockolate0008NoConstructorReason;
 		}
 
 		if (constructors.Length > 1 && constructors[0].Parameters.Length == constructors[1].Parameters.Length)
 		{
-			return
-				$"several accessible constructors have the most parameters ({constructors[0].Parameters.Length}), so none of them is chosen";
+			return string.Format(Resources.Mockolate0008TiedConstructorsReason, constructors[0].Parameters.Length);
 		}
 
 		return null;
@@ -320,9 +392,17 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 			IPointerTypeSymbol or IFunctionPointerTypeSymbol => true,
 			IArrayTypeSymbol array => UsesUnusableType(array.ElementType),
 			INamedTypeSymbol named => HasUsageDiagnostic(named) ||
+			                          (named.IsRefLikeType && !IsSpan(named)) ||
 			                          (named.TypeKind == TypeKind.Interface && HasStaticAbstractMembers(named)) ||
 			                          named.TypeArguments.Any(UsesUnusableType),
 			_ => false,
+		};
+
+	private static bool IsSpan(INamedTypeSymbol type)
+		=> type is
+		{
+			Name: "Span" or "ReadOnlySpan", Arity: 1,
+			ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
 		};
 
 	private static bool HasStaticAbstractMembers(INamedTypeSymbol type)

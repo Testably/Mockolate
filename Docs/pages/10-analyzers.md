@@ -239,7 +239,7 @@ The message says which of these fixes applies. For an explicit `params` array, i
 
 **A class that cannot be [created with mocks](04-create-mocks.md#create-the-class-under-test-with-mocks).**
 
-The source generator only adds `CreateWithMocks` to a class it can construct. Otherwise the call fails with CS0117, and the rule explains why:
+The source generator only adds `CreateWithMocks` to a class it can construct. Otherwise the call does not compile (CS0117, or CS1929 when other classes have a `CreateWithMocks`), and the rule explains why:
 
 ```csharp
 public abstract class VendingMachine(IChocolateDispenser dispenser);
@@ -254,7 +254,7 @@ The rule reports structs, abstract, static, generic, obsolete and file-local cla
 
 **A constructor dependency that is not mocked and has no argument.**
 
-`CreateWithMocks` only mocks the dependencies that the generator can mock on its own. Every other parameter without a default value needs an argument. When it is missing, the call fails with CS0117, and the rule names the parameter and why it is not mocked:
+`CreateWithMocks` only mocks the dependencies that the generator can mock on its own. Every other parameter without a default value, except a `params` array, needs an argument. When it is missing, the call does not compile (CS7036, or CS1929 or CS0117 depending on the other `CreateWithMocks` methods in scope), and the rule names the parameter and why it is not mocked:
 
 ```csharp
 public class VendingMachine(IChocolateDispenser dispenser, TimeProvider clock);
@@ -263,7 +263,7 @@ public class VendingMachine(IChocolateDispenser dispenser, TimeProvider clock);
 VendingMachine sut = VendingMachine.CreateWithMocks(out _);
 ```
 
-The rule reports parameters of a class type, of an interface in the global namespace, of a framework interface other than `ILogger`, `ILogger<T>` and `ILoggerFactory`, and of an interface whose mock would not compile without warnings. Pass the argument, e.g. `VendingMachine.CreateWithMocks(out _, TimeProvider.System)`.
+The rule reports missing arguments of a class, delegate or interface type: classes and delegates are never mocked, and an interface is not mocked when it is declared in the global namespace, is a framework interface other than `ILogger`, `ILogger<T>` and `ILoggerFactory`, or cannot be mocked without a `CreateMock` call. A missing argument of another type, such as a `string`, an `int` or another struct, is not reported, because nobody expects a mock for it; the compiler error names the parameter. Pass the argument, e.g. `VendingMachine.CreateWithMocks(out _, TimeProvider.System)`.
 
 ## Explicit types for union parameters
 

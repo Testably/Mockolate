@@ -231,18 +231,96 @@
 	</data>
 	<data name="Mockolate0008MessageFormat" xml:space="preserve">
 		<value>'{0}' cannot be created with mocks: {1}</value>
+		<comment>{0} is the class and {1} one of the Mockolate0008...Reason texts.</comment>
 	</data>
 	<data name="Mockolate0008Title" xml:space="preserve">
 		<value>Classes created with mocks must be supported by the generator</value>
 	</data>
 	<data name="Mockolate0009Description" xml:space="preserve">
-		<value>CreateWithMocks only mocks constructor parameters of an interface type outside the global, System, Microsoft and Windows namespaces that the generator can mock without a CreateMock call, plus ILogger, ILogger&lt;T&gt; and ILoggerFactory. Every other parameter without a default value needs an argument.</value>
+		<value>CreateWithMocks only mocks constructor parameters of an interface type outside the global, System, Microsoft and Windows namespaces that the generator can mock without a CreateMock call, plus ILogger, ILogger&lt;T&gt; and ILoggerFactory. Every other parameter without a default value, except a params array, needs an argument.</value>
 	</data>
 	<data name="Mockolate0009MessageFormat" xml:space="preserve">
 		<value>The parameter '{0}' of type '{1}' needs an argument, because it is not mocked: {2}</value>
+		<comment>{0} is the parameter name, {1} its type and {2} one of the Mockolate0009...Reason texts.</comment>
 	</data>
 	<data name="Mockolate0009Title" xml:space="preserve">
 		<value>Dependencies that are not mocked need an argument</value>
+	</data>
+	<data name="Mockolate0008StructReason" xml:space="preserve">
+		<value>it is a struct</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008NotAClassReason" xml:space="preserve">
+		<value>it is not a class</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008StaticReason" xml:space="preserve">
+		<value>it is static</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008AbstractReason" xml:space="preserve">
+		<value>it is abstract</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008GenericReason" xml:space="preserve">
+		<value>it is generic or nested in a generic type</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008FileLocalReason" xml:space="preserve">
+		<value>it is file-local</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008ObsoleteReason" xml:space="preserve">
+		<value>it is obsolete or experimental</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008InaccessibleReason" xml:space="preserve">
+		<value>it is not accessible from the generated code, which needs a public or internal class</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008FrameworkNamespaceReason" xml:space="preserve">
+		<value>it is declared in the System, Microsoft or Windows namespace</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008ContainerNameReason" xml:space="preserve">
+		<value>the name '{0}' of its arguments container is already used in its namespace</value>
+		<comment>Completes Mockolate0008MessageFormat. {0} is the container name.</comment>
+	</data>
+	<data name="Mockolate0008NoConstructorReason" xml:space="preserve">
+		<value>it has no accessible constructor without ref, out, pointer or ref struct parameters that is not obsolete and sets all required members</value>
+		<comment>Completes Mockolate0008MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0008TiedConstructorsReason" xml:space="preserve">
+		<value>several accessible constructors have the most parameters ({0}), so none of them is chosen</value>
+		<comment>Completes Mockolate0008MessageFormat. {0} is the number of parameters.</comment>
+	</data>
+	<data name="Mockolate0009NotAnInterfaceReason" xml:space="preserve">
+		<value>only interfaces are mocked</value>
+		<comment>Completes Mockolate0009MessageFormat for a class or delegate parameter.</comment>
+	</data>
+	<data name="Mockolate0009GlobalNamespaceReason" xml:space="preserve">
+		<value>interfaces in the global namespace are not mocked</value>
+		<comment>Completes Mockolate0009MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0009FrameworkNamespaceReason" xml:space="preserve">
+		<value>interfaces in the System, Microsoft and Windows namespaces are not mocked, except ILogger, ILogger&lt;T&gt; and ILoggerFactory</value>
+		<comment>Completes Mockolate0009MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0009NestedInGenericTypeReason" xml:space="preserve">
+		<value>it is nested in a generic type</value>
+		<comment>Completes Mockolate0009MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0009StaticAbstractMembersReason" xml:space="preserve">
+		<value>it has static abstract members</value>
+		<comment>Completes Mockolate0009MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0009CreateMockMemberReason" xml:space="preserve">
+		<value>it has a member named CreateMock, which would hide the generated extension</value>
+		<comment>Completes Mockolate0009MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0009OtherReason" xml:space="preserve">
+		<value>the generator cannot mock it without a CreateMock call, for example because a member is obsolete or its type arguments nest too deeply; create the mock with CreateMock and pass it</value>
+		<comment>Completes Mockolate0009MessageFormat for the remaining reasons.</comment>
 	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>

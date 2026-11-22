@@ -93,6 +93,17 @@ public class CreateWithMocksFrameworkDependency(System.Collections.Generic.IEnum
 	public int Count { get; } = count;
 }
 
+/// <summary>
+///     A caller info parameter receives the information of the <c>CreateWithMocks</c> call.
+/// </summary>
+public class CreateWithMocksCallerInfo(
+	ICreateWithMocksDependency dependency,
+	[System.Runtime.CompilerServices.CallerMemberName] string caller = "")
+{
+	public ICreateWithMocksDependency Dependency { get; } = dependency;
+	public string Caller { get; } = caller;
+}
+
 #if NET9_0_OR_GREATER
 /// <summary>
 ///     A record uses its primary constructor, not the protected copy constructor.

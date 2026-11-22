@@ -13,6 +13,32 @@
 namespace Mockolate.Tests.GeneratorCoverage
 {
 	/// <summary>
+	///     The constructor arguments of the <see cref="global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfo">CreateWithMocksCallerInfo</see> that <c>CreateWithMocks</c> created.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal sealed class CreateWithMocksCallerInfoMocks
+	{
+		internal CreateWithMocksCallerInfoMocks(global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency arg0, string arg1)
+		{
+			Dependency = arg0;
+			Caller = arg1;
+		}
+
+		/// <summary>
+		///     The argument of the constructor parameter <c>dependency</c>.
+		/// </summary>
+		public global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency Dependency { get; }
+
+		/// <summary>
+		///     The argument of the constructor parameter <c>caller</c>.
+		/// </summary>
+		public string Caller { get; }
+	}
+}
+
+namespace Mockolate.Tests.GeneratorCoverage
+{
+	/// <summary>
 	///     The constructor arguments of the <see cref="global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency">CreateWithMocksFrameworkDependency</see> that <c>CreateWithMocks</c> created.
 	/// </summary>
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -292,6 +318,23 @@ namespace Mockolate
 {
 	internal static partial class Mock
 	{
+		extension(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfo)
+		{
+			/// <summary>
+			///     Creates a <see cref="global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfo">CreateWithMocksCallerInfo</see> with a new mock for every mockable constructor parameter without an argument.
+			/// </summary>
+			/// <remarks>
+			///     A <see langword="null" /> argument for a mockable parameter also gets a new mock.
+			/// </remarks>
+			public static global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfo CreateWithMocks(out global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfoMocks mocks, global::Mockolate.MockBehavior? mockBehavior = null, global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency? dependency = null, [global::System.Runtime.CompilerServices.CallerMemberNameAttribute] string caller = "")
+			{
+				mockBehavior ??= global::Mockolate.MockBehavior.Default;
+				dependency ??= global::Mockolate.Tests.GeneratorCoverage.ICreateWithMocksDependency.CreateMock(mockBehavior);
+				mocks = new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfoMocks(dependency, caller);
+				return new global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksCallerInfo(dependency, caller);
+			}
+		}
+
 		extension(global::Mockolate.Tests.GeneratorCoverage.CreateWithMocksFrameworkDependency)
 		{
 			/// <summary>

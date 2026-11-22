@@ -145,6 +145,7 @@ public sealed partial class MockGenerationSnapshotTests
             CreateWithMocksSpanConstructor sut8 = CreateWithMocksSpanConstructor.CreateWithMocks(out _);
             CreateWithMocksSetsRequiredMembers sut9 = CreateWithMocksSetsRequiredMembers.CreateWithMocks(out _);
             CreateWithMocksRecord sut10 = CreateWithMocksRecord.CreateWithMocks(out _, "name");
+            CreateWithMocksCallerInfo sut11 = CreateWithMocksCallerInfo.CreateWithMocks(out _);
             """,
             [typeof(System.Collections.Immutable.ImmutableArray),],
             Snapshot: true),
