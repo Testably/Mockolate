@@ -16,7 +16,9 @@ public class GenericMethodHidingBase
 /// </summary>
 public class GenericMethodHidingDerived : GenericMethodHidingBase
 {
+#pragma warning disable CA1822 // Mark members as static
 	public new string Hidden<T>(T value) => "derived";
+#pragma warning restore CA1822
 	public new virtual string HiddenVirtual<T>(T value) => "derived";
 	public new virtual string HiddenNested<T>(System.Collections.Generic.List<T> values) => "derived";
 	public virtual string Arity<T1, T2>(int value) => "derived";
