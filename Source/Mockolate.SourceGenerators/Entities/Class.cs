@@ -783,8 +783,8 @@ internal class Class : IEquatable<Class>
 	private static bool SignatureMatches(ISymbol a, ISymbol b)
 		=> (a, b) switch
 		{
-			(IMethodSymbol ma, IMethodSymbol mb) => ParametersMatch(ma.Parameters, mb.Parameters) &&
-			                                        ma.TypeParameters.Length == mb.TypeParameters.Length,
+			(IMethodSymbol ma, IMethodSymbol mb) => ma.TypeParameters.Length == mb.TypeParameters.Length &&
+			                                        ParametersMatch(ma.Parameters, Helpers.GetParametersInTermsOf(mb, ma)),
 			(IPropertySymbol pa, IPropertySymbol pb) => ParametersMatch(pa.Parameters, pb.Parameters),
 			(IEventSymbol, IEventSymbol) => true,
 			_ => false,

@@ -493,7 +493,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		=> a.Kind == b.Kind && (a, b) switch
 		{
 			(IMethodSymbol ma, IMethodSymbol mb) => ma.TypeParameters.Length == mb.TypeParameters.Length &&
-			                                        ParametersMatch(ma.Parameters, mb.Parameters),
+			                                        ParametersMatch(ma.Parameters, Helpers.GetParametersInTermsOf(mb, ma)),
 			(IPropertySymbol pa, IPropertySymbol pb) => ParametersMatch(pa.Parameters, pb.Parameters),
 			(IEventSymbol, IEventSymbol) => true,
 			_ => false,

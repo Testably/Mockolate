@@ -169,6 +169,15 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "GenericMethodHiding_CanBeCreated",
+            ["GenericMethodHiding.cs",],
+            """
+            GenericMethodHidingDerived sut1 = GenericMethodHidingDerived.CreateMock();
+            GenericMethodHidingDerived<int> sut2 = GenericMethodHidingDerived<int>.CreateMock();
+            IGenericMethodHidingDerived sut3 = IGenericMethodHidingDerived.CreateMock();
+            """,
+            []),
+        new(
             "GenericMethodOverride_CanBeCreated",
             ["GenericMethodOverrideBase.cs",],
             """
