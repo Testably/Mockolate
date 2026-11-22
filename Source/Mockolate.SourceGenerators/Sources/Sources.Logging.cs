@@ -6,84 +6,8 @@ namespace Mockolate.SourceGenerators.Sources;
 internal static partial class Sources
 {
 	private const string LoggerFullName = "global::Microsoft.Extensions.Logging.ILogger";
-	private const string LoggerFactoryFullName = "global::Microsoft.Extensions.Logging.ILoggerFactory";
 
 	private static readonly string[] LogLevelNames = ["Trace", "Debug", "Information", "Warning", "Error", "Critical",];
-
-	internal static bool IsLoggerLog(Method method)
-		=> method is { ContainingType: LoggerFullName, Name: "Log<TState>", Parameters.Count: 5, };
-
-	/// <summary>
-	///     Whether the <paramref name="method" /> of the mocked <paramref name="class" /> is <c>ILogger.Log</c>, also when a
-	///     class implements it.
-	/// </summary>
-	internal static bool IsLoggerLog(Method method, Class @class)
-		=> IsLoggerLog(method) || IsClassLoggerMember(method, @class, "Log");
-
-	internal static bool IsLoggerIsEnabled(Method method)
-		=> method is { ContainingType: LoggerFullName, Name: "IsEnabled", Parameters.Count: 1, };
-
-	/// <summary>
-	///     Whether the <paramref name="method" /> of the mocked <paramref name="class" /> is <c>ILogger.IsEnabled</c>, also
-	///     when a class implements it.
-	/// </summary>
-	internal static bool IsLoggerIsEnabled(Method method, Class @class)
-		=> IsLoggerIsEnabled(method) || IsClassLoggerMember(method, @class, "IsEnabled");
-
-	internal static bool IsLoggerBeginScope(Method method)
-		=> method is { ContainingType: LoggerFullName, Name: "BeginScope<TState>", Parameters.Count: 1, };
-
-	/// <summary>
-	///     Whether the <paramref name="method" /> of the mocked <paramref name="class" /> is <c>ILogger.BeginScope</c>, also
-	///     when a class implements it.
-	/// </summary>
-	internal static bool IsLoggerBeginScope(Method method, Class @class)
-		=> IsLoggerBeginScope(method) || IsClassLoggerMember(method, @class, "BeginScope");
-
-	private static bool IsClassLoggerMember(Method method, Class @class, string member)
-		=> @class.LoggerMembers.Any(loggerMember =>
-			loggerMember.Member == member && Method.EqualityComparer.Equals(loggerMember.Method, method));
-
-	internal static bool IsLoggerFactoryCreateLogger(Method method)
-		=> method is { ContainingType: LoggerFactoryFullName, Name: "CreateLogger", Parameters.Count: 1, };
-
-	internal static bool IsLogger(Class @class)
-		=> @class.AllMethods().Any(method => IsLoggerLog(method, @class));
-
-	/// <summary>
-	///     The recorded names of the calls that <c>VerifyThatAllInteractionsAreVerified</c> ignores on a logger or logger
-	///     factory mock: the logging code calls <c>IsEnabled</c>, <c>BeginScope</c> and <c>CreateLogger</c> itself.
-	/// </summary>
-	/// <remarks>
-	///     A name that ends with <c>&lt;</c> is the prefix of the names of a generic method.
-	/// </remarks>
-	internal static string[] GetLoggingIgnoredNames(IEnumerable<Class> classes)
-	{
-		List<string> names = [];
-		foreach (Class @class in classes)
-		{
-			foreach (Method method in @class.AllMethods())
-			{
-				if (IsLoggerIsEnabled(method, @class))
-				{
-					names.Add(method.ContainingType + ".IsEnabled");
-				}
-				else if (IsLoggerBeginScope(method, @class))
-				{
-					names.Add(method.ContainingType + ".BeginScope<");
-				}
-				else if (IsLoggerFactoryCreateLogger(method))
-				{
-					names.Add(method.ContainingType + ".CreateLogger");
-				}
-			}
-		}
-
-		return names.Distinct().ToArray();
-	}
-
-	internal static bool IsLoggerFactory(Class @class)
-		=> @class.IsInterface && @class.AllMethods().Any(IsLoggerFactoryCreateLogger);
 
 	/// <summary>
 	///     The category type <c>T</c> of a mocked <c>ILogger&lt;T&gt;</c>, or <see langword="null" /> for any other type.
@@ -97,60 +21,9 @@ internal static partial class Sources
 			: null;
 	}
 
-	private static void AppendDispatchLog(StringBuilder sb, Method method, Class @class, string mockRegistry,
-		string memberId, bool callsBase)
-	{
-		string? categoryType = @class.LoggerCategoryType;
-		string arguments = string.Join(", ", method.Parameters.Select(p => p.Name));
-		sb.Append("\t\t\tglobal::Mockolate.MockolateLogging.DispatchLog(").Append(mockRegistry).Append(", ")
-			.Append(memberId).Append(", \"").Append(method.ContainingType).Append(".Log\", ")
-			.Append(categoryType is null
-				? "null"
-				: $"global::Mockolate.MockolateLogging.CategoryName<{categoryType}>.Value").Append(", ")
-			.Append(arguments);
-		if (callsBase)
-		{
-			sb.Append(", () => base.").Append(method.Name).Append('(').Append(arguments).Append(')');
-		}
-
-		sb.Append(");").AppendLine();
-	}
-
-	private static void AppendLoggerAccessDeclaration(StringBuilder sb, Class @class)
-	{
-		if (IsLogger(@class) || IsLoggerFactory(@class))
-		{
-			sb.Append(", global::Mockolate.IMockolateLoggerAccess");
-		}
-	}
-
-	private static void AppendLoggerAccessImplementation(StringBuilder sb, Class @class, string mockRegistryName,
-		string scenario, MemberIdTable memberIds, string memberIdPrefix)
-	{
-		bool isLogger = IsLogger(@class);
-		if (!isLogger && !IsLoggerFactory(@class))
-		{
-			return;
-		}
-
-		string logMemberId = isLogger
-			? memberIdPrefix + memberIds.GetMethodIdentifier(@class.AllMethods().First(method => IsLoggerLog(method, @class)))
-			: "-1";
-		sb.AppendLine();
-		sb.Append("\t\t/// <inheritdoc />").AppendLine();
-		sb.Append("\t\tglobal::Mockolate.Internals.MockRegistry global::Mockolate.IMockolateLoggerAccess.MockolateRegistry => this.")
-			.Append(mockRegistryName).Append(';').AppendLine();
-		sb.Append("\t\t/// <inheritdoc />").AppendLine();
-		sb.Append("\t\tstring global::Mockolate.IMockolateLoggerAccess.MockolateScenario => ").Append(scenario).Append(';')
-			.AppendLine();
-		sb.Append("\t\t/// <inheritdoc />").AppendLine();
-		sb.Append("\t\tint global::Mockolate.IMockolateLoggerAccess.MockolateLogMemberId => ").Append(logMemberId)
-			.Append(';').AppendLine();
-	}
-
 	private static void AppendLoggerMockExtensions(StringBuilder sb, Class @class, string name)
 	{
-		if (!IsLoggerFactory(@class))
+		if (!HasAdapter(@class, MockAdapter.LoggerFactory))
 		{
 			return;
 		}
@@ -527,27 +400,6 @@ internal static partial class Sources
 		          namespace Mockolate
 		          {
 		          	/// <summary>
-		          	///     Gives the logging setups and verifications access to the registry of a logger or logger factory mock.
-		          	/// </summary>
-		          	internal interface IMockolateLoggerAccess
-		          	{
-		          		/// <summary>
-		          		///     The registry of the mock.
-		          		/// </summary>
-		          		global::Mockolate.Internals.MockRegistry MockolateRegistry { get; }
-
-		          		/// <summary>
-		          		///     The scenario that setups are registered for.
-		          		/// </summary>
-		          		string MockolateScenario { get; }
-
-		          		/// <summary>
-		          		///     The member id of <c>ILogger.Log</c>, or <c>-1</c> for a logger factory.
-		          		/// </summary>
-		          		int MockolateLogMemberId { get; }
-		          	}
-
-		          	/// <summary>
 		          	///     Setups and verifications of <c>ILogger.Log</c>, whatever the state type of the call is.
 		          	/// </summary>
 		          	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -692,56 +544,29 @@ internal static partial class Sources
 		          			}
 		          		}
 
-		          		private static global::Mockolate.IMockolateLoggerAccess GetAccess(object mock)
-		          			=> mock as global::Mockolate.IMockolateLoggerAccess ?? throw new global::Mockolate.Exceptions.MockException($"The logging setups and verifications do not support '{mock}'.");
+		          		/// <summary>
+		          		///     Answers <c>ILogger.IsEnabled</c> without a setup: every level is enabled, so that logging code that checks
+		          		///     <c>IsEnabled</c> first still reaches <c>Log</c>.
+		          		/// </summary>
+		          		/// <param name="registry">The registry of the mock.</param>
+		          		/// <param name="logLevel">The level of the call.</param>
+		          		public static bool IsEnabled(global::Mockolate.Internals.MockRegistry registry, global::Microsoft.Extensions.Logging.LogLevel logLevel)
+		          			=> true;
+
+		          		private static global::Mockolate.Internals.IMockAdapterAccess GetAccess(object mock)
+		          			=> mock as global::Mockolate.Internals.IMockAdapterAccess ?? throw new global::Mockolate.Exceptions.MockException($"The logging setups and verifications do not support '{mock}'.");
 
 		          		private static global::Mockolate.Setup.ILogSetup SetupLog(object setup, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 		          		{
-		          			global::Mockolate.IMockolateLoggerAccess access = GetAccess(setup);
-		          			LogSetup methodSetup = new(access.MockolateRegistry, new LogFilter(logLevel, entry));
-		          			access.MockolateRegistry.SetupMethod(access.MockolateLogMemberId, access.MockolateScenario, methodSetup);
+		          			global::Mockolate.Internals.IMockAdapterAccess access = GetAccess(setup);
+		          			LogSetup methodSetup = new(access.MockRegistry, new LogFilter(logLevel, entry));
+		          			access.MockRegistry.SetupMethod(access.GetMemberId("Log"), access.Scenario, methodSetup);
 		          			return methodSetup;
 		          		}
 
 		          		internal static global::Mockolate.Verify.LogVerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 		          			where TVerify : class
-		          			=> new(verify, GetAccess(verify).MockolateRegistry, new LogFilter(logLevel, entry));
-
-		          		/// <summary>
-		          		///     Whether no interaction of the logger or logger factory with the <paramref name="registry" /> is unverified, except for the calls of <c>IsEnabled</c>, <c>BeginScope</c> and <c>CreateLogger</c>.
-		          		/// </summary>
-		          		/// <remarks>
-		          		///     The logging code makes these calls around its log calls, so the test verifies the log calls instead.
-		          		/// </remarks>
-		          		/// <param name="registry">The registry of the mock.</param>
-		          		/// <param name="ignoredNames">The names of the ignored calls; a name that ends with <c>&lt;</c> is the prefix of the names of a generic method.</param>
-		          		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry, params string[] ignoredNames)
-		          		{
-		          			foreach (global::Mockolate.Interactions.IInteraction interaction in registry.Interactions.GetUnverifiedInteractions())
-		          			{
-		          				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: { } name, } || !IsIgnored(name))
-		          				{
-		          					return false;
-		          				}
-		          			}
-
-		          			return true;
-
-		          			bool IsIgnored(string name)
-		          			{
-		          				foreach (string ignoredName in ignoredNames)
-		          				{
-		          					if (ignoredName.EndsWith("<", global::System.StringComparison.Ordinal)
-		          						    ? name.StartsWith(ignoredName, global::System.StringComparison.Ordinal)
-		          						    : name == ignoredName)
-		          					{
-		          						return true;
-		          					}
-		          				}
-
-		          				return false;
-		          			}
-		          		}
+		          			=> new(verify, GetAccess(verify).MockRegistry, new LogFilter(logLevel, entry));
 
 		          """);
 		if (hasLoggerFactory)

@@ -139,7 +139,7 @@ internal static partial class Sources
 		}
 
 		sb.Append("\t\tglobal::Mockolate.IMock");
-		AppendLoggerAccessDeclaration(sb, @class);
+		AppendAdapterAccessDeclaration(sb, [@class,]);
 		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 
@@ -181,9 +181,9 @@ internal static partial class Sources
 		
 		sb.AppendLine();
 		
-		bool isLoggerFactory = IsLoggerFactory(@class);
-		string[]? loggingIgnoredNames = isLoggerFactory || IsLogger(@class) ? GetLoggingIgnoredNames([@class,]) : null;
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, loggingIgnoredNames, isLoggerFactory);
+		string[]? adapterIgnoredNames = GetAdapterIgnoredNames([@class,]);
+		string? adapterClearHook = GetAdapterClearHook([@class,]);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook);
 
 		foreach ((string Name, Class Class) hiddenBase in hiddenBaseInterfaces)
 		{
@@ -193,13 +193,13 @@ internal static partial class Sources
 				false /* interfaces have no protected events */,
 				hiddenBase.Class.AllMethods().Any(x => x.IsStatic) || hiddenBase.Class.AllProperties().Any(x => x.IsStatic),
 				hiddenBase.Class.AllEvents().Any(x => x.IsStatic),
-				loggingIgnoredNames, isLoggerFactory);
+				adapterIgnoredNames, adapterClearHook);
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock\";").AppendLine();
-		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
+		AppendAdapterAccessImplementation(sb, [@class,], mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 		sb.AppendLine();
 
 		if (@class.IsInterface)
@@ -360,11 +360,11 @@ internal static partial class Sources
 #endif
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name);
-		AppendLoggerAccessDeclaration(sb, @class);
+		AppendAdapterAccessDeclaration(sb, [@class,]);
 		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; } = mockRegistry;").AppendLine();
-		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
+		AppendAdapterAccessImplementation(sb, [@class,], mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 		sb.AppendLine();
 		sb.Append("\t\t#region IMockVerifyFor").Append(name).AppendLine();
 		sb.AppendLine();
@@ -389,7 +389,7 @@ internal static partial class Sources
 			sb.Append(", global::Mockolate.Mock.IMockProtectedSetupFor").Append(name);
 		}
 
-		AppendLoggerAccessDeclaration(sb, @class);
+		AppendAdapterAccessDeclaration(sb, [@class,]);
 		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
@@ -400,7 +400,7 @@ internal static partial class Sources
 		sb.Append("\t\t\tthis.").Append(mockRegistryName).Append(" = mockRegistry;").AppendLine();
 		sb.Append("\t\t\t_scenarioName = scenario;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
-		AppendLoggerAccessImplementation(sb, @class, mockRegistryName, "this._scenarioName", memberIds, memberIdPrefix);
+		AppendAdapterAccessImplementation(sb, [@class,], mockRegistryName, "this._scenarioName", memberIds, memberIdPrefix);
 		sb.AppendLine();
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Mock.IMockSetupFor").Append(name).Append(" global::Mockolate.Mock.IMockInScenarioFor").Append(name).Append(".Setup").AppendLine();
@@ -1253,7 +1253,7 @@ internal static partial class Sources
 #pragma warning disable S107 // Methods should not have too many parameters
 	private static void ImplementMockForInterface(StringBuilder sb, string mockRegistryName, string name,
 		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents,
-		string[]? loggingIgnoredNames, bool isLoggerFactory)
+		string[]? adapterIgnoredNames, string? adapterClearHook)
 	{
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
@@ -1352,12 +1352,17 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tbool IMockFor").Append(name).Append(".VerifyThatAllInteractionsAreVerified()").AppendLine();
-		if (loggingIgnoredNames is not null)
+		if (adapterIgnoredNames is not null)
 		{
-			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.AreAllInteractionsVerified(this.").Append(mockRegistryName);
-			foreach (string ignoredName in loggingIgnoredNames)
+			sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".AreAllInteractionsVerified(");
+			for (int i = 0; i < adapterIgnoredNames.Length; i++)
 			{
-				sb.Append(", \"").Append(ignoredName).Append('"');
+				if (i > 0)
+				{
+					sb.Append(", ");
+				}
+
+				sb.Append('"').Append(adapterIgnoredNames[i]).Append('"');
 			}
 
 			sb.Append(");").AppendLine();
@@ -1373,9 +1378,9 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tvoid IMockFor").Append(name).Append(".ClearAllInteractions()").AppendLine();
-		if (isLoggerFactory)
+		if (adapterClearHook is not null)
 		{
-			sb.Append("\t\t\t=> global::Mockolate.MockolateLogging.ClearFactoryInteractions(this.").Append(mockRegistryName).Append(");").AppendLine();
+			sb.Append("\t\t\t=> ").Append(adapterClearHook).Append("(this.").Append(mockRegistryName).Append(");").AppendLine();
 		}
 		else
 		{
@@ -2531,10 +2536,11 @@ internal static partial class Sources
 		sb.AppendLine();
 		sb.AppendLine("\t\t{");
 
-		if (IsLoggerLog(method, @class))
+		(MockAdapterBinding Binding, MockAdapterMember Member)? adapterMember = FindAdapterMember(@class, method);
+		if (adapterMember is { Member.Kind: MockAdapterMemberKind.Intercepted, } interceptedMember)
 		{
-			AppendDispatchLog(sb, method, @class, mockRegistry, memberIdPrefix + memberIds.GetMethodIdentifier(method),
-				!isClassInterface && !method.IsAbstract);
+			AppendAdapterInterception(sb, method, interceptedMember.Binding, interceptedMember.Member, mockRegistry,
+				memberIdPrefix + memberIds.GetMethodIdentifier(method), !isClassInterface && !method.IsAbstract);
 			sb.AppendLine("\t\t}");
 			return;
 		}
@@ -2866,11 +2872,10 @@ internal static partial class Sources
 		AppendTriggerCallbacks(sb, "\t\t\t\t", methodSetup, method.Parameters);
 		sb.Append("\t\t\t}").AppendLine();
 
-		// ILogger.IsEnabled, ILogger.BeginScope and ILoggerFactory.CreateLogger answer without a setup even on a strict
-		// mock: logging code calls them around its Log calls, and an unexpected Log call on the strict logger still throws.
-		bool isLoggingDefault = (IsLoggerIsEnabled(method, @class) || IsLoggerBeginScope(method, @class)) && IsLogger(@class) ||
-		                        isClassInterface && IsLoggerFactoryCreateLogger(method);
-		if (!isLoggingDefault)
+		MockAdapterMember? answeringMember = adapterMember is { Member.Kind: MockAdapterMemberKind.AnsweredWithoutSetup, }
+			? adapterMember.Value.Member
+			: null;
+		if (answeringMember is null)
 		{
 			string displayMethodName =
 				$"{method.ContainingType}.{method.Name}({string.Join(", ", method.Parameters.Select(p => p.Type.DisplayName))})";
@@ -2930,14 +2935,16 @@ internal static partial class Sources
 			}
 
 			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ");
-			if (isLoggingDefault && IsLoggerIsEnabled(method, @class))
+			if (answeringMember?.Hook is not null)
 			{
-				sb.Append("true");
-			}
-			else if (isClassInterface && IsLoggerFactoryCreateLogger(method))
-			{
-				sb.Append("global::Mockolate.MockolateLogging.CreateLogger(").Append(mockRegistry).Append(", ")
-					.Append(method.Parameters.First().Name).Append(')');
+				sb.Append(adapterMember!.Value.Binding.Adapter.HookClass).Append('.').Append(answeringMember.Hook)
+					.Append('(').Append(mockRegistry);
+				foreach (MethodParameter parameter in method.Parameters)
+				{
+					sb.Append(", ").Append(parameter.Name);
+				}
+
+				sb.Append(')');
 			}
 			else
 			{
