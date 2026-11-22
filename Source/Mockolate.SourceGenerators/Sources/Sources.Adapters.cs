@@ -83,15 +83,16 @@ internal static partial class Sources
 			return;
 		}
 
-		List<(string Name, string Id)> members = [];
+		List<(string Name, string Id, string RecordedName)> members = [];
 		foreach (Class @class in classes)
 		{
 			foreach (Method method in @class.AllMethods())
 			{
-				if (FindAdapterMember(@class, method) is { Member: { Kind: MockAdapterMemberKind.Intercepted, } member, } &&
+				if (FindAdapterMember(@class, method) is { Member: { } member, } &&
 				    members.All(existing => existing.Name != member.Name))
 				{
-					members.Add((member.Name, memberIdPrefix + memberIds.GetMethodIdentifier(method)));
+					members.Add((member.Name, memberIdPrefix + memberIds.GetMethodIdentifier(method),
+						method.ContainingType + "." + member.Name + (method.GenericParameters?.Count > 0 ? "<" : "")));
 				}
 			}
 		}
@@ -107,13 +108,41 @@ internal static partial class Sources
 		sb.Append("\t\tint global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)").AppendLine();
 		sb.Append("\t\t\t=> memberName switch").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		foreach ((string name, string id) in members)
+		foreach ((string name, string id, _) in members)
 		{
 			sb.Append("\t\t\t\t\"").Append(name).Append("\" => ").Append(id).Append(',').AppendLine();
 		}
 
 		sb.Append("\t\t\t\t_ => -1,").AppendLine();
 		sb.Append("\t\t\t};").AppendLine();
+		sb.Append("\t\t/// <inheritdoc />").AppendLine();
+		sb.Append("\t\tstring global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)").AppendLine();
+		sb.Append("\t\t\t=> memberName switch").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		foreach ((string name, _, string recordedName) in members)
+		{
+			sb.Append("\t\t\t\t\"").Append(name).Append("\" => \"").Append(recordedName).Append("\",").AppendLine();
+		}
+
+		sb.Append("\t\t\t\t_ => \"\",").AppendLine();
+		sb.Append("\t\t\t};").AppendLine();
+	}
+
+	private static void AppendAnsweringHookCall(StringBuilder sb, MockAdapterBinding binding, MockAdapterMember member,
+		string hook, string mockRegistry, string methodSetup, Method method)
+	{
+		sb.Append(binding.Adapter.HookClass).Append('.').Append(hook).Append('(').Append(mockRegistry);
+		if (member.HookReceivesWhetherSetupMatched)
+		{
+			sb.Append(", ").Append(methodSetup).Append(" is not null");
+		}
+
+		if (method.Parameters.Count > 0)
+		{
+			sb.Append(", ").Append(FormatMethodParametersWithRefKind(method.Parameters));
+		}
+
+		sb.Append(')');
 	}
 
 	/// <summary>

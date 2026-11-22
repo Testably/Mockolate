@@ -2866,14 +2866,27 @@ internal static partial class Sources
 			sb.Append("\t\t\t\t}").AppendLine();
 		}
 
+		(MockAdapterBinding Binding, MockAdapterMember Member)? answeringMember =
+			adapterMember is { Member.Kind: MockAdapterMemberKind.AnsweredWithoutSetup, } ? adapterMember : null;
+		if ((hasOutParams || hasRefParams) && method.ReturnType != Type.Void &&
+		    answeringMember is { Member.Hook: { } byRefHook, } byRefAnswering)
+		{
+			sb.Append("\t\t\t\tif (!").Append(hasWrappedResult).Append(" && ").Append(methodSetup)
+				.Append("?.HasReturnCallbacks != true)").AppendLine();
+			sb.Append("\t\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\t\treturn ");
+			AppendAnsweringHookCall(sb, byRefAnswering.Binding, byRefAnswering.Member, byRefHook, mockRegistry,
+				methodSetup, method);
+			sb.Append(';').AppendLine();
+			sb.Append("\t\t\t\t}").AppendLine();
+		}
+
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t\tfinally").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		AppendTriggerCallbacks(sb, "\t\t\t\t", methodSetup, method.Parameters);
 		sb.Append("\t\t\t}").AppendLine();
 
-		(MockAdapterBinding Binding, MockAdapterMember Member)? answeringMember =
-			adapterMember is { Member.Kind: MockAdapterMemberKind.AnsweredWithoutSetup, } ? adapterMember : null;
 		if (answeringMember is null)
 		{
 			string displayMethodName =
@@ -2883,6 +2896,16 @@ internal static partial class Sources
 			sb.Append("\t\t\t{").AppendLine();
 			sb.Append("\t\t\t\tthrow new global::Mockolate.Exceptions.MockNotSetupException(\"The method '")
 				.Append(displayMethodName).Append("' was invoked without prior setup.\");").AppendLine();
+			sb.Append("\t\t\t}").AppendLine();
+		}
+		else if (method.ReturnType == Type.Void && answeringMember is { Member.Hook: { } voidHook, } voidAnswering)
+		{
+			sb.Append("\t\t\tif (!").Append(hasWrappedResult).Append(')').AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\t");
+			AppendAnsweringHookCall(sb, voidAnswering.Binding, voidAnswering.Member, voidHook, mockRegistry, methodSetup,
+				method);
+			sb.Append(';').AppendLine();
 			sb.Append("\t\t\t}").AppendLine();
 		}
 
@@ -2898,6 +2921,12 @@ internal static partial class Sources
 				sb.Append("\t\t\t\tthis.").Append(refReturnStorageField).Append(" = ")
 					.Append(wrappedResult).Append(";").AppendLine();
 				sb.Append("\t\t\t\treturn ref this.").Append(refReturnStorageField).Append(";").AppendLine();
+			}
+			else if (answeringMember is { Member.WrappedResultHook: { } wrappedResultHook, } wrappedAnswering)
+			{
+				sb.Append("\t\t\t\treturn ").Append(wrappedAnswering.Binding.Adapter.HookClass).Append('.')
+					.Append(wrappedResultHook).Append('(').Append(mockRegistry).Append(", ").Append(wrappedResult)
+					.Append(");").AppendLine();
 			}
 			else
 			{
@@ -2936,13 +2965,8 @@ internal static partial class Sources
 			sb.Append("out var ").Append(returnValue).Append(") == true ? ").Append(returnValue).Append(" : ");
 			if (answeringMember is { Member.Hook: { } hook, } answering)
 			{
-				sb.Append(answering.Binding.Adapter.HookClass).Append('.').Append(hook).Append('(').Append(mockRegistry);
-				foreach (MethodParameter parameter in method.Parameters)
-				{
-					sb.Append(", ").Append(parameter.Name);
-				}
-
-				sb.Append(')');
+				AppendAnsweringHookCall(sb, answering.Binding, answering.Member, hook, mockRegistry, methodSetup,
+					method);
 			}
 			else
 			{

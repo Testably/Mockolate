@@ -36,6 +36,19 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
+	public async Task CreateLogger_WithSetupWithoutReturnValue_ShouldReturnTheLoggerMock()
+	{
+		ILoggerFactory factory = ILoggerFactory.CreateMock();
+		int calls = 0;
+		factory.Mock.Setup.CreateLogger(It.IsAny<string>()).Do(() => calls++);
+
+		ILogger result = factory.CreateLogger("Orders");
+
+		await That(result).IsSameAs(factory.Mock.GetLogger("Orders"));
+		await That(calls).IsEqualTo(1);
+	}
+
+	[Test]
 	public async Task CreateLogger_WithDefaultValueForLogger_ShouldStillReturnTheLoggerMock()
 	{
 		ILogger custom = ILogger.CreateMock();
