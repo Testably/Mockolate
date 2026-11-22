@@ -47,6 +47,47 @@ public sealed class MockGeneratorEqualityTests
 		}
 	}
 
+	public sealed class DataSourceCreationTests
+	{
+		[Test]
+		public async Task Equals_WithEqualContent_IsTrue()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string");
+
+			await That(a.Equals(b)).IsTrue();
+			await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingSut_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::B.Sut", "string");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingParameter_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "int");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		private static DataSourceCreation Create(string sutName, string parameterType)
+			=> new(
+				new EquatableArray<SutClass>([
+					new SutClass(sutName, "A", "SutMocks", new EquatableArray<SutParameter>([
+						new SutParameter(parameterType, parameterType, "value", false, false, null, false),
+					])),
+				]),
+				new EquatableArray<string>(["global::A.IDependency",]),
+				new EquatableArray<MockClass>([]));
+	}
+
 	public sealed class RefStructAggregateTests
 	{
 		[Test]

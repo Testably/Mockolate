@@ -40,7 +40,7 @@ internal sealed class AutoMockRow(Assembly assembly, ParameterMetadata[] paramet
 			    out object? value))
 		{
 			throw new InvalidOperationException(
-				$"Mockolate cannot create the parameter '{parameter.Name}' of type '{parameter.Type}'.");
+				$"Mockolate cannot create the parameter '{parameter.Name}' of type '{parameter.Type}': it is neither a mockable interface nor a class with exactly one longest accessible constructor.");
 		}
 
 		_values[index] = value;

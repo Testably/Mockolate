@@ -215,10 +215,8 @@ namespace Mockolate
         public static bool operator ==(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
         public static bool operator !=(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
     }
-    public delegate bool MockDataSourceFactory(System.Type type, Mockolate.MockBehavior? behavior, Mockolate.DependencyResolver resolve, out object? value);
     public static class MockDataSources
     {
-        public static void Register(System.Reflection.Assembly assembly, Mockolate.MockDataSourceFactory factory) { }
         public static bool TryCreate(System.Reflection.Assembly assembly, System.Type type, Mockolate.MockBehavior? behavior, Mockolate.DependencyResolver resolve, out object? value) { }
     }
     public static class ParameterExtensions

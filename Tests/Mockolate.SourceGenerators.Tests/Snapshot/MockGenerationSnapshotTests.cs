@@ -124,6 +124,16 @@ public sealed partial class MockGenerationSnapshotTests
             [],
             Snapshot: true),
         new(
+            "CreateWithMocks_CanBeCreated",
+            ["CreateWithMocksTargets.cs",],
+            """
+            CreateWithMocksService sut1 = CreateWithMocksService.CreateWithMocks(out _, null!, null);
+            CreateWithMocksNameCollisions sut2 = CreateWithMocksNameCollisions.CreateWithMocks(out _);
+            CreateWithMocksOuter.Nested sut3 = CreateWithMocksOuter.Nested.CreateWithMocks(out _);
+            """,
+            [],
+            Snapshot: true),
+        new(
             "DynamicMembers_CanBeCreated",
             ["IDynamicMembers.cs",],
             """

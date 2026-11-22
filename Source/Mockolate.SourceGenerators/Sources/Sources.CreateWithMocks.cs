@@ -6,8 +6,8 @@ namespace Mockolate.SourceGenerators.Sources;
 internal static partial class Sources
 {
 	/// <summary>
-	///     Creates the <c>CreateWithMocks</c> extension and the container of the dependencies for every class in
-	///     <paramref name="suts" />, and the <c>MockDataSourceFactory</c> that a module initializer registers for the
+	///     Creates the <c>CreateWithMocks</c> extension and the container of the constructor arguments for every class
+	///     in <paramref name="suts" />, and the <c>MockDataSourceFactory</c> that a module initializer registers for the
 	///     <paramref name="suts" /> and the <paramref name="mockedTypes" />.
 	/// </summary>
 	public static string CreateWithMocks(EquatableArray<SutClass> suts, EquatableArray<string> mockedTypes,
@@ -22,68 +22,147 @@ internal static partial class Sources
 			sb.Append("""
 			          namespace System.Runtime.CompilerServices
 			          {
+			          	/// <summary>
+			          	///     Polyfill for the module initializer attribute; the runtime ships it starting with .NET 5.
+			          	/// </summary>
 			          	[global::System.AttributeUsage(global::System.AttributeTargets.Method, Inherited = false)]
-			          	internal sealed class ModuleInitializerAttribute : global::System.Attribute;
+			          	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+			          	internal sealed class ModuleInitializerAttribute : global::System.Attribute
+			          	{
+			          	}
 			          }
 
 			          """).AppendLine();
+		}
+
+		HashSet<string> containers = new(StringComparer.Ordinal);
+		List<(SutClass Sut, string Container)> named = [];
+		foreach (SutClass sut in suts)
+		{
+			string containerName = sut.ContainerName;
+			for (int index = 1; !containers.Add(sut.Namespace + "." + containerName); index++)
+			{
+				containerName = $"{sut.ContainerName}_{index}";
+			}
+
+			named.Add((sut, containerName));
+			AppendContainer(sb, sut, containerName);
 		}
 
 		sb.Append("namespace Mockolate").AppendLine();
 		sb.Append('{').AppendLine();
 		sb.Append("\tinternal static partial class Mock").AppendLine();
 		sb.Append("\t{").AppendLine();
-
-		Dictionary<string, int> nameCounts = suts
-			.GroupBy(sut => sut.Name)
-			.ToDictionary(group => group.Key, group => group.Count());
-		foreach (SutClass sut in suts)
+		for (int i = 0; i < named.Count; i++)
 		{
-			string containerName = (nameCounts[sut.Name] > 1 ? ToIdentifier(sut.ClassFullName) : sut.Name) + "Mocks";
-			AppendSut(sb, sut, containerName);
+			if (i > 0)
+			{
+				sb.AppendLine();
+			}
+
+			AppendCreateWithMocks(sb, named[i].Sut, ContainerFullName(named[i].Sut, named[i].Container));
 		}
 
-		AppendFactory(sb, suts, mockedTypes);
 		sb.Append("\t}").AppendLine();
+		sb.AppendLine();
+		AppendFactory(sb, suts, mockedTypes);
 		sb.Append('}').AppendLine();
 		sb.Append("#nullable disable").AppendLine();
 		return sb.ToString();
 	}
 
-	private static void AppendSut(StringBuilder sb, SutClass sut, string containerName)
+	private static string ContainerFullName(SutClass sut, string containerName)
+		=> sut.Namespace is null ? $"global::{containerName}" : $"global::{sut.Namespace}.{containerName}";
+
+	private static void AppendContainer(StringBuilder sb, SutClass sut, string containerName)
 	{
 		SutParameter[] parameters = sut.Parameters.AsArray();
-
-		sb.Append("\t\t/// <summary>").AppendLine();
-		sb.Append("\t\t///     The constructor arguments of the <see cref=\"").Append(sut.ClassFullName)
-			.Append("\" /> that <c>CreateWithMocks</c> created.").AppendLine();
-		sb.Append("\t\t/// </summary>").AppendLine();
-		sb.Append("\t\tinternal sealed class ").Append(containerName).AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tinternal ").Append(containerName).Append('(')
-			.Append(string.Join(", ", parameters.Select(p => p.TypeFullName + " " + Helpers.EscapeIfKeyword(p.Name))))
-			.Append(')').AppendLine();
-		sb.Append("\t\t\t{").AppendLine();
-		foreach (SutParameter parameter in parameters)
+		string[] propertyNames = GetPropertyNames(parameters, containerName);
+		string indent = sut.Namespace is null ? "" : "\t";
+		if (sut.Namespace is not null)
 		{
-			sb.Append("\t\t\t\t").Append(ToPropertyName(parameter.Name)).Append(" = ")
-				.Append(Helpers.EscapeIfKeyword(parameter.Name)).Append(';').AppendLine();
+			sb.Append("namespace ").Append(sut.Namespace).AppendLine();
+			sb.Append('{').AppendLine();
 		}
 
-		sb.Append("\t\t\t}").AppendLine();
-		foreach (SutParameter parameter in parameters)
+		sb.Append(indent).Append("/// <summary>").AppendLine();
+		sb.Append(indent).Append("///     The constructor arguments of the <see cref=\"").Append(sut.ClassFullName)
+			.Append("\" /> that <c>CreateWithMocks</c> created.").AppendLine();
+		sb.Append(indent).Append("/// </summary>").AppendLine();
+		sb.Append(indent).Append("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
+		sb.Append(indent).Append("internal sealed class ").Append(containerName).AppendLine();
+		sb.Append(indent).Append('{').AppendLine();
+		sb.Append(indent).Append("\tinternal ").Append(containerName).Append('(')
+			.Append(string.Join(", ", parameters.Select((p, i) => $"{p.TypeFullName} arg{i}")))
+			.Append(')').AppendLine();
+		sb.Append(indent).Append("\t{").AppendLine();
+		for (int i = 0; i < parameters.Length; i++)
+		{
+			sb.Append(indent).Append("\t\t").Append(propertyNames[i]).Append(" = arg").Append(i).Append(';').AppendLine();
+		}
+
+		sb.Append(indent).Append("\t}").AppendLine();
+		for (int i = 0; i < parameters.Length; i++)
 		{
 			sb.AppendLine();
-			sb.Append("\t\t\t/// <summary>").AppendLine();
-			sb.Append("\t\t\t///     The argument of the constructor parameter <c>").Append(parameter.Name).Append("</c>.")
-				.AppendLine();
-			sb.Append("\t\t\t/// </summary>").AppendLine();
-			sb.Append("\t\t\tpublic ").Append(parameter.TypeFullName).Append(' ').Append(ToPropertyName(parameter.Name))
+			sb.Append(indent).Append("\t/// <summary>").AppendLine();
+			sb.Append(indent).Append("\t///     The argument of the constructor parameter <c>").Append(parameters[i].Name)
+				.Append("</c>.").AppendLine();
+			sb.Append(indent).Append("\t/// </summary>").AppendLine();
+			sb.Append(indent).Append("\tpublic ").Append(parameters[i].TypeFullName).Append(' ').Append(propertyNames[i])
 				.Append(" { get; }").AppendLine();
 		}
 
-		sb.Append("\t\t}").AppendLine();
+		sb.Append(indent).Append('}').AppendLine();
+		if (sut.Namespace is not null)
+		{
+			sb.Append('}').AppendLine();
+		}
+
 		sb.AppendLine();
+	}
+
+	/// <summary>
+	///     PascalCase names that neither hide a member of <see cref="object" /> (CS0108), nor repeat the container
+	///     name (CS0542), nor each other.
+	/// </summary>
+	private static string[] GetPropertyNames(SutParameter[] parameters, string containerName)
+	{
+		HashSet<string> used = new(StringComparer.Ordinal) { containerName, };
+		string[] names = new string[parameters.Length];
+		for (int i = 0; i < parameters.Length; i++)
+		{
+			string baseName = char.ToUpperInvariant(parameters[i].Name[0]) + parameters[i].Name.Substring(1);
+			string name = baseName;
+			for (int index = 1; Helpers.IsObjectMethodName(name) || !used.Add(name); index++)
+			{
+				name = $"{baseName}Argument{(index == 1 ? "" : index.ToString())}";
+			}
+
+			names[i] = name;
+		}
+
+		return names;
+	}
+
+	private static string CreateUniqueName(SutParameter[] parameters, string name)
+	{
+		string usedName = name;
+#pragma warning disable S1994
+		for (int index = 1; parameters.Any(x => x.Name == usedName); index++)
+		{
+			usedName = $"{name}_{index}";
+		}
+#pragma warning restore S1994
+
+		return usedName;
+	}
+
+	private static void AppendCreateWithMocks(StringBuilder sb, SutClass sut, string containerFullName)
+	{
+		SutParameter[] parameters = sut.Parameters.AsArray();
+		string mocks = CreateUniqueName(parameters, "mocks");
+		string mockBehavior = CreateUniqueName(parameters, "mockBehavior");
 
 		sb.Append("\t\textension(").Append(sut.ClassFullName).Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
@@ -91,46 +170,68 @@ internal static partial class Sources
 		sb.Append("\t\t\t///     Creates a <see cref=\"").Append(sut.ClassFullName)
 			.Append("\" /> with a new mock for every mockable constructor parameter without an argument.").AppendLine();
 		sb.Append("\t\t\t/// </summary>").AppendLine();
-		sb.Append("\t\t\tpublic static ").Append(sut.ClassFullName).Append(" CreateWithMocks(out ").Append(containerName)
-			.Append(" mocks");
-		foreach (SutParameter parameter in parameters.Where(p => !p.IsMockable))
+		sb.Append("\t\t\tpublic static ").Append(sut.ClassFullName).Append(" CreateWithMocks(out ")
+			.Append(containerFullName).Append(' ').Append(mocks);
+		foreach (SutParameter parameter in parameters.Where(p => !p.IsOptional))
 		{
 			sb.Append(", ").Append(parameter.TypeFullName).Append(' ').Append(Helpers.EscapeIfKeyword(parameter.Name));
 		}
 
-		sb.Append(", global::Mockolate.MockBehavior? mockBehavior = null");
-		foreach (SutParameter parameter in parameters.Where(p => p.IsMockable))
+		sb.Append(", global::Mockolate.MockBehavior? ").Append(mockBehavior).Append(" = null");
+		foreach (SutParameter parameter in parameters.Where(p => p.IsOptional))
 		{
-			sb.Append(", ").Append(parameter.TypeFullName).Append("? ").Append(Helpers.EscapeIfKeyword(parameter.Name))
-				.Append(" = null");
+			sb.Append(", ");
+			if (parameter.IsMockable || parameter.IsParams)
+			{
+				sb.Append(parameter.TypeFullName.TrimEnd('?')).Append("? ").Append(Helpers.EscapeIfKeyword(parameter.Name))
+					.Append(" = null");
+			}
+			else
+			{
+				sb.Append(parameter.TypeFullName).Append(' ').Append(Helpers.EscapeIfKeyword(parameter.Name))
+					.Append(" = ").Append(parameter.DefaultValue);
+			}
 		}
 
 		sb.Append(')').AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
-		foreach (SutParameter parameter in parameters.Where(p => p.IsMockable))
+		sb.Append("\t\t\t\t").Append(mockBehavior).Append(" ??= global::Mockolate.MockBehavior.Default;").AppendLine();
+		foreach (SutParameter parameter in parameters)
 		{
-			sb.Append("\t\t\t\t").Append(Helpers.EscapeIfKeyword(parameter.Name)).Append(" ??= ")
-				.Append(parameter.TypeFullName).Append(".CreateMock(mockBehavior);").AppendLine();
+			if (parameter.IsMockable)
+			{
+				sb.Append("\t\t\t\t").Append(Helpers.EscapeIfKeyword(parameter.Name)).Append(" ??= ")
+					.Append(parameter.TypeFullName).Append(".CreateMock(").Append(mockBehavior).Append(");").AppendLine();
+			}
+			else if (parameter.IsParams)
+			{
+				sb.Append("\t\t\t\t").Append(Helpers.EscapeIfKeyword(parameter.Name)).Append(" ??= [];").AppendLine();
+			}
 		}
 
 		string arguments = string.Join(", ", parameters.Select(p => Helpers.EscapeIfKeyword(p.Name)));
-		sb.Append("\t\t\t\tmocks = new ").Append(containerName).Append('(').Append(arguments).Append(");").AppendLine();
+		sb.Append("\t\t\t\t").Append(mocks).Append(" = new ").Append(containerFullName).Append('(').Append(arguments)
+			.Append(");").AppendLine();
 		sb.Append("\t\t\t\treturn new ").Append(sut.ClassFullName).Append('(').Append(arguments).Append(");").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
 	}
 
+	/// <summary>
+	///     The factory lives in a file-local class, so that neither its registration nor its name reach the users of
+	///     <c>Mock</c>.
+	/// </summary>
 	private static void AppendFactory(StringBuilder sb, EquatableArray<SutClass> suts,
 		EquatableArray<string> mockedTypes)
 	{
+		sb.Append("\tfile static class MockDataSourceRegistration").AppendLine();
+		sb.Append("\t{").AppendLine();
 		sb.Append("\t\t[global::System.Runtime.CompilerServices.ModuleInitializer]").AppendLine();
-		sb.Append("\t\tinternal static void RegisterMockDataSources()").AppendLine();
-		sb.Append("\t\t\t=> global::Mockolate.MockDataSources.Register(typeof(Mock).Assembly, CreateFromMockDataSource);")
+		sb.Append("\t\tinternal static void Register()").AppendLine();
+		sb.Append("\t\t\t=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create);")
 			.AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\tprivate static bool CreateFromMockDataSource(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.DependencyResolver resolve, out object? value)")
+		sb.Append("\t\tprivate static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.DependencyResolver resolve, out object? value)")
 			.AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		foreach (SutClass sut in suts)
@@ -138,16 +239,12 @@ internal static partial class Sources
 			SutParameter[] parameters = sut.Parameters.AsArray();
 			sb.Append("\t\t\tif (type == typeof(").Append(sut.ClassFullName).Append("))").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
-			sb.Append("\t\t\t\tvalue = ").Append(sut.ClassFullName).Append(".CreateWithMocks(out _");
-			foreach (int index in Enumerable.Range(0, parameters.Length).Where(i => !parameters[i].IsMockable))
+			sb.Append("\t\t\t\tvalue = ").Append(sut.ClassFullName).Append(".CreateWithMocks(out _, ")
+				.Append(CreateUniqueName(parameters, "mockBehavior")).Append(": behavior");
+			for (int index = 0; index < parameters.Length; index++)
 			{
-				sb.Append(", ").Append(Resolve(parameters[index], index));
-			}
-
-			sb.Append(", behavior");
-			foreach (int index in Enumerable.Range(0, parameters.Length).Where(i => parameters[i].IsMockable))
-			{
-				sb.Append(", ").Append(Resolve(parameters[index], index));
+				sb.Append(", ").Append(Helpers.EscapeIfKeyword(parameters[index].Name)).Append(": ")
+					.Append(Resolve(sut, parameters[index], index));
 			}
 
 			sb.Append(");").AppendLine();
@@ -170,14 +267,18 @@ internal static partial class Sources
 		sb.Append("\t\t\tvalue = null;").AppendLine();
 		sb.Append("\t\t\treturn false;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
+		sb.Append("\t}").AppendLine();
 
-		static string Resolve(SutParameter parameter, int index)
-			=> $"resolve(typeof({parameter.TypeFullName}), \"{parameter.Name}\") is {{ }} v{index} ? ({parameter.TypeFullName})v{index} : default!";
+		static string Resolve(SutClass sut, SutParameter parameter, int index)
+		{
+			string fallback = parameter switch
+			{
+				{ IsMockable: true, } or { IsParams: true, } => "null",
+				{ DefaultValue: { } defaultValue, } => defaultValue,
+				{ IsNullable: true, } => "default",
+				_ => $"throw new global::System.InvalidOperationException(\"There is no argument for the constructor parameter '{parameter.Name}' of {sut.ClassFullName.Replace("global::", "")}.\")",
+			};
+			return $"resolve(typeof({parameter.TypeOfName}), \"{parameter.Name}\") is {{ }} v{index} ? ({parameter.TypeOfName})v{index} : {fallback}";
+		}
 	}
-
-	private static string ToPropertyName(string parameterName)
-		=> char.ToUpperInvariant(parameterName[0]) + parameterName.Substring(1);
-
-	private static string ToIdentifier(string fullName)
-		=> new(fullName.Replace("global::", "").Select(c => char.IsLetterOrDigit(c) ? c : '_').ToArray());
 }
