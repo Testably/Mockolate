@@ -6,7 +6,7 @@ using Mockolate.SourceGenerators.Internals;
 
 namespace Mockolate.SourceGenerators;
 
-internal static class MockGeneratorHelpers
+internal static partial class MockGeneratorHelpers
 {
 	internal static bool IsCreateMethodInvocation(this SyntaxNode node)
 	{
@@ -205,13 +205,19 @@ internal static class MockGeneratorHelpers
 	/// </remarks>
 	private static bool CanBeDiscovered(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly,
 		AutoMockingOptions options)
+		=> CanDiscoverNamespace(typeSymbol, options) && CanBeMockedImplicitly(typeSymbol, sourceAssembly);
+
+	/// <summary>
+	///     Whether the generator can create a compilable mock of <paramref name="typeSymbol" /> without a
+	///     <c>CreateMock</c> call that the <c>MockabilityAnalyzer</c> checks.
+	/// </summary>
+	private static bool CanBeMockedImplicitly(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
 		=> IsAutoMockable(typeSymbol) &&
 		   !UsesTypeNestedInGenericType(typeSymbol) &&
 		   !HasStaticAbstractMembers(typeSymbol) &&
 		   !HasNonPublicAbstractMembers(typeSymbol) &&
 		   !HasMemberNamedCreateMock(typeSymbol) &&
 		   Helpers.IsAccessibleFrom(typeSymbol, sourceAssembly) &&
-		   CanDiscoverNamespace(typeSymbol, options) &&
 		   GetTypeArgumentDepth(typeSymbol) <= MaxTypeArgumentDepth &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
 		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>

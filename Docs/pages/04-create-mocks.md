@@ -368,3 +368,43 @@ dispenser.Mock.Verify.Dispense("Dark", 5).Once();
   member with `new`, and same-named members declared by several base interfaces.
 - Protected members are not forwarded; the base class implementation is used instead.
 - Init-only properties are not forwarded, since the wrapped instance is already constructed.
+
+## Create the class under test with mocks
+
+Call `CreateWithMocks` on the class under test to create it with a new mock for every mockable constructor parameter. The source generator adds the method to every class you call it on. The `out` parameter returns a container with the constructor arguments, so you can set up and verify the mocks the class received:
+
+```csharp
+public class VendingMachine(IChocolateDispenser dispenser)
+{
+    public string Buy(string type, int amount)
+        => dispenser.Dispense(type, amount) ? "Enjoy!" : "Sold out";
+}
+
+VendingMachine sut = VendingMachine.CreateWithMocks(out VendingMachineMocks mocks);
+mocks.Dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
+
+string result = sut.Buy("Dark", 4);
+
+await That(result).IsEqualTo("Enjoy!");
+mocks.Dispenser.Mock.Verify.Dispense("Dark", 4).Once();
+```
+
+The container is named after the class with a `Mocks` suffix and declared in the namespace of the class. It has a property for every constructor parameter, named after the parameter in PascalCase.
+
+- **Mockable parameters** are optional. Pass an argument by name to use your own instance instead of a new mock, e.g. `VendingMachine.CreateWithMocks(out _, dispenser: myDispenser)`. A `null` argument also gets a new mock.
+- **Other parameters** keep their declared default value or, for a `params` array, an empty array. Parameters without a default are required and come first, in the order of the constructor.
+- **A `MockBehavior`** passed as `mockBehavior` applies to every new mock, e.g. `VendingMachine.CreateWithMocks(out _, MockBehavior.Default.ThrowingWhenNotSetup())`.
+
+A parameter is mockable when its type is an interface outside the `System`, `Microsoft` and `Windows` namespaces that the generator can mock without a `CreateMock` call of its own, by the same rules as an auto-mock (see the limitations of [auto-mocking](#auto-mocking)). `ILogger`, `ILogger<T>` and `ILoggerFactory` are mockable too, because Mockolate has [dedicated mocks](09-special-types/03-logging.md) for them. Other interfaces, such as `IEnumerable<T>`, would be mocks that return `null`, so they are required arguments.
+
+<details>
+<summary>Details and limitations</summary>
+
+- `CreateWithMocks` uses the accessible constructor with the most parameters. When several constructors share that number, the class gets no `CreateWithMocks`.
+- Constructors with `ref`, `out` or ref struct parameters, and constructors that leave `required` members unset (without `[SetsRequiredMembers]`), are not used.
+- Abstract, static, generic and file-local classes, classes in the `System`, `Microsoft` and `Windows` namespaces, and classes with a member named `CreateWithMocks` get no `CreateWithMocks`.
+- A nested class joins the names of its containing classes with `_0` in the container name, e.g. `Outer_0NestedMocks`. When the name is already taken by an accessible type, the container gets a suffix, e.g. `VendingMachineMocks_1`.
+- A property that would hide a member of `object` or repeat the container name gets an `Argument` suffix, e.g. `EqualsArgument`. A constructor parameter named `mocks` or `mockBehavior` renames the generated parameter to `mocks_1` or `mockBehavior_1`.
+- The mocks of the constructor dependencies are shared with mocks that `CreateMock` creates of the same type. With [auto-mocking](#auto-mocking), the generator also creates the auto-mocks of the interfaces that the dependencies return.
+
+</details>

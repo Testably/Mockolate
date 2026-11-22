@@ -131,6 +131,23 @@ public sealed partial class MockGenerationSnapshotTests
             [],
             Snapshot: true),
         new(
+            "CreateWithMocks_CanBeCreated",
+            ["CreateWithMocksTargets.cs",],
+            """
+            CreateWithMocksService sut1 = CreateWithMocksService.CreateWithMocks(out _, null!, null);
+            CreateWithMocksNameCollisions sut2 = CreateWithMocksNameCollisions.CreateWithMocks(out _);
+            CreateWithMocksOuter.Nested sut3 = CreateWithMocksOuter.Nested.CreateWithMocks(out _);
+            CreateWithMocksOuter_Nested sut4 = CreateWithMocksOuter_Nested.CreateWithMocks(out _);
+            ICreateWithMocksGenericDependency<string> dependency = ICreateWithMocksGenericDependency<string>.CreateMock();
+            CreateWithMocksNullableGeneric sut5 = CreateWithMocksNullableGeneric.CreateWithMocks(out _);
+            CreateWithMocksFrameworkDependency sut6 = CreateWithMocksFrameworkDependency.CreateWithMocks(out _, [1,], 1);
+            CreateWithMocksParamsCollection sut7 = CreateWithMocksParamsCollection.CreateWithMocks(out _, [1, 2,]);
+            CreateWithMocksSpanConstructor sut8 = CreateWithMocksSpanConstructor.CreateWithMocks(out _);
+            CreateWithMocksSetsRequiredMembers sut9 = CreateWithMocksSetsRequiredMembers.CreateWithMocks(out _);
+            """,
+            [typeof(System.Collections.Immutable.ImmutableArray),],
+            Snapshot: true),
+        new(
             "DynamicMembers_CanBeCreated",
             ["IDynamicMembers.cs",],
             """
