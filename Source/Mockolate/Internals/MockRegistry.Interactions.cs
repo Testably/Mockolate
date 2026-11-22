@@ -6,6 +6,9 @@ using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
 using Mockolate.Setup;
+#if NETSTANDARD2_0
+using Mockolate.Internals.Polyfills;
+#endif
 
 namespace Mockolate.Internals;
 
@@ -60,7 +63,7 @@ public partial class MockRegistry
 		{
 			foreach (string ignoredName in ignoredNames)
 			{
-				if (ignoredName.EndsWith("<", StringComparison.Ordinal)
+				if (ignoredName.EndsWith('<')
 					? name.StartsWith(ignoredName, StringComparison.Ordinal)
 					: name == ignoredName)
 				{
