@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis;
 
 namespace Mockolate.SourceGenerators.Tests;
 
@@ -132,6 +133,85 @@ public sealed class MockBehaviorExtensionsTests
 			          		public global::System.Collections.Generic.List<T> Generate<T>(global::System.Collections.Generic.List<T> nullValue, params object?[] parameters)
 			          			=> new global::System.Collections.Generic.List<T>();
 			          """).IgnoringNewlineStyle();
+	}
+
+	[Test]
+	public async Task DefaultValueGenerator_ShouldRegisterIAsyncEnumerables()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using System;
+			     using System.Collections.Generic;
+			     using System.Threading;
+			     using Mockolate;
+
+			     namespace MyCode
+			     {
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = IMyInterface.CreateMock();
+			             }
+			         }
+
+			         public interface IMyInterface
+			         {
+			             IAsyncEnumerable<int> AsyncEnumerableOfInt { get; }
+			             IAsyncEnumerable<T> GenericAsyncEnumerable<T>(CancellationToken cancellationToken);
+			         }
+			     }
+			     """, typeof(IAsyncEnumerable<>));
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockBehaviorExtensions.g.cs"])
+			.Contains("""
+			          		public global::System.Collections.Generic.IAsyncEnumerable<T> Generate<T>(global::System.Collections.Generic.IAsyncEnumerable<T> nullValue, params object?[] parameters)
+			          """).IgnoringNewlineStyle().And
+			.Contains("private sealed class EmptyAsyncEnumerable<T>");
+	}
+
+	[Test]
+	public async Task DefaultValueGenerator_WithIAsyncEnumerableForwardedByAReference_ShouldRegisterIAsyncEnumerables()
+	{
+		MetadataReference facade = ExternalAssembly.Compile(
+			"[assembly: System.Runtime.CompilerServices.TypeForwardedTo(typeof(System.Collections.Generic.IAsyncEnumerable<>))]",
+			"Microsoft.Bcl.AsyncInterfaces");
+
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     using Mockolate;
+
+		                                                     namespace MyCode
+		                                                     {
+		                                                         public interface IMyInterface
+		                                                         {
+		                                                             System.Collections.Generic.IAsyncEnumerable<int> Values { get; }
+		                                                         }
+
+		                                                         public class Program
+		                                                         {
+		                                                             public static void Main(string[] args)
+		                                                             {
+		                                                     			_ = IMyInterface.CreateMock();
+		                                                             }
+		                                                         }
+		                                                     }
+		                                                     """, [facade,]);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockBehaviorExtensions.g.cs"]).Contains("private sealed class EmptyAsyncEnumerable<T>")
+			.Because("on .NET Core, Microsoft.Bcl.AsyncInterfaces only forwards the type to the framework");
+	}
+
+	[Test]
+	[Arguments(true)]
+	[Arguments(false)]
+	public async Task MockBehaviorExtensionsSource_ShouldContainTheIAsyncEnumerableDefaultOnlyWhenAvailable(bool includeAsyncEnumerable)
+	{
+		string source = Sources.Sources.MockBehaviorExtensions(false, includeAsyncEnumerable, null);
+
+		await That(source.Contains("IAsyncEnumerable")).IsEqualTo(includeAsyncEnumerable)
+			.Because("IAsyncEnumerable<T> is missing on .NET Framework and .NET Standard 2.0 without Microsoft.Bcl.AsyncInterfaces");
 	}
 
 	[Test]

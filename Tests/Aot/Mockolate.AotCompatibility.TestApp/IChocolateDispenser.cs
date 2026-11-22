@@ -8,6 +8,7 @@ public interface IChocolateDispenser
 	bool Temper(double temperature);
 	Task<int> CountAsync(string type);
 	ValueTask<bool> IsAvailableAsync(string type);
+	IAsyncEnumerable<string> ListAsync(CancellationToken cancellationToken);
 	void Refill(ref int amount, out bool overflow);
 	event EventHandler<int> Dispensed;
 }

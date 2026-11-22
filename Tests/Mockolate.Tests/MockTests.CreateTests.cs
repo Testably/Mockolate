@@ -188,6 +188,13 @@ public sealed partial class MockTests
 	public sealed class CreateSnapshotTests
 	{
 		[Test]
+		public async Task AsyncEnumerableDefaultValues_CanBeCreated()
+		{
+			IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock();
+			await That(sut).IsNotNull();
+		}
+
+		[Test]
 		public async Task AutoMock_CanBeCreated()
 		{
 			IAutoMockRoot sut1 = IAutoMockRoot.CreateMock();

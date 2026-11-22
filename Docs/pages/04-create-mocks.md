@@ -138,6 +138,7 @@ The flags can also be set with a `with` expression, e.g. `MockBehavior.Default w
 When no setup matches, the mock returns:
 
 - an empty collection for collection types (e.g. `IEnumerable<T>`, `List<T>`),
+- an empty sequence for `IAsyncEnumerable<T>`, whose enumeration throws an `OperationCanceledException` when the first `CancellationToken` among the arguments is canceled,
 - an empty string for `string`,
 - a completed task for `Task`, `Task<T>`, `ValueTask` and `ValueTask<T>`,
 - a tuple with recursively defaulted values for tuples,
