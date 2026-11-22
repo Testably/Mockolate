@@ -357,6 +357,16 @@ internal static class Helpers
 		=> SymbolEqualityComparer.Default.Equals(a, b) ||
 		   (IsObjectOrDynamic(a) && IsObjectOrDynamic(b));
 
+	/// <summary>
+	///     The parameters of <paramref name="method" /> with its type parameters replaced by the type parameters of
+	///     <paramref name="other" /> at the same position, as both methods declare their own type parameter symbols.
+	///     Both methods must have the same number of type parameters.
+	/// </summary>
+	public static ImmutableArray<IParameterSymbol> GetParametersInTermsOf(IMethodSymbol method, IMethodSymbol other)
+		=> method.TypeParameters.IsEmpty
+			? method.Parameters
+			: method.Construct(other.TypeParameters.Cast<ITypeSymbol>().ToArray()).Parameters;
+
 	private static bool IsObjectOrDynamic(ITypeSymbol type)
 		=> type.TypeKind == TypeKind.Dynamic || type.SpecialType == SpecialType.System_Object;
 
