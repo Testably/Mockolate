@@ -69,6 +69,24 @@ public static class VerificationResultExtensions
 		return isValid;
 	}
 
+	private static void AssertCount(IVerificationResult result, int minimum, int maximum, string qualifier,
+		int times)
+	{
+		try
+		{
+			if (!result.VerifyCount(minimum, maximum, out int found))
+			{
+				throw new MockVerificationException(
+					$"Expected that mock {result.Expectation} {qualifier} {times.ToTimes()}, but it {found.ToTimes("did")}.");
+			}
+		}
+		catch (MockVerificationTimeoutException timeoutException)
+		{
+			throw new MockVerificationException(
+				$"Expected that mock {result.Expectation} {qualifier} {times.ToTimes()}, but {timeoutException.Message}.");
+		}
+	}
+
 	extension<TMock>(VerificationResult<TMock> verificationResult)
 	{
 		/// <summary>
@@ -79,22 +97,7 @@ public static class VerificationResultExtensions
 		///     or when a <see cref="VerificationResult{TVerify}.Within(TimeSpan)" /> timeout elapses first.
 		/// </exception>
 		public void AtLeast(int times)
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(times, int.MaxValue, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} at least {times.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} at least {times.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, times, int.MaxValue, "at least", times);
 
 		/// <summary>
 		///     Asserts that the verified interaction occurred at least once.
@@ -104,22 +107,7 @@ public static class VerificationResultExtensions
 		///     or when a <see cref="VerificationResult{TVerify}.Within(TimeSpan)" /> timeout elapses first.
 		/// </exception>
 		public void AtLeastOnce()
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(1, int.MaxValue, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} at least {1.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} at least {1.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, 1, int.MaxValue, "at least", 1);
 
 		/// <summary>
 		///     Asserts that the verified interaction occurred at least twice.
@@ -129,22 +117,7 @@ public static class VerificationResultExtensions
 		///     or when a <see cref="VerificationResult{TVerify}.Within(TimeSpan)" /> timeout elapses first.
 		/// </exception>
 		public void AtLeastTwice()
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(2, int.MaxValue, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} at least {2.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} at least {2.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, 2, int.MaxValue, "at least", 2);
 
 		/// <summary>
 		///     Asserts that the verified interaction occurred at most <paramref name="times" /> times.
@@ -154,22 +127,7 @@ public static class VerificationResultExtensions
 		///     or when a <see cref="VerificationResult{TVerify}.Within(TimeSpan)" /> timeout elapses first.
 		/// </exception>
 		public void AtMost(int times)
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(int.MinValue, times, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} at most {times.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} at most {times.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, int.MinValue, times, "at most", times);
 
 		/// <summary>
 		///     Asserts that the verified interaction occurred between <paramref name="minimum" /> and
@@ -223,22 +181,7 @@ public static class VerificationResultExtensions
 		///     <c>WithCancellation</c> causes verification to time out or be cancelled.
 		/// </exception>
 		public void AtMostOnce()
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(int.MinValue, 1, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} at most {1.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} at most {1.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, int.MinValue, 1, "at most", 1);
 
 		/// <summary>
 		///     Asserts that the verified interaction occurred at most twice.
@@ -248,22 +191,7 @@ public static class VerificationResultExtensions
 		///     configured wait or cancellation condition times out or is cancelled.
 		/// </exception>
 		public void AtMostTwice()
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(int.MinValue, 2, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} at most {2.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} at most {2.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, int.MinValue, 2, "at most", 2);
 
 		/// <summary>
 		///     Asserts that the verified interaction occurred exactly <paramref name="times" /> times.
@@ -273,22 +201,7 @@ public static class VerificationResultExtensions
 		///     or when a <see cref="VerificationResult{TVerify}.Within(TimeSpan)" /> timeout elapses first.
 		/// </exception>
 		public void Exactly(int times)
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(times, times, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} exactly {times.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} exactly {times.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, times, times, "exactly", times);
 
 		/// <summary>
 		///     Asserts that the verified interaction never occurred.
@@ -323,22 +236,7 @@ public static class VerificationResultExtensions
 		///     or when a <see cref="VerificationResult{TVerify}.Within(TimeSpan)" /> timeout elapses first.
 		/// </exception>
 		public void Once()
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(1, 1, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} exactly {1.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} exactly {1.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, 1, 1, "exactly", 1);
 
 		/// <summary>
 		///     Asserts that the verified interaction occurred exactly twice.
@@ -348,22 +246,7 @@ public static class VerificationResultExtensions
 		///     or when a <see cref="VerificationResult{TVerify}.Within(TimeSpan)" /> timeout elapses first.
 		/// </exception>
 		public void Twice()
-		{
-			IVerificationResult result = verificationResult;
-			try
-			{
-				if (!result.VerifyCount(2, 2, out int found))
-				{
-					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} exactly {2.ToTimes()}, but it {found.ToTimes("did")}.");
-				}
-			}
-			catch (MockVerificationTimeoutException timeoutException)
-			{
-				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} exactly {2.ToTimes()}, but {timeoutException.Message}.");
-			}
-		}
+			=> AssertCount(verificationResult, 2, 2, "exactly", 2);
 
 		/// <summary>
 		///     Verifies that the mock was invoked according to the <paramref name="predicate" />.
