@@ -17,6 +17,7 @@
 		<Project Path="Tests/Mockolate.Internal.Tests/Mockolate.Internal.Tests.csproj" />
 		<Project Path="Tests/Mockolate.SourceGenerators.Tests/Mockolate.SourceGenerators.Tests.csproj" />
 		<Project Path="Tests/Mockolate.Tests/Mockolate.Tests.csproj" />
+		<Project Path="Tests/Mockolate.XUnit.Tests/Mockolate.XUnit.Tests.csproj" />
 	</Folder>
 	<Folder Name="/Tests/Aot/">
 		<File Path="Tests/Aot/Directory.Build.props" />
@@ -97,4 +98,5 @@
 	<Project Path="Source/Mockolate.Analyzers/Mockolate.Analyzers.csproj" />
 	<Project Path="Source/Mockolate.SourceGenerators/Mockolate.SourceGenerators.csproj" />
 	<Project Path="Source/Mockolate/Mockolate.csproj" />
+	<Project Path="Source/Mockolate.XUnit/Mockolate.XUnit.csproj" />
 </Solution>

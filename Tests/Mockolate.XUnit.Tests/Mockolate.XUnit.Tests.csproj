@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Source\Mockolate\Mockolate.csproj"/>
+		<ProjectReference Include="..\..\Source\Mockolate.XUnit\Mockolate.XUnit.csproj"/>
+		<ProjectReference Include="..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+		<ProjectReference Include="..\..\Source\Mockolate.Analyzers\Mockolate.Analyzers.csproj" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
+	</ItemGroup>
+
+	<!-- These tests run on xUnit instead of the TUnit that every test project gets. -->
+	<ItemGroup>
+		<PackageReference Remove="TUnit.Engine"/>
+		<Using Remove="TUnit.Core"/>
+		<PackageReference Include="xunit.v3.mtp-v2"/>
+	</ItemGroup>
+
+	<!-- The nullable attributes come from the internal polyfills of Mockolate.XUnit, which InternalsVisibleTo exposes. -->
+	<ItemGroup>
+		<Compile Include="..\Mockolate.Tests\TestHelpers\Usings.cs" Link="TestHelpers\Usings.cs"/>
+	</ItemGroup>
+
+</Project>
