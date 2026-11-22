@@ -67,6 +67,65 @@ public sealed class CreateWithMocksTests
 		await That(sut.Count).IsEqualTo(2);
 	}
 
+	[Test]
+	public async Task TryCreate_WithDataOnlyClass_ShouldCreateItWithMockedDependency()
+	{
+		bool result = MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly, typeof(CreateWithMocksDataOnly),
+			null, (_, _) => null, out object? value);
+
+		await That(result).IsTrue();
+		await That(value).Is<CreateWithMocksDataOnly>().Whose(x => x.Dependency, it => it.IsNotNull());
+	}
+
+	[Test]
+	public async Task TryCreate_WithoutArgumentForRequiredParameter_ShouldThrow()
+	{
+		void Act()
+			=> MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly, typeof(CreateWithMocksService), null,
+				(_, _) => null, out _);
+
+		await That(Act).Throws<InvalidOperationException>()
+			.WithMessage("There is no argument for the constructor parameter 'unmockable' of Mockolate.Tests.GeneratorCoverage.CreateWithMocksService.");
+	}
+
+	[Test]
+	public async Task TryCreate_WithNullArguments_ShouldThrowArgumentNullException()
+	{
+		void ActWithoutAssembly()
+			=> MockDataSources.TryCreate(null!, typeof(CreateWithMocksDataOnly), null, (_, _) => null, out _);
+
+		void ActWithoutType()
+			=> MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly, null!, null, (_, _) => null, out _);
+
+		void ActWithoutResolve()
+			=> MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly, typeof(CreateWithMocksDataOnly), null,
+				null!, out _);
+
+		await That(ActWithoutAssembly).Throws<ArgumentNullException>().WithParamName("assembly");
+		await That(ActWithoutType).Throws<ArgumentNullException>().WithParamName("type");
+		await That(ActWithoutResolve).Throws<ArgumentNullException>().WithParamName("resolve");
+	}
+
+	[Test]
+	public async Task TryCreate_WithAssemblyWithoutGeneratedCode_ShouldReturnFalse()
+	{
+		bool result = MockDataSources.TryCreate(typeof(string).Assembly, typeof(CreateWithMocksDataOnly), null,
+			(_, _) => null, out object? value);
+
+		await That(result).IsFalse();
+		await That(value).IsNull();
+	}
+
+	[Test]
+	public async Task TryCreate_WithUnknownType_ShouldReturnFalse()
+	{
+		bool result = MockDataSources.TryCreate(typeof(CreateWithMocksTests).Assembly, typeof(UnmockableDependency),
+			null, (_, _) => null, out object? value);
+
+		await That(result).IsFalse();
+		await That(value).IsNull();
+	}
+
 	private sealed class UnmockableDependency : ICreateWithMocksUnmockableDependency
 	{
 		[Obsolete("Mocks of obsolete members do not compile without warnings.")]
