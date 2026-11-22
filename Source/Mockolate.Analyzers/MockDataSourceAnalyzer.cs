@@ -92,6 +92,11 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0010TypeParameterReason;
 		}
 
+		if (type is IArrayTypeSymbol array)
+		{
+			return GetArrayReason(array, compilation);
+		}
+
 		if (type is not INamedTypeSymbol
 		    {
 			    TypeKind: TypeKind.Interface or TypeKind.Delegate or TypeKind.Class, IsStatic: false,
@@ -111,7 +116,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0010ContainsTypeParameterReason;
 		}
 
-		if (CreateWithMocksAnalyzer.IsFileLocal(namedType))
+		if (UsesFileLocalType(namedType))
 		{
 			return Resources.Mockolate0010FileLocalReason;
 		}
@@ -124,6 +129,11 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		if (CreateWithMocksAnalyzer.HasUsageDiagnostic(namedType))
 		{
 			return Resources.Mockolate0010ObsoleteReason;
+		}
+
+		if (namedType.TypeArguments.Any(UsesUnusableTypeArgument))
+		{
+			return Resources.Mockolate0010TypeArgumentReason;
 		}
 
 		if (namedType.TypeKind != TypeKind.Class || namedType.IsAbstract)
@@ -153,26 +163,135 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0010StaticAbstractReason;
 		}
 
-		return type.TypeKind == TypeKind.Class && !HasParameterlessConstructorForMock(type, compilation)
+		if (!type.GetMembers("CreateMock").IsEmpty ||
+		    type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty))
+		{
+			return Resources.Mockolate0010CreateMockMemberReason;
+		}
+
+		if (GetUnsupportedMember(type, compilation.Assembly) is { } member)
+		{
+			return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0010MemberReason,
+				member.ToDisplayString());
+		}
+
+		return type.TypeKind == TypeKind.Class && !HasConstructorWithoutArguments(type, compilation.Assembly)
 			? Resources.Mockolate0010ParameterlessConstructorReason
 			: null;
 	}
 
+	private static string? GetArrayReason(IArrayTypeSymbol array, Compilation compilation)
+	{
+		if (CreateWithMocksAnalyzer.ContainsTypeParameter(array))
+		{
+			return Resources.Mockolate0010ContainsTypeParameterReason;
+		}
+
+		if (!MockabilityAnalyzer.IsTypeAccessibleFrom(array, compilation.Assembly))
+		{
+			return Resources.Mockolate0010InaccessibleReason;
+		}
+
+		if (UsesFileLocalType(array))
+		{
+			return Resources.Mockolate0010FileLocalReason;
+		}
+
+		return UsesUnusableTypeArgument(array.ElementType) ? Resources.Mockolate0010TypeArgumentReason : null;
+	}
+
+	private static bool UsesFileLocalType(ITypeSymbol type)
+		=> type switch
+		{
+			IArrayTypeSymbol array => UsesFileLocalType(array.ElementType),
+			INamedTypeSymbol named => CreateWithMocksAnalyzer.IsFileLocal(named) || named.TypeArguments.Any(UsesFileLocalType),
+			_ => false,
+		};
+
+	private static bool UsesUnusableTypeArgument(ITypeSymbol type)
+		=> CreateWithMocksAnalyzer.UsesUnusableType(type) || UsesTypeNestedInGenericType(type);
+
+	private static bool UsesTypeNestedInGenericType(ITypeSymbol type)
+		=> type switch
+		{
+			IArrayTypeSymbol array => UsesTypeNestedInGenericType(array.ElementType),
+			INamedTypeSymbol named => CreateWithMocksAnalyzer.IsNestedInGenericType(named) ||
+			                          named.TypeArguments.Any(UsesTypeNestedInGenericType),
+			_ => false,
+		};
+
 	/// <summary>
-	///     Mirror of <c>HasParameterlessConstructorForMock</c> of the source generator.
+	///     Mirror of <c>HasCompilableMockMembers</c> of the source generator: a member that the mock of
+	///     <paramref name="type" /> cannot implement without an error or a warning.
 	/// </summary>
-	private static bool HasParameterlessConstructorForMock(INamedTypeSymbol type, Compilation compilation)
-		=> type.InstanceConstructors.Any(constructor => constructor.Parameters.Length == 0 &&
-		                                                !CreateWithMocksAnalyzer.HasUsageDiagnostic(constructor) &&
-		                                                constructor.DeclaredAccessibility switch
-		                                                {
-			                                                Accessibility.Public or Accessibility.Protected
-				                                                or Accessibility.ProtectedOrInternal => true,
-			                                                Accessibility.Internal or Accessibility.ProtectedAndInternal =>
-				                                                compilation.IsSymbolAccessibleWithin(constructor,
-					                                                compilation.Assembly),
-			                                                _ => false,
-		                                                });
+	private static ISymbol? GetUnsupportedMember(INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
+	{
+		// A delegate mock only implements Invoke, not the virtual members of MulticastDelegate.
+		if (type.DelegateInvokeMethod is { } invoke)
+		{
+			return invoke.ReturnsByRef || invoke.ReturnsByRefReadonly || IsUnsupportedMember(invoke, true) ? invoke : null;
+		}
+
+		bool isClass = type.TypeKind != TypeKind.Interface;
+		IEnumerable<ITypeSymbol> types = [type, ..type.AllInterfaces,];
+		for (ITypeSymbol? baseType = type.BaseType; baseType is not null; baseType = baseType.BaseType)
+		{
+			types = types.Append(baseType);
+		}
+
+		return types.SelectMany(declaring => declaring.GetMembers())
+			.Where(member => member is IMethodSymbol { MethodKind: MethodKind.DelegateInvoke, } ||
+			                 (member is { IsStatic: false, IsSealed: false, } &&
+			                  (member.IsAbstract || member.IsVirtual || member.IsOverride) &&
+			                  !(isClass && member.ContainingType.TypeKind == TypeKind.Interface &&
+			                    type.FindImplementationForInterfaceMember(member) is not null) &&
+			                  MockabilityAnalyzer.IsAccessibleFrom(member, sourceAssembly) &&
+			                  GetSignatureTypes(member).All(signatureType =>
+				                  MockabilityAnalyzer.IsTypeAccessibleFrom(signatureType, sourceAssembly))))
+			.FirstOrDefault(member => IsUnsupportedMember(member, isClass));
+	}
+
+	private static bool IsUnsupportedMember(ISymbol member, bool isClass)
+		=> (!isClass && member is { IsAbstract: true, } && member.DeclaredAccessibility != Accessibility.Public) ||
+		   CreateWithMocksAnalyzer.HasUsageDiagnostic(member) ||
+		   member switch
+		   {
+			   IPropertySymbol property => property.ReturnsByRef || property.ReturnsByRefReadonly ||
+			                               property.Parameters.Any(IsRefReadOnlyRefStruct),
+			   IMethodSymbol method => method.TypeParameters.Any(typeParameter => typeParameter.AllowsRefLikeType) ||
+			                           method.Parameters.Any(IsRefReadOnlyRefStruct),
+			   _ => false,
+		   } ||
+		   GetSignatureTypes(member).Any(CreateWithMocksAnalyzer.UsesUnusableType);
+
+	private static bool IsRefReadOnlyRefStruct(IParameterSymbol parameter)
+		=> parameter is { RefKind: RefKind.RefReadOnlyParameter, Type.IsRefLikeType: true, };
+
+	private static IEnumerable<ITypeSymbol> GetSignatureTypes(ISymbol member)
+		=> member switch
+		{
+			IMethodSymbol method =>
+			[
+				method.ReturnType,
+				..method.Parameters.Select(parameter => parameter.Type),
+				..method.TypeParameters.SelectMany(typeParameter => typeParameter.ConstraintTypes),
+			],
+			IPropertySymbol property => [property.Type, ..property.Parameters.Select(parameter => parameter.Type),],
+			IEventSymbol @event => [@event.Type,],
+			_ => [],
+		};
+
+	/// <summary>
+	///     Mirror of <c>MockClass.ConstructorWithoutArguments</c> of the source generator.
+	/// </summary>
+	private static bool HasConstructorWithoutArguments(INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
+		=> type.InstanceConstructors.Any(constructor =>
+			constructor.DeclaredAccessibility is Accessibility.Public or Accessibility.Protected
+				or Accessibility.ProtectedOrInternal &&
+			!CreateWithMocksAnalyzer.HasUsageDiagnostic(constructor) &&
+			constructor.Parameters.All(parameter =>
+				(parameter.HasExplicitDefaultValue || parameter.IsParams) &&
+				MockabilityAnalyzer.IsTypeAccessibleFrom(parameter.Type, sourceAssembly)));
 
 	private static bool HasStaticAbstractMembers(INamedTypeSymbol type)
 		=> type.GetMembers().Concat(type.AllInterfaces.SelectMany(@interface => @interface.GetMembers()))

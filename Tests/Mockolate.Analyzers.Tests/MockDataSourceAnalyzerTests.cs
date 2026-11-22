@@ -5,6 +5,9 @@ namespace Mockolate.Analyzers.Tests;
 
 public class MockDataSourceAnalyzerTests
 {
+	private const string TypeArgumentReason =
+		"a type argument or array element is obsolete, experimental, a ref struct, a pointer, nested in a generic type or an interface with static abstract members";
+
 	private const string DataAttribute = """
 	                                     [System.AttributeUsage(System.AttributeTargets.All)]
 	                                     public class DataAttribute : System.Attribute, Mockolate.IMockDataSource;
@@ -174,9 +177,9 @@ public class MockDataSourceAnalyzerTests
 			  }
 			  """,
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
-				.WithArguments("a", "MyCode.WithParameter", "its mock needs an accessible constructor without parameters"),
+				.WithArguments("a", "MyCode.WithParameter", "its mock needs an accessible constructor that can be called without arguments"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(1)
-				.WithArguments("b", "MyCode.WithPrivate", "its mock needs an accessible constructor without parameters"),
+				.WithArguments("b", "MyCode.WithPrivate", "its mock needs an accessible constructor that can be called without arguments"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(2)
 				.WithArguments("d", "MyCode.IStatic", "it has static abstract members"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(3)
@@ -218,6 +221,72 @@ public class MockDataSourceAnalyzerTests
 				.WithArguments("b", "MyCode.AbstractRecord", "it cannot be mocked (type is a record)"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(2)
 				.WithArguments("c", "MyCode.AbstractRecord", "it cannot be mocked (type is a record)")
+		);
+
+	[Test]
+	public async Task WhenMockCannotImplementAMember_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  namespace MyCode
+			  {
+			      public abstract class WithInternal { internal WithInternal() { } }
+			      public abstract class WithOptional { protected WithOptional(int value = 1) { } }
+			      public delegate ref int RefCallback(ref int value);
+			      public interface IRefProperty { ref int Value { get; } }
+			      public ref struct Buffer { }
+			      public interface IRefStruct { Buffer Get(); }
+			      public interface ICreateMock { int CreateMock(); }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test(WithInternal {|#0:a|}, WithOptional b, RefCallback {|#1:c|}, IRefProperty {|#2:d|},
+			              IRefStruct {|#3:e|}, ICreateMock {|#4:f|}) { }
+			      }
+
+			      {{DataAttribute}}
+			  }
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
+				.WithArguments("a", "MyCode.WithInternal", "its mock needs an accessible constructor that can be called without arguments"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(1)
+				.WithArguments("c", "MyCode.RefCallback", "its mock cannot implement the member 'MyCode.RefCallback.Invoke(ref int)'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(2)
+				.WithArguments("d", "MyCode.IRefProperty", "its mock cannot implement the member 'MyCode.IRefProperty.Value'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(3)
+				.WithArguments("e", "MyCode.IRefStruct", "its mock cannot implement the member 'MyCode.IRefStruct.Get()'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(4)
+				.WithArguments("f", "MyCode.ICreateMock", "it has a member named CreateMock, which would hide the generated extension")
+		);
+
+	[Test]
+	public async Task WhenTypeArgumentOrArrayElementIsUnusable_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  namespace MyCode
+			  {
+			      public interface IGen<T> { T Get(); }
+			      [System.Obsolete("old")]
+			      public class Old;
+			      public class Outer<T> { public class Inner; }
+
+			      public class Tests
+			      {
+			  #pragma warning disable CS0612, CS0618
+			          [Data]
+			          public void Test(IGen<Old> {|#0:a|}, IGen<Outer<int>.Inner> {|#1:b|}, Old[] {|#2:c|}) { }
+			  #pragma warning restore CS0612, CS0618
+			      }
+
+			      {{DataAttribute}}
+			  }
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
+				.WithArguments("a", "MyCode.IGen<MyCode.Old>", TypeArgumentReason),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(1)
+				.WithArguments("b", "MyCode.IGen<MyCode.Outer<int>.Inner>", TypeArgumentReason),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(2)
+				.WithArguments("c", "MyCode.Old[]", TypeArgumentReason)
 		);
 
 	[Test]

@@ -573,9 +573,18 @@ public class MockGenerator : IIncrementalGenerator
 					semanticModels[tree] = semanticModel;
 				}
 
-				mockedTypes.AddRange(node.IsCreateMethodInvocation() ? node.ExtractMockedTypes(semanticModel)
-					: node.IsCreateWithMocksInvocation() ? node.ExtractSutMockedTypes(semanticModel, cancellationToken)
-					: node.ExtractDataSourceMockedTypes(semanticModel, cancellationToken));
+				if (node.IsCreateMethodInvocation())
+				{
+					mockedTypes.AddRange(node.ExtractMockedTypes(semanticModel));
+				}
+				else if (node.IsCreateWithMocksInvocation())
+				{
+					mockedTypes.AddRange(node.ExtractSutMockedTypes(semanticModel, cancellationToken));
+				}
+				else
+				{
+					mockedTypes.AddRange(node.ExtractDataSourceMockedTypes(semanticModel, cancellationToken));
+				}
 			}
 		}
 
@@ -1016,7 +1025,7 @@ public class MockGenerator : IIncrementalGenerator
 				useUnionOverloads), externAliases));
 	}
 
-	private static bool IsValidMockDeclaration(MockClass mockClass)
+	internal static bool IsValidMockDeclaration(MockClass mockClass)
 		=> (mockClass.IsInterface || mockClass.Constructors is { Count: > 0, }) &&
 		   mockClass.AdditionalImplementations.All(x => x.IsInterface) &&
 		   mockClass.AllImplementations().All(x => !x.HasInaccessibleRequiredMember);

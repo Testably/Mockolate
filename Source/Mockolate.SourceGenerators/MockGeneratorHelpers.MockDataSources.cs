@@ -149,9 +149,9 @@ internal static partial class MockGeneratorHelpers
 			{
 				AddDataSourceAttributeNames(@namespace, names);
 			}
-			else if (member is INamedTypeSymbol { TypeKind: TypeKind.Class, } type)
+			else if (member is INamedTypeSymbol type)
 			{
-				if (IsMockDataSourceType(type))
+				if (type.TypeKind == TypeKind.Class && IsMockDataSourceType(type))
 				{
 					names.Add(type.Name);
 				}
@@ -366,7 +366,7 @@ internal static partial class MockGeneratorHelpers
 
 		if (namedType.TypeKind != TypeKind.Class || namedType.IsAbstract)
 		{
-			return IsMockable(namedType) && HasParameterlessConstructorForMock(namedType, compilation)
+			return CanMockDataSourceParameter(namedType, compilation)
 				? DataSourceParameterKind.Mock
 				: DataSourceParameterKind.Value;
 		}
@@ -377,21 +377,41 @@ internal static partial class MockGeneratorHelpers
 	}
 
 	/// <summary>
-	///     The factory creates a class mock without constructor parameters, so it needs a base constructor without
-	///     parameters that the mock can call.
+	///     Whether the mock of the parameter <paramref name="type" /> is emitted and compiles without warnings.
 	/// </summary>
-	private static bool HasParameterlessConstructorForMock(INamedTypeSymbol type, Compilation compilation)
-		=> type.TypeKind != TypeKind.Class ||
-		   type.InstanceConstructors.Any(constructor => constructor.Parameters.Length == 0 &&
-		                                                !HasUsageDiagnostic(constructor) &&
-		                                                IsCallableFromDerivedClass(constructor, compilation));
-
-	private static bool IsCallableFromDerivedClass(IMethodSymbol constructor, Compilation compilation)
-		=> constructor.DeclaredAccessibility switch
+	/// <remarks>
+	///     Without an emitted mock, the factory's <c>CreateMock</c> call binds to the fallback that always throws, so this
+	///     asks the same <see cref="MockClass" /> that decides the emission.
+	/// </remarks>
+	private static bool CanMockDataSourceParameter(INamedTypeSymbol type, Compilation compilation)
+	{
+		if (!IsMockable(type) ||
+		    HasMemberNamedCreateMock(type) ||
+		    (type.TypeKind == TypeKind.Interface && HasNonPublicAbstractMembers(type)) ||
+		    type.DelegateInvokeMethod is { ReturnsByRef: true, } or { ReturnsByRefReadonly: true, } ||
+		    // A delegate mock only implements Invoke, not the virtual members of MulticastDelegate.
+		    !(type.DelegateInvokeMethod is { } invoke
+			    ? IsCompilableMockMember(invoke)
+			    : HasCompilableMockMembers(type, compilation.Assembly)) ||
+		    Normalize(type, compilation) is not INamedTypeSymbol normalized)
 		{
-			Accessibility.Public or Accessibility.Protected or Accessibility.ProtectedOrInternal => true,
-			Accessibility.Internal or Accessibility.ProtectedAndInternal =>
-				compilation.IsSymbolAccessibleWithin(constructor, compilation.Assembly),
+			return false;
+		}
+
+		MockClass mock = GetOrCreateDiscoveredMockClass(normalized, compilation);
+		return MockGenerator.IsValidMockDeclaration(mock) &&
+		       (type.TypeKind != TypeKind.Class ||
+		        (mock.ConstructorWithoutArguments is not null &&
+		         type.InstanceConstructors.Any(constructor => !HasUsageDiagnostic(constructor) &&
+		                                                      constructor.Parameters.All(parameter =>
+			                                                      parameter.HasExplicitDefaultValue || parameter.IsParams))));
+	}
+
+	private static bool UsesFileLocalType(ITypeSymbol type)
+		=> type switch
+		{
+			IArrayTypeSymbol array => UsesFileLocalType(array.ElementType),
+			INamedTypeSymbol named => IsFileLocal(named) || named.TypeArguments.Any(UsesFileLocalType),
 			_ => false,
 		};
 
@@ -405,7 +425,7 @@ internal static partial class MockGeneratorHelpers
 		   !ContainsTypeParameter(type) &&
 		   !UsesTypeNestedInGenericType(type) &&
 		   !UsesUnusableType(type) &&
-		   !(type is INamedTypeSymbol namedType && IsFileLocal(namedType)) &&
+		   !UsesFileLocalType(type) &&
 		   Helpers.IsAccessibleFrom(type, compilation.Assembly);
 
 	private static bool IsMockDataSourceAttribute(AttributeData attribute)

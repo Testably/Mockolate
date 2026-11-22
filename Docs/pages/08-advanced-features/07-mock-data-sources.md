@@ -61,7 +61,7 @@ public class VendingMachineTests
 
 ## What is created
 
-- An **interface, delegate or abstract class** gets a new mock, as if the test called `CreateMock` on it. An abstract class needs an accessible constructor without parameters, because the mock calls it.
+- An **interface, delegate or abstract class** gets a new mock, as if the test called `CreateMock` on it. An abstract class needs a public or protected constructor that can be called without arguments, because the mock calls it. A type whose mock would not compile, for example because a member returns by reference or uses an obsolete type, gets no mock.
 - A **concrete class** gets an instance, created like by [`CreateWithMocks`](../04-create-mocks.md#create-the-class-under-test-with-mocks), see [constructor dependencies](#constructor-dependencies).
 - **Types of the `System`, `Microsoft` and `Windows` namespaces** are often the arguments that the test framework passes. They get a value from the default values of the behavior; an interface that Mockolate can mock without further checks, such as `IServiceProvider`, gets a new mock when the default values provide none. No framework class is created.
 - **Value types, strings and other types** get a value from the default values of the behavior, the same value that an un-configured mock member returns: `""` for a `string`, an empty collection, the default of a value type. `TryCreate` returns `false` when the default values provide no value of a reference type.

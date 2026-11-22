@@ -364,7 +364,7 @@
 		<comment>Completes Mockolate0010MessageFormat.</comment>
 	</data>
 	<data name="Mockolate0010ParameterlessConstructorReason" xml:space="preserve">
-		<value>its mock needs an accessible constructor without parameters</value>
+		<value>its mock needs an accessible constructor that can be called without arguments</value>
 		<comment>Completes Mockolate0010MessageFormat.</comment>
 	</data>
 	<data name="Mockolate0010GenericClassReason" xml:space="preserve">
@@ -374,6 +374,18 @@
 	<data name="Mockolate0010ConstructorReason" xml:space="preserve">
 		<value>it has no single accessible constructor with the most parameters that Mockolate can call</value>
 		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010TypeArgumentReason" xml:space="preserve">
+		<value>a type argument or array element is obsolete, experimental, a ref struct, a pointer, nested in a generic type or an interface with static abstract members</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010CreateMockMemberReason" xml:space="preserve">
+		<value>it has a member named CreateMock, which would hide the generated extension</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010MemberReason" xml:space="preserve">
+		<value>its mock cannot implement the member '{0}'</value>
+		<comment>Completes Mockolate0010MessageFormat. {0} is the member.</comment>
 	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>

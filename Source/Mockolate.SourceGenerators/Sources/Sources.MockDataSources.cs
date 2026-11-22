@@ -52,15 +52,18 @@ internal static partial class Sources
 
 		sb.Append("namespace Mockolate").AppendLine();
 		sb.Append('{').AppendLine();
+		#if !DEBUG
+		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
+#endif
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tfile static class MockDataSourceRegistration").AppendLine();
 		sb.Append("\t{").AppendLine();
-		sb.Append("#pragma warning disable CA2255 // The ModuleInitializer attribute should not be used in libraries").AppendLine();
+		sb.Append("#pragma warning disable CA2255, CS0436 // Module initializers in libraries; the polyfill next to an imported attribute").AppendLine();
 		sb.Append("\t\t[global::System.Runtime.CompilerServices.ModuleInitializer]").AppendLine();
 		sb.Append("\t\tinternal static void Register()").AppendLine();
 		sb.Append("\t\t\t=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create);")
 			.AppendLine();
-		sb.Append("#pragma warning restore CA2255").AppendLine();
+		sb.Append("#pragma warning restore CA2255, CS0436").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\tprivate static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, out object? value)")
 			.AppendLine();
@@ -190,12 +193,17 @@ internal static partial class Sources
 		// A value from the default values of the behavior is the last resort before a mock of a framework interface or
 		// the failure.
 		static string NotCreated(DataSourceParameter parameter, int index, string className)
-			=> parameter.IsNullable
-				? "default"
-				: $"{TryCreateValue(parameter.TypeFullName, $"d{index}")} ? d{index} : " + (parameter.IsMockedLast
-					? $"{parameter.TypeFullName}.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default)"
-					: $"throw new global::Mockolate.Exceptions.MockException(\"There is no argument for the constructor parameter '{parameter.Name}' of {className}.\")");
+		{
+			if (parameter.IsNullable)
+			{
+				return "default";
+			}
 
+			string lastResort = parameter.IsMockedLast
+				? $"{parameter.TypeFullName}.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default)"
+				: $"throw new global::Mockolate.Exceptions.MockException(\"There is no argument for the constructor parameter '{parameter.Name}' of {className}.\")";
+			return $"{TryCreateValue(parameter.TypeFullName, $"d{index}")} ? d{index} : {lastResort}";
+		}
 		// The typed overloads of Generate return what an un-configured mock member returns, e.g. an empty collection.
 		static string TryCreateValue(string type, string variable)
 			=> $"IsValue((behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default({type})!), out {type} {variable})";

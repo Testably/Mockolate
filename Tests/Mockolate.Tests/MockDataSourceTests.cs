@@ -208,47 +208,6 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
-	public async Task TryCreateValue_ShouldUseTheDefaultValuesOfTheBehavior()
-	{
-		MockBehavior behavior = MockBehavior.Default.WithDefaultValueFor(() => 42);
-
-		bool intResult = MockDataSource.TryCreateValue(behavior, out int intValue);
-		bool stringResult = MockDataSource.TryCreateValue(MockBehavior.Default, out string stringValue);
-
-		await That(intResult).IsTrue();
-		await That(intValue).IsEqualTo(42);
-		await That(stringResult).IsTrue();
-		await That(stringValue).IsEqualTo("");
-	}
-
-	[Test]
-	public async Task TryCreateValue_WithoutValueOfTheType_ShouldReturnFalseForReferenceTypes()
-	{
-		MockBehavior behavior = MockBehavior.Default.WithDefaultValueGenerator(new WrongTypeGenerator());
-
-		bool interfaceResult = MockDataSource.TryCreateValue(MockBehavior.Default,
-			out IMockDataDependency interfaceValue);
-		bool wrongTypeResult = MockDataSource.TryCreateValue(behavior, out Uri wrongTypeValue);
-		bool valueTypeResult = MockDataSource.TryCreateValue(behavior, out int valueTypeValue);
-
-		await That(interfaceResult).IsFalse();
-		await That(interfaceValue).IsNull();
-		await That(wrongTypeResult).IsFalse();
-		await That(wrongTypeValue).IsNull();
-		await That(valueTypeResult).IsTrue().Because("the default of a value type is a valid value");
-		await That(valueTypeValue).IsEqualTo(0);
-	}
-
-	[Test]
-	public async Task TryCreateValue_WithoutBehavior_ShouldThrowArgumentNullException()
-	{
-		void Act()
-			=> MockDataSource.TryCreateValue(null!, out int _);
-
-		await That(Act).Throws<ArgumentNullException>().WithParamName("behavior");
-	}
-
-	[Test]
 	public async Task TryCreate_WithCyclicDependencies_ShouldNotCreateTheDependencyThatClosesTheCycle()
 	{
 		MockDataSource.TryCreate(Assembly, typeof(MockDataCycleStart), null, NoArgument, out object? value);
@@ -338,12 +297,6 @@ public sealed class MockDataSourceTests
 		dependency.GetValue();
 
 		await That(dependency.Mock.Verify.GetValue()).Once();
-	}
-
-	private sealed class WrongTypeGenerator : IDefaultValueGenerator
-	{
-		public object? GenerateValue(Type type, params object?[] parameters)
-			=> "not of the requested type";
 	}
 
 	private static bool NoArgument(Type type, string parameterName, out object? value)

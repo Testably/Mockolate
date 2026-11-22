@@ -220,9 +220,14 @@ internal static partial class MockGeneratorHelpers
 		   Helpers.IsAccessibleFrom(typeSymbol, sourceAssembly) &&
 		   GetTypeArgumentDepth(typeSymbol) <= MaxTypeArgumentDepth &&
 		   !RepeatsGenericDefinition(typeSymbol, []) &&
-		   GetImplementedMembers(typeSymbol, sourceAssembly).All(member =>
-			   !HasUsageDiagnostic(member) && !HasRefReadOnlyRefStructParameter(member) && !HasUnsupportedShape(member) &&
-			   GetSignatureTypes(member).All(type => !UsesUnusableType(type)));
+		   HasCompilableMockMembers(typeSymbol, sourceAssembly);
+
+	private static bool HasCompilableMockMembers(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
+		=> GetImplementedMembers(typeSymbol, sourceAssembly).All(IsCompilableMockMember);
+
+	private static bool IsCompilableMockMember(ISymbol member)
+		=> !HasUsageDiagnostic(member) && !HasRefReadOnlyRefStructParameter(member) && !HasUnsupportedShape(member) &&
+		   GetSignatureTypes(member).All(type => !UsesUnusableType(type));
 
 	private const int MaxTypeArgumentDepth = 5;
 

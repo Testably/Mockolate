@@ -15,11 +15,11 @@ namespace Mockolate
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	file static class MockDataSourceRegistration
 	{
-#pragma warning disable CA2255 // The ModuleInitializer attribute should not be used in libraries
+#pragma warning disable CA2255, CS0436 // Module initializers in libraries; the polyfill next to an imported attribute
 		[global::System.Runtime.CompilerServices.ModuleInitializer]
 		internal static void Register()
 			=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create);
-#pragma warning restore CA2255
+#pragma warning restore CA2255, CS0436
 
 		private static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, out object? value)
 		{

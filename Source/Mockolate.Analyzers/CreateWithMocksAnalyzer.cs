@@ -391,7 +391,7 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 			_ => false,
 		};
 
-	private static bool UsesUnusableType(ITypeSymbol type)
+	internal static bool UsesUnusableType(ITypeSymbol type)
 		=> type switch
 		{
 			IPointerTypeSymbol or IFunctionPointerTypeSymbol => true,

@@ -839,7 +839,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	///     check and the generator's disagree, the analyzer either reports a type the generator mocks
 	///     fine or stays silent on one it refuses to emit.
 	/// </remarks>
-	private static bool IsAccessibleFrom(ISymbol member, IAssemblySymbol sourceAssembly)
+	internal static bool IsAccessibleFrom(ISymbol member, IAssemblySymbol sourceAssembly)
 	{
 		if (member.DeclaredAccessibility is not (Accessibility.Internal or Accessibility.ProtectedAndInternal))
 		{

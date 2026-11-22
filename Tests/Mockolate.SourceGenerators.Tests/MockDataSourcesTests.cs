@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Mockolate.Internals;
 using Mockolate.SourceGenerators.Entities;
 using Mockolate.SourceGenerators.Tests.TestHelpers;
 
@@ -702,6 +704,12 @@ public sealed class MockDataSourcesTests
 				? null
 				: new Dictionary<string, string> { ["build_property.MockolateUnionAttributePolyfills"] = configured, });
 
+		// With the opt-out, the attribute would come from another generator, which this compilation does not run.
+		if (expectPolyfill)
+		{
+			await That(result.Diagnostics).IsEmpty();
+		}
+
 		await That(result.Sources["MockDataSources.g.cs"].Contains("internal sealed class ModuleInitializerAttribute"))
 			.IsEqualTo(expectPolyfill);
 	}
@@ -756,6 +764,222 @@ public sealed class MockDataSourcesTests
 		await That(reasons).IsNotEmpty().And
 			.All().Satisfy(reason => reason is IncrementalStepRunReason.Cached or IncrementalStepRunReason.Unchanged)
 			.Because("an edit that changes no data source member must not regenerate any file");
+	}
+
+	[Test]
+	public async Task AbstractClassConstructors_ShouldFollowTheEmittedMock()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         using MyCode;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public abstract class WithInternal { internal WithInternal() { } }
+		                                             public abstract class WithOptional { protected WithOptional(int value = 1) { } }
+
+		                                             public class Tests
+		                                             {
+		                                                 [Data]
+		                                                 public void Test(WithInternal a, WithOptional b) { }
+		                                             }
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"])
+			.Contains("value = global::MyCode.WithOptional.CreateMock(").And
+			.Contains("out global::MyCode.WithInternal createdValue").And
+			.DoesNotContain("global::MyCode.WithInternal.CreateMock");
+	}
+
+	[Test]
+	public async Task TypesWhoseMockWouldNotCompile_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         using MyCode;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public delegate ref int RefCallback(ref int value);
+		                                             public interface IRefProperty { ref int Value { get; } }
+		                                             [System.Obsolete("old")]
+		                                             public class Old;
+		                                         #pragma warning disable CS0612, CS0618
+		                                             public interface IUsesOld { Old Get(); }
+
+		                                             public class Tests
+		                                             {
+		                                                 [Data]
+		                                                 public void Test(RefCallback a, IRefProperty b, IUsesOld c) { }
+		                                             }
+		                                         #pragma warning restore CS0612, CS0618
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources)
+			.DoesNotContainKey("Mock.RefCallback.g.cs").And
+			.DoesNotContainKey("Mock.IRefProperty.g.cs").And
+			.DoesNotContainKey("Mock.IUsesOld.g.cs");
+	}
+
+	[Test]
+	public async Task FileLocalTypeInATypeArgumentOrArray_ShouldBeSkipped()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         using MyCode;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public interface IGen<T> { T Get(); }
+		                                             public interface IDep { int Get(); }
+		                                             file class Local;
+
+		                                             file class Tests
+		                                             {
+		                                                 [Data]
+		                                                 public void Test(Local[] a, IGen<Local> b, IDep c) { }
+		                                             }
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"])
+			.Contains("global::MyCode.IDep").And
+			.DoesNotContain("Local");
+	}
+
+	[Test]
+	public async Task AttributeNestedInAStructOfAReferencedAssembly_ShouldBeFound()
+	{
+		MetadataReference reference = ExternalAssembly.Compile("""
+		                                                       namespace External
+		                                                       {
+		                                                           public struct Container
+		                                                           {
+		                                                               [System.AttributeUsage(System.AttributeTargets.Method)]
+		                                                               public sealed class NestedDataAttribute : System.Attribute, Mockolate.IMockDataSource;
+		                                                           }
+		                                                       }
+		                                                       """);
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     #nullable enable
+		                                                     namespace MyCode
+		                                                     {
+		                                                         public interface IDep { int Get(); }
+
+		                                                         public class Program
+		                                                         {
+		                                                             [External.Container.NestedData]
+		                                                             public static object Test(IDep dep) => dep;
+
+		                                                             public static void Main(string[] args)
+		                                                             {
+		                                                             }
+		                                                         }
+		                                                     }
+		                                                     """, [reference,]);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("type == typeof(global::MyCode.IDep)");
+	}
+
+	[Test]
+	public async Task TryCreate_BeforeAnyTypeOfTheAssemblyIsUsed_ShouldRunItsModuleInitializer()
+	{
+		Assembly assembly = Generator.CompileAndLoad($$"""
+		                                               namespace MyCode
+		                                               {
+		                                                   public interface IDep { int Get(); }
+		                                                   public abstract class WithOptional
+		                                                   {
+		                                                       protected WithOptional(int value = 1) { }
+		                                                   }
+
+		                                                   public static class Tests
+		                                                   {
+		                                                       [Data]
+		                                                       public static void Test(IDep a, WithOptional b) { }
+		                                                   }
+		                                               }
+
+		                                               {{DataAttribute}}
+		                                               """, LanguageVersion.CSharp14);
+
+		bool mocked = MockDataSource.TryCreate(assembly, assembly.GetType("MyCode.IDep")!, null, NoArgument,
+			out object? mock);
+		bool mockedClass = MockDataSource.TryCreate(assembly, assembly.GetType("MyCode.WithOptional")!, null, NoArgument,
+			out object? classMock);
+
+		await That(mocked).IsTrue();
+		await That(mock).IsNotNull();
+		await That(mockedClass).IsTrue();
+		await That(classMock).IsNotNull();
+	}
+
+	[Test]
+	public async Task Register_ShouldReplaceTheFactoryOfTheAssembly()
+	{
+		Assembly assembly = Generator.CompileAndLoad("namespace MyCode { public class Empty; }",
+			LanguageVersion.CSharp14);
+		bool withoutFactory = MockDataSource.TryCreate(assembly, typeof(string), null, NoArgument, out _);
+
+		MockDataSourceRegistry.Register(assembly, CreateFirst);
+		MockDataSource.TryCreate(assembly, typeof(string), null, NoArgument, out object? first);
+		MockDataSourceRegistry.Register(assembly, CreateSecond);
+		MockDataSource.TryCreate(assembly, typeof(string), null, NoArgument, out object? second);
+
+		await That(withoutFactory).IsFalse();
+		await That(first).IsEqualTo("first");
+		await That(second).IsEqualTo("second");
+
+		static bool CreateFirst(System.Type type, MockBehavior? behavior, MockArgumentResolver resolve, out object? value)
+		{
+			value = "first";
+			return true;
+		}
+
+		static bool CreateSecond(System.Type type, MockBehavior? behavior, MockArgumentResolver resolve, out object? value)
+		{
+			value = "second";
+			return true;
+		}
+	}
+
+	private static bool NoArgument(System.Type type, string parameterName, out object? value)
+	{
+		value = null;
+		return false;
 	}
 
 	[Test]

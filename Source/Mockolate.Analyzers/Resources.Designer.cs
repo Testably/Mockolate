@@ -663,7 +663,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to its mock needs an accessible constructor without parameters.
+        ///   Looks up a localized string similar to its mock needs an accessible constructor that can be called without arguments.
         /// </summary>
         internal static string Mockolate0010ParameterlessConstructorReason {
             get {
@@ -686,6 +686,33 @@ namespace Mockolate.Analyzers {
         internal static string Mockolate0010ConstructorReason {
             get {
                 return ResourceManager.GetString("Mockolate0010ConstructorReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to a type argument or array element is obsolete, experimental, a ref struct, a pointer, nested in a generic type or an interface with static abstract members.
+        /// </summary>
+        internal static string Mockolate0010TypeArgumentReason {
+            get {
+                return ResourceManager.GetString("Mockolate0010TypeArgumentReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to it has a member named CreateMock, which would hide the generated extension.
+        /// </summary>
+        internal static string Mockolate0010CreateMockMemberReason {
+            get {
+                return ResourceManager.GetString("Mockolate0010CreateMockMemberReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to its mock cannot implement the member '{0}'.
+        /// </summary>
+        internal static string Mockolate0010MemberReason {
+            get {
+                return ResourceManager.GetString("Mockolate0010MemberReason", resourceCulture);
             }
         }
 
