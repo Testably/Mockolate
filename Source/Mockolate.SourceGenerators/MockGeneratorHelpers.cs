@@ -70,10 +70,9 @@ internal static class MockGeneratorHelpers
 				yield return new MockClass([httpMessageHandlerType,], semanticModel.Compilation);
 			}
 
-			// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
-			if (types.Select(GetLoggerOfLoggerFactory).FirstOrDefault(loggerType => loggerType is not null) is { } loggerType)
+			foreach (ITypeSymbol adapterReturnType in types.SelectMany(GetAdapterMockedReturnTypes).Distinct<ITypeSymbol>(SymbolEqualityComparer.Default))
 			{
-				yield return new MockClass([loggerType,], semanticModel.Compilation);
+				yield return new MockClass([adapterReturnType,], semanticModel.Compilation);
 			}
 		}
 	}
@@ -506,29 +505,28 @@ internal static class MockGeneratorHelpers
 				.First(t => t.Name == "HttpMessageHandler")
 			: null;
 
-	private static ITypeSymbol? GetLoggerOfLoggerFactory(ITypeSymbol type)
-		=> type.TypeKind == TypeKind.Interface &&
-		   new[] { type, }.Concat(type.AllInterfaces).FirstOrDefault(IsLoggerFactoryType) is { } loggerFactoryType
-			? loggerFactoryType.GetMembers("CreateLogger")
-				.OfType<IMethodSymbol>()
-				.FirstOrDefault()?
-				.ReturnType
-			: null;
+	/// <summary>
+	///     The return types of the members of the adapted interfaces of the <paramref name="type" /> whose hooks create
+	///     mocks of them, e.g. the logger mocks of a logger factory mock, so that these types are mocked as well.
+	/// </summary>
+	private static IEnumerable<ITypeSymbol> GetAdapterMockedReturnTypes(ITypeSymbol type)
+	{
+		foreach (MockAdapter adapter in MockAdapter.All)
+		{
+			if (adapter.FindTarget(type) is not { } target)
+			{
+				continue;
+			}
 
-	private static bool IsLoggerFactoryType(ITypeSymbol type)
-		=> type is
-		   {
-			   Name: "ILoggerFactory",
-			   ContainingNamespace:
-			   {
-				   Name: "Logging",
-				   ContainingNamespace:
-				   {
-					   Name: "Extensions",
-					   ContainingNamespace: { Name: "Microsoft", ContainingNamespace.IsGlobalNamespace: true, },
-				   },
-			   },
-		   };
+			foreach (string memberName in adapter.MockedReturnTypesOf)
+			{
+				if (target.GetMembers(memberName).OfType<IMethodSymbol>().FirstOrDefault() is { } member)
+				{
+					yield return member.ReturnType;
+				}
+			}
+		}
+	}
 
 	/// <summary>
 	///     The mocks for auto-mocking: of the interfaces that the members of the <paramref name="mockedTypes" /> return,
@@ -569,10 +567,12 @@ internal static class MockGeneratorHelpers
 						? cache.GetOrAddDiscoveredMock(normalized, type => CreateDiscoveredMockClass(type, compilation))
 						: CreateDiscoveredMockClass(normalized, compilation));
 					typesToProcess.Enqueue(normalized);
-					// A logger factory mock creates logger mocks, so the logger has to be mocked as well.
-					if (GetLoggerOfLoggerFactory(normalized) is INamedTypeSymbol loggerType && processedTypes.Add(loggerType))
+					foreach (INamedTypeSymbol adapterReturnType in GetAdapterMockedReturnTypes(normalized).OfType<INamedTypeSymbol>())
 					{
-						result.Add(CreateDiscoveredMockClass(loggerType, compilation));
+						if (processedTypes.Add(adapterReturnType))
+						{
+							result.Add(CreateDiscoveredMockClass(adapterReturnType, compilation));
+						}
 					}
 				}
 			}

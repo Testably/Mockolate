@@ -151,8 +151,8 @@ public class MockGenerator : IIncrementalGenerator
 
 		IncrementalValueProvider<(bool HasLogger, bool HasLoggerFactory)> loggingMocks = collectedMocks
 			.Select(static (arr, _) => (
-				arr.AsArray().Any(m => m.AllImplementations().Any(Sources.Sources.IsLogger)),
-				arr.AsArray().Any(m => m.AllImplementations().Any(Sources.Sources.IsLoggerFactory))));
+				arr.AsArray().Any(m => m.AllImplementations().Any(c => Sources.Sources.HasAdapter(c, MockAdapter.Logger))),
+				arr.AsArray().Any(m => m.AllImplementations().Any(c => Sources.Sources.HasAdapter(c, MockAdapter.LoggerFactory)))));
 
 		IncrementalValueProvider<LoggerMockNames> loggerMockNames = namedMocksAggregate
 			.Select(static (arr, _) => CollectLoggerMockNames(arr));
@@ -936,11 +936,6 @@ internal sealed class RefStructAggregate : IEquatable<RefStructAggregate>
 }
 
 internal readonly record struct NamedClass(string Name, Class Class);
-
-/// <summary>
-///     The <paramref name="Method" /> of a class that implements the <c>ILogger</c> member <paramref name="Member" />.
-/// </summary>
-internal readonly record struct LoggerMember(string Member, Method Method);
 
 internal readonly record struct LoggerMockNames(
 	string? LoggerName,

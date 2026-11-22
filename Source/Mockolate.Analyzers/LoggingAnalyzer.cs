@@ -129,7 +129,7 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 	///     which the mock would have to override in turn.
 	/// </summary>
 	/// <remarks>
-	///     Mirrors <c>Class.GetLoggerMembers</c> in the generator, which decides on the same override and then dispatches
+	///     Mirrors <c>Class.GetAdapterBindings</c> in the generator, which decides on the same override and then dispatches
 	///     the declaration that it overrides.
 	/// </remarks>
 	private static IMethodSymbol GetMostDerivedOverride(INamedTypeSymbol mockedClass, IMethodSymbol implementation)

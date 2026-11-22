@@ -6,6 +6,9 @@ using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
 using Mockolate.Setup;
+#if NETSTANDARD2_0
+using Mockolate.Internals.Polyfills;
+#endif
 
 namespace Mockolate.Internals;
 
@@ -31,6 +34,46 @@ public partial class MockRegistry
 	/// </summary>
 	public void ClearAllInteractions()
 		=> Interactions.Clear();
+
+	/// <summary>
+	///     Whether every interaction of the mock is verified, except for the calls of the
+	///     <paramref name="ignoredNames" />.
+	/// </summary>
+	/// <remarks>
+	///     An adapter ignores the calls that the code around the adapted calls makes itself, e.g. the calls of
+	///     <c>ILogger.IsEnabled</c> before <c>ILogger.Log</c>.
+	/// </remarks>
+	/// <param name="ignoredNames">
+	///     The names of the ignored calls; a name that ends with <c>&lt;</c> is the prefix of the names of a generic
+	///     method.
+	/// </param>
+	public bool AreAllInteractionsVerified(params string[] ignoredNames)
+	{
+		foreach (IInteraction interaction in Interactions.GetUnverifiedInteractions())
+		{
+			if (interaction is not IMethodInteraction { Name: { } name, } || !IsIgnored(name))
+			{
+				return false;
+			}
+		}
+
+		return true;
+
+		bool IsIgnored(string name)
+		{
+			foreach (string ignoredName in ignoredNames)
+			{
+				if (ignoredName.EndsWith('<')
+					? name.StartsWith(ignoredName, StringComparison.Ordinal)
+					: name == ignoredName)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
 
 	/// <summary>
 	///     Shares the verifications of this registry and <paramref name="other" />, so that an interaction recorded

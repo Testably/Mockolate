@@ -27,6 +27,7 @@ internal class Class : IEquatable<Class>
 		ITypeSymbol? mockedType = null)
 #pragma warning restore S107
 	{
+		bool isMockedType = mockedType is null;
 		mockedType ??= type;
 		ClassFullName = type.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 		ClassName = GetTypeName(type);
@@ -56,12 +57,6 @@ internal class Class : IEquatable<Class>
 
 		IsInterface = type.TypeKind == TypeKind.Interface;
 		HasRequiredMembers = ComputeHasRequiredMembers(type);
-		LoggerCategoryType = new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>()
-			.FirstOrDefault(loggerType => IsLoggerType(loggerType) && loggerType.TypeArguments.Length == 1)?
-			.TypeArguments[0].ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
-		LoggerMembers = type is INamedTypeSymbol { TypeKind: TypeKind.Class, } namedType
-			? new EquatableArray<LoggerMember>(GetLoggerMembers(namedType, sourceAssembly).ToArray())
-			: new EquatableArray<LoggerMember>([]);
 
 		ImmutableArray<ISymbol> members = type.GetMembers();
 
@@ -200,6 +195,11 @@ internal class Class : IEquatable<Class>
 		HasInaccessibleRequiredMember = ComputeHasInaccessibleRequiredMember(filledProperties) ||
 		                                InheritedTypes.Any(inherited => inherited.HasInaccessibleRequiredMember);
 
+		// The emitters only read the adapters of the mocked type, not of the types it inherits from.
+		Adapters = new EquatableArray<MockAdapterBinding>(isMockedType
+			? GetAdapterBindings(type, sourceAssembly).ToArray()
+			: []);
+
 		_surfaceHash = ComputeSurfaceHash();
 
 		bool ShouldIncludeMember(ISymbol member)
@@ -229,8 +229,7 @@ internal class Class : IEquatable<Class>
 		DisplayString = original.DisplayString;
 		XmlDocReference = original.XmlDocReference;
 		IsInterface = original.IsInterface;
-		LoggerCategoryType = original.LoggerCategoryType;
-		LoggerMembers = original.LoggerMembers;
+		Adapters = original.Adapters;
 		HasRequiredMembers = original.HasRequiredMembers;
 		HasInaccessibleRequiredMember = original.HasInaccessibleRequiredMember;
 		ReservedNames = original.ReservedNames;
@@ -348,15 +347,9 @@ internal class Class : IEquatable<Class>
 	public bool IsInterface { get; }
 
 	/// <summary>
-	///     The category type <c>T</c> of the <c>ILogger&lt;T&gt;</c> that the type is or implements, if any.
+	///     The adapters of the interfaces that the type is or implements.
 	/// </summary>
-	public string? LoggerCategoryType { get; }
-
-	/// <summary>
-	///     The methods of a class that implement <c>ILogger.Log</c>, <c>ILogger.IsEnabled</c> and <c>ILogger.BeginScope</c>
-	///     for this type, as the most derived overrides; empty for an interface.
-	/// </summary>
-	public EquatableArray<LoggerMember> LoggerMembers { get; }
+	public EquatableArray<MockAdapterBinding> Adapters { get; }
 
 	public bool HasRequiredMembers { get; }
 	public bool HasInaccessibleRequiredMember { get; }
@@ -410,8 +403,7 @@ internal class Class : IEquatable<Class>
 		hash = unchecked((hash * 17) + InheritedTypes.GetHashCode());
 		hash = unchecked((hash * 17) + ReservedNames.GetHashCode());
 		hash = unchecked((hash * 17) + (IsInterface ? 1 : 0));
-		hash = unchecked((hash * 17) + (LoggerCategoryType?.GetHashCode() ?? 0));
-		hash = unchecked((hash * 17) + LoggerMembers.GetHashCode());
+		hash = unchecked((hash * 17) + Adapters.GetHashCode());
 		hash = unchecked((hash * 17) + (HasRequiredMembers ? 1 : 0));
 		hash = unchecked((hash * 17) + (HasInaccessibleRequiredMember ? 1 : 0));
 		return hash;
@@ -828,28 +820,56 @@ internal class Class : IEquatable<Class>
 	}
 
 	/// <remarks>
-	///     Decided on the mocked <paramref name="type" />, because a base class can declare the method that only the
-	///     mocked type uses to implement <c>ILogger</c>.
+	///     A class is only adapted when the mock overrides all intercepted members, so that they call the hooks.
 	/// </remarks>
-	private static IEnumerable<LoggerMember> GetLoggerMembers(INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
+	private IEnumerable<MockAdapterBinding> GetAdapterBindings(ITypeSymbol type, IAssemblySymbol sourceAssembly)
 	{
-		INamedTypeSymbol? logger = type.AllInterfaces.FirstOrDefault(@interface =>
-			IsLoggerType(@interface) && @interface.TypeArguments.Length == 0);
-		if (logger is null)
+		foreach (MockAdapter adapter in MockAdapter.All)
 		{
-			yield break;
-		}
+			if (adapter.FindTarget(type) is not { } target)
+			{
+				continue;
+			}
 
-		foreach (string name in new[] { "Log", "IsEnabled", "BeginScope", })
+			MockAdapterClassMember[] classMembers = type is INamedTypeSymbol { TypeKind: TypeKind.Class, } namedType
+				? GetAdapterClassMembers(adapter, target, namedType, sourceAssembly)
+				: [];
+			if (type.TypeKind == TypeKind.Class && adapter.Members.Any(member =>
+				    member.Kind == MockAdapterMemberKind.Intercepted &&
+				    classMembers.All(classMember => classMember.Member != member.Name)))
+			{
+				continue;
+			}
+
+			yield return new MockAdapterBinding(adapter, adapter.GetContext(type),
+				new EquatableArray<MockAdapterClassMember>(classMembers));
+		}
+	}
+
+	/// <remarks>
+	///     Decided on the mocked <paramref name="type" />, because a base class can declare the method that only the
+	///     mocked type uses to implement the adapted interface. Only the methods that the mock overrides are kept.
+	/// </remarks>
+	private MockAdapterClassMember[] GetAdapterClassMembers(MockAdapter adapter, INamedTypeSymbol target,
+		INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
+	{
+		List<MockAdapterClassMember> classMembers = [];
+		foreach (MockAdapterMember member in adapter.Members)
 		{
-			if (logger.GetMembers(name).OfType<IMethodSymbol>().FirstOrDefault() is { } interfaceMember &&
+			if (target.GetMembers(member.Name).OfType<IMethodSymbol>().FirstOrDefault() is { } interfaceMember &&
 			    type.FindImplementationForInterfaceMember(interfaceMember) is IMethodSymbol implementation &&
 			    GetMostDerivedOverride(type, implementation) is { MethodKind: MethodKind.Ordinary, IsSealed: false, } mostDerived &&
 			    GetDeclaration(mostDerived) is { } declaration)
 			{
-				yield return new LoggerMember(name, new Method(declaration, null, sourceAssembly));
+				Method method = new(declaration, null, sourceAssembly);
+				if (AllMethods().Any(candidate => Method.EqualityComparer.Equals(candidate, method)))
+				{
+					classMembers.Add(new MockAdapterClassMember(member.Name, method));
+				}
 			}
 		}
+
+		return classMembers.ToArray();
 	}
 
 	/// <summary>
@@ -889,22 +909,6 @@ internal class Class : IEquatable<Class>
 
 		return implementation;
 	}
-
-	private static bool IsLoggerType(INamedTypeSymbol type)
-		=> type is
-		   {
-			   Name: "ILogger",
-			   TypeKind: TypeKind.Interface,
-			   ContainingNamespace:
-			   {
-				   Name: "Logging",
-				   ContainingNamespace:
-				   {
-					   Name: "Extensions",
-					   ContainingNamespace: { Name: "Microsoft", ContainingNamespace.IsGlobalNamespace: true, },
-				   },
-			   },
-		   };
 
 	public static IEnumerable<ITypeSymbol> GetInheritedTypes(ITypeSymbol type)
 	{

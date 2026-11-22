@@ -357,27 +357,6 @@ namespace Mockolate.Verify
 namespace Mockolate
 {
 	/// <summary>
-	///     Gives the logging setups and verifications access to the registry of a logger or logger factory mock.
-	/// </summary>
-	internal interface IMockolateLoggerAccess
-	{
-		/// <summary>
-		///     The registry of the mock.
-		/// </summary>
-		global::Mockolate.Internals.MockRegistry MockolateRegistry { get; }
-
-		/// <summary>
-		///     The scenario that setups are registered for.
-		/// </summary>
-		string MockolateScenario { get; }
-
-		/// <summary>
-		///     The member id of <c>ILogger.Log</c>, or <c>-1</c> for a logger factory.
-		/// </summary>
-		int MockolateLogMemberId { get; }
-	}
-
-	/// <summary>
 	///     Setups and verifications of <c>ILogger.Log</c>, whatever the state type of the call is.
 	/// </summary>
 	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -669,56 +648,29 @@ namespace Mockolate
 			}
 		}
 
-		private static global::Mockolate.IMockolateLoggerAccess GetAccess(object mock)
-			=> mock as global::Mockolate.IMockolateLoggerAccess ?? throw new global::Mockolate.Exceptions.MockException($"The logging setups and verifications do not support '{mock}'.");
+		/// <summary>
+		///     Answers <c>ILogger.IsEnabled</c> without a setup: every level is enabled, so that logging code that checks
+		///     <c>IsEnabled</c> first still reaches <c>Log</c>.
+		/// </summary>
+		/// <param name="registry">The registry of the mock.</param>
+		/// <param name="logLevel">The level of the call.</param>
+		public static bool IsEnabled(global::Mockolate.Internals.MockRegistry registry, global::Microsoft.Extensions.Logging.LogLevel logLevel)
+			=> true;
+
+		private static global::Mockolate.Internals.IMockAdapterAccess GetAccess(object mock)
+			=> mock as global::Mockolate.Internals.IMockAdapterAccess ?? throw new global::Mockolate.Exceptions.MockException($"The logging setups and verifications do not support '{mock}'.");
 
 		private static global::Mockolate.Setup.ILogSetup SetupLog(object setup, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 		{
-			global::Mockolate.IMockolateLoggerAccess access = GetAccess(setup);
-			LogSetup methodSetup = new(access.MockolateRegistry, new LogFilter(logLevel, entry));
-			access.MockolateRegistry.SetupMethod(access.MockolateLogMemberId, access.MockolateScenario, methodSetup);
+			global::Mockolate.Internals.IMockAdapterAccess access = GetAccess(setup);
+			LogSetup methodSetup = new(access.MockRegistry, new LogFilter(logLevel, entry));
+			access.MockRegistry.SetupMethod(access.GetMemberId("Log"), access.Scenario, methodSetup);
 			return methodSetup;
 		}
 
 		internal static global::Mockolate.Verify.LogVerificationResult<TVerify> VerifyLog<TVerify>(TVerify verify, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 			where TVerify : class
-			=> new(verify, GetAccess(verify).MockolateRegistry, new LogFilter(logLevel, entry));
-
-		/// <summary>
-		///     Whether no interaction of the logger or logger factory with the <paramref name="registry" /> is unverified, except for the calls of <c>IsEnabled</c>, <c>BeginScope</c> and <c>CreateLogger</c>.
-		/// </summary>
-		/// <remarks>
-		///     The logging code makes these calls around its log calls, so the test verifies the log calls instead.
-		/// </remarks>
-		/// <param name="registry">The registry of the mock.</param>
-		/// <param name="ignoredNames">The names of the ignored calls; a name that ends with <c>&lt;</c> is the prefix of the names of a generic method.</param>
-		public static bool AreAllInteractionsVerified(global::Mockolate.Internals.MockRegistry registry, params string[] ignoredNames)
-		{
-			foreach (global::Mockolate.Interactions.IInteraction interaction in registry.Interactions.GetUnverifiedInteractions())
-			{
-				if (interaction is not global::Mockolate.Interactions.IMethodInteraction { Name: { } name, } || !IsIgnored(name))
-				{
-					return false;
-				}
-			}
-
-			return true;
-
-			bool IsIgnored(string name)
-			{
-				foreach (string ignoredName in ignoredNames)
-				{
-					if (ignoredName.EndsWith("<", global::System.StringComparison.Ordinal)
-						    ? name.StartsWith(ignoredName, global::System.StringComparison.Ordinal)
-						    : name == ignoredName)
-					{
-						return true;
-					}
-				}
-
-				return false;
-			}
-		}
+			=> new(verify, GetAccess(verify).MockRegistry, new LogFilter(logLevel, entry));
 		/// <summary>
 		///     The category name that <c>Logger&lt;TCategoryName&gt;</c> requests from its factory.
 		/// </summary>
