@@ -265,6 +265,29 @@ VendingMachine sut = VendingMachine.CreateWithMocks(out _);
 
 The rule reports missing arguments of a class, delegate or interface type: classes and delegates are never mocked, and an interface is not mocked when it is declared in the global namespace, is a framework interface other than `ILogger`, `ILogger<T>` and `ILoggerFactory`, or cannot be mocked without a `CreateMock` call. A missing argument of another type, such as a `string`, an `int` or another struct, is not reported, because nobody expects a mock for it; the compiler error names the parameter. Pass the argument, e.g. `VendingMachine.CreateWithMocks(out _, TimeProvider.System)`.
 
+## Mockolate0010
+
+**A mock data source parameter that cannot be created.**
+
+A [mock data source](08-advanced-features/07-mock-data-sources.md) fills the parameters of a method, constructor or type whose attribute implements `IMockDataSource`. An interface, delegate or abstract class asks for a mock, and a concrete class for an instance with mocked dependencies. When Mockolate cannot create such a type, the data source cannot fill the parameter and the test fails at runtime:
+
+```csharp
+public interface IChocolateRepository<TFlavor>
+{
+    TFlavor Find(string name);
+}
+
+public class ChocolateTests<TFlavor>
+{
+    // Mockolate0010: Mockolate cannot create the parameter 'repository' of type 'IChocolateRepository<TFlavor>': its type arguments contain a type parameter
+    [Test]
+    [MockArguments]
+    public void Find_ShouldReturnTheFlavor(IChocolateRepository<TFlavor> repository) { }
+}
+```
+
+The rule fires for a type parameter or a type that contains one, a type that the generated code cannot access, a file-local, obsolete or experimental type, a type nested in a generic type, an interface, delegate or abstract class that cannot be mocked (see [Mockolate0002](#mockolate0002)), has static abstract members or, for an abstract class, has no accessible constructor without parameters, and a generic class or a class without a single accessible constructor with the most parameters. Types of the `System`, `Microsoft` and `Windows` namespaces are never reported, because the test framework often passes them as arguments. A default value generator of the behavior can still provide a value for a reported parameter.
+
 ## Explicit types for union parameters
 
 With [union parameters](06-parameter-matching.md#union-parameters-c-15), a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion does not compile as a `Setup` or `Verify` argument (CS1503, CS1729 or CS9174). The included code fix adds the parameter type:

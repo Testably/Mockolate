@@ -150,6 +150,14 @@ public sealed partial class MockGenerationSnapshotTests
             [typeof(System.Collections.Immutable.ImmutableArray),],
             Snapshot: true),
         new(
+            "MockDataSources_CanBeCreated",
+            ["MockDataSourceTargets.cs",],
+            """
+            object?[] values = MockDataSourceTargets.Create(null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, "", 0);
+            """,
+            [typeof(Uri),],
+            Snapshot: true),
+        new(
             "DynamicMembers_CanBeCreated",
             ["IDynamicMembers.cs",],
             """

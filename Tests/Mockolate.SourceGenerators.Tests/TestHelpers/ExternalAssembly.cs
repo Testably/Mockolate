@@ -11,16 +11,17 @@ public static class ExternalAssembly
 {
 	/// <summary>
 	///     Compiles the <paramref name="source" /> into an in-memory library named
-	///     <paramref name="assemblyName" /> and returns a reference to it.
+	///     <paramref name="assemblyName" /> and returns a reference to it; the <paramref name="references" /> are
+	///     available in addition to the assemblies of the test run.
 	/// </summary>
 	public static MetadataReference Compile([StringSyntax("c#-test")] string source,
-		string assemblyName = "ExternalAssembly", bool allowUnsafe = false)
+		string assemblyName = "ExternalAssembly", bool allowUnsafe = false, MetadataReference[]? references = null)
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.Latest);
 		CSharpCompilation compilation = CSharpCompilation.Create(
 			assemblyName,
 			[CSharpSyntaxTree.ParseText(source, parseOptions),],
-			Generator.GetReferences([]),
+			[..Generator.GetReferences([]), ..references ?? [],],
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, allowUnsafe: allowUnsafe));
 
 		using MemoryStream stream = new();

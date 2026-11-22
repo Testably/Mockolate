@@ -47,6 +47,83 @@ public sealed class MockGeneratorEqualityTests
 		}
 	}
 
+	public sealed class SutCreationTests
+	{
+		[Test]
+		public async Task Equals_WithEqualContent_IsTrue()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::A.Sut", "string");
+
+			await That(a.Equals(b)).IsTrue();
+			await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingSut_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::B.Sut", "string");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingParameter_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::A.Sut", "int");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingContainerName_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::A.Sut", "string", containerName: "SutMocks_1");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingLocation_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string");
+			SutCreation b = Create("global::A.Sut", "string", start: 5);
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingMocks_IsFalse()
+		{
+			SutCreation a = Create("global::A.Sut", "string",
+				mocks: [CreateMockClass("public interface IFoo { void M(); }"),]);
+			SutCreation b = Create("global::A.Sut", "string",
+				mocks: [CreateMockClass("public interface IFoo { void M(int value); }"),]);
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		private static SutCreation Create(string sutName, string parameterType, string containerName = "SutMocks",
+			int start = 1, MockClass[]? mocks = null)
+			=> new(
+				new SutClass(sutName, "A", containerName, new EquatableArray<SutParameter>([
+					new SutParameter(parameterType, "value", false, null, false, false, null),
+				])),
+				new EquatableArray<MockClass>(mocks ?? []),
+				new CreateMockLocation("File.cs", start, 2));
+
+		private static MockClass CreateMockClass(string source)
+		{
+			CSharpCompilation compilation = CSharpCompilation.Create("test",
+				[CSharpSyntaxTree.ParseText(source),],
+				[MetadataReference.CreateFromFile(typeof(object).Assembly.Location),]);
+			return new MockClass([compilation.GetTypeByMetadataName("IFoo")!,], compilation);
+		}
+	}
+
 	public sealed class DataSourceCreationTests
 	{
 		[Test]
@@ -60,7 +137,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingSut_IsFalse()
+		public async Task Equals_WithDifferingClass_IsFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::B.Sut", "string");
@@ -78,19 +155,37 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingHasCreateWithMocks_IsFalse()
+		public async Task Equals_WithDifferingIsCreatable_IsFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
-			DataSourceCreation b = Create("global::A.Sut", "string", hasCreateWithMocks: false);
+			DataSourceCreation b = Create("global::A.Sut", "string", isCreatable: true);
 
 			await That(a.Equals(b)).IsFalse();
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingContainerName_IsFalse()
+		public async Task Equals_WithDifferingMockedType_IsFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
-			DataSourceCreation b = Create("global::A.Sut", "string", containerName: "SutMocks_1");
+			DataSourceCreation b = Create("global::A.Sut", "string", mockedType: "global::A.IOther");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingValueType_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", valueType: "long");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingIsMockedLast_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", isMockedLast: true);
 
 			await That(a.Equals(b)).IsFalse();
 		}
@@ -104,55 +199,29 @@ public sealed class MockGeneratorEqualityTests
 			await That(a.Equals(b)).IsFalse();
 		}
 
-		[Test]
-		public async Task Equals_WithDifferingValueTypes_IsFalse()
-		{
-			DataSourceCreation a = Create("global::A.Sut", "string");
-			DataSourceCreation b = Create("global::A.Sut", "string", valueTypes: ["int",]);
-
-			await That(a.Equals(b)).IsFalse();
-		}
-
-		[Test]
-		public async Task Equals_WithDifferingMocks_IsFalse()
-		{
-			DataSourceCreation a = Create("global::A.Sut", "string",
-				mocks: [CreateMockClass("public interface IFoo { void M(); }"),]);
-			DataSourceCreation b = Create("global::A.Sut", "string",
-				mocks: [CreateMockClass("public interface IFoo { void M(int value); }"),]);
-
-			await That(a.Equals(b)).IsFalse();
-		}
-
-		private static DataSourceCreation Create(string sutName, string parameterType, bool hasCreateWithMocks = true,
-			string containerName = "SutMocks", int start = 1, MockClass[]? mocks = null, string[]? valueTypes = null)
+		private static DataSourceCreation Create(string className, string parameterType, bool isCreatable = false,
+			bool isMockedLast = false, string mockedType = "global::A.IDependency", string valueType = "int",
+			int start = 1)
 			=> new(
-				new EquatableArray<SutClass>([
-					new SutClass(sutName, "A", containerName, new EquatableArray<SutParameter>([
-						new SutParameter(parameterType, parameterType, "value", false, false, null, false, false, null),
-					]), hasCreateWithMocks),
+				new EquatableArray<DataSourceClass>([
+					new DataSourceClass(className, new EquatableArray<DataSourceParameter>([
+						new DataSourceParameter(parameterType, "value", false, isMockedLast, false, null, isCreatable, false),
+					])),
 				]),
-				new EquatableArray<string>(["global::A.IDependency",]),
-				new EquatableArray<string>(valueTypes ?? ["string",]),
-				new EquatableArray<MockClass>(mocks ?? []),
+				new EquatableArray<string>([mockedType,]),
+				new EquatableArray<string>(["global::System.IServiceProvider",]),
+				new EquatableArray<string>([valueType,]),
+				new EquatableArray<MockClass>([]),
 				new CreateMockLocation("File.cs", start, 2));
-
-		private static MockClass CreateMockClass(string source)
-		{
-			CSharpCompilation compilation = CSharpCompilation.Create("test",
-				[CSharpSyntaxTree.ParseText(source),],
-				[MetadataReference.CreateFromFile(typeof(object).Assembly.Location),]);
-			return new MockClass([compilation.GetTypeByMetadataName("IFoo")!,], compilation);
-		}
 	}
 
-	public sealed class DataSourceMethodCandidateTests
+	public sealed class DataSourceMemberCandidateTests
 	{
 		[Test]
 		public async Task Equals_WithEqualContent_IsTrue()
 		{
-			DataSourceMethodCandidate a = new(new EquatableArray<string>(["Test", "Data",]), new CreateMockLocation("File.cs", 1, 2));
-			DataSourceMethodCandidate b = new(new EquatableArray<string>(["Test", "Data",]), new CreateMockLocation("File.cs", 1, 2));
+			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test", "Data",]), new CreateMockLocation("File.cs", 1, 2));
+			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Test", "Data",]), new CreateMockLocation("File.cs", 1, 2));
 
 			await That(a.Equals(b)).IsTrue();
 			await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
@@ -161,8 +230,8 @@ public sealed class MockGeneratorEqualityTests
 		[Test]
 		public async Task Equals_WithDifferingAttributeNames_IsFalse()
 		{
-			DataSourceMethodCandidate a = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 1, 2));
-			DataSourceMethodCandidate b = new(new EquatableArray<string>(["Data",]), new CreateMockLocation("File.cs", 1, 2));
+			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 1, 2));
+			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Data",]), new CreateMockLocation("File.cs", 1, 2));
 
 			await That(a.Equals(b)).IsFalse();
 		}
@@ -170,8 +239,8 @@ public sealed class MockGeneratorEqualityTests
 		[Test]
 		public async Task Equals_WithDifferingLocation_IsFalse()
 		{
-			DataSourceMethodCandidate a = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 1, 2));
-			DataSourceMethodCandidate b = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 5, 2));
+			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 1, 2));
+			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 5, 2));
 
 			await That(a.Equals(b)).IsFalse();
 		}

@@ -132,15 +132,8 @@ public class CreateWithMocksSpanConstructor
 }
 
 /// <summary>
-///     A constructor that leaves required members unset cannot be called, so the class is skipped unless the
-///     constructor sets them.
+///     A constructor that leaves required members unset cannot be called, unless it sets them.
 /// </summary>
-public class CreateWithMocksRequiredMembers(ICreateWithMocksDependency dependency)
-{
-	public ICreateWithMocksDependency Dependency { get; } = dependency;
-	public required string Name { get; init; }
-}
-
 public class CreateWithMocksSetsRequiredMembers
 {
 	[System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -166,49 +159,3 @@ public class CreateWithMocksParamsCollection(
 	public System.Collections.Immutable.ImmutableArray<int> Values { get; } = values;
 }
 #endif
-
-/// <summary>
-///     A class that only a test method parameter needs gets neither a <c>CreateWithMocks</c> extension nor a container.
-/// </summary>
-public class CreateWithMocksDataOnly(ICreateWithMocksDependency dependency)
-{
-	public ICreateWithMocksDependency Dependency { get; } = dependency;
-}
-
-/// <summary>
-///     Values that Mockolate can neither mock nor construct come from the default values of the behavior; a
-///     <c>null!</c> default stays <see langword="null" />.
-/// </summary>
-public class CreateWithMocksDataWithValues(
-	ICreateWithMocksDependency dependency,
-	string name,
-	int count,
-	string? description,
-	string fallback = null!)
-{
-	public ICreateWithMocksDependency Dependency { get; } = dependency;
-	public string Name { get; } = name;
-	public int Count { get; } = count;
-	public string? Description { get; } = description;
-	public string Fallback { get; } = fallback;
-}
-
-[AttributeUsage(AttributeTargets.Method)]
-public sealed class CreateWithMocksDataAttribute : Attribute, IMockDataSource;
-
-public static class CreateWithMocksDataSourceTargets
-{
-	[CreateWithMocksData]
-	public static object[] Create(CreateWithMocksService sut, ICreateWithMocksDependency dependency,
-		CreateWithMocksOuter.Nested nested, CreateWithMocksDataOnly dataOnly, CreateWithMocksDataWithValues withValues,
-		string text, int number)
-		=> [sut, dependency, nested, dataOnly, withValues, text, number,];
-
-#if NET9_0_OR_GREATER
-	[CreateWithMocksData]
-	public static object[] CreateUnsupported(CreateWithMocksSpanConstructor span,
-		CreateWithMocksRequiredMembers required, CreateWithMocksSetsRequiredMembers setsRequired,
-		CreateWithMocksParamsCollection paramsCollection)
-		=> [span, required, setsRequired, paramsCollection,];
-#endif
-}

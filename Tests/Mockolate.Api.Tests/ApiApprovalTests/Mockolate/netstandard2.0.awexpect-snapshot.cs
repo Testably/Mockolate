@@ -10,7 +10,6 @@ namespace Mockolate
         public virtual bool CanGenerateValue(System.Type type) { }
         public virtual object? GenerateValue(System.Type type, params object?[] parameters) { }
     }
-    public delegate object? DependencyResolver(System.Type type, string parameterName);
     public static class HttpClientExtensions
     {
         extension(Mockolate.Setup.IMockSetup<System.Net.Http.HttpClient> setup)
@@ -148,6 +147,7 @@ namespace Mockolate
         public static Mockolate.Parameters.IParameters Parameters(System.Func<object?[], bool> predicate, [System.Runtime.CompilerServices.CallerArgumentExpression("predicate")] string doNotPopulateThisValue = "") { }
         public static Mockolate.Parameters.IDefaultEventParameters WithDefaultParameters() { }
     }
+    public delegate bool MockArgumentResolver(System.Type type, string parameterName, out object? value);
     public record MockBehavior : Mockolate.IMockBehaviorAccess, System.IEquatable<Mockolate.MockBehavior>
     {
         protected MockBehavior(Mockolate.MockBehavior original) { }
@@ -175,9 +175,9 @@ namespace Mockolate
         public static bool operator ==(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
         public static bool operator !=(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
     }
-    public static class MockDataSources
+    public static class MockDataSource
     {
-        public static bool TryCreate(System.Reflection.Assembly assembly, System.Type type, Mockolate.MockBehavior? behavior, Mockolate.DependencyResolver resolve, out object? value) { }
+        public static bool TryCreate(System.Reflection.Assembly assembly, System.Type type, Mockolate.MockBehavior? behavior, Mockolate.MockArgumentResolver resolve, out object? value) { }
         public static bool TryCreateValue<T>(Mockolate.MockBehavior behavior, out T value) { }
     }
     public static class ParameterExtensions

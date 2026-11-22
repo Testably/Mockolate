@@ -322,6 +322,59 @@
 		<value>the generator cannot mock it without a CreateMock call, for example because a member is obsolete or its type arguments nest too deeply; create the mock with CreateMock and pass it</value>
 		<comment>Completes Mockolate0009MessageFormat for the remaining reasons.</comment>
 	</data>
+	<data name="Mockolate0010Description" xml:space="preserve">
+		<value>A parameter of a method, constructor or type with an attribute that implements Mockolate.IMockDataSource asks for a mock or an instance with mocked dependencies, but Mockolate cannot create its type, so the data source cannot fill it.</value>
+	</data>
+	<data name="Mockolate0010MessageFormat" xml:space="preserve">
+		<value>Mockolate cannot create the parameter '{0}' of type '{1}': {2}</value>
+	</data>
+	<data name="Mockolate0010Title" xml:space="preserve">
+		<value>A mock data source parameter cannot be created</value>
+	</data>
+	<data name="Mockolate0010TypeParameterReason" xml:space="preserve">
+		<value>it is a type parameter</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010InaccessibleReason" xml:space="preserve">
+		<value>it is not accessible from the generated code</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010ContainsTypeParameterReason" xml:space="preserve">
+		<value>its type arguments contain a type parameter</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010FileLocalReason" xml:space="preserve">
+		<value>it is file-local</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010NestedInGenericTypeReason" xml:space="preserve">
+		<value>it is nested in a generic type</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010ObsoleteReason" xml:space="preserve">
+		<value>it is obsolete or experimental</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010NotMockableReason" xml:space="preserve">
+		<value>it cannot be mocked ({0})</value>
+		<comment>Completes Mockolate0010MessageFormat. {0} is the reason of Mockolate0002.</comment>
+	</data>
+	<data name="Mockolate0010StaticAbstractReason" xml:space="preserve">
+		<value>it has static abstract members</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010ParameterlessConstructorReason" xml:space="preserve">
+		<value>its mock needs an accessible constructor without parameters</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010GenericClassReason" xml:space="preserve">
+		<value>it is a generic class</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0010ConstructorReason" xml:space="preserve">
+		<value>it has no single accessible constructor with the most parameters that Mockolate can call</value>
+		<comment>Completes Mockolate0010MessageFormat.</comment>
+	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>
 		<comment>The title of the code fix for an argument that cannot convert to a union-typed setup or verify parameter.</comment>

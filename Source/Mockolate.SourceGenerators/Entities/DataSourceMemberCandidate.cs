@@ -1,9 +1,9 @@
 namespace Mockolate.SourceGenerators.Entities;
 
 /// <summary>
-///     A method with attributes and parameters, before it is bound: only methods whose
+///     A method, constructor or type with attributes, before it is bound: only members whose
 ///     <paramref name="AttributeNames" /> match a data source attribute are bound.
 /// </summary>
-internal sealed record DataSourceMethodCandidate(
+internal sealed record DataSourceMemberCandidate(
 	EquatableArray<string> AttributeNames,
 	CreateMockLocation Location);
