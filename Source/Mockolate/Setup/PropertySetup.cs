@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
 using Mockolate.Internals;
@@ -229,7 +230,7 @@ public class PropertySetup<T> : PropertySetup,
 	public override string Name => _name;
 
 	/// <inheritdoc cref="PropertySetup.IsValueInitialized" />
-	internal override bool IsValueInitialized => _isInitialized;
+	internal override bool IsValueInitialized => Volatile.Read(ref _isInitialized);
 
 	/// <inheritdoc cref="IPropertyGetterSetupParallelCallbackBuilder{T}.When(Func{int, bool})" />
 	IPropertyGetterSetupCallbackWhenBuilder<T> IPropertyGetterSetupParallelCallbackBuilder<T>.When(Func<int, bool> predicate)
@@ -456,11 +457,12 @@ public class PropertySetup<T> : PropertySetup,
 				return;
 			}
 
-			_isInitialized = value is T or null;
 			if (value is T typedValue)
 			{
 				_value = typedValue;
 			}
+
+			Volatile.Write(ref _isInitialized, value is T or null);
 		}
 	}
 
@@ -500,7 +502,7 @@ public class PropertySetup<T> : PropertySetup,
 
 			_value = value;
 			// Stryker disable once Boolean : flipping this to false only leaves IsValueInitialized wrong for one redundant auto-init cycle that is no-op'd by the _isUserInitialized guard on the next line.
-			_isInitialized = true;
+			Volatile.Write(ref _isInitialized, true);
 			_isUserInitialized = true;
 		}
 
