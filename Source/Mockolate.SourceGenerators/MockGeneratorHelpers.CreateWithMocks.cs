@@ -92,6 +92,7 @@ internal static partial class MockGeneratorHelpers
 			if (symbolInfo.Symbol is null && symbolInfo.CandidateSymbols.IsEmpty &&
 			    semanticModel.GetSymbolInfo(memberAccess.Expression, cancellationToken).Symbol is INamedTypeSymbol type &&
 			    IsConstructibleSut(type, compilation) &&
+			    !HasMemberNamedCreateWithMocks(type) &&
 			    !IsFrameworkNamespace(type.ContainingNamespace))
 			{
 				suts.Add(type);
@@ -133,9 +134,11 @@ internal static partial class MockGeneratorHelpers
 					? MethodParameter.From(parameter).ExplicitDefaultValue
 					: null;
 				ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation);
-				if (defaultValue == "null" && parameterType.IsReferenceType)
+				if (parameterType.IsReferenceType &&
+				    (defaultValue == "null" || parameterType.NullableAnnotation == NullableAnnotation.None))
 				{
-					// A nullable-oblivious parameter with a null default would warn (CS8625) in the generated signature.
+					// A nullable-oblivious parameter accepts null, which the generated signature in a nullable-enabled
+					// file would otherwise reject (CS8625).
 					parameterType = parameterType.WithNullableAnnotation(NullableAnnotation.Annotated);
 				}
 
@@ -178,17 +181,36 @@ internal static partial class MockGeneratorHelpers
 			@interface.Name == "IMockDataSource" && IsInGlobalMockolateNamespace(@interface)) == true;
 
 	/// <summary>
-	///     Whether the generated code can call a constructor of <paramref name="type" /> and a static
-	///     <c>CreateWithMocks</c> extension on it without hitting a member of the type.
+	///     Whether the generated code can call a constructor of <paramref name="type" />.
 	/// </summary>
 	private static bool IsConstructibleSut(INamedTypeSymbol type, Compilation compilation)
 		=> type is { TypeKind: TypeKind.Class, IsAbstract: false, IsStatic: false, IsGenericType: false, } &&
 		   !ContainsTypeParameter(type) &&
 		   !UsesTypeNestedInGenericType(type) &&
+		   !IsFileLocal(type) &&
 		   !HasUsageDiagnostic(type) &&
-		   Helpers.IsAccessibleFrom(type, compilation.Assembly) &&
-		   !HasMemberNamedCreateWithMocks(type);
+		   Helpers.IsAccessibleFrom(type, compilation.Assembly);
 
+	/// <summary>
+	///     A file-local type is not visible to the generated file.
+	/// </summary>
+	private static bool IsFileLocal(INamedTypeSymbol type)
+	{
+		for (INamedTypeSymbol? current = type; current is not null; current = current.ContainingType)
+		{
+			if (current.IsFileLocal)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/// <summary>
+	///     A member of that name would hide the generated <c>CreateWithMocks</c> extension; the factory of a class that
+	///     only a test method parameter needs does not use the extension.
+	/// </summary>
 	private static bool HasMemberNamedCreateWithMocks(INamedTypeSymbol type)
 	{
 		for (INamedTypeSymbol? current = type; current is not null; current = current.BaseType)
@@ -205,14 +227,18 @@ internal static partial class MockGeneratorHelpers
 	/// <summary>
 	///     Only interfaces that the generator can mock without the checks of the <c>MockabilityAnalyzer</c> are mocked,
 	///     because no <c>CreateMock</c> call in the user code names them. Framework interfaces such as
-	///     <c>IEnumerable&lt;T&gt;</c> would be mocks that return <see langword="null" />, so only the logging interfaces,
-	///     for which Mockolate has dedicated mocks, are mocked from the framework namespaces.
+	///     <c>IEnumerable&lt;T&gt;</c> would be mocks that return <see langword="null" />, so only <c>ILogger</c>,
+	///     <c>ILogger&lt;T&gt;</c> and <c>ILoggerFactory</c>, for which Mockolate has dedicated mocks, are mocked from the
+	///     framework namespaces.
 	/// </summary>
 	private static bool IsDependencyMockable(ITypeSymbol type, Compilation compilation)
 		=> type is INamedTypeSymbol namedType &&
-		   (!IsFrameworkNamespace(namedType.ContainingNamespace) ||
-		    namedType.ContainingNamespace.ToDisplayString() == "Microsoft.Extensions.Logging") &&
+		   (!IsFrameworkNamespace(namedType.ContainingNamespace) || IsDedicatedLoggingType(namedType)) &&
 		   CanBeMockedImplicitly(namedType, compilation.Assembly);
+
+	private static bool IsDedicatedLoggingType(INamedTypeSymbol type)
+		=> type.Name is "ILogger" or "ILoggerFactory" &&
+		   type.ContainingNamespace.ToDisplayString() == "Microsoft.Extensions.Logging";
 
 	/// <summary>
 	///     The accessible constructor with the most parameters that the generated code can call without warnings, or
@@ -279,8 +305,8 @@ internal static partial class MockGeneratorHelpers
 	/// <remarks>
 	///     A nested class joins the names of its containing types with <c>_0</c>, after doubling every <c>_</c> in them;
 	///     read in pairs from the left, <c>__</c> and <c>_0</c> cannot be confused, so two classes never share a name. A
-	///     suffix avoids a type or namespace that the user declared, so the name never depends on the other classes under
-	///     test.
+	///     suffix avoids an accessible type or namespace, so the name never depends on the other classes under test, and
+	///     an internal container that a referenced assembly generated does not rename this one.
 	/// </remarks>
 	private static string GetContainerName(INamedTypeSymbol sut, Compilation compilation)
 	{
@@ -293,7 +319,10 @@ internal static partial class MockGeneratorHelpers
 		string baseName = string.Join("_0", names) + "Mocks";
 		INamespaceSymbol? @namespace = compilation.GetCompilationNamespace(sut.ContainingNamespace);
 		string name = baseName;
-		for (int index = 1; @namespace?.GetMembers(name).Any() == true; index++)
+		for (int index = 1;
+		     @namespace?.GetMembers(name).Any(member =>
+			     compilation.IsSymbolAccessibleWithin(member, compilation.Assembly)) == true;
+		     index++)
 		{
 			name = $"{baseName}_{index}";
 		}

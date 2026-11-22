@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace Mockolate.SourceGenerators.Tests;
 
@@ -114,6 +115,186 @@ public sealed class CreateWithMocksTests
 		                                       """);
 
 		await That(result.Diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task NullableObliviousParameter_ShouldAcceptNullAndFallBackToDefault()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       using System;
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                       #nullable disable
+		                                           public class Svc(string name)
+		                                           {
+		                                               public string Name { get; } = name;
+		                                           }
+		                                       #nullable enable
+
+		                                           [AttributeUsage(AttributeTargets.Method)]
+		                                           public sealed class DataAttribute : Attribute, IMockDataSource;
+
+		                                           public class Program
+		                                           {
+		                                               [Data]
+		                                               public static object Test(Svc sut) => sut;
+
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _, null);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("(string)v0 : default");
+	}
+
+	[Test]
+	public async Task FileLocalClass_ShouldNotGetCreateWithMocks()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           file class Svc(IDep dep)
+		                                           {
+		                                               public IDep Dep { get; } = dep;
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Sources).DoesNotContainKey("MockDataSources.g.cs");
+	}
+
+	[Test]
+	public async Task ContainerOfReferencedAssembly_ShouldNotRenameTheContainer()
+	{
+		MetadataReference reference = ExternalAssembly.Compile("""
+		                                                       namespace MyCode
+		                                                       {
+		                                                           internal sealed class SvcMocks
+		                                                           {
+		                                                           }
+		                                                       }
+		                                                       """);
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     #nullable enable
+		                                                     using Mockolate;
+
+		                                                     namespace MyCode
+		                                                     {
+		                                                         public interface IDep
+		                                                         {
+		                                                             int Get();
+		                                                         }
+
+		                                                         public class Svc(IDep dep)
+		                                                         {
+		                                                             public IDep Dep { get; } = dep;
+		                                                         }
+
+		                                                         public class Program
+		                                                         {
+		                                                             public static void Main(string[] args)
+		                                                             {
+		                                                                 _ = Svc.CreateWithMocks(out SvcMocks mocks);
+		                                                             }
+		                                                         }
+		                                                     }
+		                                                     """, [reference,]);
+
+		await That(result.Diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task DependencyMock_ShouldNotRenameAMockOfACreateMockCall()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace A
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Svc(IDep dep)
+		                                           {
+		                                               public IDep Dep { get; } = dep;
+		                                           }
+		                                       }
+
+		                                       namespace B
+		                                       {
+		                                           public interface IDep
+		                                           {
+		                                               int Get();
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = A.Svc.CreateWithMocks(out _);
+		                                                   _ = B.IDep.CreateMock();
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["Mock.IDep.g.cs"]).Contains("extension(global::B.IDep mock)");
+		await That(result.Sources["Mock.IDep_1.g.cs"]).Contains("global::A.IDep");
+	}
+
+	[Test]
+	public async Task LoggerProviderDependency_ShouldBeRequired()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Microsoft.Extensions.Logging;
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public class Svc(ILogger<Svc> logger, ILoggerProvider provider)
+		                                           {
+		                                               public object[] All { get; } = [logger, provider,];
+		                                           }
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateWithMocks(out _, null!);
+		                                               }
+		                                           }
+		                                       }
+		                                       """, typeof(Microsoft.Extensions.Logging.ILogger));
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).DoesNotContainKey("Mock.ILoggerProvider.g.cs");
 	}
 
 	[Test]
