@@ -218,6 +218,10 @@
 		<value>pass the elements as separate arguments instead of an array, and matchers of the parameter types for the other arguments as well, for example It.Is(…)</value>
 		<comment>Completes Mockolate0007MessageFormat for a matcher of the value type in an explicit params array next to plain values.</comment>
 	</data>
+	<data name="Mockolate0007WholeArrayHint" xml:space="preserve">
+		<value>a matcher for the whole params array only matches the array as its only element, and next to other elements it matches one element</value>
+		<comment>Completes Mockolate0007MessageFormat for a matcher for the whole params array of a type parameter next to other elements of the array.</comment>
+	</data>
 	<data name="Mockolate0007ParametersHint" xml:space="preserve">
 		<value>use a matcher for '{0}', such as It.IsAny&lt;{0}&gt;(); a parameters match only applies as the only argument of a method</value>
 		<comment>Completes Mockolate0007MessageFormat for a parameters match such as Match.AnyParameters() or Match.Parameters(…). {0} is the value type.</comment>

@@ -303,6 +303,15 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to a matcher for the whole params array only matches the array as its only element, and next to other elements it matches one element.
+        /// </summary>
+        internal static string Mockolate0007WholeArrayHint {
+            get {
+                return ResourceManager.GetString("Mockolate0007WholeArrayHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to use a matcher for '{0}', such as It.IsAny&lt;{0}&gt;(); a parameters match only applies as the only argument of a method.
         /// </summary>
         internal static string Mockolate0007ParametersHint {

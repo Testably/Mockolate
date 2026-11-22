@@ -6,7 +6,10 @@ namespace Mockolate.Tests.GeneratorCoverage;
 ///     overload with the type argument it infers: also next to a value for another type parameter above four
 ///     parameters, next to a matcher for a trailing <c>params object[]</c> and in the overloads that leave out an
 ///     optional parameter, where a lone <see langword="null" /> forwards with the declared default value. A value next
-///     to a non-generic sibling binds the same method as the call on the mock.
+///     to a non-generic sibling binds the same method as the call on the mock. A <c>params</c> array of a type parameter
+///     takes a matcher for the whole array or for its elements and keeps the overload without arguments, unless the
+///     method has overloads or an optional parameter, where the overload for values keeps its priority and recognizes
+///     matchers at runtime.
 /// </summary>
 public interface IGenericMethodClosedOverObject
 {
@@ -26,4 +29,12 @@ public interface IGenericMethodClosedOverObject
 	int WithRest<T>(T value, params object[] rest);
 	int Sibling<T>(T value);
 	int Sibling(System.IComparable value);
+	void Only<T>(params T[] values);
+	int Sum<T>(int level, params T[] values);
+	int Both<T>(T first, params T[] rest);
+	int Six<T>(int a, int b, int c, int d, params T[] values);
+	int Add<T>(params T[] values);
+	int Add(double a, double b);
+	int OptMid<T>(int a, string? s = "x", params T[] values);
+	void Maybe<T>(params T?[] values);
 }

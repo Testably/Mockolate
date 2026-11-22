@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Mockolate.Parameters;
@@ -8,7 +9,8 @@ namespace Mockolate.Internals;
 ///     Matches a <c>params</c> array argument element-by-element against a set of per-element matchers.
 ///     The recorded array matches when its length equals the number of matchers and each element
 ///     satisfies the matcher at the same position. A <see langword="null" /> matcher, which a <see langword="null" />
-///     literal becomes for a <c>params object[]</c>, stands for a <see langword="null" /> element.
+///     literal becomes, stands for <c>default(TElement)</c>: a <see langword="null" /> element, or the default value
+///     of a value type, as for <see cref="Matchers.IsNull{T}" />.
 /// </summary>
 /// <remarks>
 ///     Generated <c>Setup</c>/<c>Verify</c> overloads for <c>params T[]</c> methods wrap the per-element
@@ -42,7 +44,9 @@ public sealed class ParamsArrayParameterMatch<TElement> : IParameterMatch<TEleme
 		for (int i = 0; i < _matchers.Length; i++)
 		{
 			IParameter<TElement>? matcher = _matchers[i];
-			if (matcher is null ? value[i] is not null : !matcher.Matches(value[i]))
+			if (matcher is null
+				    ? !EqualityComparer<TElement>.Default.Equals(value[i], default!)
+				    : !matcher.Matches(value[i]))
 			{
 				return false;
 			}

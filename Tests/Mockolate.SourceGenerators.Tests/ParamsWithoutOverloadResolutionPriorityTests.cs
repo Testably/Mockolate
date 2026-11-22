@@ -13,6 +13,8 @@ public sealed class ParamsWithoutOverloadResolutionPriorityTests
 	                                        int Log(int level, params string[] args);
 	                                        int Objects(params object[] args);
 	                                        int LogObjects(int level, params object[] args);
+	                                        int OnlyGen<T>(params T[] args);
+	                                        int LogGen<T>(int level, params T[] args);
 	                                    }
 
 	                                    public delegate int OnlyDelegate(params string[] args);
@@ -85,6 +87,20 @@ public sealed class ParamsWithoutOverloadResolutionPriorityTests
 		new(new OverloadMatrix.Member("IParams", "LogObjects", Probes("sut.LogObjects", LevelAndStrings)), """
 			(It.IsAny<int>()) | (IParameter<int>?) matches 1:[]
 			(It.IsAny<int>(), It.IsAny<object>()) | (IParameter<int>?, params IParameter<object>[]) matches 1:[a]
+			"""),
+		new(new OverloadMatrix.Member("IParams", "OnlyGen", Probes("sut.OnlyGen<object>", OnlyStrings)), """
+			<object>() | () matches []
+			<object>().AnyParameters() | () matches everything
+			<object>("a") | (params object[]) matches [a]
+			<object>(It.IsAny<object>()) | (params IParameter<object>?[]) matches [a]
+			<object>(It.IsAny<object[]>()) | (IParameter<object[]>?) matches everything
+			<object>("a", It.IsAny<object>()) | (params object[]) matches [a,b]
+			"""),
+		new(new OverloadMatrix.Member("IParams", "LogGen", Probes("sut.LogGen<object>", LevelAndStrings)), """
+			<object>(1) | (int, params object[]) matches 1:[]
+			<object>(It.IsAny<int>()) | (IParameter<int>?) matches 1:[]
+			<object>(1, It.IsAny<object>()) | (int, params object[]) matches 1:[a]
+			<object>(It.IsAny<int>(), It.IsAny<object>()) | (IParameter<int>?, params IParameter<object>?[]) matches 1:[a]
 			"""),
 		new(new OverloadMatrix.Member("OnlyDelegate", null, Probes("sut", OnlyStrings)), """
 			() | () matches []
