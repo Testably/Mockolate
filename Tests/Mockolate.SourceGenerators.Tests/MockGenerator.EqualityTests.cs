@@ -124,6 +124,128 @@ public sealed class MockGeneratorEqualityTests
 		}
 	}
 
+	public sealed class DataSourceCreationTests
+	{
+		[Test]
+		public async Task Equals_WithEqualContent_IsTrue()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string");
+
+			await That(a.Equals(b)).IsTrue();
+			await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingClass_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::B.Sut", "string");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingParameter_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "int");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingIsCreatable_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", isCreatable: true);
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingMockedType_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", mockedType: "global::A.IOther");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingValueType_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", valueType: "long");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingIsMockedLast_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", isMockedLast: true);
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingLocation_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", start: 5);
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		private static DataSourceCreation Create(string className, string parameterType, bool isCreatable = false,
+			bool isMockedLast = false, string mockedType = "global::A.IDependency", string valueType = "int",
+			int start = 1)
+			=> new(
+				new EquatableArray<DataSourceClass>([
+					new DataSourceClass(className, new EquatableArray<DataSourceParameter>([
+						new DataSourceParameter(parameterType, "value", false, isMockedLast, false, null, isCreatable, false),
+					])),
+				]),
+				new EquatableArray<string>([mockedType,]),
+				new EquatableArray<string>(["global::System.IServiceProvider",]),
+				new EquatableArray<string>([valueType,]),
+				new EquatableArray<MockClass>([]),
+				new CreateMockLocation("File.cs", start, 2));
+	}
+
+	public sealed class DataSourceMemberCandidateTests
+	{
+		[Test]
+		public async Task Equals_WithEqualContent_IsTrue()
+		{
+			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test", "Data",]), new CreateMockLocation("File.cs", 1, 2));
+			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Test", "Data",]), new CreateMockLocation("File.cs", 1, 2));
+
+			await That(a.Equals(b)).IsTrue();
+			await That(a.GetHashCode()).IsEqualTo(b.GetHashCode());
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingAttributeNames_IsFalse()
+		{
+			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 1, 2));
+			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Data",]), new CreateMockLocation("File.cs", 1, 2));
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
+		public async Task Equals_WithDifferingLocation_IsFalse()
+		{
+			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 1, 2));
+			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 5, 2));
+
+			await That(a.Equals(b)).IsFalse();
+		}
+	}
+
 	public sealed class RefStructAggregateTests
 	{
 		[Test]

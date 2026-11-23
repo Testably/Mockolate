@@ -260,6 +260,39 @@ internal static class Checks
 			return Equal((sut(5, "add"), sut(5, "sub")), (15, 0))
 			       ?? Passes(() => sut.Mock.Verify(It.IsAny<int>(), It.Is("add")).Once());
 		}),
+		new("a mock data source creates a class with created dependencies and a resolved mock", () =>
+		{
+			IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+			dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
+			bool created = MockDataSource.TryCreate(typeof(Checks).Assembly, typeof(VendingMachine), null,
+				(Type type, string _, out object? value) =>
+				{
+					value = dispenser;
+					return type == typeof(IChocolateDispenser);
+				}, out object? sut);
+			VendingMachine machine = (VendingMachine)sut!;
+			return Equal((created, machine.Buy("Dark", 2), machine.Counter.Total,
+					       ReferenceEquals(machine.Counter.Dispenser, dispenser)), (true, true, 2, true))
+			       ?? Equal(MockDataSource.TryCreate(typeof(Checks).Assembly, typeof(IChocolateShop), null,
+				       (Type _, string _, out object? value) =>
+				       {
+					       value = null;
+					       return false;
+				       }, out _), false);
+		}),
+		new("a mock data source fills other types from the default values and finds no code in other assemblies", () =>
+		{
+			MockArgumentResolver noArgument = (Type _, string _, out object? value) =>
+			{
+				value = null;
+				return false;
+			};
+			bool createdText = MockDataSource.TryCreate(typeof(Checks).Assembly, typeof(string), null, noArgument,
+				out object? text);
+			bool createdForeign = MockDataSource.TryCreate(typeof(string).Assembly, typeof(VendingMachine), null,
+				noArgument, out object? foreign);
+			return Equal((createdText, text, createdForeign, foreign), (true, (object?)"", false, (object?)null));
+		}),
 	];
 
 	private static string? Equal<T>(T actual, T expected)

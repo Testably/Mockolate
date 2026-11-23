@@ -316,7 +316,7 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 		return null;
 	}
 
-	private static IMethodSymbol[] GetUsableConstructors(INamedTypeSymbol type, Compilation compilation)
+	internal static IMethodSymbol[] GetUsableConstructors(INamedTypeSymbol type, Compilation compilation)
 	{
 		bool hasRequiredMembers = HasRequiredMembers(type);
 		return type.InstanceConstructors
@@ -344,7 +344,7 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 		return string.Join("_0", names) + "Mocks";
 	}
 
-	private static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
+	internal static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{
 		while (namespaceSymbol is { ContainingNamespace.IsGlobalNamespace: false, })
 		{
@@ -354,7 +354,7 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 		return namespaceSymbol?.Name is "System" or "Microsoft" or "Windows";
 	}
 
-	private static bool IsFileLocal(INamedTypeSymbol type)
+	internal static bool IsFileLocal(INamedTypeSymbol type)
 	{
 		for (INamedTypeSymbol? current = type; current is not null; current = current.ContainingType)
 		{
@@ -367,7 +367,7 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 		return false;
 	}
 
-	private static bool IsNestedInGenericType(INamedTypeSymbol type)
+	internal static bool IsNestedInGenericType(INamedTypeSymbol type)
 	{
 		for (INamedTypeSymbol? current = type.ContainingType; current is not null; current = current.ContainingType)
 		{
@@ -380,7 +380,7 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 		return false;
 	}
 
-	private static bool ContainsTypeParameter(ITypeSymbol type)
+	internal static bool ContainsTypeParameter(ITypeSymbol type)
 		=> type switch
 		{
 			ITypeParameterSymbol => true,
@@ -391,7 +391,7 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 			_ => false,
 		};
 
-	private static bool UsesUnusableType(ITypeSymbol type)
+	internal static bool UsesUnusableType(ITypeSymbol type)
 		=> type switch
 		{
 			IPointerTypeSymbol or IFunctionPointerTypeSymbol => true,
@@ -414,7 +414,7 @@ public sealed class CreateWithMocksAnalyzer : DiagnosticAnalyzer
 		=> type.GetMembers().Concat(type.AllInterfaces.SelectMany(i => i.GetMembers()))
 			.Any(member => member is { IsStatic: true, IsAbstract: true, });
 
-	private static bool HasUsageDiagnostic(ISymbol symbol)
+	internal static bool HasUsageDiagnostic(ISymbol symbol)
 		=> symbol.GetAttributes().Any(attribute => attribute.AttributeClass is
 		   {
 			   Name: "ObsoleteAttribute",

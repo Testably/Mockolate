@@ -5,9 +5,10 @@
 	<ItemGroup>
 		<CompilerVisibleProperty Include="MockolateDisableUnionParameters"/>
 		<!-- Names the attributes the project already gets from another generator, so Mockolate does not polyfill them:
-		     "false" stands for OverloadResolutionPriorityAttribute and CallerArgumentExpressionAttribute (what
-		     PolySharp ships); otherwise a ';'-separated list of attribute names (UnionAttribute,
-		     OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute). -->
+		     "false" stands for OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute and
+		     ModuleInitializerAttribute (what PolySharp ships); otherwise a ';'-separated list of attribute names
+		     (UnionAttribute, OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute,
+		     ModuleInitializerAttribute). -->
 		<CompilerVisibleProperty Include="MockolateUnionAttributePolyfills"/>
 		<!-- Set it to true to generate mocks for the interfaces that mocked members return, so that
 		     mocks return them instead of null, unless their MockBehavior skips auto-mocking. -->

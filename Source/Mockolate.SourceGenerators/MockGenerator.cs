@@ -56,6 +56,40 @@ public class MockGenerator : IIncrementalGenerator
 				})
 			.Where(static creation => creation.Sut is not null);
 
+		IncrementalValueProvider<EquatableArray<string>> dataSourceAttributeNames = context.SyntaxProvider
+			.CreateSyntaxProvider(
+				static (s, _) => s.IsAttributeClassCandidate(),
+				static (ctx, cancellationToken) => ctx.Node.GetDataSourceAttributeName(ctx.SemanticModel, cancellationToken))
+			.Where(static name => name is not null)
+			.Collect()
+			.Combine(context.CompilationProvider
+				.Select(static (compilation, _) => MockGeneratorHelpers.GetReferencedDataSourceAttributeNames(compilation)))
+			.Combine(context.SyntaxProvider
+				.CreateSyntaxProvider(
+					static (s, _) => s.IsUsingAliasCandidate(),
+					static (ctx, _) => ctx.Node.GetUsingAlias())
+				.Collect())
+			.Select(static (source, _) => MockGeneratorHelpers.GetAttributeUsageNames(
+				source.Left.Left.Concat(source.Left.Right)!, source.Right));
+
+		// The transform of a syntax provider runs for every matching node on every edit, and attributed members are
+		// everywhere in a test project, so only the members with a matching attribute name are bound.
+		IncrementalValuesProvider<DataSourceCreation> dataSourceCreations = context.SyntaxProvider
+			.CreateSyntaxProvider(
+				static (s, _) => s.IsDataSourceMemberCandidate(),
+				static (ctx, _) => ctx.Node.GetDataSourceMemberCandidate())
+			.Combine(dataSourceAttributeNames)
+			.Where(static source => source.Left.AttributeNames.AsArray().Any(name => source.Right.AsArray().Contains(name)))
+			.Select(static (source, _) => source.Left.Location)
+			.Combine(context.CompilationProvider)
+			.SelectMany(static (source, cancellationToken) =>
+			{
+				EntityCache cache = EntityCache.GetOrCreate(source.Right);
+				using EntityCache.Scope scope = EntityCache.EnterScope(cache);
+				return MockGeneratorHelpers.ExtractDataSourceCreations(source.Left, source.Right, cancellationToken).ToArray();
+			})
+			.Where(static creation => !creation.IsEmpty);
+
 		IncrementalValueProvider<AutoMockingOptions?> autoMockingOptions = context.AnalyzerConfigOptionsProvider
 			.Select(static (options, _) =>
 				options.GlobalOptions.TryGetValue("build_property.MockolateAutoMocking", out string? value) &&
@@ -82,11 +116,14 @@ public class MockGenerator : IIncrementalGenerator
 			.Combine(sutCreations
 				.Select(static (creation, _) => new MockCreation(creation.Mocks, creation.Location))
 				.Collect())
+			.Combine(dataSourceCreations
+				.Select(static (creation, _) => new MockCreation(creation.Mocks, creation.Location))
+				.Collect())
 			.Combine(autoMockingOptions)
 			.Combine(context.CompilationProvider)
 			.Select(static (source, cancellationToken) => source.Left.Right is { } options
-				? DiscoverAutoMocks(source.Left.Left.Left.AddRange(source.Left.Left.Right), source.Right, options,
-					cancellationToken)
+				? DiscoverAutoMocks(source.Left.Left.Left.Left.AddRange(source.Left.Left.Left.Right)
+					.AddRange(source.Left.Left.Right), source.Right, options, cancellationToken)
 				: new EquatableArray<MockClass>([]));
 
 		// Stable, deduplicated, sorted view across all mocks. Used by every cross-mock stage
@@ -95,9 +132,10 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<EquatableArray<MockClass>> collectedMocks = mocksProvider
 			.Collect()
 			.Combine(sutCreations.SelectMany(static (creation, _) => creation.Mocks).Collect())
+			.Combine(dataSourceCreations.SelectMany(static (creation, _) => creation.Mocks).Collect())
 			.Combine(discoveredMocks)
-			.Select(static (source, _) => Distinct(source.Left.Left,
-				source.Left.Right.Concat(source.Right).ToArray()));
+			.Select(static (source, _) => Distinct(source.Left.Left.Left,
+				source.Left.Left.Right.Concat(source.Left.Right).Concat(source.Right).ToArray()));
 
 		IncrementalValueProvider<EquatableArray<SutClass>> suts = sutCreations
 			.Select(static (creation, _) => creation.Sut!)
@@ -107,6 +145,31 @@ public class MockGenerator : IIncrementalGenerator
 				.Select(group => group.First())
 				.OrderBy(sut => sut.ClassFullName, StringComparer.Ordinal)
 				.ToArray()));
+
+		IncrementalValueProvider<EquatableArray<DataSourceClass>> dataSourceClasses = dataSourceCreations
+			.SelectMany(static (creation, _) => creation.Classes)
+			.Collect()
+			.Select(static (source, _) => new EquatableArray<DataSourceClass>(source
+				.GroupBy(dataSourceClass => dataSourceClass.ClassFullName, StringComparer.Ordinal)
+				.Select(group => group.First())
+				.OrderBy(dataSourceClass => dataSourceClass.ClassFullName, StringComparer.Ordinal)
+				.ToArray()));
+
+		IncrementalValueProvider<(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value)>
+			dataSourceTypes = dataSourceCreations
+				.Collect()
+				.Select(static (source, _) => (
+					SortedDistinct(source.SelectMany(creation => creation.MockedTypes)),
+					SortedDistinct(source.SelectMany(creation => creation.ValueOrMockTypes)),
+					SortedDistinct(source.SelectMany(creation => creation.ValueTypes))));
+
+		// Like the union attributes, the attribute may come from another generator (PolySharp), which
+		// MockolateUnionAttributePolyfills names.
+		IncrementalValueProvider<bool> hasModuleInitializer = context.CompilationProvider
+			.Combine(context.AnalyzerConfigOptionsProvider)
+			.Select(static (source, _) =>
+				ProvidedUnionAttributes(source.Right).Contains("ModuleInitializerAttribute") ||
+				HasAttribute(source.Left, "System.Runtime.CompilerServices.ModuleInitializerAttribute"));
 
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
 			.Select(static (compilation, _) => HasAttribute(compilation,
@@ -123,6 +186,21 @@ public class MockGenerator : IIncrementalGenerator
 					// Outside the Mock.<Name>.g.cs pattern of the mock files, so that no mocked type shares the hint name.
 					spc.AddSource("CreateWithMocks.g.cs",
 						ToSource(Sources.Sources.CreateWithMocks(source.Left), source.Right));
+				}
+			});
+
+		context.RegisterSourceOutput(
+			dataSourceClasses.Combine(dataSourceTypes).Combine(hasModuleInitializer).Combine(externAliases),
+			static (spc, source) =>
+			{
+				((EquatableArray<DataSourceClass> classes,
+						(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value) types),
+					bool moduleInitializer) = source.Left;
+				if (classes.Count > 0 || types.Mocked.Count > 0 || types.ValueOrMock.Count > 0 || types.Value.Count > 0)
+				{
+					spc.AddSource("MockDataSources.g.cs",
+						ToSource(Sources.Sources.MockDataSources(classes, types.Mocked, types.ValueOrMock, types.Value,
+							!moduleInitializer), source.Right));
 				}
 			});
 
@@ -314,9 +392,9 @@ public class MockGenerator : IIncrementalGenerator
 			spc.AddSource("MockBehaviorExtensions.g.cs",
 				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left.Left.Left, source.Left.Left.Right, source.Left.Right), source.Right)));
 
-		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute and
-		// CallerArgumentExpressionAttribute from another generator (PolySharp); any other value is a ';'-separated
-		// list of attribute names (with or without namespace) that must not be polyfilled.
+		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute,
+		// CallerArgumentExpressionAttribute and ModuleInitializerAttribute from another generator (PolySharp); any other
+		// value is a ';'-separated list of attribute names (with or without namespace) that must not be polyfilled.
 		static HashSet<string> ProvidedUnionAttributes(AnalyzerConfigOptionsProvider analyzerConfigOptions)
 		{
 			HashSet<string> provided = new(StringComparer.OrdinalIgnoreCase);
@@ -331,6 +409,7 @@ public class MockGenerator : IIncrementalGenerator
 			{
 				provided.Add("OverloadResolutionPriorityAttribute");
 				provided.Add("CallerArgumentExpressionAttribute");
+				provided.Add("ModuleInitializerAttribute");
 				return provided;
 			}
 
@@ -424,9 +503,12 @@ public class MockGenerator : IIncrementalGenerator
 				.ToArray()
 			: []);
 
+	private static EquatableArray<string> SortedDistinct(IEnumerable<string> types)
+		=> new(types.Distinct(StringComparer.Ordinal).OrderBy(type => type, StringComparer.Ordinal).ToArray());
+
 	/// <summary>
-	///     Binds the <c>CreateMock</c> and <c>CreateWithMocks</c> calls of the <paramref name="creations" /> again and
-	///     discovers the mocks for auto-mocking of the types they mock.
+	///     Binds the <c>CreateMock</c> and <c>CreateWithMocks</c> calls and the <c>IMockDataSource</c> members of the
+	///     <paramref name="creations" /> again and discovers the mocks for auto-mocking of the types they mock.
 	/// </summary>
 	/// <remarks>
 	///     Calls that mock the same types add the same types to the walk, so only the first of them is bound again.
@@ -479,7 +561,8 @@ public class MockGenerator : IIncrementalGenerator
 				SyntaxNode root = tree.GetRoot(cancellationToken);
 				if (!root.FullSpan.Contains(span) ||
 				    root.FindNode(span, getInnermostNodeForTie: true) is not { } node ||
-				    node.Span != span || !(node.IsCreateMethodInvocation() || node.IsCreateWithMocksInvocation()))
+				    node.Span != span ||
+				    !(node.IsCreateMethodInvocation() || node.IsCreateWithMocksInvocation() || node.IsDataSourceMemberCandidate()))
 				{
 					continue;
 				}
@@ -490,9 +573,18 @@ public class MockGenerator : IIncrementalGenerator
 					semanticModels[tree] = semanticModel;
 				}
 
-				mockedTypes.AddRange(node.IsCreateMethodInvocation()
-					? node.ExtractMockedTypes(semanticModel)
-					: node.ExtractSutMockedTypes(semanticModel, cancellationToken));
+				if (node.IsCreateMethodInvocation())
+				{
+					mockedTypes.AddRange(node.ExtractMockedTypes(semanticModel));
+				}
+				else if (node.IsCreateWithMocksInvocation())
+				{
+					mockedTypes.AddRange(node.ExtractSutMockedTypes(semanticModel, cancellationToken));
+				}
+				else
+				{
+					mockedTypes.AddRange(node.ExtractDataSourceMockedTypes(semanticModel, cancellationToken));
+				}
 			}
 		}
 
@@ -933,7 +1025,7 @@ public class MockGenerator : IIncrementalGenerator
 				useUnionOverloads), externAliases));
 	}
 
-	private static bool IsValidMockDeclaration(MockClass mockClass)
+	internal static bool IsValidMockDeclaration(MockClass mockClass)
 		=> (mockClass.IsInterface || mockClass.Constructors is { Count: > 0, }) &&
 		   mockClass.AdditionalImplementations.All(x => x.IsInterface) &&
 		   mockClass.AllImplementations().All(x => !x.HasInaccessibleRequiredMember);

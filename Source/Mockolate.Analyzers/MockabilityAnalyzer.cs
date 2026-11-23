@@ -547,7 +547,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	private static bool IsInMockolateNamespace(ISymbol symbol)
 		=> symbol.ContainingNamespace is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, };
 
-	private static bool IsMockable(ITypeSymbol typeSymbol, IAssemblySymbol sourceAssembly, out string? reason)
+	internal static bool IsMockable(ITypeSymbol typeSymbol, IAssemblySymbol sourceAssembly, out string? reason)
 	{
 		if (typeSymbol.TypeKind == TypeKind.Struct)
 		{
@@ -742,7 +742,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	///     <see langword="protected" /> half never counts, because the surfaces naming the type do not
 	///     derive from the mocked type.
 	/// </summary>
-	private static bool IsTypeAccessibleFrom(ITypeSymbol type, IAssemblySymbol sourceAssembly)
+	internal static bool IsTypeAccessibleFrom(ITypeSymbol type, IAssemblySymbol sourceAssembly)
 	{
 		switch (type)
 		{
@@ -839,7 +839,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	///     check and the generator's disagree, the analyzer either reports a type the generator mocks
 	///     fine or stays silent on one it refuses to emit.
 	/// </remarks>
-	private static bool IsAccessibleFrom(ISymbol member, IAssemblySymbol sourceAssembly)
+	internal static bool IsAccessibleFrom(ISymbol member, IAssemblySymbol sourceAssembly)
 	{
 		if (member.DeclaredAccessibility is not (Accessibility.Internal or Accessibility.ProtectedAndInternal))
 		{
