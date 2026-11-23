@@ -362,7 +362,7 @@ public sealed class MockDataSourcesTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources["MockDataSources.g.cs"])
-			.Contains("\"name\", \"MyCode.Svc\") : IsValue((behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(string)!), out string d0) ? d0 : throw new global::Mockolate.Exceptions.MockException(");
+			.Contains("\"name\", \"MyCode.Svc\") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(string)!), out string d0) ? d0 : throw new global::Mockolate.Exceptions.MockException(");
 	}
 
 	[Test]
@@ -877,6 +877,122 @@ public sealed class MockDataSourcesTests
 		await That(result.Sources["MockDataSources.g.cs"])
 			.Contains("global::MyCode.IDep").And
 			.DoesNotContain("Local");
+	}
+
+	[Test]
+	public async Task MemberSealedInAnAbstractClass_ShouldNotPreventTheMock()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         using MyCode;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public abstract class Base
+		                                             {
+		                                                 public abstract ref int Value { get; }
+		                                             }
+
+		                                             public abstract class Derived : Base
+		                                             {
+		                                                 private int _value;
+		                                                 public sealed override ref int Value => ref _value;
+		                                             }
+
+		                                             public class Tests
+		                                             {
+		                                                 [Data]
+		                                                 public void Test(Derived derived) { }
+		                                             }
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("value = global::MyCode.Derived.CreateMock(");
+	}
+
+	[Test]
+	public async Task DynamicParameter_ShouldGetAValueAsObject()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         using MyCode;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public class Tests
+		                                             {
+		                                                 [Data]
+		                                                 public void Test(dynamic value) { }
+		                                             }
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("MockDataSources.g.cs");
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("type == typeof(object)");
+	}
+
+	[Test]
+	public async Task AbstractClass_ShouldDependOnTheConstructorTheMockSelects()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         using System;
+		                                         using MyCode;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public abstract class SelectsObsolete
+		                                             {
+		                                                 [Obsolete("old", true)] protected SelectsObsolete() { }
+		                                                 protected SelectsObsolete(int value = 0) { }
+		                                             }
+
+		                                             public abstract class SelectsUsable
+		                                             {
+		                                                 protected SelectsUsable() { }
+		                                                 [Obsolete("old", true)] protected SelectsUsable(int value = 0) { }
+		                                             }
+
+		                                             public class Tests
+		                                             {
+		                                                 [Data]
+		                                                 public void Test(SelectsObsolete a, SelectsUsable b) { }
+		                                             }
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Sources["MockDataSources.g.cs"])
+			.Contains("value = global::MyCode.SelectsUsable.CreateMock(").And
+			.DoesNotContain("global::MyCode.SelectsObsolete.CreateMock");
 	}
 
 	[Test]

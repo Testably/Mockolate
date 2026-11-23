@@ -290,6 +290,60 @@ public class MockDataSourceAnalyzerTests
 		);
 
 	[Test]
+	public async Task WhenMemberIsSealedOrTheSelectedConstructorIsUsable_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  namespace MyCode
+			  {
+			      public abstract class Base { public abstract ref int Value { get; } }
+			      public abstract class Derived : Base
+			      {
+			          private int _value;
+			          public sealed override ref int Value => ref _value;
+			      }
+			      public abstract class SelectsUsable
+			      {
+			          protected SelectsUsable() { }
+			          [System.Obsolete("old", true)] protected SelectsUsable(int value = 0) { }
+			      }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test(Derived a, SelectsUsable b) { }
+			      }
+
+			      {{DataAttribute}}
+			  }
+			  """
+		);
+
+	[Test]
+	public async Task WhenTheSelectedConstructorIsObsolete_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  namespace MyCode
+			  {
+			      public abstract class SelectsObsolete
+			      {
+			          [System.Obsolete("old", true)] protected SelectsObsolete() { }
+			          protected SelectsObsolete(int value = 0) { }
+			      }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test(SelectsObsolete {|#0:a|}) { }
+			      }
+
+			      {{DataAttribute}}
+			  }
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
+				.WithArguments("a", "MyCode.SelectsObsolete", "its mock needs an accessible constructor that can be called without arguments")
+		);
+
+	[Test]
 	public async Task WhenAttributeIsNoMockDataSource_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""

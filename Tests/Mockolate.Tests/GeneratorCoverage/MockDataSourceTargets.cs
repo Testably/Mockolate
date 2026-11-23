@@ -146,8 +146,19 @@ public abstract class MockDataAbstractWithParameter(int value)
 	public abstract int GetValue();
 }
 
+/// <summary>
+///     A collection from a configured default value wins over the empty collection.
+/// </summary>
+public class MockDataWithCollection(int[] values)
+{
+	public int[] Values { get; } = values;
+}
+
 public static class MockDataSourceTargets
 {
+	[MockData]
+	public static object Collection(MockDataWithCollection sut, int[] values) => (sut, values);
+
 	[MockData]
 	public static object?[] Create(MockDataService service, IMockDataDependency dependency,
 		MockDataAbstractDependency abstractDependency, MockDataDelegate @delegate, IServiceProvider serviceProvider,

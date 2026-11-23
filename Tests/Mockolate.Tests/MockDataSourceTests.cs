@@ -208,6 +208,21 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
+	public async Task TryCreate_WithConfiguredCollectionDefault_ShouldUseIt()
+	{
+		int[] configured = [42,];
+		MockBehavior behavior = MockBehavior.Default.WithDefaultValueFor(() => configured);
+
+		MockDataSource.TryCreate(Assembly, typeof(int[]), behavior, NoArgument, out object? parameter);
+		MockDataSource.TryCreate(Assembly, typeof(MockDataWithCollection), behavior, NoArgument, out object? sut);
+		MockDataSource.TryCreate(Assembly, typeof(int[]), null, NoArgument, out object? unconfigured);
+
+		await That(parameter).IsSameAs(configured);
+		await That(((MockDataWithCollection)sut!).Values).IsSameAs(configured);
+		await That((int[])unconfigured!).IsEmpty();
+	}
+
+	[Test]
 	public async Task TryCreate_WithCyclicDependencies_ShouldNotCreateTheDependencyThatClosesTheCycle()
 	{
 		MockDataSource.TryCreate(Assembly, typeof(MockDataCycleStart), null, NoArgument, out object? value);

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Mockolate.SourceGenerators.Internals;
 
 namespace Mockolate.Analyzers;
 
@@ -175,7 +176,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 				member.ToDisplayString());
 		}
 
-		return type.TypeKind == TypeKind.Class && !HasConstructorWithoutArguments(type, compilation.Assembly)
+		return type.TypeKind == TypeKind.Class && !HasConstructorWithoutArguments(type, compilation)
 			? Resources.Mockolate0010ParameterlessConstructorReason
 			: null;
 	}
@@ -233,15 +234,35 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		}
 
 		bool isClass = type.TypeKind != TypeKind.Interface;
+		HashSet<ISymbol> overridden = new(SymbolEqualityComparer.Default);
 		IEnumerable<ITypeSymbol> types = [type, ..type.AllInterfaces,];
-		for (ITypeSymbol? baseType = type.BaseType; baseType is not null; baseType = baseType.BaseType)
+		for (ITypeSymbol? current = type; current is not null; current = current.BaseType)
 		{
-			types = types.Append(baseType);
+			if (!SymbolEqualityComparer.Default.Equals(current, type))
+			{
+				types = types.Append(current);
+			}
+
+			foreach (ISymbol member in current.GetMembers())
+			{
+				ISymbol? baseMember = member switch
+				{
+					IMethodSymbol method => method.OverriddenMethod,
+					IPropertySymbol property => property.OverriddenProperty,
+					IEventSymbol @event => @event.OverriddenEvent,
+					_ => null,
+				};
+				if (baseMember is not null)
+				{
+					overridden.Add(baseMember);
+				}
+			}
 		}
 
 		return types.SelectMany(declaring => declaring.GetMembers())
 			.Where(member => member is IMethodSymbol { MethodKind: MethodKind.DelegateInvoke, } ||
 			                 (member is { IsStatic: false, IsSealed: false, } &&
+			                  !overridden.Contains(member) &&
 			                  (member.IsAbstract || member.IsVirtual || member.IsOverride) &&
 			                  !(isClass && member.ContainingType.TypeKind == TypeKind.Interface &&
 			                    type.FindImplementationForInterfaceMember(member) is not null) &&
@@ -284,14 +305,18 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 	/// <summary>
 	///     Mirror of <c>MockClass.ConstructorWithoutArguments</c> of the source generator.
 	/// </summary>
-	private static bool HasConstructorWithoutArguments(INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
-		=> type.InstanceConstructors.Any(constructor =>
-			constructor.DeclaredAccessibility is Accessibility.Public or Accessibility.Protected
-				or Accessibility.ProtectedOrInternal &&
-			!CreateWithMocksAnalyzer.HasUsageDiagnostic(constructor) &&
-			constructor.Parameters.All(parameter =>
-				(parameter.HasExplicitDefaultValue || parameter.IsParams) &&
-				MockabilityAnalyzer.IsTypeAccessibleFrom(parameter.Type, sourceAssembly)));
+	private static bool HasConstructorWithoutArguments(INamedTypeSymbol type, Compilation compilation)
+	{
+		IMethodSymbol[] constructors = type.Constructors
+			.Where(constructor =>
+				constructor.DeclaredAccessibility is Accessibility.Public or Accessibility.Protected
+					or Accessibility.ProtectedOrInternal &&
+				constructor.Parameters.All(parameter =>
+					MockabilityAnalyzer.IsTypeAccessibleFrom(parameter.Type, compilation.Assembly)))
+			.ToArray();
+		return MockConstructorSelector.FindConstructorWithoutArguments(constructors, compilation) is { } selected &&
+		       !CreateWithMocksAnalyzer.HasUsageDiagnostic(constructors[selected]);
+	}
 
 	private static bool HasStaticAbstractMembers(INamedTypeSymbol type)
 		=> type.GetMembers().Concat(type.AllInterfaces.SelectMany(@interface => @interface.GetMembers()))

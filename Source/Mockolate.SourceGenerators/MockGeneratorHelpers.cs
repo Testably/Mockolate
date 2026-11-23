@@ -223,7 +223,40 @@ internal static partial class MockGeneratorHelpers
 		   HasCompilableMockMembers(typeSymbol, sourceAssembly);
 
 	private static bool HasCompilableMockMembers(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
-		=> GetImplementedMembers(typeSymbol, sourceAssembly).All(IsCompilableMockMember);
+	{
+		HashSet<ISymbol> overridden = GetOverriddenMembers(typeSymbol);
+		return GetImplementedMembers(typeSymbol, sourceAssembly)
+			.Where(member => !overridden.Contains(member))
+			.All(IsCompilableMockMember);
+	}
+
+	/// <summary>
+	///     The base members with an override in the hierarchy: the mock implements the override, or nothing when it is
+	///     sealed.
+	/// </summary>
+	private static HashSet<ISymbol> GetOverriddenMembers(ITypeSymbol typeSymbol)
+	{
+		HashSet<ISymbol> overridden = new(SymbolEqualityComparer.Default);
+		for (ITypeSymbol? current = typeSymbol; current is not null; current = current.BaseType)
+		{
+			foreach (ISymbol member in current.GetMembers())
+			{
+				ISymbol? baseMember = member switch
+				{
+					IMethodSymbol method => method.OverriddenMethod,
+					IPropertySymbol property => property.OverriddenProperty,
+					IEventSymbol @event => @event.OverriddenEvent,
+					_ => null,
+				};
+				if (baseMember is not null)
+				{
+					overridden.Add(baseMember);
+				}
+			}
+		}
+
+		return overridden;
+	}
 
 	private static bool IsCompilableMockMember(ISymbol member)
 		=> !HasUsageDiagnostic(member) && !HasRefReadOnlyRefStructParameter(member) && !HasUnsupportedShape(member) &&

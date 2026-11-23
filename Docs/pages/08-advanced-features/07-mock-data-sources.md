@@ -64,9 +64,9 @@ public class VendingMachineTests
 - An **interface, delegate or abstract class** gets a new mock, as if the test called `CreateMock` on it. An abstract class needs a public or protected constructor that can be called without arguments, because the mock calls it. A type whose mock would not compile, for example because a member returns by reference or uses an obsolete type, gets no mock.
 - A **concrete class** gets an instance, created like by [`CreateWithMocks`](../04-create-mocks.md#create-the-class-under-test-with-mocks), see [constructor dependencies](#constructor-dependencies).
 - **Types of the `System`, `Microsoft` and `Windows` namespaces** are often the arguments that the test framework passes. They get a value from the default values of the behavior; an interface that Mockolate can mock without further checks, such as `IServiceProvider`, gets a new mock when the default values provide none. No framework class is created.
-- **Value types, strings and other types** get a value from the default values of the behavior, the same value that an un-configured mock member returns: `""` for a `string`, an empty collection, the default of a value type. `TryCreate` returns `false` when the default values provide no value of a reference type.
+- **Value types, strings and other types** get a value from the default values of the behavior: a value configured with `WithDefaultValueFor` or a default value generator, and otherwise `""` for a `string`, an empty collection or the default of a value type. `TryCreate` returns `false` when the default values provide no value of a reference type.
 
-The [Mockolate0010](../10-analyzers.md#mockolate0010) analyzer reports a parameter whose type asks for a mock or an instance, but that Mockolate cannot create. A [default value generator](../04-create-mocks.md#default-values) of the behavior, for example one backed by a library like AutoFixture, can still provide a value for it.
+The [Mockolate0010](../10-analyzers.md#mockolate0010) analyzer reports a parameter whose type asks for a mock or an instance, but that Mockolate cannot create. For a reported parameter whose type the generated factory can name, a [default value generator](../04-create-mocks.md#default-values) of the behavior, for example one backed by a library like AutoFixture, can still provide a value.
 
 ## Constructor dependencies
 
@@ -106,7 +106,7 @@ A value that is not of the parameter type fails with a `MockException` that name
 - A nullable-oblivious parameter (in code without nullable annotations) does not receive `null`, but a value from the default values of the behavior.
 - Parameters of a type that contains a type parameter, such as `IRepository<T>` in a generic test method or class, cannot be created.
 - The attribute must be declared on the method, the constructor or the type itself; an attribute on a base class is not inherited. A `[method: …]` attribute on a type with a primary constructor applies to that constructor.
-- The generator creates a mock for every interface parameter of a member with the attribute, also for a framework interface that the test framework passes as an argument.
+- For a supported interface parameter, the generator creates a mock. A framework interface first gets a value from the default values of the behavior and a mock only when there is none, so do not expect a mock you can set up or verify for it. Its mock is generated even when the test framework passes the argument itself.
 - The generated code registers itself from a module initializer. On .NET Framework and .NET Standard, Mockolate declares the `ModuleInitializerAttribute` when the compilation lacks it. If another generator such as PolySharp declares it too, set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>`, or add `ModuleInitializerAttribute` to the list of attributes in this property.
 - The generated code uses no reflection, so mock data sources work with trimming and Native AOT.
 

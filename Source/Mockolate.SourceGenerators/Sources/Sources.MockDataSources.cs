@@ -138,10 +138,18 @@ internal static partial class Sources
 		}
 
 		sb.AppendLine();
-		sb.Append("\t\tprivate static bool IsValue<T>(T value, out T result)").AppendLine();
+		// The typed overloads of Generate return an empty collection without asking the generator, so a configured
+		// value is looked up first.
+		sb.Append("\t\tprivate static bool IsValue<T>(global::Mockolate.MockBehavior behavior, T typedDefault, out T result)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\tresult = value;").AppendLine();
-		sb.Append("\t\t\treturn value is not null || typeof(T).IsValueType;").AppendLine();
+		sb.Append("\t\t\tif (behavior.DefaultValue.GenerateValue(typeof(T)) is T configured)").AppendLine();
+		sb.Append("\t\t\t{").AppendLine();
+		sb.Append("\t\t\t\tresult = configured;").AppendLine();
+		sb.Append("\t\t\t\treturn true;").AppendLine();
+		sb.Append("\t\t\t}").AppendLine();
+		sb.AppendLine();
+		sb.Append("\t\t\tresult = typedDefault;").AppendLine();
+		sb.Append("\t\t\treturn typedDefault is not null || typeof(T).IsValueType;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t/// <summary>").AppendLine();
@@ -204,9 +212,9 @@ internal static partial class Sources
 				: $"throw new global::Mockolate.Exceptions.MockException(\"There is no argument for the constructor parameter '{parameter.Name}' of {className}.\")";
 			return $"{TryCreateValue(parameter.TypeFullName, $"d{index}")} ? d{index} : {lastResort}";
 		}
-		// The typed overloads of Generate return what an un-configured mock member returns, e.g. an empty collection.
+
 		static string TryCreateValue(string type, string variable)
-			=> $"IsValue((behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default({type})!), out {type} {variable})";
+			=> $"IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default({type})!), out {type} {variable})";
 	}
 
 	/// <summary>
@@ -221,10 +229,26 @@ internal static partial class Sources
 			.Select(parameter => classIndices.TryGetValue(parameter.TypeFullName, out int index) ? index : -1)
 			.Where(index => index >= 0)
 			.ToList());
+		// Tarjan's algorithm: a dependency can lead back exactly when both classes are in one strongly connected
+		// component.
+		int[] order = Enumerable.Repeat(-1, classes.Length).ToArray();
+		int[] lowLink = new int[classes.Length];
+		int[] component = Enumerable.Repeat(-1, classes.Length).ToArray();
+		Stack<int> open = new();
+		int nextOrder = 0;
+		int nextComponent = 0;
+		for (int index = 0; index < classes.Length; index++)
+		{
+			if (order[index] < 0)
+			{
+				Visit(index);
+			}
+		}
+
 		HashSet<(int, int)> cyclic = [];
 		for (int from = 0; from < classes.Length; from++)
 		{
-			foreach (int to in dependencies[from].Where(to => Reaches(to, from)))
+			foreach (int to in dependencies[from].Where(to => component[to] == component[from]))
 			{
 				cyclic.Add((from, to));
 			}
@@ -232,28 +256,34 @@ internal static partial class Sources
 
 		return cyclic;
 
-		bool Reaches(int start, int target)
+		void Visit(int current)
 		{
-			HashSet<int> visited = [];
-			Stack<int> pending = new([start,]);
-			while (pending.Count > 0)
+			order[current] = lowLink[current] = nextOrder++;
+			open.Push(current);
+			foreach (int next in dependencies[current])
 			{
-				int current = pending.Pop();
-				if (current == target)
+				if (order[next] < 0)
 				{
-					return true;
+					Visit(next);
+					lowLink[current] = Math.Min(lowLink[current], lowLink[next]);
 				}
-
-				if (visited.Add(current))
+				else if (component[next] < 0)
 				{
-					foreach (int next in dependencies[current])
-					{
-						pending.Push(next);
-					}
+					lowLink[current] = Math.Min(lowLink[current], order[next]);
 				}
 			}
 
-			return false;
+			if (lowLink[current] == order[current])
+			{
+				int member;
+				do
+				{
+					member = open.Pop();
+					component[member] = nextComponent;
+				} while (member != current);
+
+				nextComponent++;
+			}
 		}
 	}
 }

@@ -269,7 +269,7 @@ The rule reports missing arguments of a class, delegate or interface type: class
 
 **A mock data source parameter that cannot be created.**
 
-A [mock data source](08-advanced-features/07-mock-data-sources.md) fills the parameters of a method, constructor or type whose attribute implements `IMockDataSource`. An interface, delegate or abstract class asks for a mock, and a concrete class for an instance with mocked dependencies. When Mockolate cannot create such a type, the data source cannot fill the parameter and the test fails at runtime:
+A [mock data source](08-advanced-features/07-mock-data-sources.md) fills the parameters of a method, constructor or type whose attribute implements `IMockDataSource`. An interface, delegate or abstract class asks for a mock, and a concrete class for an instance with mocked dependencies. When Mockolate cannot create such a type and the default values of the behavior provide no value, the data source cannot fill the parameter and the test fails at runtime:
 
 ```csharp
 public interface IChocolateRepository<TFlavor>
@@ -286,7 +286,7 @@ public class ChocolateTests<TFlavor>
 }
 ```
 
-The rule fires for a type parameter or a type that contains one, a type that the generated code cannot access, a file-local, obsolete or experimental type, a type nested in a generic type, an interface, delegate or abstract class that cannot be mocked (see [Mockolate0002](#mockolate0002)), has static abstract members or a member its mock cannot implement or, for an abstract class, has no public or protected constructor that can be called without arguments, a type argument or array element that the generated code cannot use, and a generic class or a class without a single accessible constructor with the most parameters. Types of the `System`, `Microsoft` and `Windows` namespaces are never reported, because the test framework often passes them as arguments. A default value generator of the behavior can still provide a value for a reported parameter.
+The rule fires for a type parameter or a type that contains one, a type that the generated code cannot access, a file-local, obsolete or experimental type, a type nested in a generic type, an interface, delegate or abstract class that cannot be mocked (see [Mockolate0002](#mockolate0002)), has static abstract members or a member its mock cannot implement or, for an abstract class, has no public or protected constructor that can be called without arguments, a type argument or array element that the generated code cannot use, and a generic class or a class without a single accessible constructor with the most parameters. Types of the `System`, `Microsoft` and `Windows` namespaces are never reported, because the test framework often passes them as arguments. For a reported parameter whose type the generated factory can name, a default value generator of the behavior can still provide a value.
 
 ## Explicit types for union parameters
 

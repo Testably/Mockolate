@@ -245,7 +245,8 @@ internal static partial class MockGeneratorHelpers
 		foreach (IParameterSymbol parameter in
 		         GetDataSourceParameters(semanticModel.GetDeclaredSymbol(node, cancellationToken)))
 		{
-			ITypeSymbol parameterType = parameter.Type.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
+			ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation)
+				.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
 			switch (GetDataSourceParameterKind(parameterType, compilation))
 			{
 				case DataSourceParameterKind.Mock:
@@ -401,10 +402,8 @@ internal static partial class MockGeneratorHelpers
 		MockClass mock = GetOrCreateDiscoveredMockClass(normalized, compilation);
 		return MockGenerator.IsValidMockDeclaration(mock) &&
 		       (type.TypeKind != TypeKind.Class ||
-		        (mock.ConstructorWithoutArguments is not null &&
-		         type.InstanceConstructors.Any(constructor => !HasUsageDiagnostic(constructor) &&
-		                                                      constructor.Parameters.All(parameter =>
-			                                                      parameter.HasExplicitDefaultValue || parameter.IsParams))));
+		        (mock.ConstructorWithoutArguments is { } constructor &&
+		         !HasUsageDiagnostic(MockClass.GetMockConstructors(type, compilation.Assembly)[constructor])));
 	}
 
 	private static bool UsesFileLocalType(ITypeSymbol type)

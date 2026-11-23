@@ -27,6 +27,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Include="..\Mockolate.SourceGenerators\Internals\MockConstructorSelector.cs" Link="MockConstructorSelector.cs"/>
+	</ItemGroup>
+
+	<ItemGroup>
 		<EmbeddedResource Update="Resources.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
