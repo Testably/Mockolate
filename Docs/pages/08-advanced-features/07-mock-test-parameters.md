@@ -82,12 +82,16 @@ public async Task Buy_ShouldNotUseAnotherDispenser(VendingMachine sut, [Transien
 }
 ```
 
-Set `AutoMockArgumentsAttribute.MockBehavior` once to control the mocks and the values, for example with a default value generator backed by a library like AutoFixture:
+Assign `AutoMockArgumentsAttribute.DefaultBehavior` to control the mocks and the values, for example with a default value generator backed by a library like AutoFixture. Mockolate calls it once per test case. Assign it in a module initializer, because TUnit creates the arguments before it runs any hook, and on another thread:
 
 ```csharp
-[Before(Assembly)]
-public static void Configure()
-    => AutoMockArgumentsAttribute.MockBehavior = MockBehavior.Default.WithDefaultValueGenerator(new AutoFixtureGenerator());
+internal static class MockolateConfiguration
+{
+    [ModuleInitializer]
+    internal static void Configure()
+        => AutoMockArgumentsAttribute.DefaultBehavior =
+            () => MockBehavior.Default.WithDefaultValueGenerator(new AutoFixtureGenerator());
+}
 ```
 
 <details>

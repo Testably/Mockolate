@@ -49,13 +49,14 @@ internal static partial class Sources
 		   		public object?[] Arguments { get; }
 
 		   		/// <summary>
-		   		///     The behavior of the created mocks and of the values that are neither mocked nor given.
+		   		///     Provides the behavior of the created mocks and of the values that are neither mocked nor given, once per test
+		   		///     case. <see langword="null" /> stands for the default behavior.
 		   		/// </summary>
 		   		/// <remarks>
-		   		///     Assign it once, e.g. in a module initializer, to fill the values with a library
-		   		///     like AutoFixture.
+		   		///     Assign it in a module initializer: TUnit creates the arguments before it runs any hook, and on another thread,
+		   		///     so neither a hook nor a thread-static or async-local value set there takes effect.
 		   		/// </remarks>
-		   		public static global::Mockolate.MockBehavior? MockBehavior { get; set; }
+		   		public static global::System.Func<global::Mockolate.MockBehavior?> DefaultBehavior { get; set; } = static () => null;
 
 		   		/// <inheritdoc />
 		   		protected override global::System.Collections.Generic.IEnumerable<global::System.Func<object?[]?>> GenerateDataSources(
@@ -73,7 +74,7 @@ internal static partial class Sources
 
 		   			// The attribute is generated into every test assembly, next to the code that creates the parameters.
 		   			global::System.Reflection.Assembly assembly = typeof(AutoMockArgumentsAttribute).Assembly;
-		   			yield return () => new AutoMockRow(assembly, parameters, Arguments, MockBehavior).Create();
+		   			yield return () => new AutoMockRow(assembly, parameters, Arguments, DefaultBehavior()).Create();
 		   		}
 		   	}
 
@@ -151,7 +152,7 @@ internal static partial class Sources
 		   					    TryResolve(type, parameterName, index, out value), out object? created))
 		   			{
 		   				throw new global::System.InvalidOperationException(
-		   					$"Mockolate cannot create the parameter '{parameter.Name}' of type '{parameter.Type}'. Pass it as an argument, or register a default value for its type on AutoMockArgumentsAttribute.MockBehavior.");
+		   					$"Mockolate cannot create the parameter '{parameter.Name}' of type '{parameter.Type}'. Pass it as an argument, or register a default value for its type through AutoMockArgumentsAttribute.DefaultBehavior.");
 		   			}
 
 		   			_values[index] = created;
