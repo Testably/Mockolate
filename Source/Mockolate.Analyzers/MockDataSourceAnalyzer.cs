@@ -234,43 +234,55 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		}
 
 		bool isClass = type.TypeKind != TypeKind.Interface;
-		HashSet<ISymbol> overridden = new(SymbolEqualityComparer.Default);
-		IEnumerable<ITypeSymbol> types = [type, ..type.AllInterfaces,];
-		for (ITypeSymbol? current = type; current is not null; current = current.BaseType)
-		{
-			if (!SymbolEqualityComparer.Default.Equals(current, type))
-			{
-				types = types.Append(current);
-			}
+		HashSet<ISymbol> overridden = GetOverriddenMembers(type);
+		IEnumerable<ITypeSymbol> types = [type, ..type.AllInterfaces, ..GetBaseTypes(type),];
+		return types.SelectMany(declaring => declaring.GetMembers())
+			.Where(member => !overridden.Contains(member) && IsImplementedByMock(member, type, isClass, sourceAssembly))
+			.FirstOrDefault(member => IsUnsupportedMember(member, isClass));
+	}
 
-			foreach (ISymbol member in current.GetMembers())
+	private static IEnumerable<ITypeSymbol> GetBaseTypes(ITypeSymbol type)
+	{
+		for (ITypeSymbol? baseType = type.BaseType; baseType is not null; baseType = baseType.BaseType)
+		{
+			yield return baseType;
+		}
+	}
+
+	/// <summary>
+	///     The base members with an override in the hierarchy: the mock implements the override, or nothing when it is
+	///     sealed.
+	/// </summary>
+	private static HashSet<ISymbol> GetOverriddenMembers(ITypeSymbol type)
+	{
+		HashSet<ISymbol> overridden = new(SymbolEqualityComparer.Default);
+		foreach (ISymbol member in new[] { type, }.Concat(GetBaseTypes(type)).SelectMany(current => current.GetMembers()))
+		{
+			ISymbol? baseMember = member switch
 			{
-				ISymbol? baseMember = member switch
-				{
-					IMethodSymbol method => method.OverriddenMethod,
-					IPropertySymbol property => property.OverriddenProperty,
-					IEventSymbol @event => @event.OverriddenEvent,
-					_ => null,
-				};
-				if (baseMember is not null)
-				{
-					overridden.Add(baseMember);
-				}
+				IMethodSymbol method => method.OverriddenMethod,
+				IPropertySymbol property => property.OverriddenProperty,
+				IEventSymbol @event => @event.OverriddenEvent,
+				_ => null,
+			};
+			if (baseMember is not null)
+			{
+				overridden.Add(baseMember);
 			}
 		}
 
-		return types.SelectMany(declaring => declaring.GetMembers())
-			.Where(member => member is IMethodSymbol { MethodKind: MethodKind.DelegateInvoke, } ||
-			                 (member is { IsStatic: false, IsSealed: false, } &&
-			                  !overridden.Contains(member) &&
-			                  (member.IsAbstract || member.IsVirtual || member.IsOverride) &&
-			                  !(isClass && member.ContainingType.TypeKind == TypeKind.Interface &&
-			                    type.FindImplementationForInterfaceMember(member) is not null) &&
-			                  MockabilityAnalyzer.IsAccessibleFrom(member, sourceAssembly) &&
-			                  GetSignatureTypes(member).All(signatureType =>
-				                  MockabilityAnalyzer.IsTypeAccessibleFrom(signatureType, sourceAssembly))))
-			.FirstOrDefault(member => IsUnsupportedMember(member, isClass));
+		return overridden;
 	}
+
+	private static bool IsImplementedByMock(ISymbol member, INamedTypeSymbol type, bool isClass,
+		IAssemblySymbol sourceAssembly)
+		=> member is { IsStatic: false, IsSealed: false, } &&
+		   (member.IsAbstract || member.IsVirtual || member.IsOverride) &&
+		   !(isClass && member.ContainingType.TypeKind == TypeKind.Interface &&
+		     type.FindImplementationForInterfaceMember(member) is not null) &&
+		   MockabilityAnalyzer.IsAccessibleFrom(member, sourceAssembly) &&
+		   GetSignatureTypes(member).All(signatureType =>
+			   MockabilityAnalyzer.IsTypeAccessibleFrom(signatureType, sourceAssembly));
 
 	private static bool IsUnsupportedMember(ISymbol member, bool isClass)
 		=> (!isClass && member is { IsAbstract: true, } && member.DeclaredAccessibility != Accessibility.Public) ||
