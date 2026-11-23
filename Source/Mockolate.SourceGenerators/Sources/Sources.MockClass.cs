@@ -202,6 +202,11 @@ internal static partial class Sources
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock\";").AppendLine();
+		if (@class.IsInterface && !DeclaresToString(@class))
+		{
+			AppendObjectToString(sb, $"{@class.DisplayString} mock");
+		}
+
 		AppendAdapterAccessImplementation(sb, [@class,], mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 		sb.AppendLine();
 
@@ -1456,6 +1461,26 @@ internal static partial class Sources
 		sb.Append("\t\tprivate readonly global::Mockolate.ConstructorArguments? ").Append(constructorArgumentsName).Append(';').AppendLine();
 		return constructorArgumentsName;
 	}
+
+	/// <summary>
+	///     Overrides <see cref="object.ToString()" /> of a mock that does not mock it, so that tools which format a mock,
+	///     like the display names of a test framework, do not read its mocked properties instead.
+	/// </summary>
+	private static void AppendObjectToString(StringBuilder sb, string description)
+	{
+		sb.AppendLine();
+		sb.Append("\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
+		sb.Append("\t\tpublic override string ToString()").AppendLine();
+		sb.Append("\t\t\t=> \"").Append(description).Append("\";").AppendLine();
+	}
+
+	/// <summary>
+	///     Whether the type declares a member that a <see cref="AppendObjectToString" /> override would clash with.
+	/// </summary>
+	private static bool DeclaresToString(Class @class)
+		=> @class.AllMethods().Any(method => method is { Name: "ToString", Parameters.Count: 0, }) ||
+		   @class.AllProperties().Any(property => property.Name == "ToString") ||
+		   @class.AllEvents().Any(@event => @event.Name == "ToString");
 
 	/// <summary>
 	///     Whether the mock of the class records the arguments of at least one of its <paramref name="constructors" />,

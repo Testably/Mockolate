@@ -180,16 +180,118 @@ internal static partial class Sources
 	///     The <c>AutoMockArguments</c> attribute for TUnit.
 	/// </summary>
 	public static string AutoMockArgumentsForTUnit()
-		=> InitializeBuilder().Append("""
-		   #if MOCKOLATE_TUNIT
+		=> AutoMockArgumentsAttribute("MOCKOLATE_TUNIT", "TUnit", "TUnit creates the arguments before it runs any hook, and on another thread,",
+			"global::TUnit.Core.UntypedDataSourceGeneratorAttribute", """
+			   		/// <inheritdoc />
+			   		protected override global::System.Collections.Generic.IEnumerable<global::System.Func<object?[]?>> GenerateDataSources(
+			   			global::TUnit.Core.DataGeneratorMetadata dataGeneratorMetadata)
+			   		{
+			   			// The attribute only applies to methods, so every member is a parameter.
+			   			global::TUnit.Core.ParameterMetadata[] parameters = global::System.Array.ConvertAll(
+			   				dataGeneratorMetadata.MembersToGenerate, member => (global::TUnit.Core.ParameterMetadata)member);
+			   			global::System.Type[] types = global::System.Array.ConvertAll(parameters, parameter => parameter.Type);
+			   			string[] names = global::System.Array.ConvertAll(parameters, parameter => parameter.Name);
+			   			// The attribute is generated into every test assembly, next to the code that creates the parameters.
+			   			global::System.Reflection.Assembly assembly = typeof(AutoMockArgumentsAttribute).Assembly;
+			   			// Only a parameter that could be shared needs its reflection info, which older versions of TUnit can lack.
+			   			yield return () => new global::Mockolate.Integrations.AutoMockRow(assembly, types, names,
+			   				index => parameters[index].ReflectionInfo is { } reflectionInfo &&
+			   				         global::System.Reflection.CustomAttributeExtensions.IsDefined(reflectionInfo,
+			   					         typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+			   				Arguments, DefaultBehavior?.Invoke()).Create();
+			   		}
+			   """);
+
+	/// <summary>
+	///     The <c>AutoMockArguments</c> attribute for xUnit v2, which a project that also references xUnit v3 does not get.
+	/// </summary>
+	public static string AutoMockArgumentsForXunit2()
+		=> AutoMockArgumentsAttribute("MOCKOLATE_XUNIT2 && !MOCKOLATE_XUNIT3", "Xunit", "xUnit can create the arguments during discovery, on another thread,",
+			"global::Xunit.Sdk.DataAttribute", ParameterInfoArguments + """
+			   		/// <inheritdoc />
+			   		public override global::System.Collections.Generic.IEnumerable<object[]> GetData(
+			   			global::System.Reflection.MethodInfo testMethod)
+			   		{
+			   			yield return CreateArguments(testMethod.GetParameters())!;
+			   		}
+			   """);
+
+	/// <summary>
+	///     The <c>AutoMockArguments</c> attribute for xUnit v3.
+	/// </summary>
+	public static string AutoMockArgumentsForXunit3()
+		=> AutoMockArgumentsAttribute("MOCKOLATE_XUNIT3", "Xunit", "xUnit creates the arguments before it runs the test, possibly on another thread,",
+			"global::Xunit.v3.DataAttribute", ParameterInfoArguments + """
+			   		/// <inheritdoc />
+			   		public override global::System.Threading.Tasks.ValueTask<global::System.Collections.Generic.IReadOnlyCollection<global::Xunit.ITheoryDataRow>> GetData(
+			   			global::System.Reflection.MethodInfo testMethod, global::Xunit.Sdk.DisposalTracker disposalTracker)
+			   		{
+			   			global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.HashSet<string>> traits =
+			   				new global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.HashSet<string>>(
+			   					global::System.StringComparer.OrdinalIgnoreCase);
+			   			string[] pairs = Traits ?? new string[0];
+			   			for (int index = 0; index + 1 < pairs.Length; index += 2)
+			   			{
+			   				if (!traits.TryGetValue(pairs[index], out global::System.Collections.Generic.HashSet<string>? values))
+			   				{
+			   					values = new global::System.Collections.Generic.HashSet<string>(global::System.StringComparer.OrdinalIgnoreCase);
+			   					traits.Add(pairs[index], values);
+			   				}
+
+			   				values.Add(pairs[index + 1]);
+			   			}
+
+			   			// Like xUnit's InlineData, the row takes the settings of the attribute.
+			   			return new global::System.Threading.Tasks.ValueTask<global::System.Collections.Generic.IReadOnlyCollection<global::Xunit.ITheoryDataRow>>(
+			   				new global::Xunit.ITheoryDataRow[]
+			   				{
+			   					new global::Xunit.TheoryDataRow(CreateArguments(testMethod.GetParameters()))
+			   					{
+			   						Explicit = ExplicitAsNullable,
+			   						Skip = Skip,
+			   						TestDisplayName = TestDisplayName,
+			   						Timeout = TimeoutAsNullable,
+			   						Traits = traits,
+			   					},
+			   				});
+			   		}
+
+			   		/// <summary>
+			   		///     Mocks cannot be serialized, so the arguments are created when the test runs.
+			   		/// </summary>
+			   		public override bool SupportsDiscoveryEnumeration()
+			   			=> false;
+			   """);
+
+	/// <summary>
+	///     Creates the arguments from the <see cref="System.Reflection.ParameterInfo" />s of the test method, for the test
+	///     frameworks that provide them.
+	/// </summary>
+	private const string ParameterInfoArguments = """
+	                                              		// The attribute is generated into every test assembly, next to the code that creates the parameters.
+	                                              		private object?[] CreateArguments(global::System.Reflection.ParameterInfo[] parameters)
+	                                              			=> new global::Mockolate.Integrations.AutoMockRow(typeof(AutoMockArgumentsAttribute).Assembly,
+	                                              				global::System.Array.ConvertAll(parameters, parameter => parameter.ParameterType),
+	                                              				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
+	                                              				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
+	                                              					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+	                                              				Arguments, DefaultBehavior?.Invoke()).Create();
+
+
+	                                              """;
+
+	private static string AutoMockArgumentsAttribute(string condition, string @namespace, string timing, string baseType,
+		string members)
+		=> InitializeBuilder().Append($$"""
+		   #if {{condition}}
 		   #nullable enable
-		   namespace Mockolate.Integrations.TUnit
+		   namespace Mockolate.Integrations.{{@namespace}}
 		   {
 		   	/// <summary>
-		   	///     Passes the <see cref="Arguments" /> to the first parameters of the test method, like TUnit's <c>Arguments</c>,
-		   	///     and fills every remaining parameter: an interface, delegate or abstract class gets a mock, a class gets a mock
-		   	///     that forwards to its real implementation, and a sealed class or record a real instance. Their constructor
-		   	///     dependencies are mocks, and other values come from the default values of the behavior.
+		   	///     Passes the <see cref="Arguments" /> to the first parameters of the test method and fills every remaining
+		   	///     parameter: an interface, delegate or abstract class gets a mock, a class gets a mock that forwards to its real
+		   	///     implementation, and a sealed class or record a real instance. Their constructor dependencies are mocks, and
+		   	///     other values come from the default values of the behavior.
 		   	/// </summary>
 		   	/// <remarks>
 		   	///     A constructor dependency of a class under test gets the argument of the test parameter of the same type, so the
@@ -202,7 +304,7 @@ internal static partial class Sources
 		   	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 		   	[global::Microsoft.CodeAnalysis.Embedded]
 		   	internal sealed class AutoMockArgumentsAttribute
-		   		: global::TUnit.Core.UntypedDataSourceGeneratorAttribute, global::Mockolate.Internals.IMockDataSource
+		   		: {{baseType}}, global::Mockolate.Internals.IMockDataSource
 		   	{
 		   		/// <summary>
 		   		///     Fills every parameter of the test method, or the parameters after the given <paramref name="arguments" />.
@@ -224,29 +326,12 @@ internal static partial class Sources
 		   		///     the arguments are created. <see langword="null" /> stands for the default behavior.
 		   		/// </summary>
 		   		/// <remarks>
-		   		///     Assign it in a module initializer: TUnit creates the arguments before it runs any hook, and on another thread,
-		   		///     so neither a hook nor a thread-static or async-local value set there takes effect.
+		   		///     Assign it in a module initializer: {{timing}}
+		   		///     so neither a hook nor a thread-static or async-local value set there reliably takes effect.
 		   		/// </remarks>
 		   		public static global::System.Func<global::Mockolate.MockBehavior?> DefaultBehavior { get; set; } = static () => null;
 
-		   		/// <inheritdoc />
-		   		protected override global::System.Collections.Generic.IEnumerable<global::System.Func<object?[]?>> GenerateDataSources(
-		   			global::TUnit.Core.DataGeneratorMetadata dataGeneratorMetadata)
-		   		{
-		   			// The attribute only applies to methods, so every member is a parameter.
-		   			global::TUnit.Core.ParameterMetadata[] parameters = global::System.Array.ConvertAll(
-		   				dataGeneratorMetadata.MembersToGenerate, member => (global::TUnit.Core.ParameterMetadata)member);
-		   			global::System.Type[] types = global::System.Array.ConvertAll(parameters, parameter => parameter.Type);
-		   			string[] names = global::System.Array.ConvertAll(parameters, parameter => parameter.Name);
-		   			// The attribute is generated into every test assembly, next to the code that creates the parameters.
-		   			global::System.Reflection.Assembly assembly = typeof(AutoMockArgumentsAttribute).Assembly;
-		   			// Only a parameter that could be shared needs its reflection info, which older versions of TUnit can lack.
-		   			yield return () => new global::Mockolate.Integrations.AutoMockRow(assembly, types, names,
-		   				index => parameters[index].ReflectionInfo is { } reflectionInfo &&
-		   				         global::System.Reflection.CustomAttributeExtensions.IsDefined(reflectionInfo,
-		   					         typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
-		   				Arguments, DefaultBehavior?.Invoke()).Create();
-		   		}
+		   {{members}}
 		   	}
 
 		   	/// <summary>

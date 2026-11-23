@@ -109,6 +109,10 @@ internal static partial class Mock
 		string global::Mockolate.IMock.ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate mock";
 
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate mock";
+
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Setup.SpanWrapper<char>, int, int, string, long> global::Mockolate.Mock.IMockSetupForComprehensiveDelegate.Setup(global::Mockolate.Parameters.IParameters parameters)
 		{

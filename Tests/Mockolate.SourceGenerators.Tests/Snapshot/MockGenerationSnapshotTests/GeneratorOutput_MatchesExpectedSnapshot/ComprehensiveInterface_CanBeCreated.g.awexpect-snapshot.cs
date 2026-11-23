@@ -171,6 +171,10 @@ internal static partial class Mock
 		string global::Mockolate.IMock.ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface mock";
 
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface mock";
+
 		/// <inheritdoc cref="IComprehensiveInterface" />
 		public IComprehensiveInterface(global::Mockolate.Internals.MockRegistry mockRegistry)
 		{

@@ -96,6 +96,10 @@ internal static partial class Mock
 		string global::Mockolate.IMock.ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory mock";
 
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory mock";
+
 		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild, int> global::Mockolate.Mock.IMockSetupForAutoMockChildFactory.Setup(global::Mockolate.Parameters.IParameter<int>? id)
 		{
@@ -442,6 +446,10 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.IAutoMockChild mock";
+
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.IAutoMockChild mock";
 
 		/// <inheritdoc cref="IAutoMockChild" />
@@ -1173,6 +1181,10 @@ internal static partial class Mock
 		string global::Mockolate.IMock.ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.IAutoMockGeneric<int> mock";
 
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.IAutoMockGeneric<int> mock";
+
 		/// <inheritdoc cref="IAutoMockGeneric_int" />
 		public IAutoMockGeneric_int(global::Mockolate.Internals.MockRegistry mockRegistry)
 		{
@@ -1708,6 +1720,10 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.IAutoMockRoot mock";
+
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.IAutoMockRoot mock";
 
 		/// <inheritdoc cref="IAutoMockRoot" />

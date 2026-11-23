@@ -186,6 +186,11 @@ internal static partial class Sources
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock that also implements ").Append(string.Join(", ", additionalInterfaces.Select(x => x.Class.DisplayString))).Append("\";").AppendLine();
+		if (@class.IsInterface && !allMemberClasses.Any(DeclaresToString))
+		{
+			AppendObjectToString(sb, $"{@class.DisplayString} mock that also implements {string.Join(", ", additionalInterfaces.Select(x => x.Class.DisplayString))}");
+		}
+
 		AppendAdapterAccessImplementation(sb, allMemberClasses, mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 
 		sb.AppendLine();

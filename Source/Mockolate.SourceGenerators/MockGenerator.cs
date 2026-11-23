@@ -23,6 +23,8 @@ public class MockGenerator : IIncrementalGenerator
 			ctx.AddSource("Mock.g.cs", ToSource(Sources.Sources.MockClass(), default));
 			ctx.AddSource("AutoMockArguments.g.cs", ToSource(Sources.Sources.AutoMockArgumentsShared(), default));
 			ctx.AddSource("AutoMockArguments.TUnit.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForTUnit(), default));
+			ctx.AddSource("AutoMockArguments.Xunit2.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForXunit2(), default));
+			ctx.AddSource("AutoMockArguments.Xunit3.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForXunit3(), default));
 		});
 
 		// Per-mock stream. Equality on MockClass is now keyed only on its canonical identity

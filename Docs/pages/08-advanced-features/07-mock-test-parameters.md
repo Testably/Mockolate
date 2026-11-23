@@ -29,7 +29,7 @@ public class VendingMachineTests
 }
 ```
 
-Mockolate generates the attribute for the test framework of your project. The sections below show how to use it with [TUnit](#tunit).
+Mockolate generates the attribute for the test framework of your project. The sections below show how to use it with [TUnit](#tunit) and [xUnit](#xunit).
 
 ## What each parameter gets
 
@@ -100,6 +100,19 @@ With [TUnit](https://tunit.dev/) 1.0 or later, the attribute is in the `Mockolat
 using Mockolate.Integrations.TUnit;
 
 [Test]
+[AutoMockArguments("Dark", 4)]
+public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount, VendingMachine sut,
+    IChocolateDispenser dispenser)
+```
+
+## xUnit
+
+With [xUnit](https://xunit.net/) v3 or v2, the attribute is in the `Mockolate.Integrations.Xunit` namespace. Use it on a `[Theory]`, like xUnit's `[InlineData]`:
+
+```csharp
+using Mockolate.Integrations.Xunit;
+
+[Theory]
 [AutoMockArguments("Dark", 4)]
 public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount, VendingMachine sut,
     IChocolateDispenser dispenser)
