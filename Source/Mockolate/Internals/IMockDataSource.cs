@@ -1,4 +1,4 @@
-namespace Mockolate;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Marks an attribute of a test framework that fills parameters through <see cref="MockDataSource" />.

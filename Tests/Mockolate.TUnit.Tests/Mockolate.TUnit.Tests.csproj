@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- The other test projects disable it, but TUnit must discover the generated attribute through its source generator. -->
+	<PropertyGroup>
+		<EnableTUnitSourceGeneration>true</EnableTUnitSourceGeneration>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Source\Mockolate\Mockolate.csproj"/>
+		<ProjectReference Include="..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+		<ProjectReference Include="..\..\Source\Mockolate.Analyzers\Mockolate.Analyzers.csproj" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Mockolate.Tests\TestHelpers\Usings.cs" Link="TestHelpers\Usings.cs"/>
+	</ItemGroup>
+
+	<!-- Project references do not import the targets of the package. -->
+	<Import Project="..\..\Source\Mockolate\build\Mockolate.targets"/>
+
+</Project>

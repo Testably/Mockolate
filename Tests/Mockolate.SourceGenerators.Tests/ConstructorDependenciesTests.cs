@@ -158,7 +158,7 @@ public sealed class ConstructorDependenciesTests
 		                                           }
 
 		                                           [System.AttributeUsage(System.AttributeTargets.All)]
-		                                           public sealed class DataAttribute : System.Attribute, Mockolate.IMockDataSource;
+		                                           public sealed class DataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 		                                       }
 		                                       """);
 

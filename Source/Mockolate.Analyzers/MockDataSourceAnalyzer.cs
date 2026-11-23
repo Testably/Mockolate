@@ -10,7 +10,7 @@ namespace Mockolate.Analyzers;
 
 /// <summary>
 ///     An analyzer that reports a parameter of a member with an attribute that implements
-///     <c>Mockolate.IMockDataSource</c> whose type asks for a mock or an instance, but that Mockolate cannot create.
+///     <c>Mockolate.Internals.IMockDataSource</c> whose type asks for a mock or an instance, but that Mockolate cannot create.
 /// </summary>
 /// <remarks>
 ///     Mirrors the rules of the source generator (<c>MockGeneratorHelpers.MockDataSources.cs</c>), which skips such a
@@ -371,6 +371,6 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		   attributeClass.AllInterfaces.Any(@interface => @interface is
 		   {
 			   Name: "IMockDataSource",
-			   ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+			   ContainingNamespace: { Name: "Internals", ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, }, },
 		   });
 }

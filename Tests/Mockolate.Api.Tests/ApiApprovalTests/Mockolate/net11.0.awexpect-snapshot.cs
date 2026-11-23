@@ -94,9 +94,6 @@ namespace Mockolate
         bool TryGet<T>([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out T value);
         bool TryGetConstructorParameters<T>([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out object?[]? parameters);
     }
-    public interface IMockDataSource
-    {
-    }
     public class It
     {
         public static Mockolate.It.IContainsParameter<T> Contains<T>(T item, [System.Runtime.CompilerServices.CallerArgumentExpression("item")] string doNotPopulateThisValue = "") { }
@@ -192,7 +189,6 @@ namespace Mockolate
         public static Mockolate.Parameters.IParameters Parameters(System.Func<object?[], bool> predicate, [System.Runtime.CompilerServices.CallerArgumentExpression("predicate")] string doNotPopulateThisValue = "") { }
         public static Mockolate.Parameters.IDefaultEventParameters WithDefaultParameters() { }
     }
-    public delegate bool MockArgumentResolver(System.Type type, string parameterName, out object? value);
     public record MockBehavior : Mockolate.IMockBehaviorAccess, System.IEquatable<Mockolate.MockBehavior>
     {
         protected MockBehavior(Mockolate.MockBehavior original) { }
@@ -219,10 +215,6 @@ namespace Mockolate
         public Mockolate.MockBehavior WithDefaultValueGenerator(Mockolate.IDefaultValueGenerator defaultValueGenerator) { }
         public static bool operator ==(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
         public static bool operator !=(Mockolate.MockBehavior? left, Mockolate.MockBehavior? right) { }
-    }
-    public static class MockDataSource
-    {
-        public static bool TryCreate(System.Reflection.Assembly assembly, System.Type type, Mockolate.MockBehavior? behavior, Mockolate.MockArgumentResolver resolve, out object? value) { }
     }
     public static class ParameterExtensions
     {

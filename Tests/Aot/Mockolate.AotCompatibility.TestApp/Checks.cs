@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
+using Mockolate.Internals;
 using Mockolate.Parameters;
 using Mockolate.Verify;
 using Mockolate.Web;

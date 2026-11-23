@@ -1,6 +1,6 @@
 using System;
 
-namespace Mockolate;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Supplies the <paramref name="value" /> for the constructor parameter <paramref name="parameterName" /> of type

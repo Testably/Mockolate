@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Generates the AutoMockArguments attribute for the test framework that the project references. The source
+	     generator cannot decide this itself: TUnit only sees an attribute that is emitted before the compilation is
+	     available. Set MockolateTestFrameworkIntegration to false to skip it. The target runs before the compile
+	     dependency cache is computed, so that changing the references or the property recompiles the project. -->
+	<Target Name="MockolateDetectTestFramework"
+	        AfterTargets="ResolveAssemblyReferences"
+	        Condition="'$(MockolateTestFrameworkIntegration)' != 'false'">
+		<PropertyGroup Condition="'@(ReferencePath->WithMetadataValue('Filename', 'TUnit.Core'))' != ''">
+			<DefineConstants>$(DefineConstants);MOCKOLATE_TUNIT</DefineConstants>
+		</PropertyGroup>
+	</Target>
+
+</Project>

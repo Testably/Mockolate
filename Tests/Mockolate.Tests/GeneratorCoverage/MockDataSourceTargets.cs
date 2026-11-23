@@ -1,4 +1,5 @@
 using System;
+using Mockolate.Internals;
 
 namespace Mockolate.Tests.GeneratorCoverage;
 

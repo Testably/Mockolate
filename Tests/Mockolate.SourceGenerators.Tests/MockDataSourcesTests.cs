@@ -15,7 +15,7 @@ public sealed class MockDataSourcesTests
 	                                     namespace MyCode
 	                                     {
 	                                         [System.AttributeUsage(System.AttributeTargets.All)]
-	                                         public sealed class DataAttribute : System.Attribute, Mockolate.IMockDataSource;
+	                                         public sealed class DataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 	                                     }
 	                                     """;
 
@@ -105,7 +105,7 @@ public sealed class MockDataSourcesTests
 		                                                       namespace External
 		                                                       {
 		                                                           [AttributeUsage(AttributeTargets.Method)]
-		                                                           public sealed class AutoDataAttribute : Attribute, Mockolate.IMockDataSource;
+		                                                           public sealed class AutoDataAttribute : Attribute, Mockolate.Internals.IMockDataSource;
 		                                                       }
 		                                                       """);
 		GeneratorResult result = Generator.RunWithReferences("""
@@ -182,7 +182,7 @@ public sealed class MockDataSourcesTests
 		                                       namespace DataSources
 		                                       {
 		                                           [AttributeUsage(AttributeTargets.Method)]
-		                                           public sealed class DataAttribute : Attribute, IMockDataSource;
+		                                           public sealed class DataAttribute : Attribute, Mockolate.Internals.IMockDataSource;
 		                                       }
 
 		                                       namespace Other
@@ -565,11 +565,11 @@ public sealed class MockDataSourcesTests
 			    public static class Outer
 			    {
 			        [System.AttributeUsage(System.AttributeTargets.Method)]
-			        public sealed class NestedDataAttribute : System.Attribute, Mockolate.IMockDataSource;
+			        public sealed class NestedDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 			    }
 
 			    [System.AttributeUsage(System.AttributeTargets.Method)]
-			    public sealed class GenericDataAttribute<T> : System.Attribute, Mockolate.IMockDataSource;
+			    public sealed class GenericDataAttribute<T> : System.Attribute, Mockolate.Internals.IMockDataSource;
 
 			    public class Tests
 			    {
@@ -603,7 +603,7 @@ public sealed class MockDataSourcesTests
 		                                                           namespace External
 		                                                           {
 		                                                               [System.AttributeUsage(System.AttributeTargets.Method)]
-		                                                               public class BaseDataAttribute : System.Attribute, Mockolate.IMockDataSource;
+		                                                               public class BaseDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 		                                                           }
 		                                                           """, "ExternalBase");
 		MetadataReference derivedReference = ExternalAssembly.Compile("""
@@ -1003,7 +1003,7 @@ public sealed class MockDataSourcesTests
 		                                                           public struct Container
 		                                                           {
 		                                                               [System.AttributeUsage(System.AttributeTargets.Method)]
-		                                                               public sealed class NestedDataAttribute : System.Attribute, Mockolate.IMockDataSource;
+		                                                               public sealed class NestedDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 		                                                           }
 		                                                       }
 		                                                       """);

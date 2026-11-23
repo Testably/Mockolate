@@ -18,9 +18,11 @@ public class MockGenerator : IIncrementalGenerator
 {
 	void IIncrementalGenerator.Initialize(IncrementalGeneratorInitializationContext context)
 	{
-		context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
-			"Mock.g.cs",
-			ToSource(Sources.Sources.MockClass(), default)));
+		context.RegisterPostInitializationOutput(ctx => 
+		{
+			ctx.AddSource("Mock.g.cs", ToSource(Sources.Sources.MockClass(), default));
+			ctx.AddSource("AutoMockArguments.TUnit.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForTUnit(), default));
+		});
 
 		// Per-mock stream. Equality on MockClass is now keyed only on its canonical identity
 		// (ClassFullName + AdditionalImplementations.ClassFullName), so Roslyn can correctly skip

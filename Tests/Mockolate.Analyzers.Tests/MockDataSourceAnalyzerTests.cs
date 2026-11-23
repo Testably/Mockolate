@@ -10,7 +10,7 @@ public class MockDataSourceAnalyzerTests
 
 	private const string DataAttribute = """
 	                                     [System.AttributeUsage(System.AttributeTargets.All)]
-	                                     public class DataAttribute : System.Attribute, Mockolate.IMockDataSource;
+	                                     public class DataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 
 	                                     public sealed class DerivedDataAttribute : DataAttribute;
 

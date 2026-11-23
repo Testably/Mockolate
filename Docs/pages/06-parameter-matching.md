@@ -433,7 +433,7 @@ Union mode is enabled automatically when the project compiles with C# 15 or late
 
 </details>
 
-The generated `ParameterArg<T>` type relies on `UnionAttribute`, `OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute`. Mockolate declares whichever of them the compilation lacks (neither the referenced frameworks nor the project itself provide it). Another generator such as PolySharp can provide them without Mockolate noticing; set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>` to declare that `OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute` come from elsewhere (`UnionAttribute` keeps following the compilation), or list the attribute names the project provides. The setting also covers the `ModuleInitializerAttribute` of [mock data sources](08-advanced-features/07-mock-data-sources.md).
+The generated `ParameterArg<T>` type relies on `UnionAttribute`, `OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute`. Mockolate declares whichever of them the compilation lacks (neither the referenced frameworks nor the project itself provide it). Another generator such as PolySharp can provide them without Mockolate noticing; set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>` to declare that `OverloadResolutionPriorityAttribute` and `CallerArgumentExpressionAttribute` come from elsewhere (`UnionAttribute` keeps following the compilation), or list the attribute names the project provides. The setting also covers the `ModuleInitializerAttribute` of [mock data sources](08-advanced-features/07-mock-test-parameters.md).
 
 ## Matching all parameters at once
 

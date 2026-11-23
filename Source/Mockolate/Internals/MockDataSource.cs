@@ -3,9 +3,8 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Mockolate.Exceptions;
-using Mockolate.Internals;
 
-namespace Mockolate;
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Creates mocks and classes with mocked dependencies for test framework integrations, without reflection.
