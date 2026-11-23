@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Mockolate.Exceptions;
 using Mockolate.Tests.GeneratorCoverage;
 using Mockolate.Verify;
@@ -243,5 +244,95 @@ public sealed class ConstructorDependencyTests
 		[Obsolete("Mocks of obsolete members do not compile without warnings.")]
 		public int GetValue()
 			=> 0;
+	}
+	[Test]
+	public async Task CreateMock_WithOutParameterOnSealedClass_ShouldCreateARealInstanceWithMocks()
+	{
+		ConstructorDependencySealed sut = ConstructorDependencySealed.CreateMock(out ConstructorArguments arguments);
+		arguments.Get<IConstructorDependency>().Mock.Setup.GetValue().Returns(42);
+
+		await That(sut.GetType()).IsEqualTo(typeof(ConstructorDependencySealed));
+		await That(sut.Dependency).IsSameAs(arguments.Get<IConstructorDependency>());
+		await That(sut.Dependency.GetValue()).IsEqualTo(42);
+		await That(sut.Other).IsSameAs(arguments.Get<IConstructorOtherDependency>("other"));
+		await That(sut.Text).IsEqualTo("");
+		await That(sut.Number).IsEqualTo(0);
+		await That(sut.Description).IsNull();
+		await That(sut.Retries).IsEqualTo(3);
+		await That(sut.Values).IsEmpty();
+	}
+
+	[Test]
+	public async Task CreateMock_WithOutParameterAndNamedArguments_ShouldUseThem()
+	{
+		IConstructorDependency dependency = IConstructorDependency.CreateMock();
+
+		ConstructorDependencySealed sut = ConstructorDependencySealed.CreateMock(out ConstructorArguments arguments,
+			dependency: dependency, text: "chocolate", number: 7, description: "dark", retries: 1, values: [1, 2,]);
+
+		await That(sut.Dependency).IsSameAs(dependency);
+		await That(arguments.Get<IConstructorDependency>()).IsSameAs(dependency);
+		await That(sut.Text).IsEqualTo("chocolate");
+		await That(sut.Number).IsEqualTo(7);
+		await That(sut.Description).IsEqualTo("dark");
+		await That(sut.Retries).IsEqualTo(1);
+		await That(sut.Values).IsEqualTo([1, 2,]);
+	}
+
+	[Test]
+	public async Task CreateMock_WithOutParameterAndBehavior_ShouldUseItForMocksAndValues()
+	{
+		MockBehavior behavior = MockBehavior.Default.ThrowingWhenNotSetup()
+			.WithDefaultValueFor(() => "generated")
+			.WithDefaultValueFor(() => 42);
+
+		ConstructorDependencySealed sut = ConstructorDependencySealed.CreateMock(out _, behavior);
+
+		void Act()
+			=> sut.Dependency.GetValue();
+
+		await That(Act).Throws<MockNotSetupException>();
+		await That(sut.Text).IsEqualTo("generated");
+		await That(sut.Number).IsEqualTo(42);
+	}
+
+	[Test]
+	public async Task CreateMock_WithOutParameterOnRecord_ShouldCreateARealInstance()
+	{
+		ConstructorDependencyRecord sut = ConstructorDependencyRecord.CreateMock(out ConstructorArguments arguments);
+
+		await That(sut.GetType()).IsEqualTo(typeof(ConstructorDependencyRecord));
+		await That(sut.Dependency).IsSameAs(arguments.Get<IConstructorDependency>());
+		await That(sut.Name).IsEqualTo("");
+	}
+
+	[Test]
+	public async Task CreateMock_WithOutParameterWithoutValue_ShouldThrow()
+	{
+		void Act()
+			=> ConstructorDependencySealedRequired.CreateMock(out _);
+
+		await That(Act).Throws<MockException>().WithMessage(
+			"There is no argument for the constructor parameter 'address' of Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired. Pass it, or register a default value for its type with WithDefaultValueFor.");
+	}
+
+	[Test]
+	public async Task ConstructorArgument_ShouldPreferTheDeclaredTypeOverAConvertibleArgument()
+	{
+		ConstructorDependencyHierarchy sut = ConstructorDependencyHierarchy.CreateMock();
+
+		await That(sut.Mock.ConstructorArgument<IConstructorBaseDependency>()).IsSameAs(sut.Base);
+		await That(sut.Mock.ConstructorArgument<IConstructorDerivedDependency>()).IsSameAs(sut.Derived);
+	}
+
+	[Test]
+	public async Task CreateMock_WithConfiguredCollectionDefault_ShouldUseIt()
+	{
+		IEnumerable<int> configured = [42,];
+
+		ConstructorDependencyValues sut =
+			ConstructorDependencyValues.CreateMock(MockBehavior.Default.WithDefaultValueFor(() => configured));
+
+		await That(sut.Mock.ConstructorArgument<IEnumerable<int>>()).IsSameAs(configured);
 	}
 }

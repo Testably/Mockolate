@@ -19,6 +19,13 @@ public class ChocolateCounter(IChocolateDispenser dispenser)
 	public void Count(int amount) => Total += amount;
 }
 
+public sealed class SealedVendingMachine(IChocolateDispenser dispenser, string location)
+{
+	public string Location { get; } = location;
+
+	public bool Buy(string type, int amount) => dispenser.Dispense(type, amount);
+}
+
 /// <summary>
 ///     A mock data source like that of a test framework integration, which the generator finds by its interface.
 /// </summary>

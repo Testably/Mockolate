@@ -19,7 +19,7 @@ IChocolateDispenser strict = IChocolateDispenser.CreateMock(MockBehavior.Default
 ChocolateDispenser classMock = ChocolateDispenser.CreateMock(["constructor", "arguments"]);
 IChocolateDispenser spy = IChocolateDispenser.CreateMock().Wrapping(realDispenser);
 IChocolateDispenser multi = IChocolateDispenser.CreateMock().Implementing<ILemonadeDispenser>();
-VendingMachine sut = VendingMachine.CreateWithMocks(out VendingMachineMocks mocks);
+VendingMachine sut = VendingMachine.CreateMock(); // fills the constructor with mocks
 ```
 
 ## [Set up methods](../05-setup/01-methods.md)

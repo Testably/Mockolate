@@ -23,69 +23,99 @@ namespace Mockolate
 
 		private static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, out object? value)
 		{
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractDependency))
 			{
 				value = Create0(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractService))
 			{
 				value = Create1(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataDerivedTarget))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractWithParameter))
 			{
 				value = Create2(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd))
 			{
 				value = Create3(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataInner))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart))
 			{
 				value = Create4(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataDerivedTarget))
 			{
 				value = Create5(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataForwardingService))
 			{
 				value = Create6(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies))
 			{
 				value = Create7(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataService))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataInner))
 			{
 				value = Create8(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataWithCollection))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue))
 			{
 				value = Create9(behavior, resolve, null);
 				return true;
 			}
 
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataWithValues))
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference))
 			{
 				value = Create10(behavior, resolve, null);
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue))
+			{
+				value = Create11(behavior, resolve, null);
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataSealedService))
+			{
+				value = Create12(behavior, resolve, null);
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataService))
+			{
+				value = Create13(behavior, resolve, null);
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataWithCollection))
+			{
+				value = Create14(behavior, resolve, null);
+				return true;
+			}
+
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataWithValues))
+			{
+				value = Create15(behavior, resolve, null);
 				return true;
 			}
 
@@ -104,18 +134,6 @@ namespace Mockolate
 			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency))
 			{
 				value = global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
-				return true;
-			}
-
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractDependency))
-			{
-				value = global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
-				return true;
-			}
-
-			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractWithParameter))
-			{
-				value = global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractWithParameter.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
 				return true;
 			}
 
@@ -156,84 +174,112 @@ namespace Mockolate
 			return false;
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd Create0(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractDependency Create0(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
-			CreationPath self = new(0, path);
-			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart), "start", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart>(v0, "start", "Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd") : self.Contains(1) ? default : Create1(behavior, resolve, self);
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractDependency.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false));
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart Create1(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractService Create1(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
-			CreationPath self = new(1, path);
-			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd), "end", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd>(v0, "end", "Mockolate.Tests.GeneratorCoverage.MockDataCycleStart") : self.Contains(0) ? IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd)!), out global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd d0) ? d0 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'end' of Mockolate.Tests.GeneratorCoverage.MockDataCycleStart.") : Create0(behavior, resolve, self);
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, });
+			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency), "dependency", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency>(v0, "dependency", "Mockolate.Tests.GeneratorCoverage.MockDataAbstractService") : global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractService.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataDerivedTarget Create2(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractWithParameter Create2(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		{
+			var a0 = resolve(typeof(int), "value", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<int>(v0, "value", "Mockolate.Tests.GeneratorCoverage.MockDataAbstractWithParameter") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(int)!), out int d0) ? d0 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'value' of Mockolate.Tests.GeneratorCoverage.MockDataAbstractWithParameter.");
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractWithParameter.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
+		}
+
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd Create3(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		{
+			CreationPath self = new(3, path);
+			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart), "start", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart>(v0, "start", "Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd") : self.Contains(4) ? default : Create4(behavior, resolve, self);
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
+		}
+
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart Create4(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		{
+			CreationPath self = new(4, path);
+			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd), "end", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd>(v0, "end", "Mockolate.Tests.GeneratorCoverage.MockDataCycleStart") : self.Contains(3) ? IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd)!), out global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd d0) ? d0 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'end' of Mockolate.Tests.GeneratorCoverage.MockDataCycleStart.") : Create3(behavior, resolve, self);
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataCycleStart.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
+		}
+
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataDerivedTarget Create5(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency), "dependency", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency>(v0, "dependency", "Mockolate.Tests.GeneratorCoverage.MockDataDerivedTarget") : global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataDerivedTarget.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataDerivedTarget.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies Create3(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataForwardingService Create6(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		{
+			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency), "dependency", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency>(v0, "dependency", "Mockolate.Tests.GeneratorCoverage.MockDataForwardingService") : global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataForwardingService.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
+		}
+
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies Create7(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(global::System.IServiceProvider), "services", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::System.IServiceProvider>(v0, "services", "Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(global::System.IServiceProvider)!), out global::System.IServiceProvider d0) ? d0 : global::System.IServiceProvider.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
 			var a1 = resolve(typeof(global::System.Collections.Generic.IEnumerable<int>), "values", out object? v1) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::System.Collections.Generic.IEnumerable<int>>(v1, "values", "Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!), out global::System.Collections.Generic.IEnumerable<int> d1) ? d1 : global::System.Collections.Generic.IEnumerable<int>.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
 			var a2 = resolve(typeof(global::System.Collections.Generic.IEnumerable<string>), "names", out object? v2) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::System.Collections.Generic.IEnumerable<string>>(v2, "names", "Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies") : [];
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, a1, a2, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, a1, a2, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataInner Create4(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataInner Create8(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency), "dependency", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency>(v0, "dependency", "Mockolate.Tests.GeneratorCoverage.MockDataInner") : global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataInner.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataInner.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue Create5(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue Create9(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(string), "value", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<string>(v0, "value", "Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(string)!), out string d0) ? d0 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'value' of Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue.");
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference Create6(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference Create10(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(global::System.Uri), "address", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::System.Uri>(v0, "address", "Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(global::System.Uri)!), out global::System.Uri d0) ? d0 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'address' of Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference.");
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue Create7(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue Create11(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency), "dependency", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency>(v0, "dependency", "Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue") : global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
 			var a1 = resolve(typeof(long), "value", out object? v1) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<long>(v1, "value", "Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(long)!), out long d1) ? d1 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'value' of Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue.");
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, a1, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataRequiredValue.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, a1, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataService Create8(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataSealedService Create12(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		{
+			return new global::Mockolate.Tests.GeneratorCoverage.MockDataSealedService(resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency), "dependency", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency>(v0, "dependency", "Mockolate.Tests.GeneratorCoverage.MockDataSealedService") : global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default));
+		}
+
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataService Create13(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency), "dependency", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency>(v0, "dependency", "Mockolate.Tests.GeneratorCoverage.MockDataService") : global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
-			var a1 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataInner), "inner", out object? v1) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.MockDataInner>(v1, "inner", "Mockolate.Tests.GeneratorCoverage.MockDataService") : Create4(behavior, resolve, null);
+			var a1 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataInner), "inner", out object? v1) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.MockDataInner>(v1, "inner", "Mockolate.Tests.GeneratorCoverage.MockDataService") : Create8(behavior, resolve, null);
 			var a2 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.MockDataInner), "optionalInner", out object? v2) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.MockDataInner>(v2, "optionalInner", "Mockolate.Tests.GeneratorCoverage.MockDataService") : default!;
 			var a3 = resolve(typeof(string), "text", out object? v3) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<string>(v3, "text", "Mockolate.Tests.GeneratorCoverage.MockDataService") : (string)("default");
 			var a4 = resolve(typeof(int?), "count", out object? v4) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<int?>(v4, "count", "Mockolate.Tests.GeneratorCoverage.MockDataService") : default!;
 			var a5 = resolve(typeof(int[]), "values", out object? v5) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<int[]>(v5, "values", "Mockolate.Tests.GeneratorCoverage.MockDataService") : [];
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataService.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, a1, a2, a3, a4, a5, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataService.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, a1, a2, a3, a4, a5, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataWithCollection Create9(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataWithCollection Create14(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(int[]), "values", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<int[]>(v0, "values", "Mockolate.Tests.GeneratorCoverage.MockDataWithCollection") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(int[])!), out int[] d0) ? d0 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.MockDataWithCollection.");
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataWithCollection.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataWithCollection.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, });
 		}
 
-		private static global::Mockolate.Tests.GeneratorCoverage.MockDataWithValues Create10(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
+		private static global::Mockolate.Tests.GeneratorCoverage.MockDataWithValues Create15(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)
 		{
 			var a0 = resolve(typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency), "dependency", out object? v0) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency>(v0, "dependency", "Mockolate.Tests.GeneratorCoverage.MockDataWithValues") : global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
 			var a1 = resolve(typeof(string), "name", out object? v1) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<string>(v1, "name", "Mockolate.Tests.GeneratorCoverage.MockDataWithValues") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(string)!), out string d1) ? d1 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'name' of Mockolate.Tests.GeneratorCoverage.MockDataWithValues.");
 			var a2 = resolve(typeof(int), "count", out object? v2) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<int>(v2, "count", "Mockolate.Tests.GeneratorCoverage.MockDataWithValues") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(int)!), out int d2) ? d2 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'count' of Mockolate.Tests.GeneratorCoverage.MockDataWithValues.");
 			var a3 = resolve(typeof(string), "description", out object? v3) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<string>(v3, "description", "Mockolate.Tests.GeneratorCoverage.MockDataWithValues") : default;
 			var a4 = resolve(typeof(string), "fallback", out object? v4) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<string>(v4, "fallback", "Mockolate.Tests.GeneratorCoverage.MockDataWithValues") : default!;
-			return global::Mockolate.Tests.GeneratorCoverage.MockDataWithValues.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, a1, a2, a3, a4, });
+			return global::Mockolate.Tests.GeneratorCoverage.MockDataWithValues.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, a1, a2, a3, a4, });
 		}
 
 		private static bool IsValue<T>(global::Mockolate.MockBehavior behavior, T typedDefault, out T result)

@@ -223,6 +223,45 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
+	public async Task TryCreate_WithClassParameter_ShouldForwardToTheRealImplementationAndAllowSetups()
+	{
+		MockDataSource.TryCreate(Assembly, typeof(MockDataForwardingService), MockBehavior.Default.SkippingBaseClass(),
+			NoArgument, out object? value);
+		MockDataForwardingService sut = (MockDataForwardingService)value!;
+
+		int forwarded = sut.Calculate();
+		sut.Mock.Setup.Calculate().Returns(42);
+
+		await That(forwarded).IsEqualTo(5).Because("the class under test keeps its real implementation");
+		await That(sut.Calculate()).IsEqualTo(42);
+	}
+
+	[Test]
+	public async Task TryCreate_WithAbstractClass_ShouldUseTheResolver()
+	{
+		IMockDataDependency dependency = IMockDataDependency.CreateMock();
+
+		MockDataSource.TryCreate(Assembly, typeof(MockDataAbstractService), null, Resolve, out object? value);
+
+		await That(((MockDataAbstractService)value!).Dependency).IsSameAs(dependency);
+
+		bool Resolve(Type type, string parameterName, out object? argument)
+		{
+			argument = dependency;
+			return type == typeof(IMockDataDependency);
+		}
+	}
+
+	[Test]
+	public async Task TryCreate_WithSealedClass_ShouldCreateARealInstance()
+	{
+		MockDataSource.TryCreate(Assembly, typeof(MockDataSealedService), null, NoArgument, out object? value);
+
+		await That(value!.GetType()).IsEqualTo(typeof(MockDataSealedService));
+		await That(((MockDataSealedService)value).Dependency).IsNotNull();
+	}
+
+	[Test]
 	public async Task TryCreate_WithCyclicDependencies_ShouldNotCreateTheDependencyThatClosesTheCycle()
 	{
 		MockDataSource.TryCreate(Assembly, typeof(MockDataCycleStart), null, NoArgument, out object? value);

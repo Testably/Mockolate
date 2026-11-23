@@ -45,6 +45,17 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValuesProvider<MockClass> mocksProvider = creations
 			.SelectMany(static (creation, _) => creation.Mocks);
 
+		IncrementalValuesProvider<SealedCreation> sealedCreations = context.SyntaxProvider
+			.CreateSyntaxProvider(
+				static (s, _) => s.IsSealedCreateMockInvocation(),
+				static (ctx, cancellationToken) =>
+				{
+					EntityCache cache = EntityCache.GetOrCreate(ctx.SemanticModel.Compilation);
+					using EntityCache.Scope scope = EntityCache.EnterScope(cache);
+					return ctx.Node.ExtractSealedCreation(ctx.SemanticModel, cancellationToken);
+				})
+			.Where(static creation => creation.Class is not null);
+
 		IncrementalValueProvider<EquatableArray<string>> dataSourceAttributeNames = context.SyntaxProvider
 			.CreateSyntaxProvider(
 				static (s, _) => s.IsAttributeClassCandidate(),
@@ -105,10 +116,13 @@ public class MockGenerator : IIncrementalGenerator
 			.Combine(dataSourceCreations
 				.Select(static (creation, _) => new MockCreation(creation.Mocks, creation.Location))
 				.Collect())
+			.Combine(sealedCreations
+				.Select(static (creation, _) => new MockCreation(creation.Mocks, creation.Location))
+				.Collect())
 			.Combine(autoMockingOptions)
 			.Combine(context.CompilationProvider)
 			.Select(static (source, cancellationToken) => source.Left.Right is { } options
-				? DiscoverAutoMocks(source.Left.Left.Left.AddRange(source.Left.Left.Right), source.Right, options,
+				? DiscoverAutoMocks(source.Left.Left.Left.Left.AddRange(source.Left.Left.Left.Right).AddRange(source.Left.Left.Right), source.Right, options,
 					cancellationToken)
 				: new EquatableArray<MockClass>([]));
 
@@ -118,9 +132,10 @@ public class MockGenerator : IIncrementalGenerator
 		IncrementalValueProvider<EquatableArray<MockClass>> collectedMocks = mocksProvider
 			.Collect()
 			.Combine(dataSourceCreations.SelectMany(static (creation, _) => creation.Mocks).Collect())
+			.Combine(sealedCreations.SelectMany(static (creation, _) => creation.Mocks).Collect())
 			.Combine(discoveredMocks)
-			.Select(static (source, _) => Distinct(source.Left.Left,
-				source.Left.Right.Concat(source.Right).ToArray()));
+			.Select(static (source, _) => Distinct(source.Left.Left.Left,
+				source.Left.Left.Right.Concat(source.Left.Right).Concat(source.Right).ToArray()));
 
 		IncrementalValueProvider<EquatableArray<DataSourceClass>> dataSourceClasses = dataSourceCreations
 			.SelectMany(static (creation, _) => creation.Classes)
@@ -153,6 +168,25 @@ public class MockGenerator : IIncrementalGenerator
 
 		IncrementalValueProvider<EquatableArray<string>> externAliases = context.CompilationProvider
 			.Select(static (compilation, _) => GetExternAliases(compilation));
+
+		context.RegisterSourceOutput(
+			sealedCreations
+				.Select(static (creation, _) => creation.Class!)
+				.Collect()
+				.Select(static (source, _) => new EquatableArray<DataSourceClass>(source
+					.GroupBy(sealedClass => sealedClass.ClassFullName, StringComparer.Ordinal)
+					.Select(group => group.First())
+					.OrderBy(sealedClass => sealedClass.ClassFullName, StringComparer.Ordinal)
+					.ToArray()))
+				.Combine(externAliases),
+			static (spc, source) =>
+			{
+				if (source.Left.Count > 0)
+				{
+					// Outside the Mock.<Name>.g.cs pattern of the mock files, so that no mocked type shares the hint name.
+					spc.AddSource("SealedClasses.g.cs", ToSource(Sources.Sources.SealedClasses(source.Left), source.Right));
+				}
+			});
 
 		context.RegisterSourceOutput(
 			dataSourceClasses.Combine(dataSourceTypes).Combine(hasModuleInitializer).Combine(externAliases),
@@ -537,7 +571,11 @@ public class MockGenerator : IIncrementalGenerator
 					semanticModels[tree] = semanticModel;
 				}
 
-				if (node.IsCreateMethodInvocation())
+				if (node.IsSealedCreateMockInvocation())
+				{
+					mockedTypes.AddRange(node.ExtractSealedMockedTypes(semanticModel, cancellationToken));
+				}
+				else if (node.IsCreateMethodInvocation())
 				{
 					mockedTypes.AddRange(node.ExtractMockedTypes(semanticModel).SelectMany(types =>
 						MockGeneratorHelpers.GetConstructorDependencyMockTypes(types[0], compilation)
@@ -571,7 +609,7 @@ public class MockGenerator : IIncrementalGenerator
 		HashSet<MockClass> seen = new();
 		HashSet<string> seenIdentities = new(StringComparer.Ordinal);
 		List<MockClass> distinct = new(mocks.Length + discoveredMocks.Length);
-		foreach (MockClass mc in mocks)
+		foreach (MockClass mc in mocks.Where(mock => !mock.IsDiscovered))
 		{
 			if (seen.Add(mc))
 			{
@@ -580,7 +618,7 @@ public class MockGenerator : IIncrementalGenerator
 			}
 		}
 
-		foreach (MockClass mc in discoveredMocks)
+		foreach (MockClass mc in mocks.Where(mock => mock.IsDiscovered).Concat(discoveredMocks))
 		{
 			if (seenIdentities.Add(mc.IdentityKey))
 			{

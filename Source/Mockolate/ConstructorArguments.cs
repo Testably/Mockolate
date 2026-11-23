@@ -3,45 +3,60 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using Mockolate.Exceptions;
+using Mockolate.Internals;
 
-namespace Mockolate.Internals;
+namespace Mockolate;
 
 /// <summary>
-///     The arguments that the constructor of a class mock received.
+///     The arguments that a constructor received when Mockolate created the class.
 /// </summary>
 /// <remarks>
-///     Public only because the generated code creates it.
+///     Use it to set up and verify the mocks that were passed to the constructor.
 /// </remarks>
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
-[EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class ConstructorArguments
 {
 	private readonly string _constructor;
 	private readonly string[] _names;
+	private readonly Type[] _types;
 	private readonly object?[] _values;
 
 	/// <summary>
-	///     The <paramref name="values" /> of the parameters <paramref name="names" /> of the <paramref name="constructor" />.
+	///     The <paramref name="values" /> of the parameters <paramref name="names" /> with the declared
+	///     <paramref name="types" /> of the <paramref name="constructor" />.
 	/// </summary>
-	public ConstructorArguments(string constructor, string[] names, object?[] values)
+	/// <remarks>
+	///     Public only because the generated code creates it.
+	/// </remarks>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public ConstructorArguments(string constructor, string[] names, Type[] types, object?[] values)
 	{
 		_constructor = constructor;
 		_names = names;
+		_types = types;
 		_values = values;
 	}
 
 	/// <summary>
 	///     The only argument of type <typeparamref name="T" />.
 	/// </summary>
+	/// <remarks>
+	///     A parameter declared with exactly this type wins over an argument that only converts to it.
+	/// </remarks>
 	/// <exception cref="MockException">The constructor received no or several arguments of type <typeparamref name="T" />.</exception>
 	public T Get<T>()
 	{
-		int[] matches = Enumerable.Range(0, _values.Length).Where(index => _values[index] is T).ToArray();
+		int[] matches = Enumerable.Range(0, _values.Length).Where(index => _types[index] == typeof(T)).ToArray();
+		if (matches.Length == 0)
+		{
+			matches = Enumerable.Range(0, _values.Length).Where(index => _values[index] is T).ToArray();
+		}
+
 		return matches.Length switch
 		{
-			1 => (T)_values[matches[0]]!,
+			1 => Get<T>(_names[matches[0]]),
 			0 => throw new MockException(
 				$"The constructor {_constructor} received no argument of type {typeof(T).FormatType()}."),
 			_ => throw new MockException(
@@ -76,4 +91,16 @@ public sealed class ConstructorArguments
 		throw new MockException(
 			$"The argument of the parameter '{parameterName}' of the constructor {_constructor} is {(value is null ? "null" : $"of type {value.GetType().FormatType()}")}, but must be of type {typeof(T).FormatType()}.");
 	}
+
+	/// <summary>
+	///     The value that the <paramref name="behavior" /> configures for <typeparamref name="T" />, or else the
+	///     <paramref name="typedDefault" />.
+	/// </summary>
+	/// <remarks>
+	///     Public only because the generated code calls it. The typed <c>Generate</c> overloads return an empty collection
+	///     without asking the generator, so a configured value is looked up first.
+	/// </remarks>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public static T DefaultValue<T>(MockBehavior behavior, T typedDefault)
+		=> behavior.DefaultValue.GenerateValue(typeof(T)) is T configured ? configured : typedDefault;
 }

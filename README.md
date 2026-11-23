@@ -16,7 +16,7 @@ It enables fast, compile-time validated mocking with .NET Standard 2.0, .NET 8, 
 - **Strongly-typed**: Compile-time safety and IntelliSense support.
 - **AOT compatible**: Works with Native AOT and trimming.
 - **Modern C#**: First-class support for ref structs, static interface members, and current language features.
-- **Class under test with mocks**: `CreateWithMocks` creates the class under test with a mock for every supported interface dependency.
+- **Class under test with mocks**: `CreateMock()` fills the constructor of a class with mocks and forwards to its real implementation.
 
 ## Why Mockolate?
 

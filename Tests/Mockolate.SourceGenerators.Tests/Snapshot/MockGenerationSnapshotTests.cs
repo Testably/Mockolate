@@ -144,6 +144,10 @@ public sealed partial class MockGenerationSnapshotTests
             ConstructorDependencyAbstract sut8 = ConstructorDependencyAbstract.CreateMock();
             IConstructorGenericDependency<string> dependency = IConstructorGenericDependency<string>.CreateMock();
             ConstructorDependencyNullableGeneric sut9 = ConstructorDependencyNullableGeneric.CreateMock();
+            ConstructorDependencySealed sealedSut = ConstructorDependencySealed.CreateMock(out ConstructorArguments sealedArguments);
+            ConstructorDependencyRecord recordSut = ConstructorDependencyRecord.CreateMock(out ConstructorArguments recordArguments);
+            ConstructorDependencySealedRequired requiredSut = ConstructorDependencySealedRequired.CreateMock(out ConstructorArguments requiredArguments);
+            ConstructorDependencyHierarchy hierarchySut = ConstructorDependencyHierarchy.CreateMock();
             ConstructorDependencyKeyword sut10 = ConstructorDependencyKeyword.CreateMock();
             ConstructorDependencySpan sut11 = ConstructorDependencySpan.CreateMock();
             ConstructorDependencyService sut12 = ConstructorDependencyService.CreateMock().Implementing<IConstructorOtherDependency>();

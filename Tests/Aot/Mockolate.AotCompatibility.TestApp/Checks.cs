@@ -281,6 +281,13 @@ internal static class Checks
 					       return false;
 				       }, out _), false);
 		}),
+		new("CreateMock with an out parameter creates a sealed class with mocked dependencies", () =>
+		{
+			SealedVendingMachine sut = SealedVendingMachine.CreateMock(out ConstructorArguments arguments, location: "Lobby");
+			arguments.Get<IChocolateDispenser>().Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
+			return Equal((sut.Buy("Dark", 1), sut.Buy("Milk", 1), sut.Location, arguments.Get<string>("location")),
+				(true, false, "Lobby", "Lobby"));
+		}),
 		new("a mock data source fills other types from the default values and finds no code in other assemblies", () =>
 		{
 			MockArgumentResolver noArgument = (Type _, string _, out object? value) =>

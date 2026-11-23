@@ -53,7 +53,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -112,7 +112,7 @@ internal static partial class Mock
 			: base(dependency)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract(IConstructorDependency)", new string[] { "dependency", }, new object?[] { dependency, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract(IConstructorDependency)", new string[] { "dependency", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), }, new object?[] { dependency, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyAbstract" />
@@ -501,7 +501,7 @@ internal static partial class MockExtensionsForConstructorDependencyAbstract
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract">ConstructorDependencyAbstract</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract">ConstructorDependencyAbstract</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -510,7 +510,7 @@ internal static partial class MockExtensionsForConstructorDependencyAbstract
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract">ConstructorDependencyAbstract</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract">ConstructorDependencyAbstract</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -522,7 +522,7 @@ internal static partial class MockExtensionsForConstructorDependencyAbstract
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract">ConstructorDependencyAbstract</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyAbstract CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyAbstract> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -714,6 +714,616 @@ internal static partial class MockExtensionsForConstructorDependencyAbstract
 
 #nullable disable annotations
 
+// Mock.ConstructorDependencyHierarchy.g.cs
+//----------------------
+// <auto-generated>
+//     This code was generated by the Mockolate source generator.
+//
+//     Changes to this file may cause incorrect behavior and
+//     will be lost if the code is regenerated!
+// </auto-generated>
+//----------------------
+
+#nullable enable annotations
+namespace Mockolate;
+
+internal static partial class Mock
+{
+	/// <summary>
+	///     A mock implementation for <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.
+	/// </summary>
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal class ConstructorDependencyHierarchy :
+		global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy, IMockForConstructorDependencyHierarchy, IMockSetupForConstructorDependencyHierarchy, IMockVerifyForConstructorDependencyHierarchy,
+		global::Mockolate.IMock
+	{
+		internal const int MemberCount = 0;
+
+		/// <summary>
+		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		/// </summary>
+		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+
+		/// <summary>
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		/// </summary>
+		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
+		{
+			behavior = global::Mockolate.Internals.AutoMocks.UseFactory(behavior, null);
+			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
+			MockRegistryProvider.Value = registry;
+			return registry;
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry
+		{
+			get => field ?? MockRegistryProvider.Value;
+			set;
+		}
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
+
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockSetupForConstructorDependencyHierarchy IMockForConstructorDependencyHierarchy.Setup
+			=> this;
+		/// <inheritdoc />
+		IMockInScenarioForConstructorDependencyHierarchy IMockForConstructorDependencyHierarchy.InScenario(string scenario)
+			=> new MockInScenarioForConstructorDependencyHierarchy(this.MockRegistry, scenario);
+
+		/// <inheritdoc />
+		IMockForConstructorDependencyHierarchy IMockForConstructorDependencyHierarchy.InScenario(string scenario, global::System.Action<IMockInScenarioForConstructorDependencyHierarchy> setup)
+		{
+			setup.Invoke(new MockInScenarioForConstructorDependencyHierarchy(this.MockRegistry, scenario));
+			return this;
+		}
+
+		/// <inheritdoc />
+		IMockForConstructorDependencyHierarchy IMockForConstructorDependencyHierarchy.TransitionTo(string scenario)
+		{
+			this.MockRegistry.TransitionTo(scenario);
+			return this;
+		}
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockVerifyForConstructorDependencyHierarchy IMockForConstructorDependencyHierarchy.Verify
+			=> this;
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForConstructorDependencyHierarchy> IMockForConstructorDependencyHierarchy.VerifySetup(global::Mockolate.Setup.IMethodSetup setup)
+			=> this.MockRegistry.Method<IMockVerifyForConstructorDependencyHierarchy>(this, setup);
+		/// <inheritdoc />
+		bool IMockForConstructorDependencyHierarchy.VerifyThatAllInteractionsAreVerified()
+			=> this.MockRegistry.Interactions.GetUnverifiedInteractions().Count == 0;
+		/// <inheritdoc />
+		bool IMockForConstructorDependencyHierarchy.VerifyThatAllSetupsAreUsed()
+			=> this.MockRegistry.GetUnusedSetups(this.MockRegistry.Interactions).Count == 0;
+		/// <inheritdoc />
+		void IMockForConstructorDependencyHierarchy.ClearAllInteractions()
+			=> this.MockRegistry.ClearAllInteractions();
+		/// <inheritdoc />
+		global::Mockolate.Monitor.MockMonitor<IMockVerifyForConstructorDependencyHierarchy> IMockForConstructorDependencyHierarchy.Monitor()
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForConstructorDependencyHierarchy>(this.MockRegistry.Interactions, interactions => new VerifyMonitorConstructorDependencyHierarchy(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		T IMockForConstructorDependencyHierarchy.ConstructorArgument<T>()
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy was created without constructor arguments.")).Get<T>();
+		/// <inheritdoc />
+		T IMockForConstructorDependencyHierarchy.ConstructorArgument<T>(string parameterName)
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy was created without constructor arguments.")).Get<T>(parameterName);
+
+		/// <inheritdoc />
+		string global::Mockolate.IMock.ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy mock";
+
+		/// <inheritdoc cref="ConstructorDependencyHierarchy" />
+		public ConstructorDependencyHierarchy(global::Mockolate.Internals.MockRegistry mockRegistry, global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency derived, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency @base)
+			: base(derived, @base)
+		{
+			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy(IConstructorDerivedDependency, IConstructorBaseDependency)", new string[] { "derived", "base", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency), typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency), }, new object?[] { derived, @base, });
+		}
+
+		/// <inheritdoc cref="ConstructorDependencyHierarchy" />
+		public ConstructorDependencyHierarchy(global::Mockolate.MockBehavior behavior, global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency derived, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency @base)
+			: this(MockolateCreateRegistryFromBehavior(behavior), derived, @base)
+		{
+		}
+
+		#region Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy
+
+		#endregion Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy
+
+		#region IMockSetupForConstructorDependencyHierarchy
+
+		#endregion IMockSetupForConstructorDependencyHierarchy
+
+		#region IMockVerifyForConstructorDependencyHierarchy
+
+		#endregion IMockVerifyForConstructorDependencyHierarchy
+	}
+
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	private sealed class VerifyMonitorConstructorDependencyHierarchy(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForConstructorDependencyHierarchy
+	{
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
+
+		#region IMockVerifyForConstructorDependencyHierarchy
+
+		#endregion IMockVerifyForConstructorDependencyHierarchy
+	}
+
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	private sealed class MockInScenarioForConstructorDependencyHierarchy : global::Mockolate.Mock.IMockInScenarioForConstructorDependencyHierarchy, global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy
+	{
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
+		private string _scenarioName;
+
+		public MockInScenarioForConstructorDependencyHierarchy(global::Mockolate.Internals.MockRegistry mockRegistry, string scenario)
+		{
+			this.MockRegistry = mockRegistry;
+			_scenarioName = scenario;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy global::Mockolate.Mock.IMockInScenarioForConstructorDependencyHierarchy.Setup
+			=> this;
+
+		#region IMockSetupForConstructorDependencyHierarchy
+
+		#endregion IMockSetupForConstructorDependencyHierarchy
+	}
+
+	/// <summary>
+	///     The Mockolate accessor for a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>, reached through <c>.Mock</c> on the mocked instance.
+	/// </summary>
+	/// <remarks>
+	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
+	/// </remarks>
+	internal interface IMockForConstructorDependencyHierarchy
+	{
+		/// <summary>
+		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> respond when invoked.
+		/// </summary>
+		/// <remarks>
+		///     Each mocked member is available as a strongly-typed entry on this surface. Chain <c>Returns</c>, <c>ReturnsAsync</c>, <c>Throws</c>, <c>ThrowsAsync</c> or <c>Do</c> to control the response; chain <c>InitializeWith</c>/<c>Register</c> to initialize properties and indexers; chain multiple returns/throws to define a sequence; use <c>.For(n)</c>, <c>.Only(n)</c>, <c>.Forever()</c>, <c>.When(predicate)</c> to control when a callback runs.<br />
+		///     When two setups overlap, the most recently defined one wins.
+		/// </remarks>
+		IMockSetupForConstructorDependencyHierarchy Setup { get; }
+
+		/// <summary>
+		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> so that additional setups can be registered for that scenario.
+		/// </summary>
+		/// <remarks>
+		///     Scenarios let you define per-state behavior. Setups registered inside the returned <c>IMockInScenarioFor...</c> scope only apply while the mock's current scenario matches <paramref name="scenario" />; switch scenarios with <see cref="TransitionTo">TransitionTo</see>.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to enter. Any non-null string acts as a key; the mock starts in an unnamed default scenario.</param>
+		/// <returns>A scoped accessor whose <c>Setup</c> (and <c>SetupProtected</c>, where applicable) register scenario-specific setups.</returns>
+		IMockInScenarioForConstructorDependencyHierarchy InScenario(string scenario);
+
+		/// <summary>
+		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> and immediately invokes <paramref name="setup" /> to register scenario-specific setups.
+		/// </summary>
+		/// <remarks>
+		///     Equivalent to <c>InScenario(scenario)</c> followed by the setup callback, but returns the original <c>IMockFor...</c> accessor so it chains nicely at mock-creation time.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to enter.</param>
+		/// <param name="setup">Callback that receives the scenario-scoped setup surface and registers scenario-specific setups.</param>
+		/// <returns>This accessor, to allow chaining.</returns>
+		IMockForConstructorDependencyHierarchy InScenario(string scenario, global::System.Action<IMockInScenarioForConstructorDependencyHierarchy> setup);
+
+		/// <summary>
+		///     Switches the active scenario of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> to <paramref name="scenario" />.
+		/// </summary>
+		/// <remarks>
+		///     After the transition, setups registered via <see cref="InScenario(string)">InScenario(string)</see> under that scenario take effect. Scenarios that have no matching setup for a given member fall back to the default (un-scoped) setups.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to transition to.</param>
+		/// <returns>This accessor, to allow chaining.</returns>
+		IMockForConstructorDependencyHierarchy TransitionTo(string scenario);
+
+		/// <summary>
+		///     Asserts how often, and in which order, members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> were invoked.
+		/// </summary>
+		/// <remarks>
+		///     Each call to a member here returns a <c>VerificationResult</c> that you terminate with a count assertion: <c>Never()</c>, <c>Once()</c>, <c>Twice()</c>, <c>Exactly(n)</c>, <c>AtLeast(n)</c>/<c>AtLeastOnce()</c>/<c>AtLeastTwice()</c>, <c>AtMost(n)</c>/<c>AtMostOnce()</c>/<c>AtMostTwice()</c>, <c>Between(min, max)</c> or <c>Times(predicate)</c>.<br />
+		///     Use <c>Within(TimeSpan)</c> / <c>WithCancellation(CancellationToken)</c> before the terminator to wait for expected interactions that happen on background threads.<br />
+		///     Chain <c>Then(...)</c> to assert an ordered sequence of calls. A failing assertion throws a <see cref="global::Mockolate.Exceptions.MockVerificationException">MockVerificationException</see>.
+		/// </remarks>
+		IMockVerifyForConstructorDependencyHierarchy Verify { get; }
+
+		/// <summary>
+		///     Verifies how often a specific method setup was matched by actual invocations.
+		/// </summary>
+		/// <remarks>
+		///     Useful when you want to verify &quot;this <em>particular</em> setup was hit N times&quot; without re-stating the matchers. Chain the usual count terminators (<c>Once()</c>, <c>AtLeastOnce()</c>, <c>Exactly(n)</c>, ...) on the returned result.
+		/// </remarks>
+		/// <param name="setup">The setup previously registered through <see cref="Setup">Setup</see> (typically returned from a <c>Returns(...)</c>/<c>Throws(...)</c> call).</param>
+		/// <returns>A <c>VerificationResult</c> that counts invocations matching the given setup.</returns>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForConstructorDependencyHierarchy> VerifySetup(global::Mockolate.Setup.IMethodSetup setup);
+
+		/// <summary>
+		///     Checks whether every recorded interaction on this mock has been observed by at least one <c>Verify</c> call.
+		/// </summary>
+		/// <remarks>
+		///     Useful in test teardown to catch unexpected interactions (&quot;strict verification&quot;): if any recorded call has never been matched by a verification, the method returns <see langword="false" />.
+		/// </remarks>
+		/// <returns><see langword="true" /> if every recorded interaction was verified at least once; otherwise <see langword="false" />.</returns>
+		bool VerifyThatAllInteractionsAreVerified();
+
+		/// <summary>
+		///     Checks whether every registered setup on this mock was matched by at least one actual invocation.
+		/// </summary>
+		/// <remarks>
+		///     Useful to catch unused setups that silently rot as the test subject evolves.
+		/// </remarks>
+		/// <returns><see langword="true" /> if every registered setup was used at least once; otherwise <see langword="false" />.</returns>
+		bool VerifyThatAllSetupsAreUsed();
+
+		/// <summary>
+		///     Removes every recorded interaction from this mock while keeping all registered setups intact.
+		/// </summary>
+		/// <remarks>
+		///     Handy when a single test exercises multiple logical phases and you only want to verify the interactions of the latest phase.
+		/// </remarks>
+		void ClearAllInteractions();
+
+		/// <summary>
+		///     Creates a monitor whose <c>Verify</c> surface is scoped to interactions produced between <c>monitor.Run()</c> and the disposal of its <see cref="global::System.IDisposable">IDisposable</see> scope.
+		/// </summary>
+		/// <remarks>
+		///     The underlying mock keeps recording all interactions as usual - only the monitor's <c>Verify</c> view is scoped. Useful to verify only the interactions produced by a specific block of test code without resetting the mock.
+		/// </remarks>
+		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
+		global::Mockolate.Monitor.MockMonitor<IMockVerifyForConstructorDependencyHierarchy> Monitor();
+
+		/// <summary>
+		///     Gets the only argument of type <typeparamref name="T" /> that the constructor of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> received.
+		/// </summary>
+		/// <remarks>
+		///     Use it to set up and verify the mocks that <c>CreateMock()</c> passed to the constructor. When the constructor received several arguments of the type, pass the name of the parameter.
+		/// </remarks>
+		/// <returns>The argument of type <typeparamref name="T" />.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The constructor received no or several arguments of type <typeparamref name="T" />.</exception>
+		T ConstructorArgument<T>();
+
+		/// <summary>
+		///     Gets the argument of the parameter <paramref name="parameterName" /> that the constructor of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> received.
+		/// </summary>
+		/// <param name="parameterName">The name of the constructor parameter.</param>
+		/// <returns>The argument of the parameter <paramref name="parameterName" />.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The constructor has no parameter <paramref name="parameterName" />, or its argument is no <typeparamref name="T" />.</exception>
+		T ConstructorArgument<T>(string parameterName);
+	}
+
+	/// <summary>
+	///     Scoped access to setups for a scenario on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.
+	/// </summary>
+	internal interface IMockInScenarioForConstructorDependencyHierarchy
+	{
+		/// <summary>
+		///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> within the scenario scope.
+		/// </summary>
+		IMockSetupForConstructorDependencyHierarchy Setup { get; }
+	}
+
+	/// <summary>
+	///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.
+	/// </summary>
+	internal interface IMockSetupForConstructorDependencyHierarchy : global::Mockolate.Setup.IMockSetup<global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy>
+	{
+	}
+
+	/// <summary>
+	///     Verify interactions with the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.
+	/// </summary>
+	internal interface IMockVerifyForConstructorDependencyHierarchy : global::Mockolate.Verify.IMockVerify<global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy>
+	{
+	}
+}
+/// <summary>
+///     Mock extensions for <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.
+/// </summary>
+[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+internal static partial class MockExtensionsForConstructorDependencyHierarchy
+{
+	/// <inheritdoc cref="MockExtensionsForConstructorDependencyHierarchy" />
+	extension(global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy mock)
+	{
+		/// <summary>
+		///     Gets the mock accessor for <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> - the entry point for configuring setups, verifying interactions and raising events.
+		/// </summary>
+		/// <remarks>
+		///     The accessor is the bridge between the strongly-typed instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> returned by <c>CreateMock(...)</c> and the underlying mock registry where setups and recorded interactions live.<br />
+		///     Through it you can:<br />
+		///     <list type="bullet"><br />
+		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
+		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
+		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
+		///     </list>
+		/// </remarks>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The instance is not a Mockolate-generated mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</exception>
+		public global::Mockolate.Mock.IMockForConstructorDependencyHierarchy Mock
+		{
+			get
+			{
+				if (mock is global::Mockolate.Mock.IMockForConstructorDependencyHierarchy mockInterface)
+				{
+					return mockInterface;
+				}
+				throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
+			}
+		}
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.
+		/// </summary>
+		/// <remarks>
+		///     The returned instance is a strongly-typed mock generated at compile time - it implements <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> and exposes the Mockolate surface through <c>.Mock</c>:<br />
+		///     <list type="bullet"><br />
+		///       <item><description><c>.Mock.Setup</c> configures how members respond (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, sequences, callbacks).</description></item><br />
+		///       <item><description><c>.Mock.Verify</c> asserts how often and in which order members were invoked.</description></item><br />
+		///     </list><br />
+		///     With the default behavior, un-configured members return <c>default</c> values (empty collections / strings, completed tasks, <see langword="null" /> otherwise) and base-class implementations are invoked for class mocks. Use one of the overloads that accepts a <see cref="global::Mockolate.MockBehavior">MockBehavior</see> to customize this (for example to make un-configured calls throw or to skip the base class).<br />
+		///     Overloads allow you to additionally pass constructor parameters (for class mocks), apply an initial <c>setup</c> callback before the instance is returned, or combine both.
+		/// </remarks>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock()
+			=> CreateMock(null, null, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>, applying the given <paramref name="setup" /> immediately.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy> setup)
+			=> CreateMock(null, setup, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> with the given <paramref name="mockBehavior" />.
+		/// </summary>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::Mockolate.MockBehavior mockBehavior)
+			=> CreateMock(mockBehavior, null, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> with the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::Mockolate.MockBehavior mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy> setup)
+			=> CreateMock(mockBehavior, setup, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
+		/// </summary>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(object?[] constructorParameters)
+			=> CreateMock(null, null, constructorParameters);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
+		/// </summary>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
+			=> CreateMock(mockBehavior, null, constructorParameters);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> applying the given <paramref name="setup" /> immediately, using the given <paramref name="constructorParameters" />.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy> setup, object?[] constructorParameters)
+			=> CreateMock(null, setup, constructorParameters);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> using the given constructor parameters to invoke the <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy(global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency)">ConstructorDependencyHierarchy(IConstructorDerivedDependency, IConstructorBaseDependency)</see> constructor.
+		/// </summary>
+		/// <param name="derived">Value forwarded to the base-class constructor.</param>
+		/// <param name="base">Value forwarded to the base-class constructor.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency derived, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency @base)
+			=> CreateMock(null, null, new object?[] { derived, @base });
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> using the given <paramref name="mockBehavior" /> and the given constructor parameters to invoke the <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy(global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency)">ConstructorDependencyHierarchy(IConstructorDerivedDependency, IConstructorBaseDependency)</see> constructor.
+		/// </summary>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <param name="derived">Value forwarded to the base-class constructor.</param>
+		/// <param name="base">Value forwarded to the base-class constructor.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::Mockolate.MockBehavior mockBehavior, global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency derived, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency @base)
+			=> CreateMock(mockBehavior, null, new object?[] { derived, @base });
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> applying the given <paramref name="setup" /> immediately, using the given constructor parameters to invoke the <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy(global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency)">ConstructorDependencyHierarchy(IConstructorDerivedDependency, IConstructorBaseDependency)</see> constructor.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <param name="derived">Value forwarded to the base-class constructor.</param>
+		/// <param name="base">Value forwarded to the base-class constructor.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy> setup, global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency derived, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency @base)
+			=> CreateMock(null, setup, new object?[] { derived, @base });
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> using the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately, using the given constructor parameters to invoke the <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy(global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency)">ConstructorDependencyHierarchy(IConstructorDerivedDependency, IConstructorBaseDependency)</see> constructor.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <param name="derived">Value forwarded to the base-class constructor.</param>
+		/// <param name="base">Value forwarded to the base-class constructor.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::Mockolate.MockBehavior mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy> setup, global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency derived, global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency @base)
+			=> CreateMock(mockBehavior, setup, new object?[] { derived, @base });
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> using the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately, using the given <paramref name="constructorParameters" />.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup, or <see langword="null" /> for <c>MockBehavior.Default</c>.</param>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword="null" /> to skip.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use a constructor that can be called without arguments.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy>? setup, object?[]? constructorParameters)
+		{
+			if (mockBehavior is not null)
+			{
+				IMockBehaviorAccess mockBehaviorAccess = (global::Mockolate.IMockBehaviorAccess)mockBehavior;
+				if (mockBehaviorAccess.TryGet<global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy>?>(out var additionalSetup))
+				{
+					if (setup is null)
+					{
+						setup = additionalSetup;
+					}
+					else
+					{
+						var originalSetup = setup;
+						setup = s => { additionalSetup.Invoke(s); originalSetup.Invoke(s); };
+					}
+				}
+				if (constructorParameters is null && mockBehaviorAccess.TryGetConstructorParameters<global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy>(out object?[]? parameters))
+				{
+					constructorParameters = parameters;
+				}
+			}
+
+			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
+			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.ConstructorDependencyHierarchy.MemberCount, constructorParameters);
+			return CreateMockInstance(mockRegistry, constructorParameters, setup);
+		}
+
+		private static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy CreateMockInstance(global::Mockolate.Internals.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy>? setup)
+		{
+			if (constructorParameters is null || constructorParameters.Length == 0)
+			{
+				global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency d1 = global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency.CreateMock(mockRegistry.Behavior);
+				global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency d2 = global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency.CreateMock(mockRegistry.Behavior);
+				mockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, new object?[] { d1, d2, });
+				global::Mockolate.Mock.ConstructorDependencyHierarchy.MockRegistryProvider.Value = mockRegistry;
+				global::Mockolate.MockExtensionsForConstructorDependencyHierarchy.MockSetup? setupTarget = null;
+				if (setup is not null)
+				{
+					setupTarget ??= new(mockRegistry);
+					setup.Invoke(setupTarget);
+				}
+				return new global::Mockolate.Mock.ConstructorDependencyHierarchy(mockRegistry, d1, d2);
+			}
+			else if (constructorParameters.Length == 2
+			    && TryCast(constructorParameters, 0, mockRegistry.Behavior, out global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency c1p1)
+			    && TryCast(constructorParameters, 1, mockRegistry.Behavior, out global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency c1p2))
+			{
+				global::Mockolate.Mock.ConstructorDependencyHierarchy.MockRegistryProvider.Value = mockRegistry;
+				global::Mockolate.MockExtensionsForConstructorDependencyHierarchy.MockSetup? setupTarget = null;
+				if (setup is not null)
+				{
+					setupTarget ??= new(mockRegistry);
+					setup.Invoke(setupTarget);
+				}
+				return new global::Mockolate.Mock.ConstructorDependencyHierarchy(mockRegistry, c1p1, c1p2);
+			}
+			else
+			{
+				throw new global::Mockolate.Exceptions.MockException($"Could not find any constructor for 'Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy' that matches the {constructorParameters.Length} given parameters ({string.Join(", ", constructorParameters)}).");
+			}
+			static bool TryCast<TValue>(object?[] values, int index, global::Mockolate.MockBehavior behavior, out TValue result)
+			{
+			    var value = values[index];
+				if (value is TValue typedValue)
+				{
+					result = typedValue;
+					return true;
+				}
+				
+				result = default!;
+				return value is null;
+			}
+		}
+		/// <summary>
+		///     Creates a mock that wraps the given <paramref name="instance" />.
+		/// </summary>
+		/// <remarks>
+		///     Public members on the mock forward to <paramref name="instance" /> unless overridden by a setup; protected members still go through the base-class implementation. All forwarded interactions are recorded and can be verified the same as on a plain mock.
+		/// </remarks>
+		/// <param name="instance">The real object whose calls should be forwarded. Must not be <see langword="null" />.</param>
+		/// <returns>A new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> that delegates to <paramref name="instance" />.</returns>
+		public global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy Wrapping(global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy instance)
+		{
+			if (mock is global::Mockolate.IMock mockInterface)
+			{
+				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ConstructorDependencyHierarchy.CreateFastInteractions(wrappingRegistry.Behavior));
+				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
+			}
+			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
+		}
+
+	}
+
+	/// <inheritdoc cref="MockExtensionsForConstructorDependencyHierarchy" />
+	extension(global::Mockolate.MockBehavior behavior)
+	{
+		/// <summary>
+		///     Initializes mocks of type <typeparamref name="T" /> with the given <paramref name="setup" />.
+		/// </summary>
+		/// <remarks>
+		///     The <paramref name="setup" /> is applied to the mock before the constructor is executed. Calling <c>Initialize</c> again overlays additional setups on top of any previously registered ones.
+		/// </remarks>
+		/// <typeparam name="T">The mockable type derived from <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy">ConstructorDependencyHierarchy</see> that this setup should apply to.</typeparam>
+		/// <param name="setup">Callback invoked when a new mock of <typeparamref name="T" /> is created.</param>
+		/// <returns>A new <see cref="global::Mockolate.MockBehavior">MockBehavior</see> with the registered initializer. The original instance is unchanged.</returns>
+		public global::Mockolate.MockBehavior Initialize<T>(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy> setup)
+			where T : global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyHierarchy
+		{
+			var behaviorAccess = (global::Mockolate.IMockBehaviorAccess)behavior;
+			return behaviorAccess.Set(setup);
+		}
+	}
+
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal sealed class MockSetup(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupForConstructorDependencyHierarchy
+	{
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
+
+		#region IMockSetupForConstructorDependencyHierarchy
+
+		#endregion IMockSetupForConstructorDependencyHierarchy
+	}
+}
+
+#nullable disable annotations
+
 // Mock.ConstructorDependencyKeyword.g.cs
 //----------------------
 // <auto-generated>
@@ -768,7 +1378,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -827,7 +1437,7 @@ internal static partial class Mock
 			: base(@class)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword(IConstructorDependency)", new string[] { "class", }, new object?[] { @class, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword(IConstructorDependency)", new string[] { "class", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), }, new object?[] { @class, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyKeyword" />
@@ -1113,7 +1723,7 @@ internal static partial class MockExtensionsForConstructorDependencyKeyword
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword">ConstructorDependencyKeyword</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword">ConstructorDependencyKeyword</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -1122,7 +1732,7 @@ internal static partial class MockExtensionsForConstructorDependencyKeyword
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword">ConstructorDependencyKeyword</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword">ConstructorDependencyKeyword</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -1134,7 +1744,7 @@ internal static partial class MockExtensionsForConstructorDependencyKeyword
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword">ConstructorDependencyKeyword</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyKeyword CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyKeyword> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -1372,7 +1982,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -1431,7 +2041,7 @@ internal static partial class Mock
 			: base(dependency)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric(IConstructorGenericDependency<string?>)", new string[] { "dependency", }, new object?[] { dependency, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric(IConstructorGenericDependency<string?>)", new string[] { "dependency", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorGenericDependency<string?>), }, new object?[] { dependency, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyNullableGeneric" />
@@ -1717,7 +2327,7 @@ internal static partial class MockExtensionsForConstructorDependencyNullableGene
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric">ConstructorDependencyNullableGeneric</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric">ConstructorDependencyNullableGeneric</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -1726,7 +2336,7 @@ internal static partial class MockExtensionsForConstructorDependencyNullableGene
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric">ConstructorDependencyNullableGeneric</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric">ConstructorDependencyNullableGeneric</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -1738,7 +2348,7 @@ internal static partial class MockExtensionsForConstructorDependencyNullableGene
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric">ConstructorDependencyNullableGeneric</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyNullableGeneric CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyNullableGeneric> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -1976,7 +2586,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -2048,7 +2658,7 @@ internal static partial class Mock
 			: base(dependency)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional(IConstructorDependency)", new string[] { "dependency", }, new object?[] { dependency, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional(IConstructorDependency)", new string[] { "dependency", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), }, new object?[] { dependency, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyOptional" />
@@ -2334,7 +2944,7 @@ internal static partial class MockExtensionsForConstructorDependencyOptional
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional">ConstructorDependencyOptional</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional">ConstructorDependencyOptional</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -2343,7 +2953,7 @@ internal static partial class MockExtensionsForConstructorDependencyOptional
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional">ConstructorDependencyOptional</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional">ConstructorDependencyOptional</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -2355,7 +2965,7 @@ internal static partial class MockExtensionsForConstructorDependencyOptional
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional">ConstructorDependencyOptional</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOptional CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyOptional> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -2602,7 +3212,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -2661,7 +3271,7 @@ internal static partial class Mock
 			: base(dependency, other)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads(IConstructorDependency, IConstructorOtherDependency)", new string[] { "dependency", "other", }, new object?[] { dependency, other, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads(IConstructorDependency, IConstructorOtherDependency)", new string[] { "dependency", "other", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency), }, new object?[] { dependency, other, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyOverloads" />
@@ -2675,7 +3285,7 @@ internal static partial class Mock
 			: base(other)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads(IConstructorOtherDependency)", new string[] { "other", }, new object?[] { other, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads(IConstructorOtherDependency)", new string[] { "other", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency), }, new object?[] { other, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyOverloads" />
@@ -2961,7 +3571,7 @@ internal static partial class MockExtensionsForConstructorDependencyOverloads
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads">ConstructorDependencyOverloads</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads">ConstructorDependencyOverloads</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -2970,7 +3580,7 @@ internal static partial class MockExtensionsForConstructorDependencyOverloads
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads">ConstructorDependencyOverloads</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads">ConstructorDependencyOverloads</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -2982,7 +3592,7 @@ internal static partial class MockExtensionsForConstructorDependencyOverloads
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads">ConstructorDependencyOverloads</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyOverloads CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyOverloads> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -3281,7 +3891,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -3340,7 +3950,7 @@ internal static partial class Mock
 			: base(dependency, name, retries, factor, tags)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService(IConstructorDependency, string?, int, decimal, string[])", new string[] { "dependency", "name", "retries", "factor", "tags", }, new object?[] { dependency, name, retries, factor, tags, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService(IConstructorDependency, string?, int, decimal, string[])", new string[] { "dependency", "name", "retries", "factor", "tags", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(string), typeof(int), typeof(decimal), typeof(string[]), }, new object?[] { dependency, name, retries, factor, tags, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyService" />
@@ -3734,7 +4344,7 @@ internal static partial class MockExtensionsForConstructorDependencyService
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService">ConstructorDependencyService</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService">ConstructorDependencyService</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -3743,7 +4353,7 @@ internal static partial class MockExtensionsForConstructorDependencyService
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService">ConstructorDependencyService</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService">ConstructorDependencyService</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -3755,7 +4365,7 @@ internal static partial class MockExtensionsForConstructorDependencyService
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService">ConstructorDependencyService</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyService> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -3959,7 +4569,7 @@ internal static partial class Mock
 		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -4058,7 +4668,7 @@ internal static partial class Mock
 			: base(dependency, name, retries, factor, tags)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService(IConstructorDependency, string?, int, decimal, string[])", new string[] { "dependency", "name", "retries", "factor", "tags", }, new object?[] { dependency, name, retries, factor, tags, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService(IConstructorDependency, string?, int, decimal, string[])", new string[] { "dependency", "name", "retries", "factor", "tags", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(string), typeof(int), typeof(decimal), typeof(string[]), }, new object?[] { dependency, name, retries, factor, tags, });
 		}
 
 		#region Mockolate.Tests.GeneratorCoverage.ConstructorDependencyService
@@ -4395,7 +5005,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -4467,7 +5077,7 @@ internal static partial class Mock
 			: base(dependency)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan(IConstructorDependency)", new string[] { "dependency", }, new object?[] { dependency, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan(IConstructorDependency)", new string[] { "dependency", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), }, new object?[] { dependency, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencySpan" />
@@ -4753,7 +5363,7 @@ internal static partial class MockExtensionsForConstructorDependencySpan
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan">ConstructorDependencySpan</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan">ConstructorDependencySpan</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -4762,7 +5372,7 @@ internal static partial class MockExtensionsForConstructorDependencySpan
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan">ConstructorDependencySpan</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan">ConstructorDependencySpan</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -4774,7 +5384,7 @@ internal static partial class MockExtensionsForConstructorDependencySpan
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan">ConstructorDependencySpan</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySpan CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencySpan> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -5012,7 +5622,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -5071,7 +5681,7 @@ internal static partial class Mock
 			: base(dependency)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie(IConstructorDependency)", new string[] { "dependency", }, new object?[] { dependency, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie(IConstructorDependency)", new string[] { "dependency", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), }, new object?[] { dependency, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyTie" />
@@ -5085,7 +5695,7 @@ internal static partial class Mock
 			: base(other)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie(IConstructorOtherDependency)", new string[] { "other", }, new object?[] { other, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie(IConstructorOtherDependency)", new string[] { "other", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency), }, new object?[] { other, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyTie" />
@@ -5371,7 +5981,7 @@ internal static partial class MockExtensionsForConstructorDependencyTie
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie">ConstructorDependencyTie</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie">ConstructorDependencyTie</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -5380,7 +5990,7 @@ internal static partial class MockExtensionsForConstructorDependencyTie
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie">ConstructorDependencyTie</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie">ConstructorDependencyTie</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -5392,7 +6002,7 @@ internal static partial class MockExtensionsForConstructorDependencyTie
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie">ConstructorDependencyTie</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTie CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyTie> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -5675,7 +6285,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -5734,7 +6344,7 @@ internal static partial class Mock
 			: base(first, second)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice(IConstructorDependency, IConstructorDependency)", new string[] { "first", "second", }, new object?[] { first, second, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice(IConstructorDependency, IConstructorDependency)", new string[] { "first", "second", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), }, new object?[] { first, second, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyTwice" />
@@ -6020,7 +6630,7 @@ internal static partial class MockExtensionsForConstructorDependencyTwice
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice">ConstructorDependencyTwice</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice">ConstructorDependencyTwice</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -6029,7 +6639,7 @@ internal static partial class MockExtensionsForConstructorDependencyTwice
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice">ConstructorDependencyTwice</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice">ConstructorDependencyTwice</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -6041,7 +6651,7 @@ internal static partial class MockExtensionsForConstructorDependencyTwice
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice">ConstructorDependencyTwice</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyTwice CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyTwice> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -6285,7 +6895,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -6344,7 +6954,7 @@ internal static partial class Mock
 			: base(unmockable)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable(IConstructorUnmockableDependency)", new string[] { "unmockable", }, new object?[] { unmockable, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable(IConstructorUnmockableDependency)", new string[] { "unmockable", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorUnmockableDependency), }, new object?[] { unmockable, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyUnmockable" />
@@ -6630,7 +7240,7 @@ internal static partial class MockExtensionsForConstructorDependencyUnmockable
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable">ConstructorDependencyUnmockable</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable">ConstructorDependencyUnmockable</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -6639,7 +7249,7 @@ internal static partial class MockExtensionsForConstructorDependencyUnmockable
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable">ConstructorDependencyUnmockable</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable">ConstructorDependencyUnmockable</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -6651,7 +7261,7 @@ internal static partial class MockExtensionsForConstructorDependencyUnmockable
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable">ConstructorDependencyUnmockable</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyUnmockable> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -6741,7 +7351,7 @@ internal static partial class MockExtensionsForConstructorDependencyUnmockable
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				global::Mockolate.Tests.GeneratorCoverage.IConstructorUnmockableDependency d1 = mockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IConstructorUnmockableDependency)!);
+				global::Mockolate.Tests.GeneratorCoverage.IConstructorUnmockableDependency d1 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IConstructorUnmockableDependency)!));
 				if (d1 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'unmockable' of Mockolate.Tests.GeneratorCoverage.ConstructorDependencyUnmockable. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
@@ -6893,7 +7503,7 @@ internal static partial class Mock
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
-		private readonly global::Mockolate.Internals.ConstructorArguments? MockolateConstructorArguments;
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -6952,7 +7562,7 @@ internal static partial class Mock
 			: base(dependency, text, number, values)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.Internals.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues(IConstructorDependency, string, int, IEnumerable<int>)", new string[] { "dependency", "text", "number", "values", }, new object?[] { dependency, text, number, values, });
+			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues(IConstructorDependency, string, int, IEnumerable<int>)", new string[] { "dependency", "text", "number", "values", }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(string), typeof(int), typeof(global::System.Collections.Generic.IEnumerable<int>), }, new object?[] { dependency, text, number, values, });
 		}
 
 		/// <inheritdoc cref="ConstructorDependencyValues" />
@@ -7238,7 +7848,7 @@ internal static partial class MockExtensionsForConstructorDependencyValues
 		/// <summary>
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues">ConstructorDependencyValues</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues">ConstructorDependencyValues</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -7247,7 +7857,7 @@ internal static partial class MockExtensionsForConstructorDependencyValues
 		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues">ConstructorDependencyValues</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues">ConstructorDependencyValues</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -7259,7 +7869,7 @@ internal static partial class MockExtensionsForConstructorDependencyValues
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues">ConstructorDependencyValues</see>.</returns>
 		public static global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForConstructorDependencyValues> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);
@@ -7362,13 +7972,13 @@ internal static partial class MockExtensionsForConstructorDependencyValues
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
 				global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency d1 = global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency.CreateMock(mockRegistry.Behavior);
-				string d2 = mockRegistry.Behavior.DefaultValue.Generate(default(string)!);
+				string d2 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(string)!));
 				if (d2 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'text' of Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
 				}
-				int d3 = mockRegistry.Behavior.DefaultValue.Generate(default(int)!);
-				global::System.Collections.Generic.IEnumerable<int> d4 = mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!);
+				int d3 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
+				global::System.Collections.Generic.IEnumerable<int> d4 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!));
 				if (d4 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
@@ -7464,6 +8074,457 @@ internal static partial class MockExtensionsForConstructorDependencyValues
 		#region IMockSetupForConstructorDependencyValues
 
 		#endregion IMockSetupForConstructorDependencyValues
+	}
+}
+
+#nullable disable annotations
+
+// Mock.IConstructorBaseDependency.g.cs
+//----------------------
+// <auto-generated>
+//     This code was generated by the Mockolate source generator.
+//
+//     Changes to this file may cause incorrect behavior and
+//     will be lost if the code is regenerated!
+// </auto-generated>
+//----------------------
+
+#nullable enable annotations
+namespace Mockolate;
+
+internal static partial class Mock
+{
+	/// <summary>
+	///     A mock implementation for <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.
+	/// </summary>
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal class IConstructorBaseDependency :
+		global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency, IMockForIConstructorBaseDependency, IMockSetupForIConstructorBaseDependency, IMockVerifyForIConstructorBaseDependency,
+		global::Mockolate.IMock
+	{
+		internal const int MemberCount = 0;
+
+		/// <summary>
+		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		/// </summary>
+		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+
+		/// <summary>
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		/// </summary>
+		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
+		{
+			behavior = global::Mockolate.Internals.AutoMocks.UseFactory(behavior, null);
+			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
+			return registry;
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
+
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockSetupForIConstructorBaseDependency IMockForIConstructorBaseDependency.Setup
+			=> this;
+		/// <inheritdoc />
+		IMockInScenarioForIConstructorBaseDependency IMockForIConstructorBaseDependency.InScenario(string scenario)
+			=> new MockInScenarioForIConstructorBaseDependency(this.MockRegistry, scenario);
+
+		/// <inheritdoc />
+		IMockForIConstructorBaseDependency IMockForIConstructorBaseDependency.InScenario(string scenario, global::System.Action<IMockInScenarioForIConstructorBaseDependency> setup)
+		{
+			setup.Invoke(new MockInScenarioForIConstructorBaseDependency(this.MockRegistry, scenario));
+			return this;
+		}
+
+		/// <inheritdoc />
+		IMockForIConstructorBaseDependency IMockForIConstructorBaseDependency.TransitionTo(string scenario)
+		{
+			this.MockRegistry.TransitionTo(scenario);
+			return this;
+		}
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockVerifyForIConstructorBaseDependency IMockForIConstructorBaseDependency.Verify
+			=> this;
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIConstructorBaseDependency> IMockForIConstructorBaseDependency.VerifySetup(global::Mockolate.Setup.IMethodSetup setup)
+			=> this.MockRegistry.Method<IMockVerifyForIConstructorBaseDependency>(this, setup);
+		/// <inheritdoc />
+		bool IMockForIConstructorBaseDependency.VerifyThatAllInteractionsAreVerified()
+			=> this.MockRegistry.Interactions.GetUnverifiedInteractions().Count == 0;
+		/// <inheritdoc />
+		bool IMockForIConstructorBaseDependency.VerifyThatAllSetupsAreUsed()
+			=> this.MockRegistry.GetUnusedSetups(this.MockRegistry.Interactions).Count == 0;
+		/// <inheritdoc />
+		void IMockForIConstructorBaseDependency.ClearAllInteractions()
+			=> this.MockRegistry.ClearAllInteractions();
+		/// <inheritdoc />
+		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIConstructorBaseDependency> IMockForIConstructorBaseDependency.Monitor()
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIConstructorBaseDependency>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIConstructorBaseDependency(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+
+		/// <inheritdoc />
+		string global::Mockolate.IMock.ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency mock";
+
+		/// <inheritdoc cref="IConstructorBaseDependency" />
+		public IConstructorBaseDependency(global::Mockolate.Internals.MockRegistry mockRegistry)
+		{
+			this.MockRegistry = mockRegistry;
+		}
+
+		/// <inheritdoc cref="IConstructorBaseDependency" />
+		public IConstructorBaseDependency(global::Mockolate.MockBehavior behavior)
+			: this(MockolateCreateRegistryFromBehavior(behavior))
+		{
+		}
+
+		#region Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency
+
+		#endregion Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency
+
+		#region IMockSetupForIConstructorBaseDependency
+
+		#endregion IMockSetupForIConstructorBaseDependency
+
+		#region IMockVerifyForIConstructorBaseDependency
+
+		#endregion IMockVerifyForIConstructorBaseDependency
+	}
+
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	private sealed class VerifyMonitorIConstructorBaseDependency(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForIConstructorBaseDependency
+	{
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
+
+		#region IMockVerifyForIConstructorBaseDependency
+
+		#endregion IMockVerifyForIConstructorBaseDependency
+	}
+
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	private sealed class MockInScenarioForIConstructorBaseDependency : global::Mockolate.Mock.IMockInScenarioForIConstructorBaseDependency, global::Mockolate.Mock.IMockSetupForIConstructorBaseDependency
+	{
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
+		private string _scenarioName;
+
+		public MockInScenarioForIConstructorBaseDependency(global::Mockolate.Internals.MockRegistry mockRegistry, string scenario)
+		{
+			this.MockRegistry = mockRegistry;
+			_scenarioName = scenario;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Mock.IMockSetupForIConstructorBaseDependency global::Mockolate.Mock.IMockInScenarioForIConstructorBaseDependency.Setup
+			=> this;
+
+		#region IMockSetupForIConstructorBaseDependency
+
+		#endregion IMockSetupForIConstructorBaseDependency
+	}
+
+	/// <summary>
+	///     The Mockolate accessor for a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>, reached through <c>.Mock</c> on the mocked instance.
+	/// </summary>
+	/// <remarks>
+	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
+	/// </remarks>
+	internal interface IMockForIConstructorBaseDependency
+	{
+		/// <summary>
+		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> respond when invoked.
+		/// </summary>
+		/// <remarks>
+		///     Each mocked member is available as a strongly-typed entry on this surface. Chain <c>Returns</c>, <c>ReturnsAsync</c>, <c>Throws</c>, <c>ThrowsAsync</c> or <c>Do</c> to control the response; chain <c>InitializeWith</c>/<c>Register</c> to initialize properties and indexers; chain multiple returns/throws to define a sequence; use <c>.For(n)</c>, <c>.Only(n)</c>, <c>.Forever()</c>, <c>.When(predicate)</c> to control when a callback runs.<br />
+		///     When two setups overlap, the most recently defined one wins.
+		/// </remarks>
+		IMockSetupForIConstructorBaseDependency Setup { get; }
+
+		/// <summary>
+		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> so that additional setups can be registered for that scenario.
+		/// </summary>
+		/// <remarks>
+		///     Scenarios let you define per-state behavior. Setups registered inside the returned <c>IMockInScenarioFor...</c> scope only apply while the mock's current scenario matches <paramref name="scenario" />; switch scenarios with <see cref="TransitionTo">TransitionTo</see>.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to enter. Any non-null string acts as a key; the mock starts in an unnamed default scenario.</param>
+		/// <returns>A scoped accessor whose <c>Setup</c> (and <c>SetupProtected</c>, where applicable) register scenario-specific setups.</returns>
+		IMockInScenarioForIConstructorBaseDependency InScenario(string scenario);
+
+		/// <summary>
+		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> and immediately invokes <paramref name="setup" /> to register scenario-specific setups.
+		/// </summary>
+		/// <remarks>
+		///     Equivalent to <c>InScenario(scenario)</c> followed by the setup callback, but returns the original <c>IMockFor...</c> accessor so it chains nicely at mock-creation time.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to enter.</param>
+		/// <param name="setup">Callback that receives the scenario-scoped setup surface and registers scenario-specific setups.</param>
+		/// <returns>This accessor, to allow chaining.</returns>
+		IMockForIConstructorBaseDependency InScenario(string scenario, global::System.Action<IMockInScenarioForIConstructorBaseDependency> setup);
+
+		/// <summary>
+		///     Switches the active scenario of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> to <paramref name="scenario" />.
+		/// </summary>
+		/// <remarks>
+		///     After the transition, setups registered via <see cref="InScenario(string)">InScenario(string)</see> under that scenario take effect. Scenarios that have no matching setup for a given member fall back to the default (un-scoped) setups.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to transition to.</param>
+		/// <returns>This accessor, to allow chaining.</returns>
+		IMockForIConstructorBaseDependency TransitionTo(string scenario);
+
+		/// <summary>
+		///     Asserts how often, and in which order, members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> were invoked.
+		/// </summary>
+		/// <remarks>
+		///     Each call to a member here returns a <c>VerificationResult</c> that you terminate with a count assertion: <c>Never()</c>, <c>Once()</c>, <c>Twice()</c>, <c>Exactly(n)</c>, <c>AtLeast(n)</c>/<c>AtLeastOnce()</c>/<c>AtLeastTwice()</c>, <c>AtMost(n)</c>/<c>AtMostOnce()</c>/<c>AtMostTwice()</c>, <c>Between(min, max)</c> or <c>Times(predicate)</c>.<br />
+		///     Use <c>Within(TimeSpan)</c> / <c>WithCancellation(CancellationToken)</c> before the terminator to wait for expected interactions that happen on background threads.<br />
+		///     Chain <c>Then(...)</c> to assert an ordered sequence of calls. A failing assertion throws a <see cref="global::Mockolate.Exceptions.MockVerificationException">MockVerificationException</see>.
+		/// </remarks>
+		IMockVerifyForIConstructorBaseDependency Verify { get; }
+
+		/// <summary>
+		///     Verifies how often a specific method setup was matched by actual invocations.
+		/// </summary>
+		/// <remarks>
+		///     Useful when you want to verify &quot;this <em>particular</em> setup was hit N times&quot; without re-stating the matchers. Chain the usual count terminators (<c>Once()</c>, <c>AtLeastOnce()</c>, <c>Exactly(n)</c>, ...) on the returned result.
+		/// </remarks>
+		/// <param name="setup">The setup previously registered through <see cref="Setup">Setup</see> (typically returned from a <c>Returns(...)</c>/<c>Throws(...)</c> call).</param>
+		/// <returns>A <c>VerificationResult</c> that counts invocations matching the given setup.</returns>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIConstructorBaseDependency> VerifySetup(global::Mockolate.Setup.IMethodSetup setup);
+
+		/// <summary>
+		///     Checks whether every recorded interaction on this mock has been observed by at least one <c>Verify</c> call.
+		/// </summary>
+		/// <remarks>
+		///     Useful in test teardown to catch unexpected interactions (&quot;strict verification&quot;): if any recorded call has never been matched by a verification, the method returns <see langword="false" />.
+		/// </remarks>
+		/// <returns><see langword="true" /> if every recorded interaction was verified at least once; otherwise <see langword="false" />.</returns>
+		bool VerifyThatAllInteractionsAreVerified();
+
+		/// <summary>
+		///     Checks whether every registered setup on this mock was matched by at least one actual invocation.
+		/// </summary>
+		/// <remarks>
+		///     Useful to catch unused setups that silently rot as the test subject evolves.
+		/// </remarks>
+		/// <returns><see langword="true" /> if every registered setup was used at least once; otherwise <see langword="false" />.</returns>
+		bool VerifyThatAllSetupsAreUsed();
+
+		/// <summary>
+		///     Removes every recorded interaction from this mock while keeping all registered setups intact.
+		/// </summary>
+		/// <remarks>
+		///     Handy when a single test exercises multiple logical phases and you only want to verify the interactions of the latest phase.
+		/// </remarks>
+		void ClearAllInteractions();
+
+		/// <summary>
+		///     Creates a monitor whose <c>Verify</c> surface is scoped to interactions produced between <c>monitor.Run()</c> and the disposal of its <see cref="global::System.IDisposable">IDisposable</see> scope.
+		/// </summary>
+		/// <remarks>
+		///     The underlying mock keeps recording all interactions as usual - only the monitor's <c>Verify</c> view is scoped. Useful to verify only the interactions produced by a specific block of test code without resetting the mock.
+		/// </remarks>
+		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
+		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIConstructorBaseDependency> Monitor();
+	}
+
+	/// <summary>
+	///     Scoped access to setups for a scenario on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.
+	/// </summary>
+	internal interface IMockInScenarioForIConstructorBaseDependency
+	{
+		/// <summary>
+		///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> within the scenario scope.
+		/// </summary>
+		IMockSetupForIConstructorBaseDependency Setup { get; }
+	}
+
+	/// <summary>
+	///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.
+	/// </summary>
+	internal interface IMockSetupForIConstructorBaseDependency : global::Mockolate.Setup.IMockSetup<global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency>
+	{
+	}
+
+	/// <summary>
+	///     Verify interactions with the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.
+	/// </summary>
+	internal interface IMockVerifyForIConstructorBaseDependency : global::Mockolate.Verify.IMockVerify<global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency>
+	{
+	}
+}
+/// <summary>
+///     Mock extensions for <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.
+/// </summary>
+[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+internal static partial class MockExtensionsForIConstructorBaseDependency
+{
+	/// <inheritdoc cref="MockExtensionsForIConstructorBaseDependency" />
+#nullable disable annotations
+	extension(global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency mock)
+#nullable enable annotations
+	{
+		/// <summary>
+		///     Gets the mock accessor for <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> - the entry point for configuring setups, verifying interactions and raising events.
+		/// </summary>
+		/// <remarks>
+		///     The accessor is the bridge between the strongly-typed instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> returned by <c>CreateMock(...)</c> and the underlying mock registry where setups and recorded interactions live.<br />
+		///     Through it you can:<br />
+		///     <list type="bullet"><br />
+		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
+		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
+		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
+		///     </list>
+		/// </remarks>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The instance is not a Mockolate-generated mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.</exception>
+		public global::Mockolate.Mock.IMockForIConstructorBaseDependency Mock
+		{
+			get
+			{
+				if (mock is global::Mockolate.Mock.IMockForIConstructorBaseDependency mockInterface)
+				{
+					return mockInterface;
+				}
+				throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
+			}
+		}
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.
+		/// </summary>
+		/// <remarks>
+		///     The returned instance is a strongly-typed mock generated at compile time - it implements <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> and exposes the Mockolate surface through <c>.Mock</c>:<br />
+		///     <list type="bullet"><br />
+		///       <item><description><c>.Mock.Setup</c> configures how members respond (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, sequences, callbacks).</description></item><br />
+		///       <item><description><c>.Mock.Verify</c> asserts how often and in which order members were invoked.</description></item><br />
+		///     </list><br />
+		///     With the default behavior, un-configured members return <c>default</c> values (empty collections / strings, completed tasks, <see langword="null" /> otherwise) and base-class implementations are invoked for class mocks. Use one of the overloads that accepts a <see cref="global::Mockolate.MockBehavior">MockBehavior</see> to customize this (for example to make un-configured calls throw or to skip the base class).<br />
+		///     Overloads allow you to additionally pass constructor parameters (for class mocks), apply an initial <c>setup</c> callback before the instance is returned, or combine both.
+		/// </remarks>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency CreateMock()
+			=> CreateMock(null, null, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>, applying the given <paramref name="setup" /> immediately.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorBaseDependency> setup)
+			=> CreateMock(null, setup, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> with the given <paramref name="mockBehavior" />.
+		/// </summary>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency CreateMock(global::Mockolate.MockBehavior mockBehavior)
+			=> CreateMock(mockBehavior, null, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> with the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency CreateMock(global::Mockolate.MockBehavior mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorBaseDependency> setup)
+			=> CreateMock(mockBehavior, setup, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> using the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately, using the given <paramref name="constructorParameters" />.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup, or <see langword="null" /> for <c>MockBehavior.Default</c>.</param>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword="null" /> to skip.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use a constructor that can be called without arguments.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see>.</returns>
+		private static global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorBaseDependency>? setup, object?[]? constructorParameters)
+		{
+			if (mockBehavior is not null)
+			{
+				IMockBehaviorAccess mockBehaviorAccess = (global::Mockolate.IMockBehaviorAccess)mockBehavior;
+				if (mockBehaviorAccess.TryGet<global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorBaseDependency>?>(out var additionalSetup))
+				{
+					if (setup is null)
+					{
+						setup = additionalSetup;
+					}
+					else
+					{
+						var originalSetup = setup;
+						setup = s => { additionalSetup.Invoke(s); originalSetup.Invoke(s); };
+					}
+				}
+			}
+
+			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
+			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.IConstructorBaseDependency.MemberCount, constructorParameters);
+			return CreateMockInstance(mockRegistry, constructorParameters, setup);
+		}
+
+		private static global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency CreateMockInstance(global::Mockolate.Internals.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorBaseDependency>? setup)
+		{
+			var value = new global::Mockolate.Mock.IConstructorBaseDependency(mockRegistry);
+			if (setup is not null)
+			{
+				setup.Invoke(value);
+			}
+			return value;
+		}
+		/// <summary>
+		///     Creates a mock that wraps the given <paramref name="instance" />.
+		/// </summary>
+		/// <remarks>
+		///     Public members on the mock forward to <paramref name="instance" /> unless overridden by a setup; protected members still go through the base-class implementation. All forwarded interactions are recorded and can be verified the same as on a plain mock.
+		/// </remarks>
+		/// <param name="instance">The real object whose calls should be forwarded. Must not be <see langword="null" />.</param>
+		/// <returns>A new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> that delegates to <paramref name="instance" />.</returns>
+		public global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency Wrapping(global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency instance)
+		{
+			if (mock is global::Mockolate.IMock mockInterface)
+			{
+				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IConstructorBaseDependency.CreateFastInteractions(wrappingRegistry.Behavior));
+				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
+			}
+			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
+		}
+
+	}
+
+	/// <inheritdoc cref="MockExtensionsForIConstructorBaseDependency" />
+	extension(global::Mockolate.MockBehavior behavior)
+	{
+		/// <summary>
+		///     Initializes mocks of type <typeparamref name="T" /> with the given <paramref name="setup" />.
+		/// </summary>
+		/// <remarks>
+		///     The <paramref name="setup" /> is applied to the mock before the constructor is executed. Calling <c>Initialize</c> again overlays additional setups on top of any previously registered ones.
+		/// </remarks>
+		/// <typeparam name="T">The mockable type derived from <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency">IConstructorBaseDependency</see> that this setup should apply to.</typeparam>
+		/// <param name="setup">Callback invoked when a new mock of <typeparamref name="T" /> is created.</param>
+		/// <returns>A new <see cref="global::Mockolate.MockBehavior">MockBehavior</see> with the registered initializer. The original instance is unchanged.</returns>
+		public global::Mockolate.MockBehavior Initialize<T>(global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorBaseDependency> setup)
+			where T : global::Mockolate.Tests.GeneratorCoverage.IConstructorBaseDependency
+		{
+			var behaviorAccess = (global::Mockolate.IMockBehaviorAccess)behavior;
+			return behaviorAccess.Set(setup);
+		}
 	}
 }
 
@@ -8015,6 +9076,457 @@ internal static partial class MockExtensionsForIConstructorDependency
 		/// <returns>A new <see cref="global::Mockolate.MockBehavior">MockBehavior</see> with the registered initializer. The original instance is unchanged.</returns>
 		public global::Mockolate.MockBehavior Initialize<T>(global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorDependency> setup)
 			where T : global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency
+		{
+			var behaviorAccess = (global::Mockolate.IMockBehaviorAccess)behavior;
+			return behaviorAccess.Set(setup);
+		}
+	}
+}
+
+#nullable disable annotations
+
+// Mock.IConstructorDerivedDependency.g.cs
+//----------------------
+// <auto-generated>
+//     This code was generated by the Mockolate source generator.
+//
+//     Changes to this file may cause incorrect behavior and
+//     will be lost if the code is regenerated!
+// </auto-generated>
+//----------------------
+
+#nullable enable annotations
+namespace Mockolate;
+
+internal static partial class Mock
+{
+	/// <summary>
+	///     A mock implementation for <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.
+	/// </summary>
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal class IConstructorDerivedDependency :
+		global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency, IMockForIConstructorDerivedDependency, IMockSetupForIConstructorDerivedDependency, IMockVerifyForIConstructorDerivedDependency,
+		global::Mockolate.IMock
+	{
+		internal const int MemberCount = 0;
+
+		/// <summary>
+		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		/// </summary>
+		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+
+		/// <summary>
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		/// </summary>
+		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
+		{
+			behavior = global::Mockolate.Internals.AutoMocks.UseFactory(behavior, null);
+			global::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);
+			return registry;
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.MockRegistry;
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
+
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockSetupForIConstructorDerivedDependency IMockForIConstructorDerivedDependency.Setup
+			=> this;
+		/// <inheritdoc />
+		IMockInScenarioForIConstructorDerivedDependency IMockForIConstructorDerivedDependency.InScenario(string scenario)
+			=> new MockInScenarioForIConstructorDerivedDependency(this.MockRegistry, scenario);
+
+		/// <inheritdoc />
+		IMockForIConstructorDerivedDependency IMockForIConstructorDerivedDependency.InScenario(string scenario, global::System.Action<IMockInScenarioForIConstructorDerivedDependency> setup)
+		{
+			setup.Invoke(new MockInScenarioForIConstructorDerivedDependency(this.MockRegistry, scenario));
+			return this;
+		}
+
+		/// <inheritdoc />
+		IMockForIConstructorDerivedDependency IMockForIConstructorDerivedDependency.TransitionTo(string scenario)
+		{
+			this.MockRegistry.TransitionTo(scenario);
+			return this;
+		}
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockVerifyForIConstructorDerivedDependency IMockForIConstructorDerivedDependency.Verify
+			=> this;
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIConstructorDerivedDependency> IMockForIConstructorDerivedDependency.VerifySetup(global::Mockolate.Setup.IMethodSetup setup)
+			=> this.MockRegistry.Method<IMockVerifyForIConstructorDerivedDependency>(this, setup);
+		/// <inheritdoc />
+		bool IMockForIConstructorDerivedDependency.VerifyThatAllInteractionsAreVerified()
+			=> this.MockRegistry.Interactions.GetUnverifiedInteractions().Count == 0;
+		/// <inheritdoc />
+		bool IMockForIConstructorDerivedDependency.VerifyThatAllSetupsAreUsed()
+			=> this.MockRegistry.GetUnusedSetups(this.MockRegistry.Interactions).Count == 0;
+		/// <inheritdoc />
+		void IMockForIConstructorDerivedDependency.ClearAllInteractions()
+			=> this.MockRegistry.ClearAllInteractions();
+		/// <inheritdoc />
+		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIConstructorDerivedDependency> IMockForIConstructorDerivedDependency.Monitor()
+			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIConstructorDerivedDependency>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIConstructorDerivedDependency(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+
+		/// <inheritdoc />
+		string global::Mockolate.IMock.ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency mock";
+
+		/// <inheritdoc cref="IConstructorDerivedDependency" />
+		public IConstructorDerivedDependency(global::Mockolate.Internals.MockRegistry mockRegistry)
+		{
+			this.MockRegistry = mockRegistry;
+		}
+
+		/// <inheritdoc cref="IConstructorDerivedDependency" />
+		public IConstructorDerivedDependency(global::Mockolate.MockBehavior behavior)
+			: this(MockolateCreateRegistryFromBehavior(behavior))
+		{
+		}
+
+		#region Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency
+
+		#endregion Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency
+
+		#region IMockSetupForIConstructorDerivedDependency
+
+		#endregion IMockSetupForIConstructorDerivedDependency
+
+		#region IMockVerifyForIConstructorDerivedDependency
+
+		#endregion IMockVerifyForIConstructorDerivedDependency
+	}
+
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	private sealed class VerifyMonitorIConstructorDerivedDependency(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForIConstructorDerivedDependency
+	{
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
+
+		#region IMockVerifyForIConstructorDerivedDependency
+
+		#endregion IMockVerifyForIConstructorDerivedDependency
+	}
+
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	private sealed class MockInScenarioForIConstructorDerivedDependency : global::Mockolate.Mock.IMockInScenarioForIConstructorDerivedDependency, global::Mockolate.Mock.IMockSetupForIConstructorDerivedDependency
+	{
+		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
+		private string _scenarioName;
+
+		public MockInScenarioForIConstructorDerivedDependency(global::Mockolate.Internals.MockRegistry mockRegistry, string scenario)
+		{
+			this.MockRegistry = mockRegistry;
+			_scenarioName = scenario;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Mock.IMockSetupForIConstructorDerivedDependency global::Mockolate.Mock.IMockInScenarioForIConstructorDerivedDependency.Setup
+			=> this;
+
+		#region IMockSetupForIConstructorDerivedDependency
+
+		#endregion IMockSetupForIConstructorDerivedDependency
+	}
+
+	/// <summary>
+	///     The Mockolate accessor for a mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>, reached through <c>.Mock</c> on the mocked instance.
+	/// </summary>
+	/// <remarks>
+	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
+	/// </remarks>
+	internal interface IMockForIConstructorDerivedDependency
+	{
+		/// <summary>
+		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> respond when invoked.
+		/// </summary>
+		/// <remarks>
+		///     Each mocked member is available as a strongly-typed entry on this surface. Chain <c>Returns</c>, <c>ReturnsAsync</c>, <c>Throws</c>, <c>ThrowsAsync</c> or <c>Do</c> to control the response; chain <c>InitializeWith</c>/<c>Register</c> to initialize properties and indexers; chain multiple returns/throws to define a sequence; use <c>.For(n)</c>, <c>.Only(n)</c>, <c>.Forever()</c>, <c>.When(predicate)</c> to control when a callback runs.<br />
+		///     When two setups overlap, the most recently defined one wins.
+		/// </remarks>
+		IMockSetupForIConstructorDerivedDependency Setup { get; }
+
+		/// <summary>
+		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> so that additional setups can be registered for that scenario.
+		/// </summary>
+		/// <remarks>
+		///     Scenarios let you define per-state behavior. Setups registered inside the returned <c>IMockInScenarioFor...</c> scope only apply while the mock's current scenario matches <paramref name="scenario" />; switch scenarios with <see cref="TransitionTo">TransitionTo</see>.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to enter. Any non-null string acts as a key; the mock starts in an unnamed default scenario.</param>
+		/// <returns>A scoped accessor whose <c>Setup</c> (and <c>SetupProtected</c>, where applicable) register scenario-specific setups.</returns>
+		IMockInScenarioForIConstructorDerivedDependency InScenario(string scenario);
+
+		/// <summary>
+		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> and immediately invokes <paramref name="setup" /> to register scenario-specific setups.
+		/// </summary>
+		/// <remarks>
+		///     Equivalent to <c>InScenario(scenario)</c> followed by the setup callback, but returns the original <c>IMockFor...</c> accessor so it chains nicely at mock-creation time.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to enter.</param>
+		/// <param name="setup">Callback that receives the scenario-scoped setup surface and registers scenario-specific setups.</param>
+		/// <returns>This accessor, to allow chaining.</returns>
+		IMockForIConstructorDerivedDependency InScenario(string scenario, global::System.Action<IMockInScenarioForIConstructorDerivedDependency> setup);
+
+		/// <summary>
+		///     Switches the active scenario of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> to <paramref name="scenario" />.
+		/// </summary>
+		/// <remarks>
+		///     After the transition, setups registered via <see cref="InScenario(string)">InScenario(string)</see> under that scenario take effect. Scenarios that have no matching setup for a given member fall back to the default (un-scoped) setups.
+		/// </remarks>
+		/// <param name="scenario">Name of the scenario to transition to.</param>
+		/// <returns>This accessor, to allow chaining.</returns>
+		IMockForIConstructorDerivedDependency TransitionTo(string scenario);
+
+		/// <summary>
+		///     Asserts how often, and in which order, members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> were invoked.
+		/// </summary>
+		/// <remarks>
+		///     Each call to a member here returns a <c>VerificationResult</c> that you terminate with a count assertion: <c>Never()</c>, <c>Once()</c>, <c>Twice()</c>, <c>Exactly(n)</c>, <c>AtLeast(n)</c>/<c>AtLeastOnce()</c>/<c>AtLeastTwice()</c>, <c>AtMost(n)</c>/<c>AtMostOnce()</c>/<c>AtMostTwice()</c>, <c>Between(min, max)</c> or <c>Times(predicate)</c>.<br />
+		///     Use <c>Within(TimeSpan)</c> / <c>WithCancellation(CancellationToken)</c> before the terminator to wait for expected interactions that happen on background threads.<br />
+		///     Chain <c>Then(...)</c> to assert an ordered sequence of calls. A failing assertion throws a <see cref="global::Mockolate.Exceptions.MockVerificationException">MockVerificationException</see>.
+		/// </remarks>
+		IMockVerifyForIConstructorDerivedDependency Verify { get; }
+
+		/// <summary>
+		///     Verifies how often a specific method setup was matched by actual invocations.
+		/// </summary>
+		/// <remarks>
+		///     Useful when you want to verify &quot;this <em>particular</em> setup was hit N times&quot; without re-stating the matchers. Chain the usual count terminators (<c>Once()</c>, <c>AtLeastOnce()</c>, <c>Exactly(n)</c>, ...) on the returned result.
+		/// </remarks>
+		/// <param name="setup">The setup previously registered through <see cref="Setup">Setup</see> (typically returned from a <c>Returns(...)</c>/<c>Throws(...)</c> call).</param>
+		/// <returns>A <c>VerificationResult</c> that counts invocations matching the given setup.</returns>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIConstructorDerivedDependency> VerifySetup(global::Mockolate.Setup.IMethodSetup setup);
+
+		/// <summary>
+		///     Checks whether every recorded interaction on this mock has been observed by at least one <c>Verify</c> call.
+		/// </summary>
+		/// <remarks>
+		///     Useful in test teardown to catch unexpected interactions (&quot;strict verification&quot;): if any recorded call has never been matched by a verification, the method returns <see langword="false" />.
+		/// </remarks>
+		/// <returns><see langword="true" /> if every recorded interaction was verified at least once; otherwise <see langword="false" />.</returns>
+		bool VerifyThatAllInteractionsAreVerified();
+
+		/// <summary>
+		///     Checks whether every registered setup on this mock was matched by at least one actual invocation.
+		/// </summary>
+		/// <remarks>
+		///     Useful to catch unused setups that silently rot as the test subject evolves.
+		/// </remarks>
+		/// <returns><see langword="true" /> if every registered setup was used at least once; otherwise <see langword="false" />.</returns>
+		bool VerifyThatAllSetupsAreUsed();
+
+		/// <summary>
+		///     Removes every recorded interaction from this mock while keeping all registered setups intact.
+		/// </summary>
+		/// <remarks>
+		///     Handy when a single test exercises multiple logical phases and you only want to verify the interactions of the latest phase.
+		/// </remarks>
+		void ClearAllInteractions();
+
+		/// <summary>
+		///     Creates a monitor whose <c>Verify</c> surface is scoped to interactions produced between <c>monitor.Run()</c> and the disposal of its <see cref="global::System.IDisposable">IDisposable</see> scope.
+		/// </summary>
+		/// <remarks>
+		///     The underlying mock keeps recording all interactions as usual - only the monitor's <c>Verify</c> view is scoped. Useful to verify only the interactions produced by a specific block of test code without resetting the mock.
+		/// </remarks>
+		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
+		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIConstructorDerivedDependency> Monitor();
+	}
+
+	/// <summary>
+	///     Scoped access to setups for a scenario on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.
+	/// </summary>
+	internal interface IMockInScenarioForIConstructorDerivedDependency
+	{
+		/// <summary>
+		///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> within the scenario scope.
+		/// </summary>
+		IMockSetupForIConstructorDerivedDependency Setup { get; }
+	}
+
+	/// <summary>
+	///     Set up the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.
+	/// </summary>
+	internal interface IMockSetupForIConstructorDerivedDependency : global::Mockolate.Setup.IMockSetup<global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency>
+	{
+	}
+
+	/// <summary>
+	///     Verify interactions with the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.
+	/// </summary>
+	internal interface IMockVerifyForIConstructorDerivedDependency : global::Mockolate.Verify.IMockVerify<global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency>
+	{
+	}
+}
+/// <summary>
+///     Mock extensions for <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.
+/// </summary>
+[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+internal static partial class MockExtensionsForIConstructorDerivedDependency
+{
+	/// <inheritdoc cref="MockExtensionsForIConstructorDerivedDependency" />
+#nullable disable annotations
+	extension(global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency mock)
+#nullable enable annotations
+	{
+		/// <summary>
+		///     Gets the mock accessor for <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> - the entry point for configuring setups, verifying interactions and raising events.
+		/// </summary>
+		/// <remarks>
+		///     The accessor is the bridge between the strongly-typed instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> returned by <c>CreateMock(...)</c> and the underlying mock registry where setups and recorded interactions live.<br />
+		///     Through it you can:<br />
+		///     <list type="bullet"><br />
+		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
+		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
+		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
+		///     </list>
+		/// </remarks>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The instance is not a Mockolate-generated mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.</exception>
+		public global::Mockolate.Mock.IMockForIConstructorDerivedDependency Mock
+		{
+			get
+			{
+				if (mock is global::Mockolate.Mock.IMockForIConstructorDerivedDependency mockInterface)
+				{
+					return mockInterface;
+				}
+				throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
+			}
+		}
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.
+		/// </summary>
+		/// <remarks>
+		///     The returned instance is a strongly-typed mock generated at compile time - it implements <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> and exposes the Mockolate surface through <c>.Mock</c>:<br />
+		///     <list type="bullet"><br />
+		///       <item><description><c>.Mock.Setup</c> configures how members respond (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, sequences, callbacks).</description></item><br />
+		///       <item><description><c>.Mock.Verify</c> asserts how often and in which order members were invoked.</description></item><br />
+		///     </list><br />
+		///     With the default behavior, un-configured members return <c>default</c> values (empty collections / strings, completed tasks, <see langword="null" /> otherwise) and base-class implementations are invoked for class mocks. Use one of the overloads that accepts a <see cref="global::Mockolate.MockBehavior">MockBehavior</see> to customize this (for example to make un-configured calls throw or to skip the base class).<br />
+		///     Overloads allow you to additionally pass constructor parameters (for class mocks), apply an initial <c>setup</c> callback before the instance is returned, or combine both.
+		/// </remarks>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency CreateMock()
+			=> CreateMock(null, null, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> with the default <see cref="global::Mockolate.MockBehavior">MockBehavior</see>, applying the given <paramref name="setup" /> immediately.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency CreateMock(global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorDerivedDependency> setup)
+			=> CreateMock(null, setup, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> with the given <paramref name="mockBehavior" />.
+		/// </summary>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency CreateMock(global::Mockolate.MockBehavior mockBehavior)
+			=> CreateMock(mockBehavior, null, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> with the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.</returns>
+		public static global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency CreateMock(global::Mockolate.MockBehavior mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorDerivedDependency> setup)
+			=> CreateMock(mockBehavior, setup, (object?[]?)null);
+
+		/// <summary>
+		///     Creates a new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> using the given <paramref name="mockBehavior" />, applying the given <paramref name="setup" /> immediately, using the given <paramref name="constructorParameters" />.
+		/// </summary>
+		/// <remarks>
+		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
+		/// </remarks>
+		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup, or <see langword="null" /> for <c>MockBehavior.Default</c>.</param>
+		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned, or <see langword="null" /> to skip.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor, or <see langword="null" /> to use a constructor that can be called without arguments.</param>
+		/// <returns>A new mock instance of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see>.</returns>
+		private static global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency CreateMock(global::Mockolate.MockBehavior? mockBehavior, global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorDerivedDependency>? setup, object?[]? constructorParameters)
+		{
+			if (mockBehavior is not null)
+			{
+				IMockBehaviorAccess mockBehaviorAccess = (global::Mockolate.IMockBehaviorAccess)mockBehavior;
+				if (mockBehaviorAccess.TryGet<global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorDerivedDependency>?>(out var additionalSetup))
+				{
+					if (setup is null)
+					{
+						setup = additionalSetup;
+					}
+					else
+					{
+						var originalSetup = setup;
+						setup = s => { additionalSetup.Invoke(s); originalSetup.Invoke(s); };
+					}
+				}
+			}
+
+			mockBehavior ??= global::Mockolate.MockBehavior.Default;
+			mockBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);
+			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, global::Mockolate.Mock.IConstructorDerivedDependency.MemberCount, constructorParameters);
+			return CreateMockInstance(mockRegistry, constructorParameters, setup);
+		}
+
+		private static global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency CreateMockInstance(global::Mockolate.Internals.MockRegistry mockRegistry, object?[]? constructorParameters, global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorDerivedDependency>? setup)
+		{
+			var value = new global::Mockolate.Mock.IConstructorDerivedDependency(mockRegistry);
+			if (setup is not null)
+			{
+				setup.Invoke(value);
+			}
+			return value;
+		}
+		/// <summary>
+		///     Creates a mock that wraps the given <paramref name="instance" />.
+		/// </summary>
+		/// <remarks>
+		///     Public members on the mock forward to <paramref name="instance" /> unless overridden by a setup; protected members still go through the base-class implementation. All forwarded interactions are recorded and can be verified the same as on a plain mock.
+		/// </remarks>
+		/// <param name="instance">The real object whose calls should be forwarded. Must not be <see langword="null" />.</param>
+		/// <returns>A new mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> that delegates to <paramref name="instance" />.</returns>
+		public global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency Wrapping(global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency instance)
+		{
+			if (mock is global::Mockolate.IMock mockInterface)
+			{
+				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IConstructorDerivedDependency.CreateFastInteractions(wrappingRegistry.Behavior));
+				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
+			}
+			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
+		}
+
+	}
+
+	/// <inheritdoc cref="MockExtensionsForIConstructorDerivedDependency" />
+	extension(global::Mockolate.MockBehavior behavior)
+	{
+		/// <summary>
+		///     Initializes mocks of type <typeparamref name="T" /> with the given <paramref name="setup" />.
+		/// </summary>
+		/// <remarks>
+		///     The <paramref name="setup" /> is applied to the mock before the constructor is executed. Calling <c>Initialize</c> again overlays additional setups on top of any previously registered ones.
+		/// </remarks>
+		/// <typeparam name="T">The mockable type derived from <see cref="global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency">IConstructorDerivedDependency</see> that this setup should apply to.</typeparam>
+		/// <param name="setup">Callback invoked when a new mock of <typeparamref name="T" /> is created.</param>
+		/// <returns>A new <see cref="global::Mockolate.MockBehavior">MockBehavior</see> with the registered initializer. The original instance is unchanged.</returns>
+		public global::Mockolate.MockBehavior Initialize<T>(global::System.Action<global::Mockolate.Mock.IMockSetupForIConstructorDerivedDependency> setup)
+			where T : global::Mockolate.Tests.GeneratorCoverage.IConstructorDerivedDependency
 		{
 			var behaviorAccess = (global::Mockolate.IMockBehaviorAccess)behavior;
 			return behaviorAccess.Set(setup);

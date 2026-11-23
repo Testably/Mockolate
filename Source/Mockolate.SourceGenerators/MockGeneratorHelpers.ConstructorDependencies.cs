@@ -40,6 +40,7 @@ internal static partial class MockGeneratorHelpers
 		{
 			IMethodSymbol constructor = constructors[index];
 			if (constructor.Parameters.Length == 0 ||
+			    HasUsageDiagnostic(constructor) ||
 			    constructor.Parameters.Any(parameter => parameter.RefKind is not (RefKind.None or RefKind.In) ||
 			                                            parameter.Type.IsRefLikeType ||
 			                                            parameter.Type is IPointerTypeSymbol or IFunctionPointerTypeSymbol))

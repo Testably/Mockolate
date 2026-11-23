@@ -31,9 +31,9 @@ public sealed class ConstructorDependenciesTests
 		await That(result.Sources).ContainsKey("Mock.IDep.g.cs");
 		await That(result.Sources["Mock.Svc.g.cs"])
 			.Contains("global::MyCode.IDep d1 = global::MyCode.IDep.CreateMock(mockRegistry.Behavior);").And
-			.Contains("global::System.Collections.Generic.IEnumerable<int> d2 = mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!);").And
+			.Contains("global::System.Collections.Generic.IEnumerable<int> d2 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!));").And
 			.Contains("string? d3 = default;").And
-			.Contains("string d4 = mockRegistry.Behavior.DefaultValue.Generate(default(string)!);");
+			.Contains("string d4 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(string)!));");
 	}
 
 	[Test]
@@ -164,10 +164,94 @@ public sealed class ConstructorDependenciesTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources["MockDataSources.g.cs"])
-			.Contains("return global::MyCode.Open.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { a0, a1, });").And
+			.Contains("return global::MyCode.Open.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false), new object?[] { a0, a1, });").And
 			.Contains("return new global::MyCode.Closed(").And
 			.Contains("return new global::MyCode.Rec(").And
 			.Contains("return new global::MyCode.Overlapping(").And
-			.Contains("return global::MyCode.Parameterless.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);");
+			.Contains("return global::MyCode.Parameterless.CreateMock((behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false));");
+	}
+	[Test]
+	[Arguments("IGen<string>", "IGen<string?>")]
+	[Arguments("IGen<(int a, int b)>", "IGen<(int x, int y)>")]
+	public async Task DependencySpelledDifferentlyThanACreateMockCall_ShouldShareTheMock(string dependency,
+		string created)
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         #pragma warning disable CS9113
+		                                         using Mockolate;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public interface IGen<T> { T Get(); }
+		                                             public class Svc({{dependency}} dep);
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                     _ = {{created}}.CreateMock();
+		                                                     _ = Svc.CreateMock();
+		                                                 }
+		                                             }
+		                                         }
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task DependencyNamedLikeAKeyword_ShouldNotBeMocked()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       #pragma warning disable CS9113
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface @event { int Get(); }
+		                                           public class Svc(@event dep);
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateMock();
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).DoesNotContainKey("Mock.event.g.cs");
+	}
+
+	[Test]
+	public async Task SealedClassWithClashingParameterNames_ShouldCompile()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       #pragma warning disable CS9113
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep { int Get(); }
+		                                           public sealed class Svc(IDep constructorArguments, IDep mockBehavior, int argument0, int value, string @class,
+		                                               (int a, int b) tuple, string? nullable = null, string forgiving = null!);
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateMock(out ConstructorArguments arguments);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("SealedClasses.g.cs");
 	}
 }

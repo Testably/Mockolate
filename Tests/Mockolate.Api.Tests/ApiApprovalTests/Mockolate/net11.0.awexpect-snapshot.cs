@@ -5,6 +5,15 @@
 [assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v11.0", FrameworkDisplayName = ".NET 11.0")]
 namespace Mockolate
 {
+    public sealed class ConstructorArguments
+    {
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public ConstructorArguments(string constructor, string[] names, System.Type[] types, object?[] values) { }
+        public T Get<T>() { }
+        public T Get<T>(string parameterName) { }
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public static T DefaultValue<T>(Mockolate.MockBehavior behavior, T typedDefault) { }
+    }
     public class DefaultValueFactory
     {
         protected DefaultValueFactory() { }

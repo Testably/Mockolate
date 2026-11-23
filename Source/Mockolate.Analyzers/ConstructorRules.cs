@@ -9,6 +9,57 @@ namespace Mockolate.Analyzers;
 internal static class ConstructorRules
 {
 	/// <summary>
+	///     Why the generator emits no <c>CreateMock(out ...)</c> for the <paramref name="type" />, or
+	///     <see langword="null" /> when it does.
+	/// </summary>
+	internal static string? GetSealedClassReason(INamedTypeSymbol type, Compilation compilation)
+	{
+		if (type.TypeKind != TypeKind.Class || !(type.IsSealed || type.IsRecord))
+		{
+			return "CreateMock(out ...) is only for sealed classes and records; use CreateMock() and Mock.ConstructorArgument<T>()";
+		}
+
+		if (type.IsStatic || type.IsAbstract)
+		{
+			return "type is static or abstract";
+		}
+
+		if (type.IsGenericType || ContainsTypeParameter(type) || IsNestedInGenericType(type))
+		{
+			return "type is generic or nested in a generic type";
+		}
+
+		if (IsFileLocal(type) || !IsAccessible(type, compilation.Assembly))
+		{
+			return "type is not accessible from the generated code";
+		}
+
+		if (HasUsageDiagnostic(type))
+		{
+			return "type is obsolete or experimental";
+		}
+
+		if (IsFrameworkNamespace(type.ContainingNamespace))
+		{
+			return "type is declared in the System, Microsoft or Windows namespace";
+		}
+
+		for (INamedTypeSymbol? current = type; current is not null; current = current.BaseType)
+		{
+			if (!current.GetMembers("CreateMock").IsEmpty)
+			{
+				return "type has a member named CreateMock, which would hide the generated extension";
+			}
+		}
+
+		IMethodSymbol[] constructors = GetUsableConstructors(type, compilation);
+		return constructors.Length == 0 ||
+		       (constructors.Length > 1 && constructors[0].Parameters.Length == constructors[1].Parameters.Length)
+			? "type has no single accessible constructor with the most parameters that Mockolate can call"
+			: null;
+	}
+
+	/// <summary>
 	///     Mirror of <c>GetSutConstructor</c> in the generator: the constructors that the generated code can call, with
 	///     the most parameters first.
 	/// </summary>

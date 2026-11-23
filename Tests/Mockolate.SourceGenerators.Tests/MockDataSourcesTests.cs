@@ -471,8 +471,8 @@ public sealed class MockDataSourcesTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources["MockDataSources.g.cs"])
-			.Contains("value = global::MyCode.WithProtected.CreateMock(").And
-			.Contains("value = global::MyCode.WithParameter.CreateMock(").And
+			.Contains("return global::MyCode.WithProtected.CreateMock(").And
+			.Contains("return global::MyCode.WithParameter.CreateMock(").And
 			.Contains("out global::MyCode.WithPrivate createdValue").And
 			.DoesNotContain("global::MyCode.WithPrivate.CreateMock");
 	}
@@ -796,7 +796,7 @@ public sealed class MockDataSourcesTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources["MockDataSources.g.cs"])
-			.Contains("value = global::MyCode.WithOptional.CreateMock(").And
+			.Contains("return global::MyCode.WithOptional.CreateMock(").And
 			.Contains("out global::MyCode.WithInternal createdValue").And
 			.DoesNotContain("global::MyCode.WithInternal.CreateMock");
 	}
@@ -916,7 +916,7 @@ public sealed class MockDataSourcesTests
 		                                         """);
 
 		await That(result.Diagnostics).IsEmpty();
-		await That(result.Sources["MockDataSources.g.cs"]).Contains("value = global::MyCode.Derived.CreateMock(");
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("return global::MyCode.Derived.CreateMock(");
 	}
 
 	[Test]
@@ -990,7 +990,7 @@ public sealed class MockDataSourcesTests
 		                                         """);
 
 		await That(result.Sources["MockDataSources.g.cs"])
-			.Contains("value = global::MyCode.SelectsUsable.CreateMock(").And
+			.Contains("return global::MyCode.SelectsUsable.CreateMock(").And
 			.DoesNotContain("global::MyCode.SelectsObsolete.CreateMock");
 	}
 

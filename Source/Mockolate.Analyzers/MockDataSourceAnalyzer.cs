@@ -341,6 +341,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			.Where(constructor => constructor.DeclaredAccessibility is Accessibility.Public or Accessibility.Protected
 				                      or Accessibility.ProtectedOrInternal &&
 			                      constructor.Parameters.Length > 0 &&
+			                      !ConstructorRules.HasUsageDiagnostic(constructor) &&
 			                      constructor.Parameters.All(parameter =>
 				                      MockabilityAnalyzer.IsTypeAccessibleFrom(parameter.Type, sourceAssembly) &&
 				                      parameter.RefKind is RefKind.None or RefKind.In &&
@@ -349,8 +350,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			.OrderByDescending(constructor => constructor.Parameters.Length)
 			.ToArray();
 		return candidates.Length > 0 &&
-		       (candidates.Length == 1 || candidates[0].Parameters.Length != candidates[1].Parameters.Length) &&
-		       !ConstructorRules.HasUsageDiagnostic(candidates[0]);
+		       (candidates.Length == 1 || candidates[0].Parameters.Length != candidates[1].Parameters.Length);
 	}
 
 	private static bool HasStaticAbstractMembers(INamedTypeSymbol type)

@@ -324,7 +324,7 @@ public class MockabilityAnalyzerTests
 			  """,
 			Verifier.Diagnostic(Rules.MockabilityRule)
 				.WithLocation(0)
-				.WithArguments("MyNamespace.MyRecord", "type is a record")
+				.WithArguments("MyNamespace.MyRecord", "type is a record; use CreateMock(out ConstructorArguments arguments) to create a real instance with mocked dependencies")
 		);
 
 	[Test]
@@ -351,7 +351,7 @@ public class MockabilityAnalyzerTests
 			  """,
 			Verifier.Diagnostic(Rules.MockabilityRule)
 				.WithLocation(0)
-				.WithArguments("MyNamespace.MySealedClass", "type is sealed")
+				.WithArguments("MyNamespace.MySealedClass", "type is sealed; use CreateMock(out ConstructorArguments arguments) to create a real instance with mocked dependencies")
 		);
 
 	[Test]
@@ -414,4 +414,58 @@ public class MockabilityAnalyzerTests
 		         }
 		         """;
 	}
+	[Test]
+	public async Task WhenCreatingSealedClassWithOutParameter_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			"""
+			using Mockolate;
+
+			namespace MyNamespace
+			{
+				public interface IDependency { }
+				public sealed class MySealedClass(IDependency dependency);
+
+				public static class MockExtensions
+				{
+					extension(MySealedClass)
+					{
+						public static MySealedClass CreateMock(out ConstructorArguments arguments)
+							=> throw new System.NotImplementedException();
+					}
+				}
+
+				public class Tests
+				{
+					public void Test()
+					{
+						_ = MySealedClass.CreateMock(out ConstructorArguments arguments);
+					}
+				}
+			}
+			"""
+		);
+
+	[Test]
+	public async Task WhenCreatingMockableClassWithOutParameter_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			"""
+			using Mockolate;
+
+			namespace MyNamespace
+			{
+				public class MyClass;
+
+				public class Tests
+				{
+					public void Test()
+					{
+						_ = {|#0:MyClass|}.CreateMock(out ConstructorArguments arguments);
+					}
+				}
+			}
+			""",
+			Verifier.Diagnostic(Rules.MockabilityRule).WithLocation(0)
+				.WithArguments("MyNamespace.MyClass",
+					"CreateMock(out ...) is only for sealed classes and records; use CreateMock() and Mock.ConstructorArgument<T>()")
+		);
 }

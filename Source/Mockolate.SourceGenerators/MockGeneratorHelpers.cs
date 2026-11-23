@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mockolate.SourceGenerators.Entities;
 using Mockolate.SourceGenerators.Internals;
@@ -90,7 +91,7 @@ internal static partial class MockGeneratorHelpers
 		SemanticModel semanticModel)
 	{
 		// Static extension methods
-		if (syntaxNode is InvocationExpressionSyntax invocation)
+		if (syntaxNode is InvocationExpressionSyntax invocation && !syntaxNode.IsSealedCreateMockInvocation())
 		{
 			SymbolInfo symbolInfo = semanticModel.GetSymbolInfo(invocation);
 			IMethodSymbol? methodSymbol = symbolInfo.Symbol as IMethodSymbol ?? symbolInfo.CandidateSymbols.OfType<IMethodSymbol>().FirstOrDefault();
@@ -219,6 +220,8 @@ internal static partial class MockGeneratorHelpers
 	/// </summary>
 	private static bool CanBeMockedImplicitly(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
 		=> IsAutoMockable(typeSymbol) &&
+		   // The mock of a type named like a keyword, such as @event, would be a class of that name.
+		   SyntaxFacts.GetKeywordKind(typeSymbol.Name) == SyntaxKind.None &&
 		   !UsesTypeNestedInGenericType(typeSymbol) &&
 		   !HasStaticAbstractMembers(typeSymbol) &&
 		   !HasNonPublicAbstractMembers(typeSymbol) &&

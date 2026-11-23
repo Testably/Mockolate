@@ -6,6 +6,13 @@ namespace Mockolate.SourceGenerators.Sources;
 internal static partial class Sources
 {
 	/// <summary>
+	///     A class parameter is the class under test, so its mock always forwards to the real implementation; only its
+	///     dependencies follow a behavior that skips the base class.
+	/// </summary>
+	private const string ForwardingBehavior =
+		"(behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false)";
+
+	/// <summary>
 	///     Creates the <c>MockDataSourceFactory</c> for the <paramref name="classes" />, the
 	///     <paramref name="mockedTypes" />, the <paramref name="valueOrMockTypes" /> and the
 	///     <paramref name="valueTypes" />, which a module initializer registers.
@@ -140,7 +147,7 @@ internal static partial class Sources
 			else if (dataSourceClass.Parameters.Count == 0)
 			{
 				sb.Append("\t\t\treturn ").Append(dataSourceClass.ClassFullName)
-					.Append(".CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);").AppendLine();
+					.Append(".CreateMock(").Append(ForwardingBehavior).Append(");").AppendLine();
 			}
 			else
 			{
@@ -154,7 +161,7 @@ internal static partial class Sources
 				}
 
 				sb.Append("\t\t\treturn ").Append(dataSourceClass.ClassFullName)
-					.Append(".CreateMock(behavior ?? global::Mockolate.MockBehavior.Default, new object?[] { ")
+					.Append(".CreateMock(").Append(ForwardingBehavior).Append(", new object?[] { ")
 					.Append(string.Join(", ", parameters.Select((_, index) => $"a{index}"))).Append(", });").AppendLine();
 			}
 			sb.Append("\t\t}").AppendLine();

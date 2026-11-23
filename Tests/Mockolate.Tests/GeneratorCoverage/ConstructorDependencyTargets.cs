@@ -172,3 +172,54 @@ public class ConstructorDependencySpan
 	public string? Text { get; }
 }
 #endif
+
+/// <summary>
+///     A sealed class cannot be mocked, so <c>CreateMock(out ...)</c> creates a real instance with mocked dependencies.
+/// </summary>
+public sealed class ConstructorDependencySealed(
+	IConstructorDependency dependency,
+	IConstructorOtherDependency other,
+	string text,
+	int number,
+	string? description,
+	int retries = 3,
+	params int[] values)
+{
+	public IConstructorDependency Dependency { get; } = dependency;
+	public IConstructorOtherDependency Other { get; } = other;
+	public string Text { get; } = text;
+	public int Number { get; } = number;
+	public string? Description { get; } = description;
+	public int Retries { get; } = retries;
+	public int[] Values { get; } = values;
+}
+
+public record ConstructorDependencyRecord
+{
+	public ConstructorDependencyRecord(IConstructorDependency dependency, string name)
+	{
+		Dependency = dependency;
+		Name = name;
+	}
+
+	public IConstructorDependency Dependency { get; }
+	public string Name { get; }
+}
+
+public sealed class ConstructorDependencySealedRequired(Uri address)
+{
+	public Uri Address { get; } = address;
+}
+
+public interface IConstructorBaseDependency;
+
+public interface IConstructorDerivedDependency : IConstructorBaseDependency;
+
+/// <summary>
+///     The argument of the derived type also converts to the base type of the other parameter.
+/// </summary>
+public class ConstructorDependencyHierarchy(IConstructorDerivedDependency derived, IConstructorBaseDependency @base)
+{
+	public IConstructorDerivedDependency Derived { get; } = derived;
+	public IConstructorBaseDependency Base { get; } = @base;
+}
