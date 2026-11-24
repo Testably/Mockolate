@@ -724,6 +724,10 @@ internal static partial class Mock
 		string global::Mockolate.IMock.ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.IConstructorDependency mock";
 
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.IConstructorDependency mock";
+
 		/// <inheritdoc cref="IConstructorDependency" />
 		public IConstructorDependency(global::Mockolate.Internals.MockRegistry mockRegistry)
 		{

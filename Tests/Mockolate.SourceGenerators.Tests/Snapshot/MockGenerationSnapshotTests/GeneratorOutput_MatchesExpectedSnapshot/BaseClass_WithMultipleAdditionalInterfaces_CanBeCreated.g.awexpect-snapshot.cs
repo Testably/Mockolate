@@ -2713,6 +2713,10 @@ internal static partial class Mock
 		string global::Mockolate.IMock.ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.ICombinationMockA mock";
 
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.ICombinationMockA mock";
+
 		/// <inheritdoc cref="ICombinationMockA" />
 		public ICombinationMockA(global::Mockolate.Internals.MockRegistry mockRegistry)
 		{
@@ -3330,6 +3334,10 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
+			=> "Mockolate.Tests.GeneratorCoverage.ICombinationMockB mock";
+
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
 			=> "Mockolate.Tests.GeneratorCoverage.ICombinationMockB mock";
 
 		/// <inheritdoc cref="ICombinationMockB" />

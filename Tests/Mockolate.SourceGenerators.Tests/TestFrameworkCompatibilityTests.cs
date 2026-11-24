@@ -37,6 +37,57 @@ public sealed class TestFrameworkCompatibilityTests
 		await That(diagnostics).IsEmpty();
 	}
 
+	[Test]
+	public async Task XunitV3_WithOldestSupportedVersion_ShouldCompile()
+	{
+		string[] diagnostics = Compile(["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_XUNIT3",],
+			[
+				Path.Combine("xunit.v3.extensibility.core", "1.0.0", "lib", "netstandard2.0", "xunit.v3.core.dll"),
+				Path.Combine("xunit.v3.common", "1.0.0", "lib", "netstandard2.0", "xunit.v3.common.dll"),
+			],
+			"""
+			using Mockolate.Integrations.Xunit;
+
+			namespace Compatibility
+			{
+				public class Tests
+				{
+					[global::Xunit.Theory]
+					[AutoMockArguments("Dark", Skip = "Compiled only")]
+					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+				}
+			}
+			""");
+
+		await That(diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task XunitV2_WithOldestSupportedVersion_ShouldCompile()
+	{
+		const string portable = "portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS";
+		string[] diagnostics = Compile(["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_XUNIT2",],
+			[
+				Path.Combine("xunit.extensibility.core", "2.0.0", "lib", portable, "xunit.core.dll"),
+				Path.Combine("xunit.abstractions", "2.0.0", "lib", portable, "xunit.abstractions.dll"),
+			],
+			"""
+			using Mockolate.Integrations.Xunit;
+
+			namespace Compatibility
+			{
+				public class Tests
+				{
+					[global::Xunit.Theory]
+					[AutoMockArguments("Dark")]
+					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+				}
+			}
+			""");
+
+		await That(diagnostics).IsEmpty();
+	}
+
 	/// <summary>
 	///     Runs the generator on the <paramref name="source" /> with the <paramref name="constants" /> that
 	///     <c>Mockolate.targets</c> defines, and returns the errors and warnings of the compilation.

@@ -94,6 +94,10 @@ internal static partial class Mock
 		string global::Mockolate.IMock.ToString()
 			=> "Microsoft.Extensions.Logging.ILogger mock";
 
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> "Microsoft.Extensions.Logging.ILogger mock";
+
 		/// <inheritdoc />
 		global::Mockolate.Internals.MockRegistry global::Mockolate.Internals.IMockAdapterAccess.MockRegistry => this.MockRegistry;
 		/// <inheritdoc />
@@ -1289,6 +1293,10 @@ internal static partial class Mock
 		string global::Mockolate.IMock.ToString()
 			=> "Microsoft.Extensions.Logging.ILoggerFactory mock";
 
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
+			=> "Microsoft.Extensions.Logging.ILoggerFactory mock";
+
 		/// <inheritdoc />
 		global::Mockolate.Internals.MockRegistry global::Mockolate.Internals.IMockAdapterAccess.MockRegistry => this.MockRegistry;
 		/// <inheritdoc />
@@ -2307,6 +2315,10 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
+			=> "Microsoft.Extensions.Logging.ILogger<Mockolate.SourceGenerators.Tests.SnapshotDriver.Program> mock";
+
+		/// <inheritdoc cref="object.ToString()" />
+		public override string ToString()
 			=> "Microsoft.Extensions.Logging.ILogger<Mockolate.SourceGenerators.Tests.SnapshotDriver.Program> mock";
 
 		/// <inheritdoc />

@@ -11,9 +11,19 @@
 		<ItemGroup>
 			<_MockolateTUnitReference Include="@(ReferencePath)"
 			                          Condition="'%(ReferencePath.Filename)' == 'TUnit.Core' And ('%(ReferencePath.NuGetPackageVersion)' == '' Or $([MSBuild]::VersionGreaterThanOrEquals('%(ReferencePath.NuGetPackageVersion)', '1.0.0')))"/>
+			<_MockolateXunit2Reference Include="@(ReferencePath)"
+			                           Condition="'%(ReferencePath.Filename)' == 'xunit.core' And ('%(ReferencePath.NuGetPackageVersion)' == '' Or $([MSBuild]::VersionGreaterThanOrEquals('%(ReferencePath.NuGetPackageVersion)', '2.0.0')))"/>
+			<_MockolateXunit3Reference Include="@(ReferencePath)"
+			                           Condition="'%(ReferencePath.Filename)' == 'xunit.v3.core' And ('%(ReferencePath.NuGetPackageVersion)' == '' Or $([MSBuild]::VersionGreaterThanOrEquals('%(ReferencePath.NuGetPackageVersion)', '1.0.0')))"/>
 		</ItemGroup>
 		<PropertyGroup Condition="'@(_MockolateTUnitReference)' != ''">
 			<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK;MOCKOLATE_TUNIT</DefineConstants>
+		</PropertyGroup>
+		<PropertyGroup Condition="'@(_MockolateXunit2Reference)' != ''">
+			<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK;MOCKOLATE_XUNIT2</DefineConstants>
+		</PropertyGroup>
+		<PropertyGroup Condition="'@(_MockolateXunit3Reference)' != ''">
+			<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK;MOCKOLATE_XUNIT3</DefineConstants>
 		</PropertyGroup>
 	</Target>
 

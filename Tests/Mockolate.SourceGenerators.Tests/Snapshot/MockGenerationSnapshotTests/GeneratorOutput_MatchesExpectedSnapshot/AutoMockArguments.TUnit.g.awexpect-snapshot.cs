@@ -12,10 +12,10 @@
 namespace Mockolate.Integrations.TUnit
 {
 	/// <summary>
-	///     Passes the <see cref="Arguments">Arguments</see> to the first parameters of the test method, like TUnit's <c>Arguments</c>,
-	///     and fills every remaining parameter: an interface, delegate or abstract class gets a mock, a class gets a mock
-	///     that forwards to its real implementation, and a sealed class or record a real instance. Their constructor
-	///     dependencies are mocks, and other values come from the default values of the behavior.
+	///     Passes the <see cref="Arguments">Arguments</see> to the first parameters of the test method and fills every remaining
+	///     parameter: an interface, delegate or abstract class gets a mock, a class gets a mock that forwards to its real
+	///     implementation, and a sealed class or record a real instance. Their constructor dependencies are mocks, and
+	///     other values come from the default values of the behavior.
 	/// </summary>
 	/// <remarks>
 	///     A constructor dependency of a class under test gets the argument of the test parameter of the same type, so the
@@ -51,7 +51,7 @@ namespace Mockolate.Integrations.TUnit
 		/// </summary>
 		/// <remarks>
 		///     Assign it in a module initializer: TUnit creates the arguments before it runs any hook, and on another thread,
-		///     so neither a hook nor a thread-static or async-local value set there takes effect.
+		///     so neither a hook nor a thread-static or async-local value set there reliably takes effect.
 		/// </remarks>
 		public static global::System.Func<global::Mockolate.MockBehavior?> DefaultBehavior { get; set; } = static () => null;
 

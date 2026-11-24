@@ -29,7 +29,7 @@ public class VendingMachineTests
 }
 ```
 
-Mockolate generates the attribute for the test framework of your project. The sections below show how to use it with [TUnit](#tunit).
+Mockolate generates the attribute for the test framework of your project. The sections below show how to use it with [TUnit](#tunit) and [xUnit](#xunit).
 
 ## What each parameter gets
 
@@ -104,6 +104,23 @@ using Mockolate.Integrations.TUnit;
 public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount, VendingMachine sut,
     IChocolateDispenser dispenser)
 ```
+
+## xUnit
+
+With [xUnit](https://xunit.net/) v3 or v2, the attribute is in the `Mockolate.Integrations.Xunit` namespace. Use it on a `[Theory]`, like xUnit's `[InlineData]`:
+
+```csharp
+using Mockolate.Integrations.Xunit;
+
+[Theory]
+[AutoMockArguments("Dark", 4)]
+public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount, VendingMachine sut,
+    IChocolateDispenser dispenser)
+```
+
+A project that references both v2 and v3 gets the attribute for v3. With v3, the attribute takes the settings of xUnit's data attributes, such as `Skip`, `Explicit`, `Timeout` and `Traits`. A theory with mocks shows up as one test in the test explorer, with a result for each attribute. xUnit v2 may already create the arguments of the first attribute when it discovers the tests.
+
+xUnit describes the arguments in the name of a test case and disposes them after the test. To describe a mock of a collection interface, such as `ISet<T>`, it may enumerate the mock, and a mock of a disposable interface gets a call to `Dispose`. Both calls count as interactions of the mock. On a strict mock, set up `Dispose`, or xUnit reports a cleanup error.
 
 <details>
 <summary>Details and limitations</summary>
