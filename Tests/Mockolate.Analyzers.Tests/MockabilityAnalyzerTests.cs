@@ -468,6 +468,12 @@ public class MockabilityAnalyzerTests
 		"out var x")]
 	[Arguments("public class Factory { public static int CreateMock() => 0; }", "out var x")]
 	[Arguments("public class Factory { public static T CreateMock<T>(out T a, int b) { a = default!; return a; } }", "out _")]
+	[Arguments("public record struct Factory(int Value) { public static int CreateMock(int seed) => seed; }", "out var x")]
+	[Arguments("public abstract record Factory(int Value) { public static int CreateMock(int seed) => seed; }", "out var x")]
+	[Arguments("public sealed class Factory(int v) { public static int CreateMock(out Mockolate.ConstructorArguments a, int b) => throw null!; public static int CreateMock(out Mockolate.ConstructorArguments a, string b) => throw null!; }",
+		"out Mockolate.ConstructorArguments x, (dynamic)1")]
+	[Arguments("public class Base { public static int CreateMock(out int a) { a = 0; return 0; } } public sealed class Factory(int v) : Base;",
+		"out int a, out var b")]
 	public async Task WhenCallingOwnCreateMockWithOutParameterThatDoesNotBind_ShouldNotBeFlagged(string declaration,
 		string argument)
 		=> await Verifier.VerifyAnalyzerAsync(
@@ -622,6 +628,8 @@ public class MockabilityAnalyzerTests
 	[Arguments("public static int CreateMock(int seed) => seed;", "out var arguments")]
 	[Arguments("public static int CreateMock(int seed) => seed;", "out _")]
 	[Arguments("public static dynamic? CreateMock;", "out ConstructorArguments arguments")]
+	[Arguments("public static int CreateMock(int seed) => seed;", "out var _")]
+	[Arguments("public static int CreateMock(int seed) => seed;", "out ConstructorArguments? arguments")]
 	[Arguments("public static int CreateMock(int seed) => seed;", "mockBehavior: null, constructorArguments: out var arguments")]
 	public async Task WhenInheritedMemberHidesTheSealedOverload_ShouldBeFlagged(string member, string arguments)
 		=> await Verifier.VerifyAnalyzerAsync(

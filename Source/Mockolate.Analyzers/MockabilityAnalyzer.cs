@@ -79,7 +79,8 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		if (invocationInfo.CandidateReason == CandidateReason.LateBound ||
 		    (method is not null && !IsInMockolateNamespace(method)))
 		{
-			if (outArgument is null || !IsHiddenSealedCreateMock(context, memberAccess, invocationInfo, outArgument))
+			if (outArgument is null ||
+			    !IsHiddenSealedCreateMock(context, invocation, memberAccess, invocationInfo, outArgument))
 			{
 				return;
 			}
@@ -106,11 +107,15 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	///     targets the overload of Mockolate only on a sealed class or a record, which would have it, and only with an
 	///     out argument that is <c>ConstructorArguments</c> or whose type the call infers.
 	/// </summary>
-	private static bool IsHiddenSealedCreateMock(SyntaxNodeAnalysisContext context,
+	private static bool IsHiddenSealedCreateMock(SyntaxNodeAnalysisContext context, InvocationExpressionSyntax invocation,
 		MemberAccessExpressionSyntax memberAccess, SymbolInfo invocationInfo, ArgumentSyntax outArgument)
 		=> invocationInfo.Symbol is null &&
+		   // A dynamic argument also binds at run time, with the methods of the receiver as candidates.
+		   (invocationInfo.CandidateReason != CandidateReason.LateBound || invocationInfo.CandidateSymbols.IsEmpty) &&
+		   invocation.ArgumentList.Arguments.Count(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)) == 1 &&
 		   context.SemanticModel.GetSymbolInfo(memberAccess.Expression).Symbol is INamedTypeSymbol receiver &&
-		   receiver is { TypeKind: TypeKind.Class, IsSealed: true, } or { IsRecord: true, } &&
+		   receiver is { TypeKind: TypeKind.Class, IsStatic: false, IsAbstract: false, } and
+			   ({ IsSealed: true, } or { IsRecord: true, }) &&
 		   ConstructorRules.HasMemberNamedCreateMock(receiver) &&
 		   TargetsConstructorArguments(context.SemanticModel, outArgument.Expression);
 
@@ -124,7 +129,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		}
 
 		if (expression is IdentifierNameSyntax { Identifier.ValueText: "_", } &&
-		    semanticModel.GetSymbolInfo(expression).Symbol is null or IDiscardSymbol)
+		    semanticModel.GetSymbolInfo(expression).Symbol is IDiscardSymbol)
 		{
 			return true;
 		}
