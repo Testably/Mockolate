@@ -59,7 +59,9 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		{
 			// A partial method has two symbols with the same attributes; only the definition reports.
 			IMethodSymbol { PartialDefinitionPart: not null, } => [],
-			IMethodSymbol method when method.GetAttributes().Any(IsMockDataSourceAttribute) => method.Parameters,
+			// Mockolate does not create the first parameters, for which every attribute supplies a value.
+			IMethodSymbol method when method.GetAttributes().Any(IsMockDataSourceAttribute) => method.Parameters
+				.Skip(method.GetAttributes().Where(IsMockDataSourceAttribute).Min(GetSuppliedArgumentCount)),
 			// A constructor with an attribute of its own, such as [method: …] on a primary constructor, reports itself.
 			INamedTypeSymbol type when type.GetAttributes().Any(IsMockDataSourceAttribute) => type.InstanceConstructors
 				.Where(constructor => !constructor.IsImplicitlyDeclared &&
@@ -365,6 +367,16 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		return constructors.Length == 1 ||
 		       (constructors.Length > 1 && constructors[0].Parameters.Length != constructors[1].Parameters.Length);
 	}
+
+	/// <summary>
+	///     The number of values that the <paramref name="attribute" /> supplies for the first parameters: the elements of
+	///     its <see langword="params" /> array, where a single <see langword="null" /> is one value.
+	/// </summary>
+	private static int GetSuppliedArgumentCount(AttributeData attribute)
+		=> attribute.ConstructorArguments.Length == 1 &&
+		   attribute.ConstructorArguments[0] is { Kind: TypedConstantKind.Array, } arguments
+			? arguments.IsNull ? 1 : arguments.Values.Length
+			: attribute.ConstructorArguments.Length;
 
 	private static bool IsMockDataSourceAttribute(AttributeData attribute)
 		=> attribute.AttributeClass is { } attributeClass &&

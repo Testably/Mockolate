@@ -21,7 +21,6 @@ public class MockGenerator : IIncrementalGenerator
 		context.RegisterPostInitializationOutput(ctx =>
 		{
 			ctx.AddSource("Mock.g.cs", ToSource(Sources.Sources.MockClass(), default));
-			ctx.AddEmbeddedAttributeDefinition();
 			ctx.AddSource("AutoMockArguments.g.cs", ToSource(Sources.Sources.AutoMockArgumentsShared(), default));
 			ctx.AddSource("AutoMockArguments.TUnit.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForTUnit(), default));
 		});
@@ -159,11 +158,12 @@ public class MockGenerator : IIncrementalGenerator
 					SortedDistinct(source.SelectMany(creation => creation.ValueTypes))));
 
 		// Like the union attributes, the attribute may come from another generator (PolySharp), which
-		// MockolateUnionAttributePolyfills names.
+		// MockolateUnionAttributePolyfills names, or from the generator of TUnit.
 		IncrementalValueProvider<bool> hasModuleInitializer = context.CompilationProvider
 			.Combine(context.AnalyzerConfigOptionsProvider)
 			.Select(static (source, _) =>
 				ProvidedUnionAttributes(source.Right).Contains("ModuleInitializerAttribute") ||
+				TUnitProvidesModuleInitializer(source.Left, source.Right) ||
 				HasAttribute(source.Left, "System.Runtime.CompilerServices.ModuleInitializerAttribute"));
 
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
@@ -393,6 +393,28 @@ public class MockGenerator : IIncrementalGenerator
 		context.RegisterSourceOutput(includeHttpClient.Combine(includeAsyncEnumerable).Combine(autoMockableTypes).Combine(externAliases), static (spc, source) =>
 			spc.AddSource("MockBehaviorExtensions.g.cs",
 				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left.Left.Left, source.Left.Left.Right, source.Left.Right), source.Right)));
+
+		// Since 1.71, the source generator of TUnit declares ModuleInitializerAttribute when it is missing, unless the
+		// source generation or the polyfills of TUnit are turned off or PolySharp declares the attribute. Mockolate
+		// cannot see that output, so it relies on the same conditions.
+		static bool TUnitProvidesModuleInitializer(Compilation compilation,
+			AnalyzerConfigOptionsProvider analyzerConfigOptions)
+		{
+			if (!compilation.ReferencedAssemblyNames.Any(assembly =>
+				    assembly.Name == "TUnit.Core" && assembly.Version >= new Version(1, 71)))
+			{
+				return false;
+			}
+
+			AnalyzerConfigOptions options = analyzerConfigOptions.GlobalOptions;
+			return !IsFalse("build_property.EnableTUnitSourceGeneration") &&
+			       !IsFalse("build_property.EnableTUnitPolyfills") &&
+			       !options.TryGetValue("build_property.PolySharpIncludeGeneratedTypes", out _);
+
+			bool IsFalse(string key)
+				=> options.TryGetValue(key, out string? value) &&
+				   string.Equals(value.Trim(), "false", StringComparison.OrdinalIgnoreCase);
+		}
 
 		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute,
 		// CallerArgumentExpressionAttribute and ModuleInitializerAttribute from another generator (PolySharp); any other

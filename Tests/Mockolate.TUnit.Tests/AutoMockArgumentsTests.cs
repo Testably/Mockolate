@@ -1,3 +1,4 @@
+using System.Threading;
 using Mockolate.Integrations.TUnit;
 using Mockolate.TUnit.Tests.Domain;
 
@@ -91,6 +92,30 @@ public sealed class AutoMockArgumentsTests
 	[AutoMockArguments("name")]
 	public async Task AutoMockArguments_WithTransientArgument_ShouldPassIt([Transient] string name)
 		=> await That(name).IsEqualTo("name");
+
+	[Test]
+	[AutoMockArguments]
+	public async Task ValueParameter_WithOtherName_ShouldNotReachTheClassUnderTest(int count, string text,
+		OptionalArgumentsService sut)
+	{
+		await That(count).IsEqualTo(0);
+		await That(sut.Retries).IsEqualTo(3);
+		await That(sut.Name).IsNull();
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task ValueParameter_WithTheNameOfTheConstructorParameter_ShouldReachTheClassUnderTest(int retries,
+		OptionalArgumentsService sut)
+		=> await That(sut.Retries).IsEqualTo(retries);
+
+	[Test]
+	[AutoMockArguments]
+	public async Task CancellationToken_ShouldComeFromTUnit(IOrderRepository repository, CancellationToken token)
+	{
+		await That(repository).IsNotNull();
+		await That(token.CanBeCanceled).IsTrue();
+	}
 
 	[Test]
 	[AutoMockArguments]

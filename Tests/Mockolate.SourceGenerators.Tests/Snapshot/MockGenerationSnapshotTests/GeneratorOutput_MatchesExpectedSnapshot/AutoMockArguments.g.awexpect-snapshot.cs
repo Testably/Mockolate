@@ -9,12 +9,20 @@
 
 #if MOCKOLATE_TEST_FRAMEWORK
 #nullable enable
+namespace Microsoft.CodeAnalysis
+{
+	internal sealed partial class EmbeddedAttribute : global::System.Attribute
+	{
+	}
+}
+
 namespace Mockolate.Integrations
 {
 	/// <summary>
 	///     Excludes a test parameter from the arguments that are shared with the classes under test.
 	/// </summary>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	[global::Microsoft.CodeAnalysis.Embedded]
 	internal abstract class TransientParameterAttribute : global::System.Attribute
@@ -25,6 +33,7 @@ namespace Mockolate.Integrations
 	///     Creates the arguments of one test invocation on demand, so that a class under test receives the arguments of
 	///     the other parameters whatever their order.
 	/// </summary>
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	[global::Microsoft.CodeAnalysis.Embedded]
 	internal sealed class AutoMockRow
@@ -120,6 +129,13 @@ namespace Mockolate.Integrations
 				{
 					candidates.Add(index);
 				}
+			}
+
+			if (type.IsValueType || type == typeof(string))
+			{
+				// A value is only shared by name: a value like 0 would otherwise reach every int of every class under test.
+				candidates = candidates.FindAll(index =>
+					string.Equals(_names[index], parameterName, global::System.StringComparison.OrdinalIgnoreCase));
 			}
 
 			if (candidates.Count > 1)

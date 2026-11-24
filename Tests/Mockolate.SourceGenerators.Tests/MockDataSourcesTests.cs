@@ -699,15 +699,66 @@ public sealed class MockDataSourcesTests
 
 		                                                       {{DataAttribute}}
 		                                                       """, [first, second,],
+			// The compilation references the TUnit of this test project, which must not provide the attribute here.
 			configured is null
-				? null
-				: new Dictionary<string, string> { ["build_property.MockolateUnionAttributePolyfills"] = configured, });
+				? new Dictionary<string, string> { ["build_property.EnableTUnitPolyfills"] = "false", }
+				: new Dictionary<string, string>
+				{
+					["build_property.MockolateUnionAttributePolyfills"] = configured,
+					["build_property.EnableTUnitPolyfills"] = "false",
+				});
 
 		// With the opt-out, the attribute would come from another generator, which this compilation does not run.
 		if (expectPolyfill)
 		{
 			await That(result.Diagnostics).IsEmpty();
 		}
+
+		await That(result.Sources["MockDataSources.g.cs"].Contains("internal sealed class ModuleInitializerAttribute"))
+			.IsEqualTo(expectPolyfill);
+	}
+
+	[Test]
+	[Arguments(null, null, false)]
+	[Arguments("false", null, true)]
+	[Arguments(null, "false", true)]
+	public async Task ModuleInitializerPolyfill_WithTUnit_ShouldFollowItsBuildProperties(string? polyfills,
+		string? sourceGeneration, bool expectPolyfill)
+	{
+		// The attribute in two references is ambiguous, so the compilation lacks it like on .NET Framework.
+		MetadataReference first = ExternalAssembly.Compile(ModuleInitializerAttributeSource, "First");
+		MetadataReference second = ExternalAssembly.Compile(ModuleInitializerAttributeSource, "Second");
+		Dictionary<string, string> options = new();
+		if (polyfills is not null)
+		{
+			options["build_property.EnableTUnitPolyfills"] = polyfills;
+		}
+
+		if (sourceGeneration is not null)
+		{
+			options["build_property.EnableTUnitSourceGeneration"] = sourceGeneration;
+		}
+
+		// The compilation references the TUnit of this test project, whose generator declares the attribute.
+		GeneratorResult result = Generator.RunWithReferences($$"""
+		                                                       #nullable enable
+		                                                       namespace MyCode
+		                                                       {
+		                                                           public interface IDep { int Get(); }
+
+		                                                           public class Program
+		                                                           {
+		                                                               [Data]
+		                                                               public static object Test(IDep dep) => dep;
+
+		                                                               public static void Main(string[] args)
+		                                                               {
+		                                                               }
+		                                                           }
+		                                                       }
+
+		                                                       {{DataAttribute}}
+		                                                       """, [first, second,], options, typeof(global::TUnit.Core.TestAttribute));
 
 		await That(result.Sources["MockDataSources.g.cs"].Contains("internal sealed class ModuleInitializerAttribute"))
 			.IsEqualTo(expectPolyfill);

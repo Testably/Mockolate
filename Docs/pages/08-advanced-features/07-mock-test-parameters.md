@@ -34,13 +34,13 @@ Mockolate generates the attribute for the test framework of your project. The se
 ## What each parameter gets
 
 - An interface, delegate or abstract class gets a **mock**.
-- A class gets a **mock that calls the real class**. It behaves like the real class until you set up one of its virtual members, e.g. `sut.Mock.Setup.GetPrice().Returns(1m)`.
+- A class gets a **mock that calls the real class**. It behaves like the real class until you set up one of its virtual members, e.g. `sut.Mock.Setup.GetPrice().Returns(1m)` for a virtual `GetPrice` method.
 - A sealed class or a record gets a **real instance**.
 - Any other type, such as `string` or `int`, gets a [default value](../04-create-mocks.md#default-values).
 
 The order of the parameters does not matter. A class receives the other parameters of the test method as its constructor arguments. A constructor parameter without a matching test parameter gets a new mock or a default value, which you can reach with `sut.Mock.ConstructorArgument<IChocolateDispenser>()`.
 
-When several test parameters have the type of a constructor parameter, give one of them the name of the constructor parameter.
+A test parameter can fill several constructor parameters of its type. When several test parameters have the type of a constructor parameter, give one of them the name of the constructor parameter. A test parameter of a value type or `string` is only passed to a constructor parameter with its name.
 
 ## Pass values
 
@@ -111,8 +111,9 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
 - Set `<MockolateTestFrameworkIntegration>false</MockolateTestFrameworkIntegration>` in the project file to skip the attribute.
 - A test parameter matches a constructor parameter of exactly its type. A constructor parameter of type `IChocolateDispenser` does not receive a test parameter of a type that derives from it.
 - A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type.
-- The given values must have the types of the parameters, e.g. `4` for an `int` and `4L` for a `long`. `[AutoMockArguments(null)]` passes `null` to the first parameter.
+- When two classes under test depend on each other, only the first of the two test parameters receives the other one; the second gets a new instance or its default value.
+- The given values must have the types of the parameters, e.g. `4` for an `int` and `4L` for a `long`. `[AutoMockArguments(null)]` passes `null` to the first parameter. A single array, e.g. `[AutoMockArguments(new object[] { "Dark", 4 })]`, passes its elements as the values.
 - The [Mockolate0010](../10-analyzers.md#mockolate0010) analyzer reports parameters that Mockolate cannot create, such as `IRepository<T>` in a generic test.
-- On .NET Framework, Mockolate declares the `ModuleInitializerAttribute` when the project lacks it. If another package such as PolySharp declares it too, set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>`.
+- On .NET Framework, Mockolate declares the `ModuleInitializerAttribute` when neither the project nor TUnit does. If another package such as PolySharp declares it too, set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>`.
 
 </details>

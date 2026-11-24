@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<!-- The other test projects disable it, but TUnit must discover the generated attribute through its source generator. -->
+	<!-- The other test projects disable them, but TUnit must discover the generated attribute through its source
+	     generator, and on .NET Framework its polyfill of ModuleInitializerAttribute must not clash with Mockolate's. -->
 	<PropertyGroup>
 		<EnableTUnitSourceGeneration>true</EnableTUnitSourceGeneration>
+		<EnableTUnitPolyfills>true</EnableTUnitPolyfills>
 	</PropertyGroup>
 
 	<ItemGroup>

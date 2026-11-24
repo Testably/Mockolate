@@ -58,18 +58,18 @@ namespace Mockolate.Integrations.TUnit
 		protected override global::System.Collections.Generic.IEnumerable<global::System.Func<object?[]?>> GenerateDataSources(
 			global::TUnit.Core.DataGeneratorMetadata dataGeneratorMetadata)
 		{
-			// The element type differs between TUnit versions, and the attribute only applies to method parameters.
-			object[] members = dataGeneratorMetadata.MembersToGenerate;
-			global::TUnit.Core.ParameterMetadata[] parameters = global::System.Array.ConvertAll(members,
-				member => (global::TUnit.Core.ParameterMetadata)member);
+			// The attribute only applies to methods, so every member is a parameter.
+			global::TUnit.Core.ParameterMetadata[] parameters = global::System.Array.ConvertAll(
+				dataGeneratorMetadata.MembersToGenerate, member => (global::TUnit.Core.ParameterMetadata)member);
 			global::System.Type[] types = global::System.Array.ConvertAll(parameters, parameter => parameter.Type);
 			string[] names = global::System.Array.ConvertAll(parameters, parameter => parameter.Name);
 			// The attribute is generated into every test assembly, next to the code that creates the parameters.
 			global::System.Reflection.Assembly assembly = typeof(AutoMockArgumentsAttribute).Assembly;
-			// Only a parameter that could be shared needs its reflection info.
+			// Only a parameter that could be shared needs its reflection info, which older versions of TUnit can lack.
 			yield return () => new global::Mockolate.Integrations.AutoMockRow(assembly, types, names,
-				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index].ReflectionInfo,
-					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+				index => parameters[index].ReflectionInfo is { } reflectionInfo &&
+				         global::System.Reflection.CustomAttributeExtensions.IsDefined(reflectionInfo,
+					         typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
 				Arguments, DefaultBehavior?.Invoke()).Create();
 		}
 	}

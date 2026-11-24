@@ -9,18 +9,28 @@ internal static partial class Sources
 	/// <remarks>
 	///     All attributes are emitted as post-initialization output, because TUnit's own source generator discovers data
 	///     sources and cannot see the regular output of another generator: the test would compile, but run without arguments.
-	///     The types are embedded, so that test projects which see each other's internals do not get conflicting types.
+	///     The types are embedded, so that test projects which see each other's internals do not get conflicting types. The
+	///     embedded attribute is declared here instead of through <c>AddEmbeddedAttributeDefinition</c>, so that only
+	///     projects with a test framework get it; it is partial like the one that API adds for other generators.
 	/// </remarks>
 	public static string AutoMockArgumentsShared()
 		=> InitializeBuilder().Append("""
 		   #if MOCKOLATE_TEST_FRAMEWORK
 		   #nullable enable
+		   namespace Microsoft.CodeAnalysis
+		   {
+		   	internal sealed partial class EmbeddedAttribute : global::System.Attribute
+		   	{
+		   	}
+		   }
+
 		   namespace Mockolate.Integrations
 		   {
 		   	/// <summary>
 		   	///     Excludes a test parameter from the arguments that are shared with the classes under test.
 		   	/// </summary>
 		   	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		   	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 		   	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 		   	[global::Microsoft.CodeAnalysis.Embedded]
 		   	internal abstract class TransientParameterAttribute : global::System.Attribute
@@ -31,6 +41,7 @@ internal static partial class Sources
 		   	///     Creates the arguments of one test invocation on demand, so that a class under test receives the arguments of
 		   	///     the other parameters whatever their order.
 		   	/// </summary>
+		   	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 		   	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 		   	[global::Microsoft.CodeAnalysis.Embedded]
 		   	internal sealed class AutoMockRow
@@ -128,6 +139,13 @@ internal static partial class Sources
 		   				}
 		   			}
 
+		   			if (type.IsValueType || type == typeof(string))
+		   			{
+		   				// A value is only shared by name: a value like 0 would otherwise reach every int of every class under test.
+		   				candidates = candidates.FindAll(index =>
+		   					string.Equals(_names[index], parameterName, global::System.StringComparison.OrdinalIgnoreCase));
+		   			}
+
 		   			if (candidates.Count > 1)
 		   			{
 		   				global::System.Collections.Generic.List<int> named = candidates.FindAll(index =>
@@ -214,18 +232,18 @@ internal static partial class Sources
 		   		protected override global::System.Collections.Generic.IEnumerable<global::System.Func<object?[]?>> GenerateDataSources(
 		   			global::TUnit.Core.DataGeneratorMetadata dataGeneratorMetadata)
 		   		{
-		   			// The element type differs between TUnit versions, and the attribute only applies to method parameters.
-		   			object[] members = dataGeneratorMetadata.MembersToGenerate;
-		   			global::TUnit.Core.ParameterMetadata[] parameters = global::System.Array.ConvertAll(members,
-		   				member => (global::TUnit.Core.ParameterMetadata)member);
+		   			// The attribute only applies to methods, so every member is a parameter.
+		   			global::TUnit.Core.ParameterMetadata[] parameters = global::System.Array.ConvertAll(
+		   				dataGeneratorMetadata.MembersToGenerate, member => (global::TUnit.Core.ParameterMetadata)member);
 		   			global::System.Type[] types = global::System.Array.ConvertAll(parameters, parameter => parameter.Type);
 		   			string[] names = global::System.Array.ConvertAll(parameters, parameter => parameter.Name);
 		   			// The attribute is generated into every test assembly, next to the code that creates the parameters.
 		   			global::System.Reflection.Assembly assembly = typeof(AutoMockArgumentsAttribute).Assembly;
-		   			// Only a parameter that could be shared needs its reflection info.
+		   			// Only a parameter that could be shared needs its reflection info, which older versions of TUnit can lack.
 		   			yield return () => new global::Mockolate.Integrations.AutoMockRow(assembly, types, names,
-		   				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index].ReflectionInfo,
-		   					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+		   				index => parameters[index].ReflectionInfo is { } reflectionInfo &&
+		   				         global::System.Reflection.CustomAttributeExtensions.IsDefined(reflectionInfo,
+		   					         typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
 		   				Arguments, DefaultBehavior?.Invoke()).Create();
 		   		}
 		   	}

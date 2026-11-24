@@ -97,6 +97,33 @@ public class MockDataSourceAnalyzerTests
 		);
 
 	[Test]
+	public async Task WhenEveryAttributeSuppliesTheValue_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			"""
+			#nullable enable
+			namespace MyCode
+			{
+			    public sealed class Generic<T>;
+
+			    public class Tests
+			    {
+			        [ArgsData(null)]
+			        [ArgsData(null, null)]
+			        public void Test(Generic<int>? a, Generic<int>? {|#0:b|}) { }
+			    }
+
+			    [System.AttributeUsage(System.AttributeTargets.Method, AllowMultiple = true)]
+			    public sealed class ArgsDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource
+			    {
+			        public ArgsDataAttribute(params object?[]? arguments) { }
+			    }
+			}
+			""",
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
+				.WithArguments("b", "MyCode.Generic<int>?", "it is a generic class")
+		);
+
+	[Test]
 	public async Task WhenTypeIsNotAccessible_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""

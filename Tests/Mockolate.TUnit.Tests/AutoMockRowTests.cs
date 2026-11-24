@@ -26,9 +26,10 @@ public sealed class AutoMockRowTests
 		AutoMockRow row = CreateRow(nameof(DifferentCase));
 
 		object?[] values = row.Create();
+		((TransferService)values[0]!).Transfer(10m);
 
-		await That(values).HasCount(3);
-		await That(values[0]).IsNotNull();
+		await That(((IAccount)values[1]!).Mock.Verify.Withdraw(10m)).Once();
+		await That(((IAccount)values[2]!).Mock.Verify.Deposit(10m)).Once();
 	}
 
 	[Test]
