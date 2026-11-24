@@ -20,7 +20,7 @@ namespace Mockolate.Analyzers;
 public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 {
 	/// <summary>
-	///     A parameter of a mock data source that Mockolate cannot create.
+	///     A mock test parameter that Mockolate cannot create.
 	/// </summary>
 	/// <remarks>
 	///     Declared here instead of in <see cref="Rules" />, because the release tracking analyzer reports RS2002 for an
@@ -376,6 +376,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 	private static int GetSuppliedArgumentCount(AttributeData attribute)
 	{
 		if (attribute.AttributeConstructor is not { Parameters.Length: 1, } constructor ||
+		    attribute.ConstructorArguments.Length != 1 ||
 		    constructor.Parameters[0] is not
 		    {
 			    IsParams: true, Type: IArrayTypeSymbol { ElementType.SpecialType: SpecialType.System_Object, },

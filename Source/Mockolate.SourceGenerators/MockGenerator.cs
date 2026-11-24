@@ -157,14 +157,16 @@ public class MockGenerator : IIncrementalGenerator
 					SortedDistinct(source.SelectMany(creation => creation.ValueOrMockTypes)),
 					SortedDistinct(source.SelectMany(creation => creation.ValueTypes))));
 
-		// Like the union attributes, the attribute may come from another generator: PolySharp, which also
-		// MockolateUnionAttributePolyfills can name, or the generator of TUnit.
+		// Like the union attributes, the attribute may come from another generator, which Mockolate cannot see: one that
+		// MockolateUnionAttributePolyfills names, PolySharp or the generator of TUnit. PolySharp only declares it when the
+		// compilation has no usable declaration at all, while Mockolate also declares it when several references do.
 		IncrementalValueProvider<bool> hasModuleInitializer = context.CompilationProvider
 			.Combine(context.AnalyzerConfigOptionsProvider)
 			.Select(static (source, _) =>
 				ProvidedUnionAttributes(source.Right).Contains("ModuleInitializerAttribute") ||
 				TUnitProvidesModuleInitializer(source.Left, source.Right) ||
-				PolySharpProvidesModuleInitializer(source.Right.GlobalOptions) ||
+				(PolySharpProvidesModuleInitializer(source.Right.GlobalOptions) &&
+				 GetUsableTypes(source.Left, "System.Runtime.CompilerServices.ModuleInitializerAttribute").Length == 0) ||
 				HasAttribute(source.Left, "System.Runtime.CompilerServices.ModuleInitializerAttribute"));
 
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
@@ -398,8 +400,8 @@ public class MockGenerator : IIncrementalGenerator
 		// Since 1.71, the source generator of TUnit declares ModuleInitializerAttribute when it is missing, unless the
 		// source generation or the polyfills of TUnit are turned off or PolySharp declares the attribute. Mockolate
 		// cannot see that output, so it mirrors these conditions (AttributePolyfillGenerator in TUnit). The props of
-		// TUnit always make EnableTUnitSourceGeneration visible, so without it the generator of TUnit is not set up. A project
-		// that excludes only the analyzers of TUnit sets EnableTUnitPolyfills to false instead.
+		// TUnit always make EnableTUnitSourceGeneration visible, so without it the generator of TUnit is not set
+		// up. A project that only excludes the analyzer assets of TUnit sets EnableTUnitPolyfills to false instead.
 		static bool TUnitProvidesModuleInitializer(Compilation compilation,
 			AnalyzerConfigOptionsProvider analyzerConfigOptions)
 		{
@@ -509,12 +511,22 @@ public class MockGenerator : IIncrementalGenerator
 	/// </summary>
 	internal static bool HasAttribute(Compilation compilation, string attributeName)
 	{
-		INamedTypeSymbol[] accessible = compilation.GetTypesByMetadataName(attributeName)
-			.Where(type => compilation.IsSymbolAccessibleWithin(type, compilation.Assembly))
-			.ToArray();
+		INamedTypeSymbol[] accessible = GetUsableTypes(compilation, attributeName);
 		return accessible.Length == 1 ||
 		       accessible.Any(type => SymbolEqualityComparer.Default.Equals(type.ContainingAssembly, compilation.Assembly));
 	}
+
+	/// <summary>
+	///     The declarations of the type that the compilation can use: accessible, and not an embedded type of a reference,
+	///     which the compiler ignores.
+	/// </summary>
+	private static INamedTypeSymbol[] GetUsableTypes(Compilation compilation, string metadataName)
+		=> compilation.GetTypesByMetadataName(metadataName)
+			.Where(type => compilation.IsSymbolAccessibleWithin(type, compilation.Assembly) &&
+			               (SymbolEqualityComparer.Default.Equals(type.ContainingAssembly, compilation.Assembly) ||
+			                !type.GetAttributes().Any(attribute =>
+				                attribute.AttributeClass?.ToDisplayString() == "Microsoft.CodeAnalysis.EmbeddedAttribute")))
+			.ToArray();
 
 	private static SourceText ToSource(string source, EquatableArray<string> externAliases)
 		=> SourceText.From(Sources.Sources.ExpandCrefs(WithExternAliases(source, externAliases)), Encoding.UTF8);
