@@ -236,6 +236,23 @@ public sealed class ConstructorDependencySealedNamed(IConstructorDependency depe
 	public IConstructorDependency Dependency { get; } = dependency;
 }
 
+/// <summary>
+///     Has the same constructor parameters as <see cref="ConstructorDependencySealedNamed" />, so their overloads must not
+///     share a class.
+/// </summary>
+public sealed class ConstructorDependencySealedTwin(IConstructorDependency dependency)
+{
+	public IConstructorDependency Dependency { get; } = dependency;
+}
+
+/// <summary>
+///     Parameters named like the locals and the field of the generated overload.
+/// </summary>
+public sealed class ConstructorDependencySealedLocalNames(int value0, int argument0, int created0, int Signature)
+{
+	public int Sum { get; } = value0 + argument0 + created0 + Signature;
+}
+
 public interface IConstructorBaseDependency;
 
 public interface IConstructorDerivedDependency : IConstructorBaseDependency;

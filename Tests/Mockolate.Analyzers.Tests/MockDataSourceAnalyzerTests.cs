@@ -305,12 +305,21 @@ public class MockDataSourceAnalyzerTests
 			      public ref struct Buffer { }
 			      public interface IRefStruct { Buffer Get(); }
 			      public interface ICreateMock { int CreateMock(); }
+			      public abstract class HidingBase { public static int CreateMock() => 0; }
+			      public abstract class InheritsHiding : HidingBase { public abstract int Get(); }
+			      public abstract class FieldBase { public static int CreateMock; }
+			      public abstract class InheritsField : FieldBase { public abstract int Get(); }
+			      public abstract class DelegateBase { public System.Func<int>? CreateMock; }
+			      public abstract class InheritsDelegate : DelegateBase { public abstract int Get(); }
+			      public abstract class EventBase { public event System.Action? CreateMock; }
+			      public abstract class InheritsEvent : EventBase { public abstract int Get(); }
 
 			      public class Tests
 			      {
 			          [Data]
 			          public void Test(WithInternal {|#0:a|}, WithOptional b, RefCallback {|#1:c|}, IRefProperty {|#2:d|},
-			              IRefStruct {|#3:e|}, ICreateMock {|#4:f|}) { }
+			              IRefStruct {|#3:e|}, ICreateMock {|#4:f|}, InheritsHiding {|#5:g|}, InheritsField h,
+			              InheritsDelegate {|#6:i|}, InheritsEvent {|#7:j|}) { }
 			      }
 
 			      {{DataAttribute}}
@@ -325,7 +334,13 @@ public class MockDataSourceAnalyzerTests
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(3)
 				.WithArguments("e", "MyCode.IRefStruct", "its mock cannot implement the member 'MyCode.IRefStruct.Get()'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(4)
-				.WithArguments("f", "MyCode.ICreateMock", "it has a member named CreateMock, which would hide the generated extension")
+				.WithArguments("f", "MyCode.ICreateMock", "it has a member named CreateMock, which would hide the generated extension"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(5)
+				.WithArguments("g", "MyCode.InheritsHiding", "it has a member named CreateMock, which would hide the generated extension"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(6)
+				.WithArguments("i", "MyCode.InheritsDelegate", "it has a member named CreateMock, which would hide the generated extension"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(7)
+				.WithArguments("j", "MyCode.InheritsEvent", "it has a member named CreateMock, which would hide the generated extension")
 		);
 
 	[Test]

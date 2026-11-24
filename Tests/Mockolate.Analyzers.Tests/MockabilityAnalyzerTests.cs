@@ -414,6 +414,86 @@ public class MockabilityAnalyzerTests
 		         }
 		         """;
 	}
+
+	[Test]
+	[Arguments("public static int CreateMock;")]
+	[Arguments("public void CreateMock() { }")]
+	[Arguments("private static void CreateMock() { }")]
+	public async Task WhenBaseClassHasMemberNamedCreateMockThatDoesNotHideTheExtension_ShouldNotBeFlagged(string member)
+		=> await Verifier.VerifyAnalyzerAsync(
+			$$"""
+			  using Mockolate;
+
+			  namespace MyNamespace
+			  {
+			  	public class Base { {{member}} }
+			  	public sealed class MySealedClass(int value) : Base;
+
+			  	public class Tests
+			  	{
+			  		public void Test()
+			  		{
+			  			_ = MySealedClass.CreateMock(out ConstructorArguments arguments);
+			  		}
+			  	}
+			  }
+
+			  namespace Mockolate
+			  {
+			  	public static class MockExtensions
+			  	{
+			  		extension(MyNamespace.MySealedClass)
+			  		{
+			  			public static MyNamespace.MySealedClass CreateMock(out ConstructorArguments arguments)
+			  				=> throw new System.NotImplementedException();
+			  		}
+			  	}
+			  }
+			  """);
+
+	[Test]
+	[Arguments("public class Factory { public static int CreateMock(out int value, int seed) { value = seed; return seed; } }",
+		"out int x")]
+	[Arguments("public static class Factory { public static int CreateMock(out int value, int seed) { value = seed; return seed; } }",
+		"out int x")]
+	[Arguments("public class Factory { public static int CreateMock(out int value) { value = 0; return 0; } }",
+		"out string x")]
+	[Arguments("public sealed class Factory(int v) { public static int CreateMock(out int value, int seed) { value = seed; return seed; } }",
+		"out int x")]
+	[Arguments("public class Factory { public static int CreateMock(ref int seed) => seed; }", "out int x")]
+	[Arguments("public sealed class Factory(int v) { public static int CreateMock(int seed) => seed; }", "out int x")]
+	[Arguments("public class Factory { public static System.Func<int, int>? CreateMock; }", "out int x")]
+	[Arguments("public sealed class Factory(int v) { public static dynamic? CreateMock; }", "out int x")]
+	[Arguments("public sealed class Factory(int v) { public static dynamic? CreateMock; }", "out Mockolate.ConstructorArguments x")]
+	[Arguments("public class Base { public static dynamic? CreateMock; } public sealed class Factory(int v) : Base;", "out Mockolate.ConstructorArguments x")]
+	[Arguments("public class Factory { public static int CreateMock(out int a, int b) { a = b; return b; } public static int CreateMock(out string a, string b) { a = b; return 0; } }",
+		"out var x")]
+	[Arguments("public class Factory { public static int CreateMock() => 0; }", "out var x")]
+	[Arguments("public class Factory { public static T CreateMock<T>(out T a, int b) { a = default!; return a; } }", "out _")]
+	[Arguments("public record struct Factory(int Value) { public static int CreateMock(int seed) => seed; }", "out var x")]
+	[Arguments("public abstract record Factory(int Value) { public static int CreateMock(int seed) => seed; }", "out var x")]
+	[Arguments("public sealed class Factory(int v) { public static int CreateMock(out Mockolate.ConstructorArguments a, int b) => throw null!; public static int CreateMock(out Mockolate.ConstructorArguments a, string b) => throw null!; }",
+		"out Mockolate.ConstructorArguments x, (dynamic)1")]
+	[Arguments("public class Base { public static int CreateMock(out int a) { a = 0; return 0; } } public sealed class Factory(int v) : Base;",
+		"out var b, out int a")]
+	public async Task WhenCallingOwnCreateMockWithOutParameterThatDoesNotBind_ShouldNotBeFlagged(string declaration,
+		string argument)
+		=> await Verifier.VerifyAnalyzerAsync(
+			$$"""
+			  namespace MyNamespace
+			  {
+			  	{{declaration}}
+
+			  	public class Tests
+			  	{
+			  		public void Test()
+			  		{
+			  			_ = Factory.CreateMock({{argument}});
+			  		}
+			  	}
+			  }
+			  """);
+
 	[Test]
 	public async Task WhenCreatingSealedClassWithOutParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
@@ -425,20 +505,23 @@ public class MockabilityAnalyzerTests
 				public interface IDependency { }
 				public sealed class MySealedClass(IDependency dependency);
 
-				public static class MockExtensions
-				{
-					extension(MySealedClass)
-					{
-						public static MySealedClass CreateMock(out ConstructorArguments arguments)
-							=> throw new System.NotImplementedException();
-					}
-				}
-
 				public class Tests
 				{
 					public void Test()
 					{
 						_ = MySealedClass.CreateMock(out ConstructorArguments arguments);
+					}
+				}
+			}
+
+			namespace Mockolate
+			{
+				public static class MockExtensions
+				{
+					extension(MyNamespace.MySealedClass)
+					{
+						public static MyNamespace.MySealedClass CreateMock(out ConstructorArguments arguments)
+							=> throw new System.NotImplementedException();
 					}
 				}
 			}
@@ -505,7 +588,17 @@ public class MockabilityAnalyzerTests
 		"type is obsolete or experimental")]
 	[Arguments("public interface ICreator { void CreateMock(); } public sealed class MyType(int value) : ICreator { void ICreator.CreateMock() { } }",
 		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
-	[Arguments("public class Base { public static int CreateMock; } public sealed class MyType(int value) : Base;",
+	[Arguments("public class Base { public static int CreateMock() => 0; } public sealed class MyType(int value) : Base;",
+		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
+	[Arguments("public class Base { public System.Func<int>? CreateMock; } public sealed class MyType(int value) : Base;",
+		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
+	[Arguments("public class Base { public event System.Action? CreateMock; } public sealed class MyType(int value) : Base;",
+		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
+	[Arguments("public sealed class MyType(int value) { public static int CreateMock() => 0; }",
+		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
+	[Arguments("public class Base { public static int CreateMock(out int x) { x = 0; return 0; } } public sealed class MyType(int value) : Base;",
+		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
+	[Arguments("public delegate int Creator(out int x); public class Base { public static Creator? CreateMock; } public sealed class MyType(int value) : Base;",
 		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
 	[Arguments("public sealed class MyType { public MyType(int value) { } public MyType(string text) { } }", "MyType",
 		"MyNamespace.MyType", "type has no single accessible constructor with the most parameters that Mockolate can call")]
@@ -532,6 +625,34 @@ public class MockabilityAnalyzerTests
 			  """,
 			Verifier.Diagnostic(Rules.MockabilityRule).WithLocation(0).WithArguments(typeName, reason)
 		);
+
+	[Test]
+	[Arguments("public static int CreateMock(int seed) => seed;", "out var arguments")]
+	[Arguments("public static int CreateMock(int seed) => seed;", "out _")]
+	[Arguments("public static int CreateMock(int seed) => seed;", "out var _")]
+	[Arguments("public static int CreateMock(int seed) => seed;", "out ConstructorArguments? arguments")]
+	[Arguments("public static int CreateMock(int seed) => seed;", "mockBehavior: null, constructorArguments: out var arguments")]
+	public async Task WhenInheritedMemberHidesTheSealedOverload_ShouldBeFlagged(string member, string arguments)
+		=> await Verifier.VerifyAnalyzerAsync(
+			$$"""
+			  using Mockolate;
+
+			  namespace MyNamespace
+			  {
+			  	public class Base { {{member}} }
+			  	public sealed class MyType(int value) : Base;
+
+			  	public class Tests
+			  	{
+			  		public void Test()
+			  		{
+			  			_ = {|#0:MyType|}.CreateMock({{arguments}});
+			  		}
+			  	}
+			  }
+			  """,
+			Verifier.Diagnostic(Rules.MockabilityRule).WithLocation(0)
+				.WithArguments("MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension"));
 
 	[Test]
 	public async Task WhenCreatingSealedClassInFrameworkNamespace_ShouldBeFlagged() => await Verifier

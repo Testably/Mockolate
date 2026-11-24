@@ -52,7 +52,7 @@ internal static class ConstructorRules
 			return "type is declared in the System, Microsoft or Windows namespace";
 		}
 
-		if (HasMemberNamedCreateMock(type))
+		if (HasMemberNamedCreateMock(type, compilation.Assembly))
 		{
 			return "type has a member named CreateMock, which would hide the generated extension";
 		}
@@ -91,21 +91,52 @@ internal static class ConstructorRules
 	}
 
 	/// <summary>
-	///     Mirror of <c>HasMemberNamedCreateMock</c> in the generator: a member named <c>CreateMock</c> of the type, a base class
-	///     or an interface would hide the generated extension.
+	///     Mirror of <c>HasMemberNamedCreateMock</c> in the generator: the generator skips a type with a member named
+	///     <c>CreateMock</c>, also of one of its interfaces, and a type whose base class has a member of that name that may
+	///     hide the generated extension: a non-private static method, or an event, field or property that can be invoked.
 	/// </summary>
-	internal static bool HasMemberNamedCreateMock(INamedTypeSymbol type)
+	internal static bool HasMemberNamedCreateMock(INamedTypeSymbol type, IAssemblySymbol sourceAssembly)
 	{
-		for (INamedTypeSymbol? current = type; current is not null; current = current.BaseType)
+		if (!type.GetMembers("CreateMock").IsEmpty ||
+		    type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty))
 		{
-			if (!current.GetMembers("CreateMock").IsEmpty)
+			return true;
+		}
+
+		for (INamedTypeSymbol? current = type.BaseType; current is not null; current = current.BaseType)
+		{
+			if (current.GetMembers("CreateMock").Any(member => MayHideCreateMock(member, sourceAssembly)))
 			{
 				return true;
 			}
 		}
 
-		return type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
+		return false;
 	}
+
+	private static bool MayHideCreateMock(ISymbol member, IAssemblySymbol sourceAssembly)
+		=> IsVisibleTo(member, sourceAssembly) &&
+		   member switch
+		   {
+			   IMethodSymbol method => method.IsStatic,
+			   IEventSymbol => true,
+			   IFieldSymbol field => IsInvocable(field.Type),
+			   IPropertySymbol property => IsInvocable(property.Type),
+			   _ => false,
+		   };
+
+	private static bool IsInvocable(ITypeSymbol type)
+		=> type.TypeKind is TypeKind.Delegate or TypeKind.Dynamic or TypeKind.FunctionPointer;
+
+	// An internal member of another assembly without InternalsVisibleTo cannot hide anything; a protected one can, from a
+	// derived class that calls CreateMock.
+	private static bool IsVisibleTo(ISymbol member, IAssemblySymbol sourceAssembly)
+		=> member.DeclaredAccessibility switch
+		{
+			Accessibility.Private => false,
+			Accessibility.Internal or Accessibility.ProtectedAndInternal => member.ContainingAssembly.GivesAccessTo(sourceAssembly),
+			_ => true,
+		};
 
 	internal static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{

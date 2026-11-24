@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Tests.TestHelpers;
 
 namespace Mockolate.SourceGenerators.Tests;
@@ -253,5 +254,126 @@ public sealed class ConstructorDependenciesTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("SealedClasses.g.cs");
+	}
+
+	[Test]
+	[Arguments("internal", true)]
+	[Arguments("public", false)]
+	public async Task SealedClassWithBaseClassMemberNamedCreateMockInAReference_ShouldDependOnItsAccessibility(
+		string accessibility, bool isGenerated)
+	{
+		MetadataReference reference = ExternalAssembly.Compile(
+			$$"""
+			  namespace External
+			  {
+			      public class Base
+			      {
+			          {{accessibility}} static int CreateMock() => 0;
+			      }
+			  }
+			  """, "External");
+
+		GeneratorResult result = Generator.RunWithReferences("""
+		                                                     #pragma warning disable CS9113
+		                                                     using Mockolate;
+
+		                                                     namespace MyCode
+		                                                     {
+		                                                         public interface IDep { int Get(); }
+		                                                         public sealed class Svc(IDep dep) : External.Base;
+
+		                                                         public class Program
+		                                                         {
+		                                                             public static void Main(string[] args)
+		                                                             {
+		                                                                 _ = IDep.CreateMock();
+		                                                                 _ = Svc.CreateMock(out ConstructorArguments arguments);
+		                                                             }
+		                                                         }
+		                                                     }
+		                                                     """, [reference,]);
+
+		bool hasCreation = result.Sources.TryGetValue("SealedClasses.g.cs", out string? sealedClasses) &&
+		                   sealedClasses.Contains("extension(global::MyCode.Svc)");
+		await That(hasCreation).IsEqualTo(isGenerated)
+			.Because("an internal member of another assembly without InternalsVisibleTo does not hide the extension");
+		if (isGenerated)
+		{
+			await That(result.Diagnostics).IsEmpty();
+		}
+	}
+
+	[Test]
+	public async Task SealedClassesWithTheSameParameters_ShouldCompile()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #pragma warning disable CS9113
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public interface IDep { int Get(); }
+		                                           public sealed class First(IDep dep);
+		                                           public sealed class Second(IDep dep);
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = First.CreateMock(out ConstructorArguments first);
+		                                                   _ = Second.CreateMock(out ConstructorArguments second);
+		                                               }
+		                                           }
+		                                       }
+		                                       """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["SealedClasses.g.cs"])
+			.Contains("class MockolateSealedCreation0").And
+			.Contains("class MockolateSealedCreation1");
+	}
+
+	[Test]
+	[Arguments("public static int CreateMock() => 0;", false)]
+	[Arguments("public System.Func<int>? CreateMock;", false)]
+	[Arguments("public event System.Action? CreateMock;", false)]
+	[Arguments("public static System.Func<int>? CreateMock;", false)]
+	[Arguments("public System.Func<int>? CreateMock { get; set; }", false)]
+	[Arguments("public dynamic? CreateMock;", false)]
+	[Arguments("public static int CreateMock;", true)]
+	[Arguments("public int CreateMock() => 0;", true)]
+	[Arguments("private static int CreateMock() => 0;", true)]
+	public async Task SealedClassWithBaseClassMemberNamedCreateMock_ShouldOnlyBeSkippedWhenTheMemberHidesTheExtension(
+		string member, bool isGenerated)
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #pragma warning disable CS0067, CS0169, CS0649, CS9113
+		                                         using Mockolate;
+
+		                                         namespace MyCode
+		                                         {
+		                                             public interface IDep { int Get(); }
+		                                             public class Base { {{member}} }
+		                                             public class Middle : Base;
+		                                             public sealed class Svc(IDep dep) : Middle;
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                     _ = IDep.CreateMock();
+		                                                     _ = Svc.CreateMock(out ConstructorArguments arguments);
+		                                                 }
+		                                             }
+		                                         }
+		                                         """);
+
+		bool hasCreation = result.Sources.TryGetValue("SealedClasses.g.cs", out string? sealedClasses) &&
+		                   sealedClasses.Contains("extension(global::MyCode.Svc)");
+		await That(hasCreation).IsEqualTo(isGenerated);
+		if (isGenerated)
+		{
+			await That(result.Diagnostics).IsEmpty();
+		}
 	}
 }

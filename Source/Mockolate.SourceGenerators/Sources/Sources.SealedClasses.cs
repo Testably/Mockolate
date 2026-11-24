@@ -19,27 +19,38 @@ internal static partial class Sources
 		sb.AppendLine();
 		sb.Append("namespace Mockolate").AppendLine();
 		sb.Append('{').AppendLine();
-		sb.Append("\tinternal static partial class Mock").AppendLine();
-		sb.Append("\t{").AppendLine();
-		bool isFirst = true;
+		int index = 0;
 		foreach (DataSourceClass sealedClass in classes)
 		{
-			if (!isFirst)
+			if (index > 0)
 			{
 				sb.AppendLine();
 			}
 
-			isFirst = false;
-			AppendSealedCreateMock(sb, sealedClass);
+			// Static extension members of different receivers in one class must not have the same parameters, so every
+			// sealed class gets a class of its own.
+			string container = $"MockolateSealedCreation{index++}";
+			sb.Append("\t/// <summary>").AppendLine();
+			sb.Append("\t///     The <c>CreateMock(out ...)</c> overload of <see cref=\"").Append(sealedClass.ClassFullName)
+				.Append("\" />.").AppendLine();
+			sb.Append("\t/// </summary>").AppendLine();
+#if !DEBUG
+			sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
+#endif
+			sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
+			sb.Append("\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]").AppendLine();
+			sb.Append("\tinternal static class ").Append(container).AppendLine();
+			sb.Append("\t{").AppendLine();
+			AppendSealedCreateMock(sb, sealedClass, container);
+			sb.Append("\t}").AppendLine();
 		}
 
-		sb.Append("\t}").AppendLine();
 		sb.Append('}').AppendLine();
 		sb.Append("#nullable disable").AppendLine();
 		return sb.ToString();
 	}
 
-	private static void AppendSealedCreateMock(StringBuilder sb, DataSourceClass sealedClass)
+	private static void AppendSealedCreateMock(StringBuilder sb, DataSourceClass sealedClass, string container)
 	{
 		DataSourceParameter[] parameters = sealedClass.Parameters.AsArray();
 		string className = sealedClass.ClassFullName.Replace("global::", "").Replace("@", "");
@@ -49,6 +60,16 @@ internal static partial class Sources
 		string value = UniqueParameterName(parameters, "value");
 		string created = UniqueParameterName(parameters, "created");
 
+		// The parameters are described once, so that a creation only allocates the values.
+		sb.Append("\t\tprivate static readonly global::Mockolate.Internals.ConstructorSignature Signature = new global::Mockolate.Internals.ConstructorSignature(\"")
+			.Append(className).Append('(')
+			.Append(string.Join(", ", parameters.Select(parameter => parameter.TypeFullName.Replace("global::", ""))))
+			.Append(")\", new string[] { ")
+			.Append(string.Join(", ", parameters.Select(parameter => $"\"{parameter.Name}\"")))
+			.Append(" }, new global::System.Type[] { ")
+			.Append(string.Join(", ", parameters.Select(parameter => $"typeof({parameter.TypeFullName})")))
+			.Append(" });").AppendLine();
+		sb.AppendLine();
 		sb.Append("\t\textension(").Append(sealedClass.ClassFullName).Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\t/// <summary>").AppendLine();
@@ -93,13 +114,9 @@ internal static partial class Sources
 		}
 
 		string locals = string.Join(", ", parameters.Select((_, index) => $"{local}{index}"));
-		sb.Append("\t\t\t\t").Append(arguments).Append(" = new global::Mockolate.Internals.ConstructorSignature(\"").Append(className).Append('(')
-			.Append(string.Join(", ", parameters.Select(parameter => parameter.TypeFullName.Replace("global::", ""))))
-			.Append(")\", new string[] { ")
-			.Append(string.Join(", ", parameters.Select(parameter => $"\"{parameter.Name}\"")))
-			.Append(" }, new global::System.Type[] { ")
-			.Append(string.Join(", ", parameters.Select(parameter => $"typeof({parameter.TypeFullName})")))
-			.Append(" }).Record(new object?[] { ").Append(locals).Append(" });").AppendLine();
+		// Qualified, because a constructor parameter can be named like the field.
+		sb.Append("\t\t\t\t").Append(arguments).Append(" = global::Mockolate.").Append(container)
+			.Append(".Signature.Record(new object?[] { ").Append(locals).Append(" });").AppendLine();
 		sb.Append("\t\t\t\treturn new ").Append(sealedClass.ClassFullName).Append('(').Append(locals).Append(");").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();

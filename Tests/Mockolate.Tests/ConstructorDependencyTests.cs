@@ -100,6 +100,25 @@ public sealed class ConstructorDependencyTests
 	}
 
 	[Test]
+	public async Task CreateMock_WithOutParameterOnSealedClassesWithTheSameParameters_ShouldCreateBoth()
+	{
+		ConstructorDependencySealedNamed first = ConstructorDependencySealedNamed.CreateMock(out _);
+		ConstructorDependencySealedTwin second = ConstructorDependencySealedTwin.CreateMock(out _);
+
+		await That(first.Dependency).IsNotSameAs(second.Dependency);
+	}
+
+	[Test]
+	public async Task CreateMock_WithOutParameterAndParametersNamedLikeTheLocals_ShouldPassThem()
+	{
+		ConstructorDependencySealedLocalNames sut = ConstructorDependencySealedLocalNames.CreateMock(
+			out ConstructorArguments arguments, value0: 1, argument0: 2, created0: 3, Signature: 4);
+
+		await That(sut.Sum).IsEqualTo(10);
+		await That(arguments.Get<int>("Signature")).IsEqualTo(4);
+	}
+
+	[Test]
 	public async Task CreateMock_WithOutArgumentPassedByNameLater_ShouldCreateTheSealedClass()
 	{
 		ConstructorDependencySealedNamed sut = ConstructorDependencySealedNamed.CreateMock(mockBehavior: MockBehavior.Default,

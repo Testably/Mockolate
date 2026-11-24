@@ -68,15 +68,32 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		IMethodSymbol? method = invocationInfo.Symbol as IMethodSymbol
 		                        ?? invocationInfo.CandidateSymbols.OfType<IMethodSymbol>().FirstOrDefault();
 
-		// If the method resolves to something outside the Mockolate namespace, skip it.
-		if (method is not null && !IsInMockolateNamespace(method))
+		// Only the overload for sealed classes has an out parameter, which a named argument can pass at any position.
+		ArgumentSyntax? outArgument = methodName == "CreateMock"
+			? invocation.ArgumentList.Arguments.FirstOrDefault(argument =>
+				argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword))
+			: null;
+
+		// A call that binds at run time compiles, and nothing tells whether it targets a dynamic member of the user.
+		if (invocationInfo.CandidateReason == CandidateReason.LateBound)
 		{
 			return;
 		}
 
-		// Only the overload for sealed classes has an out parameter, which a named argument can pass at any position.
-		if (methodName == "CreateMock" &&
-		    invocation.ArgumentList.Arguments.Any(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)))
+		// Skip a call that resolves to something outside the Mockolate namespace, unless a member hides the overload for
+		// sealed classes, which the generator then does not emit.
+		if (method is not null && !IsInMockolateNamespace(method))
+		{
+			if (outArgument is null ||
+			    !IsHiddenSealedCreateMock(context, invocation, memberAccess, invocationInfo, outArgument))
+			{
+				return;
+			}
+
+			method = null;
+		}
+
+		if (outArgument is not null)
 		{
 			AnalyzeSealedCreateMock(context, memberAccess, method);
 		}
@@ -88,6 +105,46 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		{
 			AnalyzeImplementing(context, invocation, memberAccess, method, spellings);
 		}
+	}
+
+	/// <summary>
+	///     A hiding member leaves the call unbound with that member as candidate. Such a call
+	///     targets the overload of Mockolate only on a sealed class or a record, which would have it, and only with an
+	///     out argument that is <c>ConstructorArguments</c> or whose type the call infers.
+	/// </summary>
+	private static bool IsHiddenSealedCreateMock(SyntaxNodeAnalysisContext context, InvocationExpressionSyntax invocation,
+		MemberAccessExpressionSyntax memberAccess, SymbolInfo invocationInfo, ArgumentSyntax outArgument)
+		=> invocationInfo.Symbol is null &&
+		   invocation.ArgumentList.Arguments.Count(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)) == 1 &&
+		   context.SemanticModel.GetSymbolInfo(memberAccess.Expression).Symbol is INamedTypeSymbol receiver &&
+		   receiver is { TypeKind: TypeKind.Class, IsStatic: false, IsAbstract: false, } and
+			   ({ IsSealed: true, } or { IsRecord: true, }) &&
+		   ConstructorRules.HasMemberNamedCreateMock(receiver, context.Compilation.Assembly) &&
+		   TargetsConstructorArguments(context.SemanticModel, outArgument.Expression);
+
+	// The type that the call infers for 'out var' or 'out _' comes from the hiding member, so only the syntax tells.
+	private static bool TargetsConstructorArguments(SemanticModel semanticModel, ExpressionSyntax expression)
+	{
+		if (expression is DeclarationExpressionSyntax declaration)
+		{
+			return declaration.Type.IsVar ||
+			       IsConstructorArguments(semanticModel.GetTypeInfo(declaration.Type).Type);
+		}
+
+		if (expression is IdentifierNameSyntax { Identifier.ValueText: "_", } &&
+		    semanticModel.GetSymbolInfo(expression).Symbol is IDiscardSymbol)
+		{
+			return true;
+		}
+
+		return IsConstructorArguments(semanticModel.GetTypeInfo(expression).Type);
+
+		static bool IsConstructorArguments(ITypeSymbol? type)
+			=> type is
+			{
+				Name: "ConstructorArguments",
+				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+			};
 	}
 
 	private static void AnalyzeCreateMock(SyntaxNodeAnalysisContext context,
