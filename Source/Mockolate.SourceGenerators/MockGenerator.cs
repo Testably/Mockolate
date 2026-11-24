@@ -219,7 +219,7 @@ public class MockGenerator : IIncrementalGenerator
 		// .NET 6). Whatever the referenced framework or the consuming assembly does not declare is polyfilled next
 		// to the generated union type, so that union mode works on every target a C# 15 compiler can build. The
 		// compilation cannot show the output of other generators (PolySharp), so MockolateUnionAttributePolyfills
-		// names the attributes the project already gets elsewhere: "false" stands for the two that PolySharp ships.
+		// names the attributes the project already gets elsewhere: "false" stands for the three that PolySharp ships.
 		IncrementalValueProvider<(bool Union, bool Priority, bool CallerArgumentExpression)> hasUnionAttributes =
 			context.CompilationProvider
 				.Combine(context.AnalyzerConfigOptionsProvider)
@@ -486,9 +486,17 @@ public class MockGenerator : IIncrementalGenerator
 	internal static bool PolySharpProvidesModuleInitializer(Compilation compilation, AnalyzerConfigOptions options)
 	{
 		const string metadataName = "System.Runtime.CompilerServices.ModuleInitializerAttribute";
-		return PolySharpSelectsModuleInitializer(options) &&
-		       !compilation.GetTypesByMetadataName(metadataName)
-			       .Any(type => compilation.IsSymbolAccessibleWithin(type, compilation.Assembly));
+		if (!PolySharpSelectsModuleInitializer(options))
+		{
+			return false;
+		}
+
+		// Like HasAccessibleTypeWithMetadataName in PolySharp: the single lookup, which skips embedded types of references,
+		// decides when it finds a type; only otherwise does any accessible declaration count.
+		return compilation.GetTypeByMetadataName(metadataName) is { } type
+			? !compilation.IsSymbolAccessibleWithin(type, compilation.Assembly)
+			: !compilation.GetTypesByMetadataName(metadataName)
+				.Any(candidate => compilation.IsSymbolAccessibleWithin(candidate, compilation.Assembly));
 	}
 
 	private static bool PolySharpSelectsModuleInitializer(AnalyzerConfigOptions options)
@@ -499,17 +507,20 @@ public class MockGenerator : IIncrementalGenerator
 			return false;
 		}
 
-		if (!string.IsNullOrWhiteSpace(included) && !ListContains(included, metadataName))
+		string[] includedTypes = Split(included);
+		if (includedTypes.Length > 0 && !includedTypes.Contains(metadataName, StringComparer.Ordinal))
 		{
 			return false;
 		}
 
 		return !options.TryGetValue("build_property.PolySharpExcludeGeneratedTypes", out string? excluded) ||
-		       !ListContains(excluded, metadataName);
+		       !Split(excluded).Contains(metadataName, StringComparer.Ordinal);
 
-		static bool ListContains(string list, string name)
+		static string[] Split(string list)
 			=> list.Split([';', ',',], StringSplitOptions.RemoveEmptyEntries)
-				.Any(entry => string.Equals(entry.Trim(), name, StringComparison.Ordinal));
+				.Select(entry => entry.Trim())
+				.Where(entry => entry.Length > 0)
+				.ToArray();
 	}
 
 	/// <summary>

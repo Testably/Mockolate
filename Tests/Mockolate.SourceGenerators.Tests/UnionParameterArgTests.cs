@@ -159,30 +159,77 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	[Arguments(true, false, true)]
-	[Arguments(true, true, false)]
-	[Arguments(false, false, false)]
-	public async Task PolySharpProvidesModuleInitializer_ShouldFollowTheRuleOfPolySharp(bool hasPolySharp,
-		bool hasEmbeddedDeclaration, bool expected)
+	[Arguments(false, false, "", true)]
+	[Arguments(true, false, "", false)]
+	[Arguments(false, true, "", true)]
+	[Arguments(true, true, "", true)]
+	[Arguments(false, false, ";", true)]
+	[Arguments(false, false, "System.Runtime.CompilerServices.ModuleInitializerAttribute", true)]
+	[Arguments(false, false, "System.Runtime.CompilerServices.IsExternalInit", false)]
+	[Arguments(false, false, null, false)]
+	public async Task PolySharpProvidesModuleInitializer_ShouldDecideLikePolySharp(bool hasEmbeddedDeclaration,
+		bool hasInaccessibleDeclaration, string? includedTypes, bool expected)
 	{
-		// Without references the compilation has no ModuleInitializerAttribute, like one for .NET Framework.
-		Compilation compilation = CSharpCompilation.Create("TestAssembly", [],
-			hasEmbeddedDeclaration
-				? [CompileEmbeddedAttributeAssembly("System.Runtime.CompilerServices", "ModuleInitializerAttribute"),]
-				: [],
+		List<MetadataReference> references = [];
+		if (hasEmbeddedDeclaration)
+		{
+			references.Add(CompileEmbeddedAttributeAssembly("System.Runtime.CompilerServices", "ModuleInitializerAttribute"));
+		}
+
+		if (hasInaccessibleDeclaration)
+		{
+			references.Add(ExternalAssembly.Compile(
+				"""
+				namespace System.Runtime.CompilerServices
+				{
+				    internal sealed class ModuleInitializerAttribute : System.Attribute
+				    {
+				    }
+				}
+				""", "Inaccessible"));
+		}
+
+		// Without the runtime references the compilation has no ModuleInitializerAttribute, like one for .NET Framework.
+		Compilation compilation = CSharpCompilation.Create("TestAssembly", [], references,
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
-		Dictionary<string, string> options = hasPolySharp
-			? new Dictionary<string, string>
+		Dictionary<string, string> options = includedTypes is null
+			? []
+			: new Dictionary<string, string>
 			{
-				["build_property.PolySharpIncludeGeneratedTypes"] = "",
+				["build_property.PolySharpIncludeGeneratedTypes"] = includedTypes,
 				["build_property.PolySharpExcludeGeneratedTypes"] = "",
-			}
-			: [];
+			};
 
 		bool result = MockGenerator.PolySharpProvidesModuleInitializer(compilation,
 			new TestAnalyzerConfigOptionsProvider(options).GlobalOptions);
 
 		await That(result).IsEqualTo(expected);
+	}
+
+	[Test]
+	public async Task HasAttribute_EmbeddedInTheCompilation_ShouldBeAvailable()
+	{
+		Compilation compilation = CreateCompilation(
+			"""
+			namespace Microsoft.CodeAnalysis
+			{
+			    internal sealed partial class EmbeddedAttribute : System.Attribute
+			    {
+			    }
+			}
+
+			namespace Ext
+			{
+			    [Microsoft.CodeAnalysis.Embedded]
+			    internal sealed class MyAttribute : System.Attribute
+			    {
+			    }
+			}
+			""");
+
+		bool result = MockGenerator.HasAttribute(compilation, AttributeName);
+
+		await That(result).IsTrue().Because("only embedded types of references are ignored");
 	}
 
 	[Test]
