@@ -166,6 +166,10 @@ public sealed class UnionParameterArgTests
 	[Arguments(false, false, ";", true)]
 	[Arguments(false, false, "System.Runtime.CompilerServices.ModuleInitializerAttribute", true)]
 	[Arguments(false, false, "System.Runtime.CompilerServices.IsExternalInit", false)]
+	[Arguments(false, false, " , ", true)]
+	[Arguments(false, false,
+		"System.Runtime.CompilerServices.IsExternalInit, System.Runtime.CompilerServices.ModuleInitializerAttribute ", true)]
+	[Arguments(false, false, "system.runtime.compilerservices.moduleinitializerattribute", false)]
 	[Arguments(false, false, null, false)]
 	public async Task PolySharpProvidesModuleInitializer_ShouldDecideLikePolySharp(bool hasEmbeddedDeclaration,
 		bool hasInaccessibleDeclaration, string? includedTypes, bool expected)
@@ -204,6 +208,52 @@ public sealed class UnionParameterArgTests
 			new TestAnalyzerConfigOptionsProvider(options).GlobalOptions);
 
 		await That(result).IsEqualTo(expected);
+	}
+
+	[Test]
+	public async Task PolySharpProvidesModuleInitializer_WhenPublicAndInaccessibleDeclarationsConflict_ShouldBeFalse()
+	{
+		const string attribute = """
+		                         namespace System.Runtime.CompilerServices
+		                         {
+		                             {{accessibility}} sealed class ModuleInitializerAttribute : System.Attribute
+		                             {
+		                             }
+		                         }
+		                         """;
+		// The single lookup finds no type when two references declare it, so every accessible declaration counts.
+		Compilation compilation = CSharpCompilation.Create("TestAssembly", [],
+			[
+				ExternalAssembly.Compile(attribute.Replace("{{accessibility}}", "public"), "Public"),
+				ExternalAssembly.Compile(attribute.Replace("{{accessibility}}", "internal"), "Inaccessible"),
+			],
+			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+		Dictionary<string, string> options = new()
+		{
+			["build_property.PolySharpIncludeGeneratedTypes"] = "",
+		};
+
+		bool result = MockGenerator.PolySharpProvidesModuleInitializer(compilation,
+			new TestAnalyzerConfigOptionsProvider(options).GlobalOptions);
+
+		await That(result).IsFalse();
+	}
+
+	[Test]
+	public async Task PolySharpProvidesModuleInitializer_WhenExcluded_ShouldBeFalse()
+	{
+		Compilation compilation = CSharpCompilation.Create("TestAssembly", [], [],
+			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+		Dictionary<string, string> options = new()
+		{
+			["build_property.PolySharpIncludeGeneratedTypes"] = "",
+			["build_property.PolySharpExcludeGeneratedTypes"] = " System.Runtime.CompilerServices.ModuleInitializerAttribute ,",
+		};
+
+		bool result = MockGenerator.PolySharpProvidesModuleInitializer(compilation,
+			new TestAnalyzerConfigOptionsProvider(options).GlobalOptions);
+
+		await That(result).IsFalse();
 	}
 
 	[Test]

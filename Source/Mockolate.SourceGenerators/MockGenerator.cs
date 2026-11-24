@@ -219,7 +219,8 @@ public class MockGenerator : IIncrementalGenerator
 		// .NET 6). Whatever the referenced framework or the consuming assembly does not declare is polyfilled next
 		// to the generated union type, so that union mode works on every target a C# 15 compiler can build. The
 		// compilation cannot show the output of other generators (PolySharp), so MockolateUnionAttributePolyfills
-		// names the attributes the project already gets elsewhere: "false" stands for the three that PolySharp ships.
+		// names the attributes the project already gets elsewhere: "false" stands for the three that PolySharp ships
+		// (OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute and ModuleInitializerAttribute).
 		IncrementalValueProvider<(bool Union, bool Priority, bool CallerArgumentExpression)> hasUnionAttributes =
 			context.CompilationProvider
 				.Combine(context.AnalyzerConfigOptionsProvider)
@@ -481,7 +482,7 @@ public class MockGenerator : IIncrementalGenerator
 	/// <summary>
 	///     Whether PolySharp declares <c>ModuleInitializerAttribute</c> in the compilation. Its settings are visible to the
 	///     compiler whenever it is installed; it declares a polyfill that its two lists do not filter out when the
-	///     compilation has no accessible declaration, an embedded one included.
+	///     compilation has no accessible declaration, which it looks up like PolySharp does.
 	/// </summary>
 	internal static bool PolySharpProvidesModuleInitializer(Compilation compilation, AnalyzerConfigOptions options)
 	{
