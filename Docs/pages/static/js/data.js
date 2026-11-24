@@ -1782,6 +1782,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -2081,7 +2087,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -2384,7 +2391,8 @@ window.BENCHMARK_DATA = {
           239.05158372720084,
           144.56021085807257,
           160.76034377415974,
-          165.53153176307677
+          165.53153176307677,
+          195.67664389610292
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2654,6 +2662,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800,
@@ -3003,7 +3012,8 @@ window.BENCHMARK_DATA = {
           46090.40801595052,
           30772.888582669773,
           60575.69243164062,
-          35459.79681803386
+          35459.79681803386,
+          36678.78146565755
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3311,6 +3321,7 @@ window.BENCHMARK_DATA = {
           9033,
           9055,
           9056,
+          9046,
           9046
         ],
         "borderColor": "#A052B0",
@@ -3622,7 +3633,8 @@ window.BENCHMARK_DATA = {
           4023.3935618082683,
           2548.5408435821532,
           3417.30343409947,
-          2991.7730898539226
+          2991.7730898539226,
+          3300.357632191976
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3783,6 +3795,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4241,7 +4254,8 @@ window.BENCHMARK_DATA = {
           3639.1311798095703,
           2513.8649159944976,
           3359.548617299398,
-          2730.7249537876673
+          2730.7249537876673,
+          3160.161086273193
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4549,6 +4563,7 @@ window.BENCHMARK_DATA = {
           6924,
           6930,
           6930,
+          6924,
           6924
         ],
         "borderColor": "#4A6FA5",
@@ -4860,7 +4875,8 @@ window.BENCHMARK_DATA = {
           237.9323496500651,
           146.0587245317606,
           156.62171429854172,
-          164.8824187119802
+          164.8824187119802,
+          192.6183940410614
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5026,6 +5042,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5479,7 +5496,8 @@ window.BENCHMARK_DATA = {
           596.7347925049918,
           351.3724412918091,
           390.8132746560233,
-          409.12679456075034
+          409.12679456075034,
+          509.64773310147797
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5640,6 +5658,7 @@ window.BENCHMARK_DATA = {
           2064,
           2064,
           2064,
+          2056,
           2056,
           2056,
           2056,
@@ -7583,6 +7602,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -7882,7 +7907,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -8185,7 +8211,8 @@ window.BENCHMARK_DATA = {
           117.15654381116231,
           161.5625788529714,
           182.55477266311647,
-          149.01957527796426
+          149.01957527796426,
+          153.59231295585633
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8455,6 +8482,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712,
@@ -8804,7 +8832,8 @@ window.BENCHMARK_DATA = {
           10248.266639122596,
           14854.125535231371,
           12424.780212402344,
-          15090.718721829928
+          15090.718721829928,
+          15221.908996582031
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9106,6 +9135,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -9423,7 +9453,8 @@ window.BENCHMARK_DATA = {
           3969.1964372907364,
           5423.804236820766,
           5027.070487976074,
-          5624.425734965006
+          5624.425734965006,
+          5689.022118631999
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9584,6 +9615,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -10042,7 +10074,8 @@ window.BENCHMARK_DATA = {
           195240.1090983073,
           224957.28333333333,
           148197.51932198662,
-          212271.18382161457
+          212271.18382161457,
+          226531.82805989584
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10350,7 +10383,8 @@ window.BENCHMARK_DATA = {
           15619,
           15618,
           15574,
-          15586
+          15586,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10661,7 +10695,8 @@ window.BENCHMARK_DATA = {
           145.21099761327108,
           171.3581074078878,
           211.2099939244134,
-          169.85425702163153
+          169.85425702163153,
+          178.63009124142783
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10802,6 +10837,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -11280,7 +11316,8 @@ window.BENCHMARK_DATA = {
           119.27018451690674,
           158.26707332474845,
           223.11864943504332,
-          153.24882071358817
+          153.24882071358817,
+          180.5601762453715
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -11414,6 +11451,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -13384,6 +13422,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -13683,7 +13727,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -13986,7 +14031,8 @@ window.BENCHMARK_DATA = {
           477.1145346505301,
           449.56024541854856,
           445.8463611602783,
-          280.8388226032257
+          280.8388226032257,
+          268.2791865984599
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14276,6 +14322,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1824,
           1824,
           1824,
           1824,
@@ -14605,7 +14652,8 @@ window.BENCHMARK_DATA = {
           527598.8162560096,
           523167.298046875,
           520060.7140174279,
-          152001.1262394832
+          152001.1262394832,
+          152943.05437360491
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14913,7 +14961,8 @@ window.BENCHMARK_DATA = {
           38491,
           38651,
           38491,
-          38375
+          38375,
+          38486
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15224,7 +15273,8 @@ window.BENCHMARK_DATA = {
           210296.3631673177,
           205553.80403645834,
           145710.93355887276,
-          37292.48887125651
+          37292.48887125651,
+          37310.80905761719
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15532,7 +15582,8 @@ window.BENCHMARK_DATA = {
           28156,
           28100,
           28156,
-          28162
+          28162,
+          28107
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15843,7 +15894,8 @@ window.BENCHMARK_DATA = {
           246588.78273228236,
           239092.4729755108,
           184897.0933105469,
-          53775.33330078125
+          53775.33330078125,
+          52977.30287757287
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16151,6 +16203,7 @@ window.BENCHMARK_DATA = {
           30273,
           30273,
           30273,
+          30276,
           30276
         ],
         "borderColor": "#4A6FA5",
@@ -16462,7 +16515,8 @@ window.BENCHMARK_DATA = {
           301.59383630752563,
           312.7661834716797,
           336.93773310525074,
-          205.23991158803304
+          205.23991158803304,
+          187.83501011984688
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16770,6 +16824,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -16877,7 +16932,8 @@ window.BENCHMARK_DATA = {
           793.1663036346436,
           744.5498997370402,
           761.1744356155396,
-          431.11683401694665
+          431.11683401694665,
+          447.3345944086711
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16963,6 +17019,7 @@ window.BENCHMARK_DATA = {
           2784,
           2784,
           2784,
+          2856,
           2856,
           2856,
           2856,
@@ -18777,6 +18834,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -19076,7 +19139,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -19379,7 +19443,8 @@ window.BENCHMARK_DATA = {
           1409.927291615804,
           1307.0646634419759,
           1316.4490664345878,
-          899.3605997221811
+          899.3605997221811,
+          867.2065463383992
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19669,6 +19734,7 @@ window.BENCHMARK_DATA = {
           2616,
           2616,
           2616,
+          2760,
           2760,
           2760,
           2760,
@@ -19998,7 +20064,8 @@ window.BENCHMARK_DATA = {
           538177.9133463542,
           530307.7948521206,
           529719.541015625,
-          162758.7845703125
+          162758.7845703125,
+          156578.82693684896
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20306,7 +20373,8 @@ window.BENCHMARK_DATA = {
           48063,
           48222,
           48063,
-          46971
+          46971,
+          48088
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20617,7 +20685,8 @@ window.BENCHMARK_DATA = {
           228528.52923177084,
           221877.98940429688,
           169482.63657226562,
-          50017.62639973958
+          50017.62639973958,
+          45059.157442533055
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20925,7 +20994,8 @@ window.BENCHMARK_DATA = {
           41271,
           41215,
           41271,
-          41269
+          41269,
+          41213
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21236,7 +21306,8 @@ window.BENCHMARK_DATA = {
           265205.59036458336,
           265987.1521158854,
           208221.45860072545,
-          66052.43077674278
+          66052.43077674278,
+          57022.97017124721
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21544,6 +21615,7 @@ window.BENCHMARK_DATA = {
           49926,
           49926,
           49930,
+          49924,
           49924
         ],
         "borderColor": "#4A6FA5",
@@ -21855,7 +21927,8 @@ window.BENCHMARK_DATA = {
           781.3547527313233,
           783.562936592102,
           897.2039557139079,
-          492.99718468529835
+          492.99718468529835,
+          469.3866872151693
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -22163,6 +22236,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -22270,7 +22344,8 @@ window.BENCHMARK_DATA = {
           2502.64473261152,
           2437.07972946167,
           2627.999897257487,
-          1737.9573866526287
+          1737.9573866526287,
+          1630.2877301436204
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -22356,6 +22431,7 @@ window.BENCHMARK_DATA = {
           5496,
           5496,
           5496,
+          5568,
           5568,
           5568,
           5568,
@@ -24170,6 +24246,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -24469,7 +24551,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -24772,7 +24855,8 @@ window.BENCHMARK_DATA = {
           123.58626469544002,
           99.74940283298493,
           107.6232321580251,
-          105.24067051070077
+          105.24067051070077,
+          121.16115260124207
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -25062,6 +25146,7 @@ window.BENCHMARK_DATA = {
           608,
           608,
           608,
+          592,
           592,
           592,
           592,
@@ -25391,7 +25476,8 @@ window.BENCHMARK_DATA = {
           4627.5782306377705,
           3174.9317251841226,
           3506.096248081752,
-          3283.102353731791
+          3283.102353731791,
+          4251.823580060686
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -25681,6 +25767,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -26010,7 +26097,8 @@ window.BENCHMARK_DATA = {
           5739.387814113072,
           4059.178107670375,
           4572.1595715114045,
-          4176.686654663086
+          4176.686654663086,
+          5332.020775349935
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -26300,6 +26388,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -26629,7 +26718,8 @@ window.BENCHMARK_DATA = {
           4746.006685697115,
           3155.4553326924643,
           3586.566138634315,
-          3300.1358355204266
+          3300.1358355204266,
+          4302.350838724772
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -26932,6 +27022,7 @@ window.BENCHMARK_DATA = {
           7517,
           7509,
           7509,
+          7517,
           7517,
           7517,
           7517,
@@ -27248,7 +27339,8 @@ window.BENCHMARK_DATA = {
           171.39137930529458,
           145.2150024175644,
           155.84682020119257,
-          164.89178431828816
+          164.89178431828816,
+          165.407892258962
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -27538,6 +27630,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -27867,7 +27960,8 @@ window.BENCHMARK_DATA = {
           434.16400231633867,
           356.32720017433167,
           401.893221505483,
-          368.73254101616993
+          368.73254101616993,
+          412.9281601565225
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -28157,6 +28251,7 @@ window.BENCHMARK_DATA = {
           2088,
           2088,
           2088,
+          2136,
           2136,
           2136,
           2136,
@@ -29971,6 +30066,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -30270,7 +30371,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -30573,7 +30675,8 @@ window.BENCHMARK_DATA = {
           345.1558969497681,
           269.80461241404214,
           293.2404265085856,
-          272.6531340892498
+          272.6531340892498,
+          333.978438275201
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -30863,6 +30966,7 @@ window.BENCHMARK_DATA = {
           1112,
           1112,
           1112,
+          1096,
           1096,
           1096,
           1096,
@@ -31192,7 +31296,8 @@ window.BENCHMARK_DATA = {
           6634.857455444336,
           4640.128928120931,
           5099.2962482997345,
-          5037.382152557373
+          5037.382152557373,
+          5918.770751444498
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -31482,6 +31587,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -31811,7 +31917,8 @@ window.BENCHMARK_DATA = {
           8593.139562753531,
           5947.215912955148,
           6716.561376444499,
-          6433.029323032924
+          6433.029323032924,
+          8012.22033589681
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -32119,7 +32226,8 @@ window.BENCHMARK_DATA = {
           12841,
           12840,
           12840,
-          12840
+          12840,
+          12841
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -32430,7 +32538,8 @@ window.BENCHMARK_DATA = {
           8472.578303410457,
           5619.027066157414,
           6549.138488769531,
-          6305.4833019801545
+          6305.4833019801545,
+          7620.567837306431
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -32733,6 +32842,7 @@ window.BENCHMARK_DATA = {
           15754,
           15748,
           15748,
+          15754,
           15754,
           15754,
           15754,
@@ -33049,7 +33159,8 @@ window.BENCHMARK_DATA = {
           358.68864042418346,
           295.4339725787823,
           316.7548396428426,
-          318.7395157473428
+          318.7395157473428,
+          341.33983713785807
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -33339,6 +33450,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -33668,7 +33780,8 @@ window.BENCHMARK_DATA = {
           1276.3064193725586,
           1045.571583884103,
           1133.7337874094644,
-          1087.1875869750977
+          1087.1875869750977,
+          1204.4072611672539
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -33958,6 +34071,7 @@ window.BENCHMARK_DATA = {
           3840,
           3840,
           3840,
+          3888,
           3888,
           3888,
           3888,
@@ -35772,6 +35886,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -36071,7 +36191,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -36374,7 +36495,8 @@ window.BENCHMARK_DATA = {
           227.69880566230188,
           252.36091950734456,
           322.43937595073993,
-          310.5568470319112
+          310.5568470319112,
+          161.16514999071757
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -36644,6 +36766,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920,
@@ -36993,7 +37116,8 @@ window.BENCHMARK_DATA = {
           6577.377071126302,
           6992.260883876255,
           8984.408851036658,
-          10087.578474934895
+          10087.578474934895,
+          5327.038275582449
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -37301,7 +37425,8 @@ window.BENCHMARK_DATA = {
           10568,
           10568,
           10569,
-          10569
+          10569,
+          10793
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -37612,7 +37737,8 @@ window.BENCHMARK_DATA = {
           4776.679770406087,
           5301.131055391752,
           6643.574996948242,
-          7339.554925028483
+          7339.554925028483,
+          3656.963501230876
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -37897,6 +38023,7 @@ window.BENCHMARK_DATA = {
           11688,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -38231,7 +38358,8 @@ window.BENCHMARK_DATA = {
           4226.245277404785,
           4987.659232584635,
           6084.80632019043,
-          7661.972515106201
+          7661.972515106201,
+          3749.8335977281845
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -38539,7 +38667,8 @@ window.BENCHMARK_DATA = {
           11271,
           11191,
           11191,
-          11204
+          11204,
+          11196
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -38850,7 +38979,8 @@ window.BENCHMARK_DATA = {
           148.24694968972886,
           174.12633757931846,
           213.03755243619284,
-          192.3162943204244
+          192.3162943204244,
+          109.59353611469268
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -39016,6 +39146,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -39469,7 +39600,8 @@ window.BENCHMARK_DATA = {
           368.621194252601,
           430.79035554613387,
           539.249236869812,
-          498.9078809102376
+          498.9078809102376,
+          282.98234023366655
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -39665,6 +39797,7 @@ window.BENCHMARK_DATA = {
           1696,
           1696,
           1696,
+          1672,
           1672,
           1672,
           1672,
@@ -41573,6 +41706,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -41872,7 +42011,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -42175,7 +42315,8 @@ window.BENCHMARK_DATA = {
           529.9575480052403,
           595.445629119873,
           765.396029325632,
-          738.198702176412
+          738.198702176412,
+          414.53411394755045
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -42445,6 +42586,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784,
@@ -42794,7 +42936,8 @@ window.BENCHMARK_DATA = {
           10869.359212239584,
           11316.371459960938,
           15018.163177490234,
-          16806.552541097004
+          16806.552541097004,
+          8457.689636230469
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -43102,7 +43245,8 @@ window.BENCHMARK_DATA = {
           18504,
           18504,
           18504,
-          18505
+          18505,
+          18729
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -43413,7 +43557,8 @@ window.BENCHMARK_DATA = {
           10769.115758623395,
           11578.463010660807,
           15224.058569101187,
-          17314.745725504556
+          17314.745725504556,
+          8351.584754435222
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -43721,6 +43866,7 @@ window.BENCHMARK_DATA = {
           21528,
           21528,
           21528,
+          21529,
           21529
         ],
         "borderColor": "#5E2750",
@@ -44032,7 +44178,8 @@ window.BENCHMARK_DATA = {
           11320.080792236327,
           12680.47837524414,
           16017.738640921456,
-          17728.54164835612
+          17728.54164835612,
+          8494.00959450858
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -44340,7 +44487,8 @@ window.BENCHMARK_DATA = {
           30860,
           30780,
           30785,
-          30780
+          30780,
+          30785
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -44651,7 +44799,8 @@ window.BENCHMARK_DATA = {
           305.7509274800619,
           341.706835269928,
           455.2852988560995,
-          418.6539050102234
+          418.6539050102234,
+          255.3276184967586
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44817,6 +44966,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -45270,7 +45420,8 @@ window.BENCHMARK_DATA = {
           1387.131208556039,
           1439.974182673863,
           2027.2564155578614,
-          1975.8050321851458
+          1975.8050321851458,
+          1096.1299149831136
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -45466,6 +45617,7 @@ window.BENCHMARK_DATA = {
           4048,
           4048,
           4048,
+          4024,
           4024,
           4024,
           4024,
@@ -47374,6 +47526,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -47673,7 +47831,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -47976,7 +48135,8 @@ window.BENCHMARK_DATA = {
           18.78230363726616,
           16.043261536955832,
           15.954136010011037,
-          13.55298980474472
+          13.55298980474472,
+          15.13479712853829
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -48206,6 +48366,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -48595,7 +48756,8 @@ window.BENCHMARK_DATA = {
           96.49312841892242,
           90.79797766889844,
           97.39117668356214,
-          89.53474198182424
+          89.53474198182424,
+          86.81875111262003
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -48761,6 +48923,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -49214,7 +49377,8 @@ window.BENCHMARK_DATA = {
           27.399346633752188,
           27.143709743022917,
           29.02845767736435,
-          29.091611286004383
+          29.091611286004383,
+          28.463850163496456
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49348,6 +49512,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -49833,7 +49998,8 @@ window.BENCHMARK_DATA = {
           887.9628263473511,
           1306.31472752889,
           1257.1345043182373,
-          873.8355101071871
+          873.8355101071871,
+          1283.3285680917593
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49994,6 +50160,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -50452,7 +50619,8 @@ window.BENCHMARK_DATA = {
           1290.576733271281,
           1940.9738901774087,
           1684.473880290985,
-          1228.6135251181465
+          1228.6135251181465,
+          1850.383027757917
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50613,6 +50781,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -51071,7 +51240,8 @@ window.BENCHMARK_DATA = {
           1031.582654953003,
           1690.0438130696614,
           1502.6733327593122,
-          1045.5428353627524
+          1045.5428353627524,
+          1586.3059640248616
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -51379,7 +51549,8 @@ window.BENCHMARK_DATA = {
           2751,
           2755,
           2755,
-          2751
+          2751,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -52077,6 +52248,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -52193,7 +52370,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -52313,7 +52491,8 @@ window.BENCHMARK_DATA = {
           2544.9639352651743,
           2345.5934341430666,
           2143.350351333618,
-          2420.305526987712
+          2420.305526987712,
+          1694.4139505113874
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52416,6 +52595,7 @@ window.BENCHMARK_DATA = {
           5248,
           5248,
           5248,
+          5264,
           5264,
           5264,
           5264,
@@ -52566,7 +52746,8 @@ window.BENCHMARK_DATA = {
           2655.310539832482,
           2435.1193951198034,
           2452.261299405779,
-          2475.0842614855087
+          2475.0842614855087,
+          1922.4188323974608
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -52691,7 +52872,8 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7384,
-          7385
+          7385,
+          7384
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -52819,7 +53001,8 @@ window.BENCHMARK_DATA = {
           6368.176112620035,
           5773.887195332845,
           5732.314748128255,
-          6150.348141479492
+          6150.348141479492,
+          4574.419095357259
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -52892,6 +53075,7 @@ window.BENCHMARK_DATA = {
           10544,
           10544,
           10544,
+          17360,
           17360,
           17360,
           17360,
@@ -53072,7 +53256,8 @@ window.BENCHMARK_DATA = {
           1458865.501674107,
           1413773.5164620536,
           1047190.2850260417,
-          1441839.9679129464
+          1441839.9679129464,
+          830731.9838541667
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53197,7 +53382,8 @@ window.BENCHMARK_DATA = {
           92073,
           92345,
           92139,
-          92560
+          92560,
+          92709
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53325,7 +53511,8 @@ window.BENCHMARK_DATA = {
           313829.6495535714,
           314415.25661057694,
           333808.7910505022,
-          319326.50071614585
+          319326.50071614585,
+          257348.34679236778
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53450,7 +53637,8 @@ window.BENCHMARK_DATA = {
           54382,
           54382,
           54356,
-          54382
+          54382,
+          54356
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -53578,7 +53766,8 @@ window.BENCHMARK_DATA = {
           357476.5230143229,
           355077.36366489955,
           373418.8398088728,
-          361317.1861328125
+          361317.1861328125,
+          291556.65666852676
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -53703,7 +53892,8 @@ window.BENCHMARK_DATA = {
           65479,
           65519,
           65389,
-          65481
+          65481,
+          65389
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54287,6 +54477,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -54384,7 +54580,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -54485,7 +54682,8 @@ window.BENCHMARK_DATA = {
           24698.07789175851,
           19729.948684692383,
           20927.56570652553,
-          20565.848530360632
+          20565.848530360632,
+          23430.495373535156
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54573,6 +54771,7 @@ window.BENCHMARK_DATA = {
           56552,
           56552,
           56552,
+          56536,
           56536,
           56536,
           56536,
@@ -54700,7 +54899,8 @@ window.BENCHMARK_DATA = {
           21475.89881025042,
           17660.370867919923,
           18445.526000976562,
-          18165.141050211587
+          18165.141050211587,
+          20291.562927246094
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54788,6 +54988,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -54915,7 +55116,8 @@ window.BENCHMARK_DATA = {
           93465.35509381976,
           75369.54408482143,
           81774.51272348258,
-          78604.96843610491
+          78604.96843610491,
+          88741.88480631511
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55010,6 +55212,7 @@ window.BENCHMARK_DATA = {
           203633,
           203633,
           203632,
+          203633,
           203633,
           203633,
           203633,
@@ -55130,7 +55333,8 @@ window.BENCHMARK_DATA = {
           187387.03533528646,
           149035.8701171875,
           155490.02312360491,
-          158264.18139648438
+          158264.18139648438,
+          168596.2356608073
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55236,7 +55440,8 @@ window.BENCHMARK_DATA = {
           423564,
           423564,
           423563,
-          423563
+          423563,
+          423564
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55345,7 +55550,8 @@ window.BENCHMARK_DATA = {
           275319.5807166466,
           197867.22547325722,
           235748.31256510416,
-          215892.25452473958
+          215892.25452473958,
+          260346.5901066707
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55451,7 +55657,8 @@ window.BENCHMARK_DATA = {
           378537,
           378535,
           378537,
-          378536
+          378536,
+          378539
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55560,7 +55767,8 @@ window.BENCHMARK_DATA = {
           410959.73844401044,
           281144.4626953125,
           316633.62458683894,
-          304806.5374348958
+          304806.5374348958,
+          350110.3888671875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55666,7 +55874,8 @@ window.BENCHMARK_DATA = {
           943763,
           943722,
           943722,
-          943722
+          943722,
+          943763
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56250,6 +56459,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -56347,7 +56562,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -56448,7 +56664,8 @@ window.BENCHMARK_DATA = {
           35607.900227864586,
           38830.91839192708,
           51101.102111816406,
-          50064.005814615884
+          50064.005814615884,
+          26224.278263346354
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -56537,6 +56754,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96825,
+          96824,
           96824,
           96824,
           96824,
@@ -56663,7 +56881,8 @@ window.BENCHMARK_DATA = {
           17841.54607747396,
           19006.966042073567,
           26934.250109863282,
-          24972.66049194336
+          24972.66049194336,
+          14665.153913370768
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -56769,6 +56988,7 @@ window.BENCHMARK_DATA = {
           32640,
           32640,
           32640,
+          32641,
           32641
         ],
         "borderColor": "#E84393",
@@ -56878,7 +57098,8 @@ window.BENCHMARK_DATA = {
           112620.94886125837,
           122097.14771379743,
           162209.4340297154,
-          155309.9881673177
+          155309.9881673177,
+          90453.70343424479
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -56970,6 +57191,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242488,
+          242489,
           242489,
           242489,
           242489,
@@ -57093,7 +57315,8 @@ window.BENCHMARK_DATA = {
           403445.43617466517,
           455784.1025716146,
           580365.5171223958,
-          676122.779436384
+          676122.779436384,
+          351957.3795247396
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57199,7 +57422,8 @@ window.BENCHMARK_DATA = {
           836449,
           836447,
           836452,
-          836505
+          836505,
+          836764
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57308,7 +57532,8 @@ window.BENCHMARK_DATA = {
           626703.2644981971,
           715482.81796875,
           893263.8604213169,
-          1072004.9331380208
+          1072004.9331380208,
+          604983.8215820312
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57414,7 +57639,8 @@ window.BENCHMARK_DATA = {
           1139621,
           1139621,
           1139621,
-          1139693
+          1139693,
+          1139698
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57523,7 +57749,8 @@ window.BENCHMARK_DATA = {
           760848.1705078125,
           893565.9366536458,
           1068358.5637555805,
-          1237749.549954928
+          1237749.549954928,
+          665637.9402994792
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -57629,7 +57856,8 @@ window.BENCHMARK_DATA = {
           2194365,
           2194285,
           2194291,
-          2194291
+          2194291,
+          2194322
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58213,6 +58441,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -58310,7 +58544,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -58411,7 +58646,8 @@ window.BENCHMARK_DATA = {
           95663.0378112793,
           95201.52123209635,
           89075.92566731772,
-          70118.17813720703
+          70118.17813720703,
+          66330.52873883929
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -58517,6 +58753,7 @@ window.BENCHMARK_DATA = {
           105721,
           105721,
           105720,
+          105721,
           105721
         ],
         "borderColor": "#63A2AC",
@@ -58626,7 +58863,8 @@ window.BENCHMARK_DATA = {
           49818.32001953125,
           52004.245609537764,
           57526.61026509603,
-          29991.376993815105
+          29991.376993815105,
+          28376.48987019857
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -58729,6 +58967,7 @@ window.BENCHMARK_DATA = {
           121101,
           121101,
           121097,
+          121101,
           121101,
           121101,
           121101,
@@ -58841,7 +59080,8 @@ window.BENCHMARK_DATA = {
           1358369.7645733173,
           1356272.6704427083,
           1356223.869140625,
-          591327.6539481027
+          591327.6539481027,
+          577933.05859375
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58947,7 +59187,8 @@ window.BENCHMARK_DATA = {
           1048326,
           1048486,
           1048326,
-          936295
+          936295,
+          1048310
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59056,7 +59297,8 @@ window.BENCHMARK_DATA = {
           1763938.3879743305,
           1761073.8426339286,
           1918969.5968191964,
-          966616.9033203125
+          966616.9033203125,
+          871774.7994466146
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -59162,7 +59404,8 @@ window.BENCHMARK_DATA = {
           1515916,
           1515860,
           1515916,
-          1515914
+          1515914,
+          1515855
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -59271,7 +59514,8 @@ window.BENCHMARK_DATA = {
           1641484.5030691964,
           1707331.6502604166,
           1639755.9884207589,
-          875765.0003487723
+          875765.0003487723,
+          741758.6203613281
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59377,7 +59621,8 @@ window.BENCHMARK_DATA = {
           2221384,
           2221384,
           2221424,
-          2221397
+          2221397,
+          2221395
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59484,7 +59729,8 @@ window.BENCHMARK_DATA = {
           206261.78237680288,
           173081.40047200522,
           188330.52753557477,
-          136277.6283203125
+          136277.6283203125,
+          124895.00660807292
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -59570,6 +59816,7 @@ window.BENCHMARK_DATA = {
           300713,
           300713,
           300713,
+          300785,
           300785,
           300785,
           300785,
@@ -60124,6 +60371,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -60213,7 +60466,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -60306,7 +60560,8 @@ window.BENCHMARK_DATA = {
           423.7962652206421,
           331.7568073590597,
           431.2712860107422,
-          462.38266607693265
+          462.38266607693265,
+          357.55119831221447
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -60366,6 +60621,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544,
@@ -60505,7 +60761,8 @@ window.BENCHMARK_DATA = {
           287.1442567961557,
           223.37435373238154,
           253.5485076537499,
-          265.1297595500946
+          265.1297595500946,
+          229.40137651761373
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -60517,6 +60774,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -60704,7 +60962,8 @@ window.BENCHMARK_DATA = {
           575.8949367083036,
           413.2085015296936,
           500.50003554026284,
-          526.4461353165763
+          526.4461353165763,
+          413.58213771184285
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60716,6 +60975,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          1856,
           1856,
           1856,
           1856,
@@ -60903,7 +61163,8 @@ window.BENCHMARK_DATA = {
           91581.0222342355,
           70210.38001302084,
           112148.27507672991,
-          117454.83758138021
+          117454.83758138021,
+          70871.8119140625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60999,6 +61260,7 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10141,
+          10030,
           10030,
           10030,
           10030
@@ -61102,7 +61364,8 @@ window.BENCHMARK_DATA = {
           7130.838946024577,
           5781.82081451416,
           7299.360922677176,
-          7788.238401794433
+          7788.238401794433,
+          5697.536713155111
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -61200,7 +61463,8 @@ window.BENCHMARK_DATA = {
           10248,
           10416,
           10248,
-          10416
+          10416,
+          10248
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -61301,7 +61565,8 @@ window.BENCHMARK_DATA = {
           6957.965524400984,
           5346.763770548502,
           7512.327378954206,
-          7701.466397603353
+          7701.466397603353,
+          5388.458533732096
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61399,7 +61664,8 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11854,
-          11854
+          11854,
+          11853
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61935,6 +62201,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -62024,7 +62296,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -62117,7 +62390,8 @@ window.BENCHMARK_DATA = {
           1633.4486626216344,
           1210.6640524546306,
           1492.8253254209246,
-          1626.4234902699789
+          1626.4234902699789,
+          1267.6785654340472
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -62177,6 +62451,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016,
@@ -62316,7 +62591,8 @@ window.BENCHMARK_DATA = {
           1067.4180909670317,
           807.392457485199,
           931.1812039057414,
-          992.959749730428
+          992.959749730428,
+          825.06016765322
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -62328,6 +62604,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -62515,7 +62792,8 @@ window.BENCHMARK_DATA = {
           3543.175686899821,
           2661.8366836547852,
           3282.3089226314,
-          3272.6475797799917
+          3272.6475797799917,
+          2725.6519022623697
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62527,6 +62805,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          8672,
           8672,
           8672,
           8672,
@@ -62714,7 +62993,8 @@ window.BENCHMARK_DATA = {
           106707.61715262277,
           82009.3635160006,
           127149.77067683294,
-          132764.30787760418
+          132764.30787760418,
+          82138.12505231585
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62812,7 +63092,8 @@ window.BENCHMARK_DATA = {
           25226,
           25114,
           25115,
-          25115
+          25115,
+          25114
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62913,7 +63194,8 @@ window.BENCHMARK_DATA = {
           22014.011525472004,
           18661.278353009904,
           22908.48627726237,
-          26461.417971097508
+          26461.417971097508,
+          17909.457326253254
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63011,7 +63293,8 @@ window.BENCHMARK_DATA = {
           23481,
           25665,
           23481,
-          25665
+          25665,
+          23481
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63112,7 +63395,8 @@ window.BENCHMARK_DATA = {
           27169.415580240886,
           21054.242730276925,
           27604.615370530348,
-          28390.4577091762
+          28390.4577091762,
+          21201.543381754556
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -63204,6 +63488,7 @@ window.BENCHMARK_DATA = {
           55216,
           55219,
           55213,
+          55216,
           55216,
           55216,
           55216,
@@ -63746,6 +64031,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -63835,7 +64126,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -63928,7 +64220,8 @@ window.BENCHMARK_DATA = {
           123093.48791503906,
           98230.36100886419,
           120747.96292317708,
-          130293.2900390625
+          130293.2900390625,
+          98179.39099121094
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -64016,6 +64309,7 @@ window.BENCHMARK_DATA = {
           273297,
           273297,
           273296,
+          273297,
           273297,
           273297,
           273297,
@@ -64127,7 +64421,8 @@ window.BENCHMARK_DATA = {
           84177.26419270833,
           68111.13579101562,
           77192.30568284255,
-          83252.19493815103
+          83252.19493815103,
+          68382.6789794922
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -64219,6 +64514,7 @@ window.BENCHMARK_DATA = {
           208883,
           208882,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -64326,7 +64622,8 @@ window.BENCHMARK_DATA = {
           316072.7650065104,
           254008.97834123884,
           312861.52164713544,
-          311372.24928385415
+          311372.24928385415,
+          254858.10078125
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -64420,6 +64717,7 @@ window.BENCHMARK_DATA = {
           707794,
           707794,
           707793,
+          707794,
           707794,
           707794,
           707794,
@@ -64525,7 +64823,8 @@ window.BENCHMARK_DATA = {
           1482988.7729867788,
           1218945.2776041667,
           1641950.2514322917,
-          1630232.947265625
+          1630232.947265625,
+          1182738.9764229911
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64623,7 +64922,8 @@ window.BENCHMARK_DATA = {
           1692792,
           1692680,
           1692680,
-          1692679
+          1692679,
+          1692680
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64724,7 +65024,8 @@ window.BENCHMARK_DATA = {
           1584192.9860276442,
           1452469.0276041667,
           1808472.897265625,
-          2034346.0390625
+          2034346.0390625,
+          1340102.964453125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64822,7 +65123,8 @@ window.BENCHMARK_DATA = {
           1468916,
           1692895,
           1468916,
-          1692911
+          1692911,
+          1468913
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64923,7 +65225,8 @@ window.BENCHMARK_DATA = {
           2800971.849479167,
           2278603.4500558036,
           3211539.360770089,
-          2815097.2434895835
+          2815097.2434895835,
+          2249605.689453125
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65015,6 +65318,7 @@ window.BENCHMARK_DATA = {
           4803385,
           4803306,
           4803191,
+          4803387,
           4803387,
           4803387,
           4803387,
@@ -65353,6 +65657,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -65408,7 +65718,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -65467,7 +65778,8 @@ window.BENCHMARK_DATA = {
           319.6414096514384,
           178.9359442270719,
           341.01813738686695,
-          719.9885250091553
+          719.9885250091553,
+          366.6799283027649
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -65493,6 +65805,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024,
@@ -65598,7 +65911,8 @@ window.BENCHMARK_DATA = {
           439.94619737352645,
           268.3690896828969,
           417.5771956841151,
-          444.5493620123182
+          444.5493620123182,
+          493.13680369059244
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -65610,6 +65924,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -65729,7 +66044,8 @@ window.BENCHMARK_DATA = {
           1134.6936452048164,
           681.2415955250079,
           1078.8326960245768,
-          1183.8521320343018
+          1183.8521320343018,
+          1250.6140028635662
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -65741,6 +66057,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          4464,
           4464,
           4464,
           4464,
@@ -65860,7 +66177,8 @@ window.BENCHMARK_DATA = {
           261650.59508463542,
           116492.56482747397,
           328037.858468192,
-          326665.88804408483
+          326665.88804408483,
+          148534.6799967448
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65924,7 +66242,8 @@ window.BENCHMARK_DATA = {
           23302,
           23313,
           23282,
-          23282
+          23282,
+          23307
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65991,7 +66310,8 @@ window.BENCHMARK_DATA = {
           15156.284456380208,
           7597.29597269694,
           16266.252591959636,
-          15879.340592447918
+          15879.340592447918,
+          12723.600851694742
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66055,7 +66375,8 @@ window.BENCHMARK_DATA = {
           19553,
           19553,
           19554,
-          19554
+          19554,
+          19515
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66122,7 +66443,8 @@ window.BENCHMARK_DATA = {
           10670.98096110026,
           5874.212386067708,
           12034.835115559896,
-          11566.195699419293
+          11566.195699419293,
+          8605.77268778483
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -66186,7 +66508,8 @@ window.BENCHMARK_DATA = {
           14332,
           14332,
           14332,
-          14332
+          14332,
+          14324
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -66518,6 +66841,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -66573,7 +66902,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -66632,7 +66962,8 @@ window.BENCHMARK_DATA = {
           1590.5360365549723,
           859.7833417483738,
           1654.0663450786046,
-          1649.1560413360596
+          1649.1560413360596,
+          1533.199225289481
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -66658,6 +66989,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040,
@@ -66763,7 +67095,8 @@ window.BENCHMARK_DATA = {
           1486.3661422729492,
           861.1725280284882,
           1435.4777614886943,
-          1393.4708148411341
+          1393.4708148411341,
+          1513.0622012274605
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -66775,6 +67108,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -66894,7 +67228,8 @@ window.BENCHMARK_DATA = {
           5467.1477040608725,
           3185.298494211833,
           5008.571878286509,
-          5215.021832979643
+          5215.021832979643,
+          5116.921700541178
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -66906,6 +67241,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          10536,
           10536,
           10536,
           10536,
@@ -67025,7 +67361,8 @@ window.BENCHMARK_DATA = {
           304144.66920572915,
           127393.09459635416,
           367305.84765625,
-          368330.7939778646
+          368330.7939778646,
+          183853.7196219308
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -67089,7 +67426,8 @@ window.BENCHMARK_DATA = {
           41155,
           41152,
           41155,
-          41155
+          41155,
+          41147
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -67156,7 +67494,8 @@ window.BENCHMARK_DATA = {
           25333.186017717635,
           14617.666427612305,
           29175.74790242513,
-          28506.599334716797
+          28506.599334716797,
+          21772.273330688477
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -67220,7 +67559,8 @@ window.BENCHMARK_DATA = {
           30101,
           30095,
           30101,
-          30101
+          30101,
+          30082
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -67287,7 +67627,8 @@ window.BENCHMARK_DATA = {
           40241.11221110026,
           24338.918863932293,
           44064.440763346356,
-          45010.31016031901
+          45010.31016031901,
+          34684.90339442662
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -67351,7 +67692,8 @@ window.BENCHMARK_DATA = {
           60496,
           60496,
           60496,
-          60496
+          60496,
+          60493
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -67683,6 +68025,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -67738,7 +68086,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -67797,7 +68146,8 @@ window.BENCHMARK_DATA = {
           133486.88050130208,
           79708.60969238282,
           143389.96902901787,
-          150255.23129882812
+          150255.23129882812,
+          133750.96522739955
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -67853,6 +68203,7 @@ window.BENCHMARK_DATA = {
           224801,
           224801,
           224800,
+          224801,
           224801,
           224801,
           224801,
@@ -67928,7 +68279,8 @@ window.BENCHMARK_DATA = {
           110271.85925292969,
           70518.6721473107,
           114616.23103027344,
-          115747.34323730468
+          115747.34323730468,
+          117122.6880405971
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -67985,6 +68337,7 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209408,
+          209409,
           209409,
           209409,
           209409,
@@ -68059,7 +68412,8 @@ window.BENCHMARK_DATA = {
           456809.68245442706,
           303753.1021158854,
           442757.6173270089,
-          474948.12447916664
+          474948.12447916664,
+          434097.18916015624
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -68071,6 +68425,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          703994,
           703994,
           703994,
           703994,
@@ -68190,7 +68545,8 @@ window.BENCHMARK_DATA = {
           3930974.3504464286,
           2163207.3311941964,
           4257951.3609375,
-          4199937.889583333
+          4199937.889583333,
+          3052065.4634915865
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68254,7 +68610,8 @@ window.BENCHMARK_DATA = {
           1936429,
           1936410,
           1936429,
-          1936429
+          1936429,
+          1936120
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68321,7 +68678,8 @@ window.BENCHMARK_DATA = {
           1126765.5294363839,
           627088.6860351562,
           1222009.6059895833,
-          1260208.6705729167
+          1260208.6705729167,
+          940769.0945172991
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -68385,7 +68743,8 @@ window.BENCHMARK_DATA = {
           1119152,
           1119115,
           1119153,
-          1119168
+          1119168,
+          1117063
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -68452,7 +68811,8 @@ window.BENCHMARK_DATA = {
           3813656.925,
           2205698.1927083335,
           4068299.763541667,
-          4182141.613581731
+          4182141.613581731,
+          3335862.718489583
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -68516,7 +68876,8 @@ window.BENCHMARK_DATA = {
           5051810,
           5051810,
           5052257,
-          5051941
+          5051941,
+          5051646
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -68848,6 +69209,12 @@ window.BENCHMARK_DATA = {
         "author": "dependabot[bot]",
         "date": "Tue Nov 24 22:44:46 2026 \u002B0000",
         "message": "chore: Bump the awexpect group with 5 updates (#1128)"
+      },
+      {
+        "sha": "6c046bc7713791458cabdc8e57fa5b1a032689a3",
+        "author": "dependabot[bot]",
+        "date": "Tue Nov 24 22:59:54 2026 \u002B0000",
+        "message": "chore: Bump Azure.Storage.Blobs from 12.30.1 to 12.30.2 (#1129)"
       }
     ],
     "labels": [
@@ -68903,7 +69270,8 @@ window.BENCHMARK_DATA = {
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
-      "46dabc37"
+      "46dabc37",
+      "6c046bc7"
     ],
     "datasets": [
       {
@@ -68962,7 +69330,8 @@ window.BENCHMARK_DATA = {
           2843.425722885132,
           3406.4181399027507,
           2828.033689371745,
-          3415.0432058061874
+          3415.0432058061874,
+          3360.722357050578
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -68988,6 +69357,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288,
@@ -69093,7 +69463,8 @@ window.BENCHMARK_DATA = {
           2255.8863013131277,
           3112.816737174988,
           2287.4933923574595,
-          3112.986666270665
+          3112.986666270665,
+          3088.577276357015
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -69105,6 +69476,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -69224,7 +69596,8 @@ window.BENCHMARK_DATA = {
           3065.116581217448,
           3859.4668337504067,
           3002.798732503255,
-          3857.070545196533
+          3857.070545196533,
+          3868.5335329495942
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -69236,6 +69609,7 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
+          3344,
           3344,
           3344,
           3344,
@@ -69355,7 +69729,8 @@ window.BENCHMARK_DATA = {
           9633.298543294271,
           15064.308044433594,
           9977.205783550557,
-          14236.58591570173
+          14236.58591570173,
+          12678.451108660016
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -69418,6 +69793,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048
         ],
@@ -69486,7 +69862,8 @@ window.BENCHMARK_DATA = {
           8652.06646830241,
           12690.652994009164,
           8949.407869611468,
-          12682.55167134603
+          12682.55167134603,
+          11185.279040527344
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -69550,6 +69927,7 @@ window.BENCHMARK_DATA = {
           14632,
           14633,
           14632,
+          14633,
           14633
         ],
         "borderColor": "#5E2750",
@@ -69617,7 +69995,8 @@ window.BENCHMARK_DATA = {
           8904.437030029298,
           13636.907007489886,
           9331.703290666852,
-          13485.662545340401
+          13485.662545340401,
+          11742.548518254207
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69681,6 +70060,7 @@ window.BENCHMARK_DATA = {
           14614,
           14620,
           14614,
+          14620,
           14620
         ],
         "borderColor": "#4A6FA5",
