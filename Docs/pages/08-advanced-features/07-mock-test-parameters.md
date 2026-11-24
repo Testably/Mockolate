@@ -118,9 +118,9 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
     IChocolateDispenser dispenser)
 ```
 
-A project that references both v2 and v3 gets the attribute for v3. With v3, the attribute takes the settings of xUnit's data attributes, such as `Skip`, `Explicit`, `Timeout` and `Traits`. With both versions, the attributes of a theory show up as one test in the test explorer, with a result for each of them. When xUnit v2 discovers the tests, it may also create the arguments of the first attribute once and discard them.
+A project that references both v2 and v3 gets the attribute for v3. With v3, the attribute takes the settings of xUnit's data attributes, such as `Skip`, `Explicit`, `Timeout` and `Traits`. A theory with mocks shows up as one test in the test explorer, with a result for each attribute. xUnit v2 may already create the arguments of the first attribute when it discovers the tests.
 
-xUnit describes the arguments in the name of a test case and disposes them afterwards. To describe a mock of a collection interface, such as `ISet<T>` or `IGrouping<TKey, TElement>`, it enumerates the mock before the test starts; xUnit v2 before 2.5 enumerates a mock of any enumerable interface. A mock of a disposable interface gets a call to `Dispose` after the test. A strict mock rejects these calls without a setup, and they count as interactions.
+xUnit describes the arguments in the name of a test case and disposes them after the test. To describe a mock of a collection interface, such as `ISet<T>`, it may enumerate the mock, and a mock of a disposable interface gets a call to `Dispose`. Both calls count as interactions of the mock. On a strict mock, set up `Dispose`, or xUnit reports a cleanup error.
 
 <details>
 <summary>Details and limitations</summary>
