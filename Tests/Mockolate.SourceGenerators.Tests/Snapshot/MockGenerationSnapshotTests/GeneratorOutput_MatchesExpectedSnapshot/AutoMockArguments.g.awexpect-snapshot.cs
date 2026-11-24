@@ -117,8 +117,8 @@ namespace Mockolate.Integrations
 
 		/// <summary>
 		///     The shared test parameter of the <paramref name="type" />; the <paramref name="parameterName" /> of the
-		///     constructor parameter only decides between several of them. A parameter that is being created is no
-		///     candidate, so that two classes can depend on each other's type.
+		///     constructor parameter decides between several of them, and must match for a value type or a string. A
+		///     parameter that is being created is no candidate, so that two classes can depend on each other's type.
 		/// </summary>
 		private bool TryResolve(global::System.Type type, string parameterName, int requester, out object? value)
 		{

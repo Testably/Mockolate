@@ -719,25 +719,24 @@ public sealed class MockDataSourcesTests
 	}
 
 	[Test]
-	[Arguments(null, null, false)]
-	[Arguments("false", null, true)]
-	[Arguments(null, "false", true)]
-	public async Task ModuleInitializerPolyfill_WithTUnit_ShouldFollowItsBuildProperties(string? polyfills,
-		string? sourceGeneration, bool expectPolyfill)
+	[Arguments("true", null, null, null, false)]
+	[Arguments(null, null, null, null, true)]
+	[Arguments("false", null, null, null, true)]
+	[Arguments("true", "false", null, null, true)]
+	[Arguments("true", null, "", null, true)]
+	[Arguments("true", null, "System.Runtime.CompilerServices.OverloadResolutionPriorityAttribute", null, false)]
+	[Arguments("true", null, "", "System.Runtime.CompilerServices.ModuleInitializerAttribute", false)]
+	public async Task ModuleInitializerPolyfill_WithTUnit_ShouldFollowItsBuildProperties(string? sourceGeneration,
+		string? polyfills, string? polySharpIncluded, string? polySharpExcluded, bool expectPolyfill)
 	{
 		// The attribute in two references is ambiguous, so the compilation lacks it like on .NET Framework.
 		MetadataReference first = ExternalAssembly.Compile(ModuleInitializerAttributeSource, "First");
 		MetadataReference second = ExternalAssembly.Compile(ModuleInitializerAttributeSource, "Second");
 		Dictionary<string, string> options = new();
-		if (polyfills is not null)
-		{
-			options["build_property.EnableTUnitPolyfills"] = polyfills;
-		}
-
-		if (sourceGeneration is not null)
-		{
-			options["build_property.EnableTUnitSourceGeneration"] = sourceGeneration;
-		}
+		AddIfNotNull("build_property.EnableTUnitSourceGeneration", sourceGeneration);
+		AddIfNotNull("build_property.EnableTUnitPolyfills", polyfills);
+		AddIfNotNull("build_property.PolySharpIncludeGeneratedTypes", polySharpIncluded);
+		AddIfNotNull("build_property.PolySharpExcludeGeneratedTypes", polySharpExcluded);
 
 		// The compilation references the TUnit of this test project, whose generator declares the attribute.
 		GeneratorResult result = Generator.RunWithReferences($$"""
@@ -762,6 +761,14 @@ public sealed class MockDataSourcesTests
 
 		await That(result.Sources["MockDataSources.g.cs"].Contains("internal sealed class ModuleInitializerAttribute"))
 			.IsEqualTo(expectPolyfill);
+
+		void AddIfNotNull(string key, string? value)
+		{
+			if (value is not null)
+			{
+				options[key] = value;
+			}
+		}
 	}
 
 	[Test]

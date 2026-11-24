@@ -15,11 +15,6 @@ namespace Mockolate.SourceGenerators.Tests;
 /// </summary>
 public sealed class TestFrameworkCompatibilityTests
 {
-	private static readonly string[] TestFrameworkAssemblies =
-	[
-		"TUnit", "xunit", "nunit", "MSTest", "Microsoft.VisualStudio.TestPlatform",
-	];
-
 	[Test]
 	public async Task TUnit_WithOldestSupportedVersion_ShouldCompile()
 	{
@@ -84,14 +79,14 @@ public sealed class TestFrameworkCompatibilityTests
 	}
 
 	/// <summary>
-	///     The assemblies of the runtime, without the test frameworks that this test project itself runs on.
+	///     The assemblies of the runtime, without the test frameworks that this test project itself runs on, which are not
+	///     in the runtime directory.
 	/// </summary>
 	private static IEnumerable<MetadataReference> GetRuntimeReferences()
 		=> Directory.GetFiles(RuntimeEnvironment.GetRuntimeDirectory(), "*.dll")
 			.Where(file => Path.GetFileName(file) is { } name &&
 			               (name.StartsWith("System.", StringComparison.Ordinal) ||
-			                name is "netstandard.dll" or "mscorlib.dll" or "Microsoft.CSharp.dll") &&
-			               !TestFrameworkAssemblies.Any(prefix => name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)))
+			                name is "netstandard.dll" or "mscorlib.dll" or "Microsoft.CSharp.dll"))
 			.Where(file => !file.EndsWith(".Native.dll", StringComparison.OrdinalIgnoreCase))
 			.Select(file => MetadataReference.CreateFromFile(file));
 }

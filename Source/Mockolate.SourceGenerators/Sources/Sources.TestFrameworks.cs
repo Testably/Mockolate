@@ -125,8 +125,8 @@ internal static partial class Sources
 
 		   		/// <summary>
 		   		///     The shared test parameter of the <paramref name="type" />; the <paramref name="parameterName" /> of the
-		   		///     constructor parameter only decides between several of them. A parameter that is being created is no
-		   		///     candidate, so that two classes can depend on each other's type.
+		   		///     constructor parameter decides between several of them, and must match for a value type or a string. A
+		   		///     parameter that is being created is no candidate, so that two classes can depend on each other's type.
 		   		/// </summary>
 		   		private bool TryResolve(global::System.Type type, string parameterName, int requester, out object? value)
 		   		{
@@ -194,8 +194,9 @@ internal static partial class Sources
 		   	/// <remarks>
 		   	///     A constructor dependency of a class under test gets the argument of the test parameter of the same type, so the
 		   	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
-		   	///     the one with the name of the constructor parameter (ignoring case) is used. The given arguments and a
-		   	///     <see cref="TransientAttribute" /> parameter are not shared. Each attribute on a method is one test case.
+		   	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
+		   	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute" />
+		   	///     parameter are not shared. Each attribute on a method is one test case.
 		   	/// </remarks>
 		   	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 		   	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Verifier = Mockolate.Analyzers.Tests.Verifiers.CSharpAnalyzerVerifier<Mockolate.Analyzers.MockDataSourceAnalyzer>;
 
@@ -122,6 +123,46 @@ public class MockDataSourceAnalyzerTests
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
 				.WithArguments("b", "MyCode.Generic<int>?", "it is a generic class")
 		);
+
+	[Test]
+	[Arguments("[ArgsData(new object[] { null, null, })]", 2)]
+	[Arguments("[ArgsData][ArgsData(null)]", 0)]
+	[Arguments("[OtherData(true)]", 0)]
+	[Arguments("[ArgsData(null)][OtherData(true)]", 0)]
+	public async Task WhenAttributesSupplySomeValues_ShouldOnlyFlagTheOthers(string attributes, int supplied)
+	{
+		string[] names = ["a", "b", "c",];
+		await Verifier.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      public sealed class Generic<T>;
+
+			      public class Tests
+			      {
+			          {{attributes}}
+			          public void Test({{string.Join(", ", names.Select((name, index) => index < supplied ? $"Generic<int>? {name}" : $"Generic<int>? {{|#{index}:{name}|}}"))}}) { }
+			      }
+
+			      [System.AttributeUsage(System.AttributeTargets.Method, AllowMultiple = true)]
+			      public sealed class ArgsDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource
+			      {
+			          public ArgsDataAttribute(params object?[]? arguments) { }
+			      }
+
+			      [System.AttributeUsage(System.AttributeTargets.Method, AllowMultiple = true)]
+			      public sealed class OtherDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource
+			      {
+			          public OtherDataAttribute(bool strict) { }
+			      }
+			  }
+			  """,
+			names.Select((name, index) => (name, index)).Where(parameter => parameter.index >= supplied)
+				.Select(parameter => Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule)
+					.WithLocation(parameter.index).WithArguments(parameter.name, "MyCode.Generic<int>?", "it is a generic class"))
+				.ToArray());
+	}
 
 	[Test]
 	public async Task WhenTypeIsNotAccessible_ShouldBeFlagged() => await Verifier

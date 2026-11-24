@@ -396,24 +396,48 @@ public class MockGenerator : IIncrementalGenerator
 
 		// Since 1.71, the source generator of TUnit declares ModuleInitializerAttribute when it is missing, unless the
 		// source generation or the polyfills of TUnit are turned off or PolySharp declares the attribute. Mockolate
-		// cannot see that output, so it relies on the same conditions.
+		// cannot see that output, so it mirrors these conditions (AttributePolyfillGenerator in TUnit). The props of
+		// TUnit always make EnableTUnitSourceGeneration visible, so without it the generator of TUnit does not run.
 		static bool TUnitProvidesModuleInitializer(Compilation compilation,
 			AnalyzerConfigOptionsProvider analyzerConfigOptions)
 		{
+			AnalyzerConfigOptions options = analyzerConfigOptions.GlobalOptions;
 			if (!compilation.ReferencedAssemblyNames.Any(assembly =>
-				    assembly.Name == "TUnit.Core" && assembly.Version >= new Version(1, 71)))
+				    assembly.Name == "TUnit.Core" && assembly.Version >= new Version(1, 71)) ||
+			    !options.TryGetValue("build_property.EnableTUnitSourceGeneration", out string? sourceGeneration) ||
+			    IsFalse(sourceGeneration) ||
+			    (options.TryGetValue("build_property.EnableTUnitPolyfills", out string? polyfills) && IsFalse(polyfills)))
 			{
 				return false;
 			}
 
-			AnalyzerConfigOptions options = analyzerConfigOptions.GlobalOptions;
-			return !IsFalse("build_property.EnableTUnitSourceGeneration") &&
-			       !IsFalse("build_property.EnableTUnitPolyfills") &&
-			       !options.TryGetValue("build_property.PolySharpIncludeGeneratedTypes", out _);
+			return !PolySharpProvidesModuleInitializer(options);
 
-			bool IsFalse(string key)
-				=> options.TryGetValue(key, out string? value) &&
-				   string.Equals(value.Trim(), "false", StringComparison.OrdinalIgnoreCase);
+			static bool IsFalse(string value)
+				=> string.Equals(value.Trim(), "false", StringComparison.OrdinalIgnoreCase);
+		}
+
+		// PolySharp makes its settings visible to the compiler, so the keys exist whenever it is installed, and it declares
+		// every missing polyfill that its two lists do not filter out.
+		static bool PolySharpProvidesModuleInitializer(AnalyzerConfigOptions options)
+		{
+			const string metadataName = "System.Runtime.CompilerServices.ModuleInitializerAttribute";
+			if (!options.TryGetValue("build_property.PolySharpIncludeGeneratedTypes", out string? included))
+			{
+				return false;
+			}
+
+			if (!string.IsNullOrWhiteSpace(included) && !ListContains(included, metadataName))
+			{
+				return false;
+			}
+
+			return !options.TryGetValue("build_property.PolySharpExcludeGeneratedTypes", out string? excluded) ||
+			       !ListContains(excluded, metadataName);
+
+			static bool ListContains(string list, string name)
+				=> list.Split([';', ',',], StringSplitOptions.RemoveEmptyEntries)
+					.Any(entry => string.Equals(entry.Trim(), name, StringComparison.Ordinal));
 		}
 
 		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute,

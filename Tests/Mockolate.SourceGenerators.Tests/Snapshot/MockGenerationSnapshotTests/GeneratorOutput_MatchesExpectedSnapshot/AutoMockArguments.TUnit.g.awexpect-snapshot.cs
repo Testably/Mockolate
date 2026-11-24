@@ -20,8 +20,9 @@ namespace Mockolate.Integrations.TUnit
 	/// <remarks>
 	///     A constructor dependency of a class under test gets the argument of the test parameter of the same type, so the
 	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
-	///     the one with the name of the constructor parameter (ignoring case) is used. The given arguments and a
-	///     <see cref="TransientAttribute">TransientAttribute</see> parameter are not shared. Each attribute on a method is one test case.
+	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
+	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute">TransientAttribute</see>
+	///     parameter are not shared. Each attribute on a method is one test case.
 	/// </remarks>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]

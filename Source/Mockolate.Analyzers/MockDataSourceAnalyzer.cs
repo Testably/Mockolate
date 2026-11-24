@@ -370,13 +370,26 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	/// <summary>
 	///     The number of values that the <paramref name="attribute" /> supplies for the first parameters: the elements of
-	///     its <see langword="params" /> array, where a single <see langword="null" /> is one value.
+	///     the <see langword="params" /> array of an attribute like <c>AutoMockArguments</c>, where a single
+	///     <see langword="null" /> is one value. Another attribute supplies none.
 	/// </summary>
 	private static int GetSuppliedArgumentCount(AttributeData attribute)
-		=> attribute.ConstructorArguments.Length == 1 &&
-		   attribute.ConstructorArguments[0] is { Kind: TypedConstantKind.Array, } arguments
-			? arguments.IsNull ? 1 : arguments.Values.Length
-			: attribute.ConstructorArguments.Length;
+	{
+		if (attribute.AttributeConstructor is not { Parameters.Length: 1, } constructor ||
+		    !constructor.Parameters[0].IsParams ||
+		    attribute.ConstructorArguments.Length != 1)
+		{
+			return 0;
+		}
+
+		TypedConstant arguments = attribute.ConstructorArguments[0];
+		if (arguments.IsNull)
+		{
+			return 1;
+		}
+
+		return arguments.Values.Length;
+	}
 
 	private static bool IsMockDataSourceAttribute(AttributeData attribute)
 		=> attribute.AttributeClass is { } attributeClass &&
