@@ -153,7 +153,9 @@ public sealed partial class MockGenerationSnapshotTests
             ConstructorDependencyService sut12 = ConstructorDependencyService.CreateMock().Implementing<IConstructorOtherDependency>();
             """,
             [],
-            Snapshot: true),
+            Snapshot: true,
+            // The mocks are covered by ConstructorDependenciesTests; their full output would only repeat other scenarios.
+            SnapshotMocks: false),
         new(
             "MockDataSources_CanBeCreated",
             ["MockDataSourceTargets.cs",],
@@ -161,7 +163,9 @@ public sealed partial class MockGenerationSnapshotTests
             object?[] values = MockDataSourceTargets.Create(null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, "", 0);
             """,
             [typeof(Uri),],
-            Snapshot: true),
+            Snapshot: true,
+            // The mocks are covered by MockDataSourcesTests; their full output would only repeat other scenarios.
+            SnapshotMocks: false),
         new(
             "DynamicMembers_CanBeCreated",
             ["IDynamicMembers.cs",],
@@ -585,9 +589,11 @@ public sealed partial class MockGenerationSnapshotTests
                 ? result.Value.Sources
                     .Where(source => IsSharedFile(source.FileName))
                     .Select(source => new GeneratedFile(snapshotNames[source], source.Content))
-                    .Append(new GeneratedFile($"{result.Key}.g", string.Join("\n", result.Value.Sources
-                        .Where(source => !IsSharedFile(source.FileName))
-                        .Select(source => $"// {source.FileName}\n{source.Content}"))))
+                    .Concat(result.Value.Scenario.SnapshotMocks
+                        ? [new GeneratedFile($"{result.Key}.g", string.Join("\n", result.Value.Sources
+                            .Where(source => !IsSharedFile(source.FileName))
+                            .Select(source => $"// {source.FileName}\n{source.Content}"))),]
+                        : [])
                     .ToArray()
                 : []));
 
