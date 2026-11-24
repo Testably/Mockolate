@@ -194,9 +194,8 @@ internal static partial class Sources
 		{
 			foreach (Method constructor in constructors)
 			{
-				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, fileName, constructor,
-					@class.HasRequiredMembers, hasAnyStaticMembers || hasAnyStaticEvents, constructorArgumentsName,
-					@class.DisplayString);
+				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, fileName, constructor, @class,
+					hasAnyStaticMembers || hasAnyStaticEvents, constructorArgumentsName);
 			}
 		}
 		else

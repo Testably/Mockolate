@@ -13,6 +13,9 @@ internal static class ConstructorRules
 	///     <see langword="null" /> when it does.
 	/// </summary>
 	internal static string? GetSealedClassReason(INamedTypeSymbol type, Compilation compilation)
+		=> GetShapeReason(type) ?? GetUsabilityReason(type, compilation) ?? GetConstructorReason(type, compilation);
+
+	private static string? GetShapeReason(INamedTypeSymbol type)
 	{
 		if (type.TypeKind != TypeKind.Class || !(type.IsSealed || type.IsRecord))
 		{
@@ -29,6 +32,11 @@ internal static class ConstructorRules
 			return "type is generic or nested in a generic type";
 		}
 
+		return null;
+	}
+
+	private static string? GetUsabilityReason(INamedTypeSymbol type, Compilation compilation)
+	{
 		if (IsFileLocal(type) || !IsAccessible(type, compilation.Assembly))
 		{
 			return "type is not accessible from the generated code";
@@ -52,6 +60,11 @@ internal static class ConstructorRules
 			}
 		}
 
+		return null;
+	}
+
+	private static string? GetConstructorReason(INamedTypeSymbol type, Compilation compilation)
+	{
 		IMethodSymbol[] constructors = GetUsableConstructors(type, compilation);
 		return constructors.Length == 0 ||
 		       (constructors.Length > 1 && constructors[0].Parameters.Length == constructors[1].Parameters.Length)

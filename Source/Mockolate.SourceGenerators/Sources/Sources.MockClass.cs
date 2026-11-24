@@ -225,8 +225,8 @@ internal static partial class Sources
 		{
 			foreach (Method constructor in constructors)
 			{
-				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, name, constructor, @class.HasRequiredMembers,
-					constructorArgumentsName: constructorArgumentsName, classDisplay: @class.DisplayString);
+				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, name, constructor, @class,
+					constructorArgumentsName: constructorArgumentsName);
 				AppendMockSubject_BehaviorBaseClassConstructor(sb, name, constructor, @class.HasRequiredMembers);
 			}
 		}
@@ -1473,13 +1473,12 @@ internal static partial class Sources
 		                                           parameter.Type.Fullname.IndexOf('*') < 0);
 
 	private static void AppendMockSubject_BaseClassConstructor(StringBuilder sb, string mockRegistryName, string name,
-		Method constructor, bool hasRequiredMembers, bool setsMockRegistryProvider = false,
-		string? constructorArgumentsName = null, string? classDisplay = null)
+		Method constructor, Class @class, bool setsMockRegistryProvider = false, string? constructorArgumentsName = null)
 	{
 		string mockRegistry = CreateUniqueParameterName(constructor.Parameters, "mockRegistry");
 		sb.Append("\t\t/// <inheritdoc cref=\"").Append(name).Append("\" />").AppendLine();
 		sb.Append(constructor.Attributes, "\t\t");
-		if (hasRequiredMembers && constructor.Attributes?.Any(a => a.Name == "global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers") != true)
+		if (@class.HasRequiredMembers &&constructor.Attributes?.Any(a => a.Name == "global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers") != true)
 		{
 			sb.Append("\t\t[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]").AppendLine();
 		}
@@ -1524,7 +1523,7 @@ internal static partial class Sources
 		if (constructorArgumentsName is not null && CanRecordConstructorArguments(constructor))
 		{
 			sb.Append("\t\t\tthis.").Append(constructorArgumentsName).Append(" = new global::Mockolate.ConstructorArguments(\"")
-				.Append(classDisplay).Append('(')
+				.Append(@class.DisplayString).Append('(')
 				.Append(string.Join(", ", constructor.Parameters.Select(parameter => parameter.Type.DisplayName)))
 				.Append(")\", new string[] { ")
 				.Append(string.Join(", ", constructor.Parameters.Select(parameter => $"\"{parameter.Name.TrimStart('@')}\"")))
