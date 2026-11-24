@@ -473,7 +473,7 @@ public class MockabilityAnalyzerTests
 	[Arguments("public sealed class Factory(int v) { public static int CreateMock(out Mockolate.ConstructorArguments a, int b) => throw null!; public static int CreateMock(out Mockolate.ConstructorArguments a, string b) => throw null!; }",
 		"out Mockolate.ConstructorArguments x, (dynamic)1")]
 	[Arguments("public class Base { public static int CreateMock(out int a) { a = 0; return 0; } } public sealed class Factory(int v) : Base;",
-		"out int a, out var b")]
+		"out var b, out int a")]
 	public async Task WhenCallingOwnCreateMockWithOutParameterThatDoesNotBind_ShouldNotBeFlagged(string declaration,
 		string argument)
 		=> await Verifier.VerifyAnalyzerAsync(
