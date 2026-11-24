@@ -45,10 +45,8 @@ public sealed class XunitRunnerTests
 		await That(hasFinished).IsTrue().Because("the xUnit runner must finish within a minute");
 
 		await That(problems).IsEmpty();
-		await That(passed.Any(name =>
-				name.StartsWith("Mockolate.Xunit2.Tests.XunitTheories.DisplayName_ShouldNotReadTheProperties", StringComparison.Ordinal) &&
-				name.Contains("IChocolateStock mock")))
-			.IsTrue().Because("the display name describes the mock");
+		await That(passed).Contains(
+			"Mockolate.Xunit2.Tests.XunitTheories.DisplayName_ShouldNotReadTheProperties(stock: Mockolate.TUnit.Tests.Domain.IChocolateStock mock)");
 		await That(passed.Select(name => name.Split('(')[0])).IsEqualTo([
 			"Mockolate.Xunit2.Tests.XunitTheories.SharedMocks",
 			"Mockolate.Xunit2.Tests.XunitTheories.SeveralAttributes",
