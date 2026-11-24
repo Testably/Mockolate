@@ -464,6 +464,8 @@ public class MockabilityAnalyzerTests
 	[Arguments("public sealed class Factory(int v) { public static int CreateMock(int seed) => seed; }", "out int x")]
 	[Arguments("public class Factory { public static System.Func<int, int>? CreateMock; }", "out int x")]
 	[Arguments("public sealed class Factory(int v) { public static dynamic? CreateMock; }", "out int x")]
+	[Arguments("public sealed class Factory(int v) { public static dynamic? CreateMock; }", "out Mockolate.ConstructorArguments x")]
+	[Arguments("public class Base { public static dynamic? CreateMock; } public sealed class Factory(int v) : Base;", "out Mockolate.ConstructorArguments x")]
 	[Arguments("public class Factory { public static int CreateMock(out int a, int b) { a = b; return b; } public static int CreateMock(out string a, string b) { a = b; return 0; } }",
 		"out var x")]
 	[Arguments("public class Factory { public static int CreateMock() => 0; }", "out var x")]
@@ -627,7 +629,6 @@ public class MockabilityAnalyzerTests
 	[Test]
 	[Arguments("public static int CreateMock(int seed) => seed;", "out var arguments")]
 	[Arguments("public static int CreateMock(int seed) => seed;", "out _")]
-	[Arguments("public static dynamic? CreateMock;", "out ConstructorArguments arguments")]
 	[Arguments("public static int CreateMock(int seed) => seed;", "out var _")]
 	[Arguments("public static int CreateMock(int seed) => seed;", "out ConstructorArguments? arguments")]
 	[Arguments("public static int CreateMock(int seed) => seed;", "mockBehavior: null, constructorArguments: out var arguments")]

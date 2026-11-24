@@ -166,7 +166,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0010StaticAbstractReason;
 		}
 
-		if (ConstructorRules.HasMemberNamedCreateMock(type))
+		if (ConstructorRules.HasMemberNamedCreateMock(type, compilation.Assembly))
 		{
 			return Resources.Mockolate0010CreateMockMemberReason;
 		}

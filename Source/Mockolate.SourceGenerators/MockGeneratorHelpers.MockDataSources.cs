@@ -436,7 +436,7 @@ internal static partial class MockGeneratorHelpers
 		    !(type.IsSealed || type.IsRecord) ||
 		    !IsConstructibleSut(type, compilation) ||
 		    IsFrameworkNamespace(type.ContainingNamespace) ||
-		    HasMemberNamedCreateMock(type) ||
+		    HasMemberNamedCreateMock(type, compilation.Assembly) ||
 		    GetSutConstructor(type, compilation) is not { } constructor)
 		{
 			return null;
@@ -533,7 +533,7 @@ internal static partial class MockGeneratorHelpers
 		// The mock of a type named like a keyword, such as @event, would be a class of that name.
 		if (!IsMockable(type) ||
 		    SyntaxFacts.GetKeywordKind(type.Name) != SyntaxKind.None ||
-		    HasMemberNamedCreateMock(type) ||
+		    HasMemberNamedCreateMock(type, compilation.Assembly) ||
 		    (type.TypeKind == TypeKind.Interface && HasNonPublicAbstractMembers(type)) ||
 		    type.DelegateInvokeMethod is { ReturnsByRef: true, } or { ReturnsByRefReadonly: true, } ||
 		    // A delegate mock only implements Invoke, not the virtual members of MulticastDelegate.
