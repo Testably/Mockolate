@@ -70,7 +70,7 @@ internal static partial class MockGeneratorHelpers
 		=> node is ClassDeclarationSyntax { BaseList: not null, };
 
 	/// <summary>
-	///     The name of the class <paramref name="node" />, if it implements <c>Mockolate.IMockDataSource</c>.
+	///     The name of the class <paramref name="node" />, if it implements <c>Mockolate.Internals.IMockDataSource</c>.
 	/// </summary>
 	internal static string? GetDataSourceAttributeName(this SyntaxNode node, SemanticModel semanticModel,
 		CancellationToken cancellationToken)
@@ -79,7 +79,7 @@ internal static partial class MockGeneratorHelpers
 			: null;
 
 	/// <summary>
-	///     The names of the classes in the referenced assemblies that implement <c>Mockolate.IMockDataSource</c>.
+	///     The names of the classes in the referenced assemblies that implement <c>Mockolate.Internals.IMockDataSource</c>.
 	/// </summary>
 	/// <remarks>
 	///     Only assemblies that reference Mockolate, directly or through another referenced assembly that derives such a
@@ -186,7 +186,7 @@ internal static partial class MockGeneratorHelpers
 	}
 
 	/// <summary>
-	///     The parameter types of a member with an attribute that implements <c>Mockolate.IMockDataSource</c>.
+	///     The parameter types of a member with an attribute that implements <c>Mockolate.Internals.IMockDataSource</c>.
 	/// </summary>
 	internal static DataSourceCreation ExtractDataSourceCreation(this SyntaxNode node, SemanticModel semanticModel,
 		CancellationToken cancellationToken)
@@ -575,7 +575,7 @@ internal static partial class MockGeneratorHelpers
 
 	private static bool IsMockDataSourceType(INamedTypeSymbol type)
 		=> type.AllInterfaces.Any(@interface =>
-			@interface.Name == "IMockDataSource" && IsInGlobalMockolateNamespace(@interface));
+			@interface is { Name: "IMockDataSource", ContainingNamespace: { Name: "Internals", ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, }, }, });
 
 	private enum DataSourceParameterKind
 	{

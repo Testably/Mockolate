@@ -1,3 +1,5 @@
+using Mockolate.Internals;
+
 namespace Mockolate.AotCompatibility.TestApp;
 
 public class VendingMachine(IChocolateDispenser dispenser, ChocolateCounter counter)

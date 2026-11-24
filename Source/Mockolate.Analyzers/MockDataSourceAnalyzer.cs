@@ -10,7 +10,7 @@ namespace Mockolate.Analyzers;
 
 /// <summary>
 ///     An analyzer that reports a parameter of a member with an attribute that implements
-///     <c>Mockolate.IMockDataSource</c> whose type asks for a mock or an instance, but that Mockolate cannot create.
+///     <c>Mockolate.Internals.IMockDataSource</c> whose type asks for a mock or an instance, but that Mockolate cannot create.
 /// </summary>
 /// <remarks>
 ///     Mirrors the rules of the source generator (<c>MockGeneratorHelpers.MockDataSources.cs</c>), which skips such a
@@ -59,7 +59,9 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		{
 			// A partial method has two symbols with the same attributes; only the definition reports.
 			IMethodSymbol { PartialDefinitionPart: not null, } => [],
-			IMethodSymbol method when method.GetAttributes().Any(IsMockDataSourceAttribute) => method.Parameters,
+			// Mockolate does not create the first parameters, for which every attribute supplies a value.
+			IMethodSymbol method when method.GetAttributes().Any(IsMockDataSourceAttribute) => method.Parameters
+				.Skip(method.GetAttributes().Where(IsMockDataSourceAttribute).Min(GetSuppliedArgumentCount)),
 			// A constructor with an attribute of its own, such as [method: …] on a primary constructor, reports itself.
 			INamedTypeSymbol type when type.GetAttributes().Any(IsMockDataSourceAttribute) => type.InstanceConstructors
 				.Where(constructor => !constructor.IsImplicitlyDeclared &&
@@ -366,11 +368,34 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		       (constructors.Length > 1 && constructors[0].Parameters.Length != constructors[1].Parameters.Length);
 	}
 
+	/// <summary>
+	///     The number of values that the <paramref name="attribute" /> supplies for the first parameters: the elements of
+	///     the <see langword="params" /> array of an attribute like <c>AutoMockArguments</c>, where a single
+	///     <see langword="null" /> is one value. Another attribute supplies none.
+	/// </summary>
+	private static int GetSuppliedArgumentCount(AttributeData attribute)
+	{
+		if (attribute.AttributeConstructor is not { Parameters.Length: 1, } constructor ||
+		    !constructor.Parameters[0].IsParams ||
+		    attribute.ConstructorArguments.Length != 1)
+		{
+			return 0;
+		}
+
+		TypedConstant arguments = attribute.ConstructorArguments[0];
+		if (arguments.IsNull)
+		{
+			return 1;
+		}
+
+		return arguments.Values.Length;
+	}
+
 	private static bool IsMockDataSourceAttribute(AttributeData attribute)
 		=> attribute.AttributeClass is { } attributeClass &&
 		   attributeClass.AllInterfaces.Any(@interface => @interface is
 		   {
 			   Name: "IMockDataSource",
-			   ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+			   ContainingNamespace: { Name: "Internals", ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, }, },
 		   });
 }

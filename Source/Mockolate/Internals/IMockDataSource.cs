@@ -1,4 +1,6 @@
-namespace Mockolate;
+using System.ComponentModel;
+
+namespace Mockolate.Internals;
 
 /// <summary>
 ///     Marks an attribute of a test framework that fills parameters through <see cref="MockDataSource" />.
@@ -9,6 +11,7 @@ namespace Mockolate;
 ///     abstract class, an instance with mocked constructor dependencies for a concrete class, and for the other types,
 ///     including those of the <c>System</c>, <c>Microsoft</c> and <c>Windows</c> namespaces, a value from the default
 ///     values of the behavior. Mockolate0010 reports a parameter of an interface, delegate or class outside these
-///     namespaces that cannot be mocked or created.
+///     namespaces that cannot be mocked or created. It is public only for the code that the source generator emits.
 /// </remarks>
+[EditorBrowsable(EditorBrowsableState.Never)]
 public interface IMockDataSource;

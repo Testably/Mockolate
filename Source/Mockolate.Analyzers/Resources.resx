@@ -227,7 +227,7 @@
 		<comment>Completes Mockolate0007MessageFormat for a parameters match such as Match.AnyParameters() or Match.Parameters(…). {0} is the value type.</comment>
 	</data>
 	<data name="Mockolate0010Description" xml:space="preserve">
-		<value>A parameter of a method, constructor or type with an attribute that implements Mockolate.IMockDataSource asks for a mock or an instance with mocked dependencies, but Mockolate cannot create its type, so the data source cannot fill it.</value>
+		<value>A parameter of a method, constructor or type with an attribute that implements Mockolate.Internals.IMockDataSource asks for a mock or an instance with mocked dependencies, but Mockolate cannot create its type, so the data source cannot fill it.</value>
 	</data>
 	<data name="Mockolate0010MessageFormat" xml:space="preserve">
 		<value>Mockolate cannot create the parameter '{0}' of type '{1}': {2}</value>

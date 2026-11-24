@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mockolate.Exceptions;
+using Mockolate.Internals;
 using Mockolate.Tests.GeneratorCoverage;
 using TUnit.Core;
 

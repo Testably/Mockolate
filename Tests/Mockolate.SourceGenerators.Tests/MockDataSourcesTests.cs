@@ -15,7 +15,7 @@ public sealed class MockDataSourcesTests
 	                                     namespace MyCode
 	                                     {
 	                                         [System.AttributeUsage(System.AttributeTargets.All)]
-	                                         public sealed class DataAttribute : System.Attribute, Mockolate.IMockDataSource;
+	                                         public sealed class DataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 	                                     }
 	                                     """;
 
@@ -105,7 +105,7 @@ public sealed class MockDataSourcesTests
 		                                                       namespace External
 		                                                       {
 		                                                           [AttributeUsage(AttributeTargets.Method)]
-		                                                           public sealed class AutoDataAttribute : Attribute, Mockolate.IMockDataSource;
+		                                                           public sealed class AutoDataAttribute : Attribute, Mockolate.Internals.IMockDataSource;
 		                                                       }
 		                                                       """);
 		GeneratorResult result = Generator.RunWithReferences("""
@@ -182,7 +182,7 @@ public sealed class MockDataSourcesTests
 		                                       namespace DataSources
 		                                       {
 		                                           [AttributeUsage(AttributeTargets.Method)]
-		                                           public sealed class DataAttribute : Attribute, IMockDataSource;
+		                                           public sealed class DataAttribute : Attribute, Mockolate.Internals.IMockDataSource;
 		                                       }
 
 		                                       namespace Other
@@ -565,11 +565,11 @@ public sealed class MockDataSourcesTests
 			    public static class Outer
 			    {
 			        [System.AttributeUsage(System.AttributeTargets.Method)]
-			        public sealed class NestedDataAttribute : System.Attribute, Mockolate.IMockDataSource;
+			        public sealed class NestedDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 			    }
 
 			    [System.AttributeUsage(System.AttributeTargets.Method)]
-			    public sealed class GenericDataAttribute<T> : System.Attribute, Mockolate.IMockDataSource;
+			    public sealed class GenericDataAttribute<T> : System.Attribute, Mockolate.Internals.IMockDataSource;
 
 			    public class Tests
 			    {
@@ -603,7 +603,7 @@ public sealed class MockDataSourcesTests
 		                                                           namespace External
 		                                                           {
 		                                                               [System.AttributeUsage(System.AttributeTargets.Method)]
-		                                                               public class BaseDataAttribute : System.Attribute, Mockolate.IMockDataSource;
+		                                                               public class BaseDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 		                                                           }
 		                                                           """, "ExternalBase");
 		MetadataReference derivedReference = ExternalAssembly.Compile("""
@@ -699,9 +699,14 @@ public sealed class MockDataSourcesTests
 
 		                                                       {{DataAttribute}}
 		                                                       """, [first, second,],
+			// The compilation references the TUnit of this test project, which must not provide the attribute here.
 			configured is null
-				? null
-				: new Dictionary<string, string> { ["build_property.MockolateUnionAttributePolyfills"] = configured, });
+				? new Dictionary<string, string> { ["build_property.EnableTUnitPolyfills"] = "false", }
+				: new Dictionary<string, string>
+				{
+					["build_property.MockolateUnionAttributePolyfills"] = configured,
+					["build_property.EnableTUnitPolyfills"] = "false",
+				});
 
 		// With the opt-out, the attribute would come from another generator, which this compilation does not run.
 		if (expectPolyfill)
@@ -711,6 +716,59 @@ public sealed class MockDataSourcesTests
 
 		await That(result.Sources["MockDataSources.g.cs"].Contains("internal sealed class ModuleInitializerAttribute"))
 			.IsEqualTo(expectPolyfill);
+	}
+
+	[Test]
+	[Arguments("true", null, null, null, false)]
+	[Arguments(null, null, null, null, true)]
+	[Arguments("false", null, null, null, true)]
+	[Arguments("true", "false", null, null, true)]
+	[Arguments("true", null, "", null, true)]
+	[Arguments("true", null, "System.Runtime.CompilerServices.OverloadResolutionPriorityAttribute", null, false)]
+	[Arguments("true", null, "", "System.Runtime.CompilerServices.ModuleInitializerAttribute", false)]
+	public async Task ModuleInitializerPolyfill_WithTUnit_ShouldFollowItsBuildProperties(string? sourceGeneration,
+		string? polyfills, string? polySharpIncluded, string? polySharpExcluded, bool expectPolyfill)
+	{
+		// The attribute in two references is ambiguous, so the compilation lacks it like on .NET Framework.
+		MetadataReference first = ExternalAssembly.Compile(ModuleInitializerAttributeSource, "First");
+		MetadataReference second = ExternalAssembly.Compile(ModuleInitializerAttributeSource, "Second");
+		Dictionary<string, string> options = new();
+		AddIfNotNull("build_property.EnableTUnitSourceGeneration", sourceGeneration);
+		AddIfNotNull("build_property.EnableTUnitPolyfills", polyfills);
+		AddIfNotNull("build_property.PolySharpIncludeGeneratedTypes", polySharpIncluded);
+		AddIfNotNull("build_property.PolySharpExcludeGeneratedTypes", polySharpExcluded);
+
+		// The compilation references the TUnit of this test project, whose generator declares the attribute.
+		GeneratorResult result = Generator.RunWithReferences($$"""
+		                                                       #nullable enable
+		                                                       namespace MyCode
+		                                                       {
+		                                                           public interface IDep { int Get(); }
+
+		                                                           public class Program
+		                                                           {
+		                                                               [Data]
+		                                                               public static object Test(IDep dep) => dep;
+
+		                                                               public static void Main(string[] args)
+		                                                               {
+		                                                               }
+		                                                           }
+		                                                       }
+
+		                                                       {{DataAttribute}}
+		                                                       """, [first, second,], options, typeof(global::TUnit.Core.TestAttribute));
+
+		await That(result.Sources["MockDataSources.g.cs"].Contains("internal sealed class ModuleInitializerAttribute"))
+			.IsEqualTo(expectPolyfill);
+
+		void AddIfNotNull(string key, string? value)
+		{
+			if (value is not null)
+			{
+				options[key] = value;
+			}
+		}
 	}
 
 	[Test]
@@ -1003,7 +1061,7 @@ public sealed class MockDataSourcesTests
 		                                                           public struct Container
 		                                                           {
 		                                                               [System.AttributeUsage(System.AttributeTargets.Method)]
-		                                                               public sealed class NestedDataAttribute : System.Attribute, Mockolate.IMockDataSource;
+		                                                               public sealed class NestedDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource;
 		                                                           }
 		                                                       }
 		                                                       """);

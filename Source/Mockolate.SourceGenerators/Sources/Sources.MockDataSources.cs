@@ -72,7 +72,7 @@ internal static partial class Sources
 			.AppendLine();
 		sb.Append("#pragma warning restore CA2255, CS0436").AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\tprivate static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, out object? value)")
+		sb.Append("\t\tprivate static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve, out object? value)")
 			.AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		for (int i = 0; i < classArray.Length; i++)
@@ -129,7 +129,7 @@ internal static partial class Sources
 			bool closesCycle = cyclicDependencies.Any(dependency => dependency.Item1 == i);
 			sb.AppendLine();
 			sb.Append("\t\tprivate static ").Append(dataSourceClass.ClassFullName).Append(" Create").Append(i)
-				.Append("(global::Mockolate.MockBehavior? behavior, global::Mockolate.MockArgumentResolver resolve, CreationPath? path)")
+				.Append("(global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve, CreationPath? path)")
 				.AppendLine();
 			sb.Append("\t\t{").AppendLine();
 			if (closesCycle)

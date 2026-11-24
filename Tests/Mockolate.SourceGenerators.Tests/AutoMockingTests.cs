@@ -108,7 +108,7 @@ public sealed class AutoMockingTests
 			    }
 
 			    [AttributeUsage(AttributeTargets.Method)]
-			    public sealed class DataAttribute : Attribute, IMockDataSource;
+			    public sealed class DataAttribute : Attribute, Mockolate.Internals.IMockDataSource;
 
 			    public static class Tests
 			    {

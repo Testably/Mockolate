@@ -15,6 +15,16 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
 	</ItemGroup>
 
+	<!-- The oldest versions of the test frameworks that the generated AutoMockArguments attributes support, which
+	     TestFrameworkCompatibilityTests compiles against. -->
+	<ItemGroup>
+		<PackageDownload Include="TUnit.Core" Version="[1.0.0]"/>
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>NuGetPackageRoot</_Parameter1>
+			<_Parameter2>$(NuGetPackageRoot)</_Parameter2>
+		</AssemblyAttribute>
+	</ItemGroup>
+
 	<!-- net10.0 runs the generator in the oldest compiler it must load in, which predates C# 15. -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
 		<PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="all" VersionOverride="$(MinimumRoslynVersion)"/>

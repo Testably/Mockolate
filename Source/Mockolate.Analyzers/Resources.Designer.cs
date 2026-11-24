@@ -339,7 +339,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to A parameter of a method, constructor or type with an attribute that implements Mockolate.IMockDataSource asks for a mock or an instance with mocked dependencies, but Mockolate cannot create its type, so the data source cannot fill it..
+        ///   Looks up a localized string similar to A parameter of a method, constructor or type with an attribute that implements Mockolate.Internals.IMockDataSource asks for a mock or an instance with mocked dependencies, but Mockolate cannot create its type, so the data source cannot fill it..
         /// </summary>
         internal static string Mockolate0010Description {
             get {
