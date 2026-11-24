@@ -20,6 +20,7 @@
 		<Project Path="Tests/Mockolate.TUnit.Tests/Mockolate.TUnit.Tests.csproj" />
 		<Project Path="Tests/Mockolate.Xunit.Tests/Mockolate.Xunit.Tests.csproj" />
 		<Project Path="Tests/Mockolate.Xunit2.Tests/Mockolate.Xunit2.Tests.csproj" />
+		<Project Path="Tests/Mockolate.NUnit.Tests/Mockolate.NUnit.Tests.csproj" />
 	</Folder>
 	<Folder Name="/Tests/Aot/">
 		<File Path="Tests/Aot/Directory.Build.props" />

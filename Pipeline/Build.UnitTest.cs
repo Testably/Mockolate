@@ -26,6 +26,7 @@ partial class Build
 		Solution.Tests.Mockolate_TUnit_Tests,
 		Solution.Tests.Mockolate_Xunit_Tests,
 		Solution.Tests.Mockolate_Xunit2_Tests,
+		Solution.Tests.Mockolate_NUnit_Tests,
 	];
 
 	Target DotNetUnitTests => _ => _

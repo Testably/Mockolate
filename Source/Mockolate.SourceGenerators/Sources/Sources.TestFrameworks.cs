@@ -82,6 +82,93 @@ internal static partial class Sources
 		   			_isTransient = new bool?[types.Length];
 		   		}
 
+		   		/// <summary>
+		   		///     The name of a test case. It only contains the given arguments, because formatting a mock would call its
+		   		///     members before the test starts.
+		   		/// </summary>
+		   		public static string GetDisplayName(string name, object?[] arguments)
+		   		{
+		   			if (arguments.Length == 0)
+		   			{
+		   				return name;
+		   			}
+
+		   			return $"{name}({string.Join(", ", global::System.Array.ConvertAll(arguments, FormatValue))})";
+		   		}
+
+		   		private static string FormatValue(object? value)
+		   		{
+		   			global::System.Globalization.CultureInfo culture = global::System.Globalization.CultureInfo.InvariantCulture;
+		   			switch (value)
+		   			{
+		   				case null:
+		   					return "null";
+		   				case string text:
+		   					return $"\"{Escape(text, '"')}\"";
+		   				case char character:
+		   					return $"'{Escape(character.ToString(), '\'')}'";
+		   				case bool flag:
+		   					return flag ? "true" : "false";
+		   				case long number:
+		   					return number.ToString(culture) + "L";
+		   				case ulong number:
+		   					return number.ToString(culture) + "UL";
+		   				case uint number:
+		   					return number.ToString(culture) + "U";
+		   				case float number:
+		   					return number.ToString("R", culture) + "F";
+		   				case double number:
+		   					return number.ToString("R", culture) + "D";
+		   				case decimal number:
+		   					return number.ToString(culture) + "M";
+		   				case global::System.Array array:
+		   					string[] items = new string[array.Length];
+		   					for (int index = 0; index < items.Length; index++)
+		   					{
+		   						items[index] = FormatValue(array.GetValue(index));
+		   					}
+
+		   					return $"[{string.Join(", ", items)}]";
+		   				case global::System.IFormattable formattable:
+		   					return formattable.ToString(null, culture);
+		   				default:
+		   					return value.ToString() ?? "null";
+		   			}
+		   		}
+
+		   		private static string Escape(string text, char quote)
+		   		{
+		   			global::System.Text.StringBuilder builder = new global::System.Text.StringBuilder(text.Length);
+		   			foreach (char character in text)
+		   			{
+		   				switch (character)
+		   				{
+		   					case '\\': builder.Append("\\\\"); break;
+		   					case '\0': builder.Append("\\0"); break;
+		   					case '\n': builder.Append("\\n"); break;
+		   					case '\r': builder.Append("\\r"); break;
+		   					case '\t': builder.Append("\\t"); break;
+		   					default:
+		   						if (character == quote)
+		   						{
+		   							builder.Append('\\').Append(character);
+		   						}
+		   						else if (char.IsControl(character))
+		   						{
+		   							builder.Append("\\u").Append(((int)character).ToString("x4", global::System.Globalization.CultureInfo.InvariantCulture));
+		   						}
+		   						else
+		   						{
+		   							builder.Append(character);
+		   						}
+
+		   						break;
+		   				}
+		   			}
+
+		   			return builder.ToString();
+		   		}
+
 		   		public object?[] Create()
 		   		{
 		   			for (int index = 0; index < _arguments.Length; index++)
@@ -212,7 +299,7 @@ internal static partial class Sources
 			   		public override global::System.Collections.Generic.IEnumerable<object[]> GetData(
 			   			global::System.Reflection.MethodInfo testMethod)
 			   		{
-			   			yield return CreateArguments(testMethod.GetParameters())!;
+			   			yield return CreateArguments(testMethod.GetParameters(), Arguments)!;
 			   		}
 			   """);
 
@@ -228,7 +315,7 @@ internal static partial class Sources
 			   		{
 			   			// Like xUnit's InlineData, the row takes every setting of the attribute that the version of xUnit knows.
 			   			return new global::System.Threading.Tasks.ValueTask<global::System.Collections.Generic.IReadOnlyCollection<global::Xunit.ITheoryDataRow>>(
-			   				new global::Xunit.ITheoryDataRow[] { ConvertDataRow(CreateArguments(testMethod.GetParameters())), });
+			   				new global::Xunit.ITheoryDataRow[] { ConvertDataRow(CreateArguments(testMethod.GetParameters(), Arguments)), });
 			   		}
 
 			   		/// <summary>
@@ -239,18 +326,116 @@ internal static partial class Sources
 			   """);
 
 	/// <summary>
+	///     The <c>AutoMockArguments</c> attribute for NUnit, which replaces <c>[Test]</c> like <c>[TestCase]</c> does.
+	/// </summary>
+	/// <remarks>
+	///     NUnit builds the test cases during discovery and keeps their arguments, so the attribute only reserves them there
+	///     and creates them before every run, also of a repeated or retried test.
+	/// </remarks>
+	public static string AutoMockArgumentsForNUnit()
+		=> AutoMockArgumentsAttribute("MOCKOLATE_NUNIT", "NUnit", "NUnit runs a test on a thread of its own,",
+			"global::NUnit.Framework.NUnitAttribute, global::NUnit.Framework.Interfaces.ITestBuilder, global::NUnit.Framework.Interfaces.IImplyFixture, global::NUnit.Framework.Interfaces.IWrapSetUpTearDown",
+			ParameterInfoArguments + """
+			   		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<object?[], PendingArguments> Pending = new();
+
+			   		/// <inheritdoc />
+			   		public global::System.Collections.Generic.IEnumerable<global::NUnit.Framework.Internal.TestMethod> BuildFrom(
+			   			global::NUnit.Framework.Interfaces.IMethodInfo method, global::NUnit.Framework.Internal.Test? suite)
+			   		{
+			   			global::System.Reflection.ParameterInfo[] parameters = method.MethodInfo.GetParameters();
+			   #if MOCKOLATE_NUNIT4
+			   			// NUnit 4 passes its own token to a last CancellationToken parameter that gets no argument.
+			   			if (parameters.Length > Arguments.Length &&
+			   			    parameters[parameters.Length - 1].ParameterType == typeof(global::System.Threading.CancellationToken))
+			   			{
+			   				global::System.Array.Resize(ref parameters, parameters.Length - 1);
+			   			}
+			   #endif
+			   			global::NUnit.Framework.Internal.TestCaseParameters testCase;
+			   			if (Arguments.Length > parameters.Length)
+			   			{
+			   				testCase = new global::NUnit.Framework.Internal.TestCaseParameters(new global::Mockolate.Exceptions.MockException(
+			   					$"AutoMockArguments has {Arguments.Length} arguments, but the test method has only {parameters.Length} parameters."));
+			   			}
+			   			else
+			   			{
+			   				object?[] reserved = new object?[parameters.Length];
+			   				global::System.Array.Copy(Arguments, reserved, Arguments.Length);
+			   				testCase = new global::NUnit.Framework.Internal.TestCaseParameters(reserved);
+			   			}
+
+			   			// NUnit would read braces in the given arguments as a pattern, so the name is set on the built test.
+			   			testCase.TestName = method.Name;
+			   			global::NUnit.Framework.Internal.TestMethod test =
+			   				new global::NUnit.Framework.Internal.Builders.NUnitTestCaseBuilder().BuildTestMethod(method, suite, testCase);
+			   			test.Name = global::Mockolate.Integrations.AutoMockRow.GetDisplayName(method.Name, Arguments);
+			   			test.FullName = $"{suite?.FullName ?? method.TypeInfo.FullName}.{test.Name}";
+			   			// A test case that is not runnable can share an empty argument array with others.
+			   			Pending.Remove(test.Arguments);
+			   			Pending.Add(test.Arguments, new PendingArguments(parameters, Arguments));
+			   			yield return test;
+			   		}
+
+			   		/// <inheritdoc />
+			   		public global::NUnit.Framework.Internal.Commands.TestCommand Wrap(
+			   			global::NUnit.Framework.Internal.Commands.TestCommand command)
+			   			=> new CreateArgumentsCommand(command);
+
+			   		private sealed class PendingArguments(global::System.Reflection.ParameterInfo[] parameters, object?[] arguments)
+			   		{
+			   			public global::System.Reflection.ParameterInfo[] Parameters { get; } = parameters;
+			   			public object?[] Arguments { get; } = arguments;
+			   			public int Depth { get; set; }
+			   		}
+
+			   		/// <summary>
+			   		///     Creates the arguments of the test before it runs. Every <c>AutoMockArguments</c> attribute on the method wraps
+			   		///     each of its test cases, so only the outermost command of a run creates them.
+			   		/// </summary>
+			   		private sealed class CreateArgumentsCommand(global::NUnit.Framework.Internal.Commands.TestCommand innerCommand)
+			   			: global::NUnit.Framework.Internal.Commands.DelegatingTestCommand(innerCommand)
+			   		{
+			   			/// <inheritdoc />
+			   			public override global::NUnit.Framework.Internal.TestResult Execute(
+			   				global::NUnit.Framework.Internal.TestExecutionContext context)
+			   			{
+			   				if (Test is not global::NUnit.Framework.Internal.TestMethod test ||
+			   				    !Pending.TryGetValue(test.Arguments, out PendingArguments? pending))
+			   				{
+			   					return innerCommand.Execute(context);
+			   				}
+
+			   				if (pending.Depth++ == 0)
+			   				{
+			   					object?[] values = CreateArguments(pending.Parameters, pending.Arguments);
+			   					global::System.Array.Copy(values, test.Arguments, values.Length);
+			   				}
+
+			   				try
+			   				{
+			   					return innerCommand.Execute(context);
+			   				}
+			   				finally
+			   				{
+			   					pending.Depth--;
+			   				}
+			   			}
+			   		}
+			   """);
+
+	/// <summary>
 	///     Creates the arguments from the <see cref="System.Reflection.ParameterInfo" />s of the test method, for the test
 	///     frameworks that provide them.
 	/// </summary>
 	private const string ParameterInfoArguments = """
 	                                              		// The attribute is generated into every test assembly, next to the code that creates the parameters.
-	                                              		private object?[] CreateArguments(global::System.Reflection.ParameterInfo[] parameters)
+	                                              		private static object?[] CreateArguments(global::System.Reflection.ParameterInfo[] parameters, object?[] arguments)
 	                                              			=> new global::Mockolate.Integrations.AutoMockRow(typeof(AutoMockArgumentsAttribute).Assembly,
 	                                              				global::System.Array.ConvertAll(parameters, parameter => parameter.ParameterType),
 	                                              				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
 	                                              				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 	                                              					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
-	                                              				Arguments, DefaultBehavior?.Invoke()).Create();
+	                                              				arguments, DefaultBehavior?.Invoke()).Create();
 
 
 	                                              """;

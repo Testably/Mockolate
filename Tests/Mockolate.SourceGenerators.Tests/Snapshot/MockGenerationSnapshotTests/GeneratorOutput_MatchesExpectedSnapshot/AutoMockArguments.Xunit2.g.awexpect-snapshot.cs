@@ -56,19 +56,19 @@ namespace Mockolate.Integrations.Xunit
 		public static global::System.Func<global::Mockolate.MockBehavior?> DefaultBehavior { get; set; } = static () => null;
 
 		// The attribute is generated into every test assembly, next to the code that creates the parameters.
-		private object?[] CreateArguments(global::System.Reflection.ParameterInfo[] parameters)
+		private static object?[] CreateArguments(global::System.Reflection.ParameterInfo[] parameters, object?[] arguments)
 			=> new global::Mockolate.Integrations.AutoMockRow(typeof(AutoMockArgumentsAttribute).Assembly,
 				global::System.Array.ConvertAll(parameters, parameter => parameter.ParameterType),
 				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
 				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
-				Arguments, DefaultBehavior?.Invoke()).Create();
+				arguments, DefaultBehavior?.Invoke()).Create();
 
 		/// <inheritdoc />
 		public override global::System.Collections.Generic.IEnumerable<object[]> GetData(
 			global::System.Reflection.MethodInfo testMethod)
 		{
-			yield return CreateArguments(testMethod.GetParameters())!;
+			yield return CreateArguments(testMethod.GetParameters(), Arguments)!;
 		}
 	}
 
