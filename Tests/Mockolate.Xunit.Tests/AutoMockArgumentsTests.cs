@@ -109,6 +109,7 @@ public sealed class AutoMockArgumentsTests
 	{
 		await That(type).IsEqualTo("Dark\n");
 		await That(amount).IsEqualTo(4);
+		await That(stock.ToString()).IsEqualTo("Mockolate.TUnit.Tests.Domain.IChocolateStock mock");
 		await That(TestContext.Current.Test?.TestDisplayName).IsEqualTo(
 			"Mockolate.Xunit.Tests.AutoMockArgumentsTests.DisplayName_ShouldDescribeTheMocks(type: \"Dark\\n\", amount: 4, stock: Mockolate.TUnit.Tests.Domain.IChocolateStock mock)");
 	}
@@ -116,17 +117,20 @@ public sealed class AutoMockArgumentsTests
 	[Theory]
 	[AutoMockArguments(Traits = ["Category", "Chocolate",])]
 	public async Task Traits_ShouldApplyToTheTestCase(IChocolateStock stock)
-		=> await That(TestContext.Current.Test?.Traits["Category"]).IsEqualTo(["Chocolate",]);
+	{
+		await That(stock).IsNotNull();
+		await That(TestContext.Current.Test?.Traits["Category"]).IsEqualTo(["Chocolate",]);
+	}
 
 	[Theory]
 	[AutoMockArguments(Explicit = true)]
 	public void Explicit_ShouldNotRunByDefault(IChocolateStock stock)
-		=> throw new InvalidOperationException("An explicit test case ran.");
+		=> throw new InvalidOperationException($"An explicit test case ran with {stock}.");
 
 	[Theory]
 	[AutoMockArguments(Skip = "The attribute skips it.")]
 	public void Skip_ShouldSkipTheTestCase(IChocolateStock stock)
-		=> throw new InvalidOperationException("A skipped test case ran.");
+		=> throw new InvalidOperationException($"A skipped test case ran with {stock}.");
 
 	[Theory]
 	[InlineData(3)]
