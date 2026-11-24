@@ -73,11 +73,11 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		                          invocation.ArgumentList.Arguments.Any(argument =>
 			                          argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword));
 
-		// If the method resolves to something outside the Mockolate namespace, skip it. A member that hides the overload
-		// for sealed classes, which the generator then does not emit, leaves the call unbound with that member as candidate.
+		// If the method resolves to something outside the Mockolate namespace, skip it, unless a member hides the
+		// overload for sealed classes, which the generator then does not emit.
 		if (method is not null && !IsInMockolateNamespace(method))
 		{
-			if (!isSealedCreateMock || invocationInfo.Symbol is not null)
+			if (!isSealedCreateMock || !IsHiddenSealedCreateMock(context, memberAccess, invocationInfo))
 			{
 				return;
 			}
@@ -98,6 +98,18 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 			AnalyzeImplementing(context, invocation, memberAccess, method, spellings);
 		}
 	}
+
+	/// <summary>
+	///     A hiding member leaves the call unbound with that member as candidate. A candidate with an out parameter is
+	///     more likely a method of the user that the call targets, so only a receiver with a hiding member counts.
+	/// </summary>
+	private static bool IsHiddenSealedCreateMock(SyntaxNodeAnalysisContext context,
+		MemberAccessExpressionSyntax memberAccess, SymbolInfo invocationInfo)
+		=> invocationInfo.Symbol is null &&
+		   !invocationInfo.CandidateSymbols.OfType<IMethodSymbol>()
+			   .Any(candidate => candidate.Parameters.Any(parameter => parameter.RefKind == RefKind.Out)) &&
+		   context.SemanticModel.GetSymbolInfo(memberAccess.Expression).Symbol is INamedTypeSymbol receiver &&
+		   ConstructorRules.HasMemberNamedCreateMock(receiver);
 
 	private static void AnalyzeCreateMock(SyntaxNodeAnalysisContext context,
 		MemberAccessExpressionSyntax memberAccess,

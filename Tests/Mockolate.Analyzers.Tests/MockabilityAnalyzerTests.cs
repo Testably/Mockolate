@@ -429,20 +429,50 @@ public class MockabilityAnalyzerTests
 			  	public class Base { {{member}} }
 			  	public sealed class MySealedClass(int value) : Base;
 
-			  	public static class MockExtensions
-			  	{
-			  		extension(MySealedClass)
-			  		{
-			  			public static MySealedClass CreateMock(out ConstructorArguments arguments)
-			  				=> throw new System.NotImplementedException();
-			  		}
-			  	}
-
 			  	public class Tests
 			  	{
 			  		public void Test()
 			  		{
 			  			_ = MySealedClass.CreateMock(out ConstructorArguments arguments);
+			  		}
+			  	}
+			  }
+
+			  namespace Mockolate
+			  {
+			  	public static class MockExtensions
+			  	{
+			  		extension(MyNamespace.MySealedClass)
+			  		{
+			  			public static MyNamespace.MySealedClass CreateMock(out ConstructorArguments arguments)
+			  				=> throw new System.NotImplementedException();
+			  		}
+			  	}
+			  }
+			  """);
+
+	[Test]
+	[Arguments("public class Factory { public static int CreateMock(out int value, int seed) { value = seed; return seed; } }",
+		"out int x")]
+	[Arguments("public static class Factory { public static int CreateMock(out int value, int seed) { value = seed; return seed; } }",
+		"out int x")]
+	[Arguments("public class Factory { public static int CreateMock(out int value) { value = 0; return 0; } }",
+		"out string x")]
+	[Arguments("public sealed class Factory(int v) { public static int CreateMock(out int value, int seed) { value = seed; return seed; } }",
+		"out int x")]
+	public async Task WhenCallingOwnCreateMockWithOutParameterThatDoesNotBind_ShouldNotBeFlagged(string declaration,
+		string argument)
+		=> await Verifier.VerifyAnalyzerAsync(
+			$$"""
+			  namespace MyNamespace
+			  {
+			  	{{declaration}}
+
+			  	public class Tests
+			  	{
+			  		public void Test()
+			  		{
+			  			_ = Factory.CreateMock({{argument}});
 			  		}
 			  	}
 			  }
@@ -459,20 +489,23 @@ public class MockabilityAnalyzerTests
 				public interface IDependency { }
 				public sealed class MySealedClass(IDependency dependency);
 
-				public static class MockExtensions
-				{
-					extension(MySealedClass)
-					{
-						public static MySealedClass CreateMock(out ConstructorArguments arguments)
-							=> throw new System.NotImplementedException();
-					}
-				}
-
 				public class Tests
 				{
 					public void Test()
 					{
 						_ = MySealedClass.CreateMock(out ConstructorArguments arguments);
+					}
+				}
+			}
+
+			namespace Mockolate
+			{
+				public static class MockExtensions
+				{
+					extension(MyNamespace.MySealedClass)
+					{
+						public static MyNamespace.MySealedClass CreateMock(out ConstructorArguments arguments)
+							=> throw new System.NotImplementedException();
 					}
 				}
 			}
