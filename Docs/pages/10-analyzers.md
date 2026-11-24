@@ -44,6 +44,7 @@ The included code fix adds the `.AtLeastOnce()` count assertion.
 This rule prevents you from mocking unsupported types:
 
 - `CreateMock()`: the type must be an interface, a delegate or a class that can be derived from (e.g. not `sealed`).
+- `CreateMock(out ConstructorArguments arguments)`: the type must be a sealed class or a record with a single accessible constructor with the most parameters. It must not be generic, obsolete, file-local, abstract or in the `System`, `Microsoft` or `Windows` namespaces.
 - `Implementing<T>()`: the type must be an interface.
 
 It also fires when the type has a member that the mock would have to implement (an abstract member, or an interface
@@ -256,7 +257,7 @@ public class ChocolateTests<TFlavor>
 }
 ```
 
-The rule fires for a type parameter or a type that contains one, a type that the generated code cannot access, a file-local, obsolete or experimental type, a type nested in a generic type, an interface, delegate or abstract class that cannot be mocked (see [Mockolate0002](#mockolate0002)), has static abstract members or a member its mock cannot implement or, for an abstract class, has no public or protected constructor that can be called without arguments, a type argument or array element that the generated code cannot use, and a generic class or a class without a single accessible constructor with the most parameters. Types of the `System`, `Microsoft` and `Windows` namespaces are never reported, because the test framework often passes them as arguments. For a reported parameter whose type the generated factory can name, a default value generator of the behavior can still provide a value.
+The rule fires for a type parameter or a type that contains one, a type that the generated code cannot access, a file-local, obsolete or experimental type, a type nested in a generic type, an interface, delegate or abstract class that cannot be mocked (see [Mockolate0002](#mockolate0002)), has static abstract members or a member its mock cannot implement or, for an abstract class, has neither a public or protected constructor that can be called without arguments nor a single one with the most parameters, a type argument or array element that the generated code cannot use, and a generic class or a class without a single accessible constructor with the most parameters. Types of the `System`, `Microsoft` and `Windows` namespaces are never reported, because the test framework often passes them as arguments. For a reported parameter whose type the generated factory can name, a default value generator of the behavior can still provide a value.
 
 ## Explicit types for union parameters
 

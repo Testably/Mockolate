@@ -164,13 +164,14 @@ internal static partial class Sources
 					.Append(".CreateMock(").Append(ForwardingBehavior).Append(", new object?[] { ")
 					.Append(string.Join(", ", parameters.Select((_, index) => $"a{index}"))).Append(", });").AppendLine();
 			}
+
 			sb.Append("\t\t}").AppendLine();
 		}
 
 		sb.AppendLine();
 		// The typed overloads of Generate return an empty collection without asking the generator, so a configured
-		// value is looked up first.
-		sb.Append("\t\tprivate static bool IsValue<T>(global::Mockolate.MockBehavior behavior, T typedDefault, out T result)").AppendLine();
+		// value is looked up first. The typed default only runs without one, so that a configured factory is called once.
+		sb.Append("\t\tprivate static bool IsValue<T>(global::Mockolate.MockBehavior behavior, global::System.Func<T> typedDefault, out T result)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (behavior.DefaultValue.GenerateValue(typeof(T)) is T configured)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -178,8 +179,8 @@ internal static partial class Sources
 		sb.Append("\t\t\t\treturn true;").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\t\tresult = typedDefault;").AppendLine();
-		sb.Append("\t\t\treturn typedDefault is not null || typeof(T).IsValueType;").AppendLine();
+		sb.Append("\t\t\tresult = typedDefault();").AppendLine();
+		sb.Append("\t\t\treturn result is not null || typeof(T).IsValueType;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t/// <summary>").AppendLine();
@@ -244,7 +245,7 @@ internal static partial class Sources
 		}
 
 		static string TryCreateValue(string type, string variable)
-			=> $"IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default({type})!), out {type} {variable})";
+			=> $"IsValue(behavior ?? global::Mockolate.MockBehavior.Default, () => (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default({type})!), out {type} {variable})";
 	}
 
 	/// <summary>

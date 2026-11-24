@@ -52,12 +52,11 @@ internal static class ConstructorRules
 			return "type is declared in the System, Microsoft or Windows namespace";
 		}
 
-		for (INamedTypeSymbol? current = type; current is not null; current = current.BaseType)
+		// Mirror of HasMemberNamedCreateMock in the generator.
+		if (!type.GetMembers("CreateMock").IsEmpty ||
+		    type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty))
 		{
-			if (!current.GetMembers("CreateMock").IsEmpty)
-			{
-				return "type has a member named CreateMock, which would hide the generated extension";
-			}
+			return "type has a member named CreateMock, which would hide the generated extension";
 		}
 
 		return null;

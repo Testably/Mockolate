@@ -223,10 +223,11 @@ internal static partial class Sources
 		}
 		else if (constructors is not null)
 		{
+			int constructorIndex = 0;
 			foreach (Method constructor in constructors)
 			{
 				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, name, constructor, @class,
-					constructorArgumentsName: constructorArgumentsName);
+					recording: GetConstructorRecording(@class, constructorArgumentsName, constructorIndex++));
 				AppendMockSubject_BehaviorBaseClassConstructor(sb, name, constructor, @class.HasRequiredMembers);
 			}
 		}
@@ -1468,17 +1469,43 @@ internal static partial class Sources
 	/// </summary>
 	private static bool CanRecordConstructorArguments(Method constructor)
 		=> constructor.Parameters.Count > 0 &&
-		   constructor.Parameters.All(parameter => !parameter.Type.IsRefStruct &&
-		                                           parameter.RefKind != RefKind.Out &&
-		                                           parameter.Type.Fullname.IndexOf('*') < 0);
+		   constructor.Parameters.All(parameter => !parameter.Type.IsRefStruct && parameter.RefKind != RefKind.Out);
+
+	/// <summary>
+	///     The names of the generated field that records the arguments of the constructors and of the static field that
+	///     describes the parameters of the constructor with the <paramref name="index" />.
+	/// </summary>
+	private static (string Field, string Signature)? GetConstructorRecording(Class @class, string? constructorArgumentsName,
+		int index)
+		=> constructorArgumentsName is null
+			? null
+			: (constructorArgumentsName, @class.GetUniqueName("MockolateConstructorSignature") + index);
 
 	private static void AppendMockSubject_BaseClassConstructor(StringBuilder sb, string mockRegistryName, string name,
-		Method constructor, Class @class, bool setsMockRegistryProvider = false, string? constructorArgumentsName = null)
+		Method constructor, Class @class, bool setsMockRegistryProvider = false,
+		(string Field, string Signature)? recording = null)
 	{
 		string mockRegistry = CreateUniqueParameterName(constructor.Parameters, "mockRegistry");
+		bool records = recording is not null && CanRecordConstructorArguments(constructor);
+		if (records)
+		{
+			// The parameters are described once, so that a construction only allocates the values.
+			sb.Append("\t\tprivate static readonly global::Mockolate.Internals.ConstructorSignature ")
+				.Append(recording!.Value.Signature).Append(" = new global::Mockolate.Internals.ConstructorSignature(\"")
+				.Append(@class.DisplayString).Append('(')
+				.Append(string.Join(", ", constructor.Parameters.Select(parameter => parameter.Type.DisplayName)))
+				.Append(")\", new string[] { ")
+				.Append(string.Join(", ", constructor.Parameters.Select(parameter => $"\"{parameter.Name.TrimStart('@')}\"")))
+				.Append(", }, new global::System.Type[] { ")
+				.Append(string.Join(", ", constructor.Parameters.Select(parameter =>
+					$"typeof({(parameter.Type.IsValueType ? parameter.Type.Fullname : parameter.Type.Fullname.TrimEnd('?'))})")))
+				.Append(", });").AppendLine();
+			sb.AppendLine();
+		}
+
 		sb.Append("\t\t/// <inheritdoc cref=\"").Append(name).Append("\" />").AppendLine();
 		sb.Append(constructor.Attributes, "\t\t");
-		if (@class.HasRequiredMembers &&constructor.Attributes?.Any(a => a.Name == "global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers") != true)
+		if (@class.HasRequiredMembers && constructor.Attributes?.Any(a => a.Name == "global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers") != true)
 		{
 			sb.Append("\t\t[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]").AppendLine();
 		}
@@ -1520,17 +1547,10 @@ internal static partial class Sources
 			sb.Append("\t\t\tMockRegistryProvider.Value = ").Append(mockRegistry).Append(';').AppendLine();
 		}
 
-		if (constructorArgumentsName is not null && CanRecordConstructorArguments(constructor))
+		if (records)
 		{
-			sb.Append("\t\t\tthis.").Append(constructorArgumentsName).Append(" = new global::Mockolate.ConstructorArguments(\"")
-				.Append(@class.DisplayString).Append('(')
-				.Append(string.Join(", ", constructor.Parameters.Select(parameter => parameter.Type.DisplayName)))
-				.Append(")\", new string[] { ")
-				.Append(string.Join(", ", constructor.Parameters.Select(parameter => $"\"{parameter.Name.TrimStart('@')}\"")))
-				.Append(", }, new global::System.Type[] { ")
-				.Append(string.Join(", ", constructor.Parameters.Select(parameter =>
-					$"typeof({(parameter.Type.IsValueType ? parameter.Type.Fullname : parameter.Type.Fullname.TrimEnd('?'))})")))
-				.Append(", }, new object?[] { ")
+			sb.Append("\t\t\tthis.").Append(recording!.Value.Field).Append(" = ").Append(recording.Value.Signature)
+				.Append(".Record(new object?[] { ")
 				.Append(string.Join(", ", constructor.Parameters.Select(parameter => parameter.Name)))
 				.Append(", });").AppendLine();
 		}
@@ -7396,7 +7416,7 @@ internal static partial class Sources
 			}
 			else
 			{
-				sb.Append("global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(").Append(parameter.Type.Fullname).Append(")!));").AppendLine();
+				sb.Append("global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(").Append(parameter.Type.Fullname).Append(")!));").AppendLine();
 				if (!parameter.Type.IsValueType)
 				{
 					sb.Append(indent).Append("if (").Append(name).Append(" is null)").AppendLine();

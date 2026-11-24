@@ -468,4 +468,89 @@ public class MockabilityAnalyzerTests
 				.WithArguments("MyNamespace.MyClass",
 					"CreateMock(out ...) is only for sealed classes and records; use CreateMock() and Mock.ConstructorArgument<T>()")
 		);
+
+	[Test]
+	public async Task WhenPassingTheOutArgumentByNameLater_ShouldAnalyzeTheSealedOverload() => await Verifier
+		.VerifyAnalyzerAsync(
+			"""
+			using Mockolate;
+
+			namespace MyNamespace
+			{
+				public class MyClass;
+
+				public class Tests
+				{
+					public void Test()
+					{
+						_ = {|#0:MyClass|}.CreateMock(mockBehavior: null, constructorArguments: out ConstructorArguments arguments);
+					}
+				}
+			}
+			""",
+			Verifier.Diagnostic(Rules.MockabilityRule).WithLocation(0)
+				.WithArguments("MyNamespace.MyClass",
+					"CreateMock(out ...) is only for sealed classes and records; use CreateMock() and Mock.ConstructorArgument<T>()")
+		);
+
+	[Test]
+	[Arguments("public abstract record MyType(int Value);", "MyType", "MyNamespace.MyType", "type is static or abstract")]
+	[Arguments("public sealed class MyType<T>(T value);", "MyType<int>", "MyNamespace.MyType<int>",
+		"type is generic or nested in a generic type")]
+	[Arguments("public class Outer<T> { public sealed class MyType(int value); }", "Outer<int>.MyType",
+		"MyNamespace.Outer<int>.MyType", "type is generic or nested in a generic type")]
+	[Arguments("internal class Outer { private sealed class MyType(int value); public static void Use() => _ = {|#0:MyType|}.CreateMock(out ConstructorArguments arguments); }",
+		null, "MyNamespace.Outer.MyType", "type is not accessible from the generated code")]
+	[Arguments("[System.Obsolete] public sealed class MyType(int value);", "MyType", "MyNamespace.MyType",
+		"type is obsolete or experimental")]
+	[Arguments("public interface ICreator { void CreateMock(); } public sealed class MyType(int value) : ICreator { void ICreator.CreateMock() { } }",
+		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
+	[Arguments("public sealed class MyType { public MyType(int value) { } public MyType(string text) { } }", "MyType",
+		"MyNamespace.MyType", "type has no single accessible constructor with the most parameters that Mockolate can call")]
+	[Arguments("public sealed class MyType(int value) { public required int Other { get; init; } }", "MyType",
+		"MyNamespace.MyType", "type has no single accessible constructor with the most parameters that Mockolate can call")]
+	public async Task WhenCreatingSealedClassThatCannotBeCreated_ShouldBeFlagged(string declaration, string? receiver,
+		string typeName, string reason) => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  using Mockolate;
+
+			  namespace MyNamespace
+			  {
+			  	{{declaration}}
+
+			  	public class Tests
+			  	{
+			  		public void Test()
+			  		{
+			  			{{(receiver is null ? "" : $"_ = {{|#0:{receiver}|}}.CreateMock(out ConstructorArguments arguments);")}}
+			  		}
+			  	}
+			  }
+			  """,
+			Verifier.Diagnostic(Rules.MockabilityRule).WithLocation(0).WithArguments(typeName, reason)
+		);
+
+	[Test]
+	public async Task WhenCreatingSealedClassInFrameworkNamespace_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			"""
+			using Mockolate;
+
+			namespace System.Chocolate
+			{
+				public sealed class MyType(int value);
+
+				public class Tests
+				{
+					public void Test()
+					{
+						_ = {|#0:MyType|}.CreateMock(out ConstructorArguments arguments);
+					}
+				}
+			}
+			""",
+			Verifier.Diagnostic(Rules.MockabilityRule).WithLocation(0)
+				.WithArguments("System.Chocolate.MyType", "type is declared in the System, Microsoft or Windows namespace")
+		);
 }

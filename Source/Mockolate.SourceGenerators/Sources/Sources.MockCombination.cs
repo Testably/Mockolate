@@ -192,10 +192,12 @@ internal static partial class Sources
 
 		if (!@class.IsInterface && constructors is not null)
 		{
+			int constructorIndex = 0;
 			foreach (Method constructor in constructors)
 			{
 				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, fileName, constructor, @class,
-					hasAnyStaticMembers || hasAnyStaticEvents, constructorArgumentsName);
+					hasAnyStaticMembers || hasAnyStaticEvents,
+					GetConstructorRecording(@class, constructorArgumentsName, constructorIndex++));
 			}
 		}
 		else

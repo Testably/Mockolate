@@ -89,8 +89,11 @@ public class GeneralTests
 			          			: base(mockRegistry)
 			          		{
 			          			this.MockRegistry = mockRegistry_1;
-			          			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("MyCode.MyClass(int)", new string[] { "mockRegistry", }, new global::System.Type[] { typeof(int), }, new object?[] { mockRegistry, });
+			          			this.MockolateConstructorArguments = MockolateConstructorSignature0.Record(new object?[] { mockRegistry, });
 			          		}
+			          """).And
+			.Contains("""
+			          		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature0 = new global::Mockolate.Internals.ConstructorSignature("MyCode.MyClass(int)", new string[] { "mockRegistry", }, new global::System.Type[] { typeof(int), });
 			          """);
 	}
 

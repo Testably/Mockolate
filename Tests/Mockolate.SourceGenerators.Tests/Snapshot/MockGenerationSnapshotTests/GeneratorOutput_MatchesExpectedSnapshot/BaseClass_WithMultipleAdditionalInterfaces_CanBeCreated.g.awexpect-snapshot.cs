@@ -138,13 +138,15 @@ internal static partial class Mock
 		{
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature1 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new global::System.Type[] { typeof(int), typeof(string), });
+
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 		public ComprehensiveAbstractClass(global::Mockolate.Internals.MockRegistry mockRegistry, int v, string text = "x")
 			: base(v, text)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new global::System.Type[] { typeof(int), typeof(string), }, new object?[] { v, text, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature1.Record(new object?[] { v, text, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
@@ -154,13 +156,15 @@ internal static partial class Mock
 		{
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature2 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new global::System.Type[] { typeof(int), typeof(bool), });
+
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 		public ComprehensiveAbstractClass(global::Mockolate.Internals.MockRegistry mockRegistry_1, int mockRegistry, bool _)
 			: base(mockRegistry, _)
 		{
 			this.MockRegistry = mockRegistry_1;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new global::System.Type[] { typeof(int), typeof(bool), }, new object?[] { mockRegistry, _, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature2.Record(new object?[] { mockRegistry, _, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
@@ -170,13 +174,15 @@ internal static partial class Mock
 		{
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature3 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new global::System.Type[] { typeof(string), });
+
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 		public ComprehensiveAbstractClass(global::Mockolate.Internals.MockRegistry mockRegistry, string name)
 			: base(name)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new global::System.Type[] { typeof(string), }, new object?[] { name, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature3.Record(new object?[] { name, });
 		}
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass" />
@@ -1335,14 +1341,18 @@ internal static partial class Mock
 			this.MockRegistry = mockRegistry;
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature1 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new global::System.Type[] { typeof(int), typeof(string), });
+
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 		public ComprehensiveAbstractClass__ICombinationMockA(global::Mockolate.Internals.MockRegistry mockRegistry, int v, string text = "x")
 			: base(v, text)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new global::System.Type[] { typeof(int), typeof(string), }, new object?[] { v, text, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature1.Record(new object?[] { v, text, });
 		}
+
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature2 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new global::System.Type[] { typeof(int), typeof(bool), });
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -1350,8 +1360,10 @@ internal static partial class Mock
 			: base(mockRegistry, _)
 		{
 			this.MockRegistry = mockRegistry_1;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new global::System.Type[] { typeof(int), typeof(bool), }, new object?[] { mockRegistry, _, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature2.Record(new object?[] { mockRegistry, _, });
 		}
+
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature3 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new global::System.Type[] { typeof(string), });
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -1359,7 +1371,7 @@ internal static partial class Mock
 			: base(name)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new global::System.Type[] { typeof(string), }, new object?[] { name, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature3.Record(new object?[] { name, });
 		}
 
 		#region Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass
@@ -2011,14 +2023,18 @@ internal static partial class Mock
 			this.MockRegistry = mockRegistry;
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature1 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new global::System.Type[] { typeof(int), typeof(string), });
+
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 		public ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB(global::Mockolate.Internals.MockRegistry mockRegistry, int v, string text = "x")
 			: base(v, text)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, string)", new string[] { "v", "text", }, new global::System.Type[] { typeof(int), typeof(string), }, new object?[] { v, text, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature1.Record(new object?[] { v, text, });
 		}
+
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature2 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new global::System.Type[] { typeof(int), typeof(bool), });
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -2026,8 +2042,10 @@ internal static partial class Mock
 			: base(mockRegistry, _)
 		{
 			this.MockRegistry = mockRegistry_1;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(int, bool)", new string[] { "mockRegistry", "_", }, new global::System.Type[] { typeof(int), typeof(bool), }, new object?[] { mockRegistry, _, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature2.Record(new object?[] { mockRegistry, _, });
 		}
+
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature3 = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new global::System.Type[] { typeof(string), });
 
 		/// <inheritdoc cref="ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB" />
 		[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -2035,7 +2053,7 @@ internal static partial class Mock
 			: base(name)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass(string)", new string[] { "name", }, new global::System.Type[] { typeof(string), }, new object?[] { name, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature3.Record(new object?[] { name, });
 		}
 
 		#region Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass

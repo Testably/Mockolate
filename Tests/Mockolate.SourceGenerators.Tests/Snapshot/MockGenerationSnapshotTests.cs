@@ -154,8 +154,16 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [],
             Snapshot: true,
-            // The mocks are covered by ConstructorDependenciesTests; their full output would only repeat other scenarios.
+            // The mocks are covered by ConstructorDependenciesTests and ConstructorDependencyValues_CanBeCreated.
             SnapshotMocks: false),
+        new(
+            "ConstructorDependencyValues_CanBeCreated",
+            ["ConstructorDependencyTargets.cs",],
+            """
+            ConstructorDependencyValues sut = ConstructorDependencyValues.CreateMock();
+            """,
+            [],
+            Snapshot: true),
         new(
             "MockDataSources_CanBeCreated",
             ["MockDataSourceTargets.cs",],

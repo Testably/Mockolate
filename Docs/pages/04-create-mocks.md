@@ -390,9 +390,9 @@ await That(result).IsEqualTo("Enjoy!");
 dispenser.Mock.Verify.Dispense("Dark", 4).Once();
 ```
 
-Every constructor parameter gets an argument:
+Every constructor parameter gets an argument, by the first rule that applies:
 
-- A **mockable interface** gets a new mock with the same behavior.
+- A **mockable interface** gets a new mock with the same behavior, even when the parameter is optional or nullable.
 - A **`params` parameter** gets an empty collection, and an **optional parameter** its declared default value.
 - A **nullable parameter** gets `null`.
 - **Any other parameter** gets a value from the [default values](#default-values) of the behavior: a value registered with `WithDefaultValueFor` or a default value generator, for example one backed by a library like AutoFixture, and otherwise `""` for a `string`, an empty collection or the default of a value type. Without a value for a reference type, the creation fails with a `MockException`.
@@ -418,7 +418,7 @@ string result = sut.Buy("Dark", 4);
 await That(result).IsEqualTo("Enjoy!");
 ```
 
-The arguments are filled by the same rules. Pass your own by name, and the others are still filled, e.g. `VendingMachine.CreateMock(out _, location: "Lobby")`. A `MockBehavior` passed as `mockBehavior` applies to every new mock and to the default values.
+The arguments are filled by the same rules. Pass your own by name, and the others are still filled, e.g. `VendingMachine.CreateMock(out _, location: "Lobby")`. Passing `null` for a mockable parameter gives it a new mock. A `MockBehavior` passed as `mockBehavior` applies to every new mock and to the default values.
 
 <details>
 <summary>Details and limitations</summary>

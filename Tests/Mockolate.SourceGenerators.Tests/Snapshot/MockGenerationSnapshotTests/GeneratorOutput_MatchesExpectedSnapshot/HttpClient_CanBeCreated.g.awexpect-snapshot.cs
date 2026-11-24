@@ -134,12 +134,14 @@ internal static partial class Mock
 		{
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature1 = new global::Mockolate.Internals.ConstructorSignature("System.Net.Http.HttpClient(HttpMessageHandler)", new string[] { "handler", }, new global::System.Type[] { typeof(global::System.Net.Http.HttpMessageHandler), });
+
 		/// <inheritdoc cref="HttpClient" />
 		public HttpClient(global::Mockolate.Internals.MockRegistry mockRegistry, global::System.Net.Http.HttpMessageHandler handler)
 			: base(handler)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("System.Net.Http.HttpClient(HttpMessageHandler)", new string[] { "handler", }, new global::System.Type[] { typeof(global::System.Net.Http.HttpMessageHandler), }, new object?[] { handler, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature1.Record(new object?[] { handler, });
 		}
 
 		/// <inheritdoc cref="HttpClient" />
@@ -148,12 +150,14 @@ internal static partial class Mock
 		{
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature2 = new global::Mockolate.Internals.ConstructorSignature("System.Net.Http.HttpClient(HttpMessageHandler, bool)", new string[] { "handler", "disposeHandler", }, new global::System.Type[] { typeof(global::System.Net.Http.HttpMessageHandler), typeof(bool), });
+
 		/// <inheritdoc cref="HttpClient" />
 		public HttpClient(global::Mockolate.Internals.MockRegistry mockRegistry, global::System.Net.Http.HttpMessageHandler handler, bool disposeHandler)
 			: base(handler, disposeHandler)
 		{
 			this.MockRegistry = mockRegistry;
-			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("System.Net.Http.HttpClient(HttpMessageHandler, bool)", new string[] { "handler", "disposeHandler", }, new global::System.Type[] { typeof(global::System.Net.Http.HttpMessageHandler), typeof(bool), }, new object?[] { handler, disposeHandler, });
+			this.MockolateConstructorArguments = MockolateConstructorSignature2.Record(new object?[] { handler, disposeHandler, });
 		}
 
 		/// <inheritdoc cref="HttpClient" />

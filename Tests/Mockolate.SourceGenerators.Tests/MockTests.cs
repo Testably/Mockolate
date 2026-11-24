@@ -439,8 +439,8 @@ public sealed partial class MockTests
 			.Contains("""
 			          			if (constructorParameters is null || constructorParameters.Length == 0)
 			          			{
-			          				int d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
-			          				bool d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(bool)!));
+			          				int d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
+			          				bool d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(bool)!));
 			          				mockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, new object?[] { d1, d2, });
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
@@ -448,7 +448,7 @@ public sealed partial class MockTests
 			          			: base(value)
 			          		{
 			          			this.MockRegistry = mockRegistry;
-			          			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("MyCode.MyBaseClass(int)", new string[] { "value", }, new global::System.Type[] { typeof(int), }, new object?[] { value, });
+			          			this.MockolateConstructorArguments = MockolateConstructorSignature0.Record(new object?[] { value, });
 			          		}
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
@@ -456,8 +456,14 @@ public sealed partial class MockTests
 			          			: base(value, flag)
 			          		{
 			          			this.MockRegistry = mockRegistry;
-			          			this.MockolateConstructorArguments = new global::Mockolate.ConstructorArguments("MyCode.MyBaseClass(int, bool)", new string[] { "value", "flag", }, new global::System.Type[] { typeof(int), typeof(bool), }, new object?[] { value, flag, });
+			          			this.MockolateConstructorArguments = MockolateConstructorSignature1.Record(new object?[] { value, flag, });
 			          		}
+			          """).IgnoringNewlineStyle().And
+			.Contains("""
+			          		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature0 = new global::Mockolate.Internals.ConstructorSignature("MyCode.MyBaseClass(int)", new string[] { "value", }, new global::System.Type[] { typeof(int), });
+			          """).IgnoringNewlineStyle().And
+			.Contains("""
+			          		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature1 = new global::Mockolate.Internals.ConstructorSignature("MyCode.MyBaseClass(int, bool)", new string[] { "value", "flag", }, new global::System.Type[] { typeof(int), typeof(bool), });
 			          """).IgnoringNewlineStyle();
 	}
 

@@ -387,7 +387,8 @@ internal static partial class MockGeneratorHelpers
 	}
 
 	/// <summary>
-	///     A <c>T.CreateMock(out ...)</c> call, the overload for classes that cannot be mocked.
+	///     A <c>T.CreateMock(out ...)</c> call, the overload for classes that cannot be mocked. It is the only overload
+	///     with an <see langword="out" /> parameter, which a named argument can pass at any position.
 	/// </summary>
 	internal static bool IsSealedCreateMockInvocation(this SyntaxNode node)
 		=> node is InvocationExpressionSyntax
@@ -395,7 +396,7 @@ internal static partial class MockGeneratorHelpers
 			   Expression: MemberAccessExpressionSyntax { Name: IdentifierNameSyntax { Identifier.ValueText: "CreateMock", }, },
 			   ArgumentList.Arguments: { Count: > 0, } arguments,
 		   } &&
-		   arguments[0].RefKindKeyword.IsKind(SyntaxKind.OutKeyword);
+		   arguments.Any(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword));
 
 	/// <summary>
 	///     The sealed class or record of the <c>T.CreateMock(out ...)</c> call <paramref name="node" />.

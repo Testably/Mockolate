@@ -68,8 +68,8 @@ internal static partial class Sources
 			sb.Append(", ");
 			if (parameter is { IsMockable: false, IsParams: false, DefaultValue: { } defaultValue, } && defaultValue != "null")
 			{
-				sb.Append(parameter.TypeFullName).Append(' ').Append(Helpers.EscapeIfKeyword(parameter.Name))
-					.Append(" = ").Append(defaultValue);
+				sb.Append(parameter.IsNullable ? NullableName(parameter.TypeFullName) : parameter.TypeFullName).Append(' ')
+					.Append(Helpers.EscapeIfKeyword(parameter.Name)).Append(" = ").Append(defaultValue);
 			}
 			else
 			{
@@ -93,13 +93,13 @@ internal static partial class Sources
 		}
 
 		string locals = string.Join(", ", parameters.Select((_, index) => $"{local}{index}"));
-		sb.Append("\t\t\t\t").Append(arguments).Append(" = new global::Mockolate.ConstructorArguments(\"").Append(className).Append('(')
+		sb.Append("\t\t\t\t").Append(arguments).Append(" = new global::Mockolate.Internals.ConstructorSignature(\"").Append(className).Append('(')
 			.Append(string.Join(", ", parameters.Select(parameter => parameter.TypeFullName.Replace("global::", ""))))
 			.Append(")\", new string[] { ")
 			.Append(string.Join(", ", parameters.Select(parameter => $"\"{parameter.Name}\"")))
 			.Append(" }, new global::System.Type[] { ")
 			.Append(string.Join(", ", parameters.Select(parameter => $"typeof({parameter.TypeFullName})")))
-			.Append(" }, new object?[] { ").Append(locals).Append(" });").AppendLine();
+			.Append(" }).Record(new object?[] { ").Append(locals).Append(" });").AppendLine();
 		sb.Append("\t\t\t\treturn new ").Append(sealedClass.ClassFullName).Append('(').Append(locals).Append(");").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
@@ -131,7 +131,7 @@ internal static partial class Sources
 		string lastResort = parameter.IsMockedLast
 			? $"{parameter.TypeFullName}.CreateMock({behavior})"
 			: $"throw new global::Mockolate.Exceptions.MockException(\"There is no argument for the constructor parameter '{parameter.Name}' of {className}. Pass it, or register a default value for its type with WithDefaultValueFor.\")";
-		string generated = $"global::Mockolate.Internals.ConstructorDefaultValue.Get({behavior}, {behavior}.DefaultValue.Generate(default({parameter.TypeFullName})!))";
+		string generated = $"global::Mockolate.Internals.ConstructorDefaultValue.Get({behavior}, () => {behavior}.DefaultValue.Generate(default({parameter.TypeFullName})!))";
 		return $"{name} is {{ }} {value}{index} ? {value}{index} : {generated} is {{ }} {created}{index} ? {created}{index} : {lastResort}";
 	}
 
@@ -142,7 +142,9 @@ internal static partial class Sources
 	{
 		string unique = name;
 		int suffix = 1;
-		while (parameters.Any(parameter => parameter.Name.StartsWith(unique, StringComparison.Ordinal)))
+		// The name is used as it is and with an index appended, so it must not match a parameter in either form.
+		while (parameters.Any(parameter => parameter.Name.StartsWith(unique, StringComparison.Ordinal) &&
+		                                   parameter.Name.Skip(unique.Length).All(char.IsDigit)))
 		{
 			unique = $"{name}_{suffix++}";
 		}

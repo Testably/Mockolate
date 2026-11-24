@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -16,13 +17,14 @@ namespace Mockolate.Internals;
 public static class ConstructorDefaultValue
 {
 	/// <summary>
-	///     The value that the <paramref name="behavior" /> configures for <typeparamref name="T" />, or else the
-	///     <paramref name="typedDefault" />.
+	///     The value that the <paramref name="behavior" /> configures for <typeparamref name="T" />, or else the value of
+	///     the <paramref name="typedDefault" />.
 	/// </summary>
 	/// <remarks>
 	///     The typed <c>Generate</c> overloads return an empty collection without asking the generator, so a configured
-	///     value is looked up first.
+	///     value is looked up first. The <paramref name="typedDefault" /> only runs without one, so that a configured
+	///     factory is called once.
 	/// </remarks>
-	public static T Get<T>(MockBehavior behavior, T typedDefault)
-		=> behavior.DefaultValue.GenerateValue(typeof(T)) is T configured ? configured : typedDefault;
+	public static T Get<T>(MockBehavior behavior, Func<T> typedDefault)
+		=> behavior.DefaultValue.GenerateValue(typeof(T)) is T configured ? configured : typedDefault();
 }

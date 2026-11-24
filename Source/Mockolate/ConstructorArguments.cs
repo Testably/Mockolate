@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using Mockolate.Exceptions;
@@ -23,19 +22,11 @@ public sealed class ConstructorArguments
 	private readonly Type[] _types;
 	private readonly object?[] _values;
 
-	/// <summary>
-	///     The <paramref name="values" /> of the parameters <paramref name="names" /> with the declared
-	///     <paramref name="types" /> of the <paramref name="constructor" />.
-	/// </summary>
-	/// <remarks>
-	///     Public only because the generated code creates it.
-	/// </remarks>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public ConstructorArguments(string constructor, string[] names, Type[] types, object?[] values)
+	internal ConstructorArguments(ConstructorSignature signature, object?[] values)
 	{
-		_constructor = constructor;
-		_names = names;
-		_types = types;
+		_constructor = signature.Constructor;
+		_names = signature.Names;
+		_types = signature.Types;
 		_values = values;
 	}
 

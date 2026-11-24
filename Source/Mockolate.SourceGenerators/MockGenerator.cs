@@ -122,8 +122,8 @@ public class MockGenerator : IIncrementalGenerator
 			.Combine(autoMockingOptions)
 			.Combine(context.CompilationProvider)
 			.Select(static (source, cancellationToken) => source.Left.Right is { } options
-				? DiscoverAutoMocks(source.Left.Left.Left.Left.AddRange(source.Left.Left.Left.Right).AddRange(source.Left.Left.Right), source.Right, options,
-					cancellationToken)
+				? DiscoverAutoMocks(source.Left.Left.Left.Left.AddRange(source.Left.Left.Left.Right)
+					.AddRange(source.Left.Left.Right), source.Right, options, cancellationToken)
 				: new EquatableArray<MockClass>([]));
 
 		// Stable, deduplicated, sorted view across all mocks. Used by every cross-mock stage

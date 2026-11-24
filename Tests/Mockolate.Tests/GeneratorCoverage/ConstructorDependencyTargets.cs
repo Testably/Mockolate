@@ -211,6 +211,22 @@ public sealed class ConstructorDependencySealedRequired(Uri address)
 	public Uri Address { get; } = address;
 }
 
+/// <summary>
+///     A nullable parameter with a default value that is not <see langword="null" /> still accepts <see langword="null" />.
+/// </summary>
+public sealed class ConstructorDependencySealedNullableDefault(string? title = "Dark")
+{
+	public string? Title { get; } = title;
+}
+
+/// <summary>
+///     Only created by a call that passes the <see langword="out" /> argument by name after another argument.
+/// </summary>
+public sealed class ConstructorDependencySealedNamed(IConstructorDependency dependency)
+{
+	public IConstructorDependency Dependency { get; } = dependency;
+}
+
 public interface IConstructorBaseDependency;
 
 public interface IConstructorDerivedDependency : IConstructorBaseDependency;

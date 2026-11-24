@@ -57,6 +57,48 @@ public sealed class ConstructorDependencyTests
 	}
 
 	[Test]
+	public async Task CreateMock_WithDefaultValueFactory_ShouldCallItOncePerParameter()
+	{
+		int calls = 0;
+
+		ConstructorDependencyValues sut = ConstructorDependencyValues.CreateMock(MockBehavior.Default
+			.WithDefaultValueFor<int>(() => ++calls));
+
+		await That(sut.Number).IsEqualTo(1);
+		await That(calls).IsEqualTo(1);
+	}
+
+	[Test]
+	public async Task CreateMock_WithOutParameterAndDefaultValueFactory_ShouldCallItOncePerParameter()
+	{
+		int calls = 0;
+
+		ConstructorDependencySealed sut = ConstructorDependencySealed.CreateMock(out _, MockBehavior.Default
+			.WithDefaultValueFor<int>(() => ++calls));
+
+		await That(sut.Number).IsEqualTo(1);
+		await That(calls).IsEqualTo(1);
+	}
+
+	[Test]
+	public async Task CreateMock_WithOutParameterAndNullForNullableParameterWithDefault_ShouldPassNull()
+	{
+		ConstructorDependencySealedNullableDefault sut = ConstructorDependencySealedNullableDefault.CreateMock(out _,
+			title: null);
+
+		await That(sut.Title).IsNull();
+	}
+
+	[Test]
+	public async Task CreateMock_WithOutArgumentPassedByNameLater_ShouldCreateTheSealedClass()
+	{
+		ConstructorDependencySealedNamed sut = ConstructorDependencySealedNamed.CreateMock(mockBehavior: MockBehavior.Default,
+			constructorArguments: out ConstructorArguments arguments);
+
+		await That(sut.Dependency).IsSameAs(arguments.Get<IConstructorDependency>());
+	}
+
+	[Test]
 	public async Task CreateMock_WithoutDefaultValueForADependency_ShouldThrowMockException()
 	{
 		void Act()

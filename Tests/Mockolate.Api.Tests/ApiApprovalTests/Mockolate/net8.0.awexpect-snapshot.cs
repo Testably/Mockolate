@@ -6,8 +6,6 @@ namespace Mockolate
 {
     public sealed class ConstructorArguments
     {
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public ConstructorArguments(string constructor, string[] names, System.Type[] types, object?[] values) { }
         public T Get<T>() { }
         public T Get<T>(string parameterName) { }
     }

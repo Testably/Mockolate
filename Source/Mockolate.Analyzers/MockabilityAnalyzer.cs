@@ -74,8 +74,9 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 			return;
 		}
 
+		// Only the overload for sealed classes has an out parameter, which a named argument can pass at any position.
 		if (methodName == "CreateMock" &&
-		    invocation.ArgumentList.Arguments.FirstOrDefault() is { } first && first.RefKindKeyword.IsKind(SyntaxKind.OutKeyword))
+		    invocation.ArgumentList.Arguments.Any(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)))
 		{
 			AnalyzeSealedCreateMock(context, memberAccess, method);
 		}
