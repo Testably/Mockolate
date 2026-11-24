@@ -283,7 +283,28 @@ internal static partial class MockGeneratorHelpers
 	/// </summary>
 	private static bool HasMemberNamedCreateMock(INamedTypeSymbol typeSymbol)
 		=> !typeSymbol.GetMembers("CreateMock").IsEmpty ||
-		   typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
+		   typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty) ||
+		   InheritsHidingCreateMock(typeSymbol);
+
+	/// <summary>
+	///     Whether a base class has a member named <c>CreateMock</c> that hides the generated static extension: only an
+	///     accessible static member that can be invoked does, a method or a field or property of a delegate type.
+	/// </summary>
+	private static bool InheritsHidingCreateMock(INamedTypeSymbol typeSymbol)
+	{
+		for (INamedTypeSymbol? current = typeSymbol.BaseType; current is not null; current = current.BaseType)
+		{
+			if (current.GetMembers("CreateMock").Any(member =>
+				    member is { IsStatic: true, DeclaredAccessibility: not Accessibility.Private, } and
+					    (IMethodSymbol or IFieldSymbol { Type: { TypeKind: TypeKind.Delegate or TypeKind.Dynamic, }, }
+					    or IPropertySymbol { Type: { TypeKind: TypeKind.Delegate or TypeKind.Dynamic, }, })))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	/// <summary>
 	///     Whether the <paramref name="namespaceSymbol" /> lies in <c>System</c>, <c>Microsoft</c> or <c>Windows</c>, whose

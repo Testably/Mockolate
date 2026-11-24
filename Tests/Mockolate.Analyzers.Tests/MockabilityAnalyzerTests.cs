@@ -415,6 +415,39 @@ public class MockabilityAnalyzerTests
 		         """;
 	}
 	[Test]
+	[Arguments("public static int CreateMock;")]
+	[Arguments("public void CreateMock() { }")]
+	[Arguments("private static void CreateMock() { }")]
+	public async Task WhenBaseClassHasMemberNamedCreateMockThatDoesNotHideTheExtension_ShouldNotBeFlagged(string member)
+		=> await Verifier.VerifyAnalyzerAsync(
+			$$"""
+			  using Mockolate;
+
+			  namespace MyNamespace
+			  {
+			  	public class Base { {{member}} }
+			  	public sealed class MySealedClass(int value) : Base;
+
+			  	public static class MockExtensions
+			  	{
+			  		extension(MySealedClass)
+			  		{
+			  			public static MySealedClass CreateMock(out ConstructorArguments arguments)
+			  				=> throw new System.NotImplementedException();
+			  		}
+			  	}
+
+			  	public class Tests
+			  	{
+			  		public void Test()
+			  		{
+			  			_ = MySealedClass.CreateMock(out ConstructorArguments arguments);
+			  		}
+			  	}
+			  }
+			  """);
+
+	[Test]
 	public async Task WhenCreatingSealedClassWithOutParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""

@@ -16,6 +16,7 @@ namespace Mockolate
 	///     The <c>CreateMock(out ...)</c> overload of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyRecord">ConstructorDependencyRecord</see>.
 	/// </summary>
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	internal static class MockolateSealedCreation0
 	{
 		private static readonly global::Mockolate.Internals.ConstructorSignature Signature = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyRecord(Mockolate.Tests.GeneratorCoverage.IConstructorDependency, string)", new string[] { "dependency", "name" }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(string) });
@@ -43,6 +44,7 @@ namespace Mockolate
 	///     The <c>CreateMock(out ...)</c> overload of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealed">ConstructorDependencySealed</see>.
 	/// </summary>
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	internal static class MockolateSealedCreation1
 	{
 		private static readonly global::Mockolate.Internals.ConstructorSignature Signature = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealed(Mockolate.Tests.GeneratorCoverage.IConstructorDependency, Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency, string, int, string, int, int[])", new string[] { "dependency", "other", "text", "number", "description", "retries", "values" }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency), typeof(string), typeof(int), typeof(string), typeof(int), typeof(int[]) });
@@ -75,6 +77,7 @@ namespace Mockolate
 	///     The <c>CreateMock(out ...)</c> overload of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired">ConstructorDependencySealedRequired</see>.
 	/// </summary>
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	internal static class MockolateSealedCreation2
 	{
 		private static readonly global::Mockolate.Internals.ConstructorSignature Signature = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired(System.Uri)", new string[] { "address" }, new global::System.Type[] { typeof(global::System.Uri) });
