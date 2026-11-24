@@ -226,34 +226,9 @@ internal static partial class Sources
 			   		public override global::System.Threading.Tasks.ValueTask<global::System.Collections.Generic.IReadOnlyCollection<global::Xunit.ITheoryDataRow>> GetData(
 			   			global::System.Reflection.MethodInfo testMethod, global::Xunit.Sdk.DisposalTracker disposalTracker)
 			   		{
-			   			global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.HashSet<string>> traits =
-			   				new global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.HashSet<string>>(
-			   					global::System.StringComparer.OrdinalIgnoreCase);
-			   			string[] pairs = Traits ?? new string[0];
-			   			for (int index = 0; index + 1 < pairs.Length; index += 2)
-			   			{
-			   				if (!traits.TryGetValue(pairs[index], out global::System.Collections.Generic.HashSet<string>? values))
-			   				{
-			   					values = new global::System.Collections.Generic.HashSet<string>(global::System.StringComparer.OrdinalIgnoreCase);
-			   					traits.Add(pairs[index], values);
-			   				}
-
-			   				values.Add(pairs[index + 1]);
-			   			}
-
-			   			// Like xUnit's InlineData, the row takes the settings of the attribute.
+			   			// Like xUnit's InlineData, the row takes every setting of the attribute that the version of xUnit knows.
 			   			return new global::System.Threading.Tasks.ValueTask<global::System.Collections.Generic.IReadOnlyCollection<global::Xunit.ITheoryDataRow>>(
-			   				new global::Xunit.ITheoryDataRow[]
-			   				{
-			   					new global::Xunit.TheoryDataRow(CreateArguments(testMethod.GetParameters()))
-			   					{
-			   						Explicit = ExplicitAsNullable,
-			   						Skip = Skip,
-			   						TestDisplayName = TestDisplayName,
-			   						Timeout = TimeoutAsNullable,
-			   						Traits = traits,
-			   					},
-			   				});
+			   				new global::Xunit.ITheoryDataRow[] { ConvertDataRow(CreateArguments(testMethod.GetParameters())), });
 			   		}
 
 			   		/// <summary>

@@ -68,7 +68,11 @@ internal static partial class Sources
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock\";").AppendLine();
-		AppendObjectToString(sb, $"{@class.DisplayString} mock");
+		// A class named ToString cannot have a member of its name (CS0542).
+		if (name != "ToString")
+		{
+			AppendObjectToString(sb, $"{@class.DisplayString} mock");
+		}
 		sb.AppendLine();
 
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))

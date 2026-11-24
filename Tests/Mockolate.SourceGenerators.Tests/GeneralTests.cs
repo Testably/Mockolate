@@ -54,6 +54,58 @@ public class GeneralTests
 	}
 
 	[Test]
+	public async Task ToStringOverride_WhenTypeIsNamedToStringOrDeclaresIt_ShouldCompile()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode
+			     {
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = global::MyCode.ToString.CreateMock();
+			     			_ = global::MyCode.Other.ToString.CreateMock();
+			     			_ = IDerived.CreateMock();
+			     			_ = IPlain.CreateMock().Implementing<IDescribed>();
+			             }
+			         }
+
+			         public delegate void ToString();
+
+			         public interface IDescribed
+			         {
+			             string ToString();
+			         }
+
+			         public interface IDerived : IDescribed;
+
+			         public interface IPlain
+			         {
+			             int Value { get; }
+			         }
+			     }
+
+			     namespace MyCode.Other
+			     {
+			         public interface ToString
+			         {
+			             int Value { get; }
+			         }
+			     }
+			     """);
+
+		// The mock class of a type named ToString hides object.ToString (CS0108), which the override would turn into an error.
+		await That(result.Diagnostics).All().Satisfy(diagnostic => diagnostic.Contains("CS0108"));
+		await That(result.Sources).ContainsKey("Mock.IPlain.g.cs")
+			.WhoseValue.Contains("public override string ToString()");
+		await That(result.Sources).ContainsKey("Mock.IDerived.g.cs")
+			.WhoseValue.DoesNotContain("public override string ToString()\r\n\t\t\t=> \"MyCode.IDerived mock\";").IgnoringNewlineStyle();
+	}
+
+	[Test]
 	public async Task Constructor_WithRegistrationsParameter_ShouldRenameAdditionalParameter()
 	{
 		GeneratorResult result = Generator

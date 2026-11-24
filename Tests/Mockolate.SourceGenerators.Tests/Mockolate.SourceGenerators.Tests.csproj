@@ -19,6 +19,10 @@
 	     TestFrameworkCompatibilityTests compiles against. -->
 	<ItemGroup>
 		<PackageDownload Include="TUnit.Core" Version="[1.0.0]"/>
+		<PackageDownload Include="xunit.v3.extensibility.core" Version="[1.0.0]"/>
+		<PackageDownload Include="xunit.v3.common" Version="[1.0.0]"/>
+		<PackageDownload Include="xunit.extensibility.core" Version="[2.0.0]"/>
+		<PackageDownload Include="xunit.abstractions" Version="[2.0.0]"/>
 		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
 			<_Parameter1>NuGetPackageRoot</_Parameter1>
 			<_Parameter2>$(NuGetPackageRoot)</_Parameter2>
