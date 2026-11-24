@@ -14,7 +14,7 @@ public sealed class XunitRunnerTests
 		List<string> passed = [];
 		List<string> problems = [];
 		TaskCompletionSource<bool> finished = new(TaskCreationOptions.RunContinuationsAsynchronously);
-		using AssemblyRunner runner = AssemblyRunner.WithoutAppDomain(typeof(XunitRunnerTests).Assembly.Location);
+		AssemblyRunner runner = AssemblyRunner.WithoutAppDomain(typeof(XunitRunnerTests).Assembly.Location);
 		runner.OnTestPassed = info => Add(passed, info.TestDisplayName);
 		runner.OnTestFailed = info => Add(problems, $"failed {info.TestDisplayName}: {info.ExceptionMessage}");
 		runner.OnTestSkipped = info => Add(problems, $"skipped {info.TestDisplayName}: {info.SkipReason}");
@@ -23,13 +23,19 @@ public sealed class XunitRunnerTests
 		runner.Start(new AssemblyRunnerStartOptions { TypesToRun = [typeof(XunitTheories).FullName!,], });
 
 		bool hasFinished = await Task.WhenAny(finished.Task, Task.Delay(Timeout)) == finished.Task;
-		await That(hasFinished).IsTrue().Because("the xUnit runner must finish within a minute");
-		// The runner can only be disposed once it is idle again.
 		DateTime deadline = DateTime.UtcNow + Timeout;
 		while (runner.Status != AssemblyRunnerStatus.Idle && DateTime.UtcNow < deadline)
 		{
 			await Task.Delay(10);
 		}
+
+		// Dispose throws while the runner is not idle, which would hide the failure below, so a busy runner is left alone.
+		if (runner.Status == AssemblyRunnerStatus.Idle)
+		{
+			runner.Dispose();
+		}
+
+		await That(hasFinished).IsTrue().Because("the xUnit runner must finish within a minute");
 
 		await That(problems).IsEmpty();
 		await That(passed.Select(name => name.Split('(')[0])).IsEqualTo([

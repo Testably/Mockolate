@@ -186,6 +186,7 @@ internal static partial class Sources
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock that also implements ").Append(string.Join(", ", additionalInterfaces.Select(x => x.Class.DisplayString))).Append("\";").AppendLine();
+		// A class named ToString cannot have a member of its name (CS0542).
 		if (@class.IsInterface && fileName != "ToString" && !allMemberClasses.Any(DeclaresToString))
 		{
 			AppendObjectToString(sb, $"{@class.DisplayString} mock that also implements {string.Join(", ", additionalInterfaces.Select(x => x.Class.DisplayString))}");
