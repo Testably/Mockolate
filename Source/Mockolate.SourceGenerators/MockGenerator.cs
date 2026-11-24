@@ -519,7 +519,7 @@ public class MockGenerator : IIncrementalGenerator
 		       !Split(excluded).Contains(metadataName, StringComparer.Ordinal);
 
 		static string[] Split(string list)
-			=> list.Split([';', ',',])
+			=> list.Split(';', ',')
 				.Select(entry => entry.Trim())
 				.Where(entry => entry.Length > 0)
 				.ToArray();
