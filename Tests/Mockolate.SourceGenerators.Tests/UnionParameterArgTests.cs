@@ -221,11 +221,10 @@ public sealed class UnionParameterArgTests
 		                             }
 		                         }
 		                         """;
-		// The single lookup finds no type when two references declare it, so every accessible declaration counts.
 		Compilation compilation = CSharpCompilation.Create("TestAssembly", [],
 			[
-				ExternalAssembly.Compile(attribute.Replace("{{accessibility}}", "public"), "Public"),
 				ExternalAssembly.Compile(attribute.Replace("{{accessibility}}", "internal"), "Inaccessible"),
+				ExternalAssembly.Compile(attribute.Replace("{{accessibility}}", "public"), "Public"),
 			],
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 		Dictionary<string, string> options = new()
@@ -236,24 +235,28 @@ public sealed class UnionParameterArgTests
 		bool result = MockGenerator.PolySharpProvidesModuleInitializer(compilation,
 			new TestAnalyzerConfigOptionsProvider(options).GlobalOptions);
 
-		await That(result).IsFalse();
+		await That(result).IsFalse()
+			.Because("the single lookup finds no type when two references declare it, so every accessible declaration counts");
 	}
 
 	[Test]
-	public async Task PolySharpProvidesModuleInitializer_WhenExcluded_ShouldBeFalse()
+	[Arguments(" System.Runtime.CompilerServices.ModuleInitializerAttribute ,", false)]
+	[Arguments("system.runtime.compilerservices.moduleinitializerattribute", true)]
+	public async Task PolySharpProvidesModuleInitializer_WithExcludedTypes_ShouldCompareOrdinally(string excludedTypes,
+		bool expected)
 	{
 		Compilation compilation = CSharpCompilation.Create("TestAssembly", [], [],
 			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 		Dictionary<string, string> options = new()
 		{
 			["build_property.PolySharpIncludeGeneratedTypes"] = "",
-			["build_property.PolySharpExcludeGeneratedTypes"] = " System.Runtime.CompilerServices.ModuleInitializerAttribute ,",
+			["build_property.PolySharpExcludeGeneratedTypes"] = excludedTypes,
 		};
 
 		bool result = MockGenerator.PolySharpProvidesModuleInitializer(compilation,
 			new TestAnalyzerConfigOptionsProvider(options).GlobalOptions);
 
-		await That(result).IsFalse();
+		await That(result).IsEqualTo(expected);
 	}
 
 	[Test]
