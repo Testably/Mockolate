@@ -12,8 +12,14 @@
 
 namespace Mockolate
 {
-	internal static partial class Mock
+	/// <summary>
+	///     The <c>CreateMock(out ...)</c> overload of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyRecord">ConstructorDependencyRecord</see>.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal static class MockolateSealedCreation0
 	{
+		private static readonly global::Mockolate.Internals.ConstructorSignature Signature = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyRecord(Mockolate.Tests.GeneratorCoverage.IConstructorDependency, string)", new string[] { "dependency", "name" }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(string) });
+
 		extension(global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyRecord)
 		{
 			/// <summary>
@@ -27,10 +33,19 @@ namespace Mockolate
 				mockBehavior ??= global::Mockolate.MockBehavior.Default;
 				global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency argument0 = dependency ?? global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency.CreateMock(mockBehavior);
 				string argument1 = name is { } value1 ? value1 : global::Mockolate.Internals.ConstructorDefaultValue.Get(mockBehavior, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(string)!)) is { } created1 ? created1 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'name' of Mockolate.Tests.GeneratorCoverage.ConstructorDependencyRecord. Pass it, or register a default value for its type with WithDefaultValueFor.");
-				constructorArguments = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencyRecord(Mockolate.Tests.GeneratorCoverage.IConstructorDependency, string)", new string[] { "dependency", "name" }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(string) }).Record(new object?[] { argument0, argument1 });
+				constructorArguments = global::Mockolate.MockolateSealedCreation0.Signature.Record(new object?[] { argument0, argument1 });
 				return new global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencyRecord(argument0, argument1);
 			}
 		}
+	}
+
+	/// <summary>
+	///     The <c>CreateMock(out ...)</c> overload of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealed">ConstructorDependencySealed</see>.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal static class MockolateSealedCreation1
+	{
+		private static readonly global::Mockolate.Internals.ConstructorSignature Signature = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealed(Mockolate.Tests.GeneratorCoverage.IConstructorDependency, Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency, string, int, string, int, int[])", new string[] { "dependency", "other", "text", "number", "description", "retries", "values" }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency), typeof(string), typeof(int), typeof(string), typeof(int), typeof(int[]) });
 
 		extension(global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealed)
 		{
@@ -50,10 +65,19 @@ namespace Mockolate
 				string? argument4 = description;
 				int argument5 = retries;
 				int[] argument6 = values is { } value6 ? value6 : [];
-				constructorArguments = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealed(Mockolate.Tests.GeneratorCoverage.IConstructorDependency, Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency, string, int, string, int, int[])", new string[] { "dependency", "other", "text", "number", "description", "retries", "values" }, new global::System.Type[] { typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency), typeof(global::Mockolate.Tests.GeneratorCoverage.IConstructorOtherDependency), typeof(string), typeof(int), typeof(string), typeof(int), typeof(int[]) }).Record(new object?[] { argument0, argument1, argument2, argument3, argument4, argument5, argument6 });
+				constructorArguments = global::Mockolate.MockolateSealedCreation1.Signature.Record(new object?[] { argument0, argument1, argument2, argument3, argument4, argument5, argument6 });
 				return new global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealed(argument0, argument1, argument2, argument3, argument4, argument5, argument6);
 			}
 		}
+	}
+
+	/// <summary>
+	///     The <c>CreateMock(out ...)</c> overload of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired">ConstructorDependencySealedRequired</see>.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	internal static class MockolateSealedCreation2
+	{
+		private static readonly global::Mockolate.Internals.ConstructorSignature Signature = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired(System.Uri)", new string[] { "address" }, new global::System.Type[] { typeof(global::System.Uri) });
 
 		extension(global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired)
 		{
@@ -67,7 +91,7 @@ namespace Mockolate
 			{
 				mockBehavior ??= global::Mockolate.MockBehavior.Default;
 				global::System.Uri argument0 = address is { } value0 ? value0 : global::Mockolate.Internals.ConstructorDefaultValue.Get(mockBehavior, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(global::System.Uri)!)) is { } created0 ? created0 : throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'address' of Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired. Pass it, or register a default value for its type with WithDefaultValueFor.");
-				constructorArguments = new global::Mockolate.Internals.ConstructorSignature("Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired(System.Uri)", new string[] { "address" }, new global::System.Type[] { typeof(global::System.Uri) }).Record(new object?[] { argument0 });
+				constructorArguments = global::Mockolate.MockolateSealedCreation2.Signature.Record(new object?[] { argument0 });
 				return new global::Mockolate.Tests.GeneratorCoverage.ConstructorDependencySealedRequired(argument0);
 			}
 		}

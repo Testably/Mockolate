@@ -505,8 +505,6 @@ public class MockabilityAnalyzerTests
 		"type is obsolete or experimental")]
 	[Arguments("public interface ICreator { void CreateMock(); } public sealed class MyType(int value) : ICreator { void ICreator.CreateMock() { } }",
 		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
-	[Arguments("public class Base { public static int CreateMock; } public sealed class MyType(int value) : Base;",
-		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
 	[Arguments("public sealed class MyType { public MyType(int value) { } public MyType(string text) { } }", "MyType",
 		"MyNamespace.MyType", "type has no single accessible constructor with the most parameters that Mockolate can call")]
 	[Arguments("public sealed class MyType(int value) { public required int Other { get; init; } }", "MyType",

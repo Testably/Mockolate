@@ -281,19 +281,9 @@ internal static partial class MockGeneratorHelpers
 	///     The auto-mock factory calls <c>CreateMock</c> on the type, where a member of the interface with that name
 	///     would hide the generated extension.
 	/// </summary>
-	// A member of a base class hides a generated static extension member as well as one of the type itself.
 	private static bool HasMemberNamedCreateMock(INamedTypeSymbol typeSymbol)
-	{
-		for (INamedTypeSymbol? current = typeSymbol; current is not null; current = current.BaseType)
-		{
-			if (!current.GetMembers("CreateMock").IsEmpty)
-			{
-				return true;
-			}
-		}
-
-		return typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
-	}
+		=> !typeSymbol.GetMembers("CreateMock").IsEmpty ||
+		   typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
 
 	/// <summary>
 	///     Whether the <paramref name="namespaceSymbol" /> lies in <c>System</c>, <c>Microsoft</c> or <c>Windows</c>, whose

@@ -91,21 +91,12 @@ internal static class ConstructorRules
 	}
 
 	/// <summary>
-	///     Mirror of <c>HasMemberNamedCreateMock</c> in the generator: a member named <c>CreateMock</c> of the type, a base class
-	///     or an interface would hide the generated extension.
+	///     Mirror of <c>HasMemberNamedCreateMock</c> in the generator: the generator skips a type with a member named
+	///     <c>CreateMock</c>, also of one of its interfaces.
 	/// </summary>
 	internal static bool HasMemberNamedCreateMock(INamedTypeSymbol type)
-	{
-		for (INamedTypeSymbol? current = type; current is not null; current = current.BaseType)
-		{
-			if (!current.GetMembers("CreateMock").IsEmpty)
-			{
-				return true;
-			}
-		}
-
-		return type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
-	}
+		=> !type.GetMembers("CreateMock").IsEmpty ||
+		   type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
 
 	internal static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{
