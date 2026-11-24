@@ -27,6 +27,11 @@
 		<TrimmerSingleWarn>false</TrimmerSingleWarn>
 	</PropertyGroup>
 
+	<!-- Compiles the code that the AutoMockArguments attributes of all test frameworks share. -->
+	<PropertyGroup>
+		<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK</DefineConstants>
+	</PropertyGroup>
+
 	<!-- Project references do not import the package props, so make the generator see MockolateAutoMocking here too. -->
 	<Import Project="..\..\..\Source\Mockolate\build\Mockolate.props"/>
 

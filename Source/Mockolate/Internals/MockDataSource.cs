@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -11,11 +12,12 @@ namespace Mockolate.Internals;
 /// </summary>
 /// <remarks>
 ///     Every assembly in which the Mockolate source generator discovered a member with an attribute that implements
-///     <see cref="IMockDataSource" /> registers the code to create its parameter types from a module initializer.
+///     <see cref="IMockDataSource" /> registers the code to create its parameter types from a module initializer. It is public only for the code that the source generator emits.
 /// </remarks>
 #if !DEBUG
 [DebuggerNonUserCode]
 #endif
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static class MockDataSource
 {
 	/// <summary>

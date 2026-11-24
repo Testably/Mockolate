@@ -18,9 +18,11 @@ public class MockGenerator : IIncrementalGenerator
 {
 	void IIncrementalGenerator.Initialize(IncrementalGeneratorInitializationContext context)
 	{
-		context.RegisterPostInitializationOutput(ctx => 
+		context.RegisterPostInitializationOutput(ctx =>
 		{
 			ctx.AddSource("Mock.g.cs", ToSource(Sources.Sources.MockClass(), default));
+			ctx.AddEmbeddedAttributeDefinition();
+			ctx.AddSource("AutoMockArguments.g.cs", ToSource(Sources.Sources.AutoMockArgumentsShared(), default));
 			ctx.AddSource("AutoMockArguments.TUnit.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForTUnit(), default));
 		});
 

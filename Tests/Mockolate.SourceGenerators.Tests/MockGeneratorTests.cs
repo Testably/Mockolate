@@ -1058,6 +1058,8 @@ public partial class MockGeneratorTests
 
 		await That(result.Sources.Keys).IsEqualTo([
 			"Mock.g.cs",
+			"Microsoft.CodeAnalysis.EmbeddedAttribute.cs",
+			"AutoMockArguments.g.cs",
 			"AutoMockArguments.TUnit.g.cs",
 			"Mock.AsExtensions.g.cs",
 			"MockBehaviorExtensions.g.cs",
@@ -1674,6 +1676,8 @@ public partial class MockGeneratorTests
 		await ThatAll(
 			That(result.Sources.Keys).IsEqualTo([
 				"Mock.g.cs",
+				"Microsoft.CodeAnalysis.EmbeddedAttribute.cs",
+				"AutoMockArguments.g.cs",
 				"AutoMockArguments.TUnit.g.cs",
 				"MockBehaviorExtensions.g.cs",
 			]).InAnyOrder().IgnoringCase(),
@@ -1743,6 +1747,8 @@ public partial class MockGeneratorTests
 
 		await That(result.Sources.Keys).IsEqualTo([
 			"Mock.g.cs",
+			"Microsoft.CodeAnalysis.EmbeddedAttribute.cs",
+			"AutoMockArguments.g.cs",
 			"AutoMockArguments.TUnit.g.cs",
 			"MockBehaviorExtensions.g.cs",
 			"Mock.IMyInterface1.g.cs",

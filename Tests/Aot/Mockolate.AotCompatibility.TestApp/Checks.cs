@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
+using Mockolate.Integrations;
 using Mockolate.Internals;
 using Mockolate.Parameters;
 using Mockolate.Verify;
@@ -281,6 +282,17 @@ internal static class Checks
 					       value = null;
 					       return false;
 				       }, out _), false);
+		}),
+		new("the AutoMockArguments code shares the parameter mocks with the class under test", () =>
+		{
+			object?[] values = new AutoMockRow(typeof(Checks).Assembly,
+				[typeof(string), typeof(VendingMachine), typeof(IChocolateDispenser),],
+				["type", "sut", "dispenser",], _ => false, ["Dark",], null).Create();
+			VendingMachine machine = (VendingMachine)values[1]!;
+			IChocolateDispenser dispenser = (IChocolateDispenser)values[2]!;
+			dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
+			return Equal((values[0], machine.Buy("Dark", 1), ReferenceEquals(machine.Counter.Dispenser, dispenser)),
+				((object?)"Dark", true, true));
 		}),
 		new("CreateMock with an out parameter creates a sealed class with mocked dependencies", () =>
 		{

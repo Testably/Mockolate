@@ -20,11 +20,12 @@ namespace Mockolate.Integrations.TUnit
 	/// <remarks>
 	///     A constructor dependency of a class under test gets the argument of the test parameter of the same type, so the
 	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
-	///     the one with the name of the constructor parameter (ignoring case) is used. A
-	///     <see cref="TransientAttribute">TransientAttribute</see> parameter is not shared. Each attribute on a method is one test case.
+	///     the one with the name of the constructor parameter (ignoring case) is used. The given arguments and a
+	///     <see cref="TransientAttribute">TransientAttribute</see> parameter are not shared. Each attribute on a method is one test case.
 	/// </remarks>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
 	internal sealed class AutoMockArgumentsAttribute
 		: global::TUnit.Core.UntypedDataSourceGeneratorAttribute, global::Mockolate.Internals.IMockDataSource
 	{
@@ -44,8 +45,8 @@ namespace Mockolate.Integrations.TUnit
 		public object?[] Arguments { get; }
 
 		/// <summary>
-		///     Provides the behavior of the created mocks and of the values that are neither mocked nor given, once per test
-		///     case. <see langword="null" /> stands for the default behavior.
+		///     Provides the behavior of the created mocks and of the values that are neither mocked nor given, each time
+		///     the arguments are created. <see langword="null" /> stands for the default behavior.
 		/// </summary>
 		/// <remarks>
 		///     Assign it in a module initializer: TUnit creates the arguments before it runs any hook, and on another thread,
@@ -57,19 +58,19 @@ namespace Mockolate.Integrations.TUnit
 		protected override global::System.Collections.Generic.IEnumerable<global::System.Func<object?[]?>> GenerateDataSources(
 			global::TUnit.Core.DataGeneratorMetadata dataGeneratorMetadata)
 		{
-			global::TUnit.Core.ParameterMetadata[] parameters = global::System.Array.ConvertAll(
-				dataGeneratorMetadata.MembersToGenerate,
-				member => member as global::TUnit.Core.ParameterMetadata ?? throw new global::System.NotSupportedException(
-					$"AutoMockArguments only supports method parameters, not '{member.Name}'."));
-			if (Arguments.Length > parameters.Length)
-			{
-				throw new global::System.InvalidOperationException(
-					$"AutoMockArguments has {Arguments.Length} arguments, but the test method has only {parameters.Length} parameters.");
-			}
-
+			// The element type differs between TUnit versions, and the attribute only applies to method parameters.
+			object[] members = dataGeneratorMetadata.MembersToGenerate;
+			global::TUnit.Core.ParameterMetadata[] parameters = global::System.Array.ConvertAll(members,
+				member => (global::TUnit.Core.ParameterMetadata)member);
+			global::System.Type[] types = global::System.Array.ConvertAll(parameters, parameter => parameter.Type);
+			string[] names = global::System.Array.ConvertAll(parameters, parameter => parameter.Name);
 			// The attribute is generated into every test assembly, next to the code that creates the parameters.
 			global::System.Reflection.Assembly assembly = typeof(AutoMockArgumentsAttribute).Assembly;
-			yield return () => new AutoMockRow(assembly, parameters, Arguments, DefaultBehavior()).Create();
+			// Only a parameter that could be shared needs its reflection info.
+			yield return () => new global::Mockolate.Integrations.AutoMockRow(assembly, types, names,
+				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index].ReflectionInfo,
+					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+				Arguments, DefaultBehavior?.Invoke()).Create();
 		}
 	}
 
@@ -79,120 +80,9 @@ namespace Mockolate.Integrations.TUnit
 	/// </summary>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	internal sealed class TransientAttribute : global::System.Attribute
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal sealed class TransientAttribute : global::Mockolate.Integrations.TransientParameterAttribute
 	{
-	}
-
-	/// <summary>
-	///     Creates the arguments of one test invocation on demand, so that a class under test receives the arguments of
-	///     the other parameters whatever their order.
-	/// </summary>
-	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	internal sealed class AutoMockRow
-	{
-		private readonly global::System.Reflection.Assembly _assembly;
-		private readonly global::TUnit.Core.ParameterMetadata[] _parameters;
-		private readonly object?[] _arguments;
-		private readonly global::Mockolate.MockBehavior? _behavior;
-		private readonly int[] _states;
-		private readonly object?[] _values;
-		private readonly bool[] _isTransient;
-
-		public AutoMockRow(global::System.Reflection.Assembly assembly, global::TUnit.Core.ParameterMetadata[] parameters,
-			object?[] arguments, global::Mockolate.MockBehavior? behavior = null)
-		{
-			_assembly = assembly;
-			_parameters = parameters;
-			_arguments = arguments;
-			_behavior = behavior;
-			_states = new int[parameters.Length];
-			_values = new object?[parameters.Length];
-			_isTransient = global::System.Array.ConvertAll(parameters, parameter =>
-				global::System.Reflection.CustomAttributeExtensions.IsDefined(parameter.ReflectionInfo, typeof(TransientAttribute), false));
-		}
-
-		public object?[] Create()
-		{
-			for (int index = 0; index < _arguments.Length; index++)
-			{
-				_values[index] = _arguments[index];
-				_states[index] = 2;
-			}
-
-			for (int index = 0; index < _parameters.Length; index++)
-			{
-				GetOrCreate(index);
-			}
-
-			return _values;
-		}
-
-		private object? GetOrCreate(int index)
-		{
-			if (_states[index] == 2)
-			{
-				return _values[index];
-			}
-
-			if (_states[index] == 1)
-			{
-				throw new global::System.InvalidOperationException(
-					$"The parameter '{_parameters[index].Name}' depends on itself through a constructor dependency.");
-			}
-
-			_states[index] = 1;
-			global::TUnit.Core.ParameterMetadata parameter = _parameters[index];
-			if (!global::Mockolate.Internals.MockDataSource.TryCreate(_assembly, parameter.Type, _behavior,
-				    (global::System.Type type, string parameterName, out object? value) =>
-					    TryResolve(type, parameterName, index, out value), out object? created))
-			{
-				throw new global::System.InvalidOperationException(
-					$"Mockolate cannot create the parameter '{parameter.Name}' of type '{parameter.Type}'. Pass it as an argument, or register a default value for its type through AutoMockArgumentsAttribute.DefaultBehavior.");
-			}
-
-			_values[index] = created;
-			_states[index] = 2;
-			return created;
-		}
-
-		/// <summary>
-		///     The shared test parameter of the <paramref name="type" />; the <paramref name="parameterName" /> of the
-		///     constructor parameter only decides between several of them.
-		/// </summary>
-		private bool TryResolve(global::System.Type type, string parameterName, int requester, out object? value)
-		{
-			global::System.Collections.Generic.List<int> candidates = new();
-			for (int index = 0; index < _parameters.Length; index++)
-			{
-				if (index != requester && !_isTransient[index] && _parameters[index].Type == type)
-				{
-					candidates.Add(index);
-				}
-			}
-
-			if (candidates.Count > 1)
-			{
-				global::System.Collections.Generic.List<int> named = candidates.FindAll(index =>
-					string.Equals(_parameters[index].Name, parameterName, global::System.StringComparison.OrdinalIgnoreCase));
-				if (named.Count != 1)
-				{
-					string names = string.Join(", ", candidates.ConvertAll(index => $"'{_parameters[index].Name}'"));
-					throw new global::System.InvalidOperationException(
-						$"The constructor parameter '{parameterName}' of type '{type}' matches the test parameters {names}; name one of them '{parameterName}' or mark the others [Transient].");
-				}
-
-				candidates = named;
-			}
-
-			if (candidates.Count == 1)
-			{
-				value = GetOrCreate(candidates[0]);
-				return true;
-			}
-
-			value = null;
-			return false;
-		}
 	}
 }
 #nullable disable

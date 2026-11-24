@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 
 namespace Mockolate.Internals;
 
@@ -10,9 +11,10 @@ namespace Mockolate.Internals;
 ///     It is asked for every constructor parameter, also of the classes that are created as constructor dependencies.
 ///     Without a value, Mockolate creates a mock for a mockable parameter, creates a supported class with mocked
 ///     dependencies, uses the default value for an optional or nullable parameter, and otherwise a value from the
-///     default values of the behavior.
+///     default values of the behavior. It is public only for the code that the source generator emits.
 /// </remarks>
 /// <returns>
 ///     <see langword="true" /> when the <paramref name="value" />, which may be <see langword="null" />, is the argument.
 /// </returns>
+[EditorBrowsable(EditorBrowsableState.Never)]
 public delegate bool MockArgumentResolver(Type type, string parameterName, out object? value);

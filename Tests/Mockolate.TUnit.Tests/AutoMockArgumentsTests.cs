@@ -54,7 +54,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments("EUR")]
-	public async Task AutoMockArguments_WithArgument_ShouldPassItToTheFirstParameterAndTheClassUnderTest(
+	public async Task AutoMockArguments_WithArgument_ShouldPassItOnlyToTheFirstParameter(
 		string currency, PricingService sut, ITaxCalculator taxCalculator)
 	{
 		taxCalculator.Mock.Setup.GetTax(100m).Returns(20m);
@@ -62,7 +62,7 @@ public sealed class AutoMockArgumentsTests
 		string result = sut.GetPrice(new Order(1, 100m));
 
 		await That(currency).IsEqualTo("EUR");
-		await That(result).IsEqualTo("120 EUR");
+		await That(result).IsEqualTo("120 ");
 	}
 
 	[Test]
@@ -78,11 +78,27 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments("name", 5)]
-	public async Task AutoMockArguments_WithSeveralArguments_ShouldPassThemToTheClassUnderTest(string name,
+	public async Task AutoMockArguments_WithSeveralArguments_ShouldNotPassThemToTheClassUnderTest(string name,
 		int retries, OptionalArgumentsService sut)
 	{
-		await That(sut.Name).IsEqualTo(name);
-		await That(sut.Retries).IsEqualTo(retries);
+		await That(name).IsEqualTo("name");
+		await That(retries).IsEqualTo(5);
+		await That(sut.Name).IsNull();
+		await That(sut.Retries).IsEqualTo(3);
+	}
+
+	[Test]
+	[AutoMockArguments("name")]
+	public async Task AutoMockArguments_WithTransientArgument_ShouldPassIt([Transient] string name)
+		=> await That(name).IsEqualTo("name");
+
+	[Test]
+	[AutoMockArguments]
+	public async Task AutoMockArguments_WithClassesOfTheSameSelfReferencingType_ShouldPassOneToTheOther(
+		ChocolateNode first, ChocolateNode second)
+	{
+		await That(first.Parent).IsSameAs(second);
+		await That(second.Parent).IsNull();
 	}
 
 	[Test]

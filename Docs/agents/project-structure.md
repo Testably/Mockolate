@@ -81,5 +81,6 @@ Besides `Setup` and `Verify`, `sut.Mock` offers `Raise` (events), `As<T>()` (oth
 | `Tests/Mockolate.Analyzers.Tests` | Analyzer and code fix tests with `Microsoft.CodeAnalysis.Testing` verifiers in `Verifiers/` |
 | `Tests/Mockolate.Api.Tests` | Public API snapshots per target framework |
 | `Tests/Mockolate.ExampleTests` | Realistic usage examples (file system, Azure SDK clients) |
+| `Tests/Mockolate.TUnit.Tests` | Tests of the generated `[AutoMockArguments]` attribute for TUnit; its `Domain` folder is shared with the tests of the other test frameworks |
 | `Tests/Build.Tests` | Tests for `Pipeline/BenchmarkReport.cs`, which it compiles in |
 | `Tests/Aot/Mockolate.AotCompatibility.TestApp` | Native AOT publish smoke test |
