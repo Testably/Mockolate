@@ -199,13 +199,14 @@ internal static class Checks
 			ChocolateMachine sut = ChocolateMachine.CreateMock("Testably");
 			return Equal(sut.Describe(), "A machine by Testably");
 		}),
-		new("CreateWithMocks creates a class with mocked dependencies", () =>
+		new("a class mock fills its constructor dependencies with mocks", () =>
 		{
-			ChocolateVendor sut = ChocolateVendor.CreateWithMocks(out ChocolateVendorMocks mocks, MockBehavior.Default);
-			mocks.Dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
-			return Equal((sut.Buy("Dark", 1), sut.Buy("Milk", 1), mocks.Brand),
+			ChocolateVendor sut = ChocolateVendor.CreateMock();
+			IChocolateDispenser dispenser = sut.Mock.ConstructorArgument<IChocolateDispenser>();
+			dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
+			return Equal((sut.Buy("Dark", 1), sut.Buy("Milk", 1), sut.Mock.ConstructorArgument<string>("brand")),
 				       ("Enjoy your Testably Dark", "Sold out", "Testably"))
-			       ?? Passes(() => mocks.Dispenser.Mock.Verify.Dispense(It.IsAny<string>(), It.IsAny<int>()).Twice());
+			       ?? Passes(() => dispenser.Mock.Verify.Dispense(It.IsAny<string>(), It.IsAny<int>()).Twice());
 		}),
 		new("a static abstract member is set up, raised and verified", () =>
 		{
@@ -279,6 +280,13 @@ internal static class Checks
 					       value = null;
 					       return false;
 				       }, out _), false);
+		}),
+		new("CreateMock with an out parameter creates a sealed class with mocked dependencies", () =>
+		{
+			SealedVendingMachine sut = SealedVendingMachine.CreateMock(out ConstructorArguments arguments, location: "Lobby");
+			arguments.Get<IChocolateDispenser>().Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
+			return Equal((sut.Buy("Dark", 1), sut.Buy("Milk", 1), sut.Location, arguments.Get<string>("location")),
+				(true, false, "Lobby", "Lobby"));
 		}),
 		new("a mock data source fills other types from the default values and finds no code in other assemblies", () =>
 		{

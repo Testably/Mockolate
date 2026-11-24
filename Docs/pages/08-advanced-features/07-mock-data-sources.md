@@ -61,8 +61,9 @@ public class VendingMachineTests
 
 ## What is created
 
-- An **interface, delegate or abstract class** gets a new mock, as if the test called `CreateMock` on it. An abstract class needs a public or protected constructor that can be called without arguments, because the mock calls it. A type whose mock would not compile, for example because a member returns by reference or uses an obsolete type, gets no mock.
-- A **concrete class** gets an instance, created like by [`CreateWithMocks`](../04-create-mocks.md#create-the-class-under-test-with-mocks), see [constructor dependencies](#constructor-dependencies).
+- An **interface, delegate or abstract class** gets a new mock, as if the test called `CreateMock` on it. An abstract class needs a public or protected constructor that can be called without arguments or filled with dependencies. A type whose mock would not compile, for example because a member returns by reference or uses an obsolete type, gets no mock.
+- A **non-sealed class** gets a mock that forwards to the real implementation, also with a behavior that skips the base class, so nothing changes until you set up a virtual member. When its mock cannot be created, for example because several constructors take the same number of arguments, it gets a real instance.
+- A **sealed class or record** gets a real instance. Both get their constructor filled, see [constructor dependencies](#constructor-dependencies).
 - **Types of the `System`, `Microsoft` and `Windows` namespaces** are often the arguments that the test framework passes. They get a value from the default values of the behavior; an interface that Mockolate can mock without further checks, such as `IServiceProvider`, gets a new mock when the default values provide none. No framework class is created.
 - **Value types, strings and other types** get a value from the default values of the behavior: a value configured with `WithDefaultValueFor` or a default value generator, and otherwise `""` for a `string`, an empty collection or the default of a value type. `TryCreate` returns `false` when the default values provide no value of a reference type.
 
@@ -73,7 +74,7 @@ The [Mockolate0010](../10-analyzers.md#mockolate0010) analyzer reports a paramet
 A created class gets an argument for every constructor parameter, in this order:
 
 1. The value of the `resolve` callback, see [supply constructor arguments](#supply-constructor-arguments).
-2. A new mock for an interface outside the framework namespaces, by the rules of `CreateWithMocks`, and for `ILogger`, `ILogger<T>` and `ILoggerFactory`.
+2. A new mock for an interface outside the framework namespaces, by the [rules of `CreateMock`](../04-create-mocks.md#create-the-class-under-test-with-mocks), and for `ILogger`, `ILogger<T>` and `ILoggerFactory`.
 3. An empty collection for a `params` parameter, and the declared default value for an optional parameter.
 4. A new instance, created the same way, for a concrete class outside the framework namespaces.
 5. `null` for a nullable parameter.

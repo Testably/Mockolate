@@ -89,8 +89,51 @@ public class GeneralTests
 			          			: base(mockRegistry)
 			          		{
 			          			this.MockRegistry = mockRegistry_1;
+			          			this.MockolateConstructorArguments = MockolateConstructorSignature0.Record(new object?[] { mockRegistry, });
 			          		}
+			          """).And
+			.Contains("""
+			          		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature0 = new global::Mockolate.Internals.ConstructorSignature("MyCode.MyClass(int)", new string[] { "mockRegistry", }, new global::System.Type[] { typeof(int), });
 			          """);
+	}
+
+	[Test]
+	public async Task Constructor_WithParameterAndMemberNamedLikeTheSignatureField_ShouldCompile()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode
+			     {
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = MyClass.CreateMock();
+			             }
+			         }
+
+			         public class MyClass
+			         {
+			             public MyClass(int MockolateConstructorSignature0)
+			             {
+			             }
+
+			             public MyClass(int value, string text)
+			             {
+			             }
+
+			             public virtual int MockolateConstructorSignature1 => 1;
+			         }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.MyClass.g.cs")
+			.WhoseValue
+			.Contains("MockolateConstructorSignature0_1.Record(new object?[] { MockolateConstructorSignature0, });").And
+			.Contains("MockolateConstructorSignature1_1.Record(new object?[] { value, text, });");
 	}
 
 	[Test]

@@ -158,6 +158,7 @@ public class MockDataSourceAnalyzerTests
 			  namespace MyCode
 			  {
 			      public abstract class WithParameter { protected WithParameter(int value) { } }
+			      public abstract class WithTie { protected WithTie(int value) { } protected WithTie(string text) { } }
 			      public abstract class WithPrivate { private WithPrivate() { } }
 			      public abstract class WithProtected { protected WithProtected() { } }
 			      public interface IStatic { static abstract int Create(); }
@@ -168,7 +169,7 @@ public class MockDataSourceAnalyzerTests
 			      {
 			  #pragma warning disable CS0612, CS0618
 			          [Data]
-			          public void Test(WithParameter {|#0:a|}, WithPrivate {|#1:b|}, WithProtected c, IStatic {|#2:d|},
+			          public void Test(WithParameter a, WithTie {|#0:t|}, WithPrivate {|#1:b|}, WithProtected c, IStatic {|#2:d|},
 			              IOld {|#3:e|}) { }
 			  #pragma warning restore CS0612, CS0618
 			      }
@@ -177,9 +178,9 @@ public class MockDataSourceAnalyzerTests
 			  }
 			  """,
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
-				.WithArguments("a", "MyCode.WithParameter", "its mock needs an accessible constructor that can be called without arguments"),
+				.WithArguments("t", "MyCode.WithTie", "its mock needs an accessible constructor that can be called without arguments, or a single one with the most parameters, which CreateMock() fills"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(1)
-				.WithArguments("b", "MyCode.WithPrivate", "its mock needs an accessible constructor that can be called without arguments"),
+				.WithArguments("b", "MyCode.WithPrivate", "its mock needs an accessible constructor that can be called without arguments, or a single one with the most parameters, which CreateMock() fills"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(2)
 				.WithArguments("d", "MyCode.IStatic", "it has static abstract members"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(3)
@@ -248,7 +249,7 @@ public class MockDataSourceAnalyzerTests
 			  }
 			  """,
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
-				.WithArguments("a", "MyCode.WithInternal", "its mock needs an accessible constructor that can be called without arguments"),
+				.WithArguments("a", "MyCode.WithInternal", "its mock needs an accessible constructor that can be called without arguments, or a single one with the most parameters, which CreateMock() fills"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(1)
 				.WithArguments("c", "MyCode.RefCallback", "its mock cannot implement the member 'MyCode.RefCallback.Invoke(ref int)'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(2)
@@ -340,7 +341,7 @@ public class MockDataSourceAnalyzerTests
 			  }
 			  """,
 			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
-				.WithArguments("a", "MyCode.SelectsObsolete", "its mock needs an accessible constructor that can be called without arguments")
+				.WithArguments("a", "MyCode.SelectsObsolete", "its mock needs an accessible constructor that can be called without arguments, or a single one with the most parameters, which CreateMock() fills")
 		);
 
 	[Test]

@@ -44,6 +44,7 @@ The included code fix adds the `.AtLeastOnce()` count assertion.
 This rule prevents you from mocking unsupported types:
 
 - `CreateMock()`: the type must be an interface, a delegate or a class that can be derived from (e.g. not `sealed`).
+- `CreateMock(out ConstructorArguments arguments)`: the type must be a sealed class or a record that your assembly can access, with a single accessible constructor with the most parameters that sets all `required` members. It must not be generic, obsolete, file-local, abstract, in the `System`, `Microsoft` or `Windows` namespaces, or have a member named `CreateMock`.
 - `Implementing<T>()`: the type must be an interface.
 
 It also fires when the type has a member that the mock would have to implement (an abstract member, or an interface
@@ -235,36 +236,6 @@ Use a matcher for the parameter type instead, for example `It.IsAny<object>()` o
 
 The message says which of these fixes applies. For an explicit `params` array, it suggests passing the elements as separate arguments, together with matchers for the other arguments where they are plain values. For a custom matcher that is also a value of the parameter type, it suggests a cast to `IParameter<T>`, and it says so when no spelling passes the matcher as a matcher. For a matcher for the whole array of a `params T[]` array next to other elements, it says that such a matcher only matches the array as its only element, and that next to other elements it matches one element.
 
-## Mockolate0008
-
-**A class that cannot be [created with mocks](04-create-mocks.md#create-the-class-under-test-with-mocks).**
-
-The source generator only adds `CreateWithMocks` to a class it can construct. Otherwise the call does not compile (CS0117, or CS1929 when other classes have a `CreateWithMocks`), and the rule explains why:
-
-```csharp
-public abstract class VendingMachine(IChocolateDispenser dispenser);
-
-// Mockolate0008: 'VendingMachine' cannot be created with mocks: it is abstract
-VendingMachine sut = VendingMachine.CreateWithMocks(out _);
-```
-
-The rule reports structs, abstract, static, generic, obsolete and file-local classes, private and protected nested classes, classes in the `System`, `Microsoft` and `Windows` namespaces, a container name that another type already uses, and classes without a single accessible constructor with the most parameters. Create the class with its constructor instead, or rename the type that takes the container name.
-
-## Mockolate0009
-
-**A constructor dependency that is not mocked and has no argument.**
-
-`CreateWithMocks` only mocks the dependencies that the generator can mock on its own. Every other parameter without a default value, except a `params` array, needs an argument. When it is missing, the call does not compile (CS7036, or CS1929 or CS0117 depending on the other `CreateWithMocks` methods in scope), and the rule names the parameter and why it is not mocked:
-
-```csharp
-public class VendingMachine(IChocolateDispenser dispenser, TimeProvider clock);
-
-// Mockolate0009: The parameter 'clock' of type 'System.TimeProvider' needs an argument, because it is not mocked: only interfaces are mocked
-VendingMachine sut = VendingMachine.CreateWithMocks(out _);
-```
-
-The rule reports missing arguments of a class, delegate or interface type: classes and delegates are never mocked, and an interface is not mocked when it is declared in the global namespace, is a framework interface other than `ILogger`, `ILogger<T>` and `ILoggerFactory`, or cannot be mocked without a `CreateMock` call. A missing argument of another type, such as a `string`, an `int` or another struct, is not reported, because nobody expects a mock for it; the compiler error names the parameter. Pass the argument, e.g. `VendingMachine.CreateWithMocks(out _, TimeProvider.System)`.
-
 ## Mockolate0010
 
 **A mock data source parameter that cannot be created.**
@@ -286,7 +257,7 @@ public class ChocolateTests<TFlavor>
 }
 ```
 
-The rule fires for a type parameter or a type that contains one, a type that the generated code cannot access, a file-local, obsolete or experimental type, a type nested in a generic type, an interface, delegate or abstract class that cannot be mocked (see [Mockolate0002](#mockolate0002)), has static abstract members or a member its mock cannot implement or, for an abstract class, has no public or protected constructor that can be called without arguments, a type argument or array element that the generated code cannot use, and a generic class or a class without a single accessible constructor with the most parameters. Types of the `System`, `Microsoft` and `Windows` namespaces are never reported, because the test framework often passes them as arguments. For a reported parameter whose type the generated factory can name, a default value generator of the behavior can still provide a value.
+The rule fires for a type parameter or a type that contains one, a type that the generated code cannot access, a file-local, obsolete or experimental type, a type nested in a generic type, an interface, delegate or abstract class that cannot be mocked (see [Mockolate0002](#mockolate0002)), has static abstract members or a member its mock cannot implement or, for an abstract class, has neither a public or protected constructor that can be called without arguments nor a single one with the most parameters, a type argument or array element that the generated code cannot use, and a generic class or a class without a single accessible constructor with the most parameters. Types of the `System`, `Microsoft` and `Windows` namespaces are never reported, because the test framework often passes them as arguments. For a reported parameter whose type the generated factory can name, a default value generator of the behavior can still provide a value.
 
 ## Explicit types for union parameters
 

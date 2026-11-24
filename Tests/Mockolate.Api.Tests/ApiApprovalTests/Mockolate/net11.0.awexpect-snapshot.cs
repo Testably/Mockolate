@@ -5,6 +5,11 @@
 [assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v11.0", FrameworkDisplayName = ".NET 11.0")]
 namespace Mockolate
 {
+    public sealed class ConstructorArguments
+    {
+        public T Get<T>() { }
+        public T Get<T>(string parameterName) { }
+    }
     public class DefaultValueFactory
     {
         protected DefaultValueFactory() { }

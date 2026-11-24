@@ -6,6 +6,13 @@ namespace Mockolate.SourceGenerators.Sources;
 internal static partial class Sources
 {
 	/// <summary>
+	///     A class parameter is the class under test, so its mock always forwards to the real implementation; only its
+	///     dependencies follow a behavior that skips the base class.
+	/// </summary>
+	private const string ForwardingBehavior =
+		"(behavior ?? global::Mockolate.MockBehavior.Default).SkippingBaseClass(false)";
+
+	/// <summary>
 	///     Creates the <c>MockDataSourceFactory</c> for the <paramref name="classes" />, the
 	///     <paramref name="mockedTypes" />, the <paramref name="valueOrMockTypes" /> and the
 	///     <paramref name="valueTypes" />, which a module initializer registers.
@@ -130,17 +137,41 @@ internal static partial class Sources
 				sb.Append("\t\t\tCreationPath self = new(").Append(i).Append(", path);").AppendLine();
 			}
 
-			sb.Append("\t\t\treturn new ").Append(dataSourceClass.ClassFullName).Append('(')
-				.Append(string.Join(", ", dataSourceClass.Parameters.AsArray().Select((parameter, index) =>
-					Argument(parameter, index, className, i))))
-				.Append(");").AppendLine();
+			if (!dataSourceClass.IsMock)
+			{
+				sb.Append("\t\t\treturn new ").Append(dataSourceClass.ClassFullName).Append('(')
+					.Append(string.Join(", ", dataSourceClass.Parameters.AsArray().Select((parameter, index) =>
+						Argument(parameter, index, className, i))))
+					.Append(");").AppendLine();
+			}
+			else if (dataSourceClass.Parameters.Count == 0)
+			{
+				sb.Append("\t\t\treturn ").Append(dataSourceClass.ClassFullName)
+					.Append(".CreateMock(").Append(ForwardingBehavior).Append(");").AppendLine();
+			}
+			else
+			{
+				// The typed locals give a collection expression its type, and the object array reaches only the
+				// constructor whose arguments it holds.
+				DataSourceParameter[] parameters = dataSourceClass.Parameters.AsArray();
+				for (int index = 0; index < parameters.Length; index++)
+				{
+					sb.Append("\t\t\tvar a").Append(index).Append(" = ").Append(Argument(parameters[index], index, className, i))
+						.Append(';').AppendLine();
+				}
+
+				sb.Append("\t\t\treturn ").Append(dataSourceClass.ClassFullName)
+					.Append(".CreateMock(").Append(ForwardingBehavior).Append(", new object?[] { ")
+					.Append(string.Join(", ", parameters.Select((_, index) => $"a{index}"))).Append(", });").AppendLine();
+			}
+
 			sb.Append("\t\t}").AppendLine();
 		}
 
 		sb.AppendLine();
 		// The typed overloads of Generate return an empty collection without asking the generator, so a configured
-		// value is looked up first.
-		sb.Append("\t\tprivate static bool IsValue<T>(global::Mockolate.MockBehavior behavior, T typedDefault, out T result)").AppendLine();
+		// value is looked up first. The typed default only runs without one, so that a configured factory is called once.
+		sb.Append("\t\tprivate static bool IsValue<T>(global::Mockolate.MockBehavior behavior, global::System.Func<global::Mockolate.MockBehavior, T> typedDefault, out T result)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (behavior.DefaultValue.GenerateValue(typeof(T)) is T configured)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -148,8 +179,8 @@ internal static partial class Sources
 		sb.Append("\t\t\t\treturn true;").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\t\tresult = typedDefault;").AppendLine();
-		sb.Append("\t\t\treturn typedDefault is not null || typeof(T).IsValueType;").AppendLine();
+		sb.Append("\t\t\tresult = typedDefault(behavior);").AppendLine();
+		sb.Append("\t\t\treturn result is not null || typeof(T).IsValueType;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t/// <summary>").AppendLine();
@@ -214,7 +245,7 @@ internal static partial class Sources
 		}
 
 		static string TryCreateValue(string type, string variable)
-			=> $"IsValue(behavior ?? global::Mockolate.MockBehavior.Default, (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default({type})!), out {type} {variable})";
+			=> $"IsValue(behavior ?? global::Mockolate.MockBehavior.Default, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default({type})!), out {type} {variable})";
 	}
 
 	/// <summary>

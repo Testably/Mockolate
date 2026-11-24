@@ -198,13 +198,13 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
-	public async Task TryCreate_WithAbstractClassWithoutParameterlessConstructor_ShouldReturnFalse()
+	public async Task TryCreate_WithAbstractClassWithParameters_ShouldMockItWithTheDefaultValues()
 	{
 		bool result = MockDataSource.TryCreate(Assembly, typeof(MockDataAbstractWithParameter), null, NoArgument,
 			out object? value);
 
-		await That(result).IsFalse().Because("such a class gets no mock, and the default values provide none");
-		await That(value).IsNull();
+		await That(result).IsTrue();
+		await That(((MockDataAbstractWithParameter)value!).Value).IsEqualTo(0);
 	}
 
 	[Test]
@@ -220,6 +220,45 @@ public sealed class MockDataSourceTests
 		await That(parameter).IsSameAs(configured);
 		await That(((MockDataWithCollection)sut!).Values).IsSameAs(configured);
 		await That((int[])unconfigured!).IsEmpty();
+	}
+
+	[Test]
+	public async Task TryCreate_WithClassParameter_ShouldForwardToTheRealImplementationAndAllowSetups()
+	{
+		MockDataSource.TryCreate(Assembly, typeof(MockDataForwardingService), MockBehavior.Default.SkippingBaseClass(),
+			NoArgument, out object? value);
+		MockDataForwardingService sut = (MockDataForwardingService)value!;
+
+		int forwarded = sut.Calculate();
+		sut.Mock.Setup.Calculate().Returns(42);
+
+		await That(forwarded).IsEqualTo(5).Because("the class under test keeps its real implementation");
+		await That(sut.Calculate()).IsEqualTo(42);
+	}
+
+	[Test]
+	public async Task TryCreate_WithAbstractClass_ShouldUseTheResolver()
+	{
+		IMockDataDependency dependency = IMockDataDependency.CreateMock();
+
+		MockDataSource.TryCreate(Assembly, typeof(MockDataAbstractService), null, Resolve, out object? value);
+
+		await That(((MockDataAbstractService)value!).Dependency).IsSameAs(dependency);
+
+		bool Resolve(Type type, string parameterName, out object? argument)
+		{
+			argument = dependency;
+			return type == typeof(IMockDataDependency);
+		}
+	}
+
+	[Test]
+	public async Task TryCreate_WithSealedClass_ShouldCreateARealInstance()
+	{
+		MockDataSource.TryCreate(Assembly, typeof(MockDataSealedService), null, NoArgument, out object? value);
+
+		await That(value!.GetType()).IsEqualTo(typeof(MockDataSealedService));
+		await That(((MockDataSealedService)value).Dependency).IsNotNull();
 	}
 
 	[Test]

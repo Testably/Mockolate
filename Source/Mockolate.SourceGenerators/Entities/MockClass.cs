@@ -39,9 +39,17 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 
 		if (!IsInterface && types[0] is INamedTypeSymbol namedTypeSymbol)
 		{
-			IMethodSymbol[] constructors = GetMockConstructors(namedTypeSymbol, sourceAssembly);
+			IMethodSymbol[] constructors = MockGeneratorHelpers.GetMockConstructors(namedTypeSymbol, sourceAssembly);
 			Constructors = new EquatableArray<Method>(constructors.Select(x => new Method(x, null, sourceAssembly)).ToArray());
 			ConstructorWithoutArguments = MockConstructorSelector.FindConstructorWithoutArguments(constructors, compilation);
+			if (ConstructorWithoutArguments is null && namedTypeSymbol.TypeKind == TypeKind.Class &&
+			    MockGeneratorHelpers.GetDependencyConstructor(constructors) is { } dependencyConstructor)
+			{
+				ConstructorWithDependencies = dependencyConstructor;
+				ConstructorDependencies = new EquatableArray<ConstructorDependency>(
+					MockGeneratorHelpers.GetConstructorDependencies(constructors[dependencyConstructor], compilation));
+			}
+
 			if (namedTypeSymbol.DelegateInvokeMethod is not null)
 			{
 				Delegate = new Method(namedTypeSymbol.DelegateInvokeMethod, null, sourceAssembly);
@@ -100,6 +108,17 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	///     constructor parameters, or <see langword="null" /> when every constructor needs arguments.
 	/// </summary>
 	public int? ConstructorWithoutArguments { get; }
+
+	/// <summary>
+	///     The index in <see cref="Constructors" /> of the constructor that <c>CreateMock()</c> fills with
+	///     <see cref="ConstructorDependencies" /> when no constructor can be called without arguments.
+	/// </summary>
+	public int? ConstructorWithDependencies { get; }
+
+	/// <summary>
+	///     How <c>CreateMock()</c> fills each parameter of the <see cref="ConstructorWithDependencies" />.
+	/// </summary>
+	public EquatableArray<ConstructorDependency>? ConstructorDependencies { get; }
 
 	public EquatableArray<Class> AdditionalImplementations { get; }
 
@@ -277,21 +296,6 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 			new EquatableArray<ImplementedMember<Event>>(events.ToArray()));
 	}
 
-	/// <summary>
-	///     The constructors that a mock of <paramref name="type" /> can call;
-	///     <see cref="ConstructorWithoutArguments" /> is an index into them.
-	/// </summary>
-	internal static IMethodSymbol[] GetMockConstructors(INamedTypeSymbol type, IAssemblySymbol? sourceAssembly)
-		=> type.Constructors
-			.Where(x => x.DeclaredAccessibility == Accessibility.Protected ||
-			            x.DeclaredAccessibility == Accessibility.ProtectedOrInternal ||
-			            x.DeclaredAccessibility == Accessibility.Public)
-			// Parameter types are named verbatim in `MockExtensionsForXXX`, which does not derive
-			// from the mocked type: a type reachable only through inheritance would cause CS0122
-			// there and CS0051 on the generated `public` constructor.
-			.Where(x => x.Parameters.All(p => Helpers.IsAccessibleFrom(p.Type, sourceAssembly)))
-			.ToArray();
-
 	private static IEnumerable<INamedTypeSymbol> EnumerateInterfaces(ITypeSymbol type)
 	{
 		if (type is INamedTypeSymbol namedType)
@@ -331,6 +335,8 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		{
 			hash = unchecked((hash * 17) + constructors.GetHashCode());
 			hash = unchecked((hash * 17) + (ConstructorWithoutArguments ?? -1));
+			hash = unchecked((hash * 17) + (ConstructorWithDependencies ?? -1));
+			hash = unchecked((hash * 17) + ConstructorDependencies.GetHashCode());
 		}
 
 		if (Delegate is { } @delegate)

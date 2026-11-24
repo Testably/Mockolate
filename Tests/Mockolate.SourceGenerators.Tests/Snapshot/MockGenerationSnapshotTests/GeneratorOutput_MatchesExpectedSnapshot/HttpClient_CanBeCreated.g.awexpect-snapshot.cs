@@ -54,6 +54,8 @@ internal static partial class Mock
 		}
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		internal static readonly global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry> MockRegistryProvider = new global::System.Threading.AsyncLocal<global::Mockolate.Internals.MockRegistry>();
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		private readonly global::Mockolate.ConstructorArguments? MockolateConstructorArguments;
 
 
 		/// <inheritdoc />
@@ -108,6 +110,12 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpClient> IMockForHttpClient.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpClient>(this.MockRegistry.Interactions, interactions => new VerifyMonitorHttpClient(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		T IMockForHttpClient.ConstructorArgument<T>()
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of System.Net.Http.HttpClient was created without constructor arguments.")).Get<T>();
+		/// <inheritdoc />
+		T IMockForHttpClient.ConstructorArgument<T>(string parameterName)
+			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of System.Net.Http.HttpClient was created without constructor arguments.")).Get<T>(parameterName);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -126,11 +134,14 @@ internal static partial class Mock
 		{
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature1 = new global::Mockolate.Internals.ConstructorSignature("System.Net.Http.HttpClient(HttpMessageHandler)", new string[] { "handler", }, new global::System.Type[] { typeof(global::System.Net.Http.HttpMessageHandler), });
+
 		/// <inheritdoc cref="HttpClient" />
 		public HttpClient(global::Mockolate.Internals.MockRegistry mockRegistry, global::System.Net.Http.HttpMessageHandler handler)
 			: base(handler)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = MockolateConstructorSignature1.Record(new object?[] { handler, });
 		}
 
 		/// <inheritdoc cref="HttpClient" />
@@ -139,11 +150,14 @@ internal static partial class Mock
 		{
 		}
 
+		private static readonly global::Mockolate.Internals.ConstructorSignature MockolateConstructorSignature2 = new global::Mockolate.Internals.ConstructorSignature("System.Net.Http.HttpClient(HttpMessageHandler, bool)", new string[] { "handler", "disposeHandler", }, new global::System.Type[] { typeof(global::System.Net.Http.HttpMessageHandler), typeof(bool), });
+
 		/// <inheritdoc cref="HttpClient" />
 		public HttpClient(global::Mockolate.Internals.MockRegistry mockRegistry, global::System.Net.Http.HttpMessageHandler handler, bool disposeHandler)
 			: base(handler, disposeHandler)
 		{
 			this.MockRegistry = mockRegistry;
+			this.MockolateConstructorArguments = MockolateConstructorSignature2.Record(new object?[] { handler, disposeHandler, });
 		}
 
 		/// <inheritdoc cref="HttpClient" />
@@ -898,6 +912,24 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForHttpClient> Monitor();
+
+		/// <summary>
+		///     Gets the only argument of type <typeparamref name="T" /> that the constructor of the mock of <see cref="global::System.Net.Http.HttpClient">HttpClient</see> received.
+		/// </summary>
+		/// <remarks>
+		///     Use it to set up and verify the mocks that <c>CreateMock()</c> passed to the constructor. When the constructor received several arguments of the type, pass the name of the parameter.
+		/// </remarks>
+		/// <returns>The argument of type <typeparamref name="T" />.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The constructor received no or several arguments of type <typeparamref name="T" />.</exception>
+		T ConstructorArgument<T>();
+
+		/// <summary>
+		///     Gets the argument of the parameter <paramref name="parameterName" /> that the constructor of the mock of <see cref="global::System.Net.Http.HttpClient">HttpClient</see> received.
+		/// </summary>
+		/// <param name="parameterName">The name of the constructor parameter.</param>
+		/// <returns>The argument of the parameter <paramref name="parameterName" />.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The constructor has no parameter <paramref name="parameterName" />, or its argument is no <typeparamref name="T" />.</exception>
+		T ConstructorArgument<T>(string parameterName);
 	}
 
 	/// <summary>
@@ -1265,7 +1297,7 @@ internal static partial class MockExtensionsForHttpClient
 		/// <summary>
 		///     Creates a new mock of <see cref="global::System.Net.Http.HttpClient">HttpClient</see> using the given <paramref name="constructorParameters" /> to invoke the base-class constructor.
 		/// </summary>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::System.Net.Http.HttpClient">HttpClient</see>.</returns>
 		public static global::System.Net.Http.HttpClient CreateMock(object?[] constructorParameters)
 			=> CreateMock(null, null, constructorParameters);
@@ -1274,7 +1306,7 @@ internal static partial class MockExtensionsForHttpClient
 		///     Creates a new mock of <see cref="global::System.Net.Http.HttpClient">HttpClient</see> using the given <paramref name="mockBehavior" /> and <paramref name="constructorParameters" />.
 		/// </summary>
 		/// <param name="mockBehavior">Controls how the mock responds when members are invoked without a matching setup; see <see cref="global::Mockolate.MockBehavior">MockBehavior</see>.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::System.Net.Http.HttpClient">HttpClient</see>.</returns>
 		public static global::System.Net.Http.HttpClient CreateMock(global::Mockolate.MockBehavior mockBehavior, object?[] constructorParameters)
 			=> CreateMock(mockBehavior, null, constructorParameters);
@@ -1286,7 +1318,7 @@ internal static partial class MockExtensionsForHttpClient
 		///     The provided <paramref name="setup" /> is immediately applied to the mock. Use this overload when you want setups to cover virtual interactions triggered inside the constructor.
 		/// </remarks>
 		/// <param name="setup">Callback that receives the mock's setup surface and registers initial setups before the mock is returned.</param>
-		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Required unless a constructor can be called without arguments.</param>
+		/// <param name="constructorParameters">Values forwarded to a matching base-class constructor. Without them, a constructor that can be called without arguments is used, or else the constructor with the most parameters is filled with mocks and default values.</param>
 		/// <returns>A new mock instance of <see cref="global::System.Net.Http.HttpClient">HttpClient</see>.</returns>
 		public static global::System.Net.Http.HttpClient CreateMock(global::System.Action<IMockSetupInitializationForHttpClient> setup, object?[] constructorParameters)
 			=> CreateMock(null, setup, constructorParameters);

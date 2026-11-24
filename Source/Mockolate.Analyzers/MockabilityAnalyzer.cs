@@ -74,7 +74,13 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 			return;
 		}
 
-		if (methodName == "CreateMock")
+		// Only the overload for sealed classes has an out parameter, which a named argument can pass at any position.
+		if (methodName == "CreateMock" &&
+		    invocation.ArgumentList.Arguments.Any(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)))
+		{
+			AnalyzeSealedCreateMock(context, memberAccess, method);
+		}
+		else if (methodName == "CreateMock")
 		{
 			AnalyzeCreateMock(context, memberAccess, method, spellings);
 		}
@@ -99,6 +105,12 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 
 		if (!IsMockable(receiverType, context.Compilation.Assembly, out string? reason))
 		{
+			if (receiverType is INamedTypeSymbol namedType &&
+			    ConstructorRules.GetSealedClassReason(namedType, context.Compilation) is null)
+			{
+				reason += "; use CreateMock(out ConstructorArguments arguments) to create a real instance with mocked dependencies";
+			}
+
 			context.ReportDiagnostic(Diagnostic.Create(
 				Rules.MockabilityRule,
 				memberAccess.Expression.GetLocation(),
@@ -109,6 +121,21 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 
 		spellings.Add(new MockedSpelling(receiverType, memberAccess.Expression.GetLocation()));
 		ReportRefStructIssuesForType(context, receiverType, memberAccess.Expression.GetLocation());
+	}
+
+	private static void AnalyzeSealedCreateMock(SyntaxNodeAnalysisContext context,
+		MemberAccessExpressionSyntax memberAccess, IMethodSymbol? method)
+	{
+		if (GetReceiverType(context, memberAccess, method) is INamedTypeSymbol receiverType &&
+		    !AnalyzerHelpers.IsOpenGeneric(receiverType) &&
+		    ConstructorRules.GetSealedClassReason(receiverType, context.Compilation) is { } reason)
+		{
+			context.ReportDiagnostic(Diagnostic.Create(
+				Rules.MockabilityRule,
+				memberAccess.Expression.GetLocation(),
+				receiverType.ToDisplayString(),
+				reason));
+		}
 	}
 
 	/// <summary>

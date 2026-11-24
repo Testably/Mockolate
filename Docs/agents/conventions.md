@@ -55,7 +55,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
 
 ## Analyzers and Code Fixes
 
-- Rule IDs are `MockolateNNNN` in the category `Usage`. Add the descriptor through `Rules.CreateDescriptor` (`Mockolate0003` and `Mockolate0005` to `Mockolate0010` live in their analyzers, see the comment in `Rules.cs`), the `Title`, `MessageFormat` and `Description` texts in `Resources.resx`, the row in `AnalyzerReleases.Unshipped.md` and a section with an example in `Docs/pages/10-analyzers.md`.
+- Rule IDs are `MockolateNNNN` in the category `Usage`. Add the descriptor through `Rules.CreateDescriptor` (`Mockolate0003` and `Mockolate0005` to `Mockolate0007` and `Mockolate0010` live in their analyzers, see the comment in `Rules.cs`), the `Title`, `MessageFormat` and `Description` texts in `Resources.resx`, the row in `AnalyzerReleases.Unshipped.md` and a section with an example in `Docs/pages/10-analyzers.md`.
 - Analyzers call `ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None)` and `EnableConcurrentExecution()`, and tolerate unresolved symbols in code that does not compile yet.
 - Code fixes are `[ExportCodeFixProvider]` and `[Shared]`, support `BatchFixer` and use the resource name as equivalence key.
 

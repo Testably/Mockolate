@@ -6,6 +6,8 @@ namespace Mockolate.SourceGenerators.Entities;
 /// </summary>
 /// <param name="ClassFullName">The fully qualified name of the class.</param>
 /// <param name="Parameters">The parameters of the constructor that creates the class.</param>
+/// <param name="IsMock">Whether the class is created as a class mock instead of with its constructor.</param>
 internal sealed record DataSourceClass(
 	string ClassFullName,
-	EquatableArray<DataSourceParameter> Parameters);
+	EquatableArray<DataSourceParameter> Parameters,
+	bool IsMock);

@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mockolate.SourceGenerators.Entities;
 using Mockolate.SourceGenerators.Internals;
@@ -74,6 +75,12 @@ internal static partial class MockGeneratorHelpers
 			{
 				yield return new MockClass([adapterReturnType,], semanticModel.Compilation);
 			}
+
+			foreach (MockClass dependencyMock in GetConstructorDependencyMockTypes(types[0], semanticModel.Compilation)
+				         .SelectMany(type => CreateDependencyMockClasses(type, semanticModel.Compilation)))
+			{
+				yield return dependencyMock;
+			}
 		}
 	}
 
@@ -84,7 +91,7 @@ internal static partial class MockGeneratorHelpers
 		SemanticModel semanticModel)
 	{
 		// Static extension methods
-		if (syntaxNode is InvocationExpressionSyntax invocation)
+		if (syntaxNode is InvocationExpressionSyntax invocation && !syntaxNode.IsSealedCreateMockInvocation())
 		{
 			SymbolInfo symbolInfo = semanticModel.GetSymbolInfo(invocation);
 			IMethodSymbol? methodSymbol = symbolInfo.Symbol as IMethodSymbol ?? symbolInfo.CandidateSymbols.OfType<IMethodSymbol>().FirstOrDefault();
@@ -213,6 +220,8 @@ internal static partial class MockGeneratorHelpers
 	/// </summary>
 	private static bool CanBeMockedImplicitly(INamedTypeSymbol typeSymbol, IAssemblySymbol sourceAssembly)
 		=> IsAutoMockable(typeSymbol) &&
+		   // The mock of a type named like a keyword, such as @event, would be a class of that name.
+		   SyntaxFacts.GetKeywordKind(typeSymbol.Name) == SyntaxKind.None &&
 		   !UsesTypeNestedInGenericType(typeSymbol) &&
 		   !HasStaticAbstractMembers(typeSymbol) &&
 		   !HasNonPublicAbstractMembers(typeSymbol) &&
@@ -272,9 +281,19 @@ internal static partial class MockGeneratorHelpers
 	///     The auto-mock factory calls <c>CreateMock</c> on the type, where a member of the interface with that name
 	///     would hide the generated extension.
 	/// </summary>
+	// A member of a base class hides a generated static extension member as well as one of the type itself.
 	private static bool HasMemberNamedCreateMock(INamedTypeSymbol typeSymbol)
-		=> !typeSymbol.GetMembers("CreateMock").IsEmpty ||
-		   typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
+	{
+		for (INamedTypeSymbol? current = typeSymbol; current is not null; current = current.BaseType)
+		{
+			if (!current.GetMembers("CreateMock").IsEmpty)
+			{
+				return true;
+			}
+		}
+
+		return typeSymbol.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
+	}
 
 	/// <summary>
 	///     Whether the <paramref name="namespaceSymbol" /> lies in <c>System</c>, <c>Microsoft</c> or <c>Windows</c>, whose

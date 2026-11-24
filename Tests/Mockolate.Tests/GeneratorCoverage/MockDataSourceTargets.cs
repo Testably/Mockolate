@@ -154,8 +154,35 @@ public class MockDataWithCollection(int[] values)
 	public int[] Values { get; } = values;
 }
 
+/// <summary>
+///     A class parameter is a mock that forwards to the real implementation.
+/// </summary>
+public class MockDataForwardingService(IMockDataDependency dependency)
+{
+	public IMockDataDependency Dependency { get; } = dependency;
+
+	public virtual int Calculate() => 5;
+}
+
+public abstract class MockDataAbstractService(IMockDataDependency dependency)
+{
+	public IMockDataDependency Dependency { get; } = dependency;
+
+	public abstract int GetValue();
+}
+
+public sealed class MockDataSealedService(IMockDataDependency dependency)
+{
+	public IMockDataDependency Dependency { get; } = dependency;
+}
+
 public static class MockDataSourceTargets
 {
+	[MockData]
+	public static object ClassesUnderTest(MockDataForwardingService forwarding, MockDataAbstractService abstractService,
+		MockDataSealedService sealedService)
+		=> (forwarding, abstractService, sealedService);
+
 	[MockData]
 	public static object Collection(MockDataWithCollection sut, int[] values) => (sut, values);
 

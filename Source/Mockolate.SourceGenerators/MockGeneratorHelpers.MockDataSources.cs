@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Mockolate.SourceGenerators.Entities;
@@ -249,9 +250,13 @@ internal static partial class MockGeneratorHelpers
 				.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
 			switch (GetDataSourceParameterKind(parameterType, compilation))
 			{
+				case DataSourceParameterKind.Mock when parameterType is INamedTypeSymbol { TypeKind: TypeKind.Class, } mockedClass:
+					pending.Add(mockedClass);
+					break;
 				case DataSourceParameterKind.Mock:
 					targets.MockedTypes.Add(parameterType);
 					targets.TypesToMock.Add(parameterType);
+					targets.TypesToMock.AddRange(GetConstructorDependencyMockTypes(parameterType, compilation));
 					break;
 				case DataSourceParameterKind.ValueOrMock:
 					targets.ValueOrMockTypes.Add(parameterType);
@@ -270,58 +275,178 @@ internal static partial class MockGeneratorHelpers
 		for (int index = 0; index < pending.Count; index++)
 		{
 			INamedTypeSymbol type = pending[index];
-			if (!visited.Add(type) || GetSutConstructor(type, compilation) is not { } constructor)
+			if (!visited.Add(type))
 			{
 				continue;
 			}
 
-			List<DataSourceParameter> parameters = [];
-			foreach (IParameterSymbol parameter in constructor.Parameters)
+			IMethodSymbol? constructor = GetDataSourceConstructor(type, compilation);
+			if (constructor is null && !type.IsAbstract)
 			{
-				ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation)
-					.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
-				string? defaultValue = parameter.HasExplicitDefaultValue
-					? MethodParameter.From(parameter).ExplicitDefaultValue
-					: null;
-				bool isMockable = !parameter.IsParams && IsDependencyMockable(parameterType, compilation);
-				// A framework interface such as IEnumerable<T> is better served by the default values of the behavior,
-				// so its mock is only the last resort.
-				bool isMockedLast = !isMockable && !parameter.IsParams &&
-				                    IsMockableFrameworkInterface(parameterType, compilation);
-				// An explicit default value wins over a created class, as it does over null for a nullable parameter.
-				bool isCreatable = !isMockable && !parameter.IsParams && defaultValue is null &&
-				                   parameterType is INamedTypeSymbol namedType &&
-				                   IsCreatableDependency(namedType, compilation);
-				if (isMockable || isMockedLast)
-				{
-					targets.TypesToMock.Add(parameterType);
-				}
-				else if (isCreatable)
-				{
-					pending.Add((INamedTypeSymbol)parameterType);
-				}
+				continue;
+			}
 
-				parameters.Add(new DataSourceParameter(
-					ToFullName(parameterType),
-					parameter.Name,
-					isMockable,
-					isMockedLast,
-					parameter.IsParams,
-					defaultValue,
-					isCreatable,
-					// A nullable-oblivious parameter does not state that it accepts null, so it is not given null.
-					parameter.Type.NullableAnnotation == NullableAnnotation.Annotated ||
-					parameter.Type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T));
+			DataSourceParameter[] parameters = constructor is null
+				? []
+				: constructor.Parameters
+					.Select(parameter => CreateDataSourceParameter(parameter, compilation, targets.TypesToMock, pending))
+					.ToArray();
+			bool isMock = type.IsAbstract || IsClassMockable(type, constructor!, compilation);
+			if (isMock)
+			{
+				targets.TypesToMock.Add(type);
+				targets.TypesToMock.AddRange(GetConstructorDependencyMockTypes(type, compilation));
 			}
 
 			targets.Classes.Add(new DataSourceClass(ToFullName(type),
-				new EquatableArray<DataSourceParameter>(parameters.ToArray())));
+				new EquatableArray<DataSourceParameter>(parameters), isMock));
 		}
 
 		return targets with
 		{
 			TypesToMock = targets.TypesToMock.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default).ToList(),
 		};
+	}
+
+	/// <summary>
+	///     Whether the factory creates the <paramref name="type" /> as a class mock through the
+	///     <paramref name="constructor" />: its mock is emitted and compiles, and the object array of constructor
+	///     parameters reaches no other constructor of the mock.
+	/// </summary>
+	private static bool IsClassMockable(INamedTypeSymbol type, IMethodSymbol constructor, Compilation compilation)
+	{
+		if (GetCompilableDataSourceMock(type, compilation) is null)
+		{
+			return false;
+		}
+
+		int count = constructor.Parameters.Length;
+		IMethodSymbol[] reachable = GetMockConstructors(type, compilation.Assembly)
+			.Where(candidate => !candidate.Parameters.Any(parameter => parameter.Type.IsRefLikeType) &&
+			                    candidate.Parameters.Count(parameter => !parameter.HasExplicitDefaultValue) <= count &&
+			                    count <= candidate.Parameters.Length)
+			.ToArray();
+		return reachable.Length == 1 && SymbolEqualityComparer.Default.Equals(reachable[0], constructor);
+	}
+
+	/// <summary>
+	///     The constructor whose parameters the factory fills: the one of a concrete class, or the one that the mock of an
+	///     abstract class fills with dependencies. Without one, the factory calls <c>CreateMock</c> without arguments.
+	/// </summary>
+	private static IMethodSymbol? GetDataSourceConstructor(INamedTypeSymbol type, Compilation compilation)
+	{
+		if (!type.IsAbstract)
+		{
+			return GetSutConstructor(type, compilation);
+		}
+
+		return GetCompilableDataSourceMock(type, compilation)?.ConstructorWithDependencies is { } index &&
+		       GetMockConstructors(type, compilation.Assembly)[index] is { } constructor &&
+		       IsClassMockable(type, constructor, compilation)
+			? constructor
+			: null;
+	}
+
+	private static DataSourceParameter CreateDataSourceParameter(IParameterSymbol parameter, Compilation compilation,
+		List<ITypeSymbol> typesToMock, List<INamedTypeSymbol> pending)
+	{
+		ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation)
+			.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
+		string? defaultValue = parameter.HasExplicitDefaultValue
+			? MethodParameter.From(parameter).ExplicitDefaultValue
+			: null;
+		bool isMockable = !parameter.IsParams && IsDependencyMockable(parameterType, compilation);
+		// A framework interface such as IEnumerable<T> is better served by the default values of the behavior,
+		// so its mock is only the last resort.
+		bool isMockedLast = !isMockable && !parameter.IsParams &&
+		                    IsMockableFrameworkInterface(parameterType, compilation);
+		// An explicit default value wins over a created class, as it does over null for a nullable parameter.
+		bool isCreatable = !isMockable && !parameter.IsParams && defaultValue is null &&
+		                   parameterType is INamedTypeSymbol namedType &&
+		                   IsCreatableDependency(namedType, compilation);
+		if (isMockable || isMockedLast)
+		{
+			typesToMock.Add(parameterType);
+		}
+		else if (isCreatable)
+		{
+			pending.Add((INamedTypeSymbol)parameterType);
+		}
+
+		return new DataSourceParameter(
+			ToFullName(parameterType),
+			parameter.Name,
+			isMockable,
+			isMockedLast,
+			parameter.IsParams,
+			defaultValue,
+			isCreatable,
+			// A nullable-oblivious parameter does not state that it accepts null, so it is not given null.
+			parameter.Type.NullableAnnotation == NullableAnnotation.Annotated ||
+			parameter.Type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T);
+	}
+
+	/// <summary>
+	///     A <c>T.CreateMock(out ...)</c> call, the overload for classes that cannot be mocked. It is the only overload
+	///     with an <see langword="out" /> parameter, which a named argument can pass at any position.
+	/// </summary>
+	internal static bool IsSealedCreateMockInvocation(this SyntaxNode node)
+		=> node is InvocationExpressionSyntax
+		   {
+			   Expression: MemberAccessExpressionSyntax { Name: IdentifierNameSyntax { Identifier.ValueText: "CreateMock", }, },
+			   ArgumentList.Arguments: { Count: > 0, } arguments,
+		   } &&
+		   arguments.Any(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword));
+
+	/// <summary>
+	///     The sealed class or record of the <c>T.CreateMock(out ...)</c> call <paramref name="node" />.
+	/// </summary>
+	internal static SealedCreation ExtractSealedCreation(this SyntaxNode node, SemanticModel semanticModel,
+		CancellationToken cancellationToken)
+	{
+		Compilation compilation = semanticModel.Compilation;
+		List<ITypeSymbol> typesToMock = [];
+		DataSourceClass? sealedClass = GetSealedClass(node, semanticModel, typesToMock, cancellationToken);
+		return new SealedCreation(sealedClass,
+			new EquatableArray<MockClass>(typesToMock
+				.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default)
+				.SelectMany(type => CreateDependencyMockClasses(type, compilation))
+				.ToArray()),
+			new CreateMockLocation(node.SyntaxTree.FilePath, node.Span.Start, node.Span.Length));
+	}
+
+	/// <summary>
+	///     The dependencies that the <c>T.CreateMock(out ...)</c> call <paramref name="node" /> mocks, as roots for the
+	///     discovery of auto-mocks.
+	/// </summary>
+	internal static IEnumerable<ITypeSymbol[]> ExtractSealedMockedTypes(this SyntaxNode node,
+		SemanticModel semanticModel, CancellationToken cancellationToken)
+	{
+		List<ITypeSymbol> typesToMock = [];
+		GetSealedClass(node, semanticModel, typesToMock, cancellationToken);
+		return typesToMock.Select(type => new[] { type, });
+	}
+
+	private static DataSourceClass? GetSealedClass(SyntaxNode node, SemanticModel semanticModel,
+		List<ITypeSymbol> typesToMock, CancellationToken cancellationToken)
+	{
+		Compilation compilation = semanticModel.Compilation;
+		if (node is not InvocationExpressionSyntax { Expression: MemberAccessExpressionSyntax memberAccess, } ||
+		    semanticModel.GetSymbolInfo(memberAccess.Expression, cancellationToken).Symbol is not INamedTypeSymbol type ||
+		    !(type.IsSealed || type.IsRecord) ||
+		    !IsConstructibleSut(type, compilation) ||
+		    IsFrameworkNamespace(type.ContainingNamespace) ||
+		    HasMemberNamedCreateMock(type) ||
+		    GetSutConstructor(type, compilation) is not { } constructor)
+		{
+			return null;
+		}
+
+		// A sealed class only fills its own constructor: a concrete dependency is no mock and gets a default value.
+		List<INamedTypeSymbol> ignored = [];
+		return new DataSourceClass(ToFullName(type), new EquatableArray<DataSourceParameter>(constructor.Parameters
+			.Select(parameter => CreateDataSourceParameter(parameter, compilation, typesToMock, ignored))
+			.ToArray()), false);
 	}
 
 	private static bool IsCreatableDependency(INamedTypeSymbol type, Compilation compilation)
@@ -378,15 +503,36 @@ internal static partial class MockGeneratorHelpers
 	}
 
 	/// <summary>
-	///     Whether the mock of the parameter <paramref name="type" /> is emitted and compiles without warnings.
+	///     Whether the factory can create the parameter <paramref name="type" /> with <c>CreateMock()</c>.
+	/// </summary>
+	private static bool CanMockDataSourceParameter(INamedTypeSymbol type, Compilation compilation)
+		=> GetCompilableDataSourceMock(type, compilation) is { } mock &&
+		   (type.TypeKind != TypeKind.Class || HasCallableMockConstructor(type, mock, compilation));
+
+	/// <summary>
+	///     Whether <c>CreateMock()</c> calls a constructor of the class <paramref name="type" /> that is not obsolete: one
+	///     without arguments, or else the one that it fills with dependencies.
+	/// </summary>
+	private static bool HasCallableMockConstructor(INamedTypeSymbol type, MockClass mock, Compilation compilation)
+	{
+		int? constructor = mock.ConstructorWithoutArguments ?? mock.ConstructorWithDependencies;
+		return constructor is { } index &&
+		       !HasUsageDiagnostic(GetMockConstructors(type, compilation.Assembly)[index]);
+	}
+
+	/// <summary>
+	///     The mock of the <paramref name="type" />, or <see langword="null" /> when it is not emitted or does not compile
+	///     without warnings.
 	/// </summary>
 	/// <remarks>
 	///     Without an emitted mock, the factory's <c>CreateMock</c> call binds to the fallback that always throws, so this
 	///     asks the same <see cref="MockClass" /> that decides the emission.
 	/// </remarks>
-	private static bool CanMockDataSourceParameter(INamedTypeSymbol type, Compilation compilation)
+	private static MockClass? GetCompilableDataSourceMock(INamedTypeSymbol type, Compilation compilation)
 	{
+		// The mock of a type named like a keyword, such as @event, would be a class of that name.
 		if (!IsMockable(type) ||
+		    SyntaxFacts.GetKeywordKind(type.Name) != SyntaxKind.None ||
 		    HasMemberNamedCreateMock(type) ||
 		    (type.TypeKind == TypeKind.Interface && HasNonPublicAbstractMembers(type)) ||
 		    type.DelegateInvokeMethod is { ReturnsByRef: true, } or { ReturnsByRefReadonly: true, } ||
@@ -396,14 +542,11 @@ internal static partial class MockGeneratorHelpers
 			    : HasCompilableMockMembers(type, compilation.Assembly)) ||
 		    Normalize(type, compilation) is not INamedTypeSymbol normalized)
 		{
-			return false;
+			return null;
 		}
 
 		MockClass mock = GetOrCreateDiscoveredMockClass(normalized, compilation);
-		return MockGenerator.IsValidMockDeclaration(mock) &&
-		       (type.TypeKind != TypeKind.Class ||
-		        (mock.ConstructorWithoutArguments is { } constructor &&
-		         !HasUsageDiagnostic(MockClass.GetMockConstructors(type, compilation.Assembly)[constructor])));
+		return MockGenerator.IsValidMockDeclaration(mock) ? mock : null;
 	}
 
 	private static bool UsesFileLocalType(ITypeSymbol type)

@@ -3,6 +3,11 @@
 [assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.0", FrameworkDisplayName = ".NET Standard 2.0")]
 namespace Mockolate
 {
+    public sealed class ConstructorArguments
+    {
+        public T Get<T>() { }
+        public T Get<T>(string parameterName) { }
+    }
     public class DefaultValueFactory
     {
         protected DefaultValueFactory() { }
