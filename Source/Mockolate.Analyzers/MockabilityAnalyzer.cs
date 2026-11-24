@@ -68,16 +68,24 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		IMethodSymbol? method = invocationInfo.Symbol as IMethodSymbol
 		                        ?? invocationInfo.CandidateSymbols.OfType<IMethodSymbol>().FirstOrDefault();
 
+		// A dynamic call binds at run time, so it is not one of Mockolate.
+		if (invocationInfo.CandidateReason == CandidateReason.LateBound)
+		{
+			return;
+		}
+
 		// Only the overload for sealed classes has an out parameter, which a named argument can pass at any position.
-		bool isSealedCreateMock = methodName == "CreateMock" &&
-		                          invocation.ArgumentList.Arguments.Any(argument =>
-			                          argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword));
+		ArgumentSyntax? outArgument = methodName == "CreateMock"
+			? invocation.ArgumentList.Arguments.FirstOrDefault(argument =>
+				argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword))
+			: null;
+		bool isSealedCreateMock = outArgument is not null;
 
 		// If the method resolves to something outside the Mockolate namespace, skip it, unless a member hides the
 		// overload for sealed classes, which the generator then does not emit.
 		if (method is not null && !IsInMockolateNamespace(method))
 		{
-			if (!isSealedCreateMock || !IsHiddenSealedCreateMock(context, memberAccess, invocationInfo))
+			if (outArgument is null || !IsHiddenSealedCreateMock(context, memberAccess, invocationInfo, outArgument))
 			{
 				return;
 			}
@@ -100,14 +108,18 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	}
 
 	/// <summary>
-	///     A hiding member leaves the call unbound with that member as candidate. A candidate with an out parameter is
-	///     more likely a method of the user that the call targets, so only a receiver with a hiding member counts.
+	///     A hiding member leaves the call unbound with that member as candidate. Only a call whose out argument is
+	///     <c>ConstructorArguments</c>, or of an unknown type, targets the overload of Mockolate; any other one targets a
+	///     method of the user.
 	/// </summary>
 	private static bool IsHiddenSealedCreateMock(SyntaxNodeAnalysisContext context,
-		MemberAccessExpressionSyntax memberAccess, SymbolInfo invocationInfo)
+		MemberAccessExpressionSyntax memberAccess, SymbolInfo invocationInfo, ArgumentSyntax outArgument)
 		=> invocationInfo.Symbol is null &&
-		   !invocationInfo.CandidateSymbols.OfType<IMethodSymbol>()
-			   .Any(candidate => candidate.Parameters.Any(parameter => parameter.RefKind == RefKind.Out)) &&
+		   context.SemanticModel.GetTypeInfo(outArgument.Expression).Type is null or { TypeKind: TypeKind.Error, } or
+		   {
+			   Name: "ConstructorArguments",
+			   ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+		   } &&
 		   context.SemanticModel.GetSymbolInfo(memberAccess.Expression).Symbol is INamedTypeSymbol receiver &&
 		   ConstructorRules.HasMemberNamedCreateMock(receiver);
 

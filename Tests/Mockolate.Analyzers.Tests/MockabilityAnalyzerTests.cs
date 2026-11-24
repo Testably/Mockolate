@@ -460,6 +460,10 @@ public class MockabilityAnalyzerTests
 		"out string x")]
 	[Arguments("public sealed class Factory(int v) { public static int CreateMock(out int value, int seed) { value = seed; return seed; } }",
 		"out int x")]
+	[Arguments("public class Factory { public static int CreateMock(ref int seed) => seed; }", "out int x")]
+	[Arguments("public sealed class Factory(int v) { public static int CreateMock(int seed) => seed; }", "out int x")]
+	[Arguments("public class Factory { public static System.Func<int, int>? CreateMock; }", "out int x")]
+	[Arguments("public sealed class Factory(int v) { public static dynamic? CreateMock; }", "out int x")]
 	public async Task WhenCallingOwnCreateMockWithOutParameterThatDoesNotBind_ShouldNotBeFlagged(string declaration,
 		string argument)
 		=> await Verifier.VerifyAnalyzerAsync(
@@ -579,6 +583,10 @@ public class MockabilityAnalyzerTests
 	[Arguments("public class Base { public event System.Action? CreateMock; } public sealed class MyType(int value) : Base;",
 		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
 	[Arguments("public sealed class MyType(int value) { public static int CreateMock() => 0; }",
+		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
+	[Arguments("public class Base { public static int CreateMock(out int x) { x = 0; return 0; } } public sealed class MyType(int value) : Base;",
+		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
+	[Arguments("public delegate int Creator(out int x); public class Base { public static Creator? CreateMock; } public sealed class MyType(int value) : Base;",
 		"MyType", "MyNamespace.MyType", "type has a member named CreateMock, which would hide the generated extension")]
 	[Arguments("public sealed class MyType { public MyType(int value) { } public MyType(string text) { } }", "MyType",
 		"MyNamespace.MyType", "type has no single accessible constructor with the most parameters that Mockolate can call")]
