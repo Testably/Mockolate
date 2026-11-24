@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Xunit.Runners;
 
 namespace Mockolate.Xunit2.Tests;
@@ -23,7 +24,9 @@ public sealed class XunitRunnerTests
 		runner.Start(new AssemblyRunnerStartOptions { TypesToRun = [typeof(XunitTheories).FullName!,], });
 
 		DateTime deadline = DateTime.UtcNow + Timeout;
-		bool hasFinished = await Task.WhenAny(finished.Task, Task.Delay(Timeout)) == finished.Task;
+		using CancellationTokenSource timeout = new();
+		bool hasFinished = await Task.WhenAny(finished.Task, Task.Delay(Timeout, timeout.Token)) == finished.Task;
+		timeout.Cancel();
 		if (hasFinished)
 		{
 			while (runner.Status != AssemblyRunnerStatus.Idle && DateTime.UtcNow < deadline)
