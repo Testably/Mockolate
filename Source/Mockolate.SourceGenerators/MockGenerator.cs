@@ -158,15 +158,13 @@ public class MockGenerator : IIncrementalGenerator
 					SortedDistinct(source.SelectMany(creation => creation.ValueTypes))));
 
 		// Like the union attributes, the attribute may come from another generator, which Mockolate cannot see: one that
-		// MockolateUnionAttributePolyfills names, PolySharp or the generator of TUnit. PolySharp only declares it when the
-		// compilation has no usable declaration at all, while Mockolate also declares it when several references do.
+		// MockolateUnionAttributePolyfills names, PolySharp or the generator of TUnit.
 		IncrementalValueProvider<bool> hasModuleInitializer = context.CompilationProvider
 			.Combine(context.AnalyzerConfigOptionsProvider)
 			.Select(static (source, _) =>
 				ProvidedUnionAttributes(source.Right).Contains("ModuleInitializerAttribute") ||
 				TUnitProvidesModuleInitializer(source.Left, source.Right) ||
-				(PolySharpProvidesModuleInitializer(source.Right.GlobalOptions) &&
-				 GetUsableTypes(source.Left, "System.Runtime.CompilerServices.ModuleInitializerAttribute").Length == 0) ||
+				PolySharpProvidesModuleInitializer(source.Left, source.Right.GlobalOptions) ||
 				HasAttribute(source.Left, "System.Runtime.CompilerServices.ModuleInitializerAttribute"));
 
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
@@ -415,33 +413,10 @@ public class MockGenerator : IIncrementalGenerator
 				return false;
 			}
 
-			return !PolySharpProvidesModuleInitializer(options);
+			return !PolySharpSelectsModuleInitializer(options);
 
 			static bool IsFalse(string value)
 				=> string.Equals(value.Trim(), "false", StringComparison.OrdinalIgnoreCase);
-		}
-
-		// PolySharp makes its settings visible to the compiler, so the keys exist whenever it is installed, and it declares
-		// every missing polyfill that its two lists do not filter out.
-		static bool PolySharpProvidesModuleInitializer(AnalyzerConfigOptions options)
-		{
-			const string metadataName = "System.Runtime.CompilerServices.ModuleInitializerAttribute";
-			if (!options.TryGetValue("build_property.PolySharpIncludeGeneratedTypes", out string? included))
-			{
-				return false;
-			}
-
-			if (!string.IsNullOrWhiteSpace(included) && !ListContains(included, metadataName))
-			{
-				return false;
-			}
-
-			return !options.TryGetValue("build_property.PolySharpExcludeGeneratedTypes", out string? excluded) ||
-			       !ListContains(excluded, metadataName);
-
-			static bool ListContains(string list, string name)
-				=> list.Split([';', ',',], StringSplitOptions.RemoveEmptyEntries)
-					.Any(entry => string.Equals(entry.Trim(), name, StringComparison.Ordinal));
 		}
 
 		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute,
@@ -504,10 +479,44 @@ public class MockGenerator : IIncrementalGenerator
 	}
 
 	/// <summary>
+	///     Whether PolySharp declares <c>ModuleInitializerAttribute</c> in the compilation. Its settings are visible to the
+	///     compiler whenever it is installed; it declares a polyfill that its two lists do not filter out when the
+	///     compilation has no accessible declaration, an embedded one included.
+	/// </summary>
+	internal static bool PolySharpProvidesModuleInitializer(Compilation compilation, AnalyzerConfigOptions options)
+	{
+		const string metadataName = "System.Runtime.CompilerServices.ModuleInitializerAttribute";
+		return PolySharpSelectsModuleInitializer(options) &&
+		       !compilation.GetTypesByMetadataName(metadataName)
+			       .Any(type => compilation.IsSymbolAccessibleWithin(type, compilation.Assembly));
+	}
+
+	private static bool PolySharpSelectsModuleInitializer(AnalyzerConfigOptions options)
+	{
+		const string metadataName = "System.Runtime.CompilerServices.ModuleInitializerAttribute";
+		if (!options.TryGetValue("build_property.PolySharpIncludeGeneratedTypes", out string? included))
+		{
+			return false;
+		}
+
+		if (!string.IsNullOrWhiteSpace(included) && !ListContains(included, metadataName))
+		{
+			return false;
+		}
+
+		return !options.TryGetValue("build_property.PolySharpExcludeGeneratedTypes", out string? excluded) ||
+		       !ListContains(excluded, metadataName);
+
+		static bool ListContains(string list, string name)
+			=> list.Split([';', ',',], StringSplitOptions.RemoveEmptyEntries)
+				.Any(entry => string.Equals(entry.Trim(), name, StringComparison.Ordinal));
+	}
+
+	/// <summary>
 	///     Whether generated code can reference <paramref name="attributeName" /> without a conflict: exactly one
-	///     declaration is accessible (including an <see langword="internal" /> one exposed through
-	///     <c>InternalsVisibleTo</c>), or the compilation declares it itself, which wins over imported copies.
-	///     Several accessible imported copies are ambiguous, so they count as missing.
+	///     declaration is usable (accessible, including an <see langword="internal" /> one exposed through
+	///     <c>InternalsVisibleTo</c>, and not an embedded type of a reference), or the compilation declares it itself,
+	///     which wins over imported copies. Several usable imported copies are ambiguous, so they count as missing.
 	/// </summary>
 	internal static bool HasAttribute(Compilation compilation, string attributeName)
 	{

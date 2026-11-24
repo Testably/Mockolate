@@ -137,6 +137,70 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
+	public async Task HasAttribute_EmbeddedInAReference_ShouldBeMissing()
+	{
+		Compilation compilation = CreateCompilation("", CompileEmbeddedAttributeAssembly("Ext", "MyAttribute"));
+
+		bool result = MockGenerator.HasAttribute(compilation, AttributeName);
+
+		await That(result).IsFalse().Because("the compiler ignores an embedded type of a reference");
+	}
+
+	[Test]
+	public async Task HasAttribute_EmbeddedInOneReferenceAndPublicInAnother_ShouldBeAvailable()
+	{
+		Compilation compilation = CreateCompilation("",
+			CompileEmbeddedAttributeAssembly("Ext", "MyAttribute"),
+			CompileAttributeAssembly("Second", "public", false));
+
+		bool result = MockGenerator.HasAttribute(compilation, AttributeName);
+
+		await That(result).IsTrue();
+	}
+
+	[Test]
+	[Arguments(true, false, true)]
+	[Arguments(true, true, false)]
+	[Arguments(false, false, false)]
+	public async Task PolySharpProvidesModuleInitializer_ShouldFollowTheRuleOfPolySharp(bool hasPolySharp,
+		bool hasEmbeddedDeclaration, bool expected)
+	{
+		// Without references the compilation has no ModuleInitializerAttribute, like one for .NET Framework.
+		Compilation compilation = CSharpCompilation.Create("TestAssembly", [],
+			hasEmbeddedDeclaration
+				? [CompileEmbeddedAttributeAssembly("System.Runtime.CompilerServices", "ModuleInitializerAttribute"),]
+				: [],
+			new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+		Dictionary<string, string> options = hasPolySharp
+			? new Dictionary<string, string>
+			{
+				["build_property.PolySharpIncludeGeneratedTypes"] = "",
+				["build_property.PolySharpExcludeGeneratedTypes"] = "",
+			}
+			: [];
+
+		bool result = MockGenerator.PolySharpProvidesModuleInitializer(compilation,
+			new TestAnalyzerConfigOptionsProvider(options).GlobalOptions);
+
+		await That(result).IsEqualTo(expected);
+	}
+
+	[Test]
+	public async Task PolySharpProvidesModuleInitializer_WhenTheRuntimeDeclaresIt_ShouldBeFalse()
+	{
+		Compilation compilation = CreateCompilation("");
+		Dictionary<string, string> options = new()
+		{
+			["build_property.PolySharpIncludeGeneratedTypes"] = "",
+		};
+
+		bool result = MockGenerator.PolySharpProvidesModuleInitializer(compilation,
+			new TestAnalyzerConfigOptionsProvider(options).GlobalOptions);
+
+		await That(result).IsFalse();
+	}
+
+	[Test]
 	public async Task HasAttribute_NotDeclared_ShouldBeMissing()
 	{
 		Compilation compilation = CreateCompilation("");
@@ -174,6 +238,28 @@ public sealed class UnionParameterArgTests
 				? """[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("TestAssembly")]"""
 				: "") + Environment.NewLine + AttributeSource(accessibility),
 			assemblyName);
+
+	private static MetadataReference CompileEmbeddedAttributeAssembly(string @namespace, string name)
+		=> ExternalAssembly.Compile(
+			$$"""
+			  [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("TestAssembly")]
+
+			  namespace Microsoft.CodeAnalysis
+			  {
+			      internal sealed partial class EmbeddedAttribute : System.Attribute
+			      {
+			      }
+			  }
+
+			  namespace {{@namespace}}
+			  {
+			      [Microsoft.CodeAnalysis.Embedded]
+			      internal sealed class {{name}} : System.Attribute
+			      {
+			      }
+			  }
+			  """,
+			"Embedded");
 
 	private static CSharpCompilation CreateCompilation(string source, params MetadataReference[] references)
 		=> CSharpCompilation.Create(
