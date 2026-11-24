@@ -68,15 +68,24 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		IMethodSymbol? method = invocationInfo.Symbol as IMethodSymbol
 		                        ?? invocationInfo.CandidateSymbols.OfType<IMethodSymbol>().FirstOrDefault();
 
-		// If the method resolves to something outside the Mockolate namespace, skip it.
+		// Only the overload for sealed classes has an out parameter, which a named argument can pass at any position.
+		bool isSealedCreateMock = methodName == "CreateMock" &&
+		                          invocation.ArgumentList.Arguments.Any(argument =>
+			                          argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword));
+
+		// If the method resolves to something outside the Mockolate namespace, skip it. A member that hides the overload
+		// for sealed classes, which the generator then does not emit, leaves the call unbound with that member as candidate.
 		if (method is not null && !IsInMockolateNamespace(method))
 		{
-			return;
+			if (!isSealedCreateMock || invocationInfo.Symbol is not null)
+			{
+				return;
+			}
+
+			method = null;
 		}
 
-		// Only the overload for sealed classes has an out parameter, which a named argument can pass at any position.
-		if (methodName == "CreateMock" &&
-		    invocation.ArgumentList.Arguments.Any(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)))
+		if (isSealedCreateMock)
 		{
 			AnalyzeSealedCreateMock(context, memberAccess, method);
 		}

@@ -289,6 +289,9 @@ public sealed class ConstructorDependenciesTests
 	[Arguments("public static int CreateMock() => 0;", false)]
 	[Arguments("public System.Func<int>? CreateMock;", false)]
 	[Arguments("public event System.Action? CreateMock;", false)]
+	[Arguments("public static System.Func<int>? CreateMock;", false)]
+	[Arguments("public System.Func<int>? CreateMock { get; set; }", false)]
+	[Arguments("public dynamic? CreateMock;", false)]
 	[Arguments("public static int CreateMock;", true)]
 	[Arguments("public int CreateMock() => 0;", true)]
 	[Arguments("private static int CreateMock() => 0;", true)]
@@ -303,7 +306,8 @@ public sealed class ConstructorDependenciesTests
 		                                         {
 		                                             public interface IDep { int Get(); }
 		                                             public class Base { {{member}} }
-		                                             public sealed class Svc(IDep dep) : Base;
+		                                             public class Middle : Base;
+		                                             public sealed class Svc(IDep dep) : Middle;
 
 		                                             public class Program
 		                                             {
@@ -319,5 +323,9 @@ public sealed class ConstructorDependenciesTests
 		bool hasCreation = result.Sources.TryGetValue("SealedClasses.g.cs", out string? sealedClasses) &&
 		                   sealedClasses.Contains("extension(global::MyCode.Svc)");
 		await That(hasCreation).IsEqualTo(isGenerated);
+		if (isGenerated)
+		{
+			await That(result.Diagnostics).IsEmpty();
+		}
 	}
 }
