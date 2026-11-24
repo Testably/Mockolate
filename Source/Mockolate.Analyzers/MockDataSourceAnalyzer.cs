@@ -376,13 +376,15 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 	private static int GetSuppliedArgumentCount(AttributeData attribute)
 	{
 		if (attribute.AttributeConstructor is not { Parameters.Length: 1, } constructor ||
-		    !constructor.Parameters[0].IsParams ||
-		    attribute.ConstructorArguments.Length != 1)
+		    constructor.Parameters[0] is not
+		    {
+			    IsParams: true, Type: IArrayTypeSymbol { ElementType.SpecialType: SpecialType.System_Object, },
+		    } ||
+		    attribute.ConstructorArguments[0] is not { Kind: TypedConstantKind.Array, } arguments)
 		{
 			return 0;
 		}
 
-		TypedConstant arguments = attribute.ConstructorArguments[0];
 		if (arguments.IsNull)
 		{
 			return 1;

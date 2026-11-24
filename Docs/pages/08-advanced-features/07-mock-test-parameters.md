@@ -112,8 +112,8 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
 - A test parameter matches a constructor parameter of exactly its type. A constructor parameter of type `IChocolateDispenser` does not receive a test parameter of a type that derives from it.
 - A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type.
 - When two classes under test depend on each other, only the first of the two test parameters receives the other one; the second gets a new instance or its default value.
-- The given values must have the types of the parameters, e.g. `4` for an `int` and `4L` for a `long`. `[AutoMockArguments(null)]` passes `null` to the first parameter. A single array, e.g. `[AutoMockArguments(new object[] { "Dark", 4 })]`, passes its elements as the values.
+- The given values must have the types of the parameters, e.g. `4` for an `int` and `4L` for a `long`. `[AutoMockArguments(null)]` passes `null` to the first parameter. A single array, e.g. `[AutoMockArguments(new object[] { "Dark", 4 })]` or `[AutoMockArguments(new[] { "Dark", "White" })]`, passes its elements as the values; to pass the array itself, wrap it, e.g. `[AutoMockArguments(new object[] { new[] { "Dark", "White" } })]`.
 - The [Mockolate0010](../10-analyzers.md#mockolate0010) analyzer reports parameters that Mockolate cannot create, such as `IRepository<T>` in a generic test.
-- On .NET Framework and .NET Standard, Mockolate declares the `ModuleInitializerAttribute` when neither the project nor TUnit does. If another package such as PolySharp declares it too, set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>`.
+- On .NET Framework and .NET Standard, Mockolate declares the `ModuleInitializerAttribute` when neither the project, TUnit nor PolySharp does. If another package declares it, set `<MockolateUnionAttributePolyfills>false</MockolateUnionAttributePolyfills>`. If the project excludes the analyzers of TUnit, set `<EnableTUnitPolyfills>false</EnableTUnitPolyfills>`.
 
 </details>

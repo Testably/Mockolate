@@ -157,13 +157,14 @@ public class MockGenerator : IIncrementalGenerator
 					SortedDistinct(source.SelectMany(creation => creation.ValueOrMockTypes)),
 					SortedDistinct(source.SelectMany(creation => creation.ValueTypes))));
 
-		// Like the union attributes, the attribute may come from another generator (PolySharp), which
-		// MockolateUnionAttributePolyfills names, or from the generator of TUnit.
+		// Like the union attributes, the attribute may come from another generator: PolySharp, which also
+		// MockolateUnionAttributePolyfills can name, or the generator of TUnit.
 		IncrementalValueProvider<bool> hasModuleInitializer = context.CompilationProvider
 			.Combine(context.AnalyzerConfigOptionsProvider)
 			.Select(static (source, _) =>
 				ProvidedUnionAttributes(source.Right).Contains("ModuleInitializerAttribute") ||
 				TUnitProvidesModuleInitializer(source.Left, source.Right) ||
+				PolySharpProvidesModuleInitializer(source.Right.GlobalOptions) ||
 				HasAttribute(source.Left, "System.Runtime.CompilerServices.ModuleInitializerAttribute"));
 
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
@@ -397,7 +398,8 @@ public class MockGenerator : IIncrementalGenerator
 		// Since 1.71, the source generator of TUnit declares ModuleInitializerAttribute when it is missing, unless the
 		// source generation or the polyfills of TUnit are turned off or PolySharp declares the attribute. Mockolate
 		// cannot see that output, so it mirrors these conditions (AttributePolyfillGenerator in TUnit). The props of
-		// TUnit always make EnableTUnitSourceGeneration visible, so without it the generator of TUnit does not run.
+		// TUnit always make EnableTUnitSourceGeneration visible, so without it the generator of TUnit is not set up. A project
+		// that excludes only the analyzers of TUnit sets EnableTUnitPolyfills to false instead.
 		static bool TUnitProvidesModuleInitializer(Compilation compilation,
 			AnalyzerConfigOptionsProvider analyzerConfigOptions)
 		{

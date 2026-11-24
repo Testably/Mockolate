@@ -129,6 +129,8 @@ public class MockDataSourceAnalyzerTests
 	[Arguments("[ArgsData][ArgsData(null)]", 0)]
 	[Arguments("[OtherData(true)]", 0)]
 	[Arguments("[ArgsData(null)][OtherData(true)]", 0)]
+	[Arguments("[MixedData(true, null, null)]", 0)]
+	[Arguments("[TagsData(\"a\", \"b\")]", 0)]
 	public async Task WhenAttributesSupplySomeValues_ShouldOnlyFlagTheOthers(string attributes, int supplied)
 	{
 		string[] names = ["a", "b", "c",];
@@ -155,6 +157,18 @@ public class MockDataSourceAnalyzerTests
 			      public sealed class OtherDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource
 			      {
 			          public OtherDataAttribute(bool strict) { }
+			      }
+
+			      [System.AttributeUsage(System.AttributeTargets.Method, AllowMultiple = true)]
+			      public sealed class MixedDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource
+			      {
+			          public MixedDataAttribute(bool strict, params object?[]? arguments) { }
+			      }
+
+			      [System.AttributeUsage(System.AttributeTargets.Method, AllowMultiple = true)]
+			      public sealed class TagsDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource
+			      {
+			          public TagsDataAttribute(params string[] tags) { }
 			      }
 			  }
 			  """,

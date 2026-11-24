@@ -723,7 +723,7 @@ public sealed class MockDataSourcesTests
 	[Arguments(null, null, null, null, true)]
 	[Arguments("false", null, null, null, true)]
 	[Arguments("true", "false", null, null, true)]
-	[Arguments("true", null, "", null, true)]
+	[Arguments("true", null, "", null, false)]
 	[Arguments("true", null, "System.Runtime.CompilerServices.OverloadResolutionPriorityAttribute", null, false)]
 	[Arguments("true", null, "", "System.Runtime.CompilerServices.ModuleInitializerAttribute", false)]
 	public async Task ModuleInitializerPolyfill_WithTUnit_ShouldFollowItsBuildProperties(string? sourceGeneration,
