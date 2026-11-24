@@ -159,13 +159,14 @@ public class MockGenerator : IIncrementalGenerator
 					SortedDistinct(source.SelectMany(creation => creation.ValueOrMockTypes)),
 					SortedDistinct(source.SelectMany(creation => creation.ValueTypes))));
 
-		// Like the union attributes, the attribute may come from another generator (PolySharp), which
-		// MockolateUnionAttributePolyfills names, or from the generator of TUnit.
+		// Like the union attributes, the attribute may come from another generator, which Mockolate cannot see: one that
+		// MockolateUnionAttributePolyfills names, PolySharp or the generator of TUnit.
 		IncrementalValueProvider<bool> hasModuleInitializer = context.CompilationProvider
 			.Combine(context.AnalyzerConfigOptionsProvider)
 			.Select(static (source, _) =>
 				ProvidedUnionAttributes(source.Right).Contains("ModuleInitializerAttribute") ||
 				TUnitProvidesModuleInitializer(source.Left, source.Right) ||
+				PolySharpProvidesModuleInitializer(source.Left, source.Right.GlobalOptions) ||
 				HasAttribute(source.Left, "System.Runtime.CompilerServices.ModuleInitializerAttribute"));
 
 		IncrementalValueProvider<bool> hasOverloadResolutionPriority = context.CompilationProvider
@@ -220,7 +221,9 @@ public class MockGenerator : IIncrementalGenerator
 		// .NET 6). Whatever the referenced framework or the consuming assembly does not declare is polyfilled next
 		// to the generated union type, so that union mode works on every target a C# 15 compiler can build. The
 		// compilation cannot show the output of other generators (PolySharp), so MockolateUnionAttributePolyfills
-		// names the attributes the project already gets elsewhere: "false" stands for the two that PolySharp ships.
+		// names the attributes the project already gets elsewhere: "false" stands for the two of them that PolySharp ships
+		// (OverloadResolutionPriorityAttribute and CallerArgumentExpressionAttribute), plus ModuleInitializerAttribute for the
+		// mock data sources.
 		IncrementalValueProvider<(bool Union, bool Priority, bool CallerArgumentExpression)> hasUnionAttributes =
 			context.CompilationProvider
 				.Combine(context.AnalyzerConfigOptionsProvider)
@@ -399,7 +402,8 @@ public class MockGenerator : IIncrementalGenerator
 		// Since 1.71, the source generator of TUnit declares ModuleInitializerAttribute when it is missing, unless the
 		// source generation or the polyfills of TUnit are turned off or PolySharp declares the attribute. Mockolate
 		// cannot see that output, so it mirrors these conditions (AttributePolyfillGenerator in TUnit). The props of
-		// TUnit always make EnableTUnitSourceGeneration visible, so without it the generator of TUnit does not run.
+		// TUnit always make EnableTUnitSourceGeneration visible, so without it the generator of TUnit is not set
+		// up. A project that only excludes the analyzer assets of TUnit sets EnableTUnitPolyfills to false instead.
 		static bool TUnitProvidesModuleInitializer(Compilation compilation,
 			AnalyzerConfigOptionsProvider analyzerConfigOptions)
 		{
@@ -413,33 +417,10 @@ public class MockGenerator : IIncrementalGenerator
 				return false;
 			}
 
-			return !PolySharpProvidesModuleInitializer(options);
+			return !PolySharpSelectsModuleInitializer(options);
 
 			static bool IsFalse(string value)
 				=> string.Equals(value.Trim(), "false", StringComparison.OrdinalIgnoreCase);
-		}
-
-		// PolySharp makes its settings visible to the compiler, so the keys exist whenever it is installed, and it declares
-		// every missing polyfill that its two lists do not filter out.
-		static bool PolySharpProvidesModuleInitializer(AnalyzerConfigOptions options)
-		{
-			const string metadataName = "System.Runtime.CompilerServices.ModuleInitializerAttribute";
-			if (!options.TryGetValue("build_property.PolySharpIncludeGeneratedTypes", out string? included))
-			{
-				return false;
-			}
-
-			if (!string.IsNullOrWhiteSpace(included) && !ListContains(included, metadataName))
-			{
-				return false;
-			}
-
-			return !options.TryGetValue("build_property.PolySharpExcludeGeneratedTypes", out string? excluded) ||
-			       !ListContains(excluded, metadataName);
-
-			static bool ListContains(string list, string name)
-				=> list.Split([';', ',',], StringSplitOptions.RemoveEmptyEntries)
-					.Any(entry => string.Equals(entry.Trim(), name, StringComparison.Ordinal));
 		}
 
 		// MockolateUnionAttributePolyfills: "false" means the project gets OverloadResolutionPriorityAttribute,
@@ -502,19 +483,74 @@ public class MockGenerator : IIncrementalGenerator
 	}
 
 	/// <summary>
+	///     Whether PolySharp declares <c>ModuleInitializerAttribute</c> in the compilation. Its settings are visible to the
+	///     compiler whenever it is installed. PolySharp declares the polyfill unless its two lists filter it out or the
+	///     compilation has an accessible declaration; this method uses the same lookup as PolySharp.
+	/// </summary>
+	internal static bool PolySharpProvidesModuleInitializer(Compilation compilation, AnalyzerConfigOptions options)
+	{
+		const string metadataName = "System.Runtime.CompilerServices.ModuleInitializerAttribute";
+		if (!PolySharpSelectsModuleInitializer(options))
+		{
+			return false;
+		}
+
+		// Like HasAccessibleTypeWithMetadataName in PolySharp: the single lookup, which skips embedded types of references,
+		// decides when it finds a type; only otherwise does any accessible declaration count.
+		return compilation.GetTypeByMetadataName(metadataName) is { } type
+			? !compilation.IsSymbolAccessibleWithin(type, compilation.Assembly)
+			: !compilation.GetTypesByMetadataName(metadataName)
+				.Any(candidate => compilation.IsSymbolAccessibleWithin(candidate, compilation.Assembly));
+	}
+
+	private static bool PolySharpSelectsModuleInitializer(AnalyzerConfigOptions options)
+	{
+		const string metadataName = "System.Runtime.CompilerServices.ModuleInitializerAttribute";
+		if (!options.TryGetValue("build_property.PolySharpIncludeGeneratedTypes", out string? included))
+		{
+			return false;
+		}
+
+		string[] includedTypes = Split(included);
+		if (includedTypes.Length > 0 && !includedTypes.Contains(metadataName, StringComparer.Ordinal))
+		{
+			return false;
+		}
+
+		return !options.TryGetValue("build_property.PolySharpExcludeGeneratedTypes", out string? excluded) ||
+		       !Split(excluded).Contains(metadataName, StringComparer.Ordinal);
+
+		static string[] Split(string list)
+			=> list.Split(';', ',')
+				.Select(entry => entry.Trim())
+				.Where(entry => entry.Length > 0)
+				.ToArray();
+	}
+
+	/// <summary>
 	///     Whether generated code can reference <paramref name="attributeName" /> without a conflict: exactly one
-	///     declaration is accessible (including an <see langword="internal" /> one exposed through
-	///     <c>InternalsVisibleTo</c>), or the compilation declares it itself, which wins over imported copies.
-	///     Several accessible imported copies are ambiguous, so they count as missing.
+	///     declaration is usable (accessible, including an <see langword="internal" /> one exposed through
+	///     <c>InternalsVisibleTo</c>, and not an embedded type of a reference), or the compilation declares it itself,
+	///     which wins over imported copies. Several usable imported copies are ambiguous, so they count as missing.
 	/// </summary>
 	internal static bool HasAttribute(Compilation compilation, string attributeName)
 	{
-		INamedTypeSymbol[] accessible = compilation.GetTypesByMetadataName(attributeName)
-			.Where(type => compilation.IsSymbolAccessibleWithin(type, compilation.Assembly))
-			.ToArray();
+		INamedTypeSymbol[] accessible = GetUsableTypes(compilation, attributeName);
 		return accessible.Length == 1 ||
 		       accessible.Any(type => SymbolEqualityComparer.Default.Equals(type.ContainingAssembly, compilation.Assembly));
 	}
+
+	/// <summary>
+	///     The declarations of the type that the compilation can use: accessible, and not an embedded type of a reference,
+	///     which the compiler ignores.
+	/// </summary>
+	private static INamedTypeSymbol[] GetUsableTypes(Compilation compilation, string metadataName)
+		=> compilation.GetTypesByMetadataName(metadataName)
+			.Where(type => compilation.IsSymbolAccessibleWithin(type, compilation.Assembly) &&
+			               (SymbolEqualityComparer.Default.Equals(type.ContainingAssembly, compilation.Assembly) ||
+			                !type.GetAttributes().Any(attribute =>
+				                attribute.AttributeClass?.ToDisplayString() == "Microsoft.CodeAnalysis.EmbeddedAttribute")))
+			.ToArray();
 
 	private static SourceText ToSource(string source, EquatableArray<string> externAliases)
 		=> SourceText.From(Sources.Sources.ExpandCrefs(WithExternAliases(source, externAliases)), Encoding.UTF8);

@@ -240,7 +240,7 @@ The message says which of these fixes applies. For an explicit `params` array, i
 
 **A mock test parameter that cannot be created.**
 
-[`AutoMockArguments`](08-advanced-features/07-mock-test-parameters.md) fills the parameters of a test method. An interface, delegate or abstract class asks for a mock, and a concrete class for an instance with mocked dependencies. When Mockolate cannot create such a type and the default values of the behavior provide no value, the data source cannot fill the parameter and the test fails at runtime:
+[`AutoMockArguments`](08-advanced-features/07-mock-test-parameters.md) fills the parameters of a test method. An interface, delegate or abstract class asks for a mock, and a concrete class for an instance with mocked dependencies. When Mockolate cannot create such a type and the default values of the behavior provide no value, the attribute cannot fill the parameter and the test fails at runtime:
 
 ```csharp
 public interface IChocolateRepository<TFlavor>

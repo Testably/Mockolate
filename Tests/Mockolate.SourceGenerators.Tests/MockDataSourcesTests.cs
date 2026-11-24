@@ -723,7 +723,9 @@ public sealed class MockDataSourcesTests
 	[Arguments(null, null, null, null, true)]
 	[Arguments("false", null, null, null, true)]
 	[Arguments("true", "false", null, null, true)]
+	// PolySharp declares nothing, because two references declare the attribute, so Mockolate declares it.
 	[Arguments("true", null, "", null, true)]
+	[Arguments(null, null, "", null, true)]
 	[Arguments("true", null, "System.Runtime.CompilerServices.OverloadResolutionPriorityAttribute", null, false)]
 	[Arguments("true", null, "", "System.Runtime.CompilerServices.ModuleInitializerAttribute", false)]
 	public async Task ModuleInitializerPolyfill_WithTUnit_ShouldFollowItsBuildProperties(string? sourceGeneration,
