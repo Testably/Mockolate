@@ -131,7 +131,7 @@ internal static partial class Sources
 		string lastResort = parameter.IsMockedLast
 			? $"{parameter.TypeFullName}.CreateMock({behavior})"
 			: $"throw new global::Mockolate.Exceptions.MockException(\"There is no argument for the constructor parameter '{parameter.Name}' of {className}. Pass it, or register a default value for its type with WithDefaultValueFor.\")";
-		string generated = $"global::Mockolate.Internals.ConstructorDefaultValue.Get({behavior}, () => {behavior}.DefaultValue.Generate(default({parameter.TypeFullName})!))";
+		string generated = $"global::Mockolate.Internals.ConstructorDefaultValue.Get({behavior}, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default({parameter.TypeFullName})!))";
 		return $"{name} is {{ }} {value}{index} ? {value}{index} : {generated} is {{ }} {created}{index} ? {created}{index} : {lastResort}";
 	}
 

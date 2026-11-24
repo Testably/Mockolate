@@ -212,6 +212,15 @@ public sealed class ConstructorDependencySealedRequired(Uri address)
 }
 
 /// <summary>
+///     The mock of a generic class describes its constructor with the type argument.
+/// </summary>
+public class ConstructorDependencyGeneric<T>(IConstructorDependency dependency, T value)
+{
+	public IConstructorDependency Dependency { get; } = dependency;
+	public T Value { get; } = value;
+}
+
+/// <summary>
 ///     A nullable parameter with a default value that is not <see langword="null" /> still accepts <see langword="null" />.
 /// </summary>
 public sealed class ConstructorDependencySealedNullableDefault(string? title = "Dark")

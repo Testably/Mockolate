@@ -98,6 +98,45 @@ public class GeneralTests
 	}
 
 	[Test]
+	public async Task Constructor_WithParameterAndMemberNamedLikeTheSignatureField_ShouldCompile()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using Mockolate;
+
+			     namespace MyCode
+			     {
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = MyClass.CreateMock();
+			             }
+			         }
+
+			         public class MyClass
+			         {
+			             public MyClass(int MockolateConstructorSignature0)
+			             {
+			             }
+
+			             public MyClass(int value, string text)
+			             {
+			             }
+
+			             public virtual int MockolateConstructorSignature1 => 1;
+			         }
+			     }
+			     """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Mock.MyClass.g.cs")
+			.WhoseValue
+			.Contains("MockolateConstructorSignature0_1.Record(new object?[] { MockolateConstructorSignature0, });").And
+			.Contains("MockolateConstructorSignature1_1.Record(new object?[] { value, text, });");
+	}
+
+	[Test]
 	public async Task Constructor_WithAlreadySuffixedBehaviorParameter_ShouldSuffixFromBaseName()
 	{
 		GeneratorResult result = Generator

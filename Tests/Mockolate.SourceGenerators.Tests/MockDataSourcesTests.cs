@@ -362,7 +362,7 @@ public sealed class MockDataSourcesTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources["MockDataSources.g.cs"])
-			.Contains("\"name\", \"MyCode.Svc\") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, () => (behavior ?? global::Mockolate.MockBehavior.Default).DefaultValue.Generate(default(string)!), out string d0) ? d0 : throw new global::Mockolate.Exceptions.MockException(");
+			.Contains("\"name\", \"MyCode.Svc\") : IsValue(behavior ?? global::Mockolate.MockBehavior.Default, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(string)!), out string d0) ? d0 : throw new global::Mockolate.Exceptions.MockException(");
 	}
 
 	[Test]

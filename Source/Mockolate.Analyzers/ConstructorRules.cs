@@ -52,9 +52,7 @@ internal static class ConstructorRules
 			return "type is declared in the System, Microsoft or Windows namespace";
 		}
 
-		// Mirror of HasMemberNamedCreateMock in the generator.
-		if (!type.GetMembers("CreateMock").IsEmpty ||
-		    type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty))
+		if (HasMemberNamedCreateMock(type))
 		{
 			return "type has a member named CreateMock, which would hide the generated extension";
 		}
@@ -90,6 +88,23 @@ internal static class ConstructorRules
 				                      IsAccessible(parameter.Type, compilation.Assembly)))
 			.OrderByDescending(constructor => constructor.Parameters.Length)
 			.ToArray();
+	}
+
+	/// <summary>
+	///     Mirror of <c>HasMemberNamedCreateMock</c> in the generator: a member named <c>CreateMock</c> of the type, a base class
+	///     or an interface would hide the generated extension.
+	/// </summary>
+	internal static bool HasMemberNamedCreateMock(INamedTypeSymbol type)
+	{
+		for (INamedTypeSymbol? current = type; current is not null; current = current.BaseType)
+		{
+			if (!current.GetMembers("CreateMock").IsEmpty)
+			{
+				return true;
+			}
+		}
+
+		return type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty);
 	}
 
 	internal static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)

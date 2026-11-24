@@ -164,8 +164,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0010StaticAbstractReason;
 		}
 
-		if (!type.GetMembers("CreateMock").IsEmpty ||
-		    type.AllInterfaces.Any(@interface => !@interface.GetMembers("CreateMock").IsEmpty))
+		if (ConstructorRules.HasMemberNamedCreateMock(type))
 		{
 			return Resources.Mockolate0010CreateMockMemberReason;
 		}

@@ -22,9 +22,10 @@ public static class ConstructorDefaultValue
 	/// </summary>
 	/// <remarks>
 	///     The typed <c>Generate</c> overloads return an empty collection without asking the generator, so a configured
-	///     value is looked up first. The <paramref name="typedDefault" /> only runs without one, so that a configured
-	///     factory is called once.
+	///     value is looked up first. The <paramref name="typedDefault" /> only runs without one, so that a factory that
+	///     returns a value is called once. It receives the <paramref name="behavior" />, so that the generated code can pass
+	///     a static lambda.
 	/// </remarks>
-	public static T Get<T>(MockBehavior behavior, Func<T> typedDefault)
-		=> behavior.DefaultValue.GenerateValue(typeof(T)) is T configured ? configured : typedDefault();
+	public static T Get<T>(MockBehavior behavior, Func<MockBehavior, T> typedDefault)
+		=> behavior.DefaultValue.GenerateValue(typeof(T)) is T configured ? configured : typedDefault(behavior);
 }

@@ -81,6 +81,16 @@ public sealed class ConstructorDependencyTests
 	}
 
 	[Test]
+	public async Task CreateMock_WithGenericClass_ShouldRecordTheArgumentsOfItsTypeArgument()
+	{
+		ConstructorDependencyGeneric<int> sut = ConstructorDependencyGeneric<int>.CreateMock(MockBehavior.Default
+			.WithDefaultValueFor<int>(() => 7));
+
+		await That(sut.Mock.ConstructorArgument<int>()).IsEqualTo(7);
+		await That(sut.Mock.ConstructorArgument<IConstructorDependency>()).IsSameAs(sut.Dependency);
+	}
+
+	[Test]
 	public async Task CreateMock_WithOutParameterAndNullForNullableParameterWithDefault_ShouldPassNull()
 	{
 		ConstructorDependencySealedNullableDefault sut = ConstructorDependencySealedNullableDefault.CreateMock(out _,

@@ -197,7 +197,7 @@ internal static partial class Sources
 			{
 				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, fileName, constructor, @class,
 					hasAnyStaticMembers || hasAnyStaticEvents,
-					GetConstructorRecording(@class, constructorArgumentsName, constructorIndex++));
+					GetConstructorRecording(@class, constructorArgumentsName, constructor, constructorIndex++));
 			}
 		}
 		else

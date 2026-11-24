@@ -227,7 +227,7 @@ internal static partial class Sources
 			foreach (Method constructor in constructors)
 			{
 				AppendMockSubject_BaseClassConstructor(sb, mockRegistryName, name, constructor, @class,
-					recording: GetConstructorRecording(@class, constructorArgumentsName, constructorIndex++));
+					recording: GetConstructorRecording(@class, constructorArgumentsName, constructor, constructorIndex++));
 				AppendMockSubject_BehaviorBaseClassConstructor(sb, name, constructor, @class.HasRequiredMembers);
 			}
 		}
@@ -1473,13 +1473,30 @@ internal static partial class Sources
 
 	/// <summary>
 	///     The names of the generated field that records the arguments of the constructors and of the static field that
-	///     describes the parameters of the constructor with the <paramref name="index" />.
+	///     describes the parameters of the <paramref name="constructor" /> with the <paramref name="index" />.
 	/// </summary>
+	/// <remarks>
+	///     The constructor uses the static field without qualification, so its name must differ from the members of the
+	///     class and from the parameters of the constructor.
+	/// </remarks>
 	private static (string Field, string Signature)? GetConstructorRecording(Class @class, string? constructorArgumentsName,
-		int index)
-		=> constructorArgumentsName is null
-			? null
-			: (constructorArgumentsName, @class.GetUniqueName("MockolateConstructorSignature") + index);
+		Method constructor, int index)
+	{
+		if (constructorArgumentsName is null)
+		{
+			return null;
+		}
+
+		string signature = $"MockolateConstructorSignature{index}";
+		int suffix = 0;
+		while (@class.HasReservedName(signature) ||
+		       constructor.Parameters.Any(parameter => parameter.Name.TrimStart('@') == signature))
+		{
+			signature = $"MockolateConstructorSignature{index}_{++suffix}";
+		}
+
+		return (constructorArgumentsName, signature);
+	}
 
 	private static void AppendMockSubject_BaseClassConstructor(StringBuilder sb, string mockRegistryName, string name,
 		Method constructor, Class @class, bool setsMockRegistryProvider = false,
@@ -7416,7 +7433,7 @@ internal static partial class Sources
 			}
 			else
 			{
-				sb.Append("global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(").Append(parameter.Type.Fullname).Append(")!));").AppendLine();
+				sb.Append("global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(").Append(parameter.Type.Fullname).Append(")!));").AppendLine();
 				if (!parameter.Type.IsValueType)
 				{
 					sb.Append(indent).Append("if (").Append(name).Append(" is null)").AppendLine();

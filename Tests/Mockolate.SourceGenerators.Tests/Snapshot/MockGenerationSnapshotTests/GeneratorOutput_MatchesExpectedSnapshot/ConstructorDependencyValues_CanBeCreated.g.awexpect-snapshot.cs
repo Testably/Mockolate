@@ -523,13 +523,13 @@ internal static partial class MockExtensionsForConstructorDependencyValues
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
 				global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency d1 = global::Mockolate.Tests.GeneratorCoverage.IConstructorDependency.CreateMock(mockRegistry.Behavior);
-				string d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(string)!));
+				string d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(string)!));
 				if (d2 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'text' of Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
 				}
-				int d3 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
-				global::System.Collections.Generic.IEnumerable<int> d4 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!));
+				int d3 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(int)!));
+				global::System.Collections.Generic.IEnumerable<int> d4 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!));
 				if (d4 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.ConstructorDependencyValues. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");

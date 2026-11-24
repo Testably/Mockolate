@@ -439,8 +439,8 @@ public sealed partial class MockTests
 			.Contains("""
 			          			if (constructorParameters is null || constructorParameters.Length == 0)
 			          			{
-			          				int d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
-			          				bool d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, () => mockRegistry.Behavior.DefaultValue.Generate(default(bool)!));
+			          				int d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(int)!));
+			          				bool d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(bool)!));
 			          				mockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, new object?[] { d1, d2, });
 			          """).IgnoringNewlineStyle().And
 			.Contains("""
