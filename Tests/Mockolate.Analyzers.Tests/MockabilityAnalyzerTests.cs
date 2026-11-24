@@ -414,6 +414,7 @@ public class MockabilityAnalyzerTests
 		         }
 		         """;
 	}
+
 	[Test]
 	[Arguments("public static int CreateMock;")]
 	[Arguments("public void CreateMock() { }")]

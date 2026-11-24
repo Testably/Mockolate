@@ -278,8 +278,8 @@ internal static partial class MockGeneratorHelpers
 			IsFrameworkNamespace(typeSymbol.ContainingNamespace));
 
 	/// <summary>
-	///     The auto-mock factory calls <c>CreateMock</c> on the type, where a member of the interface with that name
-	///     would hide the generated extension.
+	///     The auto-mock factory calls <c>CreateMock</c> on the type, where a member with that name of the type or one of
+	///     its interfaces, or an invocable one of a base class, would hide the generated extension.
 	/// </summary>
 	private static bool HasMemberNamedCreateMock(INamedTypeSymbol typeSymbol)
 		=> !typeSymbol.GetMembers("CreateMock").IsEmpty ||
@@ -287,17 +287,14 @@ internal static partial class MockGeneratorHelpers
 		   InheritsHidingCreateMock(typeSymbol);
 
 	/// <summary>
-	///     Whether a base class has a member named <c>CreateMock</c> that hides the generated static extension: only an
-	///     accessible static member that can be invoked does, a method or a field or property of a delegate type.
+	///     Whether a base class has a member named <c>CreateMock</c> that may hide the generated static extension: a
+	///     non-private static method, or an event, field or property that can be invoked, static or not.
 	/// </summary>
 	private static bool InheritsHidingCreateMock(INamedTypeSymbol typeSymbol)
 	{
 		for (INamedTypeSymbol? current = typeSymbol.BaseType; current is not null; current = current.BaseType)
 		{
-			if (current.GetMembers("CreateMock").Any(member =>
-				    member is { IsStatic: true, DeclaredAccessibility: not Accessibility.Private, } and
-					    (IMethodSymbol or IFieldSymbol { Type: { TypeKind: TypeKind.Delegate or TypeKind.Dynamic, }, }
-					    or IPropertySymbol { Type: { TypeKind: TypeKind.Delegate or TypeKind.Dynamic, }, })))
+			if (current.GetMembers("CreateMock").Any(MayHideCreateMock))
 			{
 				return true;
 			}
@@ -305,6 +302,20 @@ internal static partial class MockGeneratorHelpers
 
 		return false;
 	}
+
+	private static bool MayHideCreateMock(ISymbol member)
+		=> member.DeclaredAccessibility != Accessibility.Private &&
+		   member switch
+		   {
+			   IMethodSymbol method => method.IsStatic,
+			   IEventSymbol => true,
+			   IFieldSymbol field => IsInvocable(field.Type),
+			   IPropertySymbol property => IsInvocable(property.Type),
+			   _ => false,
+		   };
+
+	private static bool IsInvocable(ITypeSymbol type)
+		=> type.TypeKind is TypeKind.Delegate or TypeKind.Dynamic or TypeKind.FunctionPointer;
 
 	/// <summary>
 	///     Whether the <paramref name="namespaceSymbol" /> lies in <c>System</c>, <c>Microsoft</c> or <c>Windows</c>, whose

@@ -44,7 +44,7 @@ The included code fix adds the `.AtLeastOnce()` count assertion.
 This rule prevents you from mocking unsupported types:
 
 - `CreateMock()`: the type must be an interface, a delegate or a class that can be derived from (e.g. not `sealed`).
-- `CreateMock(out ConstructorArguments arguments)`: the type must be a sealed class or a record that your assembly can access, with a single accessible constructor with the most parameters that sets all `required` members. It must not be abstract, generic or nested in a generic type, obsolete, file-local, in the `System`, `Microsoft` or `Windows` namespaces, or have a member named `CreateMock`.
+- `CreateMock(out ConstructorArguments arguments)`: the type must be a sealed class or a record that your assembly can access, with a single accessible constructor with the most parameters that sets all `required` members. It must not be abstract, generic or nested in a generic type, obsolete, file-local, in the `System`, `Microsoft` or `Windows` namespaces, or have or inherit a member named `CreateMock` that hides the generated one.
 - `Implementing<T>()`: the type must be an interface.
 
 It also fires when the type has a member that the mock would have to implement (an abstract member, or an interface

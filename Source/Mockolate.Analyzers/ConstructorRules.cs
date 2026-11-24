@@ -92,8 +92,8 @@ internal static class ConstructorRules
 
 	/// <summary>
 	///     Mirror of <c>HasMemberNamedCreateMock</c> in the generator: the generator skips a type with a member named
-	///     <c>CreateMock</c>, also of one of its interfaces, and a type whose base class has an accessible static member of
-	///     that name that can be invoked, which hides the generated extension.
+	///     <c>CreateMock</c>, also of one of its interfaces, and a type whose base class has a member of that name that may
+	///     hide the generated extension: a non-private static method, or an event, field or property that can be invoked.
 	/// </summary>
 	internal static bool HasMemberNamedCreateMock(INamedTypeSymbol type)
 	{
@@ -105,10 +105,7 @@ internal static class ConstructorRules
 
 		for (INamedTypeSymbol? current = type.BaseType; current is not null; current = current.BaseType)
 		{
-			if (current.GetMembers("CreateMock").Any(member =>
-				    member is { IsStatic: true, DeclaredAccessibility: not Accessibility.Private, } and
-					    (IMethodSymbol or IFieldSymbol { Type: { TypeKind: TypeKind.Delegate or TypeKind.Dynamic, }, }
-					    or IPropertySymbol { Type: { TypeKind: TypeKind.Delegate or TypeKind.Dynamic, }, })))
+			if (current.GetMembers("CreateMock").Any(MayHideCreateMock))
 			{
 				return true;
 			}
@@ -116,6 +113,20 @@ internal static class ConstructorRules
 
 		return false;
 	}
+
+	private static bool MayHideCreateMock(ISymbol member)
+		=> member.DeclaredAccessibility != Accessibility.Private &&
+		   member switch
+		   {
+			   IMethodSymbol method => method.IsStatic,
+			   IEventSymbol => true,
+			   IFieldSymbol field => IsInvocable(field.Type),
+			   IPropertySymbol property => IsInvocable(property.Type),
+			   _ => false,
+		   };
+
+	private static bool IsInvocable(ITypeSymbol type)
+		=> type.TypeKind is TypeKind.Delegate or TypeKind.Dynamic or TypeKind.FunctionPointer;
 
 	internal static bool IsFrameworkNamespace(INamespaceSymbol? namespaceSymbol)
 	{
