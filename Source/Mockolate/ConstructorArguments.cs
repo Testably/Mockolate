@@ -91,16 +91,4 @@ public sealed class ConstructorArguments
 		throw new MockException(
 			$"The argument of the parameter '{parameterName}' of the constructor {_constructor} is {(value is null ? "null" : $"of type {value.GetType().FormatType()}")}, but must be of type {typeof(T).FormatType()}.");
 	}
-
-	/// <summary>
-	///     The value that the <paramref name="behavior" /> configures for <typeparamref name="T" />, or else the
-	///     <paramref name="typedDefault" />.
-	/// </summary>
-	/// <remarks>
-	///     Public only because the generated code calls it. The typed <c>Generate</c> overloads return an empty collection
-	///     without asking the generator, so a configured value is looked up first.
-	/// </remarks>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public static T DefaultValue<T>(MockBehavior behavior, T typedDefault)
-		=> behavior.DefaultValue.GenerateValue(typeof(T)) is T configured ? configured : typedDefault;
 }

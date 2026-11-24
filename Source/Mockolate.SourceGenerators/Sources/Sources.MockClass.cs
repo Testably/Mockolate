@@ -7396,7 +7396,7 @@ internal static partial class Sources
 			}
 			else
 			{
-				sb.Append("global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(").Append(parameter.Type.Fullname).Append(")!));").AppendLine();
+				sb.Append("global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(").Append(parameter.Type.Fullname).Append(")!));").AppendLine();
 				if (!parameter.Type.IsValueType)
 				{
 					sb.Append(indent).Append("if (").Append(name).Append(" is null)").AppendLine();

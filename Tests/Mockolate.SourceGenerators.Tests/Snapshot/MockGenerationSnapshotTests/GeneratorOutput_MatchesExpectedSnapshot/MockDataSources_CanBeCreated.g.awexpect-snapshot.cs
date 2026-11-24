@@ -5287,7 +5287,7 @@ internal static partial class MockExtensionsForMockDataAbstractWithParameter
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				int d1 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
+				int d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
 				mockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, new object?[] { d1, });
 				global::Mockolate.Mock.MockDataAbstractWithParameter.MockRegistryProvider.Value = mockRegistry;
 				global::Mockolate.MockExtensionsForMockDataAbstractWithParameter.MockSetup? setupTarget = null;
@@ -6507,7 +6507,7 @@ internal static partial class MockExtensionsForMockDataCycleStart
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd d1 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd)!));
+				global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.MockDataCycleEnd)!));
 				if (d1 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'end' of Mockolate.Tests.GeneratorCoverage.MockDataCycleStart. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
@@ -8752,12 +8752,12 @@ internal static partial class MockExtensionsForMockDataFrameworkDependencies
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				global::System.IServiceProvider d1 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.IServiceProvider)!));
+				global::System.IServiceProvider d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.IServiceProvider)!));
 				if (d1 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'services' of Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
 				}
-				global::System.Collections.Generic.IEnumerable<int> d2 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!));
+				global::System.Collections.Generic.IEnumerable<int> d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!));
 				if (d2 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.MockDataFrameworkDependencies. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
@@ -9976,7 +9976,7 @@ internal static partial class MockExtensionsForMockDataObliviousValue
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				string d1 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(string)!));
+				string d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(string)!));
 				if (d1 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'value' of Mockolate.Tests.GeneratorCoverage.MockDataObliviousValue. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
@@ -10586,7 +10586,7 @@ internal static partial class MockExtensionsForMockDataRequiredReference
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				global::System.Uri d1 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Uri)!));
+				global::System.Uri d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Uri)!));
 				if (d1 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'address' of Mockolate.Tests.GeneratorCoverage.MockDataRequiredReference. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
@@ -11201,7 +11201,7 @@ internal static partial class MockExtensionsForMockDataRequiredValue
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
 				global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency d1 = global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(mockRegistry.Behavior);
-				long d2 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(long)!));
+				long d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(long)!));
 				mockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, new object?[] { d1, d2, });
 				global::Mockolate.Mock.MockDataRequiredValue.MockRegistryProvider.Value = mockRegistry;
 				global::Mockolate.MockExtensionsForMockDataRequiredValue.MockSetup? setupTarget = null;
@@ -11767,7 +11767,7 @@ internal static partial class MockExtensionsForMockDataService
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
 				global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency d1 = global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(mockRegistry.Behavior);
-				global::Mockolate.Tests.GeneratorCoverage.MockDataInner d2 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.MockDataInner)!));
+				global::Mockolate.Tests.GeneratorCoverage.MockDataInner d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.MockDataInner)!));
 				if (d2 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'inner' of Mockolate.Tests.GeneratorCoverage.MockDataService. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
@@ -12397,7 +12397,7 @@ internal static partial class MockExtensionsForMockDataWithCollection
 		{
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
-				int[] d1 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(int[])!));
+				int[] d1 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(int[])!));
 				if (d1 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'values' of Mockolate.Tests.GeneratorCoverage.MockDataWithCollection. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
@@ -13024,12 +13024,12 @@ internal static partial class MockExtensionsForMockDataWithValues
 			if (constructorParameters is null || constructorParameters.Length == 0)
 			{
 				global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency d1 = global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(mockRegistry.Behavior);
-				string d2 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(string)!));
+				string d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(string)!));
 				if (d2 is null)
 				{
 					throw new global::Mockolate.Exceptions.MockException("There is no argument for the constructor parameter 'name' of Mockolate.Tests.GeneratorCoverage.MockDataWithValues. Pass the constructor parameters, or register a default value for its type with WithDefaultValueFor.");
 				}
-				int d3 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
+				int d3 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(int)!));
 				string? d4 = default;
 				string d5 = null;
 				mockRegistry = new global::Mockolate.Internals.MockRegistry(mockRegistry, new object?[] { d1, d2, d3, d4, d5, });

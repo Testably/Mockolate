@@ -9,8 +9,6 @@ namespace Mockolate
         public ConstructorArguments(string constructor, string[] names, System.Type[] types, object?[] values) { }
         public T Get<T>() { }
         public T Get<T>(string parameterName) { }
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public static T DefaultValue<T>(Mockolate.MockBehavior behavior, T typedDefault) { }
     }
     public class DefaultValueFactory
     {

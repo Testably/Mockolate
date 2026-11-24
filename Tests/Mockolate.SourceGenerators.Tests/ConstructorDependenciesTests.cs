@@ -31,9 +31,9 @@ public sealed class ConstructorDependenciesTests
 		await That(result.Sources).ContainsKey("Mock.IDep.g.cs");
 		await That(result.Sources["Mock.Svc.g.cs"])
 			.Contains("global::MyCode.IDep d1 = global::MyCode.IDep.CreateMock(mockRegistry.Behavior);").And
-			.Contains("global::System.Collections.Generic.IEnumerable<int> d2 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!));").And
+			.Contains("global::System.Collections.Generic.IEnumerable<int> d2 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(global::System.Collections.Generic.IEnumerable<int>)!));").And
 			.Contains("string? d3 = default;").And
-			.Contains("string d4 = global::Mockolate.ConstructorArguments.DefaultValue(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(string)!));");
+			.Contains("string d4 = global::Mockolate.Internals.ConstructorDefaultValue.Get(mockRegistry.Behavior, mockRegistry.Behavior.DefaultValue.Generate(default(string)!));");
 	}
 
 	[Test]
