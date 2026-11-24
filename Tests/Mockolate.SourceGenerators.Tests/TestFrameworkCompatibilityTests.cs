@@ -88,6 +88,32 @@ public sealed class TestFrameworkCompatibilityTests
 		await That(diagnostics).IsEmpty();
 	}
 
+	[Test]
+	[Arguments("3.7.0", "netstandard1.6", false)]
+	[Arguments("4.0.0", "net6.0", true)]
+	public async Task NUnit_WithOldestSupportedVersions_ShouldCompile(string version, string framework, bool isNUnit4)
+	{
+		string[] diagnostics = Compile(
+			isNUnit4
+				? ["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_NUNIT", "MOCKOLATE_NUNIT4",]
+				: ["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_NUNIT",],
+			[Path.Combine("nunit", version, "lib", framework, "nunit.framework.dll"),],
+			"""
+			using Mockolate.Integrations.NUnit;
+
+			namespace Compatibility
+			{
+				public class Tests
+				{
+					[AutoMockArguments("Dark")]
+					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+				}
+			}
+			""");
+
+		await That(diagnostics).IsEmpty();
+	}
+
 	/// <summary>
 	///     Runs the generator on the <paramref name="source" /> with the <paramref name="constants" /> that
 	///     <c>Mockolate.targets</c> defines, and returns the errors and warnings of the compilation.

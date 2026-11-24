@@ -74,6 +74,7 @@ namespace Mockolate.Integrations
 			_isTransient = new bool?[types.Length];
 		}
 
+#if MOCKOLATE_NUNIT
 		/// <summary>
 		///     The name of a test case. It only contains the given arguments, because formatting a mock would call its
 		///     members before the test starts.
@@ -107,8 +108,12 @@ namespace Mockolate.Integrations
 					return number.ToString(culture) + "UL";
 				case uint number:
 					return number.ToString(culture) + "U";
+				case float number when float.IsNaN(number) || float.IsInfinity(number):
+					return float.IsNaN(number) ? "float.NaN" : number > 0 ? "float.PositiveInfinity" : "float.NegativeInfinity";
 				case float number:
 					return number.ToString("R", culture) + "F";
+				case double number when double.IsNaN(number) || double.IsInfinity(number):
+					return double.IsNaN(number) ? "double.NaN" : number > 0 ? "double.PositiveInfinity" : "double.NegativeInfinity";
 				case double number:
 					return number.ToString("R", culture) + "D";
 				case decimal number:
@@ -121,6 +126,8 @@ namespace Mockolate.Integrations
 					}
 
 					return $"[{string.Join(", ", items)}]";
+				case global::System.Enum enumValue:
+					return $"{enumValue.GetType().Name}.{enumValue}";
 				case global::System.IFormattable formattable:
 					return formattable.ToString(null, culture);
 				default:
@@ -160,6 +167,7 @@ namespace Mockolate.Integrations
 
 			return builder.ToString();
 		}
+#endif
 
 		public object?[] Create()
 		{

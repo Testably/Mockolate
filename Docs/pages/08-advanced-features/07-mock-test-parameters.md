@@ -134,7 +134,9 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
     IChocolateDispenser dispenser)
 ```
 
-`[Repeat]` and `[Retry]` give each run new mocks. With NUnit 4, a last `CancellationToken` parameter gets the token of `[CancelAfter]`.
+Mockolate creates the arguments after the `[SetUp]` methods, and `[Repeat]` and `[Retry]` give each run new mocks. With NUnit 4, a last `CancellationToken` parameter gets the token of `[CancelAfter]`.
+
+The name of a test case only shows the given values, e.g. `Buy_ShouldDispenseTheRequestedChocolate("Dark", 4)`. The attribute has none of the settings of `[TestCase]`, such as `ExpectedResult` or `Ignore`; use NUnit's attributes like `[Category]` or `[Ignore]` on the test method instead.
 
 <details>
 <summary>Details and limitations</summary>

@@ -28,7 +28,7 @@ namespace Mockolate.Integrations.NUnit
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	[global::Microsoft.CodeAnalysis.Embedded]
 	internal sealed class AutoMockArgumentsAttribute
-		: global::NUnit.Framework.NUnitAttribute, global::NUnit.Framework.Interfaces.ITestBuilder, global::NUnit.Framework.Interfaces.IImplyFixture, global::NUnit.Framework.Interfaces.IWrapSetUpTearDown, global::Mockolate.Internals.IMockDataSource
+		: global::NUnit.Framework.NUnitAttribute, global::NUnit.Framework.Interfaces.ITestBuilder, global::NUnit.Framework.Interfaces.IImplyFixture, global::NUnit.Framework.Interfaces.IWrapTestMethod, global::Mockolate.Internals.IMockDataSource
 	{
 		/// <summary>
 		///     Fills every parameter of the test method, or the parameters after the given <paramref name="arguments" />.
@@ -64,30 +64,31 @@ namespace Mockolate.Integrations.NUnit
 					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
 				arguments, DefaultBehavior?.Invoke()).Create();
 
-		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<object?[], PendingArguments> Pending = new();
+		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<object?[], object?[]> GivenArguments = new();
 
 		/// <inheritdoc />
 		public global::System.Collections.Generic.IEnumerable<global::NUnit.Framework.Internal.TestMethod> BuildFrom(
 			global::NUnit.Framework.Interfaces.IMethodInfo method, global::NUnit.Framework.Internal.Test? suite)
 		{
 			global::System.Reflection.ParameterInfo[] parameters = method.MethodInfo.GetParameters();
+			int parameterCount = parameters.Length;
 #if MOCKOLATE_NUNIT4
 			// NUnit 4 passes its own token to a last CancellationToken parameter that gets no argument.
-			if (parameters.Length > Arguments.Length &&
-			    parameters[parameters.Length - 1].ParameterType == typeof(global::System.Threading.CancellationToken))
+			if (parameterCount > Arguments.Length &&
+			    parameters[parameterCount - 1].ParameterType == typeof(global::System.Threading.CancellationToken))
 			{
-				global::System.Array.Resize(ref parameters, parameters.Length - 1);
+				parameterCount--;
 			}
 #endif
 			global::NUnit.Framework.Internal.TestCaseParameters testCase;
-			if (Arguments.Length > parameters.Length)
+			if (Arguments.Length > parameterCount)
 			{
 				testCase = new global::NUnit.Framework.Internal.TestCaseParameters(new global::Mockolate.Exceptions.MockException(
-					$"AutoMockArguments has {Arguments.Length} arguments, but the test method has only {parameters.Length} parameters."));
+					$"AutoMockArguments has {Arguments.Length} arguments, but the test method has only {parameterCount} parameters."));
 			}
 			else
 			{
-				object?[] reserved = new object?[parameters.Length];
+				object?[] reserved = new object?[parameterCount];
 				global::System.Array.Copy(Arguments, reserved, Arguments.Length);
 				testCase = new global::NUnit.Framework.Internal.TestCaseParameters(reserved);
 			}
@@ -99,26 +100,22 @@ namespace Mockolate.Integrations.NUnit
 			test.Name = global::Mockolate.Integrations.AutoMockRow.GetDisplayName(method.Name, Arguments);
 			test.FullName = $"{suite?.FullName ?? method.TypeInfo.FullName}.{test.Name}";
 			// A test case that is not runnable can share an empty argument array with others.
-			Pending.Remove(test.Arguments);
-			Pending.Add(test.Arguments, new PendingArguments(parameters, Arguments));
+			GivenArguments.Remove(test.Arguments);
+			GivenArguments.Add(test.Arguments, Arguments);
 			yield return test;
 		}
 
-		/// <inheritdoc />
+		/// <summary>
+		///     Every <c>AutoMockArguments</c> attribute on the method wraps each of its test cases, so a command that already
+		///     creates the arguments is kept as it is.
+		/// </summary>
 		public global::NUnit.Framework.Internal.Commands.TestCommand Wrap(
 			global::NUnit.Framework.Internal.Commands.TestCommand command)
-			=> new CreateArgumentsCommand(command);
-
-		private sealed class PendingArguments(global::System.Reflection.ParameterInfo[] parameters, object?[] arguments)
-		{
-			public global::System.Reflection.ParameterInfo[] Parameters { get; } = parameters;
-			public object?[] Arguments { get; } = arguments;
-			public int Depth { get; set; }
-		}
+			=> command is CreateArgumentsCommand ? command : new CreateArgumentsCommand(command);
 
 		/// <summary>
-		///     Creates the arguments of the test before it runs. Every <c>AutoMockArguments</c> attribute on the method wraps
-		///     each of its test cases, so only the outermost command of a run creates them.
+		///     Creates the arguments of the test right before the test method runs, after the set-up and again for every
+		///     repeated or retried run.
 		/// </summary>
 		private sealed class CreateArgumentsCommand(global::NUnit.Framework.Internal.Commands.TestCommand innerCommand)
 			: global::NUnit.Framework.Internal.Commands.DelegatingTestCommand(innerCommand)
@@ -127,26 +124,19 @@ namespace Mockolate.Integrations.NUnit
 			public override global::NUnit.Framework.Internal.TestResult Execute(
 				global::NUnit.Framework.Internal.TestExecutionContext context)
 			{
-				if (Test is not global::NUnit.Framework.Internal.TestMethod test ||
-				    !Pending.TryGetValue(test.Arguments, out PendingArguments? pending))
+				if (Test is global::NUnit.Framework.Internal.TestMethod test &&
+				    GivenArguments.TryGetValue(test.Arguments, out object?[]? given))
 				{
-					return innerCommand.Execute(context);
+					// The method of the test is the constructed one of a generic test method. A last parameter without an
+					// argument gets the token of NUnit 4.
+					global::System.Reflection.ParameterInfo[] parameters = test.Method.MethodInfo.GetParameters();
+					global::System.Array.Resize(ref parameters, test.Arguments.Length);
+					object?[] values = CreateArguments(parameters, given);
+					// The given arguments keep the conversions of NUnit.
+					global::System.Array.Copy(values, given.Length, test.Arguments, given.Length, values.Length - given.Length);
 				}
 
-				if (pending.Depth++ == 0)
-				{
-					object?[] values = CreateArguments(pending.Parameters, pending.Arguments);
-					global::System.Array.Copy(values, test.Arguments, values.Length);
-				}
-
-				try
-				{
-					return innerCommand.Execute(context);
-				}
-				finally
-				{
-					pending.Depth--;
-				}
+				return innerCommand.Execute(context);
 			}
 		}
 	}

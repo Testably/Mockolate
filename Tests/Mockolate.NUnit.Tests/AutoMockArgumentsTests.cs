@@ -7,6 +7,7 @@ using Mockolate.Verify;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
+using NUnit.Framework.Internal.Commands;
 
 namespace Mockolate.NUnit.Tests;
 
@@ -132,6 +133,53 @@ public sealed class AutoMockArgumentsTests
 		await That(repository.Mock.Verify.Find(3)).Once();
 	}
 
+	[AutoMockArguments]
+	public async Task TestMethod_WithoutParameters_ShouldRun()
+		=> await That(TestContext.CurrentContext.Test.Name).IsEqualTo(nameof(TestMethod_WithoutParameters_ShouldRun));
+
+	[TestCase(5, null)]
+	[AutoMockArguments(6)]
+	public async Task AutoMockArguments_NextToTestCase_ShouldOnlyFillItsOwnTestCase(int id, IOrderRepository? repository)
+		=> await That(repository is null).IsEqualTo(id == 5);
+
+	[AutoMockArguments(double.NaN, float.PositiveInfinity, Flavor.Milk)]
+	public async Task TestName_ShouldFormatSpecialValuesAndEnumsLikeCSharp(double ratio, float limit, Flavor flavor)
+		=> await That(TestContext.CurrentContext.Test.Name).IsEqualTo(
+			"TestName_ShouldFormatSpecialValuesAndEnumsLikeCSharp(double.NaN, float.PositiveInfinity, Flavor.Milk)");
+
+	[AutoMockArguments]
+	public async Task SealedClassParameter_WhoseConstructorCanFail_ShouldBeCreated(FailingService sut)
+		=> await That(sut).IsNotNull();
+
+	[Test]
+	public async Task Wrap_WhenTheCommandAlreadyCreatesTheArguments_ShouldKeepIt()
+	{
+		AutoMockArgumentsAttribute attribute = new();
+		TestMethod test = attribute.BuildFrom(new MethodWrapper(typeof(BuildTargets), nameof(BuildTargets.WithFailingService)), null)
+			.Single();
+		TestCommand command = attribute.Wrap(new ResultCommand(test));
+
+		TestCommand wrappedTwice = new AutoMockArgumentsAttribute().Wrap(command);
+
+		await That(wrappedTwice).IsSameAs(command);
+	}
+
+	[Test]
+	public async Task CreateArguments_WhenCreationThrows_ShouldCreateThemAgainInTheNextRun()
+	{
+		AutoMockArgumentsAttribute attribute = new();
+		TestMethod test = attribute.BuildFrom(new MethodWrapper(typeof(BuildTargets), nameof(BuildTargets.WithFailingService)), null)
+			.Single();
+		TestCommand command = attribute.Wrap(new ResultCommand(test));
+		FailingService.FailOnThisThread = true;
+
+		void Act() => command.Execute(new TestExecutionContext());
+
+		await That(Act).Throws<InvalidOperationException>().WithMessage("The first creation fails.");
+		command.Execute(new TestExecutionContext());
+		await That(test.Arguments[0]).Is<FailingService>();
+	}
+
 	[Test]
 	public async Task BuildFrom_WithMoreArgumentsThanParameters_ShouldNotBeRunnable()
 	{
@@ -174,6 +222,10 @@ public static class BuildTargets
 	public static void WithClassUnderTest(int id, OrderService sut)
 	{
 	}
+
+	public static void WithFailingService(FailingService sut)
+	{
+	}
 }
 
 [TestFixture("Dark")]
@@ -189,4 +241,36 @@ public sealed class ParameterizedFixtureTests(string type)
 		await That(TestContext.CurrentContext.Test.FullName).IsEqualTo(
 			"Mockolate.NUnit.Tests.ParameterizedFixtureTests(\"Dark\").AutoMockArguments_InParameterizedFixture_ShouldGetTheArguments");
 	}
+}
+
+public enum Flavor
+{
+	Dark,
+	Milk,
+}
+
+public sealed class FailingService
+{
+	[ThreadStatic] public static bool FailOnThisThread;
+
+	public FailingService(IOrderRepository repository)
+	{
+		Repository = repository;
+		if (FailOnThisThread)
+		{
+			FailOnThisThread = false;
+			throw new InvalidOperationException("The first creation fails.");
+		}
+	}
+
+	public IOrderRepository Repository { get; }
+}
+
+/// <summary>
+///     The innermost command of a test, which only returns a result.
+/// </summary>
+internal sealed class ResultCommand(Test test) : TestCommand(test)
+{
+	public override TestResult Execute(TestExecutionContext context)
+		=> Test.MakeTestResult();
 }
