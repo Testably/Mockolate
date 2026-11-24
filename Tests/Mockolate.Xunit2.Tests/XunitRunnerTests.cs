@@ -22,11 +22,18 @@ public sealed class XunitRunnerTests
 		runner.OnExecutionComplete = _ => finished.TrySetResult(true);
 		runner.Start(new AssemblyRunnerStartOptions { TypesToRun = [typeof(XunitTheories).FullName!,], });
 
-		bool hasFinished = await Task.WhenAny(finished.Task, Task.Delay(Timeout)) == finished.Task;
 		DateTime deadline = DateTime.UtcNow + Timeout;
-		while (runner.Status != AssemblyRunnerStatus.Idle && DateTime.UtcNow < deadline)
+		bool hasFinished = await Task.WhenAny(finished.Task, Task.Delay(Timeout)) == finished.Task;
+		if (hasFinished)
 		{
-			await Task.Delay(10);
+			while (runner.Status != AssemblyRunnerStatus.Idle && DateTime.UtcNow < deadline)
+			{
+				await Task.Delay(10);
+			}
+		}
+		else
+		{
+			runner.Cancel();
 		}
 
 		// Dispose throws while the runner is not idle, which would hide the failure below, so a busy runner is left alone.
@@ -38,6 +45,10 @@ public sealed class XunitRunnerTests
 		await That(hasFinished).IsTrue().Because("the xUnit runner must finish within a minute");
 
 		await That(problems).IsEmpty();
+		await That(passed.Any(name =>
+				name.StartsWith("Mockolate.Xunit2.Tests.XunitTheories.DisplayName_ShouldNotReadTheProperties", StringComparison.Ordinal) &&
+				name.Contains("IChocolateStock mock")))
+			.IsTrue().Because("the display name describes the mock");
 		await That(passed.Select(name => name.Split('(')[0])).IsEqualTo([
 			"Mockolate.Xunit2.Tests.XunitTheories.SharedMocks",
 			"Mockolate.Xunit2.Tests.XunitTheories.SeveralAttributes",

@@ -100,11 +100,11 @@ public class GeneralTests
 		// The mock class of a type named ToString hides object.ToString (CS0108), which the override would turn into an error. A
 		// declared ToString is implemented by the one override.
 		await That(result.Diagnostics).HasSingle().Which.StartsWith("Mock.ToString.g.cs").And.Contains("CS0108");
-		await That(result.Sources["Mock.IPlain.g.cs"]).Contains("public override string ToString()").Once();
-		await That(result.Sources["Mock.ToString_1.g.cs"]).Contains("public override string ToString()").Once();
-		await That(result.Sources["Mock.ToString.g.cs"]).DoesNotContain("public override string ToString()");
-		await That(result.Sources["Mock.IDerived.g.cs"]).Contains("public override string ToString()").Once();
-		await That(result.Sources["Mock.IPlain__IDescribed.g.cs"]).DoesNotContain("public override string ToString()");
+		await That(result.Sources).ContainsKey("Mock.IPlain.g.cs").WhoseValue.Contains("public override string ToString()").Once();
+		await That(result.Sources).ContainsKey("Mock.ToString_1.g.cs").WhoseValue.Contains("public override string ToString()").Once();
+		await That(result.Sources).ContainsKey("Mock.ToString.g.cs").WhoseValue.DoesNotContain("public override string ToString()");
+		await That(result.Sources).ContainsKey("Mock.IDerived.g.cs").WhoseValue.Contains("public override string ToString()").Once();
+		await That(result.Sources).ContainsKey("Mock.IPlain__IDescribed.g.cs").WhoseValue.DoesNotContain("public override string ToString()");
 	}
 
 	[Test]
