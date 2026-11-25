@@ -110,18 +110,26 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		foreach (IParameterSymbol parameter in parameters.Where(parameter =>
 			         HasMarker(parameter, "AsDefaultParameterAttribute")))
 		{
-			string? reason = HasMarker(parameter, "TransientParameterAttribute")
-				? Resources.Mockolate0011TransientReason
-				: asDefaultParameters.FirstOrDefault(other =>
-						SymbolEqualityComparer.Default.Equals(other.Type, parameter.Type)) is { } other
-					? string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011SameTypeReason, other.Name)
-					: null;
+			string? reason = GetAsDefaultReason(parameter, asDefaultParameters);
 			asDefaultParameters.Add(parameter);
 			if (reason is not null && parameter.Locations.FirstOrDefault() is { IsInSource: true, } location)
 			{
 				context.ReportDiagnostic(Diagnostic.Create(AsDefaultParameterRule, location, parameter.Name, reason));
 			}
 		}
+	}
+
+	private static string? GetAsDefaultReason(IParameterSymbol parameter, List<IParameterSymbol> asDefaultParameters)
+	{
+		if (HasMarker(parameter, "TransientParameterAttribute"))
+		{
+			return Resources.Mockolate0011TransientReason;
+		}
+
+		return asDefaultParameters.FirstOrDefault(other =>
+			SymbolEqualityComparer.Default.Equals(other.Type, parameter.Type)) is { } other
+			? string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011SameTypeReason, other.Name)
+			: null;
 	}
 
 	private static bool HasMarker(IParameterSymbol parameter, string markerName)
